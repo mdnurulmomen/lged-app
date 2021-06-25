@@ -1063,3 +1063,10 @@ table {
     color: #44a0ff;
 }
 
+.table-bordered {
+    border: 1px solid #e7e9f0 !important;
+}
+
+.table-light th, .table-light td, .table-light thead th, .table-light tbody + tbody {
+    border-color: #e7e9f0;
+}

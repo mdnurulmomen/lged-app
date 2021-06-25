@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('loginPage');
 });
+Route::get('/anual-operation', function () {
+    return view('pages.anualOperation');
+});
 Route::get('/dashboard', function () {
     return view('pages.aside');
 });
