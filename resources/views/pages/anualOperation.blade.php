@@ -18,7 +18,57 @@
                     <p class="font-size-h5">Increased Credibility in the SAI’s Activities to the Parliament and other Stakeholders will Facilitate the Policymakers in taking <br /> Appropriate Measures for Prudent Management of Scarce Public Resources.</p>
                     </div>
                     <div class="card-body p-0">
-                        <table class="table table-bordered table-light mb-0">
+                        <table class="table table-bordered table-light d-none">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Output</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td valign="middle">
+                                        <h6 class="text-center">Output-01</h6>
+                                        <p class="text-left">Quality Compliance, Financial and Performance Audit Reports Including Audit Reports on Special Areas.</p>
+                                    </td>
+                                    <td colspan="7">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Activity</th>
+                                                    <th>Milestone</th>
+                                                    <th>Target Date</th>
+                                                    <th>Responsible</th>
+                                                    <th>Budget</th>
+                                                    <th>Staff Assigned</th>
+                                                    <th>Other Resources</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <h6 class="text-center">Activity 1.1:</h6>
+                                                        <p>Preparation of Annual Audit Plan.</p>
+                                                    </td>
+                                                    <td>
+                                                        <table class="table">
+                                                            <tr>
+                                                                <td>
+                                                                    <h6 class="text-center">Output-01</h6>
+                                                                </td>
+                                                                <td>
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered table-light">
                             <thead>
                                 <tr>
                                     <td>
@@ -92,7 +142,7 @@
                                         <p><strong>200</strong></p>
                                         <p><strong>Annex-01</strong></p>
                                     </td>
-                                    <td>
+                                    <td style="width: 85.75pt;" valign="top" data-mce-style="width: 85.75pt;">
                                         <p><strong>&nbsp;</strong></p>
                                     </td>
                                 </tr>
