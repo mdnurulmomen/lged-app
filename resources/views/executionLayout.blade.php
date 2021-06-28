@@ -6,7 +6,7 @@
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
-	<body id="kt_body" class="header-fixed header-mobile-fixed footer-fixed full-width-footer">
+	<body id="kt_body" class="header-fixed header-mobile-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading footer-fixed">
 		<!--begin::Main-->
 		<!--begin::Header Mobile-->
 		@include('partials.mobileHeader')
@@ -14,6 +14,9 @@
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Page-->
 			<div class="d-flex flex-row flex-column-fluid page">
+				<!--begin::Aside-->
+				@include('partials.executionSideMenu')
+				<!--end::Aside-->
 				<!--begin::Wrapper-->
 				<div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
 					<!--begin::Header-->
@@ -21,16 +24,7 @@
 						<!--begin::Container-->
 						<div class="container-fluid d-flex align-items-stretch justify-content-between">
 							<!--begin::Header Menu Wrapper-->
-							<div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
-								<!--begin::Header Logo-->
-								<div class="header-logo">
-                                @include('partials.logo')
-								</div>
-								<!--end::Header Logo-->
-								<!--begin::Header Menu-->
-								@include('partials.topbarLeft')
-								<!--end::Header Menu-->
-							</div>
+							@include('partials.topbarLeft')
 							<!--end::Header Menu Wrapper-->
 							<!--begin::Topbar-->
 							@include('partials.topbarRight')
@@ -40,14 +34,14 @@
 					</div>
 					<!--end::Header-->
 					<!--begin::Content-->
-					<div class="content d-flex flex-column flex-column-fluid pt-0">
+					<div class="content pt-0" id="kt_content">
 						<!-- Start Content-->
                         @yield('content')
                         <!-- End Content-->
 					</div>
 					<!--end::Content-->
 					<!--begin::Footer-->
-					@include('partials.fullWidthFooter')
+					@include('partials.footer')
 					<!--end::Footer-->
 				</div>
 				<!--end::Wrapper-->
@@ -113,81 +107,6 @@
 						</div>
 						<a href="#" class="symbol symbol-70 flex-shrink-0">
 							<img src="assets/media/stock-600x400/img-2.jpg" title="" alt="" />
-						</a>
-					</div>
-					<!--end::Item-->
-					<!--begin::Separator-->
-					<div class="separator separator-solid"></div>
-					<!--end::Separator-->
-					<!--begin::Item-->
-					<div class="d-flex align-items-center justify-content-between py-8">
-						<div class="d-flex flex-column mr-2">
-							<a href="#" class="font-weight-bold text-dark-75 font-size-lg text-hover-primary">CameraMax</a>
-							<span class="text-muted">Professional camera for edge cutting shots</span>
-							<div class="d-flex align-items-center mt-2">
-								<span class="font-weight-bold mr-1 text-dark-75 font-size-lg">$ 150</span>
-								<span class="text-muted mr-1">for</span>
-								<span class="font-weight-bold mr-2 text-dark-75 font-size-lg">3</span>
-								<a href="#" class="btn btn-xs btn-light-success btn-icon mr-2">
-									<i class="ki ki-minus icon-xs"></i>
-								</a>
-								<a href="#" class="btn btn-xs btn-light-success btn-icon">
-									<i class="ki ki-plus icon-xs"></i>
-								</a>
-							</div>
-						</div>
-						<a href="#" class="symbol symbol-70 flex-shrink-0">
-							<img src="assets/media/stock-600x400/img-3.jpg" title="" alt="" />
-						</a>
-					</div>
-					<!--end::Item-->
-					<!--begin::Separator-->
-					<div class="separator separator-solid"></div>
-					<!--end::Separator-->
-					<!--begin::Item-->
-					<div class="d-flex align-items-center justify-content-between py-8">
-						<div class="d-flex flex-column mr-2">
-							<a href="#" class="font-weight-bold text-dark text-hover-primary">4D Printer</a>
-							<span class="text-muted">Manufactoring unique objects</span>
-							<div class="d-flex align-items-center mt-2">
-								<span class="font-weight-bold mr-1 text-dark-75 font-size-lg">$ 1450</span>
-								<span class="text-muted mr-1">for</span>
-								<span class="font-weight-bold mr-2 text-dark-75 font-size-lg">7</span>
-								<a href="#" class="btn btn-xs btn-light-success btn-icon mr-2">
-									<i class="ki ki-minus icon-xs"></i>
-								</a>
-								<a href="#" class="btn btn-xs btn-light-success btn-icon">
-									<i class="ki ki-plus icon-xs"></i>
-								</a>
-							</div>
-						</div>
-						<a href="#" class="symbol symbol-70 flex-shrink-0">
-							<img src="assets/media/stock-600x400/img-4.jpg" title="" alt="" />
-						</a>
-					</div>
-					<!--end::Item-->
-					<!--begin::Separator-->
-					<div class="separator separator-solid"></div>
-					<!--end::Separator-->
-					<!--begin::Item-->
-					<div class="d-flex align-items-center justify-content-between py-8">
-						<div class="d-flex flex-column mr-2">
-							<a href="#" class="font-weight-bold text-dark text-hover-primary">MotionWire</a>
-							<span class="text-muted">Perfect animation tool</span>
-							<div class="d-flex align-items-center mt-2">
-								<span class="font-weight-bold mr-1 text-dark-75 font-size-lg">$ 650</span>
-								<span class="text-muted mr-1">for</span>
-								<span class="font-weight-bold mr-2 text-dark-75 font-size-lg">7</span>
-								<a href="#" class="btn btn-xs btn-light-success btn-icon mr-2">
-									<i class="ki ki-minus icon-xs"></i>
-								</a>
-								<a href="#" class="btn btn-xs btn-light-success btn-icon">
-									<i class="ki ki-plus icon-xs"></i>
-								</a>
-							</div>
-						</div>
-						<a href="#" class="symbol symbol-70 flex-shrink-0">
-							<img src="assets/media/stock-600x400/img-8.jpg" title="" alt="" />
 						</a>
 					</div>
 					<!--end::Item-->
@@ -977,7 +896,24 @@
 						</div>
 						<!--end::Body-->
 						<!--begin::Footer-->
-						@include('partials.footer')
+						<div class="card-footer align-items-center">
+							<!--begin::Compose-->
+							<textarea class="form-control border-0 p-0" rows="2" placeholder="Type a message"></textarea>
+							<div class="d-flex align-items-center justify-content-between mt-5">
+								<div class="mr-3">
+									<a href="#" class="btn btn-clean btn-icon btn-md mr-1">
+										<i class="flaticon2-photograph icon-lg"></i>
+									</a>
+									<a href="#" class="btn btn-clean btn-icon btn-md">
+										<i class="flaticon2-photo-camera icon-lg"></i>
+									</a>
+								</div>
+								<div>
+									<button type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Send</button>
+								</div>
+							</div>
+							<!--begin::Compose-->
+						</div>
 						<!--end::Footer-->
 					</div>
 					<!--end::Card-->
@@ -1001,4 +937,6 @@
 		</div>
 		<!--end::Scrolltop-->
 		@include('partials.footerScript')
+	</body>
+	<!--end::Body-->
 </html>

@@ -89,9 +89,9 @@
 				<!--begin::Content-->
 				<div class="content order-1 order-lg-2 d-flex flex-column w-100 pb-0" style="background-color: #B1DCED;">
 					<!--begin::Title-->
-					<div class="d-flex flex-column justify-content-center text-center pt-lg-40 pt-md-5 pt-sm-5 px-lg-0 pt-5 px-7">
-						<h3 class="display4 font-weight-bolder my-7 text-dark" style="color: #986923;">AMMS 2.0</h3>
-						<p class="font-weight-bolder font-size-h2-md font-size-lg text-dark opacity-70">Audit Management and Monitoring System</p>
+					<div class="d-flex flex-column justify-content-center text-center pt-lg-40 pt-md-5 pt-sm-5 px-lg-0 pt-5 px-7 py-7">
+						<h3 class="display4 font-weight-bolder my-7 text-dark" style="color: #986923;">অডিট মনিটরিং এন্ড ম্যানেজমেন্ট সিস্টেম</h3>
+						<p class="font-weight-bolder font-size-h2-md font-size-lg text-dark opacity-70">অডিট মনিটরিং এন্ড ম্যানেজমেন্ট সিস্টেম (এ এম এম এস) সফটওয়্যারটি অডিট অধিদপ্তর এর যাবতীয় অডিট ও অডিট এর সাথে জড়িত কর্মকর্তা ও কর্মচারী বৃন্দের দক্ষতার সঙ্গে এবং কার্যকরভাবে পরিচালনা, অডিটেবল ইউনিট,কৌশলগত পরিকল্পনা, টিম গঠন এবং অডিট সময়সূচী নির্ধারণ, অডিট প্রোগ্রাম, ঝুঁকি মূল্যায়ন, অডিট এক্সেকিউশন, অডিট রিপোর্টিং এবং সামগ্রিক পর্যবেক্ষণ এই সফটওয়্যারটির মাধ্যমে পর্যালোচনা করা যাবে। এতে আরো রয়েছে নিরীক্ষা সিডিউলিং, নিরীক্ষা পর্যবেক্ষণ এবং প্রয়োজনীয় ফলো আপ হিসাবে চূড়ান্ত অনুমোদনের জন্য একাধিক ধাপ। এই সফটওয়্যারটিতে অডিট অধিদপ্তর এর কর্মকর্তা ও কর্মচারী বৃন্দের যার যতটুকু রোল এবং একসেস দেওয়া থাকবে তিনি ততটুকু ব্যবহার করতে পারবেন।</p>
 					</div>
 					<!--end::Title-->
 					<!--begin::Image-->

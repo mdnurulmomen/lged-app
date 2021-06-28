@@ -19,6 +19,15 @@ Route::get('/', function () {
 Route::get('/anual-operation', function () {
     return view('pages.anualOperation');
 });
+Route::get('/create-operation', function () {
+    return view('pages.createOperation');
+});
+Route::get('/audit-plan', function () {
+    return view('pages.auditPlanList');
+});
+Route::get('/new-audit', function () {
+    return view('pages.auditPlanCreate');
+});
 Route::get('/dashboard', function () {
     return view('pages.aside');
 });

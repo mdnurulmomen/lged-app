@@ -9,7 +9,7 @@
                     <i class="fad fa-ballot-check"></i> <span>Plan</span> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Strategic Plan</a>
+                        <a class="dropdown-item" href="/create-operation">Strategic Plan</a>
                         <a class="dropdown-item" href="/anual-operation">Annual / Operational Plan</a>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                 <i class="fas fa-line-columns"></i><span>Execution</span> 
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Audit Plan</a>
+                    <a class="dropdown-item" href="/audit-plan">Audit Plan</a>
                     <a class="dropdown-item" href="#">Communication</a>
                     <a class="dropdown-item" href="#">Field Visit</a>
                 </div>

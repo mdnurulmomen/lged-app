@@ -17,6 +17,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{ asset('assets/js/pages/crud/file-upload/dropzonejs.js') }}"></script>
 <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }}"></script>
-<script src="{{ asset('assets/js/custom-script.js') }}"></script>
 <script src="{{ asset('assets/js/pages/custom/login/login-general.js') }}"></script>
+<script src="{{ asset('assets/js/pages/crud/forms/editors/summernote.js') }}"></script>
+<script src="{{ asset('assets/js/custom-script.js') }}"></script>
+<script src="{{ asset('assets/js/audit-script.js') }}"></script>
 <!--end::Page Scripts-->

@@ -1070,3 +1070,37 @@ table {
 .table-light th, .table-light td, .table-light thead th, .table-light tbody + tbody {
     border-color: #e7e9f0;
 }
+.table p{
+    margin-bottom: 0px;
+}
+/* #splitWrapper #split-0{
+    width: 20% !important;
+} */
+/* #splitWrapper #split-1, #splitWrapper #split-2{
+    min-width: 40% !important;
+} */
+#split-2{
+    padding: 20px;
+    background-color: #8a8a8a;
+    overflow: auto;
+    height: calc(95.5vh - 100px);
+}
+#split-2 .pdf-screen{
+    background-color: #ffffff;
+    padding: 0.5in;
+    height: 842px;
+    width: 595px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    position: relative;
+}
+#split-2 .pdf-screen:last-child{
+    margin-bottom: 0;
+}
+#split-2 .pdf-screen .pageTileNumber{
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}

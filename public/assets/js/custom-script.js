@@ -42,9 +42,14 @@ $('#own_office_organogram_tree').jstree({
     },
     "plugins": ["dnd","checkbox", "search"] 
 });
+
 $('#owndesignation_structure_tree_search').keyup(function(){
     $('#own_office_organogram_tree').jstree(true).show_all();
     $('#own_office_organogram_tree').jstree('search', $(this).val());
+});
+$('#searchPlaneField').keyup(function(){
+    $('#newAudit').jstree(true).show_all();
+    $('#newAudit').jstree('search', $(this).val());
 });
 $(".checkPasword").keyup(function(){  
     var passValue = $(this).val();
@@ -171,11 +176,17 @@ $("#ajaxLoad").click(function(){
     // var url = '{{url('ajax-load')}}';
     // console.log('url', url);
 })
-// Split(['#split-0', '#split-1', '#split-2'],{
-//     minSize: 150,
-//     snapOffset: 10,
-//     gutterSize: 5,
-// });
+// Class definition
+
+
+/*********************************/
+/**********************************/
+$('select').select2();
+Split(['#split-0', '#split-1', '#split-2'],{
+    minSize: 150,
+    snapOffset: 10,
+    gutterSize: 5,
+});
 // Split(['#split-3', '#split-4'], {
 //     direction: 'vertical',
 //     minSize: 150,
