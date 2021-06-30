@@ -18,7 +18,7 @@ this si demo
                     <div class="row">
                         <div class="col-md-12">
                             <ul class="list-group list-group-flush">
-                                <li id="daak_container_inbox_1_54_Daptorik" class="daak_list_item list-group-item pl-0 py-2 border-bottom">
+                                <li id="daak_container_inbox_1_54_Daptorik" class="daak_list_item list-group-item pl-2 py-2 border-bottom">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div class="pr-2 flex-fill cursor-pointer position-relative">
                                             <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">

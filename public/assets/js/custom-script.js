@@ -162,13 +162,13 @@ $("#kt_quick_cart").resize(function() {
     $(this).css("left", 'auto');
     $(this).css("overflow-x", 'hidden');
 });
-$("#kt_quick_cart_toggle").click(function() {
-    $('html').addClass('side-panel-overlay');
-});
-$("#kt_quick_cart_close").click(function(){
-    $("#kt_quick_cart_close").removeClass('offcanvas-on');
-    $('html').removeClass('side-panel-overlay');
-});
+// $("#kt_quick_cart_toggle").click(function() {
+//     $('html').addClass('side-panel-overlay');
+// });
+// $("#kt_quick_cart_close").click(function(){
+//     $("#kt_quick_cart_close").removeClass('offcanvas-on');
+//     $('html').removeClass('side-panel-overlay');
+// });
 $("#ajaxLoad").click(function(){
     $.get('ajax-load', function(data){
         $("#kt_content").html(data);
