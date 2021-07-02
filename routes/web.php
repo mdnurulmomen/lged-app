@@ -13,13 +13,67 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+Plan Route Start
+*/
+Route::get('/plan-dashboard', function () {
+    return view('pages.plan.dashboard');
+})->name('plan');
+
+Route::get('/strategic-plan', function () {
+    return view('pages.plan.strategic.strategicPlan');
+})->name('strategic');
+
+Route::get('/operational-plan', function () {
+    return view('pages.plan.operational.operationalPlan');
+})->name('operational');
+
+Route::get('/anual-plan', function () {
+    return view('pages.plan.anual.anualPlan');
+})->name('anual');
+Route::get('/create-anual-audit-activites', function () {
+    return view('pages.plan.operational.createAnualAuditActivites');
+})->name('createAnualAuditActivites');
+/*
+Plan Route End
+*/
+
+/*
+Execution Route Start
+*/
+Route::get('/execution-dashboard', function () {
+    return view('pages.execution.dashboard');
+})->name('execution');
+/*
+Execution Route End
+*/
+
+/*
+Execution Route Start
+*/
+Route::get('/follow-up-dashboard', function () {
+    return view('pages.followUp.dashboard');
+})->name('followUp');
+/*
+Execution Route End
+*/
+/*
+Execution Route Start
+*/
+Route::get('/report-dashboard', function () {
+    return view('pages.report.dashboard');
+})->name('report');
+/*
+Execution Route End
+*/
+
 Route::get('/', function () {
     return view('loginPage');
 });
-Route::get('/anual-operation', function () {
-    return view('pages.anualOperation');
-});
-Route::get('/create-operation', function () {
+// Route::get('/anual-operation', function () {
+//     return view('pages.anualOperation');
+// });
+Route::get('/create-strategic-operation', function () {
     return view('pages.createOperation');
 });
 Route::get('/audit-plan', function () {

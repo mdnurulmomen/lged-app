@@ -1,9 +1,12 @@
 @extends('sideMenuLayout')
+@section('sideMenu')
+@include('pages.plan.operational.operationalMenu');
+@endsection
 @section('content')
 <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
     <div class="col-md-6">
         <div class="title py-2">
-            <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Anual Operations</h4>
+            <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Plan</h4>
         </div>
     </div>
 </div>

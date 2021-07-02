@@ -15,7 +15,7 @@
 			<!--begin::Page-->
 			<div class="d-flex flex-row flex-column-fluid page">
 				<!--begin::Aside-->
-				@include('partials.sidePanel')
+				@yield('sideMenu')
 				<!--end::Aside-->
 				<!--begin::Wrapper-->
 				<div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
@@ -50,7 +50,7 @@
 		</div>
 		<!--end::Main-->
 		<!--begin::Quick Cart-->
-		<div id="kt_quick_cart" class="offcanvas offcanvas-right p-10">
+		<div id="kt_quick_cart" class="offcanvas offcanvas-right p-10 d-none">
 			<!--begin::Header-->
 			<div class="offcanvas-header d-flex align-items-center justify-content-between pb-7">
 				<h4 class="font-weight-bold m-0">Shopping Cart</h4>
@@ -110,6 +110,81 @@
 						</a>
 					</div>
 					<!--end::Item-->
+					<!--begin::Separator-->
+					<div class="separator separator-solid"></div>
+					<!--end::Separator-->
+					<!--begin::Item-->
+					<div class="d-flex align-items-center justify-content-between py-8">
+						<div class="d-flex flex-column mr-2">
+							<a href="#" class="font-weight-bold text-dark-75 font-size-lg text-hover-primary">CameraMax</a>
+							<span class="text-muted">Professional camera for edge cutting shots</span>
+							<div class="d-flex align-items-center mt-2">
+								<span class="font-weight-bold mr-1 text-dark-75 font-size-lg">$ 150</span>
+								<span class="text-muted mr-1">for</span>
+								<span class="font-weight-bold mr-2 text-dark-75 font-size-lg">3</span>
+								<a href="#" class="btn btn-xs btn-light-success btn-icon mr-2">
+									<i class="ki ki-minus icon-xs"></i>
+								</a>
+								<a href="#" class="btn btn-xs btn-light-success btn-icon">
+									<i class="ki ki-plus icon-xs"></i>
+								</a>
+							</div>
+						</div>
+						<a href="#" class="symbol symbol-70 flex-shrink-0">
+							<img src="assets/media/stock-600x400/img-3.jpg" title="" alt="" />
+						</a>
+					</div>
+					<!--end::Item-->
+					<!--begin::Separator-->
+					<div class="separator separator-solid"></div>
+					<!--end::Separator-->
+					<!--begin::Item-->
+					<div class="d-flex align-items-center justify-content-between py-8">
+						<div class="d-flex flex-column mr-2">
+							<a href="#" class="font-weight-bold text-dark text-hover-primary">4D Printer</a>
+							<span class="text-muted">Manufactoring unique objects</span>
+							<div class="d-flex align-items-center mt-2">
+								<span class="font-weight-bold mr-1 text-dark-75 font-size-lg">$ 1450</span>
+								<span class="text-muted mr-1">for</span>
+								<span class="font-weight-bold mr-2 text-dark-75 font-size-lg">7</span>
+								<a href="#" class="btn btn-xs btn-light-success btn-icon mr-2">
+									<i class="ki ki-minus icon-xs"></i>
+								</a>
+								<a href="#" class="btn btn-xs btn-light-success btn-icon">
+									<i class="ki ki-plus icon-xs"></i>
+								</a>
+							</div>
+						</div>
+						<a href="#" class="symbol symbol-70 flex-shrink-0">
+							<img src="assets/media/stock-600x400/img-4.jpg" title="" alt="" />
+						</a>
+					</div>
+					<!--end::Item-->
+					<!--begin::Separator-->
+					<div class="separator separator-solid"></div>
+					<!--end::Separator-->
+					<!--begin::Item-->
+					<div class="d-flex align-items-center justify-content-between py-8">
+						<div class="d-flex flex-column mr-2">
+							<a href="#" class="font-weight-bold text-dark text-hover-primary">MotionWire</a>
+							<span class="text-muted">Perfect animation tool</span>
+							<div class="d-flex align-items-center mt-2">
+								<span class="font-weight-bold mr-1 text-dark-75 font-size-lg">$ 650</span>
+								<span class="text-muted mr-1">for</span>
+								<span class="font-weight-bold mr-2 text-dark-75 font-size-lg">7</span>
+								<a href="#" class="btn btn-xs btn-light-success btn-icon mr-2">
+									<i class="ki ki-minus icon-xs"></i>
+								</a>
+								<a href="#" class="btn btn-xs btn-light-success btn-icon">
+									<i class="ki ki-plus icon-xs"></i>
+								</a>
+							</div>
+						</div>
+						<a href="#" class="symbol symbol-70 flex-shrink-0">
+							<img src="assets/media/stock-600x400/img-8.jpg" title="" alt="" />
+						</a>
+					</div>
+					<!--end::Item-->
 				</div>
 				<!--end::Wrapper-->
 				<!--begin::Purchase-->
@@ -132,7 +207,7 @@
 		</div>
 		<!--end::Quick Cart-->
 		<!--begin::Quick Panel-->
-		<div id="kt_quick_panel" class="offcanvas offcanvas-right pt-5 pb-10">
+		<div id="kt_quick_panel" class="offcanvas offcanvas-right pt-5 pb-10 d-none">
 			<!--begin::Header-->
 			<div class="offcanvas-header offcanvas-header-navs d-flex align-items-center justify-content-between mb-5">
 				<ul class="nav nav-bold nav-tabs nav-tabs-line nav-tabs-line-3x nav-tabs-primary flex-grow-1 px-10" role="tablist">
@@ -661,7 +736,7 @@
 		</div>
 		<!--end::Quick Panel-->
 		<!--begin::Chat Panel-->
-		<div class="modal modal-sticky modal-sticky-bottom-right" id="kt_chat_modal" role="dialog" data-backdrop="false">
+		<div class="modal modal-sticky modal-sticky-bottom-right d-none" id="kt_chat_modal" role="dialog" data-backdrop="false">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<!--begin::Card-->
@@ -896,24 +971,7 @@
 						</div>
 						<!--end::Body-->
 						<!--begin::Footer-->
-						<div class="card-footer align-items-center">
-							<!--begin::Compose-->
-							<textarea class="form-control border-0 p-0" rows="2" placeholder="Type a message"></textarea>
-							<div class="d-flex align-items-center justify-content-between mt-5">
-								<div class="mr-3">
-									<a href="#" class="btn btn-clean btn-icon btn-md mr-1">
-										<i class="flaticon2-photograph icon-lg"></i>
-									</a>
-									<a href="#" class="btn btn-clean btn-icon btn-md">
-										<i class="flaticon2-photo-camera icon-lg"></i>
-									</a>
-								</div>
-								<div>
-									<button type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Send</button>
-								</div>
-							</div>
-							<!--begin::Compose-->
-						</div>
+						@include('partials.footer')
 						<!--end::Footer-->
 					</div>
 					<!--end::Card-->

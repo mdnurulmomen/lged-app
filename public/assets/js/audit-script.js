@@ -39,7 +39,16 @@ for (let i = 0; i < arrayCollection.length; i++) {
 
 $('#newAudit').on("select_node.jstree", function (e, data) { 
     activePdf = data.node.id;
-    $('.summernote').summernote('reset');
+    
+    arrayCollection.map(function(value, index){
+        if(value.id == activePdf){
+            var content = value.content;
+            $("#pdfContent_"+value.content_id).html(content);
+            $('.note-editable').html(content);
+        }else{
+            $('.summernote').summernote('reset');
+        }
+    });
 });
 
 function checkIdAndSetContent(content) {
