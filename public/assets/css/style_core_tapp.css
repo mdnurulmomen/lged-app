@@ -1085,6 +1085,9 @@ table {
 .select2-container--default .select2-dropdown{
     box-shadow: none !important;
 }
+.vertical-middle{
+    vertical-align: middle !important;
+}
 #split-2{
     padding: 20px;
     background-color: #8a8a8a;
@@ -1174,3 +1177,9 @@ table {
     padding:0px 0px 0px 0px;
     outline: 0;
 } */
+.tree-view-wrapper-scroll{
+    height: calc(100vh - 230px);
+    overflow: auto;
+    position: sticky;
+    top: 80px;
+}

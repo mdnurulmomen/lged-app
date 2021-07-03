@@ -6,7 +6,7 @@
 <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
     <div class="col-md-6">
         <div class="title py-2">
-            <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Create Anual Audit Activites</h4>
+            <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Create Anual Audit Calender</h4>
         </div>
     </div>
 </div>
@@ -16,54 +16,37 @@
             <div class="card card-custom gutter-b">           
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="" class="col-form-label">Fiscal Year :</label>
-                                <select class="form-group" id="fiscalyear"></select>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label for="" class="col-form-label">Strategic Outcome :</label>
-                                <select class="form-control rounded-0" id="mySelect2">
-                                    <option>Select Outcome</option>
-                                    <option>Strategic Outcome 01</option>
-                                    <option>Strategic Outcome 02</option>
-                                </select>
-                                <div class="mt-3">
-                                    <p>Increased credibility to the SAI’s activities to the parliament and other stakeholders will facilitate the policymakers in taking appropriate measures for prudent management of scarce public resources.</p>
-                                    <p class="d-none">Improved public financial management resulting in beneficial change to the public sector.</p>
+                        <div class="col-md-12">
+                            <div class="example-preview">
+                                <ul class="nav nav-tabs custom-tabs mb-0" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active rounded-0" id="activity" data-toggle="tab" href="#set_activity">
+                                            <span class="nav-text">Set Activity</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="calender" data-toggle="tab" href="#set_cadender" aria-controls="profile">
+                                            <span class="nav-text">Calender View</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="print" data-toggle="tab" href="#print_view" aria-controls="contact">
+                                            <span class="nav-text">Print View</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane border border-top-0 p-3 fade show active" id="set_activity" role="tabpanel" aria-labelledby="home-tab"> 
+                                        @include('pages.plan.operational.activityView')
+                                    </div>
+                                    <div class="tab-pane fade border border-top-0 p-3" id="set_cadender" role="tabpanel" aria-labelledby="profile-tab">
+                                        @include('pages.plan.operational.auditCalender')
+                                    </div>
+                                    <div class="tab-pane fade border border-top-0 p-3" id="print_view" role="tabpanel" aria-labelledby="contact-tab">
+                                        @include('pages.plan.operational.auditPrintView')
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label for="" class="col-form-label">Strategic Output :</label>
-                                <select class="form-control rounded-0">
-                                    <option>Select Output</option>
-                                    <option>Output-01</option>
-                                    <option>Output-02</option>
-                                    <option>Output-03</option>
-                                </select>
-                            </div>
-                            <div class="mt-3">
-                                <p>Quality Compliance, Financial and Performance audit reports including audit reports on special areas.</p>
-                                <p class="d-none">Increased Follow-up and reporting on implementation of audit recommendations.</p>
-                                <p class="d-none">Improved Government Accounting Standards and Procedures.</p>
-                            </div>
-                            <div class="form-group d-none">
-                                <label for="" class="col-form-label">Strategic Output :</label>
-                                <select class="form-control rounded-0">
-                                    <option>Output-04 : Training and Awareness building Consultation with key Stakeholders on Various PFM Issues.</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h3>Create Activities</h3>
-                            <hr>
-                            @include('pages.plan.operational.activityTree')
                         </div>
                     </div>
                 </div>

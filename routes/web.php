@@ -34,6 +34,12 @@ Route::get('/anual-plan', function () {
 Route::get('/create-anual-audit-activites', function () {
     return view('pages.plan.operational.createAnualAuditActivites');
 })->name('createAnualAuditActivites');
+Route::get('/create-anual-audit-calender', function () {
+    return view('pages.plan.operational.createAnualAuditCalender');
+})->name('createAnualAuditCalender');
+Route::get('/operational-plan-view', function () {
+    return view('pages.plan.operational.operationalPlanView');
+})->name('operationalPlanView');
 /*
 Plan Route End
 */

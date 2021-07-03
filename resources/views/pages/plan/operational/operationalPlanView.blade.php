@@ -6,7 +6,7 @@
 <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
     <div class="col-md-6">
         <div class="title py-2">
-            <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Create Anual Audit Activites</h4>
+            <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Operational Plan View</h4>
         </div>
     </div>
 </div>
@@ -16,59 +16,23 @@
             <div class="card card-custom gutter-b">           
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="" class="col-form-label">Fiscal Year :</label>
-                                <select class="form-group" id="fiscalyear"></select>
+                        <div class="col-md-4">
+                            <div class="tree-view-wrapper-scroll">
+                                @include('pages.plan.operational.activityTreeView')
                             </div>
                         </div>
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label for="" class="col-form-label">Strategic Outcome :</label>
-                                <select class="form-control rounded-0" id="mySelect2">
-                                    <option>Select Outcome</option>
-                                    <option>Strategic Outcome 01</option>
-                                    <option>Strategic Outcome 02</option>
-                                </select>
-                                <div class="mt-3">
-                                    <p>Increased credibility to the SAI’s activities to the parliament and other stakeholders will facilitate the policymakers in taking appropriate measures for prudent management of scarce public resources.</p>
-                                    <p class="d-none">Improved public financial management resulting in beneficial change to the public sector.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label for="" class="col-form-label">Strategic Output :</label>
-                                <select class="form-control rounded-0">
-                                    <option>Select Output</option>
-                                    <option>Output-01</option>
-                                    <option>Output-02</option>
-                                    <option>Output-03</option>
-                                </select>
-                            </div>
-                            <div class="mt-3">
-                                <p>Quality Compliance, Financial and Performance audit reports including audit reports on special areas.</p>
-                                <p class="d-none">Increased Follow-up and reporting on implementation of audit recommendations.</p>
-                                <p class="d-none">Improved Government Accounting Standards and Procedures.</p>
-                            </div>
-                            <div class="form-group d-none">
-                                <label for="" class="col-form-label">Strategic Output :</label>
-                                <select class="form-control rounded-0">
-                                    <option>Output-04 : Training and Awareness building Consultation with key Stakeholders on Various PFM Issues.</option>
-                                </select>
-                            </div>
+                        <div class="col-md-8">
+                            @include('pages.plan.operational.operationalActivityTable.activity_1_1')
+                            @include('pages.plan.operational.operationalActivityTable.activity_1_2_1')
+                            @include('pages.plan.operational.operationalActivityTable.activity_1_2_2')
+                            @include('pages.plan.operational.operationalActivityTable.activity_1_2_3')
+                            @include('pages.plan.operational.operationalActivityTable.activity_1_3_1')
+                            @include('pages.plan.operational.operationalActivityTable.activity_1_3_2')
+                            @include('pages.plan.operational.operationalActivityTable.activity_1_4_1')
+                            @include('pages.plan.operational.operationalActivityTable.activity_1_5')
+                            @include('pages.plan.operational.operationalActivityTable.activity_4_10')
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h3>Create Activities</h3>
-                            <hr>
-                            @include('pages.plan.operational.activityTree')
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer text-right">
-                    <button type="reset" class="btn btn-success mr-2 btn-square"><i class="fad fa-save"></i> Save</button>
                 </div>
             </div>
         </div>
