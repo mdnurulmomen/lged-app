@@ -3,4 +3,5 @@
 @include('pages.plan.planMenu');
 @endsection
 @section('content')
+DashBoard
 @endsection
