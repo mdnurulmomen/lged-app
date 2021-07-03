@@ -1079,6 +1079,15 @@ table {
 /* #splitWrapper #split-1, #splitWrapper #split-2{
     min-width: 40% !important;
 } */
+.select2-container{
+    width: 100% !important;
+}
+.select2-container--default .select2-dropdown{
+    box-shadow: none !important;
+}
+.vertical-middle{
+    vertical-align: middle !important;
+}
 #split-2{
     padding: 20px;
     background-color: #8a8a8a;
@@ -1104,9 +1113,6 @@ table {
     width: 100%;
     text-align: center;
 }
-
-/*********/
-
 .tree, .tree ul {
     margin:0;
     padding:0;
@@ -1133,9 +1139,10 @@ table {
     margin:0;
     padding:0 1em;
     line-height:2em;
-    color:#369;
-    font-weight:700;
-    position:relative
+    color:#000000;
+    position:relative;
+    font-size: 15px;
+    margin-bottom: 0.5em;
 }
 .tree ul li:before {
     content:"";
@@ -1159,14 +1166,20 @@ table {
 }
 .tree li a {
     text-decoration: none;
-    color:#369;
+    color:rgb(0, 0, 0);
 }
-.tree li button, .tree li button:active, .tree li button:focus {
+/* .tree li button, .tree li button:active, .tree li button:focus {
     text-decoration: none;
-    color:#369;
+    color:rgb(0, 0, 0);
     border:none;
     background:transparent;
     margin:0px 0px 0px 0px;
     padding:0px 0px 0px 0px;
     outline: 0;
+} */
+.tree-view-wrapper-scroll{
+    height: calc(100vh - 230px);
+    overflow: auto;
+    position: sticky;
+    top: 80px;
 }

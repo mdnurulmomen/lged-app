@@ -10,6 +10,7 @@
         </div>
     </div>
     <!--end::Cart-->
+    
     <!--begin::Languages-->
     <div class="dropdown">
         <!--begin::Toggle-->
@@ -64,6 +65,7 @@
                     <i class="fa fa-chevron-down"></i>
                 </span>
             </div>
+            
         </div>
         <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
             <!--begin: Head -->

@@ -1,7 +1,6 @@
 @extends('sideMenuLayout')
 @section('sideMenu')
-@include('partials.sidePanel');
+@include('pages.execution.executionMenu');
 @endsection
 @section('content')
-<h1>Aside Layout</h1>
 @endsection

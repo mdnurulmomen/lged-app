@@ -1,7 +1,7 @@
 @extends('sideMenuLayout')
 @section('sideMenu')
-@include('partials.sidePanel');
+@include('pages.plan.strategic.strategicMenu');
 @endsection
 @section('content')
-<h1>Aside Layout</h1>
+Strategic Plan
 @endsection

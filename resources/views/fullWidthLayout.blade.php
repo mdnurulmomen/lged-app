@@ -40,14 +40,14 @@
 					</div>
 					<!--end::Header-->
 					<!--begin::Content-->
-					<div class="content d-flex flex-column flex-column-fluid pt-0" id="kt_content">
+					<div class="content d-flex flex-column flex-column-fluid pt-0">
 						<!-- Start Content-->
                         @yield('content')
                         <!-- End Content-->
 					</div>
 					<!--end::Content-->
 					<!--begin::Footer-->
-					@include('partials.footer')
+					@include('partials.fullWidthFooter')
 					<!--end::Footer-->
 				</div>
 				<!--end::Wrapper-->
@@ -56,7 +56,7 @@
 		</div>
 		<!--end::Main-->
 		<!--begin::Quick Cart-->
-		<div id="kt_quick_cart" class="offcanvas offcanvas-right p-10">
+		<div id="kt_quick_cart" class="offcanvas offcanvas-right p-10 d-none">
 			<!--begin::Header-->
 			<div class="offcanvas-header d-flex align-items-center justify-content-between pb-7">
 				<h4 class="font-weight-bold m-0">Shopping Cart</h4>
@@ -213,7 +213,7 @@
 		</div>
 		<!--end::Quick Cart-->
 		<!--begin::Quick Panel-->
-		<div id="kt_quick_panel" class="offcanvas offcanvas-right pt-5 pb-10">
+		<div id="kt_quick_panel" class="offcanvas offcanvas-right pt-5 pb-10 d-none">
 			<!--begin::Header-->
 			<div class="offcanvas-header offcanvas-header-navs d-flex align-items-center justify-content-between mb-5">
 				<ul class="nav nav-bold nav-tabs nav-tabs-line nav-tabs-line-3x nav-tabs-primary flex-grow-1 px-10" role="tablist">
@@ -742,7 +742,7 @@
 		</div>
 		<!--end::Quick Panel-->
 		<!--begin::Chat Panel-->
-		<div class="modal modal-sticky modal-sticky-bottom-right" id="kt_chat_modal" role="dialog" data-backdrop="false">
+		<div class="modal modal-sticky modal-sticky-bottom-right d-none" id="kt_chat_modal" role="dialog" data-backdrop="false">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<!--begin::Card-->

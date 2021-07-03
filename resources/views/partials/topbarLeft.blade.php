@@ -5,12 +5,13 @@
         <ul class="menu-nav">
             <li class="menu-item">
                 <div class="dropdown">
-                    <button class="btn btn-outline-primary btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown active" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-outline-primary btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown {{ Request::routeIs('strategic') || Request::routeIs('operational') || Request::routeIs('anual') || Request::routeIs('createAnualAuditActivites')? 'active' : '' }}" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fad fa-ballot-check"></i> <span>Plan</span> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Strategic Plan</a>
-                        <a class="dropdown-item" href="#">Annual / Operational Plan</a>
+                        <a class="dropdown-item" href="/strategic-plan">Strategic Plan</a>
+                        <a class="dropdown-item" href="/operational-plan">Operational Plan</a>
+                        <a class="dropdown-item" href="/anual-plan">Annual plan</a>
                     </div>
                 </div>
             </li>
@@ -19,7 +20,7 @@
                 <i class="fas fa-line-columns"></i><span>Execution</span> 
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Audit Plan</a>
+                    <a class="dropdown-item" href="/audit-plan">Audit Plan</a>
                     <a class="dropdown-item" href="#">Communication</a>
                     <a class="dropdown-item" href="#">Field Visit</a>
                 </div>
