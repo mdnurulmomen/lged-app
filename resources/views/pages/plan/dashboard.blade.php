@@ -1,6 +1,6 @@
 @extends('sideMenuLayout')
 @section('sideMenu')
-@include('pages.plan.planMenu');
+@include('pages.plan.dashboardMenu');
 @endsection
 @section('content')
 DashBoard

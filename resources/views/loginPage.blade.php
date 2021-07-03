@@ -48,7 +48,7 @@
 									<!--end::Form group-->
 									<!--begin::Action-->
 									<div class="text-center pt-2">
-										<a  href="/dashboard" class="btn btn-dark font-weight-bolder font-size-h6 px-8 py-4 my-3 btn-square">লগইন</a>
+										<a  href="/plan-dashboard" class="btn btn-dark font-weight-bolder font-size-h6 px-8 py-4 my-3 btn-square">লগইন</a>
 									</div>
 									<!--end::Action-->
 								</form>
