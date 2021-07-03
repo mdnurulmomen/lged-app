@@ -10,6 +10,7 @@
         </div>
     </div>
     <!--end::Cart-->
+    
     <!--begin::Languages-->
     <div class="dropdown">
         <!--begin::Toggle-->
