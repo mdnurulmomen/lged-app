@@ -30,6 +30,7 @@
                             @include('pages.plan.operational.operationalActivityTable.activity_1_3_2')
                             @include('pages.plan.operational.operationalActivityTable.activity_1_4_1')
                             @include('pages.plan.operational.operationalActivityTable.activity_1_5')
+                            @include('pages.plan.operational.operationalActivityTable.activity_4_5')
                             @include('pages.plan.operational.operationalActivityTable.activity_4_10')
                         </div>
                     </div>

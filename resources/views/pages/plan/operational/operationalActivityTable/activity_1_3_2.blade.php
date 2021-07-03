@@ -1,3 +1,6 @@
+<div>
+    <h3>1.3.2</h3>
+</div>
 <div id="table1_1_3_2">
     <div class="table-responsive">
         <table class="table  table-striped">
