@@ -6,18 +6,18 @@
             <li class="menu-item">
                 <div class="dropdown">
                     <button class="btn btn-outline-primary btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown {{ Request::routeIs('strategic') || Request::routeIs('operational') || Request::routeIs('anual') || Request::routeIs('createAnualAuditActivites')? 'active' : '' }}" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fad fa-ballot-check"></i> <span>Plan</span> 
+                    <i class="fad fa-ballot-check"></i> <span>Plan</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="/strategic-plan">Strategic Plan</a>
                         <a class="dropdown-item" href="/operational-plan">Operational Plan</a>
-                        <a class="dropdown-item" href="/anual-plan">Annual plan</a>
+                        <a class="dropdown-item" href="/annual-plan">Annual plan</a>
                     </div>
                 </div>
             </li>
             <li class="menu-item">
                 <button class="btn btn-outline-success btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-line-columns"></i><span>Execution</span> 
+                <i class="fas fa-line-columns"></i><span>Execution</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="/audit-plan">Audit Plan</a>
@@ -27,7 +27,7 @@
             </li>
             <li class="menu-item">
                 <button class="btn btn-outline-warning btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fad fa-file-chart-line"></i><span>Report</span> 
+                <i class="fad fa-file-chart-line"></i><span>Report</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#">Findings</a>
@@ -36,7 +36,7 @@
             </li>
             <li class="menu-item">
                 <button class="btn btn-outline-info btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fab fa-watchman-monitoring"></i><span>Follow-Up</span> 
+                <i class="fab fa-watchman-monitoring"></i><span>Follow-Up</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#">Recommendation</a>

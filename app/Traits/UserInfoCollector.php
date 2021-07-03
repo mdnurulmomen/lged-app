@@ -8,7 +8,13 @@ trait UserInfoCollector
 
     public function getUserDetails()
     {
+//        dd(session('login'));
         return session()->has('login') ? session('login')['user_info']['user'] : null;
+    }
+
+    public function getEmployeeInfo()
+    {
+        return session()->has('login') ? session('login')['user_info']['employee_info'] : null;
     }
 
     public function getUserOfficesByDesignation()

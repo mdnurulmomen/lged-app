@@ -32,6 +32,9 @@ class Controller extends BaseController
         $userDetails = $this->getUserDetails();
         view()->share('userDetails', $userDetails);
 
+        $employeeInfo = $this->getEmployeeInfo();
+        view()->share('employeeInfo', $employeeInfo);
+
         $userOffices = $this->getUserOfficesByDesignation();
         view()->share('userOffices', $userOffices);
     }
