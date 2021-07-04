@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <h1 class="text-center">Operational Plan</h1>
+
 @endsection
 
 @section('scripts')

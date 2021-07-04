@@ -53,10 +53,10 @@ Route::group(['middleware' => 'jisf.auth'], function () {
         });
         //strategic plan
         Route::group(['as' => 'operational.', 'prefix' => 'operational/'], function () {
-            Route::get('/', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'index'])
+            Route::get('/', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'index'])
                 ->name('index');
 
-            Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'index'])
+            Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'showOperationalPlanDashboard'])
                 ->name('dashboard');
         });
         Route::get('/operational-plan', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'index'])->name('operational');
