@@ -9,7 +9,7 @@ class AuditAnnualPlanController extends Controller
 {
     public function index()
     {
-        return view('pages.plan.anual.anualPlan');
+        return view('modules.audit_plan.annual.index');
     }
 
     public function createAnnualActivity()

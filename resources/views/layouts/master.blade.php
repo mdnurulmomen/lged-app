@@ -12,7 +12,7 @@
       class="header-fixed header-mobile-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading footer-fixed">
 <!--begin::Main-->
 <!--begin::Header Mobile-->
-@include('partials.mobileHeader')
+@include('layouts.partials.mobile_header')
 <!--end::Header Mobile-->
 <div class="d-flex flex-column flex-root">
     <!--begin::Page-->
@@ -22,7 +22,7 @@
             <!--begin::Brand-->
             <div class="brand flex-column-auto" id="kt_brand">
                 <!--begin::Logo-->
-            @include('partials.logo')
+            @include('layouts.partials.logo')
             <!--end::Logo-->
                 <!--begin::Toggle-->
                 <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">
@@ -66,7 +66,7 @@
             </div>
             <!--end::Content-->
             <!--begin::Footer-->
-        @include('partials.footer')
+        @include('layouts.partials.footer')
         <!--end::Footer-->
         </div>
         <!--end::Wrapper-->

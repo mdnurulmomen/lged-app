@@ -11,9 +11,9 @@
                         <i class="fad fa-ballot-check"></i> <span>Plan</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/strategic-plan">Strategic Plan</a>
-                        <a class="dropdown-item" href="/operational-plan">Operational Plan</a>
-                        <a class="dropdown-item" href="/annual-plan">Annual plan</a>
+                        <a class="dropdown-item" href="{{route('audit.plan.strategic')}}">Strategic Plan</a>
+                        <a class="dropdown-item" href="{{route('audit.plan.operational')}}">Operational Plan</a>
+                        <a class="dropdown-item" href="{{route('audit.plan.annual')}}">Annual plan</a>
                     </div>
                 </div>
             </li>
@@ -24,9 +24,9 @@
                     <i class="fas fa-line-columns"></i><span>Prepare</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="javascript:;">Sampling</a>
-                    <a class="dropdown-item" href="javascript:;">Data Analysis</a>
-                    <a class="dropdown-item" href="javascript:;">Activities</a>
+                    <a class="dropdown-item" href="{{route('audit.preparation.sampling')}}">Sampling</a>
+                    <a class="dropdown-item" href="{{route('audit.preparation.data_analysis')}}">Data Analysis</a>
+                    <a class="dropdown-item" href="{{route('audit.preparation.activities')}}">Activities</a>
                 </div>
             </li>
             <li class="menu-item">
@@ -36,10 +36,10 @@
                     <i class="fas fa-line-columns"></i><span>Execute</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/audit-plan">Audit Area</a>
-                    <a class="dropdown-item" href="javascript:;">Audit Query</a>
-                    <a class="dropdown-item" href="javascript:;">Audit Discussion</a>
-                    <a class="dropdown-item" href="javascript:;">Review</a>
+                    <a class="dropdown-item" href="{{route('audit.execution.area')}}">Audit Area</a>
+                    <a class="dropdown-item" href="{{route('audit.execution.query')}}">Audit Query</a>
+                    <a class="dropdown-item" href="{{route('audit.execution.discussion')}}">Audit Discussion</a>
+                    <a class="dropdown-item" href="{{route('audit.execution.review')}}">Review</a>
                 </div>
             </li>
             <li class="menu-item">
@@ -49,9 +49,9 @@
                     <i class="fad fa-file-chart-line"></i><span>Report</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Draft Report</a>
-                    <a class="dropdown-item" href="#">Final Report</a>
-                    <a class="dropdown-item" href="#">QC</a>
+                    <a class="dropdown-item" href="{{route('audit.report.draft_report')}}">Draft Report</a>
+                    <a class="dropdown-item" href="{{route('audit.report.final_report')}}">Final Report</a>
+                    <a class="dropdown-item" href="{{route('audit.report.qc')}}">QC</a>
                 </div>
             </li>
             <li class="menu-item">
@@ -61,10 +61,10 @@
                     <i class="fab fa-watchman-monitoring"></i><span>Follow-Up</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="javascript:;">Due Report</a>
-                    <a class="dropdown-item" href="javascript:;">Reminder</a>
-                    <a class="dropdown-item" href="javascript:;">Record</a>
-                    <a class="dropdown-item" href="javascript:;">Settlement Review</a>
+                    <a class="dropdown-item" href="{{route('audit.followup.due_report')}}">Due Report</a>
+                    <a class="dropdown-item" href="{{route('audit.followup.reminder')}}">Reminder</a>
+                    <a class="dropdown-item" href="{{route('audit.followup.record')}}">Record</a>
+                    <a class="dropdown-item" href="{{route('audit.followup.settlement_review')}}">Settlement Review</a>
                 </div>
             </li>
         </ul>
@@ -98,7 +98,7 @@
                     <div class="row row-paddingless">
                         <!--begin:Item-->
                         <div class="col-4">
-                            <a href="#"
+                            <a href="{{route('grievance_management')}}"
                                class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
                                 <span class="svg-icon svg-icon-3x svg-icon-success">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Shopping/Euro.svg-->
@@ -122,7 +122,7 @@
                         <!--end:Item-->
                         <!--begin:Item-->
                         <div class="col-4">
-                            <a href="#"
+                            <a href="{{route('communication_management')}}"
                                class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
                                 <span class="svg-icon svg-icon-3x svg-icon-success">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Mail-attachment.svg-->
@@ -146,7 +146,8 @@
                         <!--end:Item-->
                         <!--begin:Item-->
                         <div class="col-4">
-                            <a href="#" class="d-block py-10 px-5 text-center bg-hover-light border-bottom">
+                            <a href="{{route('document_management')}}"
+                               class="d-block py-10 px-5 text-center bg-hover-light border-bottom">
                                 <span class="svg-icon svg-icon-3x svg-icon-success">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Shopping/Box2.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
@@ -169,7 +170,7 @@
                         <!--end:Item-->
                         <!--begin:Item-->
                         <div class="col-4">
-                            <a href="#"
+                            <a href="{{route('mis_and_dashboard')}}"
                                class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
                                 <span class="svg-icon svg-icon-3x svg-icon-success">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
@@ -193,7 +194,7 @@
                         <!--end:Item-->
                         <!--begin:Item-->
                         <div class="col-4">
-                            <a href="#"
+                            <a href="{{route('knowledge_management')}}"
                                class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
                                 <span class="svg-icon svg-icon-3x svg-icon-success">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
@@ -217,7 +218,8 @@
                         <!--end:Item-->
                         <!--begin:Item-->
                         <div class="col-4">
-                            <a href="#" class="d-block py-10 px-5 text-center bg-hover-light border-bottom">
+                            <a href="{{route('application_administration')}}"
+                               class="d-block py-10 px-5 text-center bg-hover-light border-bottom">
                                 <span class="svg-icon svg-icon-3x svg-icon-success">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
@@ -240,9 +242,9 @@
                         <!--end:Item-->
                         <!--begin:Item-->
                         <div class="col-4">
-                            <a href="#"
-                               class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
-                                <span class="svg-icon svg-icon-3x svg-icon-success">
+                            <a href="{{route('legacy_data_management')}}"
+                               class=" d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
+                            <span class="svg-icon svg-icon-3x svg-icon-success">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" version="1.1">
@@ -256,7 +258,7 @@
                                                 fill="#000000" fill-rule="nonzero"/>
                                         </g>
                                     </svg>
-                                    <!--end::Svg Icon-->
+                                <!--end::Svg Icon-->
                                 </span>
                                 <span class="d-block text-dark-75 font-weight-bold font-size-h6 mt-2 mb-1">Legacy Data Management</span>
                             </a>
@@ -264,8 +266,8 @@
                         <!--end:Item-->
                         <!--begin:Item-->
                         <div class="col-4">
-                            <a href="#"
-                               class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottomt">
+                            <a href="{{route('auditee_employee_database')}}"
+                               class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
                                 <span class="svg-icon svg-icon-3x svg-icon-success">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
@@ -288,7 +290,8 @@
                         <!--end:Item-->
                         <!--begin:Item-->
                         <div class="col-4">
-                            <a href="#" class="d-block py-10 px-5 text-center bg-hover-light border-bottom">
+                            <a href="{{route('pac')}}"
+                               class="d-block py-10 px-5 text-center bg-hover-light border-bottom">
                                 <span class="svg-icon svg-icon-3x svg-icon-success">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
