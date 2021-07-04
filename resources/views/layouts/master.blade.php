@@ -88,6 +88,7 @@
 <!--end::Scrolltop-->
 
 @include('layouts.partials.footer_script')
+@include('scripts.layout_navigation_spa')
 @yield('scripts')
 </body>
 </html>

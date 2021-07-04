@@ -14,11 +14,43 @@ Route::group(['middleware' => 'jisf.auth'], function () {
         Route::get('/', function () {
             return redirect()->route('audit.plan.dashboard');
         });
-
         Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditPlanDashboardController::class, 'index'])->name('dashboard');
 
-        Route::get('/strategic-plan', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'index'])->name('strategic');
+        //strategic plan
+        Route::group(['as' => 'strategy.', 'prefix' => 'strategy/'], function () {
 
+            Route::get('/', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'index'])
+                ->name('index');
+
+            Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'index'])
+                ->name('dashboard');
+
+            Route::get('draft-plans', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
+            ::class, 'index'])->name('draft_plan.all');
+            Route::post('draft-plan', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
+            ::class, 'show'])->name('draft_plan.single');
+
+            Route::get('meetings', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController
+            ::class, 'index'])->name('meeting.all');
+            Route::post('meeting', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController
+            ::class, 'show'])->name('meeting.single');
+
+            Route::get('final-plans', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
+            ::class, 'index'])->name('final-plan.all');
+            Route::post('final-plan', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
+            ::class, 'show'])->name('final-plan.single');
+
+            Route::get('milestones', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MilestoneController
+            ::class, 'index'])->name('milestone.all');
+            Route::post('milestone', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MilestoneController
+            ::class, 'show'])->name('milestone.single');
+
+            Route::get('risks', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\RiskController
+            ::class, 'index'])->name('risk.all');
+            Route::post('risk', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\RiskController
+            ::class, 'show'])->name('risk.single');
+
+        });
         Route::get('/operational-plan', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'index'])->name('operational');
 
         Route::get('/annual-plan', [\App\Http\Controllers\AuditPlan\AuditAnnualPlanController::class, 'index'])->name('annual');
