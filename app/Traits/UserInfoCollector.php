@@ -17,11 +17,6 @@ trait UserInfoCollector
         return session()->has('login') ? session('login')['user_info']['employee_info'] : null;
     }
 
-    public function getUserOfficesByDesignation()
-    {
-        return $this->checkLogin() ? session('login')['user_info']['office_info'] : [];
-    }
-
     public function checkLogin(): bool
     {
         $login_session = session('login') ?: $this->setLogin();
@@ -45,5 +40,30 @@ trait UserInfoCollector
     public function getUsername()
     {
         return $this->checkLogin() ? session('login')['user_info']['user']['username'] : null;
+    }
+
+    public function current_designation_id()
+    {
+        return session('_designation_id') ?: $this->getUserOffices()[0]['office_unit_organogram_id'];
+    }
+
+    public function getUserOffices()
+    {
+        return $this->checkLogin() ? session('login')['user_info']['office_info'] : [];
+    }
+
+    public function current_office_id()
+    {
+        return session('_office_id') ?: $this->getUserOffices()[0]['office_id'];
+    }
+
+    public function current_office_unit_id()
+    {
+        return session('_office_unit_id') ?: $this->getUserOffices()[0]['office_unit_id'];
+    }
+
+    public function current_office()
+    {
+        return session('_current_office') ?: $this->getUserOffices()[0];
     }
 }

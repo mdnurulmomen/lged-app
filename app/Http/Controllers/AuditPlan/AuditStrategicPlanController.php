@@ -17,6 +17,11 @@ class AuditStrategicPlanController extends Controller
         return view('modules.audit_plan.strategic.index');
     }
 
+    public function showAuditStrategicPlanDashboard()
+    {
+        return view('modules.audit_plan.strategic.dashboard.audit_strategic_plan_dashboard');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

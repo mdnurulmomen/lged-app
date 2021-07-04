@@ -22,7 +22,7 @@ Route::group(['middleware' => 'jisf.auth'], function () {
             Route::get('/', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'index'])
                 ->name('index');
 
-            Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'index'])
+            Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'showAuditStrategicPlanDashboard'])
                 ->name('dashboard');
 
             Route::get('draft-plans', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
@@ -50,6 +50,14 @@ Route::group(['middleware' => 'jisf.auth'], function () {
             Route::post('risk', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\RiskController
             ::class, 'show'])->name('risk.single');
 
+        });
+        //strategic plan
+        Route::group(['as' => 'operational.', 'prefix' => 'operational/'], function () {
+            Route::get('/', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'index'])
+                ->name('index');
+
+            Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'index'])
+                ->name('dashboard');
         });
         Route::get('/operational-plan', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'index'])->name('operational');
 
