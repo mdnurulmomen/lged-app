@@ -125,7 +125,7 @@
                             <div class="d-flex flex-column mb-5 align-items-start">
                                 <div class="d-flex align-items-center">
                                     <div class="symbol symbol-circle symbol-40 mr-3">
-                                        <img alt="Pic" src="assets/media/users/300_12.jpg"/>
+                                        <img alt="Pic" src="{{asset('assets/media/users/300_12.jpg')}}"/>
                                     </div>
                                     <div>
                                         <a href="#"
@@ -149,7 +149,7 @@
                                            class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
                                     </div>
                                     <div class="symbol symbol-circle symbol-40 ml-3">
-                                        <img alt="Pic" src="assets/media/users/300_21.jpg"/>
+                                        <img alt="Pic" src="{{asset('assets/media/users/300_21.jpg')}}"/>
                                     </div>
                                 </div>
                                 <div
@@ -163,7 +163,7 @@
                             <div class="d-flex flex-column mb-5 align-items-start">
                                 <div class="d-flex align-items-center">
                                     <div class="symbol symbol-circle symbol-40 mr-3">
-                                        <img alt="Pic" src="assets/media/users/300_21.jpg"/>
+                                        <img alt="Pic" src="{{asset('assets/media/users/300_21.jpg')}}"/>
                                     </div>
                                     <div>
                                         <a href="#"
@@ -187,7 +187,7 @@
                                            class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
                                     </div>
                                     <div class="symbol symbol-circle symbol-40 ml-3">
-                                        <img alt="Pic" src="assets/media/users/300_21.jpg"/>
+                                        <img alt="Pic" src="{{asset('assets/media/users/300_21.jpg')}}"/>
                                     </div>
                                 </div>
                                 <div
@@ -200,7 +200,7 @@
                             <div class="d-flex flex-column mb-5 align-items-start">
                                 <div class="d-flex align-items-center">
                                     <div class="symbol symbol-circle symbol-40 mr-3">
-                                        <img alt="Pic" src="assets/media/users/300_12.jpg"/>
+                                        <img alt="Pic" src="{{asset('assets/media/users/300_12.jpg')}}"/>
                                     </div>
                                     <div>
                                         <a href="#"
@@ -224,7 +224,7 @@
                                            class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
                                     </div>
                                     <div class="symbol symbol-circle symbol-40 ml-3">
-                                        <img alt="Pic" src="assets/media/users/300_21.jpg"/>
+                                        <img alt="Pic" src="{{asset('assets/media/users/300_21.jpg')}}"/>
                                     </div>
                                 </div>
                                 <div
@@ -238,7 +238,7 @@
                             <div class="d-flex flex-column mb-5 align-items-start">
                                 <div class="d-flex align-items-center">
                                     <div class="symbol symbol-circle symbol-40 mr-3">
-                                        <img alt="Pic" src="assets/media/users/300_12.jpg"/>
+                                        <img alt="Pic" src="{{asset('assets/media/users/300_12.jpg')}}"/>
                                     </div>
                                     <div>
                                         <a href="#"
@@ -262,7 +262,7 @@
                                            class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">You</a>
                                     </div>
                                     <div class="symbol symbol-circle symbol-40 ml-3">
-                                        <img alt="Pic" src="assets/media/users/300_21.jpg"/>
+                                        <img alt="Pic" src="{{asset('assets/media/users/300_21.jpg')}}"/>
                                     </div>
                                 </div>
                                 <div

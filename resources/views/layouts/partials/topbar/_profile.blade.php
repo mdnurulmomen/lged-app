@@ -5,7 +5,7 @@
             <img src="{{ asset('assets/media/users/blank.png') }}" class="img-responsive" alt="">
         </div>
         <span class="font-weight-normal font-size-base d-none d-md-inline mr-3 text-violate">
-            {{$employeeInfo['name_bng']}}
+            {{isset($employeeInfo) ?$employeeInfo['name_bng']: 'User Name'}}
         </span>
         <span><i class="fa fa-chevron-down"></i></span>
     </div>
@@ -20,18 +20,20 @@
                 <span class="pr-3 pt-1">
                     <i class="fas fa-id-card fa-1x a2i-color-purple"></i>
                 </span>
-                @forelse($userOffices as $office)
-                    <a href="{{route('change.office', [$office['id'], $office['office_unit_id'], $office['office_unit_organogram_id']])}}"
-                       class="btn-switch-designation flex-fill overflow-hidden">
-                        <span>{{ $office['designation'] }}, </span>
-                        <span class="test text-truncate">{{ $office['unit_name_bn'] }}</span>
-                        <span class="test text-truncate">{{ $office['office_name_bn'] }}</span>
-                    </a>
-                @empty
-                    <a href="javascript:;" class="btn-switch-designation flex-fill overflow-hidden">
-                        <span></span>
-                    </a>
-                @endforelse
+                @if(isset($userOffices))
+                    @forelse($userOffices as $office)
+                        <a href="{{route('change.office', [$office['id'], $office['office_unit_id'], $office['office_unit_organogram_id']])}}"
+                           class="btn-switch-designation flex-fill overflow-hidden">
+                            <span>{{ $office['designation'] }}, </span>
+                            <span class="test text-truncate">{{ $office['unit_name_bn'] }}</span>
+                            <span class="test text-truncate">{{ $office['office_name_bn'] }}</span>
+                        </a>
+                    @empty
+                        <a href="javascript:;" class="btn-switch-designation flex-fill overflow-hidden">
+                            <span></span>
+                        </a>
+                    @endforelse
+                @endif
                 <div class="d-flex pl-2">
                     <a href="#" class="btn-switch-designation">
                             <span
