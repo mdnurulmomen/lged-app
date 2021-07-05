@@ -46,7 +46,7 @@ class RiskController extends Controller
      */
     public function show($id)
     {
-        return view('modules.audit_plan.strategic.risk.strategic_plan_risk');
+        return view('modules.audit_plan.strategic.risk.view_strategic_plan_risk');
     }
 
     /**

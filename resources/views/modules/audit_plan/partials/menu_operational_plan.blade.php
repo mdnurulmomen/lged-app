@@ -8,7 +8,7 @@
                          icon="fal fa-tachometer-alt-average">Dashboard
             </x-menu-item>
             <hr>
-            <x-menu-item class="" href="{{route('audit.plan.strategy.draft_plan.all')}}"
+            <x-menu-item class="" href="{{route('audit.plan.operational.activity.all')}}"
                          icon="fab fa-firstdraft">Audit Activities
             </x-menu-item>
 

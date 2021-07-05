@@ -40,7 +40,7 @@ class DraftPlanController extends Controller
 
     public function show(Request $request)
     {
-        return view('modules.audit_plan.strategic.draft_plan.strategic_plan_draft');
+        return view('modules.audit_plan.strategic.draft_plan.view_strategic_plan_draft');
     }
 
     /**

@@ -46,7 +46,7 @@ class MeetingController extends Controller
      */
     public function show(Request $request)
     {
-        return view('modules.audit_plan.strategic.meeting.strategic_plan_meeting');
+        return view('modules.audit_plan.strategic.meeting.view_strategic_plan_meeting');
     }
 
     /**

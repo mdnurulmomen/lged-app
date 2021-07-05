@@ -5,7 +5,7 @@ namespace App\Http\Controllers\AuditPrepare;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AuditPrepareActivitiesController extends Controller
+class AuditPrepareActivityController extends Controller
 {
     /**
      * Display a listing of the resource.

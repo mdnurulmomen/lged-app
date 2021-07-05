@@ -4,7 +4,7 @@ $.ajaxSetup({
     }
 });
 
-function ajaxCallAsyncCallback(url, data, datatype, method, success) {
+function ajaxCallAsyncCallback(url, data, datatype, method, callback) {
     $.ajax({
         async: true,
         type: method,
@@ -13,7 +13,7 @@ function ajaxCallAsyncCallback(url, data, datatype, method, success) {
         data: data,
         cache: false,
         success: function (data, textStatus) {
-            success(data);
+            callback(data);
         },
         error: function (data) {
             var errors = data.responseJSON;
@@ -61,6 +61,7 @@ function isUnicode(string) {
     }
     return false;
 }
+
 function isEmpty(value) {
     return typeof (value) == 'undefined' || value === '' || value == null || value === 0;
 }

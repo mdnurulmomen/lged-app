@@ -1,1 +1,1 @@
-<h1 class="text-center">Operational Plan</h1>
+<h1 class="text-center">Strategic Plan Dashboard</h1>

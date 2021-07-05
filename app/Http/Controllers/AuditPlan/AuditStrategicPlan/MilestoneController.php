@@ -14,7 +14,7 @@ class MilestoneController extends Controller
      */
     public function index()
     {
-        return view('modules.audit_plan.strategic.milestone.strategic_plan_meeting_lists');
+        return view('modules.audit_plan.strategic.milestone.strategic_plan_milestone_lists');
     }
 
     /**
@@ -46,7 +46,7 @@ class MilestoneController extends Controller
      */
     public function show(Request $request)
     {
-        return view('modules.audit_plan.strategic.milestone.strategic_plan_meeting');
+        return view('modules.audit_plan.strategic.milestone.view_strategic_plan_milestone');
     }
 
     /**

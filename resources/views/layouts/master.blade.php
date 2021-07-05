@@ -80,7 +80,7 @@
 <!--end::Quick Panel-->
 
 <!--begin::Chat Panel-->
-@include('layouts.partials._chat')
+{{--@include('layouts.partials._chat')--}}
 <!--end::Chat Panel-->
 
 <!--begin::Scrolltop-->
@@ -88,7 +88,7 @@
 <!--end::Scrolltop-->
 
 @include('layouts.partials.footer_script')
-@include('scripts.layout_navigation_spa')
 @yield('scripts')
+@include('scripts.layout_navigation_spa')
 </body>
 </html>

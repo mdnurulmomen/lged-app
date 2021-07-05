@@ -46,7 +46,7 @@ class FinalPlanController extends Controller
      */
     public function show(Request $request)
     {
-        return view('modules.audit_plan.strategic.final_plan.strategic_plan_final');
+        return view('modules.audit_plan.strategic.final_plan.view_strategic_plan_final');
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Dashboard
+    Audit Activity
 @endsection
 
 @section('styles')

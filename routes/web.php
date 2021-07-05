@@ -51,13 +51,30 @@ Route::group(['middleware' => 'jisf.auth'], function () {
             ::class, 'show'])->name('risk.single');
 
         });
-        //strategic plan
+        //operational plan
         Route::group(['as' => 'operational.', 'prefix' => 'operational/'], function () {
             Route::get('/', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'index'])
                 ->name('index');
 
             Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'showOperationalPlanDashboard'])
                 ->name('dashboard');
+
+            Route::get('activities', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController
+            ::class, 'index'])->name('activity.all');
+
+            Route::get('create-activity',
+                [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController
+                ::class, 'create'])->name('activity.create');
+
+            Route::get('activity',
+                [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController
+                ::class, 'show'])->name('activity.single');
+
+            Route::get('edit-activity',
+                [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController
+                ::class, 'edit'])->name('activity.edit');
+
+
         });
         Route::get('/operational-plan', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'index'])->name('operational');
 
@@ -76,7 +93,7 @@ Route::group(['middleware' => 'jisf.auth'], function () {
 
         Route::get('data-analysis', [\App\Http\Controllers\AuditPrepare\AuditPrepareDataAnalysisController::class, 'index'])->name('data_analysis');
 
-        Route::get('activities', [\App\Http\Controllers\AuditPrepare\AuditPrepareActivitiesController::class, 'index'])->name('activities');
+        Route::get('activities', [\App\Http\Controllers\AuditPrepare\AuditPrepareActivityController::class, 'index'])->name('activities');
 
     });
 
