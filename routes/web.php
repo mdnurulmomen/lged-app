@@ -74,8 +74,11 @@ Route::group(['middleware' => 'jisf.auth'], function () {
                 [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController
                 ::class, 'edit'])->name('activity.edit');
 
-            Route::get('calender', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalenderController::class,
-                'index']);
+            Route::get('calendar', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class,
+                'index'])->name('calendar.index');
+
+            Route::post('load-schedule-milestones',
+                [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'showScheduleMilestoneByFiscalYear'])->name('calendar.load.milestone');
 
         });
         Route::get('/operational-plan', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'index'])->name('operational');

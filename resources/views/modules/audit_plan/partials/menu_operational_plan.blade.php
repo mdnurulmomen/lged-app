@@ -12,7 +12,8 @@
                          icon="fab fa-firstdraft">Audit Activities
             </x-menu-item>
 
-            <x-menu-item class="" href="{{route('audit.plan.strategy.meeting.all')}}" icon="far fa-handshake">Audit
+            <x-menu-item class="" href="{{route('audit.plan.operational.calendar.index')}}" icon="far fa-handshake">
+                Audit
                 Calendar
             </x-menu-item>
 
