@@ -1,5 +1,7 @@
-<x-title-wrapper>Create Annual Audit Activities</x-title-wrapper>
-
+<x-title-wrapper-return area="#kt_content" title="Back To Lists"
+                        url="{{route('audit.plan.operational.activity.all')}}">
+    Create Annual Audit Activities
+</x-title-wrapper-return>
 <div class="mt-4 px-4">
     <div class="row">
         <div class="col-md-12">
