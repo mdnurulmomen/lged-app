@@ -24,7 +24,7 @@ class AuditOperationalPlanController extends Controller
      */
     public function showOperationalPlanDashboard()
     {
-        return view('modules.audit_plan.operational.dashboard.audit_strategic_plan_dashboard');
+        return view('modules.audit_plan.operational.dashboard.audit_operational_plan_dashboard');
     }
 
     /**

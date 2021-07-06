@@ -9,11 +9,11 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="tree-view-wrapper-scroll" id="operational_activity_tree">
-                                @include('modules.audit_plan.operational.operational_plan.partials.load_operational_activity_table')
+                                @include('modules.audit_plan.operational.operational_plan.partials.load_operational_activity_tree')
                             </div>
                         </div>
                         <div class="col-md-8" id="operational_activity_table">
-                            @include('modules.audit_plan.operational.operational_plan.partials.load_operational_activity_tree')
+                            @include('modules.audit_plan.operational.operational_plan.partials.load_operational_activity_table')
                         </div>
                     </div>
                 </div>
