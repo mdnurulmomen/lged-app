@@ -93,7 +93,6 @@ Route::group(['middleware' => 'jisf.auth'], function () {
                     'showOperationalPlanStaffs'])->name('plan.assigned.staff');
 
         });
-        Route::get('/operational-plan', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'index'])->name('operational');
 
         Route::get('/annual-plan', [\App\Http\Controllers\AuditPlan\AuditAnnualPlanController::class, 'index'])->name('annual');
     });

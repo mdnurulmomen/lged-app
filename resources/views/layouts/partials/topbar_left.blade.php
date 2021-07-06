@@ -12,7 +12,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="{{route('audit.plan.strategy.index')}}">Strategic Plan</a>
-                        <a class="dropdown-item" href="{{route('audit.plan.operational')}}">Operational Plan</a>
+                        <a class="dropdown-item" href="{{route('audit.plan.operational.index')}}">Operational Plan</a>
                         <a class="dropdown-item" href="{{route('audit.plan.annual')}}">Annual plan</a>
                     </div>
                 </div>
