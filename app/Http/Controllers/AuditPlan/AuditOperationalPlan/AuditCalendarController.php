@@ -16,4 +16,9 @@ class AuditCalendarController extends Controller
     {
         return view('modules.audit_plan.operational.audit_calendar.partials.load_schedule_milestones');
     }
+
+    public function showAuditCalendarPrintView(Request $request)
+    {
+        return view('modules.audit_plan.operational.audit_calendar.partials.load_audit_calendar_print_view');
+    }
 }

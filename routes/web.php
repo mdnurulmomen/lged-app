@@ -74,11 +74,23 @@ Route::group(['middleware' => 'jisf.auth'], function () {
                 [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController
                 ::class, 'edit'])->name('activity.edit');
 
-            Route::get('calendar', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class,
-                'index'])->name('calendar.index');
+            Route::get('calendar', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'index'])->name('calendar.index');
 
             Route::post('load-schedule-milestones',
-                [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'showScheduleMilestoneByFiscalYear'])->name('calendar.load.milestone');
+                [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'showScheduleMilestoneByFiscalYear'])->name('calendar.milestone.load');
+
+            Route::post('load-audit-calendar-print-view',
+                [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'showAuditCalendarPrintView'])->name('calendar.print.view.load');
+
+            Route::get('plans', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\PlanController::class, 'index'])->name('plan.all');
+
+            Route::post('load-operational-plan-lists',
+                [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\PlanController::class,
+                    'showOperationalPlanLists'])->name('plan.list.all');
+
+            Route::post('load-operational-plan-staff-assigned',
+                [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\PlanController::class,
+                    'showOperationalPlanStaffs'])->name('plan.assigned.staff');
 
         });
         Route::get('/operational-plan', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'index'])->name('operational');

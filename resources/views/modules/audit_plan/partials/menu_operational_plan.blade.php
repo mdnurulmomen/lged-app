@@ -17,7 +17,7 @@
                 Calendar
             </x-menu-item>
 
-            <x-menu-item class="" href="{{route('audit.plan.strategy.final-plan.all')}}"
+            <x-menu-item class="" href="{{route('audit.plan.operational.plan.all')}}"
                          icon="fas fa-bullseye-arrow">
                 Operational Plan
             </x-menu-item>
