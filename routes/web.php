@@ -128,6 +128,9 @@ Route::group(['middleware' => 'jisf.auth'], function () {
             ('dashboard');
 
             Route::get('/plans', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'index'])->name('plan.all');
+
+            Route::post('/create-plan', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'create'])->name
+            ('plan.create');
         });
     });
 

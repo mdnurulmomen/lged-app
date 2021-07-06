@@ -10,4 +10,9 @@ class PlanController extends Controller
     {
         return view('modules.audit_plan.audit_plan.plan.plan_lists');
     }
+
+    public function create()
+    {
+        return view('');
+    }
 }
