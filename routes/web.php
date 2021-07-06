@@ -113,6 +113,12 @@ Route::group(['middleware' => 'jisf.auth'], function () {
 
             Route::get('/calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendarController::class,
                 'index'])->name('calendar');
+
+            Route::get('/entity-calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendar\EntityCalendarController
+            ::class, 'index'])->name('calendar.entity');
+
+            Route::get('/staff-calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendar\StaffCalendarController
+            ::class, 'index'])->name('calendar.staff');
         });
 
         //audit Plan

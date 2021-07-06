@@ -1,4 +1,3 @@
-<!--begin::Aside Menu-->
 <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
     <x-menu-module-name>Annual Plan</x-menu-module-name>
     <div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1"
@@ -12,12 +11,18 @@
             <x-menu-item href="{{route('audit.plan.annual.plan.all')}}"
                          icon="fal fa-list">Annual Plan
             </x-menu-item>
-            <x-menu-item href="{{route('audit.plan.annual.calendar')}}"
-                         icon="fal fa-calendar">Annual Calendar
-            </x-menu-item>
+
+            <x-parent-menu-item icon="fal fa-calendar" name="Annual Calendar">
+                <x-menu-item href="{{route('audit.plan.annual.calendar.entity')}}"
+                             icon="fal fa-calendar">Annual Calendar
+                </x-menu-item>
+
+                <x-menu-item href="{{route('audit.plan.annual.calendar.staff')}}"
+                             icon="fal fa-calendar">Annual Calendar
+                </x-menu-item>
+            </x-parent-menu-item>
         </ul>
         <!--end::Menu Nav-->
     </div>
     <!--end::Menu Container-->
 </div>
-<!--end::Aside Menu-->

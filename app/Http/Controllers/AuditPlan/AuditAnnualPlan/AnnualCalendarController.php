@@ -8,6 +8,6 @@ class AnnualCalendarController extends Controller
 {
     public function index()
     {
-        return view('');
+        return view('modules.audit_plan.annual.annual_calendar.annual_calendar');
     }
 }
