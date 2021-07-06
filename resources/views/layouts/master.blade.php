@@ -80,7 +80,7 @@
 <!--end::Quick Panel-->
 
 <!--begin::Chat Panel-->
-{{--@include('layouts.partials._chat')--}}
+@include('layouts.partials._chat')
 <!--end::Chat Panel-->
 
 <!--begin::Scrolltop-->

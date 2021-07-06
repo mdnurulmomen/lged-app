@@ -11,15 +11,15 @@
     </thead>
     <tbody>
 
-    <x-activity_list_tr id="Activity 1.1" name="Preparation of Annual Audit Plan" budget="" staff="200" auditee=""/>
+    <x-activity-list-tr id="Activity 1.1" name="Preparation of Annual Audit Plan" budget="" staff="200" auditee=""/>
 
-    <x-activity_list_tr id="Activity 1.2" name="Financial Audit on Budgetary Central Government" budget="" staff="25"
+    <x-activity-list-tr id="Activity 1.2" name="Financial Audit on Budgetary Central Government" budget="" staff="25"
                         auditee=""/>
 
-    <x-activity_list_tr id="Activity 1.2.1" name="Financial Audit on Extra Budgetary Organisations" budget=""
+    <x-activity-list-tr id="Activity 1.2.1" name="Financial Audit on Extra Budgetary Organisations" budget=""
                         staff="182" auditee=""/>
 
-    <x-activity_list_tr id="Activity 1.2.2" name="Financial Audit on Extra Budgetary Organisations" budget=""
+    <x-activity-list-tr id="Activity 1.2.2" name="Financial Audit on Extra Budgetary Organisations" budget=""
                         staff="182" auditee=""/>
 
     </tbody>

@@ -289,7 +289,7 @@
                   </label>
                </span>
                 <div class="pr-2 flex-fill daak_list_item_clickable_area cursor-pointer position-relative"
-                     did="daak_container_inbox_1_54_Daptorik">
+                     did="daak_container_inbox_1_54_Daptorik" data-plan_id="1">
                     <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                         <!--begin::Title-->
                         <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">
@@ -424,7 +424,8 @@
 
             </div>
         </li>
-        <li id="daak_container_inbox_1_54_Daptorik" class="daak_list_item list-group-item pl-0 py-2 border-bottom">
+
+        <li id="daak_container_inbox_1_55_Daptorik" class="daak_list_item list-group-item pl-0 py-2 border-bottom">
             <div class="d-flex justify-content-between align-items-start">
                <span class="input-group-text bg-transparent border-0" data-toggle="popover"
                      data-content="ডাক বাছাই করুন" data-original-title="" title="">
@@ -436,7 +437,7 @@
                   </label>
                </span>
                 <div class="pr-2 flex-fill daak_list_item_clickable_area cursor-pointer position-relative"
-                     did="daak_container_inbox_1_54_Daptorik">
+                     did="daak_container_inbox_1_54_Daptorik" data-plan_id="2">
                     <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                         <!--begin::Title-->
                         <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">
@@ -445,7 +446,8 @@
                                    class=" text-dark text-hover-primary font-size-h5"
                                    data-toggle="popover" data-html="true"
                                    data-content=""
-                                   data-original-title="" title="">যুব ও ক্রীড়া মন্ত্রণালয় মঞ্জুরী ও বরাদ্দভিত্তিক নির্দিষ্টকরণ নিরীক্ষা</a>
+                                   data-original-title="" title="">যুব ও ক্রীড়া মন্ত্রণালয় মঞ্জুরী ও বরাদ্দভিত্তিক
+                                    নির্দিষ্টকরণ নিরীক্ষা</a>
                             </div>
                             <div class=" font-weight-normal d-md-flex flex-wrap">
                                 <div class="font-size-1-1">
@@ -569,7 +571,8 @@
 
             </div>
         </li>
-        <li id="daak_container_inbox_1_54_Daptorik" class="daak_list_item list-group-item pl-0 py-2 border-bottom">
+
+        <li id="daak_container_inbox_1_56_Daptorik" class="daak_list_item list-group-item pl-0 py-2 border-bottom">
             <div class="d-flex justify-content-between align-items-start">
                <span class="input-group-text bg-transparent border-0" data-toggle="popover"
                      data-content="ডাক বাছাই করুন" data-original-title="" title="">
@@ -581,7 +584,7 @@
                   </label>
                </span>
                 <div class="pr-2 flex-fill daak_list_item_clickable_area cursor-pointer position-relative"
-                     did="daak_container_inbox_1_54_Daptorik">
+                     did="daak_container_inbox_1_54_Daptorik" data-plan_id="3">
                     <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                         <!--begin::Title-->
                         <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">
@@ -590,7 +593,9 @@
                                    class=" text-dark text-hover-primary font-size-h5"
                                    data-toggle="popover" data-html="true"
                                    data-content=""
-                                   data-original-title="" title="">২০১৮-২০১৯ অর্থ বছরের স্বাস্থ‍্য শিক্ষা ও পরিবার কল‍্যাণ বিভাগ, স্বাস্থ‍্য ও পরিবার কল‍্যাণ মন্ত্রণালয় ও এর অধীনস্থ কার্যালয়সমূহের মঞ্জুরী ও বরাদ্দ ভিত্তিক নির্দিষ্টকরণ ও নিয়মানুগ নিরীক্ষা</a>
+                                   data-original-title="" title="">২০১৮-২০১৯ অর্থ বছরের স্বাস্থ‍্য শিক্ষা ও পরিবার
+                                    কল‍্যাণ বিভাগ, স্বাস্থ‍্য ও পরিবার কল‍্যাণ মন্ত্রণালয় ও এর অধীনস্থ কার্যালয়সমূহের
+                                    মঞ্জুরী ও বরাদ্দ ভিত্তিক নির্দিষ্টকরণ ও নিয়মানুগ নিরীক্ষা</a>
                             </div>
                             <div class=" font-weight-normal d-md-flex flex-wrap">
                                 <div class="font-size-1-1">
@@ -716,3 +721,12 @@
         </li>
     </ul>
 </div>
+
+<script>
+    $('.daak_list_item_clickable_area').click(function () {
+        var url = '{{route('audit.plan.audit.plan.create', ":id")}}';
+        var plan_id = $(this).data('plan_id');
+        url = url.replace(':id', plan_id);
+        window.location.href = url;
+    })
+</script>

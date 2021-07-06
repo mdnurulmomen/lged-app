@@ -11,8 +11,8 @@ class PlanController extends Controller
         return view('modules.audit_plan.audit_plan.plan.plan_lists');
     }
 
-    public function create()
+    public function create($id)
     {
-        return view('');
+        return view('modules.audit_plan.audit_plan.plan.create_plan');
     }
 }
