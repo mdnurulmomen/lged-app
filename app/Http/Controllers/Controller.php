@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\GenericInfoCollection;
 use App\Traits\UserInfoCollector;
 use http\Client;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -11,7 +12,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, UserInfoCollector;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, UserInfoCollector, GenericInfoCollection;
 
     public function __construct()
     {
@@ -37,6 +38,9 @@ class Controller extends BaseController
 
         $userOffices = $this->getUserOffices();
         view()->share('userOffices', $userOffices);
+
+        $fiscalYears = $this->fiscalYears();
+        view()->share('fiscalYears', $fiscalYears);
     }
 
     public function wizard()

@@ -28,4 +28,3 @@
         });
     });
 </script>
-@include('scripts.components')

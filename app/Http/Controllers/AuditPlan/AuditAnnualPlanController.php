@@ -12,6 +12,11 @@ class AuditAnnualPlanController extends Controller
         return view('modules.audit_plan.annual.index');
     }
 
+    public function showAnnualPlanDashboard()
+    {
+        return view('modules.audit_plan.annual.dashboard.audit_annual_plan_dashboard');
+    }
+
     public function createAnnualActivity()
     {
         return view('pages.plan.operational.createAnualAuditActivites');

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\AuditPlan\AuditOperationalPlan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PlanController extends Controller
+class OperationalPlanController extends Controller
 {
     public function index()
     {

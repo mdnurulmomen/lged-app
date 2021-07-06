@@ -10,3 +10,16 @@
         </div>
     </div>
 </div>
+<script>
+    function returnToBack(elem) {
+        var url = elem.data('url')
+        if (url) {
+            let container = elem.data('container')
+            ajaxCallAsyncCallback(url, {}, 'html', 'GET', function (response) {
+                $(`${container}`).html(response)
+            })
+        } else {
+            toastr.error('URL not found!');
+        }
+    }
+</script>
