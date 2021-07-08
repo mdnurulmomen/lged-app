@@ -220,6 +220,15 @@ Route::group(['middleware' => 'jisf.auth'], function () {
 
     Route::get('/pac', [\App\Http\Controllers\PacController::class, 'index'])->name('pac');
 
+    Route::group(['as' => 'settings.', 'prefix' => 'settings/'], function () {
+        Route::get('/', [\App\Http\Controllers\SettingController::class, 'index'])->name('index');
+        Route::get('/dashboard', [\App\Http\Controllers\SettingController::class, 'showSettingsDashboard'])->name('dashboard');
+
+        Route::post('/fiscal-years/lists', [\App\Http\Controllers\Setting\XFiscalYearCalendarController::class, 'getFiscalYearLists'])->name('fiscal-years.lists');
+        Route::resource('/fiscal-years', \App\Http\Controllers\Setting\XFiscalYearCalendarController::class);
+
+    });
+
     //Miscellaneous
     Route::get('locale/{locale}', [App\Http\Controllers\ChangeController::class, 'changeLocale'])->name('change.locale');
     Route::get('change/office/{office_id}/{office_unit_id}/{designation_id}',

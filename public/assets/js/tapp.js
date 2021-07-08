@@ -27,6 +27,29 @@ function ajaxCallAsyncCallback(url, data, datatype, method, callback) {
     });
 }
 
+function ajaxCallAsyncCallbackAPI(url, data, method, callback) {
+    $.ajax({
+        async: true,
+        type: method,
+        url: url,
+        data: data,
+        cache: false,
+        success: function (data, textStatus) {
+            callback(data);
+        },
+        error: function (data) {
+            console.log(data)
+            var errors = data.errors;
+            $.each(errors.errors, function (k, v) {
+                if (v !== '') {
+                    toastr.error(v);
+                }
+
+            });
+        },
+    });
+}
+
 function ajaxCallUnsyncCallback(url, data, datatype, method, callback) {
     $.ajax({
         async: false,

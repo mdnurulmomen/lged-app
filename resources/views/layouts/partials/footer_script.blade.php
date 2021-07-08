@@ -1,5 +1,6 @@
 <!--begin::Global Config(global config for global JS scripts)-->
-<script>var KTAppSettings = {"breakpoints": {"sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1400},
+<script>var KTAppSettings = {
+        "breakpoints": {"sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1400},
         "colors": {
             "theme": {
                 "base": {
@@ -52,6 +53,8 @@
     };</script>
 <!--end::Global Config-->
 <!--begin::Global Theme Bundle(used by all pages)-->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
 <script src="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
@@ -64,7 +67,6 @@
 <script src="{{ asset('assets/js/split.min.js') }}"></script>
 <script src="{{ asset('assets/js/croppie.min.js') }}"></script>
 <script src="{{ asset('assets/js/jstree.min.js') }}"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="{{ asset('assets/js/pages/crud/file-upload/dropzonejs.js') }}"></script>
 <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }}"></script>
 <script src="{{ asset('assets/js/pages/custom/login/login-general.js') }}"></script>
