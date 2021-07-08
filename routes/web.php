@@ -224,8 +224,13 @@ Route::group(['middleware' => 'jisf.auth'], function () {
         Route::get('/', [\App\Http\Controllers\SettingController::class, 'index'])->name('index');
         Route::get('/dashboard', [\App\Http\Controllers\SettingController::class, 'showSettingsDashboard'])->name('dashboard');
 
-        Route::post('/fiscal-years/lists', [\App\Http\Controllers\Setting\XFiscalYearCalendarController::class, 'getFiscalYearLists'])->name('fiscal-years.lists');
-        Route::resource('/fiscal-years', \App\Http\Controllers\Setting\XFiscalYearCalendarController::class);
+        Route::post('/fiscal-years/lists', [\App\Http\Controllers\Setting\XFiscalYearController::class, 'getFiscalYearLists'])->name('fiscal-years.lists');
+        Route::resource('/fiscal-years', \App\Http\Controllers\Setting\XFiscalYearController::class, ['except' => ['edit', 'create']]);
+
+        Route::group(['as' => 'strategic-plan.', 'prefix' => 'strategic-plan/'], function () {
+            Route::post('/duration/lists', [\App\Http\Controllers\Setting\XStrategicPlan\DurationController::class, 'getDurationLists'])->name('duration.lists');
+            Route::resource('/duration', \App\Http\Controllers\Setting\XStrategicPlan\DurationController::class, ['except' => ['edit', 'create']]);
+        });
 
     });
 

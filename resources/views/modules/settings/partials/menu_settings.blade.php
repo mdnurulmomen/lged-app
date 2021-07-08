@@ -10,6 +10,10 @@
             <x-menu-item class="" href="{{route('settings.fiscal-years.index')}}"
                          icon="fal fa-calendar-alt">Fiscal Year
             </x-menu-item>
+
+            <x-menu-item class="" href="{{route('settings.strategic-plan.duration.index')}}"
+                         icon="fal fa-calendar-alt">Strategic Plan Duration
+            </x-menu-item>
         </ul>
     </div>
 </div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Setting;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class XFiscalYearCalendarController extends Controller
+class XFiscalYearController extends Controller
 {
     public function index()
     {
@@ -23,10 +23,6 @@ class XFiscalYearCalendarController extends Controller
         } else {
             return response()->json(['status' => 'error', 'data' => $fiscal_years]);
         }
-    }
-
-    public function create()
-    {
     }
 
     public function store(Request $request)
