@@ -9,7 +9,7 @@
             </h3>
             <div class="card-toolbar">
                 <button type="button" data-url="{{route('settings.strategic-plan.outcome.store')}}" data-method="POST"
-                        class="font-weight-bolder font-size-sm mr-3 btn btn-success btn-sm btn-bold btn-square btn_create_plan_duration">
+                        class="font-weight-bolder font-size-sm mr-3 btn btn-success btn-sm btn-bold btn-square btn_create_plan_outcome">
                     <i class="far fa-plus mr-1"></i> Strategic Plan Outcome
                 </button>
             </div>
@@ -30,7 +30,7 @@
 </div>
 
 <!-- Modal-->
-<x-modal id="plan_outcome_modal" title="Create Strategic Plan Duration"
+<x-modal id="plan_outcome_modal" title="Create Strategic Plan Outcome"
          url="{{route('settings.strategic-plan.outcome.store')}}">
     <form id="plan_duration_form">
         <div class="form-group row">
@@ -99,7 +99,7 @@
         });
     }
 
-    $('.btn_create_plan_duration').click(function () {
+    $('.btn_create_plan_outcome').click(function () {
         emptyModalData('plan_outcome_modal');
         $('#plan_outcome_modal_title').text('Create');
         $('#btn_plan_outcome_modal_save').text('Save');

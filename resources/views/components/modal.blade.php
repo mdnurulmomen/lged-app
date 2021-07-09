@@ -17,7 +17,7 @@
                     Close
                 </button>
                 <button type="button" class="btn btn-primary font-weight-bold btn-square" id="btn_{{$id}}_save"
-                        data-elem="{{$method}}"
+                        data-method="{{$method}}"
                         data-url="{{$url}}">
                     Save changes
                 </button>
