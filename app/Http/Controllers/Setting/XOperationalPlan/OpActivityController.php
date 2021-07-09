@@ -27,56 +27,13 @@ class OpActivityController extends Controller
 
     public function create()
     {
-        $plan_durations = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_duration_lists'), [
-            'all' => 1
-        ])->json()['data'];
-
-        $plan_outcomes = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_outcome_lists'), [
-            'all' => 1
-        ])->json()['data'];
-
-        $plan_outputs = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_output_lists'), [
-            'all' => 1
-        ])->json()['data'];
-
-        $op_activities = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_lists'), [
-            'all' => 1
-        ])->json()['data'];
-
-        return view('modules.settings.op.op_activity.create_op_activity', compact('op_activities', 'plan_outputs', 'plan_outcomes', 'plan_durations',));
-    }
-
-    public function store(Request $request)
-    {
-        $data = [
-            'duration_id' => $request->duration_id,
-            'outcome_id' => $request->outcome_id,
-            'output_id' => $request->output_id,
-            'activity_no' => $request->activity_no,
-            'title_en' => $request->title_en,
-            'title_bn' => $request->title_bn,
-            'activity_parent_id' => $request->activity_parent_id ?? 0,
-        ];
-        $create_op_yearly = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_create'), $data)->json();
-
-        if (isset($create_op_yearly['status']) && $create_op_yearly['status'] == 'success') {
-            return response()->json(responseFormat('success', 'Created Successfully'));
-        } else {
-            return response()->json(['status' => 'error', 'data' => $create_op_yearly]);
-        }
-    }
-
-    public function edit($activity_id)
-    {
         $data = $this->fetchRequiredData();
         $plan_durations = $data['plan_durations'];
         $plan_outputs = $data['plan_outputs'];
         $plan_outcomes = $data['plan_outcomes'];
         $op_activities = $data['op_activities'];
-        $activity = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_show'), [
-            'activity_id' => $activity_id
-        ])->json()['data'];
-        return view('modules.settings.op.op_activity.edit_op_activity', compact('op_activities', 'plan_outputs', 'plan_outcomes', 'plan_durations', 'activity'));
+
+        return view('modules.settings.op.op_activity.create_op_activity', compact('op_activities', 'plan_outputs', 'plan_outcomes', 'plan_durations',));
     }
 
     public function fetchRequiredData(): array
@@ -105,6 +62,39 @@ class OpActivityController extends Controller
         ];
     }
 
+    public function store(Request $request)
+    {
+        $data = [
+            'duration_id' => $request->duration_id,
+            'outcome_id' => $request->outcome_id,
+            'output_id' => $request->output_id,
+            'activity_no' => $request->activity_no,
+            'title_en' => $request->title_en,
+            'title_bn' => $request->title_bn,
+            'activity_parent_id' => $request->activity_parent_id ?? 0,
+        ];
+        $createActivity = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_create'), $data)->json();
+
+        if (isset($createActivity['status']) && $createActivity['status'] == 'success') {
+            return response()->json(responseFormat('success', 'Created Successfully'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $createActivity]);
+        }
+    }
+
+    public function edit($activity_id)
+    {
+        $data = $this->fetchRequiredData();
+        $plan_durations = $data['plan_durations'];
+        $plan_outputs = $data['plan_outputs'];
+        $plan_outcomes = $data['plan_outcomes'];
+        $op_activities = $data['op_activities'];
+        $activity = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_show'), [
+            'activity_id' => $activity_id
+        ])->json()['data'];
+        return view('modules.settings.op.op_activity.edit_op_activity', compact('op_activities', 'plan_outputs', 'plan_outcomes', 'plan_durations', 'activity'));
+    }
+
     public function update(Request $request, $activity_id)
     {
         $data = [
@@ -117,14 +107,12 @@ class OpActivityController extends Controller
             'title_bn' => $request->title_bn,
             'activity_parent_id' => $request->activity_parent_id ?? 0,
         ];
-        $create_op_yearly = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_update'),
-            $data)
-            ->json();
+        $updateActivity = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_update'), $data)->json();
 
-        if (isset($create_op_yearly['status']) && $create_op_yearly['status'] == 'success') {
+        if (isset($updateActivity['status']) && $updateActivity['status'] == 'success') {
             return response()->json(responseFormat('success', 'Updated Successfully'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $create_op_yearly]);
+            return response()->json(['status' => 'error', 'data' => $updateActivity]);
         }
     }
 
@@ -133,12 +121,12 @@ class OpActivityController extends Controller
         $data = [
             'activity_id' => $activity_id,
         ];
-        $create_op_yearly = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_delete'), $data)->json();
+        $deleteActivity = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_delete'), $data)->json();
 
-        if (isset($create_op_yearly['status']) && $create_op_yearly['status'] == 'success') {
+        if (isset($deleteActivity['status']) && $deleteActivity['status'] == 'success') {
             return response()->json(responseFormat('success', 'Deleted Successfully'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $create_op_yearly]);
+            return response()->json(['status' => 'error', 'data' => $deleteActivity]);
         }
     }
 }
