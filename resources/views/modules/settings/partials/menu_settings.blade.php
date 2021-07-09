@@ -11,9 +11,20 @@
                          icon="fal fa-calendar-alt">Fiscal Year
             </x-menu-item>
 
-            <x-menu-item class="" href="{{route('settings.strategic-plan.duration.index')}}"
-                         icon="fal fa-calendar-alt">Strategic Plan Duration
-            </x-menu-item>
+            <x-parent-menu-item icon="fas fa-list" name="Strategic Plan">
+                <x-menu-item class="" href="{{route('settings.strategic-plan.duration.index')}}"
+                             icon="fal fa-calendar-alt">Duration
+                </x-menu-item>
+
+                <x-menu-item class="" href="{{route('settings.strategic-plan.outcome.index')}}"
+                             icon="fal fa-calendar-alt">Outcome
+                </x-menu-item>
+
+                <x-menu-item class="" href="{{route('settings.strategic-plan.output.index')}}"
+                             icon="fal fa-calendar-alt">Output
+                </x-menu-item>
+
+            </x-parent-menu-item>
         </ul>
     </div>
 </div>

@@ -12,5 +12,17 @@ return [
         'strategic_plan_duration_show' => env('API_URL_BEE', '') . '/x-strategic-plan/duration/show',
         'strategic_plan_duration_update' => env('API_URL_BEE', '') . '/x-strategic-plan/duration/update',
         'strategic_plan_duration_delete' => env('API_URL_BEE', '') . '/x-strategic-plan/duration/delete',
+
+        'strategic_plan_outcome_lists' => env('API_URL_BEE', '') . '/x-strategic-plan/outcome',
+        'strategic_plan_outcome_create' => env('API_URL_BEE', '') . '/x-strategic-plan/outcome/create',
+        'strategic_plan_outcome_show' => env('API_URL_BEE', '') . '/x-strategic-plan/outcome/show',
+        'strategic_plan_outcome_update' => env('API_URL_BEE', '') . '/x-strategic-plan/outcome/update',
+        'strategic_plan_outcome_delete' => env('API_URL_BEE', '') . '/x-strategic-plan/outcome/delete',
+
+        'strategic_plan_output_lists' => env('API_URL_BEE', '') . '/x-strategic-plan/output',
+        'strategic_plan_output_create' => env('API_URL_BEE', '') . '/x-strategic-plan/output/create',
+        'strategic_plan_output_show' => env('API_URL_BEE', '') . '/x-strategic-plan/output/show',
+        'strategic_plan_output_update' => env('API_URL_BEE', '') . '/x-strategic-plan/output/update',
+        'strategic_plan_output_delete' => env('API_URL_BEE', '') . '/x-strategic-plan/output/delete',
     ]
 ];
