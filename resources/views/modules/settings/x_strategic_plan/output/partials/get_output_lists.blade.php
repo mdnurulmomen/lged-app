@@ -8,7 +8,10 @@
             Duration
         </th>
         <th class="datatable-cell datatable-cell-sort">
-            Outcome No
+            Outcome
+        </th>
+        <th class="datatable-cell datatable-cell-sort">
+            Output No
         </th>
 
         <th class="datatable-cell datatable-cell-sort">
@@ -28,33 +31,36 @@
     </tr>
     </thead>
     <tbody style="" class="datatable-body">
-    @forelse($plan_outcomes as $plan_outcome)
+    @forelse($plan_outputs as $plan_output)
         <tr data-row="0" class="datatable-row">
             <td class="datatable-cell text-center">
-                <span>{{$plan_outcome['plan_duration']['start_year']}} - {{$plan_outcome['plan_duration']['end_year']}}</span>
+                <span>{{$plan_output['plan_outcome']['plan_duration']['start_year']}} - {{$plan_output['plan_outcome']['plan_duration']['end_year']}}</span>
             </td>
-            <td class="datatable-cell text-center"><span>{{$plan_outcome['output_no']}}</span></td>
-            <td class="datatable-cell text-center"><span>{{$plan_outcome['output_title_en']}}</span></td>
-            <td class="datatable-cell text-center"><span>{{$plan_outcome['output_title_bn']}}</span></td>
+            <td class="datatable-cell text-center">
+                <span>{{$plan_output['plan_outcome']['outcome_no']}}</span>
+            </td>
+            <td class="datatable-cell text-center"><span>{{$plan_output['output_no']}}</span></td>
+            <td class="datatable-cell text-center"><span>{{$plan_output['output_title_en']}}</span></td>
+            <td class="datatable-cell text-center"><span>{{$plan_output['output_title_bn']}}</span></td>
             <td class="datatable-cell text-center">
                 <a href="javascript:;"
-                   data-id="{{$plan_outcome['id']}}"
-                   data-duration-id="{{$plan_outcome['duration_id']}}"
-                   data-outcome-id="{{$plan_outcome['outcome_id']}}"
-                   data-no="{{$plan_outcome['output_no']}}"
-                   data-title-en="{{$plan_outcome['output_title_en']}}"
-                   data-title-bn="{{$plan_outcome['output_title_bn']}}"
-                   data-remarks="{{$plan_outcome['remarks']}}"
-                   data-url="{{route('settings.strategic-plan.outcome.update', ['outcome' => $plan_outcome['id']])}}"
+                   data-id="{{$plan_output['id']}}"
+                   data-duration-id="{{$plan_output['duration_id']}}"
+                   data-outcome-id="{{$plan_output['outcome_id']}}"
+                   data-no="{{$plan_output['output_no']}}"
+                   data-title-en="{{$plan_output['output_title_en']}}"
+                   data-title-bn="{{$plan_output['output_title_bn']}}"
+                   data-remarks="{{$plan_output['remarks']}}"
+                   data-url="{{route('settings.strategic-plan.output.update', ['output' => $plan_output['id']])}}"
                    data-method="PUT"
-                   class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_plan_outcome">
+                   class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_plan_output">
                     <i class="fas fa-edit"></i>
                 </a>
             </td>
             <td class="datatable-cell text-center">
                 <a href="javascript:;"
-                   data-url="{{route('settings.strategic-plan.outcome.destroy', ['outcome' => $plan_outcome['id']])}}"
-                   class="btn btn-icon btn-outline-danger btn-xs border-0 mr-2 delete_plan_outcome">
+                   data-url="{{route('settings.strategic-plan.output.destroy', ['output' => $plan_output['id']])}}"
+                   class="btn btn-icon btn-outline-danger btn-xs border-0 mr-2 delete_plan_output">
                     <i class="fal fa-trash-alt"></i>
                 </a>
             </td>
@@ -68,7 +74,7 @@
 </table>
 
 <script>
-    $('.btn_edit_plan_outcome').click(function () {
+    $('.btn_edit_plan_output').click(function () {
         $('#plan_output_modal_title').text('Update ' + $(this).data('title-en'));
         $('#btn_plan_output_modal_save').text('Update');
         $('#btn_plan_output_modal_save').data('url', $(this).data('url'));
@@ -83,7 +89,7 @@
         $('#plan_output_modal').modal('show');
     });
 
-    $('.delete_plan_outcome').click(function () {
+    $('.delete_plan_output').click(function () {
         url = $(this).data('url');
         submitModalData(url, {}, 'delete', 'plan_output_modal');
     });
