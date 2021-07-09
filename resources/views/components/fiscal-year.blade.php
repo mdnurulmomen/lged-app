@@ -9,7 +9,7 @@
                 <option value="">Choose Fiscal Year</option>
                 <option value="2021-2022">2021-2022</option>
                 @foreach($fiscalYears as $fiscalYear)
-                    <option value="2021-2022">2021-2022</option>
+                    <option value="{{$fiscalYear['id']}}">{{$fiscalYear['start']}}-{{$fiscalYear['end']}}</option>
                 @endforeach
             </select>
         </div>
