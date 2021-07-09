@@ -238,6 +238,11 @@ Route::group(['middleware' => 'jisf.auth'], function () {
             Route::resource('/output', \App\Http\Controllers\Setting\XStrategicPlan\OutputController::class, ['except' => ['edit', 'create']]);
         });
 
+        Route::group(['as' => 'operational-plan.', 'prefix' => 'operational-plan/'], function () {
+            Route::post('/yearly/lists', [\App\Http\Controllers\Setting\XOperationalPlan\OpYearlyController::class, 'getYearlyLists'])->name('yearly.lists');
+            Route::resource('/yearly', \App\Http\Controllers\Setting\XOperationalPlan\OpYearlyController::class, ['except' => ['edit', 'create']]);
+        });
+
     });
 
     //Miscellaneous

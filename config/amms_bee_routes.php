@@ -24,5 +24,11 @@ return [
         'strategic_plan_output_show' => env('API_URL_BEE', '') . '/x-strategic-plan/output/show',
         'strategic_plan_output_update' => env('API_URL_BEE', '') . '/x-strategic-plan/output/update',
         'strategic_plan_output_delete' => env('API_URL_BEE', '') . '/x-strategic-plan/output/delete',
+
+        'op_yearly_lists' => env('API_URL_BEE', '') . '/x-operational-plan/yearly',
+        'op_yearly_create' => env('API_URL_BEE', '') . '/x-operational-plan/yearly/create',
+        'op_yearly_show' => env('API_URL_BEE', '') . '/x-operational-plan/yearly/show',
+        'op_yearly_update' => env('API_URL_BEE', '') . '/x-operational-plan/yearly/update',
+        'op_yearly_delete' => env('API_URL_BEE', '') . '/x-operational-plan/yearly/delete',
     ]
 ];

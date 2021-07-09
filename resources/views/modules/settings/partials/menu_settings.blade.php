@@ -25,6 +25,13 @@
                 </x-menu-item>
 
             </x-parent-menu-item>
+
+            <x-parent-menu-item icon="fas fa-list" name="Operational Plan">
+                <x-menu-item class="" href="{{route('settings.operational-plan.yearly.index')}}"
+                             icon="fal fa-calendar-alt">Yearly
+                </x-menu-item>
+
+            </x-parent-menu-item>
         </ul>
     </div>
 </div>
