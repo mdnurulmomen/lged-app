@@ -241,6 +241,9 @@ Route::group(['middleware' => 'jisf.auth'], function () {
         Route::group(['as' => 'operational-plan.', 'prefix' => 'operational-plan/'], function () {
             Route::post('/yearly/lists', [\App\Http\Controllers\Setting\XOperationalPlan\OpYearlyController::class, 'getYearlyLists'])->name('yearly.lists');
             Route::resource('/yearly', \App\Http\Controllers\Setting\XOperationalPlan\OpYearlyController::class, ['except' => ['edit', 'create']]);
+
+            Route::post('/activity/lists', [\App\Http\Controllers\Setting\XOperationalPlan\OpActivityController::class, 'getActivityLists'])->name('activity.lists');
+            Route::resource('/activity', \App\Http\Controllers\Setting\XOperationalPlan\OpActivityController::class);
         });
 
     });
