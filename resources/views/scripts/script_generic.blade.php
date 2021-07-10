@@ -27,7 +27,7 @@
             if (response.status === 'success') {
                 toastr.success('Success')
                 $('#' + modal_id).modal('hide');
-                loadData();
+                return true;
             } else {
                 toastr.error(response.data.message)
                 if (response.data.errors) {
@@ -46,10 +46,12 @@
                 console.log(data)
             }
         })
+        return false;
     }
 
     function emptyModalData(modal_id) {
         $('#' + modal_id + ' :input').val('')
+        $('#' + modal_id + ' select').val('').trigger('change')
     }
 
 </script>

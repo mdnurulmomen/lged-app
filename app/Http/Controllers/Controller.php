@@ -38,9 +38,6 @@ class Controller extends BaseController
 
         $userOffices = $this->getUserOffices();
         view()->share('userOffices', $userOffices);
-
-        $fiscalYears = $this->fiscalYears();
-        view()->share('fiscalYears', $fiscalYears);
     }
 
     public function wizard()

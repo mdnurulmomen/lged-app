@@ -9,7 +9,8 @@ class XFiscalYearController extends Controller
 {
     public function index()
     {
-        return view('modules.settings.x_fiscal_year.x_fiscal_year_lists');
+        $strategic_durations = $this->strategicPlanDurations();
+        return view('modules.settings.x_fiscal_year.x_fiscal_year_lists', compact('strategic_durations'));
     }
 
     public function getFiscalYearLists(Request $request)
@@ -28,6 +29,7 @@ class XFiscalYearController extends Controller
     public function store(Request $request)
     {
         $data = [
+            'duration_id' => $request->duration_id,
             'start_year' => $request->start_year,
             'end_year' => $request->end_year,
             'description' => $request->description,
@@ -45,6 +47,7 @@ class XFiscalYearController extends Controller
     {
         $data = [
             'fiscal_year_id' => $request->fiscal_year_id,
+            'duration_id' => $request->duration_id,
             'start_year' => $request->start_year,
             'end_year' => $request->end_year,
             'description' => $request->description,

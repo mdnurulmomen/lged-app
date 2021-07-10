@@ -33,6 +33,21 @@
 <x-modal id="fiscal_year_modal" title="Create Fiscal Year" url="{{route('settings.fiscal-years.store')}}">
     <form id="fiscal_year_form">
         <div class="form-group row">
+            <label for="duration_id" class="col-3 col-form-label">Plan Duration</label>
+            <div class="col-9">
+                <select name="duration_id" id="duration_id" class="form-control select-select2">
+                    @forelse($strategic_durations as $strategic_duration)
+                        <option value="{{$strategic_duration['id']}}">{{$strategic_duration['start_year']}}
+                            - {{$strategic_duration['end_year']}}</option>
+                    @empty
+                        <option>No Durations</option>
+                    @endforelse
+                </select>
+
+            </div>
+        </div>
+
+        <div class="form-group row">
             <label for="start_fiscal_year" class="col-3 col-form-label">Start Year</label>
             <div class="col-9">
                 <input placeholder="Start Year" class="form-control year-format" type="text" value=""

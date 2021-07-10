@@ -13,7 +13,6 @@ if (!function_exists('generateRandomString')) {
     }
 }
 
-
 if (!function_exists('hash_equals')) {
     function hash_equals($str1, $str2)
     {
@@ -76,6 +75,7 @@ if (!function_exists('get_file_type')) {
         }
     }
 }
+
 if (!function_exists('bnToen')) {
 
     function bnToen($value)
@@ -298,6 +298,7 @@ if (!function_exists('isJson')) {
         return (json_last_error() == JSON_ERROR_NONE);
     }
 }
+
 if (!function_exists('json_encode_unicode')) {
     function json_encode_unicode($string)
     {
@@ -342,4 +343,72 @@ function base64_url_decode($val): string
 {
     return base64_decode(strtr($val, '-_,', '+/='));
 }
+
+if (!function_exists('loadActivityTreeByOutput')) {
+    function loadActivityTreeByOutput($results, $mode = 'create')
+    {
+        if (!empty($results)) {
+            echo '<ul>';
+            foreach ($results as $key => $result) {
+                loadActivityTreeByOutputLi($result);
+            }
+            echo '</ul>';
+        }
+    }
+}
+
+if (!function_exists('loadActivityTreeByOutputLi')) {
+    function loadActivityTreeByOutputLi($result)
+    {
+        if (array_key_exists('children', $result)) {
+            ?>
+            <li>
+                <div class="d-flex align-item-center">
+                    <div class="mr-5"><?= $result['activity_no'] . " : " . $result['title_en'] ?></div>
+                    <div class="btn-group mr-5" role="group" aria-label="First group">
+                        <button data-activity-parent-id="<?= $result['id'] ?>" type="button" class="btn
+                                    btn-outline-secondary btn-icon btn_create_activity btn-square">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-icon  btn-sqaure"
+                                data-toggle="modal" data-target="#mileStoneModal"><i
+                                class="fas fa-flag-checkered"></i></button>
+                    </div>
+                </div>
+                <ul>
+                    <?php foreach ($result['children'] as $child): ?>
+                        <li>
+                            <div class="d-flex align-item-center">
+                                <div class="mr-5"><?= $result['activity_no'] . " : " . $result['title_en'] ?></div>
+                                <div class="btn-group mr-5" role="group" aria-label="First group">
+                                    <button data-activity-parent-id="<?= $result['id'] ?>" type="button" class="btn
+                                    btn-outline-secondary btn-icon btn_create_activity btn-square">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-icon  btn-sqaure"
+                                            data-toggle="modal" data-target="#mileStoneModal"><i
+                                            class="fas fa-flag-checkered"></i></button>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </li>
+            <?php
+        } else { ?>
+            <li>
+                <div class="d-flex align-item-center">
+                    <div class="mr-5"><?= $result['activity_no'] . " : " . $result['title_en'] ?></div>
+                    <div class="btn-group mr-5" role="group" aria-label="First group">
+                        <button type="button" class="btn btn-outline-secondary btn-icon  btn-sqaure"
+                                data-toggle="modal" data-target="#mileStoneModal"><i
+                                class="fas fa-flag-checkered"></i></button>
+                    </div>
+                </div>
+
+            </li>
+        <?php }
+    }
+}
+
 

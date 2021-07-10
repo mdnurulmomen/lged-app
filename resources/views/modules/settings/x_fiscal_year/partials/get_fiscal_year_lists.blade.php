@@ -27,6 +27,7 @@
             <td class="datatable-cell text-center">
                 <a href="javascript:;"
                    data-fiscal-year-id="{{$fiscal_year['id']}}"
+                   data-fiscal-year-duration="{{$fiscal_year['duration_id']}}"
                    data-fiscal-year-start="{{$fiscal_year['start']}}"
                    data-fiscal-year-end="{{$fiscal_year['end']}}"
                    data-fiscal-year-desc="{{$fiscal_year['description']}}"
@@ -60,8 +61,9 @@
         $('#btn_fiscal_year_modal_save').data('url', $(this).data('url'));
         $('#btn_fiscal_year_modal_save').data('method', $(this).data('method'));
         $('#fiscal_year_id').val($(this).data('fiscal-year-id'));
-        $('#end_fiscal_year').val($(this).data('fiscal-year-end'));
+        $('#duration_id').val($(this).data('fiscal-year-duration')).trigger('change');
         $('#start_fiscal_year').val($(this).data('fiscal-year-start'));
+        $('#end_fiscal_year').val($(this).data('fiscal-year-end'));
         $('#description').val($(this).data('fiscal-year-desc'));
         $('#fiscal_year_modal').modal('show');
     });
