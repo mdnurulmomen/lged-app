@@ -28,10 +28,6 @@
                 <x-menu-item class="" href="{{route('settings.fiscal-years.index')}}"
                              icon="fal fa-calendar-alt">Fiscal Year
                 </x-menu-item>
-                {{--                <x-menu-item class="" href="{{route('settings.operational-plan.activity.index')}}"--}}
-                {{--                             icon="fal fa-calendar-alt">Activity--}}
-                {{--                </x-menu-item>--}}
-
             </x-parent-menu-item>
         </ul>
     </div>
