@@ -385,7 +385,11 @@ if (!function_exists('loadActivityTreeByOutputLi')) {
                             <div class="mr-5"><?= $activities['activity_no'] . " : " . $activities['title_en']
                                 ?></div>
                             <div class="btn-group mr-5" role="group" aria-label="First group">
-                                <button data-activity-parent-id="<?= $activities['id'] ?>" type="button" class="btn
+                                <button data-activity-parent-id="<?= $activities['id'] ?>"
+                                        data-outcome-id="<?= $activities['outcome_id'] ?>"
+                                        data-output-id="<?= $activities['output_id'] ?>"
+                                        data-fiscal-year-id="<?= $activities['fiscal_year_id'] ?>"
+                                        type="button" class="btn
                                     btn-outline-secondary btn-icon btn_create_activity btn-square">
                                     <i class="fas fa-plus"></i>
                                 </button>
@@ -403,7 +407,11 @@ if (!function_exists('loadActivityTreeByOutputLi')) {
                                 <div class="mr-5"><?= $activities['activity_no'] . " : " . $activities['title_en']
                                     ?></div>
                                 <div class="btn-group mr-5" role="group" aria-label="First group">
-                                    <button data-activity-parent-id="<?= $activities['id'] ?>" type="button" class="btn
+                                    <button data-activity-parent-id="<?= $activities['id'] ?>"
+                                            data-outcome-id="<?= $activities['outcome_id'] ?>"
+                                            data-output-id="<?= $activities['output_id'] ?>"
+                                            data-fiscal-year-id="<?= $activities['fiscal_year_id'] ?>"
+                                            type="button" class="btn
                                     btn-outline-secondary btn-icon btn_create_activity btn-square">
                                         <i class="fas fa-plus"></i>
                                     </button>
