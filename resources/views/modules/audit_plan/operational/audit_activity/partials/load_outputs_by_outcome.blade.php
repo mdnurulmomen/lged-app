@@ -18,23 +18,9 @@
 <script>
     $('#select_strategic_output').on('change', function () {
         outcome_id = $('#select_strategic_outcome').val();
-        fiscal_year_id = $('#select_fiscal_year').val();
         output_id = $(this).val();
-        output_no = $("#select_strategic_output option:selected").text();
 
-        if (output_id) {
-            $('#output_id').val(output_id)
-            $('#fiscal_year_id').val(fiscal_year_id)
-            $('#outcome_id').val(outcome_id)
-
-            $("[id^=output_remarks_area_]").addClass('d-none')
-            $(`#output_remarks_area_${output_id}`).removeClass('d-none')
-
-            url = '{{route('audit.plan.operational.activity.create.output.tree.load')}}';
-            data = {outcome_id, fiscal_year_id, output_id, output_no}
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                $('.create_activity_area').html(response)
-            })
-        }
+        $("[id^=output_remarks_area_]").addClass('d-none')
+        $(`#output_remarks_area_${output_id}`).removeClass('d-none')
     })
 </script>

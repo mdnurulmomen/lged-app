@@ -50,9 +50,9 @@
                             </div>
                         </div>
                         <div class="col-md-2" style="margin-top: 3.5%;">
-                            <button class="btn btn-icon btn-light-success btn-square mr-2" type="button"><i
+                            <button class="btn btn-icon btn-light-success btn-square mr-2 search_activities" type="button"><i
                                     class="fad fa-search"></i></button>
-                            <button class="btn btn-icon btn-light-danger btn-square mr-2" type="reset"><i
+                            <button class="btn btn-icon btn-light-danger btn-square mr-2 reset_strategic_area" type="reset"><i
                                     class="fad fa-recycle"></i></button>
                         </div>
                     </div>

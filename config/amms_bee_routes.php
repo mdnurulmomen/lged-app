@@ -29,7 +29,7 @@ return [
     ],
     'audit_operational_plan' => [
         'op_activity_lists' => env('API_URL_BEE', '') . '/operational-plan/activity',
-        'op_activity_lists_by_output' => env('API_URL_BEE', '') . '/operational-plan/activity/all-by-output-id',
+        'op_activity_find' => env('API_URL_BEE', '') . '/operational-plan/activity/find',
         'op_activity_create' => env('API_URL_BEE', '') . '/operational-plan/activity/create',
         'op_activity_show' => env('API_URL_BEE', '') . '/operational-plan/activity/show',
         'op_activity_update' => env('API_URL_BEE', '') . '/operational-plan/activity/update',

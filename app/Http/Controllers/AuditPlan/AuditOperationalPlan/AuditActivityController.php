@@ -29,20 +29,18 @@ class AuditActivityController extends Controller
     public function loadCreateOutputActivityTree(Request $request)
     {
         $output_id = $request->output_id;
-        $output_no = $request->output_no;
         $outcome_id = $request->outcome_id;
         $fiscal_year_id = $request->fiscal_year_id;
 
-        $data = [
-            'output_id' => $output_id,
-            'output_no' => $output_no,
-            'outcome_id' => $outcome_id,
-            'fiscal_year_id' => $fiscal_year_id,
-        ];
+        $data = [];
 
-        $activity_lists = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_lists_by_output'), $data)->json();
+        isset($output_id) ? $data ['output_id'] = $output_id : '';
+        isset($outcome_id) ? $data ['outcome_id'] = $outcome_id : '';
+        isset($fiscal_year_id) ? $data ['fiscal_year_id'] = $fiscal_year_id : '';
 
-        return view('modules.audit_plan.operational.audit_activity.partials.load_created_activities', compact('output_id', 'output_no', 'activity_lists', 'fiscal_year_id', 'outcome_id'));
+        $activity_lists = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_find'), $data)->json();
+//        dd($activity_lists);
+        return view('modules.audit_plan.operational.audit_activity.partials.load_created_activities', compact('output_id', 'activity_lists', 'outcome_id'));
 
     }
 

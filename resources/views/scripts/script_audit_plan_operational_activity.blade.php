@@ -10,6 +10,24 @@
         });
     })
 
+    $('.reset_strategic_area').on('click', function () {
+        $('#select_strategic_outcome').val('').trigger('change')
+        $('#select_strategic_output').val('').trigger('change')
+    })
+
+    $('.search_activities').on('click', function () {
+        url = '{{route('audit.plan.operational.activity.create.output.tree.load')}}';
+
+        outcome_id = $('#select_strategic_outcome').val();
+        fiscal_year_id = $('#select_fiscal_year').val();
+        output_id = $('#select_strategic_output').val();
+
+        data = {outcome_id, fiscal_year_id, output_id}
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+            $('.create_activity_area').html(response)
+        })
+    })
+
     $('.btn_view_audit_annual_activity').on('click', function () {
         let url = $(this).data('url')
         ajaxCallAsyncCallback(url, {}, 'html', 'GET', function (response) {

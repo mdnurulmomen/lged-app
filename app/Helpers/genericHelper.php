@@ -360,28 +360,50 @@ if (!function_exists('loadActivityTreeByOutput')) {
 if (!function_exists('loadActivityTreeByOutputLi')) {
     function loadActivityTreeByOutputLi($result)
     {
-        if (array_key_exists('children', $result)) {
-            ?>
-            <li>
-                <div class="d-flex align-item-center">
-                    <div class="mr-5"><?= $result['activity_no'] . " : " . $result['title_en'] ?></div>
-                    <div class="btn-group mr-5" role="group" aria-label="First group">
-                        <button data-activity-parent-id="<?= $result['id'] ?>" type="button" class="btn
+        if (isset($result['output_no'])) {
+            echo '<li>
+                    <div class="d-flex align-item-center">
+                        <div class="mr-5">' . $result['output_no'] . '
+                            <button data-output-id="{{$output_id}}"
+                                data-fiscal-year-id="{{$fiscal_year_id}}" data-outcome-id="{{$outcome_id}}"
+                                data-activity-parent-id="0" type="button" class="btn
                                     btn-outline-secondary btn-icon btn_create_activity btn-square">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary btn-icon  btn-sqaure"
-                                data-toggle="modal" data-target="#mileStoneModal"><i
-                                class="fas fa-flag-checkered"></i></button>
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <ul>
-                    <?php foreach ($result['children'] as $child): ?>
+                </li>
+            ';
+        }
+        if (array_key_exists('activities', $result)) {
+            $allActivities = $result['activities'];
+            foreach ($allActivities as $activities) {
+                if ($activities['activity_parent_id'] == 0) {
+                    ?>
+                    <li>
+                        <div class="d-flex align-item-center">
+                            <div class="mr-5"><?= $activities['activity_no'] . " : " . $activities['title_en']
+                                ?></div>
+                            <div class="btn-group mr-5" role="group" aria-label="First group">
+                                <button data-activity-parent-id="<?= $activities['id'] ?>" type="button" class="btn
+                                    btn-outline-secondary btn-icon btn_create_activity btn-square">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-icon  btn-sqaure"
+                                        data-toggle="modal" data-target="#mileStoneModal"><i
+                                        class="fas fa-flag-checkered"></i></button>
+                            </div>
+                        </div>
+                    </li>
+                    <?php
+                } else { ?>
+                    <ul>
                         <li>
                             <div class="d-flex align-item-center">
-                                <div class="mr-5"><?= $result['activity_no'] . " : " . $result['title_en'] ?></div>
+                                <div class="mr-5"><?= $activities['activity_no'] . " : " . $activities['title_en']
+                                    ?></div>
                                 <div class="btn-group mr-5" role="group" aria-label="First group">
-                                    <button data-activity-parent-id="<?= $result['id'] ?>" type="button" class="btn
+                                    <button data-activity-parent-id="<?= $activities['id'] ?>" type="button" class="btn
                                     btn-outline-secondary btn-icon btn_create_activity btn-square">
                                         <i class="fas fa-plus"></i>
                                     </button>
@@ -391,24 +413,10 @@ if (!function_exists('loadActivityTreeByOutputLi')) {
                                 </div>
                             </div>
                         </li>
-                    <?php endforeach; ?>
-                </ul>
-            </li>
-            <?php
-        } else { ?>
-            <li>
-                <div class="d-flex align-item-center">
-                    <div class="mr-5"><?= $result['activity_no'] . " : " . $result['title_en'] ?></div>
-                    <div class="btn-group mr-5" role="group" aria-label="First group">
-                        <button type="button" class="btn btn-outline-secondary btn-icon  btn-sqaure"
-                                data-toggle="modal" data-target="#mileStoneModal"><i
-                                class="fas fa-flag-checkered"></i></button>
-                    </div>
-                </div>
-
-            </li>
-        <?php }
+                    </ul>
+                <?php }
+            }
+        }
     }
 }
-
 
