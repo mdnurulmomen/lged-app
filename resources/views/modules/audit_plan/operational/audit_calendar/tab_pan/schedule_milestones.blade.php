@@ -27,9 +27,9 @@
             <div class="form-group">
                 <div class="checkbox-list">
                     @foreach($responsible_offices as $responsible_office)
-                        <label class="checkbox responsible_office_check"
+                        <label  class="checkbox"
                                id="responsible_office_{{$responsible_office['id']}}">
-                            <input type="checkbox" name="Checkboxes1">
+                            <input class="responsible_office_check" data-office_name="{{$responsible_office['office_name_en']}}" data-id="{{$responsible_office['id']}}" type="checkbox" name="responsible_office">
                             <span></span>{{$responsible_office['office_name_en']}}
                             ({{$responsible_office['short_name_en']}})
                         </label>
@@ -38,14 +38,13 @@
             </div>
         </div>
         <div class="col-md-5">
-            <form id="audit_calendar_responsible_form">
+            <form autocomplete="off" id="audit_calendar_responsible_form">
                 <div class="form-group">
                     <label>Selected Responsible</label>
-                    <div class="checkbox-list">
-
-                    </div>
+                        <table id="checked_office_list">
+                            <tbody></tbody>
+                        </table>
                 </div>
-
                 <input type="hidden" name="activity_id" class="activity_id" value="">
             </form>
         </div>
@@ -68,6 +67,16 @@
         } else {
             $('#load_schedule_milestones').html('');
         }
+    });
+
+    $('.responsible_office_check').click(function (){
+        var select_office = $(this).data('office_name');
+        var select_office_id = $(this).data('id');
+        // if($(this).val() == 1) {
+            $('#checked_office_list > tbody:last').append('<tr id="row_office_id'+select_office_id+'"><input type="hidden" name="selected_office_id" value="' + select_office_id + '"><td>' + select_office + '</td></tr>');
+        // }else{
+        //     $('#row_office_id'+select_office_id).remove();
+        // }
     });
 </script>
 
