@@ -42,7 +42,6 @@
                 <div class="form-group">
                     <label>Selected Responsible</label>
                     <div class="checkbox-list">
-
                     </div>
                 </div>
 
