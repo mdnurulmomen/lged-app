@@ -57,4 +57,12 @@
             });
         }
     })
+
+    $('#btn_op_activity_milestone_modal_save').click(function () {
+        url = $(this).data('url');
+        data = $('#op_activity_milestone_form').serialize();
+        method = $(this).data('method');
+        submit = submitModalData(url, data, method, 'op_activity_milestone_modal')
+    });
+
 </script>

@@ -26,6 +26,12 @@ return [
         'strategic_plan_output_show' => env('API_URL_BEE', '') . '/x-strategic-plan/output/show',
         'strategic_plan_output_update' => env('API_URL_BEE', '') . '/x-strategic-plan/output/update',
         'strategic_plan_output_delete' => env('API_URL_BEE', '') . '/x-strategic-plan/output/delete',
+
+        'responsible_offices_lists' => env('API_URL_BEE', '') . '/responsible-offices',
+        'responsible_offices_create' => env('API_URL_BEE', '') . '/responsible-offices/create',
+        'responsible_offices_show' => env('API_URL_BEE', '') . '/responsible-offices/show',
+        'responsible_offices_update' => env('API_URL_BEE', '') . '/responsible-offices/update',
+        'responsible_offices_delete' => env('API_URL_BEE', '') . '/responsible-offices/delete',
     ],
     'audit_operational_plan' => [
         'op_activity_lists' => env('API_URL_BEE', '') . '/operational-plan/activity',
@@ -40,5 +46,8 @@ return [
         'op_activity_milestone_show' => env('API_URL_BEE', '') . '/operational-plan/activity-milestone/show',
         'op_activity_milestone_update' => env('API_URL_BEE', '') . '/operational-plan/activity-milestone/update',
         'op_activity_milestone_delete' => env('API_URL_BEE', '') . '/operational-plan/activity-milestone/delete',
+
+        'op_calendar_milestone_lists' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/milestones',
+        'op_calendar_milestone_target_date_update' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/milestones/date/update',
     ],
 ];

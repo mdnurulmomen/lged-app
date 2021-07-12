@@ -66,6 +66,26 @@ class AuditActivityController extends Controller
 
     }
 
+    public function storeMilestone(Request $request)
+    {
+        $data = [
+            'activity_id' => $request->activity_id,
+            'output_id' => $request->output_id,
+            'outcome_id' => $request->outcome_id,
+            'fiscal_year_id' => $request->fiscal_year_id,
+            'title_en' => $request->title_en,
+            'title_bn' => $request->title_bn
+        ];
+
+        $create_milestone = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_milestone_create'), $data)->json();
+
+        if ($create_milestone['status'] == 'success') {
+            return response()->json(['status' => 'success', 'data' => 'Successfully Created']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $create_milestone]);
+        }
+    }
+
     public function show(Request $request)
     {
         return view('modules.audit_plan.operational.audit_activity.view_annual_audit_activity');

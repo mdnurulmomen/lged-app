@@ -29,7 +29,7 @@
     <!--end::Advance Table Widget 4-->
 </div>
 
-<!-- Modal-->
+<!-- plan_outcome_modal Modal-->
 <x-modal id="plan_outcome_modal" title="Create Strategic Plan Outcome"
          url="{{route('settings.strategic-plan.outcome.store')}}">
     <form id="plan_duration_form">

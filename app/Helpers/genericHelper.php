@@ -364,8 +364,8 @@ if (!function_exists('loadActivityTreeByOutputLi')) {
             echo '<li>
                     <div class="d-flex align-item-center">
                         <div class="mr-5">' . $result['output_no'] . '
-                            <button data-output-id="{{$output_id}}"
-                                data-fiscal-year-id="{{$fiscal_year_id}}" data-outcome-id="{{$outcome_id}}"
+                            <button data-output-id="' . $result['id'] . '"
+                                data-fiscal-year-id="' . $result['fiscal_year_id'] . '" data-outcome-id="' . $result['outcome_id'] . '"
                                 data-activity-parent-id="0" type="button" class="btn
                                     btn-outline-secondary btn-icon btn_create_activity btn-square">
                                 <i class="fas fa-plus"></i>
@@ -375,6 +375,7 @@ if (!function_exists('loadActivityTreeByOutputLi')) {
                 </li>
             ';
         }
+
         if (array_key_exists('activities', $result)) {
             $allActivities = $result['activities'];
             foreach ($allActivities as $activities) {
@@ -393,8 +394,13 @@ if (!function_exists('loadActivityTreeByOutputLi')) {
                                     btn-outline-secondary btn-icon btn_create_activity btn-square">
                                     <i class="fas fa-plus"></i>
                                 </button>
-                                <button type="button" class="btn btn-outline-secondary btn-icon  btn-sqaure"
-                                        data-toggle="modal" data-target="#mileStoneModal"><i
+
+                                <button type="button"
+                                        data-outcome-id="<?= $activities['outcome_id'] ?>"
+                                        data-output-id="<?= $activities['output_id'] ?>"
+                                        data-fiscal-year-id="<?= $activities['fiscal_year_id'] ?>"
+                                        data-activity-id="<?= $activities['id'] ?>"
+                                        class="btn_add_milestone btn btn-outline-secondary btn-icon btn-square"><i
                                         class="fas fa-flag-checkered"></i></button>
                             </div>
                         </div>
@@ -415,8 +421,13 @@ if (!function_exists('loadActivityTreeByOutputLi')) {
                                     btn-outline-secondary btn-icon btn_create_activity btn-square">
                                         <i class="fas fa-plus"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-secondary btn-icon  btn-sqaure"
-                                            data-toggle="modal" data-target="#mileStoneModal"><i
+
+                                    <button type="button"
+                                            data-outcome-id="<?= $activities['outcome_id'] ?>"
+                                            data-output-id="<?= $activities['output_id'] ?>"
+                                            data-fiscal-year-id="<?= $activities['fiscal_year_id'] ?>"
+                                            data-activity-id="<?= $activities['id'] ?>"
+                                            class="btn_add_milestone btn btn-outline-secondary btn-icon btn-square"><i
                                             class="fas fa-flag-checkered"></i></button>
                                 </div>
                             </div>

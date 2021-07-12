@@ -68,4 +68,16 @@ trait GenericInfoCollection
         }
     }
 
+    public function allResponsibleOffices()
+    {
+        $offices = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.responsible_offices_lists'), [
+            'all' => 1
+        ])->json();
+        if ($offices['status'] == 'success') {
+            return $offices['data'];
+        } else {
+            return [];
+        }
+    }
+
 }

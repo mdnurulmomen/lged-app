@@ -50,9 +50,11 @@
                             </div>
                         </div>
                         <div class="col-md-2" style="margin-top: 3.5%;">
-                            <button class="btn btn-icon btn-light-success btn-square mr-2 search_activities" type="button"><i
+                            <button class="btn btn-icon btn-light-success btn-square mr-2 search_activities"
+                                    type="button"><i
                                     class="fad fa-search"></i></button>
-                            <button class="btn btn-icon btn-light-danger btn-square mr-2 reset_strategic_area" type="reset"><i
+                            <button class="btn btn-icon btn-light-danger btn-square mr-2 reset_strategic_area"
+                                    type="reset"><i
                                     class="fad fa-recycle"></i></button>
                         </div>
                     </div>
@@ -96,12 +98,40 @@
             </div>
         </div>
 
-        <input type="hidden" name="output_id" id="output_id" value="">
-        <input type="hidden" name="outcome_id" id="outcome_id" value="">
-        <input type="hidden" name="fiscal_year_id" id="fiscal_year_id" value="">
-        <input type="hidden" name="activity_parent_id" id="activity_parent_id" value="">
+        <input type="hidden" name="output_id" class="output_id" value="">
+        <input type="hidden" name="outcome_id" class="outcome_id" value="">
+        <input type="hidden" name="fiscal_year_id" class="fiscal_year_id" value="">
+        <input type="hidden" name="activity_parent_id" class="activity_parent_id" value="">
     </form>
 </x-modal>
+
+<x-modal id="op_activity_milestone_modal" title="Create Operation Activity Milestone"
+         url="{{route('audit.plan.operational.activity.milestone.store')}}" method="post" size="lg">
+    <form id="op_activity_milestone_form">
+        <div class="form-group" id="milestone_add_area">
+            <div class="form-group row">
+                <label for="title_en" class="col-3 col-form-label">Title English</label>
+                <div class="col-9">
+                    <input placeholder="Title English" class="form-control" type="text" value=""
+                           id="title_en" name="title_en"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="title_bn" class="col-3 col-form-label">Title Bangla</label>
+                <div class="col-9">
+                    <input placeholder="Title Bangla" class="form-control" type="text" value=""
+                           id="title_bn" name="title_bn"/>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" name="output_id" class="output_id" value="">
+        <input type="hidden" name="outcome_id" class="outcome_id" value="">
+        <input type="hidden" name="fiscal_year_id" class="fiscal_year_id" value="">
+        <input type="hidden" name="activity_id" class="activity_id" value="">
+    </form>
+</x-modal>
+
 
 <script>
     $('#btn_op_activity_modal_save').click(function () {

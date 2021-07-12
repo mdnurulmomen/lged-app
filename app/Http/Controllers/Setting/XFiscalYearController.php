@@ -9,7 +9,7 @@ class XFiscalYearController extends Controller
 {
     public function index()
     {
-        $strategic_durations = $this->strategicPlanDurations();
+        $strategic_durations = $this->allStrategicPlanDurations();
         return view('modules.settings.x_fiscal_year.x_fiscal_year_lists', compact('strategic_durations'));
     }
 

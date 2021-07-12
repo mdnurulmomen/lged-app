@@ -9,7 +9,8 @@ class AnnualPlanController extends Controller
 {
     public function index()
     {
-        return view('modules.audit_plan.annual.annual_plan.annual_plan_lists');
+        $fiscal_years = $this->allFiscalYears();
+        return view('modules.audit_plan.annual.annual_plan.annual_plan_lists', compact('fiscal_years'));
     }
 
     public function showAnnualPlanLists(Request $request)
