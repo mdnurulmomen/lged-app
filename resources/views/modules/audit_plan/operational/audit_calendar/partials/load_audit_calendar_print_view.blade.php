@@ -55,190 +55,63 @@
     <div class="mt-5">
         <div class="table-responsive">
             <table class="table table-bordered">
-                <thead>
+            <thead>
+            <tr>
+                <th>Activity</th>
+                <th style="">Milestones</th>
+                <th style="width:180px">Target Date</th>
+                <th style="width:220px">Responsible</th>
+                <th style="width:220px">Comment</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse($activityMilestones as $activityMilestone)
+                @if(!empty($activityMilestone['milestones']))
+                    <tr>
+                        <td class="vertical-middle">
+                            {{$activityMilestone['activity_no']}}
+                        </td>
+                        <td class="p-0">
+                            <table class="table table-bordered w-100 mb-0">
+                                @foreach($activityMilestone['milestones'] as $milestone)
+                                    <tr>
+                                        <td style="height:60px">{{$milestone['title_en']}}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </td>
+                        <td class="p-0">
+                            <table class="table table-bordered w-100 mb-0">
+                                @foreach($activityMilestone['milestones'] as $milestone)
+                                    <tr>
+                                        <td style="height:60px">{{$milestone['milestone_calendar']['target_date']}}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </td>
+                        <td class="vertical-middle">
+                            <table class="table w-100 mb-0">
+                                <tr>
+                                    <td>
+                                        <span>Responsible</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="p-0">
+                            comment
+                        </td>
+                    </tr>
+                @endif
+            @empty
                 <tr>
-                    <th>Activity</th>
-                    <th style="">Milestones</th>
-                    <th style="width:180px">Target Date</th>
-                    <th style="width:220px">Responsible</th>
-                    <th style="width:220px">Comment</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="vertical-middle">
-                        Activity 1
-                    </td>
-                    <td class="p-0">
-                        <table class="table table-bordered w-100 mb-0">
-                            <tr>
-                                <td>Milestone 1</td>
-                            </tr>
-                            <tr>
-                                <td>Milestone 2</td>
-                            </tr>
-                            <tr>
-                                <td>Milestone 3</td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class="p-0">
-                        <table class="table table-bordered w-100 mb-0">
-                            <tr>
-                                <td class="p-0">
-                                    <input type="date" class="form-control border-0 w-100">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-0">
-                                    <input type="date" class="form-control border-0 w-100">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-0">
-                                    <input type="date" class="form-control border-0 w-100">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class="vertical-middle">
-                        Responsible
-                    </td>
-                    <td>
-                        Comment write here
-                    </td>
-                </tr>
-                <tr>
-                    <td class="vertical-middle">
-                        Activity 1
-                    </td>
-                    <td class="p-0">
-                        <table class="table table-bordered w-100 mb-0">
-                            <tr>
-                                <td>Milestone 1</td>
-                            </tr>
-                            <tr>
-                                <td>Milestone 2</td>
-                            </tr>
-                            <tr>
-                                <td>Milestone 3</td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class="p-0">
-                        <table class="table table-bordered w-100 mb-0">
-                            <tr>
-                                <td class="p-0">
-                                    <input type="date" class="form-control border-0 w-100">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-0">
-                                    <input type="date" class="form-control border-0 w-100">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-0">
-                                    <input type="date" class="form-control border-0 w-100">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class="vertical-middle">
-                        Responsible
-                    </td>
-                    <td>
-                        Comment write here
+                    <td class="vertical-middle" colspan="5">
+                        No Data Found
                     </td>
                 </tr>
-                <tr>
-                    <td class="vertical-middle">
-                        Activity 1
-                    </td>
-                    <td class="p-0">
-                        <table class="table table-bordered w-100 mb-0">
-                            <tr>
-                                <td>Milestone 1</td>
-                            </tr>
-                            <tr>
-                                <td>Milestone 2</td>
-                            </tr>
-                            <tr>
-                                <td>Milestone 3</td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class="p-0">
-                        <table class="table table-bordered w-100 mb-0">
-                            <tr>
-                                <td class="p-0">
-                                    <input type="date" class="form-control border-0 w-100">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-0">
-                                    <input type="date" class="form-control border-0 w-100">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-0">
-                                    <input type="date" class="form-control border-0 w-100">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class="vertical-middle">
-                        Responsible
-                    </td>
-                    <td>
-                        Comment write here
-                    </td>
-                </tr>
-                <tr>
-                    <td class="vertical-middle">
-                        Activity 1
-                    </td>
-                    <td class="p-0">
-                        <table class="table table-bordered w-100 mb-0">
-                            <tr>
-                                <td>Milestone 1</td>
-                            </tr>
-                            <tr>
-                                <td>Milestone 2</td>
-                            </tr>
-                            <tr>
-                                <td>Milestone 3</td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class="p-0">
-                        <table class="table table-bordered w-100 mb-0">
-                            <tr>
-                                <td class="p-0">
-                                    <input type="date" class="form-control border-0 w-100">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-0">
-                                    <input type="date" class="form-control border-0 w-100">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-0">
-                                    <input type="date" class="form-control border-0 w-100">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td class="vertical-middle">
-                        Responsible
-                    </td>
-                    <td>
-                        Comment write here
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            @endforelse
+            </tbody>
+        </table>
         </div>
     </div>
 </div>

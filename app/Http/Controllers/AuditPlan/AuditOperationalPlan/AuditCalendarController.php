@@ -59,6 +59,18 @@ class AuditCalendarController extends Controller
 
     public function showAuditCalendarPrintView(Request $request)
     {
-        return view('modules.audit_plan.operational.audit_calendar.partials.load_audit_calendar_print_view');
+        Validator::make($request->all(), [
+            'fiscal_year' => 'required|integer',
+        ])->validate();
+        $fiscal_year_id = $request->fiscal_year;
+        $activityMilestones = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_milestone_lists'), ['fiscal_year_id' => $fiscal_year_id])->json();
+//        dd($activityMilestones);
+        if ($activityMilestones['status'] = 'success') {
+            $activityMilestones = $activityMilestones['data'];
+            return view('modules.audit_plan.operational.audit_calendar.partials.load_audit_calendar_print_view', compact('activityMilestones'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => 'Sorry!']);
+        }
+
     }
 }

@@ -40,7 +40,7 @@
 
                                     <div class="tab-pane fade border border-top-0 p-3" id="print_view" role="tabpanel"
                                          aria-labelledby="print_view-tab">
-                                        @include('modules.audit_plan.operational.audit_calendar.tab_pan.print_view', ['data' => 'dynamic data array'])
+                                        @include('modules.audit_plan.operational.audit_calendar.tab_pan.print_view', ['fiscal_years' => $fiscal_years, 'responsible_offices' => $responsible_offices])
                                     </div>
                                 </div>
                             </div>
