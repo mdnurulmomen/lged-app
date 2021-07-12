@@ -27,10 +27,12 @@
             <div class="form-group">
                 <div class="checkbox-list">
                     @foreach($responsible_offices as $responsible_office)
-                        <label class="checkbox">
+                        <label class="checkbox responsible_office_check"
+                               id="responsible_office_{{$responsible_office['id']}}">
                             <input type="checkbox" name="Checkboxes1">
                             <span></span>{{$responsible_office['office_name_en']}}
-                            ({{$responsible_office['short_name_en']}})</label>
+                            ({{$responsible_office['short_name_en']}})
+                        </label>
                     @endforeach
                 </div>
             </div>

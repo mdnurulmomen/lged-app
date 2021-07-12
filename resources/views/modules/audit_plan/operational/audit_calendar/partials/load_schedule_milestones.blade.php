@@ -99,5 +99,9 @@
         $('#audit_calendar_responsible_modal').modal('show')
     });
 
+    $('.responsible_office_check').change(function () {
+        console.log('safs')
+    });
+
 </script>
 
