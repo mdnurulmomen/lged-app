@@ -43,21 +43,21 @@
                         <tbody>
                          @foreach ($op['output'] as $output)
                          <tr>
+                             
                             <td style="text-align: left; border-bottom-color: transparent;" class="bg-light">
                                 <p><strong>{{$output['output']}}:</strong></p>
                                 <p><strong>{{$output['output_remarks']}}</strong></p>
                             </td>
                             
+                            @foreach ($output['activities']  as $key => $activity)
+
                             <td style="text-align: center;" class="bg-light">
-                                @foreach ($output['activities'] as $activity)
                                 <p><strong>{{$activity['activity_no']}}:</strong></p>
                                 <p><strong>{{$activity['title_en']}}</strong></p>
-                                @endforeach
                             </td>
                             
                             <td style="text-align: center; padding: 0;">
                                 <table style="border: none; width: 100%;">
-                                    @foreach ($output['activities'] as $activity)
                                     @foreach ($activity['milestones'] as $milestone)
                                     <tr>
                                         <td class="bg-light">
@@ -65,14 +65,12 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                    @endforeach
                                 </table>
                             </td>
                             
                            
                             <td style="text-align: center; padding: 0;">
                                 <table style="border: none; width: 100%;">
-                                    @foreach ($output['activities'] as $activity)
                                      @foreach ($activity['calendar_activity'] as $calendar)
                                     <tr>
                                         <td class="bg-light">
@@ -80,17 +78,15 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                    @endforeach
                                 </table>
                             </td>
                             
                             <td style="text-align: center; vertical-align: middle;" class="bg-light">
-                                @foreach ($output['activities'] as $activity)
                                 @foreach ($activity['responsibles'] as $responsiblity)
                                 <p><strong>{{ $responsiblity['office_name_en'] }} {{ next($activity['responsibles']) ? ',' : '' }}</strong></p>
                                 @endforeach
-                                @endforeach
                             </td>
+
 
                             <td style="text-align: center; padding: 0;">
                                 <table style="border: none; width: 100%;">
@@ -136,6 +132,8 @@
                                     </tr>
                                 </table>
                             </td>
+
+                            @endforeach
                            
                             
                         </tr>
