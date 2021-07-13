@@ -50,68 +50,68 @@
         </tbody>
     </table>
     <div class="mt-5 text-center">
-        <h2><u>2021-2022 Annual Audit Calender</u></h2>
+        <h2><u>{{$fiscal_year['start']}} - {{$fiscal_year['end']}} Annual Audit Calender</u></h2>
     </div>
     <div class="mt-5">
         <div class="table-responsive">
             <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>Activity</th>
-                <th style="">Milestones</th>
-                <th style="width:180px">Target Date</th>
-                <th style="width:220px">Responsible</th>
-                <th style="width:220px">Comment</th>
-            </tr>
-            </thead>
-            <tbody>
-            @forelse($activityMilestones as $activityMilestone)
-                @if(!empty($activityMilestone['milestones']))
+                <thead>
+                <tr>
+                    <th>Activity</th>
+                    <th style="">Milestones</th>
+                    <th style="width:180px">Target Date</th>
+                    <th style="width:220px">Responsible</th>
+                    <th style="width:220px">Comment</th>
+                </tr>
+                </thead>
+                <tbody>
+                @forelse($activityMilestones as $activityMilestone)
+                    @if(!empty($activityMilestone['milestones']))
+                        <tr>
+                            <td class="vertical-middle">
+                                {{$activityMilestone['activity_no']}}
+                            </td>
+                            <td class="p-0">
+                                <table class="table table-bordered w-100 mb-0">
+                                    @foreach($activityMilestone['milestones'] as $milestone)
+                                        <tr>
+                                            <td style="height:60px">{{$milestone['title_en']}}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </td>
+                            <td class="p-0">
+                                <table class="table table-bordered w-100 mb-0">
+                                    @foreach($activityMilestone['milestones'] as $milestone)
+                                        <tr>
+                                            <td style="height:60px">{{$milestone['milestone_calendar']['target_date']}}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </td>
+                            <td class="vertical-middle">
+                                <table class="table w-100 mb-0">
+                                    <tr>
+                                        <td>
+                                            <span>Responsible</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="p-0">
+                                comment
+                            </td>
+                        </tr>
+                    @endif
+                @empty
                     <tr>
-                        <td class="vertical-middle">
-                            {{$activityMilestone['activity_no']}}
-                        </td>
-                        <td class="p-0">
-                            <table class="table table-bordered w-100 mb-0">
-                                @foreach($activityMilestone['milestones'] as $milestone)
-                                    <tr>
-                                        <td style="height:60px">{{$milestone['title_en']}}</td>
-                                    </tr>
-                                @endforeach
-                            </table>
-                        </td>
-                        <td class="p-0">
-                            <table class="table table-bordered w-100 mb-0">
-                                @foreach($activityMilestone['milestones'] as $milestone)
-                                    <tr>
-                                        <td style="height:60px">{{$milestone['milestone_calendar']['target_date']}}</td>
-                                    </tr>
-                                @endforeach
-                            </table>
-                        </td>
-                        <td class="vertical-middle">
-                            <table class="table w-100 mb-0">
-                                <tr>
-                                    <td>
-                                        <span>Responsible</span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="p-0">
-                            comment
+                        <td class="vertical-middle" colspan="5">
+                            No Data Found
                         </td>
                     </tr>
-                @endif
-            @empty
-                <tr>
-                    <td class="vertical-middle" colspan="5">
-                        No Data Found
-                    </td>
-                </tr>
-            @endforelse
-            </tbody>
-        </table>
+                @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-@props(['id' => 'quick_modal', 'title' => '', 'url' => '', 'method' => '', 'size'=>'xl'])
+@props(['id' => 'quick_modal', 'title' => '', 'url' => '', 'method' => 'post', 'size'=>'xl'])
 <div class="modal fade" id="{{$id}}" data-backdrop="static" tabindex="-1" role="dialog"
      aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-{{$size}}" role="document">

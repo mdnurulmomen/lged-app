@@ -49,5 +49,7 @@ return [
 
         'op_calendar_milestone_lists' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/milestones',
         'op_calendar_milestone_target_date_update' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/milestones/date/update',
+        'op_calendar_responsible_assign' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/responsible/create',
+
     ],
 ];
