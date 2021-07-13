@@ -1,4 +1,4 @@
-{{--{{dd($activityMilestones)}}--}}
+{{--{{dd($activity_calendars)}}--}}
 <div class="col-md-12">
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -12,15 +12,15 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($activityMilestones as $activityMilestone)
-                @if(!empty($activityMilestone['milestones']))
+            @forelse($activity_calendars as $activity_calendar)
+                @if(!empty($activity_calendar['milestones']))
                     <tr>
                         <td class="vertical-middle">
-                            {{$activityMilestone['title_en']}}
+                            {{$activity_calendar['title_en']}}
                         </td>
                         <td class="p-0">
                             <table class="table table-bordered w-100 mb-0">
-                                @foreach($activityMilestone['milestones'] as $milestone)
+                                @foreach($activity_calendar['milestones'] as $milestone)
                                     <tr>
                                         <td>{{$milestone['title_en']}}</td>
                                     </tr>
@@ -29,11 +29,11 @@
                         </td>
                         <td class="p-0">
                             <table class="table table-bordered w-100 mb-0">
-                                @foreach($activityMilestone['milestones'] as $milestone)
+                                @foreach($activity_calendar['milestones'] as $milestone)
                                     <tr>
                                         <td class="p-0">
                                             <input data-milestone-id="{{$milestone['id']}}"
-                                                   data-activity-id="{{$activityMilestone['id']}}"
+                                                   data-activity-id="{{$activity_calendar['id']}}"
                                                    data-milestone-calendar-id="{{$milestone['milestone_calendar']['id']}}"
                                                    type="date"
                                                    value="{{$milestone['milestone_calendar']['target_date']}}"
@@ -43,16 +43,21 @@
                                 @endforeach
                             </table>
                         </td>
-                        <td class="vertical-middle">
-                            <table class="table w-100 mb-0">
-                                <tr>
+                        <td class="p-0">
+                            <table class="table w-100 mb-0 table-borderless">
+                                <tr class="border-bottom">
                                     <td class="p-0" style="width: 25px;">
-                                        <i class="fas fa-plus-square fa-2x add_responsible" style=""
-                                           data-activity-id="{{$activityMilestone['id']}}"
-                                           data-activity-no="{{$activityMilestone['activity_no']}}"></i>
+                                        <button
+                                            data-activity-id="{{$activity_calendar['id']}}"
+                                            data-activity-no="{{$activity_calendar['activity_no']}}"
+                                            class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary add_responsible">
+                                            <i class="fas {{count($activity_calendar['responsibles']) > 0 ? "fa-edit" : "fa-plus-square"}}"></i>
+                                        </button>
                                     </td>
-                                    <td id="added_responsible_area_{{$activityMilestone['id']}}">
-                                        @forelse($activityMilestone['responsibles'] as $responsible)
+                                </tr>
+                                <tr>
+                                    <td id="added_responsible_area_{{$activity_calendar['id']}}">
+                                        @forelse($activity_calendar['responsibles'] as $responsible)
                                             {{--    <table>--}}
                                             {{--        <tr id="">--}}
                                             {{--            <td>--}}
@@ -75,7 +80,30 @@
                             </table>
                         </td>
                         <td class="p-0">
-                            <textarea class="h-100 w-100 form-control"></textarea>
+                            <table class="table w-100 mb-0 table-borderless">
+                                <tr class="border-bottom">
+                                    <td class="p-0" style="width: 25px;">
+                                        <button
+                                            data-activity-id="{{$activity_calendar['id']}}"
+                                            data-activity-no="{{$activity_calendar['activity_no']}}"
+                                            class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary add_activity_comment">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="added_comment_area_{{$activity_calendar['id']}}">
+                                        @if(isset($activity_calendar['comment']))
+                                            <textarea
+                                                class=" w-100 form-control" style="height: 100px !important;"
+                                                readonly>{!! $activity_calendar['comment']['comment_en'] !!}</textarea>
+                                        @else
+                                            <textarea class=" w-100 form-control" style="height: 25px !important;"
+                                                      readonly></textarea>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 @endif
@@ -113,8 +141,15 @@
         emptyModalData('audit_calendar_responsible_modal')
         $('#audit_calendar_responsible_modal [id^=row_office_id]').remove('')
         $('#audit_calendar_responsible_form .activity_id').val($(this).data('activity-id'))
-        $('#audit_calendar_responsible_modal #audit_calendar_responsible_modal_title').text($(this).data('activity-no'))
+        $('#audit_calendar_responsible_modal #audit_calendar_responsible_modal_title').text('Responsible for - ' + $(this).data('activity-no'))
         $('#audit_calendar_responsible_modal').modal('show')
+    });
+
+    $('.add_activity_comment').click(function () {
+        emptyModalData('audit_calendar_responsible_modal')
+        $('#audit_calendar_remarks_form .activity_id').val($(this).data('activity-id'))
+        $('#audit_calendar_remarks_modal #audit_calendar_remarks_modal_title').text('Comment - ' + $(this).data('activity-no'))
+        $('#audit_calendar_remarks_modal').modal('show')
     });
 </script>
 

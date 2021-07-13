@@ -54,6 +54,26 @@
     </div>
 </x-modal>
 
+<!-- audit_calendar_remarks_modal Modal-->
+<x-modal id="audit_calendar_remarks_modal" title="Choose Responsible"
+         url="{{route('audit.plan.operational.calendar.comment.update')}}" size="xl">
+    <form autocomplete="off" id="audit_calendar_remarks_form">
+        <div class="form-group">
+            <div class="form-group row">
+                <label for="comment_en" class="col-3 col-form-label">Comment English</label>
+                <textarea class="col-9 form-control" placeholder="Comment English" type="text" value=""
+                          id="comment_en" name="comment_en"></textarea>
+            </div>
+            <div class="form-group row">
+                <label for="comment_bn" class="col-3 col-form-label">Comment Bangla</label>
+                <textarea class="col-9 form-control" placeholder="Comment Bangla" type="text" value=""
+                          id="comment_bn" name="comment_bn"></textarea>
+            </div>
+        </div>
+        <input type="hidden" name="activity_id" class="activity_id" value="">
+    </form>
+</x-modal>
+
 <script>
     $('#select_fiscal_year_schedule_milestone').change(function () {
         let fiscal_year_id = $('#select_fiscal_year_schedule_milestone').val();
@@ -95,6 +115,16 @@
         method = $(this).data('method');
         submit = submitModalData(url, data, method, 'audit_calendar_responsible_modal')
         $('#added_responsible_area_' + activity_id).html(offices);
+    });
+
+    $('#btn_audit_calendar_remarks_modal_save').click(function () {
+        activity_id = $('#audit_calendar_remarks_form .activity_id').val()
+        comment_en = $('#audit_calendar_remarks_form #comment_en').val()
+        data = $('#audit_calendar_remarks_form').serialize();
+        url = $(this).data('url');
+        method = $(this).data('method');
+        submitModalData(url, data, method, 'audit_calendar_remarks_modal')
+        $('#added_comment_area_' + activity_id).html(comment_en);
     });
 
 </script>

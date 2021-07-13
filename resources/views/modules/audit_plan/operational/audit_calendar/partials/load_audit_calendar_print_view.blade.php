@@ -65,15 +65,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($activityMilestones as $activityMilestone)
-                    @if(!empty($activityMilestone['milestones']))
+                @forelse($activity_calendars as $activity_calendar)
+                    @if(!empty($activity_calendar['milestones']))
                         <tr>
                             <td class="vertical-middle">
-                                {{$activityMilestone['activity_no']}}
+                                {{$activity_calendar['activity_no']}}
                             </td>
                             <td class="p-0">
                                 <table class="table table-bordered w-100 mb-0">
-                                    @foreach($activityMilestone['milestones'] as $milestone)
+                                    @foreach($activity_calendar['milestones'] as $milestone)
                                         <tr>
                                             <td style="height:60px">{{$milestone['title_en']}}</td>
                                         </tr>
@@ -82,7 +82,7 @@
                             </td>
                             <td class="p-0">
                                 <table class="table table-bordered w-100 mb-0">
-                                    @foreach($activityMilestone['milestones'] as $milestone)
+                                    @foreach($activity_calendar['milestones'] as $milestone)
                                         <tr>
                                             <td style="height:60px">{{$milestone['milestone_calendar']['target_date']}}</td>
                                         </tr>
@@ -92,14 +92,27 @@
                             <td class="vertical-middle">
                                 <table class="table w-100 mb-0">
                                     <tr>
-                                        <td>
-                                            <span>Responsible</span>
+                                        <td id="added_responsible_area_{{$activity_calendar['id']}}">
+                                            @forelse($activity_calendar['responsibles'] as $responsible)
+                                                {{--    <table>--}}
+                                                {{--        <tr id="">--}}
+                                                {{--            <td>--}}
+                                                {{--                <i class="fas fa-building mr-2 text-primary"></i>{{$responsible['office']['short_name_en']}}--}}
+                                                {{--            </td>--}}
+                                                {{--        </tr>--}}
+                                                {{--   </table>--}}
+                                                {{$responsible['office']['short_name_en']}} {{$loop->last ? '' : ','}}
+                                            @empty
+
+                                            @endforelse
                                         </td>
                                     </tr>
                                 </table>
                             </td>
-                            <td class="p-0">
-                                comment
+                            <td class="p-0 vertical-middle">
+                                @if(isset($activity_calendar['comment']))
+                                    {!! $activity_calendar['comment']['comment_en'] !!}
+                                @endif
                             </td>
                         </tr>
                     @endif

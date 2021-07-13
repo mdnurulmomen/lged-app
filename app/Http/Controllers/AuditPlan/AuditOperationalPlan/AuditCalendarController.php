@@ -25,10 +25,10 @@ class AuditCalendarController extends Controller
             'fiscal_year_id' => 'required|integer',
         ])->validate();
         $fiscal_year_id = $request->fiscal_year_id;
-        $activityMilestones = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_milestone_lists'), ['fiscal_year_id' => $fiscal_year_id])->json();
-        if ($activityMilestones['status'] = 'success') {
-            $activityMilestones = $activityMilestones['data'];
-            return view('modules.audit_plan.operational.audit_calendar.partials.load_schedule_milestones', compact('activityMilestones'));
+        $activity_calendars = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_all_lists'), ['fiscal_year_id' => $fiscal_year_id])->json();
+        if ($activity_calendars['status'] = 'success') {
+            $activity_calendars = $activity_calendars['data'];
+            return view('modules.audit_plan.operational.audit_calendar.partials.load_schedule_milestones', compact('activity_calendars'));
         } else {
             return response()->json(['status' => 'error', 'data' => 'Sorry!']);
         }
@@ -73,18 +73,39 @@ class AuditCalendarController extends Controller
         }
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function updateActivityComment(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'activity_id' => 'required|integer',
+            'comment_en' => 'nullable|string',
+            'comment_bn' => 'required|string',
+        ])->validate();
+
+        $activityComment = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_comment_update'), $data)->json();
+
+        if ($activityComment['status'] == 'success') {
+            return response()->json(['status' => 'success', 'data' => $activityComment]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $activityComment]);
+        }
+
+    }
+
     public function showAuditCalendarPrintView(Request $request)
     {
         Validator::make($request->all(), [
             'fiscal_year' => 'required|integer',
         ])->validate();
         $fiscal_year_id = $request->fiscal_year;
-        $activityMilestones = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_milestone_lists'), ['fiscal_year_id' => $fiscal_year_id])->json();
+        $activity_calendars = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_all_lists'), ['fiscal_year_id' => $fiscal_year_id])->json();
         $fiscal_year = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_show'), ['fiscal_year_id' => $fiscal_year_id])->json()['data'];
-//        dd($activityMilestones);
-        if ($activityMilestones['status'] = 'success') {
-            $activityMilestones = $activityMilestones['data'];
-            return view('modules.audit_plan.operational.audit_calendar.partials.load_audit_calendar_print_view', compact('activityMilestones', 'fiscal_year'));
+//        dd($activity_calendars);
+        if ($activity_calendars['status'] = 'success') {
+            $activity_calendars = $activity_calendars['data'];
+            return view('modules.audit_plan.operational.audit_calendar.partials.load_audit_calendar_print_view', compact('activity_calendars', 'fiscal_year'));
         } else {
             return response()->json(['status' => 'error', 'data' => 'Sorry!']);
         }
