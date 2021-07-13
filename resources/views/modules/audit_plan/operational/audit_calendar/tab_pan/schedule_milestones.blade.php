@@ -88,10 +88,13 @@
     });
 
     $('#btn_audit_calendar_responsible_modal_save').click(function () {
+        offices = $('#checked_office_list').html()
+        activity_id = $('#audit_calendar_responsible_form .activity_id').val()
         data = $('#audit_calendar_responsible_form').serialize();
         url = $(this).data('url');
         method = $(this).data('method');
         submit = submitModalData(url, data, method, 'audit_calendar_responsible_modal')
+        $('#added_responsible_area_' + activity_id).html(offices);
     });
 
 </script>

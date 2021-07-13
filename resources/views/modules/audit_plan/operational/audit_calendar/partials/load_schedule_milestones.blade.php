@@ -16,7 +16,7 @@
                 @if(!empty($activityMilestone['milestones']))
                     <tr>
                         <td class="vertical-middle">
-                            {{$activityMilestone['activity_no']}}
+                            {{$activityMilestone['title_en']}}
                         </td>
                         <td class="p-0">
                             <table class="table table-bordered w-100 mb-0">
@@ -51,8 +51,25 @@
                                            data-activity-id="{{$activityMilestone['id']}}"
                                            data-activity-no="{{$activityMilestone['activity_no']}}"></i>
                                     </td>
-                                    <td>
-                                        <span>Responsible</span>
+                                    <td id="added_responsible_area_{{$activityMilestone['id']}}">
+                                        @forelse($activityMilestone['responsibles'] as $responsible)
+                                            {{--    <table>--}}
+                                            {{--        <tr id="">--}}
+                                            {{--            <td>--}}
+                                            {{--                <i class="fas fa-building mr-2 text-primary"></i>{{$responsible['office']['short_name_en']}}--}}
+                                            {{--            </td>--}}
+                                            {{--        </tr>--}}
+                                            {{--   </table>--}}
+                                            {{$responsible['office']['short_name_en']}} {{$loop->last ? '' : ','}}
+                                        @empty
+                                            <table>
+                                                <tr id="">
+                                                    <td>
+                                                        Responsibles
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        @endforelse
                                     </td>
                                 </tr>
                             </table>
@@ -94,6 +111,7 @@
 
     $('.add_responsible').click(function () {
         emptyModalData('audit_calendar_responsible_modal')
+        $('#audit_calendar_responsible_modal [id^=row_office_id]').remove('')
         $('#audit_calendar_responsible_form .activity_id').val($(this).data('activity-id'))
         $('#audit_calendar_responsible_modal #audit_calendar_responsible_modal_title').text($(this).data('activity-no'))
         $('#audit_calendar_responsible_modal').modal('show')
