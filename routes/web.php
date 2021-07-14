@@ -29,7 +29,9 @@ Route::group(['middleware' => 'jisf.auth'], function () {
             ::class, 'index'])->name('draft_plan.all');
             Route::post('draft-plan', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
             ::class, 'show'])->name('draft_plan.single');
-
+            Route::get('draft-plan/create', function () {
+                return view('modules.audit_plan.strategic.draft_plan.strategic_plan_draft_create');
+            })->name('draft_plan_create');
             Route::get('meetings', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController
             ::class, 'index'])->name('meeting.all');
             Route::post('meeting', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController
