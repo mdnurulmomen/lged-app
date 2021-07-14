@@ -26,7 +26,6 @@
         ajaxCallAsyncCallbackAPI(url, data, method, function (response) {
             if (response.status === 'success') {
                 toastr.success('Success')
-                return response.data;
                 $('#' + modal_id).modal('hide');
             } else {
                 toastr.error(response.data.message)
