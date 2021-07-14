@@ -154,7 +154,8 @@
 <script>
     $('.operational_staffs').click(function () {
         let url = '{{route('audit.plan.operational.plan.assigned.staff')}}';
-        let data = {activity_id: $(this).data('activity_id')}
+        let fiscal_year = $('#select_fiscal_year').val();
+        let data = {fiscal_year}
         ajaxCallAsyncCallback(url, data, 'html', 'post', function (response) {
             $('#kt_content').html();
             $('#kt_content').html(response);
