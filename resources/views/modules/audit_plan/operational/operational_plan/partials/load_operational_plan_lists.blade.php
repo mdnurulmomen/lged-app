@@ -1,12 +1,12 @@
+{{-- {{ dd($ops) }} --}}
 <div class="row">
     <div class="col-md-12">
         <div class="mt-5">
+            @foreach ($ops as $op)                
             <div class="card rounded-0 mt-5">
                 <div class="rounded-0 card-header text-center bg-light-primary py-3 px-5">
-                    <h3 class="font-size-h3"> Strategic Outcome-01:</h3>
-                    <p class="font-size-h5 mb-0">Increased Credibility in the SAI’s Activities to the Parliament and
-                        other Stakeholders will Facilitate the Policymakers in taking <br/> Appropriate Measures for
-                        Prudent Management of Scarce Public Resources.</p>
+                    <h3 class="font-size-h3">{{$op['outcome']}}-{{$op['outcome_id']}}:</h3>
+                    <p class="font-size-h5 mb-0">{!! $op['outcome_remarks'] !!}</p>
                 </div>
                 <div class="card-body p-0">
                     <table class="table table-bordered table-light mb-0">
@@ -41,57 +41,53 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                         @foreach ($op['output'] as $output)
+                         <tr>
+                             
                             <td style="text-align: left; border-bottom-color: transparent;" class="bg-light">
-                                <p><strong>Output-01:</strong></p>
-                                <p><strong>Quality Compliance, Financial and Performance Audit Reports Including
-                                        Audit Reports on Special Areas.</strong></p>
+                                <p><strong>{{$output['output']}}:</strong></p>
+                                <p><strong>{{$output['output_remarks']}}</strong></p>
                             </td>
+                            
+                            @foreach ($output['activities']  as $key => $activity)
+
                             <td style="text-align: center;" class="bg-light">
-                                <p><strong>Activity 1.1:</strong></p>
-                                <p><strong>Preparation of Annual Audit Plan.</strong></p>
+                                <p><strong>{{$activity['activity_no']}}:</strong></p>
+                                <p><strong>{{$activity['title_en']}}</strong></p>
                             </td>
+                            
                             <td style="text-align: center; padding: 0;">
                                 <table style="border: none; width: 100%;">
+                                    @foreach ($activity['milestones'] as $milestone)
                                     <tr>
                                         <td class="bg-light">
-                                            <p><strong>Risk Assessment Completed.</strong></p>
+                                            <p><strong>{{$milestone['title_en']}}</strong></p>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <p><strong>Risk Assessment Completed.</strong></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-light">
-                                            <p><strong>Risk Assessment Completed.</strong></p>
-                                        </td>
-                                    </tr>
+                                    @endforeach
                                 </table>
                             </td>
+                            
+                           
                             <td style="text-align: center; padding: 0;">
                                 <table style="border: none; width: 100%;">
+                                     @foreach ($activity['calendar_activity'] as $calendar)
                                     <tr>
                                         <td class="bg-light">
-                                            <p><strong>31.07.2021</strong></p>
+                                            <p><strong>{{$calendar['target_date']}}</strong></p>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <p><strong>31.07.2021</strong></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-light">
-                                            <p><strong>31.07.2021</strong></p>
-                                        </td>
-                                    </tr>
+                                    @endforeach
                                 </table>
                             </td>
+                            
                             <td style="text-align: center; vertical-align: middle;" class="bg-light">
-                                <p><strong>Audit Directorates</strong></p>
+                                @foreach ($activity['responsibles'] as $responsiblity)
+                                <p><strong>{{ $responsiblity['office_name_en'] }} {{ next($activity['responsibles']) ? ',' : '' }}</strong></p>
+                                @endforeach
                             </td>
+
+
                             <td style="text-align: center; padding: 0;">
                                 <table style="border: none; width: 100%;">
                                     <tr>
@@ -136,106 +132,17 @@
                                     </tr>
                                 </table>
                             </td>
+
+                            @endforeach
+                           
+                            
                         </tr>
-                        <tr>
-                            <td style="text-align: left;" class="bg-light">
-                                <p><strong>&nbsp;</strong></p>
-                                <p><strong>&nbsp;</strong></p>
-                            </td>
-                            <td style="text-align: center;" class="bg-light">
-                                <p><strong>Activity 1.2:</strong></p>
-                                <p><strong>Financial Audit on Budgetary Central Government.</strong></p>
-                            </td>
-                            <td style="text-align: center; padding: 0;">
-                                <table style="border: none; width: 100%;">
-                                    <tr>
-                                        <td class="bg-light">
-                                            <p><strong>Planning</strong></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p><strong>Field Audit</strong></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-light">
-                                            <p><strong>Reporting</strong></p>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td style="text-align: center; padding: 0;">
-                                <table style="border: none; width: 100%;">
-                                    <tr>
-                                        <td class="bg-light">
-                                            <p><strong>31.07.2021</strong></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p><strong>31.07.2021</strong></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-light">
-                                            <p><strong>31.07.2021</strong></p>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;" class="bg-light">
-                                <p><strong>Respective Audit Directorates </strong></p>
-                            </td>
-                            <td style="text-align: center; padding: 0;">
-                                <table style="border: none; width: 100%;">
-                                    <tr>
-                                        <td class="bg-light">
-                                            <p><strong>&nbsp;</strong></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p><strong>&nbsp;</strong></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-light">
-                                            <p><strong>&nbsp;</strong></p>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td style="text-align: center; vertical-align: middle;" class="bg-light text-info">
-                                <div class="operational_staffs" data-activity_id="2">
-                                    <p class="mb-0"><strong>25</strong></p>
-                                    <p class="mb-0"><strong>Annex-02</strong></p>
-                                </div>
-                            </td>
-                            <td style="text-align: center; padding: 0;">
-                                <table style="border: none; width: 100%;">
-                                    <tr>
-                                        <td class="bg-light">
-                                            <p><strong>&nbsp;</strong></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p><strong>&nbsp;</strong></p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bg-light">
-                                            <p><strong>&nbsp;</strong></p>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
 </div>

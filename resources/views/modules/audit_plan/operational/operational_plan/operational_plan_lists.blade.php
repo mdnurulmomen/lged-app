@@ -1,5 +1,5 @@
 <x-title-wrapper>Operational Plans</x-title-wrapper>
-
+<div class="mt-4 px-4">
 <form>
     <div class="form-row">
         <div class="col-md-2 d-md-flex align-items-md-center">
@@ -8,7 +8,9 @@
         <div class="col-md-4 ">
             <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year">
                 <option value="">Choose Fiscal Year</option>
-                <option value="2021-2022">2021-2022</option>
+                @foreach($fiscal_years as $fiscal_year)
+                    <option value="{{$fiscal_year['id']}}">{{$fiscal_year['description']}}</option>
+                @endforeach
             </select>
         </div>
 
@@ -28,7 +30,7 @@
 <div class="px-3" id="load_operational_plan_lists">
 
 </div>
-
+</div>
 <script>
     $('#select_fiscal_year').change(function () {
         let fiscal_year = $('#select_fiscal_year').val();
