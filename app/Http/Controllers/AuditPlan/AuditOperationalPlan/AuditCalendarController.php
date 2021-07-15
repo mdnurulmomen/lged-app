@@ -126,4 +126,15 @@ class AuditCalendarController extends Controller
             return response()->json(['status' => 'error', 'data' => 'Sorry!']);
         }
     }
+
+    public function showForwardAuditCalendarModal()
+    {
+        $officer_lists = $this->officeUnitDesignationEmployeeMap($this->current_office_id());
+
+        if ($officer_lists) {
+            return view('modules.audit_plan.operational.audit_calendar.partials.forward_audit_calendar_modal', compact('officer_lists'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $officer_lists]);
+        }
+    }
 }

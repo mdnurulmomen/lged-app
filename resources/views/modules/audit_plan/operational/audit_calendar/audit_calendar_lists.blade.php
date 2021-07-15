@@ -48,7 +48,7 @@
                             <td class="datatable-cell" style="width: 40%">
                                 <span>{{$yearly_calendar['cdesk_name_en'] ?: 'Empty'}}</span>
                             </td>
-                            <td class="datatable-cell"  style="width: 5%">
+                            <td class="datatable-cell" style="width: 5%">
                                 <a href="javascript:;"
                                    data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
                                    data-url="{{route('audit.plan.operational.calendar.single')}}"
@@ -57,13 +57,12 @@
                                 </a>
                             </td>
 
-                            <td class="datatable-cell"  style="width: 5%">
+                            <td class="datatable-cell" style="width: 5%">
                                 <button
                                     data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"
                                     class="panel_single_daak_forward_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                     type="button">
-                                    <i class="fad fa-share" data-toggle="popover" data-content="ডাক প্রেরণ করুন"
-                                       data-original-title="" title=""></i>
+                                    <i class="fad fa-share" data-toggle="popover" data-content="ডাক প্রেরণ করুন"></i>
                                 </button>
                             </td>
                         </tr>
@@ -75,6 +74,10 @@
     </div>
 </div>
 
+<div class="forward_audit_calendar_modal_area">
+
+</div>
+
 <script>
     $('.btn_view_operational_calendar').on('click', function () {
         url = $(this).data('url')
@@ -84,6 +87,19 @@
                 toastr.error('Error')
             } else {
                 $("#kt_content").html(response);
+            }
+        });
+    })
+
+    $('.panel_single_daak_forward_dropdown').on('click', function () {
+        url = '{{route('audit.plan.operational.calendar.forward.modal')}}'
+
+        ajaxCallAsyncCallbackAPI(url, {}, 'POST', function (response) {
+            if (response.status === 'error') {
+                toastr.error('Error')
+            } else {
+                $(".forward_audit_calendar_modal_area").html(response);
+                $('#forward_audit_calendar_modal').modal('show')
             }
         });
     })
