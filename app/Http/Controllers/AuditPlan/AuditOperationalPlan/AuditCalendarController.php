@@ -14,7 +14,7 @@ class AuditCalendarController extends Controller
 
         if ($yearly_calendars['status'] == 'success') {
             $yearly_calendars = $yearly_calendars['data'];
-            return view('modules.audit_plan.operational.audit_calendar.operational_calendar', compact('yearly_calendars'));
+            return view('modules.audit_plan.operational.audit_calendar.audit_calendar_lists', compact('yearly_calendars'));
         } else {
             return response()->json(['status' => 'error', 'data' => $yearly_calendars]);
         }
@@ -26,7 +26,7 @@ class AuditCalendarController extends Controller
         $fiscal_years = $this->allFiscalYears();
         $responsible_offices = $this->allResponsibleOffices();
 
-        return view('modules.audit_plan.operational.audit_calendar.view_operational_calendar', compact('fiscal_years', 'responsible_offices', 'fiscal_year_id'));
+        return view('modules.audit_plan.operational.audit_calendar.view_audit_calendar', compact('fiscal_years', 'responsible_offices', 'fiscal_year_id'));
     }
 
     /**
