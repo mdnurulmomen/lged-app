@@ -58,7 +58,7 @@ return [
         'op_calendar_responsible_assign' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/responsible/create',
         'op_calendar_comment_update' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/comment/update',
 
-        'load-operational-plan-lists' => env('API_URL_BEE', '') . '/operational-plan/list',
+        'load_operational_plan_lists' => env('API_URL_BEE', '') . '/operational-plan/list',
         'load-operational-plan-details' => env('API_URL_BEE', '') . '/operational-plan/details',
 
     ],

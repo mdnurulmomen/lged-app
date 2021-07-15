@@ -1,53 +1,73 @@
 <x-title-wrapper>Annual Audit Calender</x-title-wrapper>
-<div class="mt-4 px-4">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card card-custom gutter-b">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="example-preview">
-                                <ul class="nav nav-tabs custom-tabs mb-0" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active rounded-0" id="activity" data-toggle="tab"
-                                           href="#set_activity">
-                                            <span class="nav-text">Schedule Milestones</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="calender" data-toggle="tab" href="#set_calendar"
-                                           aria-controls="profile">
-                                            <span class="nav-text">Calender View</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="print" data-toggle="tab" href="#print_view"
-                                           aria-controls="contact">
-                                            <span class="nav-text">Print View</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content" id="operational_calendar_tab">
-                                    <div class="tab-pane border border-top-0 p-3 fade show active" id="set_activity"
-                                         role="tabpanel" aria-labelledby="activity-tab">
-                                        @include('modules.audit_plan.operational.audit_calendar.tab_pan.schedule_milestones', ['fiscal_years' => $fiscal_years, 'responsible_offices' => $responsible_offices])
-                                    </div>
+<div class="col-lg-12">
+    <!--begin::Advance Table Widget 4-->
+    <div class="card card-custom card-stretch gutter-b">
+        <!--begin::Header-->
+        <!--end::Header-->
+        <!--begin::Body-->
+        <div class="card-body pt-0 pb-3">
+            <!--begin::Table-->
+            <div class="table-responsive datatable datatable-default datatable-bordered datatable-loaded">
 
-                                    <div class="tab-pane fade border border-top-0 p-3" id="set_calendar" role="tabpanel"
-                                         aria-labelledby="calender-tab">
-                                        @include('modules.audit_plan.operational.audit_calendar.tab_pan.view_calender', ['data' => 'dynamic data array'])
-                                    </div>
+                <table class="datatable-bordered datatable-head-custom datatable-table"
+                       id="kt_datatable"
+                       style="display: block;">
 
-                                    <div class="tab-pane fade border border-top-0 p-3" id="print_view" role="tabpanel"
-                                         aria-labelledby="print_view-tab">
-                                        @include('modules.audit_plan.operational.audit_calendar.tab_pan.print_view', ['fiscal_years' => $fiscal_years, 'responsible_offices' => $responsible_offices])
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <thead class="datatable-head">
+                    <tr class="datatable-row" style="left: 0px;">
+                        <th class="datatable-cell datatable-cell-sort">
+                            Fiscal Year
+                        </th>
+
+                        <th class="datatable-cell datatable-cell-sort">
+                            Initiator
+                        </th>
+
+                        <th class="datatable-cell datatable-cell-sort">
+                            Current Desk
+                        </th>
+
+                        <th class="datatable-cell datatable-cell-sort">
+                            <i class="fas fa-eye"></i>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody style="" class="datatable-body">
+                    @foreach($yearly_calendars as $yearly_calendar)
+                        <tr data-row="0" class="datatable-row" style="left: 0px;">
+                            <td class="datatable-cell text-center">
+                                <span>{{$yearly_calendar['fiscal_year']['description']}}</span></td>
+                            <td class="datatable-cell text-center">
+                                <span>{{$yearly_calendar['initiator_name_en']}}</span></td>
+                            <td class="datatable-cell text-center"><span>{{$yearly_calendar['cdesk_name_en']}}</span>
+                            </td>
+                            <td class="datatable-cell text-center">
+                                <a href="javascript:;"
+                                   data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
+                                   data-url="{{route('audit.plan.operational.calendar.single')}}"
+                                   class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_operational_calendar">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $('.btn_view_operational_calendar').on('click', function () {
+        url = $(this).data('url')
+        fiscal_year_id = $(this).data('fiscal-year-id')
+        ajaxCallAsyncCallbackAPI(url, {fiscal_year_id}, 'POST', function (response) {
+            if (response.status === 'error') {
+                toastr.error('Error')
+            } else {
+                $("#kt_content").html(response);
+            }
+        });
+    })
+</script>

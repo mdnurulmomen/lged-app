@@ -5,7 +5,7 @@
         <!--begin::Header-->
         <div class="card-header border-0 py-5">
             <h3 class="card-title align-items-start flex-column">
-                <span class="card-label font-weight-bolder text-dark">Stats</span>
+                <span class="card-label font-weight-bolder text-dark"></span>
             </h3>
             <div class="card-toolbar">
                 <x-toolbar-button class="btn btn-success btn-sm btn-bold btn-square btn_create_audit_activity"

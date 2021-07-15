@@ -39,22 +39,14 @@ class AuditActivityController extends Controller
         isset($fiscal_year_id) ? $data ['fiscal_year_id'] = $fiscal_year_id : '';
 
         $activity_lists = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_find'), $data)->json();
-//        dd($activity_lists);
+
         return view('modules.audit_plan.operational.audit_activity.partials.load_created_activities', compact('fiscal_year_id', 'output_id', 'activity_lists', 'outcome_id'));
 
     }
 
     public function store(Request $request)
     {
-        $data = [
-            'activity_parent_id' => $request->activity_parent_id,
-            'activity_no' => $request->activity_no,
-            'title_en' => $request->title_en,
-            'title_bn' => $request->title_bn,
-            'output_id' => $request->output_id,
-            'outcome_id' => $request->outcome_id,
-            'fiscal_year_id' => $request->fiscal_year_id,
-        ];
+        $data = ['activity_parent_id' => $request->activity_parent_id, 'activity_no' => $request->activity_no, 'title_en' => $request->title_en, 'title_bn' => $request->title_bn, 'output_id' => $request->output_id, 'outcome_id' => $request->outcome_id, 'fiscal_year_id' => $request->fiscal_year_id,];
 
         $create_activity = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_create'), $data)->json();
 
@@ -68,14 +60,7 @@ class AuditActivityController extends Controller
 
     public function storeMilestone(Request $request)
     {
-        $data = [
-            'activity_id' => $request->activity_id,
-            'output_id' => $request->output_id,
-            'outcome_id' => $request->outcome_id,
-            'fiscal_year_id' => $request->fiscal_year_id,
-            'title_en' => $request->title_en,
-            'title_bn' => $request->title_bn
-        ];
+        $data = ['activity_id' => $request->activity_id, 'output_id' => $request->output_id, 'outcome_id' => $request->outcome_id, 'fiscal_year_id' => $request->fiscal_year_id, 'title_en' => $request->title_en, 'title_bn' => $request->title_bn];
 
         $create_milestone = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_milestone_create'), $data)->json();
 
@@ -93,24 +78,13 @@ class AuditActivityController extends Controller
 
     public function edit(Request $request, $activity_id)
     {
-        $activity = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_show'), [
-            'activity_id' => $activity_id
-        ])->json()['data'];
+        $activity = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_show'), ['activity_id' => $activity_id])->json()['data'];
         return view('modules.audit_plan.operational.audit_activity.edit_annual_audit_activity', compact('activity'));
     }
 
     public function update(Request $request, $activity_id)
     {
-        $data = [
-            'activity_id' => $activity_id,
-            'duration_id' => $request->duration_id,
-            'outcome_id' => $request->outcome_id,
-            'output_id' => $request->output_id,
-            'activity_no' => $request->activity_no,
-            'title_en' => $request->title_en,
-            'title_bn' => $request->title_bn,
-            'activity_parent_id' => $request->activity_parent_id ?? 0,
-        ];
+        $data = ['activity_id' => $activity_id, 'duration_id' => $request->duration_id, 'outcome_id' => $request->outcome_id, 'output_id' => $request->output_id, 'activity_no' => $request->activity_no, 'title_en' => $request->title_en, 'title_bn' => $request->title_bn, 'activity_parent_id' => $request->activity_parent_id ?? 0,];
         $updateActivity = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_update'), $data)->json();
 
         if (isset($updateActivity['status']) && $updateActivity['status'] == 'success') {
@@ -122,9 +96,7 @@ class AuditActivityController extends Controller
 
     public function destroy($activity_id)
     {
-        $data = [
-            'activity_id' => $activity_id,
-        ];
+        $data = ['activity_id' => $activity_id,];
         $deleteActivity = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_delete'), $data)->json();
 
         if (isset($deleteActivity['status']) && $deleteActivity['status'] == 'success') {

@@ -19,11 +19,9 @@ Route::group(['middleware' => 'jisf.auth'], function () {
         //strategic plan
         Route::group(['as' => 'strategy.', 'prefix' => 'strategy/'], function () {
 
-            Route::get('/', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'index'])
-                ->name('index');
+            Route::get('/', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'index'])->name('index');
 
-            Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'showAuditStrategicPlanDashboard'])
-                ->name('dashboard');
+            Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'showAuditStrategicPlanDashboard'])->name('dashboard');
 
             Route::get('draft-plans', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
             ::class, 'index'])->name('draft_plan.all');
@@ -53,19 +51,16 @@ Route::group(['middleware' => 'jisf.auth'], function () {
 
         //operational plan
         Route::group(['as' => 'operational.', 'prefix' => 'operational/'], function () {
-            Route::get('/', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'index'])
-                ->name('index');
+            Route::get('/', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'index'])->name('index');
 
-            Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'showOperationalPlanDashboard'])
-                ->name('dashboard');
+            Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditOperationalPlanController::class, 'showOperationalPlanDashboard'])->name('dashboard');
 
             //activity
             Route::get('activities', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'index'])->name('activity.all');
 
             Route::get('create-activity', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'create'])->name('activity.create');
             Route::post('store-activity', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'store'])->name('activity.store');
-            Route::post('store-activity-milestone', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'storeMilestone'])
-                ->name('activity.milestone.store');
+            Route::post('store-activity-milestone', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'storeMilestone'])->name('activity.milestone.store');
             Route::post('load-outputs-by-outcome', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'loadOutputsByOutcome'])->name('activity.load.outputs.by.outcome');
             Route::post('load-create-output-activity-tree', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'loadCreateOutputActivityTree'])->name('activity.create.output.tree.load');
 
@@ -74,39 +69,24 @@ Route::group(['middleware' => 'jisf.auth'], function () {
             Route::get('edit-activity', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'edit'])->name('activity.edit');
 
             //calendar
-            Route::get('calendar', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'index'])->name('calendar.index');
+            Route::get('calendars', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'index'])->name('calendar.index');
+            Route::post('calendar', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'show'])->name('calendar.single');
 
             Route::post('load-schedule-milestones', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'showScheduleMilestoneByFiscalYear'])->name('calendar.milestone.load');
             Route::post('update-schedule-milestones-date', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'updateMilestoneTargetDate'])->name('calendar.milestone.date.update');
             Route::post('create-responsible', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'createActivityResponsible'])->name('calendar.responsible.create');
             Route::post('activity-comment/update', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'updateActivityComment'])->name('calendar.comment.update');
-
             Route::post('load-audit-calendar-view', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'showAuditCalendarView'])->name('calendar.view.load');
-            Route::post(
-                'update-schedule-milestones-date',
-                [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'updateMilestoneTargetDate']
-            )->name('calendar.milestone.date.update');
+            Route::post('update-schedule-milestones-date', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'updateMilestoneTargetDate'])->name('calendar.milestone.date.update');
 
             Route::post('load-audit-calendar-print-view', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditCalendarController::class, 'showAuditCalendarPrintView'])->name('calendar.print.view.load');
 
             //plans
             Route::get('plans', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class, 'index'])->name('plan.all');
 
-            Route::post(
-                'load-operational-plan-lists',
-                [
-                    \App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class,
-                    'showOperationalPlanLists'
-                ]
-            )->name('plan.list.all');
+            Route::post('load-operational-plan-lists', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class, 'showOperationalPlanLists'])->name('plan.list.all');
 
-            Route::post(
-                'load-operational-plan-staff-assigned',
-                [
-                    \App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class,
-                    'showOperationalPlanStaffs'
-                ]
-            )->name('plan.assigned.staff');
+            Route::post('load-operational-plan-staff-assigned', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class, 'showOperationalPlanStaffs'])->name('plan.assigned.staff');
         });
 
         //annual plan
@@ -114,23 +94,13 @@ Route::group(['middleware' => 'jisf.auth'], function () {
             Route::get('/', [\App\Http\Controllers\AuditPlan\AuditAnnualPlanController::class, 'index'])->name('index');
             Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditAnnualPlanController::class, 'showAnnualPlanDashboard'])->name('dashboard');
 
-            Route::get('/plans', [
-                \App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanController::class,
-                'index'
-            ])->name('plan.all');
+            Route::get('/plans', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanController::class, 'index'])->name('plan.all');
 
-            Route::post('/load-annual-plan-lists', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanController
-            ::class, 'showAnnualPlanLists'])->name('plan.list.all');
+            Route::post('/load-annual-plan-lists', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanController::class, 'showAnnualPlanLists'])->name('plan.list.all');
 
-            Route::post(
-                '/load-annual-entity-selection',
-                [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanController::class, 'showEntitySelection']
-            )->name('plan.list.entity.selection.show');
+            Route::post('/load-annual-entity-selection', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanController::class, 'showEntitySelection'])->name('plan.list.entity.selection.show');
 
-            Route::get('/calendar', [
-                \App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendarController::class,
-                'index'
-            ])->name('calendar');
+            Route::get('/calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendarController::class, 'index'])->name('calendar');
 
             Route::get('/entity-calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendar\EntityCalendarController
             ::class, 'index'])->name('calendar.entity');
@@ -146,8 +116,7 @@ Route::group(['middleware' => 'jisf.auth'], function () {
 
             Route::get('/plans', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'index'])->name('plan.all');
 
-            Route::get('/create-plan/{id}', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'create'])
-                ->name('plan.create');
+            Route::get('/create-plan/{id}', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'create'])->name('plan.create');
         });
     });
 
@@ -253,10 +222,7 @@ Route::group(['middleware' => 'jisf.auth'], function () {
 
     //Miscellaneous
     Route::get('locale/{locale}', [App\Http\Controllers\ChangeController::class, 'changeLocale'])->name('change.locale');
-    Route::get(
-        'change/office/{office_id}/{office_unit_id}/{designation_id}',
-        [App\Http\Controllers\ChangeController::class, 'changeDesignation']
-    )->name('change.office');
+    Route::get('change/office/{office_id}/{office_unit_id}/{designation_id}', [App\Http\Controllers\ChangeController::class, 'changeDesignation'])->name('change.office');
 
     //Generic Data Collection
     Route::group(['as' => 'generic.'], function () {
@@ -325,8 +291,7 @@ Route::group(['middleware' => 'jisf.auth'], function () {
 
         /*
         Execution Route End
-        */
-        // Route::get('/anual-operation', function () {
+        */ // Route::get('/anual-operation', function () {
         //     return view('pages.anualOperation');
         // });
         Route::get('/create-strategic-operation', function () {
