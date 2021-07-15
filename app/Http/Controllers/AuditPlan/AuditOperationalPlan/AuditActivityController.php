@@ -9,7 +9,14 @@ class AuditActivityController extends Controller
 {
     public function index()
     {
-        return view('modules.audit_plan.operational.audit_activity.annual_audit_activity_lists');
+        $activities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_lists'), ['all' => 1])->json();
+
+        if ($activities['status'] == 'success') {
+            $activities = $activities['data'];
+            return view('modules.audit_plan.operational.audit_activity.annual_audit_activity_lists', compact('activities'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $activities]);
+        }
     }
 
     public function create()

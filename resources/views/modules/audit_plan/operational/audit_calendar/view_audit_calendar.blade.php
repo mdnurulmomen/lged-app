@@ -1,4 +1,5 @@
-<x-title-wrapper>Annual Audit Calender</x-title-wrapper>
+<x-title-wrapper-return url="{{route('audit.plan.operational.calendar.index')}}">Annual Audit Calendar
+</x-title-wrapper-return>
 <div class="mt-4 px-4">
     <div class="row">
         <div class="col-md-12">
