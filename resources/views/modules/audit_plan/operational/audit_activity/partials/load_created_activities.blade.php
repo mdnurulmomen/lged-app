@@ -3,14 +3,7 @@
         <ul>
             <li>
                 <div class="d-flex align-item-center">
-                    <div class="mr-5">Activities
-                        {{--                        <button data-output-id="{{$output_id}}"--}}
-                        {{--                                data-fiscal-year-id="{{$fiscal_year_id}}" data-outcome-id="{{$outcome_id}}"--}}
-                        {{--                                data-activity-parent-id="0" type="button" class="btn--}}
-                        {{--                                    btn-outline-secondary btn-icon btn_create_activity btn-square">--}}
-                        {{--                            <i class="fas fa-plus"></i>--}}
-                        {{--                        </button>--}}
-                    </div>
+                    <div class="mr-5">Activities</div>
                 </div>
                 {!! loadActivityTreeByOutput($activity_lists['data']) !!}
             </li>

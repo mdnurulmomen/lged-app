@@ -26,6 +26,10 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        fiscal_year_id = '{{$fiscal_year_id}}';
+        $('#select_fiscal_year_print_view').val(fiscal_year_id).trigger('change')
+    });
     $('#select_fiscal_year_print_view').change(function () {
         let fiscal_year = $('#select_fiscal_year_print_view').val();
         if (fiscal_year) {

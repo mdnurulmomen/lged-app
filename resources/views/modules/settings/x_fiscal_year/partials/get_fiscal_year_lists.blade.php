@@ -21,7 +21,7 @@
     </thead>
     <tbody style="" class="datatable-body">
     @forelse($fiscal_years as $fiscal_year)
-        <tr data-row="0" class="datatable-row" style="left: 0px;">
+        <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
             <td class="datatable-cell text-center"><span>{{$fiscal_year['start']}}</span></td>
             <td class="datatable-cell text-center"><span>{{$fiscal_year['end']}}</span></td>
             <td class="datatable-cell text-center">
