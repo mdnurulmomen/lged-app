@@ -27,6 +27,7 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
+<<<<<<< HEAD
                     <tbody>
                         <tr>
                             <td class="text-center"><span>2021-2022</span></td>
@@ -43,6 +44,27 @@
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 </div>
+=======
+                    <tbody style="" class="datatable-body">
+                    @forelse($activities as $activity)
+                        <tr data-row="0" class="datatable-row" style="left: 0px;">
+                            <td class="datatable-cell" style="width: 10%"><span>{{$activity['fiscal_year']}}</span></td>
+                            <td class="datatable-cell" style="width: 20%"><span>{{$activity['outcome_count']}}</span>
+                            </td>
+                            <td class="datatable-cell" style="width: 20%"><span>{{$activity['output_count']}}</span>
+                            </td>
+                            <td class="datatable-cell" style="width: 20%"><span>{{$activity['activity_count']}}</span>
+                            </td>
+                            <td class="datatable-cell" style="width: 20%"><span>{{$activity['milestone_count']}}</span>
+                            </td>
+
+                            <td class="datatable-cell" style="width: 5%">
+                                <a href="javascript:;"
+                                   data-url="{{route('audit.plan.operational.activity.single')}}"
+                                   class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_audit_annual_activity">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+>>>>>>> df30d91ca66d3c60e6622520815ea018216ba725
                             </td>
                         </tr>
                         <tr>
@@ -62,6 +84,15 @@
                                 </div>
                             </td>
                         </tr>
+<<<<<<< HEAD
+=======
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center"> No Data Found</td>
+                        </tr>
+                    @endforelse
+
+>>>>>>> df30d91ca66d3c60e6622520815ea018216ba725
                     </tbody>
                 </table>
             </div>
