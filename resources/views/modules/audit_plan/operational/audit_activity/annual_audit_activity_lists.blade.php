@@ -55,13 +55,17 @@
                     </tr>
                     </thead>
                     <tbody style="" class="datatable-body">
-{{--                    @forelse($activities as $activity)--}}
+                    @forelse($activities as $activity)
                         <tr data-row="0" class="datatable-row" style="left: 0px;">
-                            <td class="datatable-cell" style="width: 10%"><span>FY 2021-2022</span></td>
-                            <td class="datatable-cell" style="width: 20%"><span>2</span></td>
-                            <td class="datatable-cell" style="width: 20%"><span>2</span></td>
-                            <td class="datatable-cell" style="width: 20%"><span>32</span></td>
-                            <td class="datatable-cell" style="width: 20%"><span>66</span></td>
+                            <td class="datatable-cell" style="width: 10%"><span>{{$activity['fiscal_year']}}</span></td>
+                            <td class="datatable-cell" style="width: 20%"><span>{{$activity['outcome_count']}}</span>
+                            </td>
+                            <td class="datatable-cell" style="width: 20%"><span>{{$activity['output_count']}}</span>
+                            </td>
+                            <td class="datatable-cell" style="width: 20%"><span>{{$activity['activity_count']}}</span>
+                            </td>
+                            <td class="datatable-cell" style="width: 20%"><span>{{$activity['milestone_count']}}</span>
+                            </td>
 
                             <td class="datatable-cell" style="width: 5%">
                                 <a href="javascript:;"
@@ -78,11 +82,11 @@
                                 </a>
                             </td>
                         </tr>
-{{--                    @empty--}}
-{{--                        <tr>--}}
-{{--                            <td colspan="7" class="text-center"> No Data Found</td>--}}
-{{--                        </tr>--}}
-{{--                    @endforelse--}}
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center"> No Data Found</td>
+                        </tr>
+                    @endforelse
 
                     </tbody>
                 </table>
