@@ -53,4 +53,21 @@
         $('#' + modal_id + ' input[type=checkbox]').prop('checked', false);
     }
 
+    $('.jstree-init').jstree({
+        "core": {
+            "themes": {
+                "responsive": true
+            }
+        },
+        "types": {
+            "default": {
+                "icon": "fal fa-folder"
+            },
+            "person": {
+                "icon": "fal fa-file "
+            }
+        },
+        "plugins": ["types", "checkbox",]
+    });
+
 </script>
