@@ -53,6 +53,12 @@ return [
         'op_yearly_audit_calendar_update' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar/update',
         'op_yearly_audit_calendar_delete' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar/delete',
 
+        'op_yearly_audit_calendar_movement_lists' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar-movement',
+        'op_yearly_audit_calendar_movement_create' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar-movement/create',
+        'op_yearly_audit_calendar_movement_show' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar-movement/show',
+        'op_yearly_audit_calendar_movement_update' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar-movement/update',
+        'op_yearly_audit_calendar_movement_delete' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar-movement/delete',
+
         'op_calendar_all_lists' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar',
         'op_calendar_milestone_target_date_update' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/milestones/date/update',
         'op_calendar_responsible_assign' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/responsible/create',

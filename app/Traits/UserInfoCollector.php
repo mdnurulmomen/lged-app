@@ -17,6 +17,11 @@ trait UserInfoCollector
         return session()->has('login') ? session('login')['user_info']['employee_info'] : null;
     }
 
+    public function getUsername()
+    {
+        return $this->checkLogin() ? session('login')['user_info']['user']['username'] : null;
+    }
+
     public function checkLogin(): bool
     {
         $login_session = session('login') ?: $this->setLogin();
@@ -37,9 +42,9 @@ trait UserInfoCollector
         return null;
     }
 
-    public function getUsername()
+    public function getOfficerId()
     {
-        return $this->checkLogin() ? session('login')['user_info']['user']['username'] : null;
+        return $this->checkLogin() ? session('login')['user_info']['user']['employee_record_id'] : null;
     }
 
     public function current_designation_id()

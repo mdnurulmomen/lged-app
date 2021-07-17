@@ -59,8 +59,8 @@
 
                             <td class="datatable-cell" style="width: 5%">
                                 <button
-                                    data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"
-                                    class="panel_single_daak_forward_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                    data-calendar-id="{{$yearly_calendar['id']}}"
+                                    class="btn_audit_calendar_forward mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                     type="button">
                                     <i class="fad fa-share" data-toggle="popover" data-content="ডাক প্রেরণ করুন"></i>
                                 </button>
@@ -91,10 +91,10 @@
         });
     })
 
-    $('.panel_single_daak_forward_dropdown').on('click', function () {
-        url = '{{route('audit.plan.operational.calendar.forward.modal')}}'
-
-        ajaxCallAsyncCallbackAPI(url, {}, 'POST', function (response) {
+    $('.btn_audit_calendar_forward').on('click', function () {
+        url = '{{route('audit.plan.operational.calendar.forward_modal')}}'
+        audit_calendar_id = $(this).data('calendar-id')
+        ajaxCallAsyncCallbackAPI(url, {audit_calendar_id}, 'POST', function (response) {
             if (response.status === 'error') {
                 toastr.error('Error')
             } else {

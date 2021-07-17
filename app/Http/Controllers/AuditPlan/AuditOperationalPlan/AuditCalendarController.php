@@ -127,14 +127,52 @@ class AuditCalendarController extends Controller
         }
     }
 
-    public function showForwardAuditCalendarModal()
+    public function showForwardAuditCalendarModal(Request $request)
     {
         $officer_lists = $this->officeUnitDesignationEmployeeMap($this->current_office_id());
-
+        $audit_calendar_id = $request->audit_calendar_id;
         if ($officer_lists) {
-            return view('modules.audit_plan.operational.audit_calendar.partials.forward_audit_calendar_modal', compact('officer_lists'));
+            return view('modules.audit_plan.operational.audit_calendar.partials.forward_audit_calendar_modal', compact('officer_lists', 'audit_calendar_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $officer_lists]);
         }
+    }
+
+    public function forwardAuditCalendar(Request $request)
+    {
+        $designation_lists = $request->designation_to_forward;
+        $designation_roles = $request->designation_role;
+        $audit_calendar_master_id = $request->audit_calendar_id;
+        $designations = [];
+
+        foreach ($designation_lists as $designation_list) {
+            foreach ($designation_roles as $designations_role) {
+                $designation = explode('_', $designations_role);
+                $designation_list_decoded = json_decode($designation_list, true);
+                if ($designation[1] == $designation_list_decoded['designation_id']) {
+                    $designations[] = [
+                        'designation_id' => $designation_list_decoded['designation_id'],
+                        'designation_en' => $designation_list_decoded['designation_en'],
+                        'designation_bn' => $designation_list_decoded['designation_bn'],
+                        'officer_name' => $designation_list_decoded['officer_name'],
+                        'officer_id' => $designation_list_decoded['officer_id'],
+                        'unit_id' => $designation_list_decoded['unit_id'],
+                        'unit_name_en' => $designation_list_decoded['unit_name_en'],
+                        'unit_name_bn' => $designation_list_decoded['unit_name_bn'],
+                        'office_id' => $designation_list_decoded['office_id'],
+                        'officer_type' => $designation[0],
+                    ];
+                }
+            }
+        }
+
+        $data = [
+            'designations' => json_encode($designations),
+            'audit_calendar_master_id' => $audit_calendar_master_id,
+            'sent_by' => $this->getOfficerId(),
+        ];
+
+        $move = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_movement_create'), $data)->json();
+        dd($move);
     }
 }
