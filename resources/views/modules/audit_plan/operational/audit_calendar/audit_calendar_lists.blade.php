@@ -19,12 +19,16 @@
                             Fiscal Year
                         </th>
 
-                        <th class="datatable-cell datatable-cell-sort" style="width: 40%">
+                        <th class="datatable-cell datatable-cell-sort" style="width: 35%">
                             Initiator
                         </th>
 
-                        <th class="datatable-cell datatable-cell-sort" style="width: 40%">
+                        <th class="datatable-cell datatable-cell-sort" style="width: 35%">
                             Current Desk
+                        </th>
+
+                        <th class="datatable-cell datatable-cell-sort" style="width: 10%">
+                            Status
                         </th>
 
                         <th class="datatable-cell datatable-cell-sort" style="width: 5%">
@@ -40,13 +44,16 @@
                     @foreach($yearly_calendars as $yearly_calendar)
                         <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
                             <td class="datatable-cell" style="width: 10%">
-                                <span>{{$yearly_calendar['fiscal_year']['description']}}</span>
+                                <span>{{$yearly_calendar['fiscal_year']}}</span>
                             </td>
-                            <td class="datatable-cell" style="width: 40%">
+                            <td class="datatable-cell" style="width: 35%">
                                 <span>{{$yearly_calendar['initiator_name_en'] ?: 'Empty'}}</span>
                             </td>
-                            <td class="datatable-cell" style="width: 40%">
+                            <td class="datatable-cell" style="width: 35%">
                                 <span>{{$yearly_calendar['cdesk_name_en'] ?: 'Empty'}}</span>
+                            </td>
+                            <td class="datatable-cell" style="width: 10%">
+                                <span>{{ucfirst($yearly_calendar['status'])}}</span>
                             </td>
                             <td class="datatable-cell" style="width: 5%">
                                 <a href="javascript:;"
