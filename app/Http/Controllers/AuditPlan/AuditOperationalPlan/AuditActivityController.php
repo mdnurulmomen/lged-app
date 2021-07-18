@@ -41,14 +41,13 @@ class AuditActivityController extends Controller
 
         $data = [];
 
-        isset($output_id) ? $data ['output_id'] = $output_id : '';
-        isset($outcome_id) ? $data ['outcome_id'] = $outcome_id : '';
-        isset($fiscal_year_id) ? $data ['fiscal_year_id'] = $fiscal_year_id : '';
+        isset($output_id) ? $data['output_id'] = $output_id : '';
+        isset($outcome_id) ? $data['outcome_id'] = $outcome_id : '';
+        isset($fiscal_year_id) ? $data['fiscal_year_id'] = $fiscal_year_id : '';
 
         $activity_lists = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_find'), $data)->json();
 
         return view('modules.audit_plan.operational.audit_activity.partials.load_created_activities', compact('fiscal_year_id', 'output_id', 'activity_lists', 'outcome_id'));
-
     }
 
     public function store(Request $request)
@@ -62,7 +61,6 @@ class AuditActivityController extends Controller
         } else {
             return response()->json(['status' => 'error', 'data' => $create_activity]);
         }
-
     }
 
     public function storeMilestone(Request $request)
