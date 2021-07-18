@@ -3,7 +3,10 @@
     <!--begin::Advance Table Widget 4-->
     <div class="card card-custom card-stretch gutter-b">
         <!--begin::Header-->
-        <div class="card-header border-0 py-5 justify-content-end">
+        <div class="card-header border-0 py-5">
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label font-weight-bolder text-dark"></span>
+            </h3>
             <div class="card-toolbar">
                 <x-toolbar-button class="btn btn-success btn-sm btn-bold btn-square btn_create_audit_activity"
                                   href="{{route('audit.plan.operational.activity.create')}}">
@@ -15,53 +18,76 @@
         <!--begin::Body-->
         <div class="card-body pt-0 pb-3">
             <!--begin::Table-->
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead class="thead-light">
-                        <tr>
-                            <th class="text-center">Fiscal Year</th>
-                            <th class="text-center">Strategic Outcome Count</th>
-                            <th class="text-center">Strategic Output Count</th>
-                            <th class="text-center">Activities Count</th>
-                            <th class="text-center">Milestone Count</th>
-                            <th class="text-center">Action</th>
-                        </tr>
+            <div class="table-responsive datatable datatable-default datatable-bordered datatable-loaded">
+
+                <table class="datatable-bordered datatable-head-custom datatable-table"
+                       id="kt_datatable"
+                       style="display: block;">
+
+                    <thead class="datatable-head">
+                    <tr class="datatable-row" style="left: 0px;">
+                        <th class="datatable-cell datatable-cell-sort" style="width: 10%">
+                            Fiscal Year
+                        </th>
+
+                        <th class="datatable-cell datatable-cell-sort" style="width: 20%">
+                            Strategic Outcome Count
+                        </th>
+
+                        <th class="datatable-cell datatable-cell-sort" style="width: 20%">
+                            Strategic Output Count
+                        </th>
+
+                        <th class="datatable-cell datatable-cell-sort" style="width: 20%">
+                            Activities Count
+                        </th>
+
+                        <th class="datatable-cell datatable-cell-sort" style="width: 20%">
+                            Milestone Count
+                        </th>
+
+                        <th class="datatable-cell datatable-cell-sort" style="width: 5%">
+                            <i class="fas fa-eye"></i></th>
+
+                        <th class="datatable-cell datatable-cell-sort text-center" style="width: 5%">
+                            <i class="fas fa-edit"></i>
+                        </th>
+                    </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center"><span>2021-2022</span></td>
-                            <td class="text-center"><span>2</span></td>
-                            <td class="text-center"><span>2</span></td>
-                            <td class="text-center"><span>32</span></td>
-                            <td class="text-center"><span>66</span></td>
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <a href="javascript:;" data-url="{{route('audit.plan.operational.activity.single')}}" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_audit_annual_activity">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="javascript:;" data-url="{{route('audit.plan.operational.activity.edit')}}" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_audit_annual_activity">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                </div>
+                    <tbody style="" class="datatable-body">
+                    @forelse($activities as $activity)
+                        <tr data-row="0" class="datatable-row" style="left: 0px;">
+                            <td class="datatable-cell" style="width: 10%"><span>{{$activity['fiscal_year']}}</span></td>
+                            <td class="datatable-cell" style="width: 20%"><span>{{$activity['outcome_count']}}</span>
+                            </td>
+                            <td class="datatable-cell" style="width: 20%"><span>{{$activity['output_count']}}</span>
+                            </td>
+                            <td class="datatable-cell" style="width: 20%"><span>{{$activity['activity_count']}}</span>
+                            </td>
+                            <td class="datatable-cell" style="width: 20%"><span>{{$activity['milestone_count']}}</span>
+                            </td>
+
+                            <td class="datatable-cell" style="width: 5%">
+                                <a href="javascript:;"
+                                   data-url="{{route('audit.plan.operational.activity.single')}}"
+                                   class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_audit_annual_activity">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                            <td class="datatable-cell" style="width: 5%">
+                                <a href="javascript:;"
+                                   data-url="{{route('audit.plan.operational.activity.edit')}}"
+                                   class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_audit_annual_activity">
+                                    <i class="fas fa-edit"></i>
+                                </a>
                             </td>
                         </tr>
+                    @empty
                         <tr>
-                            <td class="text-center"><span>2021-2022</span></td>
-                            <td class="text-center"><span>2</span></td>
-                            <td class="text-center"><span>2</span></td>
-                            <td class="text-center"><span>32</span></td>
-                            <td class="text-center"><span>66</span></td>
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <a href="javascript:;" data-url="{{route('audit.plan.operational.activity.single')}}" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_audit_annual_activity">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="javascript:;" data-url="{{route('audit.plan.operational.activity.edit')}}" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_audit_annual_activity">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                </div>
-                            </td>
+                            <td colspan="7" class="text-center"> No Data Found</td>
                         </tr>
+                    @endforelse
+
                     </tbody>
                 </table>
             </div>

@@ -75,6 +75,11 @@
 </x-modal>
 
 <script>
+    $(document).ready(function () {
+        fiscal_year_id = '{{$fiscal_year_id}}';
+        $('#select_fiscal_year_schedule_milestone').val(fiscal_year_id).trigger('change')
+    });
+
     $('#select_fiscal_year_schedule_milestone').change(function () {
         let fiscal_year_id = $('#select_fiscal_year_schedule_milestone').val();
         if (fiscal_year_id) {

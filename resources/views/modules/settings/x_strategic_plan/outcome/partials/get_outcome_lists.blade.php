@@ -29,7 +29,7 @@
     </thead>
     <tbody style="" class="datatable-body">
     @forelse($plan_outcomes as $plan_outcome)
-        <tr data-row="0" class="datatable-row">
+        <tr data-row="{{$loop->iteration}}" class="datatable-row">
             <td class="datatable-cell text-center">
                 <span>{{$plan_outcome['plan_duration']['start_year']}} - {{$plan_outcome['plan_duration']['end_year']}}</span>
             </td>

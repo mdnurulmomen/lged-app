@@ -26,7 +26,6 @@
         ajaxCallAsyncCallbackAPI(url, data, method, function (response) {
             if (response.status === 'success') {
                 toastr.success('Success')
-                return response.data;
                 $('#' + modal_id).modal('hide');
             } else {
                 toastr.error(response.data.message)
@@ -53,5 +52,22 @@
         $('#' + modal_id + ' select').val('').trigger('change')
         $('#' + modal_id + ' input[type=checkbox]').prop('checked', false);
     }
+
+    $('.jstree-init').jstree({
+        "core": {
+            "themes": {
+                "responsive": true
+            }
+        },
+        "types": {
+            "default": {
+                "icon": "fal fa-folder"
+            },
+            "person": {
+                "icon": "fal fa-file "
+            }
+        },
+        "plugins": ["types", "checkbox",]
+    });
 
 </script>

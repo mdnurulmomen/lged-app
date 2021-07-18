@@ -47,10 +47,25 @@ return [
         'op_activity_milestone_update' => env('API_URL_BEE', '') . '/operational-plan/activity-milestone/update',
         'op_activity_milestone_delete' => env('API_URL_BEE', '') . '/operational-plan/activity-milestone/delete',
 
+        'op_yearly_audit_calendar_lists' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar',
+        'op_yearly_audit_calendar_create' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar/create',
+        'op_yearly_audit_calendar_show' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar/show',
+        'op_yearly_audit_calendar_update' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar/update',
+        'op_yearly_audit_calendar_delete' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar/delete',
+
+        'op_yearly_audit_calendar_movement_lists' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar-movement',
+        'op_yearly_audit_calendar_movement_create' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar-movement/create',
+        'op_yearly_audit_calendar_movement_show' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar-movement/show',
+        'op_yearly_audit_calendar_movement_update' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar-movement/update',
+        'op_yearly_audit_calendar_movement_delete' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar-movement/delete',
+
         'op_calendar_all_lists' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar',
         'op_calendar_milestone_target_date_update' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/milestones/date/update',
         'op_calendar_responsible_assign' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/responsible/create',
         'op_calendar_comment_update' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/comment/update',
+
+        'load_operational_plan_lists' => env('API_URL_BEE', '') . '/operational-plan/list',
+        'load-operational-plan-details' => env('API_URL_BEE', '') . '/operational-plan/details',
 
     ],
 ];
