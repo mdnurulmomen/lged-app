@@ -80,9 +80,9 @@ body,
 #kt_quick_cart{
     position: absolute;
 }
-.offcanvas-overlay{
+/* .offcanvas-overlay{
     position: relative !important;
-}
+} */
 .side-panel-overlay::before {
     position: absolute;
     top: 0;
