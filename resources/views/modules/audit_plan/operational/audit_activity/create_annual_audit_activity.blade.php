@@ -49,7 +49,7 @@
                                 <p id="output_remarks_area" class="d-none"></p>
                             </div>
                         </div>
-                        <div class="col-md-2" style="margin-top: 3.5%;">
+                        <div class="col-md-2 mt-md-12">
                             <button class="btn btn-icon btn-light-success btn-square mr-2 search_activities"
                                     type="button"><i
                                     class="fad fa-search"></i></button>

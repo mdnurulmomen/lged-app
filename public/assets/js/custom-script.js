@@ -440,9 +440,30 @@ $('#mySelect2').on('change', function() {
     }();
     
     jQuery(document).ready(function() {
-    KTCalendarBasic.init();
+        KTCalendarBasic.init();
     });
     /*************************/
+    var KTSummernoteDemo = function () {
+        // Private functions
+        var demos = function () {
+            $('.create_plan').summernote({
+                height: 250,
+                tabsize: 2
+            });
+        }
+    
+        return {
+            // public functions
+            init: function() {
+                demos();
+            }
+        };
+    }();
+    
+    // Initialization
+    jQuery(document).ready(function() {
+        KTSummernoteDemo.init();
+    });
 Split(['#split-0', '#split-1', '#split-2'],{
     minSize: 150,
     snapOffset: 10,
@@ -454,4 +475,6 @@ Split(['#split-0', '#split-1', '#split-2'],{
 //     gutterSize: 5,
 //     snapOffset: 10,
 // });
+
+
 

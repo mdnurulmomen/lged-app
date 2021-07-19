@@ -1,5 +1,5 @@
 <x-title-wrapper>Audit Activities</x-title-wrapper>
-<div class="col-lg-12">
+<div class="col-lg-12 pt-5">
     <!--begin::Advance Table Widget 4-->
     <div class="card card-custom card-stretch gutter-b">
         <!--begin::Header-->
@@ -90,7 +90,6 @@
 
                     </tbody>
                 </table>
-
             </div>
             <!--end::Table-->
         </div>
