@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 my-7">
-                            <button type="button" class="btn btn-success btn-square">Select Approver From List</button>
+                            <button type="button" class="btn btn-success btn-square" id="sidePanel">Select Approver From List</button>
                         </div>
                         <div class="col-md-12">
                             <div class="create_plan" id="kt_summernote_1"></div>

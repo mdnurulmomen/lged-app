@@ -116,3 +116,9 @@ body,
         left: 50px !important;
     }
 }
+.mileStone-close{
+    position: absolute;
+    z-index: 1;
+    right: -15px;
+    top: -15px;
+}

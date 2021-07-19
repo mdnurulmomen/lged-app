@@ -185,6 +185,9 @@ $("#kt_quick_cart").resize(function() {
     $(this).css("left", 'auto');
     $(this).css("overflow-x", 'hidden');
 });
+// $("#sidePanel").click(function(){
+//     $("#kt_quick_cart").addClass('offcanvas-on')
+// }) 
 // $("#kt_quick_cart_toggle").click(function() {
 //     $('html').addClass('side-panel-overlay');
 // });
@@ -464,11 +467,11 @@ $('#mySelect2').on('change', function() {
     jQuery(document).ready(function() {
         KTSummernoteDemo.init();
     });
-Split(['#split-0', '#split-1', '#split-2'],{
-    minSize: 150,
-    snapOffset: 10,
-    gutterSize: 5,
-});
+// Split(['#split-0', '#split-1', '#split-2'],{
+//     minSize: 150,
+//     snapOffset: 10,
+//     gutterSize: 5,
+// });
 // Split(['#split-3', '#split-4'], {
 //     direction: 'vertical',
 //     minSize: 150,

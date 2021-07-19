@@ -1405,3 +1405,6 @@ table {
     position: sticky;
     top: 80px;
 }
+.modal-view-button{
+    opacity: 0;
+}

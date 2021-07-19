@@ -49,6 +49,11 @@ Route::group(['middleware' => 'jisf.auth'], function () {
             ::class, 'index'])->name('risk.all');
             Route::post('risk', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\RiskController
             ::class, 'show'])->name('risk.single');
+
+            Route::get('/final-plan-add', function () {
+                return view('modules.audit_plan.strategic.meeting.strategic_plan_meeting_add');
+            })->name('plan');
+
         });
 
         //operational plan
@@ -238,6 +243,7 @@ Route::group(['middleware' => 'jisf.auth'], function () {
     /*
     Plan Route Start
     */
+
     Route::group(['prefix' => '/m/'], function () {
         Route::get('/plan-dashboard', function () {
             return view('pages.plan.dashboard');

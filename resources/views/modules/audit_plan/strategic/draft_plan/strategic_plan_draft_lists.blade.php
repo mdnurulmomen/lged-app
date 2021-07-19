@@ -1,18 +1,16 @@
 <x-title-wrapper>Draft Plan</x-title-wrapper>
-<div class="col-lg-12 pt-5">
+<div class="col-md-12">
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-success btn-sm btn-bold btn-square btn_create_audit_activity" href="/audit-plan/strategy/draft-plan/create">
+            <i class="far fa-plus mr-1"></i> Create New Plan
+        <a>
+    </div>
+</div>
+<div class="col-lg-12">
     <!--begin::Advance Table Widget 4-->
     <div class="card card-custom card-stretch gutter-b">
-        <!--begin::Header-->
-        <div class="card-header border-0 py-5 justify-content-end">
-            <div class="card-toolbar">
-                <a class="btn btn-success btn-sm btn-bold btn-square btn_create_audit_activity" href="/audit-plan/strategy/draft-plan/create">
-                    <i class="far fa-plus mr-1"></i> Create New Plan
-                <a>
-            </div>
-        </div>
-        <!--end::Header-->
         <!--begin::Body-->
-        <div class="card-body pt-0 pb-3">
+        <div class="card-body">
             <!--begin::Table-->
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -48,15 +46,6 @@
         <!--end::Body-->
         <div class="card-footer">
             <div class="d-flex justify-content-between align-items-center flex-wrap">
-                <div class="d-flex align-items-center">
-                    <select class="form-control form-control-sm text-primary font-weight-bold mr-4 border-0 bg-light-primary" style="width: 100px;">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </div>
                 <div class="d-flex flex-wrap mr-3">
                     <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
                         <i class="ki ki-bold-double-arrow-back icon-xs"></i>
