@@ -23,35 +23,39 @@
                                                         btn-outline-secondary btn-icon btn_create_activity btn-square">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
-                                            @if ($output['activities'])
+                                                @if ($output['activities'])
                                                 <ul>
                                                     @foreach ($output['activities'] as $activity)
                                                     <li>
                                                         <div class="d-flex align-item-center">
-                                                            <div class="mr-5">{{ $activity['activity_no'] }} : {{ $activity['title_en'] }}</div>
-                                                            <div class="btn-group mr-5" role="group" aria-label="First group">
-                                                                <button data-activity-parent-id="{{$activity['id']}}"
-                                                                        data-outcome-id="{{$activity['outcome_id']}}"
-                                                                        data-output-id="{{$activity['output_id'] }}"
-                                                                        data-fiscal-year-id="{{ $activity['fiscal_year_id'] }}"
-                                                                        type="button" class="btn
-                                                                    btn-outline-secondary btn-icon btn_create_activity btn-square">
-                                                                    <i class="fas fa-plus"></i>
-                                                                </button>
-                                
-                                                                <button type="button"
-                                                                        data-outcome-id="{{ $activity['outcome_id'] }}"
-                                                                        data-output-id="{{ $activity['output_id'] }}"
-                                                                        data-fiscal-year-id="{{ $activity['fiscal_year_id'] }}"
-                                                                        data-activity-id="{{ $activity['id'] }}"
-                                                                        class="btn_add_milestone btn btn-outline-secondary btn-icon btn-square"><i
-                                                                        class="fas fa-flag-checkered"></i></button>
+                                                            <div class="mr-5">{{ $activity['activity_no'] }} : {{ $activity['title_en'] }}
+                                                                <div class="btn-group mr-5" role="group" aria-label="First group">
+                                                                    <button data-activity-parent-id="{{$activity['id']}}"
+                                                                            data-outcome-id="{{$activity['outcome_id']}}"
+                                                                            data-output-id="{{$activity['output_id'] }}"
+                                                                            data-fiscal-year-id="{{ $activity['fiscal_year_id'] }}"
+                                                                            type="button" class="btn
+                                                                        btn-outline-secondary btn-icon btn_create_activity btn-square">
+                                                                        <i class="fas fa-plus"></i>
+                                                                    </button>
+                                    
+                                                                    <button type="button"
+                                                                            data-outcome-id="{{ $activity['outcome_id'] }}"
+                                                                            data-output-id="{{ $activity['output_id'] }}"
+                                                                            data-fiscal-year-id="{{ $activity['fiscal_year_id'] }}"
+                                                                            data-activity-id="{{ $activity['id'] }}"
+                                                                            class="btn_add_milestone btn btn-outline-secondary btn-icon btn-square"><i
+                                                                            class="fas fa-flag-checkered"></i></button>
+                                                                </div>
+                                                                @if(!empty($activity['children']))
+                                                                    @include('modules.audit_plan.operational.audit_activity.partials.recursiveChild',['children' => $activity['children']])
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </li>
                                                     @endforeach
                                                 </ul>
-                                            @endif
+                                                @endif
                                             </div>
                                         </div>
                                     </li>
