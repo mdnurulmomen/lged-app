@@ -47,17 +47,21 @@
                                 <span>{{$yearly_calendar['fiscal_year']}}</span>
                             </td>
                             <td class="datatable-cell" style="width: 35%">
-                                <span>{{$yearly_calendar['initiator_name_en'] ?: 'Empty'}}</span>
+                                <span>{{$yearly_calendar['initiator_name_en']}}</span>
+                                <span><small>{{$yearly_calendar['initiator_unit_name_en']}}</small></span>
                             </td>
                             <td class="datatable-cell" style="width: 35%">
-                                <span>{{$yearly_calendar['cdesk_name_en'] ?: 'Empty'}}</span>
+                                <span>{{$yearly_calendar['initiator_name_en']}}</span>
+                                <span><small>{{$yearly_calendar['initiator_unit_name_en']}}</small></span>
                             </td>
                             <td class="datatable-cell" style="width: 10%">
                                 <span>{{ucfirst($yearly_calendar['status'])}}</span>
                             </td>
+
                             <td class="datatable-cell" style="width: 5%">
                                 <a href="javascript:;"
                                    data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
+                                   data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
                                    data-url="{{route('audit.plan.operational.calendar.single')}}"
                                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_operational_calendar">
                                     <i class="fas fa-eye"></i>
@@ -72,6 +76,7 @@
                                     <i class="fad fa-share" data-toggle="popover" data-content="ডাক প্রেরণ করুন"></i>
                                 </button>
                             </td>
+
                         </tr>
                     @endforeach
                     </tbody>
@@ -88,8 +93,9 @@
 <script>
     $('.btn_view_operational_calendar').on('click', function () {
         url = $(this).data('url')
-        fiscal_year_id = $(this).data('fiscal-year-id')
-        ajaxCallAsyncCallbackAPI(url, {fiscal_year_id}, 'POST', function (response) {
+        fiscal_year_id = $(this).data('fiscal-year-id');
+        yearly_audit_calendar_id = $(this).data('yearly-audit-calendar-id');
+        ajaxCallAsyncCallbackAPI(url, {fiscal_year_id, yearly_audit_calendar_id}, 'POST', function (response) {
             if (response.status === 'error') {
                 toastr.error('Error')
             } else {

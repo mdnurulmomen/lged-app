@@ -23,6 +23,7 @@ class AuditCalendarController extends Controller
     public function show(Request $request)
     {
         $fiscal_year_id = $request->fiscal_year_id;
+        $yearly_audit_calendar_id = $request->yearly_audit_calendar_id;
         $fiscal_years = $this->allFiscalYears();
         $responsible_offices = $this->allResponsibleOffices();
 
