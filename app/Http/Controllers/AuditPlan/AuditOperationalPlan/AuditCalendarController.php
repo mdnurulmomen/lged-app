@@ -12,7 +12,7 @@ class AuditCalendarController extends Controller
     {
         $yearly_calendars = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_lists'), ['all' => 1])->json();
 
-        if ($yearly_calendars['status'] == 'success') {
+        if (array_key_exists('status', $yearly_calendars) && $yearly_calendars['status'] == 'success') {
             $yearly_calendars = $yearly_calendars['data'];
             return view('modules.audit_plan.operational.audit_calendar.audit_calendar_lists', compact('yearly_calendars'));
         } else {

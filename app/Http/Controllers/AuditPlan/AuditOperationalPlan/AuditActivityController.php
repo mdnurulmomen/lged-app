@@ -11,7 +11,7 @@ class AuditActivityController extends Controller
     {
         $activities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_lists'), ['all' => 1])->json();
 
-        if ($activities['status'] == 'success') {
+        if (array_key_exists('status', $activities) && $activities['status'] == 'success') {
             $activities = $activities['data'];
             return view('modules.audit_plan.operational.audit_activity.annual_audit_activity_lists', compact('activities'));
         } else {
