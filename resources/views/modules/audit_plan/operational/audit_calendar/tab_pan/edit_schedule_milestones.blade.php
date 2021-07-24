@@ -1,19 +1,3 @@
-<form>
-    <div class="form-row">
-        <div class="col-md-2 d-md-flex align-items-md-center">
-            <p class="mb-0">Fiscal Year</p>
-        </div>
-        <div class="col-md-4 ">
-            <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_schedule_milestone">
-                <option value="">Choose Fiscal Year</option>
-                @foreach($fiscal_years as $fiscal_year)
-                    <option value="{{$fiscal_year['id']}}">{{$fiscal_year['description']}}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-</form>
-
 <div class="row mt-5" id="load_schedule_milestones">
 
 </div>
@@ -76,12 +60,11 @@
 
 <script>
     $(document).ready(function () {
-        fiscal_year_id = '{{$fiscal_year_id}}';
-        $('#select_fiscal_year_schedule_milestone').val(fiscal_year_id).trigger('change')
+        loadData();
     });
 
-    $('#select_fiscal_year_schedule_milestone').change(function () {
-        let fiscal_year_id = $('#select_fiscal_year_schedule_milestone').val();
+    function loadData() {
+        let fiscal_year_id = '{{$fiscal_year_id}}';
         if (fiscal_year_id) {
             let url = '{{route('audit.plan.operational.calendar.milestone.load')}}';
             let data = {fiscal_year_id};
@@ -95,7 +78,7 @@
         } else {
             $('#load_schedule_milestones').html('');
         }
-    });
+    }
 
     $('.responsible_office_check').click(function () {
         var select_office = $(this).data('office_name');

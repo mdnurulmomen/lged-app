@@ -23,7 +23,7 @@
                             Initiator
                         </th>
 
-                        <th class="datatable-cell datatable-cell-sort" style="width: 35%">
+                        <th class="datatable-cell datatable-cell-sort" style="width: 30%">
                             Current Desk
                         </th>
 
@@ -33,6 +33,11 @@
 
                         <th class="datatable-cell datatable-cell-sort" style="width: 5%">
                             <i class="fas fa-eye"></i>
+                        </th>
+
+
+                        <th class="datatable-cell datatable-cell-sort" style="width: 5%">
+                            <i class="fas fa-edit"></i>
                         </th>
 
                         <th class="datatable-cell datatable-cell-sort" style="width: 5%">
@@ -50,7 +55,7 @@
                                 <span>{{$yearly_calendar['initiator_name_en']}}</span>
                                 <span><small>{{$yearly_calendar['initiator_unit_name_en']}}</small></span>
                             </td>
-                            <td class="datatable-cell" style="width: 35%">
+                            <td class="datatable-cell" style="width: 30%">
                                 <span>{{$yearly_calendar['initiator_name_en']}}</span>
                                 <span><small>{{$yearly_calendar['initiator_unit_name_en']}}</small></span>
                             </td>
@@ -62,9 +67,19 @@
                                 <a href="javascript:;"
                                    data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
                                    data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
-                                   data-url="{{route('audit.plan.operational.calendar.single')}}"
+                                   data-url="{{route('audit.plan.operational.calendars.show')}}"
                                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_operational_calendar">
                                     <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+
+                            <td class="datatable-cell" style="width: 5%">
+                                <a href="javascript:;"
+                                   data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
+                                   data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
+                                   data-url="{{route('audit.plan.operational.calendars.edit')}}"
+                                   class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_operational_calendar">
+                                    <i class="fas fa-edit"></i>
                                 </a>
                             </td>
 
@@ -92,6 +107,19 @@
 
 <script>
     $('.btn_view_operational_calendar').on('click', function () {
+        url = $(this).data('url')
+        fiscal_year_id = $(this).data('fiscal-year-id');
+        yearly_audit_calendar_id = $(this).data('yearly-audit-calendar-id');
+        ajaxCallAsyncCallbackAPI(url, {fiscal_year_id, yearly_audit_calendar_id}, 'POST', function (response) {
+            if (response.status === 'error') {
+                toastr.error('Error')
+            } else {
+                $("#kt_content").html(response);
+            }
+        });
+    })
+
+    $('.btn_edit_operational_calendar').on('click', function () {
         url = $(this).data('url')
         fiscal_year_id = $(this).data('fiscal-year-id');
         yearly_audit_calendar_id = $(this).data('yearly-audit-calendar-id');

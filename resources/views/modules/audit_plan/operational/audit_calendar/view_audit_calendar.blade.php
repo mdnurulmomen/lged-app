@@ -1,4 +1,4 @@
-<x-title-wrapper-return url="{{route('audit.plan.operational.calendar.index')}}">Annual Audit Calendar
+<x-title-wrapper-return url="{{route('audit.plan.operational.calendars.index')}}">Annual Audit Calendar
 </x-title-wrapper-return>
 <div class="mt-4 px-4">
     <div class="row">
@@ -31,7 +31,7 @@
                                 <div class="tab-content" id="operational_calendar_tab">
                                     <div class="tab-pane border border-top-0 p-3 fade show active" id="set_activity"
                                          role="tabpanel" aria-labelledby="activity-tab">
-                                        @include('modules.audit_plan.operational.audit_calendar.tab_pan.schedule_milestones')
+                                        @include('modules.audit_plan.operational.audit_calendar.tab_pan.view_schedule_milestones')
                                     </div>
 
                                     <div class="tab-pane fade border border-top-0 p-3" id="set_calendar" role="tabpanel"

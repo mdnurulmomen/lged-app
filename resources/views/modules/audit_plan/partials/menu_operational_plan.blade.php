@@ -12,7 +12,7 @@
                          icon="fab fa-firstdraft">Audit Activities
             </x-menu-item>
 
-            <x-menu-item class="" href="{{route('audit.plan.operational.calendar.index')}}" icon="far fa-calendar ">
+            <x-menu-item class="" href="{{route('audit.plan.operational.calendars.index')}}" icon="far fa-calendar ">
                 Audit
                 Calendar
             </x-menu-item>

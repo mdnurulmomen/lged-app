@@ -20,14 +20,40 @@ class AuditCalendarController extends Controller
         }
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function show(Request $request)
+    {
+        Validator::make($request->all(), ['fiscal_year_id' => 'required|integer', 'yearly_audit_calendar_id' => 'required|integer',])->validate();
+        $fiscal_year_id = $request->fiscal_year_id;
+        $yearly_audit_calendar_id = $request->yearly_audit_calendar_id;
+
+        $activity_calendars = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_all_lists'), ['fiscal_year_id' => $fiscal_year_id, 'yearly_calendar_id' => $yearly_audit_calendar_id])->json();
+        $fiscal_year = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_show'), ['fiscal_year_id' => $fiscal_year_id])->json()['data'];
+
+        if ($activity_calendars['status'] = 'success') {
+            $activity_calendars = $activity_calendars['data'];
+            return view('modules.audit_plan.operational.audit_calendar.view_audit_calendar', compact('activity_calendars', 'fiscal_year'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => 'Sorry!']);
+        }
+    }
+
+    public function edit(Request $request)
     {
         $fiscal_year_id = $request->fiscal_year_id;
         $yearly_audit_calendar_id = $request->yearly_audit_calendar_id;
         $fiscal_years = $this->allFiscalYears();
+        $fiscal_year = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_show'), ['fiscal_year_id' => $fiscal_year_id])->json()['data'];
+        $activity_calendars = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_all_lists'), ['fiscal_year_id' => $fiscal_year_id, 'yearly_calendar_id' => $yearly_audit_calendar_id])->json();
         $responsible_offices = $this->allResponsibleOffices();
-
-        return view('modules.audit_plan.operational.audit_calendar.view_audit_calendar', compact('fiscal_years', 'responsible_offices', 'fiscal_year_id'));
+        if ($activity_calendars['status'] = 'success') {
+            $activity_calendars = $activity_calendars['data'];
+            return view('modules.audit_plan.operational.audit_calendar.edit_audit_calendar', compact('fiscal_year', 'fiscal_years', 'activity_calendars', 'responsible_offices', 'fiscal_year_id'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => 'Sorry!']);
+        }
     }
 
     /**
@@ -49,7 +75,7 @@ class AuditCalendarController extends Controller
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function updateMilestoneTargetDate(Request $request)
+    public function updateMilestoneTargetDate(Request $request): \Illuminate\Http\JsonResponse
     {
         Validator::make($request->all(), ['yearly_audit_calendar_id' => 'required|integer', 'milestone_id' => 'required|integer', 'target_date' => 'required|date',])->validate();
 
@@ -94,14 +120,10 @@ class AuditCalendarController extends Controller
         }
     }
 
-    /**
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function showAuditCalendarView(Request $request)
+    public function showAuditCalendarView($fiscal_year_id)
     {
-        Validator::make($request->all(), ['fiscal_year_id' => 'required|integer',])->validate();
+        $calendar_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_all_lists'), ['fiscal_year_id' => $fiscal_year_id])->json();
 
-        $calendar_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_all_lists'), ['fiscal_year_id' => $request->fiscal_year_id])->json();
 
         if ($calendar_data['status'] = 'success') {
             $calendar_data = $calendar_data['data'];

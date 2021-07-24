@@ -1,4 +1,3 @@
-{{--{{dd($activity_calendars)}}--}}
 <div class="col-md-12">
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -58,13 +57,6 @@
                                 <tr>
                                     <td id="added_responsible_area_{{$activity_calendar['id']}}">
                                         @forelse($activity_calendar['responsibles'] as $responsible)
-                                            {{--    <table>--}}
-                                            {{--        <tr id="">--}}
-                                            {{--            <td>--}}
-                                            {{--                <i class="fas fa-building mr-2 text-primary"></i>{{$responsible['office']['short_name_en']}}--}}
-                                            {{--            </td>--}}
-                                            {{--        </tr>--}}
-                                            {{--   </table>--}}
                                             {{$responsible['office']['short_name_en']}} {{$loop->last ? '' : ','}}
                                         @empty
                                             <table>
