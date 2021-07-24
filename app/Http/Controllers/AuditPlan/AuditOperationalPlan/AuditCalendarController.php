@@ -44,13 +44,12 @@ class AuditCalendarController extends Controller
     {
         $fiscal_year_id = $request->fiscal_year_id;
         $yearly_audit_calendar_id = $request->yearly_audit_calendar_id;
-        $fiscal_years = $this->allFiscalYears();
         $fiscal_year = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_show'), ['fiscal_year_id' => $fiscal_year_id])->json()['data'];
         $activity_calendars = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_all_lists'), ['fiscal_year_id' => $fiscal_year_id, 'yearly_calendar_id' => $yearly_audit_calendar_id])->json();
         $responsible_offices = $this->allResponsibleOffices();
         if ($activity_calendars['status'] = 'success') {
             $activity_calendars = $activity_calendars['data'];
-            return view('modules.audit_plan.operational.audit_calendar.edit_audit_calendar', compact('fiscal_year', 'fiscal_years', 'activity_calendars', 'responsible_offices', 'fiscal_year_id'));
+            return view('modules.audit_plan.operational.audit_calendar.edit_audit_calendar', compact('fiscal_year', 'activity_calendars', 'responsible_offices', 'fiscal_year_id'))->render();
         } else {
             return response()->json(['status' => 'error', 'data' => 'Sorry!']);
         }
