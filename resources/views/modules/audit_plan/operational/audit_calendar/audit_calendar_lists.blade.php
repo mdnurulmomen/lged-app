@@ -95,7 +95,7 @@
                                     </a>
                                 </td>
                             @endif
-                            @if (in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor))
+                            @if ($yearly_calendar['status'] == 'draft' && (in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor)))
                                 <td class="datatable-cell" style="width: 5%">
                                     <a href="javascript:;"
                                     data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
