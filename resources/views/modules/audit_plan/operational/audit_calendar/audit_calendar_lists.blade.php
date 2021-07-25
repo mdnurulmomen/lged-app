@@ -87,10 +87,10 @@
                             @if (in_array(@$emp['id'], $viewer) || in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor))
                                 <td class="datatable-cell" style="width: 5%">
                                     <a href="javascript:;"
-                                    data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
-                                    data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
-                                    data-url="{{route('audit.plan.operational.calendars.show')}}"
-                                    class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_operational_calendar">
+                                       data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
+                                       data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
+                                       data-url="{{route('audit.plan.operational.calendars.show')}}"
+                                       class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_operational_calendar">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </td>
@@ -98,10 +98,10 @@
                             @if ($yearly_calendar['status'] == 'draft' && (in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor)))
                                 <td class="datatable-cell" style="width: 5%">
                                     <a href="javascript:;"
-                                    data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
-                                    data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
-                                    data-url="{{route('audit.plan.operational.calendars.edit')}}"
-                                    class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_operational_calendar">
+                                       data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
+                                       data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
+                                       data-url="{{route('audit.plan.operational.calendars.edit')}}"
+                                       class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_operational_calendar">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 </td>
@@ -236,6 +236,7 @@
                         toastr.error('Error');
                     } else {
                         Swal.fire('Approved!', '', 'success')
+                        $('.op_audit_calendar a').click();
                     }
                 });
             } else if (result.isDenied) {
