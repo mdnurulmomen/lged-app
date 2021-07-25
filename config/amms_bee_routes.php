@@ -53,6 +53,11 @@ return [
         'op_yearly_audit_calendar_update' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar/update',
         'op_yearly_audit_calendar_delete' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar/delete',
 
+        'op_yearly_audit_calendar_movement_history' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/movement/history',
+        'op_yearly_audit_calendar_changeStatus' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/changeStatus',
+
+
+
         'op_yearly_audit_calendar_movement_lists' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar-movement',
         'op_yearly_audit_calendar_movement_create' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar-movement/create',
         'op_yearly_audit_calendar_movement_show' => env('API_URL_BEE', '') . '/operational-plan/yearly-audit-calendar-movement/show',
