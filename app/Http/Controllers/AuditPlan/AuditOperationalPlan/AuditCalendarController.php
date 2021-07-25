@@ -5,16 +5,20 @@ namespace App\Http\Controllers\AuditPlan\AuditOperationalPlan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\UserInfoCollector;
 
 class AuditCalendarController extends Controller
 {
+    use UserInfoCollector;
+
     public function index()
     {
+        $emp = $this->getEmployeeInfo();
         $yearly_calendars = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_lists'), ['all' => 1])->json();
 
         if (isSuccess($yearly_calendars)) {
             $yearly_calendars = $yearly_calendars['data'];
-            return view('modules.audit_plan.operational.audit_calendar.audit_calendar_lists', compact('yearly_calendars'));
+            return view('modules.audit_plan.operational.audit_calendar.audit_calendar_lists', compact('yearly_calendars', 'emp'));
         } else {
             return response()->json(['status' => 'error', 'data' => $yearly_calendars]);
         }
@@ -87,7 +91,6 @@ class AuditCalendarController extends Controller
         } else {
             return response()->json(['status' => 'error', 'data' => 'Sorry!']);
         }
-
     }
 
     public function createActivityResponsible(Request $request): \Illuminate\Http\JsonResponse
@@ -196,5 +199,32 @@ class AuditCalendarController extends Controller
 
         $move = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_movement_create'), $data)->json();
         dd($move);
+    }
+
+    public function movementHistory(Request $request)
+    {
+        $data = Validator::make($request->all(), ['op_yearly_calendar_id' => 'required|integer'])->validate();
+
+        $histories = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_movement_history'), $data)->json();
+
+        if ($histories['status'] = 'success') {
+            $histories = $histories['data'];
+            return view('modules.audit_plan.operational.audit_calendar.movement_history', compact('histories'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => 'Sorry!']);
+        }
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $data = Validator::make($request->all(), ['id' => 'required|integer', 'status' => 'required|string'])->validate();
+
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_changeStatus'), $data)->json();
+
+        if ($response['status'] = 'success') {
+            return response()->json(['status' => 'success', 'data' => 'Approved!']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => 'Sorry!']);
+        }
     }
 }

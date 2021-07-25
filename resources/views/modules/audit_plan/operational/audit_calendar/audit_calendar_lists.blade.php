@@ -19,11 +19,11 @@
                             Fiscal Year
                         </th>
 
-                        <th class="datatable-cell datatable-cell-sort" style="width: 35%">
+                        <th class="datatable-cell datatable-cell-sort" style="width: 28%">
                             Initiator
                         </th>
 
-                        <th class="datatable-cell datatable-cell-sort" style="width: 30%">
+                        <th class="datatable-cell datatable-cell-sort" style="width: 25%">
                             Current Desk
                         </th>
 
@@ -41,6 +41,14 @@
                         </th>
 
                         <th class="datatable-cell datatable-cell-sort" style="width: 5%">
+                            <i class="fas fa-check"></i>
+                        </th>
+
+                        <th class="datatable-cell datatable-cell-sort" style="width: 5%">
+                            <i class="fas fa-history"></i>
+                        </th>
+
+                        <th class="datatable-cell datatable-cell-sort" style="width: 5%">
                             <i class="fad fa-share"></i>
                         </th>
                     </tr>
@@ -51,7 +59,7 @@
                             <td class="datatable-cell" style="width: 10%">
                                 <span>{{$yearly_calendar['fiscal_year']}}</span>
                             </td>
-                            <td class="datatable-cell" style="width: 35%">
+                            <td class="datatable-cell" style="width: 30%">
                                 <span>{{$yearly_calendar['initiator_name_en']}}</span>
                                 <span><small>{{$yearly_calendar['initiator_unit_name_en']}}</small></span>
                             </td>
@@ -62,31 +70,79 @@
                             <td class="datatable-cell" style="width: 10%">
                                 <span>{{ucfirst($yearly_calendar['status'])}}</span>
                             </td>
+                            @php
+                                $viewer = [];
+                                $editor = [];
+                                $approver = [];
+                                foreach ($yearly_calendar['viewers'] as $value) {
+                                    $viewer[] = $value['employee_id'];
+                                }
+                                foreach ($yearly_calendar['editors'] as $value) {
+                                    $editor[] = $value['employee_id'];
+                                }
+                                foreach ($yearly_calendar['approvers'] as $value) {
+                                    $approver[] = $value['employee_id'];
+                                }
+                            @endphp
+                            @if (in_array(@$emp['id'], $viewer) || in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor))
+                                <td class="datatable-cell" style="width: 5%">
+                                    <a href="javascript:;"
+                                    data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
+                                    data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
+                                    data-url="{{route('audit.plan.operational.calendars.show')}}"
+                                    class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_operational_calendar">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </td>
+                            @endif
+                            @if (in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor))
+                                <td class="datatable-cell" style="width: 5%">
+                                    <a href="javascript:;"
+                                    data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
+                                    data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
+                                    data-url="{{route('audit.plan.operational.calendars.edit')}}"
+                                    class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_operational_calendar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </td>
+                            @endif
+
+                            @if (in_array(@$emp['id'], $approver) && $yearly_calendar['status'] == 'draft')
+                                <td class="datatable-cell" style="width: 5%">
+                                    <button
+                                        data-calendar-id="{{$yearly_calendar['id']}}"
+                                        class="btn_audit_calendar_approve btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                        type="button">
+                                        <i class="fad fa-check" data-toggle="popover" data-content="Approve"></i>
+                                    </button>
+                                </td>
+                            @endif
+
+                            @if ($yearly_calendar['status'] == 'approved' && $yearly_calendar['employee_record_id'] == @$emp['id'])
+                                <td class="datatable-cell" style="width: 5%">
+                                    <button
+                                        data-calendar-id="{{$yearly_calendar['id']}}"
+                                        class="btn_audit_calendar_publish btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                        type="button">
+                                        <i class="fad fa-paper-plane" data-toggle="popover" data-content="Publish"></i>
+                                    </button>
+                                </td>
+                            @endif
+                            
 
                             <td class="datatable-cell" style="width: 5%">
-                                <a href="javascript:;"
-                                   data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
-                                   data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
-                                   data-url="{{route('audit.plan.operational.calendars.show')}}"
-                                   class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_operational_calendar">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                            </td>
-
-                            <td class="datatable-cell" style="width: 5%">
-                                <a href="javascript:;"
-                                   data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
-                                   data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
-                                   data-url="{{route('audit.plan.operational.calendars.edit')}}"
-                                   class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_operational_calendar">
-                                    <i class="fas fa-edit"></i>
-                                </a>
+                                <button
+                                    data-calendar-id="{{$yearly_calendar['id']}}"
+                                    class="btn_audit_calendar_movement btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                    type="button">
+                                    <i class="fad fa-history" data-toggle="popover" data-content="Movement history"></i>
+                                </button>
                             </td>
 
                             <td class="datatable-cell" style="width: 5%">
                                 <button
                                     data-calendar-id="{{$yearly_calendar['id']}}"
-                                    class="btn_audit_calendar_forward mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                    class="btn_audit_calendar_forward btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                     type="button">
                                     <i class="fad fa-share" data-toggle="popover" data-content="ডাক প্রেরণ করুন"></i>
                                 </button>
@@ -104,6 +160,12 @@
 <div class="forward_audit_calendar_modal_area">
 
 </div>
+
+<x-modal id="movement_audit_calendar_modal" title="Movement" size='md' saveButton="off">
+    <div class="row">
+        <div class="movement_audit_calendar_modal_area"></div>
+    </div>
+</x-modal>
 
 <script>
     $('.btn_view_operational_calendar').on('click', function () {
@@ -143,5 +205,68 @@
                 $('#forward_audit_calendar_modal').modal('show')
             }
         });
+    })
+
+    $('.btn_audit_calendar_movement').on('click', function () {
+        url = '{{route('audit.plan.operational.calendar.movement.history')}}'
+        op_yearly_calendar_id = $(this).data('calendar-id')
+        ajaxCallAsyncCallbackAPI(url, {op_yearly_calendar_id}, 'POST', function (response) {
+            if (response.status === 'error') {
+                toastr.error('Error')
+            } else {
+                $(".movement_audit_calendar_modal_area").html(response);
+                $('#movement_audit_calendar_modal').modal('show')
+            }
+        });
+    })
+
+    $('.btn_audit_calendar_approve').on('click', function () {
+
+        Swal.fire({
+            title: 'Are you sure ?',
+            showCancelButton: true,
+            confirmButtonText: `Approve`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                url = '{{route('audit.plan.operational.calendar.changeStatus')}}'
+                id = $(this).data('calendar-id');
+                status = 'approved';
+                ajaxCallAsyncCallbackAPI(url, {id, status}, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error('Error');
+                    } else {
+                        Swal.fire('Approved!', '', 'success')
+                    }
+                });
+            } else if (result.isDenied) {
+                Swal.fire('Canceled', '', 'info')
+            }
+        });
+
+    })
+
+    $('.btn_audit_calendar_publish').on('click', function () {
+
+        Swal.fire({
+            title: 'Are you sure you want to publish ?',
+            showCancelButton: true,
+            confirmButtonText: `Publish`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                url = '{{route('audit.plan.operational.calendar.changeStatus')}}'
+                id = $(this).data('calendar-id');
+                status = 'published';
+                ajaxCallAsyncCallbackAPI(url, {id, status}, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error('Error');
+                    } else {
+                        Swal.fire('Published!', '', 'success')
+                    }
+                });
+            } else if (result.isDenied) {
+                Swal.fire('Canceled', '', 'info')
+            }
+        });
+
     })
 </script>

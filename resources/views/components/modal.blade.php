@@ -1,4 +1,4 @@
-@props(['id' => 'quick_modal', 'title' => '', 'url' => '', 'method' => 'post', 'size'=>'xl'])
+@props(['id' => 'quick_modal', 'title' => '', 'url' => '', 'method' => 'post', 'size'=>'xl', 'saveButton' => 'on'])
 <div class="modal fade" id="{{$id}}" data-backdrop="static" tabindex="-1" role="dialog"
      aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-{{$size}}" role="document">
@@ -16,11 +16,13 @@
                 <button type="button" class="btn btn-light-primary font-weight-bold btn-square" data-dismiss="modal">
                     Close
                 </button>
+                @if($saveButton == "on")
                 <button type="button" class="btn btn-primary font-weight-bold btn-square" id="btn_{{$id}}_save"
                         data-method="{{$method}}"
                         data-url="{{$url}}">
                     Save changes
                 </button>
+                @endif
             </div>
         </div>
     </div>
