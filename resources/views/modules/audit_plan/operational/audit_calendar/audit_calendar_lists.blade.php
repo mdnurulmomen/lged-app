@@ -128,7 +128,7 @@
                                     </button>
                                 </td>
                             @endif
-                            
+
 
                             <td class="datatable-cell" style="width: 5%">
                                 <button
@@ -228,7 +228,7 @@
             confirmButtonText: `Approve`,
         }).then((result) => {
             if (result.isConfirmed) {
-                url = '{{route('audit.plan.operational.calendar.changeStatus')}}'
+                url = '{{route('audit.plan.operational.calendar.change-status')}}'
                 id = $(this).data('calendar-id');
                 status = 'approved';
                 ajaxCallAsyncCallbackAPI(url, {id, status}, 'POST', function (response) {
@@ -253,7 +253,7 @@
             confirmButtonText: `Publish`,
         }).then((result) => {
             if (result.isConfirmed) {
-                url = '{{route('audit.plan.operational.calendar.changeStatus')}}'
+                url = '{{route('audit.plan.operational.calendar.change-status')}}'
                 id = $(this).data('calendar-id');
                 status = 'published';
                 ajaxCallAsyncCallbackAPI(url, {id, status}, 'POST', function (response) {
