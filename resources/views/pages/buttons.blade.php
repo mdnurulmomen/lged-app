@@ -178,7 +178,7 @@
                                 <i class="fas fa-edit"></i></button>
                             <button
                                 class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary">
-                                <i class="fas fa-eye"></i></button>
+                                <i class="fad fa-eye"></i></button>
                         </div>
                         <div class="btn-group mr-2">
                             <button class="btn btn-warning btn-sm btn-square"><i class="fa fa-save"></i>সংরক্ষণ</button>

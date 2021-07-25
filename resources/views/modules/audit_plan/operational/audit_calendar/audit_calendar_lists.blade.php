@@ -15,11 +15,11 @@
 
                     <thead class="datatable-head">
                     <tr class="datatable-row" style="left: 0px;">
-                        <th class="datatable-cell datatable-cell-sort" style="width: 10%">
+                        <th class="datatable-cell datatable-cell-sort" style="width: 15%">
                             Fiscal Year
                         </th>
 
-                        <th class="datatable-cell datatable-cell-sort" style="width: 28%">
+                        <th class="datatable-cell datatable-cell-sort" style="width: 25%">
                             Initiator
                         </th>
 
@@ -31,43 +31,26 @@
                             Status
                         </th>
 
-                        <th class="datatable-cell datatable-cell-sort" style="width: 5%">
-                            <i class="fas fa-eye"></i>
-                        </th>
-
-
-                        <th class="datatable-cell datatable-cell-sort" style="width: 5%">
-                            <i class="fas fa-edit"></i>
-                        </th>
-
-                        <th class="datatable-cell datatable-cell-sort" style="width: 5%">
-                            <i class="fas fa-check"></i>
-                        </th>
-
-                        <th class="datatable-cell datatable-cell-sort" style="width: 5%">
-                            <i class="fas fa-history"></i>
-                        </th>
-
-                        <th class="datatable-cell datatable-cell-sort" style="width: 5%">
-                            <i class="fad fa-share"></i>
+                        <th class="datatable-cell datatable-cell-sort" colspan="5" style="width: 25%">
+                            Action
                         </th>
                     </tr>
                     </thead>
                     <tbody style="" class="datatable-body">
                     @foreach($yearly_calendars as $yearly_calendar)
                         <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
-                            <td class="datatable-cell" style="width: 10%">
+                            <td class="datatable-cell" style="width: 15%">
                                 <span>{{$yearly_calendar['fiscal_year']}}</span>
                             </td>
-                            <td class="datatable-cell" style="width: 30%">
+                            <td class="datatable-cell" style="width: 25%">
                                 <span>{{$yearly_calendar['initiator_name_en']}}</span>
                                 <span><small>{{$yearly_calendar['initiator_unit_name_en']}}</small></span>
                             </td>
-                            <td class="datatable-cell" style="width: 30%">
+                            <td class="datatable-cell" style="width: 25%">
                                 <span>{{$yearly_calendar['initiator_name_en']}}</span>
                                 <span><small>{{$yearly_calendar['initiator_unit_name_en']}}</small></span>
                             </td>
-                            <td class="datatable-cell" style="width: 10%">
+                            <td class="datatable-cell" style=" width: 10% ">
                                 <span>{{ucfirst($yearly_calendar['status'])}}</span>
                             </td>
                             @php
@@ -91,7 +74,7 @@
                                        data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
                                        data-url="{{route('audit.plan.operational.calendars.show')}}"
                                        class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_operational_calendar">
-                                        <i class="fas fa-eye"></i>
+                                        <i class="fad fa-eye"></i>
                                     </a>
                                 </td>
                             @endif
@@ -118,9 +101,22 @@
                                 </td>
                             @endif
 
-                            @if ($yearly_calendar['status'] == 'approved' && $yearly_calendar['employee_record_id'] == @$emp['id'])
+                            @if (in_array(@$emp['id'], $approver) && $yearly_calendar['status'] == 'approved')
                                 <td class="datatable-cell" style="width: 5%">
                                     <button
+                                        title="disapprove"
+                                        data-calendar-id="{{$yearly_calendar['id']}}"
+                                        class="btn_audit_calendar_disapprove btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                        type="button">
+                                        <i class="fad fa-times" data-toggle="popover" data-content="Disapprove"></i>
+                                    </button>
+                                </td>
+                            @endif
+
+                            @if ($yearly_calendar['status'] == 'approved')
+                                <td class="datatable-cell" style="width: 5%">
+                                    <button
+                                        title="Publish"
                                         data-calendar-id="{{$yearly_calendar['id']}}"
                                         class="btn_audit_calendar_publish btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                         type="button">
@@ -132,6 +128,7 @@
 
                             <td class="datatable-cell" style="width: 5%">
                                 <button
+                                    title="Movement history"
                                     data-calendar-id="{{$yearly_calendar['id']}}"
                                     class="btn_audit_calendar_movement btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                     type="button">
@@ -141,10 +138,11 @@
 
                             <td class="datatable-cell" style="width: 5%">
                                 <button
+                                    title="Forward"
                                     data-calendar-id="{{$yearly_calendar['id']}}"
                                     class="btn_audit_calendar_forward btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                     type="button">
-                                    <i class="fad fa-share" data-toggle="popover" data-content="ডাক প্রেরণ করুন"></i>
+                                    <i class="fad fa-share" data-toggle="popover" data-content="Forward"></i>
                                 </button>
                             </td>
 
@@ -221,7 +219,6 @@
     })
 
     $('.btn_audit_calendar_approve').on('click', function () {
-
         Swal.fire({
             title: 'Are you sure ?',
             showCancelButton: true,
@@ -236,6 +233,32 @@
                         toastr.error('Error');
                     } else {
                         Swal.fire('Approved!', '', 'success')
+                        $('.op_audit_calendar a').click();
+                    }
+                });
+            } else if (result.isDenied) {
+                Swal.fire('Canceled', '', 'info')
+            }
+        });
+
+    })
+
+
+    $('.btn_audit_calendar_disapprove').on('click', function () {
+        Swal.fire({
+            title: 'Are you sure ?',
+            showCancelButton: true,
+            confirmButtonText: `Disapprove`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                url = '{{route('audit.plan.operational.calendar.change-status')}}'
+                id = $(this).data('calendar-id');
+                status = 'draft';
+                ajaxCallAsyncCallbackAPI(url, {id, status}, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error('Error');
+                    } else {
+                        Swal.fire('Disapproved!', '', 'success')
                         $('.op_audit_calendar a').click();
                     }
                 });
