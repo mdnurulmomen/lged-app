@@ -200,7 +200,7 @@ if (!function_exists('getBrowser')) {
             'name' => $bname,
             'version' => $version,
             'platform' => $platform,
-            'pattern' => $pattern
+            'pattern' => $pattern,
         );
     }
 }
@@ -213,12 +213,12 @@ if (!function_exists('responseFormat')) {
             if ($status == 'success') {
                 $response = [
                     'status' => $status,
-                    'data' => $data
+                    'data' => $data,
                 ];
             } elseif ($status == 'error') {
                 $response = [
                     'status' => $status,
-                    'message' => $data
+                    'message' => $data,
                 ];
                 if (!empty($options) && !empty($options['details'])) {
                     $response['details'] = $options['details'];
@@ -254,6 +254,13 @@ if (!function_exists('toJson')) {
         return $context->withStatus($code)
             ->withType('application/json')
             ->withStringBody(json_encode($response, JSON_UNESCAPED_UNICODE));
+    }
+}
+
+if (!function_exists('isSuccess')) {
+    function isSuccess(&$arr, $key = 'status', $val = 'success'): bool
+    {
+        return array_key_exists($key, $arr) && $arr[$key] = $val;
     }
 }
 
