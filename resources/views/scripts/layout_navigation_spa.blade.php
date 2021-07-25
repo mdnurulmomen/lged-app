@@ -10,14 +10,17 @@
             async: true,
             type: "GET",
             url: url,
-            dataType: 'html',
             cache: false,
             success: function (data, textStatus) {
-                $('#kt_aside_menu .menu-nav').find('.menu-item-active').removeClass('menu-item-active')
-                menuItem.parent().addClass('menu-item-active')
-                $('#kt_content').html();
-                $('#kt_content').html(data);
-                menuItem = null;
+                if (data.status === 'error') {
+                    toastr.error(data.data.error);
+                } else {
+                    $('#kt_aside_menu .menu-nav').find('.menu-item-active').removeClass('menu-item-active')
+                    menuItem.parent().addClass('menu-item-active')
+                    $('#kt_content').html();
+                    $('#kt_content').html(data);
+                    menuItem = null;
+                }
             },
             error: function (data) {
                 console.log(data)

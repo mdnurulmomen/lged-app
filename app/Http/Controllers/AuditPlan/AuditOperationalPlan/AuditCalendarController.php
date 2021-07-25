@@ -16,7 +16,7 @@ class AuditCalendarController extends Controller
         $emp = $this->getEmployeeInfo();
         $yearly_calendars = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_lists'), ['all' => 1])->json();
 
-        if ($yearly_calendars['status'] == 'success') {
+        if (isSuccess($yearly_calendars)) {
             $yearly_calendars = $yearly_calendars['data'];
             return view('modules.audit_plan.operational.audit_calendar.audit_calendar_lists', compact('yearly_calendars', 'emp'));
         } else {
@@ -36,11 +36,11 @@ class AuditCalendarController extends Controller
         $activity_calendars = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_all_lists'), ['fiscal_year_id' => $fiscal_year_id, 'yearly_calendar_id' => $yearly_audit_calendar_id])->json();
         $fiscal_year = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_show'), ['fiscal_year_id' => $fiscal_year_id])->json()['data'];
 
-        if ($activity_calendars['status'] = 'success') {
+        if (array_key_exists('status', $activity_calendars) && $activity_calendars['status'] = 'success') {
             $activity_calendars = $activity_calendars['data'];
             return view('modules.audit_plan.operational.audit_calendar.view_audit_calendar', compact('activity_calendars', 'fiscal_year'));
         } else {
-            return response()->json(['status' => 'error', 'data' => 'Sorry!']);
+            return response()->json(['status' => 'error', 'data' => $activity_calendars]);
         }
     }
 
@@ -51,7 +51,7 @@ class AuditCalendarController extends Controller
         $fiscal_year = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_show'), ['fiscal_year_id' => $fiscal_year_id])->json()['data'];
         $activity_calendars = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_all_lists'), ['fiscal_year_id' => $fiscal_year_id, 'yearly_calendar_id' => $yearly_audit_calendar_id])->json();
         $responsible_offices = $this->allResponsibleOffices();
-        if ($activity_calendars['status'] = 'success') {
+        if (isSuccess($activity_calendars)) {
             $activity_calendars = $activity_calendars['data'];
             return view('modules.audit_plan.operational.audit_calendar.edit_audit_calendar', compact('fiscal_year', 'activity_calendars', 'responsible_offices', 'fiscal_year_id'))->render();
         } else {
