@@ -67,6 +67,7 @@
                                     $approver[] = $value['employee_id'];
                                 }
                             @endphp
+
                             @if (in_array(@$emp['id'], $viewer) || in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor))
                                 <td class="datatable-cell" style="width: 5%">
                                     <a href="javascript:;"
@@ -78,6 +79,7 @@
                                     </a>
                                 </td>
                             @endif
+
                             @if ($yearly_calendar['status'] == 'draft' && (in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor)))
                                 <td class="datatable-cell" style="width: 5%">
                                     <a href="javascript:;"
@@ -125,7 +127,6 @@
                                 </td>
                             @endif
 
-
                             <td class="datatable-cell" style="width: 5%">
                                 <button
                                     title="Movement history"
@@ -159,7 +160,11 @@
 
 </div>
 
-<x-modal id="movement_audit_calendar_modal" title="Movement" size='md' saveButton="off">
+<div class="publish_audit_calendar_modal_area">
+
+</div>
+
+<x-modal id="movement_audit_calendar_modal" title="Movement History" size='lg' saveButton="off">
     <div class="row">
         <div class="movement_audit_calendar_modal_area"></div>
     </div>
@@ -207,6 +212,19 @@
 
     $('.btn_audit_calendar_movement').on('click', function () {
         url = '{{route('audit.plan.operational.calendar.movement.history')}}'
+        op_yearly_calendar_id = $(this).data('calendar-id')
+        ajaxCallAsyncCallbackAPI(url, {op_yearly_calendar_id}, 'POST', function (response) {
+            if (response.status === 'error') {
+                toastr.error('Error')
+            } else {
+                $(".movement_audit_calendar_modal_area").html(response);
+                $('#movement_audit_calendar_modal').modal('show')
+            }
+        });
+    })
+
+    $('.btn_audit_calendar_publish').on('click', function () {
+        url = '{{route('audit.plan.operational.calendar.publish-modal')}}'
         op_yearly_calendar_id = $(this).data('calendar-id')
         ajaxCallAsyncCallbackAPI(url, {op_yearly_calendar_id}, 'POST', function (response) {
             if (response.status === 'error') {
@@ -266,31 +284,5 @@
                 Swal.fire('Canceled', '', 'info')
             }
         });
-
-    })
-
-    $('.btn_audit_calendar_publish').on('click', function () {
-
-        Swal.fire({
-            title: 'Are you sure you want to publish ?',
-            showCancelButton: true,
-            confirmButtonText: `Publish`,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                url = '{{route('audit.plan.operational.calendar.change-status')}}'
-                id = $(this).data('calendar-id');
-                status = 'published';
-                ajaxCallAsyncCallbackAPI(url, {id, status}, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.error('Error');
-                    } else {
-                        Swal.fire('Published!', '', 'success')
-                    }
-                });
-            } else if (result.isDenied) {
-                Swal.fire('Canceled', '', 'info')
-            }
-        });
-
     })
 </script>

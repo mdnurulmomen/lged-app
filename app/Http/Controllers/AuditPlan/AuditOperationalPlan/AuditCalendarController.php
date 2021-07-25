@@ -5,12 +5,9 @@ namespace App\Http\Controllers\AuditPlan\AuditOperationalPlan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Traits\UserInfoCollector;
 
 class AuditCalendarController extends Controller
 {
-    use UserInfoCollector;
-
     public function index()
     {
         $emp = $this->getEmployeeInfo();
@@ -215,16 +212,26 @@ class AuditCalendarController extends Controller
         }
     }
 
-    public function changeStatus(Request $request)
+    public function changeStatus(Request $request): \Illuminate\Http\JsonResponse
     {
         $data = Validator::make($request->all(), ['id' => 'required|integer', 'status' => 'required|string'])->validate();
 
-        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_changeStatus'), $data)->json();
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_change_status'), $data)->json();
 
         if ($response['status'] = 'success') {
             return response()->json(['status' => 'success', 'data' => 'Approved!']);
         } else {
             return response()->json(['status' => 'error', 'data' => 'Sorry!']);
         }
+    }
+
+    public function showPublishAuditCalendarModal(Request $request)
+    {
+        return view('modules.audit_plan.operational.audit_calendar.publish_audit_calendar_modal');
+    }
+
+    public function publishAuditCalendar(Request $request)
+    {
+
     }
 }
