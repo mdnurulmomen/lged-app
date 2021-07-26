@@ -230,8 +230,8 @@
             if (response.status === 'error') {
                 toastr.error('Error')
             } else {
-                $(".movement_audit_calendar_modal_area").html(response);
-                $('#movement_audit_calendar_modal').modal('show')
+                $(".publish_audit_calendar_modal_area").html(response);
+                $('#publish_audit_calendar_modal').modal('show')
             }
         });
     })
