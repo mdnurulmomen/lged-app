@@ -218,15 +218,18 @@ class AuditCalendarController extends Controller
 
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_change_status'), $data)->json();
 
-        if ($response['status'] = 'success') {
+        if (isSuccess($response)) {
             return response()->json(['status' => 'success', 'data' => 'Approved!']);
         } else {
-            return response()->json(['status' => 'error', 'data' => 'Sorry!']);
+            return response()->json(['status' => 'error', 'data' => $response]);
         }
     }
 
     public function showPublishAuditCalendarModal(Request $request)
     {
+        $request_data = Validator::make($request->all(), ['op_yearly_calendar_id' => 'required|integer'])->validate();
+
+
         return view('modules.audit_plan.operational.audit_calendar.publish_audit_calendar_modal');
     }
 
