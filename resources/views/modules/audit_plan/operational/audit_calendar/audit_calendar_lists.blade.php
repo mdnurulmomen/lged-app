@@ -160,10 +160,6 @@
 
 </div>
 
-<div class="publish_audit_calendar_modal_area">
-
-</div>
-
 <x-modal id="movement_audit_calendar_modal" title="Movement History" size='lg' saveButton="off">
     <div class="row">
         <div class="movement_audit_calendar_modal_area"></div>
@@ -224,14 +220,13 @@
     })
 
     $('.btn_audit_calendar_publish').on('click', function () {
-        url = '{{route('audit.plan.operational.calendar.publish-modal')}}'
-        op_yearly_calendar_id = $(this).data('calendar-id')
-        ajaxCallAsyncCallbackAPI(url, {op_yearly_calendar_id}, 'POST', function (response) {
+        url = '{{route('audit.plan.operational.calendar.pending-event-to-publish')}}'
+        calendar_id = $(this).data('calendar-id')
+        ajaxCallAsyncCallbackAPI(url, {calendar_id}, 'POST', function (response) {
             if (response.status === 'error') {
                 toastr.error('Error')
             } else {
-                $(".publish_audit_calendar_modal_area").html(response);
-                $('#publish_audit_calendar_modal').modal('show')
+                $("#kt_content").html(response);
             }
         });
     })
@@ -260,7 +255,6 @@
         });
 
     })
-
 
     $('.btn_audit_calendar_disapprove').on('click', function () {
         Swal.fire({

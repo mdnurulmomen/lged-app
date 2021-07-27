@@ -79,14 +79,22 @@ class AuditCalendarController extends Controller
     {
         Validator::make($request->all(), ['yearly_audit_calendar_id' => 'required|integer', 'milestone_id' => 'required|integer', 'target_date' => 'required|date',])->validate();
 
-        $data = ['target_date' => $request->target_date, "milestone_id" => $request->milestone_id, "yearly_audit_calendar_id" => $request->yearly_audit_calendar_id];
+        $data = [
+            'target_date' => $request->target_date,
+            "milestone_id" => $request->milestone_id,
+            "yearly_audit_calendar_id" => $request->yearly_audit_calendar_id,
+            "unit_id" => $this->current_office_unit_id(),
+            "employee_id" => $this->getOfficerId(),
+            "user_id" => $this->getUsername(),
+            "employee_designation_id" => $this->current_designation_id(),
+        ];
 
         $updateMilestoneDate = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_milestone_target_date_update'), $data)->json();
 
         if ($updateMilestoneDate['status'] = 'success') {
             return response()->json(['status' => 'success', 'data' => 'Updated!']);
         } else {
-            return response()->json(['status' => 'error', 'data' => 'Sorry!']);
+            return response()->json(['status' => 'error', 'data' => $updateMilestoneDate]);
         }
     }
 
@@ -225,12 +233,14 @@ class AuditCalendarController extends Controller
         }
     }
 
-    public function showPublishAuditCalendarModal(Request $request)
+    public function showPublishAuditCalendar(Request $request)
     {
-        $request_data = Validator::make($request->all(), ['op_yearly_calendar_id' => 'required|integer'])->validate();
+        Validator::make($request->all(), ['calendar_id' => 'required|integer'])->validate();
+        $calendar_id = $request->calendar_id;
 
+        $pending_events = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_pending_events'), ['calendar_id' => $calendar_id])->json();
 
-        return view('modules.audit_plan.operational.audit_calendar.publish_audit_calendar_modal');
+        return view('modules.audit_plan.operational.audit_calendar.publish_audit_calendar', compact('pending_events', 'calendar_id'));
     }
 
     public function publishAuditCalendar(Request $request)
