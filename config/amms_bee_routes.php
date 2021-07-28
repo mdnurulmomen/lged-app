@@ -61,4 +61,6 @@ return [
         'load-operational-plan-details' => env('API_URL_BEE', '') . '/operational-plan/details',
 
     ],
+
+    'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',
 ];

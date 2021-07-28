@@ -77,3 +77,13 @@
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 <script src="{{ asset('assets/js/audit-script.js') }}"></script>
 <!--end::Page Scripts-->
+{{--<script>--}}
+{{--    $(document).ready(function () {--}}
+{{--        is_logged_in = '{{$is_logged_in}}';--}}
+{{--        if (is_logged_in) {--}}
+{{--            toastr.success('Welcome!')--}}
+{{--        } else {--}}
+{{--            toastr.error('true')--}}
+{{--        }--}}
+{{--    })--}}
+{{--</script>--}}

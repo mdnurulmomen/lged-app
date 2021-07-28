@@ -61,9 +61,13 @@
                class="btn btn-success font-weight-bold text-white btn-square">
                 <i class="fad fa-user-headset"></i><span class="ml-2">{{ __('হেল্প ডেস্ক') }}</span>
             </a>
-            <a href="#" class="btn btn-danger font-weight-bold text-white btn-square" data-toggle="popover"
+            <a onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+               class="btn btn-danger font-weight-bold text-white btn-square" data-toggle="popover"
                data-placement="bottom" data-content="{{ __('লগ আউট') }}" data-original-title="" title="">
                 <i class="fas fa-sign-out-alt"></i><span class="ml-2">{{ __('লগ আউট') }} </span>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </a>
         </div>
     </div>

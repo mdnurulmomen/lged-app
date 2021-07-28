@@ -17,6 +17,9 @@ class Controller extends BaseController
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
+            $is_logged_in = $this->checkLogin() ? 'true' : 'false';
+            view()->share('is_logged_in', $is_logged_in);
+
             if ($this->checkLogin()) {
                 self::viewSharer();
             }
@@ -29,7 +32,6 @@ class Controller extends BaseController
     {
 //        $wizard = $this->wizard();
 //        view()->share('wizardData', $wizard);
-
         $userDetails = $this->getUserDetails();
         view()->share('userDetails', $userDetails);
 

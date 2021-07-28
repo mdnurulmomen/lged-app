@@ -8,18 +8,17 @@ trait UserInfoCollector
 
     public function getUserDetails()
     {
-//        dd(session('login'));
-        return session()->has('login') ? session('login')['user_info']['user'] : null;
+        return session()->has('login') ? session('login')['data']['user'] : null;
     }
 
     public function getEmployeeInfo()
     {
-        return session()->has('login') ? session('login')['user_info']['employee_info'] : null;
+        return session()->has('login') ? session('login')['data']['employee_info'] : null;
     }
 
     public function getUsername()
     {
-        return $this->checkLogin() ? session('login')['user_info']['user']['username'] : null;
+        return $this->checkLogin() ? session('login')['data']['user']['username'] : null;
     }
 
     public function checkLogin(): bool
@@ -32,19 +31,28 @@ trait UserInfoCollector
     {
         $login_cookie = isset($_COOKIE['_ndoptor']) ? $_COOKIE['_ndoptor'] : null;
         if ($login_cookie) {
+            $login_cag_bee = $this->loginIntoCagBee($login_cookie);
             $login_data_from_cookie = json_decode(gzuncompress(base64_decode($login_cookie)), true);
-            if ($login_data_from_cookie && $login_data_from_cookie['status'] === 'success') {
-                session()->put('login', $login_data_from_cookie);
-                session()->save();
+            if ($login_cag_bee && $login_cag_bee['status'] === 'success') {
                 return session('login');
             }
+//            if ($login_data_from_cookie && $login_data_from_cookie['status'] === 'success') {
+//                session()->put('login', $login_data_from_cookie);
+//                session()->save();
+//                return session('login');
+//            }
         }
         return null;
     }
 
+    public function loginIntoCagBee($data)
+    {
+        return session('login') ?: $this->loginIntoCagBeeCore($data);
+    }
+
     public function getOfficerId()
     {
-        return $this->checkLogin() ? session('login')['user_info']['user']['employee_record_id'] : null;
+        return $this->checkLogin() ? session('login')['data']['user']['employee_record_id'] : null;
     }
 
     public function current_designation_id()
@@ -54,7 +62,7 @@ trait UserInfoCollector
 
     public function getUserOffices()
     {
-        return $this->checkLogin() ? session('login')['user_info']['office_info'] : [];
+        return $this->checkLogin() ? session('login')['data']['office_info'] : [];
     }
 
     public function current_office_id()

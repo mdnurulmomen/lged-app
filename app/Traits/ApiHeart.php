@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Http;
 
 trait ApiHeart
 {
-    public function initHttpWithToken($username = ''): \Illuminate\Http\Client\PendingRequest
+    public function initHttpWithToken(): \Illuminate\Http\Client\PendingRequest
     {
-        return Http::withHeaders($this->apiHeaders())->withToken($this->getClientToken($username));
+        return Http::withHeaders($this->apiHeaders())->withToken($this->getClientToken());
     }
 
     public function apiHeaders(): array
@@ -16,9 +16,9 @@ trait ApiHeart
         return ['Accept' => 'application/json', 'Content-Type' => 'application/json', 'api-version' => '1'];
     }
 
-    public function getClientToken($username): string
+    public function getClientToken(): string
     {
-        return 'Authorization: Bearer';
+        return $this->checkLogin() ? session('login')['data']['token'] : '';
     }
 
     public function initDoptorHttp(): \Illuminate\Http\Client\PendingRequest
@@ -44,6 +44,19 @@ trait ApiHeart
     public function initHttp(): \Illuminate\Http\Client\PendingRequest
     {
         return Http::withHeaders($this->apiHeaders());
+    }
+
+    public function loginIntoCagBeeCore($data)
+    {
+        $response = Http::withHeaders(['Accept' => 'application/json', 'Content-Type' => 'application/json', 'api-version' => '1', 'device-id' => 'avc', 'device-type' => 'web'])->post(config('amms_bee_routes.login_in_cag_bee'), ['user_data' => $data])->json();
+
+
+        if (is_array($response) && isset($response['status']) && $response['status'] == 'success') {
+            session()->put('login', $response);
+            session()->save();
+            return session('login');
+        }
+        return null;
     }
 }
 
