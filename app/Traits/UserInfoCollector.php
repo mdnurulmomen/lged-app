@@ -11,14 +11,52 @@ trait UserInfoCollector
         return session()->has('login') ? session('login')['data']['user'] : null;
     }
 
-    public function getEmployeeInfo()
+    function getDeskInformation($cdesk)
     {
-        return session()->has('login') ? session('login')['data']['employee_info'] : null;
+        return [
+            'office_id' => $cdesk['office_id'],
+            'office_unit_id' => $cdesk['office_unit_id'],
+            'designation_id' => $cdesk['office_unit_organogram_id'],
+            'officer_id' => $cdesk['employee_record_id'],
+            'user_id' => $cdesk['user_id'],
+            'office' => $cdesk['office_name_bn'],
+            'office_unit' => $cdesk['unit_name_en'],
+            'designation' => $cdesk['designation'],
+            'officer' => $cdesk['officer_name'],
+            'officer_grade' => $cdesk['employee_grade'],
+            'designation_level' => $cdesk['designation_level'],
+            'email' => $cdesk['email'],
+            'phone' => $cdesk['phone'],
+        ];
     }
 
-    public function getUsername()
+    function current_desk(): array
     {
-        return $this->checkLogin() ? session('login')['data']['user']['username'] : null;
+        return [
+            'office_id' => $this->current_office_id(),
+            'office_unit_id' => $this->current_office_unit_id(),
+            'designation_id' => $this->current_designation_id(),
+            'officer_id' => $this->getOfficerId(),
+            'user_id' => $this->getUsername(),
+            'office' => $this->current_office()['office_name_en'],
+            'office_unit' => $this->current_office()['unit_name_en'],
+            'designation' => $this->current_office()['designation_en'],
+            'officer' => $this->getEmployeeInfo()['name_eng'],
+            'designation_level' => $this->current_office()['designation_level'],
+            'officer_grade' => $this->getEmployeeInfo()['employee_grade'],
+            'email' => $this->getEmployeeInfo()['personal_email'],
+            'phone' => $this->getEmployeeInfo()['personal_mobile'],
+        ];
+    }
+
+    public function current_office_id()
+    {
+        return session('_office_id') ?: $this->getUserOffices()[0]['office_id'];
+    }
+
+    public function getUserOffices()
+    {
+        return $this->checkLogin() ? session('login')['data']['office_info'] : [];
     }
 
     public function checkLogin(): bool
@@ -50,9 +88,9 @@ trait UserInfoCollector
         return session('login') ?: $this->loginIntoCagBeeCore($data);
     }
 
-    public function getOfficerId()
+    public function current_office_unit_id()
     {
-        return $this->checkLogin() ? session('login')['data']['user']['employee_record_id'] : null;
+        return session('_office_unit_id') ?: $this->getUserOffices()[0]['office_unit_id'];
     }
 
     public function current_designation_id()
@@ -60,23 +98,23 @@ trait UserInfoCollector
         return session('_designation_id') ?: $this->getUserOffices()[0]['office_unit_organogram_id'];
     }
 
-    public function getUserOffices()
+    public function getOfficerId()
     {
-        return $this->checkLogin() ? session('login')['data']['office_info'] : [];
+        return $this->checkLogin() ? session('login')['data']['user']['employee_record_id'] : null;
     }
 
-    public function current_office_id()
+    public function getUsername()
     {
-        return session('_office_id') ?: $this->getUserOffices()[0]['office_id'];
-    }
-
-    public function current_office_unit_id()
-    {
-        return session('_office_unit_id') ?: $this->getUserOffices()[0]['office_unit_id'];
+        return $this->checkLogin() ? session('login')['data']['user']['username'] : null;
     }
 
     public function current_office()
     {
         return session('_current_office') ?: $this->getUserOffices()[0];
+    }
+
+    public function getEmployeeInfo()
+    {
+        return session()->has('login') ? session('login')['data']['employee_info'] : null;
     }
 }

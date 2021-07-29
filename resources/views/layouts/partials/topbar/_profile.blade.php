@@ -27,7 +27,7 @@
                 </span>
                     @if(isset($userOffices))
                         @forelse($userOffices as $office)
-                            <a href="{{route('change.office', [$office['id'], $office['office_unit_id'], $office['office_unit_organogram_id']])}}"
+                            <a href="{{route('change.office', [$office['id'], $office['office_id'], $office['office_unit_id'], $office['office_unit_organogram_id']])}}"
                                class="btn-switch-designation flex-fill overflow-hidden">
                                 <span>{{ $office['designation'] }}, </span>
                                 <span class="test text-truncate">{{ $office['unit_name_bn'] }}</span>

@@ -237,7 +237,7 @@ Route::group(['middleware' => 'jisf.auth'], function () {
 
     //Miscellaneous
     Route::get('locale/{locale}', [App\Http\Controllers\ChangeController::class, 'changeLocale'])->name('change.locale');
-    Route::get('change/office/{office_id}/{office_unit_id}/{designation_id}', [App\Http\Controllers\ChangeController::class, 'changeDesignation'])->name('change.office');
+    Route::get('change/office/{id}/{office_id}/{office_unit_id}/{designation_id}', [App\Http\Controllers\ChangeController::class, 'changeDesignation'])->name('change.office');
 
     //Generic Data Collection
     Route::group(['as' => 'generic.'], function () {
