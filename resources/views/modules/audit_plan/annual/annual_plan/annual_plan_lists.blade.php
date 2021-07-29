@@ -15,26 +15,48 @@
     </div>
 </form>
 
-<div class="px-3" id="load_operational_plan_lists">
+<div class="px-3" id="load_annual_plan_lists">
 
 </div>
 
 
 <script>
-    $('#select_fiscal_year_annual_plan').change(function () {
-        let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
-        if (fiscal_year_id) {
+
+    var Annual_Plan = {
+        loadAnnualPlanList: function (fiscal_year_id) {
             let url = '{{route('audit.plan.annual.plan.list.all')}}';
             let data = {fiscal_year_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
-                    $('#load_operational_plan_lists').html(response);
+                    $('#load_annual_plan_lists').html(response);
                 }
             });
+        },
+
+        loadEntitySelection: function (elem) {
+            schedule_id = elem.data('schedule-id');
+            activity_id = elem.data('activity-id');
+            milestone_id = elem.data('milestone-id');
+            data = {schedule_id, activity_id, milestone_id}
+            let url = '{{route('audit.plan.annual.plan.list.entity.selection.show')}}'
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('#kt_content').html(response)
+                }
+            });
+        },
+    };
+
+    $('#select_fiscal_year_annual_plan').change(function () {
+        let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+        if (fiscal_year_id) {
+            Annual_Plan.loadAnnualPlanList(fiscal_year_id);
         } else {
-            $('#load_operational_plan_lists').html('');
+            $('#load_annual_plan_lists').html('');
         }
     });
 </script>

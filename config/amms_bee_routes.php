@@ -63,5 +63,9 @@ return [
         'load_operational_plan_details' => env('API_URL_BEE', '') . '/audit-plan/operational-plan/details',
     ],
 
+    'audit_annual_plan' => [
+        'ap_yearly_plan_lists' => env('API_URL_BEE', '') . '/audit-plan/annual-plan/all',
+    ],
+
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',
 ];
