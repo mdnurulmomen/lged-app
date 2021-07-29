@@ -6,7 +6,7 @@
             <th width="20%">Milestones</th>
             <th width="10%">Target Date</th>
             <th width="5%">Budget</th>
-            <th>Assigned Staff</th>
+            <th width="5%">Assigned Staff</th>
             <th>Auditee</th>
             <th>Plan</th>
         </tr>
@@ -26,7 +26,7 @@
                     @empty
                         <td width="5%"></td>
                     @endforelse
-                    <td>{{count($plan['assigned_staffs'])}}</td>
+                    <td width="5%">{{count($plan['assigned_staffs'])}}</td>
                     <td>
                         @forelse($plan['assigned_rp'] as $auditee)
                             {{$auditee['short_name_en']}}
