@@ -98,6 +98,9 @@ class AuditCalendarController extends Controller
         }
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function createActivityResponsible(Request $request): \Illuminate\Http\JsonResponse
     {
         $data = Validator::make($request->all(), ['activity_id' => 'required|integer', 'selected_office_ids' => 'required|array',])->validate();
@@ -233,6 +236,9 @@ class AuditCalendarController extends Controller
         }
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function showPublishAuditCalendar(Request $request)
     {
         Validator::make($request->all(), ['calendar_id' => 'required|integer'])->validate();
@@ -240,11 +246,30 @@ class AuditCalendarController extends Controller
 
         $pending_events = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_pending_events'), ['calendar_id' => $calendar_id])->json();
 
-        return view('modules.audit_plan.operational.audit_calendar.publish_audit_calendar', compact('pending_events', 'calendar_id'));
+        if (isSuccess($pending_events)) {
+            $pending_events = $pending_events['data'];
+            return view('modules.audit_plan.operational.audit_calendar.publish_audit_calendar', compact('pending_events', 'calendar_id'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $pending_events]);
+        }
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function publishAuditCalendar(Request $request)
     {
+        $data = Validator::make($request->all(), [
+            'calendar_id' => 'required|integer',
+            'office_ids' => 'array|required',
+        ])->validate();
 
+        $publish_event = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_publish_events_as_calendars'), $data)->json();
+
+        if (isSuccess($publish_event)) {
+            return response()->json(['status' => 'success', 'data' => 'Published']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $publish_event]);
+        }
     }
 }

@@ -55,7 +55,9 @@ return [
         'op_calendar_milestone_target_date_update' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/milestones/date/update',
         'op_calendar_responsible_assign' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/responsible/create',
         'op_calendar_comment_update' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/comment/update',
+
         'op_calendar_pending_events' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/pending-events-for-publish',
+        'op_calendar_publish_events_as_calendars' => env('API_URL_BEE', '') . '/operational-plan/audit-calendar/publish-event-as-calendar',
 
         'load_operational_plan_lists' => env('API_URL_BEE', '') . '/operational-plan/list',
         'load-operational-plan-details' => env('API_URL_BEE', '') . '/operational-plan/details',
