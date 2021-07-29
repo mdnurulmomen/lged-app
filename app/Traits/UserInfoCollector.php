@@ -25,6 +25,7 @@ trait UserInfoCollector
             'officer' => $cdesk['officer_name'],
             'officer_grade' => $cdesk['employee_grade'],
             'designation_level' => $cdesk['designation_level'],
+            'designation_sequence' => $cdesk['designation_sequence'],
             'email' => $cdesk['email'],
             'phone' => $cdesk['phone'],
         ];
@@ -43,6 +44,7 @@ trait UserInfoCollector
             'designation' => $this->current_office()['designation_en'],
             'officer' => $this->getEmployeeInfo()['name_eng'],
             'designation_level' => $this->current_office()['designation_level'],
+            'designation_sequence' => $this->current_office()['designation_sequence'],
             'officer_grade' => $this->getEmployeeInfo()['employee_grade'],
             'email' => $this->getEmployeeInfo()['personal_email'],
             'phone' => $this->getEmployeeInfo()['personal_mobile'],
