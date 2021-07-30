@@ -39,7 +39,7 @@
                                 data-schedule-id="{{$plan['schedule_id']}}"
                                 data-activity-id="{{$plan['activity_id']}}"
                                 data-milestone-id="{{$plan['activity_milestone_id']}}"
-                                onclick="Annual_Plan.loadEntitySelection($(this))">Plan
+                                onclick="Annual_Plan_Container.loadEntitySelection($(this))">Plan
                         </button>
                     </td>
                 </tr>

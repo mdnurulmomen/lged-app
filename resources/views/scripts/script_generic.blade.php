@@ -22,6 +22,11 @@
         format: "dd-mm-yyyy",
     });
 
+    $('#kt_datepicker_5').datepicker({
+        todayHighlight: true,
+        templates: arrows
+    });
+
     function submitModalData(url, data, method, modal_id) {
         ajaxCallAsyncCallbackAPI(url, data, method, function (response) {
             if (response.status === 'success') {

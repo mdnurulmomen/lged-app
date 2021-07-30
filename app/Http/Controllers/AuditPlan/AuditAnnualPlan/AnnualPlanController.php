@@ -35,8 +35,44 @@ class AnnualPlanController extends Controller
 
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function showEntitySelection(Request $request)
     {
-        return view('modules.audit_plan.annual.annual_plan.partials.load_annual_entity_selection');
+        $data = Validator::make($request->all(), [
+            'activity_id' => 'required|integer',
+            'schedule_id' => 'required|integer',
+            'milestone_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk());
+
+        $activity_id = $request->activity_id;
+        $schedule_id = $request->schedule_id;
+        $milestone_id = $request->milestone_id;
+
+        return view('modules.audit_plan.annual.annual_plan.show_annual_entity_selection', compact('activity_id', 'schedule_id', 'milestone_id'));
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function showSelectedAuditeeEntities(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'activity_id' => 'required|integer',
+            'schedule_id' => 'required|integer',
+            'milestone_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk());
+
+        return view('modules.audit_plan.annual.annual_plan.partials.load_selected_auditee_entities');
+    }
+
+    public function showAnnualSubmissionHRModal(Request $request)
+    {
+        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
+
+        return view('modules.audit_plan.annual.annual_plan.partials.load_annual_plan_submission_hr_modal', compact('officer_lists'));
     }
 }

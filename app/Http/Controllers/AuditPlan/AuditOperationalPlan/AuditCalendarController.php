@@ -162,7 +162,7 @@ class AuditCalendarController extends Controller
 
     public function showForwardAuditCalendarModal(Request $request)
     {
-        $officer_lists = $this->officeUnitDesignationEmployeeMap($this->current_office_id());
+        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
         $audit_calendar_id = $request->audit_calendar_id;
         if ($officer_lists) {
             return view('modules.audit_plan.operational.audit_calendar.partials.forward_audit_calendar_modal', compact('officer_lists', 'audit_calendar_id'));

@@ -68,7 +68,7 @@ trait GenericInfoCollection
         }
     }
 
-    public function officeUnitDesignationEmployeeMap($office_id)
+    public function cagDoptorOfficeUnitDesignationEmployees($office_id)
     {
         $officer_lists = $this->initDoptorHttp()->post(config('cag_doptor_api.office_unit_designation_employee_map'), ['office_id' => $office_id])->json();
 
