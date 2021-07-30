@@ -1,4 +1,5 @@
-<x-modal title="Entity" size='xl' url="" method="post" id="annual_plan_submission_hr_modal">
+<x-modal title="Entity" size='xl' url="{{route('audit.plan.annual.plan.list.store.hr-modal')}}" method="post"
+         id="annual_plan_submission_hr_modal">
     <div class="row">
         <div class="col-md-8">
             <div class="tree-demo rounded-0 office_organogram_tree jstree-init jstree-1 jstree-default"
@@ -18,7 +19,9 @@
         'designation_id' => $designation['designation_id'],
         'designation_en' => $designation['designation_eng'],
         'designation_bn' => $designation['designation_bng'],
-        'officer_name' => !empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : '',
+        'officer_name_en' => !empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : '',
+        'officer_name_bn' => !empty($designation['employee_info']) ? $designation['employee_info']['name_bng'] : '',
+        'employee_grade' => !empty($designation['employee_info']['employee_grade']) ? $designation['employee_info']['employee_grade'] : '1',
         'officer_id' => !empty($designation['employee_info']) ? $designation['employee_info']['id'] : '',
         'unit_id' => $unit['office_unit_id'],
         'unit_name_en' => $unit['unit_name_eng'],
@@ -72,7 +75,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-2 mt-2">Budget</div>
-                        <div class="col-md-10 mt-2"><input type="text" class="form-control"/></div>
+                        <div class="col-md-10 mt-2"><input type="number" class="form-control" name="budget"/></div>
                     </div>
                 </div>
             </form>
@@ -83,13 +86,11 @@
 @include('scripts.script_generic')
 
 <script>
-
     Annual_Plan_Container.showHideHRModalSaveBtn();
-
     $('.office_organogram_tree').on('select_node.jstree', function (e, data) {
         if (data.node.children.length === 0) {
             var officer_info = $('#' + data.node.id).data('officer-info')
-            if (officer_info.officer_name) {
+            if (officer_info.officer_name_en) {
                 Annual_Plan_Container.addOfficerToAssignedList(officer_info)
             } else {
                 toastr.warning('Select Valid Officer');
@@ -97,7 +98,7 @@
         } else {
             data.node.children.map(child => {
                 var officer_info = $('#' + child).data('officer-info')
-                if (officer_info.officer_name) {
+                if (officer_info.officer_name_en) {
                     Annual_Plan_Container.addOfficerToAssignedList(officer_info)
                 } else {
                     toastr.warning('Select Valid Officer');
@@ -116,5 +117,9 @@
             })
         }
         Annual_Plan_Container.showHideHRModalSaveBtn();
+    });
+
+    $('#btn_annual_plan_submission_hr_modal_save').click(function () {
+        Annual_Plan_Container.saveAnnualPlanHRAssigned($(this));
     });
 </script>

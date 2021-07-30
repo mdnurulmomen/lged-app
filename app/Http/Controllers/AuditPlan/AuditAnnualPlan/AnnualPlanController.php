@@ -75,4 +75,72 @@ class AnnualPlanController extends Controller
 
         return view('modules.audit_plan.annual.annual_plan.partials.load_annual_plan_submission_hr_modal', compact('officer_lists'));
     }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function storeAnnualSubmissionHR(Request $request)
+    {
+        Validator::make($request->all(), [
+            'activity_id' => 'required|integer',
+            'schedule_id' => 'required|integer',
+            'milestone_id' => 'required|integer',
+            'budget' => 'required|integer',
+            'designation_to_assign' => 'required',
+            'designation_role' => 'required',
+            'start' => 'required|date',
+            'end' => 'required|date',
+        ])->validate();
+
+        $designation_lists = $request->designation_to_assign;
+        $designation_roles = $request->designation_role;
+
+        $designations = [];
+
+        foreach ($designation_lists as $designation_list) {
+            foreach ($designation_roles as $designations_role) {
+                $designation = explode('_', $designations_role);
+                $designation_list_decoded = json_decode($designation_list, true);
+                if ($designation[1] == $designation_list_decoded['designation_id']) {
+                    $designations[] = [
+                        'designation_id' => $designation_list_decoded['designation_id'],
+                        'designation_en' => $designation_list_decoded['designation_en'],
+                        'designation_bn' => $designation_list_decoded['designation_bn'],
+
+                        'officer_id' => $designation_list_decoded['officer_id'],
+                        'officer_grade' => $designation_list_decoded['employee_grade'],
+                        'officer_name_en' => $designation_list_decoded['officer_name_en'],
+                        'officer_name_bn' => $designation_list_decoded['officer_name_bn'],
+
+                        'unit_id' => $designation_list_decoded['unit_id'],
+                        'unit_name_en' => $designation_list_decoded['unit_name_en'],
+                        'unit_name_bn' => $designation_list_decoded['unit_name_bn'],
+                        'office_id' => $designation_list_decoded['office_id'],
+                        'officer_category' => $designation[0],
+                    ];
+                }
+            }
+        }
+
+        $data = [
+            'schedule_id' => $request->schedule_id,
+            'activity_id' => $request->activity_id,
+            'milestone_id' => $request->milestone_id,
+            'start_date' => $request->start,
+            'end_date' => $request->end,
+            'budget' => $request->budget,
+            'designations' => json_encode($designations),
+            'cdesk' => json_encode($this->current_desk()),
+        ];
+
+        $assign = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_yearly_plan_submission'), $data)->json();
+
+        dd($assign);
+
+        if (isSuccess($assign)) {
+            return response()->json(['status' => 'success', 'data' => 'Forwarded Successfully!']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $assign]);
+        }
+    }
 }

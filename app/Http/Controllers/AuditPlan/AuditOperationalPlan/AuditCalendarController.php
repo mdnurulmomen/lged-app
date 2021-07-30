@@ -206,7 +206,12 @@ class AuditCalendarController extends Controller
         ];
 
         $move = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_movement_create'), $data)->json();
-        dd($move);
+
+        if (isSuccess($move)) {
+            return response()->json(['status' => 'success', 'data' => 'Forwarded Successfully!']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $move]);
+        }
     }
 
     public function movementHistory(Request $request)

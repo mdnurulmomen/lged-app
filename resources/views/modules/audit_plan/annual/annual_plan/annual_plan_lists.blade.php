@@ -98,7 +98,8 @@
                     '<span id="btn_remove_officer_' + officer_info.designation_id + '" data-designation-id="' + officer_info.designation_id + '" onclick="Annual_Plan_Container.removeOfficerFromAssignedList(' + officer_info.designation_id + ')" style="cursor:pointer;color:red;"><i class="fa fa-trash"></i></span>' +
                     '</td>' +
                     '<td width="60%">' + officer_info.designation_bn + '</td>' +
-                    '<td width="38%">' + officer_info.officer_name + '</td>' +
+                    '<td width="30%">' + officer_info.officer_name + '</td>' +
+                    '<td width="10%">' + '<select name="designation_role[]" class="select-select2"><option value="member_' + officer_info.designation_id + '">Member</option><option value="leader_' + officer_info.designation_id + '" selected>Team Leader</option></select>' + ' </td>' +
                     '</tr>';
                 $(".assigned_officers_table tbody").prepend(newRow);
                 $(".assigned_officers_table tbody").find('#designation_to_assign_' + officer_info.designation_id).val(JSON.stringify(officer_info));
@@ -107,7 +108,14 @@
 
         removeOfficerFromAssignedList: function (designation_id) {
             $('#selected_officer_to_assign_' + designation_id).remove();
-        }
+        },
+
+        saveAnnualPlanHRAssigned: function (elem) {
+            url = elem.data('url');
+            data = $('#annual_plan_core_data_form, #assigned_officers_to_plan_form').serialize();
+            method = elem.data('method');
+            submitModalData(url, data, method, 'annual_plan_submission_hr_modal')
+        },
     };
 
     $('#select_fiscal_year_annual_plan').change(function () {

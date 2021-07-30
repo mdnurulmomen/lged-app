@@ -65,6 +65,7 @@ return [
 
     'audit_annual_plan' => [
         'ap_yearly_plan_lists' => env('API_URL_BEE', '') . '/audit-plan/annual-plan/all',
+        'ap_yearly_plan_submission' => env('API_URL_BEE', '') . '/audit-plan/annual-plan/plan-submission/create',
     ],
 
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',
