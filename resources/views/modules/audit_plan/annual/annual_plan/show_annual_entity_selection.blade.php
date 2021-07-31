@@ -90,12 +90,19 @@
             <div class="tab-content" id="operational_calendar_tab">
                 <div class="tab-pane border border-top-0 p-3 fade show active" id="select_entity_by_layer"
                      role="tabpanel" aria-labelledby="activity-tab">
-                    @include('modules.audit_plan.annual.annual_plan.partials.load_rp_auditee_offices')
-                </div>
+                    <div class="px-3">
+                        <x-office-select grid="4" unit="true"/>
+                    </div>
+                    <div class="rp_auditee_office_tree">
 
+                    </div>
+                </div>
                 <div class="tab-pane fade border border-top-0 p-3" id="select_entity_by_search" role="tabpanel"
                      aria-labelledby="calender-tab">
                     <x-find-office/>
+                    <div class="rp_auditee_office_tree">
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -115,9 +122,10 @@
 <div id="annual_plan_submission_hr_modal_area">
 
 </div>
-
+@include('scripts.script_generic')
 <script>
     $(document).ready(function () {
         Annual_Plan_Container.loadSelectedAuditeeEntities($('#annual_plan_core_data_form').serializeArray());
+        Annual_Plan_Container.loadRPAuditeeOffices();
     });
 </script>

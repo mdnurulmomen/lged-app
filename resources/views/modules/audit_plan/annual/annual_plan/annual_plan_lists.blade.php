@@ -19,7 +19,7 @@
 
 </div>
 
-
+@include('scripts.script_generic')
 <script>
     var Annual_Plan_Container = {
         loadAnnualPlanList: function (fiscal_year_id) {
@@ -49,6 +49,39 @@
             });
         },
 
+        loadRPAuditeeOffices: function () {
+            let url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-offices')}}'
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('.rp_auditee_office_tree').html(response)
+                }
+            });
+        },
+
+        addSelectedRPAuditeeList: function (entity_info) {
+            if ($('#selected_officer_to_assign_' + entity_info.entity_id).length === 0) {
+                var newRow = '<tr id="selected_rp_auditee_' + entity_info.entity_id + '">' +
+                    '<td width="2%">' +
+                    '<input name="selected_entity[]" class="selected_entity" data-auditee-id="' + entity_info.entity_id + '" id="selected_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
+                    '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '" onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fa fa-trash d-none"></i></span>' +
+                    '</td>' +
+                    '<td width="68%">' + entity_info.entity_name_en + '</td>' +
+                    '<td width="5%">' + '' + '</td>' +
+                    '<td width="15%">' + '' + '</td>' +
+                    '<td width="5%">' + '' + '</td>' +
+                    '<td width="5%"><button data-entity-id="' + entity_info.entity_id + '" type="button" class="btn btn-primary font-weight-bold btn-square d-none" onclick="Annual_Plan_Container.loadSubmissionHRModal($(this))">Plan</button></td>' +
+                    '</tr>';
+                $(".selected_rp_auditees_table tbody").prepend(newRow);
+                $(".selected_rp_auditees_table tbody").find('#selected_entity_' + entity_info.entity_id).val(JSON.stringify(entity_info));
+            }
+        },
+
+        removeSelectedRPAuditee: function (entity_id) {
+            $('#selected_rp_auditee_' + entity_id).remove();
+        },
+
         loadSelectedAuditeeEntities: function (annual_plan_data) {
             url = '{{route('audit.plan.annual.plan.list.show.selected-entity')}}';
 
@@ -76,6 +109,7 @@
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
+                    $('#annual_plan_submission_hr_modal_area').html('');
                     $('#annual_plan_submission_hr_modal_area').html(response)
                     $('#annual_plan_submission_hr_modal').modal('show')
                 }
@@ -115,6 +149,31 @@
             data = $('#annual_plan_core_data_form, #assigned_officers_to_plan_form').serialize();
             method = elem.data('method');
             submitModalData(url, data, method, 'annual_plan_submission_hr_modal')
+        },
+
+        jsTreeInit: function (className) {
+            $(`.${className}`).jstree({
+                "core": {
+                    "themes": {
+                        "responsive": true
+                    }
+                },
+                "types": {
+                    "default": {
+                        "icon": "fal fa-folder"
+                    },
+                    "person": {
+                        "icon": "fal fa-file "
+                    }
+                },
+                "plugins": ["types", "checkbox",]
+            }).refresh(true);
+        },
+
+        submitSelectedEntities: function () {
+            url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-offices')}}';
+            data = $('#selected_rp_auditee_form').serialize();
+
         },
     };
 

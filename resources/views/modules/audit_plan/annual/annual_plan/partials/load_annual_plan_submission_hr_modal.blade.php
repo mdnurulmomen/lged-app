@@ -2,7 +2,7 @@
          id="annual_plan_submission_hr_modal">
     <div class="row">
         <div class="col-md-8">
-            <div class="tree-demo rounded-0 office_organogram_tree jstree-init jstree-1 jstree-default"
+            <div class="tree-demo rounded-0 office_organogram_tree jstree-1 jstree-default"
                  style="overflow-y: scroll; height: 60vh">
                 <ul>
                     <li>
@@ -84,8 +84,11 @@
 </x-modal>
 
 @include('scripts.script_generic')
-
 <script>
+    $(document).ready(function () {
+        Annual_Plan_Container.jsTreeInit('office_organogram_tree');
+        $('.office_organogram_tree').jstree('refresh');
+    })
     Annual_Plan_Container.showHideHRModalSaveBtn();
     $('.office_organogram_tree').on('select_node.jstree', function (e, data) {
         if (data.node.children.length === 0) {

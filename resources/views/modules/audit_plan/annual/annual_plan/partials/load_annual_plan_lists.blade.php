@@ -29,7 +29,7 @@
                     <td width="5%">{{count($plan['assigned_staffs'])}}</td>
                     <td>
                         @forelse($plan['assigned_rp'] as $auditee)
-                            {{$auditee['short_name_en']}}
+                            {{$auditee['party_name_en']}}<br/>
                         @empty
                             <span></span>
                         @endforelse

@@ -66,7 +66,13 @@ class AnnualPlanController extends Controller
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk());
 
-        return view('modules.audit_plan.annual.annual_plan.partials.load_selected_auditee_entities');
+        $entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_yearly_plan_selected_rp_lists'), $data)->json();
+        if (isSuccess($entities)) {
+            $entities = $entities['data'];
+            return view('modules.audit_plan.annual.annual_plan.partials.load_selected_auditee_entities', compact('entities'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $entities]);
+        }
     }
 
     public function showAnnualSubmissionHRModal(Request $request)
@@ -79,7 +85,7 @@ class AnnualPlanController extends Controller
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function storeAnnualSubmissionHR(Request $request)
+    public function storeAnnualSubmissionHR(Request $request): \Illuminate\Http\JsonResponse
     {
         Validator::make($request->all(), [
             'activity_id' => 'required|integer',
@@ -135,12 +141,15 @@ class AnnualPlanController extends Controller
 
         $assign = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_yearly_plan_submission'), $data)->json();
 
-        dd($assign);
-
         if (isSuccess($assign)) {
-            return response()->json(['status' => 'success', 'data' => 'Forwarded Successfully!']);
+            return response()->json(['status' => 'success', 'data' => 'Submission Successful!']);
         } else {
             return response()->json(['status' => 'error', 'data' => $assign]);
         }
+    }
+
+    public function showRPAuditeeOffices(Request $request)
+    {
+        return view('modules.audit_plan.annual.annual_plan.partials.load_rp_auditee_offices');
     }
 }

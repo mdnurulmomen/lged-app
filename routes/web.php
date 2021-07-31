@@ -121,6 +121,8 @@ Route::group(['middleware' => 'jisf.auth'], function () {
 
             Route::post('/store-submission-hr-modal', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanController::class, 'storeAnnualSubmissionHR'])->name('plan.list.store.hr-modal');
 
+            Route::post('/load-rp-auditee-offices', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanController::class, 'showRPAuditeeOffices'])->name('plan.list.show.rp-auditee-offices');
+
             Route::get('/calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendarController::class, 'index'])->name('calendar');
 
             Route::get('/entity-calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendar\EntityCalendarController
