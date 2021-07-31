@@ -75,6 +75,43 @@ class AnnualPlanController extends Controller
         }
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function storeSelectedAuditeeEntities(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'activity_id' => 'required|integer',
+            'schedule_id' => 'required|integer',
+            'milestone_id' => 'required|integer',
+            'selected_entity' => 'required',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk());
+        $selected_entities_data = [];
+        $selected_entities = $request->selected_entity;
+        foreach ($selected_entities as $selected_entity) {
+            $selected_entity = json_decode($selected_entity, true);
+            $selected_entities_data[] = [
+                "party_id" => $selected_entity['entity_id'],
+                "party_name_en" => $selected_entity['entity_name_en'],
+                "party_name_bn" => $selected_entity['entity_name_bn'],
+                "ministry_id" => $selected_entity['ministry_id'],
+                "ministry_name_en" => $selected_entity['ministry_name_en'],
+                "ministry_name_bn" => $selected_entity['ministry_name_bn'],
+            ];
+        }
+        $data['selected_entities'] = json_encode($selected_entities_data, true);
+        unset($data['selected_entity']);
+
+        $entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_yearly_plan_selected_rp_store'), $data)->json();
+        if (isSuccess($entities)) {
+            return response()->json(['status' => 'success', 'data' => 'Added!']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $entities]);
+        }
+    }
+
+
     public function showAnnualSubmissionHRModal(Request $request)
     {
         $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());

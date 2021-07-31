@@ -78,7 +78,6 @@ trait ApiHeart
 
     public function loginIntoCagBeeCore($data)
     {
-        dd(env('API_URL_BEE'));
         $response = Http::withHeaders(['Accept' => 'application/json', 'Content-Type' => 'application/json', 'api-version' => '1', 'device-id' => 'avc', 'device-type' => 'web'])->post(config('amms_bee_routes.login_in_cag_bee'), ['user_data' => $data])->json();
 
         if (is_array($response) && isset($response['status']) && $response['status'] == 'success') {

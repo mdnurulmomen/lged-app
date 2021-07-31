@@ -7,8 +7,8 @@
             <th width="10%">Target Date</th>
             <th width="5%">Budget</th>
             <th width="5%">Assigned Staff</th>
-            <th>Auditee</th>
-            <th>Plan</th>
+            <th width="35%">Auditee</th>
+            <th width="5%">Plan</th>
         </tr>
         </thead>
         <tbody>
@@ -27,16 +27,16 @@
                         <td width="5%"></td>
                     @endforelse
                     <td width="5%">{{count($plan['assigned_staffs'])}}</td>
-                    <td>
-                        @forelse($plan['assigned_rp'] as $auditee)
+                        <td width="35%">
+                            @forelse($plan['assigned_rp'] as $auditee)
                             {{$auditee['party_name_en']}}<br/>
                         @empty
                             <span></span>
                         @endforelse
-                    </td>
-                    <td class="vertical-middle">
-                        <button class="btn_annual_plan"
-                                data-schedule-id="{{$plan['schedule_id']}}"
+                        </td>
+                        <td width="5%" class="vertical-middle">
+                            <button class="btn_annual_plan"
+                                    data-schedule-id="{{$plan['schedule_id']}}"
                                 data-activity-id="{{$plan['activity_id']}}"
                                 data-milestone-id="{{$plan['activity_milestone_id']}}"
                                 onclick="Annual_Plan_Container.loadEntitySelection($(this))">Plan

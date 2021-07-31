@@ -9,46 +9,46 @@
                         <li data-entity-info="{{json_encode(
     [
         'entity_id' => '1',
-        'entity_name_en' => 'Entity One',
-        'entity_name_bn' => 'Entity',
+        'entity_name_en' => 'Ministry of Power, Energy and Mineral Resources',
+        'entity_name_bn' => 'Ministry of Power, Energy and Mineral Resources',
         'ministry_id' => '1',
         'ministry_name_en' => 'Ministry En',
         'ministry_name_bn' => 'Ministry Bn',
         ])}}" data-jstree='{ "opened" : true }'>
-                            Entity One
+                            Ministry of Power, Energy and Mineral Resources
                         </li>
                         <li data-entity-info="{{json_encode(
     [
         'entity_id' => '2',
-        'entity_name_en' => 'Entity Two',
-        'entity_name_bn' => 'Entity',
+        'entity_name_en' => 'Ministry of Finance',
+        'entity_name_bn' => 'Ministry of Finance',
         'ministry_id' => '1',
         'ministry_name_en' => 'Ministry En',
         'ministry_name_bn' => 'Ministry Bn',
         ])}}" data-jstree='{ "opened" : true }'>
-                            Entity Two
+                            Ministry of Finance
                         </li>
                         <li data-entity-info="{{json_encode(
     [
         'entity_id' => '3',
-        'entity_name_en' => 'Entity Three',
-        'entity_name_bn' => 'Entity',
+        'entity_name_en' => 'Ministry of Home Affairs',
+        'entity_name_bn' => 'Ministry of Home Affairs',
         'ministry_id' => '1',
         'ministry_name_en' => 'Ministry En',
         'ministry_name_bn' => 'Ministry Bn',
         ])}}" data-jstree='{ "opened" : true }'>
-                            Entity Three
+                            Ministry of Home Affairs
                         </li>
                         <li data-entity-info="{{json_encode(
     [
         'entity_id' => '4',
-        'entity_name_en' => 'Entity Four',
-        'entity_name_bn' => 'Entity',
+        'entity_name_en' => 'Ministry of Land',
+        'entity_name_bn' => 'Ministry of Land',
         'ministry_id' => '1',
         'ministry_name_en' => 'Ministry En',
         'ministry_name_bn' => 'Ministry Bn',
         ])}}" data-jstree='{ "opened" : true }'>
-                            Entity Four
+                            Ministry of Land
                         </li>
                     </ul>
                 </li>

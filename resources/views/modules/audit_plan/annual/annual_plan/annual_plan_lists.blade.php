@@ -132,7 +132,7 @@
                     '<span id="btn_remove_officer_' + officer_info.designation_id + '" data-designation-id="' + officer_info.designation_id + '" onclick="Annual_Plan_Container.removeOfficerFromAssignedList(' + officer_info.designation_id + ')" style="cursor:pointer;color:red;"><i class="fa fa-trash"></i></span>' +
                     '</td>' +
                     '<td width="60%">' + officer_info.designation_bn + '</td>' +
-                    '<td width="30%">' + officer_info.officer_name + '</td>' +
+                    '<td width="30%">' + officer_info.officer_name_en + '</td>' +
                     '<td width="10%">' + '<select name="designation_role[]" class="select-select2"><option value="member_' + officer_info.designation_id + '">Member</option><option value="leader_' + officer_info.designation_id + '" selected>Team Leader</option></select>' + ' </td>' +
                     '</tr>';
                 $(".assigned_officers_table tbody").prepend(newRow);
@@ -171,9 +171,17 @@
         },
 
         submitSelectedEntities: function () {
-            url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-offices')}}';
-            data = $('#selected_rp_auditee_form').serialize();
+            url = '{{route('audit.plan.annual.plan.list.store.selected-entity')}}';
+            data = $('#selected_rp_auditee_form, #annual_plan_core_data_form').serialize();
 
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'success') {
+                    toastr.success(response.data);
+                    Annual_Plan_Container.loadSelectedAuditeeEntities($('#annual_plan_core_data_form').serializeArray())
+                } else {
+                    toastr.error(response.data)
+                }
+            })
         },
     };
 
