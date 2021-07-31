@@ -31,7 +31,7 @@
         </table>
     </div>
 
-    <button type="button" class="btn btn-primary font-weight-bold btn-square d-none"
+    <button type="button" class="btn btn-primary font-weight-bold btn-square"
             onclick="Annual_Plan_Container.submitSelectedEntities()">Save
     </button>
 
