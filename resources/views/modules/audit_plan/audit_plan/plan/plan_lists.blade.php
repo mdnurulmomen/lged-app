@@ -262,8 +262,9 @@
         </div>
     </div>
     <div id="daak_pagination_panel" class="float-right d-flex align-items-center" style="vertical-align:middle;">
-            <span class="mr-2"><span id="daak_item_length_start">১</span> - <span id="daak_item_length_end">৫</span> সর্বমোট: <span
-                    id="daak_item_total_record">৫</span></span>
+            <span class="mr-2"><span id="daak_item_length_start">{{$all_entities['from']}}</span> - <span
+                    id="daak_item_length_end">{{$all_entities['to']}}</span> সর্বমোট: <span
+                    id="daak_item_total_record">{{$all_entities['total']}}</span></span>
         <div class="btn-group">
             <button class="btn-list-prev btn btn-icon btn-secondary btn-square" disabled="disabled" type="button"><i
                     class="fad fa-chevron-left" data-toggle="popover" data-content="পূর্ববর্তী"
@@ -277,8 +278,9 @@
 
 <div>
     <ul class="list-group list-group-flush">
-        <li id="daak_container_inbox_1_54_Daptorik" class="daak_list_item list-group-item pl-0 py-2 border-bottom">
-            <div class="d-flex justify-content-between align-items-start">
+        @forelse($all_entities['data'] as $entity)
+            <li id="daak_container_inbox_1_54_Daptorik" class="daak_list_item list-group-item pl-0 py-2 border-bottom">
+                <div class="d-flex justify-content-between align-items-start">
                <span class="input-group-text bg-transparent border-0" data-toggle="popover"
                      data-content="ডাক বাছাই করুন" data-original-title="" title="">
                   <label class="checkbox checkbox-outline">
@@ -288,445 +290,602 @@
                         <span></span>
                   </label>
                </span>
-                <div class="pr-2 flex-fill daak_list_item_clickable_area cursor-pointer position-relative"
-                     did="daak_container_inbox_1_54_Daptorik" data-plan_id="1">
-                    <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
-                        <!--begin::Title-->
-                        <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">
-                            <div class="d-flex align-items-center flex-wrap  font-size-1-2">
-                                <a href="javascript:void(0)"
-                                   class=" text-dark text-hover-primary font-size-h5"
-                                   data-toggle="popover" data-html="true"
-                                   data-content=""
-                                   data-original-title="" title="">জনপ্রশাসন মন্ত্রণালয় এবং এর নিয়ন্ত্রনাধীন
-                                    প্রতিষ্ঠানসমূহের মঞ্জুরি ও বরাদ্দ ভিত্তিক এনটিটি ওয়াইড নির্দিষ্টকরণ ও নিয়মানুগ
-                                    নিরীক্ষা।</a>
-                            </div>
-                            <div class=" font-weight-normal d-md-flex flex-wrap">
-                                <div class="font-size-1-1">
+
+                    <div class="pr-2 flex-fill daak_list_item_clickable_area cursor-pointer position-relative"
+                         data-party-id="{{$entity['party_id']}}"
+                         data-rp-id="{{$entity['id']}}"
+                    >
+                        <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
+                            <!--begin::Title-->
+                            <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">
+                                <div class="d-flex align-items-center flex-wrap  font-size-1-2">
+                                    <a href="javascript:void(0)"
+                                       class=" text-dark text-hover-primary font-size-h5"
+                                       data-toggle="popover" data-html="true"
+                                       data-content=""
+                                       data-original-title="" title="">{{$entity['party_name_en']}}</a>
+                                </div>
+                                <div class=" font-weight-normal d-md-flex flex-wrap">
+                                    <div class="font-size-1-1">
                                     <span
                                         class="perok-wrapper sender_name" data-toggle="popover"
                                         data-content="প্রোগ্রাম এসোসিয়েট, টেকনোলজি, এসপায়ার টু ইনোভেট (এটু্আই) প্রোগ্রাম"
                                         data-original-title="" title="">অর্থবছরঃ ২০১৮-২০১৯, নিরীক্ষা বছরঃ ২০১৯-২০২০
                                     </span>
-                                </div>
-                            </div>
-                            <div class=" subject-wrapper font-weight-normal font-weight-normal">
-                                <span class="mr-2 font-size-1-1">মঞ্জুরী নং:</span>
-                                <span class="description text-wrap font-size-14">০৫</span>
-                            </div>
-                            <div class=" font-weight-normal siddhanto-wrapper">
-                                <span class="mr-2 font-size-1-1">সিদ্ধান্ত:</span>
-                                <span class="text-info font-size-14">নিরীক্ষা পরিকল্পনা জনাব নাম-এর নেতৃত্বে ১ অক্টোবর ২০২১ হতে ১৫ অক্টোবর ২০২১ পর্যন্ত</span>
-                            </div>
-                            <div class=" font-weight-normal d-none predict-wrapper">
-                                <span class="predict-label text-success "></span>
-                            </div>
-                        </div>
-                        <!--end::Title-->
-                        <!--begin::Info-->
-                        <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-6">
-                            <div class="d-block">
-                                <div
-                                    class="d-md-flex flex-wrap mb-2 align-items-center justify-content-md-end text-nowrap">
-                                    <div class="ml-3  d-flex align-items-center text-primary"><i
-                                            class="flaticon2-copy mr-2 text-primary"></i>অনুলিপি
                                     </div>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-md-end">
-                                    <div class="btn-group folder-wrapper mb-2 mt-3 mr-3">
-                                        <button type="button"
-                                                class="btn btn-sm rounded-0 alert-warning  folder_click">SQA
-                                        </button>
-                                        <div class="dropdown dropdown-inline">
+                                <div class=" subject-wrapper font-weight-normal font-weight-normal">
+                                    <span class="mr-2 font-size-1-1">মঞ্জুরী নং:</span>
+                                    <span class="description text-wrap font-size-14">০৫</span>
+                                </div>
+                                <div class=" font-weight-normal siddhanto-wrapper">
+                                    <span class="mr-2 font-size-1-1">সিদ্ধান্ত:</span>
+                                    <span class="text-info font-size-14">নিরীক্ষা পরিকল্পনা জনাব নাম-এর নেতৃত্বে ১ অক্টোবর ২০২১ হতে ১৫ অক্টোবর ২০২১ পর্যন্ত</span>
+                                </div>
+                                <div class=" font-weight-normal d-none predict-wrapper">
+                                    <span class="predict-label text-success "></span>
+                                </div>
+                            </div>
+                            <!--end::Title-->
+                            <!--begin::Info-->
+                            <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-6">
+                                <div class="d-block">
+                                    <div
+                                        class="d-md-flex flex-wrap mb-2 align-items-center justify-content-md-end text-nowrap">
+                                        <div class="ml-3  d-flex align-items-center text-primary"><i
+                                                class="flaticon2-copy mr-2 text-primary"></i>অনুলিপি
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-md-end">
+                                        <div class="btn-group folder-wrapper mb-2 mt-3 mr-3">
                                             <button type="button"
-                                                    class="btn btn-light-warning btn-icon btn-sm  rounded-0 alert-warning"
-                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="true">
-                                                <i class="ki ki-bold-more-ver"></i>
+                                                    class="btn btn-sm rounded-0 alert-warning  folder_click">SQA
                                             </button>
-                                            <div class="dropdown-menu dropdown-menu-sm folder_click"
-                                                 x-placement="bottom-start">
-                                                <span class="dropdown-item">Developers</span>
+                                            <div class="dropdown dropdown-inline">
+                                                <button type="button"
+                                                        class="btn btn-light-warning btn-icon btn-sm  rounded-0 alert-warning"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="true">
+                                                    <i class="ki ki-bold-more-ver"></i>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-sm folder_click"
+                                                     x-placement="bottom-start">
+                                                    <span class="dropdown-item">Developers</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-2 mt-3 soongukto-wrapper">
+                                            <div class="d-flex justify-content-end align-items-center">
+                                                <button
+                                                    data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"
+                                                    class="btn-attachment btn btn-outline-warning btn-sm" type="button">
+                                                    <i class="fal fa-link" style="font-size:11px"></i>
+                                                    <span class="text-danger">১</span>
+                                                </button>
+                                                <div class="text-dark-75 ml-3 rdate" cspas="date">২০/৫/২১ ১:০৮ PM</div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div
+                                        class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
 
-                                    <div class="mb-2 mt-3 soongukto-wrapper">
-                                        <div class="d-flex justify-content-end align-items-center">
-                                            <button
-                                                data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"
-                                                class="btn-attachment btn btn-outline-warning btn-sm" type="button">
-                                                <i class="fal fa-link" style="font-size:11px"></i>
-                                                <span class="text-danger">১</span>
-                                            </button>
-                                            <div class="text-dark-75 ml-3 rdate" cspas="date">২০/৫/২১ ১:০৮ PM</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
-
-                                    <a data-popout="true" data-toggle="confirmation"
-                                       data-title="আপনি কি ডাকটি আর্কাইভ করতে চান ?" href="javascript:;"
-                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"
-                                       data-dak-info="daak_container_inbox_1_54_Daptorik" data-original-title=""
-                                       title="">
-                                        <i class="fa fa-archive" data-toggle="popover" data-content="আর্কাইভ"
-                                           data-original-title="" title=""></i>
-                                    </a>
-                                    <button
-                                        data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"
-                                        class="panel_single_daak_forward_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                        type="button">
-                                        <i class="fad fa-share" data-toggle="popover" data-content="ডাক প্রেরণ করুন"
-                                           data-original-title="" title=""></i>
-                                    </button>
-                                    <a href="javascript:;"
-                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothivukto list-btn-toggle"
-                                       data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">
-                                        <i class="fad fa-books" data-toggle="popover" data-content="নথিতে উপস্থাপন"
-                                           data-original-title="" title=""></i>
-                                    </a>
-                                    <a href="javascript:;"
-                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothijato list-btn-toggle"
-                                       data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">
-                                        <i class="fal fa-folder-open" data-toggle="popover" data-content="নথিজাত"
-                                           data-original-title="" title=""></i>
-                                    </a>
-
-                                    <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"
-                                            class="btn_daak_movement mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                        <a data-popout="true" data-toggle="confirmation"
+                                           data-title="আপনি কি ডাকটি আর্কাইভ করতে চান ?" href="javascript:;"
+                                           class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"
+                                           data-dak-info="daak_container_inbox_1_54_Daptorik" data-original-title=""
+                                           title="">
+                                            <i class="fa fa-archive" data-toggle="popover" data-content="আর্কাইভ"
+                                               data-original-title="" title=""></i>
+                                        </a>
+                                        <button
+                                            data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"
+                                            class="panel_single_daak_forward_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                             type="button">
-                                        <i data-toggle="popover" data-content="ডাক গতিবিধি"
-                                           class="fas fa-repeat-alt" data-original-title="" title=""></i>
-                                    </button>
-                                    <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"
-                                            data-personal-folder="{&quot;15&quot;:15,&quot;11&quot;:11}"
-                                            class="daak_tagging_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                            type="button">
-                                        <i class="fal fa-tags" data-toggle="popover" data-content="ডাক ট্যাগসমূহ"
-                                           data-original-title="" title=""></i>
-                                    </button>
-
-
-                                    <!--                            <button data-info='-->
-                                    <!--?//=h(json_encode($row))?-->
-                                    <!--' class="btn-prediction mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle" type="button">-->
-                                    <!--                                <i class="far fa-brain" data-toggle="popover" data-content="ডাক প্রেডিকশন"></i>-->
-                                    <!--                            </button>-->
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Info-->
-                    </div>
-                </div>
-
-            </div>
-        </li>
-
-        <li id="daak_container_inbox_1_55_Daptorik" class="daak_list_item list-group-item pl-0 py-2 border-bottom">
-            <div class="d-flex justify-content-between align-items-start">
-               <span class="input-group-text bg-transparent border-0" data-toggle="popover"
-                     data-content="ডাক বাছাই করুন" data-original-title="" title="">
-                  <label class="checkbox checkbox-outline">
-                        <input data-draft-decisions="" type="checkbox"
-                               name="daak_container_inbox_daak_list_item_checkbox" data-attention="0"
-                               class="daak_container_inbox_daak_list_item_checkbox">
-                        <span></span>
-                  </label>
-               </span>
-                <div class="pr-2 flex-fill daak_list_item_clickable_area cursor-pointer position-relative"
-                     did="daak_container_inbox_1_54_Daptorik" data-plan_id="2">
-                    <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
-                        <!--begin::Title-->
-                        <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">
-                            <div class="d-flex align-items-center flex-wrap  font-size-1-2">
-                                <a href="javascript:void(0)"
-                                   class=" text-dark text-hover-primary font-size-h5"
-                                   data-toggle="popover" data-html="true"
-                                   data-content=""
-                                   data-original-title="" title="">যুব ও ক্রীড়া মন্ত্রণালয় মঞ্জুরী ও বরাদ্দভিত্তিক
-                                    নির্দিষ্টকরণ নিরীক্ষা</a>
-                            </div>
-                            <div class=" font-weight-normal d-md-flex flex-wrap">
-                                <div class="font-size-1-1">
-                                    <span
-                                        class="perok-wrapper sender_name" data-toggle="popover"
-                                        data-content="প্রোগ্রাম এসোসিয়েট, টেকনোলজি, এসপায়ার টু ইনোভেট (এটু্আই) প্রোগ্রাম"
-                                        data-original-title="" title="">অর্থবছরঃ ২০১৮-২০১৯, নিরীক্ষা বছরঃ ২০১৯-২০২০
-                                    </span>
-                                </div>
-                            </div>
-                            <div class=" subject-wrapper font-weight-normal font-weight-normal">
-                                <span class="mr-2 font-size-1-1">মঞ্জুরী নং:</span>
-                                <span class="description text-wrap font-size-14">৩৩</span>
-                            </div>
-                            <div class=" font-weight-normal siddhanto-wrapper">
-                                <span class="mr-2 font-size-1-1">সিদ্ধান্ত:</span>
-                                <span class="text-info font-size-14">নিরীক্ষা পরিকল্পনা জনাব নাম-এর নেতৃত্বে ১ অক্টোবর ২০২১ হতে ১৫ অক্টোবর ২০২১ পর্যন্ত</span>
-                            </div>
-                            <div class=" font-weight-normal d-none predict-wrapper">
-                                <span class="predict-label text-success "></span>
-                            </div>
-                        </div>
-                        <!--end::Title-->
-                        <!--begin::Info-->
-                        <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-6">
-                            <div class="d-block">
-                                <div
-                                    class="d-md-flex flex-wrap mb-2 align-items-center justify-content-md-end text-nowrap">
-                                    <div class="ml-3  d-flex align-items-center text-primary"><i
-                                            class="flaticon2-copy mr-2 text-primary"></i>অনুলিপি
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-md-end">
-                                    <div class="btn-group folder-wrapper mb-2 mt-3 mr-3">
-                                        <button type="button"
-                                                class="btn btn-sm rounded-0 alert-warning  folder_click">SQA
+                                            <i class="fad fa-share" data-toggle="popover" data-content="ডাক প্রেরণ করুন"
+                                               data-original-title="" title=""></i>
                                         </button>
-                                        <div class="dropdown dropdown-inline">
-                                            <button type="button"
-                                                    class="btn btn-light-warning btn-icon btn-sm  rounded-0 alert-warning"
-                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="true">
-                                                <i class="ki ki-bold-more-ver"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-sm folder_click"
-                                                 x-placement="bottom-start">
-                                                <span class="dropdown-item">Developers</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <a href="javascript:;"
+                                           class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothivukto list-btn-toggle"
+                                           data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">
+                                            <i class="fad fa-books" data-toggle="popover" data-content="নথিতে উপস্থাপন"
+                                               data-original-title="" title=""></i>
+                                        </a>
+                                        <a href="javascript:;"
+                                           class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothijato list-btn-toggle"
+                                           data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">
+                                            <i class="fal fa-folder-open" data-toggle="popover" data-content="নথিজাত"
+                                               data-original-title="" title=""></i>
+                                        </a>
 
-                                    <div class="mb-2 mt-3 soongukto-wrapper">
-                                        <div class="d-flex justify-content-end align-items-center">
-                                            <button
-                                                data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"
-                                                class="btn-attachment btn btn-outline-warning btn-sm" type="button">
-                                                <i class="fal fa-link" style="font-size:11px"></i>
-                                                <span class="text-danger">১</span>
-                                            </button>
-                                            <div class="text-dark-75 ml-3 rdate" cspas="date">২০/৫/২১ ১:০৮ PM</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
-
-                                    <a data-popout="true" data-toggle="confirmation"
-                                       data-title="আপনি কি ডাকটি আর্কাইভ করতে চান ?" href="javascript:;"
-                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"
-                                       data-dak-info="daak_container_inbox_1_54_Daptorik" data-original-title=""
-                                       title="">
-                                        <i class="fa fa-archive" data-toggle="popover" data-content="আর্কাইভ"
-                                           data-original-title="" title=""></i>
-                                    </a>
-                                    <button
-                                        data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"
-                                        class="panel_single_daak_forward_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                        type="button">
-                                        <i class="fad fa-share" data-toggle="popover" data-content="ডাক প্রেরণ করুন"
-                                           data-original-title="" title=""></i>
-                                    </button>
-                                    <a href="javascript:;"
-                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothivukto list-btn-toggle"
-                                       data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">
-                                        <i class="fad fa-books" data-toggle="popover" data-content="নথিতে উপস্থাপন"
-                                           data-original-title="" title=""></i>
-                                    </a>
-                                    <a href="javascript:;"
-                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothijato list-btn-toggle"
-                                       data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">
-                                        <i class="fal fa-folder-open" data-toggle="popover" data-content="নথিজাত"
-                                           data-original-title="" title=""></i>
-                                    </a>
-
-                                    <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"
-                                            class="btn_daak_movement mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                            type="button">
-                                        <i data-toggle="popover" data-content="ডাক গতিবিধি"
-                                           class="fas fa-repeat-alt" data-original-title="" title=""></i>
-                                    </button>
-                                    <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"
-                                            data-personal-folder="{&quot;15&quot;:15,&quot;11&quot;:11}"
-                                            class="daak_tagging_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                            type="button">
-                                        <i class="fal fa-tags" data-toggle="popover" data-content="ডাক ট্যাগসমূহ"
-                                           data-original-title="" title=""></i>
-                                    </button>
-
-
-                                    <!--                            <button data-info='-->
-                                    <!--?//=h(json_encode($row))?-->
-                                    <!--' class="btn-prediction mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle" type="button">-->
-                                    <!--                                <i class="far fa-brain" data-toggle="popover" data-content="ডাক প্রেডিকশন"></i>-->
-                                    <!--                            </button>-->
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Info-->
-                    </div>
-                </div>
-
-            </div>
-        </li>
-
-        <li id="daak_container_inbox_1_56_Daptorik" class="daak_list_item list-group-item pl-0 py-2 border-bottom">
-            <div class="d-flex justify-content-between align-items-start">
-               <span class="input-group-text bg-transparent border-0" data-toggle="popover"
-                     data-content="ডাক বাছাই করুন" data-original-title="" title="">
-                  <label class="checkbox checkbox-outline">
-                        <input data-draft-decisions="" type="checkbox"
-                               name="daak_container_inbox_daak_list_item_checkbox" data-attention="0"
-                               class="daak_container_inbox_daak_list_item_checkbox">
-                        <span></span>
-                  </label>
-               </span>
-                <div class="pr-2 flex-fill daak_list_item_clickable_area cursor-pointer position-relative"
-                     did="daak_container_inbox_1_54_Daptorik" data-plan_id="3">
-                    <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
-                        <!--begin::Title-->
-                        <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">
-                            <div class="d-flex align-items-center flex-wrap  font-size-1-2">
-                                <a href="javascript:void(0)"
-                                   class=" text-dark text-hover-primary font-size-h5"
-                                   data-toggle="popover" data-html="true"
-                                   data-content=""
-                                   data-original-title="" title="">২০১৮-২০১৯ অর্থ বছরের স্বাস্থ‍্য শিক্ষা ও পরিবার
-                                    কল‍্যাণ বিভাগ, স্বাস্থ‍্য ও পরিবার কল‍্যাণ মন্ত্রণালয় ও এর অধীনস্থ কার্যালয়সমূহের
-                                    মঞ্জুরী ও বরাদ্দ ভিত্তিক নির্দিষ্টকরণ ও নিয়মানুগ নিরীক্ষা</a>
-                            </div>
-                            <div class=" font-weight-normal d-md-flex flex-wrap">
-                                <div class="font-size-1-1">
-                                    <span
-                                        class="perok-wrapper sender_name" data-toggle="popover"
-                                        data-content="প্রোগ্রাম এসোসিয়েট, টেকনোলজি, এসপায়ার টু ইনোভেট (এটু্আই) প্রোগ্রাম"
-                                        data-original-title="" title="">অর্থবছরঃ ২০১৮-২০১৯, নিরীক্ষা বছরঃ ২০১৯-২০২০
-                                    </span>
-                                </div>
-                            </div>
-                            <div class=" subject-wrapper font-weight-normal font-weight-normal">
-                                <span class="mr-2 font-size-1-1">মঞ্জুরী নং:</span>
-                                <span class="description text-wrap font-size-14">৫৯</span>
-                            </div>
-                            <div class=" font-weight-normal siddhanto-wrapper">
-                                <span class="mr-2 font-size-1-1">সিদ্ধান্ত:</span>
-                                <span class="text-info font-size-14">নিরীক্ষা পরিকল্পনা জনাব নাম-এর নেতৃত্বে ১ অক্টোবর ২০২১ হতে ১৫ অক্টোবর ২০২১ পর্যন্ত</span>
-                            </div>
-                            <div class=" font-weight-normal d-none predict-wrapper">
-                                <span class="predict-label text-success "></span>
-                            </div>
-                        </div>
-                        <!--end::Title-->
-                        <!--begin::Info-->
-                        <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-6">
-                            <div class="d-block">
-                                <div
-                                    class="d-md-flex flex-wrap mb-2 align-items-center justify-content-md-end text-nowrap">
-                                    <div class="ml-3  d-flex align-items-center text-primary"><i
-                                            class="flaticon2-copy mr-2 text-primary"></i>অনুলিপি
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-md-end">
-                                    <div class="btn-group folder-wrapper mb-2 mt-3 mr-3">
-                                        <button type="button"
-                                                class="btn btn-sm rounded-0 alert-warning  folder_click">SQA
+                                        <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"
+                                                class="btn_daak_movement mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                type="button">
+                                            <i data-toggle="popover" data-content="ডাক গতিবিধি"
+                                               class="fas fa-repeat-alt" data-original-title="" title=""></i>
                                         </button>
-                                        <div class="dropdown dropdown-inline">
-                                            <button type="button"
-                                                    class="btn btn-light-warning btn-icon btn-sm  rounded-0 alert-warning"
-                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="true">
-                                                <i class="ki ki-bold-more-ver"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-sm folder_click"
-                                                 x-placement="bottom-start">
-                                                <span class="dropdown-item">Developers</span>
-                                            </div>
-                                        </div>
+                                        <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"
+                                                data-personal-folder="{&quot;15&quot;:15,&quot;11&quot;:11}"
+                                                class="daak_tagging_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                type="button">
+                                            <i class="fal fa-tags" data-toggle="popover" data-content="ডাক ট্যাগসমূহ"
+                                               data-original-title="" title=""></i>
+                                        </button>
+
+
+                                        <!--                            <button data-info='-->
+                                        <!--?//=h(json_encode($row))?-->
+                                        <!--' class="btn-prediction mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle" type="button">-->
+                                        <!--                                <i class="far fa-brain" data-toggle="popover" data-content="ডাক প্রেডিকশন"></i>-->
+                                        <!--                            </button>-->
                                     </div>
-
-                                    <div class="mb-2 mt-3 soongukto-wrapper">
-                                        <div class="d-flex justify-content-end align-items-center">
-                                            <button
-                                                data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"
-                                                class="btn-attachment btn btn-outline-warning btn-sm" type="button">
-                                                <i class="fal fa-link" style="font-size:11px"></i>
-                                                <span class="text-danger">১</span>
-                                            </button>
-                                            <div class="text-dark-75 ml-3 rdate" cspas="date">২০/৫/২১ ১:০৮ PM</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
-
-                                    <a data-popout="true" data-toggle="confirmation"
-                                       data-title="আপনি কি ডাকটি আর্কাইভ করতে চান ?" href="javascript:;"
-                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"
-                                       data-dak-info="daak_container_inbox_1_54_Daptorik" data-original-title=""
-                                       title="">
-                                        <i class="fa fa-archive" data-toggle="popover" data-content="আর্কাইভ"
-                                           data-original-title="" title=""></i>
-                                    </a>
-                                    <button
-                                        data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"
-                                        class="panel_single_daak_forward_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                        type="button">
-                                        <i class="fad fa-share" data-toggle="popover" data-content="ডাক প্রেরণ করুন"
-                                           data-original-title="" title=""></i>
-                                    </button>
-                                    <a href="javascript:;"
-                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothivukto list-btn-toggle"
-                                       data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">
-                                        <i class="fad fa-books" data-toggle="popover" data-content="নথিতে উপস্থাপন"
-                                           data-original-title="" title=""></i>
-                                    </a>
-                                    <a href="javascript:;"
-                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothijato list-btn-toggle"
-                                       data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">
-                                        <i class="fal fa-folder-open" data-toggle="popover" data-content="নথিজাত"
-                                           data-original-title="" title=""></i>
-                                    </a>
-
-                                    <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"
-                                            class="btn_daak_movement mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                            type="button">
-                                        <i data-toggle="popover" data-content="ডাক গতিবিধি"
-                                           class="fas fa-repeat-alt" data-original-title="" title=""></i>
-                                    </button>
-                                    <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"
-                                            data-personal-folder="{&quot;15&quot;:15,&quot;11&quot;:11}"
-                                            class="daak_tagging_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                            type="button">
-                                        <i class="fal fa-tags" data-toggle="popover" data-content="ডাক ট্যাগসমূহ"
-                                           data-original-title="" title=""></i>
-                                    </button>
-
-
-                                    <!--                            <button data-info='-->
-                                    <!--?//=h(json_encode($row))?-->
-                                    <!--' class="btn-prediction mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle" type="button">-->
-                                    <!--                                <i class="far fa-brain" data-toggle="popover" data-content="ডাক প্রেডিকশন"></i>-->
-                                    <!--                            </button>-->
                                 </div>
                             </div>
+                            <!--end::Info-->
                         </div>
-                        <!--end::Info-->
                     </div>
-                </div>
 
-            </div>
-        </li>
+                </div>
+            </li>
+        @empty
+            <p class="text-center">No Entity To Audit</p>
+        @endforelse
+
+        {{--            <li id="daak_container_inbox_1_54_Daptorik" class="daak_list_item list-group-item pl-0 py-2 border-bottom">--}}
+        {{--                <div class="d-flex justify-content-between align-items-start">--}}
+        {{--               <span class="input-group-text bg-transparent border-0" data-toggle="popover"--}}
+        {{--                     data-content="ডাক বাছাই করুন" data-original-title="" title="">--}}
+        {{--                  <label class="checkbox checkbox-outline">--}}
+        {{--                        <input data-draft-decisions="" type="checkbox"--}}
+        {{--                               name="daak_container_inbox_daak_list_item_checkbox" data-attention="0"--}}
+        {{--                               class="daak_container_inbox_daak_list_item_checkbox">--}}
+        {{--                        <span></span>--}}
+        {{--                  </label>--}}
+        {{--               </span>--}}
+
+        {{--                    <div class="pr-2 flex-fill daak_list_item_clickable_area cursor-pointer position-relative"--}}
+        {{--                         did="daak_container_inbox_1_54_Daptorik" data-plan_id="1">--}}
+        {{--                        <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">--}}
+        {{--                            <!--begin::Title-->--}}
+        {{--                            <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">--}}
+        {{--                                <div class="d-flex align-items-center flex-wrap  font-size-1-2">--}}
+        {{--                                    <a href="javascript:void(0)"--}}
+        {{--                                       class=" text-dark text-hover-primary font-size-h5"--}}
+        {{--                                       data-toggle="popover" data-html="true"--}}
+        {{--                                       data-content=""--}}
+        {{--                                       data-original-title="" title="">জনপ্রশাসন মন্ত্রণালয় এবং এর নিয়ন্ত্রনাধীন--}}
+        {{--                                        প্রতিষ্ঠানসমূহের মঞ্জুরি ও বরাদ্দ ভিত্তিক এনটিটি ওয়াইড নির্দিষ্টকরণ ও নিয়মানুগ--}}
+        {{--                                        নিরীক্ষা।</a>--}}
+        {{--                                </div>--}}
+        {{--                                <div class=" font-weight-normal d-md-flex flex-wrap">--}}
+        {{--                                    <div class="font-size-1-1">--}}
+        {{--                                    <span--}}
+        {{--                                        class="perok-wrapper sender_name" data-toggle="popover"--}}
+        {{--                                        data-content="প্রোগ্রাম এসোসিয়েট, টেকনোলজি, এসপায়ার টু ইনোভেট (এটু্আই) প্রোগ্রাম"--}}
+        {{--                                        data-original-title="" title="">অর্থবছরঃ ২০১৮-২০১৯, নিরীক্ষা বছরঃ ২০১৯-২০২০--}}
+        {{--                                    </span>--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div class=" subject-wrapper font-weight-normal font-weight-normal">--}}
+        {{--                                    <span class="mr-2 font-size-1-1">মঞ্জুরী নং:</span>--}}
+        {{--                                    <span class="description text-wrap font-size-14">০৫</span>--}}
+        {{--                                </div>--}}
+        {{--                                <div class=" font-weight-normal siddhanto-wrapper">--}}
+        {{--                                    <span class="mr-2 font-size-1-1">সিদ্ধান্ত:</span>--}}
+        {{--                                    <span class="text-info font-size-14">নিরীক্ষা পরিকল্পনা জনাব নাম-এর নেতৃত্বে ১ অক্টোবর ২০২১ হতে ১৫ অক্টোবর ২০২১ পর্যন্ত</span>--}}
+        {{--                                </div>--}}
+        {{--                                <div class=" font-weight-normal d-none predict-wrapper">--}}
+        {{--                                    <span class="predict-label text-success "></span>--}}
+        {{--                                </div>--}}
+        {{--                            </div>--}}
+        {{--                            <!--end::Title-->--}}
+        {{--                            <!--begin::Info-->--}}
+        {{--                            <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-6">--}}
+        {{--                                <div class="d-block">--}}
+        {{--                                    <div--}}
+        {{--                                        class="d-md-flex flex-wrap mb-2 align-items-center justify-content-md-end text-nowrap">--}}
+        {{--                                        <div class="ml-3  d-flex align-items-center text-primary"><i--}}
+        {{--                                                class="flaticon2-copy mr-2 text-primary"></i>অনুলিপি--}}
+        {{--                                        </div>--}}
+        {{--                                    </div>--}}
+        {{--                                    <div class="d-flex align-items-center justify-content-md-end">--}}
+        {{--                                        <div class="btn-group folder-wrapper mb-2 mt-3 mr-3">--}}
+        {{--                                            <button type="button"--}}
+        {{--                                                    class="btn btn-sm rounded-0 alert-warning  folder_click">SQA--}}
+        {{--                                            </button>--}}
+        {{--                                            <div class="dropdown dropdown-inline">--}}
+        {{--                                                <button type="button"--}}
+        {{--                                                        class="btn btn-light-warning btn-icon btn-sm  rounded-0 alert-warning"--}}
+        {{--                                                        data-toggle="dropdown" aria-haspopup="true"--}}
+        {{--                                                        aria-expanded="true">--}}
+        {{--                                                    <i class="ki ki-bold-more-ver"></i>--}}
+        {{--                                                </button>--}}
+        {{--                                                <div class="dropdown-menu dropdown-menu-sm folder_click"--}}
+        {{--                                                     x-placement="bottom-start">--}}
+        {{--                                                    <span class="dropdown-item">Developers</span>--}}
+        {{--                                                </div>--}}
+        {{--                                            </div>--}}
+        {{--                                        </div>--}}
+
+        {{--                                        <div class="mb-2 mt-3 soongukto-wrapper">--}}
+        {{--                                            <div class="d-flex justify-content-end align-items-center">--}}
+        {{--                                                <button--}}
+        {{--                                                    data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"--}}
+        {{--                                                    class="btn-attachment btn btn-outline-warning btn-sm" type="button">--}}
+        {{--                                                    <i class="fal fa-link" style="font-size:11px"></i>--}}
+        {{--                                                    <span class="text-danger">১</span>--}}
+        {{--                                                </button>--}}
+        {{--                                                <div class="text-dark-75 ml-3 rdate" cspas="date">২০/৫/২১ ১:০৮ PM</div>--}}
+        {{--                                            </div>--}}
+        {{--                                        </div>--}}
+        {{--                                    </div>--}}
+        {{--                                    <div--}}
+        {{--                                        class="action-group d-flex justify-content-end position-absolute action-group-wrapper">--}}
+
+        {{--                                        <a data-popout="true" data-toggle="confirmation"--}}
+        {{--                                           data-title="আপনি কি ডাকটি আর্কাইভ করতে চান ?" href="javascript:;"--}}
+        {{--                                           class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"--}}
+        {{--                                           data-dak-info="daak_container_inbox_1_54_Daptorik" data-original-title=""--}}
+        {{--                                           title="">--}}
+        {{--                                            <i class="fa fa-archive" data-toggle="popover" data-content="আর্কাইভ"--}}
+        {{--                                               data-original-title="" title=""></i>--}}
+        {{--                                        </a>--}}
+        {{--                                        <button--}}
+        {{--                                            data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"--}}
+        {{--                                            class="panel_single_daak_forward_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"--}}
+        {{--                                            type="button">--}}
+        {{--                                            <i class="fad fa-share" data-toggle="popover" data-content="ডাক প্রেরণ করুন"--}}
+        {{--                                               data-original-title="" title=""></i>--}}
+        {{--                                        </button>--}}
+        {{--                                        <a href="javascript:;"--}}
+        {{--                                           class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothivukto list-btn-toggle"--}}
+        {{--                                           data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">--}}
+        {{--                                            <i class="fad fa-books" data-toggle="popover" data-content="নথিতে উপস্থাপন"--}}
+        {{--                                               data-original-title="" title=""></i>--}}
+        {{--                                        </a>--}}
+        {{--                                        <a href="javascript:;"--}}
+        {{--                                           class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothijato list-btn-toggle"--}}
+        {{--                                           data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">--}}
+        {{--                                            <i class="fal fa-folder-open" data-toggle="popover" data-content="নথিজাত"--}}
+        {{--                                               data-original-title="" title=""></i>--}}
+        {{--                                        </a>--}}
+
+        {{--                                        <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"--}}
+        {{--                                                class="btn_daak_movement mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"--}}
+        {{--                                                type="button">--}}
+        {{--                                            <i data-toggle="popover" data-content="ডাক গতিবিধি"--}}
+        {{--                                               class="fas fa-repeat-alt" data-original-title="" title=""></i>--}}
+        {{--                                        </button>--}}
+        {{--                                        <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"--}}
+        {{--                                                data-personal-folder="{&quot;15&quot;:15,&quot;11&quot;:11}"--}}
+        {{--                                                class="daak_tagging_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"--}}
+        {{--                                                type="button">--}}
+        {{--                                            <i class="fal fa-tags" data-toggle="popover" data-content="ডাক ট্যাগসমূহ"--}}
+        {{--                                               data-original-title="" title=""></i>--}}
+        {{--                                        </button>--}}
+
+
+        {{--                                        <!--                            <button data-info='-->--}}
+        {{--                                        <!--?//=h(json_encode($row))?-->--}}
+        {{--                                        <!--' class="btn-prediction mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle" type="button">-->--}}
+        {{--                                        <!--                                <i class="far fa-brain" data-toggle="popover" data-content="ডাক প্রেডিকশন"></i>-->--}}
+        {{--                                        <!--                            </button>-->--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                            </div>--}}
+        {{--                            <!--end::Info-->--}}
+        {{--                        </div>--}}
+        {{--                    </div>--}}
+
+        {{--                </div>--}}
+        {{--            </li>--}}
+        {{--        <li id="daak_container_inbox_1_55_Daptorik" class="daak_list_item list-group-item pl-0 py-2 border-bottom">--}}
+        {{--            <div class="d-flex justify-content-between align-items-start">--}}
+        {{--               <span class="input-group-text bg-transparent border-0" data-toggle="popover"--}}
+        {{--                     data-content="ডাক বাছাই করুন" data-original-title="" title="">--}}
+        {{--                  <label class="checkbox checkbox-outline">--}}
+        {{--                        <input data-draft-decisions="" type="checkbox"--}}
+        {{--                               name="daak_container_inbox_daak_list_item_checkbox" data-attention="0"--}}
+        {{--                               class="daak_container_inbox_daak_list_item_checkbox">--}}
+        {{--                        <span></span>--}}
+        {{--                  </label>--}}
+        {{--               </span>--}}
+        {{--                <div class="pr-2 flex-fill daak_list_item_clickable_area cursor-pointer position-relative"--}}
+        {{--                     did="daak_container_inbox_1_54_Daptorik" data-plan_id="2">--}}
+        {{--                    <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">--}}
+        {{--                        <!--begin::Title-->--}}
+        {{--                        <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">--}}
+        {{--                            <div class="d-flex align-items-center flex-wrap  font-size-1-2">--}}
+        {{--                                <a href="javascript:void(0)"--}}
+        {{--                                   class=" text-dark text-hover-primary font-size-h5"--}}
+        {{--                                   data-toggle="popover" data-html="true"--}}
+        {{--                                   data-content=""--}}
+        {{--                                   data-original-title="" title="">যুব ও ক্রীড়া মন্ত্রণালয় মঞ্জুরী ও বরাদ্দভিত্তিক--}}
+        {{--                                    নির্দিষ্টকরণ নিরীক্ষা</a>--}}
+        {{--                            </div>--}}
+        {{--                            <div class=" font-weight-normal d-md-flex flex-wrap">--}}
+        {{--                                <div class="font-size-1-1">--}}
+        {{--                                    <span--}}
+        {{--                                        class="perok-wrapper sender_name" data-toggle="popover"--}}
+        {{--                                        data-content="প্রোগ্রাম এসোসিয়েট, টেকনোলজি, এসপায়ার টু ইনোভেট (এটু্আই) প্রোগ্রাম"--}}
+        {{--                                        data-original-title="" title="">অর্থবছরঃ ২০১৮-২০১৯, নিরীক্ষা বছরঃ ২০১৯-২০২০--}}
+        {{--                                    </span>--}}
+        {{--                                </div>--}}
+        {{--                            </div>--}}
+        {{--                            <div class=" subject-wrapper font-weight-normal font-weight-normal">--}}
+        {{--                                <span class="mr-2 font-size-1-1">মঞ্জুরী নং:</span>--}}
+        {{--                                <span class="description text-wrap font-size-14">৩৩</span>--}}
+        {{--                            </div>--}}
+        {{--                            <div class=" font-weight-normal siddhanto-wrapper">--}}
+        {{--                                <span class="mr-2 font-size-1-1">সিদ্ধান্ত:</span>--}}
+        {{--                                <span class="text-info font-size-14">নিরীক্ষা পরিকল্পনা জনাব নাম-এর নেতৃত্বে ১ অক্টোবর ২০২১ হতে ১৫ অক্টোবর ২০২১ পর্যন্ত</span>--}}
+        {{--                            </div>--}}
+        {{--                            <div class=" font-weight-normal d-none predict-wrapper">--}}
+        {{--                                <span class="predict-label text-success "></span>--}}
+        {{--                            </div>--}}
+        {{--                        </div>--}}
+        {{--                        <!--end::Title-->--}}
+        {{--                        <!--begin::Info-->--}}
+        {{--                        <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-6">--}}
+        {{--                            <div class="d-block">--}}
+        {{--                                <div--}}
+        {{--                                    class="d-md-flex flex-wrap mb-2 align-items-center justify-content-md-end text-nowrap">--}}
+        {{--                                    <div class="ml-3  d-flex align-items-center text-primary"><i--}}
+        {{--                                            class="flaticon2-copy mr-2 text-primary"></i>অনুলিপি--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="d-flex align-items-center justify-content-md-end">--}}
+        {{--                                    <div class="btn-group folder-wrapper mb-2 mt-3 mr-3">--}}
+        {{--                                        <button type="button"--}}
+        {{--                                                class="btn btn-sm rounded-0 alert-warning  folder_click">SQA--}}
+        {{--                                        </button>--}}
+        {{--                                        <div class="dropdown dropdown-inline">--}}
+        {{--                                            <button type="button"--}}
+        {{--                                                    class="btn btn-light-warning btn-icon btn-sm  rounded-0 alert-warning"--}}
+        {{--                                                    data-toggle="dropdown" aria-haspopup="true"--}}
+        {{--                                                    aria-expanded="true">--}}
+        {{--                                                <i class="ki ki-bold-more-ver"></i>--}}
+        {{--                                            </button>--}}
+        {{--                                            <div class="dropdown-menu dropdown-menu-sm folder_click"--}}
+        {{--                                                 x-placement="bottom-start">--}}
+        {{--                                                <span class="dropdown-item">Developers</span>--}}
+        {{--                                            </div>--}}
+        {{--                                        </div>--}}
+        {{--                                    </div>--}}
+
+        {{--                                    <div class="mb-2 mt-3 soongukto-wrapper">--}}
+        {{--                                        <div class="d-flex justify-content-end align-items-center">--}}
+        {{--                                            <button--}}
+        {{--                                                data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"--}}
+        {{--                                                class="btn-attachment btn btn-outline-warning btn-sm" type="button">--}}
+        {{--                                                <i class="fal fa-link" style="font-size:11px"></i>--}}
+        {{--                                                <span class="text-danger">১</span>--}}
+        {{--                                            </button>--}}
+        {{--                                            <div class="text-dark-75 ml-3 rdate" cspas="date">২০/৫/২১ ১:০৮ PM</div>--}}
+        {{--                                        </div>--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div--}}
+        {{--                                    class="action-group d-flex justify-content-end position-absolute action-group-wrapper">--}}
+
+        {{--                                    <a data-popout="true" data-toggle="confirmation"--}}
+        {{--                                       data-title="আপনি কি ডাকটি আর্কাইভ করতে চান ?" href="javascript:;"--}}
+        {{--                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"--}}
+        {{--                                       data-dak-info="daak_container_inbox_1_54_Daptorik" data-original-title=""--}}
+        {{--                                       title="">--}}
+        {{--                                        <i class="fa fa-archive" data-toggle="popover" data-content="আর্কাইভ"--}}
+        {{--                                           data-original-title="" title=""></i>--}}
+        {{--                                    </a>--}}
+        {{--                                    <button--}}
+        {{--                                        data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"--}}
+        {{--                                        class="panel_single_daak_forward_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"--}}
+        {{--                                        type="button">--}}
+        {{--                                        <i class="fad fa-share" data-toggle="popover" data-content="ডাক প্রেরণ করুন"--}}
+        {{--                                           data-original-title="" title=""></i>--}}
+        {{--                                    </button>--}}
+        {{--                                    <a href="javascript:;"--}}
+        {{--                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothivukto list-btn-toggle"--}}
+        {{--                                       data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">--}}
+        {{--                                        <i class="fad fa-books" data-toggle="popover" data-content="নথিতে উপস্থাপন"--}}
+        {{--                                           data-original-title="" title=""></i>--}}
+        {{--                                    </a>--}}
+        {{--                                    <a href="javascript:;"--}}
+        {{--                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothijato list-btn-toggle"--}}
+        {{--                                       data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">--}}
+        {{--                                        <i class="fal fa-folder-open" data-toggle="popover" data-content="নথিজাত"--}}
+        {{--                                           data-original-title="" title=""></i>--}}
+        {{--                                    </a>--}}
+
+        {{--                                    <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"--}}
+        {{--                                            class="btn_daak_movement mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"--}}
+        {{--                                            type="button">--}}
+        {{--                                        <i data-toggle="popover" data-content="ডাক গতিবিধি"--}}
+        {{--                                           class="fas fa-repeat-alt" data-original-title="" title=""></i>--}}
+        {{--                                    </button>--}}
+        {{--                                    <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"--}}
+        {{--                                            data-personal-folder="{&quot;15&quot;:15,&quot;11&quot;:11}"--}}
+        {{--                                            class="daak_tagging_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"--}}
+        {{--                                            type="button">--}}
+        {{--                                        <i class="fal fa-tags" data-toggle="popover" data-content="ডাক ট্যাগসমূহ"--}}
+        {{--                                           data-original-title="" title=""></i>--}}
+        {{--                                    </button>--}}
+
+
+        {{--                                    <!--                            <button data-info='-->--}}
+        {{--                                    <!--?//=h(json_encode($row))?-->--}}
+        {{--                                    <!--' class="btn-prediction mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle" type="button">-->--}}
+        {{--                                    <!--                                <i class="far fa-brain" data-toggle="popover" data-content="ডাক প্রেডিকশন"></i>-->--}}
+        {{--                                    <!--                            </button>-->--}}
+        {{--                                </div>--}}
+        {{--                            </div>--}}
+        {{--                        </div>--}}
+        {{--                        <!--end::Info-->--}}
+        {{--                    </div>--}}
+        {{--                </div>--}}
+
+        {{--            </div>--}}
+        {{--        </li>--}}
+
+        {{--        <li id="daak_container_inbox_1_56_Daptorik" class="daak_list_item list-group-item pl-0 py-2 border-bottom">--}}
+        {{--            <div class="d-flex justify-content-between align-items-start">--}}
+        {{--               <span class="input-group-text bg-transparent border-0" data-toggle="popover"--}}
+        {{--                     data-content="ডাক বাছাই করুন" data-original-title="" title="">--}}
+        {{--                  <label class="checkbox checkbox-outline">--}}
+        {{--                        <input data-draft-decisions="" type="checkbox"--}}
+        {{--                               name="daak_container_inbox_daak_list_item_checkbox" data-attention="0"--}}
+        {{--                               class="daak_container_inbox_daak_list_item_checkbox">--}}
+        {{--                        <span></span>--}}
+        {{--                  </label>--}}
+        {{--               </span>--}}
+        {{--                <div class="pr-2 flex-fill daak_list_item_clickable_area cursor-pointer position-relative"--}}
+        {{--                     did="daak_container_inbox_1_54_Daptorik" data-plan_id="3">--}}
+        {{--                    <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">--}}
+        {{--                        <!--begin::Title-->--}}
+        {{--                        <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">--}}
+        {{--                            <div class="d-flex align-items-center flex-wrap  font-size-1-2">--}}
+        {{--                                <a href="javascript:void(0)"--}}
+        {{--                                   class=" text-dark text-hover-primary font-size-h5"--}}
+        {{--                                   data-toggle="popover" data-html="true"--}}
+        {{--                                   data-content=""--}}
+        {{--                                   data-original-title="" title="">২০১৮-২০১৯ অর্থ বছরের স্বাস্থ‍্য শিক্ষা ও পরিবার--}}
+        {{--                                    কল‍্যাণ বিভাগ, স্বাস্থ‍্য ও পরিবার কল‍্যাণ মন্ত্রণালয় ও এর অধীনস্থ কার্যালয়সমূহের--}}
+        {{--                                    মঞ্জুরী ও বরাদ্দ ভিত্তিক নির্দিষ্টকরণ ও নিয়মানুগ নিরীক্ষা</a>--}}
+        {{--                            </div>--}}
+        {{--                            <div class=" font-weight-normal d-md-flex flex-wrap">--}}
+        {{--                                <div class="font-size-1-1">--}}
+        {{--                                    <span--}}
+        {{--                                        class="perok-wrapper sender_name" data-toggle="popover"--}}
+        {{--                                        data-content="প্রোগ্রাম এসোসিয়েট, টেকনোলজি, এসপায়ার টু ইনোভেট (এটু্আই) প্রোগ্রাম"--}}
+        {{--                                        data-original-title="" title="">অর্থবছরঃ ২০১৮-২০১৯, নিরীক্ষা বছরঃ ২০১৯-২০২০--}}
+        {{--                                    </span>--}}
+        {{--                                </div>--}}
+        {{--                            </div>--}}
+        {{--                            <div class=" subject-wrapper font-weight-normal font-weight-normal">--}}
+        {{--                                <span class="mr-2 font-size-1-1">মঞ্জুরী নং:</span>--}}
+        {{--                                <span class="description text-wrap font-size-14">৫৯</span>--}}
+        {{--                            </div>--}}
+        {{--                            <div class=" font-weight-normal siddhanto-wrapper">--}}
+        {{--                                <span class="mr-2 font-size-1-1">সিদ্ধান্ত:</span>--}}
+        {{--                                <span class="text-info font-size-14">নিরীক্ষা পরিকল্পনা জনাব নাম-এর নেতৃত্বে ১ অক্টোবর ২০২১ হতে ১৫ অক্টোবর ২০২১ পর্যন্ত</span>--}}
+        {{--                            </div>--}}
+        {{--                            <div class=" font-weight-normal d-none predict-wrapper">--}}
+        {{--                                <span class="predict-label text-success "></span>--}}
+        {{--                            </div>--}}
+        {{--                        </div>--}}
+        {{--                        <!--end::Title-->--}}
+        {{--                        <!--begin::Info-->--}}
+        {{--                        <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-6">--}}
+        {{--                            <div class="d-block">--}}
+        {{--                                <div--}}
+        {{--                                    class="d-md-flex flex-wrap mb-2 align-items-center justify-content-md-end text-nowrap">--}}
+        {{--                                    <div class="ml-3  d-flex align-items-center text-primary"><i--}}
+        {{--                                            class="flaticon2-copy mr-2 text-primary"></i>অনুলিপি--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="d-flex align-items-center justify-content-md-end">--}}
+        {{--                                    <div class="btn-group folder-wrapper mb-2 mt-3 mr-3">--}}
+        {{--                                        <button type="button"--}}
+        {{--                                                class="btn btn-sm rounded-0 alert-warning  folder_click">SQA--}}
+        {{--                                        </button>--}}
+        {{--                                        <div class="dropdown dropdown-inline">--}}
+        {{--                                            <button type="button"--}}
+        {{--                                                    class="btn btn-light-warning btn-icon btn-sm  rounded-0 alert-warning"--}}
+        {{--                                                    data-toggle="dropdown" aria-haspopup="true"--}}
+        {{--                                                    aria-expanded="true">--}}
+        {{--                                                <i class="ki ki-bold-more-ver"></i>--}}
+        {{--                                            </button>--}}
+        {{--                                            <div class="dropdown-menu dropdown-menu-sm folder_click"--}}
+        {{--                                                 x-placement="bottom-start">--}}
+        {{--                                                <span class="dropdown-item">Developers</span>--}}
+        {{--                                            </div>--}}
+        {{--                                        </div>--}}
+        {{--                                    </div>--}}
+
+        {{--                                    <div class="mb-2 mt-3 soongukto-wrapper">--}}
+        {{--                                        <div class="d-flex justify-content-end align-items-center">--}}
+        {{--                                            <button--}}
+        {{--                                                data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"--}}
+        {{--                                                class="btn-attachment btn btn-outline-warning btn-sm" type="button">--}}
+        {{--                                                <i class="fal fa-link" style="font-size:11px"></i>--}}
+        {{--                                                <span class="text-danger">১</span>--}}
+        {{--                                            </button>--}}
+        {{--                                            <div class="text-dark-75 ml-3 rdate" cspas="date">২০/৫/২১ ১:০৮ PM</div>--}}
+        {{--                                        </div>--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div--}}
+        {{--                                    class="action-group d-flex justify-content-end position-absolute action-group-wrapper">--}}
+
+        {{--                                    <a data-popout="true" data-toggle="confirmation"--}}
+        {{--                                       data-title="আপনি কি ডাকটি আর্কাইভ করতে চান ?" href="javascript:;"--}}
+        {{--                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"--}}
+        {{--                                       data-dak-info="daak_container_inbox_1_54_Daptorik" data-original-title=""--}}
+        {{--                                       title="">--}}
+        {{--                                        <i class="fa fa-archive" data-toggle="popover" data-content="আর্কাইভ"--}}
+        {{--                                           data-original-title="" title=""></i>--}}
+        {{--                                    </a>--}}
+        {{--                                    <button--}}
+        {{--                                        data-info="{&quot;id&quot;:54,&quot;origin_office_id&quot;:65,&quot;dak_priority&quot;:&quot;0&quot;,&quot;dak_security&quot;:&quot;0&quot;,&quot;dak_type&quot;:&quot;Daptorik&quot;,&quot;is_copied_dak&quot;:1,&quot;dak_subject&quot;:&quot;sdd&quot;,&quot;sender&quot;:&quot;&quot;,&quot;attachment_count&quot;:1,&quot;sending_date&quot;:&quot;&quot;}"--}}
+        {{--                                        class="panel_single_daak_forward_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"--}}
+        {{--                                        type="button">--}}
+        {{--                                        <i class="fad fa-share" data-toggle="popover" data-content="ডাক প্রেরণ করুন"--}}
+        {{--                                           data-original-title="" title=""></i>--}}
+        {{--                                    </button>--}}
+        {{--                                    <a href="javascript:;"--}}
+        {{--                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothivukto list-btn-toggle"--}}
+        {{--                                       data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">--}}
+        {{--                                        <i class="fad fa-books" data-toggle="popover" data-content="নথিতে উপস্থাপন"--}}
+        {{--                                           data-original-title="" title=""></i>--}}
+        {{--                                    </a>--}}
+        {{--                                    <a href="javascript:;"--}}
+        {{--                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-nothijato list-btn-toggle"--}}
+        {{--                                       data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik">--}}
+        {{--                                        <i class="fal fa-folder-open" data-toggle="popover" data-content="নথিজাত"--}}
+        {{--                                           data-original-title="" title=""></i>--}}
+        {{--                                    </a>--}}
+
+        {{--                                    <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"--}}
+        {{--                                            class="btn_daak_movement mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"--}}
+        {{--                                            type="button">--}}
+        {{--                                        <i data-toggle="popover" data-content="ডাক গতিবিধি"--}}
+        {{--                                           class="fas fa-repeat-alt" data-original-title="" title=""></i>--}}
+        {{--                                    </button>--}}
+        {{--                                    <button data-subject="sdd" data-dak-info="daak_container_inbox_1_54_Daptorik"--}}
+        {{--                                            data-personal-folder="{&quot;15&quot;:15,&quot;11&quot;:11}"--}}
+        {{--                                            class="daak_tagging_dropdown mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"--}}
+        {{--                                            type="button">--}}
+        {{--                                        <i class="fal fa-tags" data-toggle="popover" data-content="ডাক ট্যাগসমূহ"--}}
+        {{--                                           data-original-title="" title=""></i>--}}
+        {{--                                    </button>--}}
+
+
+        {{--                                    <!--                            <button data-info='-->--}}
+        {{--                                    <!--?//=h(json_encode($row))?-->--}}
+        {{--                                    <!--' class="btn-prediction mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle" type="button">-->--}}
+        {{--                                    <!--                                <i class="far fa-brain" data-toggle="popover" data-content="ডাক প্রেডিকশন"></i>-->--}}
+        {{--                                    <!--                            </button>-->--}}
+        {{--                                </div>--}}
+        {{--                            </div>--}}
+        {{--                        </div>--}}
+        {{--                        <!--end::Info-->--}}
+        {{--                    </div>--}}
+        {{--                </div>--}}
+
+        {{--            </div>--}}
+        {{--        </li>--}}
     </ul>
 </div>
 
 <script>
     $('.daak_list_item_clickable_area').click(function () {
-        var url = '{{route('audit.plan.audit.plan.create', ":id")}}';
-        var plan_id = $(this).data('plan_id');
-        url = url.replace(':id', plan_id);
-        window.location.href = url;
+        url = '{{route('audit.plan.audit.plan.make-entity-audit-plan')}}';
+        party_id = $(this).data('party-id')
+        rp_id = $(this).data('rp-id')
+
+        ajaxCallAsyncCallbackAPI(url, {party_id, rp_id}, 'post', function (res) {
+            var newDoc = document.open("text/html", "replace");
+            newDoc.write(res);
+            newDoc.close();
+        })
     })
 </script>

@@ -11,6 +11,13 @@
                 </h4>
             </div>
         </div>
+        <div class="col-md-6 text-right">
+            <button class="btn btn-sm btn-square btn-primary btn-hover-success"
+                    data-yearly-plan-rp-id="{{$rp_id}}"
+                    data-party-id="{{$party_id}}"
+                    onclick="Create_Entity_Plan_Container.draftEntityPlan($(this))">Save <i class="fas fa-save"></i>
+            </button>
+        </div>
     </div>
 
     <div class="split" id="splitWrapper">
@@ -52,5 +59,27 @@
     </div>
 @endsection
 @section('scripts')
-    @include('scripts.script_create_new_plan')
+    @include('scripts.script_create_entity_audit_plan')
+
+    <script>
+        var Create_Entity_Plan_Container = {
+            draftEntityPlan: function (elem) {
+                url = '{{route('audit.plan.audit.plan.save-draft-entity-audit-plan')}}';
+                plan_description = $('#writing-screen-wrapper').html();
+                party_id = elem.data('party-id');
+                yearly_plan_rp_id = elem.data('yearly-plan-rp-id');
+                data = {plan_description, party_id, yearly_plan_rp_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    if (response.status === 'success') {
+                        toastr.success('Audit Plan Saved Successfully');
+                    } else {
+                        toastr.error('Not Saved');
+                        console.log(response)
+                    }
+                })
+            }
+        };
+
+
+    </script>
 @endsection
