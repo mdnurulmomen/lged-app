@@ -126,7 +126,56 @@
 </div>
 
 <div class="text-right">
-    <button type="button" class="btn btn-success btn-square mr-2">
+    <button id="download_pdf" type="button" class="btn btn-success btn-square mr-2">
         <i class="fad fa-file-pdf"></i>
     </button>
 </div>
+
+<script>
+    $('#select_fiscal_year_print_view').change(function () {
+        let fiscal_year = $('#select_fiscal_year_print_view').val();
+        if (fiscal_year) {
+            let url = '{{route('audit.plan.operational.calendar.print.view.load')}}';
+            let data = {fiscal_year};
+            ajaxCallAsyncCallback(url, data, 'html', 'POST', function (response) {
+                $('#load_audit_calendar_print_view').html(response);
+            });
+        } else {
+            $('#load_audit_calendar_print_view').html('');
+        }
+    });
+    $("#download_pdf").click(function () {
+
+        let fiscal_year = $('#select_fiscal_year_print_view').va();
+        $.ajax({
+            type: 'GET',
+            url: '{{route('audit.plan.operational.calendar.pdf.view.load')}}',
+            data: {fiscal_year},
+            xhrFields: {
+                responseType: 'blob'
+            },
+
+            success: function (response) {
+
+                var blob = new Blob([response]);
+
+                var link = document.createElement('a');
+
+                link.href = window.URL.createObjectURL(blob);
+
+                link.download = "audit_clander.pdf";
+
+                link.click();
+
+            },
+
+            error: function (blob) {
+                toastr.error('Failed to generate PDF.')
+                console.log(blob);
+            }
+
+        });
+
+    });
+
+</script>
