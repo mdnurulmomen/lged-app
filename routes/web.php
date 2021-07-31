@@ -6,7 +6,7 @@ Route::get('/', function () {
     return redirect('/dashboard');
 });
 
-Route::group(['middleware' => 'jisf.auth'], function () {
+Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
     // Plan Route Start

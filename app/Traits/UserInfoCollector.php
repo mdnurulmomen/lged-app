@@ -119,4 +119,12 @@ trait UserInfoCollector
     {
         return session()->has('login') ? session('login')['data']['employee_info'] : null;
     }
+
+    public function forceLogout()
+    {
+        session()->forget('login');
+        unset($_COOKIE['_ndoptor']);
+        $return_url = url('/login');
+        return redirect(config('jisf.logout_sso_url') . '?referer=' . base64_encode($return_url));
+    }
 }
