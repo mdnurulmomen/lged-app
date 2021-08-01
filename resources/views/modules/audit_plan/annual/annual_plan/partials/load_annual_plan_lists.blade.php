@@ -21,22 +21,18 @@
                     @endif
                     <td width="20%">{{$plan['milestone_title_en']}}</td>
                     <td width="10%">{{$plan['milestone_target']}}</td>
-                    @forelse($plan['assigned_budget'] as $budget)
-                        <td width="5%"> {{$budget['budget']}}</td>
-                    @empty
-                        <td width="5%"></td>
-                    @endforelse
-                    <td width="5%">{{count($plan['assigned_staffs'])}}</td>
-                        <td width="35%">
-                            @forelse($plan['assigned_rp'] as $auditee)
+                    <td width="5%"> {{$plan['assigned_budget']}}</td>
+                    <td width="5%">{{$plan['assigned_staffs']}}</td>
+                    <td width="35%">
+                        @forelse($plan['assigned_rp'] as $auditee)
                             {{$auditee['party_name_en']}}<br/>
                         @empty
                             <span></span>
                         @endforelse
-                        </td>
-                        <td width="5%" class="vertical-middle">
-                            <button class="btn_annual_plan"
-                                    data-schedule-id="{{$plan['schedule_id']}}"
+                    </td>
+                    <td width="5%" class="vertical-middle">
+                        <button class="btn_annual_plan"
+                                data-schedule-id="{{$plan['schedule_id']}}"
                                 data-activity-id="{{$plan['activity_id']}}"
                                 data-milestone-id="{{$plan['activity_milestone_id']}}"
                                 onclick="Annual_Plan_Container.loadEntitySelection($(this))">Plan

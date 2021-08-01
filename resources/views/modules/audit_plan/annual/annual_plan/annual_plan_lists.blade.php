@@ -104,8 +104,9 @@
 
         loadSubmissionHRModal: function (elem) {
             url = '{{route('audit.plan.annual.plan.list.show.hr-modal')}}';
+            plan_responsible_party_id = elem.data('plan-responsible-party-id');
 
-            ajaxCallAsyncCallbackAPI(url, {}, 'post', function (response) {
+            ajaxCallAsyncCallbackAPI(url, {plan_responsible_party_id}, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {

@@ -114,9 +114,10 @@ class AnnualPlanController extends Controller
 
     public function showAnnualSubmissionHRModal(Request $request)
     {
+        $plan_responsible_party_id = $request->plan_responsible_party_id;
         $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
 
-        return view('modules.audit_plan.annual.annual_plan.partials.load_annual_plan_submission_hr_modal', compact('officer_lists'));
+        return view('modules.audit_plan.annual.annual_plan.partials.load_annual_plan_submission_hr_modal', compact('officer_lists', 'plan_responsible_party_id'));
     }
 
     /**
@@ -128,6 +129,7 @@ class AnnualPlanController extends Controller
             'activity_id' => 'required|integer',
             'schedule_id' => 'required|integer',
             'milestone_id' => 'required|integer',
+            'plan_responsible_party_id' => 'required|integer',
             'budget' => 'required|integer',
             'designation_to_assign' => 'required',
             'designation_role' => 'required',
@@ -172,6 +174,7 @@ class AnnualPlanController extends Controller
             'start_date' => $request->start,
             'end_date' => $request->end,
             'budget' => $request->budget,
+            'plan_responsible_party_id' => $request->plan_responsible_party_id,
             'designations' => json_encode($designations),
             'cdesk' => json_encode($this->current_desk()),
         ];

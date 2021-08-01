@@ -78,6 +78,7 @@
                         <div class="col-md-10 mt-2"><input type="number" class="form-control" name="budget"/></div>
                     </div>
                 </div>
+                <input type="hidden" name="plan_responsible_party_id" value="{{$plan_responsible_party_id}}">
             </form>
         </div>
     </div>
@@ -124,5 +125,6 @@
 
     $('#btn_annual_plan_submission_hr_modal_save').click(function () {
         Annual_Plan_Container.saveAnnualPlanHRAssigned($(this));
+        Annual_Plan_Container.loadSelectedAuditeeEntities($('#annual_plan_core_data_form').serializeArray());
     });
 </script>
