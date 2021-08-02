@@ -19,6 +19,7 @@ class AuthenticateBee
      */
     public function handle(Request $request, Closure $next)
     {
+        dd($this->checkLogin(), $this->getBeeToken());
         if (!$this->checkLogin()) {
             return $this->forceLogout();
         }
