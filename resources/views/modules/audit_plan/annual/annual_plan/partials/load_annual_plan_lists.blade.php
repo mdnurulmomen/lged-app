@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div class="table-responsive mb-4">
     <table class="table table-bordered table-head-custom">
         <thead>
         <tr>
@@ -30,9 +30,9 @@
                             <span></span>
                         @endforelse
                     </td>
-                    <td width="5%" class="vertical-middle">
-                        <button class="btn_annual_plan"
-                                data-schedule-id="{{$plan['schedule_id']}}"
+                        <td width="5%" class="vertical-middle">
+                            <button class="btn_annual_plan btn-sm btn-hover-transparent-primary btn-primary"
+                                    data-schedule-id="{{$plan['schedule_id']}}"
                                 data-activity-id="{{$plan['activity_id']}}"
                                 data-milestone-id="{{$plan['activity_milestone_id']}}"
                                 onclick="Annual_Plan_Container.loadEntitySelection($(this))">Plan
@@ -49,4 +49,10 @@
         @endforelse
         </tbody>
     </table>
+    @if(count($annual_plans) > 0)
+        <button class="btn_annual_plan_submit_to_ocag btn-sm btn-primary btn-square"
+                data-fiscal-year-id="{{$fiscal_year_id}}"
+                onclick="Annual_Plan_Container.submitToOCAG($(this))">Submit to OCAG
+        </button>
+    @endif
 </div>

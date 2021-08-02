@@ -68,6 +68,7 @@ return [
         'ap_yearly_plan_submission' => env('API_URL_BEE', '') . '/planning/annual-plan/plan-submission/create',
         'ap_yearly_plan_selected_rp_lists' => env('API_URL_BEE', '') . '/planning/annual-plan/rp-entities/all-added',
         'ap_yearly_plan_selected_rp_store' => env('API_URL_BEE', '') . '/planning/annual-plan/rp-entities/store',
+        'ap_submit_plan_to_ocag' => env('API_URL_BEE', '') . '/planning/annual-plan/submit-plan-to-ocag',
     ],
     'audit_entity_plan' => [
         'ap_entity_lists' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/',

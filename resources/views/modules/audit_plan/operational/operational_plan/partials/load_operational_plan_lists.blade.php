@@ -117,7 +117,7 @@
                                             class="bg-light text-info">
                                             <div class="operational_staffs" data-activity_id="1">
                                                 <p class="mb-0"><strong>200</strong></p>
-                                                <p class="mb-0"><strong>Annex-01</strong></p>
+{{--                                                <p class="mb-0"><strong>Annex-01</strong></p>--}}
                                             </div>
                                         </td>
                                         <td style="text-align: center; padding: 0;">

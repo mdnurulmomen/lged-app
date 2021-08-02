@@ -16,9 +16,9 @@
                     <tbody>
                     @foreach ($directorate['responsibles'] as $key => $res)
                         <tr>
-                            <td>{{$key+1}}.</td>
+                            <td>{{$loop->iteration}}.</td>
                             <td>{{$res['office_name_en']}}</td>
-                            <td>0</td>
+                            <td>{{$res['assigned_staffs']}}</td>
                         </tr>
                     @endforeach
                     </tbody>

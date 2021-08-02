@@ -15,7 +15,7 @@
     </div>
 </form>
 
-<div class="px-3" id="load_annual_plan_lists">
+<div class="px-3 py-3" id="load_annual_plan_lists">
 
 </div>
 
@@ -179,6 +179,19 @@
                 if (response.status === 'success') {
                     toastr.success(response.data);
                     Annual_Plan_Container.loadSelectedAuditeeEntities($('#annual_plan_core_data_form').serializeArray())
+                } else {
+                    toastr.error(response.data)
+                }
+            })
+        },
+
+        submitToOCAG: function (elem) {
+            url = '{{route('audit.plan.annual.plan.list.submit.plan-to-ocag')}}';
+            fiscal_year_id = elem.data('fiscal-year-id');
+
+            ajaxCallAsyncCallbackAPI(url, {fiscal_year_id}, 'post', function (response) {
+                if (response.status === 'success') {
+                    toastr.success(response.data);
                 } else {
                     toastr.error(response.data)
                 }

@@ -25,10 +25,11 @@ class AnnualPlanController extends Controller
         $data['cdesk'] = json_encode($this->current_desk());
 
         $annual_plans = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_yearly_plan_lists'), $data)->json();
+        $fiscal_year_id = $request->fiscal_year_id;
 
         if (isSuccess($annual_plans)) {
             $annual_plans = $annual_plans['data'];
-            return view('modules.audit_plan.annual.annual_plan.partials.load_annual_plan_lists', compact('annual_plans'));
+            return view('modules.audit_plan.annual.annual_plan.partials.load_annual_plan_lists', compact('annual_plans', 'fiscal_year_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $annual_plans]);
         }
@@ -190,6 +191,29 @@ class AnnualPlanController extends Controller
 
     public function showRPAuditeeOffices(Request $request)
     {
+        //TODO: RP UNIVERSE INTEGRATION
         return view('modules.audit_plan.annual.annual_plan.partials.load_rp_auditee_offices');
     }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function submitPlanToOCAG(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = json_encode($this->current_desk());
+
+        $submit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_submit_plan_to_ocag'), $data)->json();
+
+        if (isSuccess($submit_plan)) {
+            return response()->json(['status' => 'success', 'data' => 'Submission Successful!']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $submit_plan]);
+        }
+    }
+
+
 }
