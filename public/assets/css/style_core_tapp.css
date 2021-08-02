@@ -1297,6 +1297,16 @@ table {
     vertical-align: middle !important;
 }
 
+#split-0 {
+    overflow: auto;
+    height: calc(95.5vh - 100px);
+}
+
+#split-1 {
+    overflow: auto;
+    height: calc(95.5vh - 100px);
+}
+
 #split-2 {
     padding: 20px;
     background-color: #8a8a8a;
@@ -1405,6 +1415,7 @@ table {
     position: sticky;
     top: 80px;
 }
-.modal-view-button{
+
+.modal-view-button {
     opacity: 0;
 }

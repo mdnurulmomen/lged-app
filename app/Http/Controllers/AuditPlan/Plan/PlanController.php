@@ -48,6 +48,11 @@ class PlanController extends Controller
         return view('modules.audit_plan.audit_plan.plan.create_entity_audit_plan', compact('party_id', 'rp_id'));
     }
 
+    public function create1($party_id, $rp_id)
+    {
+        return view('modules.audit_plan.audit_plan.plan.create_entity_audit_plan', compact('party_id', 'rp_id'));
+    }
+
 
     public function saveDraftEntityAuditPlan(Request $request)
     {
