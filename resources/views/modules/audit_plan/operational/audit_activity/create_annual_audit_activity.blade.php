@@ -51,9 +51,10 @@
                         </div>
                         <div class="col-md-2 mt-md-12">
                             <button class="btn btn-icon btn-light-success btn-square mr-2 search_activities"
-                                    type="button"><i
-                                    class="fad fa-search"></i></button>
+                                    onclick="Audit_Activities_Container.createAnnualActivityAreaData()"
+                                    type="button"><i class="fad fa-search"></i></button>
                             <button class="btn btn-icon btn-light-danger btn-square mr-2 reset_strategic_area"
+                                    onclick="Audit_Activities_Container.resetStrategicSearchFields()"
                                     type="reset"><i
                                     class="fad fa-recycle"></i></button>
                         </div>

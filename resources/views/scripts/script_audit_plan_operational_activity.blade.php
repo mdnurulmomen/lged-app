@@ -1,46 +1,74 @@
 <script>
-    $('.btn_create_audit_activity').on('click', function () {
-        let url = $(this).data('url')
-        ajaxCallAsyncCallbackAPI(url, {}, 'GET', function (response) {
-            console.log(response)
-            if (response.status === 'error') {
-                toastr.error(response.data)
-            }
-            $("#kt_content").html(response);
-        });
-    })
 
-    $('.reset_strategic_area').on('click', function () {
-        $('#select_strategic_outcome').val('').trigger('change')
-        $('#select_strategic_output').val('').trigger('change')
-    })
+    var Audit_Activities_Container = {
 
-    $('.search_activities').on('click', function () {
-        url = '{{route('audit.plan.operational.activity.create.output.tree.load')}}';
+        createAnnualActivity: function (elem) {
+            let url = elem.data('url')
+            ajaxCallAsyncCallbackAPI(url, {}, 'GET', function (response) {
+                console.log(response)
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                }
+                $("#kt_content").html(response);
+            });
+        },
 
-        outcome_id = $('#select_strategic_outcome').val();
-        fiscal_year_id = $('#select_fiscal_year').val();
-        output_id = $('#select_strategic_output').val();
+        createAnnualActivityAreaData: function (elem) {
+            url = '{{route('audit.plan.operational.activity.create.output.tree.load')}}';
 
-        data = {outcome_id, fiscal_year_id, output_id}
-        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-            $('.create_activity_area').html(response)
-        })
-    })
+            outcome_id = $('#select_strategic_outcome').val();
+            fiscal_year_id = $('#select_fiscal_year').val();
+            output_id = $('#select_strategic_output').val();
 
-    $('.btn_view_audit_annual_activity').on('click', function () {
-        let url = $(this).data('url')
-        ajaxCallAsyncCallback(url, {}, 'html', 'GET', function (response) {
-            $("#kt_content").html(response);
-        });
-    })
+            data = {outcome_id, fiscal_year_id, output_id}
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                $('.create_activity_area').html(response)
+            })
+        },
 
-    $('.btn_edit_audit_annual_activity').on('click', function () {
-        let url = $(this).data('url')
-        ajaxCallAsyncCallback(url, {}, 'html', 'GET', function (response) {
-            $("#kt_content").html(response);
-        });
-    })
+        editAnnualActivity: function (elem) {
+            url = elem.data('url')
+            data = {fiscal_year_id: elem.data('fiscal-year-id')};
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $("#kt_content").html(response);
+                }
+            });
+        },
+
+        editAnnualActivityAreaData: function (elem) {
+            url = '{{route('audit.plan.operational.activity.edit.tree.load')}}';
+            outcome_id = $('#select_strategic_outcome').val();
+            fiscal_year_id = elem.data('fiscal-year-id');
+            output_id = $('#select_strategic_output').val();
+
+            data = {outcome_id, fiscal_year_id, output_id}
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                $('.edit_activity_area').html(response)
+            })
+        },
+
+        showAnnualActivity: function (elem) {
+            url = elem.data('url')
+            data = {fiscal_year_id: elem.data('fiscal-year-id')};
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $("#kt_content").html(response);
+                }
+            });
+        },
+
+        resetStrategicSearchFields: function () {
+            $('#select_strategic_outcome').val('').trigger('change');
+            $('#select_strategic_output').val('').trigger('change');
+            $('#outcome_remarks_area').html('');
+            $("[id^=output_remarks_area_]").html('');
+        },
+    };
 
     $('#select_strategic_outcome').on('change', function () {
         outcome_id = $(this).val();

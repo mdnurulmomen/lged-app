@@ -5,3 +5,4 @@
    data-url="{{$href}}">
     {{$slot}}
 </a>
+onclick="Audit_Activities_Container.showAnnualActivity($(this))

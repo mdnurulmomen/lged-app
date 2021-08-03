@@ -3,43 +3,51 @@
         <ul>
             <li>
                 <div class="d-flex align-item-center">
-                    <div class="mr-5">Activities</div>
+                    <div class="mr-5"><i class="fad fa-books fa-2x text-primary text-hover-success"></i></div>
                 </div>
                 <ul>
-                @foreach ($activity_lists['data']['data'] as $outcome)
-                    <li>
-                        <div class="d-flex align-item-center">
-                            <div class="mr-5">{{ $outcome['outcome_no'] }}
-                                @if ($outcome['plan_output'])
-                                <ul>
-                                @foreach ($outcome['plan_output'] as $output)
-                                    <li>
-                                        <div class="d-flex align-item-center">
-                                            <div class="mr-5">{{ $output['output_no'] }} : {{ $output['output_title_en'] }}
-                                                <button data-output-id="{{ $output['id'] }}"
-                                                    data-fiscal-year-id="{{$activity_lists['data']['fiscal_year_id']}}"
-                                                    data-outcome-id="{{$outcome['id']}}"
-                                                    data-activity-parent-id="0" type="button" class="btn
+                    @foreach ($activity_lists['data']['data'] as $outcome)
+                        <li>
+                            <div class="d-flex align-item-center">
+                                <div class="mr-5"><i
+                                        class="fad fa-book-spells text-primary text-hover-warning"></i>{{ $outcome['outcome_no'] }}
+                                    @if ($outcome['plan_output'])
+                                        <ul>
+                                            @foreach ($outcome['plan_output'] as $output)
+                                                <li>
+                                                    <div class="d-flex align-item-center">
+                                                        <div class="mr-5"><i
+                                                                class="fad fa-book-open text-danger text-hover-success mr-2"></i>{{ $output['output_no'] }}
+                                                            : {{ $output['output_title_en'] }}
+                                                            <button data-output-id="{{ $output['id'] }}"
+                                                                    data-fiscal-year-id="{{$activity_lists['data']['fiscal_year_id']}}"
+                                                                    data-outcome-id="{{$outcome['id']}}"
+                                                                    data-activity-parent-id="0" type="button" class="btn
                                                         btn-outline-secondary btn-icon btn_create_activity btn-square">
-                                                    <i class="fas fa-plus"></i>
-                                                </button>
-                                                @if ($output['activities'])
-                                                <ul>
-                                                    @foreach ($output['activities'] as $activity)
-                                                    <li>
-                                                        <div class="d-flex align-item-center">
-                                                            <div class="mr-5">{{ $activity['activity_no'] }} : {{ $activity['title_en'] }}
-                                                                <div class="btn-group mr-5" role="group" aria-label="First group">
-                                                                    <button data-activity-parent-id="{{$activity['id']}}"
-                                                                            data-outcome-id="{{$activity['outcome_id']}}"
-                                                                            data-output-id="{{$activity['output_id'] }}"
-                                                                            data-fiscal-year-id="{{ $activity['fiscal_year_id'] }}"
-                                                                            type="button" class="btn
+                                                                <i class="fas fa-plus"></i>
+                                                            </button>
+                                                            @if ($output['activities'])
+                                                                <ul>
+                                                                    @foreach ($output['activities'] as $activity)
+                                                                        <li>
+                                                                            <div class="d-flex align-item-center">
+                                                                                <div class="mr-5"><i
+                                                                                        class="fad fa-bullseye-arrow text-success text-hover-warning mr-2"></i>{{ $activity['activity_no'] }}
+                                                                                    : {{ $activity['title_en'] }}
+                                                                                    <div class="btn-group mr-5"
+                                                                                         role="group"
+                                                                                         aria-label="First group">
+                                                                                        <button
+                                                                                            data-activity-parent-id="{{$activity['id']}}"
+                                                                                            data-outcome-id="{{$activity['outcome_id']}}"
+                                                                                            data-output-id="{{$activity['output_id'] }}"
+                                                                                            data-fiscal-year-id="{{ $activity['fiscal_year_id'] }}"
+                                                                                            type="button" class="btn
                                                                         btn-outline-secondary btn-icon btn_create_activity btn-square">
-                                                                        <i class="fas fa-plus"></i>
-                                                                    </button>
-                                    
-                                                                    <button type="button"
+                                                                                            <i class="fas fa-plus"></i>
+                                                                                        </button>
+
+                                                                                        <button type="button"
                                                                             data-outcome-id="{{ $activity['outcome_id'] }}"
                                                                             data-output-id="{{ $activity['output_id'] }}"
                                                                             data-fiscal-year-id="{{ $activity['fiscal_year_id'] }}"
@@ -59,7 +67,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                @endforeach                                    
+                                            @endforeach
                                 </ul>
                                 @endif
                             </div>

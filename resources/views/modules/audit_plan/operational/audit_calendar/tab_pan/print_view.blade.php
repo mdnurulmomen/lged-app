@@ -1,5 +1,5 @@
 <div class="py-7" id="load_audit_calendar_print_view">
-    <div class="border" style="padding: 0.5in;">
+    <div class="border" style="padding: 0.25in;">
         <table style="margin: 0 auto;" cellpadding="0" cellspacing="0" id="potroTemplateWrapper">
             <tbody>
             <tr>
@@ -20,7 +20,7 @@
                                                 <p contenteditable="true"
                                                    style="line-height: 1.8; margin: 0; "
                                                    class="ministry_name write_here">
-                                                    Comprotrolar and Audit General Office <br/>Accounts and Report Wing
+                                                    Comptroller and Audit General Office <br/>Accounts and Report Wing
                                                 </p>
                                             </span>
                                     <span contenteditable="false"
@@ -55,24 +55,24 @@
         </div>
         <div class="mt-5">
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered text-center">
                     <thead>
                     <tr>
-                        <th>Activity</th>
-                        <th style="">Milestones</th>
-                        <th style="width:180px">Target Date</th>
-                        <th style="width:220px">Responsible</th>
-                        <th style="width:220px">Comment</th>
+                        <th style="width: 12%">Activity</th>
+                        <th style="width: 25%;">Milestones</th>
+                        <th style="width: 15%">Target Date</th>
+                        <th style="width: 20%">Responsible</th>
+                        <th style="width: 23%">Comment</th>
                     </tr>
                     </thead>
                     <tbody>
                     @forelse($activity_calendars as $activity_calendar)
                         @if(!empty($activity_calendar['milestones']))
                             <tr>
-                                <td class="vertical-middle">
+                                <td class="vertical-middle" width="12%">
                                     {{$activity_calendar['activity_no']}}
                                 </td>
-                                <td class="p-0">
+                                <td class="p-0" width="25%">
                                     <table class="table table-bordered w-100 mb-0">
                                         @foreach($activity_calendar['milestones'] as $milestone)
                                             <tr>
@@ -81,7 +81,7 @@
                                         @endforeach
                                     </table>
                                 </td>
-                                <td class="p-0">
+                                <td class="p-0" width="15%">
                                     <table class="table table-bordered w-100 mb-0">
                                         @foreach($activity_calendar['milestones'] as $milestone)
                                             <tr>
@@ -90,7 +90,7 @@
                                         @endforeach
                                     </table>
                                 </td>
-                                <td class="vertical-middle">
+                                <td class="vertical-middle" width="20%">
                                     <table class="table w-100 mb-0">
                                         <tr>
                                             <td id="added_responsible_area_{{$activity_calendar['id']}}">
@@ -103,7 +103,7 @@
                                         </tr>
                                     </table>
                                 </td>
-                                <td class="p-0 vertical-middle">
+                                <td class="p-0 vertical-middle" width="23%">
                                     @if(isset($activity_calendar['comment']))
                                         {!! $activity_calendar['comment']['comment_en'] !!}
                                     @endif
@@ -122,7 +122,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <div class="text-right">

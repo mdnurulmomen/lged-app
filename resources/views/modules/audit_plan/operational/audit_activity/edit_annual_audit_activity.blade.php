@@ -2,152 +2,134 @@
                         url="{{route('audit.plan.operational.activity.all')}}">
     Edit Annual Audit Activities
 </x-title-wrapper-return>
-
 <div class="mt-4 px-4">
     <div class="row">
         <div class="col-md-12">
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="select_fiscal_year" class="col-form-label">Fiscal Year :</label>
-                                <select class="form-control rounded-0 select-select2" id="select_fiscal_year"
-                                        name="fiscal_year">
-                                    <option>2021</option>
-                                    <option>2020</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="col-md-5">
                             <div class="form-group">
-                                <label for="select_strategic_outcome" class="col-form-label">Strategic Outcome :</label>
+                                <label for="select_strategic_outcome" class="col-form-label">Strategic Outcome
+                                    :</label>
                                 <select class="form-control rounded-0 select-select2" id="select_strategic_outcome"
                                         name="strategic_outcome">
-                                    <option>Select Outcome</option>
-                                    <option>Strategic Outcome 01</option>
-                                    <option>Strategic Outcome 02</option>
+                                    <option value="">Choose Outcome</option>
+                                    @foreach($strategic_outcomes as $strategic_outcome)
+                                        <option
+                                            value="{{$strategic_outcome['id']}}">{{$strategic_outcome['outcome_no']}}</option>
+                                    @endforeach
                                 </select>
                                 <div class="mt-3">
-                                    <p>Increased credibility to the SAI’s activities to the parliament and other
-                                        stakeholders will facilitate the policymakers in taking appropriate measures for
-                                        prudent management of scarce public resources.</p>
+                                    <p id="outcome_remarks_area"></p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label for="select_strategic_output" class="col-form-label">Strategic Output :</label>
+                        <div class="col-md-5" id="strategic_output_area">
+                            <div class="form-group" id="strategic_output_area">
+                                <label for="select_strategic_output" class="col-form-label">Strategic Output</label>
                                 <select name="strategic_output" id="select_strategic_output"
                                         class="form-control rounded-0 select-select2">
-                                    <option>Select Output</option>
-                                    <option>Output-01</option>
-                                    <option>Output-02</option>
-                                    <option>Output-03</option>
+                                    <option value="">Select Output</option>
                                 </select>
                             </div>
                             <div class="mt-3">
-                                <p>Quality Compliance, Financial and Performance audit reports including audit reports
-                                    on special areas.</p>
+                                <p id="output_remarks_area" class="d-none"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2 mt-md-12">
+                            <button class="btn btn-icon btn-light-success btn-square mr-2 search_activities"
+                                    data-fiscal-year-id="{{$fiscal_year_id}}"
+                                    onclick="Audit_Activities_Container.editAnnualActivityAreaData($(this))"
+                                    type="button"><i class="fad fa-search"></i></button>
+                            <button class="btn btn-icon btn-light-danger btn-square mr-2 reset_strategic_area"
+                                    onclick="Audit_Activities_Container.resetStrategicSearchFields()"
+                                    type="reset"><i class="fad fa-recycle"></i></button>
+                        </div>
+                    </div>
+                    <div class="row" id="">
+                        <div class="col-md-12">
+                            <hr>
+                            <div class="edit_activity_area">
+
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h3>Edit Activities</h3>
-                            <hr>
-                            @include('pages.plan.operational.activityTree')
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer text-right">
-                    <button type="reset" class="btn btn-success mr-2 btn-square"><i class="fad fa-save"></i> Save
-                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal-->
-<div class="modal fade" id="mileStoneModal" data-backdrop="static" tabindex="-1" role="dialog"
-     aria-labelledby="staticBackdrop" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content ">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Milestone</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control rounded-0" placeholder="Search for...">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary btn-square" type="button"><i class="fa fa-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light-primary font-weight-bold btn-square" data-dismiss="modal">
-                    Close
-                </button>
-                <button type="button" class="btn btn-primary font-weight-bold btn-square">Save changes</button>
+<x-modal id="op_activity_modal" title="Create Operation Activity"
+         url="{{route('audit.plan.operational.activity.store')}}" method="post">
+    <form id="op_activity_form">
+        <div class="form-group row">
+            <label for="activity_no" class="col-3 col-form-label">Activity No</label>
+            <div class="col-9">
+                <input placeholder="Activity No" class="form-control" type="text" value=""
+                       id="activity_no" name="activity_no"/>
             </div>
         </div>
-    </div>
-</div>
+        <div class="form-group row">
+            <label for="title_en" class="col-3 col-form-label">Title English</label>
+            <div class="col-9">
+                <input placeholder="Title English" class="form-control" type="text" value=""
+                       id="title_en" name="title_en"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="title_bn" class="col-3 col-form-label">Title Bangla</label>
+            <div class="col-9">
+                <input placeholder="Title Bangla" class="form-control" type="text" value=""
+                       id="title_bn" name="title_bn"/>
+            </div>
+        </div>
 
-<!-- Modal-->
-<div class="modal fade" id="responsibleModal" data-backdrop="static" tabindex="-1" role="dialog"
-     aria-labelledby="staticBackdrop" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content ">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Resposible Person</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <label class="form-label">select Person</label>
-                        <div class="form-group">
-                            <select class="form-control w-100">
-                                <option> option 1</option>
-                                <option> option 2</option>
-                                <option> option 3</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-3">
-                    <div class="form-group">
-                        <label>Selected Person</label>
-                        <div class="checkbox-list">
-                            <label class="checkbox">
-                                <input type="checkbox" name="Checkboxes1">
-                                <span></span>Default</label>
-                            <label class="checkbox checkbox-disabled">
-                                <input type="checkbox" disabled="disabled" checked="checked" name="Checkboxes1">
-                                <span></span>Disabled</label>
-                            <label class="checkbox">
-                                <input type="checkbox" checked="checked" name="Checkboxes1">
-                                <span></span>Checked</label>
-                        </div>
-                    </div>
+        <input type="hidden" name="output_id" class="output_id" value="">
+        <input type="hidden" name="outcome_id" class="outcome_id" value="">
+        <input type="hidden" name="fiscal_year_id" class="fiscal_year_id" value="">
+        <input type="hidden" name="activity_parent_id" class="activity_parent_id" value="">
+    </form>
+</x-modal>
+
+<x-modal id="op_activity_milestone_modal" title="Create Operation Activity Milestone"
+         url="{{route('audit.plan.operational.activity.milestone.store')}}" method="post" size="lg">
+    <form id="op_activity_milestone_form">
+        <div class="form-group" id="milestone_add_area">
+            <div class="form-group row">
+                <label for="title_en" class="col-3 col-form-label">Title English</label>
+                <div class="col-9">
+                    <input placeholder="Title English" class="form-control" type="text" value=""
+                           id="title_en" name="title_en"/>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light-primary font-weight-bold btn-square" data-dismiss="modal">
-                    Close
-                </button>
-                <button type="button" class="btn btn-primary font-weight-bold btn-square">Save changes</button>
+            <div class="form-group row">
+                <label for="title_bn" class="col-3 col-form-label">Title Bangla</label>
+                <div class="col-9">
+                    <input placeholder="Title Bangla" class="form-control" type="text" value=""
+                           id="title_bn" name="title_bn"/>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+
+        <input type="hidden" name="output_id" class="output_id" value="">
+        <input type="hidden" name="outcome_id" class="outcome_id" value="">
+        <input type="hidden" name="fiscal_year_id" class="fiscal_year_id" value="">
+        <input type="hidden" name="activity_id" class="activity_id" value="">
+    </form>
+</x-modal>
+
+
+<script>
+    $('#btn_op_activity_modal_save').click(function () {
+        url = $(this).data('url');
+        data = $('#op_activity_form').serialize();
+        method = $(this).data('method');
+        submit = submitModalData(url, data, method, 'op_activity_modal')
+    });
+</script>
+
+
 @include('scripts.script_audit_plan_operational_activity')
+@include('scripts.script_generic')

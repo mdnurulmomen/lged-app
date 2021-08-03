@@ -8,10 +8,12 @@
                 <span class="card-label font-weight-bolder text-dark"></span>
             </h3>
             <div class="card-toolbar">
-                <x-toolbar-button class="btn btn-success btn-sm btn-bold btn-square btn_create_audit_activity"
-                                  href="{{route('audit.plan.operational.activity.create')}}">
+                <a href="javascript:;"
+                   onclick="Audit_Activities_Container.createAnnualActivity($(this))"
+                   class="font-weight-bolder font-size-sm mr-3 btn btn-success btn-sm btn-bold btn-square btn_create_audit_activity"
+                   data-url="{{route('audit.plan.operational.activity.create')}}">
                     <i class="far fa-plus mr-1"></i> Create Annual Audit Activity
-                </x-toolbar-button>
+                </a>
             </div>
         </div>
         <!--end::Header-->
@@ -69,13 +71,17 @@
 
                             <td class="datatable-cell" style="width: 5%">
                                 <a href="javascript:;"
+                                   onclick="Audit_Activities_Container.showAnnualActivity($(this))"
+                                   data-fiscal-year-id="{{$activity['fiscal_year_id']}}"
                                    data-url="{{route('audit.plan.operational.activity.single')}}"
-                                   class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_audit_annual_activity">
+                                   class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger
+                                btn-icon-primary btn_view_audit_annual_activity">
                                     <i class="fas fa-eye"></i>
                                 </a>
                             </td>
                             <td class="datatable-cell" style="width: 5%">
-                                <a href="javascript:;"
+                                <a href="javascript:;" onclick="Audit_Activities_Container.editAnnualActivity($(this))"
+                                   data-fiscal-year-id="{{$activity['fiscal_year_id']}}"
                                    data-url="{{route('audit.plan.operational.activity.edit')}}"
                                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_audit_annual_activity">
                                     <i class="fas fa-edit"></i>

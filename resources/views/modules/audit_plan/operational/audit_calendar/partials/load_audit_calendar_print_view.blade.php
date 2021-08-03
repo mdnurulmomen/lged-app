@@ -1,4 +1,4 @@
-<div class="border" style="padding: 0.5in;">
+<div class="border" style="padding: 0.25in;">
     <table style="margin: 0 auto;" cellpadding="0" cellspacing="0" id="potroTemplateWrapper">
         <tbody>
         <tr>
@@ -19,7 +19,7 @@
                                                 <p contenteditable="true"
                                                    style="line-height: 1.8; margin: 0; "
                                                    class="ministry_name write_here">
-                                                    Comprotrolar and Audit General Office <br/>Accounts and Report Wing
+                                                    Comptroller and Audit General Office <br/>Accounts and Report Wing
                                                 </p>
                                             </span>
                                 <span contenteditable="false"
@@ -57,21 +57,21 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>Activity</th>
-                    <th style="">Milestones</th>
-                    <th style="width:180px">Target Date</th>
-                    <th style="width:220px">Responsible</th>
-                    <th style="width:220px">Comment</th>
+                    <th style="width: 10%">Activity</th>
+                    <th style="width: 20%;">Milestones</th>
+                    <th style="width: 10%">Target Date</th>
+                    <th style="width: 30%">Responsible</th>
+                    <th style="width: 30%">Comment</th>
                 </tr>
                 </thead>
                 <tbody>
                 @forelse($activity_calendars as $activity_calendar)
                     @if(!empty($activity_calendar['milestones']))
                         <tr>
-                            <td class="vertical-middle">
+                            <td class="vertical-middle" width="10%">
                                 {{$activity_calendar['activity_no']}}
                             </td>
-                            <td class="p-0">
+                            <td class="p-0" width="20%">
                                 <table class="table table-bordered w-100 mb-0">
                                     @foreach($activity_calendar['milestones'] as $milestone)
                                         <tr>
@@ -80,7 +80,7 @@
                                     @endforeach
                                 </table>
                             </td>
-                            <td class="p-0">
+                            <td class="p-0" width="10%">
                                 <table class="table table-bordered w-100 mb-0">
                                     @foreach($activity_calendar['milestones'] as $milestone)
                                         <tr>
@@ -89,7 +89,7 @@
                                     @endforeach
                                 </table>
                             </td>
-                            <td class="vertical-middle">
+                            <td class="vertical-middle" width="30%">
                                 <table class="table w-100 mb-0">
                                     <tr>
                                         <td id="added_responsible_area_{{$activity_calendar['id']}}">
@@ -102,7 +102,7 @@
                                     </tr>
                                 </table>
                             </td>
-                            <td class="p-0 vertical-middle">
+                            <td class="p-0 vertical-middle" width="30%">
                                 @if(isset($activity_calendar['comment']))
                                     {!! $activity_calendar['comment']['comment_en'] !!}
                                 @endif

@@ -1,6 +1,6 @@
 <div class="row mt-5" id="load_schedule_milestones">
     <div class="col-md-12">
-        <div class="table-responsive">
+        <div class="table-responsive text-center">
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -11,7 +11,7 @@
                     <th style="width:180px">Comment</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-center">
                 @forelse($activity_calendars as $activity_calendar)
                     @if(!empty($activity_calendar['milestones']))
                         <tr>
@@ -28,7 +28,7 @@
                                 </table>
                             </td>
                             <td class="p-0">
-                                <table class="table table-bordered w-100 mb-0">
+                                <table class="table table-bordered w-100 mb-0 text-center">
                                     @foreach($activity_calendar['milestones'] as $milestone)
                                         <tr>
                                             <td class="p-0">
@@ -45,7 +45,7 @@
                                 </table>
                             </td>
                             <td class="p-0">
-                                <table class="table w-100 mb-0 table-borderless">
+                                <table class="table w-100 mb-0 table-borderless text-center">
                                     <tr>
                                         <td id="added_responsible_area_{{$activity_calendar['id']}}">
                                             @forelse($activity_calendar['responsibles'] as $responsible)

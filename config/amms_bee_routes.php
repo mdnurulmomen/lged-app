@@ -36,6 +36,8 @@ return [
     'audit_operational_plan' => [
         'op_activity_lists' => env('API_URL_BEE', '') . '/planning/operational-plan/activity',
         'op_activity_find' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/find',
+        'op_activity_by_fiscal_year' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/all-by-fiscal-year',
+        'op_activity_milestones_load' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/milestones',
         'op_activity_create' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/create',
         'op_activity_show' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/show',
         'op_activity_update' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/update',

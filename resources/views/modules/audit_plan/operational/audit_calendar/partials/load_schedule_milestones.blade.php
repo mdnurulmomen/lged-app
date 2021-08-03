@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <div class="table-responsive">
+    <div class="table-responsive text-center">
         <table class="table table-bordered">
             <thead>
             <tr>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AuditPlan\AuditOperationalPlan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AuditActivityController extends Controller
 {
@@ -50,7 +51,24 @@ class AuditActivityController extends Controller
         return view('modules.audit_plan.operational.audit_activity.partials.load_created_activities', compact('fiscal_year_id', 'output_id', 'activity_lists', 'outcome_id'));
     }
 
-    public function store(Request $request)
+    public function loadEditActivityTree(Request $request)
+    {
+        $output_id = $request->output_id;
+        $outcome_id = $request->outcome_id;
+        $fiscal_year_id = $request->fiscal_year_id;
+
+        $data = [];
+
+        isset($output_id) ? $data['output_id'] = $output_id : '';
+        isset($outcome_id) ? $data['outcome_id'] = $outcome_id : '';
+        isset($fiscal_year_id) ? $data['fiscal_year_id'] = $fiscal_year_id : '';
+
+        $activity_lists = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_find'), $data)->json();
+
+        return view('modules.audit_plan.operational.audit_activity.partials.load_edit_activities', compact('fiscal_year_id', 'output_id', 'activity_lists', 'outcome_id'));
+    }
+
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $data = ['activity_parent_id' => $request->activity_parent_id, 'activity_no' => $request->activity_no, 'title_en' => $request->title_en, 'title_bn' => $request->title_bn, 'output_id' => $request->output_id, 'outcome_id' => $request->outcome_id, 'fiscal_year_id' => $request->fiscal_year_id,];
 
@@ -63,7 +81,7 @@ class AuditActivityController extends Controller
         }
     }
 
-    public function storeMilestone(Request $request)
+    public function storeMilestone(Request $request): \Illuminate\Http\JsonResponse
     {
         $data = ['activity_id' => $request->activity_id, 'output_id' => $request->output_id, 'outcome_id' => $request->outcome_id, 'fiscal_year_id' => $request->fiscal_year_id, 'title_en' => $request->title_en, 'title_bn' => $request->title_bn];
 
@@ -76,18 +94,51 @@ class AuditActivityController extends Controller
         }
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function show(Request $request)
     {
-        return view('modules.audit_plan.operational.audit_activity.view_annual_audit_activity');
+        Validator::make($request->all(), ['fiscal_year_id' => 'integer|required'])->validate();
+        $activity_lists = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_by_fiscal_year'), ['fiscal_year_id' => $request->fiscal_year_id])->json();
+        if (isSuccess($activity_lists)) {
+            return view('modules.audit_plan.operational.audit_activity.view_annual_audit_activity', compact('activity_lists'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $activity_lists]);
+        }
     }
 
-    public function edit(Request $request, $activity_id)
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function showActivityMilestones(Request $request)
     {
-        $activity = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_show'), ['activity_id' => $activity_id])->json()['data'];
-        return view('modules.audit_plan.operational.audit_activity.edit_annual_audit_activity', compact('activity'));
+        Validator::make($request->all(), ['activity_id' => 'integer|required'])->validate();
+        $milestones = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_milestones_load'), ['activity_id' => $request->activity_id])->json();
+        if (isSuccess($milestones)) {
+            return view('modules.audit_plan.operational.audit_activity.partials.load_activity_milestones', compact('milestones'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $milestones]);
+        }
     }
 
-    public function update(Request $request, $activity_id)
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function edit(Request $request)
+    {
+        Validator::make($request->all(), ['fiscal_year_id' => 'integer|required'])->validate();
+        $strategic_outcomes = $this->allStrategicPlanOutcomes();
+        $fiscal_year_id = $request->fiscal_year_id;
+        $activity_lists = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_find'), ['fiscal_year_id' => $request->fiscal_year_id])->json();
+        if (isSuccess($activity_lists)) {
+            return view('modules.audit_plan.operational.audit_activity.edit_annual_audit_activity', compact('activity_lists', 'strategic_outcomes', 'fiscal_year_id'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $activity_lists]);
+        }
+    }
+
+    public function update(Request $request, $activity_id): \Illuminate\Http\JsonResponse
     {
         $data = ['activity_id' => $activity_id, 'duration_id' => $request->duration_id, 'outcome_id' => $request->outcome_id, 'output_id' => $request->output_id, 'activity_no' => $request->activity_no, 'title_en' => $request->title_en, 'title_bn' => $request->title_bn, 'activity_parent_id' => $request->activity_parent_id ?? 0,];
         $updateActivity = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_update'), $data)->json();
@@ -99,7 +150,7 @@ class AuditActivityController extends Controller
         }
     }
 
-    public function destroy($activity_id)
+    public function destroy($activity_id): \Illuminate\Http\JsonResponse
     {
         $data = ['activity_id' => $activity_id,];
         $deleteActivity = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_delete'), $data)->json();
