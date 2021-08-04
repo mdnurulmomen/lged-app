@@ -73,7 +73,7 @@ return [
         'ap_submit_plan_to_ocag' => env('API_URL_BEE', '') . '/planning/annual-plan/submit-plan-to-ocag',
     ],
     'audit_entity_plan' => [
-        'ap_entity_lists' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/',
+        'ap_entity_lists' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan-lists',
         'ap_entity_plan_make_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/update',
     ],
 
