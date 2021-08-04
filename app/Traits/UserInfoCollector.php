@@ -123,6 +123,11 @@ trait UserInfoCollector
         return session()->has('login') ? session('login')['data']['employee_info'] : null;
     }
 
+    public function current_office_domain()
+    {
+        return $this->current_office()['office_domain_url'];
+    }
+
     public function forceLogout()
     {
         session()->forget('login');

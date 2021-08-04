@@ -3,6 +3,19 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+AJAX_LOADER = "#ajax-loader";
+
+function ajax_start() {
+    $(AJAX_LOADER).show();
+    $("#modal_loader").show();
+    $('button[type=submit]').attr('disabled', true);
+}
+
+function ajax_stop() {
+    $(AJAX_LOADER).hide();
+    $("#modal_loader").hide();
+    $('button[type=submit]').attr('disabled', false);
+}
 
 function ajaxCallAsyncCallback(url, data, datatype, method, callback) {
     $.ajax({
@@ -12,8 +25,12 @@ function ajaxCallAsyncCallback(url, data, datatype, method, callback) {
         dataType: datatype,
         data: data,
         cache: false,
+        // beforeSend: function (XMLHttpRequest) {
+        //     ajax_start();
+        // },
         success: function (data, textStatus) {
             callback(data);
+            // ajax_stop();
         },
         error: function (data) {
             var errors = data.responseJSON;
@@ -23,6 +40,7 @@ function ajaxCallAsyncCallback(url, data, datatype, method, callback) {
                 }
 
             });
+            // ajax_stop();
         },
     });
 }
