@@ -27,7 +27,7 @@ class PlanController extends Controller
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk());
 //        $all_entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data)->json();
-        $all_entities = Http::withHeaders($this->apiHeaders())->withToken($this->getBeeToken())->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data);
+        $all_entities = Http::withHeaders($this->apiHeaders())->withToken($this->getBeeToken())->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data)->json();
 
         if (isSuccess($all_entities)) {
             $all_entities = $all_entities['data'];
