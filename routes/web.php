@@ -143,7 +143,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditPlanController::class, 'showAuditPlanDashboard'])->name('dashboard');
 
             Route::get('/plans', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'index'])->name('plan.all');
-            Route::post('/load-auditable_plan_lists', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'showAuditablePlanLists'])->name('plan.load-all-lists');
+            Route::post('/load-auditable-plan-lists', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'showAuditablePlanLists'])->name('plan.load-all-lists');
 
 //            Route::get('/make-entity-audit-plan/{party_id}/{rp_id}', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'create1'])->name('plan.make-entity-audit-plan1');
             Route::post('/make-entity-audit-plan/', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'create'])->name('plan.make-entity-audit-plan');
