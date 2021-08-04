@@ -113,21 +113,22 @@
                                                 </tr>
                                             </table>
                                         </td>
-                                        <td style="text-align: center; vertical-align: middle;"
-                                            class="bg-light text-info">
-                                            <div class="operational_staffs" data-activity_id="1">
-                                                <p class="mb-0"><strong>200</strong></p>
-{{--                                                <p class="mb-0"><strong>Annex-01</strong></p>--}}
-                                            </div>
-                                        </td>
-                                        <td style="text-align: center; padding: 0;">
-                                            <table style="border: none; width: 100%;">
-                                                <tr>
-                                                    <td class="bg-light">
-                                                        <p><strong>&nbsp;</strong></p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
+                                            <td style="text-align: center; vertical-align: middle;"
+                                                class="bg-light text-info">
+                                                <div class="operational_staffs" data-activity_id="1">
+                                                    <p class="mb-0"><strong>{{$activity['assigned_staffs']}}</strong>
+                                                    </p>
+                                                    {{--                                                <p class="mb-0"><strong>Annex-01</strong></p>--}}
+                                                </div>
+                                            </td>
+                                            <td style="text-align: center; padding: 0;">
+                                                <table style="border: none; width: 100%;">
+                                                    <tr>
+                                                        <td class="bg-light">
+                                                            <p><strong>&nbsp;</strong></p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
                                                     <td>
                                                         <p><strong>&nbsp;</strong></p>
                                                     </td>
