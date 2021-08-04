@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AuditPlan\Plan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 
 class PlanController extends Controller
@@ -25,8 +26,9 @@ class PlanController extends Controller
 //            'page' => 'required|integer',
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk());
-        $all_entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data)->json();
-        dd($this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data));
+//        $all_entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data)->json();
+        $all_entities = Http::withHeaders($this->apiHeaders())->withToken($this->getBeeToken())->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data);
+
         if (isSuccess($all_entities)) {
             $all_entities = $all_entities['data'];
             return view('modules.audit_plan.audit_plan.plan.plan_lists', compact('all_entities'));
