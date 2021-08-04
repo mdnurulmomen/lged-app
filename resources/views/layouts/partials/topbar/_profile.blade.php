@@ -8,7 +8,8 @@
             @if(isset($userDetails['user_role_id']) && $userDetails['user_role_id'] == 1)
                 {{__('Superman')}}
             @elseif(isset($userDetails['user_role_id']) && $userDetails['user_role_id'] == 3)
-                {{ $employeeInfo['name_bng'] ?? 'User Name' }}
+                {{--                {{ $employeeInfo['name_bng'] ?? 'User Name' }}--}}
+                {{ 'Admin' }}
             @endif
         </span>
         <span><i class="fa fa-chevron-down"></i></span>
