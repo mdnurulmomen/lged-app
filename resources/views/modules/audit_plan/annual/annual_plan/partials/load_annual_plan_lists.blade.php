@@ -1,14 +1,14 @@
 <div class="table-responsive mb-4">
     <table class="table table-bordered table-head-custom">
         <thead>
-        <tr>
-            <th width="20%">Activity Title</th>
-            <th width="20%">Milestones</th>
-            <th width="10%">Target Date</th>
-            <th width="5%">Budget</th>
-            <th width="5%">Assigned Staff</th>
-            <th width="35%">Auditee</th>
-            <th width="5%">Plan</th>
+        <tr class="font-weight-bolder">
+            <th class="font-weight-bolder" style="color: black !important;" width="20%">Activity Title</th>
+            <th class="font-weight-bolder" style="color: black !important;" width="20%">Milestones</th>
+            <th class="font-weight-bolder" style="color: black !important;" width="10%">Target Date</th>
+            <th class="font-weight-bolder" style="color: black !important;" width="5%">Budget</th>
+            <th class="font-weight-bolder" style="color: black !important;" width="5%">Assigned Staff</th>
+            <th class="font-weight-bolder" style="color: black !important;" width="35%">Auditee</th>
+            <th class="font-weight-bolder" style="color: black !important;" width="5%">Plan</th>
         </tr>
         </thead>
         <tbody>
@@ -30,9 +30,9 @@
                             <span></span>
                         @endforelse
                     </td>
-                        <td width="5%" class="vertical-middle">
-                            <button class="btn_annual_plan btn-sm btn-hover-transparent-primary btn-primary"
-                                    data-schedule-id="{{$plan['schedule_id']}}"
+                    <td width="5%" class="vertical-middle">
+                        <button class="btn_annual_plan btn-sm btn-hover-transparent-primary btn-primary"
+                                data-schedule-id="{{$plan['schedule_id']}}"
                                 data-activity-id="{{$plan['activity_id']}}"
                                 data-milestone-id="{{$plan['activity_milestone_id']}}"
                                 onclick="Annual_Plan_Container.loadEntitySelection($(this))">Plan
