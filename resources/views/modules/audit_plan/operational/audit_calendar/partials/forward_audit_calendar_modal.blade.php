@@ -68,7 +68,7 @@
         if (data.node.children.length === 0) {
             var officer_info = $('#' + data.node.id).data('officer-info')
             if (officer_info.officer_name) {
-                addOfficerToForwardedList(officer_info)
+                OP_Audit_Calendar_Container.addOfficerToForwardedList(officer_info)
             } else {
                 toastr.warning('Select Valid Officer');
             }
@@ -76,7 +76,7 @@
             data.node.children.map(child => {
                 var officer_info = $('#' + child).data('officer-info')
                 if (officer_info.officer_name) {
-                    addOfficerToForwardedList(officer_info)
+                    OP_Audit_Calendar_Container.addOfficerToForwardedList(officer_info)
                 } else {
                     toastr.warning('Select Valid Officer');
                 }
@@ -96,26 +96,6 @@
         showHideModalSaveBtn();
     });
 
-    function addOfficerToForwardedList(officer_info) {
-        if ($('#selected_officer_for_forward_calendar_' + officer_info.designation_id).length === 0) {
-            var newRow = '<tr id="selected_officer_for_forward_calendar_' + officer_info.designation_id + '">' +
-                '<td>' +
-                '<input name="designation_to_forward[]" class="designation_to_forward" data-designation-id="' + officer_info.designation_id + '" id="designation_to_forward_' + officer_info.designation_id + '" type="hidden" value=""/>' +
-                '<span id="btn_remove_officer_' + officer_info.designation_id + '" data-designation-id="' + officer_info.designation_id + '" onclick="removeOfficerFromForwardedList(' + officer_info.designation_id + ')" style="cursor:pointer;color:red;"><i class="fa fa-trash"></i></span>' +
-                '</td>' +
-                '<td>' + officer_info.designation_bn + '</td>' +
-                '<td>' + officer_info.officer_name + '</td>' +
-                '<td>' + '<select name="designation_role[]" class="select-select2"><option value="editor_' + officer_info.designation_id + '" selected>Editor</option><option value="approver_' + officer_info.designation_id + '">Approver</option><option value="viewer_' + officer_info.designation_id + '">Viewer</option></select>' + ' </td>' +
-                '</tr>';
-            $(".ownOfficeForward tbody").prepend(newRow);
-            $(".ownOfficeForward tbody").find('#designation_to_forward_' + officer_info.designation_id).val(JSON.stringify(officer_info));
-        }
-    }
-
-    function removeOfficerFromForwardedList(designation_id) {
-        $('#selected_officer_for_forward_calendar_' + designation_id).remove();
-    }
-
     function showHideModalSaveBtn() {
         if ($(".designation_to_forward").length > 0) {
             $("#btn_forward_audit_calendar_modal_save").show();
@@ -125,10 +105,7 @@
     }
 
     $("#btn_forward_audit_calendar_modal_save").click(function () {
-        url = $(this).data('url');
-        data = $('#forward_audit_calendar_form').serialize();
-        method = $(this).data('method');
-        submit = submitModalData(url, data, method, 'forward_audit_calendar_modal')
+        OP_Audit_Calendar_Container.forwardAuditCalendar($(this))
     });
 
 
