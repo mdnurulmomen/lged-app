@@ -61,8 +61,8 @@
     </div>
 </x-modal>
 
-@include('scripts.script_generic')
 <script>
+    jsTreeInit();
     showHideModalSaveBtn();
     $('.office_organogram_tree').on('select_node.jstree', function (e, data) {
         if (data.node.children.length === 0) {

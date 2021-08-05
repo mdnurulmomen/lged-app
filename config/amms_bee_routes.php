@@ -49,7 +49,9 @@ return [
         'op_activity_milestone_update' => env('API_URL_BEE', '') . '/planning/operational-plan/activity-milestone/update',
         'op_activity_milestone_delete' => env('API_URL_BEE', '') . '/planning/operational-plan/activity-milestone/delete',
 
-        'op_yearly_audit_calendar_lists' => env('API_URL_BEE', '') . '/planning/operational-plan/yearly-audit-calendar',
+        'op_yearly_audit_calendar_lists' => env('API_URL_BEE', '') . '/planning/operational-plan/audit-calendar',
+        'op_yearly_audit_calendar_years' => env('API_URL_BEE', '') . '/planning/operational-plan/audit-calendar/years-to-create',
+        'op_yearly_audit_calendar_create' => env('API_URL_BEE', '') . '/planning/operational-plan/audit-calendar/create',
         'op_yearly_audit_calendar_movement_history' => env('API_URL_BEE', '') . '/planning/operational-plan/audit-calendar/movement/history',
         'op_yearly_audit_calendar_movement_create' => env('API_URL_BEE', '') . '/planning/operational-plan/audit-calendar/movement/create',
         'op_yearly_audit_calendar_change_status' => env('API_URL_BEE', '') . '/planning/operational-plan/audit-calendar/change-status',

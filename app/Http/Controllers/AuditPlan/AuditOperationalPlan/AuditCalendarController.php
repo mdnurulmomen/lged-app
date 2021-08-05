@@ -22,6 +22,35 @@ class AuditCalendarController extends Controller
         }
     }
 
+    public function create(Request $request)
+    {
+        $years = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_years'), [])->json();
+        if (isSuccess($years)) {
+            $years = $years['data'];
+            return view('modules.audit_plan.operational.audit_calendar.partials.create_audit_calendar_modal', compact('years'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $years]);
+        }
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function store(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk());
+        $create_calendar = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_create'), $data)->json();
+
+        if (isSuccess($create_calendar)) {
+            return response()->json(['status' => 'success', 'data' => 'done']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $create_calendar]);
+        }
+    }
+
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -172,7 +201,7 @@ class AuditCalendarController extends Controller
         }
     }
 
-    public function forwardAuditCalendar(Request $request)
+    public function forwardAuditCalendar(Request $request): \Illuminate\Http\JsonResponse
     {
         $designation_lists = $request->designation_to_forward;
         $designation_roles = $request->designation_role;
@@ -263,7 +292,7 @@ class AuditCalendarController extends Controller
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function publishAuditCalendar(Request $request)
+    public function publishAuditCalendar(Request $request): \Illuminate\Http\JsonResponse
     {
         $data = Validator::make($request->all(), [
             'calendar_id' => 'required|integer',

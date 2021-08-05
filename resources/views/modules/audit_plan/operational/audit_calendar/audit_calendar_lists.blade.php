@@ -3,19 +3,30 @@
     <!--begin::Advance Table Widget 4-->
     <div class="card card-custom card-stretch gutter-b">
         <!--begin::Header-->
+        <div class="card-header border-0 py-5">
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label font-weight-bolder text-dark"></span>
+            </h3>
+            <div class="card-toolbar">
+                <a href="javascript:;"
+                   onclick="OP_Audit_Calendar_Container.createAnnualCalendar($(this))"
+                   class="font-weight-bolder font-size-sm mr-3 btn btn-success btn-sm btn-bold btn-square btn_create_audit_activity"
+                   data-url="{{route('audit.plan.operational.calendars.create')}}">
+                    <i class="far fa-plus mr-1"></i> Create Annual Audit Calendar
+                </a>
+            </div>
+        </div>
         <!--end::Header-->
         <!--begin::Body-->
         <div class="card-body pt-0 pb-3">
             <!--begin::Table-->
             <div class="table-responsive datatable datatable-default datatable-bordered datatable-loaded">
 
-                <table class="datatable-bordered datatable-head-custom datatable-table"
-                       id="kt_datatable"
-                       style="display: block;">
+                <table class="table" id="kt_datatable" style="display: block;">
 
                     <thead class="datatable-head">
                     <tr class="datatable-row" style="left: 0px;">
-                        <th class="datatable-cell datatable-cell-sort" style="width: 15%">
+                        <th class="datatable-cell datatable-cell-sort" style="width: 10%">
                             Fiscal Year
                         </th>
 
@@ -31,15 +42,15 @@
                             Status
                         </th>
 
-                        <th class="datatable-cell datatable-cell-sort" colspan="5" style="width: 25%">
+                        <th class="datatable-cell datatable-cell-sort" colspan="5" style="width: 30%">
                             Action
                         </th>
                     </tr>
                     </thead>
-                    <tbody style="" class="datatable-body">
+                    <tbody style="" class="">
                     @foreach($yearly_calendars as $yearly_calendar)
                         <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
-                            <td class="datatable-cell" style="width: 15%">
+                            <td class="datatable-cell" style="width: 10%">
                                 <span>{{$yearly_calendar['fiscal_year']}}</span>
                             </td>
                             <td class="datatable-cell" style="width: 25%">
@@ -127,16 +138,18 @@
                                 </td>
                             @endif
 
-                            <td class="datatable-cell" style="width: 5%">
-                                <button
-                                    title="Movement history"
-                                    data-calendar-id="{{$yearly_calendar['id']}}"
-                                    class="btn_audit_calendar_movement btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                    type="button">
-                                    <i class="fad fa-history" data-toggle="popover" data-content="Movement history"></i>
-                                </button>
-                            </td>
-
+                            @if((count($approver) > 0 ) || (count($editor) > 0) || (count($viewer) > 0))
+                                <td class="datatable-cell" style="width: 5%">
+                                    <button
+                                        title="Movement history"
+                                        data-calendar-id="{{$yearly_calendar['id']}}"
+                                        class="btn_audit_calendar_movement btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                        type="button">
+                                        <i class="fad fa-history" data-toggle="popover"
+                                           data-content="Movement history"></i>
+                                    </button>
+                                </td>
+                            @endif
                             <td class="datatable-cell" style="width: 5%">
                                 <button
                                     title="Forward"
@@ -160,6 +173,11 @@
 
 </div>
 
+
+<div class="create_audit_calendar_modal_area">
+
+</div>
+
 <x-modal id="movement_audit_calendar_modal" title="Movement History" size='lg' saveButton="off">
     <div class="row">
         <div class="movement_audit_calendar_modal_area"></div>
@@ -167,6 +185,29 @@
 </x-modal>
 
 <script>
+    var OP_Audit_Calendar_Container = {
+
+        createAnnualCalendar: function (elem) {
+            let url = elem.data('url')
+            ajaxCallAsyncCallbackAPI(url, {}, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $(".create_audit_calendar_modal_area").html(response);
+                    $("#create_audit_calendar_modal").modal('show');
+                }
+            });
+        },
+
+        storeAnnualCalendar: function (elem) {
+            url = elem.data('url');
+            data = $('#create_audit_calendar_form').serialize();
+            method = elem.data('method');
+            submitModalData(url, data, method, 'create_audit_calendar_modal');
+            $('.op_audit_calendar a').click();
+        },
+    };
+
     $('.btn_view_operational_calendar').on('click', function () {
         url = $(this).data('url')
         fiscal_year_id = $(this).data('fiscal-year-id');

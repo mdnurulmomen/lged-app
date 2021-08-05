@@ -8,8 +8,9 @@
                 console.log(response)
                 if (response.status === 'error') {
                     toastr.error(response.data)
+                } else {
+                    $("#kt_content").html(response);
                 }
-                $("#kt_content").html(response);
             });
         },
 

@@ -260,7 +260,7 @@ if (!function_exists('toJson')) {
 if (!function_exists('isSuccess')) {
     function isSuccess($arr, $key = 'status', $val = 'success'): bool
     {
-        if ((array_key_exists('status', $arr)) && ($arr['status'] == 'success')) {
+        if ((array_key_exists('status', $arr)) && ($arr[$key] == $val)) {
             return true;
         }
         return false;

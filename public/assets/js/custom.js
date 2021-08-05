@@ -41,3 +41,48 @@ function makeAreaResizable(element) {
         $(`${element}`).css("min-width", '500px !important');
     });
 }
+
+function submitModalData(url, data, method, modal_id) {
+    ajaxCallAsyncCallbackAPI(url, data, method, function (response) {
+        if (response.status === 'success') {
+            toastr.success('Success')
+            $('#' + modal_id).modal('hide');
+        } else {
+            toastr.error(response.data.message)
+            if (response.data.errors) {
+                $.each(response.data.errors, function (k, v) {
+                    if (isArray(v)) {
+                        $.each(v, function (n, m) {
+                            toastr.error(m)
+                        })
+                    } else {
+                        if (v !== '') {
+                            toastr.error(v);
+                        }
+                    }
+                });
+            }
+            console.log(response.data)
+        }
+    })
+}
+
+function jsTreeInit(jstree_class = 'jstree-init') {
+    $(`.${jstree_class}`).jstree({
+        "core": {
+            "themes": {
+                "responsive": true
+            }
+        },
+        "types": {
+            "default": {
+                "icon": "fal fa-folder"
+            },
+            "person": {
+                "icon": "fal fa-file "
+            }
+        },
+        "plugins": ["types", "checkbox",]
+    });
+}
+
