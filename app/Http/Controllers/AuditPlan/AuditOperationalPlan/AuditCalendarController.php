@@ -45,7 +45,7 @@ class AuditCalendarController extends Controller
         $create_calendar = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_create'), $data)->json();
 
         if (isSuccess($create_calendar)) {
-            return response()->json(['status' => 'success', 'data' => 'done']);
+            return response()->json(['status' => 'success', 'data' => 'Successfully Created!']);
         } else {
             return response()->json(['status' => 'error', 'data' => $create_calendar]);
         }
