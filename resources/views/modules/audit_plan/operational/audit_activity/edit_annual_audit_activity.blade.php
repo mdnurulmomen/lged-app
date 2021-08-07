@@ -61,7 +61,7 @@
     </div>
 </div>
 
-<x-modal id="op_activity_modal" title="Create Operation Activity"
+<x-modal id="op_activity_modal" title="Edit Operation Activity"
          url="{{route('audit.plan.operational.activity.store')}}" method="post">
     <form id="op_activity_form">
         <div class="form-group row">
@@ -86,6 +86,18 @@
             </div>
         </div>
 
+        <div class="form-group row">
+            <label for="activity_type" class="col-3 col-form-label">Activity Type</label>
+            <div class="col-9">
+                <select name="activity_type" id="activity_type" class="form-control select-select2">
+                    <option value="planning" selected>Planning</option>
+                    <option value="financial">Financial</option>
+                    <option value="compliance">Compliance</option>
+                    <option value="performance">Performance</option>
+                </select>
+            </div>
+        </div>
+
         <input type="hidden" name="output_id" class="output_id" value="">
         <input type="hidden" name="outcome_id" class="outcome_id" value="">
         <input type="hidden" name="fiscal_year_id" class="fiscal_year_id" value="">
@@ -93,7 +105,7 @@
     </form>
 </x-modal>
 
-<x-modal id="op_activity_milestone_modal" title="Create Operation Activity Milestone"
+<x-modal id="op_activity_milestone_modal" title="Edit Operation Activity Milestone"
          url="{{route('audit.plan.operational.activity.milestone.store')}}" method="post" size="lg">
     <form id="op_activity_milestone_form">
         <div class="form-group" id="milestone_add_area">
