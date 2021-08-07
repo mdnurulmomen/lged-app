@@ -52,8 +52,18 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::get('indicator/outcome', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
             ::class, 'index'])->name('indicator.outcome');
-            Route::post('indicator/outcome/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
+            Route::get('indicator/outcome/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
             ::class, 'create'])->name('indicator.outcome.create');
+            Route::post('indicator/outcome/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
+            ::class, 'store'])->name('indicator.outcome.store');
+            Route::get('indicator/outcome/edit/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
+            ::class, 'edit'])->name('indicator.outcome.edit');
+            Route::post('indicator/outcome/update', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
+            ::class, 'update'])->name('indicator.outcome.update');
+            Route::get('indicator/outcome/show/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
+            ::class, 'show'])->name('indicator.outcome.show');
+
+
             Route::get('indicator/output', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
             ::class, 'index'])->name('indicator.output');
             Route::post('indicator/output/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
@@ -159,10 +169,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/plans', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'index'])->name('plan.all');
             Route::post('/load-auditable-plan-lists', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'showAuditablePlanLists'])->name('plan.load-all-lists');
 
-//            Route::get('/make-entity-audit-plan/{party_id}/{rp_id}', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'create1'])->name('plan.make-entity-audit-plan1');
+            //            Route::get('/make-entity-audit-plan/{party_id}/{rp_id}', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'create1'])->name('plan.make-entity-audit-plan1');
             Route::post('/make-entity-audit-plan/', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'create'])->name('plan.make-entity-audit-plan');
             Route::post('/save-draft-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'saveDraftEntityAuditPlan'])->name('plan.save-draft-entity-audit-plan');
-
         });
     });
 
