@@ -50,6 +50,16 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('risk', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\RiskController
             ::class, 'show'])->name('risk.single');
 
+            Route::get('indicator/outcome', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
+            ::class, 'index'])->name('indicator.outcome');
+            Route::post('indicator/outcome/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
+            ::class, 'create'])->name('indicator.outcome.create');
+            Route::get('indicator/output', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
+            ::class, 'index'])->name('indicator.output');
+            Route::post('indicator/output/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
+            ::class, 'create'])->name('indicator.output.create');
+
+
             Route::get('/final-plan-add', function () {
                 return view('modules.audit_plan.strategic.meeting.strategic_plan_meeting_add');
             })->name('plan');

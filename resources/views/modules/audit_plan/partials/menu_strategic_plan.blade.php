@@ -27,6 +27,12 @@
             <x-menu-item class="" href="{{route('audit.plan.strategy.risk.all')}}" icon="fal fa-exclamation-square">
                 Risk List
             </x-menu-item>
+            <x-menu-item class="" href="{{route('audit.plan.strategy.indicator.outcome')}}" icon="fal fa-exclamation-square">
+                Outcome Indicator
+            </x-menu-item>
+            <x-menu-item class="" href="{{route('audit.plan.strategy.indicator.output')}}" icon="fal fa-exclamation-square">
+                Output Indicator
+            </x-menu-item>
 
         </ul>
     </div>
