@@ -67,6 +67,12 @@ function submitModalData(url, data, method, modal_id) {
     })
 }
 
+function emptyModalData(modal_id) {
+    $('#' + modal_id + ' :input').val('')
+    $('#' + modal_id + ' select').val('').trigger('change')
+    $('#' + modal_id + ' input[type=checkbox]').prop('checked', false);
+}
+
 function jsTreeInit(jstree_class = 'jstree-init') {
     $(`.${jstree_class}`).jstree({
         "core": {

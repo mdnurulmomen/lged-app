@@ -68,9 +68,21 @@ class AuditActivityController extends Controller
         return view('modules.audit_plan.operational.audit_activity.partials.load_edit_activities', compact('fiscal_year_id', 'output_id', 'activity_lists', 'outcome_id'));
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        $data = ['activity_parent_id' => $request->activity_parent_id, 'activity_no' => $request->activity_no, 'title_en' => $request->title_en, 'title_bn' => $request->title_bn, 'output_id' => $request->output_id, 'outcome_id' => $request->outcome_id, 'fiscal_year_id' => $request->fiscal_year_id,];
+        $data = Validator::make($request->all(), [
+            'activity_parent_id' => 'integer|required',
+            'activity_no' => 'required',
+            'title_en' => 'required',
+            'title_bn' => 'required',
+            'output_id' => 'integer|required',
+            'outcome_id' => 'integer|required',
+            'fiscal_year_id' => 'integer|required',
+            'activity_type' => 'required',
+        ])->validate();
 
         $create_activity = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_create'), $data)->json();
 

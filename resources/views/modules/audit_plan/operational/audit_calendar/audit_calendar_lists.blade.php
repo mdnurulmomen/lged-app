@@ -187,26 +187,55 @@
 <script>
     var OP_Audit_Calendar_Container = {
 
-        createAnnualCalendar: function (elem) {
-            let url = elem.data('url')
-            ajaxCallAsyncCallbackAPI(url, {}, 'post', function (response) {
-                if (response.status === 'error') {
-                    toastr.error(response.data)
-                } else {
-                    $(".create_audit_calendar_modal_area").html(response);
-                    $("#create_audit_calendar_modal").modal('show');
-                }
-            });
-        },
+            createAnnualCalendar: function (elem) {
+                let url = elem.data('url')
+                ajaxCallAsyncCallbackAPI(url, {}, 'post', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data)
+                    } else {
+                        $(".create_audit_calendar_modal_area").html(response);
+                        $("#create_audit_calendar_modal").modal('show');
+                    }
+                });
+            },
 
-        storeAnnualCalendar: function (elem) {
-            url = elem.data('url');
-            data = $('#create_audit_calendar_form').serialize();
-            method = elem.data('method');
-            submitModalData(url, data, method, 'create_audit_calendar_modal');
-            $('.op_audit_calendar a').click();
-        },
-    };
+            storeAnnualCalendar: function (elem) {
+                url = elem.data('url');
+                data = $('#create_audit_calendar_form').serialize();
+                method = elem.data('method');
+                submitModalData(url, data, method, 'create_audit_calendar_modal');
+                $('.op_audit_calendar a').click();
+            },
+
+            addOfficerToForwardedList: function (officer_info) {
+                if ($('#selected_officer_for_forward_calendar_' + officer_info.designation_id).length === 0) {
+                    var newRow = '<tr id="selected_officer_for_forward_calendar_' + officer_info.designation_id + '">' +
+                        '<td>' +
+                        '<input name="designation_to_forward[]" class="designation_to_forward" data-designation-id="' + officer_info.designation_id + '" id="designation_to_forward_' + officer_info.designation_id + '" type="hidden" value=""/>' +
+                        '<span id="btn_remove_officer_' + officer_info.designation_id + '" data-designation-id="' + officer_info.designation_id + '" onclick="OP_Audit_Calendar_Container.removeOfficerFromForwardedList(' + officer_info.designation_id + ')" style="cursor:pointer;color:red;"><i class="fa fa-trash"></i></span>' +
+                        '</td>' +
+                        '<td>' + officer_info.designation_bn + '</td>' +
+                        '<td>' + officer_info.officer_name + '</td>' +
+                        '<td>' + '<select name="designation_role[]" class="select-select2"><option value="editor_' + officer_info.designation_id + '" selected>Editor</option><option value="approver_' + officer_info.designation_id + '">Approver</option><option value="viewer_' + officer_info.designation_id + '">Viewer</option></select>' + ' </td>' +
+                        '</tr>';
+                    $(".ownOfficeForward tbody").prepend(newRow);
+                    $(".ownOfficeForward tbody").find('#designation_to_forward_' + officer_info.designation_id).val(JSON.stringify(officer_info));
+                    $('.select-select2').select2();
+                }
+            },
+
+            removeOfficerFromForwardedList: function (designation_id) {
+                $('#selected_officer_for_forward_calendar_' + designation_id).remove();
+            },
+
+            forwardAuditCalendar: function (elem) {
+                url = elem.data('url');
+                data = $('#forward_audit_calendar_form').serialize();
+                method = elem.data('method');
+                submitModalData(url, data, method, 'forward_audit_calendar_modal')
+            }
+        }
+    ;
 
     $('.btn_view_operational_calendar').on('click', function () {
         url = $(this).data('url')

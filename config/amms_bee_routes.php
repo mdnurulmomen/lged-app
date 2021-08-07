@@ -78,6 +78,20 @@ return [
         'ap_entity_lists' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan-lists',
         'ap_entity_plan_make_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/update',
     ],
+    'audit_strategic_plan' => [
+        'outcome_indicators' => env('API_URL_BEE', '') . '/planning/strategic-plan/outcome-indicators',
+        'outcome_indicator_create' => env('API_URL_BEE', '') . '/planning/strategic-plan/outcome-indicators/create',
+        'outcome_indicator_update' => env('API_URL_BEE', '') . '/planning/strategic-plan/outcome-indicators/update',
+        'outcome_indicator_show' => env('API_URL_BEE', '') . '/planning/strategic-plan/outcome-indicators/show',
+        'outcome_indicator_delete' => env('API_URL_BEE', '') . '/planning/strategic-plan/outcome-indicators/delete',
+        'output_indicators' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators',
+        'output_indicator_create' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/create',
+        'output_indicator_update' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/update',
+        'output_indicator_show' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/show',
+        'output_indicator_delete' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/delete',
+    ],
+
+
 
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',
 ];

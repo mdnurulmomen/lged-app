@@ -33,13 +33,19 @@ function ajaxCallAsyncCallback(url, data, datatype, method, callback) {
             // ajax_stop();
         },
         error: function (data) {
-            var errors = data.responseJSON;
-            $.each(errors.errors, function (k, v) {
-                if (v !== '') {
-                    toastr.error(v);
-                }
-
-            });
+            if (data.data.errors) {
+                $.each(data.data.errors, function (k, v) {
+                    if (isArray(v)) {
+                        $.each(v, function (n, m) {
+                            toastr.error(m)
+                        })
+                    } else {
+                        if (v !== '') {
+                            toastr.error(v);
+                        }
+                    }
+                });
+            }
             // ajax_stop();
         },
     });
@@ -56,14 +62,20 @@ function ajaxCallAsyncCallbackAPI(url, data, method, callback) {
             callback(data);
         },
         error: function (data) {
-            console.log(data)
-            var errors = data.errors;
-            $.each(errors.errors, function (k, v) {
-                if (v !== '') {
-                    toastr.error(v);
-                }
-
-            });
+            if (data.responseJSON.errors) {
+                $.each(data.responseJSON.errors, function (k, v) {
+                    if (isArray(v)) {
+                        $.each(v, function (n, m) {
+                            toastr.error(m)
+                        })
+                    } else {
+                        if (v !== '') {
+                            toastr.error(v);
+                        }
+                    }
+                });
+            }
+            // ajax_stop();
         },
     });
 }

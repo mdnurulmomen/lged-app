@@ -99,6 +99,18 @@
             </div>
         </div>
 
+        <div class="form-group row">
+            <label for="activity_type" class="col-3 col-form-label">Activity Type</label>
+            <div class="col-9">
+                <select name="activity_type" id="activity_type" class="form-control select-select2">
+                    <option value="planning" selected>Planning</option>
+                    <option value="financial">Financial</option>
+                    <option value="compliance">Compliance</option>
+                    <option value="performance">Performance</option>
+                </select>
+            </div>
+        </div>
+
         <input type="hidden" name="output_id" class="output_id" value="">
         <input type="hidden" name="outcome_id" class="outcome_id" value="">
         <input type="hidden" name="fiscal_year_id" class="fiscal_year_id" value="">
@@ -139,10 +151,10 @@
         url = $(this).data('url');
         data = $('#op_activity_form').serialize();
         method = $(this).data('method');
-        submit = submitModalData(url, data, method, 'op_activity_modal')
+        submitModalData(url, data, method, 'op_activity_modal')
     });
 </script>
 
 
 @include('scripts.script_audit_plan_operational_activity')
-@include('scripts.script_generic')
+{{--@include('scripts.script_generic')--}}
