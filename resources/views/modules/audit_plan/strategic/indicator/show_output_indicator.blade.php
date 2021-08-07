@@ -23,29 +23,29 @@
                             <th class="align-middle">Indicator</th>
                             <th>Frequency of Measurement</th>
                             <th>Data source</th>
-                            <th>Baseline</th>
-                            <th>Action</th>
+                            <th>Baseline FY 2020</th>
+                            <th>Milestone
+                                FY 2021</th>
+                            <th>Milestone FY 2022</th>
+                            <th>Milestone FY 2023</th>
+                            <th>Milestone FY 2024</th>
+                            <th>Target FY 2024</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><span>Percentage of SAI reports discussed in PAC meeting.</span></td>
                             <td><span>Annually</span></td>
-                            <td><span>A&R Wing of OCAG</span></td>
-                            <td><span>36 months from the year end</span></td>
-                            <td>
-                                <div class="btn-group">
-                                    <a href="javascript:;" data-url="" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_indicator_show">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="javascript:;" data-url="" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_indicator_edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="javascript:;" data-url="" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger btn_edit_audit_annual_activity">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            </td>
+                            <td><span>QA Cell of
+                                OCAG</span></td>
+                            <td><span>20%</span></td>
+                            <td><span>30%</span></td>
+                            <td><span>40%</span></td>
+                            <td><span>50%</span></td>
+                            <td><span>75%</span></td>
+                            <td><span>90%</span></td>
+
 
                         </tr>
 
@@ -93,7 +93,7 @@
                 } else {
                     $("#kt_content").html(response);
                 }
-            });});
+            });
 
         $('.btn_indicator_edit').click(function () {
 
