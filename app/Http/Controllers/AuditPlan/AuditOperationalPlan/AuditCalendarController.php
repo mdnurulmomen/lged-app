@@ -149,7 +149,12 @@ class AuditCalendarController extends Controller
      */
     public function updateActivityComment(Request $request): \Illuminate\Http\JsonResponse
     {
-        $data = Validator::make($request->all(), ['activity_id' => 'required|integer', 'comment_en' => 'nullable|string', 'comment_bn' => 'required|string',])->validate();
+        $data = Validator::make($request->all(), [
+            'activity_id' => 'required|integer',
+            'comment_en' => 'nullable|string',
+            'comment_bn' => 'required|string',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk());
 
         $activityComment = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_comment_update'), $data)->json();
 
