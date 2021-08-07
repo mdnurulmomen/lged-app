@@ -51,13 +51,13 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label class="col-form-label">Subject</label>
-                                    <input type="text" class="form-control rounded-0" placeholder="write subject" />    
+                                    <input type="text" class="form-control rounded-0" placeholder="write subject" />
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="col-form-label">Year</label>
-                                    <input type="text" class="form-control rounded-0" placeholder="write year" />    
+                                    <input type="text" class="form-control rounded-0" placeholder="write year" />
                                 </div>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="col-form-label">Responsible person</label>
-                                    <input type="text" class="form-control rounded-0" placeholder="write responsible person" />    
+                                    <input type="text" class="form-control rounded-0" placeholder="write responsible person" />
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -74,13 +74,13 @@
                                     <select name="quarters[]" class="form-control rounded-0">
                                         <option value="Q1">Source 01</option>
                                         <option value="Q2">Source 02</option>
-                                    </select>   
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="col-form-label">Price</label>
-                                    <input type="text" class="form-control rounded-0" placeholder="write price" />    
+                                    <input type="text" class="form-control rounded-0" placeholder="write price" />
                                 </div>
                             </div>
                         </div>
