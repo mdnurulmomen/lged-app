@@ -337,10 +337,32 @@ if (!function_exists('explodeAndMakeArray')) {
 }
 
 if (!function_exists('formatDate')) {
-    function formatDate($date)
+    function formatDate($date, $lang = 'en')
     {
-        $date = bnToen($date);
-        return enToBn(date('d-m-Y H:i:s', strtotime($date)));
+        if (!empty($date) || $date != '') {
+            $date = bnToen($date);
+            if ($lang == 'bn') {
+                $date = enToBn(date('d-m-Y', strtotime($date)));
+            } else {
+                $date = date('d-m-Y', strtotime($date));
+            }
+        }
+        return $date;
+    }
+}
+
+if (!function_exists('formatDateTime')) {
+    function formatDateTime($date_time, $lang = 'en')
+    {
+        if (!empty($date_time) || $date_time != '') {
+            $date_time = bnToen($date_time);
+            if ($lang == 'bn') {
+                $date_time = enToBn(date('d-m-Y H:i:s', strtotime($date_time)));
+            } else {
+                $date_time = date('d-m-Y H:i:s', strtotime($date_time));
+            }
+        }
+        return $date_time;
     }
 }
 
