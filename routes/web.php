@@ -67,7 +67,15 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('indicator/output', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
             ::class, 'index'])->name('indicator.output');
             Route::post('indicator/output/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
+            ::class, 'store'])->name('indicator.output.store');
+            Route::get('indicator/output/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
             ::class, 'create'])->name('indicator.output.create');
+            Route::get('indicator/output/edit/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
+            ::class, 'edit'])->name('indicator.output.edit');
+            Route::post('indicator/output/update', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
+            ::class, 'update'])->name('indicator.output.update');
+            Route::get('indicator/output/show/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
+            ::class, 'show'])->name('indicator.output.show');
 
 
             Route::get('/final-plan-add', function () {

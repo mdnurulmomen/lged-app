@@ -15,7 +15,9 @@ class IndicatorOutputController extends Controller
      */
     public function index()
     {
-        return view('modules.audit_plan.strategic.indicator.output');
+        $indecators = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.output_indicators'), [])->json();
+        return view('modules.audit_plan.strategic.indicator.output', compact('indecators'));
+
     }
 
     /**
@@ -25,7 +27,19 @@ class IndicatorOutputController extends Controller
      */
     public function create()
     {
-        return view('modules.audit_plan.strategic.indicator.create_output_indicator');
+        $plan_durations = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_duration_lists'), [
+            'all' => 1
+        ])->json();
+        $plan_output = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_output_lists'), [
+            'all' => 1
+        ])->json();
+        $fiscal_years = $this->allFiscalYears();
+
+        return view('modules.audit_plan.strategic.indicator.modules.audit_plan.strategic.indicator.create_output_indicator', compact(
+            'plan_durations',
+            'plan_output',
+            'fiscal_years'
+        ));
     }
 
     /**
@@ -36,7 +50,31 @@ class IndicatorOutputController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Validator::make($request->all(), [
+            'duration_id' => 'required|numeric',
+            'output_id' => 'required|numeric',
+            'name_en' => 'required',
+            'name_bn' => 'required',
+            'frequency_en' => 'required',
+            'frequency_bn' => 'required',
+            'datasource_en' => 'required',
+            'datasource_bn' => 'required',
+            'base_fiscal_year_id' => 'required|numeric',
+            'base_value' => 'required',
+            'fiscal_year_id.*' => 'required',
+            'unit_type.*' => 'required',
+        ])->validate();
+
+        $response = $this->initHttpWithToken()->post(
+            config('amms_bee_routes.audit_strategic_plan.output_indicator_create'),
+            $request->all()
+        )->json();
+
+        if (isset($response['status']) && $response['status'] == 'success') {
+            return response()->json(responseFormat('success', 'Saved Successfully'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }
     }
 
     /**
@@ -47,7 +85,16 @@ class IndicatorOutputController extends Controller
      */
     public function show(IndicatorOutput $indicatorOutput)
     {
-        //
+        $data = $this->initHttpWithToken()->post(
+            config('amms_bee_routes.audit_strategic_plan.output_indicator_show'),
+            ['id' => $id]
+        )->json();
+
+        $data = $data['data'];
+
+        return view('modules.audit_plan.strategic.indicator.show_output_indicator', compact(
+            'data'
+        ));
     }
 
     /**
@@ -58,7 +105,27 @@ class IndicatorOutputController extends Controller
      */
     public function edit(IndicatorOutput $indicatorOutput)
     {
-        //
+        $plan_durations = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_duration_lists'), [
+            'all' => 1
+        ])->json();
+        $plan_output = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_output_lists'), [
+            'all' => 1
+        ])->json();
+        $fiscal_years = $this->allFiscalYears();
+
+        $data = $this->initHttpWithToken()->post(
+            config('amms_bee_routes.audit_strategic_plan.output_indicator_show'),
+            ['id' => $id]
+        )->json();
+
+        $data = $data['data'];
+
+        return view('modules.audit_plan.strategic.indicator.edit_output_indicator', compact(
+            'plan_durations',
+            'plan_output',
+            'fiscal_years',
+            'data'
+        ));
     }
 
     /**
@@ -70,7 +137,31 @@ class IndicatorOutputController extends Controller
      */
     public function update(Request $request, IndicatorOutput $indicatorOutput)
     {
-        //
+        Validator::make($request->all(), [
+            'duration_id' => 'required|numeric',
+            'output_id' => 'required|numeric',
+            'name_en' => 'required',
+            'name_bn' => 'required',
+            'frequency_en' => 'required',
+            'frequency_bn' => 'required',
+            'datasource_en' => 'required',
+            'datasource_bn' => 'required',
+            'base_fiscal_year_id' => 'required|numeric',
+            'base_value' => 'required',
+            'fiscal_year_id.*' => 'required',
+            'unit_type.*' => 'required',
+        ])->validate();
+
+        $response = $this->initHttpWithToken()->post(
+            config('amms_bee_routes.audit_strategic_plan.output_indicator_update'),
+            $request->all()
+        )->json();
+
+        if (isset($response['status']) && $response['status'] == 'success') {
+            return response()->json(responseFormat('success', 'Saved Successfully'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }
     }
 
     /**
