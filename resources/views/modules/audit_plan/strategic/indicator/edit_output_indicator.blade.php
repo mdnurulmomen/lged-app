@@ -1,5 +1,5 @@
 <x-title-wrapper-return area="#kt_content" title="Back To Lists"
-                        url="{{route('audit.plan.operational.activity.all')}}">
+                        url="{{route('audit.plan.strategy.indicator.output')}}">
     Edit Output Indicator
 </x-title-wrapper-return>
 <div class="mt-4 px-4">
@@ -7,198 +7,167 @@
         <div class="col-md-12">
             <div class="card card-custom gutter-b">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="select_fiscal_year" class="col-form-label">Duration <span class="text-danger">(*)</span></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend w-50">
-                                        <input type="text" class="form-control rounded-0" value="" placeholder="start year" required>
-                                    </div>
-                                    <div class="input-group-append w-50">
-                                        <input type="text" class="form-control rounded-0" value="" placeholder="end year" required>
-                                    </div>
+                    <form id="output_indicator_create">
+                        <input type="hidden" name="id" value="{{$data['id']}}">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="duration" class="col-form-label">Duration <span class="text-danger">(*)</span></label>
+                                    <select class="form-control rounded-0 select-select2" id="duration"
+                                            name="duration_id">
+                                        <option value="">Choose Duration</option>
+                                        @foreach($plan_durations['data'] as $duration)
+                                            <option
+                                                value="{{$duration['id']}}"
+                                                {{ $data['duration_id'] == $duration['id'] ? 'selected' : '' }}
+                                                >{{$duration['start_year']}} - {{$duration['end_year']}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="select_strategic_output" class="col-form-label">Output
+                                        :</label>
+                                    <select class="form-control rounded-0 select-select2" id="select_strategic_output"
+                                            name="output_id">
+                                        <option value="">Choose Output</option>
+                                        @foreach($plan_put['data'] as $output)
+                                            <option
+                                                value="{{$output['id']}}"
+                                                {{ $data['output_id'] == $output['id'] ? 'selected' : '' }}
+                                                >{{$output['output_no']}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">Name English
+                                        :</label>
+                                        <input type="text" name="name_en" value="{{ $data['name_en'] }}" class="form-control rounded-0" placeholder="Name English" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">Name Bangla
+                                        :</label>
+                                        <input type="text" name="name_bn" value="{{ $data['name_bn'] }}" class="form-control rounded-0" placeholder="Name Bangla" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">Frequency English
+                                        :</label>
+                                        <input type="text" name="frequency_en" value="{{ $data['frequency_en'] }}" class="form-control rounded-0" placeholder="Frequency English" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">Frequency Bangla
+                                        :</label>
+                                        <input type="text"  name="frequency_bn" value="{{ $data['frequency_bn'] }}" class="form-control rounded-0" placeholder="Frequency Bangla" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">DataSource English
+                                        :</label>
+                                        <input type="text" name="datasource_en" value="{{ $data['datasource_en'] }}" class="form-control rounded-0" placeholder="DataSource English" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">DataSource Bangla
+                                        :</label>
+                                        <input type="text"  name="datasource_bn" value="{{ $data['datasource_bn'] }}" class="form-control rounded-0" placeholder="DataSource Bangla" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="select_fiscal_year" class="col-form-label">Base Fiscal Year :</label>
+                                    <select class="form-control rounded-0 select-select2" id="select_fiscal_year"
+                                            name="base_fiscal_year_id">
+                                        <option value="">Base Fiscal Year</option>
+                                        @foreach($fiscal_years as $fiscal_year)
+                                            <option value="{{$fiscal_year['id']}}"
+                                            {{ $data['base_fiscal_year_id'] == $fiscal_year['id'] ? 'selected' : '' }}
+                                            >{{$fiscal_year['description']}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="select_strategic_output" class="col-form-label">Base Value:</label>
+                                        <input type="text" value="{{ $data['base_value'] }}" name="base_value" class="form-control rounded-0" placeholder="Base Value"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="status" class="col-form-label">Status:</label>
+                                    <input style="width:20%; height: 16px;"  name="status" class="form-check-input form-control" type="checkbox" {{ $data['status'] == 1 ? 'checked' : '' }}>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="select_strategic_outcome" class="col-form-label">Strategic Outcome
-                                    :</label>
-                                <select class="form-control rounded-0 select-select2" id="select_strategic_outcome"
-                                        name="strategic_outcome">
-                                    <option value="">Choose Outcome</option>
-                                    {{-- @foreach($strategic_outcomes as $strategic_outcome)
-                                        <option
-                                            value="{{$strategic_outcome['id']}}">{{$strategic_outcome['outcome_no']}}</option>
-                                    @endforeach --}}
-                                </select>
-                                <div class="mt-3">
-                                    <p id="outcome_remarks_area"></p>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                <h3>Details</h3>
+                                <hr>
+
+                                <table style="width:100%">
+                                    <tr>
+                                        <td>#</td>
+                                        @foreach($fiscal_years as $fiscal_year)
+                                        <input type="hidden" name="fiscal_year_id[]" value="{{ $fiscal_year['end'] }}"/>
+                                        <th> {{ $fiscal_year['end'] }} </th>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <td> Unit type </td>
+                                        @foreach($fiscal_years as $key => $fiscal_year)
+                                        <td>
+                                            <input type="text" name="unit_type[]" value="{{ $data['details'][$key]['unit_type'] }}" class="form-control rounded-0" placeholder="unit type"/>
+                                        </td>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <td> Target value </td>
+                                        @foreach($fiscal_years as $key => $fiscal_year)
+                                        <td>
+                                            <input type="text" name="target_value[]" value="{{ $data['details'][$key]['target_value'] }}" class="form-control rounded-0" placeholder="target value"/>
+                                        </td>
+                                        @endforeach
+                                    </tr>
+
+                                </table>
+
+
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="select_strategic_outcome" class="col-form-label">Name English
-                                    :</label>
-                                    <input type="text" class="form-control rounded-0" placeholder="Name English" />
+
+                            <div class="card-footer" style="padding: 3rem 0.25rem;">
+                                <div class="d-flex align-items-center">
+                                    <button type="button" id="submit_form" class="btn-primary btn btn-square">Submit</button>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="select_strategic_outcome" class="col-form-label">Name Bangla
-                                    :</label>
-                                    <input type="text" class="form-control rounded-0" placeholder="Name Bangla" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="select_strategic_outcome" class="col-form-label">Frequency English
-                                    :</label>
-                                    <input type="text" class="form-control rounded-0" placeholder="Frequency English" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="select_strategic_outcome" class="col-form-label">Frequency Bangla
-                                    :</label>
-                                    <input type="text" class="form-control rounded-0" placeholder="Frequency Bangla" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="select_strategic_outcome" class="col-form-label">DataSource English
-                                    :</label>
-                                    <input type="text" class="form-control rounded-0" placeholder="DataSource English" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="select_strategic_outcome" class="col-form-label">DataSource Bangla
-                                    :</label>
-                                    <input type="text" class="form-control rounded-0" placeholder="DataSource Bangla" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="select_fiscal_year" class="col-form-label">Base Fiscal Year :</label>
-                                <select class="form-control rounded-0 select-select2" id="select_fiscal_year"
-                                        name="fiscal_year_id">
-                                    <option value="">Base Fiscal Year</option>
-                                    {{-- @foreach($fiscal_years as $fiscal_year)
-                                        <option value="{{$fiscal_year['id']}}">{{$fiscal_year['description']}}</option>
-                                    @endforeach --}}
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="select_strategic_outcome" class="col-form-label">Base Value:</label>
-                                    <input type="text" class="form-control rounded-0" placeholder="Base Value" />
-                            </div>
-                        </div>
-
-             <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="status" class="col-form-label">Status:</label>
-                                <input class="form-check-input form-control" type="checkbox" value="" id="status">
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-2 mt-md-12">
-                            <button class="btn btn-icon btn-light-success btn-square mr-2 search_activities"
-                                    onclick="Audit_Activities_Container.createAnnualActivityAreaData()"
-                                    type="button"><i class="fad fa-search"></i></button>
-                            <button class="btn btn-icon btn-light-danger btn-square mr-2 reset_strategic_area"
-                                    onclick="Audit_Activities_Container.resetStrategicSearchFields()"
-                                    type="reset"><i
-                                    class="fad fa-recycle"></i></button>
-                        </div>
-                    </div>
-                    <div class="row" id="">
-                        <div class="col-md-12">
-                            <h3>Create Activities</h3>
-                            <hr>
-                            <div class="create_activity_area">
-
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<x-modal id="op_activity_modal" title="Create Operation Activity"
-         url="{{route('audit.plan.operational.activity.store')}}" method="post">
-    <form id="op_activity_form">
-        <div class="form-group row">
-            <label for="activity_no" class="col-3 col-form-label">Activity No</label>
-            <div class="col-9">
-                <input placeholder="Activity No" class="form-control" type="text" value=""
-                       id="activity_no" name="activity_no"/>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="title_en" class="col-3 col-form-label">Title English</label>
-            <div class="col-9">
-                <input placeholder="Title English" class="form-control" type="text" value=""
-                       id="title_en" name="title_en"/>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="title_bn" class="col-3 col-form-label">Title Bangla</label>
-            <div class="col-9">
-                <input placeholder="Title Bangla" class="form-control" type="text" value=""
-                       id="title_bn" name="title_bn"/>
-            </div>
-        </div>
-
-        <input type="hidden" name="output_id" class="output_id" value="">
-        <input type="hidden" name="outcome_id" class="outcome_id" value="">
-        <input type="hidden" name="fiscal_year_id" class="fiscal_year_id" value="">
-        <input type="hidden" name="activity_parent_id" class="activity_parent_id" value="">
-    </form>
-</x-modal>
-
-<x-modal id="op_activity_milestone_modal" title="Create Operation Activity Milestone"
-         url="{{route('audit.plan.operational.activity.milestone.store')}}" method="post" size="lg">
-    <form id="op_activity_milestone_form">
-        <div class="form-group" id="milestone_add_area">
-            <div class="form-group row">
-                <label for="title_en" class="col-3 col-form-label">Title English</label>
-                <div class="col-9">
-                    <input placeholder="Title English" class="form-control" type="text" value=""
-                           id="title_en" name="title_en"/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="title_bn" class="col-3 col-form-label">Title Bangla</label>
-                <div class="col-9">
-                    <input placeholder="Title Bangla" class="form-control" type="text" value=""
-                           id="title_bn" name="title_bn"/>
-                </div>
-            </div>
-        </div>
-
-        <input type="hidden" name="output_id" class="output_id" value="">
-        <input type="hidden" name="outcome_id" class="outcome_id" value="">
-        <input type="hidden" name="fiscal_year_id" class="fiscal_year_id" value="">
-        <input type="hidden" name="activity_id" class="activity_id" value="">
-    </form>
-</x-modal>
-
 
 <script>
     $('#btn_op_activity_modal_save').click(function () {
@@ -206,6 +175,24 @@
         data = $('#op_activity_form').serialize();
         method = $(this).data('method');
         submit = submitModalData(url, data, method, 'op_activity_modal')
+    });
+
+    $('#submit_form').click(function () {
+        url = "{{route('audit.plan.strategy.indicator.output.update')}}";
+        data = $('#output_indicator_create').serialize();
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
+            if (resp.status === 'error') {
+                toastr.error('no');
+                console.log(resp.data)
+            } else {
+                toastr.success(resp.data);
+                url = '{{route('audit.plan.strategy.indicator.output')}}';
+                data = {}
+                ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
+                    $('#kt_content').html(response);
+                })
+            }
+        });
     });
 
 </script>
