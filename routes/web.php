@@ -64,6 +64,10 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             ::class, 'show'])->name('indicator.outcome.show');
 
 
+            Route::get('indicator/genYear/{year?}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
+            ::class, 'genYear'])->name('indicator.gen.year');
+
+
             Route::get('indicator/output', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
             ::class, 'index'])->name('indicator.output');
             Route::post('indicator/output/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController

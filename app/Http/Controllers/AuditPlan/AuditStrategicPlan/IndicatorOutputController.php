@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\AuditPlan\AuditStrategicPlan;
 
-use App\Models\IndicatorOutput;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class IndicatorOutputController extends Controller
 {
@@ -17,7 +17,6 @@ class IndicatorOutputController extends Controller
     {
         $indecators = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.output_indicators'), [])->json();
         return view('modules.audit_plan.strategic.indicator.output', compact('indecators'));
-
     }
 
     /**
@@ -35,7 +34,7 @@ class IndicatorOutputController extends Controller
         ])->json();
         $fiscal_years = $this->allFiscalYears();
 
-        return view('modules.audit_plan.strategic.indicator.modules.audit_plan.strategic.indicator.create_output_indicator', compact(
+        return view('modules.audit_plan.strategic.indicator.create_output_indicator', compact(
             'plan_durations',
             'plan_output',
             'fiscal_years'
@@ -83,7 +82,7 @@ class IndicatorOutputController extends Controller
      * @param  \App\Models\IndicatorOutput  $indicatorOutput
      * @return \Illuminate\Http\Response
      */
-    public function show(IndicatorOutput $indicatorOutput)
+    public function show($id)
     {
         $data = $this->initHttpWithToken()->post(
             config('amms_bee_routes.audit_strategic_plan.output_indicator_show'),
@@ -103,7 +102,7 @@ class IndicatorOutputController extends Controller
      * @param  \App\Models\IndicatorOutput  $indicatorOutput
      * @return \Illuminate\Http\Response
      */
-    public function edit(IndicatorOutput $indicatorOutput)
+    public function edit($id)
     {
         $plan_durations = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_duration_lists'), [
             'all' => 1
@@ -135,7 +134,7 @@ class IndicatorOutputController extends Controller
      * @param  \App\Models\IndicatorOutput  $indicatorOutput
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, IndicatorOutput $indicatorOutput)
+    public function update(Request $request)
     {
         Validator::make($request->all(), [
             'duration_id' => 'required|numeric',

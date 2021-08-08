@@ -39,7 +39,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="" class="col-form-label">Name English
+                                    <label for="" class="col-form-label">Indicator Name English
                                         :</label>
                                         <input type="text" name="name_en" class="form-control rounded-0" placeholder="Name English" />
                                 </div>
@@ -47,7 +47,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="" class="col-form-label">Name Bangla
+                                    <label for="" class="col-form-label">Indicator Name Bangla
                                         :</label>
                                         <input type="text" name="name_bn" class="form-control rounded-0" placeholder="Name Bangla" />
                                 </div>
@@ -71,7 +71,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="" class="col-form-label">DataSource English
+                                    <label for="" class="col-form-label">Data Source English
                                         :</label>
                                         <input type="text" name="datasource_en" class="form-control rounded-0" placeholder="DataSource English" />
                                 </div>
@@ -79,7 +79,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="" class="col-form-label">DataSource Bangla
+                                    <label for="" class="col-form-label">Data Source Bangla
                                         :</label>
                                         <input type="text"  name="datasource_bn" class="form-control rounded-0" placeholder="DataSource Bangla" />
                                 </div>
@@ -87,21 +87,33 @@
 
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label for="select_fiscal_year" class="col-form-label">Base Fiscal Year :</label>
-                                    <select class="form-control rounded-0 select-select2" id="select_fiscal_year"
+                                    <label for="base_fiscal_year" class="col-form-label">Base Fiscal Year :</label>
+                                    <select class="form-control rounded-0 select-select2" id="base_fiscal_year"
                                             name="base_fiscal_year_id">
                                         <option value="">Base Fiscal Year</option>
                                         @foreach($fiscal_years as $fiscal_year)
-                                            <option value="{{$fiscal_year['id']}}">{{$fiscal_year['description']}}</option>
+                                            <option value="{{$fiscal_year['id']}}">{{$fiscal_year['end']}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="select_strategic_outcome" class="col-form-label">Base Value:</label>
+                                    <label for="" class="col-form-label">Base Value:</label>
                                         <input type="text" name="base_value" class="form-control rounded-0" placeholder="Base Value"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="unit_type" class="col-form-label">Unit type:</label>
+                                    <select class="form-control rounded-0 select-select2" id="unit_type"
+                                            name="unit_type">
+                                        <option>Percentage</option>
+                                        <option>Fixed amount</option>
+                                        <option>Text</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -119,28 +131,9 @@
                                 <hr>
 
                                 <table style="width:100%">
-                                    <tr>
-                                        <td>#</td>
-                                        @foreach($fiscal_years as $fiscal_year)
-                                        <input type="hidden" name="fiscal_year_id[]" value="{{ $fiscal_year['end'] }}"/>
-                                        <th> {{ $fiscal_year['end'] }} </th>
-                                        @endforeach
+                                    <tr class="baseYears">
                                     </tr>
-                                    <tr>
-                                        <td> Unit type </td>
-                                        @foreach($fiscal_years as $fiscal_year)
-                                        <td>
-                                            <input type="text" name="unit_type[]" class="form-control rounded-0" placeholder="unit type"/>
-                                        </td>
-                                        @endforeach
-                                    </tr>
-                                    <tr>
-                                        <td> Target value </td>
-                                        @foreach($fiscal_years as $fiscal_year)
-                                        <td>
-                                            <input type="text" name="target_value[]" class="form-control rounded-0" placeholder="target value"/>
-                                        </td>
-                                        @endforeach
+                                    <tr class="targetValues">
                                     </tr>
                                     
                                 </table>
@@ -187,6 +180,23 @@
             }
         });
     });
+
+    $('#base_fiscal_year').change(function() {
+        let base_year = $(this).find("option:selected").text();
+        url = "{{route('audit.plan.strategy.indicator.gen.year')}}/" + base_year;
+        data = {};
+        ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
+            if (resp.status === 'error') {
+                toastr.error('Error on genarating year');
+            } else {
+                $('.baseYears').html(resp.columns);
+                $('.targetValues').html(resp.target_value);
+            }
+        });
+
+    });
+
+
 
 </script>
 

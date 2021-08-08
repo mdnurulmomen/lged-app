@@ -7,6 +7,8 @@
             <div class="card card-custom gutter-b">
                 <div class="card-body">
                     <!--begin::Table-->
+                    <h3 class="text-center">{{ $data['outcome'][0]['outcome_no'] }}</h3>
+                    <p class="text-center">{{ $data['outcome'][0]['remarks'] }}</p>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead class="thead-light">
@@ -14,28 +16,27 @@
                                     <th class="align-middle">Indicator</th>
                                     <th>Frequency of Measurement</th>
                                     <th>Data source</th>
-                                    <th>Baseline FY 2020</th>
-                                    <th>Milestone
-                                        FY 2021</th>
-                                    <th>Milestone FY 2022</th>
-                                    <th>Milestone FY 2023</th>
-                                    <th>Milestone FY 2024</th>
-                                    <th>Target FY 2024</th>
+                                    <th>Baseline FY {{ $data['year']['end'] }}</th>
+                                    @foreach ($data['details'] as $detail)
+                                        <th>
+                                            @if($loop->last)
+                                            Target
+                                            @else
+                                            Milestone
+                                            @endif FY {{$detail['year']['end']}}</th>
+                                    @endforeach
 
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><span>Percentage of SAI reports discussed in PAC meeting.</span></td>
-                                    <td><span>Annually</span></td>
-                                    <td><span>QA Cell of
-                                            OCAG</span></td>
-                                    <td><span>20%</span></td>
-                                    <td><span>30%</span></td>
-                                    <td><span>40%</span></td>
-                                    <td><span>50%</span></td>
-                                    <td><span>75%</span></td>
-                                    <td><span>90%</span></td>
+                                    <td><span>{{ $data['name_en'] }}</span></td>
+                                    <td><span>{{ $data['frequency_en'] }}</span></td>
+                                    <td><span>{{ $data['datasource_en'] }}</span></td>
+                                    <td><span>{{ $data['base_value'] }}</span></td>
+                                    @foreach ($data['details'] as $detail)
+                                        <td>{{$detail['target_value']}}{{$detail['unit_type'] == "Percentage" ? '%':''}}</td>
+                                    @endforeach
 
 
                                 </tr>

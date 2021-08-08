@@ -164,6 +164,24 @@ class IndicatorOutcomeController extends Controller
         }
     }
 
+    public function genYear($year)
+    {
+        $fiscal_years = $this->allFiscalYears();
+        $columns = "<th>#</th>";
+        $target_value = "<td>Target value</td>";
+        foreach ($fiscal_years as $value) {
+            if ($year < $value['end']) {
+                $columns .= '<input type="hidden" name="fiscal_year_id[]" value="' . $value['id'] . '"/>';
+                $columns .= '<th>' . $value['end'] . '</th>';
+                $target_value .= '<td><input type="text" name="target_value[]" class="form-control rounded-0" placeholder="target value"/></td>';
+            }
+        }
+        return response()->json([
+            'columns' => $columns,
+            'target_value' => $target_value
+        ], 200);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
