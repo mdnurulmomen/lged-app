@@ -1,11 +1,9 @@
 <x-title-wrapper>Output Indicator</x-title-wrapper>
 <div class="col-md-12">
     <div class="d-flex justify-content-end">
-        {{-- <x-toolbar-button class="btn btn-success btn-sm btn-bold btn-square btn_create_audit_activity"
-                            href="{{route('audit.plan.operational.activity.create')}}" data-toggle="modal"
-        data-target="#meetingDetails">
-        <i class="far fa-plus mr-1"></i> Add Meeting Activity
-        </x-toolbar-button> --}}
+        <button class="btn btn-info btn-sm btn-bold btn-square mr-2" onclick="loadPage('{{ route('audit.plan.strategy.indicator.outputs')}}')">
+            <i class="far fa-info mr-1"></i> Details View
+        </button>
         <a class="btn btn-success btn-sm btn-bold btn-square btn_create_indicator_output"
             href="javascript:;"><i class="far fa-plus mr-1"></i> Add Output Indicator</a>
     </div>
