@@ -84,11 +84,13 @@ return [
         'outcome_indicator_update' => env('API_URL_BEE', '') . '/planning/strategic-plan/outcome-indicators/update',
         'outcome_indicator_show' => env('API_URL_BEE', '') . '/planning/strategic-plan/outcome-indicators/show',
         'outcome_indicator_delete' => env('API_URL_BEE', '') . '/planning/strategic-plan/outcome-indicators/delete',
+        'outcome_indicator_all' => env('API_URL_BEE', '') . '/planning/strategic-plan/outcome-indicators/all',
         'output_indicators' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators',
         'output_indicator_create' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/create',
         'output_indicator_update' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/update',
         'output_indicator_show' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/show',
         'output_indicator_delete' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/delete',
+        'output_indicator_all' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/all',
     ],
 
 

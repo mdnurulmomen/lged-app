@@ -63,6 +63,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('indicator/outcome/show/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
             ::class, 'show'])->name('indicator.outcome.show');
 
+            Route::get('indicator/outcome/all', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
+            ::class, 'outcomes'])->name('indicator.outcomes');
 
             Route::get('indicator/genYear/{year?}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
             ::class, 'genYear'])->name('indicator.gen.year');
@@ -80,6 +82,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             ::class, 'update'])->name('indicator.output.update');
             Route::get('indicator/output/show/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
             ::class, 'show'])->name('indicator.output.show');
+
+            Route::get('indicator/output/all', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
+            ::class, 'outputs'])->name('indicator.outputs');
 
 
             Route::get('/final-plan-add', function () {
