@@ -10,6 +10,9 @@
             <x-menu-item class="" href="{{route('audit.followup.objection.dashboard')}}" icon="fab fa-firstdraft">
                 Objections
             </x-menu-item>
+            <x-menu-item class="" href="{{route('audit.followup.objection.response')}}" icon="fab fa-firstdraft">
+                Objections Response
+            </x-menu-item>
 
 
 

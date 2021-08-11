@@ -223,6 +223,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::get('objection-dashboard', [\App\Http\Controllers\AuditFollowup\AuditFollowupObjectionController::class, 'dashboard'])->name('objection.dashboard');
 
+        Route::get('objection-response', [\App\Http\Controllers\AuditFollowup\AuditFollowupObjectionResponseController::class, 'index'])->name('objection.response');
+
         Route::get('objection', [\App\Http\Controllers\AuditFollowup\AuditFollowupObjectionController::class, 'index'])->name('objection');
 
         Route::get('objection/create', [\App\Http\Controllers\AuditFollowup\AuditFollowupObjectionController::class, 'create'])->name('objection.create');
