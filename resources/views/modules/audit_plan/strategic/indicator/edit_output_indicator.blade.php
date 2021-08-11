@@ -99,7 +99,7 @@
                                         @foreach($fiscal_years as $fiscal_year)
                                             <option value="{{$fiscal_year['id']}}"
                                             {{ $data['base_fiscal_year_id'] == $fiscal_year['id'] ? 'selected' : '' }}
-                                            >{{$fiscal_year['end']}}</option>
+                                            >{{$fiscal_year['start']}}</option>
                                         @endforeach
                                     </select>
                                 </div>

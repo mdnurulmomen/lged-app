@@ -12,7 +12,8 @@ class IndicatorOutcomeController extends Controller
     public function outcomes()
     {
         $data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.outcome_indicator_all'), [])->json();
-        return view('modules.audit_plan.strategic.indicator.outcome_all', compact('data'));
+        $fiscal_years = $this->allFiscalYears();
+        return view('modules.audit_plan.strategic.indicator.outcome_all', compact('data', 'fiscal_years'));
     }
 
     /**

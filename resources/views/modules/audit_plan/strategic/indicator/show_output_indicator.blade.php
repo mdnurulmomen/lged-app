@@ -16,14 +16,14 @@
                                     <th class="align-middle">Indicator</th>
                                     <th>Frequency of Measurement</th>
                                     <th>Data source</th>
-                                    <th>Baseline FY {{ $data['year']['end'] }}</th>
+                                    <th>Baseline FY {{ $data['year']['start'] }}</th>
                                     @foreach ($data['details'] as $detail)
                                         <th>
                                             @if($loop->last)
                                             Target
                                             @else
                                             Milestone
-                                            @endif FY {{$detail['year']['end']}}</th>
+                                            @endif FY {{$detail['year']['start']}}</th>
                                     @endforeach
 
                                 </tr>

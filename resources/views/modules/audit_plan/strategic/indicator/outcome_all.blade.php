@@ -16,12 +16,13 @@
                                         <th class="align-middle">Indicator</th>
                                         <th>Frequency of Measurement</th>
                                         <th>Data source</th>
-                                        <th>Baseline FY 2020</th>
-                                        <th>Milestone FY 2021</th>
-                                        <th>Milestone FY 2022</th>
-                                        <th>Milestone FY 2023</th>
-                                        <th>Milestone FY 2024</th>
-                                        <th>Target FY 2025</th>
+                                        @foreach($fiscal_years as $fiscal_year)
+                                            <th>
+                                                @if($loop->first) Baseline
+                                                @elseif($loop->last) Target
+                                                @else Milestone @endif
+                                                {{$fiscal_year['start']}}</th>
+                                        @endforeach
                                     </tr>
                                 </thead>
                                 <tbody>
