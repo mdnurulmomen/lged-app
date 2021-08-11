@@ -230,6 +230,12 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         });
         Route::get('dashboard', [\App\Http\Controllers\AuditFollowup\AuditFollowupDashboardController::class, 'index'])->name('dashboard');
 
+        Route::get('objection-dashboard', [\App\Http\Controllers\AuditFollowup\AuditFollowupObjectionController::class, 'dashboard'])->name('objection.dashboard');
+
+        Route::get('objection', [\App\Http\Controllers\AuditFollowup\AuditFollowupObjectionController::class, 'index'])->name('objection');
+
+        Route::get('objection/create', [\App\Http\Controllers\AuditFollowup\AuditFollowupObjectionController::class, 'create'])->name('objection.create');
+
         Route::get('due-report', [\App\Http\Controllers\AuditFollowup\AuditFollowupDueReportController::class, 'index'])->name('due_report');
 
         Route::get('reminder', [\App\Http\Controllers\AuditFollowup\AuditFollowupReminderController::class, 'index'])->name('reminder');
