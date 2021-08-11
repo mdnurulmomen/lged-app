@@ -178,9 +178,9 @@ class IndicatorOutcomeController extends Controller
         $columns = "<th>#</th>";
         $target_value = "<td>Target value</td>";
         foreach ($fiscal_years as $value) {
-            if ($year < $value['end']) {
+            if ($year < $value['start']) {
                 $columns .= '<input type="hidden" name="fiscal_year_id[]" value="' . $value['id'] . '"/>';
-                $columns .= '<th>' . $value['end'] . '</th>';
+                $columns .= '<th>' . $value['start'] . '</th>';
                 $target_value .= '<td><input type="text" name="target_value[]" class="form-control rounded-0" placeholder="target value"/></td>';
             }
         }
