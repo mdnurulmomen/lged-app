@@ -21,7 +21,8 @@
                                                 @if($loop->first) Baseline
                                                 @elseif($loop->last) Target
                                                 @else Milestone @endif
-                                                {{$fiscal_year['start']}}</th>
+                                                {{$fiscal_year['start']}}
+                                            </th>
                                         @endforeach
                                     </tr>
                                 </thead>
