@@ -18,6 +18,7 @@ trait UserInfoCollector
             'office_unit_id' => $cdesk['office_unit_id'],
             'designation_id' => $cdesk['office_unit_organogram_id'],
             'officer_id' => $cdesk['employee_record_id'],
+            'user_primary_id' => $cdesk['user_primary_id'],
             'user_id' => $cdesk['user_id'],
             'office' => $cdesk['office_name_bn'],
             'office_unit' => $cdesk['unit_name_en'],
@@ -38,6 +39,7 @@ trait UserInfoCollector
             'office_unit_id' => $this->current_office_unit_id(),
             'designation_id' => $this->current_designation_id(),
             'officer_id' => $this->getOfficerId(),
+            'user_primary_id' => $this->getUserId(),
             'user_id' => $this->getUsername(),
             'office' => $this->current_office()['office_name_en'],
             'office_unit_en' => $this->current_office()['unit_name_en'],
@@ -106,6 +108,11 @@ trait UserInfoCollector
     public function getOfficerId()
     {
         return $this->checkLogin() ? session('login')['data']['user']['employee_record_id'] : null;
+    }
+
+    public function getUserId()
+    {
+        return $this->checkLogin() ? session('login')['data']['user']['id'] : null;
     }
 
     public function getUsername()
