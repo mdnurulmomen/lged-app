@@ -11,6 +11,10 @@
                 Observations
             </x-menu-item>
 
+            <x-menu-item class="" href="{{route('audit.followup.observation.communications')}}" icon="fas fa-comments">
+                Communications
+            </x-menu-item>
+
 
 
         </ul>

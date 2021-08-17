@@ -53,12 +53,23 @@
 
 
                             <div class="col-md-3">
-                                <label for="directorate_id" class="col-form-label">Directorate</label>
-                                <select class="form-control rounded-0 select-select2" id="directorate_id"
-                                    name="directorate_id" aria-hidden="true">
+                                <label for="fiscal_year_id" class="col-form-label">Fiscal year</label>
+                                <select class="form-control rounded-0 select-select2" id="fiscal_year_id"
+                                    name="fiscal_year_id" aria-hidden="true">
                                     <option value="">Select</option>
-                                    <option value="1">Directorate 1</option>
-                                    <option value="2">Directorate 2</option>
+                                    @foreach($fiscal_years as $fiscal_year)
+                                        <option value="{{$fiscal_year['id']}}">{{$fiscal_year['description']}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="audit_id" class="col-form-label">Audit plan</label>
+                                <select class="form-control rounded-0 select-select2" id="audit_id"
+                                    name="audit_id" aria-hidden="true">
+                                    <option value="">Select</option>
+                                    <option value="1">Plan 1</option>
+                                    <option value="2">Plan 2</option>
                                 </select>
                             </div>
 
@@ -69,20 +80,6 @@
                                     <option value="">Select</option>
                                     <option value="1">Member 1</option>
                                     <option value="2">Member 2</option>
-                                </select>
-                            </div>
-
-
-                            <div class="col-md-3">
-                                <label for="fiscal_year_id" class="col-form-label">Fiscal year</label>
-                                <select class="form-control rounded-0 select-select2" id="fiscal_year_id"
-                                    name="fiscal_year_id" aria-hidden="true">
-                                    <option value="">Select</option>
-                                    @foreach($fiscal_years as $fiscal_year)
-                                        <option value="{{$fiscal_year['id']}}"
-                                        {{ $data['fiscal_year_id'] == $fiscal_year['id'] ? 'selected' : '' }}
-                                        >{{$fiscal_year['start']}}</option>
-                                    @endforeach
                                 </select>
                             </div>
 
@@ -264,6 +261,38 @@ $(document).ready(function() {
 		allowDuplicates: false,
         extensions: ["jpg", "png", "gif", "jepg", "pdf", "docx", "doc"],
 	});
+
+    $("#rp_office_id").change(function() {
+        let fiscal_year_id = $('#fiscal_year_id').val();
+
+        if(fiscal_year_id != "") {
+            url = '{{route('audit.followup.observation.get.audit.plan')}}';
+            let data = {
+                rp_office_id: $(this).val(),
+                fiscal_year_id: fiscal_year_id
+            };
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                console.log(response);
+            });
+        }
+
+    });
+
+    $("#fiscal_year_id").change(function() {
+        let rp_office_id = $('#rp_office_id').val();
+
+        if(rp_office_id != "") {
+            url = '{{route('audit.followup.observation.get.audit.plan')}}';
+            let data = {
+                rp_office_id: rp_office_id,
+                fiscal_year_id: $(this).val()
+            };
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                console.log(response);
+            });
+        }
+    });
+
 });
 
 

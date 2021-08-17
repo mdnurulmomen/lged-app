@@ -183,6 +183,9 @@
                             <td><span>{{ $observation['status'] }}</span></td>
                             <td>
                                 <div class="btn-group">
+                                    <a href="javascript:;" title="Follow up" onclick="loadPage('{{ route('audit.followup.observation.follow-up', $observation['id'])}}')" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_audit_annual_activity">
+                                        <i class="fas fa-arrow-circle-right"></i>
+                                    </a>
                                     <a href="javascript:;" onclick="loadPage('{{ route('audit.followup.observation.show', $observation['id'])}}')" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_audit_annual_activity">
                                         <i class="fas fa-eye"></i>
                                     </a>

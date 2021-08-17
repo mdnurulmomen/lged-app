@@ -68,8 +68,8 @@
                                 <select class="form-control rounded-0 select-select2" id="audit_id"
                                     name="audit_id" aria-hidden="true">
                                     <option value="">Select</option>
-                                    <option value="1">Directorate 1</option>
-                                    <option value="2">Directorate 2</option>
+                                    <option value="1">Plan 1</option>
+                                    <option value="2">Plan 2</option>
                                 </select>
                             </div>
 

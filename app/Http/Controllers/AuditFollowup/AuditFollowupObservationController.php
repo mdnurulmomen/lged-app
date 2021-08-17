@@ -18,6 +18,16 @@ class AuditFollowupObservationController extends Controller
         ));
     }
 
+
+    public function communications()
+    {
+        $communications = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.audit_observation_communication_lists'), [])->json();
+
+        return view('modules.audit_followup.observation.communications', compact(
+            'communications'
+        ));
+    }
+
     public function search(Request $request)
     {
         $observations = $this->initHttpWithToken()->post(
@@ -54,6 +64,73 @@ class AuditFollowupObservationController extends Controller
         return $data;
     }
 
+    public function followUp($id)
+    {
+        $data = $this->initHttpWithToken()->post(
+            config('amms_bee_routes.follow_up.audit_observation_show'),
+            ['id' => $id]
+        )->json();
+
+        $data = $data['data'];
+
+        return view('modules.audit_followup.observation.followup', compact(
+            'data'
+        ));
+    }
+
+    public function followUpSubmit(Request $request)
+    {
+        Validator::make($request->all(), [
+            'observation_id' => 'required|numeric',
+            'rp_office_id' => 'required|numeric',
+            'parent_office_id' => 'required|numeric',
+            'message_title' => 'required',
+            'message_body' => 'required',
+            'sent_to' => 'required',
+            'attachments.*' => 'nullable|mimes:jpeg,jpg,png,gif,pdf,doc,docx|max:10420',
+        ])->validate();
+
+        $data = [
+            ['name' => 'observation_id', 'contents' => $request->observation_id],
+            ['name' => 'parent_office_id', 'contents' => $request->parent_office_id],
+            ['name' => 'rp_office_id', 'contents' => $request->rp_office_id],
+            ['name' => 'directorate_id', 'contents' => $this->current_office_id()],
+            ['name' => 'message_title', 'contents' => $request->message_title],
+            ['name' => 'message_body', 'contents' => $request->message_body],
+            ['name' => 'sent_to', 'contents' => $request->sent_to],
+        ];
+
+
+        if (count($request->cc)) {
+            foreach ($request->cc as $cc) {
+                $data[] = ['name' => 'cc[]', 'contents' => $cc];
+            }
+        }
+
+        if ($request->hasfile('attachments')) {
+            foreach ($request->file('attachments') as $attachment) {
+                $data[] = [
+                    'name'     => 'attachments[]',
+                    'contents' => file_get_contents($attachment->getRealPath()),
+                    'filename' => $attachment->getClientOriginalName(),
+                ];
+            }
+        }
+
+        $response = $this->fileUPloadWithData(
+            'POST',
+            config('amms_bee_routes.follow_up.audit_observation_communication'),
+            $data
+        );
+
+        return json_decode($response->getBody(), true);
+        if (isset($response['status']) && $response['status'] == 'success') {
+            return response()->json(responseFormat('success', 'Saved Successfully'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -86,11 +163,11 @@ class AuditFollowupObservationController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
+            'audit_id' => 'required|numeric',
             'ministry_id' => 'required|numeric',
             'division_id' => 'required|numeric',
             'parent_office_id' => 'required|numeric',
             'rp_office_id' => 'required|numeric',
-            'directorate_id' => 'required|numeric',
             'team_leader_id' => 'required|numeric',
             'observation_en' => 'required_without:observation_bn',
             'observation_bn' => 'required_without:observation_en',
@@ -242,7 +319,7 @@ class AuditFollowupObservationController extends Controller
             'division_id' => 'required|numeric',
             'parent_office_id' => 'required|numeric',
             'rp_office_id' => 'required|numeric',
-            'directorate_id' => 'required|numeric',
+            'audit_id' => 'required|numeric',
             'team_leader_id' => 'required|numeric',
             'observation_en' => 'required_without:observation_bn',
             'observation_bn' => 'required_without:observation_en',
@@ -257,13 +334,15 @@ class AuditFollowupObservationController extends Controller
             'other_attachments.*' => 'nullable|mimes:jpeg,jpg,png,gif,pdf,doc,docx|max:10420',
         ])->validate();
 
+
         $data = [
             ['name' => 'id', 'contents' => $request->id],
+            ['name' => 'audit_id', 'contents' => $request->audit_id],
             ['name' => 'ministry_id', 'contents' => $request->ministry_id],
             ['name' => 'division_id', 'contents' => $request->division_id],
             ['name' => 'parent_office_id', 'contents' => $request->parent_office_id],
             ['name' => 'rp_office_id', 'contents' => $request->rp_office_id],
-            ['name' => 'directorate_id', 'contents' => $request->directorate_id],
+            ['name' => 'directorate_id', 'contents' => $this->current_office_id()],
             ['name' => 'team_leader_id', 'contents' => $request->team_leader_id],
             ['name' => 'observation_en', 'contents' => $request->observation_en],
             ['name' => 'observation_bn', 'contents' => $request->observation_bn],
@@ -272,7 +351,7 @@ class AuditFollowupObservationController extends Controller
             ['name' => 'amount', 'contents' => $request->amount],
             ['name' => 'initiation_date', 'contents' => $request->initiation_date],
             ['name' => 'fiscal_year_id', 'contents' => $request->fiscal_year_id],
-            ['name' => 'status', 'contents' => $request->status]
+            ['name' => 'status', 'contents' => $request->status],
         ];
 
 

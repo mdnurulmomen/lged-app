@@ -101,6 +101,8 @@ return [
         'audit_observation_search' => env('API_URL_BEE', '') . '/follow-up/audit-observation/search',
         'audit_observation_get_audit_plan' => env('API_URL_BEE', '') . '/follow-up/audit-observation/get_audit_plan',
         'audit_observation_removeAttachment' => env('API_URL_BEE', '') . '/follow-up/audit-observation/remove_attachment',
+        'audit_observation_communication' => env('API_URL_BEE', '') . '/follow-up/audit-observation/observation_communication',
+        'audit_observation_communication_lists' => env('API_URL_BEE', '') . '/follow-up/audit-observation/observation_communication_lists',
     ],
 
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',
