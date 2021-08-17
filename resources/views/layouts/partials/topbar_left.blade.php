@@ -63,7 +63,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="{{route('audit.followup.due_report')}}">Due Report</a>
-                    <a class="dropdown-item" href="{{route('audit.followup.objection')}}">Objection</a>
+                    <a class="dropdown-item" href="{{route('audit.followup.observation')}}">Observation</a>
                     <a class="dropdown-item" href="{{route('audit.followup.reminder')}}">Reminder</a>
                     <a class="dropdown-item" href="{{route('audit.followup.record')}}">Record</a>
                     <a class="dropdown-item" href="{{route('audit.followup.settlement_review')}}">Settlement Review</a>

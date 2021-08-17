@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 
 trait ApiHeart
 {
@@ -87,5 +88,22 @@ trait ApiHeart
         }
         return null;
     }
-}
 
+    public function fileUPloadWithData($method = 'POST', $uri, $data)
+    {
+        $client = new Client();
+        $response = $client->request(
+            $method,
+            $uri,
+            [
+                'multipart' => $data,
+                'headers' => [
+                    'Authorization' => "Bearer " . $this->getBeeToken(),
+                    'Accept' => 'application/json',
+                    'api-version' => '1',
+                ],
+            ]
+        );
+        return $response;
+    }
+}

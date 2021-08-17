@@ -92,8 +92,18 @@ return [
         'output_indicator_delete' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/delete',
         'output_indicator_all' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/all',
     ],
-
-
+    'follow_up' => [
+        'audit_observations' => env('API_URL_BEE', '') . '/follow-up/audit-observations',
+        'audit_observation_create' => env('API_URL_BEE', '') . '/follow-up/audit-observations/create',
+        'audit_observation_update' => env('API_URL_BEE', '') . '/follow-up/audit-observations/update',
+        'audit_observation_show' => env('API_URL_BEE', '') . '/follow-up/audit-observations/show',
+        'audit_observation_delete' => env('API_URL_BEE', '') . '/follow-up/audit-observations/delete',
+        'audit_observation_search' => env('API_URL_BEE', '') . '/follow-up/audit-observation/search',
+        'audit_observation_get_audit_plan' => env('API_URL_BEE', '') . '/follow-up/audit-observation/get_audit_plan',
+        'audit_observation_removeAttachment' => env('API_URL_BEE', '') . '/follow-up/audit-observation/remove_attachment',
+        'audit_observation_communication' => env('API_URL_BEE', '') . '/follow-up/audit-observation/observation_communication',
+        'audit_observation_communication_lists' => env('API_URL_BEE', '') . '/follow-up/audit-observation/observation_communication_lists',
+    ],
 
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',
 ];
