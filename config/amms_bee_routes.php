@@ -75,8 +75,9 @@ return [
         'ap_submit_plan_to_ocag' => env('API_URL_BEE', '') . '/planning/annual-plan/submit-plan-to-ocag',
     ],
     'audit_entity_plan' => [
-        'ap_entity_lists' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan-lists',
+        'ap_entity_lists' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan',
         'ap_entity_plan_make_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/update',
+        'ap_entity_plan_draft_show' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/show',
     ],
     'audit_strategic_plan' => [
         'outcome_indicators' => env('API_URL_BEE', '') . '/planning/strategic-plan/outcome-indicators',
@@ -104,6 +105,8 @@ return [
         'audit_observation_communication' => env('API_URL_BEE', '') . '/follow-up/audit-observation/observation_communication',
         'audit_observation_communication_lists' => env('API_URL_BEE', '') . '/follow-up/audit-observation/observation_communication_lists',
     ],
+
+    'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',
 
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',
 ];

@@ -34,7 +34,7 @@
                 <button
                     class="btn btn-outline-success btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown"
                     type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-line-columns"></i><span>Execute</span>
+                    <i class="fas fa-line-columns"></i><span>Conducting</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="{{route('audit.execution.area')}}">Audit Area</a>

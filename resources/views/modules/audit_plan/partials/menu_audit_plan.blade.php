@@ -11,6 +11,12 @@
             <x-menu-item class="" href="{{route('audit.plan.audit.plan.all')}}"
                          icon="fab fa-firstdraft">Plan
             </x-menu-item>
+            <x-menu-item class="" href="{{route('audit.plan.audit.plan.all')}}"
+                         icon="fab fa-firstdraft">Engagement Letter
+            </x-menu-item>
+            <x-menu-item class="" href="{{route('audit.plan.audit.plan.all')}}"
+                         icon="fab fa-firstdraft">Office Order
+            </x-menu-item>
         </ul>
     </div>
     <!--end::Menu Container-->

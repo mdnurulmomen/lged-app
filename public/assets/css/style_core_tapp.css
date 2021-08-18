@@ -1328,6 +1328,15 @@ table {
     margin-bottom: 0;
 }
 
+#split-2 .pdf-screen .no-border th, #split-2 .pdf-screen .no-border td {
+    border: 0 !important;
+    padding-left: 0;
+}
+
+#split-2 .pdf-screen .no-border {
+    border: 0 !important;
+}
+
 #split-2 .pdf-screen .pageTileNumber {
     position: absolute;
     top: 12px;

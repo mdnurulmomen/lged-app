@@ -79,4 +79,9 @@ trait GenericInfoCollection
         }
     }
 
+    public function getAuditTemplate($template_type, $lang = 'en'): array
+    {
+        return $this->initHttpWithToken()->post(config('amms_bee_routes.audit_template_show'), ['template' => $template_type, 'language' => $lang])->json();
+    }
+
 }

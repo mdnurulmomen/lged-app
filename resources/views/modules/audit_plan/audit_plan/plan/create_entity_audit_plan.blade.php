@@ -1,4 +1,6 @@
 @extends('layouts.full_width')
+@section('styles')
+@endsection
 @section('content')
     <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
         <div class="col-md-6">
@@ -12,6 +14,9 @@
             </div>
         </div>
         <div class="col-md-6 text-right">
+            <button class="btn btn-sm btn-square btn-primary btn-hover-success"
+                    onclick="Create_Entity_Plan_Container.generatePDF($(this))">PDF <i class="fas fa-save"></i>
+            </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
                     data-yearly-plan-rp-id="{{$rp_id}}"
                     data-party-id="{{$party_id}}"
@@ -52,20 +57,18 @@
             <div class="summernote" id="kt_summernote_1"></div>
         </div>
         <div id="split-2">
-
-            <div id="writing-screen-wrapper">
+            <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">
             </div>
         </div>
     </div>
 @endsection
 @section('scripts')
     @include('scripts.script_create_entity_audit_plan')
-
     <script>
         var Create_Entity_Plan_Container = {
             draftEntityPlan: function (elem) {
                 url = '{{route('audit.plan.audit.plan.save-draft-entity-audit-plan')}}';
-                plan_description = $('#writing-screen-wrapper').html();
+                plan_description = JSON.stringify(templateArray);
                 party_id = elem.data('party-id');
                 yearly_plan_rp_id = elem.data('yearly-plan-rp-id');
                 data = {plan_description, party_id, yearly_plan_rp_id};
@@ -77,9 +80,35 @@
                         console.log(response)
                     }
                 })
-            }
+            },
+            generatePDF: function (elem) {
+                url = '{{route('audit.plan.audit.plan.generate-audit-plan-pdf')}}';
+                plan = templateArray;
+                data = {plan};
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: data,
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+
+                    success: function (response) {
+                        var blob = new Blob([response]);
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = "audit_plan.pdf";
+                        link.click();
+                    },
+
+                    error: function (blob) {
+                        toastr.error('Failed to generate PDF.')
+                        console.log(blob);
+                    }
+
+                });
+            },
         };
-
-
     </script>
 @endsection

@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <!--begin::Head-->
 <head>
+    <meta charset="utf-8"/>
     <title>AMMS 2 - @yield('title')</title>
     @include('layouts.partials.header')
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}"/>
