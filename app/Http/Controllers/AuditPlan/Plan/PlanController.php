@@ -55,7 +55,7 @@ class PlanController extends Controller
         if (isSuccess($draft_plan_book)) {
             $draft_plan_book = $draft_plan_book['data'];
             if ($draft_plan_book['is_draft']) {
-                $content = getDecryptedData($draft_plan_book['content']);
+                $content = json_decode(getDecryptedData($draft_plan_book['content']));
             } else {
                 $content = $draft_plan_book['content'];
             }

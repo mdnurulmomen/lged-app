@@ -6,7 +6,7 @@
 
     var auditPaperList = [];
     var activePdf = '';
-    var templateArray = JSON.parse(JSON.stringify({!! $content !!}));
+    var templateArray = {!! $content !!};
 
     setCoverInformation();
 
