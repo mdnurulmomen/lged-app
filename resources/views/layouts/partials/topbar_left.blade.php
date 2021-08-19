@@ -6,7 +6,7 @@
             <li class="menu-item">
                 <div class="dropdown">
                     <button
-                        class="btn btn-outline-primary btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown {{ Request::routeIs('strategic') || Request::routeIs('operational') || Request::routeIs('anual') || Request::routeIs('createAnualAuditActivites')? 'active' : '' }}"
+                        class="btn btn-outline-primary btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown"
                         type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fad fa-ballot-check"></i> <span>Plan</span>
                     </button>
