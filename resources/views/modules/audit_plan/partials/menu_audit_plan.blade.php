@@ -12,10 +12,10 @@
                          icon="fab fa-firstdraft">Plan
             </x-menu-item>
             <x-menu-item class="" href="{{route('audit.plan.audit.plan.all')}}"
-                         icon="fab fa-firstdraft">Engagement Letter
+                         icon="fad fa-mail-bulk">Engagement Letter
             </x-menu-item>
             <x-menu-item class="" href="{{route('audit.plan.audit.plan.all')}}"
-                         icon="fab fa-firstdraft">Office Order
+                         icon="fad fa-mailbox">Office Order
             </x-menu-item>
         </ul>
     </div>

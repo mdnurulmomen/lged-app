@@ -32,9 +32,9 @@
             </li>
             <li class="menu-item">
                 <button
-                    class="btn btn-outline-success btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown"
+                    class="btn btn-outline-danger btn-square dropdown-toggle btn-sm width-140p text-left fixed-width-dropdown"
                     type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-line-columns"></i><span>Conducting</span>
+                    <i class="fal fa-network-wired"></i><span>Conducting</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="{{route('audit.execution.area')}}">Team Calendar</a>
@@ -48,7 +48,7 @@
                 <button
                     class="btn btn-outline-warning btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown"
                     type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fad fa-file-chart-line"></i><span>Report</span>
+                    <i class="fal fa-file-chart-line"></i><span>Report</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="{{route('audit.report.draft_report')}}">Draft Report</a>
