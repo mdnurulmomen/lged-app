@@ -37,6 +37,7 @@
                     <i class="fas fa-line-columns"></i><span>Conducting</span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{{route('audit.execution.area')}}">Team Calendar</a>
                     <a class="dropdown-item" href="{{route('audit.execution.area')}}">Audit Area</a>
                     <a class="dropdown-item" href="{{route('audit.execution.query')}}">Audit Query</a>
                     <a class="dropdown-item" href="{{route('audit.execution.discussion')}}">Audit Discussion</a>
