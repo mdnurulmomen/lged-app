@@ -18,6 +18,10 @@ class OfficeOrderController extends Controller
      */
     public function showOfficeOrderLists(Request $request)
     {
-        return view('modules.audit_plan.audit_plan.office_order.load_office_orders');
+        $office_info = [
+            'office_name_en' => $this->current_office()['office_name_en'],
+            'office_name_bn' => $this->current_office()['office_name_bn'],
+        ];
+        return view('modules.audit_plan.audit_plan.office_order.load_office_orders', compact('office_info'));
     }
 }
