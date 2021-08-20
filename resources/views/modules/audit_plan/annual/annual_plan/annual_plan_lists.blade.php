@@ -61,7 +61,7 @@
         },
 
         addSelectedRPAuditeeList: function (entity_info) {
-            if ($('#selected_officer_to_assign_' + entity_info.entity_id).length === 0) {
+            if ($('#selected_rp_auditee_' + entity_info.entity_id).length === 0) {
                 var newRow = '<tr id="selected_rp_auditee_' + entity_info.entity_id + '">' +
                     '<td width="2%">' +
                     '<input name="selected_entity[]" class="selected_entity" data-auditee-id="' + entity_info.entity_id + '" id="selected_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
@@ -168,7 +168,8 @@
                     }
                 },
                 "plugins": ["types", "checkbox",]
-            }).refresh(true);
+            });
+            $(`.${className}`).jstree("open_all");
         },
 
         submitSelectedEntities: function () {

@@ -1,4 +1,4 @@
-<form id="selected_rp_auditee_form">
+<form id="selected_rp_auditee_form" data-party-ids="{{$party_ids}}">
     <div class="datatable datatable-default datatable-bordered datatable-loaded border">
         <table class="datatable-bordered datatable-head-custom datatable-table selected_rp_auditees_table" id=""
                style="display: block;">
@@ -13,7 +13,8 @@
             </thead>
             <tbody style="" class="datatable-body">
             @foreach($entities as $entity)
-                <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
+                <tr id="selected_rp_auditee_{{$entity['party_id']}}" data-row="{{$loop->iteration}}"
+                    class="datatable-row" style="left: 0px;">
                     <td width="50%" class="datatable-cell">{{$entity['party_name_en']}}</td>
                     <td width="5%" class="datatable-cell">{{$entity['staff_count']}}</td>
                     <td width="30%" class="datatable-cell">{{$entity['task_end_date_plan']}}</td>
@@ -31,7 +32,7 @@
         </table>
     </div>
 
-    <button type="button" class="btn btn-primary font-weight-bold btn-square"
+    <button type="button" id="save_selected_entities_btn" class="btn btn-primary font-weight-bold btn-square d-none"
             onclick="Annual_Plan_Container.submitSelectedEntities()">Save
     </button>
 

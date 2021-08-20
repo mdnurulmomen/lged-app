@@ -70,7 +70,11 @@ class AnnualPlanController extends Controller
         $entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_yearly_plan_selected_rp_lists'), $data)->json();
         if (isSuccess($entities)) {
             $entities = $entities['data'];
-            return view('modules.audit_plan.annual.annual_plan.partials.load_selected_auditee_entities', compact('entities'));
+            foreach ($entities as $entity) {
+                $party_ids[] = $entity['party_id'];
+            }
+            $party_ids = json_encode($party_ids);
+            return view('modules.audit_plan.annual.annual_plan.partials.load_selected_auditee_entities', compact('entities', 'party_ids'));
         } else {
             return response()->json(['status' => 'error', 'data' => $entities]);
         }
@@ -111,7 +115,6 @@ class AnnualPlanController extends Controller
             return response()->json(['status' => 'error', 'data' => $entities]);
         }
     }
-
 
     public function showAnnualSubmissionHRModal(Request $request)
     {

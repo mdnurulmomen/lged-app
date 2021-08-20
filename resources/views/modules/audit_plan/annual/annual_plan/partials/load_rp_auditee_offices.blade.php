@@ -6,7 +6,7 @@
                 <li>
                     Entities
                     <ul>
-                        <li data-entity-info="{{json_encode(
+                        <li data-rp-auditee-entity-id="1" data-entity-info="{{json_encode(
     [
         'entity_id' => '1',
         'entity_name_en' => 'Ministry of Power, Energy and Mineral Resources',
@@ -17,7 +17,7 @@
         ])}}" data-jstree='{ "opened" : true }'>
                             Ministry of Power, Energy and Mineral Resources
                         </li>
-                        <li data-entity-info="{{json_encode(
+                        <li data-rp-auditee-entity-id="2" data-entity-info="{{json_encode(
     [
         'entity_id' => '2',
         'entity_name_en' => 'Ministry of Finance',
@@ -28,7 +28,7 @@
         ])}}" data-jstree='{ "opened" : true }'>
                             Ministry of Finance
                         </li>
-                        <li data-entity-info="{{json_encode(
+                        <li data-rp-auditee-entity-id="3" data-entity-info="{{json_encode(
     [
         'entity_id' => '3',
         'entity_name_en' => 'Ministry of Home Affairs',
@@ -39,7 +39,7 @@
         ])}}" data-jstree='{ "opened" : true }'>
                             Ministry of Home Affairs
                         </li>
-                        <li data-entity-info="{{json_encode(
+                        <li data-rp-auditee-entity-id="4" data-entity-info="{{json_encode(
     [
         'entity_id' => '4',
         'entity_name_en' => 'Ministry of Land',
@@ -61,7 +61,13 @@
 <script>
     $(document).ready(function () {
         Annual_Plan_Container.jsTreeInit('rp_auditee_offices');
-        $('.rp_auditee_offices').jstree('refresh');
+        $('.rp_auditee_offices').jstree(true).refresh();
+
+        selected_entities = $('#selected_rp_auditee_form').data('party-ids');
+        selected_entities.map((party_id) => {
+            id = $('li[data-rp-auditee-entity-id=' + party_id + ']')[0].id
+            $(".rp_auditee_offices").jstree("select_node", "#" + id + "");
+        })
     })
 
     $('.rp_auditee_offices').on('select_node.jstree', function (e, data) {
@@ -74,6 +80,7 @@
                 Annual_Plan_Container.addSelectedRPAuditeeList(entity_info)
             })
         }
+        $('#save_selected_entities_btn').removeClass('d-none');
     }).on('deselect_node.jstree', function (e, data) {
         if (data.node.children.length === 0) {
             var entity_info = $('#' + data.node.id).data('entity-info')

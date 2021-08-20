@@ -1,8 +1,8 @@
 <x-modal title="Entity" size='xl' url="{{route('audit.plan.annual.plan.list.store.hr-modal')}}" method="post"
          id="annual_plan_submission_hr_modal">
     <div class="row">
-        <div class="col-md-8">
-            <div class="tree-demo rounded-0 office_organogram_tree jstree-1 jstree-default"
+        <div class="col-md-8 officers_list_area">
+            <div class="rounded-0 office_organogram_tree_hr_lists"
                  style="overflow-y: scroll; height: 60vh">
                 <ul>
                     <li>
@@ -86,12 +86,10 @@
 
 @include('scripts.script_generic')
 <script>
-    $(document).ready(function () {
-        Annual_Plan_Container.jsTreeInit('office_organogram_tree');
-        $('.office_organogram_tree').jstree('refresh');
-    })
+    Annual_Plan_Container.jsTreeInit('office_organogram_tree_hr_lists');
+
     Annual_Plan_Container.showHideHRModalSaveBtn();
-    $('.office_organogram_tree').on('select_node.jstree', function (e, data) {
+    $('.office_organogram_tree_hr_lists').on('select_node.jstree', function (e, data) {
         if (data.node.children.length === 0) {
             var officer_info = $('#' + data.node.id).data('officer-info')
             if (officer_info.officer_name_en) {

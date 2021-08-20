@@ -1,26 +1,3 @@
-var fiscalYear = [
-    {
-        id: 0,
-        text: '2021 - 2022'
-    },
-    {
-        id: 1,
-        text: '2022 - 2023'
-    },
-    {
-        id: 2,
-        text: '2023 - 2024'
-    },
-    {
-        id: 3,
-        text: '2024 - 2025'
-    },
-    {
-        id: 4,
-        text: '2025 - 2026'
-    }
-];
-
 var basic = $('#demo-basic').croppie({
     viewport: {
         width: 150,
@@ -59,135 +36,41 @@ $('.my-signature').croppie({
         height: 300
     }
 });
-$('#own_office_organogram_tree').jstree({
-    "core" : {
-        "check_callback" : true
-    },
-    "plugins": ["dnd","checkbox", "search"] 
-});
 
-$('#owndesignation_structure_tree_search').keyup(function(){
+$('#owndesignation_structure_tree_search').keyup(function () {
     $('#own_office_organogram_tree').jstree(true).show_all();
     $('#own_office_organogram_tree').jstree('search', $(this).val());
 });
-$('#searchPlaneField').keyup(function(){
+$('#searchPlaneField').keyup(function () {
     $('#newAudit').jstree(true).show_all();
     $('#newAudit').jstree('search', $(this).val());
 });
-$(".checkPasword").keyup(function(){  
-    var passValue = $(this).val();
-    var lowerCaseLetters = /[a-z]/g;
-    var upperCaseLetters = /[A-Z]/g;
-    var numbers = /[0-9]/g;
-    var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    // Validate length
-    if(passValue.length < 8){
-        $('.correct-text').addClass('text-danger');
-        $('.correct-text').children('i').addClass('fa-times');
-        $('.correct-text').children('i').addClass('text-danger');
-        $('.correct-text').removeClass('text-success');
-        $('.correct-text').children('i').removeClass('text-success');
-        $('.correct-text').children('i').removeClass('fa-check');
-    }else{
-        $('.correct-text').removeClass('text-danger');
-        $('.correct-text').children('i').removeClass('fa-times');
-        $('.correct-text').children('i').removeClass('text-danger');
-        $('.correct-text').addClass('text-success');
-        $('.correct-text').children('i').addClass('text-success');
-        $('.correct-text').children('i').addClass('fa-check');
-    }
-     // Validate lowercase letters
-    if(passValue.match(lowerCaseLetters)){
-        $('.small-letter').addClass('text-success');
-        $('.small-letter').children('i').addClass('fa-check');
-        $('.small-letter').children('i').addClass('text-success');
-        $('.small-letter').removeClass('text-danger');
-        $('.small-letter').children('i').removeClass('text-danger');
-        $('.small-letter').children('i').removeClass('fa-times');
-    }else{
-        $('.small-letter').removeClass('text-success');
-        $('.small-letter').children('i').removeClass('fa-check');
-        $('.small-letter').children('i').removeClass('text-success');
-        $('.small-letter').addClass('text-danger');
-        $('.small-letter').children('i').addClass('text-danger');
-        $('.small-letter').children('i').addClass('fa-times');
-    }
-    // Validate capital letters
-    if(passValue.match(upperCaseLetters)){
-        $('.capital-letter').addClass('text-success');
-        $('.capital-letter').children('i').addClass('fa-check');
-        $('.capital-letter').children('i').addClass('text-success');
-        $('.capital-letter').removeClass('text-danger');
-        $('.capital-letter').children('i').removeClass('text-danger');
-        $('.capital-letter').children('i').removeClass('fa-times');
-    }else{
-        $('.capital-letter').removeClass('text-success');
-        $('.capital-letter').children('i').removeClass('fa-check');
-        $('.capital-letter').children('i').removeClass('text-success');
-        $('.capital-letter').addClass('text-danger');
-        $('.capital-letter').children('i').addClass('text-danger');
-        $('.capital-letter').children('i').addClass('fa-times');
-    }
-    // Validate numbers
-    if(passValue.match(numbers)) {
-        $('.number-check').addClass('text-success');
-        $('.number-check').children('i').addClass('fa-check');
-        $('.number-check').children('i').addClass('text-success');
-        $('.number-check').removeClass('text-danger');
-        $('.number-check').children('i').removeClass('text-danger');
-        $('.number-check').children('i').removeClass('fa-times');
-    }else{
-        $('.number-check').removeClass('text-success');
-        $('.number-check').children('i').removeClass('fa-check');
-        $('.number-check').children('i').removeClass('text-success');
-        $('.number-check').addClass('text-danger');
-        $('.number-check').children('i').addClass('text-danger');
-        $('.number-check').children('i').addClass('fa-times');
-    }
 
-    //special characters
-    if(passValue.match(format)) {
-        $('.special-characters').addClass('text-success');
-        $('.special-characters').children('i').addClass('fa-check');
-        $('.special-characters').children('i').addClass('text-success');
-        $('.special-characters').removeClass('text-danger');
-        $('.special-characters').children('i').removeClass('text-danger');
-        $('.special-characters').children('i').removeClass('fa-times');
-    }else{
-        $('.special-characters').removeClass('text-success');
-        $('.special-characters').children('i').removeClass('fa-check');
-        $('.special-characters').children('i').removeClass('text-success');
-        $('.special-characters').addClass('text-danger');
-        $('.special-characters').children('i').addClass('text-danger');
-        $('.special-characters').children('i').addClass('fa-times');
-    }
-    
-})
-$("#editButtons").click(function(){
+$("#editButtons").click(function () {
     $("#saveButtons").removeClass('d-none');
     $(this).addClass('d-none');
     $(".photo-upload").removeClass('d-none');
     $(".form-control").removeAttr('disabled');
     $(".form-control").addClass('border-dark');
 });
-$("#cancelButtons").click(function(){
-   $("#saveButtons").addClass('d-none');
-   $("#editButtons").removeClass('d-none');
-   $(".photo-upload").addClass('d-none');
-   $(".form-control").attr('disabled', 'disabled');
-   $(".form-control").removeClass('border-dark');
+$("#cancelButtons").click(function () {
+    $("#saveButtons").addClass('d-none');
+    $("#editButtons").removeClass('d-none');
+    $(".photo-upload").addClass('d-none');
+    $(".form-control").attr('disabled', 'disabled');
+    $(".form-control").removeClass('border-dark');
 });
 var resizeOpts = {
     handles: 'e, w',
 };
-$( "#kt_quick_cart" ).resizable(resizeOpts);
-$("#kt_quick_cart").resize(function() {
+$("#kt_quick_cart").resizable(resizeOpts);
+$("#kt_quick_cart").resize(function () {
     $(this).css("left", 'auto');
     $(this).css("overflow-x", 'hidden');
 });
 // $("#sidePanel").click(function(){
 //     $("#kt_quick_cart").addClass('offcanvas-on')
-// }) 
+// })
 // $("#kt_quick_cart_toggle").click(function() {
 //     $('html').addClass('side-panel-overlay');
 // });
@@ -195,8 +78,8 @@ $("#kt_quick_cart").resize(function() {
 //     $("#kt_quick_cart_close").removeClass('offcanvas-on');
 //     $('html').removeClass('side-panel-overlay');
 // });
-$("#ajaxLoad").click(function(){
-    $.get('ajax-load', function(data){
+$("#ajaxLoad").click(function () {
+    $.get('ajax-load', function (data) {
         $("#kt_content").html(data);
     });
     // var url = '{{url('ajax-load')}}';
@@ -208,19 +91,20 @@ $("#ajaxLoad").click(function(){
 /*********************************/
 $.fn.extend({
     treed: function (o) {
-      
-      var openedClass = 'glyphicon-minus-sign';
-      var closedClass = 'glyphicon-plus-sign';
-      
-      if (typeof o != 'undefined'){
-        if (typeof o.openedClass != 'undefined'){
-        openedClass = o.openedClass;
+
+        var openedClass = 'glyphicon-minus-sign';
+        var closedClass = 'glyphicon-plus-sign';
+
+        if (typeof o != 'undefined') {
+            if (typeof o.openedClass != 'undefined') {
+                openedClass = o.openedClass;
+            }
+            if (typeof o.closedClass != 'undefined') {
+                closedClass = o.closedClass;
+            }
         }
-        if (typeof o.closedClass != 'undefined'){
-        closedClass = o.closedClass;
-        }
-      };
-      
+        ;
+
         //initialize each of the top levels
         var tree = $(this);
         tree.addClass("tree");
@@ -238,11 +122,11 @@ $.fn.extend({
             branch.children().children().toggle();
         });
         //fire event from the dynamically added icon
-      tree.find('.branch .indicator').each(function(){
-        $(this).on('click', function () {
-            $(this).closest('li').click();
+        tree.find('.branch .indicator').each(function () {
+            $(this).on('click', function () {
+                $(this).closest('li').click();
+            });
         });
-      });
         //fire event to open branch if the li contains an anchor instead of text
         tree.find('.branch>a').each(function () {
             $(this).on('click', function (e) {
@@ -260,7 +144,7 @@ $.fn.extend({
     }
 });
 
-//Initialization of treeviews 
+//Initialization of treeviews
 
 // $('#tree2').treed();
 
@@ -273,51 +157,51 @@ $('#fiscalyear').select2({
     data: fiscalYear
 });
 var data = $('#mySelect2').find(':selected');
-$('#mySelect2').on('change', function() {
+$('#mySelect2').on('change', function () {
     var data = $("#mySelect2 option:selected").text();
     console.log('data', data);
-  })
-  /*************************/
-  var KTCalendarBasic = function() {
+})
+/*************************/
+var KTCalendarBasic = function () {
 
     return {
         //main function to initiate the module
-        init: function() {
+        init: function () {
             var todayDate = moment().startOf('day');
             var YM = todayDate.format('YYYY-MM');
             var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
             var TODAY = todayDate.format('YYYY-MM-DD');
             var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');
-    
+
             var calendarEl = document.getElementById('kt_calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+                plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list'],
                 themeSystem: 'bootstrap',
-    
+
                 isRTL: KTUtil.isRTL(),
-    
+
                 header: {
                     left: 'prev,next today',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-    
+
                 height: 800,
                 contentHeight: 780,
                 aspectRatio: 3,  // see: https://fullcalendar.io/docs/aspectRatio
-    
+
                 nowIndicator: true,
                 now: TODAY + 'T09:25:00', // just for demo
-    
+
                 views: {
-                    dayGridMonth: { buttonText: 'month' },
-                    timeGridWeek: { buttonText: 'week' },
-                    timeGridDay: { buttonText: 'day' }
+                    dayGridMonth: {buttonText: 'month'},
+                    timeGridWeek: {buttonText: 'week'},
+                    timeGridDay: {buttonText: 'day'}
                 },
-    
+
                 defaultView: 'dayGridMonth',
                 defaultDate: TODAY,
-    
+
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
                 navLinks: true,
@@ -419,10 +303,10 @@ $('#mySelect2').on('change', function() {
                         description: 'Lorem ipsum dolor sit amet, labore'
                     }
                 ],
-    
-                eventRender: function(info) {
+
+                eventRender: function (info) {
                     var element = $(info.el);
-    
+
                     if (info.event.extendedProps && info.event.extendedProps.description) {
                         if (element.hasClass('fc-day-grid-event')) {
                             element.data('content', info.event.extendedProps.description);
@@ -436,37 +320,37 @@ $('#mySelect2').on('change', function() {
                     }
                 }
             });
-    
+
             calendar.render();
         }
     };
-    }();
-    
-    jQuery(document).ready(function() {
-        KTCalendarBasic.init();
-    });
-    /*************************/
-    var KTSummernoteDemo = function () {
-        // Private functions
-        var demos = function () {
-            $('.create_plan').summernote({
-                height: 250,
-                tabsize: 2
-            });
+}();
+
+jQuery(document).ready(function () {
+    KTCalendarBasic.init();
+});
+/*************************/
+var KTSummernoteDemo = function () {
+    // Private functions
+    var demos = function () {
+        $('.create_plan').summernote({
+            height: 250,
+            tabsize: 2
+        });
+    }
+
+    return {
+        // public functions
+        init: function () {
+            demos();
         }
-    
-        return {
-            // public functions
-            init: function() {
-                demos();
-            }
-        };
-    }();
-    
-    // Initialization
-    jQuery(document).ready(function() {
-        KTSummernoteDemo.init();
-    });
+    };
+}();
+
+// Initialization
+jQuery(document).ready(function () {
+    KTSummernoteDemo.init();
+});
 // Split(['#split-0', '#split-1', '#split-2'],{
 //     minSize: 150,
 //     snapOffset: 10,

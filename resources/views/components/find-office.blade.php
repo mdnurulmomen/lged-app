@@ -16,8 +16,8 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <div class="rounded-0 office_organogram_tree jstree jstree-1 jstree-default"
-                 id="own_office_organogram_tree" role="tree" aria-multiselectable="true" tabindex="0"
+            <div class="rounded-0 find_office jstree jstree-1 jstree-default"
+                 id="own_find_office" role="tree" aria-multiselectable="true" tabindex="0"
                  aria-activedescendant="ofc_org_designation_21940" aria-busy="false">
                 <ul class="jstree-container-ul jstree-children" role="group">
                     <li role="treeitem" aria-selected="false" aria-level="1"

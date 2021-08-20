@@ -18,8 +18,10 @@
                     @if($loop->iteration == 1)
                         <td width="20%" class="vertical-middle"
                             rowspan="{{count($annual_plan)}}">{{$plan['activity_title_en']}}
-                            <span
-                                class="badge-info btn btn-info btn-sm text-uppercase m-1 p-1 ">{{$plan['activity_type']}}</span>
+                            @if($plan['activity_type'])
+                                <span
+                                    class="badge-info btn btn-info btn-sm text-uppercase m-1 p-1 ">{{$plan['activity_type']}}</span>
+                            @endif
                         </td>
                     @endif
                     <td width="20%">{{$plan['milestone_title_en']}}</td>
