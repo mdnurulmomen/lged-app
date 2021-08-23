@@ -32,7 +32,7 @@
             </li>
             <li class="menu-item">
                 <button
-                    class="btn btn-outline-danger btn-square dropdown-toggle btn-sm width-140p text-left fixed-width-dropdown"
+                    class="btn btn-outline-danger btn-square dropdown-toggle btn-sm width-160p text-left fixed-width-dropdown"
                     type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fal fa-network-wired"></i><span>Conducting</span>
                 </button>
