@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 
 trait ApiHeart
 {
@@ -67,9 +67,9 @@ trait ApiHeart
 
     public function getRPUniverseToken()
     {
-        $url = config('rp_universe_api.auth.client_login_url');
-        $client_id = config('rp_universe_api.auth.client_id');
-        $client_pass = config('rp_universe_api.auth.client_pass');
+        $url = config('cag_rpu_api.auth.client_login_url');
+        $client_id = config('cag_rpu_api.auth.client_id');
+        $client_pass = config('cag_rpu_api.auth.client_pass');
         if (!session()->has('_rpu_token') || session('_rpu_token') == '') {
             $token = $this->getClientToken($url, $client_id, $client_pass, $this->getUsername());
             session(['_rpu_token' => $token]);
@@ -89,7 +89,7 @@ trait ApiHeart
         return null;
     }
 
-    public function fileUPloadWithData($method = 'POST', $uri, $data)
+    public function fileUPloadWithData($method = 'POST', $uri, $data): \Psr\Http\Message\ResponseInterface
     {
         $client = new Client();
         $response = $client->request(
