@@ -30,8 +30,8 @@ class Controller extends BaseController
 
     public function viewSharer()
     {
-//        $wizard = $this->wizard();
-//        view()->share('wizardData', $wizard);
+        $wizard = $this->wizard();
+        view()->share('wizardData', $wizard);
         $userDetails = $this->getUserDetails();
         view()->share('userDetails', $userDetails);
 
@@ -45,8 +45,8 @@ class Controller extends BaseController
     public function wizard()
     {
         if (!session('_wizard')) {
-            $http = new Client();
-            $response = $http->get(config('n_doptor_apps.wizard_url'));
+            $http = new \GuzzleHttp\Client();
+            $response = $http->get(config('cag_doptor_api.widget'));
             $data = json_decode($response->getBody()->getContents(), true);
             session()->put(['_wizard' => $data['data']]);
             session()->save();
