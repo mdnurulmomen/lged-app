@@ -23,7 +23,7 @@
                 </ul>
             </div>
         @else
-            <div><p>No Data Fouond</p></div>
+            <div><p>No Data Found</p></div>
         @endif
     </div>
 </div>
