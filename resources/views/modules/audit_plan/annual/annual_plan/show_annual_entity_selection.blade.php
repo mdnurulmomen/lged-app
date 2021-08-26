@@ -91,7 +91,7 @@
                 <div class="tab-pane border border-top-0 p-3 fade show active" id="select_entity_by_layer"
                      role="tabpanel" aria-labelledby="activity-tab">
                     <div class="px-3">
-                        <x-office-select grid="4" unit="true"/>
+                        <x-rp-office-select grid="6" unit="true"/>
                     </div>
                     <div class="rp_auditee_office_tree">
 
@@ -126,6 +126,12 @@
 <script>
     $(document).ready(function () {
         Annual_Plan_Container.loadSelectedAuditeeEntities($('#annual_plan_core_data_form').serializeArray());
-        Annual_Plan_Container.loadRPAuditeeOffices();
     });
+
+    $("select#office_layer_id").change(function () {
+        layer_id = $(this).val();
+        ministry_id = $('#ministry_id').val();
+        Annual_Plan_Container.loadRPAuditeeOffices(ministry_id, layer_id );
+    });
+
 </script>

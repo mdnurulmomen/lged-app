@@ -322,6 +322,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('get-strategic-output-by-outcome', [\App\Http\Controllers\GenericIfoCollectController::class, 'getStrategicOutputByOutcome'])->name('output.by.outcome');
     });
 
+    //Generic RPU Data Collection
+    Route::group(['as' => 'rpu.'], function () {
+        Route::post('get-ministries', [\App\Http\Controllers\GenericRPUController::class, 'getMinistries'])->name('ministries.all');
+        Route::post('get-office-layer', [\App\Http\Controllers\GenericRPUController::class, 'getMinistryWiseOfficeLayer'])->name('office-layer.all');
+        Route::post('get-rp-offices', [\App\Http\Controllers\GenericRPUController::class, 'getMinistryLayerWiseOffice'])->name('rp-offices.all');
+    });
+
     /*
     Plan Route Start
     */

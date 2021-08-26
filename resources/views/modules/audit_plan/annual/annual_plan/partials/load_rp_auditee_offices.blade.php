@@ -1,59 +1,30 @@
 <div class="row">
     <div class="col-md-12">
-        <div class="tree-demo rounded-0 rp_auditee_offices jstree-init jstree-1 jstree-default"
-             style="overflow-y: scroll; height: 60vh">
-            <ul>
-                <li>
-                    Entities
-                    <ul>
-                        <li data-rp-auditee-entity-id="1" data-entity-info="{{json_encode(
+        @if(count($rp_offices)> 0)
+            <div class="tree-demo rounded-0 rp_auditee_offices jstree-init jstree-1 jstree-default"
+                 style="overflow-y: scroll; height: 60vh">
+                <ul>
+                    @foreach($rp_offices as $rp_office)
+                        <li data-rp-auditee-entity-id="{{$rp_office['id']}}" data-entity-info="{{json_encode(
     [
-        'entity_id' => '1',
-        'entity_name_en' => 'Ministry of Power, Energy and Mineral Resources',
-        'entity_name_bn' => 'Ministry of Power, Energy and Mineral Resources',
-        'ministry_id' => '1',
-        'ministry_name_en' => 'Ministry En',
-        'ministry_name_bn' => 'Ministry Bn',
+        'entity_id' => $rp_office['id'],
+        'entity_name_en' => $rp_office['office_name_en'],
+        'entity_name_bn' => $rp_office['office_name_bn'],
+        'ministry_id' => $ministry['id'],
+        'ministry_name_en' => $ministry['name_en'],
+        'ministry_name_bn' => $ministry['name_bn'],
         ])}}" data-jstree='{ "opened" : true }'>
-                            Ministry of Power, Energy and Mineral Resources
+                            {{$rp_office['office_name_en']}}
+                            @if(count($rp_office['child']) > 0)
+                                @include('modules.audit_plan.annual.annual_plan.partials.load_rp_auditee_offices_child', ['rp_offices' => $rp_office['child']])
+                            @endif
                         </li>
-                        <li data-rp-auditee-entity-id="2" data-entity-info="{{json_encode(
-    [
-        'entity_id' => '2',
-        'entity_name_en' => 'Ministry of Finance',
-        'entity_name_bn' => 'Ministry of Finance',
-        'ministry_id' => '1',
-        'ministry_name_en' => 'Ministry En',
-        'ministry_name_bn' => 'Ministry Bn',
-        ])}}" data-jstree='{ "opened" : true }'>
-                            Ministry of Finance
-                        </li>
-                        <li data-rp-auditee-entity-id="3" data-entity-info="{{json_encode(
-    [
-        'entity_id' => '3',
-        'entity_name_en' => 'Ministry of Home Affairs',
-        'entity_name_bn' => 'Ministry of Home Affairs',
-        'ministry_id' => '1',
-        'ministry_name_en' => 'Ministry En',
-        'ministry_name_bn' => 'Ministry Bn',
-        ])}}" data-jstree='{ "opened" : true }'>
-                            Ministry of Home Affairs
-                        </li>
-                        <li data-rp-auditee-entity-id="4" data-entity-info="{{json_encode(
-    [
-        'entity_id' => '4',
-        'entity_name_en' => 'Ministry of Land',
-        'entity_name_bn' => 'Ministry of Land',
-        'ministry_id' => '1',
-        'ministry_name_en' => 'Ministry En',
-        'ministry_name_bn' => 'Ministry Bn',
-        ])}}" data-jstree='{ "opened" : true }'>
-                            Ministry of Land
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+                    @endforeach
+                </ul>
+            </div>
+        @else
+            <div><p>No Data Fouond</p></div>
+        @endif
     </div>
 </div>
 

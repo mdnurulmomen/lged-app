@@ -1,4 +1,4 @@
-<form id="selected_rp_auditee_form" data-party-ids="{{$party_ids}}">
+<form id="selected_rp_auditee_form" data-party-ids="{{$party_ids ?? ''}}">
     <div class="datatable datatable-default datatable-bordered datatable-loaded border">
         <table class="datatable-bordered datatable-head-custom datatable-table selected_rp_auditees_table" id=""
                style="display: block;">

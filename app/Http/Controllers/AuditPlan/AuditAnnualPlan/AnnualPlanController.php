@@ -53,6 +53,7 @@ class AnnualPlanController extends Controller
         $milestone_id = $request->milestone_id;
 
         return view('modules.audit_plan.annual.annual_plan.show_annual_entity_selection', compact('activity_id', 'schedule_id', 'milestone_id'));
+
     }
 
     /**
@@ -70,10 +71,11 @@ class AnnualPlanController extends Controller
         $entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_yearly_plan_selected_rp_lists'), $data)->json();
         if (isSuccess($entities)) {
             $entities = $entities['data'];
+            $party_ids = [];
             foreach ($entities as $entity) {
                 $party_ids[] = $entity['party_id'];
             }
-            $party_ids = json_encode($party_ids);
+            $party_ids = $party_ids ? json_encode($party_ids) : json_encode([]);
             return view('modules.audit_plan.annual.annual_plan.partials.load_selected_auditee_entities', compact('entities', 'party_ids'));
         } else {
             return response()->json(['status' => 'error', 'data' => $entities]);
@@ -83,7 +85,7 @@ class AnnualPlanController extends Controller
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function storeSelectedAuditeeEntities(Request $request)
+    public function storeSelectedAuditeeEntities(Request $request): \Illuminate\Http\JsonResponse
     {
         $data = Validator::make($request->all(), [
             'activity_id' => 'required|integer',
@@ -194,8 +196,24 @@ class AnnualPlanController extends Controller
 
     public function showRPAuditeeOffices(Request $request)
     {
-        //TODO: RP UNIVERSE INTEGRATION
-        return view('modules.audit_plan.annual.annual_plan.partials.load_rp_auditee_offices');
+        $ministry_id = $request->ministry_id;
+        $layer_id = $request->layer_id;
+        $ministry = [
+            'id' => $request->ministry_id,
+            'name_en' => $request->ministry_name_en,
+            'name_bn' => $request->ministry_name_bn,
+        ];
+        $data = [
+            'office_ministry_id' => $ministry_id,
+            'office_layer_id' => $layer_id,
+        ];
+        $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-rp-office-ministry-and-layer-wise'), $data)->json();
+        if (isSuccess($rp_offices)) {
+            $rp_offices = $rp_offices['data'];
+            return view('modules.audit_plan.annual.annual_plan.partials.load_rp_auditee_offices', compact('rp_offices', 'ministry'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $rp_offices]);
+        }
     }
 
     /**

@@ -49,8 +49,11 @@
             });
         },
 
-        loadRPAuditeeOffices: function () {
+        loadRPAuditeeOffices: function (ministry_id, layer_id) {
             let url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-offices')}}'
+            ministry_name_en = $('#ministry_name_en').val()
+            ministry_name_bn = $('#ministry_name_bn').val()
+            data = {ministry_id, layer_id, ministry_name_en, ministry_name_bn};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)
