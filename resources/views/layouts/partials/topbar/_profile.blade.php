@@ -9,7 +9,6 @@
                 {{__('Superman')}}
             @elseif(isset($userDetails['user_role_id']) && $userDetails['user_role_id'] == 3)
                 {{ $employeeInfo['name_bng'] ?? 'User Name' }}
-                {{--                {{ 'Admin' }}--}}
             @endif
         </span>
         <span><i class="fa fa-chevron-down"></i></span>
@@ -40,15 +39,15 @@
                             </a>
                         @endforelse
                     @endif
-                    <div class="d-flex pl-2">
-                        <a href="#" class="btn-switch-designation">
-                            <span
-                                class="badge badge-success rounded-0"><span>{{ __('৫') }}</span> {{ __('টাইটেল') }}</span>
-                        </a>
-                        <a href="#" class="btn-switch-designation">
-                            <span class="badge badge-warning rounded-0 text-light"><span>{{ __('৫') }}</span> {{ __('টাইটেল') }}</span>
-                        </a>
-                    </div>
+{{--                    <div class="d-flex pl-2">--}}
+{{--                        <a href="#" class="btn-switch-designation">--}}
+{{--                            <span--}}
+{{--                                class="badge badge-success rounded-0"><span>{{ __('৫') }}</span> {{ __('টাইটেল') }}</span>--}}
+{{--                        </a>--}}
+{{--                        <a href="#" class="btn-switch-designation">--}}
+{{--                            <span class="badge badge-warning rounded-0 text-light"><span>{{ __('৫') }}</span> {{ __('টাইটেল') }}</span>--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
                 </li>
             </ul>
         @endif
