@@ -12,32 +12,32 @@
                         <table class="table table-bordered table-light mb-0">
                             <thead class="bg-primary">
                             <tr>
-                                <th style="width: 300px; text-align: center;" class="bg-ptimary text-light">
+                                <th style="width: 300px; text-align: center;" class="bg-primary text-light">
                                     <strong>Output</strong>
                                 </th>
-                                <th style="width: 200px; text-align: center;" class="bg-ptimary text-light">
+                                <th style="width: 200px; text-align: center;" class="bg-primary text-light">
                                     <strong>Activity<a title="" href="#_ftn1" name="_ftnref1"
                                                        data-mce-href="#_ftn1">[1]</a></strong>
                                 </th>
-                                <th style="width: 250px; text-align: center;" class="bg-ptimary text-light">
+                                <th style="width: 250px; text-align: center;" class="bg-primary text-light">
                                     <strong>Milestone</strong>
                                 </th>
-                                <th style="width: 150px; text-align: center;" class="bg-ptimary text-light">
+                                <th style="width: 200px; text-align: center;" class="bg-primary text-light">
                                     <strong>Target Date</strong>
                                 </th>
-                                <th style="width: 150px; text-align: center;" class="bg-ptimary text-light">
+                                <th style="width: 150px; text-align: center;" class="bg-primary text-light">
                                     <strong>Responsible</strong>
                                 </th>
-                                <th style="width: 100px; text-align: center;" class="bg-ptimary text-light">
+                                <th style="width: 100px; text-align: center;" class="bg-primary text-light">
                                     <strong>Budget<a title="" href="#_ftn2" name="_ftnref2"
                                                      data-mce-href="#_ftn2">[2]</a></strong>
                                 </th>
-                                <th style="width: 150px; text-align: center;" class="bg-ptimary text-light">
+                                <th style="width: 150px; text-align: center;" class="bg-primary text-light">
                                     <strong>Staff Assigned</strong>
                                 </th>
-                                <th style="width: 150px; text-align: center;" class="bg-ptimary text-light">
+                                <th style="width: 150px; text-align: center;" class="bg-primary text-light">
                                     <strong>Other Resources</strong>
-                                </td>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -113,22 +113,22 @@
                                                 </tr>
                                             </table>
                                         </td>
-                                            <td style="text-align: center; vertical-align: middle;"
-                                                class="bg-light text-info">
-                                                <div class="operational_staffs" data-activity_id="1">
-                                                    <p class="mb-0"><strong>{{$activity['assigned_staffs']}}</strong>
-                                                    </p>
-                                                    {{--                                                <p class="mb-0"><strong>Annex-01</strong></p>--}}
-                                                </div>
-                                            </td>
-                                            <td style="text-align: center; padding: 0;">
-                                                <table style="border: none; width: 100%;">
-                                                    <tr>
-                                                        <td class="bg-light">
-                                                            <p><strong>&nbsp;</strong></p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
+                                        <td style="text-align: center; vertical-align: middle;"
+                                            class="bg-light text-info">
+                                            <div class="operational_staffs" data-activity_id="1">
+                                                <p class="mb-0"><strong>{{$activity['assigned_staffs']}}</strong>
+                                                </p>
+                                                {{--                                                <p class="mb-0"><strong>Annex-01</strong></p>--}}
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center; padding: 0;">
+                                            <table style="border: none; width: 100%;">
+                                                <tr>
+                                                    <td class="bg-light">
+                                                        <p><strong>&nbsp;</strong></p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <td>
                                                         <p><strong>&nbsp;</strong></p>
                                                     </td>
