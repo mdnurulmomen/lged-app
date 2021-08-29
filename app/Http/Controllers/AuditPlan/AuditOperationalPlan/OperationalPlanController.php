@@ -31,6 +31,23 @@ class OperationalPlanController extends Controller
         }
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function showOperationalPlanStaffAndDetailsModal(Request $request)
+    {
+        Validator::make($request->all(), ['activity_id' => 'required|integer',])->validate();
+
+        $staff_details = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.load_operational_plan_lists'), ['activity_id' => $request->activity_id])->json();
+
+        if ($staff_details['status'] = 'success') {
+            $staff_details = $staff_details['data'];
+            return view('modules.audit_plan.operational.operational_plan.partials.load_assigned_staff_and_details_modal', compact('staff_details'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => 'Sorry!']);
+        }
+    }
+
 
     public function showOperationalPlanStaffs(Request $request)
     {

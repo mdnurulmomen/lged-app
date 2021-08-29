@@ -115,7 +115,7 @@
                                         </td>
                                         <td style="text-align: center; vertical-align: middle;"
                                             class="bg-light text-info">
-                                            <div class="operational_staffs" data-activity_id="1">
+                                            <div class="operational_staffs" data-activity-id="{{$activity['id']}}">
                                                 <p class="mb-0"><strong>{{$activity['assigned_staffs']}}</strong>
                                                 </p>
                                                 {{--                                                <p class="mb-0"><strong>Annex-01</strong></p>--}}
@@ -152,14 +152,22 @@
     </div>
 </div>
 
+<div id="assigned_staff_details_modal_area">
+
+</div>
+
 <script>
     $('.operational_staffs').click(function () {
-        let url = '{{route('audit.plan.operational.plan.assigned.staff')}}';
-        let fiscal_year = $('#select_fiscal_year').val();
-        let data = {fiscal_year}
-        ajaxCallAsyncCallback(url, data, 'html', 'post', function (response) {
-            $('#kt_content').html();
-            $('#kt_content').html(response);
+        let url = '{{route('audit.plan.operational.plan.assigned-details.modal')}}';
+        let activity_id = $(this).data('activity-id');
+        let data = {activity_id}
+        ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+            if (response.status === 'error') {
+                toastr.error(response.data)
+            } else {
+                $('#assigned_staff_details_modal_area').html();
+                $('#assigned_staff_details_modal_area').html(response);
+            }
         });
     });
 </script>
