@@ -1,8 +1,5 @@
-<table class="datatable-bordered datatable-head-custom datatable-table"
-       id="kt_datatable"
-       style="display: block;">
-
-    <thead class="datatable-head">
+<table class="table table-striped">
+    <thead class="thead-light">
     <tr class="datatable-row" style="left: 0px;">
         <th class="datatable-cell datatable-cell-sort">
             Start Year
@@ -11,20 +8,18 @@
             End Year
         </th>
 
-        <th class="datatable-cell datatable-cell-sort">
-            <i class="fas fa-edit"></i></th>
-
-        <th class="datatable-cell datatable-cell-sort">
-            <i class="fas fa-trash-alt"></i>
+        <th class="datatable-cell datatable-cell-sort text-center" colspan="2">
+            Action
         </th>
+
     </tr>
     </thead>
     <tbody style="" class="datatable-body">
     @forelse($plan_durations as $plan_duration)
         <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
-            <td class="datatable-cell text-center"><span>{{$plan_duration['start_year']}}</span></td>
-            <td class="datatable-cell text-center"><span>{{$plan_duration['end_year']}}</span></td>
-            <td class="datatable-cell text-center">
+            <td class="datatable-cell"><span>{{$plan_duration['start_year']}}</span></td>
+            <td class="datatable-cell"><span>{{$plan_duration['end_year']}}</span></td>
+            <td class="datatable-cell text-right" width="5%">
                 <a href="javascript:;"
                    data-duration-id="{{$plan_duration['id']}}"
                    data-duration-start="{{$plan_duration['start_year']}}"
@@ -36,7 +31,7 @@
                     <i class="fas fa-edit"></i>
                 </a>
             </td>
-            <td class="datatable-cell text-center">
+            <td class="datatable-cell text-left" width="5%">
                 <a href="javascript:;"
                    data-duration-id="{{$plan_duration['id']}}"
                    data-url="{{route('settings.strategic-plan.duration.destroy', ['duration' => $plan_duration['id']])}}"

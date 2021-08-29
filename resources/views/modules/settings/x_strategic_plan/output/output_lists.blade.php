@@ -19,7 +19,7 @@
         <div class="card-body pt-0 pb-3">
             <!--begin::Table-->
             <div
-                class="table-responsive datatable datatable-default datatable-bordered datatable-loaded load-table-data"
+                class="table-responsive load-table-data"
                 data-href="{{route('settings.strategic-plan.output.lists')}}">
             </div>
             <!--end::Table-->

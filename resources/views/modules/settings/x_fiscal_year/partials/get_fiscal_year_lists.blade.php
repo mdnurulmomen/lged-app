@@ -1,20 +1,17 @@
-<table class="datatable-bordered datatable-head-custom datatable-table"
-       id="kt_datatable"
-       style="display: block;">
-
-    <thead class="datatable-head">
-    <tr class="datatable-row" style="left: 0px;">
-        <th class="datatable-cell datatable-cell-sort">
+<table class="table table-striped">
+    <thead class="thead-light">
+    <tr class="datatable-row" style="left: 0px; ">
+        <th class="datatable-cell datatable-cell-sort text-center">
             Start Year
         </th>
-        <th class="datatable-cell datatable-cell-sort">
+        <th class="datatable-cell datatable-cell-sort text-center">
             End Year
         </th>
 
-        <th class="datatable-cell datatable-cell-sort">
+        <th class="datatable-cell datatable-cell-sort text-center">
             <i class="fas fa-edit"></i></th>
 
-        <th class="datatable-cell datatable-cell-sort">
+        <th class="datatable-cell datatable-cell-sort text-center">
             <i class="fas fa-trash-alt"></i>
         </th>
     </tr>

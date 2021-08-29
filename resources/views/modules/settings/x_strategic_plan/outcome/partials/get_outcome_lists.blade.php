@@ -1,8 +1,5 @@
-<table class="datatable-bordered datatable-head-custom datatable-table"
-       id="kt_datatable"
-       style="display: block;">
-
-    <thead class="datatable-head">
+<table class="table table-striped">
+    <thead class="thead-light">
     <tr class="datatable-row" style="left: 0px;">
         <th class="datatable-cell datatable-cell-sort">
             Duration
@@ -12,11 +9,11 @@
         </th>
 
         <th class="datatable-cell datatable-cell-sort">
-            Title En
+            Title English
         </th>
 
         <th class="datatable-cell datatable-cell-sort">
-            Title Bn
+            Title Bangla
         </th>
 
         <th class="datatable-cell datatable-cell-sort">
@@ -30,12 +27,12 @@
     <tbody style="" class="datatable-body">
     @forelse($plan_outcomes as $plan_outcome)
         <tr data-row="{{$loop->iteration}}" class="datatable-row">
-            <td class="datatable-cell text-center">
+            <td class="datatable-cell">
                 <span>{{$plan_outcome['plan_duration']['start_year']}} - {{$plan_outcome['plan_duration']['end_year']}}</span>
             </td>
-            <td class="datatable-cell text-center"><span>{{$plan_outcome['outcome_no']}}</span></td>
-            <td class="datatable-cell text-center"><span>{{$plan_outcome['outcome_title_en']}}</span></td>
-            <td class="datatable-cell text-center"><span>{{$plan_outcome['outcome_title_bn']}}</span></td>
+            <td class="datatable-cell"><span>{{$plan_outcome['outcome_no']}}</span></td>
+            <td class="datatable-cell"><span>{{$plan_outcome['outcome_title_en']}}</span></td>
+            <td class="datatable-cell"><span>{{$plan_outcome['outcome_title_bn']}}</span></td>
             <td class="datatable-cell text-center">
                 <a href="javascript:;"
                    data-id="{{$plan_outcome['id']}}"
