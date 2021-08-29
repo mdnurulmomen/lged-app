@@ -18,11 +18,11 @@
                 <div class="btn-group mr-2">
                     <a tabindex="0" href="javascript:;" role="button"
                        onclick="summeryView()"
-                       class="btn_summery_view btn btn-sm btn-square btn-success"><i class="fa fa-plus"></i>
+                       class="btn_summery_view btn btn-sm btn-square btn-success"><i class="fas fa-search-minus"></i>
                         <span>Summery View</span></a>
                     <a tabindex="0" href="javascript:;" role="button" onclick="detailView()"
                        class="btn_detailed_view btn btn-primary btn-sm btn-square btn-forward"
-                       id="btn_detailed_view"><i class="fa fa-paper-plane"></i>Detailed View</a>
+                       id="btn_detailed_view"><i class="fas fa-info-square"></i>Detailed View</a>
                 </div>
             </div>
         </div>
