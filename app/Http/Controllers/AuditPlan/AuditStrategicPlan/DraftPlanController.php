@@ -17,6 +17,45 @@ class DraftPlanController extends Controller
         return view('modules.audit_plan.strategic.draft_plan.strategic_plan_draft_lists');
     }
 
+    public function fileList(){
+        $response = $this->initHttpWithToken()->post(
+            config('amms_bee_routes.audit_strategic_plan.sp_file_list'),[]
+        )->json();
+        $data['sp_file_list'] = $response['data'];
+        return view('modules.audit_plan.strategic.draft_plan.sp_file_list',$data);
+    }
+
+    public function fileUpload(){
+        return view('modules.audit_plan.strategic.draft_plan.sp_file_upload');
+    }
+
+    public function storeFile(Request $request){
+
+        $attachment = $request->file;
+
+        if ($request->hasfile('file')) {
+                $data[] = [
+                    'name'     => 'file',
+                    'contents' => file_get_contents($attachment->getRealPath()),
+                    'filename' => $attachment->getClientOriginalName(),
+                ];
+        }
+
+        $response = $this->fileUPloadWithData(
+            'POST',
+            config('amms_bee_routes.audit_strategic_plan.sp_file_upload'),
+            $data
+        );
+
+        return json_decode($response->getBody(), true);
+
+        if (isset($response['status']) && $response['status'] == 'success') {
+            return response()->json(responseFormat('success', 'Saved Successfully'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

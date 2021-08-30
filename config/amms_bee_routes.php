@@ -92,6 +92,8 @@ return [
         'output_indicator_show' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/show',
         'output_indicator_delete' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/delete',
         'output_indicator_all' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/all',
+        'sp_file_list' => env('API_URL_BEE', '') . '/sp-file-list',
+        'sp_file_upload' => env('API_URL_BEE', '') . '/sp-file-upload',
     ],
     'follow_up' => [
         'audit_observations' => env('API_URL_BEE', '') . '/follow-up/audit-observations',

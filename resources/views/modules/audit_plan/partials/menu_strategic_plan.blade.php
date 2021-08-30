@@ -33,6 +33,9 @@
             <x-menu-item class="" href="{{route('audit.plan.strategy.indicator.output')}}" icon="fal fa-exclamation-square">
                 Output Indicator
             </x-menu-item>
+            <x-menu-item class="" href="{{route('audit.plan.strategy.sp_file_list')}}"
+                         icon="fab fa-firstdraft">File Upload
+            </x-menu-item>
 
         </ul>
     </div>

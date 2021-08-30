@@ -30,6 +30,15 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('draft-plan/create', function () {
                 return view('modules.audit_plan.strategic.draft_plan.strategic_plan_draft_create');
             })->name('draft_plan_create');
+
+            //sp file upload
+            Route::get('sp-file-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
+            ::class, 'fileList'])->name('sp_file_list');
+            Route::get('file-upload', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
+            ::class, 'fileUpload'])->name('sp_file_upload');
+            Route::post('file-store', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
+            ::class, 'storeFile'])->name('sp_file_store');
+
             Route::get('meetings', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController
             ::class, 'index'])->name('meeting.all');
             Route::post('meeting', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController
