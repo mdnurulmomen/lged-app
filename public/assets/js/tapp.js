@@ -207,3 +207,15 @@ $('.english').on('keyup', function () {
     }
 });
 
+
+//for load page
+function loadPage(element){
+    url = element.data('url');
+    ajaxCallAsyncCallbackAPI(url,'', 'GET', function (response) {
+        if (response.status === 'error') {
+            toastr.error('Error');
+        } else {
+            $("#kt_content").html(response);
+        }
+    });
+}

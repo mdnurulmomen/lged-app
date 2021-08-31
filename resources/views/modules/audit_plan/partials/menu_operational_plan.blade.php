@@ -8,6 +8,11 @@
                          icon="fal fa-tachometer-alt-average">Dashboard
             </x-menu-item>
             <hr>
+
+            <x-menu-item class="op_op" href="{{route('audit.plan.operational.file_list')}}" icon="fas fa-bullseye-arrow">
+                Final Yearly OP
+            </x-menu-item>
+
             <x-menu-item class="op_audit_activities" href="{{route('audit.plan.operational.activity.all')}}"
                          icon="fab fa-firstdraft">
                 Audit Activities

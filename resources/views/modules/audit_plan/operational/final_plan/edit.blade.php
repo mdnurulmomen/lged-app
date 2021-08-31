@@ -1,13 +1,12 @@
-<x-title-wrapper>Add Settings</x-title-wrapper>
-
-@include('modules.audit_plan.strategic.settings.partial.style_common')
-
+<x-title-wrapper>Please replace the copy of Final Operational Plan</x-title-wrapper>
 <div class="col-lg-12">
     <!--begin::Advance Table Widget 4-->
     <div class="card card-custom card-stretch gutter-b">
         <!--begin::Body-->
         <div class="card-body">
             <form id="sp_file_form" enctype="multipart/form-data">
+                <input type="hidden" value="{{$file_info['id']}}" name="id">
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -15,47 +14,35 @@
                                 Plan For <span class="text-danger">(*)</span>
                             </label>
                             <select class="form-control" name="fiscal_year">
+                                <option value="">--Select--</option>
                                 @foreach($plan_durations as $plan_duration)
-                                    <option value="{{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}">
-                                        {{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}
+                                    <option value="{{'FY '.$plan_duration['start'].' - '.'FY '.$plan_duration['end']}}"
+                                    {{'FY '.$plan_duration['start'].' - '.'FY '.$plan_duration['end']==$file_info['fiscal_year']?'selected':''}}>
+                                        {{'FY '.$plan_duration['start'].' - '.'FY '.$plan_duration['end']}}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                 </div>
-
-                <div id="appendSection">
-                    <fieldset class="scheduler-border">
-                        <legend class="scheduler-border">
-                            Add Section
-                            <span class="fa fa-plus-circle btn_section_add"></span>
-                        </legend>
-
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="input-label">Key<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="keys[]" placeholder="Enter key">
-                                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-form-label">
+                                Please select the file <span class="text-danger">(*)</span>
+                            </label>
+                            <input name="file" type="file" class="form-control rounded-0"
+                                   accept="application/pdf" />
+                            <div class="mt-3">
+                                <a href="{{$file_info['file_url']}}" target="_blank" class="text-primary">
+                                    <i class="fal fa-file-pdf"></i> {{$file_info['user_file_name']}}
+                                </a>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="info_section_data_bn" class="input-label">Value</label>
-                                    <textarea class="summernote form-control" name="values[]"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                    </fieldset>
+                    </div>
                 </div>
-
-                <a id="submit_form" class="btn btn-success btn-sm btn-bold btn-square btn_create_milestone">
-                    <i class="fas fa-save"></i> Save
+                <a id="submit_form" class="btn btn-success btn-sm btn-bold btn-square">
+                    <i class="fal fa-save"></i> Update
                 </a>
             </form>
         </div>
@@ -78,7 +65,7 @@
 
             $.ajax({
                 data: new FormData(document.getElementById("sp_file_form")),
-                url: "{{route('audit.plan.strategy.sp_file_store')}}",
+                url: "{{route('audit.plan.operational.file_update')}}",
                 type: "POST",
                 dataType: 'json',
                 contentType: false,
@@ -102,12 +89,24 @@
                         }
                     }
                 },
-                error: function (responseData) {
-                    toastr.error(responseData.msg);
+                error: function (data) {
+                    if (data.responseJSON.errors) {
+                        $.each(data.responseJSON.errors, function (k, v) {
+                            if (isArray(v)) {
+                                $.each(v, function (n, m) {
+                                    toastr.error(m)
+                                    console.log(m,n,v);
+                                })
+                            } else {
+                                if (v !== '') {
+                                    toastr.error(v);
+                                }
+                            }
+                        });
+                    }
+                    //toastr.error(responseData.msg);
                 }
             });
         });
     });
 </script>
-
-@include('modules.audit_plan.strategic.settings.partial.script_common')

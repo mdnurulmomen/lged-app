@@ -92,8 +92,7 @@ return [
         'output_indicator_show' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/show',
         'output_indicator_delete' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/delete',
         'output_indicator_all' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/all',
-        'sp_file_list' => env('API_URL_BEE', '') . '/sp-file-list',
-        'sp_file_upload' => env('API_URL_BEE', '') . '/sp-file-upload',
+
         'sp_setting_store' => env('API_URL_BEE', '') . '/sp-setting-store',
         'sp_setting_list' => env('API_URL_BEE', '') . '/sp-setting-list',
     ],
@@ -109,6 +108,12 @@ return [
         'audit_observation_communication' => env('API_URL_BEE', '') . '/follow-up/audit-observation/observation_communication',
         'audit_observation_communication_lists' => env('API_URL_BEE', '') . '/follow-up/audit-observation/observation_communication_lists',
     ],
+
+    'final_plan_file_list' => env('API_URL_BEE', '') . '/final-plan-file-list',
+    'final_plan_file_upload' => env('API_URL_BEE', '') . '/final-plan-file-upload',
+    'final_plan_file_edit' => env('API_URL_BEE', '') . '/final-plan-file-edit',
+    'final_plan_file_update' => env('API_URL_BEE', '') . '/final-plan-file-update',
+    'final_plan_document_is_exist' => env('API_URL_BEE', '') . '/final-plan-document-is-exist',
 
     'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',
 

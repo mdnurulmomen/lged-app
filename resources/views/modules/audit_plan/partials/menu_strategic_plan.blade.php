@@ -8,38 +8,40 @@
                          icon="fal fa-tachometer-alt-average">Dashboard
             </x-menu-item>
             <hr>
-            <x-menu-item class="" href="{{route('audit.plan.strategy.draft_plan.all')}}"
+            {{--<x-menu-item class="" href="{{route('audit.plan.strategy.draft_plan.all')}}"
                          icon="fab fa-firstdraft">Draft Plan
             </x-menu-item>
 
             <x-menu-item class="" href="{{route('audit.plan.strategy.meeting.all')}}" icon="far fa-handshake">Meeting
-            </x-menu-item>
+            </x-menu-item>--}}
 
-            <x-menu-item class="" href="{{route('audit.plan.strategy.final-plan.all')}}" icon="fas fa-bullseye-arrow">
+            {{--<x-menu-item class="" href="{{route('audit.plan.strategy.final-plan.all')}}" icon="fas fa-bullseye-arrow">
                 Final
                 Plan
+            </x-menu-item>--}}
+
+            <x-menu-item class="" href="{{route('audit.plan.strategy.sp_file_list')}}"
+                         icon="fab fa-firstdraft">Final Strategic Plan
             </x-menu-item>
 
-            <x-menu-item class="" href="{{route('audit.plan.strategy.milestone.all')}}" icon="fal fa-bullseye-pointer">
+            {{--<x-menu-item class="" href="{{route('audit.plan.strategy.milestone.all')}}" icon="fal fa-bullseye-pointer">
                 Milestones
             </x-menu-item>
 
             <x-menu-item class="" href="{{route('audit.plan.strategy.risk.all')}}" icon="fal fa-exclamation-square">
                 Risk List
-            </x-menu-item>
+            </x-menu-item>--}}
+
             <x-menu-item class="" href="{{route('audit.plan.strategy.indicator.outcome')}}" icon="fal fa-exclamation-square">
                 Outcome Indicator
             </x-menu-item>
             <x-menu-item class="" href="{{route('audit.plan.strategy.indicator.output')}}" icon="fal fa-exclamation-square">
                 Output Indicator
             </x-menu-item>
-            <x-menu-item class="" href="{{route('audit.plan.strategy.sp_file_list')}}"
-                         icon="fab fa-firstdraft">File Upload
-            </x-menu-item>
 
-            {{--<x-menu-item class="" href="{{route('audit.plan.strategy.setting_list')}}"
+            <x-menu-item class="" href="{{route('audit.plan.strategy.setting_list')}}"
                          icon="fal fa-cogs">Setting
-            </x-menu-item>--}}
+            </x-menu-item>
 
         </ul>
     </div>

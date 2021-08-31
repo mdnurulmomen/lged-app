@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\AuditPlan\AuditStrategicPlan;
+namespace App\Http\Controllers\AuditPlan\AuditOperationalPlan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,16 +16,12 @@ class FinalPlanController extends Controller
     public function index()
     {
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.final_plan_file_list'),[
-                'document_type' => 'strategic'
+                'document_type' => 'operational'
             ]
         )->json();
-        if ($response['status'] == 'success') {
-            $data['final_plan_file_list'] = $response['data'];
-        } else {
-            $data['final_plan_file_list'] = [];
-        }
+        $data['final_plan_file_list'] = $response['data'];
         //dd($response);
-        return view('modules.audit_plan.strategic.final_plan.index',$data);
+        return view('modules.audit_plan.operational.final_plan.index',$data);
 
         //return view('modules.audit_plan.strategic.final_plan.strategic_plan_final_lists');
     }
@@ -37,7 +33,7 @@ class FinalPlanController extends Controller
      */
     public function create()
     {
-        $plan_durations = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_duration_lists'), [
+        $plan_durations = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_lists'), [
             'all' => 1
         ])->json();
         if ($plan_durations['status'] == 'success') {
@@ -46,7 +42,7 @@ class FinalPlanController extends Controller
             $data['plan_durations'] = [];
         }
 
-        return view('modules.audit_plan.strategic.final_plan.create',$data);
+        return view('modules.audit_plan.operational.final_plan.create',$data);
     }
 
     /**
@@ -64,7 +60,7 @@ class FinalPlanController extends Controller
 
         $data = [
             ['name' => 'id', 'contents' => $request->id],
-            ['name' => 'document_type', 'contents' => 'strategic'],
+            ['name' => 'document_type', 'contents' => 'operational'],
             ['name' => 'fiscal_year', 'contents' => $request->fiscal_year]
         ];
 
@@ -83,6 +79,7 @@ class FinalPlanController extends Controller
                 config('amms_bee_routes.final_plan_file_upload'),
                 $data
             );
+
         }
         else{
             $response = $this->fileUPloadWithData(
@@ -93,6 +90,14 @@ class FinalPlanController extends Controller
         }
 
         return json_decode($response->getBody(), true);
+
+
+
+        /*if (isset($response['status']) && $response['status'] == 'success') {
+            return response()->json(responseFormat('success', 'Saved Successfully'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }*/
     }
 
     /**
@@ -114,7 +119,7 @@ class FinalPlanController extends Controller
      */
     public function edit($id)
     {
-        $plan_durations = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_duration_lists'), [
+        $plan_durations = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_lists'), [
             'all' => 1
         ])->json();
         if ($plan_durations['status'] == 'success') {
@@ -132,7 +137,7 @@ class FinalPlanController extends Controller
             $data['file_info'] = [];
         }
 
-        return view('modules.audit_plan.strategic.final_plan.edit',$data);
+        return view('modules.audit_plan.operational.final_plan.edit',$data);
     }
 
     /**
@@ -152,7 +157,7 @@ class FinalPlanController extends Controller
 
         $data = [
             ['name' => 'id', 'contents' => $request->id],
-            ['name' => 'document_type', 'contents' => 'strategic'],
+            ['name' => 'document_type', 'contents' => 'operational'],
             ['name' => 'fiscal_year', 'contents' => $request->fiscal_year]
         ];
 
@@ -187,7 +192,7 @@ class FinalPlanController extends Controller
     public function isDocumentExist(Request $request)
     {
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.final_plan_document_is_exist'), [
-            'document_type' => 'strategic',
+            'document_type' => 'operational',
             'fiscal_year' => $request->fiscal_year,
         ])->json();
 

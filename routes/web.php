@@ -32,16 +32,25 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             })->name('draft_plan_create');
 
             //sp file upload
-            Route::get('sp-file-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
-            ::class, 'fileList'])->name('sp_file_list');
-            Route::get('file-upload', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
-            ::class, 'fileUpload'])->name('sp_file_upload');
-            Route::post('file-store', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
-            ::class, 'storeFile'])->name('sp_file_store');
+            Route::get('sp-file-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
+            ::class, 'index'])->name('sp_file_list');
+            Route::get('file-upload', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
+            ::class, 'create'])->name('sp_file_upload');
+            Route::post('file-store', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
+            ::class, 'store'])->name('sp_file_store');
+            Route::get('final-plan-edit/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
+            ::class, 'edit'])->name('sp_file_edit');
+            Route::post('file-update', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
+            ::class, 'update'])->name('sp_file_update');
+
+            Route::post('is-document-exist', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
+            ::class, 'isDocumentExist'])->name('is_document_exist');
 
             //settings
             Route::get('setting-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\SettingController
             ::class, 'index'])->name('setting_list');
+            Route::get('setting-create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\SettingController
+            ::class, 'create'])->name('setting_create');
 
             Route::get('meetings', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController
             ::class, 'index'])->name('meeting.all');
@@ -159,6 +168,21 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('load-assigned-staff-details', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class, 'showOperationalPlanStaffAndDetailsModal'])->name('plan.assigned-details.modal');
 
             Route::post('load-operational-plan-staff-assigned', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class, 'showOperationalPlanStaffs'])->name('plan.assigned.staff');
+
+            //op final file upload
+            Route::get('file-list', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController
+            ::class, 'index'])->name('file_list');
+            Route::get('file-create', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController
+            ::class, 'create'])->name('file_create');
+            Route::post('file-store', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController
+            ::class, 'store'])->name('file_store');
+            Route::get('file-edit/{id}', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController
+            ::class, 'edit'])->name('file_edit');
+            Route::post('file-update', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController
+            ::class, 'update'])->name('file_update');
+
+            Route::post('is-document-exist', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController
+            ::class, 'isDocumentExist'])->name('is_document_exist');
         });
 
         //annual plan
