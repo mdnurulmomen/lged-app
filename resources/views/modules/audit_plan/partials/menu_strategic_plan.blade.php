@@ -37,6 +37,10 @@
                          icon="fab fa-firstdraft">File Upload
             </x-menu-item>
 
+            {{--<x-menu-item class="" href="{{route('audit.plan.strategy.setting_list')}}"
+                         icon="fal fa-cogs">Setting
+            </x-menu-item>--}}
+
         </ul>
     </div>
     <!--end::Menu Container-->

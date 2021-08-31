@@ -39,6 +39,10 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('file-store', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
             ::class, 'storeFile'])->name('sp_file_store');
 
+            //settings
+            Route::get('setting-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\SettingController
+            ::class, 'index'])->name('setting_list');
+
             Route::get('meetings', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController
             ::class, 'index'])->name('meeting.all');
             Route::post('meeting', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController

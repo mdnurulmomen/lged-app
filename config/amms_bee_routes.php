@@ -94,6 +94,8 @@ return [
         'output_indicator_all' => env('API_URL_BEE', '') . '/planning/strategic-plan/output-indicators/all',
         'sp_file_list' => env('API_URL_BEE', '') . '/sp-file-list',
         'sp_file_upload' => env('API_URL_BEE', '') . '/sp-file-upload',
+        'sp_setting_store' => env('API_URL_BEE', '') . '/sp-setting-store',
+        'sp_setting_list' => env('API_URL_BEE', '') . '/sp-setting-list',
     ],
     'follow_up' => [
         'audit_observations' => env('API_URL_BEE', '') . '/follow-up/audit-observations',

@@ -26,13 +26,25 @@ class DraftPlanController extends Controller
     }
 
     public function fileUpload(){
-        return view('modules.audit_plan.strategic.draft_plan.sp_file_upload');
+        $plan_durations = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_duration_lists'), [
+            'all' => 1
+        ])->json();
+        if ($plan_durations['status'] == 'success') {
+            $data['plan_durations'] = $plan_durations['data'];
+        } else {
+            $data['plan_durations'] = [];
+        }
+
+        return view('modules.audit_plan.strategic.draft_plan.sp_file_upload',$data);
     }
 
     public function storeFile(Request $request){
 
-        $attachment = $request->file;
+        /*$data[] = [
+            ['name' => 'duration_id', 'contents' => $request->duration_id]
+        ];*/
 
+        $attachment = $request->file;
         if ($request->hasfile('file')) {
                 $data[] = [
                     'name'     => 'file',
@@ -40,6 +52,8 @@ class DraftPlanController extends Controller
                     'filename' => $attachment->getClientOriginalName(),
                 ];
         }
+
+        //dd($data);
 
         $response = $this->fileUPloadWithData(
             'POST',
@@ -49,11 +63,11 @@ class DraftPlanController extends Controller
 
         return json_decode($response->getBody(), true);
 
-        if (isset($response['status']) && $response['status'] == 'success') {
+        /*if (isset($response['status']) && $response['status'] == 'success') {
             return response()->json(responseFormat('success', 'Saved Successfully'));
         } else {
             return response()->json(['status' => 'error', 'data' => $response]);
-        }
+        }*/
     }
 
     /**

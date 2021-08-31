@@ -17,23 +17,14 @@
                     <thead class="thead-light">
                         <tr>
                             <th>#No</th>
-                            <th>File Name</th>
-                            <th>Action</th>
+                            <th>Key</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($sp_file_list as $file)
+                    @foreach($settings as $setting)
                         <tr>
                             <td><span>{{$loop->iteration}}</span></td>
-                            <td><span>{{$file['file_name']}}</span></td>
-                            <td>
-                                <div class="btn-group">
-                                    <a href="{{$file['file_url']}}" download target="_blank" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary">
-                                        {{--<i class="fas fa-arrow-alt-down"></i>--}}
-                                        <i class="fal fa-eye"></i>
-                                    </a>
-                                </div>
-                            </td>
+                            <td><span>{{$setting['setting_key']}}</span></td>
                         </tr>
                     @endforeach
                     </tbody>

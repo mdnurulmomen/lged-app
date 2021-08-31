@@ -6,25 +6,9 @@
         <div class="card-body">
             <form id="sp_file_form" enctype="multipart/form-data">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-8">
                         <div class="form-group">
-                            <label class="col-form-label">
-                                Duration <span class="text-danger">(*)</span>
-                            </label>
-                            <select class="form-control" name="duration_id">
-                                @foreach($plan_durations as $plan_duration)
-                                    <option value="{{$plan_duration['id']}}">
-                                        {{$plan_duration['start_year'].' - '.$plan_duration['end_year']}}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-10">
-                        <div class="form-group">
-                            <label class="col-form-label">
-                                Upload File <span class="text-danger">(*)</span>
-                            </label>
+                            <label class="col-form-label">Upload File</label>
                             <input name="file" type="file" class="form-control rounded-0" />
                         </div>
                     </div>

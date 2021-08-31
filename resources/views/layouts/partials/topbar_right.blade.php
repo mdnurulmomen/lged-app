@@ -1,7 +1,7 @@
 <div class="topbar">
     <!--begin::Cart-->
     <div class="topbar-item">
-        {!! $wizardData !!}
+        {{--{!! $wizardData !!}--}}
         {{--        <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1" id="kt_quick_cart_toggle">--}}
         {{--            <span class="svg-icon svg-icon-xl svg-icon-primary">--}}
         {{--                <!--begin::Svg Icon | path:assets/media/svg/icons/Shopping/Cart3.svg-->--}}
