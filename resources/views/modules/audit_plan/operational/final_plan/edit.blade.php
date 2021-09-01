@@ -25,6 +25,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="mt-3">
+                    <a href="{{$file_info['file_url']}}" target="_blank" class="btn btn-outline-primary btn-square">
+                        <i class="fal fa-file-pdf"></i> {{$file_info['user_file_name']}}
+                    </a>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -33,11 +38,6 @@
                             </label>
                             <input name="file" type="file" class="form-control rounded-0"
                                    accept="application/pdf" />
-                            <div class="mt-3">
-                                <a href="{{$file_info['file_url']}}" target="_blank" class="text-primary">
-                                    <i class="fal fa-file-pdf"></i> {{$file_info['user_file_name']}}
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -74,6 +74,14 @@
                 success: function (responseData) {
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
+                        var url = '{{route('audit.plan.operational.file_list')}}';
+                        ajaxCallAsyncCallbackAPI(url,'', 'GET', function (response) {
+                            if (response.status === 'error') {
+                                toastr.error('Error');
+                            } else {
+                                $("#kt_content").html(response);
+                            }
+                        });
                     }
                     else {
                         if (responseData.statusCode === '422') {

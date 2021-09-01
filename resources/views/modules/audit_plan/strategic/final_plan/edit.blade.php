@@ -14,8 +14,10 @@
                                 Plan For <span class="text-danger">(*)</span>
                             </label>
                             <select class="form-control" name="fiscal_year">
+                                <option value="">--Select--</option>
                                 @foreach($plan_durations as $plan_duration)
-                                    <option value="{{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}">
+                                    <option value="{{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}"
+                                        {{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']==$file_info['fiscal_year']?'selected':''}}>
                                         {{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}
                                     </option>
                                 @endforeach
@@ -23,6 +25,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="mt-3">
+                    <a href="{{$file_info['file_url']}}" target="_blank" class="btn btn-outline-primary btn-square">
+                        <i class="fal fa-file-pdf"></i> {{$file_info['user_file_name']}}
+                    </a>
+                </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -31,11 +39,7 @@
                             </label>
                             <input name="file" type="file" class="form-control rounded-0"
                                    accept="application/pdf" />
-                            <div class="mt-3">
-                                <a href="{{$file_info['file_url']}}" target="_blank" class="text-primary">
-                                    <i class="fal fa-file-pdf"></i> {{$file_info['user_file_name']}}
-                                </a>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -72,6 +76,14 @@
                 success: function (responseData) {
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
+                        var url = '{{route('audit.plan.strategy.sp_file_list')}}';
+                        ajaxCallAsyncCallbackAPI(url,'', 'GET', function (response) {
+                            if (response.status === 'error') {
+                                toastr.error('Error');
+                            } else {
+                                $("#kt_content").html(response);
+                            }
+                        });
                     }
                     else {
                         if (responseData.statusCode === '422') {

@@ -24,6 +24,7 @@
                         </div>
                     </div>
                 </div>
+                <div style="display: none" id="opFileName" class="mt-3"></div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -32,8 +33,6 @@
                             </label>
                             <input name="file" type="file" class="form-control rounded-0"
                                    accept="application/pdf" />
-
-                            <div id="opFileName" class="mt-3"></div>
                         </div>
                     </div>
                 </div>
@@ -59,15 +58,19 @@
         var data = {document_type,fiscal_year};
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (responseData) {
             //console.log(responseData)
+            var opFileNameDiv = $('#opFileName');
             if (responseData.status === 'success'){
                 if (responseData.data){
+                    opFileNameDiv.show();
                     $("#opDocumentId").val(responseData.data.id);
-                    $("#opFileName").html("<a href='"+responseData.data['file_url']+"' target='_blank' " +
-                        "class='text-primary'><i class='fal fa-file-pdf'> "+responseData.data['user_file_name']+"</i></a>")
+                    opFileNameDiv.html("<span class='font-weight-bold text-danger'>File already exist</span> <a href='"+responseData.data['file_url']+"' target='_blank' " +
+                        "class='btn btn-outline-primary btn-square'>" +
+                        "<i class='fal fa-file-pdf'></i> "+responseData.data['user_file_name']+"</a>");
                 }
                 else {
+                    opFileNameDiv.hide();
                     $("#opDocumentId").val('');
-                    $("#opFileName").html("");
+                    opFileNameDiv.html("");
                 }
             }
         });
