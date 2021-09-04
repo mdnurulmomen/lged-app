@@ -214,6 +214,12 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::get('/staff-calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendar\StaffCalendarController
             ::class, 'index'])->name('calendar.staff');
+
+            Route::get('/annual-plan-revised', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController
+            ::class, 'index'])->name('plan.revised.all');
+            Route::post('/load-annual-plan-revised-lists', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'showAnnualPlanLists'])->name('plan.revised.list.all');
+            Route::post('/load-annual-entity-revised-selection', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'showEntitySelection'])->name('plan.list.show.revised.entity-selection');
+            Route::post('/crate-plan-info', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'addAnnualPlanInfo'])->name('plan.list.show.revised.crate_plan_info');
         });
 
         //audit Plan

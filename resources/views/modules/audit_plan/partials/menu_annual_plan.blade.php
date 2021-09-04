@@ -8,7 +8,11 @@
                          icon="fal fa-tachometer-alt-average">Dashboard
             </x-menu-item>
             <hr>
-            <x-menu-item href="{{route('audit.plan.annual.plan.all')}}"
+{{--            <x-menu-item href="{{route('audit.plan.annual.plan.all')}}"--}}
+{{--                         icon="fal fa-list">Annual Plan--}}
+{{--            </x-menu-item>--}}
+
+            <x-menu-item href="{{route('audit.plan.annual.plan.revised.all')}}"
                          icon="fal fa-list">Annual Plan
             </x-menu-item>
 
