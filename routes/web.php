@@ -46,11 +46,20 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('is-document-exist', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
             ::class, 'isDocumentExist'])->name('is_document_exist');
 
-            //settings
-            Route::get('setting-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\SettingController
+            //html view
+            Route::get('setting-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController
             ::class, 'index'])->name('setting_list');
-            Route::get('setting-create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\SettingController
-            ::class, 'create'])->name('setting_create');
+
+            Route::get('html-view-content', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController
+            ::class, 'contentView'])->name('html_view_content');
+            Route::get('html-view-content-create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController
+            ::class, 'createContent'])->name('html_view_content_create');
+            Route::get('html-view-content-key-create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController
+            ::class, 'createKey'])->name('html_view_content_key_create');
+            Route::post('html-view-content-key-store', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController
+            ::class, 'storeKey'])->name('html_view_content_key_store');
+            Route::get('html-view-content-title-duration-wise', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController
+            ::class, 'loadParentDurationWiseSelect'])->name('html_view_content_title_duration_wise');
 
             Route::get('meetings', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController
             ::class, 'index'])->name('meeting.all');

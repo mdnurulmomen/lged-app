@@ -40,7 +40,7 @@
             </x-menu-item>
 
             <x-menu-item class="" href="{{route('audit.plan.strategy.setting_list')}}"
-                         icon="fal fa-cogs">Setting
+                         icon="fal fa-cogs">HTML View
             </x-menu-item>
 
         </ul>

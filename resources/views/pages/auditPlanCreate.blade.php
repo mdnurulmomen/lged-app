@@ -36,9 +36,10 @@
         <div class="summernote" id="kt_summernote_1"></div>
     </div>
     <div id="split-2">
-        
+
         <div id="writing-screen-wrapper">
         </div>
     </div>
 </div>
+
 @endsection

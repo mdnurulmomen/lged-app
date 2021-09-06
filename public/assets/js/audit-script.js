@@ -27,7 +27,7 @@ $('#newAudit').jstree({
         "check_callback" : true,
         'data': arrayCollection
     },
-    "plugins": ["dnd","checkbox", "search"] 
+    "plugins": ["dnd","checkbox", "search"]
 });
 
 for (let i = 0; i < arrayCollection.length; i++) {
@@ -37,9 +37,9 @@ for (let i = 0; i < arrayCollection.length; i++) {
     $("#writing-screen-wrapper").append(dataHtml);
 }
 
-$('#newAudit').on("select_node.jstree", function (e, data) { 
+$('#newAudit').on("select_node.jstree", function (e, data) {
     activePdf = data.node.id;
-    
+
     arrayCollection.map(function(value, index){
         if(value.id == activePdf){
             var content = value.content;

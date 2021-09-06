@@ -95,6 +95,9 @@ return [
 
         'sp_setting_store' => env('API_URL_BEE', '') . '/sp-setting-store',
         'sp_setting_list' => env('API_URL_BEE', '') . '/sp-setting-list',
+
+        'html_view_content_title_store' => env('API_URL_BEE', '') . '/html-view-content-title-store',
+        'html_view_content_title_duration_wise' => env('API_URL_BEE', '') . '/html-view-content-title-duration-wise',
     ],
     'follow_up' => [
         'audit_observations' => env('API_URL_BEE', '') . '/follow-up/audit-observations',

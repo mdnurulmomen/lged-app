@@ -1,4 +1,4 @@
-<x-title-wrapper>Add Settings</x-title-wrapper>
+<x-title-wrapper>Add Content</x-title-wrapper>
 
 @include('modules.audit_plan.strategic.settings.partial.style_common')
 
@@ -14,7 +14,8 @@
                             <label class="col-form-label">
                                 Plan For <span class="text-danger">(*)</span>
                             </label>
-                            <select class="form-control" name="fiscal_year">
+                            <select class="form-control" name="fiscal_year" id="fiscal_year">
+                                <option value="">--Select--</option>
                                 @foreach($plan_durations as $plan_duration)
                                     <option value="{{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}">
                                         {{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}
@@ -28,8 +29,8 @@
                 <div id="appendSection">
                     <fieldset class="scheduler-border">
                         <legend class="scheduler-border">
-                            Add Section
-                            <span class="fa fa-plus-circle btn_section_add"></span>
+                            Content
+                            {{--<span class="fa fa-plus-circle btn_section_add"></span>--}}
                         </legend>
 
 
@@ -37,7 +38,9 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="input-label">Key<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="keys[]" placeholder="Enter key">
+                                    <select class="form-control" id="parent_id" name="parent_id">
+                                        <option value="0">--Select--</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -64,6 +67,19 @@
     <!--end::Advance Table Widget 4-->
 </div>
 <script type="text/javascript">
+    $("select#fiscal_year").change(function () {
+        var fiscal_year = $(this).children("option:selected").val();
+        getParent(fiscal_year);
+    });
+
+    function getParent(fiscal_year) {
+        var url = '{{route('audit.plan.strategy.html_view_content_title_duration_wise')}}';
+        var data = {fiscal_year};
+        var datatype = 'html';
+        ajaxCallUnsyncCallback(url, data, datatype, 'GET', function (responseDate) {
+            $("#parent_id").html(responseDate);
+        });
+    }
 
     //for office submit form
     $(function () {

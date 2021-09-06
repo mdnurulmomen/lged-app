@@ -1,9 +1,19 @@
 <x-title-wrapper>Settings</x-title-wrapper>
 <div class="col-md-12">
     <div class="d-flex justify-content-end">
-        <a class="btn btn-success btn-sm btn-bold btn-square btn_create" onclick='loadPage($(this))'
-           data-url="{{route('audit.plan.strategy.setting_create')}}" href="javascript:;">
-            <i class="far fa-plus mr-1"></i> Add New
+        <a class="btn btn-info btn-sm btn-bold btn-square mr-2" onclick='loadPage($(this))'
+           data-url="{{route('audit.plan.strategy.html_view_content')}}" href="javascript:;">
+            <i class="far fa-eye mr-1"></i> View Content
+        </a>
+
+        <a class="btn btn-info btn-sm btn-bold btn-square mr-2" onclick='loadPage($(this))'
+           data-url="{{route('audit.plan.strategy.html_view_content_create')}}" href="javascript:;">
+            <i class="far fa-plus mr-1"></i> Add Content
+        </a>
+
+        <a class="btn btn-success btn-sm btn-bold btn-square" onclick='loadPage($(this))'
+           data-url="{{route('audit.plan.strategy.html_view_content_key_create')}}" href="javascript:;">
+            <i class="far fa-plus mr-1"></i> Add New Key
         </a>
     </div>
 </div>
@@ -22,18 +32,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($settings as $setting)
+                    {{--@foreach($settings as $setting)
                         <tr>
                             <td><span>{{$setting['setting_key']}}</span></td>
-                            {{--<td>
+                            --}}{{--<td>
                                 <div class="btn-group">
                                     <a href="javascript:;" onclick='loadPage($(this))' data-url="{{route('audit.plan.operational.file_edit', [$setting['id']])}}" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-info">
                                         <i class="fal fa-edit"></i>
                                     </a>
                                 </div>
-                            </td>--}}
+                            </td>--}}{{--
                         </tr>
-                    @endforeach
+                    @endforeach--}}
                     </tbody>
                 </table>
             </div>

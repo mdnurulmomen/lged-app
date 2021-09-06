@@ -1001,4 +1001,6 @@
 		</div>
 		<!--end::Scrolltop-->
 		@include('partials.footerScript')
+
+        <script src="{{asset('assets/js/audit-script.js')}}"></script>
 </html>
