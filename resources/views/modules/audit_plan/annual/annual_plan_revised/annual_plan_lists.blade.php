@@ -20,9 +20,9 @@
 @include('scripts.script_generic')
 <script>
     var Annual_Plan_Container = {
-        loadAnnualPlanList: function (fiscal_year_id) {
+        loadAnnualPlanList: function (fiscal_year_id, fiscal_year) {
             let url = '{{route('audit.plan.annual.plan.revised.list.all')}}';
-            let data = {fiscal_year_id};
+            let data = {fiscal_year_id, fiscal_year};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)
@@ -36,8 +36,27 @@
             schedule_id = elem.data('schedule-id');
             activity_id = elem.data('activity-id');
             milestone_id = elem.data('milestone-id');
-            data = {schedule_id, activity_id, milestone_id}
+            fiscal_year = elem.data('fiscal-year');
+            activity_title = elem.data('activity-title');
+            data = {schedule_id, activity_id, milestone_id, fiscal_year, activity_title}
             let url = '{{route('audit.plan.annual.plan.list.show.revised.entity-selection')}}'
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('#kt_content').html(response)
+                }
+            });
+        },
+
+        addPlanInfo: function (elem) {
+            schedule_id = elem.data('schedule-id');
+            activity_id = elem.data('activity-id');
+            milestone_id = elem.data('milestone-id');
+            activity_title = elem.data('activity-title');
+            data = {schedule_id, activity_id, milestone_id, activity_title}
+
+            let url = '{{route('audit.plan.annual.plan.list.show.revised.crate_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)
@@ -63,19 +82,28 @@
 
         addSelectedRPAuditeeList: function (entity_info) {
             if ($('#selected_rp_auditee_' + entity_info.entity_id).length === 0) {
-                var newRow = '<tr id="selected_rp_auditee_' + entity_info.entity_id + '">' +
-                    '<td width="2%">' +
-                    '<input name="selected_entity[]" class="selected_entity" data-auditee-id="' + entity_info.entity_id + '" id="selected_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
-                    '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '" onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fa fa-trash d-none"></i></span>' +
-                    '</td>' +
-                    '<td width="68%">' + entity_info.entity_name_en + '</td>' +
-                    '<td width="5%">' + '' + '</td>' +
-                    '<td width="15%">' + '' + '</td>' +
-                    '<td width="5%">' + '' + '</td>' +
-                    '<td width="5%"><button data-entity-id="' + entity_info.entity_id + '" type="button" class="btn btn-primary font-weight-bold btn-square d-none" onclick="Annual_Plan_Container.loadSubmissionHRModal($(this))">Plan</button></td>' +
-                    '</tr>';
-                $(".selected_rp_auditees_table tbody").prepend(newRow);
-                $(".selected_rp_auditees_table tbody").find('#selected_entity_' + entity_info.entity_id).val(JSON.stringify(entity_info));
+
+                var newRow = '<li id="selected_rp_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ' +
+                    'ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +
+                    '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '" onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
+                    '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_en +
+                    '</li>';
+
+
+                // var newRow = '<tr id="selected_rp_auditee_' + entity_info.entity_id + '">' +
+                //     '<td width="2%">' +
+                //     '<input name="selected_entity[]" class="selected_entity" data-auditee-id="' + entity_info.entity_id + '" id="selected_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
+                //     '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '" onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fa fa-trash d-none"></i></span>' +
+                //     '</td>' +
+                //     '<td width="68%">' + entity_info.entity_name_en + '</td>' +
+                //     '<td width="5%">' + '' + '</td>' +
+                //     '<td width="15%">' + '' + '</td>' +
+                //     '<td width="5%">' + '' + '</td>' +
+                //     '<td width="5%"><button data-entity-id="' + entity_info.entity_id + '" type="button" class="btn btn-primary font-weight-bold btn-square d-none" onclick="Annual_Plan_Container.loadSubmissionHRModal($(this))">Plan</button></td>' +
+                //     '</tr>';
+
+                $(".selected_rp_offices").prepend(newRow);
+                $(".selected_rp_offices").find('#selected_entity_' + entity_info.entity_id).val(JSON.stringify(entity_info));
             }
         },
 
@@ -84,46 +112,23 @@
         },
 
         loadSelectedAuditeeEntities: function (annual_plan_data) {
-            url = '{{route('audit.plan.annual.plan.list.show.selected-entity')}}';
+            {{--url = '{{route('audit.plan.annual.plan.list.show.revised.selected-entity')}}';--}}
 
-            annualObj = {};
-            $.each(annual_plan_data, function () {
-                annualObj[this.name] = this.value;
-            });
-            activity_id = annualObj.activity_id
-            milestone_id = annualObj.milestone_id
-            schedule_id = annualObj.schedule_id
+            {{--annualObj = {};--}}
+            {{--$.each(annual_plan_data, function () {--}}
+            {{--    annualObj[this.name] = this.value;--}}
+            {{--});--}}
+            {{--activity_id = annualObj.activity_id--}}
+            {{--milestone_id = annualObj.milestone_id--}}
+            {{--schedule_id = annualObj.schedule_id--}}
 
-            ajaxCallAsyncCallbackAPI(url, {activity_id, milestone_id, schedule_id}, 'post', function (response) {
-                if (response.status === 'error') {
-                    toastr.error(response.data)
-                } else {
-                    $('#selected_auditee_entities_area').html(response)
-                }
-            })
-        },
-
-        loadSubmissionHRModal: function (elem) {
-            url = '{{route('audit.plan.annual.plan.list.show.hr-modal')}}';
-            plan_responsible_party_id = elem.data('plan-responsible-party-id');
-
-            ajaxCallAsyncCallbackAPI(url, {plan_responsible_party_id}, 'post', function (response) {
-                if (response.status === 'error') {
-                    toastr.error(response.data)
-                } else {
-                    $('#annual_plan_submission_hr_modal_area').html('');
-                    $('#annual_plan_submission_hr_modal_area').html(response)
-                    $('#annual_plan_submission_hr_modal').modal('show')
-                }
-            });
-        },
-
-        showHideHRModalSaveBtn: function () {
-            if ($(".assigned_officers_to_plan_area").length > 0) {
-                $("#btn_annual_plan_submission_hr_modal_save").show();
-            } else {
-                $("#btn_annual_plan_submission_hr_modal_save").hide();
-            }
+            {{--ajaxCallAsyncCallbackAPI(url, {activity_id, milestone_id, schedule_id}, 'post', function (response) {--}}
+            {{--    if (response.status === 'error') {--}}
+            {{--        toastr.error(response.data)--}}
+            {{--    } else {--}}
+            {{--        $('#selected_auditee_entities_area').html(response)--}}
+            {{--    }--}}
+            {{--})--}}
         },
 
         addOfficerToAssignedList: function (officer_info) {
@@ -142,16 +147,6 @@
             }
         },
 
-        removeOfficerFromAssignedList: function (designation_id) {
-            $('#selected_officer_to_assign_' + designation_id).remove();
-        },
-
-        saveAnnualPlanHRAssigned: function (elem) {
-            url = elem.data('url');
-            data = $('#annual_plan_core_data_form, #assigned_officers_to_plan_form').serialize();
-            method = elem.data('method');
-            submitModalData(url, data, method, 'annual_plan_submission_hr_modal')
-        },
 
         jsTreeInit: function (className) {
             $(`.${className}`).jstree({
@@ -174,21 +169,21 @@
         },
 
         submitSelectedEntities: function () {
-            url = '{{route('audit.plan.annual.plan.list.store.selected-entity')}}';
-            data = $('#selected_rp_auditee_form, #annual_plan_core_data_form').serialize();
+            {{--url = '{{route('audit.plan.annual.plan.list.store.selected-entity')}}';--}}
+            {{--data = $('#selected_rp_auditee_form, #annual_plan_core_data_form').serialize();--}}
 
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'success') {
-                    toastr.success(response.data);
-                    Annual_Plan_Container.loadSelectedAuditeeEntities($('#annual_plan_core_data_form').serializeArray())
-                } else {
-                    toastr.error(response.data)
-                }
-            })
+            {{--ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {--}}
+            {{--    if (response.status === 'success') {--}}
+            {{--        toastr.success(response.data);--}}
+            {{--        Annual_Plan_Container.loadSelectedAuditeeEntities($('#annual_plan_core_data_form').serializeArray())--}}
+            {{--    } else {--}}
+            {{--        toastr.error(response.data)--}}
+            {{--    }--}}
+            {{--})--}}
         },
 
         submitToOCAG: function (elem) {
-            url = '{{route('audit.plan.annual.plan.list.submit.plan-to-ocag')}}';
+            url = '{{route('audit.plan.annual.plan.list.submit.revised.plan-to-ocag')}}';
             fiscal_year_id = elem.data('fiscal-year-id');
 
             ajaxCallAsyncCallbackAPI(url, {fiscal_year_id}, 'post', function (response) {
@@ -200,20 +195,9 @@
             })
         },
 
-        addPlanInfo: function (elem) {
-            data = {}
-            let url = '{{route('audit.plan.annual.plan.list.show.revised.crate_plan_info')}}'
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'error') {
-                    toastr.error(response.data)
-                } else {
-                    $('#kt_content').html(response)
-                }
-            });
-        },
         addTeamSection: function (elem) {
             $('.team-section').append(
-            `<div class="form-row pt-4">
+                `<div class="form-row pt-4">
                     <div class="col-md-4">
                         <label>পদবি</label>
                         <select class="form-control" name="" id="">
@@ -240,7 +224,7 @@
                         <button onclick="Annual_Plan_Container.removeTeamSection($(this))" class="btn btn-danger"><i class="fa fa-minus"></i></button>
                     </div>
                 </div>`
-        );
+            );
         },
 
         removeTeamSection: function (elem) {
@@ -249,9 +233,10 @@
     };
 
     $('#select_fiscal_year_annual_plan').change(function () {
-        let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+        fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+        fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
         if (fiscal_year_id) {
-            Annual_Plan_Container.loadAnnualPlanList(fiscal_year_id);
+            Annual_Plan_Container.loadAnnualPlanList(fiscal_year_id, fiscal_year);
         } else {
             $('#load_annual_plan_lists').html('');
         }

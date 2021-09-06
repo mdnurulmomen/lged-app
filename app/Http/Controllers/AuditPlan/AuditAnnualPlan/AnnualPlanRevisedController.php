@@ -26,10 +26,11 @@ class AnnualPlanRevisedController extends Controller
 
         $annual_plans = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_yearly_plan_lists'), $data)->json();
         $fiscal_year_id = $request->fiscal_year_id;
+        $fiscal_year = $request->fiscal_year;
 
         if (isSuccess($annual_plans)) {
             $annual_plans = $annual_plans['data'];
-            return view('modules.audit_plan.annual.annual_plan_revised.partials.load_annual_plan_lists', compact('annual_plans', 'fiscal_year_id'));
+            return view('modules.audit_plan.annual.annual_plan_revised.partials.load_annual_plan_lists', compact('annual_plans', 'fiscal_year_id', 'fiscal_year'));
         } else {
             return response()->json(['status' => 'error', 'data' => $annual_plans]);
         }
@@ -41,23 +42,32 @@ class AnnualPlanRevisedController extends Controller
      */
     public function showEntitySelection(Request $request)
     {
-//        $data = Validator::make($request->all(), [
-//            'activity_id' => 'required|integer',
-//            'schedule_id' => 'required|integer',
-//            'milestone_id' => 'required|integer',
-//        ])->validate();
-//        $data['cdesk'] = json_encode($this->current_desk());
-//
-//        $activity_id = $request->activity_id;
-//        $schedule_id = $request->schedule_id;
-//        $milestone_id = $request->milestone_id;
-//        dd(1);
-        return view('modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection');
+        $data = Validator::make($request->all(), [
+            'activity_id' => 'required|integer',
+            'schedule_id' => 'required|integer',
+            'milestone_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk());
+
+        $activity_id = $request->activity_id;
+        $schedule_id = $request->schedule_id;
+        $milestone_id = $request->milestone_id;
+        $fiscal_year = $request->fiscal_year;
+        $activity_title = $request->activity_title;
+
+        return view('modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection', compact('activity_id', 'schedule_id', 'milestone_id', 'fiscal_year', 'activity_title'));
 
     }
 
-    public function addAnnualPlanInfo(Request $request){
-        return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info');
+    public function addAnnualPlanInfo(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'activity_id' => 'required|integer',
+            'schedule_id' => 'required|integer',
+            'milestone_id' => 'required|integer',
+        ])->validate();
+
+        return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info')->with($data);
     }
 
     /**
@@ -212,6 +222,7 @@ class AnnualPlanRevisedController extends Controller
             'office_layer_id' => $layer_id,
         ];
         $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-rp-office-ministry-and-layer-wise'), $data)->json();
+
         if (isSuccess($rp_offices)) {
             $rp_offices = $rp_offices['data'];
             return view('modules.audit_plan.annual.annual_plan.partials.load_rp_auditee_offices', compact('rp_offices', 'ministry'));

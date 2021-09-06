@@ -6,4 +6,4 @@
     </div>
 </div>
 
-@include('scripts.script_operational_calendar', ['data' => $data])
+@include('scripts.script_operational_calendar', ['calendar_data' => $data])
