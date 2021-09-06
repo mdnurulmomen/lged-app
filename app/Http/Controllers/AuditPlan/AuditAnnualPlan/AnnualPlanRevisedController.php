@@ -140,6 +140,11 @@ class AnnualPlanRevisedController extends Controller
         return view('modules.audit_plan.annual.annual_plan_revised.partials.load_annual_plan_submission_hr_modal', compact('officer_lists', 'plan_responsible_party_id'));
     }
 
+    public function b()
+    {
+        return view('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book');
+    }
+
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
