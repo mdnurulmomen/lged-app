@@ -82,10 +82,13 @@
 
         addSelectedRPAuditeeList: function (entity_info) {
             if ($('#selected_rp_auditee_' + entity_info.entity_id).length === 0) {
+                //console.log(entity_info);
 
                 var newRow = '<li id="selected_rp_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ' +
-                    'ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +
-                    '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '" onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
+                    'data-entity-id="' + entity_info.entity_id + '" data-entity-en="' + entity_info.entity_name_en + '" data-entity-bn="' + entity_info.entity_name_bn + '" ' +
+                    'data-controlling-office-id="' + entity_info.controlling_office_id + '" data-controlling-office-name-bn="' + entity_info.controlling_office_name_bn + '" ' +
+                    'data-controlling-office-name-en="' + entity_info.controlling_office_name_en + '" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +
+                    '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
                     '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_en +
                     '</li>';
 
@@ -108,6 +111,7 @@
         },
 
         removeSelectedRPAuditee: function (entity_id) {
+            //console.log(entity_id)
             $('#selected_rp_auditee_' + entity_id).remove();
         },
 

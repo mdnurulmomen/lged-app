@@ -37,7 +37,16 @@
     </div>
 
     <div class="col-7">
-        <div class="form-row pt-10">
+        <div class="row">
+            <div class="offset-6 col-md-6 text-right p-2">
+                <button class="btn btn-sm btn-square btn-primary btn-hover-success"
+                        onclick="">Save <i class="fas fa-save"></i>
+                </button>
+            </div>
+        </div>
+
+
+        <div class="form-row">
             <div class="col-md-6">
                 <label for="total_unit">প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা</label>
                 <input class="form-control" type="text" id="total_unit" name="total_unit">
@@ -65,7 +74,7 @@
                     <div class="col-md-4">
                         <label>পদবি</label>
                         <select class="form-control" name="" id="">
-                            <option value="">--পপদবি--</option>
+                            <option value="">--সিলেক্ট--</option>
                             <option value="">Layer 1</option>
                             <option value="">Layer 2</option>
                             <option value="">Layer 3</option>
@@ -74,7 +83,7 @@
                     <div class="col-md-4">
                         <label>দায়িত্ব</label>
                         <select class="form-control" name="" id="">
-                            <option value="">--দায়িত্ব--</option>
+                            <option value="">--সিলেক্ট--</option>
                             <option value="">Layer 1</option>
                             <option value="">Layer 2</option>
                             <option value="">Layer 3</option>
@@ -85,7 +94,7 @@
                         <input class="form-control" type="text">
                     </div>
                     <div class="col-md-2 mt-8">
-                        <button onclick="Annual_Plan_Container.addTeamSection($(this))" class="btn btn-primary"><i
+                        <button onclick="Annual_Plan_Container.addTeamSection($(this))" class="btn btn-sm btn-primary"><i
                                 class="fa fa-plus"></i></button>
                     </div>
                 </div>

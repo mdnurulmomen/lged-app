@@ -13,10 +13,13 @@
         'ministry_id' => $ministry['id'],
         'ministry_name_en' => $ministry['name_en'],
         'ministry_name_bn' => $ministry['name_bn'],
+        'controlling_office_id' => $rp_office['controlling_office'] == null?"":$rp_office['controlling_office']['id'],
+        'controlling_office_name_bn' => $rp_office['controlling_office'] == null?"":$rp_office['controlling_office']['office_name_bn'],
+        'controlling_office_name_en' => $rp_office['controlling_office'] == null?"":$rp_office['controlling_office']['office_name_en'],
         ])}}" data-jstree='{ "opened" : true }'>
                             {{$rp_office['office_name_en']}}
                             @if(count($rp_office['child']) > 0)
-                                @include('modules.audit_plan.annual.annual_plan.partials.load_rp_auditee_offices_child', ['rp_offices' => $rp_office['child']])
+                                @include('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices_child', ['rp_offices' => $rp_office['child']])
                             @endif
                         </li>
                     @endforeach
@@ -42,7 +45,15 @@
     })
 
     $('.rp_auditee_offices').on('select_node.jstree', function (e, data) {
-        if (data.node.children.length === 0) {
+        var entity_info = $('#' + data.node.id).data('entity-info');
+        console.log(entity_info)
+        Annual_Plan_Container.addSelectedRPAuditeeList(entity_info);
+
+        data.node.children.map(child => {
+            var entity_info = $('#' + child).data('entity-info')
+            Annual_Plan_Container.addSelectedRPAuditeeList(entity_info)
+        })
+        /*if (data.node.children.length === 0) {
             var entity_info = $('#' + data.node.id).data('entity-info')
             Annual_Plan_Container.addSelectedRPAuditeeList(entity_info)
         } else {
@@ -50,17 +61,23 @@
                 var entity_info = $('#' + child).data('entity-info')
                 Annual_Plan_Container.addSelectedRPAuditeeList(entity_info)
             })
-        }
-        $('#save_selected_entities_btn').removeClass('d-none');
+        }*/
     }).on('deselect_node.jstree', function (e, data) {
-        if (data.node.children.length === 0) {
-            var entity_info = $('#' + data.node.id).data('entity-info')
-            $("#selected_rp_auditee_form #btn_remove_auditee_" + entity_info.entity_id).click();
+        var entity_info = $('#' + data.node.id).data('entity-info');
+        Annual_Plan_Container.removeSelectedRPAuditee(entity_info.entity_id);
+        data.node.children.map(child => {
+            var entity_info = $('#' + child).data('entity-info');
+            Annual_Plan_Container.removeSelectedRPAuditee(entity_info.entity_id);
+        })
+
+        /*if (data.node.children.length === 0) {
+            var entity_info = $('#' + data.node.id).data('entity-info');
+            Annual_Plan_Container.removeSelectedRPAuditee(entity_info.entity_id);
         } else {
             data.node.children.map(child => {
-                var entity_info = $('#' + child).data('entity-info')
-                $("#selected_rp_auditee_form #btn_remove_auditee_" + entity_info.entity_id).click();
+                var entity_info = $('#' + child).data('entity-info');
+                Annual_Plan_Container.removeSelectedRPAuditee(entity_info.entity_id);
             })
-        }
+        }*/
     });
 </script>

@@ -222,7 +222,7 @@ class AnnualPlanRevisedController extends Controller
             'office_layer_id' => $layer_id,
         ];
         $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-rp-office-ministry-and-layer-wise'), $data)->json();
-
+        //dd($rp_offices);
         if (isSuccess($rp_offices)) {
             $rp_offices = $rp_offices['data'];
             return view('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices', compact('rp_offices', 'ministry'));
