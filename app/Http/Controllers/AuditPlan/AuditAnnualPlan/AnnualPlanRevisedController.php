@@ -90,7 +90,7 @@ class AnnualPlanRevisedController extends Controller
                 $party_ids[] = $entity['party_id'];
             }
             $party_ids = $party_ids ? json_encode($party_ids) : json_encode([]);
-            return view('modules.audit_plan.annual.annual_plan.partials.load_selected_auditee_entities', compact('entities', 'party_ids'));
+            return view('modules.audit_plan.annual.annual_plan_revised.partials.load_selected_auditee_entities', compact('entities', 'party_ids'));
         } else {
             return response()->json(['status' => 'error', 'data' => $entities]);
         }
@@ -137,7 +137,7 @@ class AnnualPlanRevisedController extends Controller
         $plan_responsible_party_id = $request->plan_responsible_party_id;
         $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
 
-        return view('modules.audit_plan.annual.annual_plan.partials.load_annual_plan_submission_hr_modal', compact('officer_lists', 'plan_responsible_party_id'));
+        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_annual_plan_submission_hr_modal', compact('officer_lists', 'plan_responsible_party_id'));
     }
 
     /**
@@ -225,7 +225,7 @@ class AnnualPlanRevisedController extends Controller
 
         if (isSuccess($rp_offices)) {
             $rp_offices = $rp_offices['data'];
-            return view('modules.audit_plan.annual.annual_plan.partials.load_rp_auditee_offices', compact('rp_offices', 'ministry'));
+            return view('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices', compact('rp_offices', 'ministry'));
         } else {
             return response()->json(['status' => 'error', 'data' => $rp_offices]);
         }
