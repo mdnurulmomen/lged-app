@@ -2,7 +2,7 @@
     <div class="col-md-4">
         <label for="designation">পদবি</label>
         <select class="form-control select-select2 designation_{{$count}}" name="designation[]">
-            <option value="">--পদবি--</option>
+            <option value="">--বাছাই করুন--</option>
             @foreach($designations as $designation)
                 <option value="{{$designation['designation_eng']}}|{{$designation['designation_bng']}}">
                     {{$designation['designation_bng']}}
@@ -13,7 +13,7 @@
     <div class="col-md-4">
         <label for="responsibility">দায়িত্ব</label>
         <select class="form-control select-select2 responsibility_{{$count}}" name="responsibility">
-            <option value="">--দায়িত্ব--</option>
+            <option value="">--বাছাই করুন--</option>
             <option value="Team Leader|দলনেতা">দলনেতা</option>
             <option value="Sub Team Leader|উপদলনেতা">উপদলনেতা</option>
             <option value="Member|সদস্য">সদস্য</option>

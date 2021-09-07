@@ -286,7 +286,6 @@ class AnnualPlanRevisedController extends Controller
 
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
 
-
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
             $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos], [], ['orientation' => 'L', 'format' => 'A4']);

@@ -74,9 +74,9 @@
                         <p>Team Section</p>
                     </div>
                     <div class="col-md-6 text-right">
-                        Add Team<span onclick="Annual_Plan_Container.addTeamSection($(this))"
-                                      class="btn btn-icon btn-outline-success border-0 btn-xs mr-2"><i
-                                class="fa fa-plus"></i></span>
+                        <span onclick="Annual_Plan_Container.addTeamSection($(this))"
+                                      class="btn btn-outline-primary btn-square mr-2"><i
+                                class="fa fa-plus"></i> Add Team</span>
                     </div>
                 </div>
                 <div class="team-section">

@@ -883,12 +883,12 @@
                                     width="10%">{{$annual_plans['controlling_office_bn']}}</td>
                                 <td class="bangla-font" width="10%">{{$annual_plans['office_type']}}</td>
                                 <td class="bangla-font" style="text-align: center"
-                                    width="10%">{{$annual_plans['total_unit_no']}}</td>
+                                    width="10%">{{enTobn($annual_plans['total_unit_no'])}}</td>
                                 <td class="bangla-font" width="20%">
                                     @foreach(json_decode($annual_plans['nominated_offices'],true) as $office)
                                         {{enTobn($loop->iteration)}}| {{$office['office_name_bn']}} <br>
                                     @endforeach
-                                    <span style="float: right;font-weight: bold">মোট {{enTobn($annual_plans['nominated_office_counts'])}}টি ইউনিট</span>
+                                    <span style="float: right!important;font-weight: bold">মোট {{enTobn($annual_plans['nominated_office_counts'])}}টি ইউনিট</span>
                                 </td>
                                 <td class="bangla-font" style="text-align: center"
                                     width="10%">{{$annual_plans['subject_matter']}}</td>
