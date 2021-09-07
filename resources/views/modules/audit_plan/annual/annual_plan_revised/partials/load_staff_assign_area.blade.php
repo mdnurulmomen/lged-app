@@ -1,7 +1,7 @@
 <div class="form-row pt-4" id="team_section_{{$count}}">
     <div class="col-md-4">
         <label for="designation">পদবি</label>
-        <select class="form-control select-select2 designation" name="designation[]">
+        <select class="form-control select-select2 designation_{{$count}}" name="designation[]">
             <option value="">--পদবি--</option>
             @foreach($designations as $designation)
                 <option value="{{$designation['designation_eng']}}|{{$designation['designation_bng']}}">
@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-4">
         <label for="responsibility">দায়িত্ব</label>
-        <select class="form-control select-select2 responsibility" name="responsibility">
+        <select class="form-control select-select2 responsibility_{{$count}}" name="responsibility">
             <option value="">--দায়িত্ব--</option>
             <option value="Team Leader|দলনেতা">দলনেতা</option>
             <option value="Sub Team Leader|উপদলনেতা">উপদলনেতা</option>
@@ -32,17 +32,17 @@
 
 <script>
 
-    $('.designation').on('change', function () {
+    $('.designation_{{$count}}').on('change', function () {
         designation = $(this).val();
-        responsibility = $(".responsibility").val();
+        responsibility = $(".responsibility_{{$count}}").val();
         staff = parseInt($('.staff_{{$count}}').val());
         staff = isNaN(staff) ? 0 : staff;
         val = designation + '_' + responsibility + '_' + staff;
         $('.staff_info_{{$count}}').val(val)
     })
 
-    $('.responsibility').on('change', function () {
-        designation = $(".designation").val();
+    $('.responsibility_{{$count}}').on('change', function () {
+        designation = $(".designation_{{$count}}").val();
         responsibility = $(this).val();
         staff = parseInt($('.staff_{{$count}}').val());
         staff = isNaN(staff) ? 0 : staff;
@@ -51,8 +51,8 @@
     })
 
     $('.staff_{{$count}}').on('change', function () {
-        designation = $(".designation").val();
-        responsibility = $(".responsibility").val();
+        designation = $(".designation_{{$count}}").val();
+        responsibility = $(".responsibility_{{$count}}").val();
         staff = parseInt($(this).val());
         staff = isNaN(staff) ? 0 : staff;
         val = designation + '_' + responsibility + '_' + staff;

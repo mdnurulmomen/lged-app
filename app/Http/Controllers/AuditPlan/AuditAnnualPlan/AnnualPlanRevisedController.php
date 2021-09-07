@@ -24,7 +24,7 @@ class AnnualPlanRevisedController extends Controller
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk());
 
-        $annual_plans = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_yearly_plan_lists'), $data)->json();
+        $annual_plans = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_lists'), $data)->json();
         $fiscal_year_id = $request->fiscal_year_id;
         $fiscal_year = $request->fiscal_year;
 
@@ -72,13 +72,12 @@ class AnnualPlanRevisedController extends Controller
         if (isSuccess($responseData)) {
             $data['designations'] = $responseData['data']['designations'];
             $data['count'] = $request->count;
-        }
-        else {
+        } else {
             $data['designations'] = [];
             $data['count'] = $request->count;
         }
 
-        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_staff_assign_area',$data);
+        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_staff_assign_area', $data);
 
         /*$designations = [
             [
@@ -110,18 +109,19 @@ class AnnualPlanRevisedController extends Controller
 
     public function storeAnnualPlanInfo(Request $request)
     {
-//        Validator::make($request->all(), [
-//            'activity_id' => 'required|integer',
-//            'schedule_id' => 'required|integer',
-//            'milestone_id' => 'required|integer',
-//            'fiscal_year_id' => 'required|integer',
-//            'ministry_info' => 'required',
-//            'controlling_office' => 'required',
-//            'selected_entity' => 'required',
-//            'subject_matter' => 'required|string',
-//            'total_unit_no' => 'required|string',
-//            'staff_comment' => 'sometimes',
-//        ])->validate();
+        Validator::make($request->all(), [
+            'activity_id' => 'required|integer',
+            'schedule_id' => 'required|integer',
+            'milestone_id' => 'required|integer',
+            'fiscal_year_id' => 'required|integer',
+            'ministry_info' => 'required',
+            'controlling_office' => 'required',
+            'selected_entity' => 'required',
+            'subject_matter' => 'required|string',
+            'total_unit_no' => 'required|string',
+            'staff_comment' => 'sometimes',
+            'staff_info' => 'sometimes',
+        ])->validate();
 
         $data = [
             'cdesk' => json_encode($this->current_desk()),
@@ -158,25 +158,29 @@ class AnnualPlanRevisedController extends Controller
         }
 
         $staff_infos = $request->staff_info;
-
-        $staffs = [[
-            "staff" => 1,
-            "desingation_en" => "upoporicalk",
-            "desingation_bn" => "upoporicalk",
-            "responsibility_en" => "shodossho",
-            "responsibility_bn" => "shodhossho",
-        ], [
-            "staff" => 1,
-            "desingation_en" => "upoporicalk",
-            "desingation_bn" => "upoporicalk",
-            "responsibility_en" => "shodossho",
-            "responsibility_bn" => "shodhossho",
-        ]];
-
+        $staffs = [];
+        $total_man_power = 0;
+        if (is_array($staff_infos)) {
+            foreach ($staff_infos as $staff_info) {
+                dump($staff_info);
+                $staff_info_arr = explode('_', $staff_info);
+                $designation = $staff_info_arr[0];
+                $responsibility = $staff_info_arr[1];
+                $staff = $staff_info_arr[2];
+                $total_man_power = $total_man_power + $staff;
+                $staffs[] = [
+                    "staff" => $staff,
+                    "designation_en" => explode('|', $designation)[0],
+                    "designation_bn" => explode('|', $designation)[1],
+                    "responsibility_en" => explode('|', $responsibility)[0],
+                    "responsibility_bn" => explode('|', $responsibility)[1],
+                ];
+            }
+        }
 
         $nominated_man_powers = [
-            'comment' => $request->staff_comment,
-            'total_man_power' => 10,
+            'comment' => $request->staff_comment ?? '',
+            'nominated_man_power_counts' => $total_man_power,
             'staffs' => $staffs,
         ];
 
@@ -184,10 +188,15 @@ class AnnualPlanRevisedController extends Controller
         $data['controlling_office'] = json_encode($controlling_office);
         $data['nominated_offices'] = json_encode($nominated_offices);
         $data['nominated_man_powers'] = json_encode($nominated_man_powers);
-        $data['nominated_man_power_counts'] = 10;
+        $data['nominated_man_power_counts'] = $total_man_power;
 
-        dd($request->all());
+        $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
 
+        if (isSuccess($store_plan)) {
+            return response()->json(['status' => 'success', 'data' => 'Added!']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $store_plan]);
+        }
     }
 
     /**
@@ -202,7 +211,7 @@ class AnnualPlanRevisedController extends Controller
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk());
 
-        $entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_yearly_plan_selected_rp_lists'), $data)->json();
+        $entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_selected_rp_lists'), $data)->json();
         if (isSuccess($entities)) {
             $entities = $entities['data'];
             $party_ids = [];
@@ -244,7 +253,7 @@ class AnnualPlanRevisedController extends Controller
         $data['selected_entities'] = json_encode($selected_entities_data, true);
         unset($data['selected_entity']);
 
-        $entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_yearly_plan_selected_rp_store'), $data)->json();
+        $entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_selected_rp_store'), $data)->json();
         if (isSuccess($entities)) {
             return response()->json(['status' => 'success', 'data' => 'Added!']);
         } else {
@@ -324,7 +333,7 @@ class AnnualPlanRevisedController extends Controller
             'cdesk' => json_encode($this->current_desk()),
         ];
 
-        $assign = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_yearly_plan_submission'), $data)->json();
+        $assign = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
 
         if (isSuccess($assign)) {
             return response()->json(['status' => 'success', 'data' => 'Submission Successful!']);
@@ -367,7 +376,7 @@ class AnnualPlanRevisedController extends Controller
 
         $data['cdesk'] = json_encode($this->current_desk());
 
-        $submit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.ap_submit_plan_to_ocag'), $data)->json();
+        $submit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_submit_plan_to_ocag'), $data)->json();
 
         if (isSuccess($submit_plan)) {
             return response()->json(['status' => 'success', 'data' => 'Submission Successful!']);

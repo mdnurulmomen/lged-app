@@ -188,8 +188,9 @@
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)
-                } else {
                     console.log(response)
+                } else {
+                    toastr.success(response.data);
                 }
             })
         },

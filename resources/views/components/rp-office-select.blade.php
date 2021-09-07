@@ -34,6 +34,7 @@
         ministry_name_bn = $(this).find(':selected').data('ministry-bn')
         $('#ministry_name_en').val(ministry_name_en)
         $('#ministry_name_bn').val(ministry_name_bn)
+        $("#office_layer_id").html('');
         loadLayer(ministry_id);
         $('#office_layer_id').show();
     });
