@@ -62,7 +62,25 @@ class AnnualPlanRevisedController extends Controller
 
     public function showStaffAssignList(Request $request)
     {
-        $designations = [
+        //dd($this->current_office_id());
+        $responseData = $this->initDoptorHttp()
+            ->post(config('cag_doptor_api.office_wise_designation'),
+                ['office_ids' => $this->current_office_id()])->json();
+
+        //dd($responseData);
+
+        if (isSuccess($responseData)) {
+            $data['designations'] = $responseData['data']['designations'];
+            $data['count'] = $request->count;
+        }
+        else {
+            $data['designations'] = [];
+            $data['count'] = $request->count;
+        }
+
+        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_staff_assign_area',$data);
+
+        /*$designations = [
             [
                 "designation_eng" => "ADCAG",
                 "designation_bng" => "এডিসিএজি",
@@ -73,7 +91,8 @@ class AnnualPlanRevisedController extends Controller
             ],
         ];
         $count = $request->count;
-        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_staff_assign_area', compact('designations', 'count'));
+        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_staff_assign_area',
+            compact('designations', 'count'));*/
     }
 
 

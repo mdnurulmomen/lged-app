@@ -4,8 +4,9 @@
         <select class="form-control select-select2 designation" name="designation[]">
             <option value="">--পদবি--</option>
             @foreach($designations as $designation)
-                <option
-                    value="{{$designation['designation_eng']}}|{{$designation['designation_bng']}}">{{$designation['designation_bng']}}</option>
+                <option value="{{$designation['designation_eng']}}|{{$designation['designation_bng']}}">
+                    {{$designation['designation_bng']}}
+                </option>
             @endforeach
         </select>
     </div>
