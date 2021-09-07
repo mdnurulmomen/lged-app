@@ -9,7 +9,7 @@
            data-milestone-id="{{$milestone_id}}"
            class="btn btn-success btn-sm btn-bold btn-square btn_create"
            href="javascript:;">
-            <i class="far fa-plus mr-1"></i> Make Plan
+            <i class="far fa-plus mr-1"></i> Add Responsible Party
         </a>
     </div>
 </div>

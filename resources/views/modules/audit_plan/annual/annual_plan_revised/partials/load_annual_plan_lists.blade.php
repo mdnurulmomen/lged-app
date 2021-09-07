@@ -43,7 +43,7 @@
                                 data-activity-title="{{$plan['activity_title_en']}}"
                                 data-fiscal-year-id="{{$fiscal_year_id}}"
                                 data-fiscal-year="{{$fiscal_year}}"
-                                onclick="Annual_Plan_Container.loadEntitySelection($(this))">Annual Plan
+                                onclick="Annual_Plan_Container.loadEntitySelection($(this))">Plan
                         </button>
                     </td>
                 </tr>
@@ -62,7 +62,8 @@
                 data-fiscal-year-id="{{$fiscal_year_id}}"
                 onclick="Annual_Plan_Container.submitToOCAG($(this))">Submit to OCAG
         </button>
-        <button data-fiscal-year-id="{{$fiscal_year_id}}" onclick="Annual_Plan_Container.printAnnualPlan($(this))" class="btn btn-success btn-square mr-2">Print
+        <button data-fiscal-year-id="{{$fiscal_year_id}}" onclick="Annual_Plan_Container.printAnnualPlan($(this))"
+                class="btn btn-success btn-square mr-2">Print
             <i class="fad fa-file-pdf"></i></button>
     @endif
 </div>
