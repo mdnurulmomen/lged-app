@@ -237,11 +237,17 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/', [\App\Http\Controllers\AuditPlan\AuditPlanController::class, 'index'])->name('index');
             Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditPlanController::class, 'showAuditPlanDashboard'])->name('dashboard');
 
-            Route::get('/plans', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'index'])->name('plan.all');
-            Route::post('/load-auditable-plan-lists', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'showAuditablePlanLists'])->name('plan.load-all-lists');
-            Route::post('/make-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'create'])->name('plan.make-entity-audit-plan');
-            Route::post('/save-draft-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'saveDraftEntityAuditPlan'])->name('plan.save-draft-entity-audit-plan');
-            Route::post('/generate-audit-plan-pdf', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'generatePlanPDF'])->name('plan.generate-audit-plan-pdf');
+//            Route::get('/plans', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'index'])->name('plan.all');
+//            Route::post('/load-auditable-plan-lists', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'showAuditablePlanLists'])->name('plan.load-all-lists');
+//            Route::post('/make-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'create'])->name('plan.make-entity-audit-plan');
+//            Route::post('/save-draft-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'saveDraftEntityAuditPlan'])->name('plan.save-draft-entity-audit-plan');
+//            Route::post('/generate-audit-plan-pdf', [\App\Http\Controllers\AuditPlan\Plan\PlanController::class, 'generatePlanPDF'])->name('plan.generate-audit-plan-pdf');
+
+            Route::get('/plans', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'index'])->name('revised.plan.all');
+            Route::post('/load-auditable-plan-lists', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'showAuditablePlanLists'])->name('revised.plan.load-all-lists');
+            Route::post('/make-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'create'])->name('revised.plan.make-entity-audit-plan');
+            Route::post('/save-draft-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'saveDraftEntityAuditPlan'])->name('revised.plan.save-draft-entity-audit-plan');
+            Route::post('/generate-audit-plan-pdf', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'generatePlanPDF'])->name('revised.plan.generate-audit-plan-pdf');
 
             Route::get('/office-orders', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'index'])->name('office-orders.index');
             Route::post('/load-office-orders', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'showOfficeOrderLists'])->name('office-orders.load-all');
