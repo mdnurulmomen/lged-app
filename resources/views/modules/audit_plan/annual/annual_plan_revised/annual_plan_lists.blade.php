@@ -194,6 +194,33 @@
                 }
             })
         },
+
+        printAnnualPlan: function (elem) {
+            url = '{{route('audit.plan.annual.plan.revised.book')}}';
+            fiscal_year_id = elem.data('fiscal-year-id');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {fiscal_year_id},
+                xhrFields: {
+                    responseType: 'blob'
+                },
+
+                success: function (response) {
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "annual_plan.pdf";
+                    link.click();
+                },
+
+                error: function (blob) {
+                    toastr.error('Failed to generate PDF.')
+                    console.log(blob);
+                }
+
+            });
+        },
     };
 
     $('#select_fiscal_year_annual_plan').change(function () {

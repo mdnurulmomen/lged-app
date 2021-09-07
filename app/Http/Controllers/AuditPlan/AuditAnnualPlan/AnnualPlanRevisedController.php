@@ -63,7 +63,7 @@ class AnnualPlanRevisedController extends Controller
         $activity_title = $request->activity_title;
 
         return view('modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection',
-            compact('plan_list','activity_id', 'schedule_id', 'milestone_id', 'fiscal_year',
+            compact('plan_list', 'activity_id', 'schedule_id', 'milestone_id', 'fiscal_year',
                 'fiscal_year_id', 'activity_title'));
 
     }
@@ -277,9 +277,24 @@ class AnnualPlanRevisedController extends Controller
         return view('modules.audit_plan.annual.annual_plan_revised.partials.load_annual_plan_submission_hr_modal', compact('officer_lists', 'plan_responsible_party_id'));
     }
 
-    public function b()
+    public function exportAnnualPlanBook(Request $request)
     {
-        return view('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book');
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk());
+
+        $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
+
+
+        if (isSuccess($plan_infos)) {
+            $plan_infos = $plan_infos['data'];
+            $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos], [], ['orientation' => 'L', 'format' => 'A4']);
+
+            return $pdf->stream('annual_plan.pdf');
+        } else {
+            return response()->json(['status' => 'error', 'data' => $plan_infos]);
+        }
     }
 
     /**

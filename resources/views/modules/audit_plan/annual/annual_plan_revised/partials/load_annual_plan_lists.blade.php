@@ -62,5 +62,7 @@
                 data-fiscal-year-id="{{$fiscal_year_id}}"
                 onclick="Annual_Plan_Container.submitToOCAG($(this))">Submit to OCAG
         </button>
+        <button data-fiscal-year-id="{{$fiscal_year_id}}" onclick="Annual_Plan_Container.printAnnualPlan($(this))" class="btn btn-success btn-square mr-2">Print
+            <i class="fad fa-file-pdf"></i></button>
     @endif
 </div>

@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-{{--    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>--}}
+    {{--    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>--}}
     <style>
         html {
             -ms-text-size-adjust: 100%;
@@ -12,7 +12,11 @@
 
         body {
             margin: 0;
-            font-family: solaimanlipipdf;
+            font-family: solaimanlipipdf !important;
+        }
+
+        .bangla-font {
+            font-family: solaimanlipipdf !important;
         }
 
         article,
@@ -777,143 +781,131 @@
 
 <body>
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
-    <div class="pdf-screen" style="height: 100%">
-        <div style="text-align: center;font-size: 12px;margin-top: 5px">
-            বাণিজ্যিক অডিট অধিদপ্তর <br>
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        <div class="bangla-font" style="text-align: center;font-size: 12px;margin-top: 5px">
+            {{$plan_infos['office_info']['office_name_bn']}} <br>
             অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
             সেগুন বাগিচা, ঢাকা-১০০০।
         </div>
-        <div style="text-align: center;font-size: 15px;margin-top: 5px">
+        <div class="bangla-font" style="text-align: center;font-size: 15px;margin-top: 5px">
             <span>
                 <u>বার্ষিক অডিট পরিকল্পনা</u>
             </span>
             <br>
             <span style="margin-top: 5px">
-                অর্থ-বছরঃ ২০২১-২০২২
+                অর্থ-বছরঃ{{enTobn($plan_infos['fiscal_year']['start'])}}-{{enTobn($plan_infos['fiscal_year']['end'])}}
             </span>
         </div>
 
         <div style="text-align: center;font-size: 15px;margin-top: 5px">
-            সেক্টর-০২ঃ ১। শিল্প মন্ত্রণালয়, ২। বাণিজ্য মন্ত্রণালয়, ৩। বস্ত্র ও পাট মন্ত্রণালয় এবং ৪। বেসামরিক বিমান পরিবহণ ও পর্যটন মন্ত্রণালয়
-        </div>
-
-        <div>
-            <table style="width: 100%;margin-top: 10px" border="1px">
-                <tr>
-                    <td style="text-align: center" width="5%">ক্রম</td>
-                    <td style="text-align: center" width="20%">কার্যক্রম</td>
-                    <td style="text-align: center" width="60%">কমপ্লায়েন্স অডিটের বিভিন্ন পর্যায়</td>
-                    <td style="text-align: center" width="15%">নির্ধারিত সময়সীমা</td>
-                </tr>
-                <tr>
-                    <td style="text-align: center" rowspan="4">১।</td>
-                    <td style="text-align: center" rowspan="4">কমপ্লায়েন্স অডিট (প্রথম অর্ধ -বার্ষিক)</td>
-                    <td>অডিট এনগেইজমেন্ট প্ল্যান প্রণয়ন</td>
-                    <td style="text-align: center">৩১/০৮/২০২১</td>
-                </tr>
-                <tr>
-                    <td>প্রমাণক সংগ্রহের নিমিত্ত অডিট কার্যক্রম</td>
-                    <td style="text-align: center">৩১/১২/২০২১</td>
-                </tr>
-                <tr>
-                    <td>অডিট প্রতিবেদন প্রস্তুতকরণ এবং সিএজি কার্যালয়ে প্রেরণ</td>
-                    <td style="text-align: center">৩১/০১/২০২২</td>
-                </tr>
-                <tr>
-                    <td>নিরীক্ষা পরিদর্শন প্রতিবেদন (এআইআর) এর সংখ্যা</td>
-                    <td style="text-align: center">১১ (এগার)টি</td>
-                </tr>
-            </table>
+            সেক্টর-০২ঃ
+            @foreach($plan_infos['all_ministries'] as $ministry)
+                {{enTobn($loop->iteration)}} | {{$ministry['ministry_name_bn']}}
+            @endforeach
         </div>
     </div>
 
     {{--pdf screen 02--}}
-    <div class="pdf-screen" style="height: 100%;margin-top: 10px">
-        <div style="text-align: center;font-size: 12px;margin-top: 5px">
-            বাণিজ্যিক অডিট অধিদপ্তর <br>
-            অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
-            সেগুন বাগিচা, ঢাকা-১০০০।
+    @foreach($plan_infos['plan'] as $plan)
+        <div class="pdf-screen bangla-font" style="height: 100%;margin-top: 10px">
+            <div class="bangla-font">
+                <table class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px"
+                       border="1px">
+                    <tr class="bangla-font">
+                        <td class="bangla-font" style="text-align: center" width="5%">ক্রম</td>
+                        <td class="bangla-font" style="text-align: center" width="20%">কার্যক্রম</td>
+                        <td class="bangla-font" style="text-align: center" width="60%"> বিভিন্ন পর্যায়</td>
+                        <td class="bangla-font" style="text-align: center" width="15%">নির্ধারিত সময়সীমা</td>
+                    </tr>
+                    <tr class="bangla-font">
+                        <td class="bangla-font" style="text-align: center" rowspan="5">১।</td>
+                        <td class="bangla-font" style="text-align: center" rowspan="5">{{$plan['title_bn']}}</td>
+                    </tr>
+                    @foreach($plan['milestones'] as $milestone)
+                        <tr class="bangla-font">
+                            <td class="bangla-font">{{$milestone['title_bn']}}</td>
+                            <td class="bangla-font" style="text-align: center">৩১/০৮/২০২১</td>
+                        </tr>
+                    @endforeach
+                    <tr class="bangla-font">
+                        <td class="bangla-font">নিরীক্ষা পরিদর্শন প্রতিবেদন (এআইআর) এর সংখ্যা</td>
+                        <td class="bangla-font" style="text-align: center">১১ (এগার)টি</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="bangla-font" style="text-align: center;font-size: 12px;margin-top: 5px">
+                {{$plan_infos['office_info']['office_name_bn']}} <br>
+                অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
+                সেগুন বাগিচা, ঢাকা-১০০০।
+            </div>
+
+            <div class="bangla-font" style="text-align: center;font-size: 15px;margin-top: 5px">
+                বার্ষিক অডিট পরিকল্পনা(সেক্টর-০২)- অর্থ-বছরঃ{{enTobn($plan_infos['fiscal_year']['start'])}}
+                -{{enTobn($plan_infos['fiscal_year']['end'])}}ঃ
+                @foreach($plan['ministries'] as $ministry)
+                    {{enTobn($loop->iteration)}} | {{$ministry['ministry_name_bn']}}
+                @endforeach
+            </div>
+
+            <div class="bangla-font">
+                <table class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px"
+                       border="1px">
+                    <tr class="bangla-font">
+                        <td class="bangla-font" style="text-align: center" width="3%">ক্রঃনং</td>
+                        <td class="bangla-font" style="text-align: center" width="10%">মন্ত্রণালয়/ বিভাগ</td>
+                        <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের নাম</td>
+                        <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের ধরন</td>
+                        <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা
+                        </td>
+                        <td class="bangla-font" style="text-align: center" width="20%">অডিটের জন্য প্রস্তাবিত ইউনিটের
+                            নাম ও সংখ্যা
+                        </td>
+                        <td class="bangla-font" style="text-align: center" width="10%">Subject Matter</td>
+                        <td class="bangla-font" style="text-align: center" width="15%">প্রয়োজনীয় লোকবল</td>
+                        <td class="bangla-font" style="text-align: center" width="12%">মন্তব্য</td>
+                    </tr>
+                    <tr class="bangla-font">
+                        <td class="bangla-font" style="text-align: center" width="3%">০১</td>
+                        <td class="bangla-font" style="text-align: center" width="10%">০২</td>
+                        <td class="bangla-font" style="text-align: center" width="10%">০৩</td>
+                        <td class="bangla-font" style="text-align: center" width="10%">০৪</td>
+                        <td class="bangla-font" style="text-align: center" width="10%">০৫</td>
+                        <td class="bangla-font" style="text-align: center" width="20%">০৬</td>
+                        <td class="bangla-font" style="text-align: center" width="10%">০৭</td>
+                        <td class="bangla-font" style="text-align: center" width="15%">০৮</td>
+                        <td class="bangla-font" style="text-align: center" width="12%">০৯</td>
+                    </tr>
+                    @foreach($plan['annual_plans'] as $annual_plans)
+                        <tr class="bangla-font">
+                            <td class="bangla-font" style="text-align: center"
+                                width="3%">{{enTobn($loop->iteration)}}</td>
+                            <td class="bangla-font" width="10%">{{$annual_plans['ministry_name_bn']}}</td>
+                            <td class="bangla-font" style="text-align: center"
+                                width="10%">{{$annual_plans['controlling_office_bn']}}</td>
+                            <td class="bangla-font" width="10%">{{$annual_plans['office_type']}}</td>
+                            <td class="bangla-font" style="text-align: center"
+                                width="10%">{{$annual_plans['total_unit_no']}}</td>
+                            <td class="bangla-font" width="20%">
+                                @foreach(json_decode($annual_plans['nominated_offices'],true) as $office)
+                                    {{enTobn($loop->iteration)}}| {{$office['office_name_bn']}} <br>
+                                @endforeach
+                                <span style="float: right;font-weight: bold">মোট {{enTobn($annual_plans['nominated_office_counts'])}}টি ইউনিট</span>
+                            </td>
+                            <td class="bangla-font" style="text-align: center"
+                                width="10%">{{$annual_plans['subject_matter']}}</td>
+                            <td class="bangla-font" width="15%">
+                                @foreach(json_decode($annual_plans['nominated_man_powers'],true)['staffs'] as $man)
+                                    {{enTobn($loop->iteration)}}| {{$man['designation_bn'].', '.
+                                        $man['responsibility_bn'].' - '.enTobn($man['staff']).'জন'}} <br>
+                                @endforeach
+                            </td>
+                            <td class="bangla-font" width="12%">{{$annual_plans['comment']}}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
         </div>
-
-        <div style="text-align: center;font-size: 15px;margin-top: 5px">
-            বার্ষিক অডিট পরিকল্পনা(সেক্টর-০২)- ২০২১-২০২২ (প্রথম অর্ধ-বার্ষিক)ঃ ১। শিল্প মন্ত্রণালয়, ২। বাণিজ্য মন্ত্রণালয়, ৩। বস্ত্র ও পাট মন্ত্রণালয় এবং ৪। বেসামরিক বিমান পরিবহণ ও পর্যটন মন্ত্রণালয়
-        </div>
-
-        <div>
-            <table style="width: 100%;margin-top: 10px" border="1px">
-                <tr>
-                    <td style="text-align: center" width="3%">ক্রঃনং</td>
-                    <td style="text-align: center" width="10%">মন্ত্রণালয়/ বিভাগ</td>
-                    <td style="text-align: center" width="10%">প্রতিষ্ঠানের নাম</td>
-                    <td style="text-align: center" width="10%">প্রতিষ্ঠানের ধরন</td>
-                    <td style="text-align: center" width="10%">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা</td>
-                    <td style="text-align: center" width="20%">অডিটের জন্য প্রস্তাবিত ইউনিটের নাম ও সংখ্যা</td>
-                    <td style="text-align: center" width="10%">Subject Matter</td>
-                    <td style="text-align: center" width="15%">প্রয়োজনীয় লোকবল</td>
-                    <td style="text-align: center" width="12%">মন্তব্য</td>
-                </tr>
-                <tr>
-                    <td style="text-align: center" width="3%">০১</td>
-                    <td style="text-align: center" width="10%">০২</td>
-                    <td style="text-align: center" width="10%">০৩</td>
-                    <td style="text-align: center" width="10%">০৪</td>
-                    <td style="text-align: center" width="10%">০৫</td>
-                    <td style="text-align: center" width="20%">০৬</td>
-                    <td style="text-align: center" width="10%">০৭</td>
-                    <td style="text-align: center" width="15%">০৮</td>
-                    <td style="text-align: center" width="12%">০৯</td>
-                </tr>
-
-                <tr>
-                    <td style="text-align: center" width="3%">০১</td>
-                    <td width="10%">বাণিজ্য মন্ত্রণালয়</td>
-                    <td style="text-align: center" width="10%">বাণিজ্য মন্ত্রণালয় (সচিবালয়) এবং নিয়ন্ত্রণাধীন উন্নয়ন প্রকল্প</td>
-                    <td width="10%">Budgetary Central Government</td>
-                    <td style="text-align: center" width="10%">বাণিজ্য মন্ত্রণালয় (সচিবালয়) এবং নিয়ন্ত্রণাধীন ১টি উন্নয়ন প্রকল্পসহ ০২টি ইউনিট</td>
-                    <td width="20%">
-                        ০১। বাণিজ্য মন্ত্রণালয় (সচিবালয়) <br>
-                        ০২। নিয়ন্ত্রণাধীন উন্নয়ন প্রকল্প (ই-বাণিজ্য করবো, নিজের ব্যবসা গরবো) <br>
-                       <span style="float: right;font-weight: bold">
-                            মোট ০২টি ইউনিট
-                       </span>
-                    </td>
-                    <td style="text-align: center" width="10%">সার্বিক কার্যক্রম</td>
-                    <td width="15%">
-                        ১।উপপরিচালক, দলনেতা - ০১জন <br>
-                        ২।নিরীক্ষা ও হিসাব রক্ষণ কর্মকর্তা, উপদলনেতা - ০১ জন <br>
-                        ৩।এসএএস সুপার, সদস্য- ০১ জন <br>
-                        ৪।অডিটর, সদস্য - ০১জন,
-                    </td>
-                    <td width="12%">
-                        Budgetary Central Government হিসাবে নিরীক্ষার জন্য বিবেচনায় নেওয়া হয়েছে।
-                    </td>
-                </tr>
-
-
-                <tr>
-                    <td style="text-align: center" width="3%">০২</td>
-                    <td width="10%">বেসামরিক বিমান পরিবহণ ও পর্যটন মন্ত্রণালয়</td>
-                    <td style="text-align: center" width="10%">বেসামরিক বিমান পরিবহণ ও পর্যটন মন্ত্রণালয় (সচিবালয়)</td>
-                    <td width="10%">Budgetary Central Government</td>
-                    <td style="text-align: center" width="10%">বেসামরিক বিমান পরিবহণ ও পর্যটন মন্ত্রণালয় (সচিবালয়) ১টি ইউনিট</td>
-                    <td width="20%">
-                        ০১। বেসামরিক বিমান পরিবহণ ও পর্যটন মন্ত্রণালয় (সচিবালয়)
-                    </td>
-                    <td style="text-align: center" width="10%">সার্বিক কার্যক্রম</td>
-                    <td width="15%">
-                        ১।উপপরিচালক, দলনেতা - ০১জন <br>
-                        ২।নিরীক্ষা ও হিসাব রক্ষণ কর্মকর্তা, উপদলনেতা - ০১ জন <br>
-                        ৩।এসএএস সুপার, সদস্য- ০১ জন <br>
-                        ৪।অডিটর, সদস্য - ০১জন,
-                    </td>
-                    <td width="12%">
-                        Budgetary Central Government হিসাবে নিরীক্ষার জন্য বিবেচনায় নেওয়া হয়েছে।
-                    </td>
-                </tr>
-
-            </table>
-        </div>
-    </div>
+    @endforeach
 </div>
 </body>
 </html>
