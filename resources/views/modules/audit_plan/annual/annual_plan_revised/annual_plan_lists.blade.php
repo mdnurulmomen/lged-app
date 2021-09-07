@@ -37,8 +37,9 @@
             activity_id = elem.data('activity-id');
             milestone_id = elem.data('milestone-id');
             fiscal_year = elem.data('fiscal-year');
+            fiscal_year_id = elem.data('fiscal-year-id');
             activity_title = elem.data('activity-title');
-            data = {schedule_id, activity_id, milestone_id, fiscal_year, activity_title}
+            data = {schedule_id, activity_id, milestone_id, fiscal_year, activity_title, fiscal_year_id}
             let url = '{{route('audit.plan.annual.plan.list.show.revised.entity-selection')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
@@ -53,8 +54,9 @@
             schedule_id = elem.data('schedule-id');
             activity_id = elem.data('activity-id');
             milestone_id = elem.data('milestone-id');
+            fiscal_year_id = elem.data('fiscal-year-id');
             activity_title = elem.data('activity-title');
-            data = {schedule_id, activity_id, milestone_id, activity_title}
+            data = {schedule_id, activity_id, milestone_id, activity_title, fiscal_year_id}
 
             let url = '{{route('audit.plan.annual.plan.list.show.revised.crate_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -82,7 +84,7 @@
 
         addSelectedRPAuditeeList: function (entity_info) {
             if ($('#selected_rp_auditee_' + entity_info.entity_id).length === 0) {
-                //console.log(entity_info);
+                // console.log(entity_info);
 
                 var newRow = '<li id="selected_rp_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ' +
                     'data-entity-id="' + entity_info.entity_id + '" data-entity-en="' + entity_info.entity_name_en + '" data-entity-bn="' + entity_info.entity_name_bn + '" ' +
@@ -90,67 +92,39 @@
                     'data-controlling-office-name-en="' + entity_info.controlling_office_name_en + '" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +
                     '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
                     '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_en +
-                    '</li>';
-
-
-                // var newRow = '<tr id="selected_rp_auditee_' + entity_info.entity_id + '">' +
-                //     '<td width="2%">' +
-                //     '<input name="selected_entity[]" class="selected_entity" data-auditee-id="' + entity_info.entity_id + '" id="selected_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
-                //     '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '" onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fa fa-trash d-none"></i></span>' +
-                //     '</td>' +
-                //     '<td width="68%">' + entity_info.entity_name_en + '</td>' +
-                //     '<td width="5%">' + '' + '</td>' +
-                //     '<td width="15%">' + '' + '</td>' +
-                //     '<td width="5%">' + '' + '</td>' +
-                //     '<td width="5%"><button data-entity-id="' + entity_info.entity_id + '" type="button" class="btn btn-primary font-weight-bold btn-square d-none" onclick="Annual_Plan_Container.loadSubmissionHRModal($(this))">Plan</button></td>' +
-                //     '</tr>';
+                    '</li>' +
+                    '<input name="selected_entity[]" class="selected_entity" data-entity-id="' + entity_info.entity_id + '" id="selected_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
+                    '<input name="controlling_office[]" class="controlling_office" id="controlling_office_' + entity_info.controlling_office_id + '" type="hidden" value=""/>' +
+                    '<input name="ministry_info[]" class="ministry_info" id="ministry_info_' + entity_info.ministry_id + '" type="hidden" value=""/>';
 
                 $(".selected_rp_offices").prepend(newRow);
-                $(".selected_rp_offices").find('#selected_entity_' + entity_info.entity_id).val(JSON.stringify(entity_info));
+                selected_auditee = {
+                    'office_id': entity_info.entity_id,
+                    'office_name_en': entity_info.entity_name_en,
+                    'office_name_bn': entity_info.entity_name_bn,
+                };
+                controlling_office = {
+                    'controlling_office_id': entity_info.controlling_office_id,
+                    'controlling_office_name_en': entity_info.controlling_office_name_en,
+                    'controlling_office_name_bn': entity_info.controlling_office_name_bn,
+                    'entity_id': entity_info.entity_id,
+                };
+                ministry_info = {
+                    'ministry_id': entity_info.ministry_id,
+                    'ministry_name_en': entity_info.ministry_name_en,
+                    'ministry_name_bn': entity_info.ministry_name_bn,
+                    'entity_id': entity_info.entity_id,
+                }
+
+                $(".selected_rp_offices").find('#selected_entity_' + entity_info.entity_id).val(JSON.stringify(selected_auditee));
+                $(".selected_rp_offices").find('#controlling_office_' + entity_info.controlling_office_id).val(JSON.stringify(controlling_office));
+                $(".selected_rp_offices").find('#ministry_info_' + entity_info.ministry_id).val(JSON.stringify(ministry_info));
             }
         },
 
         removeSelectedRPAuditee: function (entity_id) {
-            //console.log(entity_id)
             $('#selected_rp_auditee_' + entity_id).remove();
         },
-
-        loadSelectedAuditeeEntities: function (annual_plan_data) {
-            {{--url = '{{route('audit.plan.annual.plan.list.show.revised.selected-entity')}}';--}}
-
-            {{--annualObj = {};--}}
-            {{--$.each(annual_plan_data, function () {--}}
-            {{--    annualObj[this.name] = this.value;--}}
-            {{--});--}}
-            {{--activity_id = annualObj.activity_id--}}
-            {{--milestone_id = annualObj.milestone_id--}}
-            {{--schedule_id = annualObj.schedule_id--}}
-
-            {{--ajaxCallAsyncCallbackAPI(url, {activity_id, milestone_id, schedule_id}, 'post', function (response) {--}}
-            {{--    if (response.status === 'error') {--}}
-            {{--        toastr.error(response.data)--}}
-            {{--    } else {--}}
-            {{--        $('#selected_auditee_entities_area').html(response)--}}
-            {{--    }--}}
-            {{--})--}}
-        },
-
-        addOfficerToAssignedList: function (officer_info) {
-            if ($('#selected_officer_to_assign_' + officer_info.designation_id).length === 0) {
-                var newRow = '<tr id="selected_officer_to_assign_' + officer_info.designation_id + '">' +
-                    '<td width="2%">' +
-                    '<input name="designation_to_assign[]" class="designation_to_assign" data-designation-id="' + officer_info.designation_id + '" id="designation_to_assign_' + officer_info.designation_id + '" type="hidden" value=""/>' +
-                    '<span id="btn_remove_officer_' + officer_info.designation_id + '" data-designation-id="' + officer_info.designation_id + '" onclick="Annual_Plan_Container.removeOfficerFromAssignedList(' + officer_info.designation_id + ')" style="cursor:pointer;color:red;"><i class="fa fa-trash"></i></span>' +
-                    '</td>' +
-                    '<td width="60%">' + officer_info.designation_bn + '</td>' +
-                    '<td width="30%">' + officer_info.officer_name_en + '</td>' +
-                    '<td width="10%">' + '<select name="designation_role[]" class="select-select2"><option value="member_' + officer_info.designation_id + '">Member</option><option value="leader_' + officer_info.designation_id + '" selected>Team Leader</option></select>' + ' </td>' +
-                    '</tr>';
-                $(".assigned_officers_table tbody").prepend(newRow);
-                $(".assigned_officers_table tbody").find('#designation_to_assign_' + officer_info.designation_id).val(JSON.stringify(officer_info));
-            }
-        },
-
 
         jsTreeInit: function (className) {
             $(`.${className}`).jstree({
@@ -172,20 +146,6 @@
             $(`.${className}`).jstree("open_all");
         },
 
-        submitSelectedEntities: function () {
-            {{--url = '{{route('audit.plan.annual.plan.list.store.selected-entity')}}';--}}
-            {{--data = $('#selected_rp_auditee_form, #annual_plan_core_data_form').serialize();--}}
-
-            {{--ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {--}}
-            {{--    if (response.status === 'success') {--}}
-            {{--        toastr.success(response.data);--}}
-            {{--        Annual_Plan_Container.loadSelectedAuditeeEntities($('#annual_plan_core_data_form').serializeArray())--}}
-            {{--    } else {--}}
-            {{--        toastr.error(response.data)--}}
-            {{--    }--}}
-            {{--})--}}
-        },
-
         submitToOCAG: function (elem) {
             url = '{{route('audit.plan.annual.plan.list.submit.revised.plan-to-ocag')}}';
             fiscal_year_id = elem.data('fiscal-year-id');
@@ -200,39 +160,38 @@
         },
 
         addTeamSection: function (elem) {
-            $('.team-section').append(
-                `<div class="form-row pt-4">
-                    <div class="col-md-4">
-                        <label>পদবি</label>
-                        <select class="form-control" name="" id="">
-                            <option value="">--পপদবি--</option>
-                            <option value="">Layer 1</option>
-                            <option value="">Layer 2</option>
-                            <option value="">Layer 3</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label>দায়িত্ব</label>
-                        <select class="form-control" name="" id="">
-                            <option value="">--দায়িত্ব--</option>
-                            <option value="">Layer 1</option>
-                            <option value="">Layer 2</option>
-                            <option value="">Layer 3</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label>জন</label>
-                        <input class="form-control" type="text">
-                    </div>
-                    <div class="col-md-2 mt-8">
-                        <button onclick="Annual_Plan_Container.removeTeamSection($(this))" class="btn btn-danger"><i class="fa fa-minus"></i></button>
-                    </div>
-                </div>`
-            );
+            url = '{{route('audit.plan.annual.plan.revised.list.staff')}}';
+            sec = $("[id^=team_section_]").last().attr("id");
+            sec_count = 0;
+            if (sec) {
+                sec_count = parseInt(sec.split('_').pop())
+            } else {
+                sec_count = 0;
+            }
+            count = parseInt(sec_count) + 1;
+            ajaxCallAsyncCallbackAPI(url, {count}, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('.team-section').append(response);
+                }
+            })
         },
 
         removeTeamSection: function (elem) {
             elem.parent().parent().remove();
+        },
+
+        submitAnnualPlan: function (elem) {
+            url = '{{route('audit.plan.annual.plan.revised.store')}}';
+            data = $('#annual_plan_form').serialize();
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    console.log(response)
+                }
+            })
         },
     };
 

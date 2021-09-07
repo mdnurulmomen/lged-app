@@ -34,7 +34,6 @@ class AnnualPlanRevisedController extends Controller
         } else {
             return response()->json(['status' => 'error', 'data' => $annual_plans]);
         }
-
     }
 
     /**
@@ -46,6 +45,7 @@ class AnnualPlanRevisedController extends Controller
             'activity_id' => 'required|integer',
             'schedule_id' => 'required|integer',
             'milestone_id' => 'required|integer',
+            'fiscal_year_id' => 'required|integer',
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk());
 
@@ -53,11 +53,29 @@ class AnnualPlanRevisedController extends Controller
         $schedule_id = $request->schedule_id;
         $milestone_id = $request->milestone_id;
         $fiscal_year = $request->fiscal_year;
+        $fiscal_year_id = $request->fiscal_year_id;
         $activity_title = $request->activity_title;
 
-        return view('modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection', compact('activity_id', 'schedule_id', 'milestone_id', 'fiscal_year', 'activity_title'));
+        return view('modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection', compact('activity_id', 'schedule_id', 'milestone_id', 'fiscal_year', 'fiscal_year_id', 'activity_title'));
 
     }
+
+    public function showStaffAssignList(Request $request)
+    {
+        $designations = [
+            [
+                "designation_eng" => "ADCAG",
+                "designation_bng" => "এডিসিএজি",
+            ],
+            [
+                "designation_eng" => "A&AO",
+                "designation_bng" => "এএন্ডএও",
+            ],
+        ];
+        $count = $request->count;
+        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_staff_assign_area', compact('designations', 'count'));
+    }
+
 
     public function addAnnualPlanInfo(Request $request)
     {
@@ -65,9 +83,92 @@ class AnnualPlanRevisedController extends Controller
             'activity_id' => 'required|integer',
             'schedule_id' => 'required|integer',
             'milestone_id' => 'required|integer',
+            'fiscal_year_id' => 'required|integer',
         ])->validate();
 
         return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info')->with($data);
+    }
+
+    public function storeAnnualPlanInfo(Request $request)
+    {
+//        Validator::make($request->all(), [
+//            'activity_id' => 'required|integer',
+//            'schedule_id' => 'required|integer',
+//            'milestone_id' => 'required|integer',
+//            'fiscal_year_id' => 'required|integer',
+//            'ministry_info' => 'required',
+//            'controlling_office' => 'required',
+//            'selected_entity' => 'required',
+//            'subject_matter' => 'required|string',
+//            'total_unit_no' => 'required|string',
+//            'staff_comment' => 'sometimes',
+//        ])->validate();
+
+        $data = [
+            'cdesk' => json_encode($this->current_desk()),
+            'activity_id' => $request->activity_id,
+            'schedule_id' => $request->schedule_id,
+            'fiscal_year_id' => $request->fiscal_year_id,
+            'milestone_id' => $request->milestone_id,
+            'subject_matter' => $request->subject_matter,
+            'total_unit_no' => $request->total_unit_no,
+            'comment' => $request->comment,
+        ];
+        $ministry_info = [];
+        $controlling_office = [];
+        $controlling_entities = [];
+        $ministry_entities = [];
+        $nominated_offices = [];
+
+        foreach ($request->ministry_info as $ministry_info_data) {
+            $ministry_info_data = json2Array($ministry_info_data);
+            $ministry_entities[] = $ministry_info_data['entity_id'];
+            $ministry_info_data['entity_ids'] = $ministry_entities;
+            $ministry_info[$ministry_info_data['ministry_id']] = $ministry_info_data;
+        }
+        foreach ($request->controlling_office as $controlling_office_data) {
+            $controlling_office_data = json2Array($controlling_office_data);
+            $controlling_entities[] = $controlling_office_data['entity_id'];
+            $controlling_office_data['entity_ids'] = $controlling_entities;
+            $controlling_office_data['office_type'] = 'budgetary';
+            $controlling_office[$controlling_office_data['controlling_office_id']] = $controlling_office_data;
+        }
+        foreach ($request->selected_entity as $nominated_office) {
+            $nominated_office = json2Array($nominated_office);
+            $nominated_offices[$nominated_office['office_id']] = $nominated_office;
+        }
+
+        $staff_infos = $request->staff_info;
+
+        $staffs = [[
+            "staff" => 1,
+            "desingation_en" => "upoporicalk",
+            "desingation_bn" => "upoporicalk",
+            "responsibility_en" => "shodossho",
+            "responsibility_bn" => "shodhossho",
+        ], [
+            "staff" => 1,
+            "desingation_en" => "upoporicalk",
+            "desingation_bn" => "upoporicalk",
+            "responsibility_en" => "shodossho",
+            "responsibility_bn" => "shodhossho",
+        ]];
+
+
+        $nominated_man_powers = [
+            'comment' => $request->staff_comment,
+            'total_man_power' => 10,
+            'staffs' => $staffs,
+        ];
+
+        $data['ministry_info'] = json_encode($ministry_info);
+        $data['controlling_office'] = json_encode($controlling_office);
+        $data['nominated_offices'] = json_encode($nominated_offices);
+        $data['nominated_man_powers'] = json_encode($nominated_man_powers);
+        $data['nominated_man_power_counts'] = 10;
+
+        dd($request->all());
+
     }
 
     /**

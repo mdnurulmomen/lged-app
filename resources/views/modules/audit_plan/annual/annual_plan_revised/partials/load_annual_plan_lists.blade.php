@@ -41,6 +41,7 @@
                                 data-activity-id="{{$plan['activity_id']}}"
                                 data-milestone-id="{{$plan['activity_milestone_id']}}"
                                 data-activity-title="{{$plan['activity_title_en']}}"
+                                data-fiscal-year-id="{{$fiscal_year_id}}"
                                 data-fiscal-year="{{$fiscal_year}}"
                                 onclick="Annual_Plan_Container.loadEntitySelection($(this))">Annual Plan
                         </button>

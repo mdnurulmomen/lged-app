@@ -40,87 +40,69 @@
         <div class="row">
             <div class="offset-6 col-md-6 text-right p-2">
                 <button class="btn btn-sm btn-square btn-primary btn-hover-success"
-                        onclick="">Save <i class="fas fa-save"></i>
+                        onclick="Annual_Plan_Container.submitAnnualPlan($(this))">Save <i class="fas fa-save"></i>
                 </button>
             </div>
         </div>
 
-
-        <div class="form-row">
-            <div class="col-md-6">
-                <label for="total_unit">প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা</label>
-                <input class="form-control" type="text" id="total_unit" name="total_unit">
-            </div>
-
-            <div class="col-md-6">
-                <label for="subject_matter">সাবজেক্ট ম্যাটার</label>
-                <input class="form-control" type="text" id="subject_matter" name="subject_matter">
-            </div>
-        </div>
-
-        <div class="p-4 mt-4 card">
+        <form id="annual_plan_form">
             <div class="form-row">
-                <div class="col-md-12">
-                    <div class="pl-4 selected_rp_offices">
+                <div class="col-md-6">
+                    <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা</label>
+                    <input class="form-control" type="text" id="total_unit_no" name="total_unit_no">
+                </div>
 
+                <div class="col-md-6">
+                    <label for="subject_matter">সাবজেক্ট ম্যাটার</label>
+                    <input class="form-control" type="text" id="subject_matter" name="subject_matter">
+                </div>
+            </div>
+
+            <div class="p-4 mt-4 card">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="pl-4 selected_rp_offices">
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="p-4 mt-4 card">
-            <div class="team-section">
+            <div class="p-4 mt-4 card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Team Section</p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        Add Team<span onclick="Annual_Plan_Container.addTeamSection($(this))"
+                                      class="btn btn-icon btn-outline-success border-0 btn-xs mr-2"><i
+                                class="fa fa-plus"></i></span>
+                    </div>
+                </div>
+                <div class="team-section">
+
+                </div>
                 <div class="form-row pt-4">
-                    <div class="col-md-4">
-                        <label>পদবি</label>
-                        <select class="form-control" name="" id="">
-                            <option value="">--সিলেক্ট--</option>
-                            <option value="">Layer 1</option>
-                            <option value="">Layer 2</option>
-                            <option value="">Layer 3</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label>দায়িত্ব</label>
-                        <select class="form-control" name="" id="">
-                            <option value="">--সিলেক্ট--</option>
-                            <option value="">Layer 1</option>
-                            <option value="">Layer 2</option>
-                            <option value="">Layer 3</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label>জন</label>
-                        <input class="form-control" type="text">
-                    </div>
-                    <div class="col-md-2 mt-8">
-                        <button onclick="Annual_Plan_Container.addTeamSection($(this))" class="btn btn-sm btn-primary"><i
-                                class="fa fa-plus"></i></button>
+                    <div class="col-md-12">
+                        <label for="staff_comment">মন্তব্য</label>
+                        <textarea class="form-control" name="staff_comment" id="staff_comment"></textarea>
                     </div>
                 </div>
             </div>
+
             <div class="form-row pt-4">
                 <div class="col-md-12">
-                    <label>মন্তব্য</label>
-                    <textarea class="form-control"></textarea>
+                    <label for="comment">মন্তব্য</label>
+                    <textarea class="form-control" id="comment" name="comment"></textarea>
                 </div>
             </div>
-        </div>
-
-        <div class="form-row pt-4">
-            <div class="col-md-12">
-                <label>মন্তব্য</label>
-                <textarea class="form-control"></textarea>
-            </div>
-        </div>
+            <input type="hidden" name="schedule_id" value="{{$schedule_id}}">
+            <input type="hidden" name="activity_id" value="{{$activity_id}}">
+            <input type="hidden" name="milestone_id" value="{{$milestone_id}}">
+            <input type="hidden" name="fiscal_year_id" value="{{$fiscal_year_id}}">
+        </form>
     </div>
 </div>
-
-<form id="annual_plan_core_data_form">
-    <input type="hidden" name="schedule_id" value="{{$schedule_id}}">
-    <input type="hidden" name="activity_id" value="{{$activity_id}}">
-    <input type="hidden" name="milestone_id" value="{{$milestone_id}}">
-</form>
 
 @include('scripts.script_generic')
 <script>
@@ -135,7 +117,7 @@
         Annual_Plan_Container.loadRPAuditeeOffices(ministry_id, layer_id);
     });
 
-    let selected = null
+    selected = null
 
     function dragOver(e) {
         if (isBefore(selected, e.target)) {
