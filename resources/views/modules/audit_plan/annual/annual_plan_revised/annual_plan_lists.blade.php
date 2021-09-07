@@ -190,7 +190,7 @@
                     toastr.error(response.data)
                     console.log(response)
                 } else {
-                    toastr.success(response.data);
+                    toastr.success('Successfully Added!');
                 }
             })
         },
