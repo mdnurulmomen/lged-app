@@ -803,109 +803,109 @@
                 {{enTobn($loop->iteration)}} | {{$ministry['ministry_name_bn']}}
             @endforeach
         </div>
-    </div>
-
-    {{--pdf screen 02--}}
-    @foreach($plan_infos['plan'] as $plan)
-        <div class="pdf-screen bangla-font" style="height: 100%;margin-top: 10px">
-            <div class="bangla-font">
-                <table class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px"
-                       border="1px">
-                    <tr class="bangla-font">
-                        <td class="bangla-font" style="text-align: center" width="5%">ক্রম</td>
-                        <td class="bangla-font" style="text-align: center" width="20%">কার্যক্রম</td>
-                        <td class="bangla-font" style="text-align: center" width="60%"> বিভিন্ন পর্যায়</td>
-                        <td class="bangla-font" style="text-align: center" width="15%">নির্ধারিত সময়সীমা</td>
-                    </tr>
-                    <tr class="bangla-font">
-                        <td class="bangla-font" style="text-align: center" rowspan="5">১।</td>
-                        <td class="bangla-font" style="text-align: center" rowspan="5">{{$plan['title_bn']}}</td>
-                    </tr>
-                    @foreach($plan['milestones'] as $milestone)
+        {{--pdf screen 02--}}
+        @foreach($plan_infos['plan'] as $plan)
+            <div class="bangla-font" style="height: 100%;margin-top: 10px">
+                <div class="bangla-font">
+                    <table class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px"
+                           border="1px">
                         <tr class="bangla-font">
-                            <td class="bangla-font">{{$milestone['title_bn']}}</td>
-                            <td class="bangla-font" style="text-align: center">৩১/০৮/২০২১</td>
+                            <td class="bangla-font" style="text-align: center" width="5%">ক্রম</td>
+                            <td class="bangla-font" style="text-align: center" width="20%">কার্যক্রম</td>
+                            <td class="bangla-font" style="text-align: center" width="60%"> বিভিন্ন পর্যায়</td>
+                            <td class="bangla-font" style="text-align: center" width="15%">নির্ধারিত সময়সীমা</td>
                         </tr>
-                    @endforeach
-                    <tr class="bangla-font">
-                        <td class="bangla-font">নিরীক্ষা পরিদর্শন প্রতিবেদন (এআইআর) এর সংখ্যা</td>
-                        <td class="bangla-font" style="text-align: center">১১ (এগার)টি</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="bangla-font" style="text-align: center;font-size: 12px;margin-top: 5px">
-                {{$plan_infos['office_info']['office_name_bn']}} <br>
-                অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
-                সেগুন বাগিচা, ঢাকা-১০০০।
-            </div>
-
-            <div class="bangla-font" style="text-align: center;font-size: 15px;margin-top: 5px">
-                বার্ষিক অডিট পরিকল্পনা(সেক্টর-০২)- অর্থ-বছরঃ{{enTobn($plan_infos['fiscal_year']['start'])}}
-                -{{enTobn($plan_infos['fiscal_year']['end'])}}ঃ
-                @foreach($plan['ministries'] as $ministry)
-                    {{enTobn($loop->iteration)}} | {{$ministry['ministry_name_bn']}}
-                @endforeach
-            </div>
-
-            <div class="bangla-font">
-                <table class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px"
-                       border="1px">
-                    <tr class="bangla-font">
-                        <td class="bangla-font" style="text-align: center" width="3%">ক্রঃনং</td>
-                        <td class="bangla-font" style="text-align: center" width="10%">মন্ত্রণালয়/ বিভাগ</td>
-                        <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের নাম</td>
-                        <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের ধরন</td>
-                        <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা
-                        </td>
-                        <td class="bangla-font" style="text-align: center" width="20%">অডিটের জন্য প্রস্তাবিত ইউনিটের
-                            নাম ও সংখ্যা
-                        </td>
-                        <td class="bangla-font" style="text-align: center" width="10%">Subject Matter</td>
-                        <td class="bangla-font" style="text-align: center" width="15%">প্রয়োজনীয় লোকবল</td>
-                        <td class="bangla-font" style="text-align: center" width="12%">মন্তব্য</td>
-                    </tr>
-                    <tr class="bangla-font">
-                        <td class="bangla-font" style="text-align: center" width="3%">০১</td>
-                        <td class="bangla-font" style="text-align: center" width="10%">০২</td>
-                        <td class="bangla-font" style="text-align: center" width="10%">০৩</td>
-                        <td class="bangla-font" style="text-align: center" width="10%">০৪</td>
-                        <td class="bangla-font" style="text-align: center" width="10%">০৫</td>
-                        <td class="bangla-font" style="text-align: center" width="20%">০৬</td>
-                        <td class="bangla-font" style="text-align: center" width="10%">০৭</td>
-                        <td class="bangla-font" style="text-align: center" width="15%">০৮</td>
-                        <td class="bangla-font" style="text-align: center" width="12%">০৯</td>
-                    </tr>
-                    @foreach($plan['annual_plans'] as $annual_plans)
                         <tr class="bangla-font">
-                            <td class="bangla-font" style="text-align: center"
-                                width="3%">{{enTobn($loop->iteration)}}</td>
-                            <td class="bangla-font" width="10%">{{$annual_plans['ministry_name_bn']}}</td>
-                            <td class="bangla-font" style="text-align: center"
-                                width="10%">{{$annual_plans['controlling_office_bn']}}</td>
-                            <td class="bangla-font" width="10%">{{$annual_plans['office_type']}}</td>
-                            <td class="bangla-font" style="text-align: center"
-                                width="10%">{{$annual_plans['total_unit_no']}}</td>
-                            <td class="bangla-font" width="20%">
-                                @foreach(json_decode($annual_plans['nominated_offices'],true) as $office)
-                                    {{enTobn($loop->iteration)}}| {{$office['office_name_bn']}} <br>
-                                @endforeach
-                                <span style="float: right;font-weight: bold">মোট {{enTobn($annual_plans['nominated_office_counts'])}}টি ইউনিট</span>
+                            <td class="bangla-font" style="text-align: center" rowspan="5">১।</td>
+                            <td class="bangla-font" style="text-align: center" rowspan="5">{{$plan['title_bn']}}</td>
+                        </tr>
+                        @foreach($plan['milestones'] as $milestone)
+                            <tr class="bangla-font">
+                                <td class="bangla-font">{{$milestone['title_bn']}}</td>
+                                <td class="bangla-font" style="text-align: center">৩১/০৮/২০২১</td>
+                            </tr>
+                        @endforeach
+                        <tr class="bangla-font">
+                            <td class="bangla-font">নিরীক্ষা পরিদর্শন প্রতিবেদন (এআইআর) এর সংখ্যা</td>
+                            <td class="bangla-font" style="text-align: center">১১ (এগার)টি</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="bangla-font" style="text-align: center;font-size: 12px;margin-top: 5px">
+                    {{$plan_infos['office_info']['office_name_bn']}} <br>
+                    অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
+                    সেগুন বাগিচা, ঢাকা-১০০০।
+                </div>
+
+                <div class="bangla-font" style="text-align: center;font-size: 15px;margin-top: 5px">
+                    বার্ষিক অডিট পরিকল্পনা(সেক্টর-০২)- অর্থ-বছরঃ{{enTobn($plan_infos['fiscal_year']['start'])}}
+                    -{{enTobn($plan_infos['fiscal_year']['end'])}}ঃ
+                    @foreach($plan['ministries'] as $ministry)
+                        {{enTobn($loop->iteration)}} | {{$ministry['ministry_name_bn']}}
+                    @endforeach
+                </div>
+
+                <div class="bangla-font">
+                    <table class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px"
+                           border="1px">
+                        <tr class="bangla-font">
+                            <td class="bangla-font" style="text-align: center" width="3%">ক্রঃনং</td>
+                            <td class="bangla-font" style="text-align: center" width="10%">মন্ত্রণালয়/ বিভাগ</td>
+                            <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের নাম</td>
+                            <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের ধরন</td>
+                            <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা
                             </td>
-                            <td class="bangla-font" style="text-align: center"
-                                width="10%">{{$annual_plans['subject_matter']}}</td>
-                            <td class="bangla-font" width="15%">
-                                @foreach(json_decode($annual_plans['nominated_man_powers'],true)['staffs'] as $man)
-                                    {{enTobn($loop->iteration)}}| {{$man['designation_bn'].', '.
+                            <td class="bangla-font" style="text-align: center" width="20%">অডিটের জন্য প্রস্তাবিত
+                                ইউনিটের
+                                নাম ও সংখ্যা
+                            </td>
+                            <td class="bangla-font" style="text-align: center" width="10%">Subject Matter</td>
+                            <td class="bangla-font" style="text-align: center" width="15%">প্রয়োজনীয় লোকবল</td>
+                            <td class="bangla-font" style="text-align: center" width="12%">মন্তব্য</td>
+                        </tr>
+                        <tr class="bangla-font">
+                            <td class="bangla-font" style="text-align: center" width="3%">০১</td>
+                            <td class="bangla-font" style="text-align: center" width="10%">০২</td>
+                            <td class="bangla-font" style="text-align: center" width="10%">০৩</td>
+                            <td class="bangla-font" style="text-align: center" width="10%">০৪</td>
+                            <td class="bangla-font" style="text-align: center" width="10%">০৫</td>
+                            <td class="bangla-font" style="text-align: center" width="20%">০৬</td>
+                            <td class="bangla-font" style="text-align: center" width="10%">০৭</td>
+                            <td class="bangla-font" style="text-align: center" width="15%">০৮</td>
+                            <td class="bangla-font" style="text-align: center" width="12%">০৯</td>
+                        </tr>
+                        @foreach($plan['annual_plans'] as $annual_plans)
+                            <tr class="bangla-font">
+                                <td class="bangla-font" style="text-align: center"
+                                    width="3%">{{enTobn($loop->iteration)}}</td>
+                                <td class="bangla-font" width="10%">{{$annual_plans['ministry_name_bn']}}</td>
+                                <td class="bangla-font" style="text-align: center"
+                                    width="10%">{{$annual_plans['controlling_office_bn']}}</td>
+                                <td class="bangla-font" width="10%">{{$annual_plans['office_type']}}</td>
+                                <td class="bangla-font" style="text-align: center"
+                                    width="10%">{{$annual_plans['total_unit_no']}}</td>
+                                <td class="bangla-font" width="20%">
+                                    @foreach(json_decode($annual_plans['nominated_offices'],true) as $office)
+                                        {{enTobn($loop->iteration)}}| {{$office['office_name_bn']}} <br>
+                                    @endforeach
+                                    <span style="float: right;font-weight: bold">মোট {{enTobn($annual_plans['nominated_office_counts'])}}টি ইউনিট</span>
+                                </td>
+                                <td class="bangla-font" style="text-align: center"
+                                    width="10%">{{$annual_plans['subject_matter']}}</td>
+                                <td class="bangla-font" width="15%">
+                                    @foreach(json_decode($annual_plans['nominated_man_powers'],true)['staffs'] as $man)
+                                        {{enTobn($loop->iteration)}}| {{$man['designation_bn'].', '.
                                         $man['responsibility_bn'].' - '.enTobn($man['staff']).'জন'}} <br>
-                                @endforeach
-                            </td>
-                            <td class="bangla-font" width="12%">{{$annual_plans['comment']}}</td>
-                        </tr>
-                    @endforeach
-                </table>
+                                    @endforeach
+                                </td>
+                                <td class="bangla-font" width="12%">{{$annual_plans['comment']}}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
             </div>
-        </div>
-    @endforeach
+        @endforeach
+    </div>
 </div>
 </body>
 </html>
