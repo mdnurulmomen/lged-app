@@ -43,6 +43,8 @@
         var url = '{{route('rpu.office-layer.all')}}';
         var data = {ministry_id};
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+            layers = `<option value="0" selected="selected">--বাছাই করুন--</option>`;
+            $("#office_layer_id").append(layers);
             response.map((layer) => {
                 layers = `<option value="${layer.id}">${layer.layer_name_bng}</option>`;
                 $("#office_layer_id").append(layers);
