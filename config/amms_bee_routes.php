@@ -77,6 +77,7 @@ return [
 
     'audit_annual_plan_revised' => [
         'ap_yearly_plan_lists' => env('API_URL_BEE', '') . '/planning/annual-plan/all',
+        'ap_yearly_plan_list_show' => env('API_URL_BEE', '') . '/planning/annual-plan/show',
         'ap_yearly_plan_submission' => env('API_URL_BEE', '') . '/planning/annual-plan/create',
         'ap_yearly_plan_selected_rp_lists' => env('API_URL_BEE', '') . '/planning/annual-plan/rp-entities/all-added',
         'ap_yearly_plan_selected_rp_store' => env('API_URL_BEE', '') . '/planning/annual-plan/rp-entities/store',

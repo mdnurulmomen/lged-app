@@ -49,6 +49,12 @@ class AnnualPlanRevisedController extends Controller
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk());
 
+        $planListResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_list_show'),
+            $data)->json();
+        if (isSuccess($planListResponseData)) {
+            $plan_list = $planListResponseData['data'];
+        }
+
         $activity_id = $request->activity_id;
         $schedule_id = $request->schedule_id;
         $milestone_id = $request->milestone_id;
@@ -56,7 +62,9 @@ class AnnualPlanRevisedController extends Controller
         $fiscal_year_id = $request->fiscal_year_id;
         $activity_title = $request->activity_title;
 
-        return view('modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection', compact('activity_id', 'schedule_id', 'milestone_id', 'fiscal_year', 'fiscal_year_id', 'activity_title'));
+        return view('modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection',
+            compact('plan_list','activity_id', 'schedule_id', 'milestone_id', 'fiscal_year',
+                'fiscal_year_id', 'activity_title'));
 
     }
 

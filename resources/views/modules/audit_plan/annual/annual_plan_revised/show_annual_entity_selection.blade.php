@@ -34,18 +34,28 @@
                     </tr>
                     </thead>
                     <tbody>
-
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
+                    @foreach($plan_list as $plan)
+                        <tr>
+                            <td>{{$plan['ministry_name_bn']}}</td>
+                            <td>{{$plan['controlling_office_bn']}}</td>
+                            <td>{{$plan['office_type']}}</td>
+                            <td>{{enTobn($plan['total_unit_no'])}}</td>
+                            <td>
+                                @foreach(json_decode($plan['nominated_offices'],true) as $office)
+                                    {{enTobn($loop->iteration)}}| {{$office['office_name_bn']}} <br>
+                                @endforeach
+                                <span style="float: right;font-weight: bold">মোট {{enTobn($plan['nominated_office_counts'])}}টি ইউনিট</span>
+                            </td>
+                            <td>{{$plan['subject_matter']}}</td>
+                            <td>
+                                @foreach(json_decode($plan['nominated_man_powers'],true)['staffs'] as $man)
+                                    {{enTobn($loop->iteration)}}| {{$man['designation_bn'].', '.
+                                        $man['responsibility_bn'].' - '.enTobn($man['staff']).'জন'}} <br>
+                                @endforeach
+                            </td>
+                            <td>{{$plan['comment']}}</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
