@@ -893,10 +893,15 @@
                                 <td class="bangla-font" style="text-align: center"
                                     width="10%">{{$annual_plans['subject_matter']}}</td>
                                 <td class="bangla-font" width="15%">
-                                    @foreach(json_decode($annual_plans['nominated_man_powers'],true)['staffs'] as $man)
-                                        {{enTobn($loop->iteration)}}| {{$man['designation_bn'].', '.
-                                        $man['responsibility_bn'].' - '.enTobn($man['staff']).'জন'}} <br>
-                                    @endforeach
+                                    @if(count(json_decode($annual_plans['nominated_man_powers'],true)['staffs']) >0)
+                                        @foreach(json_decode($annual_plans['nominated_man_powers'],true)['staffs'] as $man)
+                                            {{enTobn($loop->iteration)}}| {{$man['designation_bn'].', '.
+                                            $man['responsibility_bn'].' - '.enTobn($man['staff']).'জন'}} <br>
+                                        @endforeach
+                                        <br>
+                                    @endif
+
+                                    {{json_decode($annual_plans['nominated_man_powers'],true)['comment']}}
                                 </td>
                                 <td class="bangla-font" width="12%">{{$annual_plans['comment']}}</td>
                             </tr>

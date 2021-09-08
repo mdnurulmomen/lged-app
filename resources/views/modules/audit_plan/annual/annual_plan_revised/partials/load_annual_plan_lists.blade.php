@@ -59,7 +59,7 @@
                                 data-activity-title="{{$plan['activity_title_en']}}"
                                 data-fiscal-year-id="{{$fiscal_year_id}}"
                                 data-fiscal-year="{{$fiscal_year}}"
-                                onclick="Annual_Plan_Container.loadEntitySelection($(this))">Annual Plan
+                                onclick="Annual_Plan_Container.loadEntitySelection($(this))">Plan
                         </button>
                     </td>
                 </tr>

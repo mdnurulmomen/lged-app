@@ -48,10 +48,14 @@
                             </td>
                             <td>{{$plan['subject_matter']}}</td>
                             <td>
-                                @foreach(json_decode($plan['nominated_man_powers'],true)['staffs'] as $man)
-                                    {{enTobn($loop->iteration)}}| {{$man['designation_bn'].', '.
-                                        $man['responsibility_bn'].' - '.enTobn($man['staff']).'জন'}} <br>
-                                @endforeach
+                                @if(count(json_decode($plan['nominated_man_powers'],true)['staffs']) >0)
+                                    @foreach(json_decode($plan['nominated_man_powers'],true)['staffs'] as $man)
+                                        {{enTobn($loop->iteration)}}| {{$man['designation_bn'].', '.
+                                            $man['responsibility_bn'].' - '.enTobn($man['staff']).'জন'}} <br>
+                                    @endforeach
+                                    <br>
+                                @endif
+                                {{json_decode($plan['nominated_man_powers'],true)['comment']}}
                             </td>
                             <td>{{$plan['comment']}}</td>
                         </tr>

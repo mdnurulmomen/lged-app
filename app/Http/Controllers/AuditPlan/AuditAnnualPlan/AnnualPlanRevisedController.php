@@ -117,6 +117,7 @@ class AnnualPlanRevisedController extends Controller
 
     public function storeAnnualPlanInfo(Request $request)
     {
+        //dd($request->budget);
         Validator::make($request->all(), [
             'activity_id' => 'required|integer',
             'schedule_id' => 'required|integer',
@@ -129,8 +130,10 @@ class AnnualPlanRevisedController extends Controller
             'total_unit_no' => 'required|string',
             'staff_comment' => 'sometimes',
             'staff_info' => 'sometimes',
+            'budget' => 'nullable|string',
         ])->validate();
 
+        //dd($request->budget);
         $data = [
             'cdesk' => json_encode($this->current_desk()),
             'activity_id' => $request->activity_id,
@@ -140,6 +143,7 @@ class AnnualPlanRevisedController extends Controller
             'subject_matter' => $request->subject_matter,
             'total_unit_no' => $request->total_unit_no,
             'comment' => $request->comment,
+            'budget' => $request->budget,
         ];
         $ministry_info = [];
         $controlling_office = [];
@@ -170,7 +174,7 @@ class AnnualPlanRevisedController extends Controller
         $total_man_power = 0;
         if (is_array($staff_infos)) {
             foreach ($staff_infos as $staff_info) {
-                dump($staff_info);
+                //dump($staff_info);
                 $staff_info_arr = explode('_', $staff_info);
                 $designation = $staff_info_arr[0];
                 $responsibility = $staff_info_arr[1];
@@ -199,7 +203,7 @@ class AnnualPlanRevisedController extends Controller
         $data['nominated_man_power_counts'] = $total_man_power;
 
         $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
-
+        //dd($store_plan);
         if (isSuccess($store_plan)) {
             return response()->json(['status' => 'success', 'data' => 'Added!']);
         } else {

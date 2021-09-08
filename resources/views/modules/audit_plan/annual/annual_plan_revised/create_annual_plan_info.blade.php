@@ -47,14 +47,19 @@
 
         <form id="annual_plan_form">
             <div class="form-row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা</label>
                     <input class="form-control" type="text" id="total_unit_no" name="total_unit_no">
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="subject_matter">সাবজেক্ট ম্যাটার</label>
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter">
+                </div>
+
+                <div class="col-md-4">
+                    <label for="budget">বাজেট</label>
+                    <input class="form-control" type="text" id="budget" name="budget">
                 </div>
             </div>
 
@@ -71,12 +76,12 @@
             <div class="p-4 mt-4 card">
                 <div class="row">
                     <div class="col-md-6">
-                        <p>Team Section</p>
+                        <p>টিমসমূহ</p>
                     </div>
                     <div class="col-md-6 text-right">
                         <span onclick="Annual_Plan_Container.addTeamSection($(this))"
                                       class="btn btn-outline-primary btn-square mr-2"><i
-                                class="fa fa-plus"></i> Add Team</span>
+                                class="fa fa-plus"></i> টিম গঠন করুন</span>
                     </div>
                 </div>
                 <div class="team-section">
