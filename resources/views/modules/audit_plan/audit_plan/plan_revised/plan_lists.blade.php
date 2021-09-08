@@ -22,6 +22,7 @@
         </div>
     </div>
 </div>
+
 <div class="toolbar flex-wrap justify-content-between shadow-sm pl-1 d-flex border-bottom">
     <div class="d-flex">
         <div id="daak_group_action_panel">
@@ -275,8 +276,8 @@
         </div>
     </div>
 </div>
+
 <div class="col-lg-12 p-0">
-    <!--begin::Advance Table Widget 4-->
     <!--begin::Table-->
     <div class="table-responsive">
         <table class="table table-striped">
@@ -319,7 +320,6 @@
         </table>
     </div>
     <!--end::Table-->
-    <!--end::Advance Table Widget 4-->
 </div>
 
 <script>
