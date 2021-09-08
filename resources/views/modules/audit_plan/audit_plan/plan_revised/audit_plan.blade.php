@@ -33,6 +33,55 @@
                 }
             });
         },
+
+        loadAuditPlans: function () {
+            let url = '{{route('audit.plan.audit.revised.plan.load-all-lists')}}';
+            let data = {fiscal_year_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('#load_auditable_plan_lists').html(response);
+                }
+            });
+        },
+
+        loadAuditPlanBookEditable: function (elem) {
+            url = '{{route('audit.plan.audit.revised.plan.update-entity-audit-plan')}}';
+            audit_plan_id = elem.data('audit-plan-id')
+            fiscal_year_id = elem.data('fiscal-year-id')
+            annual_plan_id = elem.data('annual-plan-id')
+
+            data = {
+                audit_plan_id,
+                fiscal_year_id,
+                annual_plan_id,
+            };
+
+            // ajaxCallAsyncCallbackAPI(url, data, 'post', function (res) {
+            //     var newDoc = document.open("text/html", "replace");
+            //     newDoc.write(res);
+            //     newDoc.close();
+            // })
+        },
+
+        loadAuditPlanBookCreatable: function (elem) {
+            url = '{{route('audit.plan.audit.revised.plan.create-entity-audit-plan')}}';
+            annual_plan_id = elem.data('annual-plan-id')
+            fiscal_year_id = elem.data('fiscal-year-id')
+            activity_id = elem.data('activity-id')
+
+            data = {
+                activity_id,
+                annual_plan_id,
+                fiscal_year_id,
+            };
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (res) {
+                var newDoc = document.open("text/html", "replace");
+                newDoc.write(res);
+                newDoc.close();
+            })
+        },
     };
 
     $('#select_fiscal_year_annual_plan').change(function () {

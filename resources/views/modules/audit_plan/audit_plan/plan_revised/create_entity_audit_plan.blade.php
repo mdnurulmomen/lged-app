@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">
-                    <a href="{{route('audit.plan.revised.audit.index')}}">
+                    <a href="{{route('audit.plan.audit.plan.all')}}">
                         <i title="Back To Audit Plan" class="fad fa-backward mr-3"></i>
                     </a>
                     Create Audit Plan
@@ -18,9 +18,9 @@
                     onclick="Create_Entity_Plan_Container.generatePDF($(this))">PDF <i class="fas fa-save"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
-                    data-yearly-plan-rp-id="{{$rp_id}}"
-                    data-party-id="{{$party_id}}"
-                    onclick="Create_Entity_Plan_Container.draftEntityPlan($(this))">Save <i class="fas fa-save"></i>
+                    data-activity-id="{{$activity_id}}"
+                    data-annual-plan-id="{{$annual_plan_id}}"
+                    onclick="Create_Entity_Plan_Container.draftEntityPlan($(this))">Save<i class="fas fa-save"></i>
             </button>
         </div>
     </div>
@@ -63,15 +63,18 @@
     </div>
 @endsection
 @section('scripts')
-    @include('scripts.script_create_entity_audit_plan')
+    @include('scripts.script_create_entity_audit_plan_revised')
     <script>
         var Create_Entity_Plan_Container = {
             draftEntityPlan: function (elem) {
                 url = '{{route('audit.plan.audit.revised.plan.save-draft-entity-audit-plan')}}';
+
                 plan_description = JSON.stringify(templateArray);
-                party_id = elem.data('party-id');
-                yearly_plan_rp_id = elem.data('yearly-plan-rp-id');
-                data = {plan_description, party_id, yearly_plan_rp_id};
+                activity_id = elem.data('activity-id');
+                annual_plan_id = elem.data('annual-plan-id');
+                audit_plan_id = elem.data('audit-plan-id');
+
+                data = {plan_description, activity_id, annual_plan_id, audit_plan_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'success') {
                         toastr.success('Audit Plan Saved Successfully');
@@ -81,6 +84,7 @@
                     }
                 })
             },
+
             generatePDF: function (elem) {
                 url = '{{route('audit.plan.audit.revised.plan.generate-audit-plan-pdf')}}';
                 plan = templateArray;
