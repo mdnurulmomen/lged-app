@@ -25,6 +25,7 @@ class AnnualPlanRevisedController extends Controller
         $data['cdesk'] = json_encode($this->current_desk());
 
         $annual_plans = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_lists'), $data)->json();
+        //dd($annual_plans);
         $fiscal_year_id = $request->fiscal_year_id;
         $fiscal_year = $request->fiscal_year;
 

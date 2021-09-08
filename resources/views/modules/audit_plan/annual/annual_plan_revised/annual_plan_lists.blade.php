@@ -1,4 +1,4 @@
-<x-title-wrapper>Annual Plan Lists</x-title-wrapper>
+<x-title-wrapper>Annual Plan List</x-title-wrapper>
 <form class="pl-4 pt-4">
     <div class="form-row">
         <div class="col-md-4 ">
@@ -6,7 +6,7 @@
             <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
                 <option value="">Choose Fiscal Year</option>
                 @foreach($fiscal_years as $fiscal_year)
-                    <option value="{{$fiscal_year['id']}}">{{$fiscal_year['description']}}</option>
+                    <option value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
                 @endforeach
             </select>
         </div>
@@ -222,6 +222,16 @@
             });
         },
     };
+
+    $(function() {
+        fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+        fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
+        if (fiscal_year_id) {
+            Annual_Plan_Container.loadAnnualPlanList(fiscal_year_id, fiscal_year);
+        } else {
+            $('#load_annual_plan_lists').html('');
+        }
+    });
 
     $('#select_fiscal_year_annual_plan').change(function () {
         fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
