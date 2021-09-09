@@ -11,7 +11,7 @@ return [
     'font_path' => base_path('public/assets/font/'),
     'font_data' => [
         'solaimanlipipdf' => [
-            'R' => 'Solaimanlipi.ttf',
+            'R' => 'SolaimanLipi.ttf',
             'useOTL' => 0xFF,    // required for complicated langs like Persian, Arabic and Chinese
             'useKashida' => 75,  // required for complicated langs like Persian, Arabic and Chinese
         ],
