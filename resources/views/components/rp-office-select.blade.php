@@ -5,10 +5,14 @@
             <select id="ministry_id" class="form-control rounded-0 select-select2"
                     name="ministry_id">
                 <option value="" selected="selected">--বাছাই করুন--</option>
-                @foreach($ministries as $ministry)
+                <option data-ministry-en="{{$ministries['name_eng']}}" data-ministry-bn="{{$ministries['name_bng']}}"
+                        value="{{$ministries['id']}}">{{$ministries['name_eng']}}
+                </option>
+
+                {{--@foreach($ministries as $ministry)
                     <option data-ministry-en="{{$ministry['name_eng']}}" data-ministry-bn="{{$ministry['name_bng']}}"
                             value="{{$ministry['id']}}">{{$ministry['name_eng']}}</option>
-                @endforeach
+                @endforeach--}}
             </select>
             <input type="hidden" id="ministry_name_en" value="">
             <input type="hidden" id="ministry_name_bn" value="">
