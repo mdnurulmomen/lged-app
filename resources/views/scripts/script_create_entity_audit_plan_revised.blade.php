@@ -84,6 +84,17 @@
 
     $('.summernote').summernote({
         height: 600,
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'SolaimanLipi'],
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', ['table']],
+        ],
         callbacks: {
             onChange: function (contents, templateArray) {
                 if ($("#createPlanJsTree").jstree("get_selected").length === '0') {
