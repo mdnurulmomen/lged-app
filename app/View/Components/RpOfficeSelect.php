@@ -25,7 +25,7 @@ class RpOfficeSelect extends Component
         $this->is_unit_show = $unit;
         $this->only_office = $onlyoffice;
 
-        dd($this->current_office_id());
+        //dd($this->current_office_id());
         $ministries = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-ministry-list'), [
             'directorate_id' => $this->current_office_id()
         ])->json();
