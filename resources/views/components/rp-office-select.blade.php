@@ -20,7 +20,6 @@
             <select id="office_layer_id" class="form-control rounded-0 select-select2"
                     name="office_layer_id">
                 <option value="0">--বাছাই করুন--</option>
-
             </select>
         </div>
     </div>
