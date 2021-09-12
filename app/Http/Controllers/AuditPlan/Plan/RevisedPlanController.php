@@ -149,7 +149,9 @@ class RevisedPlanController extends Controller
         $plans = $request->plan;
         $cover = $plans[0];
         array_shift($plans);
-        return view('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book_print', compact('plans', 'cover'));
+        $index = $plans[0];
+        array_shift($plans);
+        return view('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book_print', compact('plans', 'cover', 'index'));
     }
 
     public function generatePlanPDF(Request $request)

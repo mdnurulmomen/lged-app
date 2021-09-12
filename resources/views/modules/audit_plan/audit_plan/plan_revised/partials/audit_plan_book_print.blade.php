@@ -813,8 +813,13 @@
 
 
 <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">
-    <div class="pdf-screen" style="height: 100%;font-family:SolaimanLipi,serif !important;">
+    <div class="pdf-screen" style="height: 100%;font-family:SolaimanLipi,serif !important; page-break-after:always">
         {!! $cover['content'] !!}
+    </div>
+    <div class="pdf-screen" style="height: 100%;font-family:SolaimanLipi,serif !important; page-break-after:always">
+        <div class="plan_content" style="font-family:SolaimanLipi,serif !important;">
+            {!! $index['content'] !!}
+        </div>
     </div>
     <div class="pdf-screen" style="height: 100%;font-family:SolaimanLipi,serif !important;">
         @foreach($plans as $plan)
