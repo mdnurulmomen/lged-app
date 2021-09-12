@@ -45,14 +45,10 @@
                     <td width="10%">{{$plan['milestone_target']}}</td>
 
                     <td width="5%">
-                        @foreach($plan['annual_plan'] as $ap)
-                            {{$ap['budget']}}
-                        @endforeach
+                        {{$plan['assigned_budget']}}
                     </td>
                     <td width="5%">
-                        @foreach($plan['annual_plan'] as $ap)
-                            {{$ap['nominated_man_power_counts']}} <br>
-                        @endforeach
+                        {{$plan['assigned_staff']}}
                     </td>
                     {{--<td width="35%">
                         @forelse($plan['assigned_rp'] as $auditee)
