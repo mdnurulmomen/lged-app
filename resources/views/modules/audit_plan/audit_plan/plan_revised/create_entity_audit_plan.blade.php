@@ -15,7 +15,7 @@
         </div>
         <div class="col-md-6 text-right">
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
-                    onclick="Create_Entity_Plan_Container.generatePDF($(this))">PDF <i class="fas fa-save"></i>
+                    onclick="Create_Entity_Plan_Container.printPlanBook($(this))">PDF <i class="fas fa-save"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
                     data-activity-id="{{$activity_id}}"
@@ -83,6 +83,21 @@
                         console.log(response)
                     }
                 })
+            },
+
+            printPlanBook:function (elem){
+                url = '{{route('audit.plan.audit.revised.plan.print-audit-plan')}}';
+                plan = templateArray;
+                data = {plan};
+
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(response);
+                    newDoc.close();
+                   /* myWindow = window.open("data:text/html," + encodeURIComponent(response),
+                        "_blank", "width=200,height=100");
+                    myWindow.focus();*/
+                });
             },
 
             generatePDF: function (elem) {
