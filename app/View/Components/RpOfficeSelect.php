@@ -29,7 +29,7 @@ class RpOfficeSelect extends Component
         $responseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-ministry-list'), [
             'directorate_id' => $this->current_office_id()
         ])->json();
-        $ministries = isSuccess($responseData) ? $responseData['data']['ministry_list']  : [];
+        $ministries = isSuccess($responseData) ? $responseData['data']: [];
         //dd($ministries);
         $this->ministries = $ministries;
     }
