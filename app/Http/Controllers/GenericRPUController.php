@@ -16,7 +16,6 @@ class GenericRPUController extends Controller
     {
         $ministry_id = $request->ministry_id;
         $layer = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-layer-ministry-wise'), ['ministry_id' => $ministry_id])->json();
-        dd($layer,$ministry_id);
         return isSuccess($layer) ? $layer['data'] : [];
     }
 
