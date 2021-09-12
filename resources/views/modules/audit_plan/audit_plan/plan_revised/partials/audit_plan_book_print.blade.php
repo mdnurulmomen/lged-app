@@ -807,11 +807,15 @@
             width: 100%;
             text-align: center;
         }
+
+        @media print {
+            @page {
+                margin: .25in;
+            }
+        }
     </style>
 </head>
 <body style="margin-top: 15px" onLoad="window.print();" onclick="window.close();">
-
-
 <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">
     <div class="pdf-screen" style="height: 100%;font-family:SolaimanLipi,serif !important; page-break-after:always">
         {!! $cover['content'] !!}
