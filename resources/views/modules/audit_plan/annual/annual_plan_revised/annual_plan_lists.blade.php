@@ -75,7 +75,7 @@
             data = {ministry_id, layer_id, ministry_name_en, ministry_name_bn};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
-                    toastr.error(response.data)
+                    toastr.error('No data found');
                 } else {
                     $('.rp_auditee_office_tree').html(response)
                 }
@@ -186,11 +186,21 @@
             url = '{{route('audit.plan.annual.plan.revised.store')}}';
             data = $('#annual_plan_form').serialize();
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'error') {
-                    toastr.error(response.data)
-                    console.log(response)
-                } else {
+                if (response.status === 'success') {
                     toastr.success('Successfully Added!');
+                }
+                else {
+                    if (response.statusCode === '422') {
+                        var errors = response.msg;
+                        $.each(errors, function (k, v) {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        });
+                    }
+                    else {
+                        toastr.error(response.data.message);
+                    }
                 }
             })
         },

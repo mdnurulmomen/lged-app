@@ -48,12 +48,12 @@
         <form id="annual_plan_form">
             <div class="form-row">
                 <div class="col-md-4">
-                    <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা</label>
+                    <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="total_unit_no" name="total_unit_no">
                 </div>
 
                 <div class="col-md-4">
-                    <label for="subject_matter">সাবজেক্ট ম্যাটার</label>
+                    <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter">
                 </div>
 
@@ -76,14 +76,13 @@
             <div class="p-4 mt-4 card">
                 <div class="row">
                     <div class="col-md-6">
-                        <p>টিমসমূহ</p>
-                    </div>
-                    <div class="col-md-6 text-right">
                         <span onclick="Annual_Plan_Container.addTeamSection($(this))"
-                                      class="btn btn-outline-primary btn-square mr-2"><i
-                                class="fa fa-plus"></i> টিম গঠন করুন</span>
+                              class="btn btn-outline-primary btn-square mr-2">
+                            <i class="fa fa-plus"></i> টিম গঠন করুন
+                        </span>
                     </div>
                 </div>
+
                 <div class="team-section">
 
                 </div>
@@ -97,7 +96,7 @@
 
             <div class="form-row pt-4">
                 <div class="col-md-12">
-                    <label for="comment">মন্তব্য</label>
+                    <label for="comment">মন্তব্য<span class="text-danger">*</span></label>
                     <textarea class="form-control" id="comment" name="comment"></textarea>
                 </div>
             </div>

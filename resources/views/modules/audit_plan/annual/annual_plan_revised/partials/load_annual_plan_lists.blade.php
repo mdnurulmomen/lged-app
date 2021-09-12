@@ -7,7 +7,7 @@
             </button>
 
             <button data-fiscal-year-id="{{$fiscal_year_id}}" onclick="Annual_Plan_Container.printAnnualPlan($(this))"
-                    class="btn-sm btn-warning btn-square">Print
+                    class="btn-sm btn-warning btn-square">Download
             </button>
         </div>
     </div>
@@ -35,7 +35,7 @@
                         <td width="20%" class="vertical-middle"
                             rowspan="{{count($annual_plan)}}">{{$plan['activity_title_en']}}
                             @if($plan['activity_type'])
-                                <span class="badge-info btn btn-info btn-sm text-uppercase m-1 p-1 ">
+                                <span class="badge badge-info text-uppercase m-1 p-1 ">
                                     {{$plan['activity_type']}}
                                 </span>
                             @endif
@@ -60,6 +60,7 @@
                     <td width="5%" class="vertical-middle">
                         <div class='btn-group btn-group-sm' role='group'>
                             <button class="btn_annual_plan btn btn-sm btn-primary"
+                                    data-toggle="tooltip" data-placement="top" title="View Plan"
                                     data-schedule-id="{{$plan['schedule_id']}}"
                                     data-activity-id="{{$plan['activity_id']}}"
                                     data-milestone-id="{{$plan['activity_milestone_id']}}"
@@ -70,7 +71,8 @@
                                 <i class="fal fa-eye"></i>
                             </button>
 
-                            <a href='javascript:;' class='btn btn-sm btn-warning'>
+                            <a href='javascript:;' data-toggle="tooltip" data-placement="top" title="Forward Plan"
+                               class='btn btn-sm btn-warning'>
                                 <i class='fal fa-share'></i>
                             </a>
                         </div>

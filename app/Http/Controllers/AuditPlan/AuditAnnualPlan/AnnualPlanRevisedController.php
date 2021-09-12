@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AuditPlan\AuditAnnualPlan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class AnnualPlanRevisedController extends Controller
 {
@@ -118,98 +119,110 @@ class AnnualPlanRevisedController extends Controller
 
     public function storeAnnualPlanInfo(Request $request)
     {
-        //dd($request->budget);
-        Validator::make($request->all(), [
-            'activity_id' => 'required|integer',
-            'schedule_id' => 'required|integer',
-            'milestone_id' => 'required|integer',
-            'fiscal_year_id' => 'required|integer',
-            'ministry_info' => 'required',
-            'controlling_office' => 'required',
-            'selected_entity' => 'required',
-            'subject_matter' => 'required|string',
-            'total_unit_no' => 'required|string',
-            'staff_comment' => 'sometimes',
-            'staff_info' => 'sometimes',
-            'budget' => 'nullable|string',
-        ])->validate();
+        try {
+            //dd($request->budget);
+            Validator::make($request->all(), [
+                'activity_id' => 'required|integer',
+                'schedule_id' => 'required|integer',
+                'milestone_id' => 'required|integer',
+                'fiscal_year_id' => 'required|integer',
+                'ministry_info' => 'required',
+                'controlling_office' => 'required',
+                'selected_entity' => 'required',
+                'subject_matter' => 'required|string',
+                'total_unit_no' => 'required|string',
+                'staff_comment' => 'sometimes',
+                'staff_info' => 'sometimes',
+                'budget' => 'nullable|string',
+                'comment' => 'required|string',
+            ])->validate();
 
-        //dd($request->budget);
-        $data = [
-            'cdesk' => json_encode($this->current_desk()),
-            'activity_id' => $request->activity_id,
-            'schedule_id' => $request->schedule_id,
-            'fiscal_year_id' => $request->fiscal_year_id,
-            'milestone_id' => $request->milestone_id,
-            'subject_matter' => $request->subject_matter,
-            'total_unit_no' => $request->total_unit_no,
-            'comment' => $request->comment,
-            'budget' => $request->budget,
-        ];
-        $ministry_info = [];
-        $controlling_office = [];
-        $controlling_entities = [];
-        $ministry_entities = [];
-        $nominated_offices = [];
+            //dd($request->budget);
+            $data = [
+                'cdesk' => json_encode($this->current_desk()),
+                'activity_id' => $request->activity_id,
+                'schedule_id' => $request->schedule_id,
+                'fiscal_year_id' => $request->fiscal_year_id,
+                'milestone_id' => $request->milestone_id,
+                'subject_matter' => $request->subject_matter,
+                'total_unit_no' => $request->total_unit_no,
+                'comment' => $request->comment,
+                'budget' => $request->budget,
+            ];
+            $ministry_info = [];
+            $controlling_office = [];
+            $controlling_entities = [];
+            $ministry_entities = [];
+            $nominated_offices = [];
 
-        foreach ($request->ministry_info as $ministry_info_data) {
-            $ministry_info_data = json2Array($ministry_info_data);
-            $ministry_entities[] = $ministry_info_data['entity_id'];
-            $ministry_info_data['entity_ids'] = $ministry_entities;
-            $ministry_info[$ministry_info_data['ministry_id']] = $ministry_info_data;
-        }
-        foreach ($request->controlling_office as $controlling_office_data) {
-            $controlling_office_data = json2Array($controlling_office_data);
-            $controlling_entities[] = $controlling_office_data['entity_id'];
-            $controlling_office_data['entity_ids'] = $controlling_entities;
-            $controlling_office_data['office_type'] = 'budgetary';
-            $controlling_office[$controlling_office_data['controlling_office_id']] = $controlling_office_data;
-        }
-        foreach ($request->selected_entity as $nominated_office) {
-            $nominated_office = json2Array($nominated_office);
-            $nominated_offices[$nominated_office['office_id']] = $nominated_office;
-        }
-
-        $staff_infos = $request->staff_info;
-        $staffs = [];
-        $total_man_power = 0;
-        if (is_array($staff_infos)) {
-            foreach ($staff_infos as $staff_info) {
-                //dump($staff_info);
-                $staff_info_arr = explode('_', $staff_info);
-                $designation = $staff_info_arr[0];
-                $responsibility = $staff_info_arr[1];
-                $staff = $staff_info_arr[2];
-                $total_man_power = $total_man_power + $staff;
-                $staffs[] = [
-                    "staff" => $staff,
-                    "designation_en" => explode('|', $designation)[0],
-                    "designation_bn" => explode('|', $designation)[1],
-                    "responsibility_en" => explode('|', $responsibility)[0],
-                    "responsibility_bn" => explode('|', $responsibility)[1],
-                ];
+            foreach ($request->ministry_info as $ministry_info_data) {
+                $ministry_info_data = json2Array($ministry_info_data);
+                $ministry_entities[] = $ministry_info_data['entity_id'];
+                $ministry_info_data['entity_ids'] = $ministry_entities;
+                $ministry_info[$ministry_info_data['ministry_id']] = $ministry_info_data;
             }
+            foreach ($request->controlling_office as $controlling_office_data) {
+                $controlling_office_data = json2Array($controlling_office_data);
+                $controlling_entities[] = $controlling_office_data['entity_id'];
+                $controlling_office_data['entity_ids'] = $controlling_entities;
+                $controlling_office_data['office_type'] = 'budgetary';
+                $controlling_office[$controlling_office_data['controlling_office_id']] = $controlling_office_data;
+            }
+            foreach ($request->selected_entity as $nominated_office) {
+                $nominated_office = json2Array($nominated_office);
+                $nominated_offices[$nominated_office['office_id']] = $nominated_office;
+            }
+
+            $staff_infos = $request->staff_info;
+            $staffs = [];
+            $total_man_power = 0;
+            if (is_array($staff_infos)) {
+                foreach ($staff_infos as $staff_info) {
+                    //dump($staff_info);
+                    $staff_info_arr = explode('_', $staff_info);
+                    $designation = $staff_info_arr[0];
+                    $responsibility = $staff_info_arr[1];
+                    $staff = $staff_info_arr[2];
+                    $total_man_power = $total_man_power + $staff;
+                    $staffs[] = [
+                        "staff" => $staff,
+                        "designation_en" => explode('|', $designation)[0],
+                        "designation_bn" => explode('|', $designation)[1],
+                        "responsibility_en" => explode('|', $responsibility)[0],
+                        "responsibility_bn" => explode('|', $responsibility)[1],
+                    ];
+                }
+            }
+
+            $nominated_man_powers = [
+                'comment' => $request->staff_comment ?? '',
+                'nominated_man_power_counts' => $total_man_power,
+                'staffs' => $staffs,
+            ];
+
+            $data['ministry_info'] = json_encode($ministry_info);
+            $data['controlling_office'] = json_encode($controlling_office);
+            $data['nominated_offices'] = json_encode($nominated_offices);
+            $data['nominated_man_powers'] = json_encode($nominated_man_powers);
+            $data['nominated_man_power_counts'] = $total_man_power;
+
+            $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
+            //dd($store_plan);
+            if (isSuccess($store_plan)) {
+                return response()->json(['status' => 'success', 'data' => 'Added!']);
+            } else {
+                return response()->json(['status' => 'error', 'data' => $store_plan]);
+            }
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => $exception->errors(),
+                'statusCode' => '422',
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json(['status' => 'error', 'data' => $exception]);
         }
 
-        $nominated_man_powers = [
-            'comment' => $request->staff_comment ?? '',
-            'nominated_man_power_counts' => $total_man_power,
-            'staffs' => $staffs,
-        ];
-
-        $data['ministry_info'] = json_encode($ministry_info);
-        $data['controlling_office'] = json_encode($controlling_office);
-        $data['nominated_offices'] = json_encode($nominated_offices);
-        $data['nominated_man_powers'] = json_encode($nominated_man_powers);
-        $data['nominated_man_power_counts'] = $total_man_power;
-
-        $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
-        //dd($store_plan);
-        if (isSuccess($store_plan)) {
-            return response()->json(['status' => 'success', 'data' => 'Added!']);
-        } else {
-            return response()->json(['status' => 'error', 'data' => $store_plan]);
-        }
     }
 
     /**

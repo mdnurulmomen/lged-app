@@ -19,13 +19,14 @@
             <option value="Member|সদস্য">সদস্য</option>
         </select>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
         <label for="staff">জন</label>
         <input class="form-control staff_{{$count}}" type="number" name="staff">
     </div>
-    <div class="col-md-2 mt-8">
-        <button onclick="Annual_Plan_Container.removeTeamSection($(this))" class="btn btn-danger"><i
-                class="fa fa-minus"></i></button>
+    <div class="col-md-1 mt-9">
+        <button onclick="Annual_Plan_Container.removeTeamSection($(this))" class="btn btn-sm btn-danger">
+            <i class="fal fa-minus"></i>
+        </button>
     </div>
     <input type="hidden" name="staff_info[]" class="staff_info_{{$count}}" value="">
 </div>
