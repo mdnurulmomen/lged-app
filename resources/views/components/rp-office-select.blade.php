@@ -5,20 +5,14 @@
             <select id="ministry_id" class="form-control rounded-0 select-select2"
                     name="ministry_id">
                 <option value="" selected="selected">--বাছাই করুন--</option>
-                <option data-ministry-en="Ministry of Social Welfare" data-ministry-bn="সমাজকল্যাণ মন্ত্রণালয়"
-                        value="1">Ministry of Social Welfare
-                </option>
-                <option data-ministry-en="Ministry of Industry" data-ministry-bn="শিল্প মন্ত্রণালয়"
-                        value="3">Ministry of Industry
-                </option>
                 {{--<option data-ministry-en="{{$ministries['name_eng']}}" data-ministry-bn="{{$ministries['name_bng']}}"
                         value="{{$ministries['id']}}">{{$ministries['name_eng']}}
                 </option>--}}
 
-                {{--@foreach($ministries as $ministry)
+                @foreach($ministries as $ministry)
                     <option data-ministry-en="{{$ministry['name_eng']}}" data-ministry-bn="{{$ministry['name_bng']}}"
                             value="{{$ministry['id']}}">{{$ministry['name_eng']}}</option>
-                @endforeach--}}
+                @endforeach
             </select>
             <input type="hidden" id="ministry_name_en" value="">
             <input type="hidden" id="ministry_name_bn" value="">
