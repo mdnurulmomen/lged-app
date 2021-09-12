@@ -810,6 +810,7 @@
 
         @media print {
             @page {
+                size: A4;
                 margin: .25in;
             }
         }
