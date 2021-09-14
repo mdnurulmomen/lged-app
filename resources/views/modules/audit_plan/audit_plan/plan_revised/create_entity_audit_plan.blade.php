@@ -31,23 +31,23 @@
                 <div class="col-md-12">
                     <div class="p-5">
                         <div class="input-group mb-5">
-                            <input class="form-control rounded-0" type="text" name="" placeholder="Add"
+                            {{--<input class="form-control rounded-0" type="text" name="" placeholder="Add"
                                    aria-label="Recipient's " aria-describedby="my-addon">
                             <div class="input-group-append rounded-0">
                                 <button class="btn btn-success btn-sm btn-square" type="button"><i
                                         class="far fa-plus"></i></button>
-                            </div>
+                            </div>--}}
                         </div>
                         <div class="mt-5">
-                            <h3>Audit list</h3>
+                            {{--<h3>Audit list</h3>--}}
                         </div>
                         <!---JS tree start---->
                         <div id="createPlanJsTree" class="mt-5">
                         </div>
                         <!---JS tree end---->
                         <div class="form-group mt-5">
-                            <input class="form-control rounded-0" type="text" name="" id="searchPlaneField"
-                                   placeholder="Search"/>
+                            {{--<input class="form-control rounded-0" type="text" name="" id="searchPlaneField"
+                                   placeholder="Search"/>--}}
                         </div>
                     </div>
                 </div>
@@ -61,6 +61,9 @@
             </div>
         </div>
     </div>
+
+    <div class="load-office-wise-employee"></div>
+
 @endsection
 @section('scripts')
     @include('scripts.script_create_entity_audit_plan_revised')

@@ -87,14 +87,14 @@
 
         // create button
         var button = ui.button({
-            contents: '<i class="fa fa-user"/> Hello',
-            tooltip: 'hello',
+            contents: '<i class="fad fa-user"/>',
+            tooltip: 'Office Employee',
             click: function () {
-                // invoke insertText method with 'hello' on editor module.
-                context.invoke('editor.insertText', 'Team ');
+                //context.invoke('editor.insertText', 'Team ');
+                //$('#officeEmployeeModal').modal('show');
+                showOfficeWiseEmployeeModal();
             }
         });
-
         return button.render();   // return button as jquery object
     }
 
@@ -130,5 +130,18 @@
         snapOffset: 10,
         gutterSize: 5,
     });
+
+    function showOfficeWiseEmployeeModal(office_id=1){
+        url = '{{route('audit.plan.audit.editor.load-office-employee-modal')}}';
+        data = {office_id};
+        ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+            if (response.status === 'error') {
+                toastr.error('No data found');
+            } else {
+                $(".load-office-wise-employee").html(response)
+                $('#officeEmployeeModal').modal('show');
+            }
+        })
+    }
 
 </script>
