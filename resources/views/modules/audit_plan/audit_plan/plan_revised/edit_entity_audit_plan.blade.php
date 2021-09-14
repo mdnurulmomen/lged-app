@@ -15,12 +15,13 @@
         </div>
         <div class="col-md-6 text-right">
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
-                    onclick="Create_Entity_Plan_Container.printPlanBook($(this))">PDF <i class="fas fa-save"></i>
+                    onclick="Edit_Entity_Plan_Container.printPlanBook($(this))">PDF <i class="fas fa-save"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success draft_entity_audit_plan"
+                    data-audit-plan-id="{{$audit_plan['id']}}"
                     data-activity-id="{{$activity_id}}"
                     data-annual-plan-id="{{$annual_plan_id}}"
-                    onclick="Create_Entity_Plan_Container.draftEntityPlan($(this))">Save<i class="fas fa-save"></i>
+                    onclick="Edit_Entity_Plan_Container.draftEntityPlan($(this))">Save<i class="fas fa-save"></i>
             </button>
         </div>
     </div>
@@ -31,23 +32,23 @@
                 <div class="col-md-12">
                     <div class="p-5">
                         <div class="input-group mb-5">
-                            {{--<input class="form-control rounded-0" type="text" name="" placeholder="Add"
+                            <input class="form-control rounded-0" type="text" name="" placeholder="Add"
                                    aria-label="Recipient's " aria-describedby="my-addon">
                             <div class="input-group-append rounded-0">
                                 <button class="btn btn-success btn-sm btn-square" type="button"><i
                                         class="far fa-plus"></i></button>
-                            </div>--}}
+                            </div>
                         </div>
                         <div class="mt-5">
-                            {{--<h3>Audit list</h3>--}}
+                            <h3>Audit list</h3>
                         </div>
                         <!---JS tree start---->
                         <div id="createPlanJsTree" class="mt-5">
                         </div>
                         <!---JS tree end---->
                         <div class="form-group mt-5">
-                            {{--<input class="form-control rounded-0" type="text" name="" id="searchPlaneField"
-                                   placeholder="Search"/>--}}
+                            <input class="form-control rounded-0" type="text" name="" id="searchPlaneField"
+                                   placeholder="Search"/>
                         </div>
                     </div>
                 </div>
@@ -61,14 +62,12 @@
             </div>
         </div>
     </div>
-
-    <div class="load-office-wise-employee"></div>
-
 @endsection
 @section('scripts')
-    @include('scripts.script_create_entity_audit_plan_revised')
+    @include('scripts.script_edit_entity_audit_plan_revised')
+
     <script>
-        var Create_Entity_Plan_Container = {
+        var Edit_Entity_Plan_Container = {
             draftEntityPlan: function (elem) {
                 url = '{{route('audit.plan.audit.revised.plan.save-draft-entity-audit-plan')}}';
 
@@ -97,6 +96,7 @@
                 data = {plan};
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+
                     var newDoc = document.open("text/html", "replace");
                     newDoc.write(response);
                     newDoc.close();
@@ -105,35 +105,6 @@
                      myWindow.focus();*/
                 });
             },
-
-            generatePDF: function (elem) {
-                url = '{{route('audit.plan.audit.revised.plan.generate-audit-plan-pdf')}}';
-                plan = templateArray;
-                data = {plan};
-
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: data,
-                    xhrFields: {
-                        responseType: 'blob'
-                    },
-
-                    success: function (response) {
-                        var blob = new Blob([response]);
-                        var link = document.createElement('a');
-                        link.href = window.URL.createObjectURL(blob);
-                        link.download = "audit_plan.pdf";
-                        link.click();
-                    },
-
-                    error: function (blob) {
-                        toastr.error('Failed to generate PDF.')
-                        console.log(blob);
-                    }
-
-                });
-            },
-        };
+        }
     </script>
 @endsection

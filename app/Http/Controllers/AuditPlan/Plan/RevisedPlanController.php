@@ -70,31 +70,24 @@ class RevisedPlanController extends Controller
      */
     public function updateAuditPlan(Request $request)
     {
-        Validator::make($request->all(), [
-            'party_id' => 'required|integer',
-            'party_name' => 'required',
-            'yearly_plan_rp_id' => 'required|integer',
+        $data = Validator::make($request->all(), [
+            'audit_plan_id' => 'required|integer',
+            'fiscal_year_id' => 'required|integer',
+            'annual_plan_id' => 'required|integer',
         ])->validate();
 
-        $party_id = $request->party_id;
-        $rp_id = $request->yearly_plan_rp_id;
-        $cover_info = [
-            'directorate_name' => $this->current_office()['office_name_en'],
-            'party_name' => $request->party_name,
-        ];
-        $draft_plan_book = $this->showDraftEntityAuditPlanBook($request);
-        if (isSuccess($draft_plan_book)) {
-            $draft_plan_book = $draft_plan_book['data'];
-            if ($draft_plan_book['is_draft']) {
-                $content = json_decode(getDecryptedData($draft_plan_book['content']));
-            } else {
-                $content = $draft_plan_book['content'];
-            }
+        $data['cdesk'] = json_encode($this->current_desk());
 
-            return view('modules.audit_plan.audit_plan.plan_revised.create_entity_audit_plan', compact('party_id', 'rp_id', 'draft_plan_book', 'content', 'cover_info'));
+        $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
+
+        if (isSuccess($audit_plan)) {
+            $audit_plan = $audit_plan['data'];
+            $content = json_decode(getDecryptedData($audit_plan['plan_description']));
+            $activity_id = $audit_plan['activity_id'];
+            $annual_plan_id = $audit_plan['annual_plan_id'];
+            return view('modules.audit_plan.audit_plan.plan_revised.edit_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan', 'content'));
         } else {
-            return ['status' => 'error', 'data' => $draft_plan_book];
-
+            return ['status' => 'error', 'data' => $audit_plan];
         }
     }
 

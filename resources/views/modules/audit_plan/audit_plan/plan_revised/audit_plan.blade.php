@@ -58,11 +58,11 @@
                 annual_plan_id,
             };
 
-            // ajaxCallAsyncCallbackAPI(url, data, 'post', function (res) {
-            //     var newDoc = document.open("text/html", "replace");
-            //     newDoc.write(res);
-            //     newDoc.close();
-            // })
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (res) {
+                var newDoc = document.open("text/html", "replace");
+                newDoc.write(res);
+                newDoc.close();
+            })
         },
 
         loadAuditPlanBookCreatable: function (elem) {
