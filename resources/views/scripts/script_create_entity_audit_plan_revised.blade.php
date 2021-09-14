@@ -102,7 +102,7 @@
         height: 600,
         fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'SolaimanLipi'],
         toolbar: [
-            ['mybutton', ['hello', 'hello']],
+            ['custommenu', ['addTeamLeader']],
             ['style', ['bold', 'italic', 'underline', 'clear']],
             ['font', ['strikethrough', 'superscript', 'subscript']],
             ['fontsize', ['fontsize']],
@@ -113,7 +113,7 @@
             ['table', ['table']],
         ],
         buttons: {
-            hello: HelloButton
+            addTeamLeader: addTeamLeaderInAuditPlan
         },
         callbacks: {
             onChange: function (contents, templateArray) {
