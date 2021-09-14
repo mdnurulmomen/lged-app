@@ -11,7 +11,8 @@
             </button>
 
             <button data-fiscal-year-id="{{$fiscal_year_id}}" class="btn-sm btn-primary btn-square"
-                    data-toggle="modal" data-target="#referenceNumberModal">Reference Number</button>
+                    data-toggle="modal" data-target="#referenceNumberModal">Reference Number
+            </button>
         </div>
     </div>
 
@@ -62,21 +63,22 @@
                     </td>--}}
                     <td width="5%" class="vertical-middle">
                         <div class='btn-group btn-group-sm' role='group'>
-                            <button class="btn_annual_plan btn btn-sm btn-primary"
-                                    data-toggle="tooltip" data-placement="top" title="View Plan"
-                                    data-schedule-id="{{$plan['schedule_id']}}"
-                                    data-activity-id="{{$plan['activity_id']}}"
-                                    data-milestone-id="{{$plan['activity_milestone_id']}}"
-                                    data-activity-title="{{$plan['activity_title_en']}}"
-                                    data-fiscal-year-id="{{$fiscal_year_id}}"
-                                    data-fiscal-year="{{$fiscal_year}}"
-                                    onclick="Annual_Plan_Container.loadEntitySelection($(this))">
-                                <i class="fal fa-eye"></i>
+                            <button
+                                class="btn_annual_plan btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                data-toggle="tooltip" data-placement="top" title="View Plan"
+                                data-schedule-id="{{$plan['schedule_id']}}"
+                                data-activity-id="{{$plan['activity_id']}}"
+                                data-milestone-id="{{$plan['activity_milestone_id']}}"
+                                data-activity-title="{{$plan['activity_title_en']}}"
+                                data-fiscal-year-id="{{$fiscal_year_id}}"
+                                data-fiscal-year="{{$fiscal_year}}"
+                                onclick="Annual_Plan_Container.loadEntitySelection($(this))">
+                                <i class="fad fa-eye"></i>
                             </button>
 
                             <a href='javascript:;' data-toggle="tooltip" data-placement="top" title="Forward Plan"
-                               class='btn btn-sm btn-warning'>
-                                <i class='fal fa-share'></i>
+                               class='btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle'>
+                                <i class='fad fa-share'></i>
                             </a>
                         </div>
 
@@ -96,7 +98,8 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="referenceNumberModal" tabindex="-1" role="dialog" aria-labelledby="referenceNumberModalLabel"
+<div class="modal fade" id="referenceNumberModal" tabindex="-1" role="dialog"
+     aria-labelledby="referenceNumberModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">

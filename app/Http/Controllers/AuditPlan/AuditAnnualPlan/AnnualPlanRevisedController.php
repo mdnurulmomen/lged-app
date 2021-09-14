@@ -26,7 +26,6 @@ class AnnualPlanRevisedController extends Controller
         $data['cdesk'] = json_encode($this->current_desk());
 
         $annual_plans = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_lists'), $data)->json();
-        //dd($annual_plans);
         $fiscal_year_id = $request->fiscal_year_id;
         $fiscal_year = $request->fiscal_year;
 
@@ -77,7 +76,7 @@ class AnnualPlanRevisedController extends Controller
             ->post(config('cag_doptor_api.office_and_grade_wise_designation'),
                 [
                     'office_ids' => $this->current_office_id(),
-                    'grade_id' => 12
+                    'grade_id' => 12,
                 ])->json();
 
         //dd($responseData);
@@ -91,20 +90,6 @@ class AnnualPlanRevisedController extends Controller
         }
 
         return view('modules.audit_plan.annual.annual_plan_revised.partials.load_staff_assign_area', $data);
-
-        /*$designations = [
-            [
-                "designation_eng" => "ADCAG",
-                "designation_bng" => "এডিসিএজি",
-            ],
-            [
-                "designation_eng" => "A&AO",
-                "designation_bng" => "এএন্ডএও",
-            ],
-        ];
-        $count = $request->count;
-        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_staff_assign_area',
-            compact('designations', 'count'));*/
     }
 
 
