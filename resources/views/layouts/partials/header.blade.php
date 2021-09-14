@@ -30,7 +30,5 @@
 <link href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/css/style_core_tapp.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/css/custom-style.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('assets/js/pages/crud/forms/editors/tinymce.min.js') }}" rel="stylesheet" type="text/css"/>
-
 <!--end::Layout Themes-->
 
