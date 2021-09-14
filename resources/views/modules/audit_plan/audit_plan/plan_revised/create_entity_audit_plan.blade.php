@@ -2,6 +2,7 @@
 @section('styles')
 @endsection
 @section('content')
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
         <div class="col-md-6">
             <div class="title py-2">
@@ -54,7 +55,8 @@
             </div>
         </div>
         <div id="split-1">
-            <div class="summernote" id="kt_summernote_1"></div>
+            <textarea id="kt-tinymce-1" name="kt-tinymce-1" class="kt-tinymce-1 tox-target"></textarea>
+            {{--            <div class="summernote" id="kt_summernote_1"></div>--}}
         </div>
         <div id="split-2">
             <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">
@@ -85,7 +87,7 @@
                 })
             },
 
-            printPlanBook:function (elem){
+            printPlanBook: function (elem) {
                 url = '{{route('audit.plan.audit.revised.plan.print-audit-plan')}}';
                 plan = templateArray;
                 data = {plan};
@@ -94,9 +96,9 @@
                     var newDoc = document.open("text/html", "replace");
                     newDoc.write(response);
                     newDoc.close();
-                   /* myWindow = window.open("data:text/html," + encodeURIComponent(response),
-                        "_blank", "width=200,height=100");
-                    myWindow.focus();*/
+                    /* myWindow = window.open("data:text/html," + encodeURIComponent(response),
+                         "_blank", "width=200,height=100");
+                     myWindow.focus();*/
                 });
             },
 

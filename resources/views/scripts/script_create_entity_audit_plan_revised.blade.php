@@ -82,6 +82,16 @@
         });
     }
 
+    function checkIdAndSetContentTinyMce(e) {
+        templateArray.map(function (value, index) {
+            if (value.id === activePdf) {
+                content = tinymce.get("kt-tinymce-1").getContent();
+                value.content = content;
+                $("#pdfContent_" + value.content_id).html(content);
+            }
+        });
+    }
+
     var addTeamLeaderInAuditPlan = function (context) {
         ui = $.summernote.ui;
 
@@ -97,6 +107,26 @@
 
         return button.render();   // return button as jquery object
     }
+
+    tinymce.init({
+        selector: '.kt-tinymce-1',
+        menubar: false,
+        min_height: 480,
+        height: 480,
+        max_height: 640,
+        branding: false,
+        toolbar: ['styleselect fontselect fontsizeselect',
+            'undo redo | cut copy paste | bold italic | link image | alignleft aligncenter alignright alignjustify | table',
+            'bullist numlist | outdent indent | blockquote subscript superscript | advlist | autolink | lists charmap | print preview |  code'],
+        plugins: 'advlist autolink link image lists charmap print preview code table',
+        context_menu: 'link image table',
+        setup: function (editor) {
+            editor.on('init change blur', function (e) {
+                checkIdAndSetContentTinyMce(e)
+            });
+        },
+    });
+
 
     $('.summernote').summernote({
         height: 600,
