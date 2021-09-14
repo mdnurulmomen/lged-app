@@ -82,10 +82,27 @@
         });
     }
 
+    var addTeamLeaderInAuditPlan = function (context) {
+        ui = $.summernote.ui;
+
+        // create button
+        var button = ui.button({
+            contents: '<i class="fa fa-user"/> Hello',
+            tooltip: 'hello',
+            click: function () {
+                // invoke insertText method with 'hello' on editor module.
+                context.invoke('editor.insertText', 'Team ');
+            }
+        });
+
+        return button.render();   // return button as jquery object
+    }
+
     $('.summernote').summernote({
         height: 600,
         fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'SolaimanLipi'],
         toolbar: [
+            ['mybutton', ['hello', 'hello']],
             ['style', ['bold', 'italic', 'underline', 'clear']],
             ['font', ['strikethrough', 'superscript', 'subscript']],
             ['fontsize', ['fontsize']],
@@ -95,6 +112,9 @@
             ['height', ['height']],
             ['table', ['table']],
         ],
+        buttons: {
+            hello: HelloButton
+        },
         callbacks: {
             onChange: function (contents, templateArray) {
                 if ($("#createPlanJsTree").jstree("get_selected").length === '0') {
