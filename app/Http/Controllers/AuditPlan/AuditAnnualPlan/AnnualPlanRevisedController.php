@@ -74,8 +74,11 @@ class AnnualPlanRevisedController extends Controller
     {
         //dd($this->current_office_id());
         $responseData = $this->initDoptorHttp()
-            ->post(config('cag_doptor_api.office_wise_designation'),
-                ['office_ids' => $this->current_office_id()])->json();
+            ->post(config('cag_doptor_api.office_and_grade_wise_designation'),
+                [
+                    'office_ids' => $this->current_office_id(),
+                    'grade_id' => 12
+                ])->json();
 
         //dd($responseData);
 

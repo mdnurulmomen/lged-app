@@ -9,6 +9,9 @@
             <button data-fiscal-year-id="{{$fiscal_year_id}}" onclick="Annual_Plan_Container.printAnnualPlan($(this))"
                     class="btn-sm btn-warning btn-square">Download
             </button>
+
+            <button data-fiscal-year-id="{{$fiscal_year_id}}" class="btn-sm btn-primary btn-square"
+                    data-toggle="modal" data-target="#referenceNumberModal">Reference Number</button>
         </div>
     </div>
 
@@ -89,4 +92,44 @@
         @endforelse
         </tbody>
     </table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="referenceNumberModal" tabindex="-1" role="dialog" aria-labelledby="referenceNumberModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="referenceNumberModalLabel">Add Reference Number</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="reference_number">Reference Number</label>
+                            <input id="reference_number" class="form-control" type="text"
+                                   name="reference_number"
+                                   placeholder="৪৬৬/বাঅঅ/প্রশা-৩/Operational Plan/২০২১-২২/১৫৮০">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="approve_date">Date</label>
+                            <input id="approve_date" class="form-control" type="date"
+                                   name="approve_date">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
 </div>

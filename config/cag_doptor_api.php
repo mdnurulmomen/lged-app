@@ -9,6 +9,7 @@ return [
 
     'offices' => env('API_URL_DOPTOR', '') . '/offices',
     'office_wise_designation' => env('API_URL_DOPTOR', '') . '/office/get-office-wise-designation',
+    'office_and_grade_wise_designation' => env('API_URL_DOPTOR', '') . '/office/get-office-and-grade-wise-designation',
     'office_unit_designation_map' => env('API_URL_DOPTOR', '') . '/office/unit-designation-map',
     'office_unit_designation_employee_map' => env('API_URL_DOPTOR', '') . '/office/unit-designation-employee-map',
 ];
