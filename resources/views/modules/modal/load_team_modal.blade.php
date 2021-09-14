@@ -8,6 +8,15 @@
                 <h5 class="modal-title" id="officeEmployeeModalLabel">Add Team Leader/Member</h5>
             </div>
             <div class="modal-body">
+                <div class="row pb-6">
+                    <div class="col-md-12">
+                        <select class="form-control select-select2" id="employee_type">
+                            <option value="">Select</option>
+                            <option value="leader">Leader</option>
+                            <option value="member">Member</option>
+                        </select>
+                    </div>
+                </div>
                 <ul class="nav nav-tabs custom-tabs mb-0" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active rounded-0" data-toggle="tab" href="#set_own_office">
@@ -74,12 +83,33 @@
                     <div class="tab-pane fade border border-top-0 p-3" id="set_other_office" role="tabpanel"
                          aria-labelledby="other_office-tab">
 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <select class="form-control select-select2" id="other_office">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <div class="assign_employee_div" style="display:none;">
+                    <table class="assign_employee_list" width="100%" border="1">
+                        <thead>
+                        <tr>
+                            <td width="35%">নাম</td>
+                            <td width="30%">পদবী</td>
+                            <td width="35%">অফিস</td>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary"
+                        onclick="Load_Team_Container.addEmployeeToAssignEditor()">Assign</button>
             </div>
         </div>
     </div>
@@ -102,4 +132,54 @@
         },
         "plugins": ["types", "checkbox",]
     });
+
+    //
+    var employees = {};
+    $('.own_office_organogram_tree').on('select_node.jstree', function (e, data) {
+        if (data.node.children.length === 0) {
+            var officer_info = $('#' + data.node.id).data('officer-info')
+            employees[officer_info.officer_id] = officer_info;
+            Load_Team_Container.addEmployeeToAssignedList(officer_info);
+        } else {
+            data.node.children.map(child => {
+                var officer_info = $('#' + child).data('officer-info')
+                employees[officer_info.officer_id] = officer_info;
+                Load_Team_Container.addEmployeeToAssignedList(officer_info);
+            })
+        }
+    }).on('deselect_node.jstree', function (e, data) {
+        if (data.node.children.length === 0) {
+            var officer_info = $('#' + data.node.id).data('officer-info');
+            delete employees[officer_info.officer_id];
+            $("#selected_rp_employee_"+officer_info.officer_id).remove();
+        } else {
+            data.node.children.map(child => {
+                var officer_info = $('#' + child).data('officer-info');
+                delete employees[officer_info.officer_id];
+                $("#selected_rp_employee_"+officer_info.officer_id).remove();
+            })
+        }
+    });
+
+    var Load_Team_Container = {
+        addEmployeeToAssignedList: function (entity_info) {
+            var newRow = '<tr id="selected_rp_employee_' + entity_info.officer_id + '">' +
+                '<td width="35%">' + entity_info.officer_name_bn + '</td>' +
+                '<td width="30%">' + entity_info.designation_bn + '</td>' +
+                '<td width="35%">' + '{{$own_office}}' + '</td>' +
+                '</tr>';
+            $(".assign_employee_list tbody").prepend(newRow);
+        },
+
+        addEmployeeToAssignEditor:function (){
+            if ($("#employee_type").val() === 'leader'){
+                localStorage.setItem("teamLeader", employees);
+            }
+            else if($("#employee_type").val() === 'member'){
+                localStorage.setItem("teamMember", employees);
+            }
+            $(".summernote").summernote("editor.pasteHTML", $(".assign_employee_div").html());
+            $('#officeEmployeeModal').modal('hide');
+        }
+    }
 </script>

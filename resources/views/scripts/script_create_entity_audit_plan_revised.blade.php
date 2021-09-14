@@ -87,7 +87,7 @@
 
         // create button
         var button = ui.button({
-            contents: '<i class="fad fa-user"/>',
+            contents: '<i class="fad fa-users"/>',
             tooltip: 'Office Employee',
             click: function () {
                 //context.invoke('editor.insertText', 'Team ');
@@ -98,11 +98,39 @@
         return button.render();   // return button as jquery object
     }
 
+    var addAuditTeamMemberAuditPlan = function (context) {
+        ui = $.summernote.ui;
+
+        // create button
+        var button = ui.button({
+            contents: '<i class="fad fa-users"/>',
+            tooltip: 'Audit Team',
+            click: function () {
+                //showOfficeWiseEmployeeModal();
+            }
+        });
+        return button.render();   // return button as jquery object
+    }
+
+    var addAuditScheduleCalendarAuditPlan = function (context) {
+        ui = $.summernote.ui;
+
+        // create button
+        var scheduleButton = ui.button({
+            contents: '<i class="fad fa-calendar"/>',
+            tooltip: 'Audit Schedule',
+            click: function () {
+                showAuditScheduleModal();
+            }
+        });
+        return scheduleButton.render();   // return button as jquery object
+    }
+
     $('.summernote').summernote({
         height: 600,
         fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'SolaimanLipi'],
         toolbar: [
-            ['custommenu', ['addTeamLeader']],
+            ['custommenu', ['addTeamLeader','addAuditTeamMember','addAuditScheduleCalendar']],
             ['style', ['bold', 'italic', 'underline', 'clear']],
             ['font', ['strikethrough', 'superscript', 'subscript']],
             ['fontsize', ['fontsize']],
@@ -113,7 +141,9 @@
             ['table', ['table']],
         ],
         buttons: {
-            addTeamLeader: addTeamLeaderInAuditPlan
+            addTeamLeader: addTeamLeaderInAuditPlan,
+            addAuditTeamMember: addAuditTeamMemberAuditPlan,
+            addAuditScheduleCalendar: addAuditScheduleCalendarAuditPlan
         },
         callbacks: {
             onChange: function (contents, templateArray) {
@@ -140,6 +170,19 @@
             } else {
                 $(".load-office-wise-employee").html(response)
                 $('#officeEmployeeModal').modal('show');
+            }
+        })
+    }
+
+    function showAuditScheduleModal(office_id=1){
+        url = '{{route('audit.plan.audit.editor.load-audit-schedule-modal')}}';
+        data = {office_id};
+        ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+            if (response.status === 'error') {
+                toastr.error('No data found');
+            } else {
+                $(".load-audit-schedule").html(response)
+                $('#auditScheduleModal').modal('show');
             }
         })
     }

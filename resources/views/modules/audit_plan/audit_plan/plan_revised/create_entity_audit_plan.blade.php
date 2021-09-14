@@ -15,12 +15,12 @@
         </div>
         <div class="col-md-6 text-right">
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
-                    onclick="Create_Entity_Plan_Container.printPlanBook($(this))">PDF <i class="fas fa-save"></i>
+                    onclick="Create_Entity_Plan_Container.printPlanBook($(this))">Print <i class="fas fa-print"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success draft_entity_audit_plan"
                     data-activity-id="{{$activity_id}}"
                     data-annual-plan-id="{{$annual_plan_id}}"
-                    onclick="Create_Entity_Plan_Container.draftEntityPlan($(this))">Save<i class="fas fa-save"></i>
+                    onclick="Create_Entity_Plan_Container.draftEntityPlan($(this))">Save <i class="fas fa-save"></i>
             </button>
         </div>
     </div>
@@ -63,6 +63,7 @@
     </div>
 
     <div class="load-office-wise-employee"></div>
+    <div class="load-audit-schedule"></div>
 
 @endsection
 @section('scripts')
