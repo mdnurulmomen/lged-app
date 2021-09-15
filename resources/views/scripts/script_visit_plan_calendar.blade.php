@@ -39,7 +39,16 @@
                     editable: true,
                     eventLimit: true, // allow "more" link when too many events
                     navLinks: true,
-                    events: [],
+                    events: [
+                            @foreach($calendar_data as $datum)
+                        {
+                            title: '{{$datum['cost_center_name_bn']}}',
+                            start: '{{$datum['team_member_end_date']}}',
+                            description: '{{$datum['team_member_activity_description']}}',
+                            className: "fc-event-danger fc-event-solid-warning"
+                        },
+                        @endforeach
+                    ],
 
                     eventRender: function (info) {
                         var element = $(info.el);

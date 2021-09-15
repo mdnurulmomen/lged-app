@@ -11,6 +11,7 @@ class IndividualCalendarController extends Controller
     {
         $data['cdesk'] = json_encode($this->current_desk());
         $calendar_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.individual_calendar_list'), $data)->json();
+
         if (isSuccess($calendar_data)) {
             $calendar_data = $calendar_data['data'];
             return view('modules.audit_plan.calendar.index', compact('calendar_data'));
