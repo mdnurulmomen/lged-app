@@ -109,6 +109,12 @@ return [
         'html_view_content_title_store' => env('API_URL_BEE', '') . '/html-view-content-title-store',
         'html_view_content_title_duration_wise' => env('API_URL_BEE', '') . '/html-view-content-title-duration-wise',
     ],
+
+    'audit_visit_plan_calendar' => [
+        'individual_calendar_list' => env('API_URL_BEE', '') . '/calendar/individual',
+        'individual_calendar_create' => env('API_URL_BEE', '') . '/calendar/individual/create',
+    ],
+
     'follow_up' => [
         'audit_observations' => env('API_URL_BEE', '') . '/follow-up/audit-observations',
         'audit_observation_create' => env('API_URL_BEE', '') . '/follow-up/audit-observations/create',
