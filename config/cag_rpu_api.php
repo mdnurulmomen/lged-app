@@ -9,4 +9,5 @@ return [
     'get-office-ministry-list' => env('API_URL_RPU', '') . '/get-office-ministry-list',
     'get-office-layer-ministry-wise' => env('API_URL_RPU', '') . '/get-office-layer-ministry-wise',
     'get-rp-office-ministry-and-layer-wise' => env('API_URL_RPU', '') . '/get-office-ministry-and-layer-wise',
+    'get-office-other-info' => env('API_URL_RPU', '') . '/get-office-other-info',
 ];

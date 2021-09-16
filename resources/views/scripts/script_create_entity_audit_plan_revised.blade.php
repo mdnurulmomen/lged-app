@@ -8,8 +8,9 @@
     var activePdf = '';
     var templateArray = {!! $content !!};
 
-    setCoverInformation();
+    var parentOfficeOtherDataJSON = {!! $parent_office_content !!};
 
+    setCoverInformation();
 
     $('#createPlanJsTree').jstree({
         "core": {
@@ -59,10 +60,8 @@
     }
 
     templateArray.map(function (value, index) {
-        if (value.id === '0') {
-            cover = $("#pdfContent_content_0_1").html();
-            value.content = cover;
-        }
+        cover = $("#pdfContent_" + value.content_id).html();
+        value.content = cover;
     });
 
 
@@ -71,6 +70,41 @@
         $('.bottom_audit_directorate_name_field').html("{{$cover_info['directorate_name']}}")
         $('.responsible_party_name_field').html("{{$cover_info['party_name']}}")
         $('.financial_year_field').html("{{$cover_info['fiscal_year']}}")
+
+        parentOfficeOtherDataJSON.map((content) => {
+            if (content.content_id === 'content_1') {
+                $('.entity_short_description').html(content.content)
+            }
+            if (content.content_id === 'content_1_1') {
+                $('.board_of_directors').html(content.content)
+            }
+            if (content.content_id === 'content_1_2') {
+                $('.organizational_structure').html(content.content)
+            }
+            if (content.content_id === 'content_1_3') {
+                $('.organization_manpower_summary').html(content.content)
+            }
+            if (content.content_id === 'content_2') {
+                $('.entity_important_features').html(content.content)
+            }
+            if (content.content_id === 'content_2_1') {
+                $('.mission').html(content.content)
+            }
+            if (content.content_id === 'content_2_2') {
+                $('.vision').html(content.content)
+            }
+            if (content.content_id === 'content_2_3') {
+                $('.financial_statements').html(content.content)
+            }
+            if (content.content_id === 'content_3') {
+                $('.revenue_expenditure').html(content.content)
+            }
+            if (content.content_id === 'content_4') {
+                $('.capital_expenditure').html(content.content)
+            }
+
+        });
+
     }
 
     function checkIdAndSetContent(content) {
@@ -130,7 +164,7 @@
         height: 600,
         fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'SolaimanLipi'],
         toolbar: [
-            ['custommenu', ['addTeamLeader','addAuditTeamMember','addAuditScheduleCalendar']],
+            ['custommenu', ['addTeamLeader', 'addAuditTeamMember', 'addAuditScheduleCalendar']],
             ['style', ['bold', 'italic', 'underline', 'clear']],
             ['font', ['strikethrough', 'superscript', 'subscript']],
             ['fontsize', ['fontsize']],
@@ -161,7 +195,7 @@
         gutterSize: 5,
     });
 
-    function showOfficeWiseEmployeeModal(office_id=1){
+    function showOfficeWiseEmployeeModal(office_id = 1) {
         url = '{{route('audit.plan.audit.editor.load-office-employee-modal')}}';
         data = {office_id};
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -174,7 +208,7 @@
         })
     }
 
-    function showAuditScheduleModal(office_id=1){
+    function showAuditScheduleModal(office_id = 1) {
         url = '{{route('audit.plan.audit.editor.load-audit-schedule-modal')}}';
         data = {office_id};
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
