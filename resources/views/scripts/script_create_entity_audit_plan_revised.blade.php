@@ -37,6 +37,7 @@
                 $('.summernote').summernote('enable');
                 $("#pdfContent_" + value.content_id).html(content);
                 $('.note-editable').html(content);
+                tinymce.get("kt-tinymce-1").setContent(content);
             }
         });
         setCoverInformation();
@@ -104,7 +105,16 @@
             }
 
         });
+    }
 
+    function checkIdAndSetContentTinyMce(e) {
+        templateArray.map(function (value, index) {
+            if (value.id === activePdf) {
+                content = tinymce.get("kt-tinymce-1").getContent();
+                value.content = content;
+                $("#pdfContent_" + value.content_id).html(content);
+            }
+        });
     }
 
     function checkIdAndSetContent(content) {
@@ -189,6 +199,25 @@
         }
     });
 
+    tinymce.init({
+        selector: '.kt-tinymce-1',
+        menubar: false,
+        min_height: 600,
+        height: 600,
+        max_height: 640,
+        branding: false,
+        toolbar: ['styleselect fontselect fontsizeselect',
+            'undo redo | cut copy paste | bold italic | link image | alignleft aligncenter alignright alignjustify | table',
+            'bullist numlist | outdent indent | blockquote subscript superscript | advlist | autolink | lists charmap | print preview |  code'],
+        plugins: 'advlist autolink link image lists charmap print preview code table',
+        context_menu: 'link image table',
+        setup: function (editor) {
+            editor.on('init change blur', function (e) {
+                checkIdAndSetContentTinyMce(e)
+            });
+        },
+    });
+
     Split(['#split-0', '#split-1', '#split-2'], {
         minSize: 150,
         snapOffset: 10,
@@ -210,7 +239,11 @@
 
     function showAuditScheduleModal(office_id = 1) {
         url = '{{route('audit.plan.audit.editor.load-audit-schedule-modal')}}';
-        data = {office_id};
+        annual_plan_id = '{{$annual_plan_id}}';
+        activity_id = '{{$activity_id}}';
+        fiscal_year_id = '{{$fiscal_year_id}}';
+
+        data = {office_id, annual_plan_id, activity_id, fiscal_year_id};
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             if (response.status === 'error') {
                 toastr.error('No data found');

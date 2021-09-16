@@ -54,6 +54,7 @@ class RevisedPlanController extends Controller
         $parent_office_data = isSuccess($parent_office_data) ? $parent_office_data['data'] : [];
         $parent_office_content = is_array($parent_office_data) ? json_encode($parent_office_data['content_list']) : '';
         $activity_id = $request->activity_id;
+        $fiscal_year_id = $request->fiscal_year_id;
         $annual_plan_id = $request->annual_plan_id;
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
@@ -63,7 +64,7 @@ class RevisedPlanController extends Controller
                 'party_name' => $audit_plan['annual_plan']['controlling_office_bn'],
                 'fiscal_year' => enTobn($audit_plan['annual_plan']['fiscal_year']['start']) . ' - ' . enTobn($audit_plan['annual_plan']['fiscal_year']['end']),
             ];
-            return view('modules.audit_plan.audit_plan.plan_revised.create_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan', 'content', 'cover_info', 'parent_office_content'));
+            return view('modules.audit_plan.audit_plan.plan_revised.create_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan', 'content', 'cover_info', 'fiscal_year_id','parent_office_content'));
         } else {
             return ['status' => 'error', 'data' => $audit_plan];
         }

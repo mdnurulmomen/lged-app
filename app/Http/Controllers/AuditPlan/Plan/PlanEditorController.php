@@ -14,13 +14,25 @@ class PlanEditorController extends Controller
      */
     public function loadOfficeEmployeeModal(Request $request)
     {
+        //dd($this->current_office_id());
         $own_office = $this->current_office()['office_name_bn'];
-        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($request->office_id);
+        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
         return view('modules.modal.load_team_modal', compact('officer_lists','own_office'));
     }
 
     public function loadAuditScheduleModal(Request $request)
     {
-        return view('modules.modal.load_audit_schedule_modal');
+        $data = Validator::make($request->all(), [
+            'activity_id' => 'required|integer',
+            'annual_plan_id' => 'required|integer',
+            'fiscal_year_id' => 'required|integer',
+        ])->validate();
+
+        //to do
+        $data['cdesk'] = json_encode($this->current_desk());
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_create_draft'), $data)->json();
+        $audit_plan = $responseData['data'];
+        //dd($audit_plan);
+        return view('modules.modal.load_audit_schedule_modal',compact('audit_plan'));
     }
 }

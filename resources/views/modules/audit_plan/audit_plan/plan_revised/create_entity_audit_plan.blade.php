@@ -1,7 +1,14 @@
 @extends('layouts.full_width')
 @section('styles')
+    <style>
+        .tox-tinymce {
+            height: 78vh !important;
+            font-size: 11px !important;
+        }
+    </style>
 @endsection
 @section('content')
+    <script src="//cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
         <div class="col-md-6">
             <div class="title py-2">
@@ -54,7 +61,8 @@
             </div>
         </div>
         <div id="split-1">
-            <div class="summernote" id="kt_summernote_1"></div>
+            <textarea id="kt-tinymce-1" name="kt-tinymce-1" class="kt-tinymce-1"></textarea>
+            {{--            <div class="summernote" id="kt_summernote_1"></div>--}}
         </div>
         <div id="split-2">
             <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">
