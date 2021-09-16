@@ -97,7 +97,7 @@
                     '<input name="controlling_office[]" class="controlling_office" id="controlling_office_' + entity_info.controlling_office_id + '" type="hidden" value=""/>' +
                     '<input name="ministry_info[]" class="ministry_info" id="ministry_info_' + entity_info.ministry_id + '" type="hidden" value=""/>';
 
-                $(".selected_rp_offices").prepend(newRow);
+                $(".selected_rp_offices").append(newRow);
                 selected_auditee = {
                     'office_id': entity_info.entity_id,
                     'office_name_en': entity_info.entity_name_en,
