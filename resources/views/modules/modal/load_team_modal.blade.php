@@ -150,10 +150,14 @@
                             <div class="tab-pane border border-top-0 p-3 fade show active" id="team_members" role="tabpanel"
                                  aria-labelledby="selected_offices_tab">
                                 <div style="overflow-y: scroll; height: 60vh" class="pl-4 selected_offices"></div>
+                                <button id="save_team" onclick="Load_Team_Container.saveTeamMember()" class="btn btn-primary float-left"> save </button>
                             </div>
 
                             <div class="tab-pane fade border border-top-0 p-3" id="sub_team_create" role="tabpanel"
                                  aria-labelledby="sub_team_create_tab">
+                                <div class="pl-4 sub_teams"></div>
+                                <button id="save_sub_team" onclick="Load_Team_Container.saveSubTeam()" class="btn btn-primary float-left"> save </button>
+                                <div class="pl-4 assign_sub_team_members"></div>
                             </div>
 
                             <div class="tab-pane fade border border-top-0 p-3" id="team_schedule" role="tabpanel"
@@ -208,6 +212,8 @@
 
     //
     var employees = {};
+    var team = {};
+    var subTeam = [];
     $('.own_office_organogram_tree').on('select_node.jstree', function (e, data) {
         if (data.node.children.length === 0) {
             var officer_info = $('#' + data.node.id).data('officer-info')
@@ -252,20 +258,21 @@
         addSelectedOfficeList: function (entity_info) {
             if ($('#selected_officer_' + entity_info.officer_id).length === 0) {
                 var newRow = '<div class="mt-2" style="border: 1px solid #ebf3f2;padding: 10px" id="selected_officer_' + entity_info.officer_id + '">' +
-                    '<li style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
+                    '<li  style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
                     /*'<span onclick="Load_Team_Container.removeSelectedOfficer(' + entity_info.officer_id + ')" style="cursor:pointer;color:red;">' +
                     '<i class="fas fa-trash-alt text-danger pr-2"></i></span>' +*/
+                    '<input  id="officer_name_' + entity_info.officer_id + '" type="hidden" class="form-control" value="'+ entity_info.officer_name_bn+'"/>'+
                     '<i class="fa fa-user pr-2"></i>' + entity_info.officer_name_bn+ ' ('+entity_info.designation_bn+')' +
                     '</li>'+
                     '<div class="row">'+
                     '<div class="col-md-4">'+
-                    '<select name="selected_officer_designation[]" class="form-control select-select2">' +
-                    '<option value="">Select</option><option value="দলনেতা">দলনেতা</option>' +
-                    '<option value="উপ দলনেতা">উপ দলনেতা</option><option value="সদস্য">সদস্য</option>' +
+                    '<select id="selected_officer_designation_' + entity_info.officer_id + '" name="selected_officer_designation[]" class="form-control select-select2">' +
+                    '<option value="">Select</option><option value="teamLeader">দলনেতা</option>' +
+                    '<option value="subTeamLeader">উপ দলনেতা</option><option value="member">সদস্য</option>' +
                     '</select>'+
                     '</div>'+
                     '<div class="col-md-8">'+
-                    '<input type="text" name="selected_officer_phone[]" placeholder="Enter phone number" class="form-control selected_officer_phone" value=""/>'+
+                    '<input data-id="' + entity_info.officer_id + '" id="selected_officer_phone_' + entity_info.officer_id + '" type="text" name="selected_officer_phone[]" placeholder="Enter phone number" class="form-control selected_officer_phone" value=""/>'+
                     '</div></div></div>';
 
                 $(".selected_offices").append(newRow);
@@ -305,6 +312,57 @@
             }
             $(".summernote").summernote("editor.pasteHTML", $(".assign_employee_div").html());
             $('#officeEmployeeModal').modal('hide');
-        }
+        },
+        saveTeamMember: function () {
+            var selected_officer_phone = $('.selected_officer_phone');
+            selected_officer_phone.each(function(k, v) {
+                 var id = $(this).attr('data-id');
+                 var name = $('#officer_name_'+id).val();
+                 var member_role = $('#selected_officer_designation_'+id).val();
+                 var phone = $('#selected_officer_phone_'+id).val();
+                 info = {'name' : name,'member_role' : member_role,'phone' : phone};
+                 team[id] = info;
+
+                 if (member_role == 'subTeamLeader'){
+                     $(".sub_teams").append(
+                         `<div class="row">
+                               <input  class="sub_team_name form-control" type="text" placeholder="উপদল">
+                         </div>`
+                     );
+                 }
+            });
+            // console.log(team);
+            localStorage.setItem("team", JSON.stringify(team));
+
+        },
+
+        saveSubTeam: function () {
+            var sub_team_name = $('.sub_team_name');
+            var i = 0;
+            sub_team_name.each(function(k, v) {
+                subTeam[i] = $(this).val();
+                i++
+            });
+
+            console.log(subTeam);
+            teamMember = JSON.parse(localStorage.getItem('team'));
+
+            for( key in teamMember) {
+                if (teamMember.hasOwnProperty(key)) {
+                    var newRow = '<div class="mt-2" style="border: 1px solid #ebf3f2;padding: 10px">' +
+                    '<li  style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
+                    '<i class="fa fa-user pr-2"></i>' + teamMember[key].name+ '</li>'+
+                    '<div class="row">'+
+                    '<div class="col-md-4">'+
+                    '<select  name="selected_officer_designation[]" class="form-control select-select2">';
+                    subTeam.map(function (v){
+                        newRow = newRow +  '<option value="'+v+'">'+v+'</option>';
+                    });
+                    newRow = newRow + '</select>'+ '</div>'+ '</div></div>';
+
+                $(".assign_sub_team_members").append(newRow);
+                }
+            }
+        },
     }
 </script>
