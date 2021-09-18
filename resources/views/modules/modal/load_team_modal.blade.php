@@ -10,11 +10,9 @@
             <div class="modal-body">
                 <div class="row pb-6">
                     <div class="col-md-12">
-                        <select class="form-control select-select2" id="employee_type">
-                            <option value="">Select</option>
-                            <option value="leader">Leader</option>
-                            <option value="member">Member</option>
-                        </select>
+                        <div class="form-row">
+                            <input class="form-control" id="assignTeamNo" placeholder="নিরীক্ষা নিযুক্তি দল নম্বর" type="text" name="">
+                        </div>
                     </div>
                 </div>
                 <ul class="nav nav-tabs custom-tabs mb-0" role="tablist">
@@ -34,7 +32,7 @@
                     <div class="tab-pane border border-top-0 p-3 fade show active" id="set_own_office" role="tabpanel"
                          aria-labelledby="own-tab">
                         <div class="row">
-                            <div class="col-md-12 officers_list_area">
+                            <div class="col-md-5 officers_list_area">
                                 <div class="rounded-0 own_office_organogram_tree"
                                      style="overflow-y: scroll; height: 60vh">
                                     <ul>
@@ -48,7 +46,7 @@
                                                             <ul>
                                                                 @foreach($unit['designations'] as $designation)
                                                                     @if(!empty($designation['employee_info']))
-                                                                    <li data-officer-info="{{json_encode(
+                                                                        <li data-officer-info="{{json_encode(
     [
         'designation_id' => $designation['designation_id'],
         'designation_en' => $designation['designation_eng'],
@@ -62,10 +60,10 @@
         'unit_name_bn' => $unit['unit_name_bng'],
         'office_id' => $officer_list['office_id'],
         ])}}"
-                                                                        data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
-                                                                        {{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}
-                                                                        <small>{{$designation['designation_eng']}}</small>
-                                                                    </li>
+                                                                            data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
+                                                                            {{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}
+                                                                            <small>{{$designation['designation_eng']}}</small>
+                                                                        </li>
                                                                     @endif
                                                                 @endforeach
                                                             </ul>
@@ -75,6 +73,11 @@
                                             </ul>
                                         </li>
                                     </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="pl-4 selected_offices">
+
                                 </div>
                             </div>
                         </div>
@@ -140,11 +143,13 @@
             var officer_info = $('#' + data.node.id).data('officer-info')
             employees[officer_info.officer_id] = officer_info;
             Load_Team_Container.addEmployeeToAssignedList(officer_info);
+            Load_Team_Container.addSelectedOfficeList(officer_info);
         } else {
             data.node.children.map(child => {
                 var officer_info = $('#' + child).data('officer-info')
                 employees[officer_info.officer_id] = officer_info;
                 Load_Team_Container.addEmployeeToAssignedList(officer_info);
+                Load_Team_Container.addSelectedOfficeList(officer_info);
             })
         }
     }).on('deselect_node.jstree', function (e, data) {
@@ -152,11 +157,13 @@
             var officer_info = $('#' + data.node.id).data('officer-info');
             delete employees[officer_info.officer_id];
             $("#selected_rp_employee_"+officer_info.officer_id).remove();
+            Load_Team_Container.removeSelectedOfficer(officer_info.officer_id);
         } else {
             data.node.children.map(child => {
                 var officer_info = $('#' + child).data('officer-info');
                 delete employees[officer_info.officer_id];
                 $("#selected_rp_employee_"+officer_info.officer_id).remove();
+                Load_Team_Container.removeSelectedOfficer(officer_info.officer_id);
             })
         }
     });
@@ -169,6 +176,54 @@
                 '<td width="35%">' + '{{$own_office}}' + '</td>' +
                 '</tr>';
             $(".assign_employee_list tbody").prepend(newRow);
+        },
+
+
+        addSelectedOfficeList: function (entity_info) {
+            if ($('#selected_officer_' + entity_info.officer_id).length === 0) {
+                var newRow = '<div style="border: 1px solid #ebf3f2;padding: 10px" id="selected_officer_' + entity_info.officer_id + '" onclick="Load_Team_Container.removeSelectedOfficer(' + entity_info.officer_id + ')">' +
+                    '<li style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;cursor: move;"' +
+                    ' draggable="true">' +
+                    '<span style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
+                    '<i class="fa fa-home pr-2"></i>' + entity_info.officer_name_bn+ ' ('+entity_info.designation_bn+')' +
+                    '</li>'+
+                    '<div class="row">'+
+                    '<div class="col-md-4">'+
+                    '<select name="selected_officer_designation[]" class="form-control select-select2">' +
+                    '<option value="">Select</option><option value="দলনেতা">দলনেতা</option>' +
+                    '<option value="উপ দলনেতা">উপ দলনেতা</option><option value="সদস্য">সদস্য</option>' +
+                    '</select>'+
+                    '</div>'+
+                    '<div class="col-md-8">'+
+                    '<input type="text" name="selected_officer_phone[]" placeholder="Enter phone number" class="form-control selected_officer_phone" value=""/>'+
+                    '</div></div></div>';
+
+                $(".selected_offices").append(newRow);
+                /*selected_auditee = {
+                    'office_id': entity_info.entity_id,
+                    'office_name_en': entity_info.entity_name_en,
+                    'office_name_bn': entity_info.entity_name_bn,
+                };
+                controlling_office = {
+                    'controlling_office_id': entity_info.controlling_office_id,
+                    'controlling_office_name_en': entity_info.controlling_office_name_en,
+                    'controlling_office_name_bn': entity_info.controlling_office_name_bn,
+                    'entity_id': entity_info.entity_id,
+                };
+                ministry_info = {
+                    'ministry_id': entity_info.ministry_id,
+                    'ministry_name_en': entity_info.ministry_name_en,
+                    'ministry_name_bn': entity_info.ministry_name_bn,
+                    'entity_id': entity_info.entity_id,
+                }
+
+                $(".selected_offices").find('#selected_entity_' + entity_info.entity_id).val(JSON.stringify(selected_auditee));
+                $(".selected_offices").find('#controlling_office_' + entity_info.controlling_office_id).val(JSON.stringify(controlling_office));
+                $(".selected_offices").find('#ministry_info_' + entity_info.ministry_id).val(JSON.stringify(ministry_info));*/
+            }
+        },
+        removeSelectedOfficer: function (entity_id) {
+            $('#selected_officer_' + entity_id).remove();
         },
 
         addEmployeeToAssignEditor:function (){
