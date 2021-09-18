@@ -129,7 +129,38 @@
                         </div>
                     </div>
                     <div class="col-md-7">
-                        <div style="overflow-y: scroll; height: 70vh" class="pl-4 selected_offices"></div>
+                        <ul class="nav nav-tabs custom-tabs mb-0" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active rounded-0" data-toggle="tab" href="#team_members">
+                                    <span class="nav-text">টিম গঠন</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#sub_team_create" aria-controls="profile">
+                                    <span class="nav-text">উপদল গঠন</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#team_schedule" aria-controls="profile">
+                                    <span class="nav-text">সময়সূচী</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane border border-top-0 p-3 fade show active" id="team_members" role="tabpanel"
+                                 aria-labelledby="selected_offices_tab">
+                                <div style="overflow-y: scroll; height: 60vh" class="pl-4 selected_offices"></div>
+                            </div>
+
+                            <div class="tab-pane fade border border-top-0 p-3" id="sub_team_create" role="tabpanel"
+                                 aria-labelledby="sub_team_create_tab">
+                            </div>
+
+                            <div class="tab-pane fade border border-top-0 p-3" id="team_schedule" role="tabpanel"
+                                 aria-labelledby="team_schedule_tab">
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -220,12 +251,11 @@
 
         addSelectedOfficeList: function (entity_info) {
             if ($('#selected_officer_' + entity_info.officer_id).length === 0) {
-                var newRow = '<div style="border: 1px solid #ebf3f2;padding: 10px" id="selected_officer_' + entity_info.officer_id + '">' +
-                    '<li style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;"' +
-                    ' draggable="true">' +
+                var newRow = '<div class="mt-2" style="border: 1px solid #ebf3f2;padding: 10px" id="selected_officer_' + entity_info.officer_id + '">' +
+                    '<li style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
                     /*'<span onclick="Load_Team_Container.removeSelectedOfficer(' + entity_info.officer_id + ')" style="cursor:pointer;color:red;">' +
                     '<i class="fas fa-trash-alt text-danger pr-2"></i></span>' +*/
-                    '<i class="fa fa-home pr-2"></i>' + entity_info.officer_name_bn+ ' ('+entity_info.designation_bn+')' +
+                    '<i class="fa fa-user pr-2"></i>' + entity_info.officer_name_bn+ ' ('+entity_info.designation_bn+')' +
                     '</li>'+
                     '<div class="row">'+
                     '<div class="col-md-4">'+
@@ -268,10 +298,10 @@
 
         addEmployeeToAssignEditor:function (){
             if ($("#employee_type").val() === 'leader'){
-                localStorage.setItem("teamLeader", employees);
+                localStorage.setItem("teamLeader", JSON.stringify(employees));
             }
             else if($("#employee_type").val() === 'member'){
-                localStorage.setItem("teamMember", employees);
+                localStorage.setItem("teamMember", JSON.stringify(employees));
             }
             $(".summernote").summernote("editor.pasteHTML", $(".assign_employee_div").html());
             $('#officeEmployeeModal').modal('hide');
