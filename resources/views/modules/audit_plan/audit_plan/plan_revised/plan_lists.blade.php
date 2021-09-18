@@ -1,4 +1,4 @@
-<div class="search-all position-relative">
+{{--<div class="search-all position-relative">
     <div class="row">
         <div class="col align-self-start">
             <div class="input-group-append">
@@ -71,6 +71,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div>
                     <div class="input select">
                         <div class="dropdown bootstrap-select form-control">
@@ -275,9 +276,9 @@
                     title=""></i></button>
         </div>
     </div>
-</div>
+</div>--}}
 
-<div class="col-lg-12 p-0">
+<div class="col-lg-12 p-0 mt-3">
     <!--begin::Table-->
     <div class="table-responsive">
         <table class="table table-striped">
