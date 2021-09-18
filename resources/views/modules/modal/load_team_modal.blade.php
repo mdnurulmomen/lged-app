@@ -2,51 +2,88 @@
 <div class="modal fade" id="officeEmployeeModal" tabindex="-1" role="dialog"
      aria-labelledby="officeEmployeeModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="officeEmployeeModalLabel">Add Team Leader/Member</h5>
+                <h5 class="modal-title" id="officeEmployeeModalLabel">Add Audit Team</h5>
             </div>
             <div class="modal-body">
-                <div class="row pb-6">
-                    <div class="col-md-12">
+                <div class="row  pb-6">
+                    <div class="col-md-4">
+                        <label for="">নিরীক্ষা নিযুক্তি দল নম্বর</label>
                         <div class="form-row">
                             <input class="form-control" id="assignTeamNo" placeholder="নিরীক্ষা নিযুক্তি দল নম্বর" type="text" name="">
                         </div>
                     </div>
-                </div>
-                <ul class="nav nav-tabs custom-tabs mb-0" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active rounded-0" data-toggle="tab" href="#set_own_office">
-                            <span class="nav-text">Own Office</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#set_other_office" aria-controls="profile">
-                            <span class="nav-text">Other Office</span>
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="tab-content" id="plan_office_tab">
-                    <div class="tab-pane border border-top-0 p-3 fade show active" id="set_own_office" role="tabpanel"
-                         aria-labelledby="own-tab">
+                    
+                    <div class="col-md-4">
+                        <label for="">নিরীক্ষাধীন অর্থ বছর</label>
                         <div class="row">
-                            <div class="col-md-5 officers_list_area">
-                                <div class="rounded-0 own_office_organogram_tree"
-                                     style="overflow-y: scroll; height: 60vh">
-                                    <ul>
-                                        <li>
-                                            Office
+                            <div class="col">
+                                <input type="text" data-id="1"
+                                       class="year-picker form-control input-start-year"
+                                       placeholder="শুরু"/>
+                            </div>
+                            <div class="col">
+                                <input type="text" data-id="1"
+                                       class="year-picker form-control input-end-year"
+                                       placeholder="শেষ"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="">নিরীক্ষা সম্পাদনের সময়কাল</label>
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" data-id="1"
+                                       class="date form-control input-start-duration"
+                                       placeholder="শুরু"/>
+                            </div>
+                            <div class="col">
+                                <input type="text" data-id="1"
+                                       class="date form-control input-end-duration"
+                                       placeholder="শেষ"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <ul class="nav nav-tabs custom-tabs mb-0" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active rounded-0" data-toggle="tab" href="#set_own_office">
+                                    <span class="nav-text">Own Office</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#set_other_office" aria-controls="profile">
+                                    <span class="nav-text">Other Office</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="plan_office_tab">
+                            <div class="tab-pane border border-top-0 p-3 fade show active" id="set_own_office" role="tabpanel"
+                                 aria-labelledby="own-tab">
+                                <div class="row">
+                                    <div class="col-md-12 officers_list_area">
+                                        <div class="rounded-0 own_office_organogram_tree"
+                                             style="overflow-y: scroll; height: 60vh">
                                             <ul>
-                                                @foreach($officer_lists as $key => $officer_list)
-                                                    @foreach($officer_list['units'] as $unit)
-                                                        <li data-jstree='{ "opened" : true }'>
-                                                            {{$unit['unit_name_eng']}}
-                                                            <ul>
-                                                                @foreach($unit['designations'] as $designation)
-                                                                    @if(!empty($designation['employee_info']))
-                                                                        <li data-officer-info="{{json_encode(
+                                                <li>
+                                                    Office
+                                                    <ul>
+                                                        @foreach($officer_lists as $key => $officer_list)
+                                                            @foreach($officer_list['units'] as $unit)
+                                                                <li data-jstree='{ "opened" : true }'>
+                                                                    {{$unit['unit_name_eng']}}
+                                                                    <ul>
+                                                                        @foreach($unit['designations'] as $designation)
+                                                                            @if(!empty($designation['employee_info']))
+                                                                                <li data-officer-info="{{json_encode(
     [
         'designation_id' => $designation['designation_id'],
         'designation_en' => $designation['designation_eng'],
@@ -60,49 +97,51 @@
         'unit_name_bn' => $unit['unit_name_bng'],
         'office_id' => $officer_list['office_id'],
         ])}}"
-                                                                            data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
-                                                                            {{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}
-                                                                            <small>{{$designation['designation_eng']}}</small>
-                                                                        </li>
-                                                                    @endif
-                                                                @endforeach
-                                                            </ul>
-                                                        </li>
-                                                    @endforeach
-                                                @endforeach
+                                                                                    data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
+                                                                                    {{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}
+                                                                                    <small>{{$designation['designation_eng']}}</small>
+                                                                                </li>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </li>
+                                                            @endforeach
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
                                             </ul>
-                                        </li>
-                                    </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-7">
-                                <div class="pl-4 selected_offices">
 
+                            <div class="tab-pane fade border border-top-0 p-3" id="set_other_office" role="tabpanel"
+                                 aria-labelledby="other_office-tab">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <select class="form-control select-select2" id="other_office">
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="tab-pane fade border border-top-0 p-3" id="set_other_office" role="tabpanel"
-                         aria-labelledby="other_office-tab">
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <select class="form-control select-select2" id="other_office">
-                                    <option value="">Select</option>
-                                </select>
-                            </div>
-                        </div>
+                    <div class="col-md-7">
+                        <div style="overflow-y: scroll; height: 70vh" class="pl-4 selected_offices"></div>
                     </div>
                 </div>
+
 
                 <div class="assign_employee_div" style="display:none;">
                     <table class="assign_employee_list" width="100%" border="1">
                         <thead>
                         <tr>
-                            <td width="35%">নাম</td>
-                            <td width="30%">পদবী</td>
-                            <td width="35%">অফিস</td>
+                            <td width="30%">নাম</td>
+                            <td width="20%">পদবী</td>
+                            <td width="30%">নিরীক্ষা দলে অবস্থান</td>
+                            <td width="20%">মোবাইল নং</td>
                         </tr>
                         </thead>
                         <tbody></tbody>
@@ -181,10 +220,11 @@
 
         addSelectedOfficeList: function (entity_info) {
             if ($('#selected_officer_' + entity_info.officer_id).length === 0) {
-                var newRow = '<div style="border: 1px solid #ebf3f2;padding: 10px" id="selected_officer_' + entity_info.officer_id + '" onclick="Load_Team_Container.removeSelectedOfficer(' + entity_info.officer_id + ')">' +
-                    '<li style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;cursor: move;"' +
+                var newRow = '<div style="border: 1px solid #ebf3f2;padding: 10px" id="selected_officer_' + entity_info.officer_id + '">' +
+                    '<li style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;"' +
                     ' draggable="true">' +
-                    '<span style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
+                    /*'<span onclick="Load_Team_Container.removeSelectedOfficer(' + entity_info.officer_id + ')" style="cursor:pointer;color:red;">' +
+                    '<i class="fas fa-trash-alt text-danger pr-2"></i></span>' +*/
                     '<i class="fa fa-home pr-2"></i>' + entity_info.officer_name_bn+ ' ('+entity_info.designation_bn+')' +
                     '</li>'+
                     '<div class="row">'+
