@@ -136,7 +136,7 @@
             click: function () {
                 //context.invoke('editor.insertText', 'Team ');
                 //$('#officeEmployeeModal').modal('show');
-                showOfficeWiseEmployeeModal();
+                showTeamCreateModal();
             }
         });
         return button.render();   // return button as jquery object
@@ -150,7 +150,7 @@
             contents: '<i class="fad fa-users"/>',
             tooltip: 'Audit Team',
             click: function () {
-                //showOfficeWiseEmployeeModal();
+                //showTeamCreateModal();
             }
         });
         return button.render();   // return button as jquery object
@@ -224,7 +224,7 @@
         gutterSize: 5,
     });
 
-    function showOfficeWiseEmployeeModal(office_id = 1) {
+    /*function showTeamCreateModal(office_id = 1) {
         url = '{{route('audit.plan.audit.editor.load-office-employee-modal')}}';
         data = {office_id};
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -235,7 +235,7 @@
                 $('#officeEmployeeModal').modal('show');
             }
         })
-    }
+    }*/
 
     function showAuditScheduleModal(office_id = 1) {
         url = '{{route('audit.plan.audit.editor.load-audit-schedule-modal')}}';

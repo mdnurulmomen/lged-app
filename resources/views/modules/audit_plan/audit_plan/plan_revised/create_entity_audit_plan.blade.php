@@ -22,6 +22,9 @@
         </div>
         <div class="col-md-6 text-right">
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
+                    onclick="Create_Entity_Plan_Container.showTeamCreateModal($(this));">Team <i class="fas fa-users"></i>
+            </button>
+            <button class="btn btn-sm btn-square btn-primary btn-hover-success"
                     onclick="Create_Entity_Plan_Container.printPlanBook($(this))">Print <i class="fas fa-print"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success draft_entity_audit_plan"
@@ -78,6 +81,19 @@
     @include('scripts.script_create_entity_audit_plan_revised')
     <script>
         var Create_Entity_Plan_Container = {
+            showTeamCreateModal:function (elem){
+                url = '{{route('audit.plan.audit.editor.load-office-employee-modal')}}';
+                data = {};
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error('No data found');
+                    } else {
+                        $(".load-office-wise-employee").html(response)
+                        $('#officeEmployeeModal').modal('show');
+                    }
+                })
+
+            },
             draftEntityPlan: function (elem) {
                 url = '{{route('audit.plan.audit.revised.plan.save-draft-entity-audit-plan')}}';
 
