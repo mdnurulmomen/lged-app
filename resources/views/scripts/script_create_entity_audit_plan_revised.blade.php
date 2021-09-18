@@ -206,9 +206,9 @@
         height: 600,
         max_height: 640,
         branding: false,
-        toolbar: ['styleselect fontselect fontsizeselect',
+        toolbar: ['styleselect fontselect fontsizeselect | blockquote subscript superscript',
             'undo redo | cut copy paste | bold italic | link image | alignleft aligncenter alignright alignjustify | table',
-            'bullist numlist | outdent indent | blockquote subscript superscript | advlist | autolink | lists charmap | print preview |  code'],
+            'bullist numlist | outdent indent | advlist | autolink | lists charmap | print preview |  code'],
         plugins: 'advlist autolink link image lists charmap print preview code table',
         context_menu: 'link image table',
         setup: function (editor) {
@@ -248,7 +248,7 @@
         activity_id = '{{$activity_id}}';
         fiscal_year_id = '{{$fiscal_year_id}}';
 
-        data = {office_id,annual_plan_id,activity_id,fiscal_year_id};
+        data = {office_id, annual_plan_id, activity_id, fiscal_year_id};
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             if (response.status === 'error') {
                 toastr.error('No data found');
