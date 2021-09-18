@@ -8,7 +8,8 @@
             <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
                 <option value="">Choose Fiscal Year</option>
                 @foreach($fiscal_years as $fiscal_year)
-                    <option value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                    <option
+                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
                 @endforeach
             </select>
         </div>
@@ -76,7 +77,12 @@
                 annual_plan_id,
                 fiscal_year_id,
             };
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (res) {
+                KTApp.unblock('#kt_content');
                 var newDoc = document.open("text/html", "replace");
                 newDoc.write(res);
                 newDoc.close();
@@ -84,7 +90,7 @@
         },
     };
 
-    $(function() {
+    $(function () {
         let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
         if (fiscal_year_id) {
             Audit_Plan_Container.loadAuditablePlanList(fiscal_year_id);
