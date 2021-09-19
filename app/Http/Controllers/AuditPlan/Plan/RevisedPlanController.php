@@ -161,6 +161,49 @@ class RevisedPlanController extends Controller
         return $pdf->stream('document.pdf');
     }
 
+
+    public function storeAuditTeam(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => $request->fiscal_year_id,
+            'duration_id' => $request->duration_id,
+            'outcome_id' => $request->outcome_id,
+            'output_id' => $request->output_id,
+            'activity_id' => $request->activity_id,
+            'milestone_id' => $request->milestone_id,
+            'annual_plan_id' => $request->annual_plan_id,
+            'audit_plan_id' => $request->audit_plan_id,
+            'ministry_id' => $request->ministry_id,
+            'entity_id' => $request->entity_id,
+            'entity_name_en' => $request->entity_name_en,
+            'entity_name_bn' => $request->entity_name_bn,
+            'team_name' => $request->team_name,
+            'team_start_date' => $request->team_start_date,
+            'team_end_date' => $request->team_end_date,
+            'team_members' => $request->team_members,
+            'leader_name_en' => $request->leader_name_en,
+            'leader_name_bn' => $request->leader_name_bn,
+            'leader_designation_id' => $request->leader_designation_id,
+            'leader_designation_name_en' => $request->leader_designation_name_en,
+            'leader_designation_name_bn' => $request->leader_designation_name_bn,
+            'team_parent_id' => $request->team_parent_id,
+            'activity_man_days' => $request->activity_man_days,
+            'audit_year_start' => $request->audit_year_start,
+            'audit_year_end' => $request->audit_year_end,
+            'approve_status' => $request->approve_status,
+        ])->validate();
+
+        $data['cdesk'] = json_encode($this->current_desk());
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team'), $data)->json();
+
+        if (isSuccess($responseData)) {
+            return response()->json(['status' => 'success', 'data' => $responseData['data']]);
+        } else {
+            return ['status' => 'error', 'data' => $responseData];
+        }
+    }
+    
     public function getSubTeam(Request $request)
     {
         $data = Validator::make($request->all(), [
@@ -172,7 +215,7 @@ class RevisedPlanController extends Controller
         $sub_team = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_sub_team'), $data)->json();
         dd($sub_team);
         if (isSuccess($sub_team)) {
-            return view('modules.audit_plan.audit_plan.plan_revised.partials.get_sub_team', compact('sub_team'));
+             return view('modules.audit_plan.audit_plan.plan_revised.partials.get_sub_team', compact('sub_team'));
         } else {
             return response()->json(['status' => 'error', 'data' => $sub_team]);
         }

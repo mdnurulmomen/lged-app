@@ -301,6 +301,17 @@
             // console.log(team);
             localStorage.setItem("team", JSON.stringify(team));
 
+            //for save audit team
+            let url = '{{route('audit.plan.audit.revised.plan.store-audit-team')}}';
+            let data = {fiscal_year_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    toastr.error(response.data)
+                }
+            });
+
         },
 
         saveSubTeam: function () {

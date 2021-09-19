@@ -88,6 +88,7 @@ return [
         'ap_entity_plan_edit_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/edit',
         'ap_entity_plan_make_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/update',
         'ap_entity_plan_draft_show' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/show',
+        'store_audit_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/audit-team/store',
         'get_sub_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-sub-tam',
     ],
     'audit_strategic_plan' => [
