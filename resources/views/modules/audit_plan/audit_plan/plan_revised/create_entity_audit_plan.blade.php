@@ -166,5 +166,7 @@
                 });
             },
         };
+
+        $('.draft_entity_audit_plan').click();
     </script>
 @endsection

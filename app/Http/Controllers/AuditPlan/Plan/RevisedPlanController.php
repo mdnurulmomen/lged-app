@@ -64,7 +64,7 @@ class RevisedPlanController extends Controller
                 'party_name' => $audit_plan['annual_plan']['controlling_office_bn'],
                 'fiscal_year' => enTobn($audit_plan['annual_plan']['fiscal_year']['start']) . ' - ' . enTobn($audit_plan['annual_plan']['fiscal_year']['end']),
             ];
-            return view('modules.audit_plan.audit_plan.plan_revised.create_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan', 'content', 'cover_info', 'fiscal_year_id','parent_office_content'));
+            return view('modules.audit_plan.audit_plan.plan_revised.create_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan', 'content', 'cover_info', 'fiscal_year_id', 'parent_office_content'));
         } else {
             return ['status' => 'error', 'data' => $audit_plan];
         }
@@ -87,7 +87,7 @@ class RevisedPlanController extends Controller
 
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
-            $content = json_decode(getDecryptedData($audit_plan['plan_description']));
+            $content = json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])));
             $activity_id = $audit_plan['activity_id'];
             $annual_plan_id = $audit_plan['annual_plan_id'];
             return view('modules.audit_plan.audit_plan.plan_revised.edit_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan', 'content'));
@@ -132,7 +132,7 @@ class RevisedPlanController extends Controller
         }
         $data['activity_id'] = $request->activity_id;
         $data['annual_plan_id'] = $request->annual_plan_id;
-        $data['plan_description'] = makeEncryptedData(json_encode($request->plan_description));
+        $data['plan_description'] = makeEncryptedData(gzcompress(json_encode($request->plan_description)));
         $data['cdesk'] = json_encode($this->current_desk());
         $save_draft = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_make_draft'), $data)->json();
         if (isSuccess($save_draft)) {
