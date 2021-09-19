@@ -88,7 +88,12 @@
         var Create_Entity_Plan_Container = {
             showTeamCreateModal: function (elem) {
                 url = '{{route('audit.plan.audit.editor.load-office-employee-modal')}}';
-                data = {};
+                annual_plan_id = '{{$annual_plan_id}}';
+                activity_id = '{{$activity_id}}';
+                fiscal_year_id = '{{$fiscal_year_id}}';
+
+                data = {annual_plan_id, activity_id, fiscal_year_id};
+
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'error') {
                         toastr.error('No data found');

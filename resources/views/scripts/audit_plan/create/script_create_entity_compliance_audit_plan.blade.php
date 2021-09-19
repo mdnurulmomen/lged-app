@@ -244,11 +244,6 @@
         fiscal_year_id = '{{$fiscal_year_id}}';
 
         data = {office_id, annual_plan_id, activity_id, fiscal_year_id};
-        annual_plan_id = '{{$annual_plan_id}}';
-        activity_id = '{{$activity_id}}';
-        fiscal_year_id = '{{$fiscal_year_id}}';
-
-        data = {office_id, annual_plan_id, activity_id, fiscal_year_id};
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             if (response.status === 'error') {
                 toastr.error('No data found');

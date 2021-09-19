@@ -252,6 +252,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/get-sub-team', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'getSubTeam'])->name('revised.plan.get-sub-team');
             Route::post('editor/load-office-employee-modal', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadOfficeEmployeeModal'])->name('editor.load-office-employee-modal');
             Route::post('editor/load-audit-schedule-modal', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditScheduleModal'])->name('editor.load-audit-schedule-modal');
+            Route::post('editor/load-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamSchedule'])->name('editor.load-audit-team-schedule');
 
             Route::get('/office-orders', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'index'])->name('office-orders.index');
             Route::post('/load-office-orders', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'showOfficeOrderLists'])->name('office-orders.load-all');

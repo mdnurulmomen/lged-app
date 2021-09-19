@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <ul class="nav nav-tabs custom-tabs mb-0" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active rounded-0" data-toggle="tab" href="#set_own_office">
@@ -128,7 +128,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                         <ul class="nav nav-tabs custom-tabs mb-0" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active rounded-0" data-toggle="tab" href="#team_members">
@@ -141,7 +141,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#team_schedule" aria-controls="profile">
+                                <a class="nav-link" data-toggle="tab" href="#team_schedule" aria-controls="profile"
+                                onclick="Load_Team_Container.loadTeamSchedule()">
                                     <span class="nav-text">সময়সূচী</span>
                                 </a>
                             </li>
@@ -162,25 +163,10 @@
 
                             <div class="tab-pane fade border border-top-0 p-3" id="team_schedule" role="tabpanel"
                                  aria-labelledby="team_schedule_tab">
+                                <div class="audit_schedule_list_div"></div>
                             </div>
                         </div>
-
                     </div>
-                </div>
-
-
-                <div class="assign_employee_div" style="display:none;">
-                    <table class="assign_employee_list" width="100%" border="1">
-                        <thead>
-                        <tr>
-                            <td width="30%">নাম</td>
-                            <td width="20%">পদবী</td>
-                            <td width="30%">নিরীক্ষা দলে অবস্থান</td>
-                            <td width="20%">মোবাইল নং</td>
-                        </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
                 </div>
             </div>
             <div class="modal-footer">
@@ -276,29 +262,9 @@
                     '</div></div></div>';
 
                 $(".selected_offices").append(newRow);
-                /*selected_auditee = {
-                    'office_id': entity_info.entity_id,
-                    'office_name_en': entity_info.entity_name_en,
-                    'office_name_bn': entity_info.entity_name_bn,
-                };
-                controlling_office = {
-                    'controlling_office_id': entity_info.controlling_office_id,
-                    'controlling_office_name_en': entity_info.controlling_office_name_en,
-                    'controlling_office_name_bn': entity_info.controlling_office_name_bn,
-                    'entity_id': entity_info.entity_id,
-                };
-                ministry_info = {
-                    'ministry_id': entity_info.ministry_id,
-                    'ministry_name_en': entity_info.ministry_name_en,
-                    'ministry_name_bn': entity_info.ministry_name_bn,
-                    'entity_id': entity_info.entity_id,
-                }
-
-                $(".selected_offices").find('#selected_entity_' + entity_info.entity_id).val(JSON.stringify(selected_auditee));
-                $(".selected_offices").find('#controlling_office_' + entity_info.controlling_office_id).val(JSON.stringify(controlling_office));
-                $(".selected_offices").find('#ministry_info_' + entity_info.ministry_id).val(JSON.stringify(ministry_info));*/
             }
         },
+
         removeSelectedOfficer: function (entity_id) {
             $('#selected_officer_' + entity_id).remove();
         },
@@ -313,6 +279,7 @@
             $(".summernote").summernote("editor.pasteHTML", $(".assign_employee_div").html());
             $('#officeEmployeeModal').modal('hide');
         },
+
         saveTeamMember: function () {
             var selected_officer_phone = $('.selected_officer_phone');
             selected_officer_phone.each(function(k, v) {
@@ -393,5 +360,20 @@
             //     }
             // }
         },
+
+        loadTeamSchedule:function (){
+            url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
+            annual_plan_id = '{{$annual_plan_id}}';
+            activity_id = '{{$activity_id}}';
+            fiscal_year_id = '{{$fiscal_year_id}}';
+            data = {annual_plan_id, activity_id, fiscal_year_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".audit_schedule_list_div").html(response);
+                }
+            })
+        }
     }
 </script>
