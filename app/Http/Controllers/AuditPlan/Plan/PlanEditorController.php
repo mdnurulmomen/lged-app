@@ -18,15 +18,18 @@ class PlanEditorController extends Controller
             'activity_id' => 'required|integer',
             'annual_plan_id' => 'required|integer',
             'fiscal_year_id' => 'required|integer',
+            'audit_plan_id' => 'required|integer',
         ])->validate();
 
         $activity_id = $request->activity_id;
         $annual_plan_id = $request->annual_plan_id;
         $fiscal_year_id = $request->fiscal_year_id;
+        $audit_plan_id = $request->audit_plan_id;
         $own_office = $this->current_office()['office_name_bn'];
         $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
         return view('modules.modal.load_team_modal', compact('activity_id',
-            'annual_plan_id','fiscal_year_id','officer_lists','own_office'));
+            'annual_plan_id','fiscal_year_id','audit_plan_id',
+            'officer_lists','own_office'));
     }
 
     public function loadAuditTeamSchedule(Request $request)

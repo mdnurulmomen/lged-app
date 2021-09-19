@@ -164,46 +164,40 @@ class RevisedPlanController extends Controller
 
     public function storeAuditTeam(Request $request)
     {
+        //dd($request->all());
         $data = Validator::make($request->all(), [
-            'fiscal_year_id' => $request->fiscal_year_id,
-            'duration_id' => $request->duration_id,
-            'outcome_id' => $request->outcome_id,
-            'output_id' => $request->output_id,
-            'activity_id' => $request->activity_id,
-            'milestone_id' => $request->milestone_id,
-            'annual_plan_id' => $request->annual_plan_id,
-            'audit_plan_id' => $request->audit_plan_id,
-            'ministry_id' => $request->ministry_id,
-            'entity_id' => $request->entity_id,
-            'entity_name_en' => $request->entity_name_en,
-            'entity_name_bn' => $request->entity_name_bn,
-            'team_name' => $request->team_name,
-            'team_start_date' => $request->team_start_date,
-            'team_end_date' => $request->team_end_date,
-            'team_members' => $request->team_members,
-            'leader_name_en' => $request->leader_name_en,
-            'leader_name_bn' => $request->leader_name_bn,
-            'leader_designation_id' => $request->leader_designation_id,
-            'leader_designation_name_en' => $request->leader_designation_name_en,
-            'leader_designation_name_bn' => $request->leader_designation_name_bn,
-            'team_parent_id' => $request->team_parent_id,
-            'activity_man_days' => $request->activity_man_days,
-            'audit_year_start' => $request->audit_year_start,
-            'audit_year_end' => $request->audit_year_end,
-            'approve_status' => $request->approve_status,
+            'activity_id' => 'required|integer',
+            'fiscal_year_id' => 'required|integer',
+            'annual_plan_id' => 'required|integer',
+            'audit_plan_id' => 'required|integer',
+            'entity_id' => 'required|integer',
+            'entity_name_en' => 'required|string',
+            'entity_name_bn' => 'required|string',
+            'team_start_date' => 'required',
+            'team_end_date' => 'required',
+            'team_members' => 'required',
+            'leader_name_en' => 'required|string',
+            'leader_name_bn' => 'required|string',
+            'leader_designation_id' => 'required|integer',
+            'leader_designation_name_en' => 'required|string',
+            'leader_designation_name_bn' => 'required|string',
+            'audit_year_start' => 'required',
+            'audit_year_end' => 'required',
         ])->validate();
 
+        $data['approve_status'] = 'approved';
         $data['cdesk'] = json_encode($this->current_desk());
+        //dd($data);
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team'), $data)->json();
-
+        //dd($responseData);
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
         } else {
             return ['status' => 'error', 'data' => $responseData];
         }
     }
-    
+
     public function getSubTeam(Request $request)
     {
         $data = Validator::make($request->all(), [

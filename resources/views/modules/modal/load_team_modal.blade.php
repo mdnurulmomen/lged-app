@@ -20,13 +20,13 @@
                         <label for="">নিরীক্ষাধীন অর্থ বছর</label>
                         <div class="row">
                             <div class="col">
-                                <input type="text" data-id="1"
-                                       class="year-picker form-control input-start-year"
+                                <input type="text" id="team_start_year"
+                                       class="year-picker form-control"
                                        placeholder="শুরু"/>
                             </div>
                             <div class="col">
-                                <input type="text" data-id="1"
-                                       class="year-picker form-control input-end-year"
+                                <input type="text" id="team_end_year"
+                                       class="year-picker form-control"
                                        placeholder="শেষ"/>
                             </div>
                         </div>
@@ -36,13 +36,13 @@
                         <label for="">নিরীক্ষা সম্পাদনের সময়কাল</label>
                         <div class="row">
                             <div class="col">
-                                <input type="text" data-id="1"
-                                       class="date form-control input-start-duration"
+                                <input type="text" id="team_start_date"
+                                       class="date form-control"
                                        placeholder="শুরু"/>
                             </div>
                             <div class="col">
-                                <input type="text" data-id="1"
-                                       class="date form-control input-end-duration"
+                                <input type="text" id="team_end_date"
+                                       class="date form-control"
                                        placeholder="শেষ"/>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#sub_team_create" aria-controls="profile">
+                                <a id="subTeamCreateNavLink" class="nav-link disabled" data-toggle="tab" href="#sub_team_create" aria-controls="profile" disabled="">
                                     <span class="nav-text">উপদল গঠন</span>
                                 </a>
                             </li>
@@ -247,7 +247,7 @@
                     '<li  style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
                     /*'<span onclick="Load_Team_Container.removeSelectedOfficer(' + entity_info.officer_id + ')" style="cursor:pointer;color:red;">' +
                     '<i class="fas fa-trash-alt text-danger pr-2"></i></span>' +*/
-                    '<input  id="officer_name_' + entity_info.officer_id + '" type="hidden" class="form-control" value="'+ entity_info.officer_name_bn+'"/>'+
+                    '<input  id="officer_name_' + entity_info.officer_id + '"  type="hidden" class="form-control" value="'+ entity_info.officer_name_bn+'"/>'+
                     '<i class="fa fa-user pr-2"></i>' + entity_info.officer_name_bn+ ' ('+entity_info.designation_bn+')' +
                     '</li>'+
                     '<div class="row">'+
@@ -258,7 +258,7 @@
                     '</select>'+
                     '</div>'+
                     '<div class="col-md-8">'+
-                    '<input data-id="' + entity_info.officer_id + '" id="selected_officer_phone_' + entity_info.officer_id + '" type="text" name="selected_officer_phone[]" placeholder="Enter phone number" class="form-control selected_officer_phone" value=""/>'+
+                    '<input data-id="' + entity_info.officer_id + '" id="selected_officer_phone_' + entity_info.officer_id + '" data-designation-id="' + entity_info.designation_id + '" data-designation-name-bn="' + entity_info.designation_bn + '" data-designation-name-en="' + entity_info.designation_en + '" type="text" name="selected_officer_phone[]" placeholder="Enter phone number" class="form-control selected_officer_phone" value=""/>'+
                     '</div></div></div>';
 
                 $(".selected_offices").append(newRow);
@@ -281,13 +281,35 @@
         },
 
         saveTeamMember: function () {
+            let totalSubTeamCreate = 0;
+            let teamLeaderNameBn;
+            let teamLeaderDesignationId;
+            let teamLeaderDesignationNameBn;
+            let teamLeaderDesignationNameEn;
+
             var selected_officer_phone = $('.selected_officer_phone');
             selected_officer_phone.each(function(k, v) {
                  var id = $(this).attr('data-id');
+                 var designationId = $(this).data('designation-id');
+                 var designationNameBn = $(this).data('designation-name-bn');
+                 var designationNameEn = $(this).data('designation-name-en');
+
                  var name = $('#officer_name_'+id).val();
+
                  var member_role = $('#selected_officer_designation_'+id).val();
+
+                 if (member_role == "teamLeader"){
+                     teamLeaderNameBn = name;
+                     teamLeaderDesignationId = designationId;
+                     teamLeaderDesignationNameBn = designationNameBn;
+                     teamLeaderDesignationNameEn = designationNameEn;
+                 }
+                 if (member_role == "subTeamLeader"){
+                     totalSubTeamCreate++;
+                 }
+
                  var phone = $('#selected_officer_phone_'+id).val();
-                 info = {'name' : name,'member_role' : member_role,'phone' : phone};
+                 info = {'name' : name,'member_role' : member_role,'phone' : phone,'teamLeaderDesignationNameBn':teamLeaderDesignationNameBn};
                  team[id] = info;
 
                  if (member_role == 'subTeamLeader'){
@@ -300,13 +322,35 @@
             });
             // console.log(team);
             localStorage.setItem("team", JSON.stringify(team));
+            if (totalSubTeamCreate >1){
+                $("#subTeamCreateNavLink").removeClass('disabled');
+            }
 
+            
             //for save audit team
-            let url = '{{route('audit.plan.audit.revised.plan.store-audit-team')}}';
-            let data = {fiscal_year_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                if (response.status === 'error') {
-                    toastr.error(response.data)
+            let urlAuditTeam = '{{route('audit.plan.audit.revised.plan.store-audit-team')}}';
+            let dataAuditTeam = {
+                'activity_id': '{{$activity_id}}',
+                'annual_plan_id': '{{$annual_plan_id}}',
+                'fiscal_year_id': '{{$fiscal_year_id}}',
+                'audit_plan_id': '{{$audit_plan_id}}',
+                'entity_id': '20307',
+                'entity_name_en': 'রাজশাহী কৃষি উন্নয়ন ব্যাংক',
+                'entity_name_bn': 'রাজশাহী কৃষি উন্নয়ন ব্যাংক',
+                'team_start_date': $("#team_start_date").val(),
+                'team_end_date': $("#team_end_date").val(),
+                'team_members': JSON.stringify(team),
+                'leader_name_en': teamLeaderNameBn,
+                'leader_name_bn': teamLeaderNameBn,
+                'leader_designation_id': teamLeaderDesignationId,
+                'leader_designation_name_en': teamLeaderDesignationNameEn,
+                'leader_designation_name_bn': teamLeaderDesignationNameBn,
+                'audit_year_start': $("#team_start_year").val(),
+                'audit_year_end': $("#team_end_year").val(),
+            };
+            ajaxCallAsyncCallbackAPI(urlAuditTeam, dataAuditTeam, 'POST', function (response) {
+                if (response.status === 'success') {
+                    toastr.success('Audit Team Save Successfully');
                 } else {
                     toastr.error(response.data)
                 }

@@ -91,8 +91,9 @@
                 annual_plan_id = '{{$annual_plan_id}}';
                 activity_id = '{{$activity_id}}';
                 fiscal_year_id = '{{$fiscal_year_id}}';
+                audit_plan_id = $(".draft_entity_audit_plan").data('audit-plan-id');
 
-                data = {annual_plan_id, activity_id, fiscal_year_id};
+                data = {annual_plan_id, activity_id, fiscal_year_id,audit_plan_id};
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'error') {
