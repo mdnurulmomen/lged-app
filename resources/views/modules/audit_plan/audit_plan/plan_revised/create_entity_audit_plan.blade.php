@@ -116,6 +116,9 @@
                 data = {plan_description, activity_id, annual_plan_id, audit_plan_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'success') {
+                        if (!audit_plan_id) {
+                            $('.draft_entity_audit_plan').attr('data-audit-plan-id', response.data);
+                        }
                         toastr.success('Audit Plan Saved Successfully');
                     } else {
                         toastr.error('Not Saved');

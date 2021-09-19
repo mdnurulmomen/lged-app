@@ -136,7 +136,7 @@ class RevisedPlanController extends Controller
         $data['cdesk'] = json_encode($this->current_desk());
         $save_draft = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_make_draft'), $data)->json();
         if (isSuccess($save_draft)) {
-            return response()->json(['status' => 'success', 'data' => 'Successfully Saved']);
+            return response()->json(['status' => 'success', 'data' => $save_draft['data']]);
         } else {
             return response()->json(['status' => 'error', 'data' => $save_draft]);
         }
@@ -161,7 +161,8 @@ class RevisedPlanController extends Controller
         return $pdf->stream('document.pdf');
     }
 
-    public function getSubTeam(Request $request){
+    public function getSubTeam(Request $request)
+    {
         $data = Validator::make($request->all(), [
             'team_id' => 'required|integer',
         ])->validate();
@@ -171,7 +172,7 @@ class RevisedPlanController extends Controller
         $sub_team = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_sub_team'), $data)->json();
         dd($sub_team);
         if (isSuccess($sub_team)) {
-             return view('modules.audit_plan.audit_plan.plan_revised.partials.get_sub_team', compact('sub_team'));
+            return view('modules.audit_plan.audit_plan.plan_revised.partials.get_sub_team', compact('sub_team'));
         } else {
             return response()->json(['status' => 'error', 'data' => $sub_team]);
         }
