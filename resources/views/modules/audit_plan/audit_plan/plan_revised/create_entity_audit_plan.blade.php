@@ -22,7 +22,8 @@
         </div>
         <div class="col-md-6 text-right">
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
-                    onclick="Create_Entity_Plan_Container.showTeamCreateModal($(this));">Team <i class="fas fa-users"></i>
+                    onclick="Create_Entity_Plan_Container.showTeamCreateModal($(this));">Team <i
+                    class="fas fa-users"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
                     onclick="Create_Entity_Plan_Container.printPlanBook($(this))">Print <i class="fas fa-print"></i>
@@ -78,10 +79,14 @@
 
 @endsection
 @section('scripts')
-    @include('scripts.script_create_entity_audit_plan_revised')
+    @if($audit_plan['activity_type'] == 'compliance')
+        @include('scripts.script_create_entity_audit_plan_revised')
+    @elseif($audit_plan['activity_type'] == 'planning')
+        @include('scripts.script_create_entity_audit_plan_revised')
+    @endif
     <script>
         var Create_Entity_Plan_Container = {
-            showTeamCreateModal:function (elem){
+            showTeamCreateModal: function (elem) {
                 url = '{{route('audit.plan.audit.editor.load-office-employee-modal')}}';
                 data = {};
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
