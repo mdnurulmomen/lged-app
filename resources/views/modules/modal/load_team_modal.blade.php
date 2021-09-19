@@ -337,32 +337,61 @@
         },
 
         saveSubTeam: function () {
+
             var sub_team_name = $('.sub_team_name');
-            var i = 0;
-            sub_team_name.each(function(k, v) {
-                subTeam[i] = $(this).val();
-                i++
-            });
+            var team_id = 1;
+            url = '{{route('audit.plan.audit.revised.plan.get-sub-team')}}';
+            data = {team_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                $('.assign_sub_team_members').html(response)
+            })
 
-            console.log(subTeam);
-            teamMember = JSON.parse(localStorage.getItem('team'));
+            // console.log(subTeam);
 
-            for( key in teamMember) {
-                if (teamMember.hasOwnProperty(key)) {
-                    var newRow = '<div class="mt-2" style="border: 1px solid #ebf3f2;padding: 10px">' +
-                    '<li  style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
-                    '<i class="fa fa-user pr-2"></i>' + teamMember[key].name+ '</li>'+
-                    '<div class="row">'+
-                    '<div class="col-md-4">'+
-                    '<select  name="selected_officer_designation[]" class="form-control select-select2">';
-                    subTeam.map(function (v){
-                        newRow = newRow +  '<option value="'+v+'">'+v+'</option>';
-                    });
-                    newRow = newRow + '</select>'+ '</div>'+ '</div></div>';
+            // teamMember = JSON.parse(localStorage.getItem('team'));
+            //
+            // addRow = `<ul class="nav nav-tabs custom-tabs mb-0" role="tablist">`;
+            // subTeam.each(function(k, v) {
+            //         addRow = addRow +
+            //         `<li class="nav-item">
+            //             <a class="nav-link active rounded-0" data-toggle="tab" href="#sub_1">
+            //                 <span class="nav-text">sub 1</span>
+            //             </a>
+            //         </li>`;
+            // });
+            //
+            // addRow = addRow + `</ul>`
+            //
+            // addRow = addRow + `<div class="tab-content">`;
+            //
+            // for( key in teamMember) {
+            //     if (teamMember.hasOwnProperty(key)) {
+            //         addRow = addRow +
+            //             `<div class="tab-pane border border-top-0 p-3 fade show active" id="sub_1" role="tabpanel"
+            //                  aria-labelledby="selected_offices_tab">
+            //             </div>`
+            //     }
+            // }
+            // addRow = addRow + `</div>`;
+            //
+            // $(".assign_sub_team_members").append(newRow);
 
-                $(".assign_sub_team_members").append(newRow);
-                }
-            }
+            // for( key in teamMember) {
+            //     if (teamMember.hasOwnProperty(key)) {
+            //         var newRow = '<div class="mt-2" style="border: 1px solid #ebf3f2;padding: 10px">' +
+            //         '<li  style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
+            //         '<i class="fa fa-user pr-2"></i>' + teamMember[key].name+ '</li>'+
+            //         '<div class="row">'+
+            //         '<div class="col-md-4">'+
+            //         '<select  name="selected_officer_designation[]" class="form-control select-select2">';
+            //         subTeam.map(function (v){
+            //             newRow = newRow +  '<option value="'+v+'">'+v+'</option>';
+            //         });
+            //         newRow = newRow + '</select>'+ '</div>'+ '</div></div>';
+            //
+            //     $(".assign_sub_team_members").append(newRow);
+            //     }
+            // }
         },
     }
 </script>

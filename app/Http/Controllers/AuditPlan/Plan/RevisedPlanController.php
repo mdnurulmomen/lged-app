@@ -160,4 +160,20 @@ class RevisedPlanController extends Controller
         $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book', compact('plans', 'cover'));
         return $pdf->stream('document.pdf');
     }
+
+    public function getSubTeam(Request $request){
+        $data = Validator::make($request->all(), [
+            'team_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = json_encode($this->current_desk());
+
+        $sub_team = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_sub_team'), $data)->json();
+        dd($sub_team);
+        if (isSuccess($sub_team)) {
+             return view('modules.audit_plan.audit_plan.plan_revised.partials.get_sub_team', compact('sub_team'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $sub_team]);
+        }
+    }
 }

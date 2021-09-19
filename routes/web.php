@@ -222,7 +222,6 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/load-rp-auditee-offices', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'showRPAuditeeOffices'])->name('plan.list.show.rp-auditee-offices');
             Route::post('/submit-audit-plan-to-ocag', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'submitPlanToOCAG'])->name('plan.list.submit.revised.plan-to-ocag');
 
-
             Route::get('/calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendarController::class, 'index'])->name('calendar');
 
             Route::get('/entity-calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendar\EntityCalendarController
@@ -250,6 +249,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/save-draft-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'saveDraftEntityAuditPlan'])->name('revised.plan.save-draft-entity-audit-plan');
             Route::post('/generate-audit-plan-pdf', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'generatePlanPDF'])->name('revised.plan.generate-audit-plan-pdf');
             Route::post('/print-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'printAuditPlan'])->name('revised.plan.print-audit-plan');
+            Route::post('/get-sub-team', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'getSubTeam'])->name('revised.plan.get-sub-team');
             Route::post('editor/load-office-employee-modal', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadOfficeEmployeeModal'])->name('editor.load-office-employee-modal');
             Route::post('editor/load-audit-schedule-modal', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditScheduleModal'])->name('editor.load-audit-schedule-modal');
 
