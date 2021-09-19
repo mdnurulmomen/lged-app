@@ -64,8 +64,12 @@
     </div>
 @endsection
 @section('scripts')
-    @include('scripts.script_edit_entity_audit_plan_revised')
-
+    @if($audit_plan['audit_type'] == 'compliance')
+        @include('scripts.audit_plan.edit.script_edit_entity_compliance_audit_plan')
+    @elseif($audit_plan['audit_type'] == 'planning')
+        @include('scripts.audit_plan.edit.script_edit_entity_compliance_audit_plan')
+    @endif
+F
     <script>
         var Edit_Entity_Plan_Container = {
             draftEntityPlan: function (elem) {

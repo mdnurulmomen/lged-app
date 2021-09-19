@@ -79,10 +79,10 @@
 
 @endsection
 @section('scripts')
-    @if($audit_plan['activity_type'] == 'compliance')
-        @include('scripts.script_create_entity_audit_plan_revised')
-    @elseif($audit_plan['activity_type'] == 'planning')
-        @include('scripts.script_create_entity_audit_plan_revised')
+    @if($audit_plan['audit_type'] == 'compliance')
+        @include('scripts.audit_plan.create.script_create_entity_compliance_audit_plan')
+    @elseif($audit_plan['audit_type'] == 'planning')
+        @include('scripts.audit_plan.create.script_create_entity_compliance_audit_plan')
     @endif
     <script>
         var Create_Entity_Plan_Container = {
@@ -99,6 +99,7 @@
                 })
 
             },
+
             draftEntityPlan: function (elem) {
                 url = '{{route('audit.plan.audit.revised.plan.save-draft-entity-audit-plan')}}';
 
