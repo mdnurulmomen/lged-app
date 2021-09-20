@@ -34,7 +34,7 @@
         border-radius: 5px;
     }
 </style>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{{--<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
 <!-- Office Modal -->
 <div class="modal fade custom-modal" id="officeEmployeeModal" tabindex="-1" role="dialog"
      aria-labelledby="officeEmployeeModalLabel"
@@ -283,6 +283,7 @@
                 }
             }
         }
+        $('#right_drop_zone_' + splitArray[3]).click();
     })
 
     /**JS tree drag and drop end***/
@@ -328,12 +329,12 @@
         checkSelectedItemsInOrgTree: function (tree_id) {
             $.each(Load_Team_Container.selected_designation_ids, function (i, v) {
                 $(tree_id).jstree(true).check_node("#ofc_org_designation_" + v);
-                $(tree_id).jstree(true).disable_node("#ofc_org_designation_" + v);
+                // $(tree_id).jstree(true).disable_node("#ofc_org_designation_" + v);
             })
-            $(".ofc_org_unit").each(function (i, v) {
-                var unit_node_id = $(v).attr('id').match(/\d+/)[0];
-                $(tree_id).jstree(true).disable_node("#ofc_org_unit_" + unit_node_id);
-            })
+            // $(".ofc_org_unit").each(function (i, v) {
+            //     var unit_node_id = $(v).attr('id').match(/\d+/)[0];
+            //     $(tree_id).jstree(true).disable_node("#ofc_org_unit_" + unit_node_id);
+            // })
             Load_Team_Container.load_level_selection_panel = 1;
         },
 
@@ -360,7 +361,7 @@
                 $("#designtion_" + data_content.designation_id).remove();
             }
             $("#permitted_level_" + layer_index + " .listed_items").append(node_html);
-            Load_Team_Container.newNodeResetSortableList($("#permitted_level_" + layer_index));
+            // Load_Team_Container.newNodeResetSortableList($("#permitted_level_" + layer_index));
         },
 
         memberRole: function (elem, layer_index, role) {
@@ -815,7 +816,7 @@
 `;
             $("#permitted_designations").append(level_html);
             // Load_Team_Container.itemStyle();
-            Load_Team_Container.initiateSortableList();
+            // Load_Team_Container.initiateSortableList();
         }
     };
 
