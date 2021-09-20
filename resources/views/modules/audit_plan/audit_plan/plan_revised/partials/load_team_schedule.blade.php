@@ -1,3 +1,7 @@
+@php
+    $nominatedOffices = json_decode($audit_plan['annual_plan']['nominated_offices'],true);
+@endphp
+
 <div class="audit_schedule_list_div">
     <table id="audit_schedule_table_{{$team_layer_id}}" class="audit-schedule-table table table-bordered table-striped table-hover table-condensed
                                             text-center">
@@ -28,9 +32,9 @@
         <tbody>
         <tr class='audit_schedule_row_{{$team_layer_id}}' data-schedule-first-row='0_0'>
             <td>
-                <select class="form-control input-branch-name" id="branchNameSelect1" data-id="{{$team_layer_id}}_0">
+                <select class="form-control input-branch-name" data-id="{{$team_layer_id}}_0">
                     <option value=''>--Select--</option>
-                    @foreach(json_decode($audit_plan['annual_plan']['nominated_offices'],true) as $key => $nominatedOffice)
+                    @foreach($nominatedOffices as $key => $nominatedOffice)
                         <option value="{{$nominatedOffice['office_id']}}" data-office-name-bn="{{$nominatedOffice['office_name_bn']}}" data-office-name-en="{{$nominatedOffice['office_name_en']}}">{{$nominatedOffice['office_name_bn']}}</option>
                     @endforeach
                 </select>
@@ -90,12 +94,13 @@
         addAuditScheduleTblRow:function (){
             var totalAuditScheduleRow = $('.audit-schedule-table tbody tr').length +1;
             var teamScheduleHtml = "<tr class='audit_schedule_row_{{$team_layer_id}}' data-audit-schedule-first-row='"+totalAuditScheduleRow+"_"+{{$team_layer_id}}+"'>";
-            teamScheduleHtml += "<td><select id='branchNameSelect"+ totalAuditScheduleRow +"' class='form-control input-branch-name' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"'>" +
+            teamScheduleHtml += "<td>" +
+                "<select class='form-control input-branch-name' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"'>" +
                 "<option value=''>--Select--</option>"+
-                @foreach(json_decode($audit_plan['annual_plan']['nominated_offices'],true) as $key => $nominatedOffice)
-                    "<option value='{{$nominatedOffice['office_id']}}'>{{$nominatedOffice['office_name_bn']}}</option>"
+                @foreach($nominatedOffices as $key => $nominatedOffice)
+                    "<option value='{{$nominatedOffice['office_id']}}' data-office-name-bn='{{$nominatedOffice['office_name_bn']}}' data-office-name-en='{{$nominatedOffice['office_name_en']}}'>{{$nominatedOffice['office_name_bn']}}</option>"+
                 @endforeach
-                "</td>";
+                "</select></td>";
             teamScheduleHtml += "<td><div class='row'><div class='col'><input type='text' " +
                 "class='year-picker form-control input-start-year' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' placeholder='শুরু'/></div><div class='col'>" +
                 "<input type='text' class='year-picker form-control input-end-year' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' placeholder='শেষ'/>" +
