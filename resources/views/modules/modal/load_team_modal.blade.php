@@ -76,12 +76,12 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col">
-                                <input type="text" id="team_start_date"
+                                <input type="text" id="audit_start_year"
                                        class="date form-control"
                                        placeholder="সম্পাদনের সময়কাল শুরু"/>
                             </div>
                             <div class="col">
-                                <input type="text" id="team_end_date"
+                                <input type="text" id="audit_end_year"
                                        class="date form-control"
                                        placeholder="সম্পাদনের সময়কাল শেষ"/>
                             </div>
@@ -222,6 +222,7 @@
             $(this).attr('contenteditable', false);
         }
     })
+
     $('.own_office_organogram_tree').jstree({
         'plugins': ["checkbox", "types", "search", "dnd"],
         'core': {
@@ -309,7 +310,7 @@
             var html_officer = data_content.officer_name_bn;
             var node_html = `
             <li id="designtion_${data_content.designation_id}" class="list-group-item overflow-hidden p-1">
-                                <p data-content="${JSON.stringify(data_content)}" data-member-role="member" data-layer="${layer_index}" class="assignedMember_${data_content.designation_id}_${layer_index} p-0 mb-0 permitted_designation" id="permitted_${data_content.designation_id}" data-id="${data_content.designation_id}">
+                                <p data-content='${JSON.stringify(data_content)}' data-member-role="member" data-layer="${layer_index}" class="assignedMember_${data_content.designation_id}_${layer_index} p-0 mb-0 permitted_designation" id="permitted_${data_content.designation_id}" data-id="${data_content.designation_id}">
                                     <i class="far fa-user"></i><span class="ml-2 mr-2">${html_officer}</span>
                                     <small>${data_content.designation_bn}, ${data_content.unit_name_bn}</small>
 `;
@@ -326,6 +327,33 @@
             }
             $("#permitted_level_" + layer_index + " .listed_items").append(node_html);
             // Load_Team_Container.newNodeResetSortableList($("#permitted_level_" + layer_index));
+        },
+
+        addTeamInformation: function (layer_index) {
+            if (layer_index === 1) {
+                leader = {};
+                $(".list-group-item p[data-layer='1']").each(function (i, v) {
+                    select_data = $('#' + v.id);
+                    selected_content = select_data.data('content')
+                    if (select_data.data('member-role') === 'teamLeader') {
+                        leader = {
+                            'leader_name_en': JSON.parse(selected_content).officer_name_en,
+                            'leader_name_bn': JSON.parse(selected_content).officer_name_bn,
+                            'leader_designation_id': JSON.parse(selected_content).designation_id
+                        }
+                    }
+                })
+                team_info = {
+                    team_type: "parent",
+                    team_name: $('#assignTeamNo').val(),
+                    team_start_year: $('#team_start_year').val(),
+                    team_end_year: $('#team_end_year').val(),
+                    audit_start_year: $('#audit_start_year').val(),
+                    audit_end_year: $('#audit_end_year').val(),
+                    leader
+                };
+                $('#team_information_' + layer_index).val(team_info);
+            }
         },
 
         memberRole: function (elem, layer_index, role) {
@@ -748,6 +776,7 @@
                 <li class="list-group-item overflow-hidden p-1 dummy_li"></li>
             </ul>
         </div>
+        <input type="hidden" name="teams[]" id="team_information_${number}"/>
     </div>
 </div>
 `;
