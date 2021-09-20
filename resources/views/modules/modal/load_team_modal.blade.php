@@ -34,6 +34,7 @@
         border-radius: 5px;
     }
 </style>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- Office Modal -->
 <div class="modal fade custom-modal" id="officeEmployeeModal" tabindex="-1" role="dialog"
      aria-labelledby="officeEmployeeModalLabel"
@@ -671,15 +672,7 @@
                 idsArray.push(v.id)
             })
             $(parent_div_id).find('.listed_items').each(function (i, v) {
-                Sortable.create(v, {
-                    // draggable: idsArray,
-                    group: {
-                        name: v.id,
-                        put: idsArray,
-                        pull: true
-                    },
-                    animation: 100
-                });
+                $('#' + v.id).sortable();
             });
         },
 
@@ -691,15 +684,7 @@
             })
             $('#permitted_designations').find('.timeline-content').each(function () {
                 $(this).find('.listed_items').each(function (i, v) {
-                    Sortable.create(v, {
-                        // draggable: idsArray,
-                        group: {
-                            name: v.id,
-                            put: idsArray,
-                            pull: true
-                        },
-                        animation: 100
-                    });
+                    $('#' + v.id).sortable();
                 });
             });
         },
