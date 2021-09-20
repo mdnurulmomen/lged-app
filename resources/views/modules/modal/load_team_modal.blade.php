@@ -192,23 +192,17 @@
 
                     <div class="col-md-12">
                         <div class="actions text-right mt-3 permission_action_btn">
-                            <button type="button" class="btn btn-sm btn-primary btn-square" id="saveNothiPermission"
-                                    onclick="Load_Team_Container.saveNothiPermission()"><i class="fad fa-cloud"></i>সংরক্ষণ
+                            <button type="button" class="btn btn-sm btn-primary btn-square" id="saveTeamAndSchedule"
+                                    onclick="Load_Team_Container.saveTeamAndSchedule()"><i class="fad fa-cloud"></i>সংরক্ষণ
                                 করুন
                             </button>
                             <button type="button" class="btn btn-sm btn-secondary btn-square"
-                                    id="dismissNothiPermission" onclick="NOTHI_CONTAINER.dismissNothiPermission()"><i
+                                    id="dismissNothiPermission" onclick="$('.ki-close').click()"><i
                                     class="fad fa-window-close"></i>বন্ধ করুন
                             </button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary"
-                        onclick="Load_Team_Container.addEmployeeToAssignEditor()">Assign
-                </button>
             </div>
         </div>
     </div>
@@ -292,36 +286,6 @@
     var employees = {};
     var team = {};
     var subTeam = [];
-    // $('.own_office_organogram_tree').on('select_node.jstree', function (e, data) {
-    //     if (data.node.children.length === 0) {
-    //         var officer_info = $('#' + data.node.id).data('officer-info')
-    //         employees[officer_info.officer_id] = officer_info;
-    //         Load_Team_Container.addEmployeeToAssignedList(officer_info);
-    //         Load_Team_Container.addSelectedOfficeList(officer_info);
-    //     } else {
-    //         data.node.children.map(child => {
-    //             var officer_info = $('#' + child).data('officer-info')
-    //             employees[officer_info.officer_id] = officer_info;
-    //             Load_Team_Container.addEmployeeToAssignedList(officer_info);
-    //             Load_Team_Container.addSelectedOfficeList(officer_info);
-    //         })
-    //     }
-    // }).on('deselect_node.jstree', function (e, data) {
-    //     if (data.node.children.length === 0) {
-    //         var officer_info = $('#' + data.node.id).data('officer-info');
-    //         delete employees[officer_info.officer_id];
-    //         $("#selected_rp_employee_" + officer_info.officer_id).remove();
-    //         Load_Team_Container.removeSelectedOfficer(officer_info.officer_id);
-    //     } else {
-    //         data.node.children.map(child => {
-    //             var officer_info = $('#' + child).data('officer-info');
-    //             delete employees[officer_info.officer_id];
-    //             $("#selected_rp_employee_" + officer_info.officer_id).remove();
-    //             Load_Team_Container.removeSelectedOfficer(officer_info.officer_id);
-    //         })
-    //     }
-    // });
-
     var Load_Team_Container = {
         load_level_selection_panel: 0,
         selected_designation_ids: JSON.parse('{"228237":228237,"22418":22418}'),
@@ -591,16 +555,6 @@
             })
         },
 
-        enableMode: function (elem) {
-            if (elem.find('i').hasClass('fa-square')) {
-                elem.find('i').removeClass('fa-square').addClass('far fa-check-square')
-                elem.find('i').attr('data-value', 1);
-            } else {
-                elem.find('i').removeClass('fa-check-square').addClass('far fa-square')
-                elem.find('i').attr('data-value', 0);
-            }
-        },
-
         deleteNode: function (type, node_id, from_tree) {
             if (type === 'layer') {
                 $('#' + node_id + ' .permitted_designation').each(function (i, v) {
@@ -632,23 +586,6 @@
                 }
                 delete Load_Team_Container.selected_designation_ids[designation_id];
             }
-        },
-
-        setTransactionDay: function (elem) {
-            var day = ($(elem).parent().find('input').val());
-            $("#" + $(elem).data('placeholder')).html(replaceToBn(day));
-            $('[data-toggle="popover"]').popover('hide');
-        },
-
-        loadTransactionDayPopover: function () {
-            $('[data-toggle="popover"]').popover({
-                singleton: true,
-                html: true,
-                sanitize: false,
-                content: function () {
-                    return $("#PopoverContent").html();
-                }
-            });
         },
 
         reorderLayer: function () {
@@ -688,7 +625,7 @@
             });
         },
 
-        saveNothiPermission: function () {
+        saveTeamAndSchedule: function () {
             var permission_data = [];
             var has_empty_level = false;
             var layer_index = 0
