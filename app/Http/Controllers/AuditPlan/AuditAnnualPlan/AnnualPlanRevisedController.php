@@ -108,7 +108,7 @@ class AnnualPlanRevisedController extends Controller
     public function storeAnnualPlanInfo(Request $request)
     {
         try {
-            //dd($request->budget);
+            //dd($request->all());
             Validator::make($request->all(), [
                 'activity_id' => 'required|integer',
                 'schedule_id' => 'required|integer',
@@ -116,6 +116,7 @@ class AnnualPlanRevisedController extends Controller
                 'fiscal_year_id' => 'required|integer',
                 'ministry_info' => 'required',
                 'controlling_office' => 'required',
+                'parent_office' => 'required',
                 'selected_entity' => 'required',
                 'subject_matter' => 'required|string',
                 'total_unit_no' => 'required|string',
@@ -125,7 +126,6 @@ class AnnualPlanRevisedController extends Controller
                 'comment' => 'required|string',
             ])->validate();
 
-            //dd($request->budget);
             $data = [
                 'cdesk' => json_encode($this->current_desk()),
                 'activity_id' => $request->activity_id,
@@ -137,8 +137,11 @@ class AnnualPlanRevisedController extends Controller
                 'comment' => $request->comment,
                 'budget' => $request->budget,
             ];
+
             $ministry_info = [];
             $controlling_office = [];
+            $parent_office = [];
+            $parent_entities = [];
             $controlling_entities = [];
             $ministry_entities = [];
             $nominated_offices = [];
@@ -149,6 +152,7 @@ class AnnualPlanRevisedController extends Controller
                 $ministry_info_data['entity_ids'] = $ministry_entities;
                 $ministry_info[$ministry_info_data['ministry_id']] = $ministry_info_data;
             }
+
             foreach ($request->controlling_office as $controlling_office_data) {
                 $controlling_office_data = json2Array($controlling_office_data);
                 $controlling_entities[] = $controlling_office_data['entity_id'];
@@ -156,10 +160,20 @@ class AnnualPlanRevisedController extends Controller
                 $controlling_office_data['office_type'] = 'budgetary';
                 $controlling_office[$controlling_office_data['controlling_office_id']] = $controlling_office_data;
             }
+
+            foreach ($request->parent_office as $parent_office_data) {
+                $parent_office_data = json2Array($parent_office_data);
+                $parent_entities[] = $parent_office_data['entity_id'];
+                $parent_office_data['entity_ids'] = $parent_entities;
+                $parent_office_data['office_type'] = 'budgetary';
+                $parent_office[$parent_office_data['parent_office_id']] = $parent_office_data;
+            }
+
             foreach ($request->selected_entity as $nominated_office) {
                 $nominated_office = json2Array($nominated_office);
                 $nominated_offices[$nominated_office['office_id']] = $nominated_office;
             }
+
 
             $staff_infos = $request->staff_info;
             $staffs = [];
@@ -190,6 +204,7 @@ class AnnualPlanRevisedController extends Controller
 
             $data['ministry_info'] = json_encode($ministry_info);
             $data['controlling_office'] = json_encode($controlling_office);
+            $data['parent_office'] = json_encode($parent_office);
             $data['nominated_offices'] = json_encode($nominated_offices);
             $data['nominated_man_powers'] = json_encode($nominated_man_powers);
             $data['nominated_man_power_counts'] = $total_man_power;
@@ -208,7 +223,7 @@ class AnnualPlanRevisedController extends Controller
                 'statusCode' => '422',
             ]);
         } catch (\Exception $exception) {
-            return response()->json(['status' => 'error', 'data' => $exception]);
+            return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
         }
 
     }
