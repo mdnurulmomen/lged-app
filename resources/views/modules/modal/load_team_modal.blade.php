@@ -12,7 +12,7 @@
                     <div class="col-md-4">
                         <label for="">নিরীক্ষা নিযুক্তি দল নম্বর</label>
                         <div class="form-row">
-                            <input class="form-control" id="assignTeamNo" placeholder="নিরীক্ষা নিযুক্তি দল নম্বর" type="text" name="">
+                            <input class="form-control" id="assignTeamNo" placeholder="নিরীক্ষা নিযুক্তি দল নম্বর" type="text" autocomplete="off">
                         </div>
                     </div>
 
@@ -22,12 +22,12 @@
                             <div class="col">
                                 <input type="text" id="team_start_year"
                                        class="year-picker form-control"
-                                       placeholder="শুরু"/>
+                                       placeholder="শুরু" autocomplete="off"/>
                             </div>
                             <div class="col">
                                 <input type="text" id="team_end_year"
                                        class="year-picker form-control"
-                                       placeholder="শেষ"/>
+                                       placeholder="শেষ" autocomplete="off"/>
                             </div>
                         </div>
                     </div>
@@ -38,12 +38,12 @@
                             <div class="col">
                                 <input type="text" id="team_start_date"
                                        class="date form-control"
-                                       placeholder="শুরু"/>
+                                       placeholder="শুরু" autocomplete="off"/>
                             </div>
                             <div class="col">
                                 <input type="text" id="team_end_date"
                                        class="date form-control"
-                                       placeholder="শেষ"/>
+                                       placeholder="শেষ" autocomplete="off"/>
                             </div>
                         </div>
                     </div>
@@ -326,7 +326,7 @@
                 $("#subTeamCreateNavLink").removeClass('disabled');
             }
 
-            
+
             //for save audit team
             let urlAuditTeam = '{{route('audit.plan.audit.revised.plan.store-audit-team')}}';
             let dataAuditTeam = {

@@ -84,9 +84,12 @@
 
         addSelectedRPAuditeeList: function (entity_info) {
             if ($('#selected_rp_auditee_' + entity_info.entity_id).length === 0) {
-                // console.log(entity_info);
+                console.log(entity_info);
 
                 var newRow = '<li id="selected_rp_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ' +
+                    'data-rp-auditee-entity-parent-id="' + entity_info.entity_parent_id + '" ' +
+                    'data-rp-auditee-entity-parent-name-en="' + entity_info.entity_parent_name_en + '" ' +
+                    'data-rp-auditee-entity-parent-name-bn="' + entity_info.entity_parent_name_bn + '" ' +
                     'data-entity-id="' + entity_info.entity_id + '" data-entity-en="' + entity_info.entity_name_en + '" data-entity-bn="' + entity_info.entity_name_bn + '" ' +
                     'data-controlling-office-id="' + entity_info.controlling_office_id + '" data-controlling-office-name-bn="' + entity_info.controlling_office_name_bn + '" ' +
                     'data-controlling-office-name-en="' + entity_info.controlling_office_name_en + '" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +
@@ -94,8 +97,9 @@
                     '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_en +
                     '</li>' +
                     '<input name="selected_entity[]" class="selected_entity" data-entity-id="' + entity_info.entity_id + '" id="selected_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
-                    '<input name="controlling_office[]" class="controlling_office" id="controlling_office_' + entity_info.controlling_office_id + '" type="hidden" value=""/>' +
-                    '<input name="ministry_info[]" class="ministry_info" id="ministry_info_' + entity_info.ministry_id + '" type="hidden" value=""/>';
+                    '<input name="controlling_office[]" class="controlling_office" id="controlling_office_'+ entity_info.entity_id + '_' + entity_info.controlling_office_id + '" type="hidden" value=""/>' +
+                    '<input name="parent_office[]" class="parent_office" id="parent_office_' +  entity_info.entity_id + '_' + entity_info.entity_parent_id + '" type="hidden" value=""/>' +
+                    '<input name="ministry_info[]" class="ministry_info" id="ministry_info_' + entity_info.entity_id + '_' + entity_info.ministry_id + '" type="hidden" value=""/>';
 
                 $(".selected_rp_offices").append(newRow);
                 selected_auditee = {
@@ -109,6 +113,12 @@
                     'controlling_office_name_bn': entity_info.controlling_office_name_bn,
                     'entity_id': entity_info.entity_id,
                 };
+                parent_office = {
+                    'parent_office_id': entity_info.entity_parent_id,
+                    'parent_office_name_en': entity_info.entity_parent_name_en,
+                    'parent_office_name_bn': entity_info.entity_parent_name_bn,
+                    'entity_id': entity_info.entity_id,
+                };
                 ministry_info = {
                     'ministry_id': entity_info.ministry_id,
                     'ministry_name_en': entity_info.ministry_name_en,
@@ -116,9 +126,11 @@
                     'entity_id': entity_info.entity_id,
                 }
 
+                //console.log(entity_info);
                 $(".selected_rp_offices").find('#selected_entity_' + entity_info.entity_id).val(JSON.stringify(selected_auditee));
-                $(".selected_rp_offices").find('#controlling_office_' + entity_info.controlling_office_id).val(JSON.stringify(controlling_office));
-                $(".selected_rp_offices").find('#ministry_info_' + entity_info.ministry_id).val(JSON.stringify(ministry_info));
+                $(".selected_rp_offices").find('#controlling_office_' + entity_info.entity_id + '_' + entity_info.controlling_office_id).val(JSON.stringify(controlling_office));
+                $(".selected_rp_offices").find('#parent_office_' + entity_info.entity_id + '_' + entity_info.entity_parent_id).val(JSON.stringify(parent_office));
+                $(".selected_rp_offices").find('#ministry_info_' + entity_info.entity_id + '_' + entity_info.ministry_id).val(JSON.stringify(ministry_info));
             }
         },
 
