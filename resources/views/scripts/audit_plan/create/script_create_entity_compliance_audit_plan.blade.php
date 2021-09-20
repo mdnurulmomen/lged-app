@@ -72,39 +72,41 @@
         $('.responsible_party_name_field').html("{{$cover_info['party_name']}}")
         $('.financial_year_field').html("{{$cover_info['fiscal_year']}}")
 
-        parentOfficeOtherDataJSON.map((content) => {
-            if (content.content_id === 'content_1') {
-                $('.entity_short_description').html(content.content)
-            }
-            if (content.content_id === 'content_1_1') {
-                $('.board_of_directors').html(content.content)
-            }
-            if (content.content_id === 'content_1_2') {
-                $('.organizational_structure').html(content.content)
-            }
-            if (content.content_id === 'content_1_3') {
-                $('.organization_manpower_summary').html(content.content)
-            }
-            if (content.content_id === 'content_2') {
-                $('.entity_important_features').html(content.content)
-            }
-            if (content.content_id === 'content_2_1') {
-                $('.mission').html(content.content)
-            }
-            if (content.content_id === 'content_2_2') {
-                $('.vision').html(content.content)
-            }
-            if (content.content_id === 'content_2_3') {
-                $('.financial_statements').html(content.content)
-            }
-            if (content.content_id === 'content_3') {
-                $('.revenue_expenditure').html(content.content)
-            }
-            if (content.content_id === 'content_4') {
-                $('.capital_expenditure').html(content.content)
-            }
+        if (!isEmpty(parentOfficeOtherDataJSON)) {
+            parentOfficeOtherDataJSON.map((content) => {
+                if (content.content_id === 'content_1') {
+                    $('.entity_short_description').html(content.content)
+                }
+                if (content.content_id === 'content_1_1') {
+                    $('.board_of_directors').html(content.content)
+                }
+                if (content.content_id === 'content_1_2') {
+                    $('.organizational_structure').html(content.content)
+                }
+                if (content.content_id === 'content_1_3') {
+                    $('.organization_manpower_summary').html(content.content)
+                }
+                if (content.content_id === 'content_2') {
+                    $('.entity_important_features').html(content.content)
+                }
+                if (content.content_id === 'content_2_1') {
+                    $('.mission').html(content.content)
+                }
+                if (content.content_id === 'content_2_2') {
+                    $('.vision').html(content.content)
+                }
+                if (content.content_id === 'content_2_3') {
+                    $('.financial_statements').html(content.content)
+                }
+                if (content.content_id === 'content_3') {
+                    $('.revenue_expenditure').html(content.content)
+                }
+                if (content.content_id === 'content_4') {
+                    $('.capital_expenditure').html(content.content)
+                }
 
-        });
+            });
+        }
     }
 
     function checkIdAndSetContentTinyMce(e) {
