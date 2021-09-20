@@ -308,9 +308,8 @@
                                 <p data-content='${JSON.stringify(data_content)}' data-member-role="member" data-layer="${layer_index}" class="assignedMember_${data_content.designation_id}_${layer_index} p-0 mb-0 permitted_designation" id="permitted_${data_content.designation_id}" data-id="${data_content.designation_id}">
                                     <i class="far fa-user"></i><span class="ml-2 mr-2">${html_officer}</span>
                                     <small>${data_content.designation_bn}, ${data_content.unit_name_bn}</small>`;
-                if (layer_index === 1) {
-                    node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader')" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>দলনেতা</button>`;
-                }
+                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader')" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>দলনেতা</button>`;
+
                 node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'subTeamLeader')" class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>উপ দলনেতা</button>
 <button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'member')" class="memberBtn btn btn-xs signatory_layer text-primary"><i data-value="1" class="far text-primary fa-check-square"></i>সদস্য</button>
                     </select> <button type="button" onclick="Load_Team_Container.deleteNode('designation','permitted_${data_content.designation_id}', 0)" class="text-danger btn btn-icon btn-xs del_layer_designation"><i class="text-danger far fa-trash-alt"></i></button>
@@ -378,9 +377,7 @@
                     $('.assignedMember_' + designation_id + '_' + layer_index + ' .teamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
                     $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
                 }
-            }
-
-            ,
+            },
 
             addEmployeeToAssignedList: function (entity_info) {
                 var newRow = '<tr id="selected_rp_employee_' + entity_info.officer_id + '">' +
@@ -389,8 +386,7 @@
                     '<td width="35%">' + '{{$own_office}}' + '</td>' +
                     '</tr>';
                 $(".assign_employee_list tbody").prepend(newRow);
-            }
-            ,
+            },
 
             addSelectedOfficeList: function (entity_info) {
                 if ($('#selected_officer_' + entity_info.officer_id).length === 0) {
@@ -414,13 +410,11 @@
 
                     $(".selected_offices").append(newRow);
                 }
-            }
-            ,
+            },
 
             removeSelectedOfficer: function (entity_id) {
                 $('#selected_officer_' + entity_id).remove();
-            }
-            ,
+            },
 
             addEmployeeToAssignEditor: function () {
                 if ($("#employee_type").val() === 'leader') {
@@ -430,8 +424,7 @@
                 }
                 $(".summernote").summernote("editor.pasteHTML", $(".assign_employee_div").html());
                 $('#officeEmployeeModal').modal('hide');
-            }
-            ,
+            },
 
             saveTeamMember: function () {
                 let totalSubTeamCreate = 0;
@@ -515,8 +508,7 @@
                     }
                 });
 
-            }
-            ,
+            },
 
             saveSubTeam: function () {
 
@@ -574,8 +566,7 @@
                 //     $(".assign_sub_team_members").append(newRow);
                 //     }
                 // }
-            }
-            ,
+            },
 
             loadTeamSchedule: function (team_schedule_list_div, team_layer_id) {
                 url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
@@ -591,8 +582,7 @@
                         $("#team_schedule_layer_btn_" + team_layer_id).hide();
                     }
                 })
-            }
-            ,
+            },
 
             deleteNode: function (type, node_id, from_tree) {
                 if (type === 'layer') {
@@ -625,8 +615,7 @@
                     }
                     delete Load_Team_Container.selected_designation_ids[designation_id];
                 }
-            }
-            ,
+            },
 
             reorderLayer: function () {
                 var start_layer = 1;
@@ -639,8 +628,7 @@
                     $(this).attr('id', 'right_' + start_layer).find(".del_layer").attr("onclick", "Load_Team_Container.deleteNode('layer', 'right_" + start_layer + "', 0)");
                     ++start_layer;
                 })
-            }
-            ,
+            },
 
             newNodeResetSortableList: function (parent_div_id) {
                 var idsArray = [];
@@ -651,8 +639,7 @@
                 $(parent_div_id).find('.listed_items').each(function (i, v) {
                     $('#' + v.id).sortable();
                 });
-            }
-            ,
+            },
 
             initiateSortableList: function () {
                 var idsArray = [];
@@ -665,8 +652,7 @@
                         $('#' + v.id).sortable();
                     });
                 });
-            }
-            ,
+            },
 
             saveTeamAndSchedule: function () {
                 var permission_data = [];
@@ -747,8 +733,7 @@
                         toastr.error(response.message);
                     }
                 });
-            }
-            ,
+            },
 
             itemStyle: function () {
                 var innerDivLength = $("#permitted_designations").children('.timeline-item');
@@ -758,8 +743,7 @@
                     $(this).css('padding-left', basePadding);
                     basePadding = basePadding - 15;
                 })
-            }
-            ,
+            },
 
             addLayer: function () {
                 var innerDivLength = $("#permitted_designations").children('.timeline-item');
@@ -783,25 +767,27 @@
                         <button type="button" id="team_schedule_layer_btn_${number}" onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_${number}',${number})"
                                 class="justify-self-end text-danger btn btn-icon btn-md">
                             <i class="text-primary far fa-calendar-alt"></i>
-                        </button>
-                        <button type="button" onclick="Load_Team_Container.deleteNode('layer','right_${number}', 0)"
+                        </button>`
+                if (number > 1) {
+                    level_html = level_html + `                        <button type="button" onclick="Load_Team_Container.deleteNode('layer','right_${number}', 0)"
                                 class="justify-self-end text-danger btn btn-icon btn-md del_layer">
                             <i class="text-danger far fa-trash-alt"></i>
-                        </button>
-                    </div>
-                </div>
+                        </button>`
+                }
+                level_html = level_html + `</div>
+        </div>
+        </div>
+        </div>
+            <div class="dragged_data_area px-2 pt-0" id="right_drop_zone_${number}">
+                <ul class="listed_items rounded-0 list-group" id="list_group_${number}">
+                    <li class="list-group-item overflow-hidden p-1 dummy_li"></li>
+                </ul>
             </div>
+            <input type="hidden" name="teams[]" id="team_information_${number}" value=""/>
+            <div class="px-2 pt-0" id="team_schedule_list_${number}"></div>
         </div>
-        <div class="dragged_data_area px-2 pt-0" id="right_drop_zone_${number}">
-            <ul class="listed_items rounded-0 list-group" id="list_group_${number}">
-                <li class="list-group-item overflow-hidden p-1 dummy_li"></li>
-            </ul>
         </div>
-         <input type="hidden" name="teams[]" id="team_information_${number}" value=""/>
-        <div class="px-2 pt-0" id="team_schedule_list_${number}"></div>
-    </div>
-</div>
-`;
+            `;
                 $("#permitted_designations").append(level_html);
                 // Load_Team_Container.itemStyle();
                 // Load_Team_Container.initiateSortableList();
