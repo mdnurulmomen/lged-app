@@ -101,7 +101,8 @@
                     '<input name="parent_office[]" class="parent_office" id="parent_office_' +  entity_info.entity_id + '_' + entity_info.entity_parent_id + '" type="hidden" value=""/>' +
                     '<input name="ministry_info[]" class="ministry_info" id="ministry_info_' + entity_info.entity_id + '_' + entity_info.ministry_id + '" type="hidden" value=""/>';
 
-                $(".selected_rp_offices").append(newRow);
+                let selected_rp_office =  $(".selected_rp_offices");
+                selected_rp_office.append(newRow);
                 selected_auditee = {
                     'office_id': entity_info.entity_id,
                     'office_name_en': entity_info.entity_name_en,
@@ -127,10 +128,10 @@
                 }
 
                 //console.log(entity_info);
-                $(".selected_rp_offices").find('#selected_entity_' + entity_info.entity_id).val(JSON.stringify(selected_auditee));
-                $(".selected_rp_offices").find('#controlling_office_' + entity_info.entity_id + '_' + entity_info.controlling_office_id).val(JSON.stringify(controlling_office));
-                $(".selected_rp_offices").find('#parent_office_' + entity_info.entity_id + '_' + entity_info.entity_parent_id).val(JSON.stringify(parent_office));
-                $(".selected_rp_offices").find('#ministry_info_' + entity_info.entity_id + '_' + entity_info.ministry_id).val(JSON.stringify(ministry_info));
+                selected_rp_office.find('#selected_entity_' + entity_info.entity_id).val(JSON.stringify(selected_auditee));
+                selected_rp_office.find('#controlling_office_' + entity_info.entity_id + '_' + entity_info.controlling_office_id).val(JSON.stringify(controlling_office));
+                selected_rp_office.find('#parent_office_' + entity_info.entity_id + '_' + entity_info.entity_parent_id).val(JSON.stringify(parent_office));
+                selected_rp_office.find('#ministry_info_' + entity_info.entity_id + '_' + entity_info.ministry_id).val(JSON.stringify(ministry_info));
             }
         },
 

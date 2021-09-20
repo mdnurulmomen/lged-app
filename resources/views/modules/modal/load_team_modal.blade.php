@@ -54,7 +54,7 @@
                     <div class="col-md-4">
                         <div class="form-row">
                             <input class="form-control" id="assignTeamNo" placeholder="নিরীক্ষা নিযুক্তি দল নম্বর"
-                                   type="text" name="">
+                                   type="text" autocomplete="off">
                         </div>
                     </div>
 
@@ -63,12 +63,12 @@
                             <div class="col">
                                 <input type="text" id="team_start_year"
                                        class="year-picker form-control"
-                                       placeholder="নিরীক্ষাধীন অর্থ বছর শুরু"/>
+                                       placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" autocomplete="off"/>
                             </div>
                             <div class="col">
                                 <input type="text" id="team_end_year"
                                        class="year-picker form-control"
-                                       placeholder="নিরীক্ষাধীন অর্থ বছর শেষ"/>
+                                       placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" autocomplete="off"/>
                             </div>
                         </div>
                     </div>
@@ -78,12 +78,12 @@
                             <div class="col">
                                 <input type="text" id="audit_start_year"
                                        class="date form-control"
-                                       placeholder="সম্পাদনের সময়কাল শুরু"/>
+                                       placeholder="সম্পাদনের সময়কাল শুরু" autocomplete="off"/>
                             </div>
                             <div class="col">
                                 <input type="text" id="audit_end_year"
                                        class="date form-control"
-                                       placeholder="সম্পাদনের সময়কাল শেষ"/>
+                                       placeholder="সম্পাদনের সময়কাল শেষ" autocomplete="off"/>
                             </div>
                         </div>
                     </div>
@@ -222,7 +222,6 @@
             $(this).attr('contenteditable', false);
         }
     })
-
     $('.own_office_organogram_tree').jstree({
         'plugins': ["checkbox", "types", "search", "dnd"],
         'core': {
@@ -568,17 +567,18 @@
             // }
         },
 
-        loadTeamSchedule: function () {
+        loadTeamSchedule: function (team_schedule_list_div,team_layer_id) {
             url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
             annual_plan_id = '{{$annual_plan_id}}';
             activity_id = '{{$activity_id}}';
             fiscal_year_id = '{{$fiscal_year_id}}';
-            data = {annual_plan_id, activity_id, fiscal_year_id};
+            data = {team_layer_id,annual_plan_id, activity_id, fiscal_year_id};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".audit_schedule_list_div").html(response);
+                    $("#"+team_schedule_list_div).append(response);
+                    $("#team_schedule_layer_btn_"+team_layer_id).hide();
                 }
             })
         },
@@ -763,8 +763,12 @@
             <div class="d-flex align-items-center justify-content-end">
                 <div class="d-flex align-items-center justify-content-between mb-0 mt-0">
                     <div class="mr-2">
+                        <button type="button" id="team_schedule_layer_btn_${number}" onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_${number}',${number})"
+                                class="justify-self-end text-danger btn btn-icon btn-md">
+                            <i class="text-primary far fa-calendar-alt"></i>
+                        </button>
                         <button type="button" onclick="Load_Team_Container.deleteNode('layer','right_${number}', 0)"
-                                class="justify-self-end text-danger btn btn-icon btn-xs del_layer">
+                                class="justify-self-end text-danger btn btn-icon btn-md del_layer">
                             <i class="text-danger far fa-trash-alt"></i>
                         </button>
                     </div>
@@ -776,7 +780,8 @@
                 <li class="list-group-item overflow-hidden p-1 dummy_li"></li>
             </ul>
         </div>
-        <input type="hidden" name="teams[]" id="team_information_${number}"/>
+         <input type="hidden" name="teams[]" id="team_information_${number}"/>
+        <div class="px-2 pt-0" id="team_schedule_list_${number}"></div>
     </div>
 </div>
 `;

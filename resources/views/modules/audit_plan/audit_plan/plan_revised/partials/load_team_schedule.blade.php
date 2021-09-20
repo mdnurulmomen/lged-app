@@ -1,5 +1,5 @@
 <div class="audit_schedule_list_div">
-    <table class="audit-schedule-table table table-bordered table-striped table-hover table-condensed
+    <table id="audit_schedule_table_{{$team_layer_id}}" class="audit-schedule-table table table-bordered table-striped table-hover table-condensed
                                             text-center">
         <thead>
         <tr>
@@ -26,9 +26,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr class='audit_schedule_row'>
+        <tr class='audit_schedule_row_{{$team_layer_id}}' data-schedule-first-row='0_0'>
             <td>
-                <select class="form-control input-branch-name" id="branchNameSelect1" data-id="1">
+                <select class="form-control input-branch-name" id="branchNameSelect1" data-id="{{$team_layer_id}}_0">
                     <option value=''>--Select--</option>
                     @foreach(json_decode($audit_plan['annual_plan']['nominated_offices'],true) as $key => $nominatedOffice)
                         <option value="{{$nominatedOffice['office_id']}}" data-office-name-bn="{{$nominatedOffice['office_name_bn']}}" data-office-name-en="{{$nominatedOffice['office_name_en']}}">{{$nominatedOffice['office_name_bn']}}</option>
@@ -38,12 +38,12 @@
             <td>
                 <div class="row">
                     <div class="col">
-                        <input type="text" data-id="1"
+                        <input type="text" data-id="{{$team_layer_id}}_0"
                                class="year-picker form-control input-start-year"
                                placeholder="শুরু"/>
                     </div>
                     <div class="col">
-                        <input type="text" data-id="1"
+                        <input type="text" data-id="{{$team_layer_id}}_0"
                                class="year-picker form-control input-end-year"
                                placeholder="শেষ"/>
                     </div>
@@ -52,12 +52,12 @@
             <td>
                 <div class="row">
                     <div class="col">
-                        <input type="text" data-id="1"
+                        <input type="text" data-id="{{$team_layer_id}}_0"
                                class="date form-control input-start-duration"
                                placeholder="শুরু"/>
                     </div>
                     <div class="col">
-                        <input type="text" data-id="1"
+                        <input type="text" data-id="{{$team_layer_id}}_0"
                                class="date form-control input-end-duration"
                                placeholder="শেষ"/>
                     </div>
@@ -65,20 +65,20 @@
             </td>
 
             <td>
-                <input type="number" data-id="1" value="0"
+                <input type="number" data-id="{{$team_layer_id}}_0" value="0"
                        class="form-control input-total-working-day"
-                       id="inputTotalWorkingDay1"/>
+                       id="input_total_working_day_{{$team_layer_id}}_0"/>
             </td>
             <td>
 
             </td>
         </tr>
-        <tr>
+        <tr data-schedule-second-row='0_0'>
             <td>
-                <input type="text" data-id="1" class="date form-control input-detail-duration"/>
+                <input type="text" data-id="{{$team_layer_id}}_0" class="date form-control input-detail-duration"/>
             </td>
             <td colspan="4">
-                <input type="text" data-id="1" class="form-control input-detail"/>
+                <input type="text" data-id="{{$team_layer_id}}_0" class="form-control input-detail"/>
             </td>
         </tr>
         </tbody>
@@ -89,51 +89,58 @@
     var Load_Team_Schedule = {
         addAuditScheduleTblRow:function (){
             var totalAuditScheduleRow = $('.audit-schedule-table tbody tr').length +1;
-            var newRow = "<tr class='audit_schedule_row' data-audit-schedule-row='"+totalAuditScheduleRow+"'>";
-            newRow += "<td><select id='branchNameSelect"+ totalAuditScheduleRow +"' class='form-control input-branch-name' data-id='"+ totalAuditScheduleRow +"'>" +
+            var teamScheduleHtml = "<tr class='audit_schedule_row_{{$team_layer_id}}' data-audit-schedule-first-row='"+totalAuditScheduleRow+"_"+{{$team_layer_id}}+"'>";
+            teamScheduleHtml += "<td><select id='branchNameSelect"+ totalAuditScheduleRow +"' class='form-control input-branch-name' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"'>" +
                 "<option value=''>--Select--</option>"+
                 @foreach(json_decode($audit_plan['annual_plan']['nominated_offices'],true) as $key => $nominatedOffice)
                     "<option value='{{$nominatedOffice['office_id']}}'>{{$nominatedOffice['office_name_bn']}}</option>"
-            @endforeach
+                @endforeach
                 "</td>";
-            newRow += "<td><div class='row'><div class='col'><input type='text' " +
-                "class='year-picker form-control input-start-year' data-id='"+ totalAuditScheduleRow +"' placeholder='শুরু'/></div><div class='col'>" +
-                "<input type='text' class='year-picker form-control input-end-year' data-id='"+ totalAuditScheduleRow +"' placeholder='শেষ'/>" +
+            teamScheduleHtml += "<td><div class='row'><div class='col'><input type='text' " +
+                "class='year-picker form-control input-start-year' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' placeholder='শুরু'/></div><div class='col'>" +
+                "<input type='text' class='year-picker form-control input-end-year' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' placeholder='শেষ'/>" +
                 "</div></div></td>";
 
-            newRow += "<td><div class='row'><div class='col'><input type='text' " +
-                "class='date form-control input-start-duration' data-id='"+ totalAuditScheduleRow +"' placeholder='শুরু'/></div><div class='col'>" +
-                "<input type='text' class='date form-control input-end-duration' data-id='"+ totalAuditScheduleRow +"' placeholder='শেষ'/>" +
+            teamScheduleHtml += "<td><div class='row'><div class='col'><input type='text' " +
+                "class='date form-control input-start-duration' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' placeholder='শুরু'/></div><div class='col'>" +
+                "<input type='text' class='date form-control input-end-duration' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' placeholder='শেষ'/>" +
                 "</div></div></td>";
 
-            newRow += "<td><input type='number' value='0' class='form-control input-total-working-day' id='inputTotalWorkingDay"+totalAuditScheduleRow+"' data-id='"+ totalAuditScheduleRow +"'/></td>";
-            newRow += "<td><button type='button' name='remove' data-row='row" + totalAuditScheduleRow + "' class='btn btn-danger btn-sm remove'><span class='fa fa-trash'></span></button></td>";
-            newRow += "</tr>";
-            newRow += "<tr>";
-            newRow += "<td><input type='text' data-id='"+ totalAuditScheduleRow +"' class='date form-control input-detail-duration'/></td>";
-            newRow += "<td colspan='4'><input type='text' data-id='"+ totalAuditScheduleRow +"' class='form-control input-detail'/></td>";
-            newRow += "</tr>";
+            teamScheduleHtml += "<td><input type='number' value='0' class='form-control input-total-working-day' id='input_total_working_day_{{$team_layer_id}}_"+totalAuditScheduleRow+"' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"'/></td>";
+            teamScheduleHtml += "<td><button type='button' data-row='row" + totalAuditScheduleRow + "' class='btn btn-danger btn-sm remove-schedule-row'><span class='fa fa-trash'></span></button></td>";
+            teamScheduleHtml += "</tr>";
+            teamScheduleHtml += "<tr data-schedule-second-row='"+totalAuditScheduleRow+"_"+{{$team_layer_id}}+"'>";
+            teamScheduleHtml += "<td><input type='text' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' class='date form-control input-detail-duration'/></td>";
+            teamScheduleHtml += "<td colspan='4'><input type='text' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' class='form-control input-detail'/></td>";
+            teamScheduleHtml += "</tr>";
 
-            $('.audit-schedule-table').append(newRow);
+            $('#audit_schedule_table_{{$team_layer_id}}').append(teamScheduleHtml);
         }
     };
 
+    $(document).on('click', '.remove-schedule-row', function () {
+        let rowId = $(this).closest("tr").data('audit-schedule-first-row');
+        $('#audit_schedule_table_{{$team_layer_id}} tbody tr[data-schedule-second-row='+rowId+']').remove();
+        $(this).closest("tr").remove();
+    });
 
-    $(document).on('keyup', '.audit_schedule_row input', function () {
+
+    $(document).on('keyup', '.audit_schedule_row_{{$team_layer_id}} input', function () {
         populateData(this);
     });
 
-    $(document).on('change', '.audit_schedule_row input', function () {
+    $(document).on('change', '.audit_schedule_row_{{$team_layer_id}} input', function () {
         populateData(this);
     });
 
-    $(document).on('change', '.audit_schedule_row select', function () {
+    $(document).on('change', '.audit_schedule_row_{{$team_layer_id}} select', function () {
         populateData(this);
     });
 
     auditScheduleList = {};
     function populateData(element) {
         var id = $(element).data("id");
+        console.log(id)
         var currentInputValue = $(element).val();
         if (typeof auditScheduleList[id] === 'undefined') {
             auditScheduleList[id] = {};
@@ -168,9 +175,7 @@
             startDateForamt = startDurationData[1]+'/'+startDurationData[0]+'/'+startDurationData[2];
             endDateForamt = endDurationData[1]+'/'+endDurationData[0]+'/'+endDurationData[2];
             totalDayDifference = dateDifferenceInDay(startDateForamt,endDateForamt);
-            console.log(totalDayDifference)
-            console.log(id)
-            $("#inputTotalWorkingDay"+id).val(totalDayDifference);
+            $("#input_total_working_day_"+id).val(totalDayDifference);
             auditScheduleList[id]['total_working_days'] = totalDayDifference;
         }
 
