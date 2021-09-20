@@ -267,8 +267,6 @@
             if (data.data.jstree && data.data.origin) {
                 var node = data.data.origin.get_node(data.element);
                 Load_Team_Container.addNode(splitArray[3], node.data.officerInfo);
-                $('#own_office_organogram_tree').jstree(true).disable_node(node.id);
-                $('#own_office_organogram_tree').jstree(true).check_node(node.id);
             }
         } else {
             if (old_currentTarget !== null) {
@@ -605,11 +603,11 @@
         deleteNode: function (type, node_id, from_tree) {
             if (type === 'layer') {
                 $('#' + node_id + ' .permitted_designation').each(function (i, v) {
-                    $('#own_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
-                    $('#own_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
+                    // $('#own_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
+                    // $('#own_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
                     if ($("#nothi_permission_office_organogram_tree").length !== 0) {
-                        $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
-                        $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
+                        // $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
+                        // $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
                     }
                     delete Load_Team_Container.selected_designation_ids[$(this).data('id')];
                 })
@@ -625,11 +623,11 @@
                     $('#' + parentId).removeAttr('style');
                 }
                 $('#' + node_id).parent('li').remove();
-                $('#own_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
-                $('#own_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
+                // $('#own_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
+                // $('#own_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
                 if ($("#nothi_permission_office_organogram_tree").length !== 0) {
-                    $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
-                    $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
+                    // $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
+                    // $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
                 }
                 delete Load_Team_Container.selected_designation_ids[designation_id];
             }
