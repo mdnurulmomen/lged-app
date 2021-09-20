@@ -93,9 +93,15 @@
                 fiscal_year_id = '{{$fiscal_year_id}}';
                 audit_plan_id = $(".draft_entity_audit_plan").data('audit-plan-id');
 
-                data = {annual_plan_id, activity_id, fiscal_year_id,audit_plan_id};
+                data = {annual_plan_id, activity_id, fiscal_year_id, audit_plan_id};
+
+                KTApp.block('.content', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('.content');
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {

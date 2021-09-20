@@ -68,8 +68,10 @@
 <script src="{{ asset('assets/js/split.min.js') }}"></script>
 <script src="{{ asset('assets/js/croppie.min.js') }}"></script>
 <script src="{{ asset('assets/js/jstree.min.js') }}"></script>
+<script src="{{asset('assets/js/pages/features/miscellaneous/treeview.min.js')}}"></script>
 <script src="{{ asset('assets/js/pages/crud/file-upload/dropzonejs.js') }}"></script>
 <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }}"></script>
+<script src="{{asset('assets/js/jquery-sortable.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/js/pages/custom/login/login-general.js') }}"></script>
 <script src="{{ asset('assets/js/pages/crud/forms/editors/summernote.js') }}"></script>
 <script src="{{ asset('assets/js/tapp.js') }}"></script>

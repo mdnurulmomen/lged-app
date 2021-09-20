@@ -1,49 +1,88 @@
+<style type="text/css">
+    .custom-timeline {
+        padding-left: 10px;
+    }
+
+    .custom-timeline-item > .timeline-media {
+        cursor: pointer;
+    }
+
+    .permitted_designation {
+        cursor: pointer;
+    }
+
+    .timeline.timeline-3 .timeline-items .timeline-item {
+        margin-left: 0px;
+    }
+
+    .dragged_data_area::after {
+        content: "";
+        height: 40px;
+        width: 100%;
+        position: relative;
+        bottom: 0;
+        left: 0;
+        border: 1px dashed #3699ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #3f4254;
+        background: #fffed8;
+        font-size: 16px;
+        font-family: 'SolaimanLipi', serif;
+        margin: 0 2px;
+        border-radius: 5px;
+    }
+</style>
 <!-- Office Modal -->
-<div class="modal fade" id="officeEmployeeModal" tabindex="-1" role="dialog"
+<div class="modal fade custom-modal" id="officeEmployeeModal" tabindex="-1" role="dialog"
      aria-labelledby="officeEmployeeModalLabel"
-     aria-hidden="true">
+     aria-hidden="true"
+     data-backdrop="static"
+>
     <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
+        <div class="modal-content rounded-0">
             <div class="modal-header">
                 <h5 class="modal-title" id="officeEmployeeModalLabel">Add Audit Team</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
             </div>
             <div class="modal-body">
-                <div class="row  pb-6">
+                <div class="row pb-1">
                     <div class="col-md-4">
-                        <label for="">নিরীক্ষা নিযুক্তি দল নম্বর</label>
                         <div class="form-row">
-                            <input class="form-control" id="assignTeamNo" placeholder="নিরীক্ষা নিযুক্তি দল নম্বর" type="text" name="">
+                            <input class="form-control" id="assignTeamNo" placeholder="নিরীক্ষা নিযুক্তি দল নম্বর"
+                                   type="text" name="">
                         </div>
                     </div>
 
                     <div class="col-md-4">
-                        <label for="">নিরীক্ষাধীন অর্থ বছর</label>
                         <div class="row">
                             <div class="col">
                                 <input type="text" id="team_start_year"
                                        class="year-picker form-control"
-                                       placeholder="শুরু"/>
+                                       placeholder="নিরীক্ষাধীন অর্থ বছর শুরু"/>
                             </div>
                             <div class="col">
                                 <input type="text" id="team_end_year"
                                        class="year-picker form-control"
-                                       placeholder="শেষ"/>
+                                       placeholder="নিরীক্ষাধীন অর্থ বছর শেষ"/>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
-                        <label for="">নিরীক্ষা সম্পাদনের সময়কাল</label>
                         <div class="row">
                             <div class="col">
                                 <input type="text" id="team_start_date"
                                        class="date form-control"
-                                       placeholder="শুরু"/>
+                                       placeholder="সম্পাদনের সময়কাল শুরু"/>
                             </div>
                             <div class="col">
                                 <input type="text" id="team_end_date"
                                        class="date form-control"
-                                       placeholder="শেষ"/>
+                                       placeholder="সম্পাদনের সময়কাল শেষ"/>
                             </div>
                         </div>
                     </div>
@@ -52,38 +91,34 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                        <ul class="nav nav-tabs custom-tabs mb-0" role="tablist">
+                        <ul class="nav nav-tabs custom-tab-header mb-0" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active rounded-0" data-toggle="tab" href="#set_own_office">
-                                    <span class="nav-text">Own Office</span>
+                                    <span class="nav-text"><i
+                                            class="fad fa-briefcase mr-2 text-primary"></i>নিজ অফিস</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#set_other_office" aria-controls="profile">
-                                    <span class="nav-text">Other Office</span>
+                                    <span class="nav-text"> <i class="fad fa-building mr-2 text-primary"></i>অন্যান্য অফিস</span>
                                 </a>
                             </li>
                         </ul>
 
                         <div class="tab-content" id="plan_office_tab">
-                            <div class="tab-pane border border-top-0 p-3 fade show active" id="set_own_office" role="tabpanel"
+                            <div class="tab-pane border border-top-0 p-3 fade show active" id="set_own_office"
+                                 role="tabpanel"
                                  aria-labelledby="own-tab">
                                 <div class="row">
                                     <div class="col-md-12 officers_list_area">
                                         <div class="rounded-0 own_office_organogram_tree"
                                              style="overflow-y: scroll; height: 60vh">
                                             <ul>
-                                                <li>
-                                                    Office
-                                                    <ul>
-                                                        @foreach($officer_lists as $key => $officer_list)
-                                                            @foreach($officer_list['units'] as $unit)
-                                                                <li data-jstree='{ "opened" : true }'>
-                                                                    {{$unit['unit_name_eng']}}
-                                                                    <ul>
-                                                                        @foreach($unit['designations'] as $designation)
-                                                                            @if(!empty($designation['employee_info']))
-                                                                                <li data-officer-info="{{json_encode(
+                                                @foreach($officer_lists as $key => $officer_list)
+                                                    @foreach($officer_list['units'] as $unit)
+                                                        @foreach($unit['designations'] as $designation)
+                                                            @if(!empty($designation['employee_info']))
+                                                                <li data-officer-info="{{json_encode(
     [
         'designation_id' => $designation['designation_id'],
         'designation_en' => $designation['designation_eng'],
@@ -97,18 +132,14 @@
         'unit_name_bn' => $unit['unit_name_bng'],
         'office_id' => $officer_list['office_id'],
         ])}}"
-                                                                                    data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
-                                                                                    {{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}
-                                                                                    <small>{{$designation['designation_eng']}}</small>
-                                                                                </li>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    </ul>
+                                                                    data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
+                                                                    {{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}
+                                                                    <small>{{$designation['designation_eng']}}</small>
                                                                 </li>
-                                                            @endforeach
+                                                            @endif
                                                         @endforeach
-                                                    </ul>
-                                                </li>
+                                                    @endforeach
+                                                @endforeach
                                             </ul>
                                         </div>
                                     </div>
@@ -128,43 +159,46 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
-                        <ul class="nav nav-tabs custom-tabs mb-0" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active rounded-0" data-toggle="tab" href="#team_members">
-                                    <span class="nav-text">টিম গঠন</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a id="subTeamCreateNavLink" class="nav-link disabled" data-toggle="tab" href="#sub_team_create" aria-controls="profile" disabled="">
-                                    <span class="nav-text">উপদল গঠন</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#team_schedule" aria-controls="profile"
-                                onclick="Load_Team_Container.loadTeamSchedule()">
-                                    <span class="nav-text">সময়সূচী</span>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane border border-top-0 p-3 fade show active" id="team_members" role="tabpanel"
-                                 aria-labelledby="selected_offices_tab">
-                                <div style="overflow-y: scroll; height: 60vh" class="pl-4 selected_offices"></div>
-                                <button id="save_team" onclick="Load_Team_Container.saveTeamMember()" class="btn btn-primary float-left"> save </button>
+                    <div class="col-md-8" style="overflow: auto;height: 70vh;">
+                        <div class="kt-portlet" style="margin-bottom:0;">
+                            <div class="kt-portlet__head d-md-flex align-items-md-center justify-content-md-between">
+                                <div class="kt-portlet__head-label">
+                                    <h5 class="kt-portlet__head-title">বাছাইকৃত অফিসারদের তালিকা</h5>
+                                </div>
+                                <div class="kt-portlet__head-label">
+                                    <div
+                                        class="form-group custom-form-group p-0 mb-2 d-md-flex align-items-md-center justify-content-md-between">
+                                        <div class="d-flex flex-wrarp mt-3 align-items-center">
+                                            <button type="button" class="btn btn-sm btn-primary btn-square"
+                                                    id="createNewLayer" onclick="Load_Team_Container.addLayer()"><i
+                                                    class="fad fa-plus"></i>নতুন তৈরি করুন
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="card card-custom gutter-b w-100">
+                                <div class="card-body p-0">
+                                    <!--begin::Timeline-->
+                                    <div class="timeline timeline-3 custom-timeline" id="customTimeline">
+                                        <div class="timeline-items " id="permitted_designations"></div>
+                                    </div>
+                                    <!--end::Timeline-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                            <div class="tab-pane fade border border-top-0 p-3" id="sub_team_create" role="tabpanel"
-                                 aria-labelledby="sub_team_create_tab">
-                                <div class="pl-4 sub_teams"></div>
-                                <button id="save_sub_team" onclick="Load_Team_Container.saveSubTeam()" class="btn btn-primary float-left"> save </button>
-                                <div class="pl-4 assign_sub_team_members"></div>
-                            </div>
-
-                            <div class="tab-pane fade border border-top-0 p-3" id="team_schedule" role="tabpanel"
-                                 aria-labelledby="team_schedule_tab">
-                                <div class="audit_schedule_list_div"></div>
-                            </div>
+                    <div class="col-md-12">
+                        <div class="actions text-right mt-3 permission_action_btn">
+                            <button type="button" class="btn btn-sm btn-primary btn-square" id="saveNothiPermission"
+                                    onclick="Load_Team_Container.saveNothiPermission()"><i class="fad fa-cloud"></i>সংরক্ষণ
+                                করুন
+                            </button>
+                            <button type="button" class="btn btn-sm btn-secondary btn-square"
+                                    id="dismissNothiPermission" onclick="NOTHI_CONTAINER.dismissNothiPermission()"><i
+                                    class="fad fa-window-close"></i>বন্ধ করুন
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -172,65 +206,187 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary"
-                        onclick="Load_Team_Container.addEmployeeToAssignEditor()">Assign</button>
+                        onclick="Load_Team_Container.addEmployeeToAssignEditor()">Assign
+                </button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    $('.own_office_organogram_tree').jstree({
-        "core": {
-            "themes": {
-                "responsive": true
-            }
-        },
-        "types": {
-            "default": {
-                "icon": "fal fa-folder"
-            },
-            "person": {
-                "icon": "fal fa-file "
-            }
-        },
-        "plugins": ["types", "checkbox",]
+
+    $(document).off('click', '.layer_text').on('click', '.layer_text', function () {
+        $(this).attr('contenteditable', 'true');
     });
 
-    //
+    $("#permitted_designations .layer_text").click(function () {
+        var attr = $(this).attr('contenteditable');
+        if (typeof attr !== 'undefined' && attr !== false) {
+            $(this).attr('contenteditable', true);
+        } else {
+            $(this).attr('contenteditable', false);
+        }
+    })
+    $('.own_office_organogram_tree').jstree({
+        'plugins': ["checkbox", "types", "search", "dnd"],
+        'core': {
+            check_callback: true,
+            "themes": {
+                "responsive": false
+            },
+        },
+        'dnd': {
+            "copy": true,
+            // "always_copy": true,
+        },
+        'checkbox': {
+            three_state: false, // to avoid that fact that checking a node also check others
+            whole_node: false, // to avoid checking the box just clicking the node
+            tie_selection: false // for checking without selecting and selecting without checking
+        },
+        "search": {
+            "show_only_matches": true,
+            "show_only_matches_children": true
+        },
+    });
+
+    /**JS tree drag and drop start***/
+
+    var draggedDiv = null;
+    var old_currentTarget = null;
+    var old_onselectstart;
+    var old_unselectable;
+
+    $(document).on('dnd_start.vakata', function (e, data) {
+    }).on('drop', function (evt) {
+    }).on('dnd_stop.vakata', function (e, data) {
+        var getHoverID = data.event.target.id;
+        var splitArray = getHoverID.split('_');
+        if (data.event.target.id === 'right_drop_zone_' + splitArray[3] || $(data.event.target).parents('#right_drop_zone_' + splitArray[3]).length) {
+            if (data.data.jstree && data.data.origin) {
+                var node = data.data.origin.get_node(data.element);
+                Load_Team_Container.addNode(splitArray[3], node.data.officerInfo);
+                $('#own_office_organogram_tree').jstree(true).disable_node(node.id);
+                $('#own_office_organogram_tree').jstree(true).check_node(node.id);
+            }
+        } else {
+            if (old_currentTarget !== null) {
+                old_currentTarget.unselectable = old_unselectable;
+                old_currentTarget.onselectstart = old_onselectstart;
+                old_currentTarget = null;
+            }
+            if ($(data.event.target).parents('#own_office_organogram_tree').length) {
+                if (draggedDiv !== null) {
+                    if (!data.event.ctrlKey) {
+                        draggedDiv.remove();
+                    }
+                    draggedDiv = null;
+                }
+            }
+        }
+    })
+
+    /**JS tree drag and drop end***/
+
+        //
     var employees = {};
     var team = {};
     var subTeam = [];
-    $('.own_office_organogram_tree').on('select_node.jstree', function (e, data) {
-        if (data.node.children.length === 0) {
-            var officer_info = $('#' + data.node.id).data('officer-info')
-            employees[officer_info.officer_id] = officer_info;
-            Load_Team_Container.addEmployeeToAssignedList(officer_info);
-            Load_Team_Container.addSelectedOfficeList(officer_info);
-        } else {
-            data.node.children.map(child => {
-                var officer_info = $('#' + child).data('officer-info')
-                employees[officer_info.officer_id] = officer_info;
-                Load_Team_Container.addEmployeeToAssignedList(officer_info);
-                Load_Team_Container.addSelectedOfficeList(officer_info);
-            })
-        }
-    }).on('deselect_node.jstree', function (e, data) {
-        if (data.node.children.length === 0) {
-            var officer_info = $('#' + data.node.id).data('officer-info');
-            delete employees[officer_info.officer_id];
-            $("#selected_rp_employee_"+officer_info.officer_id).remove();
-            Load_Team_Container.removeSelectedOfficer(officer_info.officer_id);
-        } else {
-            data.node.children.map(child => {
-                var officer_info = $('#' + child).data('officer-info');
-                delete employees[officer_info.officer_id];
-                $("#selected_rp_employee_"+officer_info.officer_id).remove();
-                Load_Team_Container.removeSelectedOfficer(officer_info.officer_id);
-            })
-        }
-    });
+    // $('.own_office_organogram_tree').on('select_node.jstree', function (e, data) {
+    //     if (data.node.children.length === 0) {
+    //         var officer_info = $('#' + data.node.id).data('officer-info')
+    //         employees[officer_info.officer_id] = officer_info;
+    //         Load_Team_Container.addEmployeeToAssignedList(officer_info);
+    //         Load_Team_Container.addSelectedOfficeList(officer_info);
+    //     } else {
+    //         data.node.children.map(child => {
+    //             var officer_info = $('#' + child).data('officer-info')
+    //             employees[officer_info.officer_id] = officer_info;
+    //             Load_Team_Container.addEmployeeToAssignedList(officer_info);
+    //             Load_Team_Container.addSelectedOfficeList(officer_info);
+    //         })
+    //     }
+    // }).on('deselect_node.jstree', function (e, data) {
+    //     if (data.node.children.length === 0) {
+    //         var officer_info = $('#' + data.node.id).data('officer-info');
+    //         delete employees[officer_info.officer_id];
+    //         $("#selected_rp_employee_" + officer_info.officer_id).remove();
+    //         Load_Team_Container.removeSelectedOfficer(officer_info.officer_id);
+    //     } else {
+    //         data.node.children.map(child => {
+    //             var officer_info = $('#' + child).data('officer-info');
+    //             delete employees[officer_info.officer_id];
+    //             $("#selected_rp_employee_" + officer_info.officer_id).remove();
+    //             Load_Team_Container.removeSelectedOfficer(officer_info.officer_id);
+    //         })
+    //     }
+    // });
 
     var Load_Team_Container = {
+        load_level_selection_panel: 0,
+        selected_designation_ids: JSON.parse('{"228237":228237,"22418":22418}'),
+
+        checkSelectedItemsInOrgTree: function (tree_id) {
+            $.each(Load_Team_Container.selected_designation_ids, function (i, v) {
+                $(tree_id).jstree(true).check_node("#ofc_org_designation_" + v);
+                $(tree_id).jstree(true).disable_node("#ofc_org_designation_" + v);
+            })
+            $(".ofc_org_unit").each(function (i, v) {
+                var unit_node_id = $(v).attr('id').match(/\d+/)[0];
+                $(tree_id).jstree(true).disable_node("#ofc_org_unit_" + unit_node_id);
+            })
+            Load_Team_Container.load_level_selection_panel = 1;
+        },
+
+        addNode: function (layer_index, data_content, addType) {
+            console.log(data_content)
+            console.log(data_content.unit_name_bn)
+            console.log(data_content.designation_bn)
+            var html_officer = data_content.officer_name_bn;
+            var node_html = `
+            <li id="designtion_${data_content.designation_id}" class="list-group-item overflow-hidden p-1">
+                                <p data-content="${JSON.stringify(data_content)}" data-member-role="member" data-layer="${layer_index}" class="assignedMember_${data_content.designation_id}_${layer_index} p-0 mb-0 permitted_designation" id="permitted_${data_content.designation_id}" data-id="${data_content.designation_id}">
+                                    <i class="far fa-user"></i><span class="ml-2 mr-2">${html_officer}</span>
+                                    <small>${data_content.designation_bn}, ${data_content.unit_name_bn}</small>
+`;
+            if (layer_index == 1) {
+                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader')" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>দলনেতা</button>`;
+            }
+            node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'subTeamLeader')" class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>উপ দলনেতা</button>
+<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'member')" class="memberBtn btn btn-xs signatory_layer text-primary"><i data-value="1" class="far text-primary fa-check-square"></i>সদস্য</button>
+                    </select> <button type="button" onclick="Load_Team_Container.deleteNode('designation','permitted_${data_content.designation_id}', 0)" class="text-danger btn btn-icon btn-xs del_layer_designation"><i class="text-danger far fa-trash-alt"></i></button>
+</p>                            </li>
+            `;
+            if ($("#designtion_" + data_content.designation_id).length > 0) {
+                $("#designtion_" + data_content.designation_id).remove();
+            }
+            $("#permitted_level_" + layer_index + " .listed_items").append(node_html);
+            Load_Team_Container.newNodeResetSortableList($("#permitted_level_" + layer_index));
+        },
+
+        memberRole: function (elem, layer_index, role) {
+            designation_id = elem.data('designation-id');
+            if (elem.find('i').hasClass('fa-square')) {
+                elem.find('i').removeClass('fa-square').addClass('far fa-check-square')
+                elem.find('i').attr('data-value', 1);
+                elem.parent('p').attr('data-member-role', role)
+            } else {
+                elem.find('i').removeClass('fa-check-square').addClass('far fa-square')
+                elem.find('i').attr('data-value', 0);
+                elem.parent('p').attr('data-member-role', '')
+            }
+            if (role === 'member') {
+                $('.assignedMember_' + designation_id + '_' + layer_index + ' .teamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+                $('.assignedMember_' + designation_id + '_' + layer_index + ' .subTeamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+            } else if (role === 'teamLeader') {
+                $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+                $('.assignedMember_' + designation_id + '_' + layer_index + ' .subTeamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+            } else if (role === 'subTeamLeader') {
+                $('.assignedMember_' + designation_id + '_' + layer_index + ' .teamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+                $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+            }
+        },
+
         addEmployeeToAssignedList: function (entity_info) {
             var newRow = '<tr id="selected_rp_employee_' + entity_info.officer_id + '">' +
                 '<td width="35%">' + entity_info.officer_name_bn + '</td>' +
@@ -240,25 +396,24 @@
             $(".assign_employee_list tbody").prepend(newRow);
         },
 
-
         addSelectedOfficeList: function (entity_info) {
             if ($('#selected_officer_' + entity_info.officer_id).length === 0) {
                 var newRow = '<div class="mt-2" style="border: 1px solid #ebf3f2;padding: 10px" id="selected_officer_' + entity_info.officer_id + '">' +
                     '<li  style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
                     /*'<span onclick="Load_Team_Container.removeSelectedOfficer(' + entity_info.officer_id + ')" style="cursor:pointer;color:red;">' +
                     '<i class="fas fa-trash-alt text-danger pr-2"></i></span>' +*/
-                    '<input  id="officer_name_' + entity_info.officer_id + '"  type="hidden" class="form-control" value="'+ entity_info.officer_name_bn+'"/>'+
-                    '<i class="fa fa-user pr-2"></i>' + entity_info.officer_name_bn+ ' ('+entity_info.designation_bn+')' +
-                    '</li>'+
-                    '<div class="row">'+
-                    '<div class="col-md-4">'+
+                    '<input  id="officer_name_' + entity_info.officer_id + '"  type="hidden" class="form-control" value="' + entity_info.officer_name_bn + '"/>' +
+                    '<i class="fa fa-user pr-2"></i>' + entity_info.officer_name_bn + ' (' + entity_info.designation_bn + ')' +
+                    '</li>' +
+                    '<div class="row">' +
+                    '<div class="col-md-4">' +
                     '<select id="selected_officer_designation_' + entity_info.officer_id + '" name="selected_officer_designation[]" class="form-control select-select2">' +
                     '<option value="">Select</option><option value="teamLeader">দলনেতা</option>' +
                     '<option value="subTeamLeader">উপ দলনেতা</option><option value="member">সদস্য</option>' +
-                    '</select>'+
-                    '</div>'+
-                    '<div class="col-md-8">'+
-                    '<input data-id="' + entity_info.officer_id + '" id="selected_officer_phone_' + entity_info.officer_id + '" data-designation-id="' + entity_info.designation_id + '" data-designation-name-bn="' + entity_info.designation_bn + '" data-designation-name-en="' + entity_info.designation_en + '" type="text" name="selected_officer_phone[]" placeholder="Enter phone number" class="form-control selected_officer_phone" value=""/>'+
+                    '</select>' +
+                    '</div>' +
+                    '<div class="col-md-8">' +
+                    '<input data-id="' + entity_info.officer_id + '" id="selected_officer_phone_' + entity_info.officer_id + '" data-designation-id="' + entity_info.designation_id + '" data-designation-name-bn="' + entity_info.designation_bn + '" data-designation-name-en="' + entity_info.designation_en + '" type="text" name="selected_officer_phone[]" placeholder="Enter phone number" class="form-control selected_officer_phone" value=""/>' +
                     '</div></div></div>';
 
                 $(".selected_offices").append(newRow);
@@ -269,11 +424,10 @@
             $('#selected_officer_' + entity_id).remove();
         },
 
-        addEmployeeToAssignEditor:function (){
-            if ($("#employee_type").val() === 'leader'){
+        addEmployeeToAssignEditor: function () {
+            if ($("#employee_type").val() === 'leader') {
                 localStorage.setItem("teamLeader", JSON.stringify(employees));
-            }
-            else if($("#employee_type").val() === 'member'){
+            } else if ($("#employee_type").val() === 'member') {
                 localStorage.setItem("teamMember", JSON.stringify(employees));
             }
             $(".summernote").summernote("editor.pasteHTML", $(".assign_employee_div").html());
@@ -288,45 +442,51 @@
             let teamLeaderDesignationNameEn;
 
             var selected_officer_phone = $('.selected_officer_phone');
-            selected_officer_phone.each(function(k, v) {
-                 var id = $(this).attr('data-id');
-                 var designationId = $(this).data('designation-id');
-                 var designationNameBn = $(this).data('designation-name-bn');
-                 var designationNameEn = $(this).data('designation-name-en');
+            selected_officer_phone.each(function (k, v) {
+                var id = $(this).attr('data-id');
+                var designationId = $(this).data('designation-id');
+                var designationNameBn = $(this).data('designation-name-bn');
+                var designationNameEn = $(this).data('designation-name-en');
 
-                 var name = $('#officer_name_'+id).val();
 
-                 var member_role = $('#selected_officer_designation_'+id).val();
+                name = $('#officer_name_' + id).val();
 
-                 if (member_role == "teamLeader"){
-                     teamLeaderNameBn = name;
-                     teamLeaderDesignationId = designationId;
-                     teamLeaderDesignationNameBn = designationNameBn;
-                     teamLeaderDesignationNameEn = designationNameEn;
-                 }
-                 if (member_role == "subTeamLeader"){
-                     totalSubTeamCreate++;
-                 }
+                var member_role = $('#selected_officer_designation_' + id).val();
 
-                 var phone = $('#selected_officer_phone_'+id).val();
-                 info = {'name' : name,'member_role' : member_role,'phone' : phone,'teamLeaderDesignationNameBn':teamLeaderDesignationNameBn};
-                 team[id] = info;
+                if (member_role == "teamLeader") {
+                    teamLeaderNameBn = name;
+                    teamLeaderDesignationId = designationId;
+                    teamLeaderDesignationNameBn = designationNameBn;
+                    teamLeaderDesignationNameEn = designationNameEn;
+                }
+                if (member_role == "subTeamLeader") {
+                    totalSubTeamCreate++;
+                }
 
-                 if (member_role == 'subTeamLeader'){
-                     $(".sub_teams").append(
-                         `<div class="row">
+                phone = $('#selected_officer_phone_' + id).val();
+                info = {
+                    'name': name,
+                    'member_role': member_role,
+                    'phone': phone,
+                    'teamLeaderDesignationNameBn': teamLeaderDesignationNameBn
+                };
+                team[id] = info;
+
+                if (member_role == 'subTeamLeader') {
+                    $(".sub_teams").append(
+                        `<div class="row">
                                <input  class="sub_team_name form-control" type="text" placeholder="উপদল">
                          </div>`
-                     );
-                 }
+                    );
+                }
             });
             // console.log(team);
             localStorage.setItem("team", JSON.stringify(team));
-            if (totalSubTeamCreate >1){
+            if (totalSubTeamCreate > 1) {
                 $("#subTeamCreateNavLink").removeClass('disabled');
             }
 
-            
+
             //for save audit team
             let urlAuditTeam = '{{route('audit.plan.audit.revised.plan.store-audit-team')}}';
             let dataAuditTeam = {
@@ -416,7 +576,7 @@
             // }
         },
 
-        loadTeamSchedule:function (){
+        loadTeamSchedule: function () {
             url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
             annual_plan_id = '{{$annual_plan_id}}';
             activity_id = '{{$activity_id}}';
@@ -429,6 +589,252 @@
                     $(".audit_schedule_list_div").html(response);
                 }
             })
+        },
+
+        enableMode: function (elem) {
+            if (elem.find('i').hasClass('fa-square')) {
+                elem.find('i').removeClass('fa-square').addClass('far fa-check-square')
+                elem.find('i').attr('data-value', 1);
+            } else {
+                elem.find('i').removeClass('fa-check-square').addClass('far fa-square')
+                elem.find('i').attr('data-value', 0);
+            }
+        },
+
+        deleteNode: function (type, node_id, from_tree) {
+            if (type === 'layer') {
+                $('#' + node_id + ' .permitted_designation').each(function (i, v) {
+                    $('#own_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
+                    $('#own_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
+                    if ($("#nothi_permission_office_organogram_tree").length !== 0) {
+                        $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
+                        $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
+                    }
+                    delete Load_Team_Container.selected_designation_ids[$(this).data('id')];
+                })
+                $('#' + node_id).remove();
+                Load_Team_Container.reorderLayer();
+            } else {
+                var designation_id = node_id.match(/\d+/)[0];
+                var parent_timeline_content = $('#' + node_id).closest('.timeline-content');
+                var layer_index = parent_timeline_content.data('layer_index');
+                if (parent_timeline_content.find('.permitted_designation').length >= 1) {
+                    var parentId = $('#' + node_id).parent('li').parent('ul').parent('.dragged_data_area').attr('id');
+                    var clientHeight = document.getElementById(parentId).clientHeight;
+                    $('#' + parentId).removeAttr('style');
+                }
+                $('#' + node_id).parent('li').remove();
+                $('#own_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
+                $('#own_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
+                if ($("#nothi_permission_office_organogram_tree").length !== 0) {
+                    $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
+                    $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
+                }
+                delete Load_Team_Container.selected_designation_ids[designation_id];
+            }
+        },
+
+        setTransactionDay: function (elem) {
+            var day = ($(elem).parent().find('input').val());
+            $("#" + $(elem).data('placeholder')).html(replaceToBn(day));
+            $('[data-toggle="popover"]').popover('hide');
+        },
+
+        loadTransactionDayPopover: function () {
+            $('[data-toggle="popover"]').popover({
+                singleton: true,
+                html: true,
+                sanitize: false,
+                content: function () {
+                    return $("#PopoverContent").html();
+                }
+            });
+        },
+
+        reorderLayer: function () {
+            var start_layer = 1;
+            $("#permitted_designations .timeline-item").each(function () {
+                $(this).attr('id', 'right_' + start_layer);
+                $(this).find('.timeline-content').attr('data-layer_index', start_layer);
+                $(this).find('.timeline-content').attr('id', "permitted_level_" + start_layer);
+                $(this).find('.dragged_data_area').attr('id', "right_drop_zone_" + start_layer);
+                $(this).find('.listed_items').attr('id', "list_group_" + start_layer);
+                $(this).attr('id', 'right_' + start_layer).find(".del_layer").attr("onclick", "Load_Team_Container.deleteNode('layer', 'right_" + start_layer + "', 0)");
+                ++start_layer;
+            })
+        },
+
+        newNodeResetSortableList: function (parent_div_id) {
+            var idsArray = [];
+            var idArray = $('.dragged_data_area ').find('.listed_items');
+            idArray.each(function (i, v) {
+                idsArray.push(v.id)
+            })
+            $(parent_div_id).find('.listed_items').each(function (i, v) {
+                Sortable.create(v, {
+                    // draggable: idsArray,
+                    group: {
+                        name: v.id,
+                        put: idsArray,
+                        pull: true
+                    },
+                    animation: 100
+                });
+            });
+        },
+
+        initiateSortableList: function () {
+            var idsArray = [];
+            var idArray = $('.dragged_data_area ').find('.listed_items');
+            idArray.each(function (i, v) {
+                idsArray.push(v.id)
+            })
+            $('#permitted_designations').find('.timeline-content').each(function () {
+                $(this).find('.listed_items').each(function (i, v) {
+                    Sortable.create(v, {
+                        // draggable: idsArray,
+                        group: {
+                            name: v.id,
+                            put: idsArray,
+                            pull: true
+                        },
+                        animation: 100
+                    });
+                });
+            });
+        },
+
+        saveNothiPermission: function () {
+            var permission_data = [];
+            var has_empty_level = false;
+            var layer_index = 0
+            $("#permitted_designations .timeline-content").each(function () {
+                var li_id = $(this).children(".dropable_row").attr('id'); //right_drop_zone_1
+                ++layer_index;
+                var transaction_day = $("#transaction_day_right_" + layer_index).text();
+                var level_name = $(this).find('.layer_text').text(); //note permission ar jonno
+                if ($(this).find('.permitted_designation').length === 0) {
+                    has_empty_level = true;
+                }
+                $(this).find('.permitted_designation').each(function (i, v) {
+                    var strict_route = $(v).find('.strict_layer > i').data('value');
+                    var is_signatory = $(v).find('.signatory_layer > i').data('value'); //note permission ar jonno
+                    var data_content = $(v).data('content');
+                    var data_map = {
+                        id: data_content.id,
+                        office_id: data_content.office_id,
+                        office_unit_id: data_content.office_unit_id,
+                        designation_id: data_content.designation_id,
+                        officer_id: data_content.officer_id,
+                        office: data_content.office,
+                        office_unit: data_content.office_unit,
+                        designation: data_content.designation,
+                        officer: data_content.officer,
+                        designation_level: data_content.designation_level,
+                        officer_email: data_content.officer_email,
+                        officer_phone: data_content.officer_phone,
+                        level_name: level_name,
+                        is_strict_route: strict_route,
+                        is_signatory: is_signatory,
+                        max_transaction_day: replaceToEn(transaction_day),
+                        layer_index: layer_index, //layer number
+                        route_index: (i + 1) //hierarchy in same layer
+                    };
+                    permission_data.push(data_map);
+                })
+            });
+            if (has_empty_level === true) {
+                toastr.error('দুঃখিত! ফাঁকা লেভেল সংরক্ষণ করা সম্ভব হচ্ছে না। দয়া করে অপ্রয়োজনীয় লেভেল মুছে ফেলুন।');
+                return false;
+            }
+            var url = '/nothi/permission/save';
+            var nothi = JSON.parse('{"id":"145","subject":"\u099f\u09be\u0995\u09be \u099a\u09be\u0987","nothi_no":"\u09eb\u09ec.\u09e6\u09ea.\u09e6\u09e6\u09e6\u09e6.\u09e6\u09e6\u09e6.\u09e6\u09e8.\u09e6\u09e6\u09ed.\u09e8\u09e7","office_unit":"\u0987-\u09b8\u09be\u09b0\u09cd\u09ad\u09bf\u09b8","office_unit_id":"9625","office_id":"65","office_name":"\u098f\u09b8\u09aa\u09be\u09df\u09be\u09b0 \u099f\u09c1 \u0987\u09a8\u09cb\u09ad\u09c7\u099f (\u098f\u099f\u09c1\u09cd\u0986\u0987) \u09aa\u09cd\u09b0\u09cb\u0997\u09cd\u09b0\u09be\u09ae"}');
+            var note_id = '0';
+            permission_data = {
+                'authority': permission_data,
+                'nothi': {
+                    'nothi_id': nothi.id,
+                    'nothi_office': nothi.office_id,
+                    'nothi_office_name': (nothi.office_name) ? nothi.office_name : nothi.office
+                },
+                'note': note_id
+            };
+            KTApp.block('.permission_action_btn');
+            TAPP_AJAX.ajaxSubmitDataCallback(url, permission_data, 'json', function (response) {
+                KTApp.unblock('.permission_action_btn');
+                if (response.status == 'success') {
+                    $("#kt_modal_6").modal('hide');
+                    toastr.success(response.data);
+                    if (!$("#submit-save-nothi")) {
+                        $("#m_" + NOTHI_CONTAINER.current_nothibox).trigger('click');
+                    } else if ($(".btn-details-control").length) {
+                        $("#m_" + NOTHI_CONTAINER.current_nothibox).trigger('click');
+                    } else if (note_id > 0) {
+                        if (NOTHI_CONTAINER) {
+                            NOTHI_CONTAINER.listNotePreviewContainer();
+                        }
+                    } else if ($(".btn-nothi-note-permission").length > 0) {
+                        $(".btn_close").trigger('click');
+                        return false;
+                    } else {
+                        $("#m_nothi_container_all").trigger('click');
+                    }
+                } else {
+                    toastr.error(response.message);
+                }
+            });
+        },
+
+        itemStyle: function () {
+            var innerDivLength = $("#permitted_designations").children('.timeline-item');
+            var basePadding = 15 * innerDivLength.length;
+            innerDivLength.each(function () {
+                $(this).removeAttr('style');
+                $(this).css('padding-left', basePadding);
+                basePadding = basePadding - 15;
+            })
+        },
+
+        addLayer: function () {
+            var innerDivLength = $("#permitted_designations").children('.timeline-item');
+            var number = innerDivLength.length + 1;
+            if (number === 1) {
+                team_name = 'দল ' + enTobn(number);
+            } else {
+                subteamNumber = number - 1;
+                team_name = 'উপদল ' + enTobn(subteamNumber);
+            }
+            var level_html = `
+                <div class="custom-timeline-item timeline-item border-left-0 d-flex align-items-start" style="padding-left: 15px;">
+    <div class="timeline-media position-relative"><i
+            class="fas fa-chair text-primary"></i></div>
+    <div class="timeline-content rounded-0 p-0 w-100" data-layer_index="${number}" id="permitted_level_${number}">
+        <div class="px-3 pt-2 pb-0 mb-0 d-flex align-items-center justify-content-between">
+            <h5 class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2" style="width: 20%;">${team_name}</h5>
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="d-flex align-items-center justify-content-between mb-0 mt-0">
+                    <div class="mr-2">
+                        <button type="button" onclick="Load_Team_Container.deleteNode('layer','right_${number}', 0)"
+                                class="justify-self-end text-danger btn btn-icon btn-xs del_layer">
+                            <i class="text-danger far fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dragged_data_area px-2 pt-0" id="right_drop_zone_${number}">
+            <ul class="listed_items rounded-0 list-group" id="list_group_${number}">
+                <li class="list-group-item overflow-hidden p-1 dummy_li"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+`;
+            $("#permitted_designations").append(level_html);
+            // Load_Team_Container.itemStyle();
+            Load_Team_Container.initiateSortableList();
         }
-    }
+    };
+
+
 </script>

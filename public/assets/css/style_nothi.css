@@ -1394,3 +1394,22 @@ table {
     padding: 0px 0px 0px 0px;
     outline: 0;
 }
+
+.dragged_data_area::after {
+    content: "";
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border: 1px dashed #3699ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3f4254;
+    background: #fffed8;
+    font-size: 16px;
+    font-family: 'SolaimanLipi';
+    margin: 0 2px;
+    border-radius: 5px;
+}
