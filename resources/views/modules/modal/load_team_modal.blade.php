@@ -326,6 +326,7 @@
             }
             $("#permitted_level_" + layer_index + " .listed_items").append(node_html);
             // Load_Team_Container.newNodeResetSortableList($("#permitted_level_" + layer_index));
+            Load_Team_Container.addTeamInformation(layer_index);
         },
 
         addTeamInformation: function (layer_index) {
@@ -351,6 +352,7 @@
                     audit_end_year: $('#audit_end_year').val(),
                     leader
                 };
+                console.log(team_info)
                 $('#team_information_' + layer_index).val(team_info);
             }
         },
@@ -567,18 +569,18 @@
             // }
         },
 
-        loadTeamSchedule: function (team_schedule_list_div,team_layer_id) {
+        loadTeamSchedule: function (team_schedule_list_div, team_layer_id) {
             url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
             annual_plan_id = '{{$annual_plan_id}}';
             activity_id = '{{$activity_id}}';
             fiscal_year_id = '{{$fiscal_year_id}}';
-            data = {team_layer_id,annual_plan_id, activity_id, fiscal_year_id};
+            data = {team_layer_id, annual_plan_id, activity_id, fiscal_year_id};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $("#"+team_schedule_list_div).append(response);
-                    $("#team_schedule_layer_btn_"+team_layer_id).hide();
+                    $("#" + team_schedule_list_div).append(response);
+                    $("#team_schedule_layer_btn_" + team_layer_id).hide();
                 }
             })
         },
@@ -780,7 +782,7 @@
                 <li class="list-group-item overflow-hidden p-1 dummy_li"></li>
             </ul>
         </div>
-         <input type="hidden" name="teams[]" id="team_information_${number}"/>
+         <input type="hidden" name="teams[]" id="team_information_${number}" value=""/>
         <div class="px-2 pt-0" id="team_schedule_list_${number}"></div>
     </div>
 </div>
