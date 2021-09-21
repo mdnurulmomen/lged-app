@@ -206,7 +206,46 @@
             </div>
         </div>
     </div>
+
+    {{--for audit team & audit schedule html tbl--}}
+    <div class="d-none">
+        <table class="audit_team_view_list" width="100%" border="1">
+            <thead>
+            <tr>
+                <th class="text-center" width="5%">ক্রমিক নং</th>
+                <th class="text-center" width="30%">নাম</th>
+                <th class="text-center" width="27%">পদবী</th>
+                <th class="text-center" width="15%">নিরীক্ষা দলে অবস্থান</th>
+                <th class="text-center" width="23%">মোবাইল নং</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <table class="audit_schedule_view_list" width="100%" border="1">
+            <thead>
+            <tr>
+                <th class="text-center" width="5%">ক্রমিক নং</th>
+                <th class="text-center" width="15%">শাখার নাম</th>
+                <th class="text-center" width="27%">নিরীক্ষা বছর</th>
+                <th class="text-center" width="40%">নিরীক্ষার সময়কাল</th>
+                <th class="text-center" width="13%">মোট কর্ম দিবস</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th class="text-center">১</th>
+                <th class="text-center">২</th>
+                <th class="text-center">৩</th>
+                <th class="text-center">৪</th>
+                <th class="text-center">৫</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
 
 <script>
     auditSchedule = {};
@@ -790,6 +829,30 @@
             $("#permitted_designations").append(level_html);
             // Load_Team_Container.itemStyle();
             // Load_Team_Container.initiateSortableList();
+        },
+
+        insertAuditTeamListInBook:function (){
+            let totalAuditTeamRow = $('.audit_team_view_list tbody tr').length+1;
+            let auditTeamListRow = '<tr>' +
+                '<td class="text-center">'+totalAuditTeamRow +'.</td>' +
+                '<td class="text-left"></td>' +
+                '<td class="text-center"></td>' +
+                '<td class="text-center"></td>' +
+                '<td class="text-left"></td>' +
+                '</tr>';
+            $(".audit_team_view_list tbody").append(auditTeamListRow);
+        },
+
+        insertAuditScheduleListInBook:function (){
+            let totalAuditScheduleRow = $('.audit_schedule_view_list tbody tr').length;
+            let auditScheduleListRow = '<tr>' +
+                '<td class="text-center">'+totalAuditScheduleRow +'.</td>' +
+                '<td class="text-center"></td>' +
+                '<td class="text-center"></td>' +
+                '<td class="text-center"></td>' +
+                '<td class="text-center"></td>' +
+                '</tr>';
+            $(".audit_schedule_view_list tbody").append(auditScheduleListRow);
         }
     };
 
