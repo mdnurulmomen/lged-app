@@ -290,463 +290,463 @@
     var subTeam = [];
     team_info = [];
     var Load_Team_Container = {
-            load_level_selection_panel: 0,
-            selected_designation_ids: JSON.parse('{"228237":228237,"22418":22418}'),
+        load_level_selection_panel: 0,
+        selected_designation_ids: JSON.parse('{"228237":228237,"22418":22418}'),
 
-            checkSelectedItemsInOrgTree: function (tree_id) {
-                $.each(Load_Team_Container.selected_designation_ids, function (i, v) {
-                    $(tree_id).jstree(true).check_node("#ofc_org_designation_" + v);
-                    // $(tree_id).jstree(true).disable_node("#ofc_org_designation_" + v);
-                })
-                // $(".ofc_org_unit").each(function (i, v) {
-                //     var unit_node_id = $(v).attr('id').match(/\d+/)[0];
-                //     $(tree_id).jstree(true).disable_node("#ofc_org_unit_" + unit_node_id);
-                // })
-                Load_Team_Container.load_level_selection_panel = 1;
-            },
+        checkSelectedItemsInOrgTree: function (tree_id) {
+            $.each(Load_Team_Container.selected_designation_ids, function (i, v) {
+                $(tree_id).jstree(true).check_node("#ofc_org_designation_" + v);
+                // $(tree_id).jstree(true).disable_node("#ofc_org_designation_" + v);
+            })
+            // $(".ofc_org_unit").each(function (i, v) {
+            //     var unit_node_id = $(v).attr('id').match(/\d+/)[0];
+            //     $(tree_id).jstree(true).disable_node("#ofc_org_unit_" + unit_node_id);
+            // })
+            Load_Team_Container.load_level_selection_panel = 1;
+        },
 
-            addNode: function (layer_index, data_content, addType) {
-                var html_officer = data_content.officer_name_bn;
-                var node_html = `<li id="designtion_${data_content.designation_id}" class="list-group-item overflow-hidden p-1">
+        addNode: function (layer_index, data_content, addType) {
+            var html_officer = data_content.officer_name_bn;
+            var node_html = `<li id="designtion_${data_content.designation_id}" class="list-group-item overflow-hidden p-1">
                                 <p data-content='${JSON.stringify(data_content)}' data-member-role="member" data-layer="${layer_index}" class="assignedMember_${data_content.designation_id}_${layer_index} p-0 mb-0 permitted_designation" id="permitted_${data_content.designation_id}" data-id="${data_content.designation_id}">
                                     <i class="far fa-user"></i><span class="ml-2 mr-2">${html_officer}</span>
                                     <small>${data_content.designation_bn}, ${data_content.unit_name_bn}</small>`;
-                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader', ${data_content.designation_id})" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>দলনেতা</button>`;
+            node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader', ${data_content.designation_id})" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>দলনেতা</button>`;
 
-                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'subTeamLeader', ${data_content.designation_id})" class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>উপ দলনেতা</button>
+            node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'subTeamLeader', ${data_content.designation_id})" class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>উপ দলনেতা</button>
 <button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'member', ${data_content.designation_id})" class="memberBtn btn btn-xs signatory_layer text-primary"><i data-value="1" class="far text-primary fa-check-square"></i>সদস্য</button>
                     </select> <button type="button" onclick="Load_Team_Container.deleteNode('designation','permitted_${data_content.designation_id}', 0)" class="text-danger btn btn-icon btn-xs del_layer_designation"><i class="text-danger far fa-trash-alt"></i></button>
 </p>                            </li>
             `;
-                if ($("#designtion_" + data_content.designation_id).length > 0) {
-                    $("#designtion_" + data_content.designation_id).remove();
+            if ($("#designtion_" + data_content.designation_id).length > 0) {
+                $("#designtion_" + data_content.designation_id).remove();
+            }
+            $("#permitted_level_" + layer_index + " .listed_items").append(node_html);
+            // Load_Team_Container.newNodeResetSortableList($("#permitted_level_" + layer_index));
+            $('#team_information_' + layer_index).val('jjj');
+
+            Load_Team_Container.addTeamInformation(layer_index, data_content.designation_id);
+        },
+
+        leader: {},
+        subleader: {},
+        member_info: {},
+        addTeamInformation: function (layer_index, designation_id) {
+
+            all_member = [];
+
+            select_data = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-content');
+            role = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role');
+
+
+            if (role == 'teamLeader') {
+                Load_Team_Container.leader = {
+                    'leader_name_en': JSON.parse(select_data).officer_name_en,
+                    'leader_name_bn': JSON.parse(select_data).officer_name_bn,
+                    'leader_designation_id': JSON.parse(select_data).designation_id
                 }
-                $("#permitted_level_" + layer_index + " .listed_items").append(node_html);
-                // Load_Team_Container.newNodeResetSortableList($("#permitted_level_" + layer_index));
-                $('#team_information_' + layer_index).val('jjj');
-
-                Load_Team_Container.addTeamInformation(layer_index, data_content.designation_id);
-            },
-
-            leader: {},
-            subleader: {},
-            member_info: {},
-            addTeamInformation: function (layer_index, designation_id) {
-
-                all_member = [];
-
-                select_data = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-content');
-                role = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role');
+            }
 
 
-                if (role == 'teamLeader') {
-                    Load_Team_Container.leader = {
-                        'leader_name_en': JSON.parse(select_data).officer_name_en,
-                        'leader_name_bn': JSON.parse(select_data).officer_name_bn,
-                        'leader_designation_id': JSON.parse(select_data).designation_id
-                    }
+            if (role == 'subTeamLeader') {
+                Load_Team_Container.subleader = {
+                    'leader_name_en': JSON.parse(select_data).officer_name_en,
+                    'leader_name_bn': JSON.parse(select_data).officer_name_bn,
+                    'leader_designation_id': JSON.parse(select_data).designation_id
                 }
+            }
 
+            if (typeof member[layer_index] === 'undefined') {
+                member[layer_index] = [];
+            }
 
-                if (role == 'subTeamLeader') {
-                    Load_Team_Container.subleader = {
-                        'leader_name_en': JSON.parse(select_data).officer_name_en,
-                        'leader_name_bn': JSON.parse(select_data).officer_name_bn,
-                        'leader_designation_id': JSON.parse(select_data).designation_id
-                    }
-                }
-
-                if (typeof member[layer_index] === 'undefined') {
-                    member[layer_index] = [];
-                }
-
-                if (role == 'member') {
-                    Load_Team_Container.member_info[JSON.parse(select_data).designation_id] = {
-                        'leader_name_en': JSON.parse(select_data).officer_name_en,
-                        'leader_name_bn': JSON.parse(select_data).officer_name_bn,
-                        'leader_designation_id': JSON.parse(select_data).designation_id
-                    }
-
-                    member[layer_index][JSON.parse(select_data).designation_id] = {
-                        'leader_name_en': JSON.parse(select_data).officer_name_en,
-                        'leader_name_bn': JSON.parse(select_data).officer_name_bn,
-                        'leader_designation_id': JSON.parse(select_data).designation_id
-                    };
+            if (role == 'member') {
+                Load_Team_Container.member_info[JSON.parse(select_data).designation_id] = {
+                    'leader_name_en': JSON.parse(select_data).officer_name_en,
+                    'leader_name_bn': JSON.parse(select_data).officer_name_bn,
+                    'leader_designation_id': JSON.parse(select_data).designation_id
                 }
 
-
-                $('.permitted_designation').each(function (v) {
-                    content = $('#' + v.id).attr('data-content');
-                });
-
-
-                if (layer_index == 1) {
-                    team_type = "parent";
-                } else {
-                    team_type = "sub";
-                }
-
-                team_info[layer_index] = {
-                    team_type: team_type,
-                    team_name: $('#assignTeamNo').val(),
-                    team_start_year: $('#team_start_year').val(),
-                    team_end_year: $('#team_end_year').val(),
-                    audit_start_year: $('#audit_start_year').val(),
-                    audit_end_year: $('#audit_end_year').val(),
-                    leader: Load_Team_Container.leader,
-                    subleader: Load_Team_Container.subleader,
-                    member: member[layer_index],
+                member[layer_index][JSON.parse(select_data).designation_id] = {
+                    'leader_name_en': JSON.parse(select_data).officer_name_en,
+                    'leader_name_bn': JSON.parse(select_data).officer_name_bn,
+                    'leader_designation_id': JSON.parse(select_data).designation_id
                 };
-                console.log(team_info)
-                $('#team_information_' + layer_index).val(JSON.stringify(team_info));
+            }
 
 
-            },
+            $('.permitted_designation').each(function (v) {
+                content = $('#' + v.id).attr('data-content');
+            });
 
-            memberRole: function (elem, layer_index, role, designation_id) {
 
-                $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role', role);
-                Load_Team_Container.addTeamInformation(layer_index, designation_id);
-                designation_id = elem.data('designation-id');
-                if (elem.find('i').hasClass('fa-square')) {
-                    elem.find('i').removeClass('fa-square').addClass('far fa-check-square')
-                    elem.find('i').attr('data-value', 1);
-                    elem.parent('p').attr('data-member-role', role)
-                } else {
-                    elem.find('i').removeClass('fa-check-square').addClass('far fa-square')
-                    elem.find('i').attr('data-value', 0);
-                    elem.parent('p').attr('data-member-role', '')
+            if (layer_index == 1) {
+                team_type = "parent";
+            } else {
+                team_type = "sub";
+            }
+
+            team_info[layer_index] = {
+                team_type: team_type,
+                team_name: $('#assignTeamNo').val(),
+                team_start_year: $('#team_start_year').val(),
+                team_end_year: $('#team_end_year').val(),
+                audit_start_year: $('#audit_start_year').val(),
+                audit_end_year: $('#audit_end_year').val(),
+                leader: Load_Team_Container.leader,
+                subleader: Load_Team_Container.subleader,
+                member: member[layer_index],
+            };
+            console.log(team_info)
+            $('#team_information_' + layer_index).val(JSON.stringify(team_info));
+
+
+        },
+
+        memberRole: function (elem, layer_index, role, designation_id) {
+
+            $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role', role);
+            Load_Team_Container.addTeamInformation(layer_index, designation_id);
+            designation_id = elem.data('designation-id');
+            if (elem.find('i').hasClass('fa-square')) {
+                elem.find('i').removeClass('fa-square').addClass('far fa-check-square')
+                elem.find('i').attr('data-value', 1);
+                elem.parent('p').attr('data-member-role', role)
+            } else {
+                elem.find('i').removeClass('fa-check-square').addClass('far fa-square')
+                elem.find('i').attr('data-value', 0);
+                elem.parent('p').attr('data-member-role', '')
+            }
+            if (role === 'member') {
+                $('.assignedMember_' + designation_id + '_' + layer_index + ' .teamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+                $('.assignedMember_' + designation_id + '_' + layer_index + ' .subTeamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+            } else if (role === 'teamLeader') {
+                $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+                $('.assignedMember_' + designation_id + '_' + layer_index + ' .subTeamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+            } else if (role === 'subTeamLeader') {
+                $('.assignedMember_' + designation_id + '_' + layer_index + ' .teamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+                $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+            }
+        },
+
+        addEmployeeToAssignedList: function (entity_info) {
+            var newRow = '<tr id="selected_rp_employee_' + entity_info.officer_id + '">' +
+                '<td width="35%">' + entity_info.officer_name_bn + '</td>' +
+                '<td width="30%">' + entity_info.designation_bn + '</td>' +
+                '<td width="35%">' + '{{$own_office}}' + '</td>' +
+                '</tr>';
+            $(".assign_employee_list tbody").prepend(newRow);
+        },
+
+        addSelectedOfficeList: function (entity_info) {
+            if ($('#selected_officer_' + entity_info.officer_id).length === 0) {
+                var newRow = '<div class="mt-2" style="border: 1px solid #ebf3f2;padding: 10px" id="selected_officer_' + entity_info.officer_id + '">' +
+                    '<li  style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
+                    /*'<span onclick="Load_Team_Container.removeSelectedOfficer(' + entity_info.officer_id + ')" style="cursor:pointer;color:red;">' +
+                    '<i class="fas fa-trash-alt text-danger pr-2"></i></span>' +*/
+                    '<input  id="officer_name_' + entity_info.officer_id + '"  type="hidden" class="form-control" value="' + entity_info.officer_name_bn + '"/>' +
+                    '<i class="fa fa-user pr-2"></i>' + entity_info.officer_name_bn + ' (' + entity_info.designation_bn + ')' +
+                    '</li>' +
+                    '<div class="row">' +
+                    '<div class="col-md-4">' +
+                    '<select id="selected_officer_designation_' + entity_info.officer_id + '" name="selected_officer_designation[]" class="form-control select-select2">' +
+                    '<option value="">Select</option><option value="teamLeader">দলনেতা</option>' +
+                    '<option value="subTeamLeader">উপ দলনেতা</option><option value="member">সদস্য</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '<div class="col-md-8">' +
+                    '<input data-id="' + entity_info.officer_id + '" id="selected_officer_phone_' + entity_info.officer_id + '" data-designation-id="' + entity_info.designation_id + '" data-designation-name-bn="' + entity_info.designation_bn + '" data-designation-name-en="' + entity_info.designation_en + '" type="text" name="selected_officer_phone[]" placeholder="Enter phone number" class="form-control selected_officer_phone" value=""/>' +
+                    '</div></div></div>';
+
+                $(".selected_offices").append(newRow);
+            }
+        },
+
+        removeSelectedOfficer: function (entity_id) {
+            $('#selected_officer_' + entity_id).remove();
+        },
+
+        addEmployeeToAssignEditor: function () {
+            if ($("#employee_type").val() === 'leader') {
+                localStorage.setItem("teamLeader", JSON.stringify(employees));
+            } else if ($("#employee_type").val() === 'member') {
+                localStorage.setItem("teamMember", JSON.stringify(employees));
+            }
+            $(".summernote").summernote("editor.pasteHTML", $(".assign_employee_div").html());
+            $('#officeEmployeeModal').modal('hide');
+        },
+
+        saveTeamMember: function () {
+            let totalSubTeamCreate = 0;
+            let teamLeaderNameBn;
+            let teamLeaderDesignationId;
+            let teamLeaderDesignationNameBn;
+            let teamLeaderDesignationNameEn;
+
+            var selected_officer_phone = $('.selected_officer_phone');
+            selected_officer_phone.each(function (k, v) {
+                var id = $(this).attr('data-id');
+                var designationId = $(this).data('designation-id');
+                var designationNameBn = $(this).data('designation-name-bn');
+                var designationNameEn = $(this).data('designation-name-en');
+
+
+                name = $('#officer_name_' + id).val();
+
+                var member_role = $('#selected_officer_designation_' + id).val();
+
+                if (member_role == "teamLeader") {
+                    teamLeaderNameBn = name;
+                    teamLeaderDesignationId = designationId;
+                    teamLeaderDesignationNameBn = designationNameBn;
+                    teamLeaderDesignationNameEn = designationNameEn;
                 }
-                if (role === 'member') {
-                    $('.assignedMember_' + designation_id + '_' + layer_index + ' .teamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
-                    $('.assignedMember_' + designation_id + '_' + layer_index + ' .subTeamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
-                } else if (role === 'teamLeader') {
-                    $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
-                    $('.assignedMember_' + designation_id + '_' + layer_index + ' .subTeamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
-                } else if (role === 'subTeamLeader') {
-                    $('.assignedMember_' + designation_id + '_' + layer_index + ' .teamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
-                    $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+                if (member_role == "subTeamLeader") {
+                    totalSubTeamCreate++;
                 }
-            },
 
-            addEmployeeToAssignedList: function (entity_info) {
-                var newRow = '<tr id="selected_rp_employee_' + entity_info.officer_id + '">' +
-                    '<td width="35%">' + entity_info.officer_name_bn + '</td>' +
-                    '<td width="30%">' + entity_info.designation_bn + '</td>' +
-                    '<td width="35%">' + '{{$own_office}}' + '</td>' +
-                    '</tr>';
-                $(".assign_employee_list tbody").prepend(newRow);
-            },
+                phone = $('#selected_officer_phone_' + id).val();
+                info = {
+                    'name': name,
+                    'member_role': member_role,
+                    'phone': phone,
+                    'teamLeaderDesignationNameBn': teamLeaderDesignationNameBn
+                };
+                team[id] = info;
 
-            addSelectedOfficeList: function (entity_info) {
-                if ($('#selected_officer_' + entity_info.officer_id).length === 0) {
-                    var newRow = '<div class="mt-2" style="border: 1px solid #ebf3f2;padding: 10px" id="selected_officer_' + entity_info.officer_id + '">' +
-                        '<li  style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
-                        /*'<span onclick="Load_Team_Container.removeSelectedOfficer(' + entity_info.officer_id + ')" style="cursor:pointer;color:red;">' +
-                        '<i class="fas fa-trash-alt text-danger pr-2"></i></span>' +*/
-                        '<input  id="officer_name_' + entity_info.officer_id + '"  type="hidden" class="form-control" value="' + entity_info.officer_name_bn + '"/>' +
-                        '<i class="fa fa-user pr-2"></i>' + entity_info.officer_name_bn + ' (' + entity_info.designation_bn + ')' +
-                        '</li>' +
-                        '<div class="row">' +
-                        '<div class="col-md-4">' +
-                        '<select id="selected_officer_designation_' + entity_info.officer_id + '" name="selected_officer_designation[]" class="form-control select-select2">' +
-                        '<option value="">Select</option><option value="teamLeader">দলনেতা</option>' +
-                        '<option value="subTeamLeader">উপ দলনেতা</option><option value="member">সদস্য</option>' +
-                        '</select>' +
-                        '</div>' +
-                        '<div class="col-md-8">' +
-                        '<input data-id="' + entity_info.officer_id + '" id="selected_officer_phone_' + entity_info.officer_id + '" data-designation-id="' + entity_info.designation_id + '" data-designation-name-bn="' + entity_info.designation_bn + '" data-designation-name-en="' + entity_info.designation_en + '" type="text" name="selected_officer_phone[]" placeholder="Enter phone number" class="form-control selected_officer_phone" value=""/>' +
-                        '</div></div></div>';
-
-                    $(".selected_offices").append(newRow);
-                }
-            },
-
-            removeSelectedOfficer: function (entity_id) {
-                $('#selected_officer_' + entity_id).remove();
-            },
-
-            addEmployeeToAssignEditor: function () {
-                if ($("#employee_type").val() === 'leader') {
-                    localStorage.setItem("teamLeader", JSON.stringify(employees));
-                } else if ($("#employee_type").val() === 'member') {
-                    localStorage.setItem("teamMember", JSON.stringify(employees));
-                }
-                $(".summernote").summernote("editor.pasteHTML", $(".assign_employee_div").html());
-                $('#officeEmployeeModal').modal('hide');
-            },
-
-            saveTeamMember: function () {
-                let totalSubTeamCreate = 0;
-                let teamLeaderNameBn;
-                let teamLeaderDesignationId;
-                let teamLeaderDesignationNameBn;
-                let teamLeaderDesignationNameEn;
-
-                var selected_officer_phone = $('.selected_officer_phone');
-                selected_officer_phone.each(function (k, v) {
-                    var id = $(this).attr('data-id');
-                    var designationId = $(this).data('designation-id');
-                    var designationNameBn = $(this).data('designation-name-bn');
-                    var designationNameEn = $(this).data('designation-name-en');
-
-
-                    name = $('#officer_name_' + id).val();
-
-                    var member_role = $('#selected_officer_designation_' + id).val();
-
-                    if (member_role == "teamLeader") {
-                        teamLeaderNameBn = name;
-                        teamLeaderDesignationId = designationId;
-                        teamLeaderDesignationNameBn = designationNameBn;
-                        teamLeaderDesignationNameEn = designationNameEn;
-                    }
-                    if (member_role == "subTeamLeader") {
-                        totalSubTeamCreate++;
-                    }
-
-                    phone = $('#selected_officer_phone_' + id).val();
-                    info = {
-                        'name': name,
-                        'member_role': member_role,
-                        'phone': phone,
-                        'teamLeaderDesignationNameBn': teamLeaderDesignationNameBn
-                    };
-                    team[id] = info;
-
-                    if (member_role == 'subTeamLeader') {
-                        $(".sub_teams").append(
-                            `<div class="row">
+                if (member_role == 'subTeamLeader') {
+                    $(".sub_teams").append(
+                        `<div class="row">
                                <input  class="sub_team_name form-control" type="text" placeholder="উপদল">
                          </div>`
-                        );
-                    }
-                });
-                // console.log(team);
-                localStorage.setItem("team", JSON.stringify(team));
-                if (totalSubTeamCreate > 1) {
-                    $("#subTeamCreateNavLink").removeClass('disabled');
+                    );
                 }
+            });
+            // console.log(team);
+            localStorage.setItem("team", JSON.stringify(team));
+            if (totalSubTeamCreate > 1) {
+                $("#subTeamCreateNavLink").removeClass('disabled');
+            }
 
 
-                //for save audit team
-                let urlAuditTeam = '{{route('audit.plan.audit.revised.plan.store-audit-team')}}';
-                let dataAuditTeam = {
-                    'activity_id': '{{$activity_id}}',
-                    'annual_plan_id': '{{$annual_plan_id}}',
-                    'fiscal_year_id': '{{$fiscal_year_id}}',
-                    'audit_plan_id': '{{$audit_plan_id}}',
-                    'entity_id': '20307',
-                    'entity_name_en': 'রাজশাহী কৃষি উন্নয়ন ব্যাংক',
-                    'entity_name_bn': 'রাজশাহী কৃষি উন্নয়ন ব্যাংক',
-                    'team_start_date': $("#team_start_date").val(),
-                    'team_end_date': $("#team_end_date").val(),
-                    'team_members': JSON.stringify(team),
-                    'leader_name_en': teamLeaderNameBn,
-                    'leader_name_bn': teamLeaderNameBn,
-                    'leader_designation_id': teamLeaderDesignationId,
-                    'leader_designation_name_en': teamLeaderDesignationNameEn,
-                    'leader_designation_name_bn': teamLeaderDesignationNameBn,
-                    'audit_year_start': $("#team_start_year").val(),
-                    'audit_year_end': $("#team_end_year").val(),
-                };
-                ajaxCallAsyncCallbackAPI(urlAuditTeam, dataAuditTeam, 'POST', function (response) {
-                    if (response.status === 'success') {
-                        toastr.success('Audit Team Save Successfully');
-                    } else {
-                        toastr.error(response.data)
-                    }
-                });
-
-            },
-
-            saveSubTeam: function () {
-
-                var sub_team_name = $('.sub_team_name');
-                var team_id = 1;
-                url = '{{route('audit.plan.audit.revised.plan.get-sub-team')}}';
-                data = {team_id};
-                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    $('.assign_sub_team_members').html(response)
-                })
-
-                // console.log(subTeam);
-
-                // teamMember = JSON.parse(localStorage.getItem('team'));
-                //
-                // addRow = `<ul class="nav nav-tabs custom-tabs mb-0" role="tablist">`;
-                // subTeam.each(function(k, v) {
-                //         addRow = addRow +
-                //         `<li class="nav-item">
-                //             <a class="nav-link active rounded-0" data-toggle="tab" href="#sub_1">
-                //                 <span class="nav-text">sub 1</span>
-                //             </a>
-                //         </li>`;
-                // });
-                //
-                // addRow = addRow + `</ul>`
-                //
-                // addRow = addRow + `<div class="tab-content">`;
-                //
-                // for( key in teamMember) {
-                //     if (teamMember.hasOwnProperty(key)) {
-                //         addRow = addRow +
-                //             `<div class="tab-pane border border-top-0 p-3 fade show active" id="sub_1" role="tabpanel"
-                //                  aria-labelledby="selected_offices_tab">
-                //             </div>`
-                //     }
-                // }
-                // addRow = addRow + `</div>`;
-                //
-                // $(".assign_sub_team_members").append(newRow);
-
-                // for( key in teamMember) {
-                //     if (teamMember.hasOwnProperty(key)) {
-                //         var newRow = '<div class="mt-2" style="border: 1px solid #ebf3f2;padding: 10px">' +
-                //         '<li  style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
-                //         '<i class="fa fa-user pr-2"></i>' + teamMember[key].name+ '</li>'+
-                //         '<div class="row">'+
-                //         '<div class="col-md-4">'+
-                //         '<select  name="selected_officer_designation[]" class="form-control select-select2">';
-                //         subTeam.map(function (v){
-                //             newRow = newRow +  '<option value="'+v+'">'+v+'</option>';
-                //         });
-                //         newRow = newRow + '</select>'+ '</div>'+ '</div></div>';
-                //
-                //     $(".assign_sub_team_members").append(newRow);
-                //     }
-                // }
-            },
-
-            loadTeamSchedule: function (team_schedule_list_div, team_layer_id) {
-                url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
-                annual_plan_id = '{{$annual_plan_id}}';
-                activity_id = '{{$activity_id}}';
-                fiscal_year_id = '{{$fiscal_year_id}}';
-                data = {team_layer_id, annual_plan_id, activity_id, fiscal_year_id};
-                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    if (response.status === 'error') {
-                        toastr.error('No data found');
-                    } else {
-                        $("#" + team_schedule_list_div).append(response);
-                        $("#team_schedule_layer_btn_" + team_layer_id).hide();
-                    }
-                })
-            },
-
-            deleteNode: function (type, node_id, from_tree) {
-                if (type === 'layer') {
-                    $('#' + node_id + ' .permitted_designation').each(function (i, v) {
-                        // $('#own_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
-                        // $('#own_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
-                        if ($("#nothi_permission_office_organogram_tree").length !== 0) {
-                            // $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
-                            // $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
-                        }
-                        delete Load_Team_Container.selected_designation_ids[$(this).data('id')];
-                    })
-                    $('#' + node_id).remove();
-                    Load_Team_Container.reorderLayer();
+            //for save audit team
+            let urlAuditTeam = '{{route('audit.plan.audit.revised.plan.store-audit-team')}}';
+            let dataAuditTeam = {
+                'activity_id': '{{$activity_id}}',
+                'annual_plan_id': '{{$annual_plan_id}}',
+                'fiscal_year_id': '{{$fiscal_year_id}}',
+                'audit_plan_id': '{{$audit_plan_id}}',
+                'entity_id': '20307',
+                'entity_name_en': 'রাজশাহী কৃষি উন্নয়ন ব্যাংক',
+                'entity_name_bn': 'রাজশাহী কৃষি উন্নয়ন ব্যাংক',
+                'team_start_date': $("#team_start_date").val(),
+                'team_end_date': $("#team_end_date").val(),
+                'team_members': JSON.stringify(team),
+                'leader_name_en': teamLeaderNameBn,
+                'leader_name_bn': teamLeaderNameBn,
+                'leader_designation_id': teamLeaderDesignationId,
+                'leader_designation_name_en': teamLeaderDesignationNameEn,
+                'leader_designation_name_bn': teamLeaderDesignationNameBn,
+                'audit_year_start': $("#team_start_year").val(),
+                'audit_year_end': $("#team_end_year").val(),
+            };
+            ajaxCallAsyncCallbackAPI(urlAuditTeam, dataAuditTeam, 'POST', function (response) {
+                if (response.status === 'success') {
+                    toastr.success('Audit Team Save Successfully');
                 } else {
-                    var designation_id = node_id.match(/\d+/)[0];
-                    var parent_timeline_content = $('#' + node_id).closest('.timeline-content');
-                    var layer_index = parent_timeline_content.data('layer_index');
-                    if (parent_timeline_content.find('.permitted_designation').length >= 1) {
-                        var parentId = $('#' + node_id).parent('li').parent('ul').parent('.dragged_data_area').attr('id');
-                        var clientHeight = document.getElementById(parentId).clientHeight;
-                        $('#' + parentId).removeAttr('style');
-                    }
-                    $('#' + node_id).parent('li').remove();
-                    // $('#own_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
-                    // $('#own_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
-                    if ($("#nothi_permission_office_organogram_tree").length !== 0) {
-                        // $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
-                        // $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
-                    }
-                    delete Load_Team_Container.selected_designation_ids[designation_id];
+                    toastr.error(response.data)
                 }
-            },
+            });
 
-            reorderLayer: function () {
-                var start_layer = 1;
-                $("#permitted_designations .timeline-item").each(function () {
-                    $(this).attr('id', 'right_' + start_layer);
-                    $(this).find('.timeline-content').attr('data-layer_index', start_layer);
-                    $(this).find('.timeline-content').attr('id', "permitted_level_" + start_layer);
-                    $(this).find('.dragged_data_area').attr('id', "right_drop_zone_" + start_layer);
-                    $(this).find('.listed_items').attr('id', "list_group_" + start_layer);
-                    $(this).attr('id', 'right_' + start_layer).find(".del_layer").attr("onclick", "Load_Team_Container.deleteNode('layer', 'right_" + start_layer + "', 0)");
-                    ++start_layer;
-                })
-            },
+        },
 
-            newNodeResetSortableList: function (parent_div_id) {
-                var idsArray = [];
-                var idArray = $('.dragged_data_area ').find('.listed_items');
-                idArray.each(function (i, v) {
-                    idsArray.push(v.id)
+        saveSubTeam: function () {
+
+            var sub_team_name = $('.sub_team_name');
+            var team_id = 1;
+            url = '{{route('audit.plan.audit.revised.plan.get-sub-team')}}';
+            data = {team_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                $('.assign_sub_team_members').html(response)
+            })
+
+            // console.log(subTeam);
+
+            // teamMember = JSON.parse(localStorage.getItem('team'));
+            //
+            // addRow = `<ul class="nav nav-tabs custom-tabs mb-0" role="tablist">`;
+            // subTeam.each(function(k, v) {
+            //         addRow = addRow +
+            //         `<li class="nav-item">
+            //             <a class="nav-link active rounded-0" data-toggle="tab" href="#sub_1">
+            //                 <span class="nav-text">sub 1</span>
+            //             </a>
+            //         </li>`;
+            // });
+            //
+            // addRow = addRow + `</ul>`
+            //
+            // addRow = addRow + `<div class="tab-content">`;
+            //
+            // for( key in teamMember) {
+            //     if (teamMember.hasOwnProperty(key)) {
+            //         addRow = addRow +
+            //             `<div class="tab-pane border border-top-0 p-3 fade show active" id="sub_1" role="tabpanel"
+            //                  aria-labelledby="selected_offices_tab">
+            //             </div>`
+            //     }
+            // }
+            // addRow = addRow + `</div>`;
+            //
+            // $(".assign_sub_team_members").append(newRow);
+
+            // for( key in teamMember) {
+            //     if (teamMember.hasOwnProperty(key)) {
+            //         var newRow = '<div class="mt-2" style="border: 1px solid #ebf3f2;padding: 10px">' +
+            //         '<li  style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
+            //         '<i class="fa fa-user pr-2"></i>' + teamMember[key].name+ '</li>'+
+            //         '<div class="row">'+
+            //         '<div class="col-md-4">'+
+            //         '<select  name="selected_officer_designation[]" class="form-control select-select2">';
+            //         subTeam.map(function (v){
+            //             newRow = newRow +  '<option value="'+v+'">'+v+'</option>';
+            //         });
+            //         newRow = newRow + '</select>'+ '</div>'+ '</div></div>';
+            //
+            //     $(".assign_sub_team_members").append(newRow);
+            //     }
+            // }
+        },
+
+        loadTeamSchedule: function (team_schedule_list_div, team_layer_id) {
+            url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
+            annual_plan_id = '{{$annual_plan_id}}';
+            activity_id = '{{$activity_id}}';
+            fiscal_year_id = '{{$fiscal_year_id}}';
+            data = {team_layer_id, annual_plan_id, activity_id, fiscal_year_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $("#" + team_schedule_list_div).append(response);
+                    $("#team_schedule_layer_btn_" + team_layer_id).hide();
+                }
+            })
+        },
+
+        deleteNode: function (type, node_id, from_tree) {
+            if (type === 'layer') {
+                $('#' + node_id + ' .permitted_designation').each(function (i, v) {
+                    // $('#own_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
+                    // $('#own_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
+                    if ($("#nothi_permission_office_organogram_tree").length !== 0) {
+                        // $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
+                        // $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
+                    }
+                    delete Load_Team_Container.selected_designation_ids[$(this).data('id')];
                 })
-                $(parent_div_id).find('.listed_items').each(function (i, v) {
+                $('#' + node_id).remove();
+                Load_Team_Container.reorderLayer();
+            } else {
+                var designation_id = node_id.match(/\d+/)[0];
+                var parent_timeline_content = $('#' + node_id).closest('.timeline-content');
+                var layer_index = parent_timeline_content.data('layer_index');
+                if (parent_timeline_content.find('.permitted_designation').length >= 1) {
+                    var parentId = $('#' + node_id).parent('li').parent('ul').parent('.dragged_data_area').attr('id');
+                    var clientHeight = document.getElementById(parentId).clientHeight;
+                    $('#' + parentId).removeAttr('style');
+                }
+                $('#' + node_id).parent('li').remove();
+                // $('#own_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
+                // $('#own_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
+                if ($("#nothi_permission_office_organogram_tree").length !== 0) {
+                    // $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
+                    // $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
+                }
+                delete Load_Team_Container.selected_designation_ids[designation_id];
+            }
+        },
+
+        reorderLayer: function () {
+            var start_layer = 1;
+            $("#permitted_designations .timeline-item").each(function () {
+                $(this).attr('id', 'right_' + start_layer);
+                $(this).find('.timeline-content').attr('data-layer_index', start_layer);
+                $(this).find('.timeline-content').attr('id', "permitted_level_" + start_layer);
+                $(this).find('.dragged_data_area').attr('id', "right_drop_zone_" + start_layer);
+                $(this).find('.listed_items').attr('id', "list_group_" + start_layer);
+                $(this).attr('id', 'right_' + start_layer).find(".del_layer").attr("onclick", "Load_Team_Container.deleteNode('layer', 'right_" + start_layer + "', 0)");
+                ++start_layer;
+            })
+        },
+
+        newNodeResetSortableList: function (parent_div_id) {
+            var idsArray = [];
+            var idArray = $('.dragged_data_area ').find('.listed_items');
+            idArray.each(function (i, v) {
+                idsArray.push(v.id)
+            })
+            $(parent_div_id).find('.listed_items').each(function (i, v) {
+                $('#' + v.id).sortable();
+            });
+        },
+
+        initiateSortableList: function () {
+            var idsArray = [];
+            var idArray = $('.dragged_data_area ').find('.listed_items');
+            idArray.each(function (i, v) {
+                idsArray.push(v.id)
+            })
+            $('#permitted_designations').find('.timeline-content').each(function () {
+                $(this).find('.listed_items').each(function (i, v) {
                     $('#' + v.id).sortable();
                 });
-            },
+            });
+        },
 
-            initiateSortableList: function () {
-                var idsArray = [];
-                var idArray = $('.dragged_data_area ').find('.listed_items');
-                idArray.each(function (i, v) {
-                    idsArray.push(v.id)
-                })
-                $('#permitted_designations').find('.timeline-content').each(function () {
-                    $(this).find('.listed_items').each(function (i, v) {
-                        $('#' + v.id).sortable();
-                    });
-                });
-            },
-
-            saveAuditTeamSchedule: function () {
-                url = '{{route('audit.plan.audit.revised.plan.store-audit-team-schedule')}}';
-                schedule = {"schedule": auditSchedule}
-                team_schedules = JSON.stringify(schedule);
-                audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
-                data = {team_schedules, audit_plan_id};
-                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    if (response.status === 'error') {
-                        toastr.error('No data found');
-                    } else {
-                        console.log(response)
-                    }
-                })
-            },
-
-            saveAuditTeam: function () {
-                Load_Team_Container.saveAuditTeamSchedule();
-            },
-
-            saveTeamAndSchedule: function () {
-                Load_Team_Container.saveAuditTeam();
-            },
-
-            itemStyle: function () {
-                var innerDivLength = $("#permitted_designations").children('.timeline-item');
-                var basePadding = 15 * innerDivLength.length;
-                innerDivLength.each(function () {
-                    $(this).removeAttr('style');
-                    $(this).css('padding-left', basePadding);
-                    basePadding = basePadding - 15;
-                })
-            },
-
-            addLayer: function () {
-                var innerDivLength = $("#permitted_designations").children('.timeline-item');
-                var number = innerDivLength.length + 1;
-                if (number === 1) {
-                    team_name = 'দল ' + enTobn(number);
+        saveAuditTeamSchedule: function () {
+            url = '{{route('audit.plan.audit.revised.plan.store-audit-team-schedule')}}';
+            schedule = {"schedule": auditSchedule}
+            team_schedules = JSON.stringify(schedule);
+            audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
+            data = {team_schedules, audit_plan_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error('No data found');
                 } else {
-                    subteamNumber = number - 1;
-                    team_name = 'উপদল ' + enTobn(subteamNumber);
+                    console.log(response)
                 }
-                var level_html = `
+            })
+        },
+
+        saveAuditTeam: function () {
+            Load_Team_Container.saveAuditTeamSchedule();
+        },
+
+        saveTeamAndSchedule: function () {
+            Load_Team_Container.saveAuditTeam();
+        },
+
+        itemStyle: function () {
+            var innerDivLength = $("#permitted_designations").children('.timeline-item');
+            var basePadding = 15 * innerDivLength.length;
+            innerDivLength.each(function () {
+                $(this).removeAttr('style');
+                $(this).css('padding-left', basePadding);
+                basePadding = basePadding - 15;
+            })
+        },
+
+        addLayer: function () {
+            var innerDivLength = $("#permitted_designations").children('.timeline-item');
+            var number = innerDivLength.length + 1;
+            if (number === 1) {
+                team_name = 'দল ' + enTobn(number);
+            } else {
+                subteamNumber = number - 1;
+                team_name = 'উপদল ' + enTobn(subteamNumber);
+            }
+            var level_html = `
                 <div class="custom-timeline-item timeline-item border-left-0 d-flex align-items-start" style="padding-left: 15px;">
     <div class="timeline-media position-relative"><i
             class="fas fa-chair text-primary"></i></div>
@@ -760,13 +760,13 @@
                                 class="justify-self-end text-danger btn btn-icon btn-md">
                             <i class="text-primary far fa-calendar-alt"></i>
                         </button>`
-                if (number > 1) {
-                    level_html = level_html + `                        <button type="button" onclick="Load_Team_Container.deleteNode('layer','right_${number}', 0)"
+            if (number > 1) {
+                level_html = level_html + `                        <button type="button" onclick="Load_Team_Container.deleteNode('layer','right_${number}', 0)"
                                 class="justify-self-end text-danger btn btn-icon btn-md del_layer">
                             <i class="text-danger far fa-trash-alt"></i>
                         </button>`
-                }
-                level_html = level_html + `</div>
+            }
+            level_html = level_html + `</div>
         </div>
         </div>
         </div>
@@ -780,12 +780,11 @@
         </div>
         </div>
             `;
-                $("#permitted_designations").append(level_html);
-                // Load_Team_Container.itemStyle();
-                // Load_Team_Container.initiateSortableList();
-            }
+            $("#permitted_designations").append(level_html);
+            // Load_Team_Container.itemStyle();
+            // Load_Team_Container.initiateSortableList();
         }
-    ;
+    };
 
 
 </script>
