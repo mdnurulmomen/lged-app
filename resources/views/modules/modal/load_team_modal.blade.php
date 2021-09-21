@@ -211,6 +211,7 @@
 <script>
     auditSchedule = {};
 
+    member = [];
     $(document).off('click', '.layer_text').on('click', '.layer_text', function () {
         $(this).attr('contenteditable', 'true');
     });
@@ -287,6 +288,7 @@
     var employees = {};
     var team = {};
     var subTeam = [];
+     team_info = [];
     var Load_Team_Container = {
             load_level_selection_panel: 0,
             selected_designation_ids: JSON.parse('{"228237":228237,"22418":22418}'),
@@ -309,10 +311,10 @@
                                 <p data-content='${JSON.stringify(data_content)}' data-member-role="member" data-layer="${layer_index}" class="assignedMember_${data_content.designation_id}_${layer_index} p-0 mb-0 permitted_designation" id="permitted_${data_content.designation_id}" data-id="${data_content.designation_id}">
                                     <i class="far fa-user"></i><span class="ml-2 mr-2">${html_officer}</span>
                                     <small>${data_content.designation_bn}, ${data_content.unit_name_bn}</small>`;
-                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader')" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>দলনেতা</button>`;
+                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader', ${data_content.designation_id})" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>দলনেতা</button>`;
 
-                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'subTeamLeader')" class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>উপ দলনেতা</button>
-<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'member')" class="memberBtn btn btn-xs signatory_layer text-primary"><i data-value="1" class="far text-primary fa-check-square"></i>সদস্য</button>
+                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'subTeamLeader', ${data_content.designation_id})" class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>উপ দলনেতা</button>
+<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'member', ${data_content.designation_id})" class="memberBtn btn btn-xs signatory_layer text-primary"><i data-value="1" class="far text-primary fa-check-square"></i>সদস্য</button>
                     </select> <button type="button" onclick="Load_Team_Container.deleteNode('designation','permitted_${data_content.designation_id}', 0)" class="text-danger btn btn-icon btn-xs del_layer_designation"><i class="text-danger far fa-trash-alt"></i></button>
 </p>                            </li>
             `;
@@ -323,41 +325,89 @@
                 // Load_Team_Container.newNodeResetSortableList($("#permitted_level_" + layer_index));
                 $('#team_information_' + layer_index).val('jjj');
 
-                Load_Team_Container.addTeamInformation(layer_index);
+                Load_Team_Container.addTeamInformation(layer_index,data_content.designation_id);
             },
 
-            addTeamInformation: function (layer_index) {
-                leader = {};
-                if (layer_index === 1) {
-                    $(".list-group-item p[data-layer='1']").each(function (i, v) {
-                        select_data = $('#' + v.id);
-                        selected_content = select_data.data('content')
-                        if (select_data.data('member-role') === 'teamLeader') {
-                            leader = {
-                                'leader_name_en': JSON.parse(selected_content).officer_name_en,
-                                'leader_name_bn': JSON.parse(selected_content).officer_name_bn,
-                                'leader_designation_id': JSON.parse(selected_content).designation_id
-                            }
-                        }
-                    })
+            leader : {},
+            subleader : {},
+            member_info : {},
+            addTeamInformation: function (layer_index,designation_id) {
+
+                all_member = [];
+
+                select_data = $('.assignedMember_'+designation_id+'_'+layer_index).attr('data-content');
+                role = $('.assignedMember_'+designation_id+'_'+layer_index).attr('data-member-role');
+
+
+                if (role == 'teamLeader') {
+                    Load_Team_Container.leader = {
+                        'leader_name_en': JSON.parse(select_data).officer_name_en,
+                        'leader_name_bn': JSON.parse(select_data).officer_name_bn,
+                        'leader_designation_id': JSON.parse(select_data).designation_id
+                    }
                 }
-                console.log(layer_index)
-                team_info = {
-                    team_type: "parent",
+
+
+                if (role == 'subTeamLeader') {
+                    Load_Team_Container.subleader = {
+                        'leader_name_en': JSON.parse(select_data).officer_name_en,
+                        'leader_name_bn': JSON.parse(select_data).officer_name_bn,
+                        'leader_designation_id': JSON.parse(select_data).designation_id
+                    }
+                }
+
+                if(typeof member[layer_index] === 'undefined'){
+                    member[layer_index] = [];
+                }
+
+                if (role == 'member') {
+                    Load_Team_Container.member_info[JSON.parse(select_data).designation_id] = {
+                        'leader_name_en': JSON.parse(select_data).officer_name_en,
+                        'leader_name_bn': JSON.parse(select_data).officer_name_bn,
+                        'leader_designation_id': JSON.parse(select_data).designation_id
+                    }
+
+                    member[layer_index][JSON.parse(select_data).designation_id] = {
+                        'leader_name_en': JSON.parse(select_data).officer_name_en,
+                        'leader_name_bn': JSON.parse(select_data).officer_name_bn,
+                        'leader_designation_id': JSON.parse(select_data).designation_id
+                    };
+                }
+
+
+
+                $('.permitted_designation').each(function (v){
+                    content =  $('#'+v.id).attr('data-content');
+                });
+
+
+                if(layer_index == 1){
+                    team_type = "parent";
+                }else{
+                    team_type = "sub";
+                }
+
+                team_info[layer_index] = {
+                    team_type: team_type,
                     team_name: $('#assignTeamNo').val(),
                     team_start_year: $('#team_start_year').val(),
                     team_end_year: $('#team_end_year').val(),
                     audit_start_year: $('#audit_start_year').val(),
                     audit_end_year: $('#audit_end_year').val(),
-                    leader
+                    leader:Load_Team_Container.leader,
+                    subleader:Load_Team_Container.subleader,
+                    member:member[layer_index],
                 };
-
                 console.log(team_info)
                 $('#team_information_' + layer_index).val(JSON.stringify(team_info));
-                //debugger;
+
+
             },
 
-            memberRole: function (elem, layer_index, role) {
+            memberRole: function (elem, layer_index, role, designation_id) {
+
+                $('.assignedMember_'+designation_id+'_'+layer_index).attr('data-member-role',role);
+                Load_Team_Container.addTeamInformation(layer_index,designation_id);
                 designation_id = elem.data('designation-id');
                 if (elem.find('i').hasClass('fa-square')) {
                     elem.find('i').removeClass('fa-square').addClass('far fa-check-square')
