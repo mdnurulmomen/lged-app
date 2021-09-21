@@ -193,7 +193,7 @@
                     <div class="col-md-12">
                         <div class="actions text-right mt-3 permission_action_btn">
                             <button type="button" class="btn btn-sm btn-primary btn-square" id="saveTeamAndSchedule"
-                                    onclick="Load_Team_Container.saveTeamAndSchedule()"><i class="fad fa-cloud"></i>সংরক্ষণ
+                                    onclick="Load_Team_Container.saveAuditTeamSchedule()"><i class="fad fa-cloud"></i>সংরক্ষণ
                                 করুন
                             </button>
                             <button type="button" class="btn btn-sm btn-secondary btn-square"
@@ -209,7 +209,7 @@
 </div>
 
 <script>
-    auditSchedule = [];
+    auditSchedule = {};
 
     $(document).off('click', '.layer_text').on('click', '.layer_text', function () {
         $(this).attr('contenteditable', 'true');
@@ -653,6 +653,19 @@
                         $('#' + v.id).sortable();
                     });
                 });
+            },
+
+            saveAuditTeamSchedule: function () {
+                url = '{{route('audit.plan.audit.revised.plan.store-audit-team-schedule')}}';
+                audit_schedule = JSON.stringify(auditSchedule);
+                data = {audit_schedule};
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error('No data found');
+                    } else {
+                        console.log(response)
+                    }
+                })
             },
 
             saveTeamAndSchedule: function () {

@@ -136,33 +136,36 @@
         designation_id = designationData.designation_id;
 
         var currentInputValue = $(element).val();
-        costCenterId = $(element).closest('tbody').find('.input-branch-name').val();
+        //costCenterId = $(element).closest('tbody').find('.input-branch-name').val();
+        cost_center_id = $(element).closest('tbody').find('.input-branch-name').val();
+
         if (typeof auditSchedule[designation_id] === 'undefined') {
-            auditSchedule[designation_id] = [];
+            auditSchedule[designation_id] = {};
         }
-        if (typeof auditSchedule[designation_id][costCenterId] === 'undefined') {
-            auditSchedule[designation_id][costCenterId] = [];
+        if (typeof auditSchedule[designation_id][cost_center_id] === 'undefined') {
+            auditSchedule[designation_id][cost_center_id] = {};
         }
+
         if ($(element).hasClass('input-branch-name')) {
             costCenterIdAttribute = $(element).attr('id');
             let selectedCostCenter = $("#" + costCenterIdAttribute +" option:selected");
-            //costCenterId = selectedCostCenter.data("cost-center-id");
+            //cost_center_id = selectedCostCenter.data("cost-center-id");
             costCenterNameEn = selectedCostCenter.data("cost-center-name-en");
             costCenterNameEn = selectedCostCenter.data("cost-center-name-bn");
 
-            auditSchedule[designation_id][costCenterId]['cost_center_id'] = costCenterId;
-            auditSchedule[designation_id][costCenterId]['cost_center_name_en'] = costCenterNameEn;
-            auditSchedule[designation_id][costCenterId]['cost_center_name_en'] = costCenterNameEn;
+            auditSchedule[designation_id][cost_center_id]['cost_center_id'] = cost_center_id;
+            auditSchedule[designation_id][cost_center_id]['cost_center_name_en'] = costCenterNameEn;
+            auditSchedule[designation_id][cost_center_id]['cost_center_name_en'] = costCenterNameEn;
         }
 
         /*duration*/
         if ($(element).hasClass('input-start-duration')) {
-            auditSchedule[designation_id][costCenterId]['team_member_start_date'] = currentInputValue;
+            auditSchedule[designation_id][cost_center_id]['team_member_start_date'] = currentInputValue;
         }
 
         if ($(element).hasClass('input-end-duration')) {
             let startDuration = $(element).closest('tr').find('.input-start-duration').val();
-            auditSchedule[designation_id][costCenterId]['team_member_end_date'] = currentInputValue;
+            auditSchedule[designation_id][cost_center_id]['team_member_end_date'] = currentInputValue;
 
             startDurationData = startDuration.split("/");
             endDurationData = currentInputValue.split("/");
@@ -170,25 +173,25 @@
             endDateForamt = endDurationData[1]+'/'+endDurationData[0]+'/'+endDurationData[2];
             totalDayDifference = dateDifferenceInDay(startDateForamt,endDateForamt);
             $("#input_total_working_day_"+id).val(totalDayDifference);
-            auditSchedule[designation_id][costCenterId]['activity_man_days'] = totalDayDifference;
+            auditSchedule[designation_id][cost_center_id]['activity_man_days'] = totalDayDifference;
         }
 
         /*total working days*/
         if ($(element).hasClass('input-total-working-day')) {
-            auditSchedule[designation_id][costCenterId]['activity_man_days'] = currentInputValue;
+            auditSchedule[designation_id][cost_center_id]['activity_man_days'] = currentInputValue;
         }
 
         /*team member activity*/
         if ($(element).hasClass('input-detail-duration')) {
             let activityDescription = $(element).closest('tr').find('.input-detail').val();
-            auditSchedule[designation_id][costCenterId]['team_member_activity'] = currentInputValue;
-            auditSchedule[designation_id][costCenterId]['team_member_activity_description'] = currentInputValue+' ' +activityDescription;
+            auditSchedule[designation_id][cost_center_id]['team_member_activity'] = currentInputValue;
+            auditSchedule[designation_id][cost_center_id]['team_member_activity_description'] = currentInputValue+' ' +activityDescription;
         }
 
         if ($(element).hasClass('input-detail')) {
             let activityDuration = $(element).closest('tr').find('.input-detail-duration').val();
-            auditSchedule[designation_id][costCenterId]['team_member_activity_description'] = activityDuration+' '+currentInputValue;
-            auditSchedule[designation_id][costCenterId]['activity_location'] = currentInputValue;
+            auditSchedule[designation_id][cost_center_id]['team_member_activity_description'] = activityDuration+' '+currentInputValue;
+            auditSchedule[designation_id][cost_center_id]['activity_location'] = currentInputValue;
         }
     }
 </script>
