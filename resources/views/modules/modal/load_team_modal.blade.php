@@ -720,12 +720,11 @@
             },
 
             saveAuditTeam: function () {
-
+                Load_Team_Container.saveAuditTeamSchedule();
             },
 
             saveTeamAndSchedule: function () {
                 Load_Team_Container.saveAuditTeam();
-                Load_Team_Container.saveAuditTeamSchedule();
             },
 
             itemStyle: function () {
