@@ -216,15 +216,14 @@ class RevisedPlanController extends Controller
 
     public function storeAuditTeamSchedule(Request $request)
     {
-        dd($request->all());
         $data = Validator::make($request->all(), [
-            'activity_id' => 'required|integer',
+            'audit_plan_id' => 'required|integer',
+            'team_schedules' => 'required|json',
         ])->validate();
 
         $data['cdesk'] = json_encode($this->current_desk());
-        //dd($data);
 
-        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team'), $data)->json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team_schedule'), $data)->json();
         //dd($responseData);
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);

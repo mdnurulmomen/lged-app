@@ -193,7 +193,7 @@
                     <div class="col-md-12">
                         <div class="actions text-right mt-3 permission_action_btn">
                             <button type="button" class="btn btn-sm btn-primary btn-square" id="saveTeamAndSchedule"
-                                    onclick="Load_Team_Container.saveAuditTeamSchedule()"><i class="fad fa-cloud"></i>সংরক্ষণ
+                                    onclick="Load_Team_Container.saveTeamAndSchedule()"><i class="fad fa-cloud"></i>সংরক্ষণ
                                 করুন
                             </button>
                             <button type="button" class="btn btn-sm btn-secondary btn-square"
@@ -288,7 +288,7 @@
     var employees = {};
     var team = {};
     var subTeam = [];
-     team_info = [];
+    team_info = [];
     var Load_Team_Container = {
             load_level_selection_panel: 0,
             selected_designation_ids: JSON.parse('{"228237":228237,"22418":22418}'),
@@ -325,18 +325,18 @@
                 // Load_Team_Container.newNodeResetSortableList($("#permitted_level_" + layer_index));
                 $('#team_information_' + layer_index).val('jjj');
 
-                Load_Team_Container.addTeamInformation(layer_index,data_content.designation_id);
+                Load_Team_Container.addTeamInformation(layer_index, data_content.designation_id);
             },
 
-            leader : {},
-            subleader : {},
-            member_info : {},
-            addTeamInformation: function (layer_index,designation_id) {
+            leader: {},
+            subleader: {},
+            member_info: {},
+            addTeamInformation: function (layer_index, designation_id) {
 
                 all_member = [];
 
-                select_data = $('.assignedMember_'+designation_id+'_'+layer_index).attr('data-content');
-                role = $('.assignedMember_'+designation_id+'_'+layer_index).attr('data-member-role');
+                select_data = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-content');
+                role = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role');
 
 
                 if (role == 'teamLeader') {
@@ -356,7 +356,7 @@
                     }
                 }
 
-                if(typeof member[layer_index] === 'undefined'){
+                if (typeof member[layer_index] === 'undefined') {
                     member[layer_index] = [];
                 }
 
@@ -375,15 +375,14 @@
                 }
 
 
-
-                $('.permitted_designation').each(function (v){
-                    content =  $('#'+v.id).attr('data-content');
+                $('.permitted_designation').each(function (v) {
+                    content = $('#' + v.id).attr('data-content');
                 });
 
 
-                if(layer_index == 1){
+                if (layer_index == 1) {
                     team_type = "parent";
-                }else{
+                } else {
                     team_type = "sub";
                 }
 
@@ -394,9 +393,9 @@
                     team_end_year: $('#team_end_year').val(),
                     audit_start_year: $('#audit_start_year').val(),
                     audit_end_year: $('#audit_end_year').val(),
-                    leader:Load_Team_Container.leader,
-                    subleader:Load_Team_Container.subleader,
-                    member:member[layer_index],
+                    leader: Load_Team_Container.leader,
+                    subleader: Load_Team_Container.subleader,
+                    member: member[layer_index],
                 };
                 console.log(team_info)
                 $('#team_information_' + layer_index).val(JSON.stringify(team_info));
@@ -406,8 +405,8 @@
 
             memberRole: function (elem, layer_index, role, designation_id) {
 
-                $('.assignedMember_'+designation_id+'_'+layer_index).attr('data-member-role',role);
-                Load_Team_Container.addTeamInformation(layer_index,designation_id);
+                $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role', role);
+                Load_Team_Container.addTeamInformation(layer_index, designation_id);
                 designation_id = elem.data('designation-id');
                 if (elem.find('i').hasClass('fa-square')) {
                     elem.find('i').removeClass('fa-square').addClass('far fa-check-square')
@@ -707,8 +706,10 @@
 
             saveAuditTeamSchedule: function () {
                 url = '{{route('audit.plan.audit.revised.plan.store-audit-team-schedule')}}';
-                audit_schedule = JSON.stringify(auditSchedule);
-                data = {audit_schedule};
+                schedule = {"schedule": auditSchedule}
+                team_schedules = JSON.stringify(schedule);
+                audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
+                data = {team_schedules, audit_plan_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'error') {
                         toastr.error('No data found');
@@ -718,85 +719,13 @@
                 })
             },
 
+            saveAuditTeam: function () {
+
+            },
+
             saveTeamAndSchedule: function () {
-                var permission_data = [];
-                var has_empty_level = false;
-                var layer_index = 0
-                $("#permitted_designations .timeline-content").each(function () {
-                    var li_id = $(this).children(".dropable_row").attr('id'); //right_drop_zone_1
-                    ++layer_index;
-                    var transaction_day = $("#transaction_day_right_" + layer_index).text();
-                    var level_name = $(this).find('.layer_text').text(); //note permission ar jonno
-                    if ($(this).find('.permitted_designation').length === 0) {
-                        has_empty_level = true;
-                    }
-                    $(this).find('.permitted_designation').each(function (i, v) {
-                        var strict_route = $(v).find('.strict_layer > i').data('value');
-                        var is_signatory = $(v).find('.signatory_layer > i').data('value'); //note permission ar jonno
-                        var data_content = $(v).data('content');
-                        var data_map = {
-                            id: data_content.id,
-                            office_id: data_content.office_id,
-                            office_unit_id: data_content.office_unit_id,
-                            designation_id: data_content.designation_id,
-                            officer_id: data_content.officer_id,
-                            office: data_content.office,
-                            office_unit: data_content.office_unit,
-                            designation: data_content.designation,
-                            officer: data_content.officer,
-                            designation_level: data_content.designation_level,
-                            officer_email: data_content.officer_email,
-                            officer_phone: data_content.officer_phone,
-                            level_name: level_name,
-                            is_strict_route: strict_route,
-                            is_signatory: is_signatory,
-                            max_transaction_day: replaceToEn(transaction_day),
-                            layer_index: layer_index, //layer number
-                            route_index: (i + 1) //hierarchy in same layer
-                        };
-                        permission_data.push(data_map);
-                    })
-                });
-                if (has_empty_level === true) {
-                    toastr.error('দুঃখিত! ফাঁকা লেভেল সংরক্ষণ করা সম্ভব হচ্ছে না। দয়া করে অপ্রয়োজনীয় লেভেল মুছে ফেলুন।');
-                    return false;
-                }
-                var url = '/nothi/permission/save';
-                var nothi = JSON.parse('{"id":"145","subject":"\u099f\u09be\u0995\u09be \u099a\u09be\u0987","nothi_no":"\u09eb\u09ec.\u09e6\u09ea.\u09e6\u09e6\u09e6\u09e6.\u09e6\u09e6\u09e6.\u09e6\u09e8.\u09e6\u09e6\u09ed.\u09e8\u09e7","office_unit":"\u0987-\u09b8\u09be\u09b0\u09cd\u09ad\u09bf\u09b8","office_unit_id":"9625","office_id":"65","office_name":"\u098f\u09b8\u09aa\u09be\u09df\u09be\u09b0 \u099f\u09c1 \u0987\u09a8\u09cb\u09ad\u09c7\u099f (\u098f\u099f\u09c1\u09cd\u0986\u0987) \u09aa\u09cd\u09b0\u09cb\u0997\u09cd\u09b0\u09be\u09ae"}');
-                var note_id = '0';
-                permission_data = {
-                    'authority': permission_data,
-                    'nothi': {
-                        'nothi_id': nothi.id,
-                        'nothi_office': nothi.office_id,
-                        'nothi_office_name': (nothi.office_name) ? nothi.office_name : nothi.office
-                    },
-                    'note': note_id
-                };
-                KTApp.block('.permission_action_btn');
-                TAPP_AJAX.ajaxSubmitDataCallback(url, permission_data, 'json', function (response) {
-                    KTApp.unblock('.permission_action_btn');
-                    if (response.status == 'success') {
-                        $("#kt_modal_6").modal('hide');
-                        toastr.success(response.data);
-                        if (!$("#submit-save-nothi")) {
-                            $("#m_" + NOTHI_CONTAINER.current_nothibox).trigger('click');
-                        } else if ($(".btn-details-control").length) {
-                            $("#m_" + NOTHI_CONTAINER.current_nothibox).trigger('click');
-                        } else if (note_id > 0) {
-                            if (NOTHI_CONTAINER) {
-                                NOTHI_CONTAINER.listNotePreviewContainer();
-                            }
-                        } else if ($(".btn-nothi-note-permission").length > 0) {
-                            $(".btn_close").trigger('click');
-                            return false;
-                        } else {
-                            $("#m_nothi_container_all").trigger('click');
-                        }
-                    } else {
-                        toastr.error(response.message);
-                    }
-                });
+                Load_Team_Container.saveAuditTeam();
+                Load_Team_Container.saveAuditTeamSchedule();
             },
 
             itemStyle: function () {
