@@ -163,33 +163,35 @@ class RevisedPlanController extends Controller
 
     public function storeAuditTeam(Request $request)
     {
-        //dd($request->all());
-        $data = Validator::make($request->all(), [
+//        dd($request->all());
+         Validator::make($request->all(), [
             'activity_id' => 'required|integer',
             'fiscal_year_id' => 'required|integer',
             'annual_plan_id' => 'required|integer',
             'audit_plan_id' => 'required|integer',
-            'entity_id' => 'required|integer',
-            'entity_name_en' => 'required|string',
-            'entity_name_bn' => 'required|string',
-            'team_start_date' => 'required',
-            'team_end_date' => 'required',
-            'team_members' => 'required',
-            'leader_name_en' => 'required|string',
-            'leader_name_bn' => 'required|string',
-            'leader_designation_id' => 'required|integer',
-            'leader_designation_name_en' => 'required|string',
-            'leader_designation_name_bn' => 'required|string',
-            'audit_year_start' => 'required',
-            'audit_year_end' => 'required',
+            'audit_start_year' => 'required',
+            'audit_end_year' => 'required',
+            'teams' => 'required',
         ])->validate();
 
+        $teams = $request->teams;
+        $team_data = array();
+        foreach ($teams as $team){
+            $team_data[] = json_decode($team['value'])[0];
+        }
+
+        $data['teams'] = json_encode(['teams' => $team_data]);
+        $data['activity_id'] = $request->activity_id;
+        $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['annual_plan_id'] = $request->annual_plan_id;
+        $data['audit_plan_id'] = $request->audit_plan_id;
+        $data['audit_start_year'] = $request->audit_start_year;
+        $data['audit_end_year'] = $request->audit_end_year;
         $data['approve_status'] = 'approved';
         $data['cdesk'] = json_encode($this->current_desk());
-        //dd($data);
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team'), $data)->json();
-        //dd($responseData);
+        dd($responseData);
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
         } else {

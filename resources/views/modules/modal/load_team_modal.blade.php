@@ -61,12 +61,12 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col">
-                                <input type="text" id="team_start_year"
+                                <input type="text" id="audit_start_year"
                                        class="year-picker form-control"
                                        placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" autocomplete="off"/>
                             </div>
                             <div class="col">
-                                <input type="text" id="team_end_year"
+                                <input type="text" id="audit_end_year"
                                        class="year-picker form-control"
                                        placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" autocomplete="off"/>
                             </div>
@@ -76,12 +76,12 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col">
-                                <input type="text" id="audit_start_year"
+                                <input type="text" id="team_start_year"
                                        class="date form-control"
                                        placeholder="সম্পাদনের সময়কাল শুরু" autocomplete="off"/>
                             </div>
                             <div class="col">
-                                <input type="text" id="audit_end_year"
+                                <input type="text" id="team_end_year"
                                        class="date form-control"
                                        placeholder="সম্পাদনের সময়কাল শেষ" autocomplete="off"/>
                             </div>
@@ -126,6 +126,8 @@
         'designation_bn' => $designation['designation_bng'],
         'officer_name_en' => !empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : '',
         'officer_name_bn' => !empty($designation['employee_info']) ? $designation['employee_info']['name_bng'] : '',
+        'officer_mobile' => !empty($designation['employee_info']) ? $designation['employee_info']['personal_mobile'] : '',
+        'officer_email' => !empty($designation['employee_info']) ? $designation['employee_info']['personal_email'] : '',
         'employee_grade' => !empty($designation['employee_info']['employee_grade']) ? $designation['employee_info']['employee_grade'] : '1',
         'officer_id' => !empty($designation['employee_info']) ? $designation['employee_info']['id'] : '',
         'unit_id' => $unit['office_unit_id'],
@@ -182,7 +184,7 @@
                                 <div class="card-body p-0">
                                     <!--begin::Timeline-->
                                     <div class="timeline timeline-3 custom-timeline" id="customTimeline">
-                                        <div class="timeline-items " id="permitted_designations"></div>
+                                        <form id="team_form"><div class="timeline-items " id="permitted_designations"></div></form>
                                     </div>
                                     <!--end::Timeline-->
                                 </div>
@@ -192,8 +194,8 @@
 
                     <div class="col-md-12">
                         <div class="actions text-right mt-3 permission_action_btn">
-                            <button type="button" class="btn btn-sm btn-primary btn-square" id="saveTeamAndSchedule"
-                                    onclick="Load_Team_Container.saveTeamAndSchedule()"><i class="fad fa-cloud"></i>সংরক্ষণ
+                            <button type="button" class="btn btn-sm btn-primary btn-square" id="saveAuditTeam"
+                                    onclick="Load_Team_Container.saveAuditTeam()"><i class="fad fa-cloud"></i>সংরক্ষণ
                                 করুন
                             </button>
                             <button type="button" class="btn btn-sm btn-secondary btn-square"
@@ -379,21 +381,58 @@
             role = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role');
 
 
+
             if (role == 'teamLeader') {
                 Load_Team_Container.leader = {
-                    'leader_name_en': JSON.parse(select_data).officer_name_en,
-                    'leader_name_bn': JSON.parse(select_data).officer_name_bn,
-                    'leader_designation_id': JSON.parse(select_data).designation_id
+                    'team_member_name_en': JSON.parse(select_data).officer_name_en,
+                    'team_member_name_bn': JSON.parse(select_data).officer_name_bn,
+                    'leader_designation_id': JSON.parse(select_data).designation_id,
+                    'designation_en': JSON.parse(select_data).designation_en,
+                    'designation_bn': JSON.parse(select_data).designation_bn,
+                    'team_member_role_en': 'teamLeader',
+                    'team_member_role_bn': 'দলনেতা',
+                    'officer_mobile': JSON.parse(select_data).officer_mobile,
+                    'officer_email': JSON.parse(select_data).officer_email,
+                    'officer_id': JSON.parse(select_data).officer_id,
+                    'unit_name_en': JSON.parse(select_data).unit_name_en,
+                    'office_id': JSON.parse(select_data).office_id,
+                    'comment': ''
                 }
+
+
+                 leader_officer_id = JSON.parse(select_data).officer_id;
+                 leader_name_bn = JSON.parse(select_data).officer_name_bn;
+                 leader_name_en = JSON.parse(select_data).officer_name_bn;
+                 leader_designation_id = JSON.parse(select_data).designation_id;
+                 leader_designation_name_en = JSON.parse(select_data).designation_en;
+                 leader_designation_name_bn = JSON.parse(select_data).designation_bn;
+
             }
 
 
             if (role == 'subTeamLeader') {
                 Load_Team_Container.subleader = {
-                    'leader_name_en': JSON.parse(select_data).officer_name_en,
-                    'leader_name_bn': JSON.parse(select_data).officer_name_bn,
-                    'leader_designation_id': JSON.parse(select_data).designation_id
+                    'team_member_name_en': JSON.parse(select_data).officer_name_en,
+                    'team_member_name_bn': JSON.parse(select_data).officer_name_bn,
+                    'leader_designation_id': JSON.parse(select_data).designation_id,
+                    'designation_en': JSON.parse(select_data).designation_en,
+                    'designation_bn': JSON.parse(select_data).designation_bn,
+                    'team_member_role_en': 'subTeamLeader',
+                    'team_member_role_bn': 'উপ দলনেতা',
+                    'officer_mobile': JSON.parse(select_data).officer_mobile,
+                    'officer_email': JSON.parse(select_data).officer_email,
+                    'officer_id': JSON.parse(select_data).officer_id,
+                    'unit_name_en': JSON.parse(select_data).unit_name_en,
+                    'office_id': JSON.parse(select_data).office_id,
+                    'comment': ''
                 }
+
+                 leader_officer_id = JSON.parse(select_data).officer_id;
+                 leader_name_bn = JSON.parse(select_data).officer_name_bn;
+                 leader_name_en = JSON.parse(select_data).officer_name_bn;
+                 leader_designation_id = JSON.parse(select_data).designation_id;
+                 leader_designation_name_en = JSON.parse(select_data).designation_en;
+                 leader_designation_name_bn = JSON.parse(select_data).designation_bn;
             }
 
             if (typeof member[layer_index] === 'undefined') {
@@ -402,16 +441,43 @@
 
             if (role == 'member') {
                 Load_Team_Container.member_info[JSON.parse(select_data).designation_id] = {
-                    'leader_name_en': JSON.parse(select_data).officer_name_en,
-                    'leader_name_bn': JSON.parse(select_data).officer_name_bn,
-                    'leader_designation_id': JSON.parse(select_data).designation_id
+                    'team_member_name_en': JSON.parse(select_data).officer_name_en,
+                    'team_member_name_bn': JSON.parse(select_data).officer_name_bn,
+                    'leader_designation_id': JSON.parse(select_data).designation_id,
+                    'designation_en': JSON.parse(select_data).designation_en,
+                    'designation_bn': JSON.parse(select_data).designation_bn,
+                    'team_member_role_en': 'subTeamLeader',
+                    'team_member_role_bn': 'উপ দলনেতা',
+                    'officer_mobile': JSON.parse(select_data).officer_mobile,
+                    'officer_email': JSON.parse(select_data).officer_email,
+                    'officer_id': JSON.parse(select_data).officer_id,
+                    'unit_name_en': JSON.parse(select_data).unit_name_en,
+                    'office_id': JSON.parse(select_data).office_id,
+                    'comment': ''
                 }
 
                 member[layer_index][JSON.parse(select_data).designation_id] = {
-                    'leader_name_en': JSON.parse(select_data).officer_name_en,
-                    'leader_name_bn': JSON.parse(select_data).officer_name_bn,
-                    'leader_designation_id': JSON.parse(select_data).designation_id
+                    'team_member_name_en': JSON.parse(select_data).officer_name_en,
+                    'team_member_name_bn': JSON.parse(select_data).officer_name_bn,
+                    'leader_designation_id': JSON.parse(select_data).designation_id,
+                    'designation_en': JSON.parse(select_data).designation_en,
+                    'designation_bn': JSON.parse(select_data).designation_bn,
+                    'team_member_role_en': 'member',
+                    'team_member_role_bn': 'সদস্য',
+                    'officer_mobile': JSON.parse(select_data).officer_mobile,
+                    'officer_email': JSON.parse(select_data).officer_email,
+                    'officer_id': JSON.parse(select_data).officer_id,
+                    'unit_name_en': JSON.parse(select_data).unit_name_en,
+                    'office_id': JSON.parse(select_data).office_id,
+                    'comment': ''
                 };
+
+                 leader_officer_id = JSON.parse(select_data).officer_id;
+                 leader_name_bn = JSON.parse(select_data).officer_name_bn;
+                 leader_name_en = JSON.parse(select_data).officer_name_bn;
+                 leader_designation_id = JSON.parse(select_data).designation_id;
+                 leader_designation_name_en = JSON.parse(select_data).designation_en;
+                 leader_designation_name_bn = JSON.parse(select_data).designation_bn;
             }
 
 
@@ -433,14 +499,18 @@
                 team_end_year: $('#team_end_year').val(),
                 audit_start_year: $('#audit_start_year').val(),
                 audit_end_year: $('#audit_end_year').val(),
+                leader_officer_id : leader_officer_id,
+                leader_name_bn : leader_name_bn,
+                leader_name_en : leader_name_en,
+                leader_designation_id : leader_designation_id,
+                leader_designation_name_en : leader_designation_name_en,
+                leader_designation_name_bn : leader_designation_name_bn,
                 leader: Load_Team_Container.leader,
                 subleader: Load_Team_Container.subleader,
                 member: member[layer_index],
             };
-            console.log(team_info)
+            team_info.shift();
             $('#team_information_' + layer_index).val(JSON.stringify(team_info));
-
-
         },
 
         setEditorInfo: function () {
@@ -606,64 +676,6 @@
 
         },
 
-        saveSubTeam: function () {
-
-            var sub_team_name = $('.sub_team_name');
-            var team_id = 1;
-            url = '{{route('audit.plan.audit.revised.plan.get-sub-team')}}';
-            data = {team_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                $('.assign_sub_team_members').html(response)
-            })
-
-            // console.log(subTeam);
-
-            // teamMember = JSON.parse(localStorage.getItem('team'));
-            //
-            // addRow = `<ul class="nav nav-tabs custom-tabs mb-0" role="tablist">`;
-            // subTeam.each(function(k, v) {
-            //         addRow = addRow +
-            //         `<li class="nav-item">
-            //             <a class="nav-link active rounded-0" data-toggle="tab" href="#sub_1">
-            //                 <span class="nav-text">sub 1</span>
-            //             </a>
-            //         </li>`;
-            // });
-            //
-            // addRow = addRow + `</ul>`
-            //
-            // addRow = addRow + `<div class="tab-content">`;
-            //
-            // for( key in teamMember) {
-            //     if (teamMember.hasOwnProperty(key)) {
-            //         addRow = addRow +
-            //             `<div class="tab-pane border border-top-0 p-3 fade show active" id="sub_1" role="tabpanel"
-            //                  aria-labelledby="selected_offices_tab">
-            //             </div>`
-            //     }
-            // }
-            // addRow = addRow + `</div>`;
-            //
-            // $(".assign_sub_team_members").append(newRow);
-
-            // for( key in teamMember) {
-            //     if (teamMember.hasOwnProperty(key)) {
-            //         var newRow = '<div class="mt-2" style="border: 1px solid #ebf3f2;padding: 10px">' +
-            //         '<li  style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
-            //         '<i class="fa fa-user pr-2"></i>' + teamMember[key].name+ '</li>'+
-            //         '<div class="row">'+
-            //         '<div class="col-md-4">'+
-            //         '<select  name="selected_officer_designation[]" class="form-control select-select2">';
-            //         subTeam.map(function (v){
-            //             newRow = newRow +  '<option value="'+v+'">'+v+'</option>';
-            //         });
-            //         newRow = newRow + '</select>'+ '</div>'+ '</div></div>';
-            //
-            //     $(".assign_sub_team_members").append(newRow);
-            //     }
-            // }
-        },
-
         loadTeamSchedule: function (team_schedule_list_div, team_layer_id) {
             url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
             annual_plan_id = '{{$annual_plan_id}}';
@@ -766,11 +778,25 @@
         },
 
         saveAuditTeam: function () {
-            Load_Team_Container.saveAuditTeamSchedule();
-        },
+            url = '{{route('audit.plan.audit.revised.plan.store-audit-team')}}';
+            annual_plan_id = '{{$annual_plan_id}}';
+            audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
+            activity_id = '{{$activity_id}}';
+            fiscal_year_id = '{{$fiscal_year_id}}';
+            audit_start_year = $('#audit_start_year').val();
+            audit_end_year = $('#audit_end_year').val();
+            teams = $("#team_form").serializeArray();
+            // console.log(teams);
+            data = {annual_plan_id, activity_id, fiscal_year_id, audit_start_year ,audit_end_year, audit_plan_id, teams};
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    // Load_Team_Container.saveAuditTeamSchedule();
+                    console.log(response)
+                }
+            })
 
-        saveTeamAndSchedule: function () {
-            Load_Team_Container.saveAuditTeam();
         },
 
         itemStyle: function () {
