@@ -331,6 +331,7 @@
         leader: {},
         subleader: {},
         member_info: {},
+        editor_leader_info: '',
         addTeamInformation: function (layer_index, designation_id) {
 
             all_member = [];
@@ -403,8 +404,11 @@
 
         },
 
-        memberRole: function (elem, layer_index, role, designation_id) {
+        setEditorInfo: function () {
+            $('.audit_team_leader').html(Load_Team_Container.editor_leader_info);
+        },
 
+        memberRole: function (elem, layer_index, role, designation_id) {
             $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role', role);
             Load_Team_Container.addTeamInformation(layer_index, designation_id);
             designation_id = elem.data('designation-id');
@@ -421,12 +425,15 @@
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .teamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .subTeamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
             } else if (role === 'teamLeader') {
-                $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
+                data_content = $('.assignedMember_' + designation_id + '_' + layer_index).data('content')
+                Load_Team_Container.editor_leader_info = data_content.officer_name_bn + ', ' + data_content.designation_bn + ', ' + data_content.unit_name_bn + '|',
+                    $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .subTeamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
             } else if (role === 'subTeamLeader') {
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .teamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
             }
+            Load_Team_Container.setEditorInfo();
         },
 
         addEmployeeToAssignedList: function (entity_info) {
