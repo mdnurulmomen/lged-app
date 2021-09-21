@@ -209,6 +209,7 @@
 </div>
 
 <script>
+    auditSchedule = [];
 
     $(document).off('click', '.layer_text').on('click', '.layer_text', function () {
         $(this).attr('contenteditable', 'true');
@@ -350,10 +351,10 @@
                     audit_end_year: $('#audit_end_year').val(),
                     leader
                 };
+
                 console.log(team_info)
                 $('#team_information_' + layer_index).val(JSON.stringify(team_info));
-                debugger;
-
+                //debugger;
             },
 
             memberRole: function (elem, layer_index, role) {

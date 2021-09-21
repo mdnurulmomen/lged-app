@@ -7,11 +7,8 @@
                                             text-center">
         <thead>
         <tr>
-            <th width="25%">
+            <th width="50%">
                 শাখার নাম
-            </th>
-            <th width="25%">
-                নিরীক্ষা বছর
             </th>
             <th width="35%">
                 নিরীক্ষার সময়কাল
@@ -29,29 +26,15 @@
             </th>
         </tr>
         </thead>
-        <tbody>
-        <tr class='audit_schedule_row_{{$team_layer_id}}' data-schedule-first-row='0_0'>
+        <tbody data-tbody-id="{{$team_layer_id}}_1">
+        <tr class='audit_schedule_row_{{$team_layer_id}}' data-layer-id="{{$team_layer_id}}" data-schedule-first-row='0_0'>
             <td>
-                <select class="form-control input-branch-name" data-id="{{$team_layer_id}}_0">
+                <select id="branch_name_select_{{$team_layer_id}}_0" class="form-control input-branch-name" data-id="{{$team_layer_id}}_0">
                     <option value=''>--Select--</option>
                     @foreach($nominatedOffices as $key => $nominatedOffice)
-                        <option value="{{$nominatedOffice['office_id']}}" data-office-name-bn="{{$nominatedOffice['office_name_bn']}}" data-office-name-en="{{$nominatedOffice['office_name_en']}}">{{$nominatedOffice['office_name_bn']}}</option>
+                        <option value="{{$nominatedOffice['office_id']}}" data-cost-center-id="{{$nominatedOffice['office_id']}}" data-cost-center-name-bn="{{$nominatedOffice['office_name_bn']}}" data-cost-center-name-en="{{$nominatedOffice['office_name_en']}}">{{$nominatedOffice['office_name_bn']}}</option>
                     @endforeach
                 </select>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col">
-                        <input type="text" data-id="{{$team_layer_id}}_0"
-                               class="year-picker form-control input-start-year"
-                               placeholder="শুরু"/>
-                    </div>
-                    <div class="col">
-                        <input type="text" data-id="{{$team_layer_id}}_0"
-                               class="year-picker form-control input-end-year"
-                               placeholder="শেষ"/>
-                    </div>
-                </div>
             </td>
             <td>
                 <div class="row">
@@ -77,11 +60,11 @@
 
             </td>
         </tr>
-        <tr data-schedule-second-row='0_0'>
-            <td>
+        <tr class="audit_schedule_row_{{$team_layer_id}}" data-layer-id="{{$team_layer_id}}" data-schedule-second-row='0_0'>
+            <td width="20%">
                 <input type="text" data-id="{{$team_layer_id}}_0" class="date form-control input-detail-duration"/>
             </td>
-            <td colspan="4">
+            <td width="80%" colspan="3">
                 <input type="text" data-id="{{$team_layer_id}}_0" class="form-control input-detail"/>
             </td>
         </tr>
@@ -92,19 +75,16 @@
 <script>
     var Load_Team_Schedule = {
         addAuditScheduleTblRow:function (){
+            var totalAuditScheduleTbody = $('.audit-schedule-table tbody').length +1;
             var totalAuditScheduleRow = $('.audit-schedule-table tbody tr').length +1;
-            var teamScheduleHtml = "<tr class='audit_schedule_row_{{$team_layer_id}}' data-audit-schedule-first-row='"+totalAuditScheduleRow+"_"+{{$team_layer_id}}+"'>";
+            var teamScheduleHtml = "<tbody data-tbody-id='{{$team_layer_id}}_"+totalAuditScheduleTbody+"'><tr class='audit_schedule_row_{{$team_layer_id}}' data-layer-id='{{$team_layer_id}}' data-audit-schedule-first-row='"+totalAuditScheduleRow+"_"+{{$team_layer_id}}+"'>";
             teamScheduleHtml += "<td>" +
-                "<select class='form-control input-branch-name' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"'>" +
+                "<select id='branch_name_select_{{$team_layer_id}}_"+totalAuditScheduleRow+"' class='form-control input-branch-name' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"'>" +
                 "<option value=''>--Select--</option>"+
                 @foreach($nominatedOffices as $key => $nominatedOffice)
-                    "<option value='{{$nominatedOffice['office_id']}}' data-office-name-bn='{{$nominatedOffice['office_name_bn']}}' data-office-name-en='{{$nominatedOffice['office_name_en']}}'>{{$nominatedOffice['office_name_bn']}}</option>"+
+                    "<option value='{{$nominatedOffice['office_id']}}' data-cost-center-id='{{$nominatedOffice['office_id']}}' data-cost-center-name-bn='{{$nominatedOffice['office_name_bn']}}' data-cost-center-name-en='{{$nominatedOffice['office_name_en']}}'>{{$nominatedOffice['office_name_bn']}}</option>"+
                 @endforeach
                 "</select></td>";
-            teamScheduleHtml += "<td><div class='row'><div class='col'><input type='text' " +
-                "class='year-picker form-control input-start-year' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' placeholder='শুরু'/></div><div class='col'>" +
-                "<input type='text' class='year-picker form-control input-end-year' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' placeholder='শেষ'/>" +
-                "</div></div></td>";
 
             teamScheduleHtml += "<td><div class='row'><div class='col'><input type='text' " +
                 "class='date form-control input-start-duration' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' placeholder='শুরু'/></div><div class='col'>" +
@@ -114,10 +94,10 @@
             teamScheduleHtml += "<td><input type='number' value='0' class='form-control input-total-working-day' id='input_total_working_day_{{$team_layer_id}}_"+totalAuditScheduleRow+"' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"'/></td>";
             teamScheduleHtml += "<td><button type='button' data-row='row" + totalAuditScheduleRow + "' class='btn btn-danger btn-sm remove-schedule-row'><span class='fa fa-trash'></span></button></td>";
             teamScheduleHtml += "</tr>";
-            teamScheduleHtml += "<tr data-schedule-second-row='"+totalAuditScheduleRow+"_"+{{$team_layer_id}}+"'>";
+            teamScheduleHtml += "<tr class='audit_schedule_row_{{$team_layer_id}}' data-layer-id='{{$team_layer_id}}' data-schedule-second-row='"+totalAuditScheduleRow+"_"+{{$team_layer_id}}+"'>";
             teamScheduleHtml += "<td><input type='text' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' class='date form-control input-detail-duration'/></td>";
-            teamScheduleHtml += "<td colspan='4'><input type='text' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' class='form-control input-detail'/></td>";
-            teamScheduleHtml += "</tr>";
+            teamScheduleHtml += "<td colspan='3'><input type='text' data-id='{{$team_layer_id}}_"+ totalAuditScheduleRow +"' class='form-control input-detail'/></td>";
+            teamScheduleHtml += "</tr></tbody>";
 
             $('#audit_schedule_table_{{$team_layer_id}}').append(teamScheduleHtml);
         }
@@ -142,38 +122,47 @@
         populateData(this);
     });
 
-    auditScheduleList = {};
     function populateData(element) {
-        var id = $(element).data("id");
-        console.log(id)
+        let id = $(element).data("id");
+        let layer_id = $(element).closest('tr').data("layer-id");
+
+        if ($("#list_group_"+layer_id).find('li p[data-member-role=subTeamLeader]').length === 1){
+            designationData = $("#list_group_"+layer_id).find('li p[data-member-role=subTeamLeader]').data('content');
+        }
+        else if($("#list_group_"+layer_id).find('li p[data-member-role=teamLeader]').length === 1){
+            designationData = $("#list_group_"+layer_id).find('li p[data-member-role=teamLeader]').data('content');
+        }
+
+        designation_id = designationData.designation_id;
+
         var currentInputValue = $(element).val();
-        if (typeof auditScheduleList[id] === 'undefined') {
-            auditScheduleList[id] = {};
+        costCenterId = $(element).closest('tbody').find('.input-branch-name').val();
+        if (typeof auditSchedule[designation_id] === 'undefined') {
+            auditSchedule[designation_id] = [];
         }
-
+        if (typeof auditSchedule[designation_id][costCenterId] === 'undefined') {
+            auditSchedule[designation_id][costCenterId] = [];
+        }
         if ($(element).hasClass('input-branch-name')) {
-            branchId = $(element).attr('id');
-            branchName = $("#" + branchId +" option:selected").text();
-            auditScheduleList[id]['branch_name'] = branchName;
-        }
+            costCenterIdAttribute = $(element).attr('id');
+            let selectedCostCenter = $("#" + costCenterIdAttribute +" option:selected");
+            //costCenterId = selectedCostCenter.data("cost-center-id");
+            costCenterNameEn = selectedCostCenter.data("cost-center-name-en");
+            costCenterNameEn = selectedCostCenter.data("cost-center-name-bn");
 
-        if ($(element).hasClass('input-start-year')) {
-            auditScheduleList[id]['start_year'] = currentInputValue;
-        }
-
-        if ($(element).hasClass('input-end-year')) {
-            auditScheduleList[id]['end_year'] = currentInputValue;
+            auditSchedule[designation_id][costCenterId]['cost_center_id'] = costCenterId;
+            auditSchedule[designation_id][costCenterId]['cost_center_name_en'] = costCenterNameEn;
+            auditSchedule[designation_id][costCenterId]['cost_center_name_en'] = costCenterNameEn;
         }
 
         /*duration*/
         if ($(element).hasClass('input-start-duration')) {
-            auditScheduleList[id]['start_duration'] = currentInputValue;
+            auditSchedule[designation_id][costCenterId]['team_member_start_date'] = currentInputValue;
         }
 
         if ($(element).hasClass('input-end-duration')) {
             let startDuration = $(element).closest('tr').find('.input-start-duration').val();
-            auditScheduleList[id]['end_duration'] = currentInputValue;
-
+            auditSchedule[designation_id][costCenterId]['team_member_end_date'] = currentInputValue;
 
             startDurationData = startDuration.split("/");
             endDurationData = currentInputValue.split("/");
@@ -181,12 +170,25 @@
             endDateForamt = endDurationData[1]+'/'+endDurationData[0]+'/'+endDurationData[2];
             totalDayDifference = dateDifferenceInDay(startDateForamt,endDateForamt);
             $("#input_total_working_day_"+id).val(totalDayDifference);
-            auditScheduleList[id]['total_working_days'] = totalDayDifference;
+            auditSchedule[designation_id][costCenterId]['activity_man_days'] = totalDayDifference;
         }
 
         /*total working days*/
         if ($(element).hasClass('input-total-working-day')) {
-            auditScheduleList[id]['total_working_days'] = currentInputValue;
+            auditSchedule[designation_id][costCenterId]['activity_man_days'] = currentInputValue;
+        }
+
+        /*team member activity*/
+        if ($(element).hasClass('input-detail-duration')) {
+            let activityDescription = $(element).closest('tr').find('.input-detail').val();
+            auditSchedule[designation_id][costCenterId]['team_member_activity'] = currentInputValue;
+            auditSchedule[designation_id][costCenterId]['team_member_activity_description'] = currentInputValue+' ' +activityDescription;
+        }
+
+        if ($(element).hasClass('input-detail')) {
+            let activityDuration = $(element).closest('tr').find('.input-detail-duration').val();
+            auditSchedule[designation_id][costCenterId]['team_member_activity_description'] = activityDuration+' '+currentInputValue;
+            auditSchedule[designation_id][costCenterId]['activity_location'] = currentInputValue;
         }
     }
 </script>
