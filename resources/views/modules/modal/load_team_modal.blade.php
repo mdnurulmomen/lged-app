@@ -347,7 +347,7 @@
                 Load_Team_Container.leader = {
                     'team_member_name_en': JSON.parse(select_data).officer_name_en,
                     'team_member_name_bn': JSON.parse(select_data).officer_name_bn,
-                    'leader_designation_id': JSON.parse(select_data).designation_id,
+                    'designation_id': JSON.parse(select_data).designation_id,
                     'designation_en': JSON.parse(select_data).designation_en,
                     'designation_bn': JSON.parse(select_data).designation_bn,
                     'team_member_role_en': 'teamLeader',
@@ -375,7 +375,7 @@
                 Load_Team_Container.subleader = {
                     'team_member_name_en': JSON.parse(select_data).officer_name_en,
                     'team_member_name_bn': JSON.parse(select_data).officer_name_bn,
-                    'leader_designation_id': JSON.parse(select_data).designation_id,
+                    'designation_id': JSON.parse(select_data).designation_id,
                     'designation_en': JSON.parse(select_data).designation_en,
                     'designation_bn': JSON.parse(select_data).designation_bn,
                     'team_member_role_en': 'subTeamLeader',
@@ -406,7 +406,7 @@
                 Load_Team_Container.member_info[JSON.parse(select_data).designation_id] = {
                     'team_member_name_en': JSON.parse(select_data).officer_name_en,
                     'team_member_name_bn': JSON.parse(select_data).officer_name_bn,
-                    'leader_designation_id': JSON.parse(select_data).designation_id,
+                    'designation_id': JSON.parse(select_data).designation_id,
                     'designation_en': JSON.parse(select_data).designation_en,
                     'designation_bn': JSON.parse(select_data).designation_bn,
                     'team_member_role_en': 'subTeamLeader',
