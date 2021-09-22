@@ -167,12 +167,12 @@
 
         /*duration*/
         if ($(element).hasClass('input-start-duration')) {
-            auditSchedule[designation_id][cost_center_id]['team_member_start_date'] = currentInputValue;
+            auditSchedule[designation_id][cost_center_id]['team_member_start_date'] = formatDate(currentInputValue);
         }
 
         if ($(element).hasClass('input-end-duration')) {
             let startDuration = $(element).closest('tr').find('.input-start-duration').val();
-            auditSchedule[designation_id][cost_center_id]['team_member_end_date'] = currentInputValue;
+            auditSchedule[designation_id][cost_center_id]['team_member_end_date'] = formatDate(currentInputValue);
 
             startDurationData = startDuration.split("/");
             endDurationData = currentInputValue.split("/");

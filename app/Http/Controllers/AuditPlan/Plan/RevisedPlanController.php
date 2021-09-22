@@ -179,6 +179,9 @@ class RevisedPlanController extends Controller
             $team_data[] = json_decode($team['value'])[0];
         }
         $data['teams'] = json_encode(['teams' => $team_data]);
+
+//        dd($data['teams']);
+
         $data['approve_status'] = 'approved';
         $data['cdesk'] = json_encode($this->current_desk());
 
