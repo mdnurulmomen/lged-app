@@ -61,12 +61,12 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col">
-                                <input type="text" id="audit_start_year"
+                                <input type="text" id="audit_year_start"
                                        class="year-picker form-control"
                                        placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" autocomplete="off"/>
                             </div>
                             <div class="col">
-                                <input type="text" id="audit_end_year"
+                                <input type="text" id="audit_year_end"
                                        class="year-picker form-control"
                                        placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" autocomplete="off"/>
                             </div>
@@ -76,12 +76,12 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col">
-                                <input type="text" id="team_start_year"
+                                <input type="text" id="team_start_date"
                                        class="date form-control"
                                        placeholder="সম্পাদনের সময়কাল শুরু" autocomplete="off"/>
                             </div>
                             <div class="col">
-                                <input type="text" id="team_end_year"
+                                <input type="text" id="team_end_date"
                                        class="date form-control"
                                        placeholder="সম্পাদনের সময়কাল শেষ" autocomplete="off"/>
                             </div>
@@ -184,7 +184,9 @@
                                 <div class="card-body p-0">
                                     <!--begin::Timeline-->
                                     <div class="timeline timeline-3 custom-timeline" id="customTimeline">
-                                        <form id="team_form"><div class="timeline-items " id="permitted_designations"></div></form>
+                                        <form id="team_form">
+                                            <div class="timeline-items " id="permitted_designations"></div>
+                                        </form>
                                     </div>
                                     <!--end::Timeline-->
                                 </div>
@@ -364,8 +366,6 @@
             }
             $("#permitted_level_" + layer_index + " .listed_items").append(node_html);
             // Load_Team_Container.newNodeResetSortableList($("#permitted_level_" + layer_index));
-            $('#team_information_' + layer_index).val('jjj');
-
             Load_Team_Container.addTeamInformation(layer_index, data_content.designation_id);
         },
 
@@ -379,7 +379,6 @@
 
             select_data = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-content');
             role = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role');
-
 
 
             if (role == 'teamLeader') {
@@ -400,12 +399,12 @@
                 }
 
 
-                 leader_officer_id = JSON.parse(select_data).officer_id;
-                 leader_name_bn = JSON.parse(select_data).officer_name_bn;
-                 leader_name_en = JSON.parse(select_data).officer_name_bn;
-                 leader_designation_id = JSON.parse(select_data).designation_id;
-                 leader_designation_name_en = JSON.parse(select_data).designation_en;
-                 leader_designation_name_bn = JSON.parse(select_data).designation_bn;
+                leader_officer_id = JSON.parse(select_data).officer_id;
+                leader_name_bn = JSON.parse(select_data).officer_name_bn;
+                leader_name_en = JSON.parse(select_data).officer_name_bn;
+                leader_designation_id = JSON.parse(select_data).designation_id;
+                leader_designation_name_en = JSON.parse(select_data).designation_en;
+                leader_designation_name_bn = JSON.parse(select_data).designation_bn;
 
             }
 
@@ -427,12 +426,12 @@
                     'comment': ''
                 }
 
-                 leader_officer_id = JSON.parse(select_data).officer_id;
-                 leader_name_bn = JSON.parse(select_data).officer_name_bn;
-                 leader_name_en = JSON.parse(select_data).officer_name_bn;
-                 leader_designation_id = JSON.parse(select_data).designation_id;
-                 leader_designation_name_en = JSON.parse(select_data).designation_en;
-                 leader_designation_name_bn = JSON.parse(select_data).designation_bn;
+                leader_officer_id = JSON.parse(select_data).officer_id;
+                leader_name_bn = JSON.parse(select_data).officer_name_bn;
+                leader_name_en = JSON.parse(select_data).officer_name_bn;
+                leader_designation_id = JSON.parse(select_data).designation_id;
+                leader_designation_name_en = JSON.parse(select_data).designation_en;
+                leader_designation_name_bn = JSON.parse(select_data).designation_bn;
             }
 
             if (typeof member[layer_index] === 'undefined') {
@@ -459,7 +458,7 @@
                 member[layer_index][JSON.parse(select_data).designation_id] = {
                     'team_member_name_en': JSON.parse(select_data).officer_name_en,
                     'team_member_name_bn': JSON.parse(select_data).officer_name_bn,
-                    'leader_designation_id': JSON.parse(select_data).designation_id,
+                    'designation_id': JSON.parse(select_data).designation_id,
                     'designation_en': JSON.parse(select_data).designation_en,
                     'designation_bn': JSON.parse(select_data).designation_bn,
                     'team_member_role_en': 'member',
@@ -472,12 +471,12 @@
                     'comment': ''
                 };
 
-                 leader_officer_id = JSON.parse(select_data).officer_id;
-                 leader_name_bn = JSON.parse(select_data).officer_name_bn;
-                 leader_name_en = JSON.parse(select_data).officer_name_bn;
-                 leader_designation_id = JSON.parse(select_data).designation_id;
-                 leader_designation_name_en = JSON.parse(select_data).designation_en;
-                 leader_designation_name_bn = JSON.parse(select_data).designation_bn;
+                leader_officer_id = JSON.parse(select_data).officer_id;
+                leader_name_bn = JSON.parse(select_data).officer_name_bn;
+                leader_name_en = JSON.parse(select_data).officer_name_bn;
+                leader_designation_id = JSON.parse(select_data).designation_id;
+                leader_designation_name_en = JSON.parse(select_data).designation_en;
+                leader_designation_name_bn = JSON.parse(select_data).designation_bn;
             }
 
 
@@ -495,19 +494,19 @@
             team_info[layer_index] = {
                 team_type: team_type,
                 team_name: $('#assignTeamNo').val(),
-                team_start_year: $('#team_start_year').val(),
-                team_end_year: $('#team_end_year').val(),
-                audit_start_year: $('#audit_start_year').val(),
-                audit_end_year: $('#audit_end_year').val(),
-                leader_officer_id : leader_officer_id,
-                leader_name_bn : leader_name_bn,
-                leader_name_en : leader_name_en,
-                leader_designation_id : leader_designation_id,
-                leader_designation_name_en : leader_designation_name_en,
-                leader_designation_name_bn : leader_designation_name_bn,
+                team_start_date: $('#team_start_date').val(),
+                team_end_date: $('#team_end_date').val(),
+                audit_year_start: $('#audit_year_start').val(),
+                audit_year_end: $('#audit_year_end').val(),
+                leader_officer_id: leader_officer_id,
+                leader_name_bn: leader_name_bn,
+                leader_name_en: leader_name_en,
+                leader_designation_id: leader_designation_id,
+                leader_designation_name_en: leader_designation_name_en,
+                leader_designation_name_bn: leader_designation_name_bn,
                 leader: Load_Team_Container.leader,
                 subleader: Load_Team_Container.subleader,
-                member: member[layer_index],
+                team_members: member[layer_index],
             };
             team_info.shift();
             $('#team_information_' + layer_index).val(JSON.stringify(team_info));
@@ -663,8 +662,8 @@
                 'leader_designation_id': teamLeaderDesignationId,
                 'leader_designation_name_en': teamLeaderDesignationNameEn,
                 'leader_designation_name_bn': teamLeaderDesignationNameBn,
-                'audit_year_start': $("#team_start_year").val(),
-                'audit_year_end': $("#team_end_year").val(),
+                'audit_year_start': $("#team_start_date").val(),
+                'audit_year_end': $("#team_end_date").val(),
             };
             ajaxCallAsyncCallbackAPI(urlAuditTeam, dataAuditTeam, 'POST', function (response) {
                 if (response.status === 'success') {
@@ -783,16 +782,25 @@
             audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
             activity_id = '{{$activity_id}}';
             fiscal_year_id = '{{$fiscal_year_id}}';
-            audit_start_year = $('#audit_start_year').val();
-            audit_end_year = $('#audit_end_year').val();
+            audit_year_start = $('#audit_year_start').val();
+            audit_year_end = $('#audit_year_end').val();
             teams = $("#team_form").serializeArray();
             // console.log(teams);
-            data = {annual_plan_id, activity_id, fiscal_year_id, audit_start_year ,audit_end_year, audit_plan_id, teams};
+            data = {
+                annual_plan_id,
+                activity_id,
+                fiscal_year_id,
+                audit_year_start,
+                audit_year_end,
+                audit_plan_id,
+                teams
+            };
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'error') {
-                    toastr.error('No data found');
+                if (response.status === 'success') {
+                    toastr.success(response.data);
+                    Load_Team_Container.saveAuditTeamSchedule();
                 } else {
-                    // Load_Team_Container.saveAuditTeamSchedule();
+                    toastr.error(response.data);
                     console.log(response)
                 }
             })
@@ -857,10 +865,10 @@
             // Load_Team_Container.initiateSortableList();
         },
 
-        insertAuditTeamListInBook:function (){
-            let totalAuditTeamRow = $('.audit_team_view_list tbody tr').length+1;
+        insertAuditTeamListInBook: function () {
+            let totalAuditTeamRow = $('.audit_team_view_list tbody tr').length + 1;
             let auditTeamListRow = '<tr>' +
-                '<td class="text-center">'+totalAuditTeamRow +'.</td>' +
+                '<td class="text-center">' + totalAuditTeamRow + '.</td>' +
                 '<td class="text-left"></td>' +
                 '<td class="text-center"></td>' +
                 '<td class="text-center"></td>' +
@@ -869,10 +877,10 @@
             $(".audit_team_view_list tbody").append(auditTeamListRow);
         },
 
-        insertAuditScheduleListInBook:function (){
+        insertAuditScheduleListInBook: function () {
             let totalAuditScheduleRow = $('.audit_schedule_view_list tbody tr').length;
             let auditScheduleListRow = '<tr>' +
-                '<td class="text-center">'+totalAuditScheduleRow +'.</td>' +
+                '<td class="text-center">' + totalAuditScheduleRow + '.</td>' +
                 '<td class="text-center"></td>' +
                 '<td class="text-center"></td>' +
                 '<td class="text-center"></td>' +
