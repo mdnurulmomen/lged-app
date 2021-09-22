@@ -158,11 +158,11 @@
             let selectedCostCenter = $("#" + costCenterIdAttribute + " option:selected");
             //cost_center_id = selectedCostCenter.data("cost-center-id");
             costCenterNameEn = selectedCostCenter.data("cost-center-name-en");
-            costCenterNameEn = selectedCostCenter.data("cost-center-name-bn");
+            costCenterNameBn = selectedCostCenter.data("cost-center-name-bn");
 
             auditSchedule[designation_id][cost_center_id]['cost_center_id'] = cost_center_id;
             auditSchedule[designation_id][cost_center_id]['cost_center_name_en'] = costCenterNameEn;
-            auditSchedule[designation_id][cost_center_id]['cost_center_name_en'] = costCenterNameEn;
+            auditSchedule[designation_id][cost_center_id]['cost_center_name_bn'] = costCenterNameBn;
         }
 
         /*duration*/

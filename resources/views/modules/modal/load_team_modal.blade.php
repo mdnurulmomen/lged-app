@@ -210,44 +210,6 @@
             </div>
         </div>
     </div>
-
-    {{--for audit team & audit schedule html tbl--}}
-    <div class="d-none">
-        <table class="audit_team_view_list" width="100%" border="1">
-            <thead>
-            <tr>
-                <th class="text-center" width="5%">ক্রমিক নং</th>
-                <th class="text-center" width="30%">নাম</th>
-                <th class="text-center" width="27%">পদবী</th>
-                <th class="text-center" width="15%">নিরীক্ষা দলে অবস্থান</th>
-                <th class="text-center" width="23%">মোবাইল নং</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-
-        <table class="audit_schedule_view_list" width="100%" border="1">
-            <thead>
-            <tr>
-                <th class="text-center" width="5%">ক্রমিক নং</th>
-                <th class="text-center" width="15%">শাখার নাম</th>
-                <th class="text-center" width="27%">নিরীক্ষা বছর</th>
-                <th class="text-center" width="40%">নিরীক্ষার সময়কাল</th>
-                <th class="text-center" width="13%">মোট কর্ম দিবস</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th class="text-center">১</th>
-                <th class="text-center">২</th>
-                <th class="text-center">৩</th>
-                <th class="text-center">৪</th>
-                <th class="text-center">৫</th>
-            </tr>
-            </tbody>
-        </table>
-    </div>
 </div>
 
 
@@ -354,10 +316,7 @@
                                 <p data-content='${JSON.stringify(data_content)}' data-member-role="member" data-layer="${layer_index}" class="assignedMember_${data_content.designation_id}_${layer_index} p-0 mb-0 permitted_designation" id="permitted_${data_content.designation_id}" data-id="${data_content.designation_id}">
                                     <i class="far fa-user"></i><span class="ml-2 mr-2">${html_officer}</span>
                                     <small>${data_content.designation_bn}, ${data_content.unit_name_bn}</small>`;
-            console.log(layer_index)
-            if (layer_index == 1) {
-                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader', ${data_content.designation_id})" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>দলনেতা</button>`;
-            }
+            node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader', ${data_content.designation_id})" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>দলনেতা</button>`;
 
             node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'subTeamLeader', ${data_content.designation_id})" class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>উপ দলনেতা</button>
 <button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'member', ${data_content.designation_id})" class="memberBtn btn btn-xs signatory_layer text-primary"><i data-value="1" class="far text-primary fa-check-square"></i>সদস্য</button>
@@ -382,7 +341,8 @@
 
             select_data = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-content');
             role = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role');
-            console.log(role);
+
+
             if (role == 'teamLeader') {
                 Load_Team_Container.leader = {
                     'team_member_name_en': JSON.parse(select_data).officer_name_en,
@@ -885,18 +845,105 @@
             $(".audit_team_view_list tbody").append(auditTeamListRow);
         },
 
-        insertAuditScheduleListInBook: function () {
+        //for insert audit schedule
+        insertAuditScheduleListInBook:function (){
             let totalAuditScheduleRow = $('.audit_schedule_view_list tbody tr').length;
-            let auditScheduleListRow = '<tr>' +
-                '<td class="text-center">' + totalAuditScheduleRow + '.</td>' +
-                '<td class="text-center"></td>' +
-                '<td class="text-center"></td>' +
-                '<td class="text-center"></td>' +
-                '<td class="text-center"></td>' +
-                '</tr>';
-            $(".audit_schedule_view_list tbody").append(auditScheduleListRow);
+
+            var totalTableArrayData = [];
+            for(var i in auditSchedule){
+                totalTableArrayData.push([i,auditSchedule[i]]);
+            }
+
+            for(var i=0;i<totalTableArrayData.length;i++){
+                //console.log(totalTableArrayData[i]);
+                for(var j=1;j<totalTableArrayData[i].length;j++){
+                    $(".audit_team_no_04").append(createAuditScheduleTable(totalTableArrayData[i][j]));
+                    console.log(totalTableArrayData[i][j]);
+                }
+            }
+
+            /*var resultScheduleList = [];
+            for(var scheduleData in auditSchedule){
+                for(var key in auditSchedule[scheduleData]){
+                    resultScheduleList.push([key,auditSchedule[scheduleData][key]]);
+                }
+            }
+
+            for(var startResultSchedule=0;startResultSchedule<resultScheduleList.length;startResultSchedule++){
+                for(var j=1;j<resultScheduleList[startResultSchedule].length;j++){
+                    let auditScheduleListRow = '<tr>' +
+                        '<td class="text-center">'+BnFromEng(totalAuditScheduleRow) +'</td>' +
+                        '<td class="text-center">'+resultScheduleList[startResultSchedule][j].cost_center_name_bn +'</td>' +
+                        '<td class="text-center">2019-2020</td>' +
+                        '<td class="text-center">'+BnFromEng(resultScheduleList[startResultSchedule][j].team_member_start_date) +' হতে '+
+                        BnFromEng(resultScheduleList[startResultSchedule][j].team_member_end_date)+'</td>' +
+                        '<td class="text-center">'+BnFromEng(resultScheduleList[startResultSchedule][j].activity_man_days) +'</td>' +
+                        '</tr>';
+                    $(".audit_schedule_view_list tbody").append(auditScheduleListRow);
+
+                    //console.log(resultScheduleList[startResultSchedule][j].cost_center_id);
+                }
+            }*/
+
+            //$(".audit_team_no_04").html($(".audit_schedule_view_list_container").html());
+            //$(".summernote").summernote("editor.pasteHTML", $(".audit_schedule_view_list_container").html());
         }
     };
+
+
+    function createAuditScheduleTable(scheduleList){
+        let rowNumber = 1;
+        var htmlTable = `
+            <table class="audit_schedule_view_list mt-5" width="100%" border="1">
+                <thead>
+                <tr>
+                    <th class="text-center" width="5%">ক্রমিক নং</th>
+                    <th class="text-center" width="15%">শাখার নাম</th>
+                    <th class="text-center" width="27%">নিরীক্ষা বছর</th>
+                    <th class="text-center" width="40%">নিরীক্ষার সময়কাল</th>
+                    <th class="text-center" width="13%">মোট কর্ম দিবস</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th class="text-center">১</th>
+                    <th class="text-center">২</th>
+                    <th class="text-center">৩</th>
+                    <th class="text-center">৪</th>
+                    <th class="text-center">৫</th>
+                </tr>
+        `;
+
+        for(var i in scheduleList ){
+            //console.log(scheduleList[i].cost_center_id);
+            htmlTable += '<tr>' +
+                    '<td class="text-center">'+ BnFromEng(rowNumber) +'</td>' +
+                    '<td class="text-center">'+scheduleList[i].cost_center_name_bn +'</td>' +
+                    '<td class="text-center">২০২০-২০২১</td>' +
+                    '<td class="text-center">'+BnFromEng(scheduleList[i].team_member_start_date) +' হতে '+
+                        BnFromEng(scheduleList[i].team_member_end_date)+'</td>' +
+                    '<td class="text-center">'+BnFromEng(scheduleList[i].activity_man_days) +'</td>' +
+                '</tr>';
+
+            if (scheduleList[i].team_member_activity !== ""){
+                htmlTable += '<tr>' +
+                    '<td class="text-center">'+ BnFromEng(rowNumber+1) +'</td>' +
+                    '<td colspan="4" class="text-center">'+BnFromEng(scheduleList[i].team_member_activity)+' খ্রি. '+scheduleList[i].activity_location +'</td>' +
+                    '</tr>';
+
+                rowNumber = rowNumber+2;
+            }
+            else {
+                rowNumber++;
+            }
+        }
+
+        htmlTable += ` </tbody>
+            </table>`;
+
+        return htmlTable;
+
+    }
 
 
 </script>
