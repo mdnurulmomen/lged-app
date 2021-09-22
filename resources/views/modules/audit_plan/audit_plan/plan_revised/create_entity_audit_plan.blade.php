@@ -13,7 +13,7 @@
         <div class="col-md-6">
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">
-                    <a href="{{route('audit.plan.audit.plan.all')}}">
+                    <a href="{{route('audit.plan.audit.index')}}">
                         <i title="Back To Audit Plan" class="fad fa-backward mr-3"></i>
                     </a>
                     Create Audit Plan
