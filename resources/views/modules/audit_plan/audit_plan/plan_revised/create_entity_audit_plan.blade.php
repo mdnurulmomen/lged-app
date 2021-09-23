@@ -8,7 +8,7 @@
     </style>
 @endsection
 @section('content')
-    <script src="//cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
     <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
         <div class="col-md-6">
             <div class="title py-2">
@@ -42,12 +42,6 @@
                 <div class="col-md-12">
                     <div class="p-5">
                         <div class="input-group mb-5">
-                            {{--<input class="form-control rounded-0" type="text" name="" placeholder="Add"
-                                   aria-label="Recipient's " aria-describedby="my-addon">
-                            <div class="input-group-append rounded-0">
-                                <button class="btn btn-success btn-sm btn-square" type="button"><i
-                                        class="far fa-plus"></i></button>
-                            </div>--}}
                         </div>
                         <div class="mt-5">
                             {{--<h3>Audit list</h3>--}}
@@ -84,4 +78,97 @@
     @elseif($audit_plan['audit_type'] == 'planning')
         @include('scripts.audit_plan.create.script_create_entity_compliance_audit_plan')
     @endif
+
+    <script>
+        var Create_Entity_Plan_Container = {
+            showTeamCreateModal: function (elem) {
+                url = '{{route('audit.plan.audit.editor.load-office-employee-modal')}}';
+                annual_plan_id = '{{$annual_plan_id}}';
+                activity_id = '{{$activity_id}}';
+                fiscal_year_id = '{{$fiscal_year_id}}';
+                audit_plan_id = $(".draft_entity_audit_plan").data('audit-plan-id');
+                data = {annual_plan_id, activity_id, fiscal_year_id, audit_plan_id};
+                KTApp.block('.content', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('.content');
+                    if (response.status === 'error') {
+                        toastr.error('No data found');
+                    } else {
+                        $(".load-office-wise-employee").html(response)
+                        $('#officeEmployeeModal').modal('show');
+                    }
+                })
+
+            },
+
+            draftEntityPlan: function (elem) {
+                url = '{{route('audit.plan.audit.revised.plan.save-draft-entity-audit-plan')}}';
+
+                plan_description = JSON.stringify(templateArray);
+                activity_id = elem.data('activity-id');
+                annual_plan_id = elem.data('annual-plan-id');
+                audit_plan_id = elem.data('audit-plan-id');
+
+                data = {plan_description, activity_id, annual_plan_id, audit_plan_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    if (response.status === 'success') {
+                        if (!audit_plan_id) {
+                            $('.draft_entity_audit_plan').attr('data-audit-plan-id', response.data);
+                        }
+                        toastr.success('Audit Plan Saved Successfully');
+                    } else {
+                        toastr.error('Not Saved');
+                        console.log(response)
+                    }
+                })
+            },
+
+            printPlanBook: function (elem) {
+                $('.draft_entity_audit_plan').click();
+                url = '{{route('audit.plan.audit.revised.plan.print-audit-plan')}}';
+                plan = templateArray;
+                data = {plan};
+
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(response);
+                    newDoc.close();
+                    /* myWindow = window.open("data:text/html," + encodeURIComponent(response),
+                         "_blank", "width=200,height=100");
+                     myWindow.focus();*/
+                });
+            },
+
+            generatePDF: function (elem) {
+                url = '{{route('audit.plan.audit.revised.plan.generate-audit-plan-pdf')}}';
+                plan = templateArray;
+                data = {plan};
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: data,
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function (response) {
+                        var blob = new Blob([response]);
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = "audit_plan.pdf";
+                        link.click();
+                    },
+                    error: function (blob) {
+                        toastr.error('Failed to generate PDF.')
+                        console.log(blob);
+                    }
+                });
+            },
+        };
+
+        $('.draft_entity_audit_plan').click();
+    </script>
 @endsection

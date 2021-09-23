@@ -742,43 +742,47 @@
         },
 
         saveAuditTeam: function () {
-            Load_Team_Container.insertTeamDataInBook();
-
-            {{--url = '{{route('audit.plan.audit.revised.plan.store-audit-team')}}';--}}
-            {{--annual_plan_id = '{{$annual_plan_id}}';--}}
-            {{--audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');--}}
-            {{--activity_id = '{{$activity_id}}';--}}
-            {{--fiscal_year_id = '{{$fiscal_year_id}}';--}}
-            {{--audit_year_start = $('#audit_year_start').val();--}}
-            {{--audit_year_end = $('#audit_year_end').val();--}}
-            {{--teams = $("#team_form").serializeArray();--}}
-            {{--// console.log(teams);--}}
-            {{--data = {--}}
-            {{--    annual_plan_id,--}}
-            {{--    activity_id,--}}
-            {{--    fiscal_year_id,--}}
-            {{--    audit_year_start,--}}
-            {{--    audit_year_end,--}}
-            {{--    audit_plan_id,--}}
-            {{--    teams--}}
-            {{--};--}}
-            {{--ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {--}}
-            {{--    if (response.status === 'success') {--}}
-            {{--        toastr.success(response.data);--}}
-            {{--        Load_Team_Container.saveAuditTeamSchedule();--}}
-            {{--        Load_Team_Container.insertTeamDataInBook();--}}
-            {{--    } else {--}}
-            {{--        toastr.error(response.data);--}}
-            {{--        console.log(response)--}}
-            {{--    }--}}
-            {{--})--}}
+            url = '{{route('audit.plan.audit.revised.plan.store-audit-team')}}';
+            annual_plan_id = '{{$annual_plan_id}}';
+            audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
+            activity_id = '{{$activity_id}}';
+            fiscal_year_id = '{{$fiscal_year_id}}';
+            audit_year_start = $('#audit_year_start').val();
+            audit_year_end = $('#audit_year_end').val();
+            teams = $("#team_form").serializeArray();
+            // console.log(teams);
+            data = {
+                annual_plan_id,
+                activity_id,
+                fiscal_year_id,
+                audit_year_start,
+                audit_year_end,
+                audit_plan_id,
+                teams
+            };
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'success') {
+                    toastr.success(response.data);
+                    Load_Team_Container.saveAuditTeamSchedule();
+                    Load_Team_Container.insertTeamDataInBook();
+                } else {
+                    toastr.error(response.data);
+                    console.log(response)
+                }
+            })
         },
 
         insertTeamDataInBook: function () {
             $('.audit_team_leader').html(Load_Team_Container.editor_leader_info);
+            $('.audit_team_number').html($('#permitted_level_1').find('.layer_text').html());
+            $('.proposed_date_commencement_audit').html($('#permitted_level_1').find('.layer_text').html());
+            $('.proposed_date_completion_audit').html($('#permitted_level_1').find('.layer_text').html());
             Load_Team_Container.insertAuditScheduleListInBook();
             Load_Team_Container.insertAuditTeamListInBook();
-            setJsonContentFromPlan();
+            templateArray.map(function (value, index) {
+                cover = $("#pdfContent_" + value.content_id).html();
+                value.content = cover;
+            });
         },
 
         itemStyle: function () {
