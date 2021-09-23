@@ -172,7 +172,7 @@
                                     <div
                                         class="form-group custom-form-group p-0 mb-2 d-md-flex align-items-md-center justify-content-md-between">
                                         <div class="d-flex flex-wrarp mt-3 align-items-center">
-                                            <button type="button" class="btn btn-sm btn-primary btn-square"
+                                            <button type="button" class="btn btn-sm btn-primary btn-square d-none"
                                                     id="createNewLayer" onclick="Load_Team_Container.addLayer()"><i
                                                     class="fad fa-plus"></i>নতুন তৈরি করুন
                                             </button>
@@ -217,6 +217,10 @@
     auditSchedule = {};
 
     member = {};
+    $(document).on('change','#team_end_date',function (){
+        $("#createNewLayer").removeClass('d-none');
+    })
+
     $(document).off('click', '.layer_text').on('click', '.layer_text', function () {
         $(this).attr('contenteditable', 'true');
     });

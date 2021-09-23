@@ -20,7 +20,8 @@
             <th width="3%">
                 <div class="ml-1" align="left">
                     <button type="button" onclick="Load_Team_Schedule.addAuditScheduleTblRow()"
-                            class="btn btn-warning btn-sm">+
+                            class="btn btn-warning btn-sm">
+                        <span class="fad fa-plus"></span>
                     </button>
                 </div>
             </th>
@@ -28,7 +29,7 @@
         </thead>
         <tbody data-tbody-id="{{$team_layer_id}}_1">
         <tr class='audit_schedule_row_{{$team_layer_id}}' data-layer-id="{{$team_layer_id}}"
-            data-schedule-first-row='0_0'>
+            data-audit-schedule-first-row='1_{{$team_layer_id}}'>
             <td>
                 <select id="branch_name_select_{{$team_layer_id}}_0" class="form-control input-branch-name"
                         data-id="{{$team_layer_id}}_0">
@@ -62,11 +63,13 @@
                        id="input_total_working_day_{{$team_layer_id}}_0"/>
             </td>
             <td>
-
+                <button type='button' data-row='row1' class='btn btn-danger btn-sm remove-schedule-row'>
+                    <span class='fa fa-trash'></span>
+                </button>
             </td>
         </tr>
         <tr class="audit_schedule_row_{{$team_layer_id}}" data-layer-id="{{$team_layer_id}}"
-            data-schedule-second-row='0_0'>
+            data-schedule-second-row='1_{{$team_layer_id}}'>
             <td width="20%">
                 <input type="text" data-id="{{$team_layer_id}}_0" class="date form-control input-detail-duration"/>
             </td>
@@ -83,7 +86,8 @@
         addAuditScheduleTblRow: function () {
             var totalAuditScheduleTbody = $('.audit-schedule-table tbody').length + 1;
             var totalAuditScheduleRow = $('.audit-schedule-table tbody tr').length + 1;
-            var teamScheduleHtml = "<tbody data-tbody-id='{{$team_layer_id}}_" + totalAuditScheduleTbody + "'><tr class='audit_schedule_row_{{$team_layer_id}}' data-layer-id='{{$team_layer_id}}' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + {{$team_layer_id}} + "'>";
+            var teamScheduleHtml = "<tbody data-tbody-id='{{$team_layer_id}}_" + totalAuditScheduleTbody + "'>" +
+                "<tr class='audit_schedule_row_{{$team_layer_id}}' data-layer-id='{{$team_layer_id}}' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + {{$team_layer_id}} + "'>";
             teamScheduleHtml += "<td>" +
                 "<select id='branch_name_select_{{$team_layer_id}}_" + totalAuditScheduleRow + "' class='form-control input-branch-name' data-id='{{$team_layer_id}}_" + totalAuditScheduleRow + "'>" +
                 "<option value=''>--Select--</option>" +
@@ -111,6 +115,7 @@
 
     $(document).on('click', '.remove-schedule-row', function () {
         let rowId = $(this).closest("tr").data('audit-schedule-first-row');
+        console.log(rowId)
         $('#audit_schedule_table_{{$team_layer_id}} tbody tr[data-schedule-second-row=' + rowId + ']').remove();
         $(this).closest("tr").remove();
     });
