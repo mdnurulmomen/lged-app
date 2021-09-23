@@ -791,6 +791,7 @@
             $('.proposed_date_completion_audit').html($('#permitted_level_1').find('.layer_text').html());
             Load_Team_Container.insertAuditScheduleListInBook();
             Load_Team_Container.insertAuditTeamListInBook();
+            Load_Team_Container.insertAuditFieldVisitUnitListInBook();
             templateArray.map(function (value, index) {
                 cover = $("#pdfContent_" + value.content_id).html();
                 value.content = cover;
@@ -880,42 +881,70 @@
                 //console.log(totalTableArrayData[i]);
                 for (var j = 1; j < totalTableArrayData[i].length; j++) {
                     $(".audit_team_no_04").append(createAuditScheduleTable(totalTableArrayData[i][j]));
-                    console.log(totalTableArrayData[i][j]);
+                    //console.log(totalTableArrayData[i][j]);
                 }
             }
+        },
 
-            /*var resultScheduleList = [];
-            for(var scheduleData in auditSchedule){
-                for(var key in auditSchedule[scheduleData]){
-                    resultScheduleList.push([key,auditSchedule[scheduleData][key]]);
+        //for insert audit field audit list
+        insertAuditFieldVisitUnitListInBook:function (){
+            unitVisitHtmlTable = `
+                    <table width="100%" border="1">
+                        <thead>
+                        <tr>
+                            <th class="text-center" width="10%">ক্রমিক নং</th>
+                            <th class="text-center" width="90%">শাখার নাম</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th class="text-center">১</th>
+                            <th class="text-center">২</th>
+                        </tr>
+                `;
+
+            if(!$.isEmptyObject(auditSchedule)){
+
+                resultScheduleList = [];
+                for(var scheduleData in auditSchedule){
+                    for(var key in auditSchedule[scheduleData]){
+                        resultScheduleList.push([key,auditSchedule[scheduleData][key]]);
+                    }
                 }
-            }
 
-            for(var startResultSchedule=0;startResultSchedule<resultScheduleList.length;startResultSchedule++){
-                for(var j=1;j<resultScheduleList[startResultSchedule].length;j++){
-                    let auditScheduleListRow = '<tr>' +
-                        '<td class="text-center">'+BnFromEng(totalAuditScheduleRow) +'</td>' +
-                        '<td class="text-center">'+resultScheduleList[startResultSchedule][j].cost_center_name_bn +'</td>' +
-                        '<td class="text-center">2019-2020</td>' +
-                        '<td class="text-center">'+BnFromEng(resultScheduleList[startResultSchedule][j].team_member_start_date) +' হতে '+
-                        BnFromEng(resultScheduleList[startResultSchedule][j].team_member_end_date)+'</td>' +
-                        '<td class="text-center">'+BnFromEng(resultScheduleList[startResultSchedule][j].activity_man_days) +'</td>' +
+                fieldVisitUnitList = [];
+                for(var startResultSchedule=0;startResultSchedule<resultScheduleList.length;startResultSchedule++){
+                    for(var j=1;j<resultScheduleList[startResultSchedule].length;j++){
+                        fieldVisitUnitList.push(resultScheduleList[startResultSchedule][j].cost_center_name_bn);
+                    }
+                }
+
+                var uniqueFieldVisitUnitList = [];
+                $.each(fieldVisitUnitList, function(i, el){
+                    if($.inArray(el, uniqueFieldVisitUnitList) === -1) uniqueFieldVisitUnitList.push(el);
+                });
+
+                rowNumber = 1;
+                for (var fieldVisitUnit in uniqueFieldVisitUnitList){
+                    unitVisitHtmlTable += '<tr>' +
+                        '<td class="text-center">' + BnFromEng(rowNumber) + '</td>' +
+                        '<td class="text-center">' + resultScheduleList[startResultSchedule][j].cost_center_name_bn + '</td>' +
                         '</tr>';
-                    $(".audit_schedule_view_list tbody").append(auditScheduleListRow);
-
-                    //console.log(resultScheduleList[startResultSchedule][j].cost_center_id);
+                    rowNumber++;
                 }
-            }*/
+            }
 
-            //$(".audit_team_no_04").html($(".audit_schedule_view_list_container").html());
-            //$(".summernote").summernote("editor.pasteHTML", $(".audit_schedule_view_list_container").html());
+            unitVisitHtmlTable += ` </tbody>
+            </table>`;
+
+            return unitVisitHtmlTable;
         }
     };
 
 
     function createAuditScheduleTable(scheduleList) {
-        let rowNumber = 1;
-        var htmlTable = `
+        rowNumber = 1;
+        htmlTable = `
             <table class="audit_schedule_view_list mt-5" width="100%" border="1">
                 <thead>
                 <tr>
@@ -965,6 +994,4 @@
         return htmlTable;
 
     }
-
-
 </script>
