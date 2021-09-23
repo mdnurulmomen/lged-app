@@ -728,18 +728,23 @@
         },
 
         saveAuditTeamSchedule: function () {
-            url = '{{route('audit.plan.audit.revised.plan.store-audit-team-schedule')}}';
-            schedule = {"schedule": auditSchedule}
-            team_schedules = JSON.stringify(schedule);
-            audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
-            data = {team_schedules, audit_plan_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'error') {
-                    toastr.error('No data found');
-                } else {
-                    console.log(response)
-                }
-            })
+            if ($.isEmptyObject(auditSchedule)) {
+                url = '{{route('audit.plan.audit.revised.plan.store-audit-team-schedule')}}';
+                schedule = {"schedule": auditSchedule}
+                team_schedules = JSON.stringify(schedule);
+                audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
+                data = {team_schedules, audit_plan_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    if (response.status === 'success') {
+                        toastr.success(response.data);
+                    } else {
+                        toastr.error(response.data);
+                        console.log(response)
+                    }
+                })
+            } else {
+                toastr.error('Please Make Schedule');
+            }
         },
 
         saveAuditTeam: function () {
@@ -765,12 +770,17 @@
                 if (response.status === 'success') {
                     toastr.success(response.data);
                     Load_Team_Container.saveAuditTeamSchedule();
+                    Load_Team_Container.insertTeamDataInBook();
                 } else {
                     toastr.error(response.data);
                     console.log(response)
                 }
             })
+        },
 
+        insertTeamDataInBook: function () {
+            Load_Team_Container.insertAuditScheduleListInBook();
+            Load_Team_Container.insertAuditTeamListInBook();
         },
 
         itemStyle: function () {
