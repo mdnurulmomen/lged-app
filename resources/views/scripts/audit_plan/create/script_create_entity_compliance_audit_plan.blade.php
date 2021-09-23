@@ -65,10 +65,14 @@
         $("#writing-screen-wrapper").append(dataHtml);
     }
 
-    templateArray.map(function (value, index) {
-        cover = $("#pdfContent_" + value.content_id).html();
-        value.content = cover;
-    });
+    function setJsonContentFromPlan() {
+        templateArray.map(function (value, index) {
+            cover = $("#pdfContent_" + value.content_id).html();
+            value.content = cover;
+        });
+    }
+
+    setJsonContentFromPlan();
 
 
     function setCoverInformation() {
@@ -79,34 +83,34 @@
 
         if (!isEmpty(parentOfficeOtherDataJSON)) {
             parentOfficeOtherDataJSON.map((content) => {
-                if (content.content_id === 'content_1') {
+                if (content.content_id == 'content_1') {
                     $('.entity_short_description').html(content.content)
                 }
-                if (content.content_id === 'content_1_1') {
+                if (content.content_id == 'content_1_1') {
                     $('.board_of_directors').html(content.content)
                 }
-                if (content.content_id === 'content_1_2') {
+                if (content.content_id == 'content_1_2') {
                     $('.organizational_structure').html(content.content)
                 }
-                if (content.content_id === 'content_1_3') {
+                if (content.content_id == 'content_1_3') {
                     $('.organization_manpower_summary').html(content.content)
                 }
-                if (content.content_id === 'content_2') {
+                if (content.content_id == 'content_2') {
                     $('.entity_important_features').html(content.content)
                 }
-                if (content.content_id === 'content_2_1') {
+                if (content.content_id == 'content_2_1') {
                     $('.mission').html(content.content)
                 }
-                if (content.content_id === 'content_2_2') {
+                if (content.content_id == 'content_2_2') {
                     $('.vision').html(content.content)
                 }
-                if (content.content_id === 'content_2_3') {
+                if (content.content_id == 'content_2_3') {
                     $('.financial_statements').html(content.content)
                 }
-                if (content.content_id === 'content_3') {
+                if (content.content_id == 'content_3') {
                     $('.revenue_expenditure').html(content.content)
                 }
-                if (content.content_id === 'content_4') {
+                if (content.content_id == 'content_4') {
                     $('.capital_expenditure').html(content.content)
                 }
 
@@ -215,7 +219,7 @@
         branding: false,
         content_style: "body {font-family: solaimanlipi;font-size: 13pt;}",
         fontsize_formats: "8pt 10pt 12pt 13pt 14pt 18pt 24pt 36pt",
-        font_formats:"Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Verdana=verdana,geneva; Solaimanlipi=solaimanlipi",
+        font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Verdana=verdana,geneva; Solaimanlipi=solaimanlipi",
         toolbar: ['styleselect fontselect fontsizeselect | blockquote subscript superscript',
             'undo redo | cut copy paste | bold italic | link image | alignleft aligncenter alignright alignjustify | table',
             'bullist numlist | outdent indent | advlist | autolink | lists charmap | print preview |  code'],
@@ -234,19 +238,6 @@
         gutterSize: 5,
     });
 
-    /*function showTeamCreateModal(office_id = 1) {
-        url = '{{route('audit.plan.audit.editor.load-office-employee-modal')}}';
-        data = {office_id};
-        ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-            if (response.status === 'error') {
-                toastr.error('No data found');
-            } else {
-                $(".load-office-wise-employee").html(response)
-                $('#officeEmployeeModal').modal('show');
-            }
-        })
-    }*/
-
     function showAuditScheduleModal(office_id = 1) {
         url = '{{route('audit.plan.audit.editor.load-audit-schedule-modal')}}';
         annual_plan_id = '{{$annual_plan_id}}';
@@ -264,4 +255,102 @@
         })
     }
 
+    var Create_Entity_Plan_Container = {
+        showTeamCreateModal: function (elem) {
+            url = '{{route('audit.plan.audit.editor.load-office-employee-modal')}}';
+            annual_plan_id = '{{$annual_plan_id}}';
+            activity_id = '{{$activity_id}}';
+            fiscal_year_id = '{{$fiscal_year_id}}';
+            audit_plan_id = $(".draft_entity_audit_plan").data('audit-plan-id');
+
+            data = {annual_plan_id, activity_id, fiscal_year_id, audit_plan_id};
+
+            KTApp.block('.content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('.content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".load-office-wise-employee").html(response)
+                    $('#officeEmployeeModal').modal('show');
+                }
+            })
+
+        },
+
+        draftEntityPlan: function (elem) {
+            url = '{{route('audit.plan.audit.revised.plan.save-draft-entity-audit-plan')}}';
+
+            plan_description = JSON.stringify(templateArray);
+            activity_id = elem.data('activity-id');
+            annual_plan_id = elem.data('annual-plan-id');
+            audit_plan_id = elem.data('audit-plan-id');
+
+            data = {plan_description, activity_id, annual_plan_id, audit_plan_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'success') {
+                    if (!audit_plan_id) {
+                        $('.draft_entity_audit_plan').attr('data-audit-plan-id', response.data);
+                    }
+                    toastr.success('Audit Plan Saved Successfully');
+                } else {
+                    toastr.error('Not Saved');
+                    console.log(response)
+                }
+            })
+        },
+
+        printPlanBook: function (elem) {
+
+            $('.draft_entity_audit_plan').click();
+
+            url = '{{route('audit.plan.audit.revised.plan.print-audit-plan')}}';
+            plan = templateArray;
+            data = {plan};
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                var newDoc = document.open("text/html", "replace");
+                newDoc.write(response);
+                newDoc.close();
+                /* myWindow = window.open("data:text/html," + encodeURIComponent(response),
+                     "_blank", "width=200,height=100");
+                 myWindow.focus();*/
+            });
+        },
+
+        generatePDF: function (elem) {
+            url = '{{route('audit.plan.audit.revised.plan.generate-audit-plan-pdf')}}';
+            plan = templateArray;
+            data = {plan};
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+
+                success: function (response) {
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "audit_plan.pdf";
+                    link.click();
+                },
+
+                error: function (blob) {
+                    toastr.error('Failed to generate PDF.')
+                    console.log(blob);
+                }
+
+            });
+        },
+    };
+
+    $('.draft_entity_audit_plan').click();
 </script>

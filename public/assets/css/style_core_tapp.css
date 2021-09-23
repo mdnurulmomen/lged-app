@@ -1317,7 +1317,7 @@ table {
 #split-2 .pdf-screen {
     background-color: #ffffff;
     padding: 0.5in;
-    height: 842px;
+    min-height: 842px;
     width: 595px;
     margin: 0 auto;
     margin-bottom: 20px;
