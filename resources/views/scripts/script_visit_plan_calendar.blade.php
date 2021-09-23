@@ -43,9 +43,10 @@
                             @foreach($calendar_data as $datum)
                         {
                             title: '{{$datum['cost_center_name_bn']}}',
-                            start: '{{$datum['team_member_end_date']}}',
+                            start: '{{$datum['team_member_start_date']}}',
+                            end: '{{$datum['team_member_end_date']}}',
                             description: '{{$datum['team_member_activity_description']}}',
-                            className: "fc-event-danger fc-event-solid-warning"
+                            className: "fc-event-waring fc-event-solid-primary"
                         },
                         @endforeach
                     ],
