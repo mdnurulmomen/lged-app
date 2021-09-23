@@ -351,6 +351,14 @@
             select_data = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-content');
             role = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role');
 
+            if(role == 'teamLeader'){
+                role_bn = 'দলনেতা';
+            }else if(role == 'subTeamLeader'){
+                role_bn = 'উপ দলনেতা';
+            }else if(role == 'member'){
+                role_bn = 'সদস্য';
+            }
+
             console.log(select_data);
             if (role == 'teamLeader') {
                 Load_Team_Container.leader = {
@@ -418,8 +426,8 @@
                     'designation_id': JSON.parse(select_data).designation_id,
                     'designation_en': JSON.parse(select_data).designation_en,
                     'designation_bn': JSON.parse(select_data).designation_bn,
-                    'team_member_role_en': 'subTeamLeader',
-                    'team_member_role_bn': 'উপ দলনেতা',
+                    'team_member_role_en': 'member',
+                    'team_member_role_bn': 'সদস্য',
                     'officer_mobile': JSON.parse(select_data).officer_mobile,
                     'officer_email': JSON.parse(select_data).officer_email,
                     'officer_id': JSON.parse(select_data).officer_id,
@@ -459,7 +467,7 @@
 
             team_info[layer_index] = {
                 team_type: team_type,
-                team_name: $('#permitted_level_1').find('.layer_text').html(),
+                team_name: $('#permitted_level_'+layer_index).find('.layer_text').html(),
                 team_start_date: formatDate($('#team_start_date').val()),
                 team_end_date: formatDate($('#team_end_date').val()),
                 audit_year_start: $('#audit_year_start').val(),
