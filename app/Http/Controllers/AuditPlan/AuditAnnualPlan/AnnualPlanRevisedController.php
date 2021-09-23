@@ -40,7 +40,8 @@ class AnnualPlanRevisedController extends Controller
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function showEntitySelection(Request $request)
+
+    public function showAnnualPlanEntities(Request $request)
     {
         $data = Validator::make($request->all(), [
             'activity_id' => 'required|integer',
@@ -50,7 +51,7 @@ class AnnualPlanRevisedController extends Controller
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk());
 
-        $planListResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_list_show'),
+        $planListResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_entities_list_show'),
             $data)->json();
         if (isSuccess($planListResponseData)) {
             $plan_list = $planListResponseData['data'];

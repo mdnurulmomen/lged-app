@@ -40,7 +40,7 @@
                             <td>{{$plan['controlling_office_bn']}}</td>
                             <td>{{$plan['office_type']}}</td>
                             <td>{{enTobn($plan['total_unit_no'])}}</td>
-                            <td>
+                            <td style="height:100px;overflow: hidden">
                                 @foreach(json_decode($plan['nominated_offices'],true) as $office)
                                     {{enTobn($loop->iteration)}}| {{$office['office_name_bn']}} <br>
                                 @endforeach

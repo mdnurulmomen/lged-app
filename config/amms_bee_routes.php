@@ -78,6 +78,7 @@ return [
     'audit_annual_plan_revised' => [
         'ap_yearly_plan_lists' => env('API_URL_BEE', '') . '/planning/annual-plan/all',
         'ap_yearly_plan_list_show' => env('API_URL_BEE', '') . '/planning/annual-plan/show',
+        'ap_yearly_plan_entities_list_show' => env('API_URL_BEE', '') . '/planning/annual-plan/show-entities',
         'ap_yearly_plan_submission' => env('API_URL_BEE', '') . '/planning/annual-plan/create',
         'ap_yearly_plan_book' => env('API_URL_BEE', '') . '/planning/annual-plan/book',
         'ap_submit_plan_to_ocag' => env('API_URL_BEE', '') . '/planning/annual-plan/submit-plan-to-ocag',

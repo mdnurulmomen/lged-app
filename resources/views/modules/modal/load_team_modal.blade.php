@@ -728,7 +728,7 @@
         },
 
         saveAuditTeamSchedule: function () {
-            if ($.isEmptyObject(auditSchedule)) {
+            if (!$.isEmptyObject(auditSchedule)) {
                 url = '{{route('audit.plan.audit.revised.plan.store-audit-team-schedule')}}';
                 schedule = {"schedule": auditSchedule}
                 team_schedules = JSON.stringify(schedule);
