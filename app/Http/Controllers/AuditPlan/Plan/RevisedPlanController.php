@@ -177,9 +177,10 @@ class RevisedPlanController extends Controller
         $team_data = array();
         foreach ($teams as $team) {
             $team_data[] = json_decode($team['value'])[0];
+//            dump($team_data);
         }
         $data['teams'] = json_encode(['teams' => $team_data]);
-
+//        dd($data['teams']);
 //        dd($data['teams']);
 
         $data['approve_status'] = 'approved';
@@ -201,7 +202,6 @@ class RevisedPlanController extends Controller
             'audit_plan_id' => 'required|integer',
             'team_schedules' => 'required|json',
         ])->validate();
-
         $data['cdesk'] = json_encode($this->current_desk());
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team_schedule'), $data)->json();
@@ -213,7 +213,7 @@ class RevisedPlanController extends Controller
         }
     }
 
-    public function getSubTeam(Request $request)
+    public function getSubTeam(Request $request): \Illuminate\Http\JsonResponse
     {
         $data = Validator::make($request->all(), [
             'team_id' => 'required|integer',
@@ -222,9 +222,8 @@ class RevisedPlanController extends Controller
         $data['cdesk'] = json_encode($this->current_desk());
 
         $sub_team = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_sub_team'), $data)->json();
-        dd($sub_team);
         if (isSuccess($sub_team)) {
-            return view('modules.audit_plan.audit_plan.plan_revised.partials.get_sub_team', compact('sub_team'));
+            return response()->json(['status' => 'error', 'data' => $sub_team['data']]);
         } else {
             return response()->json(['status' => 'error', 'data' => $sub_team]);
         }

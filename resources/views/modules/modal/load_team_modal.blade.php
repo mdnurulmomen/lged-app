@@ -216,7 +216,7 @@
 <script>
     auditSchedule = {};
 
-    member = [];
+    member = {};
     $(document).off('click', '.layer_text').on('click', '.layer_text', function () {
         $(this).attr('contenteditable', 'true');
     });
@@ -316,7 +316,9 @@
                                 <p data-content='${JSON.stringify(data_content)}' data-member-role="member" data-layer="${layer_index}" class="assignedMember_${data_content.designation_id}_${layer_index} p-0 mb-0 permitted_designation" id="permitted_${data_content.designation_id}" data-id="${data_content.designation_id}">
                                     <i class="far fa-user"></i><span class="ml-2 mr-2">${html_officer}</span>
                                     <small>${data_content.designation_bn}, ${data_content.unit_name_bn}</small>`;
-            node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader', ${data_content.designation_id})" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>দলনেতা</button>`;
+            if (layer_index == 1) {
+                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader', ${data_content.designation_id})" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>দলনেতা</button>`;
+            }
 
             node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'subTeamLeader', ${data_content.designation_id})" class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>উপ দলনেতা</button>
 <button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'member', ${data_content.designation_id})" class="memberBtn btn btn-xs signatory_layer text-primary"><i data-value="1" class="far text-primary fa-check-square"></i>সদস্য</button>
@@ -328,6 +330,9 @@
             }
             $("#permitted_level_" + layer_index + " .listed_items").append(node_html);
             // Load_Team_Container.newNodeResetSortableList($("#permitted_level_" + layer_index));
+            if ($("p[id^=permitted_]").length == 1) {
+                $('.teamLeaderBtn').click();
+            }
             Load_Team_Container.addTeamInformation(layer_index, data_content.designation_id);
         },
 
@@ -342,7 +347,7 @@
             select_data = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-content');
             role = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role');
 
-
+            console.log(select_data);
             if (role == 'teamLeader') {
                 Load_Team_Container.leader = {
                     'team_member_name_en': JSON.parse(select_data).officer_name_en,
@@ -399,7 +404,7 @@
             }
 
             if (typeof member[layer_index] === 'undefined') {
-                member[layer_index] = [];
+                member[layer_index] = {};
             }
 
             if (role == 'member') {
@@ -434,13 +439,6 @@
                     'office_id': JSON.parse(select_data).office_id,
                     'comment': ''
                 };
-
-                // leader_officer_id = JSON.parse(select_data).officer_id;
-                // leader_name_bn = JSON.parse(select_data).officer_name_bn;
-                // leader_name_en = JSON.parse(select_data).officer_name_bn;
-                // leader_designation_id = JSON.parse(select_data).designation_id;
-                // leader_designation_name_en = JSON.parse(select_data).designation_en;
-                // leader_designation_name_bn = JSON.parse(select_data).designation_bn;
             }
 
 
@@ -846,17 +844,17 @@
         },
 
         //for insert audit schedule
-        insertAuditScheduleListInBook:function (){
+        insertAuditScheduleListInBook: function () {
             let totalAuditScheduleRow = $('.audit_schedule_view_list tbody tr').length;
 
             var totalTableArrayData = [];
-            for(var i in auditSchedule){
-                totalTableArrayData.push([i,auditSchedule[i]]);
+            for (var i in auditSchedule) {
+                totalTableArrayData.push([i, auditSchedule[i]]);
             }
 
-            for(var i=0;i<totalTableArrayData.length;i++){
+            for (var i = 0; i < totalTableArrayData.length; i++) {
                 //console.log(totalTableArrayData[i]);
-                for(var j=1;j<totalTableArrayData[i].length;j++){
+                for (var j = 1; j < totalTableArrayData[i].length; j++) {
                     $(".audit_team_no_04").append(createAuditScheduleTable(totalTableArrayData[i][j]));
                     console.log(totalTableArrayData[i][j]);
                 }
@@ -891,7 +889,7 @@
     };
 
 
-    function createAuditScheduleTable(scheduleList){
+    function createAuditScheduleTable(scheduleList) {
         let rowNumber = 1;
         var htmlTable = `
             <table class="audit_schedule_view_list mt-5" width="100%" border="1">
@@ -914,26 +912,25 @@
                 </tr>
         `;
 
-        for(var i in scheduleList ){
+        for (var i in scheduleList) {
             //console.log(scheduleList[i].cost_center_id);
             htmlTable += '<tr>' +
-                    '<td class="text-center">'+ BnFromEng(rowNumber) +'</td>' +
-                    '<td class="text-center">'+scheduleList[i].cost_center_name_bn +'</td>' +
-                    '<td class="text-center">২০২০-২০২১</td>' +
-                    '<td class="text-center">'+BnFromEng(scheduleList[i].team_member_start_date) +' হতে '+
-                        BnFromEng(scheduleList[i].team_member_end_date)+'</td>' +
-                    '<td class="text-center">'+BnFromEng(scheduleList[i].activity_man_days) +'</td>' +
+                '<td class="text-center">' + BnFromEng(rowNumber) + '</td>' +
+                '<td class="text-center">' + scheduleList[i].cost_center_name_bn + '</td>' +
+                '<td class="text-center">২০২০-২০২১</td>' +
+                '<td class="text-center">' + BnFromEng(scheduleList[i].team_member_start_date) + ' হতে ' +
+                BnFromEng(scheduleList[i].team_member_end_date) + '</td>' +
+                '<td class="text-center">' + BnFromEng(scheduleList[i].activity_man_days) + '</td>' +
                 '</tr>';
 
-            if (scheduleList[i].team_member_activity !== ""){
+            if (scheduleList[i].team_member_activity !== "") {
                 htmlTable += '<tr>' +
-                    '<td class="text-center">'+ BnFromEng(rowNumber+1) +'</td>' +
-                    '<td colspan="4" class="text-center">'+BnFromEng(scheduleList[i].team_member_activity)+' খ্রি. '+scheduleList[i].activity_location +'</td>' +
+                    '<td class="text-center">' + BnFromEng(rowNumber + 1) + '</td>' +
+                    '<td colspan="4" class="text-center">' + BnFromEng(scheduleList[i].team_member_activity) + ' খ্রি. ' + scheduleList[i].activity_location + '</td>' +
                     '</tr>';
 
-                rowNumber = rowNumber+2;
-            }
-            else {
+                rowNumber = rowNumber + 2;
+            } else {
                 rowNumber++;
             }
         }
