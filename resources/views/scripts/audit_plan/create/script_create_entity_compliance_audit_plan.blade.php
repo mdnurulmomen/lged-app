@@ -95,9 +95,6 @@
                 if (content.content_id == 'content_1_3') {
                     $('.organization_manpower_summary').html(content.content)
                 }
-                if (content.content_id == 'content_1_2_7') {
-                    $('.field_level_visited_units_and_locations').html(createFieldVisitAuditUnitTable())
-                }
                 if (content.content_id == 'content_2') {
                     $('.entity_important_features').html(content.content)
                 }
