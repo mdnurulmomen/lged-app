@@ -791,7 +791,7 @@
             $('.proposed_date_completion_audit').html($('#permitted_level_1').find('.layer_text').html());
             Load_Team_Container.insertAuditScheduleListInBook();
             Load_Team_Container.insertAuditTeamListInBook();
-            Load_Team_Container.insertAuditFieldVisitUnitListInBook();
+            $(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
             templateArray.map(function (value, index) {
                 cover = $("#pdfContent_" + value.content_id).html();
                 value.content = cover;
@@ -924,14 +924,12 @@
                     if($.inArray(el, uniqueFieldVisitUnitList) === -1) uniqueFieldVisitUnitList.push(el);
                 });
 
-                rowNumber = 1;
-                for (var fieldVisitUnit in uniqueFieldVisitUnitList){
+                uniqueFieldVisitUnitList.forEach((unitName,index) => {
                     unitVisitHtmlTable += '<tr>' +
-                        '<td class="text-center">' + BnFromEng(rowNumber) + '</td>' +
-                        '<td class="text-center">' + resultScheduleList[startResultSchedule][j].cost_center_name_bn + '</td>' +
+                        '<td class="text-center">' + BnFromEng(index+1) + '</td>' +
+                        '<td class="text-center">' + unitName + '</td>' +
                         '</tr>';
-                    rowNumber++;
-                }
+                });
             }
 
             unitVisitHtmlTable += ` </tbody>
