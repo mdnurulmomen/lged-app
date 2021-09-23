@@ -664,7 +664,12 @@
         },
 
         deleteNode: function (type, node_id, from_tree) {
+
+            var parent_timeline_content = $('#' + node_id).closest('.timeline-content');
+            var layer_index = parent_timeline_content.data('layer_index');
+            
             if (type === 'layer') {
+                delete team_info[0];
                 $('#' + node_id + ' .permitted_designation').each(function (i, v) {
                     // $('#own_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
                     // $('#own_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
@@ -677,9 +682,6 @@
                 $('#' + node_id).remove();
                 Load_Team_Container.reorderLayer();
             } else {
-                var designation_id = node_id.match(/\d+/)[0];
-                var parent_timeline_content = $('#' + node_id).closest('.timeline-content');
-                var layer_index = parent_timeline_content.data('layer_index');
                 if (parent_timeline_content.find('.permitted_designation').length >= 1) {
                     var parentId = $('#' + node_id).parent('li').parent('ul').parent('.dragged_data_area').attr('id');
                     var clientHeight = document.getElementById(parentId).clientHeight;
@@ -692,6 +694,10 @@
                     // $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
                     // $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
                 }
+
+                const node = node_id.split("_");
+                delete team_info[0].team_members[node[1]];
+                $('#team_information_'+layer_index).val(JSON.stringify(team_info));
                 delete Load_Team_Container.selected_designation_ids[designation_id];
             }
         },
@@ -816,6 +822,7 @@
             } else {
                 subteamNumber = number - 1;
                 team_name = 'উপদল ' + enTobn(subteamNumber);
+                $("#team_schedule_layer_btn_" + 1).hide();
             }
             var level_html = `
                 <div class="custom-timeline-item timeline-item border-left-0 d-flex align-items-start" style="padding-left: 15px;">
