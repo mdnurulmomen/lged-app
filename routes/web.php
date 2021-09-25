@@ -258,6 +258,10 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::get('/office-orders', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'index'])->name('office-orders.index');
             Route::post('/load-office-orders', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'showOfficeOrderLists'])->name('office-orders.load-all');
+            Route::get('/office-order-print', function () {
+                return view('modules.audit_plan.audit_plan.plan_revised.partials.office_order_print');
+            });
+            Route::post('/load-office-orders', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'showOfficeOrderLists']);
         });
     });
 
