@@ -186,12 +186,12 @@
                     <div class="d-flex justify-content-between align-items-start">
                    <span class="input-group-text bg-transparent border-0" data-toggle="popover"
                          data-content="ডাক বাছাই করুন" data-original-title="" title="">
-                      <label class="checkbox checkbox-outline">
-                            <input data-draft-decisions="" type="checkbox"
-                                   name="daak_container_inbox_daak_list_item_checkbox" data-attention="0"
-                                   class="daak_container_inbox_daak_list_item_checkbox">
-                            <span></span>
-                      </label>
+{{--                      <label class="checkbox checkbox-outline">--}}
+{{--                            <input data-draft-decisions="" type="checkbox"--}}
+{{--                                   name="daak_container_inbox_daak_list_item_checkbox" data-attention="0"--}}
+{{--                                   class="daak_container_inbox_daak_list_item_checkbox">--}}
+{{--                            <span></span>--}}
+{{--                      </label>--}}
                    </span>
                         <div class="pr-2 flex-fill daak_list_item_clickable_area cursor-pointer position-relative"
                              did="daak_container_inbox_1_54_Daptorik">
@@ -206,7 +206,7 @@
                                                                          data-original-title="" title="">{{$datum['cost_center_name_bn']}}</a>
                                     </div>
                                     <div class=" subject-wrapper font-weight-normal font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">শুরু তারিখ:</span>
+                                        <span class="mr-2 font-size-1-1">শুরুর তারিখ:</span>
                                         <span class="description text-wrap font-size-14">{{formatDate($datum['team_member_start_date'],'bn')}}</span>
                                     </div>
                                     <div class=" subject-wrapper font-weight-normal font-weight-normal">
@@ -275,27 +275,29 @@
                                 <div class="d-flex justify-content-between align-items-start">
                                <span class="input-group-text bg-transparent border-0" data-toggle="popover"
                                      data-content="ডাক বাছাই করুন" data-original-title="" title="">
-                                  <label class="checkbox checkbox-outline">
-                                        <input data-draft-decisions="" type="checkbox"
-                                               name="daak_container_inbox_daak_list_item_checkbox" data-attention="0"
-                                               class="daak_container_inbox_daak_list_item_checkbox">
-                                        <span></span>
-                                  </label>
+{{--                                  <label class="checkbox checkbox-outline">--}}
+{{--                                        <input data-draft-decisions="" type="checkbox"--}}
+{{--                                               name="daak_container_inbox_daak_list_item_checkbox" data-attention="0"--}}
+{{--                                               class="daak_container_inbox_daak_list_item_checkbox">--}}
+{{--                                        <span></span>--}}
+{{--                                  </label>--}}
                                </span>
+                                    <span></span>
                                     <div class="pr-2 flex-fill daak_list_item_clickable_area cursor-pointer position-relative"
                                          did="daak_container_inbox_1_54_Daptorik">
                                         <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                             <!--begin::Title-->
                                             <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">
-                                                <div class="d-flex align-items-center flex-wrap  font-size-1-2"><span
-                                                        class="mr-1 "></span><a href="javascript:void(0)"
+                                                <div class="d-flex align-items-center flex-wrap  font-size-1-2">
+                                                    <span class="mr-1 "></span>
+                                                    <a href="javascript:void(0)"
                                                                                      class=" text-dark text-hover-primary font-size-h5"
                                                                                      data-toggle="popover" data-html="true"
                                                                                      data-content="উৎস : বোরহান উদ্দিন, <br/>( এডমিন স্পেশালিস্ট , এডমিন, এসপায়ার টু ইনোভেট (এটু্আই) প্রোগ্রাম)<br></a>মূল-প্রাপক: এ টি এম আল ফাত্তাহ,<br /> ( ন্যাশনাল কনসালটেন্ট, ই-সার্ভিস, এসপায়ার টু ইনোভেট (এটু্আই) প্রোগ্রাম )<br/>"
                                                                                      data-original-title="" title="">{{$datum['cost_center_name_bn']}}</a>
                                                 </div>
                                                 <div class=" subject-wrapper font-weight-normal font-weight-normal">
-                                                    <span class="mr-2 font-size-1-1">শুরু তারিখ:</span>
+                                                    <span class="mr-2 font-size-1-1">শুরুর তারিখ:</span>
                                                     <span class="description text-wrap font-size-14">{{formatDate($datum['team_member_start_date'],'bn')}}</span>
                                                 </div>
                                                 <div class=" subject-wrapper font-weight-normal font-weight-normal">
