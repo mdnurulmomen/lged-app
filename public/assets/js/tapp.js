@@ -261,7 +261,7 @@ function formatDate(data) {
   var month  = data.split("/")[1];
   var year  = data.split("/")[2];
 
-  console.log(day,month,year);
+  //console.log(day,month,year);
 
   return year + '-' + ("0"+month).slice(-2) + '-' + ("0"+day).slice(-2);
   // Utilizo o .slice(-2) para garantir o formato com 2 digitos.

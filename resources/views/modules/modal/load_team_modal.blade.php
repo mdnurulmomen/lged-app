@@ -667,7 +667,7 @@
 
             var parent_timeline_content = $('#' + node_id).closest('.timeline-content');
             var layer_index = parent_timeline_content.data('layer_index');
-            
+
             if (type === 'layer') {
                 delete team_info[0];
                 $('#' + node_id + ' .permitted_designation').each(function (i, v) {
@@ -749,6 +749,8 @@
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'success') {
                         toastr.success(response.data);
+                        $(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
+                        Load_Team_Container.insertAuditScheduleListInBook();
                     } else {
                         toastr.error(response.data);
                         console.log(response)
@@ -795,9 +797,7 @@
             $('.audit_team_number').html($('#permitted_level_1').find('.layer_text').html());
             $('.proposed_date_commencement_audit').html($('#permitted_level_1').find('.layer_text').html());
             $('.proposed_date_completion_audit').html($('#permitted_level_1').find('.layer_text').html());
-            Load_Team_Container.insertAuditScheduleListInBook();
             Load_Team_Container.insertAuditTeamListInBook();
-            $(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
             templateArray.map(function (value, index) {
                 cover = $("#pdfContent_" + value.content_id).html();
                 value.content = cover;
@@ -887,7 +887,7 @@
             for (var i = 0; i < totalTableArrayData.length; i++) {
                 //console.log(totalTableArrayData[i]);
                 for (var j = 1; j < totalTableArrayData[i].length; j++) {
-                    $(".audit_team_no_04").append(createAuditScheduleTable(totalTableArrayData[i][j]));
+                    $(".audit_team_schedules").append(createAuditScheduleTable(totalTableArrayData[i][j]));
                     //console.log(totalTableArrayData[i][j]);
                 }
             }
@@ -981,7 +981,7 @@
                 '<td class="text-center">' + BnFromEng(scheduleList[i].activity_man_days) + '</td>' +
                 '</tr>';
 
-            if (scheduleList[i].team_member_activity !== "") {
+            if (scheduleList[i].hasOwnProperty('team_member_activity')) {
                 htmlTable += '<tr>' +
                     '<td class="text-center">' + BnFromEng(rowNumber + 1) + '</td>' +
                     '<td colspan="4" class="text-center">' + BnFromEng(scheduleList[i].team_member_activity) + ' খ্রি. ' + scheduleList[i].activity_location + '</td>' +
