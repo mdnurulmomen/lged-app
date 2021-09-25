@@ -51,13 +51,6 @@
             </div>
             <div class="modal-body">
                 <div class="row pb-1">
-                    {{--                    <div class="col-md-4">--}}
-                    {{--                        <div class="form-row">--}}
-                    {{--                            <input class="form-control" id="assignTeamNo" placeholder="নিরীক্ষা নিযুক্তি দল নম্বর"--}}
-                    {{--                                   type="text" autocomplete="off">--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
-
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col">
@@ -723,6 +716,7 @@
             all_teams = {};
             layer_id = 0;
             list_group = $('[id^=list_group_]');
+            team_leader = {};
             list_group.each(function (index, value) {
                 team_members = {};
                 $('p[id^=permitted_]').each(function (i, v) {
@@ -731,6 +725,13 @@
                         layer_id == $('#' + v.id).attr('data-layer');
                     }
                     role = $('#' + v.id).attr('data-member-role');
+                    if (role == 'teamLeader') {
+                        role_bn = 'দলনেতা';
+                    } else if (role == 'subTeamLeader') {
+                        role_bn = 'উপ দলনেতা';
+                    } else if (role == 'member') {
+                        role_bn = 'সদস্য';
+                    }
                     data_content = $('#' + v.id).attr('data-content');
                     content = JSON.parse(data_content);
                     officer_id = content.officer_id;
@@ -739,12 +740,10 @@
                     if (role in team_members == false) {
                         team_members[role] = {};
                     }
+                    content['team_member_role_en'] = role;
+                    content['team_member_role_bn'] = role_bn;
                     team_members[role][officer_id] = content;
-                    if (layer_id in all_teams == false) {
-                        all_teams[layer_id] = {};
-                    }
                     team_name = $('#permitted_level_' + layer_id).find('.layer_text').html();
-                    team_type = layer_id == 1 ? 'parent' : 'sub';
                     if (layer_id == 1) {
                         team_type = 'parent';
                         if (role == 'teamLeader') {
@@ -756,6 +755,7 @@
                                 designation_id: content.designation_id,
                                 officer_id: content.officer_id,
                             };
+                            team_leader = content;
                         }
                     } else {
                         team_type = 'sub';
@@ -770,17 +770,25 @@
                             };
                         }
                     }
-                    all_teams[layer_id]['team_name'] = team_name;
-                    all_teams[layer_id]['team_type'] = team_type;
-                    all_teams[layer_id]['team_start_date'] = formatDate($('#team_start_date').val());
-                    all_teams[layer_id]['team_end_date'] = formatDate($('#team_end_date').val());
-                    all_teams[layer_id]['leader_designation_id'] = leder_info.designation_id;
-                    all_teams[layer_id]['leader_name_en'] = leder_info.name_en;
-                    all_teams[layer_id]['leader_name_bn'] = leder_info.name_bn;
-                    all_teams[layer_id]['leader_designation_en'] = leder_info.designation_en;
-                    all_teams[layer_id]['leader_designation_bn'] = leder_info.designation_bn;
-                    all_teams[layer_id]['leader_officer_id'] = leder_info.officer_id;
-                    all_teams[layer_id]['members'] = team_members;
+                    if ('all_teams' in all_teams == false) {
+                        all_teams['all_teams'] = {};
+                    }
+                    if (layer_id in all_teams == false) {
+                        all_teams['all_teams'][layer_id] = {};
+                    }
+
+                    all_teams['team_start_date'] = formatDate($('#team_start_date').val());
+                    all_teams['team_end_date'] = formatDate($('#team_end_date').val());
+                    all_teams['leader'] = team_leader;
+                    all_teams['all_teams'][layer_id]['team_name'] = team_name;
+                    all_teams['all_teams'][layer_id]['team_type'] = team_type;
+                    all_teams['all_teams'][layer_id]['leader_designation_id'] = leder_info.designation_id;
+                    all_teams['all_teams'][layer_id]['leader_name_en'] = leder_info.name_en;
+                    all_teams['all_teams'][layer_id]['leader_name_bn'] = leder_info.name_bn;
+                    all_teams['all_teams'][layer_id]['leader_designation_en'] = leder_info.designation_en;
+                    all_teams['all_teams'][layer_id]['leader_designation_bn'] = leder_info.designation_bn;
+                    all_teams['all_teams'][layer_id]['leader_officer_id'] = leder_info.officer_id;
+                    all_teams['all_teams'][layer_id]['members'] = team_members;
                 })
             })
 
@@ -796,7 +804,7 @@
             audit_year_start = $('#audit_year_start').val();
             audit_year_end = $('#audit_year_end').val();
             teams = Load_Team_Container.makeAuditTeam();
-            // console.log(teams);
+            console.log(teams);
 
             data = {
                 annual_plan_id,
@@ -807,16 +815,16 @@
                 audit_plan_id,
                 teams
             };
-            // ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-            //     if (response.status === 'success') {
-            //         toastr.success(response.data);
-            //         Load_Team_Container.saveAuditTeamSchedule();
-            //         Load_Team_Container.insertTeamDataInBook();
-            //     } else {
-            //         toastr.error(response.data);
-            //         console.log(response)
-            //     }
-            // })
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'success') {
+                    toastr.success(response.data);
+                    Load_Team_Container.saveAuditTeamSchedule();
+                    Load_Team_Container.insertTeamDataInBook();
+                } else {
+                    toastr.error(response.data);
+                    console.log(response)
+                }
+            })
         },
 
         insertTeamDataInBook: function () {

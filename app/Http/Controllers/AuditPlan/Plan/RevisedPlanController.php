@@ -154,14 +154,7 @@ class RevisedPlanController extends Controller
         ])->validate();
 
         $teams = $request->teams;
-        $team_data = array();
-        foreach ($teams as $team) {
-            $team_data[] = json_decode($team['value'])[0];
-//            dump($team_data);
-        }
-        $data['teams'] = json_encode(['teams' => $team_data]);
-//        dd($data['teams']);
-
+        $data['teams'] = json_encode(['teams' => $teams], JSON_UNESCAPED_UNICODE);
         $data['approve_status'] = 'approved';
         $data['cdesk'] = json_encode($this->current_desk());
 
