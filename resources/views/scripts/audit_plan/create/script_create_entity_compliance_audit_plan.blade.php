@@ -1,14 +1,4 @@
-<style>
-    .tox-notification.tox-notification--in.tox-notification--warning {
-        display: none !important;
-    }
-</style>
 <script>
-    $("#add").click(function () {
-        var treeList = $("a");
-        console.log('treeList', treeList);
-    });
-
     var auditPaperList = [];
     var activePdf = '';
     var templateArray = {!! $content !!};
@@ -127,88 +117,6 @@
             }
         });
     }
-
-    function checkIdAndSetContent(content) {
-        templateArray.map(function (value, index) {
-            if (value.id === activePdf) {
-                value.content = content;
-                $("#pdfContent_" + value.content_id).html(content);
-            }
-        });
-    }
-
-    var addTeamLeaderInAuditPlan = function (context) {
-        ui = $.summernote.ui;
-
-        // create button
-        var button = ui.button({
-            contents: '<i class="fad fa-users"/>',
-            tooltip: 'Office Employee',
-            click: function () {
-                //context.invoke('editor.insertText', 'Team ');
-                //$('#officeEmployeeModal').modal('show');
-                showTeamCreateModal();
-            }
-        });
-        return button.render();   // return button as jquery object
-    }
-
-    var addAuditTeamMemberAuditPlan = function (context) {
-        ui = $.summernote.ui;
-
-        // create button
-        var button = ui.button({
-            contents: '<i class="fad fa-users"/>',
-            tooltip: 'Audit Team',
-            click: function () {
-                //showTeamCreateModal();
-            }
-        });
-        return button.render();   // return button as jquery object
-    }
-
-    var addAuditScheduleCalendarAuditPlan = function (context) {
-        ui = $.summernote.ui;
-
-        // create button
-        var scheduleButton = ui.button({
-            contents: '<i class="fad fa-calendar"/>',
-            tooltip: 'Audit Schedule',
-            click: function () {
-                showAuditScheduleModal();
-            }
-        });
-        return scheduleButton.render();   // return button as jquery object
-    }
-
-    $('.summernote').summernote({
-        height: 600,
-        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'SolaimanLipi'],
-        toolbar: [
-            ['custommenu', ['addTeamLeader', 'addAuditTeamMember', 'addAuditScheduleCalendar']],
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['font', ['strikethrough', 'superscript', 'subscript']],
-            ['fontsize', ['fontsize']],
-            ['fontname', ['fontname']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']],
-            ['table', ['table']],
-        ],
-        buttons: {
-            addTeamLeader: addTeamLeaderInAuditPlan,
-            addAuditTeamMember: addAuditTeamMemberAuditPlan,
-            addAuditScheduleCalendar: addAuditScheduleCalendarAuditPlan
-        },
-        callbacks: {
-            onChange: function (contents, templateArray) {
-                if ($("#createPlanJsTree").jstree("get_selected").length === '0') {
-                } else {
-                    checkIdAndSetContent(contents);
-                }
-            }
-        }
-    });
 
     tinymce.init({
         selector: '.kt-tinymce-1',

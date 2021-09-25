@@ -5,6 +5,10 @@
             height: 78vh !important;
             font-size: 11px !important;
         }
+
+        .tox-notification.tox-notification--in.tox-notification--warning {
+            display: none !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -60,7 +64,6 @@
         </div>
         <div id="split-1">
             <textarea id="kt-tinymce-1" name="kt-tinymce-1" class="kt-tinymce-1"></textarea>
-            {{--            <div class="summernote" id="kt_summernote_1"></div>--}}
         </div>
         <div id="split-2">
             <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">

@@ -1,7 +1,18 @@
 @extends('layouts.full_width')
 @section('styles')
+    <style>
+        .tox-tinymce {
+            height: 78vh !important;
+            font-size: 11px !important;
+        }
+
+        .tox-notification.tox-notification--in.tox-notification--warning {
+            display: none !important;
+        }
+    </style>
 @endsection
 @section('content')
+    <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
     <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
         <div class="col-md-6">
             <div class="title py-2">
@@ -9,7 +20,7 @@
                     <a href="{{route('audit.plan.audit.plan.all')}}">
                         <i title="Back To Audit Plan" class="fad fa-backward mr-3"></i>
                     </a>
-                    Create Audit Plan
+                    Edit Audit Plan
                 </h4>
             </div>
         </div>
@@ -31,31 +42,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="p-5">
-                        <div class="input-group mb-5">
-                            <input class="form-control rounded-0" type="text" name="" placeholder="Add"
-                                   aria-label="Recipient's " aria-describedby="my-addon">
-                            <div class="input-group-append rounded-0">
-                                <button class="btn btn-success btn-sm btn-square" type="button"><i
-                                        class="far fa-plus"></i></button>
-                            </div>
-                        </div>
-                        <div class="mt-5">
-                            <h3>Audit list</h3>
-                        </div>
-                        <!---JS tree start---->
-                        <div id="createPlanJsTree" class="mt-5">
-                        </div>
-                        <!---JS tree end---->
-                        <div class="form-group mt-5">
-                            <input class="form-control rounded-0" type="text" name="" id="searchPlaneField"
-                                   placeholder="Search"/>
-                        </div>
+                        <div id="createPlanJsTree" class="mt-5"></div>
                     </div>
                 </div>
             </div>
         </div>
         <div id="split-1">
-            <div class="summernote" id="kt_summernote_1"></div>
+            <textarea id="kt-tinymce-1" name="kt-tinymce-1" class="kt-tinymce-1"></textarea>
         </div>
         <div id="split-2">
             <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">
@@ -64,12 +57,7 @@
     </div>
 @endsection
 @section('scripts')
-    @if($audit_plan['audit_type'] == 'compliance')
-        @include('scripts.audit_plan.edit.script_edit_entity_compliance_audit_plan')
-    @elseif($audit_plan['audit_type'] == 'planning')
-        @include('scripts.audit_plan.edit.script_edit_entity_compliance_audit_plan')
-    @endif
-F
+    @include('scripts.audit_plan.edit.script_edit_entity_compliance_audit_plan')
     <script>
         var Edit_Entity_Plan_Container = {
             draftEntityPlan: function (elem) {

@@ -97,25 +97,6 @@ class RevisedPlanController extends Controller
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function showDraftEntityAuditPlanBook(Request $request)
-    {
-        Validator::make($request->all(), [
-            'party_id' => 'required|integer',
-            'yearly_plan_rp_id' => 'required|integer',
-        ])->validate();
-        $data = [
-            'party_id' => $request->party_id,
-            'yearly_plan_rp_id' => $request->yearly_plan_rp_id,
-            'cdesk' => json_encode($this->current_desk()),
-            'lang' => 'en',
-        ];
-
-        return $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_draft_show'), $data)->json();
-    }
-
-    /**
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function saveDraftEntityAuditPlan(Request $request): \Illuminate\Http\JsonResponse
     {
         Validator::make($request->all(), [
@@ -130,7 +111,7 @@ class RevisedPlanController extends Controller
         }
         $data['activity_id'] = $request->activity_id;
         $data['annual_plan_id'] = $request->annual_plan_id;
-        $data['plan_description'] = makeEncryptedData(gzcompress(json_encode($request->plan_description)));
+        $data['plan_description'] = json_encode($request->plan_description);
         $data['cdesk'] = json_encode($this->current_desk());
         $save_draft = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_make_draft'), $data)->json();
         if (isSuccess($save_draft)) {
