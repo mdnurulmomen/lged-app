@@ -121,18 +121,18 @@
                                                             @if(!empty($designation['employee_info']))
                                                                 <li data-officer-info="{{json_encode(
     [
-        'designation_id' => $designation['designation_id'],
-        'designation_en' => $designation['designation_eng'],
-        'designation_bn' => $designation['designation_bng'],
-        'officer_name_en' => !empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : '',
-        'officer_name_bn' => !empty($designation['employee_info']) ? $designation['employee_info']['name_bng'] : '',
-        'officer_mobile' => !empty($designation['employee_info']) ? $designation['employee_info']['personal_mobile'] : '',
-        'officer_email' => !empty($designation['employee_info']) ? $designation['employee_info']['personal_email'] : '',
+        'designation_id' =>  htmlspecialchars($designation['designation_id']),
+        'designation_en' =>  htmlspecialchars($designation['designation_eng']),
+        'designation_bn' => htmlspecialchars($designation['designation_bng']),
+        'officer_name_en' =>  htmlspecialchars($designation['employee_info']['name_eng']),
+        'officer_name_bn' =>  htmlspecialchars($designation['employee_info']['name_bng']),
+        'officer_mobile' =>  htmlspecialchars($designation['employee_info']['personal_mobile']),
+        'officer_email' =>  htmlspecialchars($designation['employee_info']['personal_email']),
         'employee_grade' => !empty($designation['employee_info']['employee_grade']) ? $designation['employee_info']['employee_grade'] : '1',
-        'officer_id' => !empty($designation['employee_info']) ? $designation['employee_info']['id'] : '',
+        'officer_id' =>  htmlspecialchars($designation['employee_info']['id']),
         'unit_id' => $unit['office_unit_id'],
-        'unit_name_en' => $unit['unit_name_eng'],
-        'unit_name_bn' => $unit['unit_name_bng'],
+        'unit_name_en' => htmlspecialchars($unit['unit_name_eng']),
+        'unit_name_bn' => htmlspecialchars($unit['unit_name_bng']),
         'office_id' => $officer_list['office_id'],
         ])}}"
                                                                     data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
@@ -172,7 +172,7 @@
                                     <div
                                         class="form-group custom-form-group p-0 mb-2 d-md-flex align-items-md-center justify-content-md-between">
                                         <div class="d-flex flex-wrarp mt-3 align-items-center">
-                                            <button type="button" class="btn btn-sm btn-primary btn-square d-none"
+                                            <button type="button" class="btn btn-sm btn-primary btn-square"
                                                     id="createNewLayer" onclick="Load_Team_Container.addLayer()"><i
                                                     class="fad fa-plus"></i>নতুন তৈরি করুন
                                             </button>
@@ -215,11 +215,7 @@
 
 <script>
     auditSchedule = {};
-
     member = {};
-    $(document).on('change','#team_end_date',function (){
-        $("#createNewLayer").removeClass('d-none');
-    })
 
     $(document).off('click', '.layer_text').on('click', '.layer_text', function () {
         $(this).attr('contenteditable', 'true');
@@ -351,11 +347,11 @@
             select_data = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-content');
             role = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role');
 
-            if(role == 'teamLeader'){
+            if (role == 'teamLeader') {
                 role_bn = 'দলনেতা';
-            }else if(role == 'subTeamLeader'){
+            } else if (role == 'subTeamLeader') {
                 role_bn = 'উপ দলনেতা';
-            }else if(role == 'member'){
+            } else if (role == 'member') {
                 role_bn = 'সদস্য';
             }
 
@@ -467,7 +463,7 @@
 
             team_info[layer_index] = {
                 team_type: team_type,
-                team_name: $('#permitted_level_'+layer_index).find('.layer_text').html(),
+                team_name: $('#permitted_level_' + layer_index).find('.layer_text').html(),
                 team_start_date: formatDate($('#team_start_date').val()),
                 team_end_date: formatDate($('#team_end_date').val()),
                 audit_year_start: $('#audit_year_start').val(),
@@ -523,44 +519,6 @@
                 '<td width="35%">' + '{{$own_office}}' + '</td>' +
                 '</tr>';
             $(".assign_employee_list tbody").prepend(newRow);
-        },
-
-        addSelectedOfficeList: function (entity_info) {
-            if ($('#selected_officer_' + entity_info.officer_id).length === 0) {
-                var newRow = '<div class="mt-2" style="border: 1px solid #ebf3f2;padding: 10px" id="selected_officer_' + entity_info.officer_id + '">' +
-                    '<li  style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding:10px;">' +
-                    /*'<span onclick="Load_Team_Container.removeSelectedOfficer(' + entity_info.officer_id + ')" style="cursor:pointer;color:red;">' +
-                    '<i class="fas fa-trash-alt text-danger pr-2"></i></span>' +*/
-                    '<input  id="officer_name_' + entity_info.officer_id + '"  type="hidden" class="form-control" value="' + entity_info.officer_name_bn + '"/>' +
-                    '<i class="fa fa-user pr-2"></i>' + entity_info.officer_name_bn + ' (' + entity_info.designation_bn + ')' +
-                    '</li>' +
-                    '<div class="row">' +
-                    '<div class="col-md-4">' +
-                    '<select id="selected_officer_designation_' + entity_info.officer_id + '" name="selected_officer_designation[]" class="form-control select-select2">' +
-                    '<option value="">Select</option><option value="teamLeader">দলনেতা</option>' +
-                    '<option value="subTeamLeader">উপ দলনেতা</option><option value="member">সদস্য</option>' +
-                    '</select>' +
-                    '</div>' +
-                    '<div class="col-md-8">' +
-                    '<input data-id="' + entity_info.officer_id + '" id="selected_officer_phone_' + entity_info.officer_id + '" data-designation-id="' + entity_info.designation_id + '" data-designation-name-bn="' + entity_info.designation_bn + '" data-designation-name-en="' + entity_info.designation_en + '" type="text" name="selected_officer_phone[]" placeholder="Enter phone number" class="form-control selected_officer_phone" value=""/>' +
-                    '</div></div></div>';
-
-                $(".selected_offices").append(newRow);
-            }
-        },
-
-        removeSelectedOfficer: function (entity_id) {
-            $('#selected_officer_' + entity_id).remove();
-        },
-
-        addEmployeeToAssignEditor: function () {
-            if ($("#employee_type").val() === 'leader') {
-                localStorage.setItem("teamLeader", JSON.stringify(employees));
-            } else if ($("#employee_type").val() === 'member') {
-                localStorage.setItem("teamMember", JSON.stringify(employees));
-            }
-            $(".summernote").summernote("editor.pasteHTML", $(".assign_employee_div").html());
-            $('#officeEmployeeModal').modal('hide');
         },
 
         saveTeamMember: function () {
@@ -697,8 +655,8 @@
 
                 const node = node_id.split("_");
                 delete team_info[0].team_members[node[1]];
-                $('#team_information_'+layer_index).val(JSON.stringify(team_info));
-                delete Load_Team_Container.selected_designation_ids[designation_id];
+                $('#team_information_' + layer_index).val(JSON.stringify(team_info));
+                // delete Load_Team_Container.selected_designation_ids[designation_id];
             }
         },
 
@@ -761,6 +719,74 @@
             }
         },
 
+        makeAuditTeam: function () {
+            all_teams = {};
+            layer_id = 0;
+            list_group = $('[id^=list_group_]');
+            list_group.each(function (index, value) {
+                team_members = {};
+                $('p[id^=permitted_]').each(function (i, v) {
+                    if (layer_id != $('#' + v.id).attr('data-layer')) {
+                        team_members = {};
+                        layer_id == $('#' + v.id).attr('data-layer');
+                    }
+                    role = $('#' + v.id).attr('data-member-role');
+                    data_content = $('#' + v.id).attr('data-content');
+                    content = JSON.parse(data_content);
+                    officer_id = content.officer_id;
+                    layer_id = $('#' + v.id).attr('data-layer');
+
+                    if (role in team_members == false) {
+                        team_members[role] = {};
+                    }
+                    team_members[role][officer_id] = content;
+                    if (layer_id in all_teams == false) {
+                        all_teams[layer_id] = {};
+                    }
+                    team_name = $('#permitted_level_' + layer_id).find('.layer_text').html();
+                    team_type = layer_id == 1 ? 'parent' : 'sub';
+                    if (layer_id == 1) {
+                        team_type = 'parent';
+                        if (role == 'teamLeader') {
+                            leder_info = {
+                                name_en: content.officer_name_en,
+                                name_bn: content.officer_name_bn,
+                                designation_en: content.designation_en,
+                                designation_bn: content.designation_bn,
+                                designation_id: content.designation_id,
+                                officer_id: content.officer_id,
+                            };
+                        }
+                    } else {
+                        team_type = 'sub';
+                        if (role == 'subTeamLeader') {
+                            leder_info = {
+                                name_en: content.officer_name_en,
+                                name_bn: content.officer_name_bn,
+                                designation_en: content.designation_en,
+                                designation_bn: content.designation_bn,
+                                designation_id: content.designation_id,
+                                officer_id: content.officer_id,
+                            };
+                        }
+                    }
+                    all_teams[layer_id]['team_name'] = team_name;
+                    all_teams[layer_id]['team_type'] = team_type;
+                    all_teams[layer_id]['team_start_date'] = formatDate($('#team_start_date').val());
+                    all_teams[layer_id]['team_end_date'] = formatDate($('#team_end_date').val());
+                    all_teams[layer_id]['leader_designation_id'] = leder_info.designation_id;
+                    all_teams[layer_id]['leader_name_en'] = leder_info.name_en;
+                    all_teams[layer_id]['leader_name_bn'] = leder_info.name_bn;
+                    all_teams[layer_id]['leader_designation_en'] = leder_info.designation_en;
+                    all_teams[layer_id]['leader_designation_bn'] = leder_info.designation_bn;
+                    all_teams[layer_id]['leader_officer_id'] = leder_info.officer_id;
+                    all_teams[layer_id]['members'] = team_members;
+                })
+            })
+
+            return all_teams;
+        },
+
         saveAuditTeam: function () {
             url = '{{route('audit.plan.audit.revised.plan.store-audit-team')}}';
             annual_plan_id = '{{$annual_plan_id}}';
@@ -769,8 +795,9 @@
             fiscal_year_id = '{{$fiscal_year_id}}';
             audit_year_start = $('#audit_year_start').val();
             audit_year_end = $('#audit_year_end').val();
-            teams = $("#team_form").serializeArray();
+            teams = Load_Team_Container.makeAuditTeam();
             // console.log(teams);
+
             data = {
                 annual_plan_id,
                 activity_id,
@@ -780,16 +807,16 @@
                 audit_plan_id,
                 teams
             };
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'success') {
-                    toastr.success(response.data);
-                    Load_Team_Container.saveAuditTeamSchedule();
-                    Load_Team_Container.insertTeamDataInBook();
-                } else {
-                    toastr.error(response.data);
-                    console.log(response)
-                }
-            })
+            // ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+            //     if (response.status === 'success') {
+            //         toastr.success(response.data);
+            //         Load_Team_Container.saveAuditTeamSchedule();
+            //         Load_Team_Container.insertTeamDataInBook();
+            //     } else {
+            //         toastr.error(response.data);
+            //         console.log(response)
+            //     }
+            // })
         },
 
         insertTeamDataInBook: function () {
@@ -887,69 +914,15 @@
             for (var i = 0; i < totalTableArrayData.length; i++) {
                 //console.log(totalTableArrayData[i]);
                 for (var j = 1; j < totalTableArrayData[i].length; j++) {
-                    $(".audit_team_schedules").append(createAuditScheduleTable(totalTableArrayData[i][j]));
+                    $(".audit_team_schedules").append(Load_Team_Container.createAuditScheduleTable(totalTableArrayData[i][j]));
                     //console.log(totalTableArrayData[i][j]);
                 }
             }
         },
 
-        //for insert audit field audit list
-        insertAuditFieldVisitUnitListInBook:function (){
-            unitVisitHtmlTable = `
-                    <table width="100%" border="1">
-                        <thead>
-                        <tr>
-                            <th class="text-center" width="10%">ক্রমিক নং</th>
-                            <th class="text-center" width="90%">শাখার নাম</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th class="text-center">১</th>
-                            <th class="text-center">২</th>
-                        </tr>
-                `;
-
-            if(!$.isEmptyObject(auditSchedule)){
-
-                resultScheduleList = [];
-                for(var scheduleData in auditSchedule){
-                    for(var key in auditSchedule[scheduleData]){
-                        resultScheduleList.push([key,auditSchedule[scheduleData][key]]);
-                    }
-                }
-
-                fieldVisitUnitList = [];
-                for(var startResultSchedule=0;startResultSchedule<resultScheduleList.length;startResultSchedule++){
-                    for(var j=1;j<resultScheduleList[startResultSchedule].length;j++){
-                        fieldVisitUnitList.push(resultScheduleList[startResultSchedule][j].cost_center_name_bn);
-                    }
-                }
-
-                var uniqueFieldVisitUnitList = [];
-                $.each(fieldVisitUnitList, function(i, el){
-                    if($.inArray(el, uniqueFieldVisitUnitList) === -1) uniqueFieldVisitUnitList.push(el);
-                });
-
-                uniqueFieldVisitUnitList.forEach((unitName,index) => {
-                    unitVisitHtmlTable += '<tr>' +
-                        '<td class="text-center">' + BnFromEng(index+1) + '</td>' +
-                        '<td class="text-center">' + unitName + '</td>' +
-                        '</tr>';
-                });
-            }
-
-            unitVisitHtmlTable += ` </tbody>
-            </table>`;
-
-            return unitVisitHtmlTable;
-        }
-    };
-
-
-    function createAuditScheduleTable(scheduleList) {
-        rowNumber = 1;
-        htmlTable = `
+        createAuditScheduleTable: function (scheduleList) {
+            rowNumber = 1;
+            htmlTable = `
             <table class="audit_schedule_view_list mt-5" width="100%" border="1">
                 <thead>
                 <tr>
@@ -970,33 +943,86 @@
                 </tr>
         `;
 
-        for (var i in scheduleList) {
-            //console.log(scheduleList[i].cost_center_id);
-            htmlTable += '<tr>' +
-                '<td class="text-center">' + BnFromEng(rowNumber) + '</td>' +
-                '<td class="text-center">' + scheduleList[i].cost_center_name_bn + '</td>' +
-                '<td class="text-center">২০২০-২০২১</td>' +
-                '<td class="text-center">' + BnFromEng(scheduleList[i].team_member_start_date) + ' হতে ' +
-                BnFromEng(scheduleList[i].team_member_end_date) + '</td>' +
-                '<td class="text-center">' + BnFromEng(scheduleList[i].activity_man_days) + '</td>' +
-                '</tr>';
-
-            if (scheduleList[i].hasOwnProperty('team_member_activity')) {
+            for (var i in scheduleList) {
+                //console.log(scheduleList[i].cost_center_id);
                 htmlTable += '<tr>' +
-                    '<td class="text-center">' + BnFromEng(rowNumber + 1) + '</td>' +
-                    '<td colspan="4" class="text-center">' + BnFromEng(scheduleList[i].team_member_activity) + ' খ্রি. ' + scheduleList[i].activity_location + '</td>' +
+                    '<td class="text-center">' + BnFromEng(rowNumber) + '</td>' +
+                    '<td class="text-center">' + scheduleList[i].cost_center_name_bn + '</td>' +
+                    '<td class="text-center">২০২০-২০২১</td>' +
+                    '<td class="text-center">' + BnFromEng(scheduleList[i].team_member_start_date) + ' হতে ' +
+                    BnFromEng(scheduleList[i].team_member_end_date) + '</td>' +
+                    '<td class="text-center">' + BnFromEng(scheduleList[i].activity_man_days) + '</td>' +
                     '</tr>';
 
-                rowNumber = rowNumber + 2;
-            } else {
-                rowNumber++;
-            }
-        }
+                if (scheduleList[i].hasOwnProperty('team_member_activity')) {
+                    htmlTable += '<tr>' +
+                        '<td class="text-center">' + BnFromEng(rowNumber + 1) + '</td>' +
+                        '<td colspan="4" class="text-center">' + BnFromEng(scheduleList[i].team_member_activity) + ' খ্রি. ' + scheduleList[i].activity_location + '</td>' +
+                        '</tr>';
 
-        htmlTable += ` </tbody>
+                    rowNumber = rowNumber + 2;
+                } else {
+                    rowNumber++;
+                }
+            }
+
+            htmlTable += ` </tbody>
             </table>`;
 
-        return htmlTable;
+            return htmlTable;
 
-    }
+        },
+
+        //for insert audit field audit list
+        insertAuditFieldVisitUnitListInBook: function () {
+            unitVisitHtmlTable = `
+                    <table width="100%" border="1">
+                        <thead>
+                        <tr>
+                            <th class="text-center" width="10%">ক্রমিক নং</th>
+                            <th class="text-center" width="90%">শাখার নাম</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th class="text-center">১</th>
+                            <th class="text-center">২</th>
+                        </tr>
+                `;
+
+            if (!$.isEmptyObject(auditSchedule)) {
+
+                resultScheduleList = [];
+                for (var scheduleData in auditSchedule) {
+                    for (var key in auditSchedule[scheduleData]) {
+                        resultScheduleList.push([key, auditSchedule[scheduleData][key]]);
+                    }
+                }
+
+                fieldVisitUnitList = [];
+                for (var startResultSchedule = 0; startResultSchedule < resultScheduleList.length; startResultSchedule++) {
+                    for (var j = 1; j < resultScheduleList[startResultSchedule].length; j++) {
+                        fieldVisitUnitList.push(resultScheduleList[startResultSchedule][j].cost_center_name_bn);
+                    }
+                }
+
+                var uniqueFieldVisitUnitList = [];
+                $.each(fieldVisitUnitList, function (i, el) {
+                    if ($.inArray(el, uniqueFieldVisitUnitList) === -1) uniqueFieldVisitUnitList.push(el);
+                });
+
+                uniqueFieldVisitUnitList.forEach((unitName, index) => {
+                    unitVisitHtmlTable += '<tr>' +
+                        '<td class="text-center">' + BnFromEng(index + 1) + '</td>' +
+                        '<td class="text-center">' + unitName + '</td>' +
+                        '</tr>';
+                });
+            }
+
+            unitVisitHtmlTable += ` </tbody>
+            </table>`;
+
+            return unitVisitHtmlTable;
+        }
+    };
 </script>
