@@ -117,6 +117,7 @@ return [
     'audit_visit_plan_calendar' => [
         'individual_calendar_list' => env('API_URL_BEE', '') . '/planning/calendar/individual',
         'individual_calendar_create' => env('API_URL_BEE', '') . '/planning/calendar/individual/create',
+        'update_visit_calender_status' => env('API_URL_BEE', '') . '/planning/calendar/individual/update-visit-calender-status',
     ],
 
     'follow_up' => [

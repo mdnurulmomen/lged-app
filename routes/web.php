@@ -268,6 +268,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     Route::group(['prefix' => 'calendar/'], function () {
         Route::get('individual', [\App\Http\Controllers\AuditPlan\Calendar\IndividualCalendarController::class, 'index'])->name('calendar.individual');
         Route::get('team', [\App\Http\Controllers\AuditPlan\Calendar\IndividualCalendarController::class, 'index'])->name('calendar.team');
+        Route::post('update-visit-calender-status', [\App\Http\Controllers\AuditPlan\Calendar\IndividualCalendarController::class, 'updateVisitCalenderStatus'])->name('calendar.update-visit-calender-status');
     });
 
     //Prepare

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\AuditPlan\Calendar;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class IndividualCalendarController extends Controller
 {
@@ -14,7 +15,7 @@ class IndividualCalendarController extends Controller
 
         if (isSuccess($calendar_data)) {
             $calendar_data = $calendar_data['data'];
-            return view('modules.audit_plan.calendar.index', compact('calendar_data'));
+            return view('modules.audit_plan.calendar.calender', compact('calendar_data'));
         } else {
             return response()->json(['status' => 'error', 'data' => $calendar_data['data']]);
         }
@@ -28,6 +29,23 @@ class IndividualCalendarController extends Controller
             return response()->json(['status' => 'error', 'data' => 'Successfully saved!']);
         } else {
             return response()->json(['status' => 'error', 'data' => $calendar_data_store['data']]);
+        }
+    }
+
+    public function updateVisitCalenderStatus(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'schedule_id' => 'required|integer',
+            'status' => 'required|string',
+        ])->validate();
+
+        $data['cdesk'] = json_encode($this->current_desk());
+
+        $updateStatus = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.update_visit_calender_status'), $data)->json();
+        if (isSuccess($updateStatus)) {
+            return response()->json(['status' => 'success', 'data' => 'Status Update Successfully']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $updateStatus['data']]);
         }
     }
 }
