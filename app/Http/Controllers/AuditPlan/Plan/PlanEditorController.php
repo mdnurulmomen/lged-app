@@ -44,24 +44,7 @@ class PlanEditorController extends Controller
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_create_draft'), $data)->json();
         $audit_plan = $responseData['data'];
         $team_layer_id = $request->team_layer_id;
-
         return view('modules.audit_plan.audit_plan.plan_revised.partials.load_team_schedule',
             compact('team_layer_id', 'audit_plan'));
-    }
-
-    public function loadAuditScheduleModal(Request $request)
-    {
-        $data = Validator::make($request->all(), [
-            'activity_id' => 'required|integer',
-            'annual_plan_id' => 'required|integer',
-            'fiscal_year_id' => 'required|integer',
-        ])->validate();
-
-        //to do
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
-        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_create_draft'), $data)->json();
-        $audit_plan = $responseData['data'];
-        //dd($audit_plan);
-        return view('modules.modal.load_audit_schedule_modal', compact('audit_plan'));
     }
 }

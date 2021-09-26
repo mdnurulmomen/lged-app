@@ -251,7 +251,6 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/print-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'printAuditPlan'])->name('revised.plan.print-audit-plan');
             Route::post('/get-sub-team', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'getSubTeam'])->name('revised.plan.get-sub-team');
             Route::post('editor/load-office-employee-modal', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadOfficeEmployeeModal'])->name('editor.load-office-employee-modal');
-            Route::post('editor/load-audit-schedule-modal', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditScheduleModal'])->name('editor.load-audit-schedule-modal');
             Route::post('editor/load-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamSchedule'])->name('editor.load-audit-team-schedule');
             Route::post('/store-audit-team', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'storeAuditTeam'])->name('revised.plan.store-audit-team');
             Route::post('/store-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'storeAuditTeamSchedule'])->name('revised.plan.store-audit-team-schedule');

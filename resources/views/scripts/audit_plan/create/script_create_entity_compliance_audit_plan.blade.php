@@ -145,23 +145,4 @@
         snapOffset: 10,
         gutterSize: 5,
     });
-
-    function showAuditScheduleModal(office_id = 1) {
-        url = '{{route('audit.plan.audit.editor.load-audit-schedule-modal')}}';
-        annual_plan_id = '{{$annual_plan_id}}';
-        activity_id = '{{$activity_id}}';
-        fiscal_year_id = '{{$fiscal_year_id}}';
-
-        data = {office_id, annual_plan_id, activity_id, fiscal_year_id};
-        ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-            if (response.status === 'error') {
-                toastr.error('No data found');
-            } else {
-                $(".load-audit-schedule").html(response)
-                $('#auditScheduleModal').modal('show');
-            }
-        })
-    }
-
-
 </script>
