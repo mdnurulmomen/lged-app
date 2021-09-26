@@ -3,25 +3,25 @@
 @endphp
 
 <div class="audit_schedule_list_div">
-    <table id="audit_schedule_table_{{$team_layer_id}}" class="audit-schedule-table table table-bordered table-striped table-hover table-condensed
+    <table id="audit_schedule_table_{{$team_layer_id}}" class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm
                                             text-center">
         <thead>
         <tr>
-            <th width="50%">
+            <th width="52%">
                 শাখার নাম
             </th>
-            <th width="35%">
+            <th width="30%">
                 নিরীক্ষার সময়কাল
             </th>
 
             <th width="12%">
                 কর্ম দিবস
             </th>
-            <th width="3%">
+            <th width="6%">
                 <div class="ml-1" align="left">
-                    <button type="button" onclick="Load_Team_Schedule.addAuditScheduleTblRow()"
-                            class="btn btn-warning btn-sm">
-                        <span class="fad fa-plus"></span>
+                    <button type="button"
+                            class="btn btn-icon btn-outline-danger border-0 btn-xs mr-2 remove_audit_schedule_list_div">
+                        <span class="fal fa-trash-alt"></span>
                     </button>
                 </div>
             </th>
@@ -44,12 +44,12 @@
             </td>
             <td>
                 <div class="row">
-                    <div class="col">
+                    <div class="col pr-0">
                         <input type="text" data-id="{{$team_layer_id}}_0"
                                class="date form-control input-start-duration"
                                placeholder="শুরু"/>
                     </div>
-                    <div class="col">
+                    <div class="col pl-0">
                         <input type="text" data-id="{{$team_layer_id}}_0"
                                class="date form-control input-end-duration"
                                placeholder="শেষ"/>
@@ -62,9 +62,14 @@
                        class="form-control input-total-working-day"
                        id="input_total_working_day_{{$team_layer_id}}_0"/>
             </td>
-            <td>
-                <button type='button' data-row='row1' class='btn btn-danger btn-sm remove-schedule-row'>
-                    <span class='fa fa-trash'></span>
+            <td style="display: inline-flex;">
+                <button type="button" onclick="Load_Team_Schedule.addAuditScheduleTblRow()"
+                        class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
+                    <span class="fad fa-plus"></span>
+                </button>
+                <button type='button' data-row='row1'
+                        class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2 remove-schedule-row'>
+                    <span class='fal fa-trash-alt'></span>
                 </button>
             </td>
         </tr>
@@ -73,7 +78,7 @@
             <td width="20%">
                 <input type="text" data-id="{{$team_layer_id}}_0" class="date form-control input-detail-duration"/>
             </td>
-            <td width="80%" colspan="3">
+            <td width="72%" colspan="2">
                 <input type="text" data-id="{{$team_layer_id}}_0" class="form-control input-detail"/>
             </td>
         </tr>
@@ -99,10 +104,9 @@
             teamScheduleHtml += "<td><div class='row'><div class='col'><input type='text' " +
                 "class='date form-control input-start-duration' data-id='{{$team_layer_id}}_" + totalAuditScheduleRow + "' placeholder='শুরু'/></div><div class='col'>" +
                 "<input type='text' class='date form-control input-end-duration' data-id='{{$team_layer_id}}_" + totalAuditScheduleRow + "' placeholder='শেষ'/>" +
-                "</div></div></td>";
-
+                "</div></div></td>"
             teamScheduleHtml += "<td><input type='number' value='0' class='form-control input-total-working-day' id='input_total_working_day_{{$team_layer_id}}_" + totalAuditScheduleRow + "' data-id='{{$team_layer_id}}_" + totalAuditScheduleRow + "'/></td>";
-            teamScheduleHtml += "<td><button type='button' data-row='row" + totalAuditScheduleRow + "' class='btn btn-danger btn-sm remove-schedule-row'><span class='fa fa-trash'></span></button></td>";
+            teamScheduleHtml += "<td style='display: inline-flex'><button type='button' onclick='Load_Team_Schedule.addAuditScheduleTblRow()' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'><span class='fad fa-plus'></span></button><button type='button' data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2 remove-schedule-row'><span class='fal fa-trash-alt'></span></button></td>";
             teamScheduleHtml += "</tr>";
             teamScheduleHtml += "<tr class='audit_schedule_row_{{$team_layer_id}}' data-layer-id='{{$team_layer_id}}' data-schedule-second-row='" + totalAuditScheduleRow + "_" + {{$team_layer_id}} + "'>";
             teamScheduleHtml += "<td><input type='text' data-id='{{$team_layer_id}}_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/></td>";
@@ -118,6 +122,11 @@
         console.log(rowId)
         $('#audit_schedule_table_{{$team_layer_id}} tbody tr[data-schedule-second-row=' + rowId + ']').remove();
         $(this).closest("tr").remove();
+    });
+
+    $(document).on('click', '.remove_audit_schedule_list_div', function () {
+        $("#audit_schedule_table_{{$team_layer_id}}").remove();
+        $("#team_schedule_layer_btn_{{$team_layer_id}}").show();
     });
 
 

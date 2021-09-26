@@ -209,6 +209,8 @@
 <script>
     auditSchedule = {};
     member = {};
+    all_teams = {};
+    all_schedules = {};
 
     $(document).off('click', '.layer_text').on('click', '.layer_text', function () {
         $(this).attr('contenteditable', 'true');
@@ -505,15 +507,6 @@
             }
         },
 
-        addEmployeeToAssignedList: function (entity_info) {
-            var newRow = '<tr id="selected_rp_employee_' + entity_info.officer_id + '">' +
-                '<td width="35%">' + entity_info.officer_name_bn + '</td>' +
-                '<td width="30%">' + entity_info.designation_bn + '</td>' +
-                '<td width="35%">' + '{{$own_office}}' + '</td>' +
-                '</tr>';
-            $(".assign_employee_list tbody").prepend(newRow);
-        },
-
         saveTeamMember: function () {
             let totalSubTeamCreate = 0;
             let teamLeaderNameBn;
@@ -604,7 +597,7 @@
             data = {team_layer_id, annual_plan_id};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
-                    toastr.error('No Auditable Units Choosen.');
+                    toastr.error('No Auditable Units Chosen.');
                 } else {
                     $("#" + team_schedule_list_div).append(response);
                     $("#team_schedule_layer_btn_" + team_layer_id).hide();
@@ -711,7 +704,6 @@
         },
 
         makeAuditTeam: function () {
-            all_teams = {};
             layer_id = 0;
             list_group = $('[id^=list_group_]');
             team_leader = {};
@@ -720,6 +712,7 @@
                 $('p[id^=permitted_]').each(function (i, v) {
                     if (layer_id != $('#' + v.id).attr('data-layer')) {
                         team_members = {};
+                        team_schedule = {};
                         layer_id == $('#' + v.id).attr('data-layer');
                     }
                     role = $('#' + v.id).attr('data-member-role');
@@ -758,7 +751,7 @@
                     } else {
                         team_type = 'sub';
                         if (role == 'subTeamLeader') {
-                            leder_info = {
+                            leader_info = {
                                 name_en: content.officer_name_en,
                                 name_bn: content.officer_name_bn,
                                 designation_en: content.designation_en,
@@ -780,17 +773,43 @@
                     all_teams['leader'] = team_leader;
                     all_teams['all_teams'][layer_id]['team_name'] = team_name;
                     all_teams['all_teams'][layer_id]['team_type'] = team_type;
-                    all_teams['all_teams'][layer_id]['leader_designation_id'] = leder_info.designation_id;
-                    all_teams['all_teams'][layer_id]['leader_name_en'] = leder_info.name_en;
-                    all_teams['all_teams'][layer_id]['leader_name_bn'] = leder_info.name_bn;
-                    all_teams['all_teams'][layer_id]['leader_designation_en'] = leder_info.designation_en;
-                    all_teams['all_teams'][layer_id]['leader_designation_bn'] = leder_info.designation_bn;
-                    all_teams['all_teams'][layer_id]['leader_officer_id'] = leder_info.officer_id;
+                    all_teams['all_teams'][layer_id]['leader_designation_id'] = leader_info.designation_id;
+                    all_teams['all_teams'][layer_id]['leader_name_en'] = leader_info.name_en;
+                    all_teams['all_teams'][layer_id]['leader_name_bn'] = leader_info.name_bn;
+                    all_teams['all_teams'][layer_id]['leader_designation_en'] = leader_info.designation_en;
+                    all_teams['all_teams'][layer_id]['leader_designation_bn'] = leader_info.designation_bn;
+                    all_teams['all_teams'][layer_id]['leader_officer_id'] = leader_info.officer_id;
                     all_teams['all_teams'][layer_id]['members'] = team_members;
                 })
             })
 
             return all_teams;
+        },
+
+        makeAuditSchedule: function () {
+            $('[id^=audit_schedule_table_]').each(function (i, v) {
+                layer_id = v.id.split('_')[3]
+                leader_info = JSON.parse($('#list_group_1 [data-member-role="teamLeader"]').attr('data-content'));
+                if (leader_info.officer_id in team_schedule == false) {
+                    team_schedule[layer_id][leader_info.officer_id] = {};
+                }
+                team_schedule = {};
+                $(".audit_schedule_row_" + layer_id + " input, .audit_schedule_row_" + layer_id + " select").each(function () {
+                    schedule_data = {
+                        cost_center_id: $(this).find(':selected').attr('data-cost-center-id'),
+                        cost_center_name_en: $(this).find(':selected').attr('data-cost-center-name-en'),
+                        cost_center_name_bn: $(this).find(':selected').attr('data-cost-center-name-bn'),
+                        team_member_start_date: $(this).hasClass('input-start-duration') ? $(this).val() : '',
+                        team_member_end_date: $(this).hasClass('input-end-duration') ? $(this).val() : '',
+                        activity_man_days: $(this).hasClass('input-total-working-day') ? $(this).val() : '',
+                        activity_detail_duration: $(this).hasClass('input-detail-duration') ? $(this).val() : '',
+                        activity_detail: $(this).hasClass('input-detail') ? $(this).val() : '',
+                    };
+
+                    team_schedule[leader_info.officer_id][schedule_data.cost_center_id] = schedule_data;
+                });
+                all_schedules = team_schedule;
+            });
         },
 
         saveAuditTeam: function () {
