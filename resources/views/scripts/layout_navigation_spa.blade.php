@@ -6,12 +6,17 @@
         if (url.length < 1) {
             url = menuItem.attr('href');
         }
+        KTApp.block('#kt_content', {
+            opacity: 0.1,
+            state: 'primary' // a bootstrap color
+        });
         $.ajax({
             async: true,
             type: "GET",
             url: url,
             cache: false,
             success: function (data, textStatus) {
+                KTApp.unblock('#kt_content');
                 if (data.status === 'error') {
                     toastr.error(data.data.error);
                 } else {
@@ -23,6 +28,7 @@
                 }
             },
             error: function (data) {
+                KTApp.unblock('#kt_content');
                 console.log(data)
                 if (data.status === 404) {
                     toastr.error(data.statusText);
