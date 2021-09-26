@@ -684,7 +684,8 @@
         saveAuditTeamSchedule: function () {
             if (!$.isEmptyObject(auditSchedule)) {
                 url = '{{route('audit.plan.audit.revised.plan.store-audit-team-schedule')}}';
-                schedule = {"schedule": auditSchedule}
+                schedule_data = Load_Team_Container.makeAuditSchedule();
+                schedule = {"schedule": schedule_data}
                 team_schedules = JSON.stringify(schedule);
                 audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
                 data = {team_schedules, audit_plan_id};
@@ -787,29 +788,71 @@
         },
 
         makeAuditSchedule: function () {
+            team_schedule = {};
             $('[id^=audit_schedule_table_]').each(function (i, v) {
                 layer_id = v.id.split('_')[3]
-                leader_info = JSON.parse($('#list_group_1 [data-member-role="teamLeader"]').attr('data-content'));
-                if (leader_info.officer_id in team_schedule == false) {
-                    team_schedule[layer_id][leader_info.officer_id] = {};
+                if ($('[id^=permitted_level_]').count == 1) {
+                    leader_info = JSON.parse($('#list_group_' + layer_id + ' [data-member-role="teamLeader"]').attr('data-content'));
+                } else {
+                    leader_info = JSON.parse($('#list_group_' + layer_id + ' [data-member-role="subTeamLeader"]').attr('data-content'));
                 }
-                team_schedule = {};
+                if (leader_info.officer_id in team_schedule == false) {
+                    team_schedule[leader_info.officer_id] = {};
+                }
+                cost_center_id = '';
+                cost_center_name_en = '';
+                cost_center_name_bn = '';
+                team_member_start_date = '';
+                team_member_end_date = '';
+                activity_man_days = '';
+                activity_detail_date = '';
+                activity_details = '';
                 $(".audit_schedule_row_" + layer_id + " input, .audit_schedule_row_" + layer_id + " select").each(function () {
+                    if ($(this).is("select")) {
+                        cost_center_id = $(this).find(':selected').attr('data-cost-center-id');
+                        cost_center_name_en = $(this).find(':selected').attr('data-cost-center-name-en');
+                        cost_center_name_bn = $(this).find(':selected').attr('data-cost-center-name-bn');
+                    }
+
+                    if (!$(this).is('select')) {
+                        if ($(this).hasClass('input-start-duration')) {
+                            team_member_start_date = $(this).val();
+                        }
+                        if ($(this).hasClass('input-end-duration')) {
+                            team_member_end_date = $(this).val();
+                        }
+                        if ($(this).hasClass('input-total-working-day')) {
+                            activity_man_days = $(this).val();
+                        }
+                        if ($(this).hasClass('input-detail-duration')) {
+                            activity_detail_date = $(this).val();
+                        }
+                        if ($(this).hasClass('input-detail')) {
+                            activity_details = $(this).val();
+                        }
+                    }
+
                     schedule_data = {
-                        cost_center_id: $(this).find(':selected').attr('data-cost-center-id'),
-                        cost_center_name_en: $(this).find(':selected').attr('data-cost-center-name-en'),
-                        cost_center_name_bn: $(this).find(':selected').attr('data-cost-center-name-bn'),
-                        team_member_start_date: $(this).hasClass('input-start-duration') ? $(this).val() : '',
-                        team_member_end_date: $(this).hasClass('input-end-duration') ? $(this).val() : '',
-                        activity_man_days: $(this).hasClass('input-total-working-day') ? $(this).val() : '',
-                        activity_detail_duration: $(this).hasClass('input-detail-duration') ? $(this).val() : '',
-                        activity_detail: $(this).hasClass('input-detail') ? $(this).val() : '',
+                        cost_center_id,
+                        cost_center_name_en,
+                        team_member_start_date,
+                        team_member_end_date,
+                        activity_man_days,
+                        activity_detail_date,
+                        activity_details,
                     };
 
-                    team_schedule[leader_info.officer_id][schedule_data.cost_center_id] = schedule_data;
+                    if (schedule_data.cost_center_id in team_schedule[leader_info.officer_id] == false && typeof schedule_data.cost_center_id !== 'undefined') {
+                        team_schedule[leader_info.officer_id][schedule_data.cost_center_id] = {};
+                    }
+                    if (typeof schedule_data.cost_center_id !== 'undefined') {
+                        team_schedule[leader_info.officer_id][schedule_data.cost_center_id] = schedule_data;
+                    }
+
                 });
-                all_schedules = team_schedule;
             });
+            all_schedules = team_schedule;
+            return all_schedules;
         },
 
         saveAuditTeam: function () {
@@ -821,7 +864,6 @@
             audit_year_start = $('#audit_year_start').val();
             audit_year_end = $('#audit_year_end').val();
             teams = Load_Team_Container.makeAuditTeam();
-            console.log(teams);
 
             data = {
                 annual_plan_id,
