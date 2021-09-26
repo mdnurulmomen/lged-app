@@ -601,12 +601,10 @@
         loadTeamSchedule: function (team_schedule_list_div, team_layer_id) {
             url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
             annual_plan_id = '{{$annual_plan_id}}';
-            activity_id = '{{$activity_id}}';
-            fiscal_year_id = '{{$fiscal_year_id}}';
-            data = {team_layer_id, annual_plan_id, activity_id, fiscal_year_id};
+            data = {team_layer_id, annual_plan_id};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
-                    toastr.error('No data found');
+                    toastr.error('No Auditable Units Choosen.');
                 } else {
                     $("#" + team_schedule_list_div).append(response);
                     $("#team_schedule_layer_btn_" + team_layer_id).hide();

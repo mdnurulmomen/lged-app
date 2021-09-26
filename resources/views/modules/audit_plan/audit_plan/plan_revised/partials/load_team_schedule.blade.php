@@ -1,5 +1,5 @@
 @php
-    $nominatedOffices = json_decode($audit_plan['annual_plan']['nominated_offices'],true);
+    $nominatedOffices = json_decode($nominated_offices['nominated_offices'], true);
 @endphp
 
 <div class="audit_schedule_list_div">
