@@ -10,7 +10,7 @@ class IndividualCalendarController extends Controller
 {
     public function index()
     {
-        $data['cdesk'] = json_encode($this->current_desk());
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $calendar_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.individual_calendar_list'), $data)->json();
 
         if (isSuccess($calendar_data)) {
@@ -23,7 +23,7 @@ class IndividualCalendarController extends Controller
 
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        $data['cdesk'] = json_encode($this->current_desk());
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $calendar_data_store = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.individual_calendar_create'), $data)->json();
         if (isSuccess($calendar_data_store)) {
             return response()->json(['status' => 'error', 'data' => 'Successfully saved!']);
@@ -39,7 +39,7 @@ class IndividualCalendarController extends Controller
             'status' => 'required|string',
         ])->validate();
 
-        $data['cdesk'] = json_encode($this->current_desk());
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
 
         $updateStatus = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.update_visit_calender_status'), $data)->json();
         if (isSuccess($updateStatus)) {

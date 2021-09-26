@@ -24,7 +24,7 @@ class PlanController extends Controller
             'per_page' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk());
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $all_entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data)->json();
         if (isSuccess($all_entities)) {
             $all_entities = $all_entities['data'];
@@ -79,7 +79,7 @@ class PlanController extends Controller
         $data = [
             'party_id' => $request->party_id,
             'yearly_plan_rp_id' => $request->yearly_plan_rp_id,
-            'cdesk' => json_encode($this->current_desk()),
+            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
             'lang' => 'en',
         ];
 
@@ -101,7 +101,7 @@ class PlanController extends Controller
             'ap_organization_yearly_plan_rp_id' => $request->yearly_plan_rp_id,
             'plan_description' => makeEncryptedData(json_encode($request->plan_description)),
         ];
-        $data['cdesk'] = json_encode($this->current_desk());
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $data['plan'] = json_encode($plan);
         $save_draft = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_make_draft'), $data)->json();
         if (isSuccess($save_draft)) {

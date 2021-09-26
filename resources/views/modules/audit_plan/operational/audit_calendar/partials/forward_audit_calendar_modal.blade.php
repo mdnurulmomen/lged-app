@@ -17,15 +17,15 @@
                                                 <li data-officer-info="{{json_encode(
     [
         'designation_id' => $designation['designation_id'],
-        'designation_en' => $designation['designation_eng'],
-        'designation_bn' => $designation['designation_bng'],
+        'designation_en' => htmlspecialchars($designation['designation_eng']),
+        'designation_bn' => htmlspecialchars($designation['designation_bng']),
         'officer_name' => !empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : '',
         'officer_id' => !empty($designation['employee_info']) ? $designation['employee_info']['id'] : '',
         'unit_id' => $unit['office_unit_id'],
-        'unit_name_en' => $unit['unit_name_eng'],
-        'unit_name_bn' => $unit['unit_name_bng'],
+        'unit_name_en' => htmlspecialchars($unit['unit_name_eng']),
+        'unit_name_bn' => htmlspecialchars($unit['unit_name_bng']),
         'office_id' => $officer_list['office_id'],
-        ])}}"
+        ], JSON_UNESCAPED_UNICODE)}}"
                                                     data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
                                                     {{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}
                                                     <small>{{$designation['designation_eng']}}</small>

@@ -14,7 +14,7 @@
         'controlling_office_id' => $rp_office['controlling_office'] == null?"":$rp_office['controlling_office']['id'],
         'controlling_office_name_bn' => $rp_office['controlling_office'] == null?"":$rp_office['controlling_office']['office_name_bn'],
         'controlling_office_name_en' => $rp_office['controlling_office'] == null?"":$rp_office['controlling_office']['office_name_en'],
-        ])}}" data-jstree='{ "opened" : true }'>
+        ], JSON_UNESCAPED_UNICODE)}}" data-jstree='{ "opened" : true }'>
             {{$rp_office['office_name_en']}}
             @if(count($rp_office['child']) > 0)
                 @include('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices_child',

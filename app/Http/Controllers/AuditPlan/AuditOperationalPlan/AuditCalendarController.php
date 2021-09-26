@@ -41,7 +41,7 @@ class AuditCalendarController extends Controller
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk());
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $create_calendar = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_audit_calendar_create'), $data)->json();
 
         if (isSuccess($create_calendar)) {
@@ -154,7 +154,7 @@ class AuditCalendarController extends Controller
             'comment_en' => 'nullable|string',
             'comment_bn' => 'required|string',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk());
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
 
         $activityComment = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_comment_update'), $data)->json();
 
@@ -235,7 +235,7 @@ class AuditCalendarController extends Controller
         }
 
         $data = [
-            'designations' => json_encode($designations),
+            'designations' => json_encode($designations, JSON_UNESCAPED_UNICODE),
             'audit_calendar_master_id' => $audit_calendar_master_id,
             'sent_by' => $this->getOfficerId(),
         ];

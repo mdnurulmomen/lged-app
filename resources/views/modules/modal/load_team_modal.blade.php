@@ -127,7 +127,7 @@
         'unit_name_en' => htmlspecialchars($unit['unit_name_eng']),
         'unit_name_bn' => htmlspecialchars($unit['unit_name_bng']),
         'office_id' => $officer_list['office_id'],
-        ])}}"
+        ], JSON_UNESCAPED_UNICODE)}}"
                                                                     data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
                                                                     {{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}
                                                                     <small>{{$designation['designation_eng']}}</small>
