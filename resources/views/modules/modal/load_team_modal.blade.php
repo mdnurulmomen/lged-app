@@ -885,6 +885,7 @@
                     schedule_data = {
                         cost_center_id,
                         cost_center_name_en,
+                        cost_center_name_bn,
                         team_member_start_date,
                         team_member_end_date,
                         activity_man_days,

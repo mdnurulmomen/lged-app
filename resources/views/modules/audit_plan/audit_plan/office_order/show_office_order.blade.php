@@ -66,7 +66,7 @@
             </div>
 
             @foreach($audit_team_schedules as $audit_team_schedule)
-                @if($audit_team_schedule['team_parent_id'] == 1)
+                @if($audit_team_schedule['team_schedules'] != null)
                     <div style="font-family:SolaimanLipi,serif !important;text-align: center;margin-top: 10px">
                         <b><u>{{$audit_team_schedule['team_name']}}</u></b>
                     </div>
@@ -125,7 +125,7 @@
                                 @php $totalActivityManDays= $totalActivityManDays+$team_schedule['activity_man_days']; @endphp
                                 <tr>
                                     <td style="text-align: center">{{enTobn($scheduleSl)}}.</td>
-                                    <td style="text-align: left">{{$team_schedule['cost_center_name_en']}}</td>
+                                    <td style="text-align: left">{{$team_schedule['cost_center_name_bn']}}</td>
                                     <td style="text-align: center">{{enTobn($audit_team_schedule['audit_year_start'])}}-{{enTobn($audit_team_schedule['audit_year_end'])}}</td>
                                     <td style="text-align: center">{{enTobn(date('d/m/Y',strtotime($team_schedule['team_member_start_date'])))}} খ্রি.
                                         হতে {{enTobn(date('d/m/Y',strtotime($team_schedule['team_member_end_date'])))}} খ্রি.
