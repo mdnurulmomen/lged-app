@@ -27,16 +27,23 @@
                     </td>
                     <td>
                         <div class="action-group d-flex justify-content-end action-group-wrapper">
-                            <a href="javascript:;" type="button" class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"
-                               data-audit-plan-id="{{$audit_plan['id']}}"
-                               data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
-                               onclick="Office_Order_Container.loadOfficeOrderGenerateModal($(this))">
-                                <i class="fa fa-archive"></i>
-                            </a>
-                            <button class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                    data-audit-plan-id="{{$audit_plan['id']}}" onclick="Office_Order_Container.showOfficeOrder($(this))" type="button">
-                                <i class="fad fa-eye"></i>
-                            </button>
+                                <a href="javascript:;" type="button" class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"
+                                   data-audit-plan-id="{{$audit_plan['id']}}"
+                                   data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                                   onclick="Office_Order_Container.loadOfficeOrderGenerateModal($(this))">
+                                    @if($audit_plan['has_office_order'] == 0)
+                                        <i class="fa fa-archive"></i>
+                                    @else
+                                        <i class="fa fa-edit"></i>
+                                    @endif
+                                </a>
+
+                            @if($audit_plan['has_office_order'] == 1)
+                                <button class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                        data-audit-plan-id="{{$audit_plan['id']}}" data-annual-plan-id="{{$audit_plan['annual_plan_id']}}" onclick="Office_Order_Container.showOfficeOrder($(this))" type="button">
+                                    <i class="fad fa-eye"></i>
+                                </button>
+                            @endif
                         </div>
                     </td>
                 </tr>
@@ -76,6 +83,8 @@
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
                     toastr.success('Successfully Office Order Generated!');
+                    $("#officeOrderGenerateModal").hide();
+                    $('.ki-close').click();
                 }
                 else {
                     if (response.statusCode === '422') {
@@ -96,7 +105,9 @@
         showOfficeOrder: function (elem) {
             url = '{{route('audit.plan.audit.office-orders.show-office-order')}}';
             audit_plan_id = elem.data('audit-plan-id');
-            data = {audit_plan_id}
+            annual_plan_id = elem.data('annual-plan-id');
+            is_print = 0;
+            data = {audit_plan_id,annual_plan_id,is_print}
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)

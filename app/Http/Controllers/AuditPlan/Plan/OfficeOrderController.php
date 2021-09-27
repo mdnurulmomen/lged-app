@@ -25,6 +25,15 @@ class OfficeOrderController extends Controller
     }
 
     public function loadOfficeOrderGenerateModal(Request $request){
+        $requestData = [
+            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+            'audit_plan_id' => $request->audit_plan_id,
+            'annual_plan_id' => $request->annual_plan_id,
+        ];
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_office_order'), $requestData)->json();
+        //dd($responseData);
+        $data['office_order'] = isSuccess($responseData)?$responseData['data']['office_order']:'';
         $data['audit_plan_id'] = $request->audit_plan_id;
         $data['annual_plan_id'] = $request->annual_plan_id;
         return view('modules.modal.load_office_order_generate_modal',$data);
@@ -35,36 +44,25 @@ class OfficeOrderController extends Controller
         $requestData = [
             'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
             'audit_plan_id' => $request->audit_plan_id,
+            'annual_plan_id' => $request->annual_plan_id,
         ];
-
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_office_order'), $requestData)->json();
         //dd($responseData);
-        if (isSuccess($responseData)) {
-            $data['office_order'] = $responseData['data'];
-        } else {
-            $data['office_order'] = [];
+        if(isSuccess($responseData)){
+            $data['office_order'] = $responseData['data']['office_order'];
+            $data['audit_team_members'] = $responseData['data']['audit_team_members'];
+            $data['audit_team_schedules'] = $responseData['data']['audit_team_schedules'];
+            if ($request->is_print == 0){
+                return view('modules.audit_plan.audit_plan.office_order.show_office_order',$data);
+            }
+            elseif($request->is_print == 1){
+                return view('modules.audit_plan.audit_plan.office_order.print_office_order',$data);
+            }
+        } else{
+            return response()->json(['status' => 'error', 'data' => $responseData]);
         }
-
-        return view('modules.audit_plan.audit_plan.office_order.show_office_order',$data);
     }
 
-    public function printOfficeOrder(Request $request)
-    {
-        $requestData = [
-            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
-            'audit_plan_id' => $request->audit_plan_id,
-        ];
-
-        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_office_order'), $requestData)->json();
-        //dd($responseData);
-        if (isSuccess($responseData)) {
-            $data['office_order'] = $responseData['data'];
-        } else {
-            $data['office_order'] = [];
-        }
-
-        return view('modules.audit_plan.audit_plan.office_order.print_office_order',$data);
-    }
 
     public function generateOfficeOrder(Request $request): \Illuminate\Http\JsonResponse
     {
