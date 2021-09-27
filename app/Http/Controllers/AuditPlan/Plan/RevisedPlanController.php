@@ -88,7 +88,8 @@ class RevisedPlanController extends Controller
             $content = json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])));
             $activity_id = $audit_plan['activity_id'];
             $annual_plan_id = $audit_plan['annual_plan_id'];
-            return view('modules.audit_plan.audit_plan.plan_revised.edit_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan', 'content'));
+            $fiscal_year_id = $request->fiscal_year_id;
+            return view('modules.audit_plan.audit_plan.plan_revised.edit_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan', 'content', 'fiscal_year_id'));
         } else {
             return ['status' => 'error', 'data' => $audit_plan];
         }

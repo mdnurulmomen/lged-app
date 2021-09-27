@@ -26,6 +26,10 @@
         </div>
         <div class="col-md-6 text-right">
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
+                    onclick="Edit_Entity_Plan_Container.showTeamCreateModal($(this));">Team <i
+                    class="fas fa-users"></i>
+            </button>
+            <button class="btn btn-sm btn-square btn-primary btn-hover-success"
                     onclick="Edit_Entity_Plan_Container.printPlanBook($(this))">PDF <i class="fas fa-save"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success draft_entity_audit_plan"
@@ -55,11 +59,35 @@
             </div>
         </div>
     </div>
+    <div class="load-office-wise-employee"></div>
 @endsection
 @section('scripts')
     @include('scripts.audit_plan.edit.script_edit_entity_compliance_audit_plan')
     <script>
         var Edit_Entity_Plan_Container = {
+
+            showTeamCreateModal: function (elem) {
+                url = '{{route('audit.plan.audit.editor.load-audit-team-modal')}}';
+                annual_plan_id = '{{$annual_plan_id}}';
+                activity_id = '{{$activity_id}}';
+                fiscal_year_id = '{{$fiscal_year_id}}';
+                audit_plan_id = '{{$audit_plan['id']}}';
+                data = {annual_plan_id, activity_id, fiscal_year_id, audit_plan_id};
+                KTApp.block('.content', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('.content');
+                    if (response.status === 'error') {
+                        toastr.error('No data found');
+                    } else {
+                        $(".load-office-wise-employee").html(response)
+                        $('#officeEmployeeModal').modal('show');
+                    }
+                })
+            },
+
             draftEntityPlan: function (elem) {
                 url = '{{route('audit.plan.audit.revised.plan.save-draft-entity-audit-plan')}}';
 
