@@ -200,7 +200,7 @@
                                                                     class="d-flex align-items-center justify-content-between mb-0 mt-0">
                                                                     <div class="mr-2">
                                                                         <button type="button"
-                                                                                id="team_schedule_layer_btn_1"
+                                                                                id="team_schedule_layer_btn_{{$value['id']}}"
                                                                                 onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$value['id']}}','{{$value['id']}}')"
                                                                                 class="justify-self-end text-danger btn btn-icon btn-md">
                                                                             <i class="text-primary far fa-calendar-alt"></i>
@@ -213,51 +213,66 @@
                                                             <ul class="listed_items rounded-0 list-group"
                                                                 id="list_group_{{$value['id']}}">
                                                                 <li class="list-group-item overflow-hidden p-1 dummy_li"></li>
+                                                                @php
+                                                                    $team_members = json_decode($value['team_members'],true);
+                                                                @endphp
 
-
-
-                                                                <li id="designtion_1"
+                                                                @foreach($team_members as $key => $member_info)
+                                                                    @foreach($member_info as $officer_id => $member)
+                                                                        @if($value['team_parent_id'] > 0)
+                                                                            @if($member['team_member_role_en'] == 'teamLeader') @continue @endif
+                                                                        @endif
+                                                                    <li id="designtion_{{$member['designation_id']}}"
                                                                     class="list-group-item overflow-hidden p-1">
                                                                     <p data-content="{&quot;designation_id&quot;:&quot;1&quot;,&quot;designation_en&quot;:&quot;Director General&quot;,&quot;designation_bn&quot;:&quot;মহাপরিচালক&quot;,&quot;officer_name_en&quot;:&quot;Abul Kalam Azad&quot;,&quot;officer_name_bn&quot;:&quot;আবুল কালাম আজাদ&quot;,&quot;officer_mobile&quot;:&quot;01819000000&quot;,&quot;officer_email&quot;:&quot;abul@gmail.com&quot;,&quot;employee_grade&quot;:&quot;1&quot;,&quot;officer_id&quot;:&quot;1&quot;,&quot;unit_id&quot;:1,&quot;unit_name_en&quot;:&quot;Office of the Director General&quot;,&quot;unit_name_bn&quot;:&quot;মহাপরিচালক এর দপ্তর&quot;,&quot;office_id&quot;:2}"
-                                                                       data-member-role="teamLeader" data-layer="1"
-                                                                       class="assignedMember_1_1 p-0 mb-0 permitted_designation"
-                                                                       id="permitted_1" data-id="1">
+                                                                       data-member-role="{{$member['team_member_role_en']}}" data-layer="{{$value['id']}}"
+                                                                       class="assignedMember_{{$member['designation_id']}}_{{$value['id']}} p-0 mb-0 permitted_designation"
+                                                                       id="permitted_{{$value['id']}}" data-id="{{$value['id']}}">
                                                                         <i class="far fa-user"></i><span
-                                                                            class="ml-2 mr-2">আবুল কালাম আজাদ</span>
-                                                                        <small>মহাপরিচালক, মহাপরিচালক এর দপ্তর</small>
-                                                                        <button type="button" data-designation-id="1"
-                                                                                onclick="Load_Team_Container.memberRole($(this), 1 , 'teamLeader', 1)"
+                                                                            class="ml-2 mr-2">{{$member['officer_name_bn']}}</span>
+                                                                        <small>{{$member['designation_bn']}}, {{$member['unit_name_bn']}}</small>
+
+                                                                        <button type="button" data-designation-id="{{$member['designation_id']}}"
+                                                                                onclick="Load_Team_Container.memberRole($(this), '{{$value['id']}}' , 'teamLeader', '{{$member['designation_id']}}')"
                                                                                 class="teamLeaderBtn btn btn-xs signatory_layer text-primary">
-                                                                            <i data-value="1"
-                                                                               class="far text-primary fa-check-square"></i>দলনেতা
+                                                                            <i data-value="@if($member['team_member_role_en'] == 'teamLeader') 1 @else 0 @endif"
+                                                                               class="far text-primary @if($member['team_member_role_en'] == 'teamLeader') fa-check-square @else fa-square @endif "></i>দলনেতা
                                                                         </button>
-                                                                        <button type="button" data-designation-id="1"
-                                                                                onclick="Load_Team_Container.memberRole($(this), 1 , 'subTeamLeader', 1)"
+
+                                                                        <button type="button" data-designation-id="{{$member['designation_id']}}"
+                                                                                onclick="Load_Team_Container.memberRole($(this), '{{$value['id']}}' , 'subTeamLeader', '{{$member['designation_id']}}')"
                                                                                 class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary">
-                                                                            <i data-value="0"
-                                                                               class="far text-primary fa-square"></i>উপ
+                                                                            <i data-value="@if($member['team_member_role_en'] == 'subTeamLeader') 1 @else 0 @endif"
+                                                                               class="far text-primary @if($member['team_member_role_en'] == 'subTeamLeader') fa-check-square @else fa-square @endif "></i>উপ
                                                                             দলনেতা
                                                                         </button>
-                                                                        <button type="button" data-designation-id="1"
-                                                                                onclick="Load_Team_Container.memberRole($(this), 1 , 'member', 1)"
+                                                                        <button type="button" data-designation-id="{{$member['designation_id']}}"
+                                                                                onclick="Load_Team_Container.memberRole($(this), '{{$value['id']}}' , 'member', '{{$member['designation_id']}}')"
                                                                                 class="memberBtn btn btn-xs signatory_layer text-primary">
-                                                                            <i data-value="1"
-                                                                               class="far text-primary fa-square"></i>সদস্য
+                                                                            <i data-value="@if($member['team_member_role_en'] == 'member') 1 @else 0 @endif"
+                                                                               class="far text-primary @if($member['team_member_role_en'] == 'member') fa-check-square @else fa-square @endif "></i>সদস্য
                                                                         </button>
                                                                         <button type="button"
-                                                                                onclick="Load_Team_Container.deleteNode('designation','permitted_1', 0)"
+                                                                                onclick="Load_Team_Container.deleteNode('designation','permitted_{{$value['id']}}', 0)"
                                                                                 class="text-danger btn btn-icon btn-xs del_layer_designation">
                                                                             <i class="text-danger far fa-trash-alt"></i>
                                                                         </button>
                                                                     </p>
                                                                 </li>
+                                                                    @endforeach
+                                                                @endforeach
                                                             </ul>
                                                         </div>
                                                         @if($value['team_schedules'])
-                                                            <div class="px-2 pt-0" id="team_schedule_list_1">
+
+                                                                @php
+                                                                    $team_schedules = json_decode($value['team_schedules'],true);
+                                                                @endphp
+                                                            @foreach($team_schedules as $key => $schedule)
+                                                            <div class="px-2 pt-0" id="team_schedule_list_{{$key}}">
 
                                                             <div class="audit_schedule_list_div">
-                                                                <table id="audit_schedule_table_" class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm
+                                                                <table id="audit_schedule_table_{{$key}}" class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm
                                             text-center">
                                                                     <thead>
                                                                     <tr>
@@ -303,11 +318,13 @@
                                                                                 <div class="col pr-0">
                                                                                     <input type="text" data-id="_0"
                                                                                            class="date form-control input-start-duration"
+                                                                                           value="{{date('d/m/y',strtotime($schedule['team_member_start_date']))}}"
                                                                                            placeholder="শুরু"/>
                                                                                 </div>
                                                                                 <div class="col pl-0">
                                                                                     <input type="text" data-id="_0"
                                                                                            class="date form-control input-end-duration"
+                                                                                           value="{{date('d/m/y',strtotime($schedule['team_member_end_date']))}}"
                                                                                            placeholder="শেষ"/>
                                                                                 </div>
                                                                             </div>
@@ -316,6 +333,7 @@
                                                                         <td>
                                                                             <input type="number" data-id="_0" value="0"
                                                                                    class="form-control input-total-working-day"
+                                                                                   value="{{$schedule['activity_man_days']}}"
                                                                                    id="input_total_working_day__0"/>
                                                                         </td>
                                                                         <td style="display: inline-flex;">
@@ -333,11 +351,11 @@
                                                                     <tr class="audit_schedule_row_" data-layer-id=""
                                                                         data-schedule-second-row='1_'>
                                                                         <td width="20%">
-                                                                            <input type="text" data-id=""
+                                                                            <input type="text" data-id="" value="{{date('d/m/y',strtotime($schedule['activity_detail_date']))}}"
                                                                                    class="date form-control input-detail-duration"/>
                                                                         </td>
                                                                         <td width="72%" colspan="2">
-                                                                            <input type="text" data-id=""
+                                                                            <input type="text" data-id="" value="{{$schedule['activity_details']}}"
                                                                                    class="form-control input-detail"/>
                                                                         </td>
                                                                     </tr>
@@ -346,6 +364,7 @@
                                                             </div>
 
                                                         </div>
+                                                            @endforeach
                                                         @endif
                                                     </div>
                                                 </div>

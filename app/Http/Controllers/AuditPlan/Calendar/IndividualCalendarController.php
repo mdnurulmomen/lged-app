@@ -15,8 +15,8 @@ class IndividualCalendarController extends Controller
 //        dd($calendar_data);
         if (isSuccess($calendar_data)) {
             $calendar_data = $calendar_data['data'];
-            return view('modules.audit_plan.calendar.individual_calender', compact('calendar_data'));
-//            return view('modules.audit_plan.calendar.team_calender', compact('calendar_data'));
+//            return view('modules.audit_plan.calendar.individual_calender', compact('calendar_data'));
+            return view('modules.audit_plan.calendar.index', compact('calendar_data'));
         } else {
             return response()->json(['status' => 'error', 'data' => $calendar_data['data']]);
         }
