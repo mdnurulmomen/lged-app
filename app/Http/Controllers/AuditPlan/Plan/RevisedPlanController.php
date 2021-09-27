@@ -170,6 +170,35 @@ class RevisedPlanController extends Controller
         }
     }
 
+    public function updateAuditTeam(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'activity_id' => 'required|integer',
+            'fiscal_year_id' => 'required|integer',
+            'annual_plan_id' => 'required|integer',
+            'audit_plan_id' => 'required|integer',
+            'audit_year_start' => 'required',
+            'audit_year_end' => 'required',
+            'teams' => 'required',
+        ])->validate();
+
+//        dd($data);
+
+        $teams = json_encode_unicode($request->teams);
+        $data['teams'] = json_encode(['teams' => json_decode($teams)], JSON_UNESCAPED_UNICODE);
+        $data['approve_status'] = 'approved';
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.update_audit_team'), $data)->json();
+        \Log::info(json_encode($responseData));
+
+        if (isSuccess($responseData)) {
+            return response()->json(['status' => 'success', 'data' => $responseData['data']]);
+        } else {
+            return ['status' => 'error', 'data' => $responseData];
+        }
+    }
+
     public function storeAuditTeamSchedule(Request $request)
     {
         $data = Validator::make($request->all(), [
@@ -179,6 +208,23 @@ class RevisedPlanController extends Controller
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team_schedule'), $data)->json();
+        \Log::info(json_encode($responseData));
+        if (isSuccess($responseData)) {
+            return response()->json(['status' => 'success', 'data' => $responseData['data']]);
+        } else {
+            return ['status' => 'error', 'data' => $responseData];
+        }
+    }
+
+    public function updateAuditTeamSchedule(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'audit_plan_id' => 'required|integer',
+            'team_schedules' => 'required|json',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.update_audit_team_schedule'), $data)->json();
         \Log::info(json_encode($responseData));
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);

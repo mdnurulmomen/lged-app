@@ -199,12 +199,14 @@
                                                                 <div
                                                                     class="d-flex align-items-center justify-content-between mb-0 mt-0">
                                                                     <div class="mr-2">
-                                                                        <button type="button"
-                                                                                id="team_schedule_layer_btn_{{$value['id']}}"
-                                                                                onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$value['id']}}','{{$value['id']}}')"
-                                                                                class="justify-self-end text-danger btn btn-icon btn-md">
-                                                                            <i class="text-primary far fa-calendar-alt"></i>
-                                                                        </button>
+                                                                        @if($value['team_parent_id'])
+                                                                            <button type="button"
+                                                                                    id="team_schedule_layer_btn_{{$value['id']}}"
+                                                                                    onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$value['id']}}','{{$value['id']}}')"
+                                                                                    class="justify-self-end text-danger btn btn-icon btn-md">
+                                                                                <i class="text-primary far fa-calendar-alt"></i>
+                                                                            </button>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -232,12 +234,16 @@
                                                                             class="ml-2 mr-2">{{$member['officer_name_bn']}}</span>
                                                                         <small>{{$member['designation_bn']}}, {{$member['unit_name_bn']}}</small>
 
+                                                                        @if(!$value['team_parent_id'])
+
                                                                         <button type="button" data-designation-id="{{$member['designation_id']}}"
                                                                                 onclick="Load_Team_Container.memberRole($(this), '{{$value['id']}}' , 'teamLeader', '{{$member['designation_id']}}')"
                                                                                 class="teamLeaderBtn btn btn-xs signatory_layer text-primary">
                                                                             <i data-value="@if($member['team_member_role_en'] == 'teamLeader') 1 @else 0 @endif"
                                                                                class="far text-primary @if($member['team_member_role_en'] == 'teamLeader') fa-check-square @else fa-square @endif "></i>দলনেতা
                                                                         </button>
+
+                                                                        @endif
 
                                                                         <button type="button" data-designation-id="{{$member['designation_id']}}"
                                                                                 onclick="Load_Team_Container.memberRole($(this), '{{$value['id']}}' , 'subTeamLeader', '{{$member['designation_id']}}')"
@@ -267,12 +273,14 @@
 
                                                                 @php
                                                                     $team_schedules = json_decode($value['team_schedules'],true);
+                                                                    $row = 0;
                                                                 @endphp
                                                             @foreach($team_schedules as $key => $schedule)
-                                                            <div class="px-2 pt-0" id="team_schedule_list_{{$key}}">
+                                                                @php $row++ @endphp
+                                                            <div class="px-2 pt-0" id="team_schedule_list_{{$row}}">
 
                                                             <div class="audit_schedule_list_div">
-                                                                <table id="audit_schedule_table_{{$key}}" class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm
+                                                                <table id="audit_schedule_table_{{$value['id']}}" class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm
                                             text-center">
                                                                     <thead>
                                                                     <tr>
@@ -297,32 +305,32 @@
                                                                         </th>
                                                                     </tr>
                                                                     </thead>
-                                                                    <tbody data-tbody-id="">
-                                                                    <tr class='audit_schedule_row_' data-layer-id=""
-                                                                        data-audit-schedule-first-row='1_'>
+                                                                    <tbody data-tbody-id="{{$value['id']}}_{{$row}}">
+                                                                    <tr class='audit_schedule_row_{{$value['id']}}' data-layer-id="{{$value['id']}}"
+                                                                        data-audit-schedule-first-row='{{$row}}_{{$value['id']}}'>
                                                                         <td>
-                                                                            <select id="branch_name_select__0"
+                                                                            <select id="branch_name_select_{{$value['id']}}_{{$row}}"
                                                                                     class="form-control input-branch-name"
-                                                                                    data-id="_0">
+                                                                                    data-id="{{$value['id']}}_{{$row}}">
                                                                                 <option value=''>--Select--</option>
-                                                                                {{--                    @foreach($nominatedOffices as $key => $nominatedOffice)--}}
-                                                                                {{--                        <option value="{{$nominatedOffice['office_id']}}"--}}
-                                                                                {{--                                data-cost-center-id="{{$nominatedOffice['office_id']}}"--}}
-                                                                                {{--                                data-cost-center-name-bn="{{$nominatedOffice['office_name_bn']}}"--}}
-                                                                                {{--                                data-cost-center-name-en="{{$nominatedOffice['office_name_en']}}">{{$nominatedOffice['office_name_bn']}}</option>--}}
-                                                                                {{--                    @endforeach--}}
+                                                                                @foreach($nominated_offices_list as $key => $nominatedOffice)
+                                                                                    <option @if($nominatedOffice['office_id'] == $schedule['cost_center_id']) selected @endif value="{{$nominatedOffice['office_id']}}"
+                                                                                            data-cost-center-id="{{$nominatedOffice['office_id']}}"
+                                                                                            data-cost-center-name-bn="{{$nominatedOffice['office_name_bn']}}"
+                                                                                            data-cost-center-name-en="{{$nominatedOffice['office_name_en']}}">{{$nominatedOffice['office_name_bn']}}</option>
+                                                                                @endforeach
                                                                             </select>
                                                                         </td>
                                                                         <td>
                                                                             <div class="row">
                                                                                 <div class="col pr-0">
-                                                                                    <input type="text" data-id="_0"
+                                                                                    <input type="text" data-id="{{$value['id']}}_{{$row}}"
                                                                                            class="date form-control input-start-duration"
                                                                                            value="{{date('d/m/y',strtotime($schedule['team_member_start_date']))}}"
                                                                                            placeholder="শুরু"/>
                                                                                 </div>
                                                                                 <div class="col pl-0">
-                                                                                    <input type="text" data-id="_0"
+                                                                                    <input type="text" data-id="{{$value['id']}}_{{$row}}"
                                                                                            class="date form-control input-end-duration"
                                                                                            value="{{date('d/m/y',strtotime($schedule['team_member_end_date']))}}"
                                                                                            placeholder="শেষ"/>
@@ -331,10 +339,10 @@
                                                                         </td>
 
                                                                         <td>
-                                                                            <input type="number" data-id="_0" value="0"
+                                                                            <input type="number" data-id="{{$value['id']}}_{{$row}}"
                                                                                    class="form-control input-total-working-day"
                                                                                    value="{{$schedule['activity_man_days']}}"
-                                                                                   id="input_total_working_day__0"/>
+                                                                                   id="input_total_working_day_{{$value['id']}}_{{$row}}"/>
                                                                         </td>
                                                                         <td style="display: inline-flex;">
                                                                             <button type="button"
@@ -348,14 +356,14 @@
                                                                             </button>
                                                                         </td>
                                                                     </tr>
-                                                                    <tr class="audit_schedule_row_" data-layer-id=""
-                                                                        data-schedule-second-row='1_'>
+                                                                    <tr class="audit_schedule_row_{{$value['id']}}" data-layer-id="{{$value['id']}}"
+                                                                        data-schedule-second-row='{{$row}}_{{$value['id']}}'>
                                                                         <td width="20%">
-                                                                            <input type="text" data-id="" value="{{date('d/m/y',strtotime($schedule['activity_detail_date']))}}"
+                                                                            <input type="text" data-id="{{$value['id']}}_{{$row}}" value="{{date('d/m/y',strtotime($schedule['activity_detail_date']))}}"
                                                                                    class="date form-control input-detail-duration"/>
                                                                         </td>
                                                                         <td width="72%" colspan="2">
-                                                                            <input type="text" data-id="" value="{{$schedule['activity_details']}}"
+                                                                            <input type="text" data-id="{{$value['id']}}_{{$row}}" value="{{$schedule['activity_details']}}"
                                                                                    class="form-control input-detail"/>
                                                                         </td>
                                                                     </tr>
@@ -381,7 +389,7 @@
                     <div class="col-md-12">
                         <div class="actions text-right mt-3 permission_action_btn">
                             <button type="button" class="btn btn-sm btn-primary btn-square" id="saveAuditTeam"
-                                    onclick="Load_Team_Container.saveAuditTeam()"><i class="fad fa-cloud"></i>সংরক্ষণ
+                                   @if(empty($all_teams)) onclick="Load_Team_Container.saveAuditTeam()" @else onclick="Load_Team_Container.updateAuditTeam()" @endif><i class="fad fa-cloud"></i>সংরক্ষণ
                                 করুন
                             </button>
                             <button type="button" class="btn btn-sm btn-secondary btn-square"
@@ -747,6 +755,29 @@
             }
         },
 
+        updateAuditTeamSchedule: function () {
+            if (!$.isEmptyObject(auditSchedule)) {
+                url = '{{route('audit.plan.audit.revised.plan.update-audit-team-schedule')}}';
+                schedule_data = Load_Team_Container.makeAuditSchedule();
+                schedule = {"schedule": schedule_data}
+                team_schedules = JSON.stringify(schedule);
+                audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
+                data = {team_schedules, audit_plan_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    if (response.status === 'success') {
+                        toastr.success(response.data);
+                        $(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
+                        Load_Team_Container.insertAuditScheduleListInBook();
+                    } else {
+                        toastr.error(response.data);
+                        console.log(response)
+                    }
+                })
+            } else {
+                toastr.error('Please Make Schedule');
+            }
+        },
+
         makeAuditTeam: function () {
             layer_id = 0;
             list_group = $('[id^=list_group_]');
@@ -929,6 +960,37 @@
                 if (response.status === 'success') {
                     toastr.success(response.data);
                     Load_Team_Container.saveAuditTeamSchedule();
+                    Load_Team_Container.insertTeamDataInBook();
+                } else {
+                    toastr.error(response.data);
+                    console.log(response)
+                }
+            })
+        },
+
+        updateAuditTeam: function () {
+            url = '{{route('audit.plan.audit.revised.plan.update-audit-team')}}';
+            annual_plan_id = '{{$annual_plan_id}}';
+            audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
+            activity_id = '{{$activity_id}}';
+            fiscal_year_id = '{{$fiscal_year_id}}';
+            audit_year_start = $('#audit_year_start').val();
+            audit_year_end = $('#audit_year_end').val();
+            teams = Load_Team_Container.makeAuditTeam();
+
+            data = {
+                annual_plan_id,
+                activity_id,
+                fiscal_year_id,
+                audit_year_start,
+                audit_year_end,
+                audit_plan_id,
+                teams
+            };
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'success') {
+                    toastr.success(response.data);
+                    Load_Team_Container.updateAuditTeamSchedule();
                     Load_Team_Container.insertTeamDataInBook();
                 } else {
                     toastr.error(response.data);

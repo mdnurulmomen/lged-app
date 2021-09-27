@@ -32,13 +32,15 @@ class PlanEditorController extends Controller
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $teamResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_wise_team'), $data)->json();
 
+        $nominated_offices = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_nominated_offices'), $data)->json();
+        $nominated_offices_list = json_decode($nominated_offices['data']['nominated_offices'],true);
         $all_teams = isSuccess($teamResponseData)?$teamResponseData['data']:[];
 
-//        dd($all_teams);
+//        dd($nominated_offices_list);
 
         return view('modules.modal.load_team_modal', compact('activity_id',
             'annual_plan_id', 'fiscal_year_id', 'audit_plan_id',
-            'officer_lists', 'own_office','all_teams'));
+            'officer_lists', 'own_office','all_teams','nominated_offices_list'));
     }
 
     public function loadAuditTeamSchedule(Request $request)
