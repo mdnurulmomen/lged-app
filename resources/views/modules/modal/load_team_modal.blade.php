@@ -57,13 +57,14 @@
                                 <input type="text" id="audit_year_start"
                                        class="year-picker form-control"
                                        placeholder="নিরীক্ষাধীন অর্থ বছর শুরু"
-                                       value="{{empty($all_teams) && $all_teams[0]['audit_year_start']?'':$all_teams[0]['audit_year_start']}}" autocomplete="off"/>
+                                       value="{{empty($all_teams) || empty($all_teams[0]['audit_year_start'])?'':$all_teams[0]['audit_year_start']}}"
+                                       autocomplete="off"/>
                             </div>
                             <div class="col">
                                 <input type="text" id="audit_year_end"
                                        class="year-picker form-control"
-                                       value="{{empty($all_teams) && $all_teams[0]['audit_year_end']?'':$all_teams[0]['audit_year_end']}}"
-                                       placeholder="নিরীক্ষাধীন অর্থ বছর শেষ"  autocomplete="off"/>
+                                       value="{{empty($all_teams) || empty($all_teams[0]['audit_year_end'])?'':$all_teams[0]['audit_year_end']}}"
+                                       placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" autocomplete="off"/>
                             </div>
                         </div>
                     </div>
@@ -73,13 +74,13 @@
                             <div class="col">
                                 <input type="text" id="team_start_date"
                                        class="date form-control"
-                                       value="{{empty($all_teams) && $all_teams[0]['team_start_date']?'':date('d/m/Y',strtotime($all_teams[0]['team_start_date']))}}"
+                                       value="{{empty($all_teams) || empty($all_teams[0]['team_start_date'])?'':date('d/m/Y',strtotime($all_teams[0]['team_start_date']))}}"
                                        placeholder="সম্পাদনের সময়কাল শুরু" autocomplete="off"/>
                             </div>
                             <div class="col">
                                 <input type="text" id="team_end_date"
                                        class="date form-control"
-                                       value="{{empty($all_teams) && $all_teams[0]['team_end_date']?'':date('d/m/Y',strtotime($all_teams[0]['team_end_date']))}}"
+                                       value="{{empty($all_teams) || empty($all_teams[0]['team_end_date'])?'':date('d/m/Y',strtotime($all_teams[0]['team_end_date']))}}"
                                        placeholder="সম্পাদনের সময়কাল শেষ" autocomplete="off"/>
                             </div>
                         </div>
@@ -182,7 +183,174 @@
                                     <!--begin::Timeline-->
                                     <div class="timeline timeline-3 custom-timeline" id="customTimeline">
                                         <form id="team_form">
-                                            <div class="timeline-items " id="permitted_designations"></div>
+                                            <div class="timeline-items " id="permitted_designations">
+                                                @foreach($all_teams as $key => $value)
+                                                    <div class="custom-timeline-item timeline-item border-left-0 d-flex align-items-start"
+                                                    style="padding-left: 15px;">
+                                                    <div class="timeline-media position-relative"><i
+                                                            class="fas fa-chair text-primary"></i></div>
+                                                    <div class="timeline-content rounded-0 p-0 w-100"
+                                                         data-layer_index="{{$value['id']}}" id="permitted_level_{{$value['id']}}">
+                                                        <div
+                                                            class="px-3 pt-2 pb-0 mb-0 d-flex align-items-center justify-content-between">
+                                                            <h5 class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2"
+                                                                style="width: 20%;">{{$value['team_name']}}</h5>
+                                                            <div class="d-flex align-items-center justify-content-end">
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-between mb-0 mt-0">
+                                                                    <div class="mr-2">
+                                                                        <button type="button"
+                                                                                id="team_schedule_layer_btn_1"
+                                                                                onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$value['id']}}','{{$value['id']}}')"
+                                                                                class="justify-self-end text-danger btn btn-icon btn-md">
+                                                                            <i class="text-primary far fa-calendar-alt"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="dragged_data_area px-2 pt-0" id="right_drop_zone_{{$value['id']}}">
+                                                            <ul class="listed_items rounded-0 list-group"
+                                                                id="list_group_{{$value['id']}}">
+                                                                <li class="list-group-item overflow-hidden p-1 dummy_li"></li>
+
+
+
+                                                                <li id="designtion_1"
+                                                                    class="list-group-item overflow-hidden p-1">
+                                                                    <p data-content="{&quot;designation_id&quot;:&quot;1&quot;,&quot;designation_en&quot;:&quot;Director General&quot;,&quot;designation_bn&quot;:&quot;মহাপরিচালক&quot;,&quot;officer_name_en&quot;:&quot;Abul Kalam Azad&quot;,&quot;officer_name_bn&quot;:&quot;আবুল কালাম আজাদ&quot;,&quot;officer_mobile&quot;:&quot;01819000000&quot;,&quot;officer_email&quot;:&quot;abul@gmail.com&quot;,&quot;employee_grade&quot;:&quot;1&quot;,&quot;officer_id&quot;:&quot;1&quot;,&quot;unit_id&quot;:1,&quot;unit_name_en&quot;:&quot;Office of the Director General&quot;,&quot;unit_name_bn&quot;:&quot;মহাপরিচালক এর দপ্তর&quot;,&quot;office_id&quot;:2}"
+                                                                       data-member-role="teamLeader" data-layer="1"
+                                                                       class="assignedMember_1_1 p-0 mb-0 permitted_designation"
+                                                                       id="permitted_1" data-id="1">
+                                                                        <i class="far fa-user"></i><span
+                                                                            class="ml-2 mr-2">আবুল কালাম আজাদ</span>
+                                                                        <small>মহাপরিচালক, মহাপরিচালক এর দপ্তর</small>
+                                                                        <button type="button" data-designation-id="1"
+                                                                                onclick="Load_Team_Container.memberRole($(this), 1 , 'teamLeader', 1)"
+                                                                                class="teamLeaderBtn btn btn-xs signatory_layer text-primary">
+                                                                            <i data-value="1"
+                                                                               class="far text-primary fa-check-square"></i>দলনেতা
+                                                                        </button>
+                                                                        <button type="button" data-designation-id="1"
+                                                                                onclick="Load_Team_Container.memberRole($(this), 1 , 'subTeamLeader', 1)"
+                                                                                class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary">
+                                                                            <i data-value="0"
+                                                                               class="far text-primary fa-square"></i>উপ
+                                                                            দলনেতা
+                                                                        </button>
+                                                                        <button type="button" data-designation-id="1"
+                                                                                onclick="Load_Team_Container.memberRole($(this), 1 , 'member', 1)"
+                                                                                class="memberBtn btn btn-xs signatory_layer text-primary">
+                                                                            <i data-value="1"
+                                                                               class="far text-primary fa-square"></i>সদস্য
+                                                                        </button>
+                                                                        <button type="button"
+                                                                                onclick="Load_Team_Container.deleteNode('designation','permitted_1', 0)"
+                                                                                class="text-danger btn btn-icon btn-xs del_layer_designation">
+                                                                            <i class="text-danger far fa-trash-alt"></i>
+                                                                        </button>
+                                                                    </p>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        @if($value['team_schedules'])
+                                                            <div class="px-2 pt-0" id="team_schedule_list_1">
+
+                                                            <div class="audit_schedule_list_div">
+                                                                <table id="audit_schedule_table_" class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm
+                                            text-center">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th width="52%">
+                                                                            শাখার নাম
+                                                                        </th>
+                                                                        <th width="30%">
+                                                                            নিরীক্ষার সময়কাল
+                                                                        </th>
+
+                                                                        <th width="12%">
+                                                                            কর্ম দিবস
+                                                                        </th>
+                                                                        <th width="6%">
+                                                                            <div class="ml-1" align="left">
+                                                                                <button type="button"
+                                                                                        class="btn btn-icon btn-outline-danger border-0 btn-xs mr-2 remove_audit_schedule_list_div">
+                                                                                    <span
+                                                                                        class="fal fa-trash-alt"></span>
+                                                                                </button>
+                                                                            </div>
+                                                                        </th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody data-tbody-id="">
+                                                                    <tr class='audit_schedule_row_' data-layer-id=""
+                                                                        data-audit-schedule-first-row='1_'>
+                                                                        <td>
+                                                                            <select id="branch_name_select__0"
+                                                                                    class="form-control input-branch-name"
+                                                                                    data-id="_0">
+                                                                                <option value=''>--Select--</option>
+                                                                                {{--                    @foreach($nominatedOffices as $key => $nominatedOffice)--}}
+                                                                                {{--                        <option value="{{$nominatedOffice['office_id']}}"--}}
+                                                                                {{--                                data-cost-center-id="{{$nominatedOffice['office_id']}}"--}}
+                                                                                {{--                                data-cost-center-name-bn="{{$nominatedOffice['office_name_bn']}}"--}}
+                                                                                {{--                                data-cost-center-name-en="{{$nominatedOffice['office_name_en']}}">{{$nominatedOffice['office_name_bn']}}</option>--}}
+                                                                                {{--                    @endforeach--}}
+                                                                            </select>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="row">
+                                                                                <div class="col pr-0">
+                                                                                    <input type="text" data-id="_0"
+                                                                                           class="date form-control input-start-duration"
+                                                                                           placeholder="শুরু"/>
+                                                                                </div>
+                                                                                <div class="col pl-0">
+                                                                                    <input type="text" data-id="_0"
+                                                                                           class="date form-control input-end-duration"
+                                                                                           placeholder="শেষ"/>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <input type="number" data-id="_0" value="0"
+                                                                                   class="form-control input-total-working-day"
+                                                                                   id="input_total_working_day__0"/>
+                                                                        </td>
+                                                                        <td style="display: inline-flex;">
+                                                                            <button type="button"
+                                                                                    onclick="Load_Team_Schedule.addAuditScheduleTblRow()"
+                                                                                    class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
+                                                                                <span class="fad fa-plus"></span>
+                                                                            </button>
+                                                                            <button type='button' data-row='row1'
+                                                                                    class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2 remove-schedule-row'>
+                                                                                <span class='fal fa-trash-alt'></span>
+                                                                            </button>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="audit_schedule_row_" data-layer-id=""
+                                                                        data-schedule-second-row='1_'>
+                                                                        <td width="20%">
+                                                                            <input type="text" data-id=""
+                                                                                   class="date form-control input-detail-duration"/>
+                                                                        </td>
+                                                                        <td width="72%" colspan="2">
+                                                                            <input type="text" data-id=""
+                                                                                   class="form-control input-detail"/>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+                                                        </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                            </div>
                                         </form>
                                     </div>
                                     <!--end::Timeline-->
@@ -332,154 +500,10 @@
             if ($("p[id^=permitted_]").length == 1) {
                 $('.teamLeaderBtn').click();
             }
-            Load_Team_Container.addTeamInformation(layer_index, data_content.designation_id);
         },
 
-        leader: {},
-        subleader: {},
-        member_info: {},
+
         editor_leader_info: '',
-        addTeamInformation: function (layer_index, designation_id) {
-
-            all_member = [];
-
-            select_data = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-content');
-            role = $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role');
-
-            if (role == 'teamLeader') {
-                role_bn = 'দলনেতা';
-            } else if (role == 'subTeamLeader') {
-                role_bn = 'উপ দলনেতা';
-            } else if (role == 'member') {
-                role_bn = 'সদস্য';
-            }
-
-            console.log(select_data);
-            if (role == 'teamLeader') {
-                Load_Team_Container.leader = {
-                    'team_member_name_en': JSON.parse(select_data).officer_name_en,
-                    'team_member_name_bn': JSON.parse(select_data).officer_name_bn,
-                    'designation_id': JSON.parse(select_data).designation_id,
-                    'designation_en': JSON.parse(select_data).designation_en,
-                    'designation_bn': JSON.parse(select_data).designation_bn,
-                    'team_member_role_en': 'teamLeader',
-                    'team_member_role_bn': 'দলনেতা',
-                    'officer_mobile': JSON.parse(select_data).officer_mobile,
-                    'officer_email': JSON.parse(select_data).officer_email,
-                    'officer_id': JSON.parse(select_data).officer_id,
-                    'unit_name_en': JSON.parse(select_data).unit_name_en,
-                    'office_id': JSON.parse(select_data).office_id,
-                    'comment': ''
-                }
-
-
-                leader_officer_id = JSON.parse(select_data).officer_id;
-                leader_name_bn = JSON.parse(select_data).officer_name_bn;
-                leader_name_en = JSON.parse(select_data).officer_name_bn;
-                leader_designation_id = JSON.parse(select_data).designation_id;
-                leader_designation_name_en = JSON.parse(select_data).designation_en;
-                leader_designation_name_bn = JSON.parse(select_data).designation_bn;
-
-            }
-
-
-            if (role == 'subTeamLeader') {
-                Load_Team_Container.subleader = {
-                    'team_member_name_en': JSON.parse(select_data).officer_name_en,
-                    'team_member_name_bn': JSON.parse(select_data).officer_name_bn,
-                    'designation_id': JSON.parse(select_data).designation_id,
-                    'designation_en': JSON.parse(select_data).designation_en,
-                    'designation_bn': JSON.parse(select_data).designation_bn,
-                    'team_member_role_en': 'subTeamLeader',
-                    'team_member_role_bn': 'উপ দলনেতা',
-                    'officer_mobile': JSON.parse(select_data).officer_mobile,
-                    'officer_email': JSON.parse(select_data).officer_email,
-                    'officer_id': JSON.parse(select_data).officer_id,
-                    'unit_name_en': JSON.parse(select_data).unit_name_en,
-                    'office_id': JSON.parse(select_data).office_id,
-                    'comment': ''
-                }
-
-                if (layer_index > 1) {
-                    leader_officer_id = JSON.parse(select_data).officer_id;
-                    leader_name_bn = JSON.parse(select_data).officer_name_bn;
-                    leader_name_en = JSON.parse(select_data).officer_name_bn;
-                    leader_designation_id = JSON.parse(select_data).designation_id;
-                    leader_designation_name_en = JSON.parse(select_data).designation_en;
-                    leader_designation_name_bn = JSON.parse(select_data).designation_bn;
-                }
-            }
-
-            if (typeof member[layer_index] === 'undefined') {
-                member[layer_index] = {};
-            }
-
-            if (role == 'member') {
-                Load_Team_Container.member_info[JSON.parse(select_data).designation_id] = {
-                    'team_member_name_en': JSON.parse(select_data).officer_name_en,
-                    'team_member_name_bn': JSON.parse(select_data).officer_name_bn,
-                    'designation_id': JSON.parse(select_data).designation_id,
-                    'designation_en': JSON.parse(select_data).designation_en,
-                    'designation_bn': JSON.parse(select_data).designation_bn,
-                    'team_member_role_en': 'member',
-                    'team_member_role_bn': 'সদস্য',
-                    'officer_mobile': JSON.parse(select_data).officer_mobile,
-                    'officer_email': JSON.parse(select_data).officer_email,
-                    'officer_id': JSON.parse(select_data).officer_id,
-                    'unit_name_en': JSON.parse(select_data).unit_name_en,
-                    'office_id': JSON.parse(select_data).office_id,
-                    'comment': ''
-                }
-
-                member[layer_index][JSON.parse(select_data).designation_id] = {
-                    'team_member_name_en': JSON.parse(select_data).officer_name_en,
-                    'team_member_name_bn': JSON.parse(select_data).officer_name_bn,
-                    'designation_id': JSON.parse(select_data).designation_id,
-                    'designation_en': JSON.parse(select_data).designation_en,
-                    'designation_bn': JSON.parse(select_data).designation_bn,
-                    'team_member_role_en': 'member',
-                    'team_member_role_bn': 'সদস্য',
-                    'officer_mobile': JSON.parse(select_data).officer_mobile,
-                    'officer_email': JSON.parse(select_data).officer_email,
-                    'officer_id': JSON.parse(select_data).officer_id,
-                    'unit_name_en': JSON.parse(select_data).unit_name_en,
-                    'office_id': JSON.parse(select_data).office_id,
-                    'comment': ''
-                };
-            }
-
-
-            $('.permitted_designation').each(function (v) {
-                content = $('#' + v.id).attr('data-content');
-            });
-
-
-            if (layer_index == 1) {
-                team_type = "parent";
-            } else {
-                team_type = "sub";
-            }
-
-            team_info[layer_index] = {
-                team_type: team_type,
-                team_name: $('#permitted_level_' + layer_index).find('.layer_text').html(),
-                team_start_date: formatDate($('#team_start_date').val()),
-                team_end_date: formatDate($('#team_end_date').val()),
-                audit_year_start: $('#audit_year_start').val(),
-                audit_year_end: $('#audit_year_end').val(),
-                leader_officer_id: leader_officer_id,
-                leader_name_bn: leader_name_bn,
-                leader_name_en: leader_name_en,
-                leader_designation_id: leader_designation_id,
-                leader_designation_name_en: leader_designation_name_en,
-                leader_designation_name_bn: leader_designation_name_bn,
-                leader: Load_Team_Container.leader,
-                subleader: Load_Team_Container.subleader,
-                team_members: member[layer_index],
-            };
-            team_info.shift();
-            $('#team_information_' + layer_index).val(JSON.stringify(team_info));
-        },
 
         memberRole: function (elem, layer_index, role, designation_id) {
             $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role', role);
@@ -504,10 +528,6 @@
             } else if (role === 'subTeamLeader') {
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .teamLeaderBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-check-square').addClass('fa-square');
-            }
-
-            if (elem.find('i').data('value') === 1) {
-                Load_Team_Container.addTeamInformation(layer_index, designation_id);
             }
         },
 

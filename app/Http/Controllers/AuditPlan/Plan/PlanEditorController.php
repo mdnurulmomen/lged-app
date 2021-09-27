@@ -31,8 +31,10 @@ class PlanEditorController extends Controller
         //for all team data
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $teamResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_wise_team'), $data)->json();
-        //dd($teamResponseData);
+
         $all_teams = isSuccess($teamResponseData)?$teamResponseData['data']:[];
+
+//        dd($all_teams);
 
         return view('modules.modal.load_team_modal', compact('activity_id',
             'annual_plan_id', 'fiscal_year_id', 'audit_plan_id',
