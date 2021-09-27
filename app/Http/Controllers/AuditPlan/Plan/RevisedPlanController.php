@@ -153,8 +153,8 @@ class RevisedPlanController extends Controller
             'teams' => 'required',
         ])->validate();
 
-        $teams = $request->teams;
-        $data['teams'] = json_encode(['teams' => $teams], JSON_UNESCAPED_UNICODE);
+        $teams = json_encode_unicode($request->teams);
+        $data['teams'] = json_encode(['teams' => json_decode($teams)], JSON_UNESCAPED_UNICODE);
         $data['approve_status'] = 'approved';
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
 

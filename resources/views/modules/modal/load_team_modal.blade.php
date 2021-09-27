@@ -129,8 +129,8 @@
         'office_id' => $officer_list['office_id'],
         ], JSON_UNESCAPED_UNICODE)}}"
                                                                     data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
-                                                                    {{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}
-                                                                    <small>{{$designation['designation_eng']}}</small>
+                                                                    {{!empty($designation['employee_info']) ? $designation['employee_info']['name_bng'] : ''}}
+                                                                    <small>{{$designation['designation_bng']}}</small>
                                                                 </li>
                                                             @endif
                                                         @endforeach
@@ -708,6 +708,7 @@
             layer_id = 0;
             list_group = $('[id^=list_group_]');
             team_leader = {};
+            leader_info = {};
             list_group.each(function (index, value) {
                 team_members = {};
                 $('p[id^=permitted_]').each(function (i, v) {
@@ -732,16 +733,22 @@
                     if (role in team_members == false) {
                         team_members[role] = {};
                     }
+
                     content['team_member_role_en'] = role;
                     content['team_member_role_bn'] = role_bn;
                     team_members[role][officer_id] = content;
+
+                    if (layer_id in leader_info == false) {
+                        leader_info[layer_id] = {};
+                    }
+
                     team_name = $('#permitted_level_' + layer_id).find('.layer_text').html();
                     if (layer_id == 1) {
                         team_type = 'parent';
                         if (role == 'teamLeader') {
-                            leder_info = {
-                                name_en: content.officer_name_en,
-                                name_bn: content.officer_name_bn,
+                            leader_info[layer_id] = {
+                                officer_name_en: content.officer_name_en,
+                                officer_name_bn: content.officer_name_bn,
                                 designation_en: content.designation_en,
                                 designation_bn: content.designation_bn,
                                 designation_id: content.designation_id,
@@ -752,9 +759,9 @@
                     } else {
                         team_type = 'sub';
                         if (role == 'subTeamLeader') {
-                            leader_info = {
-                                name_en: content.officer_name_en,
-                                name_bn: content.officer_name_bn,
+                            leader_info[layer_id] = {
+                                officer_name_en: content.officer_name_en,
+                                officer_name_bn: content.officer_name_bn,
                                 designation_en: content.designation_en,
                                 designation_bn: content.designation_bn,
                                 designation_id: content.designation_id,
@@ -774,12 +781,12 @@
                     all_teams['leader'] = team_leader;
                     all_teams['all_teams'][layer_id]['team_name'] = team_name;
                     all_teams['all_teams'][layer_id]['team_type'] = team_type;
-                    all_teams['all_teams'][layer_id]['leader_designation_id'] = leader_info.designation_id;
-                    all_teams['all_teams'][layer_id]['leader_name_en'] = leader_info.name_en;
-                    all_teams['all_teams'][layer_id]['leader_name_bn'] = leader_info.name_bn;
-                    all_teams['all_teams'][layer_id]['leader_designation_en'] = leader_info.designation_en;
-                    all_teams['all_teams'][layer_id]['leader_designation_bn'] = leader_info.designation_bn;
-                    all_teams['all_teams'][layer_id]['leader_officer_id'] = leader_info.officer_id;
+                    all_teams['all_teams'][layer_id]['leader_designation_id'] = leader_info[layer_id]['designation_id'];
+                    all_teams['all_teams'][layer_id]['leader_name_en'] = leader_info[layer_id]['officer_name_en'];
+                    all_teams['all_teams'][layer_id]['leader_name_bn'] = leader_info[layer_id]['officer_name_bn'];
+                    all_teams['all_teams'][layer_id]['leader_designation_en'] = leader_info[layer_id]['designation_en'];
+                    all_teams['all_teams'][layer_id]['leader_designation_bn'] = leader_info[layer_id]['designation_bn'];
+                    all_teams['all_teams'][layer_id]['leader_officer_id'] = leader_info[layer_id]['officer_id'];
                     all_teams['all_teams'][layer_id]['members'] = team_members;
                 })
             })
@@ -791,13 +798,13 @@
             team_schedule = {};
             $('[id^=audit_schedule_table_]').each(function (i, v) {
                 layer_id = v.id.split('_')[3]
-                if ($('[id^=permitted_level_]').count == 1) {
+                if ($('[id^=permitted_level_]').length == 1) {
                     leader_info = JSON.parse($('#list_group_' + layer_id + ' [data-member-role="teamLeader"]').attr('data-content'));
                 } else {
                     leader_info = JSON.parse($('#list_group_' + layer_id + ' [data-member-role="subTeamLeader"]').attr('data-content'));
                 }
-                if (leader_info.officer_id in team_schedule == false) {
-                    team_schedule[leader_info.officer_id] = {};
+                if (leader_info.designation_id in team_schedule == false) {
+                    team_schedule[leader_info.designation_id] = {};
                 }
                 cost_center_id = '';
                 cost_center_name_en = '';
@@ -816,10 +823,10 @@
 
                     if (!$(this).is('select')) {
                         if ($(this).hasClass('input-start-duration')) {
-                            team_member_start_date = $(this).val();
+                            team_member_start_date = formatDate($(this).val());
                         }
                         if ($(this).hasClass('input-end-duration')) {
-                            team_member_end_date = $(this).val();
+                            team_member_end_date = formatDate($(this).val());
                         }
                         if ($(this).hasClass('input-total-working-day')) {
                             activity_man_days = $(this).val();
@@ -842,11 +849,11 @@
                         activity_details,
                     };
 
-                    if (schedule_data.cost_center_id in team_schedule[leader_info.officer_id] == false && typeof schedule_data.cost_center_id !== 'undefined') {
-                        team_schedule[leader_info.officer_id][schedule_data.cost_center_id] = {};
+                    if (schedule_data.cost_center_id in team_schedule[leader_info.designation_id] == false && typeof schedule_data.cost_center_id !== 'undefined') {
+                        team_schedule[leader_info.designation_id][schedule_data.cost_center_id] = {};
                     }
                     if (typeof schedule_data.cost_center_id !== 'undefined') {
-                        team_schedule[leader_info.officer_id][schedule_data.cost_center_id] = schedule_data;
+                        team_schedule[leader_info.designation_id][schedule_data.cost_center_id] = schedule_data;
                     }
 
                 });
