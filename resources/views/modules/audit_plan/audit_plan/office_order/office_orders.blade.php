@@ -1,45 +1,110 @@
-<x-title-wrapper>Annual Plan Lists</x-title-wrapper>
-<form>
-    <div class="form-row">
-        <div class="col-md-2 d-md-flex align-items-md-center">
-            <p class="mb-0">Fiscal Year</p>
-        </div>
-        <div class="col-md-4 ">
-            <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_office_order">
-                <option value="">Choose Fiscal Year</option>
-                @foreach($fiscal_years as $fiscal_year)
-                    <option value="{{$fiscal_year['id']}}">{{$fiscal_year['description']}}</option>
-                @endforeach
-            </select>
-        </div>
+<x-title-wrapper>Office Order List</x-title-wrapper>
+
+<div class="col-lg-12 p-0 mt-3">
+    <!--begin::Table-->
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-light">
+            <tr>
+                <th>মন্ত্রণালয়/বিভাগ</th>
+                <th>নিয়ন্ত্রণকারী অফিস</th>
+                <th>প্রতিষ্ঠানের ধরণ</th>
+                <th>অডিট প্ল্যান</th>
+                <th>অফিসার</th>
+                <th width="8%">সম্পাদন</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($audit_plans as $audit_plan)
+                <tr>
+                    <td>{{$audit_plan['annual_plan']['ministry_name_bn']}}</td>
+                    <td>{{$audit_plan['annual_plan']['controlling_office_bn']}}</td>
+                    <td>{{$audit_plan['annual_plan']['office_type']}}</td>
+                    <td>অডিট প্ল্যান {{$loop->iteration}}</td>
+                    <td>{{$audit_plan['draft_officer_name_bn']}},
+                        {{$audit_plan['draft_designation_name_bn']}},
+                        {{$audit_plan['draft_unit_name_bn']}}
+                    </td>
+                    <td>
+                        <div class="action-group d-flex justify-content-end action-group-wrapper">
+                            <a href="javascript:;" type="button" class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"
+                               data-audit-plan-id="{{$audit_plan['id']}}"
+                               data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                               onclick="Office_Order_Container.loadOfficeOrderGenerateModal($(this))">
+                                <i class="fa fa-archive"></i>
+                            </a>
+                            <button class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                    data-audit-plan-id="{{$audit_plan['id']}}" onclick="Office_Order_Container.showOfficeOrder($(this))" type="button">
+                                <i class="fad fa-eye"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
-</form>
+    <!--end::Table-->
 
-<div class="px-3" id="load_office_order_lists">
-
+    <div class="load-office-order-modal"></div>
 </div>
 
+
 <script>
-    var Office_Orders = {
-        loadAuditablePlanList: function (fiscal_year_id, page = 1, per_page = 10) {
-            let url = '{{route('audit.plan.audit.office-orders.load-all')}}';
-            let data = {fiscal_year_id, page, per_page};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+
+    var Office_Order_Container = {
+        loadOfficeOrderGenerateModal: function (element) {
+            url = '{{route('audit.plan.audit.office-orders.load-office-order-generate-modal')}}';
+            audit_plan_id = element.data('audit-plan-id');
+            annual_plan_id = element.data('annual-plan-id');
+
+            data = {audit_plan_id,annual_plan_id};
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
-                    toastr.error(response.data)
+                    toastr.error('No data found');
                 } else {
-                    $('#load_office_order_lists').html(response);
+                    $(".load-office-order-modal").html(response)
+                    $('#officeOrderGenerateModal').modal('show');
                 }
             });
         },
-    };
 
-    $('#select_fiscal_year_office_order').change(function () {
-        let fiscal_year_id = $('#select_fiscal_year_office_order').val();
-        if (fiscal_year_id) {
-            Office_Orders.loadAuditablePlanList(fiscal_year_id);
-        } else {
-            $('#load_office_order_lists').html('');
-        }
-    });
+        generateOfficeOrder: function (elem) {
+            url = '{{route('audit.plan.audit.office-orders.generate-office-order')}}';
+            data = $('#office_order_generate_form').serialize();
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'success') {
+                    toastr.success('Successfully Office Order Generated!');
+                }
+                else {
+                    if (response.statusCode === '422') {
+                        var errors = response.msg;
+                        $.each(errors, function (k, v) {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        });
+                    }
+                    else {
+                        toastr.error(response.data.message);
+                    }
+                }
+            })
+        },
+
+        showOfficeOrder: function (elem) {
+            url = '{{route('audit.plan.audit.office-orders.show-office-order')}}';
+            audit_plan_id = elem.data('audit-plan-id');
+            data = {audit_plan_id}
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('#kt_content').html(response)
+                }
+            });
+        },
+    }
 </script>
+

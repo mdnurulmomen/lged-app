@@ -256,11 +256,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/store-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'storeAuditTeamSchedule'])->name('revised.plan.store-audit-team-schedule');
 
             Route::get('/office-orders', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'index'])->name('office-orders.index');
-            Route::post('/load-office-orders', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'showOfficeOrderLists'])->name('office-orders.load-all');
+            Route::post('/load-office-order-generate-modal', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'loadOfficeOrderGenerateModal'])->name('office-orders.load-office-order-generate-modal');
+            Route::post('/generate-office-order', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'generateOfficeOrder'])->name('office-orders.generate-office-order');
+            Route::post('/show-office-order', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'showOfficeOrder'])->name('office-orders.show-office-order');
+            Route::post('/print-office-order', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'printOfficeOrder'])->name('office-orders.print-office-order');
             Route::get('/office-order-print', function () {
                 return view('modules.audit_plan.audit_plan.plan_revised.partials.office_order_print');
             });
-            Route::post('/load-office-orders', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'showOfficeOrderLists']);
         });
     });
 

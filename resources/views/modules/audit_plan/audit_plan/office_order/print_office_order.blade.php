@@ -828,10 +828,10 @@
 
         <div style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">
             <span style="width: 70%;float: left">
-                নং- ৪৬৬/Operational Plan/২০২১-২২/
+                {{$office_order['memorandum_no']}}
             </span>
             <span style="width: 30%;float: right">
-                তারিখঃ  &nbsp;&nbsp;/০৯/২০২১ খ্রি।
+                তারিখঃ  {{enTobn(date('d/m/Y',strtotime($office_order['memorandum_date'])))}} খ্রি।
             </span>
         </div>
 
@@ -839,8 +839,7 @@
            <b><u>অফিস আদেশ</u></b>
         </div>
         <div style="font-family:SolaimanLipi,serif !important;text-align: justify">
-            বাণিজ্যিক অডিট অধিদপ্তরের অফিস আদেশ নং- ৪৬৬/Operational Plan/২০২১-২২/; তারিখঃ   /০৯/২০২১ খ্রি এর মাধ্যমে বাংলাদেশ ব্যাংক এর
-            ২০১৯-২০২০ এবং ২০২০-২০২১ অর্থবছরের সার্বিক কার্যক্রম নিরীক্ষার নিমিত্ত নিরীক্ষা দল গঠন করা হয়েছে। নিম্নবর্ণিত নিরীক্ষা দলের নিরীক্ষা কর্মসূচি আদিষ্ট হয়ে অনুমোদন করা হলো।
+            {{$office_order['heading_details']}}
         </div>
 
         <div style="font-family:SolaimanLipi,serif !important;text-align: center">
@@ -955,35 +954,6 @@
             </table>
         </div>
 
-        <div style="margin-top: 5px">
-            <table width="100%" border="1">
-                <thead>
-                <tr>
-                    <th style="text-align: center" width="5%">ক্রমিক নং</th>
-                    <th style="text-align: center" width="45%">নাম</th>
-                    <th style="text-align: center" width="20%">পদবী</th>
-                    <th style="text-align: center" width="15%">মোবাইল নং</th>
-                    <th style="text-align: center" width="15%">মন্তব্য</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td style="text-align: center">১</td>
-                    <td style="text-align: left">জনাব সৈয়দ শাখাওয়াত হোসেন</td>
-                    <td style="text-align: center">নিরীক্ষা ও হিসাবরক্ষণ কর্মকর্তা</td>
-                    <td style="text-align: center">০১৭১৬৬৩৬৬১৫</td>
-                    <td style="text-align: center"></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">২</td>
-                    <td style="text-align: left">জনাব জুয়েল রানা</td>
-                    <td style="text-align: center">এসএএস সুপার</td>
-                    <td style="text-align: center">০১৭১৬৬৩৬৬১৫</td>
-                    <td style="text-align: center"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
 
         {{--for audit advice--}}
         <div style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
@@ -991,8 +961,7 @@
         </div>
 
         <div style="font-family:SolaimanLipi,serif !important;text-align: justify">
-            ১. জনাব নিতাই কুমার বিশ্বাস, উপপরিচালক দলনেতা হিসেবে সামগ্রিক অডিট কার্যক্রম সম্পন্ন করবেন। <br>
-            ২. মাঠ পর্যায়ের নিরীক্ষা কার্যক্রম শেষ হওয়ার পরবর্তী ০৭(সাত) কর্মদিবসের মধ্যে মহাপরিচালক বরাবর AIR দাখিল করতে হবে।
+            {!! nl2br($office_order['advices']) !!}
         </div>
 
         <div style="font-family:SolaimanLipi,serif !important;text-align: center;float: right">
@@ -1004,10 +973,10 @@
     <div class="pdf-screen" style="height: 100%;font-family:SolaimanLipi,serif !important; page-break-after:always">
         <div style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">
             <span style="width: 70%;float: left">
-                নং- ৪৬৬/Operational Plan/২০২১-২২/
+                {{$office_order['memorandum_no']}}
             </span>
             <span style="width: 30%;float: right">
-                তারিখঃ  &nbsp;&nbsp;/০৯/২০২১ খ্রি।
+                তারিখঃ  {{enTobn(date('d/m/Y',strtotime($office_order['memorandum_date'])))}} খ্রি।
             </span>
         </div>
 
@@ -1017,8 +986,7 @@
         </div>
 
         <div style="font-family:SolaimanLipi,serif !important;text-align: justify">
-            ১. বাংলাদেশের কম্পট্রোলার এন্ড অডিটর জেনারেল ,অডিট ভবন ,৭৭/৭,কাকরাইল ,ঢাকা-১০০০। <br>
-            ২. সচিব ,আর্থিক প্রতিষ্ঠান বিভাগ, ভবন নং-৭, বাংলাদেশ সচিবালয়, ঢাকা ১০০০।
+            {!! nl2br($office_order['order_cc_list']) !!}
         </div>
 
         <div style="font-family:SolaimanLipi,serif !important;text-align: center;float: right">

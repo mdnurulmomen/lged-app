@@ -4,24 +4,109 @@ namespace App\Http\Controllers\AuditPlan\Plan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class OfficeOrderController extends Controller
 {
     public function index()
     {
-        $fiscal_years = $this->allFiscalYears();
-        return view('modules.audit_plan.audit_plan.office_order.office_orders', compact('fiscal_years'));
+        $requestData = [
+            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+        ];
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.audit_plan_list'), $requestData)->json();
+        if (isSuccess($responseData)) {
+            $data['audit_plans'] = $responseData['data'];
+        } else {
+            $data['audit_plans'] = [];
+        }
+        return view('modules.audit_plan.audit_plan.office_order.office_orders',$data);
     }
 
-    /**
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function showOfficeOrderLists(Request $request)
+    public function loadOfficeOrderGenerateModal(Request $request){
+        $data['audit_plan_id'] = $request->audit_plan_id;
+        $data['annual_plan_id'] = $request->annual_plan_id;
+        return view('modules.modal.load_office_order_generate_modal',$data);
+    }
+
+    public function showOfficeOrder(Request $request)
     {
-        $office_info = [
-            'office_name_en' => $this->current_office()['office_name_en'],
-            'office_name_bn' => $this->current_office()['office_name_bn'],
+        $requestData = [
+            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+            'audit_plan_id' => $request->audit_plan_id,
         ];
-        return view('modules.audit_plan.audit_plan.office_order.load_office_orders', compact('office_info'));
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_office_order'), $requestData)->json();
+        //dd($responseData);
+        if (isSuccess($responseData)) {
+            $data['office_order'] = $responseData['data'];
+        } else {
+            $data['office_order'] = [];
+        }
+
+        return view('modules.audit_plan.audit_plan.office_order.show_office_order',$data);
+    }
+
+    public function printOfficeOrder(Request $request)
+    {
+        $requestData = [
+            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+            'audit_plan_id' => $request->audit_plan_id,
+        ];
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_office_order'), $requestData)->json();
+        //dd($responseData);
+        if (isSuccess($responseData)) {
+            $data['office_order'] = $responseData['data'];
+        } else {
+            $data['office_order'] = [];
+        }
+
+        return view('modules.audit_plan.audit_plan.office_order.print_office_order',$data);
+    }
+
+    public function generateOfficeOrder(Request $request): \Illuminate\Http\JsonResponse
+    {
+        try {
+            //dd($request->all());
+            Validator::make($request->all(), [
+                'audit_plan_id' => 'required',
+                'annual_plan_id' => 'required',
+                'memorandum_no' => 'required',
+                'memorandum_date' => 'required',
+                'heading_details' => 'required',
+                'advices' => 'required',
+                'order_cc_list' => 'required'
+            ])->validate();
+
+            $data = [
+                'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+                'audit_plan_id' => $request->audit_plan_id,
+                'annual_plan_id' => $request->annual_plan_id,
+                'memorandum_no' => $request->memorandum_no,
+                'memorandum_date' => $request->memorandum_date,
+                'heading_details' => $request->heading_details,
+                'advices' => $request->advices,
+                'order_cc_list' => $request->order_cc_list
+            ];
+
+            $responseGenerateOfficeOrder = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.generate_office_order'), $data)->json();
+            //dd($responseGenerateOfficeOrder);
+            if (isSuccess($responseGenerateOfficeOrder)) {
+                return response()->json(['status' => 'success', 'data' => 'Added!']);
+            } else {
+                return response()->json(['status' => 'error', 'data' => $responseGenerateOfficeOrder]);
+            }
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => $exception->errors(),
+                'statusCode' => '422',
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
+        }
+
     }
 }
