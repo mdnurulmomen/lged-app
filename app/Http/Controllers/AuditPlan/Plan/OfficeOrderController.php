@@ -16,11 +16,8 @@ class OfficeOrderController extends Controller
         ];
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.audit_plan_list'), $requestData)->json();
-        if (isSuccess($responseData)) {
-            $data['audit_plans'] = $responseData['data'];
-        } else {
-            $data['audit_plans'] = [];
-        }
+        //dd($responseData);
+        $data['audit_plans'] = isSuccess($responseData)?$responseData['data']:[];
         return view('modules.audit_plan.audit_plan.office_order.office_orders',$data);
     }
 

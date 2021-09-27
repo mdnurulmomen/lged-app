@@ -58,7 +58,7 @@
                             <td style="text-align: left">{{$audit_team_member['team_member_name_bn']}}</td>
                             <td style="text-align: center">{{$audit_team_member['team_member_designation_bn']}}</td>
                             <td style="text-align: center">{{$audit_team_member['team_member_role_bn']}}</td>
-                            <td style="text-align: center">{{$audit_team_member['mobile_no']}}</td>
+                            <td style="text-align: center">{{enTobn($audit_team_member['mobile_no'])}}</td>
                         </tr>
                     @endforeach
                     </tbody>

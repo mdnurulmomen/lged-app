@@ -7,7 +7,7 @@
                 <li class="nav-item">
                     <a class="nav-link active rounded-0" id="activity" data-toggle="tab"
                        href="#select_entity_by_layer">
-                        <span class="nav-text">Select Office</span>
+                        <span class="nav-text">অফিস নির্বাচন</span>
                     </a>
                 </li>
                 {{--                <li class="nav-item">--}}
@@ -40,7 +40,7 @@
         <div class="row">
             <div class="offset-6 col-md-6 text-right p-2">
                 <button class="btn btn-sm btn-square btn-primary btn-hover-success"
-                        onclick="Annual_Plan_Container.submitAnnualPlan($(this))">Save <i class="fas fa-save"></i>
+                        onclick="Annual_Plan_Container.submitAnnualPlan($(this))"><i class="fa fa-save"></i> সংরক্ষণ
                 </button>
             </div>
         </div>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="form-row pt-4">
                     <div class="col-md-12">
-                        <label for="staff_comment">মন্তব্য</label>
+                        <label for="staff_comment">টিমের বর্ণনা</label>
                         <textarea class="form-control" name="staff_comment" id="staff_comment"></textarea>
                     </div>
                 </div>

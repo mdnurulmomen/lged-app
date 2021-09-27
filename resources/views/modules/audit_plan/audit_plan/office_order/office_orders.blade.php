@@ -15,7 +15,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($audit_plans as $audit_plan)
+            @foreach($audit_plans['data'] as $audit_plan)
                 <tr>
                     <td>{{$audit_plan['annual_plan']['ministry_name_bn']}}</td>
                     <td>{{$audit_plan['annual_plan']['controlling_office_bn']}}</td>
@@ -32,15 +32,15 @@
                                    data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
                                    onclick="Office_Order_Container.loadOfficeOrderGenerateModal($(this))">
                                     @if($audit_plan['has_office_order'] == 0)
-                                        <i class="fa fa-archive"></i>
+                                        <i class="fad fa-file-import"></i>
                                     @else
-                                        <i class="fa fa-edit"></i>
+                                        <i class="fa fa-pencil"></i>
                                     @endif
                                 </a>
 
                             @if($audit_plan['has_office_order'] == 1)
                                 <button class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                        data-audit-plan-id="{{$audit_plan['id']}}" data-annual-plan-id="{{$audit_plan['annual_plan_id']}}" onclick="Office_Order_Container.showOfficeOrder($(this))" type="button">
+                                        data-toggle="tooltip" data-placement="bottom" title="Edit" data-audit-plan-id="{{$audit_plan['id']}}" data-annual-plan-id="{{$audit_plan['annual_plan_id']}}" onclick="Office_Order_Container.showOfficeOrder($(this))" type="button">
                                     <i class="fad fa-eye"></i>
                                 </button>
                             @endif
