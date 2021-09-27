@@ -12,7 +12,7 @@ class PlanEditorController extends Controller
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function loadOfficeEmployeeModal(Request $request)
+    public function loadAuditTeamModal(Request $request)
     {
         $data = Validator::make($request->all(), [
             'activity_id' => 'required|integer',
@@ -27,9 +27,16 @@ class PlanEditorController extends Controller
         $audit_plan_id = $request->audit_plan_id;
         $own_office = $this->current_office()['office_name_bn'];
         $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
+
+        //for all team data
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $teamResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_wise_team'), $data)->json();
+        //dd($teamResponseData);
+        $all_teams = isSuccess($teamResponseData)?$teamResponseData['data']:[];
+
         return view('modules.modal.load_team_modal', compact('activity_id',
             'annual_plan_id', 'fiscal_year_id', 'audit_plan_id',
-            'officer_lists', 'own_office'));
+            'officer_lists', 'own_office','all_teams'));
     }
 
     public function loadAuditTeamSchedule(Request $request)
