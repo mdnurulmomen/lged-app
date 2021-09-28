@@ -185,197 +185,228 @@
                                         <form id="team_form">
                                             <div class="timeline-items " id="permitted_designations">
                                                 @foreach($all_teams as $key => $value)
-                                                    <div class="custom-timeline-item timeline-item border-left-0 d-flex align-items-start"
-                                                    style="padding-left: 15px;">
-                                                    <div class="timeline-media position-relative"><i
-                                                            class="fas fa-chair text-primary"></i></div>
-                                                    <div class="timeline-content rounded-0 p-0 w-100"
-                                                         data-layer_index="{{$value['id']}}" id="permitted_level_{{$value['id']}}">
-                                                        <div
-                                                            class="px-3 pt-2 pb-0 mb-0 d-flex align-items-center justify-content-between">
-                                                            <h5 class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2"
-                                                                style="width: 20%;">{{$value['team_name']}}</h5>
-                                                            <div class="d-flex align-items-center justify-content-end">
+                                                    <div
+                                                        class="custom-timeline-item timeline-item border-left-0 d-flex align-items-start"
+                                                        style="padding-left: 15px;">
+                                                        <div class="timeline-media position-relative"><i
+                                                                class="fas fa-chair text-primary"></i></div>
+                                                        <div class="timeline-content rounded-0 p-0 w-100"
+                                                             data-layer_index="{{$value['id']}}"
+                                                             id="permitted_level_{{$value['id']}}">
+                                                            <div
+                                                                class="px-3 pt-2 pb-0 mb-0 d-flex align-items-center justify-content-between">
+                                                                <h5 class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2"
+                                                                    style="width: 20%;">{{$value['team_name']}}</h5>
                                                                 <div
-                                                                    class="d-flex align-items-center justify-content-between mb-0 mt-0">
-                                                                    <div class="mr-2">
-                                                                        @if($value['team_parent_id'])
-                                                                            <button type="button"
-                                                                                    id="team_schedule_layer_btn_{{$value['id']}}"
-                                                                                    onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$value['id']}}','{{$value['id']}}')"
-                                                                                    class="justify-self-end text-danger btn btn-icon btn-md">
-                                                                                <i class="text-primary far fa-calendar-alt"></i>
-                                                                            </button>
-                                                                        @endif
+                                                                    class="d-flex align-items-center justify-content-end">
+                                                                    <div
+                                                                        class="d-flex align-items-center justify-content-between mb-0 mt-0">
+                                                                        <div class="mr-2">
+                                                                            @if($value['team_parent_id'])
+                                                                                <button type="button"
+                                                                                        id="team_schedule_layer_btn_{{$value['id']}}"
+                                                                                        onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$value['id']}}','{{$value['id']}}')"
+                                                                                        class="justify-self-end text-danger btn btn-icon btn-md">
+                                                                                    <i class="text-primary far fa-calendar-alt"></i>
+                                                                                </button>
+                                                                            @endif
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="dragged_data_area px-2 pt-0" id="right_drop_zone_{{$value['id']}}">
-                                                            <ul class="listed_items rounded-0 list-group"
-                                                                id="list_group_{{$value['id']}}">
-                                                                <li class="list-group-item overflow-hidden p-1 dummy_li"></li>
-                                                                @php
-                                                                    $team_members = json_decode($value['team_members'],true);
-                                                                @endphp
+                                                            <div class="dragged_data_area px-2 pt-0"
+                                                                 id="right_drop_zone_{{$value['id']}}">
+                                                                <ul class="listed_items rounded-0 list-group"
+                                                                    id="list_group_{{$value['id']}}">
+                                                                    <li class="list-group-item overflow-hidden p-1 dummy_li"></li>
+                                                                    @php
+                                                                        $team_members = json_decode($value['team_members'],true);
+                                                                    @endphp
 
-                                                                @foreach($team_members as $key => $member_info)
-                                                                    @foreach($member_info as $officer_id => $member)
-                                                                        @if($value['team_parent_id'] > 0)
-                                                                            @if($member['team_member_role_en'] == 'teamLeader') @continue @endif
-                                                                        @endif
-                                                                    <li id="designtion_{{$member['designation_id']}}"
-                                                                    class="list-group-item overflow-hidden p-1">
-                                                                    <p data-content="{&quot;designation_id&quot;:&quot;1&quot;,&quot;designation_en&quot;:&quot;Director General&quot;,&quot;designation_bn&quot;:&quot;মহাপরিচালক&quot;,&quot;officer_name_en&quot;:&quot;Abul Kalam Azad&quot;,&quot;officer_name_bn&quot;:&quot;আবুল কালাম আজাদ&quot;,&quot;officer_mobile&quot;:&quot;01819000000&quot;,&quot;officer_email&quot;:&quot;abul@gmail.com&quot;,&quot;employee_grade&quot;:&quot;1&quot;,&quot;officer_id&quot;:&quot;1&quot;,&quot;unit_id&quot;:1,&quot;unit_name_en&quot;:&quot;Office of the Director General&quot;,&quot;unit_name_bn&quot;:&quot;মহাপরিচালক এর দপ্তর&quot;,&quot;office_id&quot;:2}"
-                                                                       data-member-role="{{$member['team_member_role_en']}}" data-layer="{{$value['id']}}"
-                                                                       class="assignedMember_{{$member['designation_id']}}_{{$value['id']}} p-0 mb-0 permitted_designation"
-                                                                       id="permitted_{{$value['id']}}" data-id="{{$value['id']}}">
-                                                                        <i class="far fa-user"></i><span
-                                                                            class="ml-2 mr-2">{{$member['officer_name_bn']}}</span>
-                                                                        <small>{{$member['designation_bn']}}, {{$member['unit_name_bn']}}</small>
+                                                                    @foreach($team_members as $key => $member_info)
+                                                                        @foreach($member_info as $officer_id => $member)
+                                                                            @if($value['team_parent_id'] > 0)
+                                                                                @if($member['team_member_role_en'] == 'teamLeader') @continue @endif
+                                                                            @endif
+                                                                            <li id="designtion_{{$member['designation_id']}}"
+                                                                                class="list-group-item overflow-hidden p-1">
+                                                                                <p data-content="{&quot;designation_id&quot;:&quot;1&quot;,&quot;designation_en&quot;:&quot;Director General&quot;,&quot;designation_bn&quot;:&quot;মহাপরিচালক&quot;,&quot;officer_name_en&quot;:&quot;Abul Kalam Azad&quot;,&quot;officer_name_bn&quot;:&quot;আবুল কালাম আজাদ&quot;,&quot;officer_mobile&quot;:&quot;01819000000&quot;,&quot;officer_email&quot;:&quot;abul@gmail.com&quot;,&quot;employee_grade&quot;:&quot;1&quot;,&quot;officer_id&quot;:&quot;1&quot;,&quot;unit_id&quot;:1,&quot;unit_name_en&quot;:&quot;Office of the Director General&quot;,&quot;unit_name_bn&quot;:&quot;মহাপরিচালক এর দপ্তর&quot;,&quot;office_id&quot;:2}"
+                                                                                   data-member-role="{{$member['team_member_role_en']}}"
+                                                                                   data-layer="{{$value['id']}}"
+                                                                                   class="assignedMember_{{$member['designation_id']}}_{{$value['id']}} p-0 mb-0 permitted_designation"
+                                                                                   id="permitted_{{$value['id']}}"
+                                                                                   data-id="{{$value['id']}}">
+                                                                                    <i class="far fa-user"></i><span
+                                                                                        class="ml-2 mr-2">{{$member['officer_name_bn']}}</span>
+                                                                                    <small>{{$member['designation_bn']}}
+                                                                                        , {{$member['unit_name_bn']}}</small>
 
-                                                                        @if(!$value['team_parent_id'])
+                                                                                    @if(!$value['team_parent_id'])
 
-                                                                        <button type="button" data-designation-id="{{$member['designation_id']}}"
-                                                                                onclick="Load_Team_Container.memberRole($(this), '{{$value['id']}}' , 'teamLeader', '{{$member['designation_id']}}')"
-                                                                                class="teamLeaderBtn btn btn-xs signatory_layer text-primary">
-                                                                            <i data-value="@if($member['team_member_role_en'] == 'teamLeader') 1 @else 0 @endif"
-                                                                               class="far text-primary @if($member['team_member_role_en'] == 'teamLeader') fa-check-square @else fa-square @endif "></i>দলনেতা
-                                                                        </button>
+                                                                                        <button type="button"
+                                                                                                data-designation-id="{{$member['designation_id']}}"
+                                                                                                onclick="Load_Team_Container.memberRole($(this), '{{$value['id']}}' , 'teamLeader', '{{$member['designation_id']}}')"
+                                                                                                class="teamLeaderBtn btn btn-xs signatory_layer text-primary">
+                                                                                            <i data-value="@if($member['team_member_role_en'] == 'teamLeader') 1 @else 0 @endif"
+                                                                                               class="far text-primary @if($member['team_member_role_en'] == 'teamLeader') fa-check-square @else fa-square @endif "></i>দলনেতা
+                                                                                        </button>
 
-                                                                        @endif
+                                                                                    @endif
 
-                                                                        <button type="button" data-designation-id="{{$member['designation_id']}}"
-                                                                                onclick="Load_Team_Container.memberRole($(this), '{{$value['id']}}' , 'subTeamLeader', '{{$member['designation_id']}}')"
-                                                                                class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary">
-                                                                            <i data-value="@if($member['team_member_role_en'] == 'subTeamLeader') 1 @else 0 @endif"
-                                                                               class="far text-primary @if($member['team_member_role_en'] == 'subTeamLeader') fa-check-square @else fa-square @endif "></i>উপ
-                                                                            দলনেতা
-                                                                        </button>
-                                                                        <button type="button" data-designation-id="{{$member['designation_id']}}"
-                                                                                onclick="Load_Team_Container.memberRole($(this), '{{$value['id']}}' , 'member', '{{$member['designation_id']}}')"
-                                                                                class="memberBtn btn btn-xs signatory_layer text-primary">
-                                                                            <i data-value="@if($member['team_member_role_en'] == 'member') 1 @else 0 @endif"
-                                                                               class="far text-primary @if($member['team_member_role_en'] == 'member') fa-check-square @else fa-square @endif "></i>সদস্য
-                                                                        </button>
-                                                                        <button type="button"
-                                                                                onclick="Load_Team_Container.deleteNode('designation','permitted_{{$value['id']}}', 0)"
-                                                                                class="text-danger btn btn-icon btn-xs del_layer_designation">
-                                                                            <i class="text-danger far fa-trash-alt"></i>
-                                                                        </button>
-                                                                    </p>
-                                                                </li>
+                                                                                    <button type="button"
+                                                                                            data-designation-id="{{$member['designation_id']}}"
+                                                                                            onclick="Load_Team_Container.memberRole($(this), '{{$value['id']}}' , 'subTeamLeader', '{{$member['designation_id']}}')"
+                                                                                            class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary">
+                                                                                        <i data-value="@if($member['team_member_role_en'] == 'subTeamLeader') 1 @else 0 @endif"
+                                                                                           class="far text-primary @if($member['team_member_role_en'] == 'subTeamLeader') fa-check-square @else fa-square @endif "></i>উপ
+                                                                                        দলনেতা
+                                                                                    </button>
+                                                                                    <button type="button"
+                                                                                            data-designation-id="{{$member['designation_id']}}"
+                                                                                            onclick="Load_Team_Container.memberRole($(this), '{{$value['id']}}' , 'member', '{{$member['designation_id']}}')"
+                                                                                            class="memberBtn btn btn-xs signatory_layer text-primary">
+                                                                                        <i data-value="@if($member['team_member_role_en'] == 'member') 1 @else 0 @endif"
+                                                                                           class="far text-primary @if($member['team_member_role_en'] == 'member') fa-check-square @else fa-square @endif "></i>সদস্য
+                                                                                    </button>
+                                                                                    <button type="button"
+                                                                                            onclick="Load_Team_Container.deleteNode('designation','permitted_{{$value['id']}}', 0)"
+                                                                                            class="text-danger btn btn-icon btn-xs del_layer_designation">
+                                                                                        <i class="text-danger far fa-trash-alt"></i>
+                                                                                    </button>
+                                                                                </p>
+                                                                            </li>
+                                                                        @endforeach
                                                                     @endforeach
-                                                                @endforeach
-                                                            </ul>
-                                                        </div>
-                                                        @if($value['team_schedules'])
+                                                                </ul>
+                                                            </div>
+                                                            @if($value['team_schedules'])
 
                                                                 @php
                                                                     $team_schedules = json_decode($value['team_schedules'],true);
                                                                     $row = 0;
                                                                 @endphp
-                                                            @foreach($team_schedules as $key => $schedule)
-                                                                @php $row++ @endphp
-                                                            <div class="px-2 pt-0" id="team_schedule_list_{{$row}}">
+                                                                @foreach($team_schedules as $key => $schedule)
+                                                                    @php $row++ @endphp
+                                                                    <div class="px-2 pt-0"
+                                                                         id="team_schedule_list_{{$row}}">
 
-                                                            <div class="audit_schedule_list_div">
-                                                                <table id="audit_schedule_table_{{$value['id']}}" class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm
+                                                                        <div class="audit_schedule_list_div">
+                                                                            <table
+                                                                                id="audit_schedule_table_{{$value['id']}}"
+                                                                                class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm
                                             text-center">
-                                                                    <thead>
-                                                                    <tr>
-                                                                        <th width="52%">
-                                                                            শাখার নাম
-                                                                        </th>
-                                                                        <th width="30%">
-                                                                            নিরীক্ষার সময়কাল
-                                                                        </th>
+                                                                                <thead>
+                                                                                <tr>
+                                                                                    <th width="52%">
+                                                                                        শাখার নাম
+                                                                                    </th>
+                                                                                    <th width="30%">
+                                                                                        নিরীক্ষার সময়কাল
+                                                                                    </th>
 
-                                                                        <th width="12%">
-                                                                            কর্ম দিবস
-                                                                        </th>
-                                                                        <th width="6%">
-                                                                            <div class="ml-1" align="left">
-                                                                                <button type="button"
-                                                                                        class="btn btn-icon btn-outline-danger border-0 btn-xs mr-2 remove_audit_schedule_list_div">
+                                                                                    <th width="12%">
+                                                                                        কর্ম দিবস
+                                                                                    </th>
+                                                                                    <th width="6%">
+                                                                                        <div class="ml-1" align="left">
+                                                                                            <button type="button"
+                                                                                                    class="btn btn-icon btn-outline-danger border-0 btn-xs mr-2 remove_audit_schedule_list_div">
                                                                                     <span
                                                                                         class="fal fa-trash-alt"></span>
-                                                                                </button>
-                                                                            </div>
-                                                                        </th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody data-tbody-id="{{$value['id']}}_{{$row}}">
-                                                                    <tr class='audit_schedule_row_{{$value['id']}}' data-layer-id="{{$value['id']}}"
-                                                                        data-audit-schedule-first-row='{{$row}}_{{$value['id']}}'>
-                                                                        <td>
-                                                                            <select id="branch_name_select_{{$value['id']}}_{{$row}}"
-                                                                                    class="form-control input-branch-name"
-                                                                                    data-id="{{$value['id']}}_{{$row}}">
-                                                                                <option value=''>--Select--</option>
-                                                                                @foreach($nominated_offices_list as $key => $nominatedOffice)
-                                                                                    <option @if($nominatedOffice['office_id'] == $schedule['cost_center_id']) selected @endif value="{{$nominatedOffice['office_id']}}"
-                                                                                            data-cost-center-id="{{$nominatedOffice['office_id']}}"
-                                                                                            data-cost-center-name-bn="{{$nominatedOffice['office_name_bn']}}"
-                                                                                            data-cost-center-name-en="{{$nominatedOffice['office_name_en']}}">{{$nominatedOffice['office_name_bn']}}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="row">
-                                                                                <div class="col pr-0">
-                                                                                    <input type="text" data-id="{{$value['id']}}_{{$row}}"
-                                                                                           class="date form-control input-start-duration"
-                                                                                           value="{{date('d/m/y',strtotime($schedule['team_member_start_date']))}}"
-                                                                                           placeholder="শুরু"/>
-                                                                                </div>
-                                                                                <div class="col pl-0">
-                                                                                    <input type="text" data-id="{{$value['id']}}_{{$row}}"
-                                                                                           class="date form-control input-end-duration"
-                                                                                           value="{{date('d/m/y',strtotime($schedule['team_member_end_date']))}}"
-                                                                                           placeholder="শেষ"/>
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </th>
+                                                                                </tr>
+                                                                                </thead>
+                                                                                <tbody
+                                                                                    data-tbody-id="{{$value['id']}}_{{$row}}">
+                                                                                <tr class='audit_schedule_row_{{$value['id']}}'
+                                                                                    data-layer-id="{{$value['id']}}"
+                                                                                    data-audit-schedule-first-row='{{$row}}_{{$value['id']}}'>
+                                                                                    <td>
+                                                                                        <select
+                                                                                            id="branch_name_select_{{$value['id']}}_{{$row}}"
+                                                                                            class="form-control input-branch-name"
+                                                                                            data-id="{{$value['id']}}_{{$row}}">
+                                                                                            <option value=''>
+                                                                                                --Select--
+                                                                                            </option>
+                                                                                            @foreach($nominated_offices_list as $key => $nominatedOffice)
+                                                                                                <option
+                                                                                                    @if($nominatedOffice['office_id'] == $schedule['cost_center_id']) selected
+                                                                                                    @endif value="{{$nominatedOffice['office_id']}}"
+                                                                                                    data-cost-center-id="{{$nominatedOffice['office_id']}}"
+                                                                                                    data-cost-center-name-bn="{{$nominatedOffice['office_name_bn']}}"
+                                                                                                    data-cost-center-name-en="{{$nominatedOffice['office_name_en']}}">{{$nominatedOffice['office_name_bn']}}</option>
+                                                                                            @endforeach
+                                                                                        </select>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="row">
+                                                                                            <div class="col pr-0">
+                                                                                                <input type="text"
+                                                                                                       data-id="{{$value['id']}}_{{$row}}"
+                                                                                                       class="date form-control input-start-duration"
+                                                                                                       value="{{date('d/m/y',strtotime($schedule['team_member_start_date']))}}"
+                                                                                                       placeholder="শুরু"/>
+                                                                                            </div>
+                                                                                            <div class="col pl-0">
+                                                                                                <input type="text"
+                                                                                                       data-id="{{$value['id']}}_{{$row}}"
+                                                                                                       class="date form-control input-end-duration"
+                                                                                                       value="{{date('d/m/y',strtotime($schedule['team_member_end_date']))}}"
+                                                                                                       placeholder="শেষ"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </td>
 
-                                                                        <td>
-                                                                            <input type="number" data-id="{{$value['id']}}_{{$row}}"
-                                                                                   class="form-control input-total-working-day"
-                                                                                   value="{{$schedule['activity_man_days']}}"
-                                                                                   id="input_total_working_day_{{$value['id']}}_{{$row}}"/>
-                                                                        </td>
-                                                                        <td style="display: inline-flex;">
-                                                                            <button type="button"
-                                                                                    onclick="Load_Team_Schedule.addAuditScheduleTblRow()"
-                                                                                    class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
-                                                                                <span class="fad fa-plus"></span>
-                                                                            </button>
-                                                                            <button type='button' data-row='row1'
-                                                                                    class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2 remove-schedule-row'>
-                                                                                <span class='fal fa-trash-alt'></span>
-                                                                            </button>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr class="audit_schedule_row_{{$value['id']}}" data-layer-id="{{$value['id']}}"
-                                                                        data-schedule-second-row='{{$row}}_{{$value['id']}}'>
-                                                                        <td width="20%">
-                                                                            <input type="text" data-id="{{$value['id']}}_{{$row}}" value="{{date('d/m/y',strtotime($schedule['activity_detail_date']))}}"
-                                                                                   class="date form-control input-detail-duration"/>
-                                                                        </td>
-                                                                        <td width="72%" colspan="2">
-                                                                            <input type="text" data-id="{{$value['id']}}_{{$row}}" value="{{$schedule['activity_details']}}"
-                                                                                   class="form-control input-detail"/>
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
+                                                                                    <td>
+                                                                                        <input type="number"
+                                                                                               data-id="{{$value['id']}}_{{$row}}"
+                                                                                               class="form-control input-total-working-day"
+                                                                                               value="{{$schedule['activity_man_days']}}"
+                                                                                               id="input_total_working_day_{{$value['id']}}_{{$row}}"/>
+                                                                                    </td>
+                                                                                    <td style="display: inline-flex;">
+                                                                                        <button type="button"
+                                                                                                onclick="Load_Team_Schedule.addAuditScheduleTblRow()"
+                                                                                                class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
+                                                                                            <span
+                                                                                                class="fad fa-plus"></span>
+                                                                                        </button>
+                                                                                        <button type='button'
+                                                                                                data-row='row1'
+                                                                                                class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2 remove-schedule-row'>
+                                                                                            <span
+                                                                                                class='fal fa-trash-alt'></span>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr class="audit_schedule_row_{{$value['id']}}"
+                                                                                    data-layer-id="{{$value['id']}}"
+                                                                                    data-schedule-second-row='{{$row}}_{{$value['id']}}'>
+                                                                                    <td width="20%">
+                                                                                        <input type="text"
+                                                                                               data-id="{{$value['id']}}_{{$row}}"
+                                                                                               value="{{date('d/m/y',strtotime($schedule['activity_detail_date']))}}"
+                                                                                               class="date form-control input-detail-duration"/>
+                                                                                    </td>
+                                                                                    <td width="72%" colspan="2">
+                                                                                        <input type="text"
+                                                                                               data-id="{{$value['id']}}_{{$row}}"
+                                                                                               value="{{$schedule['activity_details']}}"
+                                                                                               class="form-control input-detail"/>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
 
+                                                                    </div>
+                                                                @endforeach
+                                                            @endif
                                                         </div>
-                                                            @endforeach
-                                                        @endif
                                                     </div>
-                                                </div>
                                                 @endforeach
                                             </div>
                                         </form>
@@ -389,7 +420,9 @@
                     <div class="col-md-12">
                         <div class="actions text-right mt-3 permission_action_btn">
                             <button type="button" class="btn btn-sm btn-primary btn-square" id="saveAuditTeam"
-                                   @if(empty($all_teams)) onclick="Load_Team_Container.saveAuditTeam()" @else onclick="Load_Team_Container.updateAuditTeam()" @endif><i class="fad fa-cloud"></i>সংরক্ষণ
+                                    @if(empty($all_teams)) onclick="Load_Team_Container.saveAuditTeam()"
+                                    @else onclick="Load_Team_Container.updateAuditTeam()" @endif><i
+                                    class="fad fa-cloud"></i>সংরক্ষণ
                                 করুন
                             </button>
                             <button type="button" class="btn btn-sm btn-secondary btn-square"
@@ -510,7 +543,7 @@
                                 <p data-content='${JSON.stringify(data_content)}' data-member-role="member" data-layer="${layer_index}" class="assignedMember_${data_content.designation_id}_${layer_index} p-0 mb-0 permitted_designation" id="permitted_${data_content.designation_id}" data-id="${data_content.designation_id}">
                                     <i class="far fa-user"></i><span class="ml-2 mr-2">${html_officer}</span>
                                     <small>${data_content.designation_bn}, ${data_content.unit_name_bn}</small>`;
-            if (layer_index == 1) {
+            if (layer_index == $('[id^=permitted_level_]').first().attr('data-layer_index')) {
                 node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader', ${data_content.designation_id})" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-square"></i>দলনেতা</button>`;
             }
 
@@ -817,7 +850,7 @@
                     }
 
                     team_name = $('#permitted_level_' + layer_id).find('.layer_text').html();
-                    if (layer_id == 1) {
+                    if (layer_id == $('[id^=permitted_level_]').first().attr('data-layer_index')) {
                         team_type = 'parent';
                         if (role == 'teamLeader') {
                             leader_info[layer_id] = {
@@ -1205,4 +1238,15 @@
             return unitVisitHtmlTable;
         }
     };
+    {{--$(document).on('click', '.remove-schedule-row', function () {--}}
+    {{--    let rowId = $(this).closest("tr").data('audit-schedule-first-row');--}}
+    {{--    console.log(rowId)--}}
+    {{--    $('#audit_schedule_table_{{$team_layer_id}} tbody tr[data-schedule-second-row=' + rowId + ']').remove();--}}
+    {{--    $(this).closest("tr").remove();--}}
+    {{--});--}}
+
+    {{--$(document).on('click', '.remove_audit_schedule_list_div', function () {--}}
+    {{--    $("#audit_schedule_table_{{$team_layer_id}}").remove();--}}
+    {{--    $("#team_schedule_layer_btn_{{$team_layer_id}}").show();--}}
+    {{--});--}}
 </script>
