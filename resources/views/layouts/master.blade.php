@@ -77,7 +77,7 @@
 <!--end::Main-->
 
 <!--begin::Quick Panel-->
-{{--@include('layouts.partials._quick_panel')--}}
+@include('layouts.partials._quick_panel')
 <!--end::Quick Panel-->
 
 <!--begin::Chat Panel-->

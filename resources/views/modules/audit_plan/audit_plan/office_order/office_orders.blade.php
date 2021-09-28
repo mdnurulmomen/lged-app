@@ -44,6 +44,12 @@
                                     <i class="fad fa-eye"></i>
                                 </button>
                             @endif
+
+                            <button class="approval mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                    data-audit-plan-id="{{$audit_plan['id']}}" data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                                    type="button">
+                                <i class="fad fa-check"></i>
+                            </button>
                         </div>
                     </td>
                 </tr>
@@ -58,6 +64,14 @@
 
 
 <script>
+
+    $(".approval").click(function(){
+        //$('.kt_quick_panel__title').text('মন্ত্রণালয়/ বিভাগ তৈরি');
+        quick_panel = $("#kt_quick_panel");
+        quick_panel.addClass('offcanvas-on');
+        quick_panel.css('opacity', 1);
+        $("html").addClass("side-panel-overlay");
+    })
 
     var Office_Order_Container = {
         loadOfficeOrderGenerateModal: function (element) {
