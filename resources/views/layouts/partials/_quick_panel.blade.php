@@ -17,9 +17,9 @@
         <!--end::Wrapper-->
         <!--begin::Purchase-->
         <div class="offcanvas-footer">
-            <div class="text-right">
+            {{--<div class="text-right">
                 <button type="button" class="btn btn-primary text-weight-bold">Action button</button>
-            </div>
+            </div>--}}
         </div>
         <!--end::Purchase-->
     </div>

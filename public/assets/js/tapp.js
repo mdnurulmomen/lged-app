@@ -283,5 +283,7 @@ $("#kt_quick_panel_close").on('click',function () {
     quick_panel = $("#kt_quick_panel");
     quick_panel.removeClass('offcanvas-on');
     quick_panel.css('opacity', 0);
+    quick_panel.addClass('d-none');
     $("html").removeClass("side-panel-overlay");
+    $(".offcanvas-wrapper").html('');
 });

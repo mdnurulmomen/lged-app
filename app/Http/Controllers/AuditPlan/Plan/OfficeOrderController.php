@@ -11,6 +11,11 @@ class OfficeOrderController extends Controller
 {
     public function index()
     {
+        return view('modules.audit_plan.audit_plan.office_order.office_orders');
+    }
+
+    public function loadOfficeOrderList(Request $request)
+    {
         $requestData = [
             'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
         ];
@@ -18,7 +23,7 @@ class OfficeOrderController extends Controller
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.audit_plan_list'), $requestData)->json();
         //dd($responseData);
         $data['audit_plans'] = isSuccess($responseData)?$responseData['data']:[];
-        return view('modules.audit_plan.audit_plan.office_order.office_orders',$data);
+        return view('modules.audit_plan.audit_plan.office_order.partials.load_office_orders',$data);
     }
 
     public function loadOfficeOrderGenerateModal(Request $request){
@@ -83,6 +88,7 @@ class OfficeOrderController extends Controller
                 'memorandum_date' => $request->memorandum_date,
                 'heading_details' => $request->heading_details,
                 'advices' => $request->advices,
+                'approved_status' => 'draft',
                 'order_cc_list' => $request->order_cc_list
             ];
 
@@ -103,5 +109,56 @@ class OfficeOrderController extends Controller
             return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
         }
 
+    }
+
+    public function loadOfficeOrderApprovalAuthority(Request $request)
+    {
+        $data['ap_office_order_id'] = $request->ap_office_order_id;
+        $data['audit_plan_id'] = $request->audit_plan_id;
+        $data['annual_plan_id'] = $request->annual_plan_id;
+        $data['officer_lists'] = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
+        return view('modules.audit_plan.audit_plan.office_order.partials.load_approval_authority',$data);
+    }
+
+    public function storeOfficeOrderApprovalAuthority(Request $request): \Illuminate\Http\JsonResponse
+    {
+        try {
+            //dd($request->all());
+            $data = Validator::make($request->all(), [
+                'ap_office_order_id' => 'required|integer',
+                'annual_plan_id' => 'required|integer',
+                'audit_plan_id' => 'required|integer',
+                'office_id' => 'required|integer',
+                'unit_id' => 'required|integer',
+                'unit_name_en' => 'required',
+                'unit_name_bn' => 'required',
+                'officer_type' => 'required',
+                'employee_id' => 'required|integer',
+                'employee_name_en' => 'required',
+                'employee_name_bn' => 'required',
+                'employee_designation_id' => 'required|integer',
+                'employee_designation_en' => 'required',
+                'employee_designation_bn' => 'required',
+                'received_by' => 'required|integer',
+            ])->validate();
+
+            $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+
+            $responseGenerateOfficeOrder = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.store_approval_authority'), $data)->json();
+            //dd($responseGenerateOfficeOrder);
+            if (isSuccess($responseGenerateOfficeOrder)) {
+                return response()->json(['status' => 'success', 'data' => 'Added!']);
+            } else {
+                return response()->json(['status' => 'error', 'data' => $responseGenerateOfficeOrder]);
+            }
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => $exception->errors(),
+                'statusCode' => '422',
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
+        }
     }
 }
