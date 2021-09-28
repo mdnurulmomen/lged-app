@@ -50,8 +50,8 @@ class RevisedPlanController extends Controller
         $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_create_draft'), $data)->json();
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
-            //$parent_office_data = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-other-info'), ['office_id' => $audit_plan['annual_plan']['parent_office_id']])->json();
-            $parent_office_data = []; //isSuccess($parent_office_data) ? $parent_office_data['data'] : [];
+            $parent_office_data = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-other-info'), ['office_id' => $audit_plan['annual_plan']['parent_office_id']])->json();
+            $parent_office_data = isSuccess($parent_office_data) ? $parent_office_data['data'] : [];
             $parent_office_content = (is_array($parent_office_data) && !empty($parent_office_data)) ? json_encode($parent_office_data['content_list']) : json_encode([]);
             $activity_id = $request->activity_id;
             $fiscal_year_id = $request->fiscal_year_id;
