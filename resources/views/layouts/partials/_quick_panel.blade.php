@@ -1,5 +1,5 @@
 <!--begin::Quick Cart-->
-<div id="kt_quick_cart" class="offcanvas offcanvas-right p-10">
+<div id="kt_quick_panel" class="offcanvas offcanvas-right p-10">
     <!--begin::Header-->
     <div class="offcanvas-header d-flex align-items-center justify-content-between pb-7">
         <h4 class="font-weight-bold m-0">Title</h4>
