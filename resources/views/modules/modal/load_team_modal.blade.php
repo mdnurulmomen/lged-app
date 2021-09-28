@@ -293,8 +293,7 @@
                                                                         <div class="audit_schedule_list_div">
                                                                             <table
                                                                                 id="audit_schedule_table_{{$value['id']}}"
-                                                                                class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm
-                                            text-center">
+                                                                                class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm text-center">
                                                                                 <thead>
                                                                                 <tr>
                                                                                     <th width="52%">
@@ -310,6 +309,7 @@
                                                                                     <th width="6%">
                                                                                         <div class="ml-1" align="left">
                                                                                             <button type="button"
+                                                                                                    onclick="removeAuditScheduleListDiv({{$value['id']}})"
                                                                                                     class="btn btn-icon btn-outline-danger border-0 btn-xs mr-2 remove_audit_schedule_list_div">
                                                                                     <span
                                                                                         class="fal fa-trash-alt"></span>
@@ -369,13 +369,14 @@
                                                                                     </td>
                                                                                     <td style="display: inline-flex;">
                                                                                         <button type="button"
-                                                                                                onclick="Load_Team_Schedule.addAuditScheduleTblRow()"
+                                                                                                onclick="addAuditScheduleTblRow({{$value['id']}})"
                                                                                                 class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-plus"></span>
                                                                                         </button>
                                                                                         <button type='button'
                                                                                                 data-row='row1'
+                                                                                                onclick="removeScheduleRow($(this), {{$value['id']}})"
                                                                                                 class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2 remove-schedule-row'>
                                                                                             <span
                                                                                                 class='fal fa-trash-alt'></span>
@@ -443,6 +444,48 @@
     member = {};
     all_teams = {};
     all_schedules = {};
+
+    function removeScheduleRow(elem, layer_id) {
+        let rowId = elem.closest("tr").data('audit-schedule-first-row');
+        console.log(rowId)
+        console.log($('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']'))
+        console.log('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']')
+        $('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']').remove();
+        elem.closest("tr").remove();
+    }
+
+    function removeAuditScheduleListDiv(layer_id) {
+        $("#audit_schedule_table_" + layer_id).remove();
+        $("#team_schedule_layer_btn_" + layer_id).show();
+    }
+
+    function addAuditScheduleTblRow(layer_id) {
+        var totalAuditScheduleTbody = $('.audit-schedule-table tbody').length + 1;
+        var totalAuditScheduleRow = $('.audit-schedule-table tbody tr').length + 1;
+        var teamScheduleHtml = "<tbody data-tbody-id='" + layer_id + "_" + totalAuditScheduleTbody + "'>" +
+            "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
+        teamScheduleHtml += "<td>" +
+            "<select id='branch_name_select_" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-branch-name' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
+            "<option value=''>--Select--</option>" +
+            @foreach($nominated_offices_list as $key => $nominatedOffice)
+                "<option value='{{$nominatedOffice['office_id']}}' data-cost-center-id='{{$nominatedOffice['office_id']}}' data-cost-center-name-bn='{{$nominatedOffice['office_name_bn']}}' data-cost-center-name-en='{{$nominatedOffice['office_name_en']}}'>{{$nominatedOffice['office_name_bn']}}</option>" +
+            @endforeach
+                "</select></td>";
+
+        teamScheduleHtml += "<td><div class='row'><div class='col'><input type='text' " +
+            "class='date form-control input-start-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শুরু'/></div><div class='col'>" +
+            "<input type='text' class='date form-control input-end-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শেষ'/>" +
+            "</div></div></td>"
+        teamScheduleHtml += "<td><input type='number' value='0' class='form-control input-total-working-day' id='input_total_working_day_" + layer_id + "_" + totalAuditScheduleRow + "' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'/></td>";
+        teamScheduleHtml += "<td style='display: inline-flex'><button type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'><span class='fad fa-plus'></span></button><button onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2 remove-schedule-row'><span class='fal fa-trash-alt'></span></button></td>";
+        teamScheduleHtml += "</tr>";
+        teamScheduleHtml += "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-schedule-second-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
+        teamScheduleHtml += "<td><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/></td>";
+        teamScheduleHtml += "<td colspan='3'><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
+        teamScheduleHtml += "</tr></tbody>";
+
+        $('#audit_schedule_table_' + layer_id).append(teamScheduleHtml);
+    }
 
     $(document).off('click', '.layer_text').on('click', '.layer_text', function () {
         $(this).attr('contenteditable', 'true');
@@ -778,6 +821,7 @@
                         toastr.success(response.data);
                         $(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
                         Load_Team_Container.insertAuditScheduleListInBook();
+                        Load_Team_Container.setJsonContentFromPlanBook();
                     } else {
                         toastr.error(response.data);
                         console.log(response)
@@ -801,6 +845,7 @@
                         toastr.success(response.data);
                         $(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
                         Load_Team_Container.insertAuditScheduleListInBook();
+                        Load_Team_Container.setJsonContentFromPlanBook();
                     } else {
                         toastr.error(response.data);
                         console.log(response)
@@ -994,6 +1039,7 @@
                     toastr.success(response.data);
                     Load_Team_Container.saveAuditTeamSchedule();
                     Load_Team_Container.insertTeamDataInBook();
+                    Load_Team_Container.setJsonContentFromPlanBook();
                 } else {
                     toastr.error(response.data);
                     console.log(response)
@@ -1025,6 +1071,7 @@
                     toastr.success(response.data);
                     Load_Team_Container.updateAuditTeamSchedule();
                     Load_Team_Container.insertTeamDataInBook();
+                    Load_Team_Container.setJsonContentFromPlanBook();
                 } else {
                     toastr.error(response.data);
                     console.log(response)
@@ -1038,6 +1085,9 @@
             $('.proposed_date_commencement_audit').html($('#permitted_level_1').find('.layer_text').html());
             $('.proposed_date_completion_audit').html($('#permitted_level_1').find('.layer_text').html());
             Load_Team_Container.insertAuditTeamListInBook();
+        },
+
+        setJsonContentFromPlanBook: function () {
             templateArray.map(function (value, index) {
                 cover = $("#pdfContent_" + value.content_id).html();
                 value.content = cover;
@@ -1120,8 +1170,8 @@
             let totalAuditScheduleRow = $('.audit_schedule_view_list tbody tr').length;
 
             var totalTableArrayData = [];
-            for (var i in auditSchedule) {
-                totalTableArrayData.push([i, auditSchedule[i]]);
+            for (var i in all_schedules) {
+                totalTableArrayData.push([i, all_schedules[i]]);
             }
 
             for (var i = 0; i < totalTableArrayData.length; i++) {
@@ -1203,12 +1253,12 @@
                         </tr>
                 `;
 
-            if (!$.isEmptyObject(auditSchedule)) {
+            if (!$.isEmptyObject(all_schedules)) {
 
                 resultScheduleList = [];
-                for (var scheduleData in auditSchedule) {
-                    for (var key in auditSchedule[scheduleData]) {
-                        resultScheduleList.push([key, auditSchedule[scheduleData][key]]);
+                for (var scheduleData in all_schedules) {
+                    for (var key in all_schedules[scheduleData]) {
+                        resultScheduleList.push([key, all_schedules[scheduleData][key]]);
                     }
                 }
 
@@ -1234,19 +1284,7 @@
 
             unitVisitHtmlTable += ` </tbody>
             </table>`;
-
             return unitVisitHtmlTable;
         }
     };
-    {{--$(document).on('click', '.remove-schedule-row', function () {--}}
-    {{--    let rowId = $(this).closest("tr").data('audit-schedule-first-row');--}}
-    {{--    console.log(rowId)--}}
-    {{--    $('#audit_schedule_table_{{$team_layer_id}} tbody tr[data-schedule-second-row=' + rowId + ']').remove();--}}
-    {{--    $(this).closest("tr").remove();--}}
-    {{--});--}}
-
-    {{--$(document).on('click', '.remove_audit_schedule_list_div', function () {--}}
-    {{--    $("#audit_schedule_table_{{$team_layer_id}}").remove();--}}
-    {{--    $("#team_schedule_layer_btn_{{$team_layer_id}}").show();--}}
-    {{--});--}}
 </script>
