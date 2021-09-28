@@ -209,9 +209,10 @@
             data = {audit_plan_id,annual_plan_id,is_print};
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                var newDoc = document.open("text/html", "replace");
-                newDoc.write(response);
-                newDoc.close();
+                var newDoc = window.open("about:blank");
+                newDoc.document.open();
+                newDoc.document.write(response);
+                // newDoc.close();
                 /* myWindow = window.open("data:text/html," + encodeURIComponent(response),
                      "_blank", "width=200,height=100");
                  myWindow.focus();*/
