@@ -230,11 +230,11 @@
                                                                             @endif
                                                                             <li id="designtion_{{$member['designation_id']}}"
                                                                                 class="list-group-item overflow-hidden p-1">
-                                                                                <p data-content="{&quot;designation_id&quot;:&quot;1&quot;,&quot;designation_en&quot;:&quot;Director General&quot;,&quot;designation_bn&quot;:&quot;মহাপরিচালক&quot;,&quot;officer_name_en&quot;:&quot;Abul Kalam Azad&quot;,&quot;officer_name_bn&quot;:&quot;আবুল কালাম আজাদ&quot;,&quot;officer_mobile&quot;:&quot;01819000000&quot;,&quot;officer_email&quot;:&quot;abul@gmail.com&quot;,&quot;employee_grade&quot;:&quot;1&quot;,&quot;officer_id&quot;:&quot;1&quot;,&quot;unit_id&quot;:1,&quot;unit_name_en&quot;:&quot;Office of the Director General&quot;,&quot;unit_name_bn&quot;:&quot;মহাপরিচালক এর দপ্তর&quot;,&quot;office_id&quot;:2}"
+                                                                                <p data-content="{{json_encode($member, JSON_UNESCAPED_UNICODE)}}"
                                                                                    data-member-role="{{$member['team_member_role_en']}}"
                                                                                    data-layer="{{$value['id']}}"
                                                                                    class="assignedMember_{{$member['designation_id']}}_{{$value['id']}} p-0 mb-0 permitted_designation"
-                                                                                   id="permitted_{{$value['id']}}"
+                                                                                   id="permitted_{{$member['designation_id']}}"
                                                                                    data-id="{{$value['id']}}">
                                                                                     <i class="far fa-user"></i><span
                                                                                         class="ml-2 mr-2">{{$member['officer_name_bn']}}</span>
@@ -269,7 +269,7 @@
                                                                                            class="far text-primary @if($member['team_member_role_en'] == 'member') fa-check-square @else fa-square @endif "></i>সদস্য
                                                                                     </button>
                                                                                     <button type="button"
-                                                                                            onclick="Load_Team_Container.deleteNode('designation','permitted_{{$value['id']}}', 0)"
+                                                                                            onclick="Load_Team_Container.deleteNode('designation','permitted_{{$member['designation_id']}}', 0)"
                                                                                             class="text-danger btn btn-icon btn-xs del_layer_designation">
                                                                                         <i class="text-danger far fa-trash-alt"></i>
                                                                                     </button>
@@ -766,9 +766,9 @@
         },
 
         saveAuditTeamSchedule: function () {
-            if (!$.isEmptyObject(auditSchedule)) {
+            schedule_data = Load_Team_Container.makeAuditSchedule();
+            if (!$.isEmptyObject(schedule_data)) {
                 url = '{{route('audit.plan.audit.revised.plan.store-audit-team-schedule')}}';
-                schedule_data = Load_Team_Container.makeAuditSchedule();
                 schedule = {"schedule": schedule_data}
                 team_schedules = JSON.stringify(schedule);
                 audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
@@ -789,9 +789,9 @@
         },
 
         updateAuditTeamSchedule: function () {
-            if (!$.isEmptyObject(auditSchedule)) {
+            schedule_data = Load_Team_Container.makeAuditSchedule();
+            if (!$.isEmptyObject(schedule_data)) {
                 url = '{{route('audit.plan.audit.revised.plan.update-audit-team-schedule')}}';
-                schedule_data = Load_Team_Container.makeAuditSchedule();
                 schedule = {"schedule": schedule_data}
                 team_schedules = JSON.stringify(schedule);
                 audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
