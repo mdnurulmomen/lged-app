@@ -60,7 +60,8 @@
             };
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (res) {
-                var newDoc = document.open("text/html", "replace");
+                //var newDoc = document.open("text/html", "replace");
+                var newDoc = document.open("about:blank");
                 newDoc.write(res);
                 newDoc.close();
             })
