@@ -95,6 +95,7 @@ return [
         'store_audit_team_schedule' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/audit-team/store-team-schedule',
         'update_audit_team_schedule' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/audit-team/update-team-schedule',
         'get_sub_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-sub-tam',
+        'get_team_info' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-team-info',
         'get_audit_plan_wise_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team',
         'ap_office_order' => [
             'audit_plan_list' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/audit-plan-list',

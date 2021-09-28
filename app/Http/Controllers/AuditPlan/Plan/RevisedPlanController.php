@@ -249,4 +249,21 @@ class RevisedPlanController extends Controller
         }
     }
 
+    public function getTeamInfo(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $data = Validator::make($request->all(), [
+            'team_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+
+        $team_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_team_info'), $data)->json();
+        dd($team_info);
+        if (isSuccess($team_info)) {
+            return response()->json(['status' => 'error', 'data' => $team_info['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $team_info]);
+        }
+    }
+
 }
