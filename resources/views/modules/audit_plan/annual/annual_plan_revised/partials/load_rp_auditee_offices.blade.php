@@ -4,7 +4,8 @@
             <div class="tree-demo rounded-0 rp_auditee_offices jstree-init jstree-1 jstree-default"
                  style="overflow-y: scroll; height: 60vh">
                 <ul>
-                    @foreach($rp_offices as $rp_office)
+                    @foreach($rp_offices as $rp_office_list)
+                        @foreach($rp_office_list as $rp_office)
                         <li data-rp-auditee-entity-id="{{$rp_office['id']}}" data-entity-info="{{json_encode(
     [
         'entity_parent_id' => $rp_office['id'],
@@ -26,6 +27,7 @@
 ['entity_parent_id' => $rp_office['id'],'entity_parent_name_en' => $rp_office['office_name_en'],'entity_parent_name_bn' => $rp_office['office_name_bn'],'rp_offices' => $rp_office['child']])
                             @endif
                         </li>
+                    @endforeach
                     @endforeach
                 </ul>
             </div>

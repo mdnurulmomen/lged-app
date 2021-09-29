@@ -73,7 +73,12 @@
             ministry_name_en = $('#ministry_name_en').val()
             ministry_name_bn = $('#ministry_name_bn').val()
             data = {ministry_id, layer_id, ministry_name_en, ministry_name_bn};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
