@@ -49,6 +49,7 @@ class User extends Authenticatable
     protected $current_office_id;
     protected $current_office_unit_id;
     protected $current_designation_id;
+    protected $current_designation_role;
 
     public function __construct()
     {
@@ -57,8 +58,8 @@ class User extends Authenticatable
         $this->current_office_id = Session::get("_office_id");
         $this->current_office_unit_id = Session::get("_office_unit_id");
         $this->current_designation_id = Session::get("_designation_id");
+        $this->current_designation_role = Session::get("_designation_role");
     }
-
 
     public function current_office_id()
     {
@@ -73,5 +74,10 @@ class User extends Authenticatable
     public function current_designation_id()
     {
         return $this->current_designation_id ?: null;
+    }
+
+    public function current_designation_role()
+    {
+        return $this->current_designation_role ?: null;
     }
 }

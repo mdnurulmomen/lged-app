@@ -14,10 +14,16 @@ class ChangeController extends Controller
         Session::put('_office_unit_id', $office_unit_id);
         Session::put('_designation_id', $designation_id);
         foreach ($this->getUserOffices() as $office) {
-            if ($office['office_id' == $office_id]) {
+            if ($office['office_id'] == $office_id) {
                 Session::put('_current_office', $office);
             }
         }
+        $designation_role = $this->initDoptorHttp()->post(config('cag_doptor_api.designation_role'), ['designation_id' => $designation_id])->json();
+        if (isSuccess($designation_role)) {
+            Session::put('_designation_role', json_encode($designation_role['data']));
+        }
+
+        dd($this->current_desk());
         return redirect()->route('dashboard');
     }
 

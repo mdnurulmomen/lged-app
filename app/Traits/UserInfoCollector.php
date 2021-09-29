@@ -37,6 +37,10 @@ trait UserInfoCollector
         return [
             'office_id' => $this->current_office_id(),
             'office_unit_id' => $this->current_office_unit_id(),
+            'is_office_admin' => json_decode($this->current_designation_role())->is_office_admin,
+            'is_office_head' => json_decode($this->current_designation_role())->is_office_head,
+            'is_unit_head' => json_decode($this->current_designation_role())->is_unit_head,
+            'is_unit_admin' => json_decode($this->current_designation_role())->is_unit_admin,
             'designation_id' => $this->current_designation_id(),
             'officer_id' => $this->getOfficerId(),
             'user_primary_id' => $this->getUserId(),
@@ -98,6 +102,11 @@ trait UserInfoCollector
     public function current_office_unit_id()
     {
         return session('_office_unit_id') ?: $this->getUserOffices()[0]['office_unit_id'];
+    }
+
+    public function current_designation_role()
+    {
+        return session('_designation_role') ?: json_encode([]);
     }
 
     public function current_designation_id()
