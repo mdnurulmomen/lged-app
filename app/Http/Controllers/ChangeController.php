@@ -22,8 +22,6 @@ class ChangeController extends Controller
         if (isSuccess($designation_role)) {
             Session::put('_designation_role', json_encode($designation_role['data']));
         }
-
-        dd($this->current_desk());
         return redirect()->route('dashboard');
     }
 
