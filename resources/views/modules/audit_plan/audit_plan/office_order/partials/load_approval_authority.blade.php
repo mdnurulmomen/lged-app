@@ -1,6 +1,7 @@
 <!--begin::Table-->
 <div class="row">
     <div class="col-md-12 officers_list_area">
+        <h5>{{$office_order['office_order_movement'] != null?$office_order['office_order_movement']['employee_name_bn'].' ('.$office_order['office_order_movement']['employee_designation_bn'].') কাছে প্রেরিত হয়েছে।':''}}</h5>
         <div class="rounded-0" id="approvalAuthorityTree"
              style="overflow-y: scroll; height: 60vh">
             <ul>
@@ -80,6 +81,8 @@
             '<input name="employee_designation_id" type="hidden" value="' + officer_info.designation_id + '"/>'+
             '<input name="employee_designation_en" type="hidden" value="' + officer_info.designation_en + '"/>'+
             '<input name="employee_designation_bn" type="hidden" value="' + officer_info.designation_bn + '"/>'+
+            '<input name="officer_phone" type="hidden" value="' + officer_info.officer_mobile + '"/>'+
+            '<input name="officer_email" type="hidden" value="' + officer_info.officer_email + '"/>'+
             '<input name="received_by" type="hidden" value="' + officer_info.officer_id + '"/>'+
             '</li>';
 

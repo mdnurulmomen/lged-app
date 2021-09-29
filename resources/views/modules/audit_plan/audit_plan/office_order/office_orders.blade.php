@@ -132,6 +132,34 @@
             })
         },
 
+        approveOfficeOrder: function (element) {
+            url = '{{route('audit.plan.audit.office-orders.approve-office-order')}}';
+            ap_office_order_id = element.data('ap-office-order-id');
+            audit_plan_id = element.data('audit-plan-id');
+            annual_plan_id = element.data('annual-plan-id');
+            approved_status = 'approved';
+            data = {ap_office_order_id,audit_plan_id,annual_plan_id,approved_status};
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'success') {
+                    toastr.success('Successfully Approved!');
+                    location.reload();
+                }
+                else {
+                    if (response.statusCode === '422') {
+                        var errors = response.msg;
+                        $.each(errors, function (k, v) {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        });
+                    }
+                    else {
+                        toastr.error(response.data.message);
+                    }
+                }
+            });
+        },
     }
 </script>
 

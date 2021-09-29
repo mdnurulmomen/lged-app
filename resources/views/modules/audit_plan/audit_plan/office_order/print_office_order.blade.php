@@ -831,7 +831,7 @@
                 {{$office_order['memorandum_no']}}
             </span>
             <span style="width: 30%;float: right">
-                তারিখঃ  {{enTobn(date('d/m/Y',strtotime($office_order['memorandum_date'])))}} খ্রি।
+                তারিখঃ  {{formatDate($office_order['memorandum_date'],'bn')}} খ্রি।
             </span>
         </div>
 
@@ -933,15 +933,15 @@
                                 <td style="text-align: center">{{enTobn($scheduleSl)}}.</td>
                                 <td style="text-align: left">{{$team_schedule['cost_center_name_bn']}}</td>
                                 <td style="text-align: center">{{enTobn($audit_team_schedule['audit_year_start'])}}-{{enTobn($audit_team_schedule['audit_year_end'])}}</td>
-                                <td style="text-align: center">{{enTobn(date('d/m/Y',strtotime($team_schedule['team_member_start_date'])))}} খ্রি.
-                                    হতে {{enTobn(date('d/m/Y',strtotime($team_schedule['team_member_end_date'])))}} খ্রি.
+                                <td style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি.
+                                    হতে {{formatDate($team_schedule['team_member_end_date'],'bn')}} খ্রি.
                                 </td>
                                 <td style="text-align: center">{{enTobn($team_schedule['activity_man_days'])}} কর্ম দিবস</td>
                             </tr>
                             @if(!empty($team_schedule['activity_detail_date']))
                                 <tr>
                                     <td style="text-align: center">{{enTobn($scheduleSl+1)}}.</td>
-                                    <td colspan="3" style="text-align: center">{{enTobn(date('d/m/Y',strtotime($team_schedule['activity_detail_date'])))}} খ্রি. {{$team_schedule['activity_details']}}</td>
+                                    <td colspan="3" style="text-align: center">{{formatDate($team_schedule['activity_detail_date'],'bn')}} খ্রি. {{$team_schedule['activity_details']}}</td>
                                     <td></td>
                                 </tr>
                                 @php $scheduleSl= $scheduleSl+2; @endphp
@@ -971,9 +971,11 @@
         </div>
 
         <div style="font-family:SolaimanLipi,serif !important;text-align: center;float: right">
-            (নাসিমুল ইসলাম) <br>
-            পরিচালক <br>
-            ফোন: ৪৮৩২১১৫৯
+            @if($office_order['office_order_movement'] != null)
+                ({{$office_order['office_order_movement']['employee_name_bn']}}) <br>
+                {{$office_order['office_order_movement']['employee_designation_bn']}} <br>
+                ফোন: {{enTobn($office_order['office_order_movement']['officer_phone'])}}
+            @endif
         </div>
     </div>
     <div class="pdf-screen" style="height: 100%;font-family:SolaimanLipi,serif !important; page-break-after:always">
@@ -982,7 +984,7 @@
                 {{$office_order['memorandum_no']}}
             </span>
             <span style="width: 30%;float: right">
-                তারিখঃ  {{enTobn(date('d/m/Y',strtotime($office_order['memorandum_date'])))}} খ্রি।
+                তারিখঃ  {{formatDate($office_order['memorandum_date'],'bn')}} খ্রি।
             </span>
         </div>
 
@@ -996,10 +998,10 @@
         </div>
 
         <div style="font-family:SolaimanLipi,serif !important;text-align: center;float: right">
-            (নাহিদ আক্তার) <br>
-            নিরীক্ষা ও হিসাবরক্ষণ কর্মকর্তা <br>
-            প্রশাসন-৩ শাখা <br>
-            ফোন: ৪৮৩২১১৫৯
+            ({{$office_order['draft_officer_name_bn']}}) <br>
+            {{$office_order['draft_designation_name_bn']}} <br>
+            {{$office_order['draft_office_unit_bn']}} <br>
+            ফোন: {{enTobn($office_order['draft_officer_phone'])}}
         </div>
     </div>
 </div>
