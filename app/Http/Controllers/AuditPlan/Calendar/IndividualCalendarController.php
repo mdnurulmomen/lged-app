@@ -13,10 +13,15 @@ class IndividualCalendarController extends Controller
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $calendar_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.individual_calendar_list'), $data)->json();
 //        dd($calendar_data);
+        $office_admin = 1;
         if (isSuccess($calendar_data)) {
             $calendar_data = $calendar_data['data'];
-//            return view('modules.audit_plan.calendar.individual_calender', compact('calendar_data'));
-            return view('modules.audit_plan.calendar.index', compact('calendar_data'));
+            if($office_admin){
+                return view('modules.audit_plan.calendar.team_calender', compact('calendar_data'));
+            }else{
+                return view('modules.audit_plan.calendar.index', compact('calendar_data'));
+            }
+
         } else {
             return response()->json(['status' => 'error', 'data' => $calendar_data['data']]);
         }

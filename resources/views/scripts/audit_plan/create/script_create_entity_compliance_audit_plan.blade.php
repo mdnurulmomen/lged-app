@@ -20,7 +20,6 @@
         "plugins": ["dnd", "search", "types"]
     }).bind("select_node.jstree", function (e, data) {
         if (data.node.children.length > 0) {
-            $('.summernote').summernote('disable');
             $('#createPlanJsTree').jstree(true).deselect_node(data.node);
             $('#createPlanJsTree').jstree(true).toggle_node(data.node);
         }
@@ -29,9 +28,7 @@
         templateArray.map(function (value, index) {
             if (value.id === activePdf) {
                 content = value.content;
-                $('.summernote').summernote('enable');
                 $("#pdfContent_" + value.content_id).html(content);
-                $('.note-editable').html(content);
                 tinymce.get("kt-tinymce-1").setContent(content);
             }
         });

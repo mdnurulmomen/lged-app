@@ -277,3 +277,13 @@ function DmyFormat(data) {
   return day + '-' + ("0"+month).slice(-2) + '-' + ("0"+year).slice(-2);
   // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
 }
+
+
+$("#kt_quick_panel_close").on('click',function () {
+    quick_panel = $("#kt_quick_panel");
+    quick_panel.removeClass('offcanvas-on');
+    quick_panel.css('opacity', 0);
+    quick_panel.addClass('d-none');
+    $("html").removeClass("side-panel-overlay");
+    $(".offcanvas-wrapper").html('');
+});
