@@ -102,6 +102,7 @@ return [
             'generate_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/generate',
             'show_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/show',
             'store_approval_authority' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/store-approval-authority',
+            'approve_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/approve',
         ]
     ],
     'audit_strategic_plan' => [

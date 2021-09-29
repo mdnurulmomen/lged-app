@@ -17,23 +17,30 @@
                 <td>{{$audit_plan['annual_plan']['ministry_name_bn']}}</td>
                 <td>{{$audit_plan['annual_plan']['controlling_office_bn']}}</td>
                 <td>{{$audit_plan['annual_plan']['office_type']}}</td>
-                <td>অডিট প্ল্যান {{$loop->iteration}}</td>
+                <td>
+                    অডিট প্ল্যান {{$loop->iteration}}
+                    {{$audit_plan['office_order'] != null?'('.$audit_plan['office_order']['approved_status'].')':'Not Generated'}}
+                </td>
                 <td>{{$audit_plan['draft_officer_name_bn']}},
                     {{$audit_plan['draft_designation_name_bn']}},
                     {{$audit_plan['draft_unit_name_bn']}}
                 </td>
                 <td>
                     <div class="action-group d-flex justify-content-end">
-                        <a href="javascript:;" type="button" class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"
-                           data-audit-plan-id="{{$audit_plan['id']}}"
-                           data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
-                           onclick="Office_Order_Container.loadOfficeOrderGenerateModal($(this))">
-                            @if($audit_plan['has_office_order'] == 0)
-                                <i class="fad fa-file-import"></i>
-                            @else
-                                <i class="fa fa-pencil"></i>
-                            @endif
-                        </a>
+                        @if($audit_plan['office_order'] == null)
+                            <a href="javascript:;" type="button" class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"
+                               data-audit-plan-id="{{$audit_plan['id']}}"
+                               data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                               onclick="Office_Order_Container.loadOfficeOrderGenerateModal($(this))">
+                                @if($audit_plan['has_office_order'] == 0)
+                                    <i class="fad fa-file-import"></i>
+                                @elseif($audit_plan['office_order'] != null)
+                                    @if($audit_plan['office_order']['approved_status'] == 'draft')
+                                        <i class="fa fa-pencil"></i>
+                                    @endif
+                                @endif
+                            </a>
+                        @endif
 
                         @if($audit_plan['has_office_order'] == 1)
                             <button class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
@@ -44,14 +51,28 @@
                         @endif
 
                         @if($audit_plan['office_order'] != null)
-                        <button class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                data-ap-office-order-id="{{$audit_plan['office_order']['id']}}"
-                                data-audit-plan-id="{{$audit_plan['id']}}"
-                                data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
-                                onclick="Office_Order_Container.loadOfficeOrderApprovalAuthority($(this))"
-                                type="button">
-                            <i class="fad fa-share-square"></i>
-                        </button>
+                            @if($audit_plan['office_order']['approved_status'] == 'draft')
+                                <button class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                        data-ap-office-order-id="{{$audit_plan['office_order']['id']}}"
+                                        data-audit-plan-id="{{$audit_plan['id']}}"
+                                        data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                                        onclick="Office_Order_Container.loadOfficeOrderApprovalAuthority($(this))"
+                                        type="button">
+                                    <i class="fad fa-share-square"></i>
+                                </button>
+                            @endif
+
+                            @if($audit_plan['office_order']['approved_status'] == 'draft' && $audit_plan['office_order']['office_order_movement'] != null
+                            && $audit_plan['office_order']['office_order_movement']['employee_designation_id'] == $current_designation_id)
+                                <button class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                        data-ap-office-order-id="{{$audit_plan['office_order']['id']}}"
+                                        data-audit-plan-id="{{$audit_plan['id']}}"
+                                        data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                                        onclick="Office_Order_Container.approveOfficeOrder($(this))"
+                                        type="button">
+                                    <i class="fad fa-check"></i>
+                                </button>
+                            @endif
                         @endif
                     </div>
                 </td>

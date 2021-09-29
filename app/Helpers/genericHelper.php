@@ -337,14 +337,14 @@ if (!function_exists('explodeAndMakeArray')) {
 }
 
 if (!function_exists('formatDate')) {
-    function formatDate($date, $lang = 'en')
+    function formatDate($date, $lang = 'en',$separator='/')
     {
         if (!empty($date) || $date != '') {
             $date = bnToen($date);
             if ($lang == 'bn') {
-                $date = enToBn(date('d-m-Y', strtotime($date)));
+                $date = enToBn(date('d'.$separator.'m'.$separator.'Y', strtotime($date)));
             } else {
-                $date = date('d-m-Y', strtotime($date));
+                $date = date('d'.$separator.'m'.$separator.'Y', strtotime($date));
             }
         }
         return $date;

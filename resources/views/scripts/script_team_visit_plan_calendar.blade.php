@@ -28,9 +28,9 @@
                     now: TODAY + 'T09:25:00', // just for demo
 
                     views: {
-                        dayGridMonth: {buttonText: 'month'},
-                        timeGridWeek: {buttonText: 'week'},
-                        timeGridDay: {buttonText: 'day'}
+                        dayGridMonth: {buttonText: 'Month'},
+                        timeGridWeek: {buttonText: 'Week'},
+                        timeGridDay: {buttonText: 'Day'}
                     },
 
                     defaultView: 'dayGridMonth',
@@ -40,34 +40,34 @@
                     eventLimit: true, // allow "more" link when too many events
                     navLinks: true,
                     events: [
-                            @foreach($calendar_data as $datum)
-                            @foreach($datum['child'] as $team)
-                            @php
-                                $schedules = json_decode($team['team_schedules'],true);
-                            @endphp
-                            @foreach($schedules as $schedule)
+                            @foreach($calendar_data as $team)
+                                @if($team['team_schedules'])
+                                    @php
+                                        $schedules = json_decode($team['team_schedules'],true);
+                                    @endphp
+                                    @foreach($schedules as $schedule)
 
-                        {
+                                        {
+                                            title: '{{$team['team_name']}}  (উপদল নেতা : {{$team['leader_name_bn']}}) - {{$schedule['cost_center_name_bn']}}',
+                                            start: '{{$schedule['team_member_start_date']}}',
+                                            end: '{{$schedule['team_member_end_date']}}',
+                                            description: '{{$schedule['cost_center_name_bn']}}',
+                                            team_id: '{{$team['id']}}',
+                                            team_name: '{{$team['team_name']}}',
+                                            team_members: '{{$team['team_members']}}',
+                                            team_schedules: '{{$team['team_schedules']}}',
+                                            audit_start_end_year: '{{$team['audit_year_start']}} - {{$team['audit_year_end']}}',
+                                            className: "fc-event-waring fc-event-solid-primary"
 
-                            title: '{{$team['team_name']}}  (উপদল নেতা : {{$team['leader_name_bn']}}) (কজ সেন্টার: {{$schedule['cost_center_name_bn']}})',
-                            start: '{{$schedule['team_member_start_date']}}',
-                            end: '{{$schedule['team_member_end_date']}}',
-                            description: '',
-                            team_id: '{{$team['id']}}',
-                            team_name: '{{$team['team_name']}}',
-                            team_members: '{{$team['team_members']}}',
-                            team_schedules: '{{$team['team_schedules']}}',
-                            className: "fc-event-waring fc-event-solid-primary"
-
-                        },
-                        @endforeach
-                        @endforeach
-                        @endforeach
+                                        },
+                                    @endforeach
+                                @endif
+                            @endforeach
                     ],
 
                     eventRender: function (info) {
                         var element = $(info.el);
-
+                        // ['all', info.event.extendedProps.team_id].indexOf($('#team_filter').val()) >= 0
                         if (info.event.extendedProps && info.event.extendedProps.description) {
                             if (element.hasClass('fc-day-grid-event')) {
                                 element.data('content', info.event.extendedProps.description);
@@ -101,9 +101,9 @@
                                     <th>মোবাইল নং</th>
                                 </tr>`;
 
-                          $.each(team_members.member, function (key, value) {
+                         $.each(team_members.teamLeader, function (key, value) {
                               html += '<tr>';
-                              html += '<td>' + value.officer_name_en + '</td>';
+                              html += '<td>' + value.officer_name_bn + '</td>';
 
                               html += '<td>' + value.designation_bn + '</td>';
 
@@ -114,74 +114,97 @@
                               html += '</tr>';
                           });
 
-                          html +=`</table>`;
+                         if(team_members.subTeamLeader){
 
-                          // html +='</br>';
-                          //
-                          //  html += `<table class="table table-bordered" id='table'>
-                          //       <tr>
-                          //           <th>শাখার নাম</th>
-                          //           <th>নিরীক্ষা বছর</th>
-                          //           <th>নিরীক্ষা সময়কাল</th>
-                          //           <th>মোট কর্ম দিবস</th>
-                          //       </tr>`;
-                          //  var index = 0;
-                          //  var year = 2021;
-                          // $.each(team_schedules.index, function (key, data) {
-                          //     html += '<tr>';
-                          //     html += '<td>' + data.cost_center_name_bn + '</td>';
-                          //
-                          //     html += '<td>' + data.team_member_start_date + '</td>';
-                          //
-                          //     html += '<td>' + data.team_member_start_date + '</td>';
-                          //
-                          //     html += '<td>' + data.activity_man_days + '</td>';
-                          //
-                          //     html += '</tr>';
-                          // });
-                          //
-                          // html +=`</table>`;
+                             $.each(team_members.subTeamLeader, function (key, value) {
+                              html += '<tr>';
+                              html += '<td>' + value.officer_name_bn + '</td>';
+
+                              html += '<td>' + value.designation_bn + '</td>';
+
+                              html += '<td>' + value.team_member_role_bn + '</td>';
+
+                              html += '<td>' + value.officer_mobile + '</td>';
+
+                              html += '</tr>';
+                            });
+
+                         }
+
+                         if(team_members.member){
+                             $.each(team_members.member, function (key, value) {
+                              html += '<tr>';
+                              html += '<td>' + value.officer_name_bn + '</td>';
+
+                              html += '<td>' + value.designation_bn + '</td>';
+
+                              html += '<td>' + value.team_member_role_bn + '</td>';
+
+                              html += '<td>' + value.officer_mobile + '</td>';
+
+                              html += '</tr>';
+                            });
+
+                         }
+
+
+                        html += `</table>`;
+
+                        html += '</br>';
+
+                        html += `<table class="table table-bordered" id='table'>
+                                <tr>
+                                    <th>শাখার নাম</th>
+                                    <th>নিরীক্ষা বছর</th>
+                                    <th>নিরীক্ষা সময়কাল</th>
+                                    <th>মোট কর্ম দিবস</th>
+                                </tr>`;
+
+                        $.each(team_schedules, function (key, data) {
+                            html += '<tr>';
+                            html += '<td>' + data.cost_center_name_bn + '</td>';
+
+                            html += '<td>' + enTobn(event.event.extendedProps.audit_start_end_year) + '</td>';
+
+                            html += '<td>' + enTobn(DmyFormat(data.team_member_start_date)) + '</td>';
+
+                            html += '<td>' + enTobn(data.activity_man_days) + '</td>';
+
+                            html += '</tr>';
+                        });
+
+                        html += `</table>`;
 
                         quick_panel = $("#kt_quick_panel");
                         quick_panel.addClass('offcanvas-on');
                         quick_panel.css('opacity', 1);
                         quick_panel.css('width', '500px');
                         $('.offcanvas-footer').hide();
+                        quick_panel.removeClass('d-none');
                         $("html").addClass("side-panel-overlay");
 
                         $('.offcanvas-title').html(event.event.extendedProps.team_name);
                         $('.offcanvas-wrapper').html(html);
-
-
-                        // team_members.member.forEach(function (o) {
-                        //     console.log(o.officer_name_bn);
-                        // });
-
-
-                        {{--url = '{{route('audit.plan.audit.revised.plan.get-team-info')}}';--}}
-                        {{--data = {team_id};--}}
-                        {{--ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {--}}
-                        {{--    if (response.status === 'success') {--}}
-                        {{--        quick_panel = $("#kt_quick_panel");--}}
-                        {{--        quick_panel.addClass('offcanvas-on');--}}
-                        {{--        quick_panel.css('opacity', 1);--}}
-                        {{--        $("html").addClass("side-panel-overlay");--}}
-                        {{--    } else {--}}
-                        {{--        toastr.error(response.data);--}}
-                        {{--        console.log(response)--}}
-                        {{--    }--}}
-                        {{--})--}}
-
+                        
                     },
                 });
 
                 calendar.render();
             }
         };
+
     }();
+
+    $('#team_filter').on('change',function(){
+        $('#kt_calendar').calendar('rerenderEvents');
+    });
 
     jQuery(document).ready(function () {
         KTCalendarBasic.init();
     });
+
+
 </script>
+
+
 
