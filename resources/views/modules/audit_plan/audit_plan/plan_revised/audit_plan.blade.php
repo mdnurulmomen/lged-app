@@ -23,7 +23,7 @@
 @include('scripts.script_generic')
 <script>
     var Audit_Plan_Container = {
-        loadAuditablePlanList: function (fiscal_year_id, page = 1, per_page = 10) {
+        loadAuditablePlanList: function (fiscal_year_id, page = 1, per_page = 20) {
             let url = '{{route('audit.plan.audit.revised.plan.load-all-lists')}}';
             let data = {fiscal_year_id, page, per_page};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {

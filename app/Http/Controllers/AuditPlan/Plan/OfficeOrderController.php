@@ -11,15 +11,19 @@ class OfficeOrderController extends Controller
 {
     public function index()
     {
-        return view('modules.audit_plan.audit_plan.office_order.office_orders');
+        $fiscal_years = $this->allFiscalYears();
+        return view('modules.audit_plan.audit_plan.office_order.office_orders', compact('fiscal_years'));
     }
 
     public function loadOfficeOrderList(Request $request)
     {
-        $requestData = [
-            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
-        ];
+        $requestData = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'per_page' => 'required|integer',
+            'page' => 'required|integer',
+        ])->validate();
 
+        $requestData['cdesk'] =json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.audit_plan_list'), $requestData)->json();
         //dd($responseData);
         $data['audit_plans'] = isSuccess($responseData)?$responseData['data']:[];
