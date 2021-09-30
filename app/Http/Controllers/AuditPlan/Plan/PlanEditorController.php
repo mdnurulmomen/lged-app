@@ -27,20 +27,29 @@ class PlanEditorController extends Controller
         $audit_plan_id = $request->audit_plan_id;
         $own_office = $this->current_office()['office_name_bn'];
         $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
+        $other_offices = $this->cagDoptorOtherOffices($this->current_office_id());
 
         //for all team data
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $teamResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_wise_team'), $data)->json();
 
         $nominated_offices = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_nominated_offices'), $data)->json();
-        $nominated_offices_list = json_decode($nominated_offices['data']['nominated_offices'],true);
-        $all_teams = isSuccess($teamResponseData)?$teamResponseData['data']:[];
+        $nominated_offices_list = json_decode($nominated_offices['data']['nominated_offices'], true);
+        $all_teams = isSuccess($teamResponseData) ? $teamResponseData['data'] : [];
 
 //        dd($nominated_offices_list);
 
-        return view('modules.modal.load_team_modal', compact('activity_id',
-            'annual_plan_id', 'fiscal_year_id', 'audit_plan_id',
-            'officer_lists', 'own_office','all_teams','nominated_offices_list'));
+        return view('modules.modal.load_team_modal', compact(
+            'activity_id',
+            'annual_plan_id',
+            'fiscal_year_id',
+            'audit_plan_id',
+            'officer_lists',
+            'own_office',
+            'all_teams',
+            'other_offices',
+            'nominated_offices_list'
+        ));
     }
 
     public function loadAuditTeamSchedule(Request $request)
