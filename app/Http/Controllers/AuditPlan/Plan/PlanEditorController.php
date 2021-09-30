@@ -25,7 +25,7 @@ class PlanEditorController extends Controller
         $annual_plan_id = $request->annual_plan_id;
         $fiscal_year_id = $request->fiscal_year_id;
         $audit_plan_id = $request->audit_plan_id;
-        $own_office = $this->current_office()['office_name_bn'];
+        $own_office = ['name' => $this->current_office()['office_name_bn'], 'id' => $this->current_office()['id']];
         $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
         $other_offices = $this->cagDoptorOtherOffices($this->current_office_id());
 
@@ -36,8 +36,6 @@ class PlanEditorController extends Controller
         $nominated_offices = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_nominated_offices'), $data)->json();
         $nominated_offices_list = json_decode($nominated_offices['data']['nominated_offices'], true);
         $all_teams = isSuccess($teamResponseData) ? $teamResponseData['data'] : [];
-
-//        dd($nominated_offices_list);
 
         return view('modules.modal.load_team_modal', compact(
             'activity_id',
@@ -50,6 +48,14 @@ class PlanEditorController extends Controller
             'other_offices',
             'nominated_offices_list'
         ));
+    }
+
+    public function loadOfficeEmployeeList(Request $request)
+    {
+        Validator::make($request->all(), ['office_id' => 'integer|required'])->validate();
+        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($request->office_id);
+
+        return view('modules.audit_plan.audit_plan.plan_revised.partials.load_officer_list_dnd_tree', compact('officer_lists'));
     }
 
     public function loadAuditTeamSchedule(Request $request)
