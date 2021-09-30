@@ -288,41 +288,40 @@
                                                                     $team_schedules = json_decode($value['team_schedules'],true);
                                                                     $row = 0;
                                                                 @endphp
-                                                                @foreach($team_schedules as $key => $schedule)
-                                                                    @php $row++ @endphp
-                                                                    <div class="px-2 pt-0"
-                                                                         id="team_schedule_list_{{$row}}">
 
-                                                                        <div class="audit_schedule_list_div">
-                                                                            <table
-                                                                                id="audit_schedule_table_{{$value['id']}}"
-                                                                                class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm text-center">
-                                                                                <thead>
-                                                                                <tr>
-                                                                                    <th width="52%">
-                                                                                        শাখার নাম
-                                                                                    </th>
-                                                                                    <th width="30%">
-                                                                                        নিরীক্ষার সময়কাল
-                                                                                    </th>
+                                                                <div class="audit_schedule_list_div">
+                                                                    <table id="audit_schedule_table_{{$value['id']}}"
+                                                                        class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm text-center">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th width="52%">
+                                                                                শাখার নাম
+                                                                            </th>
+                                                                            <th width="30%">
+                                                                                নিরীক্ষার সময়কাল
+                                                                            </th>
 
-                                                                                    <th width="12%">
-                                                                                        কর্ম দিবস
-                                                                                    </th>
-                                                                                    <th width="6%">
-                                                                                        <div class="ml-1" align="left">
-                                                                                            <button type="button"
-                                                                                                    onclick="removeAuditScheduleListDiv({{$value['id']}})"
-                                                                                                    class="btn btn-icon btn-outline-danger border-0 btn-xs mr-2 remove_audit_schedule_list_div">
-                                                                                    <span
-                                                                                        class="fal fa-trash-alt"></span>
-                                                                                            </button>
-                                                                                        </div>
-                                                                                    </th>
-                                                                                </tr>
-                                                                                </thead>
-                                                                                <tbody
-                                                                                    data-tbody-id="{{$value['id']}}_{{$row}}">
+                                                                            <th width="12%">
+                                                                                কর্ম দিবস
+                                                                            </th>
+                                                                            <th width="6%">
+                                                                                <div class="ml-1" align="left">
+                                                                                    <button type="button"
+                                                                                            onclick="removeAuditScheduleListDiv({{$value['id']}})"
+                                                                                            class="btn btn-icon btn-outline-danger border-0 btn-xs mr-2 remove_audit_schedule_list_div">
+                                                                                <span
+                                                                                    class="fal fa-trash-alt"></span>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </th>
+                                                                        </tr>
+                                                                        </thead>
+
+                                                                        @foreach($team_schedules as $key => $schedule)
+                                                                            @php $row++ @endphp
+
+                                                                            <div class="px-2 pt-0" id="team_schedule_list_{{$row}}">
+                                                                                <tbody data-tbody-id="{{$value['id']}}_{{$row}}">
                                                                                 <tr class='audit_schedule_row_{{$value['id']}}'
                                                                                     data-layer-id="{{$value['id']}}"
                                                                                     data-audit-schedule-first-row='{{$row}}_{{$value['id']}}'>
@@ -350,14 +349,14 @@
                                                                                                 <input type="text"
                                                                                                        data-id="{{$value['id']}}_{{$row}}"
                                                                                                        class="date form-control input-start-duration"
-                                                                                                       value="{{date('d/m/y',strtotime($schedule['team_member_start_date']))}}"
+                                                                                                       value="{{date('d/m/Y',strtotime($schedule['team_member_start_date']))}}"
                                                                                                        placeholder="শুরু"/>
                                                                                             </div>
                                                                                             <div class="col pl-0">
                                                                                                 <input type="text"
                                                                                                        data-id="{{$value['id']}}_{{$row}}"
                                                                                                        class="date form-control input-end-duration"
-                                                                                                       value="{{date('d/m/y',strtotime($schedule['team_member_end_date']))}}"
+                                                                                                       value="{{date('d/m/Y',strtotime($schedule['team_member_end_date']))}}"
                                                                                                        placeholder="শেষ"/>
                                                                                             </div>
                                                                                         </div>
@@ -374,15 +373,12 @@
                                                                                         <button type="button"
                                                                                                 onclick="addAuditScheduleTblRow({{$value['id']}})"
                                                                                                 class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
-                                                                                            <span
-                                                                                                class="fad fa-plus"></span>
+                                                                                            <span class="fad fa-plus"></span>
                                                                                         </button>
-                                                                                        <button type='button'
-                                                                                                data-row='row1'
+                                                                                        <button type='button' data-row='row1'
                                                                                                 onclick="removeScheduleRow($(this), {{$value['id']}})"
                                                                                                 class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2 remove-schedule-row'>
-                                                                                            <span
-                                                                                                class='fal fa-trash-alt'></span>
+                                                                                            <span class='fal fa-trash-alt'></span>
                                                                                         </button>
                                                                                     </td>
                                                                                 </tr>
@@ -392,7 +388,7 @@
                                                                                     <td width="20%">
                                                                                         <input type="text"
                                                                                                data-id="{{$value['id']}}_{{$row}}"
-                                                                                               value="{{date('d/m/y',strtotime($schedule['activity_detail_date']))}}"
+                                                                                               value="{{date('d/m/Y',strtotime($schedule['activity_detail_date']))}}"
                                                                                                class="date form-control input-detail-duration"/>
                                                                                     </td>
                                                                                     <td width="72%" colspan="2">
@@ -403,11 +399,10 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 </tbody>
-                                                                            </table>
-                                                                        </div>
-
-                                                                    </div>
-                                                                @endforeach
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </table>
+                                                                </div>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -450,9 +445,9 @@
 
     function removeScheduleRow(elem, layer_id) {
         let rowId = elem.closest("tr").data('audit-schedule-first-row');
-        console.log(rowId)
-        console.log($('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']'))
-        console.log('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']')
+        //console.log(rowId)
+        //console.log($('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']'))
+        //console.log('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']')
         $('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']').remove();
         elem.closest("tr").remove();
     }
@@ -461,6 +456,26 @@
         $("#audit_schedule_table_" + layer_id).remove();
         $("#team_schedule_layer_btn_" + layer_id).show();
     }
+
+    //working days
+    /*$(document).on('change', '.audit_schedule_row_ input', function () {
+        populateData(this);
+    });
+
+    function populateData(element) {
+        id = $(element).data("id");
+        currentInputValue = $(element).val();
+
+        if ($(element).hasClass('input-end-duration')) {
+            let startDuration = $(element).closest('tr').find('.input-start-duration').val();
+            startDurationData = startDuration.split("/");
+            endDurationData = currentInputValue.split("/");
+            startDateForamt = startDurationData[1] + '/' + startDurationData[0] + '/' + startDurationData[2];
+            endDateForamt = endDurationData[1] + '/' + endDurationData[0] + '/' + endDurationData[2];
+            totalDayDifference = dateDifferenceInDay(startDateForamt, endDateForamt);
+            $("#input_total_working_day_" + id).val(totalDayDifference);
+        }
+    }*/
 
     function addAuditScheduleTblRow(layer_id) {
         var totalAuditScheduleTbody = $('.audit-schedule-table tbody').length + 1;
@@ -987,7 +1002,7 @@
                             activity_man_days = $(this).val();
                         }
                         if ($(this).hasClass('input-detail-duration')) {
-                            activity_detail_date = $(this).val();
+                            activity_detail_date = formatDate($(this).val());
                         }
                         if ($(this).hasClass('input-detail')) {
                             activity_details = $(this).val();
