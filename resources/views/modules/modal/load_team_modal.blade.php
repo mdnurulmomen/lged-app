@@ -135,7 +135,7 @@
         ], JSON_UNESCAPED_UNICODE)}}"
                                                                     data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
                                                                     {{!empty($designation['employee_info']) ? $designation['employee_info']['name_bng'] : ''}}
-                                                                    <small>{{$designation['designation_bng']}}</small>
+                                                                    , {{$designation['designation_bng']}}
                                                                 </li>
                                                             @endif
                                                         @endforeach
@@ -291,7 +291,7 @@
 
                                                                 <div class="audit_schedule_list_div">
                                                                     <table id="audit_schedule_table_{{$value['id']}}"
-                                                                        class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm text-center">
+                                                                           class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm text-center">
                                                                         <thead>
                                                                         <tr>
                                                                             <th width="52%">
@@ -320,8 +320,10 @@
                                                                         @foreach($team_schedules as $key => $schedule)
                                                                             @php $row++ @endphp
 
-                                                                            <div class="px-2 pt-0" id="team_schedule_list_{{$row}}">
-                                                                                <tbody data-tbody-id="{{$value['id']}}_{{$row}}">
+                                                                            <div class="px-2 pt-0"
+                                                                                 id="team_schedule_list_{{$row}}">
+                                                                                <tbody
+                                                                                    data-tbody-id="{{$value['id']}}_{{$row}}">
                                                                                 <tr class='audit_schedule_row_{{$value['id']}}'
                                                                                     data-layer-id="{{$value['id']}}"
                                                                                     data-audit-schedule-first-row='{{$row}}_{{$value['id']}}'>
@@ -373,12 +375,15 @@
                                                                                         <button type="button"
                                                                                                 onclick="addAuditScheduleTblRow({{$value['id']}})"
                                                                                                 class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
-                                                                                            <span class="fad fa-plus"></span>
+                                                                                            <span
+                                                                                                class="fad fa-plus"></span>
                                                                                         </button>
-                                                                                        <button type='button' data-row='row1'
+                                                                                        <button type='button'
+                                                                                                data-row='row1'
                                                                                                 onclick="removeScheduleRow($(this), {{$value['id']}})"
                                                                                                 class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2 remove-schedule-row'>
-                                                                                            <span class='fal fa-trash-alt'></span>
+                                                                                            <span
+                                                                                                class='fal fa-trash-alt'></span>
                                                                                         </button>
                                                                                     </td>
                                                                                 </tr>
