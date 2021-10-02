@@ -868,6 +868,7 @@
                         toastr.success(response.data);
                         $(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
                         Load_Team_Container.insertAuditScheduleListInBook();
+                        Load_Team_Container.insertTeamDataInBook();
                         Load_Team_Container.setJsonContentFromPlanBook();
                     } else {
                         toastr.error(response.data);
@@ -911,6 +912,8 @@
 
                     content['team_member_role_en'] = role;
                     content['team_member_role_bn'] = role_bn;
+
+
                     team_members[role][officer_id] = content;
 
                     if (layer_id in leader_info == false) {
@@ -965,7 +968,7 @@
                     all_teams['all_teams'][layer_id]['members'] = team_members;
                 })
             })
-
+            console.log(all_teams);
             return all_teams;
         },
 
@@ -1178,15 +1181,44 @@
         },
 
         insertAuditTeamListInBook: function () {
-            let totalAuditTeamRow = $('.audit_team_view_list tbody tr').length + 1;
-            let auditTeamListRow = '<tr>' +
-                '<td class="text-center">' + totalAuditTeamRow + '.</td>' +
-                '<td class="text-left"></td>' +
-                '<td class="text-center"></td>' +
-                '<td class="text-center"></td>' +
-                '<td class="text-left"></td>' +
-                '</tr>';
-            $(".audit_team_view_list tbody").append(auditTeamListRow);
+            auditTeamMember = '';
+            auditTeamMember += `<table border="1">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">ক্রমিক নং</th>
+                                        <th class="text-center">নাম</th>
+                                        <th class="text-center">পদবী</th>
+                                        <th class="text-center">নিরীক্ষা দলের অবস্থান</th>
+                                        <th class="text-center">মোবাইল নং</th>
+                                    </tr>
+                                </thead><tbody>`;
+            i = 0;
+            teamName = '';
+            $.each(all_teams.all_teams, function (key, team) {
+                if(team.team_type == 'parent'){
+                    teamName = team.team_name;
+                }
+                $.each(team.members, function (key, members) {
+                    $.each(members, function (key, member) {
+                        i++
+                        auditTeamMember += '<tr>' +
+                            '<td class="text-center">' + enTobn(i)+ '</td>' +
+                            '<td class="text-center">'+ member.officer_name_bn+'</td>' +
+                            '<td class="text-center">'+member.designation_bn+'</td>' +
+                            '<td class="text-center">'+member.team_member_role_bn+'</td>' +
+                            '<td class="text-center">'+enTobn(member.officer_mobile)+'</td>' +
+                            '</tr>';
+                    });
+                });
+            });
+
+
+
+            auditTeamMember += '</tbody></table>';
+
+           $(".audit_team_name").html(teamName);
+           $(".audit_team_members").html(auditTeamMember);
+
         },
 
         //for insert audit schedule
@@ -1198,13 +1230,16 @@
                 totalTableArrayData.push([i, all_schedules[i]]);
             }
 
+            schedule = '';
             for (var i = 0; i < totalTableArrayData.length; i++) {
                 //console.log(totalTableArrayData[i]);
                 for (var j = 1; j < totalTableArrayData[i].length; j++) {
-                    $(".audit_team_schedules").append(Load_Team_Container.createAuditScheduleTable(totalTableArrayData[i][j]));
+                    schedule += Load_Team_Container.createAuditScheduleTable(totalTableArrayData[i][j])
                     //console.log(totalTableArrayData[i][j]);
                 }
             }
+
+            $(".audit_team_schedules").html(schedule);
         },
 
         createAuditScheduleTable: function (scheduleList) {
@@ -1229,7 +1264,7 @@
                     <th class="text-center">৫</th>
                 </tr>
         `;
-
+            console.log();
             for (var i in scheduleList) {
                 //console.log(scheduleList[i].cost_center_id);
                 htmlTable += '<tr>' +

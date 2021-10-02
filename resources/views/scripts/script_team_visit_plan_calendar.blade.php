@@ -30,7 +30,8 @@
                     views: {
                         dayGridMonth: {buttonText: 'Month'},
                         timeGridWeek: {buttonText: 'Week'},
-                        timeGridDay: {buttonText: 'Day'}
+                        timeGridDay: {buttonText: 'Day'},
+                        listWeek: {buttonText: 'List'}
                     },
 
                     defaultView: 'dayGridMonth',
@@ -67,7 +68,7 @@
 
                     eventRender: function (info) {
                         var element = $(info.el);
-                        // ['all', info.event.extendedProps.team_id].indexOf($('#team_filter').val()) >= 0
+                        ['all', info.event.extendedProps.team_id].indexOf($('#team_filter').val()) >= 0
                         if (info.event.extendedProps && info.event.extendedProps.description) {
                             if (element.hasClass('fc-day-grid-event')) {
                                 element.data('content', info.event.extendedProps.description);
@@ -185,7 +186,7 @@
 
                         $('.offcanvas-title').html(event.event.extendedProps.team_name);
                         $('.offcanvas-wrapper').html(html);
-                        
+
                     },
                 });
 
@@ -195,12 +196,17 @@
 
     }();
 
-    $('#team_filter').on('change',function(){
-        $('#kt_calendar').calendar('rerenderEvents');
-    });
 
     jQuery(document).ready(function () {
         KTCalendarBasic.init();
+    });
+
+    $('#team_filter').on('change',function(){
+        // var calendarEl = document.getElementById('kt_calendar');
+        // var calendar = new FullCalendar.Calendar(calendarEl,'rerenderEvents');
+        // $('#kt_calendar').calendar('rerenderEvents');
+        // $('#kt_calendar').fullCalendar();
+        KTCalendarBasic;
     });
 
 
