@@ -64,7 +64,7 @@
 
     $('#approvalAuthorityTree').on('select_node.jstree', function (e, data) {
         var officer_info = $('#' + data.node.id).data('officer-info');
-        console.log(officer_info);
+        //console.log(officer_info);
 
         var newRow = '<li id="approval_authority_' + officer_info.officer_id + '">' +
             '<input name="ap_office_order_id" type="text" value="{{$ap_office_order_id}}"/>' +

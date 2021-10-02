@@ -60,8 +60,10 @@ class RevisedPlanController extends Controller
             $cover_info = [
                 'directorate_name' => $this->current_office()['office_name_bn'],
                 'party_name' => $audit_plan['annual_plan']['controlling_office_bn'],
+                'entity_name' => $audit_plan['annual_plan']['parent_office_name_bn'],
                 'fiscal_year' => enTobn($audit_plan['annual_plan']['fiscal_year']['start']) . ' - ' . enTobn($audit_plan['annual_plan']['fiscal_year']['end']),
             ];
+            //dd($cover_info);
             return view('modules.audit_plan.audit_plan.plan_revised.create_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan', 'content', 'cover_info', 'fiscal_year_id', 'parent_office_content'));
         } else {
             return ['status' => 'error', 'data' => $audit_plan];
@@ -258,7 +260,7 @@ class RevisedPlanController extends Controller
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
 
         $team_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_team_info'), $data)->json();
-        dd($team_info);
+        //dd($team_info);
         if (isSuccess($team_info)) {
             return response()->json(['status' => 'error', 'data' => $team_info['data']]);
         } else {

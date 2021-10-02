@@ -1105,8 +1105,9 @@
         insertTeamDataInBook: function () {
             $('.audit_team_leader').html(Load_Team_Container.editor_leader_info);
             $('.audit_team_number').html($('#permitted_level_1').find('.layer_text').html());
-            $('.proposed_date_commencement_audit').html($('#permitted_level_1').find('.layer_text').html());
-            $('.proposed_date_completion_audit').html($('#permitted_level_1').find('.layer_text').html());
+            //$('.proposed_date_commencement_audit').html($('#permitted_level_1').find('.layer_text').html());
+            $('.proposed_date_commencement_audit').text(BnFromEng($('#team_start_date').val()));
+            $('.proposed_date_completion_audit').text(BnFromEng($('#team_end_date').val()));
             Load_Team_Container.insertAuditTeamListInBook();
         },
 
