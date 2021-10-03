@@ -59,9 +59,14 @@
                 annual_plan_id,
             };
 
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (res) {
-                //var newDoc = document.open("text/html", "replace");
-                var newDoc = document.open("about:blank");
+                KTApp.unblock('#kt_content');
+                var newDoc = document.open("text/html", "replace");
                 newDoc.write(res);
                 newDoc.close();
             })

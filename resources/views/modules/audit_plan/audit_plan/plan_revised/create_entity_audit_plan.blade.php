@@ -136,9 +136,14 @@
                 data = {plan};
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    var newDoc = document.open("text/html", "replace");
+                    var newDoc = window.open("about:blank");
+                    newDoc.document.open();
+                    newDoc.document.write(response);
+
+                    /*var newDoc = document.open("text/html", "replace");
                     newDoc.write(response);
-                    newDoc.close();
+                    newDoc.close();*/
+
                     /* myWindow = window.open("data:text/html," + encodeURIComponent(response),
                          "_blank", "width=200,height=100");
                      myWindow.focus();*/
