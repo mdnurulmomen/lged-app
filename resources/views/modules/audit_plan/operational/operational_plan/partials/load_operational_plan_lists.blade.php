@@ -156,7 +156,7 @@
 </div>
 
 <script>
-    $('.operational_staffs').click(function () {
+    /*$('.operational_staffs').click(function () {
         let url = '{{route('audit.plan.operational.plan.assigned-details.modal')}}';
         let activity_id = $(this).data('activity-id');
         let data = {activity_id}
@@ -168,5 +168,9 @@
                 $('#assigned_staff_details_modal_area').html(response);
             }
         });
+    });*/
+
+    $('.operational_staffs').click(function () {
+        detailView();
     });
 </script>

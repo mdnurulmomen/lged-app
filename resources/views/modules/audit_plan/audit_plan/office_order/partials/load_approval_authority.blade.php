@@ -36,7 +36,7 @@
             </ul>
         </div>
 
-        <div class="text-left">
+        <div class="text-left mt-5">
             <a tabindex="0" href="javascript:;" role="button" onclick="Office_Order_Container.saveOfficeOrderApprovalAuthority()" class="btn btn-primary btn-sm btn-square btn-forward" id="onucched_forward"><i class="fa fa-paper-plane"></i>প্রেরণ করুন</a>
         </div>
     </div>

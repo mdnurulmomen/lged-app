@@ -10,9 +10,9 @@
                     class="btn-sm btn-warning btn-square">Download
             </button>
 
-            <button data-fiscal-year-id="{{$fiscal_year_id}}" class="btn-sm btn-primary btn-square"
+            {{--<button data-fiscal-year-id="{{$fiscal_year_id}}" class="btn-sm btn-primary btn-square"
                     data-toggle="modal" data-target="#referenceNumberModal">Reference Number
-            </button>
+            </button>--}}
         </div>
     </div>
 
