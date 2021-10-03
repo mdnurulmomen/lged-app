@@ -8,7 +8,7 @@
             <x-menu-item class="menu-item-active" href="{{route('audit.plan.annual.dashboard')}}"
                          icon="fad fa-building">RPU List
             </x-menu-item>
-            <x-menu-item href="{{route('audit.plan.annual.plan.revised.all')}}"
+            <x-menu-item href="{{route('mis_and_dashboard.team_list.index')}}"
                          icon="fad fa-calendar-check">Team List
             </x-menu-item>
         </ul>

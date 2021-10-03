@@ -367,7 +367,12 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
     Route::get('/document-management', [\App\Http\Controllers\DocumentManagementController::class, 'index'])->name('document_management');
 
-    Route::get('/mis-and-dashboard', [\App\Http\Controllers\MISAndDashboardController::class, 'index'])->name('mis_and_dashboard');
+    Route::group(['as' => 'mis_and_dashboard.', 'prefix' => 'mis-and-dashboard/'], function () {
+        Route::get('/', [\App\Http\Controllers\MISAndDashboardController::class, 'index'])->name('index');
+
+        Route::get('/team-list', [\App\Http\Controllers\MISAndDashboardController::class, 'teamListIndex'])->name('team_list.index');
+        Route::post('/load-team-lists', [\App\Http\Controllers\MISAndDashboardController::class, 'loadTeamLists'])->name('team_list.load-lists');
+    });
 
     Route::get('/knowledge-management', [\App\Http\Controllers\KnowledgeManagementController::class, 'index'])->name('knowledge_management');
 

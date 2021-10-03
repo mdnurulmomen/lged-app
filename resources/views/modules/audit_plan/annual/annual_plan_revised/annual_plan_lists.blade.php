@@ -6,7 +6,8 @@
             <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
                 <option value="">Choose Fiscal Year</option>
                 @foreach($fiscal_years as $fiscal_year)
-                    <option value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                    <option
+                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
                 @endforeach
             </select>
         </div>
@@ -101,12 +102,12 @@
                     '<span class="d-none" id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
                     '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_en +
                     '<input name="selected_entity[]" class="selected_entity" data-entity-id="' + entity_info.entity_id + '" id="selected_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
-                    '<input name="controlling_office[]" class="controlling_office" id="controlling_office_'+ entity_info.entity_id + '_' + entity_info.controlling_office_id + '" type="hidden" value=""/>' +
-                    '<input name="parent_office[]" class="parent_office" id="parent_office_' +  entity_info.entity_id + '_' + entity_info.entity_parent_id + '" type="hidden" value=""/>' +
-                    '<input name="ministry_info[]" class="ministry_info" id="ministry_info_' + entity_info.entity_id + '_' + entity_info.ministry_id + '" type="hidden" value=""/>'+
+                    '<input name="controlling_office[]" class="controlling_office" id="controlling_office_' + entity_info.entity_id + '_' + entity_info.controlling_office_id + '" type="hidden" value=""/>' +
+                    '<input name="parent_office[]" class="parent_office" id="parent_office_' + entity_info.entity_id + '_' + entity_info.entity_parent_id + '" type="hidden" value=""/>' +
+                    '<input name="ministry_info[]" class="ministry_info" id="ministry_info_' + entity_info.entity_id + '_' + entity_info.ministry_id + '" type="hidden" value=""/>' +
                     '</li>';
 
-                let selected_rp_office =  $(".selected_rp_offices");
+                let selected_rp_office = $(".selected_rp_offices");
                 selected_rp_office.append(newRow);
                 selected_auditee = {
                     'office_id': entity_info.entity_id,
@@ -206,8 +207,7 @@
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
                     toastr.success('Successfully Added!');
-                }
-                else {
+                } else {
                     if (response.statusCode === '422') {
                         var errors = response.msg;
                         $.each(errors, function (k, v) {
@@ -215,8 +215,7 @@
                                 toastr.error(v);
                             }
                         });
-                    }
-                    else {
+                    } else {
                         toastr.error(response.data.message);
                     }
                 }
@@ -251,7 +250,7 @@
         },
     };
 
-    $(function() {
+    $(function () {
         fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
         fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
         if (fiscal_year_id) {
