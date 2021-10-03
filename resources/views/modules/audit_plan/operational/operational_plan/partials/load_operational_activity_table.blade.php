@@ -18,7 +18,12 @@
                         <tr>
                             <td>{{$loop->iteration}}.</td>
                             <td>{{$res['office_name_en']}}</td>
-                            <td>{{$res['assigned_staffs']}}</td>
+                            <td>
+                                <div class="operational_assigned_staffs" data-activity-id=""
+                                onclick="loadActivityWiseTeam($(this))">
+                                    <strong>{{$res['assigned_staffs']}}</strong>
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -28,3 +33,31 @@
     @endif
 
 @endforeach
+
+
+<script>
+    function loadActivityWiseTeam(element) {
+        url = '{{route('audit.plan.operational.plan.load-activity-wise-team')}}';
+        data = {};
+        KTApp.block('#kt_content', {
+            opacity: 0.1,
+            state: 'primary' // a bootstrap color
+        });
+
+        ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+            KTApp.unblock('#kt_content');
+            if (response.status === 'error') {
+                toastr.error('No data found');
+            } else {
+                $(".offcanvas-title").text('');
+                quick_panel = $("#kt_quick_panel");
+                quick_panel.addClass('offcanvas-on');
+                quick_panel.css('opacity', 1);
+                quick_panel.css('width', '40%');
+                quick_panel.removeClass('d-none');
+                $("html").addClass("side-panel-overlay");
+                $(".offcanvas-wrapper").html(response);
+            }
+        });
+    }
+</script>

@@ -34,7 +34,11 @@
     </div>
 </div>
 <script>
-    
+
+    $(function (){
+        summeryView();
+    });
+
     $('#select_fiscal_year').change(function () {
         summeryView();
     });

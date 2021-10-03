@@ -26,34 +26,30 @@
 
 <script>
     $(function () {
-        let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
-        if (fiscal_year_id) {
-            Office_Order_Container.loadOfficeOrderList(fiscal_year_id);
-        } else {
-            $('.load-office-orders').html('');
-        }
+        Office_Order_Container.loadOfficeOrderList();
     });
 
     $('#select_fiscal_year_annual_plan').change(function () {
-        let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
-        if (fiscal_year_id) {
-            Office_Order_Container.loadOfficeOrderList(fiscal_year_id);
-        } else {
-            $('.load-office-orders').html('');
-        }
+        Office_Order_Container.loadOfficeOrderList();
     });
 
     var Office_Order_Container = {
-        loadOfficeOrderList: function (fiscal_year_id, page = 1, per_page = 10) {
-            let url = '{{route('audit.plan.audit.office-orders.load-office-order-list')}}';
-            let data = {fiscal_year_id, page, per_page};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                if (response.status === 'error') {
-                    toastr.error(response.data);
-                } else {
-                    $('.load-office-orders').html(response);
-                }
-            });
+        loadOfficeOrderList: function (page = 1, per_page = 10) {
+            let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            if (fiscal_year_id) {
+                let url = '{{route('audit.plan.audit.office-orders.load-office-order-list')}}';
+                let data = {fiscal_year_id, page, per_page};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data);
+                    } else {
+                        $('.load-office-orders').html(response);
+                    }
+                });
+            }
+            else {
+                $('.load-office-orders').html('');
+            }
         },
 
         loadOfficeOrderGenerateModal: function (element) {
@@ -81,7 +77,7 @@
                     toastr.success('Successfully Office Order Generated!');
                     $("#officeOrderGenerateModal").hide();
                     $('.ki-close').click();
-                    location.reload();
+                    Office_Order_Container.loadOfficeOrderList();
                 }
                 else {
                     if (response.statusCode === '422') {
@@ -121,7 +117,13 @@
             annual_plan_id = element.data('annual-plan-id');
             data = {ap_office_order_id,audit_plan_id,annual_plan_id};
 
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -143,7 +145,7 @@
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
                     toastr.success('Successfully Saved!');
-                    location.reload();
+                    Office_Order_Container.loadOfficeOrderList();
                 }
                 else {
                     if (response.statusCode === '422') {
@@ -172,7 +174,7 @@
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
                     toastr.success('Successfully Approved!');
-                    location.reload();
+                    Office_Order_Container.loadOfficeOrderList();
                 }
                 else {
                     if (response.statusCode === '422') {

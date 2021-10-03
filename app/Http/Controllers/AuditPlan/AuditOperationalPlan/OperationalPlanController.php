@@ -38,7 +38,12 @@ class OperationalPlanController extends Controller
     {
         Validator::make($request->all(), ['activity_id' => 'required|integer',])->validate();
 
-        $staff_details = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.load_operational_plan_lists'), ['activity_id' => $request->activity_id])->json();
+        $staff_details = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.load_operational_plan_lists'),
+            [
+                'activity_id' => $request->activity_id,
+                'fiscal_year_id' => 1
+            ])
+            ->json();
 
         if ($staff_details['status'] = 'success') {
             $staff_details = $staff_details['data'];
@@ -61,5 +66,10 @@ class OperationalPlanController extends Controller
         } else {
             return response()->json(['status' => 'error', 'data' => 'Sorry!']);
         }
+    }
+
+    public function showActivityWiseTeam(Request $request)
+    {
+        return view('modules.audit_plan.operational.operational_plan.partials.load_activity_wise_team');
     }
 }
