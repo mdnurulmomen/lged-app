@@ -68,6 +68,17 @@ trait GenericInfoCollection
         }
     }
 
+
+    public function allAuditDirectorates()
+    {
+        $offices = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.responsible_offices_lists'), ['all' => 1])->json();
+        if ($offices['status'] == 'success') {
+            return $offices['data'];
+        } else {
+            return [];
+        }
+    }
+
     public function cagDoptorOtherOffices($own_office_id)
     {
         $officer_lists = $this->initDoptorHttp()->post(config('cag_doptor_api.other_offices'), ['own_office_id' => $own_office_id])->json();

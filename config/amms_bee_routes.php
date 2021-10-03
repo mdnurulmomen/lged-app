@@ -28,6 +28,7 @@ return [
         'strategic_plan_output_delete' => env('API_URL_BEE', '') . '/x-strategic-plan/output/delete',
 
         'responsible_offices_lists' => env('API_URL_BEE', '') . '/responsible-offices',
+        'directorate_lists' => env('API_URL_BEE', '') . '/directorates/all',
         'responsible_offices_create' => env('API_URL_BEE', '') . '/responsible-offices/create',
         'responsible_offices_show' => env('API_URL_BEE', '') . '/responsible-offices/show',
         'responsible_offices_update' => env('API_URL_BEE', '') . '/responsible-offices/update',

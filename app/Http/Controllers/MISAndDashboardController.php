@@ -14,7 +14,7 @@ class MISAndDashboardController extends Controller
 
     public function rpuListIndex()
     {
-        $directorates = $this->allResponsibleOffices();
+        $directorates = $this->allAuditDirectorates();
         return view('modules.mis_dashboard.rup_list.mis_rpu_lists', compact('directorates'));
     }
 
@@ -25,12 +25,10 @@ class MISAndDashboardController extends Controller
         $data['office_ministry_id'] = $request->office_ministry_id;
         $data['audit_due_year'] = $request->audit_due_year;
         $data['risk_category'] = $request->risk_category;
-//        dd($request->all());
         $all_rpu_list_mis = $this->initRPUHttp()->post(config('cag_rpu_api.get-rpu-list-mis'), $data)->json();
-// dd($all_rpu_list_mis);
         if (isSuccess($all_rpu_list_mis)) {
             $all_rpu_list_mis = $all_rpu_list_mis['data'];
-            return view('modules.mis_dashboard.rup_list.load_rpu_lists',compact('all_rpu_list_mis'));
+            return view('modules.mis_dashboard.rup_list.load_rpu_lists', compact('all_rpu_list_mis'));
         } else {
             return response()->json(['status' => 'error', 'data' => $all_rpu_list_mis]);
         }
