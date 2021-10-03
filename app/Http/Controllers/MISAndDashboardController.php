@@ -20,9 +20,21 @@ class MISAndDashboardController extends Controller
 
     public function loadRpuLists(Request $request)
     {
-        Validator::make($request->all(), ['fiscal_year_id' => 'integer|required'])->validate();
+//        $data = Validator::make($request->all(), ['directorate_id' => 'integer|required'])->validate();
+        $data['directorate_id'] = $request->directorate_id;
+        $data['office_ministry_id'] = $request->office_ministry_id;
+        $data['audit_due_year'] = $request->audit_due_year;
+        $data['risk_category'] = $request->risk_category;
+//        dd($request->all());
+        $all_rpu_list_mis = $this->initRPUHttp()->post(config('cag_rpu_api.get-rpu-list-mis'), $data)->json();
+// dd($all_rpu_list_mis);
+        if (isSuccess($all_rpu_list_mis)) {
+            $all_rpu_list_mis = $all_rpu_list_mis['data'];
+            return view('modules.mis_dashboard.rup_list.load_rpu_lists',compact('all_rpu_list_mis'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $all_rpu_list_mis]);
+        }
 
-        return view('modules.mis_dashboard.team_list.load_team_lists');
     }
 
     public function teamListIndex()
@@ -46,5 +58,16 @@ class MISAndDashboardController extends Controller
 
     }
 
+    public function derictorateWiseMinistry(Request $request)
+    {
+        $data = Validator::make($request->all(), ['directorate_id' => 'integer|required'])->validate();
+        $all_ministrys = $this->initRPUHttp()->post(config('cag_rpu_api.get-directorate-wise-ministry-list'), $data)->json();
+        if (isSuccess($all_ministrys)) {
+            $all_ministrys = $all_ministrys['data'];
+            return view('modules.mis_dashboard.derictorate_wise_ministry_select', compact('all_ministrys'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $all_ministrys]);
+        }
+    }
 
 }
