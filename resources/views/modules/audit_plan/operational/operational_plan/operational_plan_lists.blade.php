@@ -9,7 +9,8 @@
                 <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year">
                     <option value="">Choose Fiscal Year</option>
                     @foreach($fiscal_years as $fiscal_year)
-                        <option value="{{$fiscal_year['id']}}" {{$fiscal_year['id']==1?'selected':''}}>{{$fiscal_year['description']}}</option>
+                        <option
+                            value="{{$fiscal_year['id']}}" {{$fiscal_year['id']==1?'selected':''}}>{{$fiscal_year['description']}}</option>
                     @endforeach
                 </select>
             </div>
@@ -33,6 +34,7 @@
     </div>
 </div>
 <script>
+    
     $('#select_fiscal_year').change(function () {
         summeryView();
     });
@@ -43,8 +45,8 @@
             let url = '{{route('audit.plan.operational.plan.assigned.staff')}}';
             let data = {fiscal_year}
             ajaxCallAsyncCallback(url, data, 'html', 'post', function (response) {
-                $('#kt_content').html();
-                $('#kt_content').html(response);
+                $('#load_operational_plan_lists').html('');
+                $('#load_operational_plan_lists').html(response);
             });
         } else {
             $('#load_operational_plan_lists').html('');
@@ -58,6 +60,7 @@
             let url = '{{route('audit.plan.operational.plan.list.all')}}';
             let data = {fiscal_year};
             ajaxCallAsyncCallback(url, data, 'html', 'POST', function (response) {
+                $('#load_operational_plan_lists').html('');
                 $('#load_operational_plan_lists').html(response);
             });
         } else {
