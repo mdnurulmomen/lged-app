@@ -19,6 +19,7 @@ class FinalPlanController extends Controller
                 'document_type' => 'strategic'
             ]
         )->json();
+        dd($response);
         if ($response['status'] == 'success') {
             $data['final_plan_file_list'] = $response['data'];
         } else {
