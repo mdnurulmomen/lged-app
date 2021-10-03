@@ -16,10 +16,11 @@ class FinalPlanController extends Controller
     public function index()
     {
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.final_plan_file_list'),[
-                'document_type' => 'strategic'
+                'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+                'document_type' => 'strategic',
             ]
         )->json();
-        dd($response);
+        //dd($response);
         if ($response['status'] == 'success') {
             $data['final_plan_file_list'] = $response['data'];
         } else {
