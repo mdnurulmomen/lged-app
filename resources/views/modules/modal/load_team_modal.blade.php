@@ -1239,6 +1239,26 @@
                 }
             }
 
+            i = 0;
+            auditTeamMember = '';
+            teamName = '';
+            $.each(all_teams.all_teams, function (key, team) {
+                if(team.team_type == 'sub') {
+                    teamName = team.team_name;
+                    auditTeamMember +='<p><b>উপদল নং- </b>'+teamName+'</p>'
+                    auditTeamMember +='<p><b>উপদল দলনেতা- </b>'+team.leader_name_bn+'</p>'
+                    auditTeamMember +='<p><b>সদস্য: - </b></p>'
+                    $.each(team.members, function (key, members) {
+                        $.each(members, function (key, member) {
+                            i++
+                            auditTeamMember += '<p class="text-center">' + member.officer_name_bn , member.designation_bn +'</p>';
+
+                        });
+                    });
+                }
+            });
+
+            $(".team_list").html(auditTeamMember);
             $(".audit_team_schedules").html(schedule);
         },
 
@@ -1264,7 +1284,6 @@
                     <th class="text-center">৫</th>
                 </tr>
         `;
-            console.log();
             for (var i in scheduleList) {
                 //console.log(scheduleList[i].cost_center_id);
                 htmlTable += '<tr>' +
