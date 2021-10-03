@@ -5,8 +5,8 @@
             <th>মন্ত্রণালয়</th>
             <th>নাম(বাংলা)</th>
             <th>অফিস স্তর</th>
-            <th>Risk area</th>
-            <th>Last Audit Year</th>
+            <th>রিস্ক এরিয়া</th>
+            <th>লাস্ট অডিট ইয়ার</th>
         </tr>
         </thead>
         <tbody>
