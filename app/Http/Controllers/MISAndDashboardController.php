@@ -21,6 +21,7 @@ class MISAndDashboardController extends Controller
     public function loadTeamLists(Request $request)
     {
         $data = Validator::make($request->all(), ['fiscal_year_id' => 'integer|required'])->validate();
+        $data['cdesk'] = json_encode($this->current_desk());
 
         $all_teams = $this->initHttpWithToken()->post(config('amms_bee_routes.mis_and_dashboard.all_team_lists'), $data)->json();
         if (isSuccess($all_teams)) {
