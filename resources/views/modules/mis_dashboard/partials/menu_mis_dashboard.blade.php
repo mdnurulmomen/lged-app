@@ -5,7 +5,7 @@
          data-menu-dropdown-timeout="500">
         <!--begin::Menu Nav-->
         <ul class="menu-nav">
-            <x-menu-item class="menu-item-active" href="{{route('audit.plan.annual.dashboard')}}"
+            <x-menu-item class="menu-item-active" href="{{route('mis_and_dashboard.rpu_list.index')}}"
                          icon="fad fa-building">RPU List
             </x-menu-item>
             <x-menu-item href="{{route('mis_and_dashboard.team_list.index')}}"

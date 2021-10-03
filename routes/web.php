@@ -370,6 +370,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     Route::group(['as' => 'mis_and_dashboard.', 'prefix' => 'mis-and-dashboard/'], function () {
         Route::get('/', [\App\Http\Controllers\MISAndDashboardController::class, 'index'])->name('index');
 
+        Route::get('/rpu-list', [\App\Http\Controllers\MISAndDashboardController::class, 'rpuListIndex'])->name('rpu_list.index');
+        Route::post('/load-rpu-lists', [\App\Http\Controllers\MISAndDashboardController::class, 'loadRpuLists'])->name('rpu_list.load-lists');
+
         Route::get('/team-list', [\App\Http\Controllers\MISAndDashboardController::class, 'teamListIndex'])->name('team_list.index');
         Route::post('/load-team-lists', [\App\Http\Controllers\MISAndDashboardController::class, 'loadTeamLists'])->name('team_list.load-lists');
     });

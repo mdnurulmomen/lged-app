@@ -12,6 +12,19 @@ class MISAndDashboardController extends Controller
         return view('modules.mis_dashboard.index');
     }
 
+    public function rpuListIndex()
+    {
+        $directorates = $this->allResponsibleOffices();
+        return view('modules.mis_dashboard.rup_list.mis_rpu_lists', compact('directorates'));
+    }
+
+    public function loadRpuLists(Request $request)
+    {
+        Validator::make($request->all(), ['fiscal_year_id' => 'integer|required'])->validate();
+
+        return view('modules.mis_dashboard.team_list.load_team_lists');
+    }
+
     public function teamListIndex()
     {
         $fiscal_years = $this->allFiscalYears();
