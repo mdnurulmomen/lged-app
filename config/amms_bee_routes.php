@@ -33,6 +33,7 @@ return [
         'responsible_offices_update' => env('API_URL_BEE', '') . '/responsible-offices/update',
         'responsible_offices_delete' => env('API_URL_BEE', '') . '/responsible-offices/delete',
     ],
+
     'audit_operational_plan' => [
         'op_activity_lists' => env('API_URL_BEE', '') . '/planning/operational-plan/activity',
         'op_activity_find' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/find',
@@ -84,6 +85,7 @@ return [
         'ap_submit_plan_to_ocag' => env('API_URL_BEE', '') . '/planning/annual-plan/submit-plan-to-ocag',
         'ap_nominated_offices' => env('API_URL_BEE', '') . '/planning/annual-plan/get-nominated-offices',
     ],
+
     'audit_entity_plan' => [
         'ap_entity_lists' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan',
         'ap_entity_plan_create_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/new',
@@ -103,8 +105,9 @@ return [
             'show_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/show',
             'store_approval_authority' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/store-approval-authority',
             'approve_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/approve',
-        ]
+        ],
     ],
+
     'audit_strategic_plan' => [
         'outcome_indicators' => env('API_URL_BEE', '') . '/planning/strategic-plan/outcome-indicators',
         'outcome_indicator_create' => env('API_URL_BEE', '') . '/planning/strategic-plan/outcome-indicators/create',
@@ -143,6 +146,10 @@ return [
         'audit_observation_removeAttachment' => env('API_URL_BEE', '') . '/follow-up/audit-observation/remove_attachment',
         'audit_observation_communication' => env('API_URL_BEE', '') . '/follow-up/audit-observation/observation_communication',
         'audit_observation_communication_lists' => env('API_URL_BEE', '') . '/follow-up/audit-observation/observation_communication_lists',
+    ],
+
+    'mis_and_dashboard' => [
+        'all_team_lists' => env('API_URL_BEE', '') . '/mis-and-dashboard/load-all-team-lists',
     ],
 
     'final_plan_file_list' => env('API_URL_BEE', '') . '/final-plan-file-list',

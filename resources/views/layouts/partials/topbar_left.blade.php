@@ -173,7 +173,7 @@
                         <!--end:Item-->
                         <!--begin:Item-->
                         <div class="col-4">
-                            <a href="{{route('mis_and_dashboard')}}"
+                            <a href="{{route('mis_and_dashboard.index')}}"
                                class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
                                 <span class="svg-icon svg-icon-3x svg-icon-success">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->

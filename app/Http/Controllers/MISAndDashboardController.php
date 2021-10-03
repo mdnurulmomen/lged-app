@@ -20,9 +20,16 @@ class MISAndDashboardController extends Controller
 
     public function loadTeamLists(Request $request)
     {
-        Validator::make($request->all(), ['fiscal_year_id' => 'integer|required'])->validate();
+        $data = Validator::make($request->all(), ['fiscal_year_id' => 'integer|required'])->validate();
 
-        return view('modules.mis_dashboard.team_list.load_team_lists');
+        $all_teams = $this->initHttpWithToken()->post(config('amms_bee_routes.mis_and_dashboard.all_team_lists'), $data)->json();
+        if (isSuccess($all_teams)) {
+            $all_teams = $all_teams['data'];
+            return view('modules.mis_dashboard.team_list.load_team_lists', compact('all_teams'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $all_teams]);
+        }
+
     }
 
 
