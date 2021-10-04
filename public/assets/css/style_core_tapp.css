@@ -1300,11 +1300,13 @@ table {
 #split-0 {
     overflow: auto;
     height: calc(95.5vh - 100px);
+    width: 20% !important;
 }
 
 #split-1 {
     overflow: auto;
     height: calc(95.5vh - 100px);
+    width: 45% !important;
 }
 
 #split-2 {
