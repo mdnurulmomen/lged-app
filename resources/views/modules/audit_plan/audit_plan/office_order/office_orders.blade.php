@@ -165,11 +165,12 @@
 
         approveOfficeOrder: function (element) {
             url = '{{route('audit.plan.audit.office-orders.approve-office-order')}}';
+            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             ap_office_order_id = element.data('ap-office-order-id');
             audit_plan_id = element.data('audit-plan-id');
             annual_plan_id = element.data('annual-plan-id');
             approved_status = 'approved';
-            data = {ap_office_order_id,audit_plan_id,annual_plan_id,approved_status};
+            data = {ap_office_order_id,audit_plan_id,annual_plan_id,approved_status,fiscal_year_id};
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
