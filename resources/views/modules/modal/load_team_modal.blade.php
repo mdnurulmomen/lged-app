@@ -16,7 +16,7 @@
     }
 
     .dragged_data_area::after {
-        content: "";
+        content: "Drop here"; /*\f054*/
         height: 60px;
         width: 100%;
         position: relative;
@@ -29,7 +29,7 @@
         color: #3f4254;
         background: #fffed8;
         font-size: 16px;
-        font-family: 'SolaimanLipi', serif;
+        font-family: 'Font Awesome 5 Free','SolaimanLipi', serif;
         margin: 0 2px;
         border-radius: 5px;
     }

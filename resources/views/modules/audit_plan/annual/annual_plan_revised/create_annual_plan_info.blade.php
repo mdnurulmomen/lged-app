@@ -1,4 +1,4 @@
-<x-title-wrapper>Add Plan</x-title-wrapper>
+<x-title-wrapper>Annual Plan</x-title-wrapper>
 
 <div class="row ml-7 mr-7 pt-4">
     <div class="col-5">
@@ -89,7 +89,7 @@
                 <div class="form-row pt-4">
                     <div class="col-md-12">
                         <label for="staff_comment">টিমের বর্ণনা</label>
-                        <textarea class="form-control" name="staff_comment" id="staff_comment"></textarea>
+                        <textarea rows="1" class="form-control" name="staff_comment" id="staff_comment"></textarea>
                     </div>
                 </div>
             </div>
