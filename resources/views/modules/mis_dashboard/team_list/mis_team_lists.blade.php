@@ -14,12 +14,13 @@
         </div>
     </div>
 </form>
-
-<div class="px-3 py-3" id="load_mis_team_lists">
-
+<div class="row mt-2">
+    <div class="col-md-12">
+        <div id="load_mis_team_lists"></div>
+    </div>
 </div>
-
 <script>
+
 
     var MIS_TEAM_LIST_CONTAINER = {
         loadMISTeamLists: function () {
