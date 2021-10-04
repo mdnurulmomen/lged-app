@@ -29,7 +29,7 @@
         color: #3f4254;
         background: #fffed8;
         font-size: 16px;
-        font-family: 'Font Awesome 5 Free','SolaimanLipi', serif;
+        font-family: 'Font Awesome 5 Free', 'SolaimanLipi', serif;
         margin: 0 2px;
         border-radius: 5px;
     }
@@ -110,7 +110,8 @@
                                  aria-labelledby="own-tab">
                                 <div class="row">
                                     <div class="col-md-12 officers_list_area">
-                                        <div class="rounded-0 own_office_organogram_tree"
+                                        <input id="officer_search" type="text" class="form-control mb-1" placeholder="অফিসার খুঁজুন">
+                                        <div class="rounded-0 office_organogram_tree"
                                              style="overflow-y: scroll; height: 60vh">
                                             <ul>
                                                 @foreach($officer_lists as $key => $officer_list)
@@ -522,7 +523,7 @@
             $(this).attr('contenteditable', false);
         }
     })
-    $('.own_office_organogram_tree').jstree({
+    $('.office_organogram_tree').jstree({
         'plugins': ["checkbox", "types", "search", "dnd"],
         'core': {
             check_callback: true,
@@ -541,8 +542,19 @@
         },
         "search": {
             "show_only_matches": true,
-            "show_only_matches_children": true
+            "show_only_matches_children": true,
+            "case_insensitive": true,
         },
+    }).on('search.jstree', function (nodes, str, res) {
+        if (str.nodes.length === 0) {
+            $('.office_organogram_tree').jstree(true).hide_all();
+        }
+    });
+
+
+    $('#officer_search').keyup(function(){
+        $('.office_organogram_tree').jstree(true).show_all();
+        $('.office_organogram_tree').jstree('search', $(this).val());
     });
 
     /**JS tree drag and drop start***/
@@ -568,7 +580,7 @@
                 old_currentTarget.onselectstart = old_onselectstart;
                 old_currentTarget = null;
             }
-            if ($(data.event.target).parents('#own_office_organogram_tree').length) {
+            if ($(data.event.target).parents('.office_organogram_tree').length) {
                 if (draggedDiv !== null) {
                     if (!data.event.ctrlKey) {
                         draggedDiv.remove();
@@ -763,8 +775,8 @@
             if (type === 'layer') {
                 delete team_info[0];
                 $('#' + node_id + ' .permitted_designation').each(function (i, v) {
-                    // $('#own_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
-                    // $('#own_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
+                    // $('.office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
+                    // $('.office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
                     if ($("#nothi_permission_office_organogram_tree").length !== 0) {
                         // $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
                         // $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
@@ -780,8 +792,8 @@
                     $('#' + parentId).removeAttr('style');
                 }
                 $('#' + node_id).parent('li').remove();
-                // $('#own_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
-                // $('#own_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
+                // $('.office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
+                // $('.office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
                 if ($("#nothi_permission_office_organogram_tree").length !== 0) {
                     // $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + designation_id);
                     // $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + designation_id);
@@ -1010,7 +1022,7 @@
                             activity_man_days = $(this).val();
                         }
                         if ($(this).hasClass('input-detail-duration')) {
-                            activity_detail_date = $(this).val() === ""?"":formatDate($(this).val());
+                            activity_detail_date = $(this).val() === "" ? "" : formatDate($(this).val());
                         }
                         if ($(this).hasClass('input-detail')) {
                             activity_details = $(this).val();
@@ -1195,30 +1207,29 @@
             i = 0;
             teamName = '';
             $.each(all_teams.all_teams, function (key, team) {
-                if(team.team_type == 'parent'){
+                if (team.team_type == 'parent') {
                     teamName = team.team_name;
                 }
                 $.each(team.members, function (key, members) {
                     $.each(members, function (key, member) {
                         i++
                         auditTeamMember += '<tr>' +
-                            '<td class="text-center">' + enTobn(i)+ '</td>' +
-                            '<td class="text-center">'+ member.officer_name_bn+'</td>' +
-                            '<td class="text-center">'+member.designation_bn+'</td>' +
-                            '<td class="text-center">'+member.team_member_role_bn+'</td>' +
-                            '<td class="text-center">'+enTobn(member.officer_mobile)+'</td>' +
+                            '<td class="text-center">' + enTobn(i) + '</td>' +
+                            '<td class="text-center">' + member.officer_name_bn + '</td>' +
+                            '<td class="text-center">' + member.designation_bn + '</td>' +
+                            '<td class="text-center">' + member.team_member_role_bn + '</td>' +
+                            '<td class="text-center">' + enTobn(member.officer_mobile) + '</td>' +
                             '</tr>';
                     });
                 });
             });
 
 
-
             auditTeamMember += '</tbody></table>';
 
-           $(".audit_team_name").html(teamName);
-           $(".seniority_wise_audit_team").html(auditTeamMember);
-           $(".audit_team_members").html(auditTeamMember);
+            $(".audit_team_name").html(teamName);
+            $(".seniority_wise_audit_team").html(auditTeamMember);
+            $(".audit_team_members").html(auditTeamMember);
 
         },
 
@@ -1244,15 +1255,15 @@
             auditTeamMember = '';
             teamName = '';
             $.each(all_teams.all_teams, function (key, team) {
-                if(team.team_type == 'sub') {
+                if (team.team_type == 'sub') {
                     teamName = team.team_name;
-                    auditTeamMember +='<p><b>উপদল নং- </b>'+teamName+'</p>'
-                    auditTeamMember +='<p><b>উপদল দলনেতা- </b>'+team.leader_name_bn+'</p>'
-                    auditTeamMember +='<p><b>সদস্য: - </b></p>'
+                    auditTeamMember += '<p><b>উপদল নং- </b>' + teamName + '</p>'
+                    auditTeamMember += '<p><b>উপদল দলনেতা- </b>' + team.leader_name_bn + '</p>'
+                    auditTeamMember += '<p><b>সদস্য: - </b></p>'
                     $.each(team.members, function (key, members) {
                         $.each(members, function (key, member) {
                             i++
-                            auditTeamMember += '<p class="text-center">' + member.officer_name_bn , member.designation_bn +'</p>';
+                            auditTeamMember += '<p class="text-center">' + member.officer_name_bn , member.designation_bn + '</p>';
 
                         });
                     });
