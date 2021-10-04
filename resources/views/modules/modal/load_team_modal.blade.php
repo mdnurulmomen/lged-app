@@ -393,13 +393,13 @@
                                                                                     <td width="20%">
                                                                                         <input type="text"
                                                                                                data-id="{{$value['id']}}_{{$row}}"
-                                                                                               value="{{date('d/m/Y',strtotime($schedule['activity_detail_date']))}}"
+                                                                                               value="{{$schedule['activity_detail_date'] == ""?"":date('d/m/Y',strtotime($schedule['activity_detail_date']))}}"
                                                                                                class="date form-control input-detail-duration"/>
                                                                                     </td>
                                                                                     <td width="72%" colspan="2">
                                                                                         <input type="text"
                                                                                                data-id="{{$value['id']}}_{{$row}}"
-                                                                                               value="{{$schedule['activity_details']}}"
+                                                                                               value="{{$schedule['activity_details'] == ""?"":$schedule['activity_details']}}"
                                                                                                class="form-control input-detail"/>
                                                                                     </td>
                                                                                 </tr>
@@ -1010,7 +1010,7 @@
                             activity_man_days = $(this).val();
                         }
                         if ($(this).hasClass('input-detail-duration')) {
-                            activity_detail_date = formatDate($(this).val());
+                            activity_detail_date = $(this).val() === ""?"":formatDate($(this).val());
                         }
                         if ($(this).hasClass('input-detail')) {
                             activity_details = $(this).val();
@@ -1217,6 +1217,7 @@
             auditTeamMember += '</tbody></table>';
 
            $(".audit_team_name").html(teamName);
+           $(".seniority_wise_audit_team").html(auditTeamMember);
            $(".audit_team_members").html(auditTeamMember);
 
         },

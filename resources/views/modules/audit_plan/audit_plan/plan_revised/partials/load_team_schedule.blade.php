@@ -192,7 +192,7 @@
             endDurationData = currentInputValue.split("/");
             startDateForamt = startDurationData[1] + '/' + startDurationData[0] + '/' + startDurationData[2];
             endDateForamt = endDurationData[1] + '/' + endDurationData[0] + '/' + endDurationData[2];
-            totalDayDifference = dateDifferenceInDay(startDateForamt, endDateForamt);
+            totalDayDifference = calcWorkingDays(startDateForamt, endDateForamt);
             $("#input_total_working_day_" + id).val(totalDayDifference);
             auditSchedule[designation_id][cost_center_id]['activity_man_days'] = totalDayDifference;
         }

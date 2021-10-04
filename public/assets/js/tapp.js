@@ -241,9 +241,9 @@ $(document).off('focus').on('focus', '.year-picker', function() {
 //     format:'d/m/yyyy'
 // });
 
-function calcBusinessDays(dDate1, dDate2) { // input given as Date objects
-    dDate1 = new Date(dDate1);
-    dDate2 = new Date(dDate2);
+function calcWorkingDays(fromDate, toDate) { // input given as Date objects
+    dDate1 = new Date(fromDate);
+    dDate2 = new Date(toDate);
     var iWeeks, iDateDiff, iAdjust = 0;
     if (dDate2 < dDate1) return -1; // error code if dates transposed
     var iWeekday1 = dDate1.getDay(); // day of week
