@@ -3,11 +3,16 @@
         <div class="col-md-6">
             <button class="btn_annual_plan_submit_to_ocag btn-sm btn-primary btn-square"
                     data-fiscal-year-id="{{$fiscal_year_id}}"
-                    onclick="Annual_Plan_Container.submitToOCAG($(this))">Submit to OCAG
+                    onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">Submit to OCAG
             </button>
 
             <button data-fiscal-year-id="{{$fiscal_year_id}}" onclick="Annual_Plan_Container.printAnnualPlan($(this))"
                     class="btn-sm btn-warning btn-square">Download
+            </button>
+
+            <button class="btn-sm btn-primary btn-square"
+                    data-fiscal-year-id="{{$fiscal_year_id}}"
+                    onclick="">History
             </button>
 
             {{--<button data-fiscal-year-id="{{$fiscal_year_id}}" class="btn-sm btn-primary btn-square"

@@ -33,6 +33,57 @@
             });
         },
 
+        loadAnnualPlanApprovalAuthority: function (element) {
+            url = '{{route('audit.plan.annual.plan.revised.load-annual-plan-approval-authority')}}';
+            fiscal_year_id = element.data('fiscal-year-id');
+            data = {fiscal_year_id};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('অনুমোদনকারী বাছাই করুন');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
+        storeAnnualPlanApprovalAuthority: function () {
+            url = '{{route('audit.plan.annual.plan.revised.store-annual-plan-approval-authority')}}';
+            data = $('#approval_authority_form').serialize();
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'success') {
+                    toastr.success('Successfully Saved!');
+                    //Office_Order_Container.loadOfficeOrderList();
+                }
+                else {
+                    if (response.statusCode === '422') {
+                        var errors = response.msg;
+                        $.each(errors, function (k, v) {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        });
+                    }
+                    else {
+                        toastr.error(response.data.message);
+                    }
+                }
+            })
+        },
+
         loadEntitySelection: function (elem) {
             schedule_id = elem.data('schedule-id');
             activity_id = elem.data('activity-id');

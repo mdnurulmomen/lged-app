@@ -7,5 +7,6 @@ return [
         '1' =>'reject',
         '2' =>'pending',
         '3' =>'in-progress'
-    ]
+    ],
+    'ocag_office_id' => 1
 ];

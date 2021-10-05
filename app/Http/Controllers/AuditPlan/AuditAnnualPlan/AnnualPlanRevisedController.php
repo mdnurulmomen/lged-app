@@ -434,5 +434,58 @@ class AnnualPlanRevisedController extends Controller
         }
     }
 
+    public function loadAnnualPlanApprovalAuthority(Request $request)
+    {
+        $officeId = config('cag_amms_config.ocag_office_id');
+        $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['officer_lists'] = $this->cagDoptorOfficeUnitDesignationEmployees($officeId);
+        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_approval_authority',$data);
+    }
 
+    public function storeAnnualPlanApprovalAuthority(Request $request): \Illuminate\Http\JsonResponse
+    {
+        try {
+            //dd($request->all());
+            $data = Validator::make($request->all(), [
+                'fiscal_year_id' => 'required|integer',
+                'op_audit_calendar_event_id' => 'required|integer',
+                'duration_id' => 'required|integer',
+                'outcome_id' => 'required|integer',
+                'output_id' => 'required|integer',
+                'receiver_type' => 'required',
+                'receiver_office_id' => 'required',
+                'receiver_office_name_en' => 'required',
+                'receiver_office_name_bn' => 'required',
+                'receiver_unit_id' => 'required',
+                'receiver_unit_name_en' => 'required',
+                'receiver_unit_name_bn' => 'required',
+                'receiver_officer_id' => 'required',
+                'receiver_name_en' => 'required',
+                'receiver_name_bn' => 'required',
+                'receiver_designation_id' => 'required',
+                'receiver_designation_en' => 'required',
+                'receiver_designation_bn' => 'required',
+            ])->validate();
+
+            $data['status'] = 'Pending';
+            $data['comments'] = $request->comments;
+            $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+
+            $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.store_approval_authority'), $data)->json();
+            //dd($responseData);
+            if (isSuccess($responseData)) {
+                return response()->json(['status' => 'success', 'data' => 'Added!']);
+            } else {
+                return response()->json(['status' => 'error', 'data' => $responseData]);
+            }
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => $exception->errors(),
+                'statusCode' => '422',
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
+        }
+    }
 }
