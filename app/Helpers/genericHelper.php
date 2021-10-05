@@ -352,14 +352,14 @@ if (!function_exists('formatDate')) {
 }
 
 if (!function_exists('formatDateTime')) {
-    function formatDateTime($date_time, $lang = 'en')
+    function formatDateTime($date_time, $lang = 'en',$separator='/')
     {
         if (!empty($date_time) || $date_time != '') {
             $date_time = bnToen($date_time);
             if ($lang == 'bn') {
-                $date_time = enToBn(date('d-m-Y H:i:s', strtotime($date_time)));
+                $date_time = enToBn(date('d'.$separator.'m'.$separator.'Y g:i A', strtotime($date_time)));
             } else {
-                $date_time = date('d-m-Y H:i:s', strtotime($date_time));
+                $date_time = date('d'.$separator.'m'.$separator.'Y g:i A', strtotime($date_time));
             }
         }
         return $date_time;

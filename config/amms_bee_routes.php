@@ -86,6 +86,7 @@ return [
         'ap_submit_plan_to_ocag' => env('API_URL_BEE', '') . '/planning/annual-plan/submit-plan-to-ocag',
         'ap_nominated_offices' => env('API_URL_BEE', '') . '/planning/annual-plan/get-nominated-offices',
         'store_approval_authority' => env('API_URL_BEE', '') . '/planning/annual-plan/store-approval-authority',
+        'get_movement_histories' => env('API_URL_BEE', '') . '/planning/annual-plan/get-movement-histories',
     ],
 
     'audit_entity_plan' => [

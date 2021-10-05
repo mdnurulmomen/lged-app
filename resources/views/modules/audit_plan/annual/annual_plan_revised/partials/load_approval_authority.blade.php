@@ -69,7 +69,7 @@
                 "icon": "fal fa-user"
             },
         },
-        "plugins": ["checkbox", "search", "types"]
+        "plugins": ["search", "types"]
     });
 
     $('#approvalAuthorityTree').on('select_node.jstree', function (e, data) {
@@ -78,11 +78,7 @@
 
         var newRow = '<li id="approval_authority_' + officer_info.officer_id + '">' +
             '<input name="fiscal_year_id" type="hidden" value="{{$fiscal_year_id}}"/>' +
-            '<input name="op_audit_calendar_event_id" type="hidden" value="1"/>' +
-            '<input name="duration_id" type="hidden" value="1"/>' +
-            '<input name="outcome_id" type="hidden" value="1"/>' +
-            '<input name="output_id" type="hidden" value="1"/>' +
-
+            '<input name="op_audit_calendar_event_id" type="hidden" value="{{$op_audit_calendar_event_id}}"/>' +
             '<input name="receiver_type" type="hidden" value="approver"/>'+
             '<input name="receiver_office_id" type="hidden" value="' + officer_info.office_id + '"/>'+
             '<input name="receiver_office_name_en" type="hidden" value="' + officer_info.office_id + '"/>'+

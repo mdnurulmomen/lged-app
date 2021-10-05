@@ -3,7 +3,7 @@
         <div class="col-md-6">
             <button class="btn_annual_plan_submit_to_ocag btn-sm btn-primary btn-square"
                     data-fiscal-year-id="{{$fiscal_year_id}}"
-                    data-op_audit_calendar_event_id="{{$plan['op_audit_calendar_event_id']}}"
+                    data-op-audit-calendar-event-id="{{$annual_plans[array_key_first($annual_plans)][0]['op_audit_calendar_event_id']}}"
                     onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">Submit to OCAG
             </button>
 
@@ -13,7 +13,8 @@
 
             <button class="btn-sm btn-primary btn-square"
                     data-fiscal-year-id="{{$fiscal_year_id}}"
-                    onclick="">History
+                    data-op-audit-calendar-event-id="{{$annual_plans[array_key_first($annual_plans)][0]['op_audit_calendar_event_id']}}"
+                    onclick="Annual_Plan_Container.movementHistory($(this))">History
             </button>
 
             {{--<button data-fiscal-year-id="{{$fiscal_year_id}}" class="btn-sm btn-primary btn-square"
@@ -83,10 +84,10 @@
                                 <i class="fad fa-eye"></i>
                             </button>
 
-                            <a href='javascript:;' data-toggle="tooltip" data-placement="top" title="Forward Plan"
+                            {{--<a href='javascript:;' data-toggle="tooltip" data-placement="top" title="Forward Plan"
                                class='btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle'>
                                 <i class='fad fa-share'></i>
-                            </a>
+                            </a>--}}
                         </div>
 
                     </td>

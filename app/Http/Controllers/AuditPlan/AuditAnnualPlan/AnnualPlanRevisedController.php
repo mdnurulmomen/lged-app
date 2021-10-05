@@ -438,6 +438,7 @@ class AnnualPlanRevisedController extends Controller
     {
         $officeId = config('cag_amms_config.ocag_office_id');
         $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['op_audit_calendar_event_id'] = $request->op_audit_calendar_event_id;
         $data['officer_lists'] = $this->cagDoptorOfficeUnitDesignationEmployees($officeId);
         return view('modules.audit_plan.annual.annual_plan_revised.partials.load_approval_authority',$data);
     }
@@ -449,9 +450,6 @@ class AnnualPlanRevisedController extends Controller
             $data = Validator::make($request->all(), [
                 'fiscal_year_id' => 'required|integer',
                 'op_audit_calendar_event_id' => 'required|integer',
-                'duration_id' => 'required|integer',
-                'outcome_id' => 'required|integer',
-                'output_id' => 'required|integer',
                 'receiver_type' => 'required',
                 'receiver_office_id' => 'required',
                 'receiver_office_name_en' => 'required',
@@ -467,7 +465,7 @@ class AnnualPlanRevisedController extends Controller
                 'receiver_designation_bn' => 'required',
             ])->validate();
 
-            $data['status'] = 'Pending';
+            $data['status'] = 'pending';
             $data['comments'] = $request->comments;
             $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
 
@@ -486,6 +484,24 @@ class AnnualPlanRevisedController extends Controller
             ]);
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
+        }
+    }
+
+    public function movementHistoryAnnualPlan(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'op_audit_calendar_event_id' => 'required|integer',
+        ])->validate();
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_movement_histories'), $data)->json();
+        //dd($responseData);
+
+        if (isSuccess($responseData)) {
+            $annual_plan_movement_list = $responseData['data'];
+            return view('modules.audit_plan.annual.annual_plan_revised.partials.load_movement_histories', compact('annual_plan_movement_list'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData]);
         }
     }
 }
