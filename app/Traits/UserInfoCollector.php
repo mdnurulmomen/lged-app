@@ -96,6 +96,7 @@ trait UserInfoCollector
             'user_primary_id' => $this->getUserId(),
             'user_id' => $this->getUsername(),
             'office' => $this->current_office()['office_name_en'],
+            'office_bn' => $this->current_office()['office_name_bn'],
             'office_unit_en' => $this->current_office()['unit_name_en'],
             'office_unit_bn' => $this->current_office()['unit_name_bn'],
             'designation_en' => $this->current_office()['designation_en'],

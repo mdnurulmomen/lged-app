@@ -68,4 +68,18 @@ class MISAndDashboardController extends Controller
         }
     }
 
+    public function loadFiscalYearWiseTeam(Request $request)
+    {
+        $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['cdesk'] = json_encode($this->current_desk());
+        $all_teams = $this->initHttpWithToken()->post(config('amms_bee_routes.mis_and_dashboard.get_fiscal_year_wise_team'), $data)->json();
+//        dd($all_teams);
+        if (isSuccess($all_teams)) {
+            $all_teams = $all_teams['data'];
+            return view('modules.mis_dashboard.team_list.fiscal_year_team_info', compact('all_teams'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $all_teams]);
+        }
+    }
+
 }

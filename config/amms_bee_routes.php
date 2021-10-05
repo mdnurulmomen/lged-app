@@ -152,6 +152,7 @@ return [
 
     'mis_and_dashboard' => [
         'all_team_lists' => env('API_URL_BEE', '') . '/mis-and-dashboard/load-all-team-lists',
+        'get_fiscal_year_wise_team' => env('API_URL_BEE', '') . '/mis-and-dashboard/load-fiscal-year-wise-team',
     ],
 
     'final_plan_file_list' => env('API_URL_BEE', '') . '/final-plan-file-list',

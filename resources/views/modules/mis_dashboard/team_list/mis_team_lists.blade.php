@@ -36,6 +36,24 @@
                 }
             });
         },
+        loadMISTeamInfo: function (fiscal_year_id) {
+            let url = '{{route('mis_and_dashboard.team_list.load-fiscal-year-wise-team')}}';
+            let data = {fiscal_year_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '500px');
+                    $('.offcanvas-footer').hide();
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $('.offcanvas-wrapper').html(response);
+                }
+            });
+        },
     };
     $(function () {
         MIS_TEAM_LIST_CONTAINER.loadMISTeamLists();
