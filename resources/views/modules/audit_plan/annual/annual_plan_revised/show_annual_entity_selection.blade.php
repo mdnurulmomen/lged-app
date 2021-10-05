@@ -7,6 +7,7 @@
            data-schedule-id="{{$schedule_id}}"
            data-fiscal-year-id="{{$fiscal_year_id}}"
            data-milestone-id="{{$milestone_id}}"
+           data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
            class="btn btn-success btn-sm btn-bold btn-square btn_create"
            href="javascript:;">
             <i class="far fa-plus mr-1"></i> Add Responsible Party

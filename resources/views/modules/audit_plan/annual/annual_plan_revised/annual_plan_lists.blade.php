@@ -40,7 +40,16 @@
             fiscal_year = elem.data('fiscal-year');
             fiscal_year_id = elem.data('fiscal-year-id');
             activity_title = elem.data('activity-title');
-            data = {schedule_id, activity_id, milestone_id, fiscal_year, activity_title, fiscal_year_id}
+            op_audit_calendar_event_id = elem.data('op-event-id');
+            data = {
+                schedule_id,
+                activity_id,
+                milestone_id,
+                fiscal_year,
+                activity_title,
+                fiscal_year_id,
+                op_audit_calendar_event_id
+            }
             let url = '{{route('audit.plan.annual.plan.revised.annual-entities-show')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
@@ -57,7 +66,8 @@
             milestone_id = elem.data('milestone-id');
             fiscal_year_id = elem.data('fiscal-year-id');
             activity_title = elem.data('activity-title');
-            data = {schedule_id, activity_id, milestone_id, activity_title, fiscal_year_id}
+            op_audit_calendar_event_id = elem.data('op-audit-calendar-event-id');
+            data = {schedule_id, activity_id, milestone_id, activity_title, fiscal_year_id, op_audit_calendar_event_id}
 
             let url = '{{route('audit.plan.annual.plan.list.show.revised.crate_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {

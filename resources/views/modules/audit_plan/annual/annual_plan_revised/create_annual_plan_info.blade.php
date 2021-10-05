@@ -101,6 +101,7 @@
                 </div>
             </div>
             <input type="hidden" name="schedule_id" value="{{$schedule_id}}">
+            <input type="hidden" name="op_audit_calendar_event_id" value="{{$op_audit_calendar_event_id}}">
             <input type="hidden" name="activity_id" value="{{$activity_id}}">
             <input type="hidden" name="milestone_id" value="{{$milestone_id}}">
             <input type="hidden" name="fiscal_year_id" value="{{$fiscal_year_id}}">

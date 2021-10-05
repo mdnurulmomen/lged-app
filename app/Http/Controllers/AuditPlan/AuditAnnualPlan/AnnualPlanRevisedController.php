@@ -48,6 +48,7 @@ class AnnualPlanRevisedController extends Controller
             'schedule_id' => 'required|integer',
             'milestone_id' => 'required|integer',
             'fiscal_year_id' => 'required|integer',
+            'op_audit_calendar_event_id' => 'required|integer',
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
 
@@ -63,10 +64,11 @@ class AnnualPlanRevisedController extends Controller
         $fiscal_year = $request->fiscal_year;
         $fiscal_year_id = $request->fiscal_year_id;
         $activity_title = $request->activity_title;
+        $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
 
         return view('modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection',
             compact('plan_list', 'activity_id', 'schedule_id', 'milestone_id', 'fiscal_year',
-                'fiscal_year_id', 'activity_title'));
+                'fiscal_year_id', 'activity_title', 'op_audit_calendar_event_id'));
 
     }
 
@@ -101,6 +103,7 @@ class AnnualPlanRevisedController extends Controller
             'schedule_id' => 'required|integer',
             'milestone_id' => 'required|integer',
             'fiscal_year_id' => 'required|integer',
+            'op_audit_calendar_event_id' => 'required|integer',
         ])->validate();
 
         return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info')->with($data);
@@ -111,6 +114,7 @@ class AnnualPlanRevisedController extends Controller
         try {
             //dd($request->all());
             Validator::make($request->all(), [
+                'op_audit_calendar_event_id' => 'required',
                 'activity_id' => 'required|integer',
                 'schedule_id' => 'required|integer',
                 'milestone_id' => 'required|integer',
@@ -131,6 +135,7 @@ class AnnualPlanRevisedController extends Controller
                 'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
                 'activity_id' => $request->activity_id,
                 'schedule_id' => $request->schedule_id,
+                'audit_calendar_event_id' => $request->op_audit_calendar_event_id,
                 'fiscal_year_id' => $request->fiscal_year_id,
                 'milestone_id' => $request->milestone_id,
                 'subject_matter' => $request->subject_matter,
