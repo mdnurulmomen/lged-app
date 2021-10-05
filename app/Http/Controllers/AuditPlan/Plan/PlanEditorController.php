@@ -26,7 +26,7 @@ class PlanEditorController extends Controller
         $fiscal_year_id = $request->fiscal_year_id;
         $audit_plan_id = $request->audit_plan_id;
         $own_office = ['name' => $this->current_office()['office_name_bn'], 'id' => $this->current_office()['id']];
-        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
+//        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
         $other_offices = $this->cagDoptorOtherOffices($this->current_office_id());
 
         //for all team data
@@ -42,7 +42,6 @@ class PlanEditorController extends Controller
             'annual_plan_id',
             'fiscal_year_id',
             'audit_plan_id',
-            'officer_lists',
             'own_office',
             'all_teams',
             'other_offices',
@@ -53,7 +52,10 @@ class PlanEditorController extends Controller
     public function loadOfficeEmployeeList(Request $request)
     {
         Validator::make($request->all(), ['office_id' => 'integer|required'])->validate();
-        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($request->office_id);
+
+        $office_id = $request->office_id ? $request->office_id : $this->current_office_id();
+
+        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($office_id);
 
         return view('modules.audit_plan.audit_plan.plan_revised.partials.load_officer_list_dnd_tree', compact('officer_lists'));
     }

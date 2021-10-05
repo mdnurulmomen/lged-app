@@ -30,7 +30,7 @@
 </ul>
 
 <script>
-    $('.own_office_organogram_tree').jstree({
+        $('.office_organogram_tree').jstree({
         'plugins': ["checkbox", "types", "search", "dnd"],
         'core': {
             check_callback: true,
@@ -49,7 +49,40 @@
         },
         "search": {
             "show_only_matches": true,
-            "show_only_matches_children": true
+            "show_only_matches_children": true,
+            "case_insensitive": true,
         },
+    }).on('search.jstree', function (nodes, str, res) {
+        if (str.nodes.length === 0) {
+            $('.office_organogram_tree').jstree(true).hide_all();
+        }
+    });
+
+    $('.other_office_organogram_tree').jstree({
+        'plugins': ["checkbox", "types", "search", "dnd"],
+        'core': {
+            check_callback: true,
+            "themes": {
+                "responsive": false
+            },
+        },
+        'dnd': {
+            "copy": true,
+            // "always_copy": true,
+        },
+        'checkbox': {
+            three_state: false, // to avoid that fact that checking a node also check others
+            whole_node: false, // to avoid checking the box just clicking the node
+            tie_selection: false // for checking without selecting and selecting without checking
+        },
+        "search": {
+            "show_only_matches": true,
+            "show_only_matches_children": true,
+            "case_insensitive": true,
+        },
+    }).on('search.jstree', function (nodes, str, res) {
+        if (str.nodes.length === 0) {
+            $('.other_office_organogram_tree').jstree(true).hide_all();
+        }
     });
 </script>

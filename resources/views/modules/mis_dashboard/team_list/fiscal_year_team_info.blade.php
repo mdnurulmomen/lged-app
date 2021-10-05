@@ -70,9 +70,9 @@
                 @foreach($sub_team_schedules as $sub_team_schedule)
                     <tr>
                         <td>{{$sub_team_schedule['cost_center_name_bn']}}</td>
-                        <td>{{$team['audit_year_start']}} - {{$team['audit_year_end']}}</td>
-                        <td>{{$child['team_start_date']}} - {{$child['team_end_date']}}</td>
-                        <td>{{$child['activity_man_days']}}</td>
+                        <td>{{enTobn($team['audit_year_start'])}} - {{enTobn($team['audit_year_end'])}}</td>
+                        <td>{{enTobn($child['team_start_date'])}} - {{enTobn($child['team_end_date'])}}</td>
+                        <td>{{enTobn($child['activity_man_days'])}}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -97,9 +97,9 @@
                 @foreach($team_schedules as $schedules)
                     <tr>
                         <td>{{$schedules['cost_center_name_bn']}}</td>
-                        <td>{{$team['audit_year_start']}} - {{$team['audit_year_end']}}</td>
-                        <td>{{$team['team_start_date']}} - {{$team['team_end_date']}}</td>
-                        <td>{{$team['activity_man_days']}}</td>
+                        <td>{{enTobn($team['audit_year_start'])}} - {{enTobn($team['audit_year_end'])}}</td>
+                        <td>{{enTobn($team['team_start_date'])}} - {{enTobn($team['team_end_date'])}}</td>
+                        <td>{{enTobn($team['activity_man_days'])}}</td>
                     </tr>
                 @endforeach
                 </tbody>

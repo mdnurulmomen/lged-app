@@ -113,36 +113,7 @@
                                         <input id="officer_search" type="text" class="form-control mb-1" placeholder="অফিসার খুঁজুন">
                                         <div class="rounded-0 office_organogram_tree"
                                              style="overflow-y: scroll; height: 60vh">
-                                            <ul>
-                                                @foreach($officer_lists as $key => $officer_list)
-                                                    @foreach($officer_list['units'] as $unit)
-                                                        @foreach($unit['designations'] as $designation)
-                                                            @if(!empty($designation['employee_info']))
-                                                                <li data-officer-info="{{json_encode(
-    [
-        'designation_id' =>  htmlspecialchars($designation['designation_id']),
-        'designation_en' =>  htmlspecialchars($designation['designation_eng']),
-        'designation_bn' => htmlspecialchars($designation['designation_bng']),
-        'officer_name_en' =>  htmlspecialchars($designation['employee_info']['name_eng']),
-        'officer_name_bn' =>  htmlspecialchars($designation['employee_info']['name_bng']),
-        'officer_mobile' =>  htmlspecialchars($designation['employee_info']['personal_mobile']),
-        'officer_email' =>  htmlspecialchars($designation['employee_info']['personal_email']),
-        'employee_grade' => !empty($designation['employee_info']['employee_grade']) ? $designation['employee_info']['employee_grade'] : '1',
-        'officer_id' =>  htmlspecialchars($designation['employee_info']['id']),
-        'unit_id' => $unit['office_unit_id'],
-        'unit_name_en' => htmlspecialchars($unit['unit_name_eng']),
-        'unit_name_bn' => htmlspecialchars($unit['unit_name_bng']),
-        'office_id' => $officer_list['office_id'],
-        ], JSON_UNESCAPED_UNICODE)}}"
-                                                                    data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
-                                                                    {{!empty($designation['employee_info']) ? $designation['employee_info']['name_bng'] : ''}}
-                                                                    , {{$designation['designation_bng']}}
-                                                                </li>
-                                                            @endif
-                                                        @endforeach
-                                                    @endforeach
-                                                @endforeach
-                                            </ul>
+
                                         </div>
                                     </div>
                                 </div>
@@ -159,6 +130,16 @@
                                                     value="{{$other_office['id']}}">{{$other_office['office_name_eng']}}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 other_officers_list_area">
+                                        <input id="other_officer_search" type="text" class="form-control mb-1" placeholder="অফিসার খুঁজুন">
+                                        <div class="rounded-0  other_office_organogram_tree"
+                                             style="overflow-y: scroll; height: 60vh">
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -523,38 +504,17 @@
             $(this).attr('contenteditable', false);
         }
     })
-    $('.office_organogram_tree').jstree({
-        'plugins': ["checkbox", "types", "search", "dnd"],
-        'core': {
-            check_callback: true,
-            "themes": {
-                "responsive": false
-            },
-        },
-        'dnd': {
-            "copy": true,
-            // "always_copy": true,
-        },
-        'checkbox': {
-            three_state: false, // to avoid that fact that checking a node also check others
-            whole_node: false, // to avoid checking the box just clicking the node
-            tie_selection: false // for checking without selecting and selecting without checking
-        },
-        "search": {
-            "show_only_matches": true,
-            "show_only_matches_children": true,
-            "case_insensitive": true,
-        },
-    }).on('search.jstree', function (nodes, str, res) {
-        if (str.nodes.length === 0) {
-            $('.office_organogram_tree').jstree(true).hide_all();
-        }
-    });
+
 
 
     $('#officer_search').keyup(function(){
         $('.office_organogram_tree').jstree(true).show_all();
         $('.office_organogram_tree').jstree('search', $(this).val());
+    });
+
+    $('#other_officer_search').keyup(function(){
+        $('.other_office_organogram_tree').jstree(true).show_all();
+        $('.other_office_organogram_tree').jstree('search', $(this).val());
     });
 
     /**JS tree drag and drop start***/
@@ -599,9 +559,27 @@
     var team = {};
     var subTeam = [];
     team_info = [];
+
     var Load_Team_Container = {
         load_level_selection_panel: 0,
         selected_designation_ids: JSON.parse('{"228237":228237,"22418":22418}'),
+
+        loadOfficer: function (office_id,office_type) {
+            url = '{{route('audit.plan.audit.revised.plan.load-officer-lists')}}';
+            data = {office_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error('Internal Serve Error');
+                } else {
+                    if(office_type == 'own_office'){
+                        $(".office_organogram_tree").html(response);
+                    }else if(office_type == 'other_office'){
+                        $(".other_office_organogram_tree").html(response);
+                    }
+
+                }
+            })
+        },
 
         checkSelectedItemsInOrgTree: function (tree_id) {
             $.each(Load_Team_Container.selected_designation_ids, function (i, v) {
@@ -1377,4 +1355,13 @@
             return unitVisitHtmlTable;
         }
     };
+
+    $(function () {
+        Load_Team_Container.loadOfficer(0,'own_office');
+    });
+
+    $("select#other_office").change(function () {
+        var office_id = $(this).children("option:selected").val();
+        Load_Team_Container.loadOfficer(office_id,'other_office');
+    });
 </script>
