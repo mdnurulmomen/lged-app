@@ -3,6 +3,7 @@
         <div class="col-md-6">
             <button class="btn_annual_plan_submit_to_ocag btn-sm btn-primary btn-square"
                     data-fiscal-year-id="{{$fiscal_year_id}}"
+                    data-op_audit_calendar_event_id="{{$plan['op_audit_calendar_event_id']}}"
                     onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">Submit to OCAG
             </button>
 
