@@ -72,4 +72,21 @@ class OperationalPlanController extends Controller
     {
         return view('modules.audit_plan.operational.operational_plan.partials.load_activity_wise_team');
     }
+
+    public function approveAnnualPlan(Request $request)
+    {
+        $fiscal_years = $this->allFiscalYears();
+        return view('modules.audit_plan.operational.approve_plan.approve_plan_lists',compact('fiscal_years'));
+    }
+
+    public function loadDirectorateList(Request $request)
+    {
+        $allAuditDirectorates = $this->allAuditDirectorates();
+        return view('modules.audit_plan.operational.approve_plan.partials.load_directorate_lists',compact('allAuditDirectorates'));
+    }
+
+    public function loadApproveOrRejectForm(Request $request)
+    {
+        return view('modules.audit_plan.operational.approve_plan.partials.load_approve_reject');
+    }
 }

@@ -23,9 +23,14 @@
                 Audit Calendar
             </x-menu-item>
 
+            <x-menu-item class="op_op" href="{{route('audit.plan.operational.plan.approve-annual-plan')}}" icon="fas fa-bullseye-arrow">
+                Approve Plan
+            </x-menu-item>
+
             <x-menu-item class="op_op" href="{{route('audit.plan.operational.plan.all')}}" icon="fas fa-bullseye-arrow">
                 Operational Plan
             </x-menu-item>
+
         </ul>
     </div>
     <!--end::Menu Container-->

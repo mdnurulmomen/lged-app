@@ -1,5 +1,6 @@
 @if(count($annual_plans) > 0)
     <div class="row pb-4">
+        {{--{{dd($annual_plans)}}--}}
         <div class="col-md-6">
             <button class="btn_annual_plan_submit_to_ocag btn-sm btn-primary btn-square"
                     data-fiscal-year-id="{{$fiscal_year_id}}"
@@ -16,6 +17,10 @@
                     data-op-audit-calendar-event-id="{{$annual_plans[array_key_first($annual_plans)][0]['op_audit_calendar_event_id']}}"
                     onclick="Annual_Plan_Container.movementHistory($(this))">History
             </button>
+
+            <span class="badge badge-info text-uppercase m-1 p-1 ">
+                {{$annual_plans[array_key_first($annual_plans)][0]['op_organization_yearly_audit_calendar_event']['approval_status']}}
+            </span>
 
             {{--<button data-fiscal-year-id="{{$fiscal_year_id}}" class="btn-sm btn-primary btn-square"
                     data-toggle="modal" data-target="#referenceNumberModal">Reference Number
