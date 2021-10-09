@@ -15,7 +15,7 @@
         'controlling_office_name_bn' => $controlling_office_name_bn,
         'controlling_office_name_en' => $controlling_office_name_en,
         ], JSON_UNESCAPED_UNICODE)}}" data-jstree='{ "opened" : true }'>
-            {{$rp_office['office_name_en']}}
+            {{$rp_office['office_name_bn']}}
             @if(count($rp_office['child']) > 0)
                 @include('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices_child',
  [
