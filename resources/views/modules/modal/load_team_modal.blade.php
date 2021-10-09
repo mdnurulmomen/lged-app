@@ -393,6 +393,13 @@
                                                             @endif
                                                         </div>
                                                     </div>
+
+                                                    <script>
+                                                        //working days
+                                                        $(document).on('change', '.audit_schedule_row_{{$value['id']}} input', function () {
+                                                            populateData(this);
+                                                        });
+                                                    </script>
                                                 @endforeach
                                             </div>
                                         </form>
@@ -445,10 +452,6 @@
     }
 
     //working days
-    /*$(document).on('change', '.audit_schedule_row_ input', function () {
-        populateData(this);
-    });
-
     function populateData(element) {
         id = $(element).data("id");
         currentInputValue = $(element).val();
@@ -457,12 +460,12 @@
             let startDuration = $(element).closest('tr').find('.input-start-duration').val();
             startDurationData = startDuration.split("/");
             endDurationData = currentInputValue.split("/");
-            startDateForamt = startDurationData[1] + '/' + startDurationData[0] + '/' + startDurationData[2];
-            endDateForamt = endDurationData[1] + '/' + endDurationData[0] + '/' + endDurationData[2];
-            totalDayDifference = dateDifferenceInDay(startDateForamt, endDateForamt);
+            startDateFormat = startDurationData[1] + '/' + startDurationData[0] + '/' + startDurationData[2];
+            endDateFormat = endDurationData[1] + '/' + endDurationData[0] + '/' + endDurationData[2];
+            totalDayDifference = calcWorkingDays(startDateFormat, endDateFormat);
             $("#input_total_working_day_" + id).val(totalDayDifference);
         }
-    }*/
+    }
 
     function addAuditScheduleTblRow(layer_id) {
         var totalAuditScheduleTbody = $('.audit-schedule-table tbody').length + 1;
@@ -1101,6 +1104,7 @@
             //$('.proposed_date_commencement_audit').html($('#permitted_level_1').find('.layer_text').html());
             $('.proposed_date_commencement_audit').text(BnFromEng($('#team_start_date').val()));
             $('.proposed_date_completion_audit').text(BnFromEng($('#team_end_date').val()));
+            $('.duration_audit_performance').text(BnFromEng($('#team_start_date').val())+' খ্রি. হতে '+BnFromEng($('#team_end_date').val())+' খ্রি. পর্যন্ত।');
             Load_Team_Container.insertAuditTeamListInBook();
         },
 
@@ -1178,7 +1182,7 @@
                                         <th class="text-center">ক্রমিক নং</th>
                                         <th class="text-center">নাম</th>
                                         <th class="text-center">পদবী</th>
-                                        <th class="text-center">নিরীক্ষা দলের অবস্থান</th>
+                                        <th class="text-center">নিরীক্ষা দলে অবস্থান</th>
                                         <th class="text-center">মোবাইল নং</th>
                                     </tr>
                                 </thead><tbody>`;
@@ -1274,21 +1278,23 @@
                     <th class="text-center">৫</th>
                 </tr>
         `;
+            totalActivityManDays = 0;
             for (var i in scheduleList) {
                 //console.log(scheduleList[i].cost_center_id);
+                totalActivityManDays = totalActivityManDays + parseInt(scheduleList[i].activity_man_days);
                 htmlTable += '<tr>' +
-                    '<td class="text-center">' + BnFromEng(rowNumber) + '</td>' +
-                    '<td class="text-center">' + scheduleList[i].cost_center_name_bn + '</td>' +
-                    '<td class="text-center">২০২০-২০২১</td>' +
-                    '<td class="text-center">' + BnFromEng(scheduleList[i].team_member_start_date) + ' হতে ' +
+                    '<td style="text-align: center">' + BnFromEng(rowNumber) + '</td>' +
+                    '<td style="text-align: center">' + scheduleList[i].cost_center_name_bn + '</td>' +
+                    '<td style="text-align: center">২০২০-২০২১</td>' +
+                    '<td style="text-align: center">' + BnFromEng(scheduleList[i].team_member_start_date) + ' হতে ' +
                     BnFromEng(scheduleList[i].team_member_end_date) + '</td>' +
-                    '<td class="text-center">' + BnFromEng(scheduleList[i].activity_man_days) + '</td>' +
+                    '<td style="text-align: center">' + BnFromEng(scheduleList[i].activity_man_days) + ' কর্ম দিবস </td>' +
                     '</tr>';
 
                 if (scheduleList[i].hasOwnProperty('team_member_activity')) {
                     htmlTable += '<tr>' +
-                        '<td class="text-center">' + BnFromEng(rowNumber + 1) + '</td>' +
-                        '<td colspan="4" class="text-center">' + BnFromEng(scheduleList[i].team_member_activity) + ' খ্রি. ' + scheduleList[i].activity_location + '</td>' +
+                        '<td style="text-align: center">' + BnFromEng(rowNumber + 1) + '</td>' +
+                        '<td colspan="4" style="text-align: center">' + BnFromEng(scheduleList[i].team_member_activity) + ' খ্রি. ' + scheduleList[i].activity_location + '</td>' +
                         '</tr>';
 
                     rowNumber = rowNumber + 2;
@@ -1297,7 +1303,12 @@
                 }
             }
 
-            htmlTable += ` </tbody>
+            htmlTable += `
+                <tr>
+                    <th colspan="4" style="text-align: right">সর্বমোট</th>
+                    <th style="text-align: center">`+BnFromEng(totalActivityManDays)+` কর্ম দিবস</th>
+                </tr>
+            </tbody>
             </table>`;
 
             return htmlTable;
