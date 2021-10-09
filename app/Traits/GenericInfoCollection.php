@@ -71,7 +71,7 @@ trait GenericInfoCollection
 
     public function allAuditDirectorates()
     {
-        $offices = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.responsible_offices_lists'), ['all' => 1])->json();
+        $offices = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.directorate_lists'), ['all' => 1])->json();
         if ($offices['status'] == 'success') {
             return $offices['data'];
         } else {
