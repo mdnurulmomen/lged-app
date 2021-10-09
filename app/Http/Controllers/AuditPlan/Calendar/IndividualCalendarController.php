@@ -10,7 +10,18 @@ class IndividualCalendarController extends Controller
 {
     public function index()
     {
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $directorates = $this->allAuditDirectorates();
+        if (!empty($directorates)) {
+            return view('modules.audit_plan.calendar.team_calender', compact('directorates'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $directorates]);
+        }
+    }
+
+    public function loadTeamCalendar(Request $request)
+    {
+        $data['cdesk'] = json_encode_unicode($this->current_desk());
+
         $calendar_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.individual_calendar_list'), $data)->json();
         if (isSuccess($calendar_data)) {
             $calendar_data = $calendar_data['data'];
@@ -31,7 +42,7 @@ class IndividualCalendarController extends Controller
         }
     }
 
-    public function updateVisitCalenderStatus(Request $request)
+    public function updateVisitCalenderStatus(Request $request): \Illuminate\Http\JsonResponse
     {
         $data = Validator::make($request->all(), [
             'schedule_id' => 'required|integer',

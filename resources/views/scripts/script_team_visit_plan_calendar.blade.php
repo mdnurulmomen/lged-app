@@ -23,7 +23,6 @@
                     height: 800,
                     contentHeight: 780,
                     aspectRatio: 3,  // see: https://fullcalendar.io/docs/aspectRatio
-
                     nowIndicator: true,
                     now: TODAY + 'T09:25:00', // just for demo
 
@@ -81,6 +80,7 @@
                             }
                         }
                     },
+
                     eventClick: function (event, jsEvent, view) {
                         team_id = event.event.extendedProps.team_id;
 
