@@ -26,8 +26,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <label>Audit Due Year</label>
-                    <input type="text" class="form-control" placeholder="Audit Due Year" id="audit_due_year"
-                           name="audit_due_year">
+                    <select class="form-control select-select2" name="audit_due_year" id="audit_due_year">
+                        <option value="">Choose Fiscal Year</option>
+                        @foreach($fiscal_years as $fiscal_year)
+                            <option
+                                value="{{$fiscal_year['start']}}">{{$fiscal_year['description']}}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="col-md-6">
@@ -43,16 +48,20 @@
 
             <div class="row mt-2">
                 <div class="col-md-6">
-                    <button type="button" onclick="MIS_RPU_LIST_CONTAINER.loadRupLists()" class="btn btn-primary">Submit
-                    </button>
+{{--                    <button type="button" onclick="MIS_RPU_LIST_CONTAINER.loadRupLists()" class="btn btn-primary">Submit--}}
+{{--                    </button>--}}
+                    <a tabindex="0" onclick="MIS_RPU_LIST_CONTAINER.loadRupLists()" role="button"
+                               class="write_onucched btn btn-sm btn-square btn-success"><i class="fad fa-search"></i>
+                                <span>অনুসন্ধান</span></a>
                 </div>
             </div>
         </form>
     </div>
 </div>
-<div class="px-3 py-3" id="load_mis_team_lists">
 
-</div>
+
+<div class="px-3 py-3" id="report_heading"></div>
+<div class="px-3 py-3" id="load_mis_team_lists"></div>
 
 <script>
 
@@ -74,6 +83,22 @@
             risk_category = $('#risk_category').val();
             let data = {directorate_id, office_ministry_id, audit_due_year, risk_category};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                let heading = '';
+                 heading += '<b>Showing Report For: </b>';
+                if(directorate_id){
+                    heading +='<p class="float-left pl-4""><b>Directorate:</b> '+$("#directorate_id option:selected").text()+'</p>';
+                }
+                if(office_ministry_id){
+                    heading +='<p class="float-left pl-4""><b>Ministry:</b> '+$("#office_ministry_id option:selected").text()+'</p>';
+                }
+                if(audit_due_year){
+                    heading +='<p class="float-left pl-4""><b>Due Year:</b> '+$("#audit_due_year option:selected").text()+'</p>';
+                }
+                if(risk_category){
+                    heading +='<p class="float-left pl-4""><b>Risk Area:</b> '+$("#risk_category option:selected").text()+'</p>';
+                }
+
+                $('#report_heading').html(heading);
                 $('#load_mis_team_lists').html(response);
             });
         }
