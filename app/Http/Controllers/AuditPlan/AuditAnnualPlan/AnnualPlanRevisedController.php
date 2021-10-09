@@ -310,6 +310,7 @@ class AnnualPlanRevisedController extends Controller
             'fiscal_year_id' => 'required|integer',
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['office_id'] = $this->current_office_id();
 
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
 
@@ -440,7 +441,7 @@ class AnnualPlanRevisedController extends Controller
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['op_audit_calendar_event_id'] = $request->op_audit_calendar_event_id;
         $data['officer_lists'] = $this->cagDoptorOfficeUnitDesignationEmployees($officeId);
-        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_approval_authority',$data);
+        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_approval_authority', $data);
     }
 
     public function storeAnnualPlanApprovalAuthority(Request $request): \Illuminate\Http\JsonResponse

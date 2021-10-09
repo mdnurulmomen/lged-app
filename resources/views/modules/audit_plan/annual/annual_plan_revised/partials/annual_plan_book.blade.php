@@ -804,7 +804,7 @@
             @endforeach
         </div>
         {{--pdf screen 02--}}
-        @foreach($plan_infos['plan'] as $plan)
+        @foreach($plan_infos['plans'] as $plan)
             <div class="bangla-font" style="height: 100%;margin-top: 10px">
                 <div class="bangla-font">
                     <table class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px"
@@ -822,12 +822,13 @@
                         @foreach($plan['milestones'] as $milestone)
                             <tr class="bangla-font">
                                 <td class="bangla-font">{{$milestone['title_bn']}}</td>
-                                <td class="bangla-font" style="text-align: center">৩১/০৮/২০২১</td>
+                                <td class="bangla-font"
+                                    style="text-align: center">{{enTobn($milestone['milestone_calendar']['target_date'])}}</td>
                             </tr>
                         @endforeach
                         <tr class="bangla-font">
                             <td class="bangla-font">নিরীক্ষা পরিদর্শন প্রতিবেদন (এআইআর) এর সংখ্যা</td>
-                            <td class="bangla-font" style="text-align: center">১১ (এগার)টি</td>
+                            <td class="bangla-font" style="text-align: center">{{enTobn(count($plan['annual_plans']))}} টি</td>
                         </tr>
                     </table>
                 </div>
@@ -840,9 +841,7 @@
                 <div class="bangla-font" style="text-align: center;font-size: 15px;margin-top: 5px">
                     বার্ষিক অডিট পরিকল্পনা(সেক্টর-০২)- অর্থ-বছরঃ{{enTobn($plan_infos['fiscal_year']['start'])}}
                     -{{enTobn($plan_infos['fiscal_year']['end'])}}ঃ
-                    @foreach($plan['ministries'] as $ministry)
-                        {{enTobn($loop->iteration)}} | {{$ministry['ministry_name_bn']}}
-                    @endforeach
+                    {{enTobn($loop->iteration)}} | {{$plan['ministries']['ministry_name_bn']}}
                 </div>
 
                 <div class="bangla-font">
@@ -874,7 +873,7 @@
                             <td class="bangla-font" style="text-align: center" width="15%">০৮</td>
                             <td class="bangla-font" style="text-align: center" width="12%">০৯</td>
                         </tr>
-                        @foreach($plan['annual_plans'] as $annual_plans)
+                        @foreach($plan['annual_plans'] as $id => $annual_plans)
                             <tr class="bangla-font">
                                 <td class="bangla-font" style="text-align: center"
                                     width="3%">{{enTobn($loop->iteration)}}</td>
