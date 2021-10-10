@@ -57,7 +57,9 @@ class PlanEditorController extends Controller
 
         $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($office_id);
 
-        return view('modules.audit_plan.audit_plan.plan_revised.partials.load_officer_list_dnd_tree', compact('officer_lists'));
+        $office_type = $request->office_type;
+
+        return view('modules.audit_plan.audit_plan.plan_revised.partials.load_officer_list_dnd_tree', compact('officer_lists','office_type'));
     }
 
     public function loadAuditTeamSchedule(Request $request)

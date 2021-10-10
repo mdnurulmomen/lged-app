@@ -111,9 +111,8 @@
                                 <div class="row">
                                     <div class="col-md-12 officers_list_area">
                                         <input id="officer_search" type="text" class="form-control mb-1" placeholder="অফিসার খুঁজুন">
-                                        <div class="rounded-0 office_organogram_tree"
+                                        <div class="rounded-0  office_organogram_tree_div"
                                              style="overflow-y: scroll; height: 60vh">
-
                                         </div>
                                     </div>
                                 </div>
@@ -136,9 +135,8 @@
                                 <div class="row">
                                     <div class="col-md-12 other_officers_list_area">
                                         <input id="other_officer_search" type="text" class="form-control mb-1" placeholder="অফিসার খুঁজুন">
-                                        <div class="rounded-0  other_office_organogram_tree"
+                                        <div class="rounded-0  other_office_organogram_tree_div"
                                              style="overflow-y: scroll; height: 60vh">
-
                                         </div>
                                     </div>
                                 </div>
@@ -568,16 +566,17 @@
         selected_designation_ids: JSON.parse('{"228237":228237,"22418":22418}'),
 
         loadOfficer: function (office_id,office_type) {
+            // $(".other_office_organogram_tree").html('');
             url = '{{route('audit.plan.audit.revised.plan.load-officer-lists')}}';
-            data = {office_id};
+            data = {office_id,office_type};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error('Internal Serve Error');
                 } else {
                     if(office_type == 'own_office'){
-                        $(".office_organogram_tree").html(response);
+                        $(".office_organogram_tree_div").html(response);
                     }else if(office_type == 'other_office'){
-                        $(".other_office_organogram_tree").html(response);
+                        $(".other_office_organogram_tree_div").html(response);
                     }
 
                 }
