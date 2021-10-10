@@ -23,7 +23,10 @@
         <label for="staff">জন</label>
         <input class="form-control staff_{{$count}}" type="number" name="staff">
     </div>
-    <div class="col-md-1 mt-9">
+    <div class="col-md-2 mt-9">
+        <button onclick="Annual_Plan_Container.addTeamSection($(this))" class="btn btn-sm btn-danger">
+            <i class="fal fa-plus"></i>
+        </button>
         <button onclick="Annual_Plan_Container.removeTeamSection($(this))" class="btn btn-sm btn-danger">
             <i class="fal fa-minus"></i>
         </button>

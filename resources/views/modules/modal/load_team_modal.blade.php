@@ -16,7 +16,7 @@
     }
 
     .dragged_data_area::after {
-        content: "Drop here"; /*\f054*/
+        content: "Please drop officer here!"; /*\f054*/
         height: 60px;
         width: 100%;
         position: relative;
@@ -110,7 +110,8 @@
                                  aria-labelledby="own-tab">
                                 <div class="row">
                                     <div class="col-md-12 officers_list_area">
-                                        <input id="officer_search" type="text" class="form-control mb-1" placeholder="অফিসার খুঁজুন">
+                                        <input id="officer_search" type="text" class="form-control mb-1"
+                                               placeholder="অফিসার খুঁজুন">
                                         <div class="rounded-0  office_organogram_tree_div"
                                              style="overflow-y: scroll; height: 60vh">
                                         </div>
@@ -134,7 +135,8 @@
 
                                 <div class="row">
                                     <div class="col-md-12 other_officers_list_area">
-                                        <input id="other_officer_search" type="text" class="form-control mb-1" placeholder="অফিসার খুঁজুন">
+                                        <input id="other_officer_search" type="text" class="form-control mb-1"
+                                               placeholder="অফিসার খুঁজুন">
                                         <div class="rounded-0  other_office_organogram_tree_div"
                                              style="overflow-y: scroll; height: 60vh">
                                         </div>
@@ -507,13 +509,12 @@
     })
 
 
-
-    $('#officer_search').keyup(function(){
+    $('#officer_search').keyup(function () {
         $('.office_organogram_tree').jstree(true).show_all();
         $('.office_organogram_tree').jstree('search', $(this).val());
     });
 
-    $('#other_officer_search').keyup(function(){
+    $('#other_officer_search').keyup(function () {
         $('.other_office_organogram_tree').jstree(true).show_all();
         $('.other_office_organogram_tree').jstree('search', $(this).val());
     });
@@ -565,17 +566,17 @@
         load_level_selection_panel: 0,
         selected_designation_ids: JSON.parse('{"228237":228237,"22418":22418}'),
 
-        loadOfficer: function (office_id,office_type) {
+        loadOfficer: function (office_id, office_type) {
             // $(".other_office_organogram_tree").html('');
             url = '{{route('audit.plan.audit.revised.plan.load-officer-lists')}}';
-            data = {office_id,office_type};
+            data = {office_id, office_type};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error('Internal Serve Error');
                 } else {
-                    if(office_type == 'own_office'){
+                    if (office_type == 'own_office') {
                         $(".office_organogram_tree_div").html(response);
-                    }else if(office_type == 'other_office'){
+                    } else if (office_type == 'other_office') {
                         $(".other_office_organogram_tree_div").html(response);
                     }
 
@@ -1103,7 +1104,7 @@
             //$('.proposed_date_commencement_audit').html($('#permitted_level_1').find('.layer_text').html());
             $('.proposed_date_commencement_audit').text(BnFromEng($('#team_start_date').val()));
             $('.proposed_date_completion_audit').text(BnFromEng($('#team_end_date').val()));
-            $('.duration_audit_performance').text(BnFromEng($('#team_start_date').val())+' খ্রি. হতে '+BnFromEng($('#team_end_date').val())+' খ্রি. পর্যন্ত।');
+            $('.duration_audit_performance').text(BnFromEng($('#team_start_date').val()) + ' খ্রি. হতে ' + BnFromEng($('#team_end_date').val()) + ' খ্রি. পর্যন্ত।');
             Load_Team_Container.insertAuditTeamListInBook();
         },
 
@@ -1305,7 +1306,7 @@
             htmlTable += `
                 <tr>
                     <th colspan="4" style="text-align: right">সর্বমোট</th>
-                    <th style="text-align: center">`+BnFromEng(totalActivityManDays)+` কর্ম দিবস</th>
+                    <th style="text-align: center">` + BnFromEng(totalActivityManDays) + ` কর্ম দিবস</th>
                 </tr>
             </tbody>
             </table>`;
@@ -1367,11 +1368,11 @@
     };
 
     $(function () {
-        Load_Team_Container.loadOfficer(0,'own_office');
+        Load_Team_Container.loadOfficer(0, 'own_office');
     });
 
     $("select#other_office").change(function () {
         var office_id = $(this).children("option:selected").val();
-        Load_Team_Container.loadOfficer(office_id,'other_office');
+        Load_Team_Container.loadOfficer(office_id, 'other_office');
     });
 </script>
