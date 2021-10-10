@@ -413,13 +413,13 @@
                     <div class="col-md-12">
                         <div class="actions text-right mt-3 permission_action_btn">
                             <button type="button" class="btn btn-sm btn-primary btn-square" id="saveAuditTeam"
-                                    @if(empty($all_teams)) onclick="Load_Team_Container.saveAuditTeam()"
-                                    @else onclick="Load_Team_Container.updateAuditTeam()" @endif><i
+                                    @if(empty($all_teams)) onclick="Load_Team_Container.saveAuditTeam('save')"
+                                    @else onclick="Load_Team_Container.saveAuditTeam('update')" @endif><i
                                     class="fad fa-cloud"></i>সংরক্ষণ
                                 করুন
                             </button>
                             <button type="button" class="btn btn-sm btn-secondary btn-square"
-                                    id="dismissNothiPermission" onclick="$('.ki-close').click()"><i
+                                    id="dismissTeamModal" onclick="$('.ki-close').click()"><i
                                     class="fad fa-window-close"></i>বন্ধ করুন
                             </button>
                         </div>
@@ -439,9 +439,6 @@
 
     function removeScheduleRow(elem, layer_id) {
         let rowId = elem.closest("tr").data('audit-schedule-first-row');
-        //console.log(rowId)
-        //console.log($('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']'))
-        //console.log('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']')
         $('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']').remove();
         elem.closest("tr").remove();
     }
@@ -563,23 +560,26 @@
     team_info = [];
 
     var Load_Team_Container = {
+        editor_leader_info: '',
         load_level_selection_panel: 0,
         selected_designation_ids: JSON.parse('{"228237":228237,"22418":22418}'),
 
         loadOfficer: function (office_id, office_type) {
-            // $(".other_office_organogram_tree").html('');
+            tree_area_div = office_type == 'own_office' ? '.office_organogram_tree_div' : '.other_office_organogram_tree_div';
+            KTApp.block(tree_area_div, {
+                overlayColor: '#000',
+                opacity: 0.1,
+                state: 'danger',
+                message: 'Loading...'
+            });
             url = '{{route('audit.plan.audit.revised.plan.load-officer-lists')}}';
             data = {office_id, office_type};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock(tree_area_div);
                 if (response.status === 'error') {
                     toastr.error('Internal Serve Error');
                 } else {
-                    if (office_type == 'own_office') {
-                        $(".office_organogram_tree_div").html(response);
-                    } else if (office_type == 'other_office') {
-                        $(".other_office_organogram_tree_div").html(response);
-                    }
-
+                    $(tree_area_div).html(response);
                 }
             })
         },
@@ -604,6 +604,7 @@
                                     <small>${data_content.designation_bn}, ${data_content.unit_name_bn}</small>`;
             if (layer_index == $('[id^=permitted_level_]').first().attr('data-layer_index')) {
                 node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader', ${data_content.designation_id})" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-circle"></i>দলনেতা</button>`;
+                Load_Team_Container.editor_leader_info = data_content.officer_name_bn + ', ' + data_content.designation_bn + ', ' + data_content.unit_name_bn + '|';
             }
 
             node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'subTeamLeader', ${data_content.designation_id})" class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-circle"></i>উপ দলনেতা</button>
@@ -620,10 +621,6 @@
                 $('.teamLeaderBtn').click();
             }
         },
-
-
-        editor_leader_info: '',
-
         memberRole: function (elem, layer_index, role, designation_id) {
             $('.assignedMember_' + designation_id + '_' + layer_index).attr('data-member-role', role);
             designation_id = elem.data('designation-id');
@@ -640,98 +637,14 @@
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .teamLeaderBtn').find('i').removeClass('fa-dot-circle').addClass('fa-circle');
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .subTeamLeaderBtn').find('i').removeClass('fa-dot-circle').addClass('fa-circle');
             } else if (role === 'teamLeader') {
-                data_content = $('.assignedMember_' + designation_id + '_' + layer_index).data('content')
                 Load_Team_Container.editor_leader_info = data_content.officer_name_bn + ', ' + data_content.designation_bn + ', ' + data_content.unit_name_bn + '|';
+                data_content = $('.assignedMember_' + designation_id + '_' + layer_index).data('content')
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-dot-circle').addClass('fa-circle');
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .subTeamLeaderBtn').find('i').removeClass('fa-dot-circle').addClass('fa-circle');
             } else if (role === 'subTeamLeader') {
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .teamLeaderBtn').find('i').removeClass('fa-dot-circle').addClass('fa-circle');
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-dot-circle').addClass('fa-circle');
             }
-        },
-
-        saveTeamMember: function () {
-            let totalSubTeamCreate = 0;
-            let teamLeaderNameBn;
-            let teamLeaderDesignationId;
-            let teamLeaderDesignationNameBn;
-            let teamLeaderDesignationNameEn;
-
-            var selected_officer_phone = $('.selected_officer_phone');
-            selected_officer_phone.each(function (k, v) {
-                var id = $(this).attr('data-id');
-                var designationId = $(this).data('designation-id');
-                var designationNameBn = $(this).data('designation-name-bn');
-                var designationNameEn = $(this).data('designation-name-en');
-
-
-                name = $('#officer_name_' + id).val();
-
-                var member_role = $('#selected_officer_designation_' + id).val();
-
-                if (member_role == "teamLeader") {
-                    teamLeaderNameBn = name;
-                    teamLeaderDesignationId = designationId;
-                    teamLeaderDesignationNameBn = designationNameBn;
-                    teamLeaderDesignationNameEn = designationNameEn;
-                }
-                if (member_role == "subTeamLeader") {
-                    totalSubTeamCreate++;
-                }
-
-                phone = $('#selected_officer_phone_' + id).val();
-                info = {
-                    'name': name,
-                    'member_role': member_role,
-                    'phone': phone,
-                    'teamLeaderDesignationNameBn': teamLeaderDesignationNameBn
-                };
-                team[id] = info;
-
-                if (member_role == 'subTeamLeader') {
-                    $(".sub_teams").append(
-                        `<div class="row">
-                               <input  class="sub_team_name form-control" type="text" placeholder="উপদল">
-                         </div>`
-                    );
-                }
-            });
-            // console.log(team);
-            localStorage.setItem("team", JSON.stringify(team));
-            if (totalSubTeamCreate > 1) {
-                $("#subTeamCreateNavLink").removeClass('disabled');
-            }
-
-
-            //for save audit team
-            let urlAuditTeam = '{{route('audit.plan.audit.revised.plan.store-audit-team')}}';
-            let dataAuditTeam = {
-                'activity_id': '{{$activity_id}}',
-                'annual_plan_id': '{{$annual_plan_id}}',
-                'fiscal_year_id': '{{$fiscal_year_id}}',
-                'audit_plan_id': '{{$audit_plan_id}}',
-                'entity_id': '20307',
-                'entity_name_en': 'রাজশাহী কৃষি উন্নয়ন ব্যাংক',
-                'entity_name_bn': 'রাজশাহী কৃষি উন্নয়ন ব্যাংক',
-                'team_start_date': formatDate($("#team_start_date").val()),
-                'team_end_date': formatDate($("#team_end_date").val()),
-                'team_members': JSON.stringify(team),
-                'leader_name_en': teamLeaderNameBn,
-                'leader_name_bn': teamLeaderNameBn,
-                'leader_designation_id': teamLeaderDesignationId,
-                'leader_designation_name_en': teamLeaderDesignationNameEn,
-                'leader_designation_name_bn': teamLeaderDesignationNameBn,
-                'audit_year_start': $("#team_start_date").val(),
-                'audit_year_end': $("#team_end_date").val(),
-            };
-            ajaxCallAsyncCallbackAPI(urlAuditTeam, dataAuditTeam, 'POST', function (response) {
-                if (response.status === 'success') {
-                    toastr.success('Audit Team Save Successfully');
-                } else {
-                    toastr.error(response.data)
-                }
-            });
-
         },
 
         loadTeamSchedule: function (team_schedule_list_div, team_layer_id) {
@@ -822,55 +735,6 @@
                     $('#' + v.id).sortable();
                 });
             });
-        },
-
-        saveAuditTeamSchedule: function () {
-            schedule_data = Load_Team_Container.makeAuditSchedule();
-            if (!$.isEmptyObject(schedule_data)) {
-                url = '{{route('audit.plan.audit.revised.plan.store-audit-team-schedule')}}';
-                schedule = {"schedule": schedule_data}
-                team_schedules = JSON.stringify(schedule);
-                audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
-                data = {team_schedules, audit_plan_id};
-                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    if (response.status === 'success') {
-                        toastr.success(response.data);
-                        $(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
-                        Load_Team_Container.insertAuditScheduleListInBook();
-                        Load_Team_Container.setJsonContentFromPlanBook();
-                    } else {
-                        toastr.error(response.data);
-                        console.log(response)
-                    }
-                })
-            } else {
-                toastr.error('Please Make Schedule');
-            }
-        },
-
-        updateAuditTeamSchedule: function () {
-            schedule_data = Load_Team_Container.makeAuditSchedule();
-            if (!$.isEmptyObject(schedule_data)) {
-                url = '{{route('audit.plan.audit.revised.plan.update-audit-team-schedule')}}';
-                schedule = {"schedule": schedule_data}
-                team_schedules = JSON.stringify(schedule);
-                audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
-                data = {team_schedules, audit_plan_id};
-                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    if (response.status === 'success') {
-                        toastr.success(response.data);
-                        $(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
-                        Load_Team_Container.insertAuditScheduleListInBook();
-                        Load_Team_Container.insertTeamDataInBook();
-                        Load_Team_Container.setJsonContentFromPlanBook();
-                    } else {
-                        toastr.error(response.data);
-                        console.log(response)
-                    }
-                })
-            } else {
-                toastr.error('Please Make Schedule');
-            }
         },
 
         makeAuditTeam: function () {
@@ -1034,8 +898,8 @@
             return all_schedules;
         },
 
-        saveAuditTeam: function () {
-            url = '{{route('audit.plan.audit.revised.plan.store-audit-team')}}';
+        saveAuditTeam: function (mode = 'save') {
+            url = mode === 'save' ? '{{route('audit.plan.audit.revised.plan.store-audit-team')}}' : '{{route('audit.plan.audit.revised.plan.update-audit-team')}}';
             annual_plan_id = '{{$annual_plan_id}}';
             audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
             activity_id = '{{$activity_id}}';
@@ -1053,49 +917,44 @@
                 audit_plan_id,
                 teams
             };
+            KTApp.block('#saveAuditTeam');
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
                     toastr.success(response.data);
-                    Load_Team_Container.saveAuditTeamSchedule();
+                    Load_Team_Container.saveAuditTeamSchedule(mode);
                     Load_Team_Container.insertTeamDataInBook();
                     Load_Team_Container.setJsonContentFromPlanBook();
+                    $('#dismissTeamModal').click()
                 } else {
                     toastr.error(response.data);
                     console.log(response)
                 }
+                KTApp.unblock('#saveAuditTeam');
             })
         },
 
-        updateAuditTeam: function () {
-            url = '{{route('audit.plan.audit.revised.plan.update-audit-team')}}';
-            annual_plan_id = '{{$annual_plan_id}}';
-            audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
-            activity_id = '{{$activity_id}}';
-            fiscal_year_id = '{{$fiscal_year_id}}';
-            audit_year_start = $('#audit_year_start').val();
-            audit_year_end = $('#audit_year_end').val();
-            teams = Load_Team_Container.makeAuditTeam();
-
-            data = {
-                annual_plan_id,
-                activity_id,
-                fiscal_year_id,
-                audit_year_start,
-                audit_year_end,
-                audit_plan_id,
-                teams
-            };
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'success') {
-                    toastr.success(response.data);
-                    Load_Team_Container.updateAuditTeamSchedule();
-                    Load_Team_Container.insertTeamDataInBook();
-                    Load_Team_Container.setJsonContentFromPlanBook();
-                } else {
-                    toastr.error(response.data);
-                    console.log(response)
-                }
-            })
+        saveAuditTeamSchedule: function (mode = 'save') {
+            url = mode === 'save' ? '{{route('audit.plan.audit.revised.plan.store-audit-team-schedule')}}' : '{{route('audit.plan.audit.revised.plan.update-audit-team-schedule')}}';
+            schedule_data = Load_Team_Container.makeAuditSchedule();
+            if (!$.isEmptyObject(schedule_data)) {
+                schedule = {"schedule": schedule_data}
+                team_schedules = JSON.stringify(schedule);
+                audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
+                data = {team_schedules, audit_plan_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    if (response.status === 'success') {
+                        toastr.success(response.data);
+                        $(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
+                        Load_Team_Container.insertAuditScheduleListInBook();
+                        Load_Team_Container.setJsonContentFromPlanBook();
+                    } else {
+                        toastr.error(response.data);
+                        console.log(response)
+                    }
+                })
+            } else {
+                toastr.error('Please Make Schedule');
+            }
         },
 
         insertTeamDataInBook: function () {
@@ -1215,7 +1074,6 @@
 
         },
 
-        //for insert audit schedule
         insertAuditScheduleListInBook: function () {
             let totalAuditScheduleRow = $('.audit_schedule_view_list tbody tr').length;
 
@@ -1315,7 +1173,6 @@
 
         },
 
-        //for insert audit field audit list
         insertAuditFieldVisitUnitListInBook: function () {
             unitVisitHtmlTable = `
                     <table width="100%" border="1">
