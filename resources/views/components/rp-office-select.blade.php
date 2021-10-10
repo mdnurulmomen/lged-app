@@ -7,7 +7,7 @@
                 <option value="" selected="selected">--বাছাই করুন--</option>
                 @foreach($ministries as $ministry)
                     <option data-ministry-en="{{$ministry['name_eng']}}" data-ministry-bn="{{$ministry['name_bng']}}"
-                            value="{{$ministry['id']}}">{{$ministry['name_eng']}}</option>
+                            value="{{$ministry['id']}}">{{$ministry['name_bng']}}</option>
                 @endforeach
             </select>
             <input type="hidden" id="ministry_name_en" value="">
