@@ -1,3 +1,4 @@
+<div class="@if($office_type == 'other_office') other_office_organogram_tree @else office_organogram_tree @endif">
 <ul>
     @foreach($officer_lists as $key => $officer_list)
         @foreach($officer_list['units'] as $unit)
@@ -28,9 +29,10 @@
         @endforeach
     @endforeach
 </ul>
+</div>
 
 <script>
-        $('.office_organogram_tree').jstree({
+    $('.office_organogram_tree').jstree({
         'plugins': ["checkbox", "types", "search", "dnd"],
         'core': {
             check_callback: true,
@@ -52,11 +54,17 @@
             "show_only_matches_children": true,
             "case_insensitive": true,
         },
-    }).on('search.jstree', function (nodes, str, res) {
+    }).bind('search.jstree', function (nodes, str, res) {
         if (str.nodes.length === 0) {
             $('.office_organogram_tree').jstree(true).hide_all();
         }
     });
+
+    @if($office_type == 'other_office')
+    if ($('.other_office_organogram_tree').jstree(true)) {
+        $('.other_office_organogram_tree').jstree("destroy").remove();
+    }
+
 
     $('.other_office_organogram_tree').jstree({
         'plugins': ["checkbox", "types", "search", "dnd"],
@@ -80,9 +88,12 @@
             "show_only_matches_children": true,
             "case_insensitive": true,
         },
-    }).on('search.jstree', function (nodes, str, res) {
+    }).bind('search.jstree', function (nodes, str, res) {
         if (str.nodes.length === 0) {
             $('.other_office_organogram_tree').jstree(true).hide_all();
         }
     });
+
+    @endif
+
 </script>
