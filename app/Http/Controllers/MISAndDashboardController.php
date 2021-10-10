@@ -16,7 +16,7 @@ class MISAndDashboardController extends Controller
     {
         $directorates = $this->allAuditDirectorates();
         $fiscal_years = $this->allFiscalYears();
-        return view('modules.mis_dashboard.rup_list.mis_rpu_lists', compact('directorates','fiscal_years'));
+        return view('modules.mis_dashboard.rpu_list.mis_rpu_lists', compact('directorates','fiscal_years'));
     }
 
     public function loadRpuLists(Request $request)
@@ -29,7 +29,7 @@ class MISAndDashboardController extends Controller
         $all_rpu_list_mis = $this->initRPUHttp()->post(config('cag_rpu_api.get-rpu-list-mis'), $data)->json();
         if (isSuccess($all_rpu_list_mis)) {
             $all_rpu_list_mis = $all_rpu_list_mis['data'];
-            return view('modules.mis_dashboard.rup_list.load_rpu_lists', compact('all_rpu_list_mis','data'));
+            return view('modules.mis_dashboard.rpu_list.load_rpu_lists', compact('all_rpu_list_mis','data'));
         } else {
             return response()->json(['status' => 'error', 'data' => $all_rpu_list_mis]);
         }
