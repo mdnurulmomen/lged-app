@@ -51,6 +51,7 @@ return [
         'op_activity_milestone_update' => env('API_URL_BEE', '') . '/planning/operational-plan/activity-milestone/update',
         'op_activity_milestone_delete' => env('API_URL_BEE', '') . '/planning/operational-plan/activity-milestone/delete',
 
+        'op_yearly_event_lists' => env('API_URL_BEE', '') . '/planning/operational-plan/audit-calendar/yearly-event-list',
         'op_yearly_audit_calendar_lists' => env('API_URL_BEE', '') . '/planning/operational-plan/audit-calendar',
         'op_yearly_audit_calendar_years' => env('API_URL_BEE', '') . '/planning/operational-plan/audit-calendar/years-to-create',
         'op_yearly_audit_calendar_create' => env('API_URL_BEE', '') . '/planning/operational-plan/audit-calendar/create',
@@ -67,6 +68,9 @@ return [
 
         'load_operational_plan_lists' => env('API_URL_BEE', '') . '/planning/operational-plan/list',
         'load_operational_plan_details' => env('API_URL_BEE', '') . '/planning/operational-plan/details',
+
+        'send_annual_plan_receiver_to_sender' => env('API_URL_BEE', '') . '/planning/operational-plan/send-annual-plan-receiver-to-sender',
+
     ],
 
     'audit_annual_plan' => [
@@ -85,7 +89,7 @@ return [
         'ap_yearly_plan_book' => env('API_URL_BEE', '') . '/planning/annual-plan/book',
         'ap_submit_plan_to_ocag' => env('API_URL_BEE', '') . '/planning/annual-plan/submit-plan-to-ocag',
         'ap_nominated_offices' => env('API_URL_BEE', '') . '/planning/annual-plan/get-nominated-offices',
-        'store_approval_authority' => env('API_URL_BEE', '') . '/planning/annual-plan/store-approval-authority',
+        'send_annual_plan_sender_to_receiver' => env('API_URL_BEE', '') . '/planning/annual-plan/send-annual-plan-sender-to-receiver',
         'get_movement_histories' => env('API_URL_BEE', '') . '/planning/annual-plan/get-movement-histories',
     ],
 

@@ -91,8 +91,8 @@
             });
         },
 
-        storeAnnualPlanApprovalAuthority: function () {
-            url = '{{route('audit.plan.annual.plan.revised.store-annual-plan-approval-authority')}}';
+        sendAnnualPlanSenderToReceiver: function () {
+            url = '{{route('audit.plan.annual.plan.revised.send-annual-plan-sender-to-receiver')}}';
             data = $('#approval_authority_form').serialize();
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {

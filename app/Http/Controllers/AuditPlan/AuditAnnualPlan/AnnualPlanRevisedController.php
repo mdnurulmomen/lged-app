@@ -444,7 +444,7 @@ class AnnualPlanRevisedController extends Controller
         return view('modules.audit_plan.annual.annual_plan_revised.partials.load_approval_authority', $data);
     }
 
-    public function storeAnnualPlanApprovalAuthority(Request $request): \Illuminate\Http\JsonResponse
+    public function sendAnnualPlanSenderToReceiver(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
             //dd($request->all());
@@ -470,7 +470,7 @@ class AnnualPlanRevisedController extends Controller
             $data['comments'] = $request->comments;
             $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
 
-            $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.store_approval_authority'), $data)->json();
+            $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.send_annual_plan_sender_to_receiver'), $data)->json();
             //dd($responseData);
             if (isSuccess($responseData)) {
                 return response()->json(['status' => 'success', 'data' => 'Added!']);

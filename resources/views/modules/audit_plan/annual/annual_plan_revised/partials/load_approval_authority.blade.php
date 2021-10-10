@@ -47,7 +47,7 @@
             </div>
 
             <div class="text-left mt-5">
-                <a tabindex="0" href="javascript:;" role="button" onclick="Annual_Plan_Container.storeAnnualPlanApprovalAuthority()"
+                <a tabindex="0" href="javascript:;" role="button" onclick="Annual_Plan_Container.sendAnnualPlanSenderToReceiver()"
                    class="btn btn-primary btn-sm btn-square btn-forward" id="onucched_forward"><i class="fa fa-paper-plane"></i>প্রেরণ করুন</a>
             </div>
         </div>

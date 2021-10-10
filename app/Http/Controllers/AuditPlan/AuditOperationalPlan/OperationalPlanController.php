@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AuditPlan\AuditOperationalPlan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class OperationalPlanController extends Controller
 {
@@ -81,12 +82,72 @@ class OperationalPlanController extends Controller
 
     public function loadDirectorateList(Request $request)
     {
-        $allAuditDirectorates = $this->allAuditDirectorates();
-        return view('modules.audit_plan.operational.approve_plan.partials.load_directorate_lists',compact('allAuditDirectorates'));
+        $data = Validator::make($request->all(), [
+            'calendar_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+
+        $event_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_event_lists'), $data)->json();
+        //dd($event_list);
+        if (isSuccess($event_list)) {
+            $event_list = $event_list['data'];
+            return view('modules.audit_plan.operational.approve_plan.partials.load_directorate_lists',compact('event_list'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $event_list]);
+        }
     }
 
-    public function loadApproveOrRejectForm(Request $request)
+    public function loadAnnualPlanApprovalForm(Request $request)
     {
-        return view('modules.audit_plan.operational.approve_plan.partials.load_approve_reject');
+        return view('modules.audit_plan.operational.approve_plan.partials.load_approval_form');
+    }
+
+    public function loadDirectorateWiseAnnualPlan(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+
+        $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
+
+        if (isSuccess($plan_infos)) {
+            $plan_infos = $plan_infos['data'];
+            return view('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos], [], ['orientation' => 'L', 'format' => 'A4']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $plan_infos]);
+        }
+    }
+
+    public function sendAnnualPlanReceiverToSender(Request $request): \Illuminate\Http\JsonResponse
+    {
+        try {
+            //dd($request->all());
+            $data = Validator::make($request->all(), [
+                'fiscal_year_id' => 'required|integer',
+                'op_audit_calendar_event_id' => 'required|integer',
+                'receiver_type' => 'required',
+                'status' => 'required',
+            ])->validate();
+
+            $data['comments'] = $request->comments;
+            $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+
+            $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.send_annual_plan_receiver_to_sender'), $data)->json();
+            //dd($responseData);
+            if (isSuccess($responseData)) {
+                return response()->json(['status' => 'success', 'data' => 'Added!']);
+            } else {
+                return response()->json(['status' => 'error', 'data' => $responseData]);
+            }
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => $exception->errors(),
+                'statusCode' => '422',
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
+        }
     }
 }
