@@ -23,7 +23,7 @@
                     <div class="px-3">
                         <x-rp-office-select grid="6" unit="true"/>
                     </div>
-                    <div class="col-md-12 rp_auditee_office_tree"></div><div id="using_json_2"></div>
+                    <div class="col-md-12 rp_auditee_office_tree"></div>
 
                 </div>
                 <div class="tab-pane fade border border-top-0 p-3" id="select_entity_by_search" role="tabpanel"
