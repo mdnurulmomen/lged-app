@@ -415,6 +415,20 @@ class AnnualPlanRevisedController extends Controller
         }
     }
 
+    public function showRPChildAuditeeOffices(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $data = [
+            'parent_office_id' => $request->parent_office_id,
+        ];
+        $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-wise-child-office'), $data)->json();
+
+        if (isSuccess($nominated_offices)) {
+            return response()->json(['status' => 'success', 'data' => $nominated_offices['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $nominated_offices]);
+        }
+    }
+
     /**
      * @throws \Illuminate\Validation\ValidationException
      */

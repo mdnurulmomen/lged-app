@@ -42,8 +42,7 @@
                         $('#load_annual_plan_lists').html(response);
                     }
                 });
-            }
-            else {
+            } else {
                 $('#load_annual_plan_lists').html('');
             }
         },
@@ -53,7 +52,7 @@
             fiscal_year_id = element.data('fiscal-year-id');
             op_audit_calendar_event_id = element.data('op-audit-calendar-event-id');
 
-            data = {fiscal_year_id,op_audit_calendar_event_id};
+            data = {fiscal_year_id, op_audit_calendar_event_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -82,7 +81,7 @@
             fiscal_year_id = element.data('fiscal-year-id');
             op_audit_calendar_event_id = element.data('op-audit-calendar-event-id');
 
-            data = {fiscal_year_id,op_audit_calendar_event_id};
+            data = {fiscal_year_id, op_audit_calendar_event_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -114,8 +113,7 @@
                     toastr.success('অনুমোদনের জন্য প্রেরিত হয়েছে');
                     $("#kt_quick_panel_close").click();
                     Annual_Plan_Container.loadAnnualPlanList();
-                }
-                else {
+                } else {
                     if (response.statusCode === '422') {
                         var errors = response.msg;
                         $.each(errors, function (k, v) {
@@ -123,8 +121,7 @@
                                 toastr.error(v);
                             }
                         });
-                    }
-                    else {
+                    } else {
                         toastr.error(response.data.message);
                     }
                 }
@@ -196,6 +193,49 @@
             });
         },
 
+        loadRPChildOffices: function (node_id, target_tree = '#rp_auditee_offices') {
+            url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-child-offices')}}';
+            parent_office_content = $('#' + node_id).attr('data-entity-info');
+            parent_office_content = JSON.parse(parent_office_content);
+            parent_office_id = $('#' + node_id).attr('data-rp-auditee-entity-id');
+            data = {
+                parent_office_id,
+            };
+            $('#' + node_id + ' ul').html('')
+            $('#' + node_id + ' ul').remove()
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'success') {
+                    offices = response.data;
+                    $.each(offices, function (i, office) {
+                        $(`${target_tree}`).jstree().create_node(node_id, {
+                            id: node_id + '_' + office.id,
+                            li_attr: {
+                                "data-rp-auditee-entity-id": office.id,
+                                "data-entity-info": JSON.stringify({
+                                    entity_parent_id: office.id,
+                                    entity_parent_name_en: office.office_name_en,
+                                    entity_parent_name_bn: office.office_name_bn,
+                                    entity_id: office.id,
+                                    entity_name_en: office.office_name_en,
+                                    entity_name_bn: office.office_name_bn,
+                                    ministry_id: parent_office_content.ministry_id,
+                                    ministry_name_en: parent_office_content.ministry_name_en,
+                                    ministry_name_bn: parent_office_content.ministry_name_bn,
+                                    controlling_office_id: parent_office_content.controlling_office_id,
+                                    controlling_office_name_en: parent_office_content.controlling_office_name_en,
+                                    controlling_office_name_bn: parent_office_content.controlling_office_name_bn,
+                                })
+                            },
+                            text: office.office_name_bn
+                        }, "last", function () {
+                        });
+                    });
+                    first_child_node = node_id.split("_")[0] + '_' + (parseInt(node_id.split("_")[1]) + 1);
+                    $('#' + first_child_node).remove()
+                }
+            });
+        },
+
         addSelectedRPAuditeeList: function (entity_info) {
             if ($('#selected_rp_auditee_' + entity_info.entity_id).length === 0) {
                 console.log(entity_info);
@@ -255,6 +295,7 @@
 
         jsTreeInit: function (className) {
             $(`.${className}`).jstree({
+                "check_callback": true,
                 "core": {
                     "themes": {
                         "responsive": true
