@@ -10,7 +10,7 @@
             @endforeach
         </select>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <label for="responsibility">দায়িত্ব</label>
         <select class="form-control select-select2 responsibility_{{$count}}" name="responsibility">
             <option value="">--বাছাই করুন--</option>
@@ -24,10 +24,11 @@
         <input class="form-control staff_{{$count}}" type="number" name="staff">
     </div>
     <div class="col-md-2 mt-9">
-        <button onclick="Annual_Plan_Container.addTeamSection($(this))" class="btn btn-sm btn-danger">
+        <span onclick="Annual_Plan_Container.addTeamSection($(this))" class="btn btn-outline-primary btn-sm btn-square">
             <i class="fal fa-plus"></i>
-        </button>
-        <button onclick="Annual_Plan_Container.removeTeamSection($(this))" class="btn btn-sm btn-danger">
+        </span>
+        <button onclick="Annual_Plan_Container.removeTeamSection($(this))"
+                class="btn btn-outline-danger btn-sm btn-danger btn-square">
             <i class="fal fa-minus"></i>
         </button>
     </div>
