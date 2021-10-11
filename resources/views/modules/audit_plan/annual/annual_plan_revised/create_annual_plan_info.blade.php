@@ -23,7 +23,8 @@
                     <div class="px-3">
                         <x-rp-office-select grid="6" unit="true"/>
                     </div>
-                    <div class="col-md-12 rp_auditee_office_tree"></div>
+                    <div class="col-md-12 rp_auditee_office_tree"></div><div id="using_json_2"></div>
+
                 </div>
                 <div class="tab-pane fade border border-top-0 p-3" id="select_entity_by_search" role="tabpanel"
                      aria-labelledby="calender-tab">
@@ -111,14 +112,9 @@
 
 @include('scripts.script_generic')
 <script>
-    $(document).ready(function () {
-        Annual_Plan_Container.loadSelectedAuditeeEntities($('#annual_plan_core_data_form').serializeArray());
-    });
-
     $("select#office_layer_id").change(function () {
         layer_id = $(this).val();
         ministry_id = $('#ministry_id').val();
-        console.log('office_layer_change')
         Annual_Plan_Container.loadRPAuditeeOffices(ministry_id, layer_id);
     });
 

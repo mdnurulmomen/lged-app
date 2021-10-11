@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        @if(count($rp_offices)> 0)
+        @if(count($rp_offices) > 0 && array_key_exists('offices', $rp_offices))
             <div class="tree-demo rounded-0 rp_auditee_offices jstree-init jstree-1 jstree-default"
                  style="overflow-y: scroll; height: 60vh">
                 <ul>
@@ -22,22 +22,24 @@
         'controlling_office_name_en' => htmlspecialchars($rp_office_list['controlling_office_name_en']),
         ], JSON_UNESCAPED_UNICODE)}}" data-jstree='{ "opened" : true }'>
                                 {{$rp_office['office_name_bn']}}
-{{--                                @if(count($rp_office['child']) > 0)--}}
-{{--                                    @include('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices_child',--}}
-{{--    [--}}
-{{--        'entity_parent_id' => $rp_office['id'],--}}
-{{--        'entity_parent_name_en' => $rp_office['office_name_en'],--}}
-{{--        'entity_parent_name_bn' => $rp_office['office_name_bn'],--}}
-{{--        'controlling_office_id' => $rp_office_list['controlling_office_id'],--}}
-{{--        'controlling_office_name_bn' => htmlspecialchars($rp_office_list['controlling_office_name_bn']),--}}
-{{--        'controlling_office_name_en' => htmlspecialchars($rp_office_list['controlling_office_name_en']),--}}
-{{--        'ministry_id' => $rp_offices['office_ministry']['id'],--}}
-{{--        'ministry_name_en' => htmlspecialchars($rp_offices['office_ministry']['name_eng']),--}}
-{{--        'ministry_name_bn' => htmlspecialchars($rp_offices['office_ministry']['name_bng']),--}}
-{{--        'rp_offices' => $rp_office['child']--}}
-{{--        ])--}}
-{{--                                @endif--}}
-{{--                            </li>--}}
+
+                                {{--                                @if(count($rp_office['child']) > 0)--}}
+                                {{--                                    @include('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices_child',--}}
+                                {{--    [--}}
+                                {{--        'entity_parent_id' => $rp_office['id'],--}}
+                                {{--        'entity_parent_name_en' => $rp_office['office_name_en'],--}}
+                                {{--        'entity_parent_name_bn' => $rp_office['office_name_bn'],--}}
+                                {{--        'controlling_office_id' => $rp_office_list['controlling_office_id'],--}}
+                                {{--        'controlling_office_name_bn' => htmlspecialchars($rp_office_list['controlling_office_name_bn']),--}}
+                                {{--        'controlling_office_name_en' => htmlspecialchars($rp_office_list['controlling_office_name_en']),--}}
+                                {{--        'ministry_id' => $rp_offices['office_ministry']['id'],--}}
+                                {{--        'ministry_name_en' => htmlspecialchars($rp_offices['office_ministry']['name_eng']),--}}
+                                {{--        'ministry_name_bn' => htmlspecialchars($rp_offices['office_ministry']['name_bng']),--}}
+                                {{--        'rp_offices' => $rp_office['child']--}}
+                                {{--        ])--}}
+                                {{--                                @endif--}}
+
+                            </li>
                         @endforeach
                     @endforeach
                 </ul>

@@ -10,6 +10,7 @@ return [
     'get-parent-wise-child-office' => env('API_URL_RPU', '') . '/get-parent-wise-child-office',
     'get-office-layer-ministry-wise' => env('API_URL_RPU', '') . '/get-office-layer-ministry-wise',
     'get-rp-office-ministry-and-layer-wise' => env('API_URL_RPU', '') . '/get-office-ministry-and-layer-wise',
+    'get-rp-child-offices-by-parent-office' => env('API_URL_RPU', '') . '/get-parent-wise-child-office',
     'get-office-other-info' => env('API_URL_RPU', '') . '/get-office-other-info',
     'get-directorate-wise-ministry-list' => env('API_URL_RPU', '') . '/get-directorate-wise-ministry-list',
     'get-rpu-list-mis' => env('API_URL_RPU', '') . '/get-rpu-list-mis',
