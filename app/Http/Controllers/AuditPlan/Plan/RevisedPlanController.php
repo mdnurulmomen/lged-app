@@ -56,6 +56,7 @@ class RevisedPlanController extends Controller
             $activity_id = $request->activity_id;
             $fiscal_year_id = $request->fiscal_year_id;
             $annual_plan_id = $request->annual_plan_id;
+            $parent_office_id = $audit_plan['annual_plan']['parent_office_id'];
             $content = $audit_plan['plan_description'];
             $cover_info = [
                 'directorate_name' => $this->current_office()['office_name_bn'],
@@ -64,7 +65,8 @@ class RevisedPlanController extends Controller
                 'fiscal_year' => enTobn($audit_plan['annual_plan']['fiscal_year']['start']) . ' - ' . enTobn($audit_plan['annual_plan']['fiscal_year']['end']),
             ];
             //dd($cover_info);
-            return view('modules.audit_plan.audit_plan.plan_revised.create_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan', 'content', 'cover_info', 'fiscal_year_id', 'parent_office_content'));
+            return view('modules.audit_plan.audit_plan.plan_revised.create_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan',
+                'parent_office_id', 'content', 'cover_info', 'fiscal_year_id', 'parent_office_content'));
         } else {
             return ['status' => 'error', 'data' => $audit_plan];
         }
@@ -87,11 +89,13 @@ class RevisedPlanController extends Controller
 
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
+            $parent_office_id = $audit_plan['annual_plan']['parent_office_id'];
             $content = json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])));
             $activity_id = $audit_plan['activity_id'];
             $annual_plan_id = $audit_plan['annual_plan_id'];
             $fiscal_year_id = $request->fiscal_year_id;
-            return view('modules.audit_plan.audit_plan.plan_revised.edit_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan', 'content', 'fiscal_year_id'));
+            return view('modules.audit_plan.audit_plan.plan_revised.edit_entity_audit_plan', compact('activity_id', 'annual_plan_id',
+                'audit_plan', 'content', 'fiscal_year_id','parent_office_id'));
         } else {
             return ['status' => 'error', 'data' => $audit_plan];
         }

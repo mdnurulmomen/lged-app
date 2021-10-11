@@ -312,18 +312,18 @@
                                                                                     <td>
                                                                                         <select
                                                                                             id="branch_name_select_{{$value['id']}}_{{$row}}"
-                                                                                            class="form-control input-branch-name"
+                                                                                            class="form-control select-select2 input-branch-name"
                                                                                             data-id="{{$value['id']}}_{{$row}}">
                                                                                             <option value=''>
                                                                                                 --Select--
                                                                                             </option>
                                                                                             @foreach($nominated_offices_list as $key => $nominatedOffice)
                                                                                                 <option
-                                                                                                    @if($nominatedOffice['office_id'] == $schedule['cost_center_id']) selected
-                                                                                                    @endif value="{{$nominatedOffice['office_id']}}"
-                                                                                                    data-cost-center-id="{{$nominatedOffice['office_id']}}"
-                                                                                                    data-cost-center-name-bn="{{$nominatedOffice['office_name_bn']}}"
-                                                                                                    data-cost-center-name-en="{{$nominatedOffice['office_name_en']}}">{{$nominatedOffice['office_name_bn']}}</option>
+                                                                                                    @if($nominatedOffice['id'] == $schedule['cost_center_id']) selected
+                                                                                                    @endif value="{{$nominatedOffice['id']}}"
+                                                                                                    data-cost-center-id="{{$nominatedOffice['id']}}"
+                                                                                                    data-cost-center-name-bn="{{$nominatedOffice['office_name_bng']}}"
+                                                                                                    data-cost-center-name-en="{{$nominatedOffice['office_name_eng']}}">{{$nominatedOffice['office_name_bng']}}</option>
                                                                                             @endforeach
                                                                                         </select>
                                                                                     </td>
@@ -470,10 +470,10 @@
         var teamScheduleHtml = "<tbody data-tbody-id='" + layer_id + "_" + totalAuditScheduleTbody + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
         teamScheduleHtml += "<td>" +
-            "<select id='branch_name_select_" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-branch-name' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
+            "<select id='branch_name_select_" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control select-select2 input-branch-name' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<option value=''>--Select--</option>" +
             @foreach($nominated_offices_list as $key => $nominatedOffice)
-                "<option value='{{$nominatedOffice['office_id']}}' data-cost-center-id='{{$nominatedOffice['office_id']}}' data-cost-center-name-bn='{{$nominatedOffice['office_name_bn']}}' data-cost-center-name-en='{{$nominatedOffice['office_name_en']}}'>{{$nominatedOffice['office_name_bn']}}</option>" +
+                "<option value='{{$nominatedOffice['id']}}' data-cost-center-id='{{$nominatedOffice['id']}}' data-cost-center-name-bn='{{$nominatedOffice['office_name_bng']}}' data-cost-center-name-en='{{$nominatedOffice['office_name_eng']}}'>{{$nominatedOffice['office_name_bng']}}</option>" +
             @endforeach
                 "</select></td>";
 
@@ -490,6 +490,7 @@
         teamScheduleHtml += "</tr></tbody>";
 
         $('#audit_schedule_table_' + layer_id).append(teamScheduleHtml);
+        $('.select-select2').select2();
     }
 
     $(document).off('click', '.layer_text').on('click', '.layer_text', function () {
@@ -650,7 +651,8 @@
         loadTeamSchedule: function (team_schedule_list_div, team_layer_id) {
             url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
             annual_plan_id = '{{$annual_plan_id}}';
-            data = {team_layer_id, annual_plan_id};
+            parent_office_id = '{{$parent_office_id}}';
+            data = {team_layer_id, annual_plan_id,parent_office_id};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error('No Auditable Units Chosen.');

@@ -26,8 +26,9 @@
         </div>
         <div class="col-md-6 text-right">
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
-                    onclick="Create_Entity_Plan_Container.showTeamCreateModal($(this));">Team <i
-                    class="fas fa-users"></i>
+                    data-parent-office-id="{{$parent_office_id}}"
+                    onclick="Create_Entity_Plan_Container.showTeamCreateModal($(this));">Team
+                <i class="fas fa-users"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
                     onclick="Create_Entity_Plan_Container.printPlanBook($(this))">Print <i class="fas fa-print"></i>
@@ -89,8 +90,9 @@
                 annual_plan_id = '{{$annual_plan_id}}';
                 activity_id = '{{$activity_id}}';
                 fiscal_year_id = '{{$fiscal_year_id}}';
+                parent_office_id = elem.data('parent-office-id');
                 audit_plan_id = $(".draft_entity_audit_plan").data('audit-plan-id');
-                data = {annual_plan_id, activity_id, fiscal_year_id, audit_plan_id};
+                data = {annual_plan_id, activity_id, fiscal_year_id, audit_plan_id,parent_office_id};
                 KTApp.block('.content', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
