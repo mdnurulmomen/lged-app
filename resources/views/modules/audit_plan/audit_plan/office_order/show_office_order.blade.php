@@ -1,9 +1,33 @@
 <x-title-wrapper>Office Order</x-title-wrapper>
 
 <div class="col-md-12">
-    <div class="d-flex justify-content-end">
-        <button data-audit-plan-id="{{$office_order['audit_plan_id']}}" data-annual-plan-id="{{$office_order['annual_plan_id']}}"  onclick="Show_Office_Order_Container.printOfficeOrder($(this))" class="btn btn-info btn-sm btn-bold btn-square mr-2">
-            <i class="far fa-print mr-1"></i> Print
+    <div class="d-flex justify-content-end mt-4">
+        @if($office_order['approved_status'] == 'draft')
+            <button data-ap-office-order-id="{{$office_order['id']}}"
+                    data-audit-plan-id="{{$office_order['audit_plan_id']}}"
+                    data-annual-plan-id="{{$office_order['annual_plan_id']}}"
+                    onclick="Show_Office_Order_Container.loadOfficeOrderApprovalAuthority($(this))"
+                    class="btn btn-primary btn-sm btn-bold btn-square">
+                <i class="far fa-share-square"></i>
+            </button>
+        @endif
+
+        @if($office_order['approved_status'] == 'draft' && $office_order['office_order_movement'] != null
+        && $office_order['office_order_movement']['employee_designation_id'] == $current_designation_id)
+            <button data-ap-office-order-id="{{$office_order['id']}}"
+                    data-audit-plan-id="{{$office_order['audit_plan_id']}}"
+                    data-annual-plan-id="{{$office_order['annual_plan_id']}}"
+                    onclick="Show_Office_Order_Container.approveOfficeOrder($(this))"
+                    class="btn btn-success btn-sm btn-bold btn-square">
+                <i class="far fa-check"></i>
+            </button>
+        @endif
+
+        <button data-audit-plan-id="{{$office_order['audit_plan_id']}}"
+                data-annual-plan-id="{{$office_order['annual_plan_id']}}"
+                onclick="Show_Office_Order_Container.printOfficeOrder($(this))"
+                class="btn btn-warning btn-sm btn-bold btn-square">
+            <i class="far fa-print"></i>
         </button>
     </div>
 </div>
@@ -25,7 +49,7 @@
                 {{$office_order['memorandum_no']}}
             </span>
                 <span style="width: 15%;float: right">
-                তারিখঃ  {{formatDate($office_order['memorandum_date'],'bn')}} খ্রি।
+                তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
             </span>
             </div>
 
@@ -177,7 +201,7 @@
                     {{$office_order['memorandum_no']}}
                 </span>
                     <span style="width: 15%;float: right">
-                    তারিখঃ  {{formatDate($office_order['memorandum_date'],'bn')}} খ্রি।
+                    তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
                 </span>
             </div>
             <br>
@@ -214,10 +238,64 @@
                 var newDoc = window.open("about:blank");
                 newDoc.document.open();
                 newDoc.document.write(response);
-                // newDoc.close();
-                /* myWindow = window.open("data:text/html," + encodeURIComponent(response),
-                     "_blank", "width=200,height=100");
-                 myWindow.focus();*/
+            });
+        },
+
+        loadOfficeOrderApprovalAuthority: function (element) {
+            url = '{{route('audit.plan.audit.office-orders.load-office-order-approval-authority')}}';
+            ap_office_order_id = element.data('ap-office-order-id');
+            audit_plan_id = element.data('audit-plan-id');
+            annual_plan_id = element.data('annual-plan-id');
+            data = {ap_office_order_id,audit_plan_id,annual_plan_id};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('অনুমোদনকারী বাছাই করুন');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
+        approveOfficeOrder: function (element) {
+            url = '{{route('audit.plan.audit.office-orders.approve-office-order')}}';
+            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            ap_office_order_id = element.data('ap-office-order-id');
+            audit_plan_id = element.data('audit-plan-id');
+            annual_plan_id = element.data('annual-plan-id');
+            approved_status = 'approved';
+            data = {ap_office_order_id,audit_plan_id,annual_plan_id,approved_status,fiscal_year_id};
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'success') {
+                    toastr.success('Successfully Approved!');
+                }
+                else {
+                    if (response.statusCode === '422') {
+                        var errors = response.msg;
+                        $.each(errors, function (k, v) {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        });
+                    }
+                    else {
+                        toastr.error(response.data.message);
+                    }
+                }
             });
         },
     }

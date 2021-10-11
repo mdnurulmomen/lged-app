@@ -20,12 +20,20 @@
 
 @include('scripts.script_generic')
 <script>
+    $(function () {
+        Approve_Plan_List_Container.loadOpYearlyEventList();
+    });
+
+    $('#select_fiscal_year_annual_plan').change(function () {
+        Approve_Plan_List_Container.loadOpYearlyEventList();
+    });
+
     var Approve_Plan_List_Container = {
-        loadDirectorateList: function () {
+        loadOpYearlyEventList: function () {
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
             if (fiscal_year_id) {
-                let url = '{{route('audit.plan.operational.plan.load-directorate-list')}}';
+                let url = '{{route('audit.plan.operational.plan.load-op-yearly-event-list')}}';
                 calendar_id = 1;
                 let data = {fiscal_year_id, fiscal_year,calendar_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
@@ -68,10 +76,12 @@
             });
         },
 
-        loadAnnualPlanApprovalForm: function (element) {
-            url = '{{route('audit.plan.operational.plan.load-annual-plan-approval-form')}}';
+        loadOpYearlyEventApprovalForm: function (element) {
+            url = '{{route('audit.plan.operational.plan.load-op-yearly-event-approval-form')}}';
+            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            op_audit_calendar_event_id = element.data('op-audit-calendar-event-id');
             office_name_bn = element.data('office-name-bn');
-            data = {};
+            data = {fiscal_year_id,op_audit_calendar_event_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -115,7 +125,7 @@
                 if (response.status === 'success') {
                     toastr.success('অনুমোদনের জন্য প্রেরিত হয়েছে');
                     $("#kt_quick_panel_close").click();
-                    //Office_Order_Container.loadOfficeOrderList();
+                    Approve_Plan_List_Container.loadOpYearlyEventList();
                 }
                 else {
                     if (response.statusCode === '422') {
@@ -133,12 +143,4 @@
             })
         },
     };
-
-    $(function () {
-        Approve_Plan_List_Container.loadDirectorateList();
-    });
-
-    $('#select_fiscal_year_annual_plan').change(function () {
-        Approve_Plan_List_Container.loadDirectorateList();
-    });
 </script>

@@ -27,7 +27,7 @@
                             <div class="form-group">
                                 <label for="memorandum_date">স্মারকলিপির তারিখ<span class="text-danger">*</span></label>
                                 <input class="form-control date" type="text" id="memorandum_date" name="memorandum_date"
-                                       value="{{empty($office_order)?'':date('d/m/Y',strtotime($office_order['memorandum_date']))}}">
+                                       value="{{empty($office_order)?'':$office_order['memorandum_date']}}">
                             </div>
                         </div>
                     </div>

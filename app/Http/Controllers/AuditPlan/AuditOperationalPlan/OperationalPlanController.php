@@ -80,7 +80,7 @@ class OperationalPlanController extends Controller
         return view('modules.audit_plan.operational.approve_plan.approve_plan_lists',compact('fiscal_years'));
     }
 
-    public function loadDirectorateList(Request $request)
+    public function loadOpYearlyEventList(Request $request)
     {
         $data = Validator::make($request->all(), [
             'calendar_id' => 'required|integer',
@@ -91,21 +91,25 @@ class OperationalPlanController extends Controller
         //dd($event_list);
         if (isSuccess($event_list)) {
             $event_list = $event_list['data'];
-            return view('modules.audit_plan.operational.approve_plan.partials.load_directorate_lists',compact('event_list'));
+            return view('modules.audit_plan.operational.approve_plan.partials.load_op_yearly_event_lists',compact('event_list'));
         } else {
             return response()->json(['status' => 'error', 'data' => $event_list]);
         }
     }
 
-    public function loadAnnualPlanApprovalForm(Request $request)
+    public function loadOpYearlyEventApprovalForm(Request $request)
     {
-        return view('modules.audit_plan.operational.approve_plan.partials.load_approval_form');
+        $fiscal_year_id = $request->fiscal_year_id;
+        $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
+        return view('modules.audit_plan.operational.approve_plan.partials.load_op_yearly_event_approval_form',
+            compact('op_audit_calendar_event_id','fiscal_year_id'));
     }
 
     public function loadDirectorateWiseAnnualPlan(Request $request)
     {
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
+            'office_id' => 'required|integer',
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
 

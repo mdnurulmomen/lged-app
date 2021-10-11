@@ -59,7 +59,7 @@
                 "icon": "fal fa-user"
             },
         },
-        "plugins": ["checkbox", "search", "types"]
+        "plugins": ["search", "types"]
     });
 
     $('#approvalAuthorityTree').on('select_node.jstree', function (e, data) {

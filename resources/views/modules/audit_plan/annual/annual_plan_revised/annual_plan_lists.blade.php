@@ -20,17 +20,32 @@
 
 @include('scripts.script_generic')
 <script>
+    $(function () {
+        Annual_Plan_Container.loadAnnualPlanList();
+    });
+
+    $('#select_fiscal_year_annual_plan').change(function () {
+        Annual_Plan_Container.loadAnnualPlanList();
+    });
+
     var Annual_Plan_Container = {
-        loadAnnualPlanList: function (fiscal_year_id, fiscal_year) {
-            let url = '{{route('audit.plan.annual.plan.revised.list.all')}}';
-            let data = {fiscal_year_id, fiscal_year};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                if (response.status === 'error') {
-                    toastr.error(response.data)
-                } else {
-                    $('#load_annual_plan_lists').html(response);
-                }
-            });
+        loadAnnualPlanList: function () {
+            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
+            if (fiscal_year_id) {
+                let url = '{{route('audit.plan.annual.plan.revised.list.all')}}';
+                let data = {fiscal_year_id, fiscal_year};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data)
+                    } else {
+                        $('#load_annual_plan_lists').html(response);
+                    }
+                });
+            }
+            else {
+                $('#load_annual_plan_lists').html('');
+            }
         },
 
         movementHistory: function (element) {
@@ -98,7 +113,7 @@
                 if (response.status === 'success') {
                     toastr.success('অনুমোদনের জন্য প্রেরিত হয়েছে');
                     $("#kt_quick_panel_close").click();
-                    //Office_Order_Container.loadOfficeOrderList();
+                    Annual_Plan_Container.loadAnnualPlanList();
                 }
                 else {
                     if (response.statusCode === '422') {
@@ -342,24 +357,4 @@
             });
         },
     };
-
-    $(function () {
-        fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
-        fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
-        if (fiscal_year_id) {
-            Annual_Plan_Container.loadAnnualPlanList(fiscal_year_id, fiscal_year);
-        } else {
-            $('#load_annual_plan_lists').html('');
-        }
-    });
-
-    $('#select_fiscal_year_annual_plan').change(function () {
-        fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
-        fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
-        if (fiscal_year_id) {
-            Annual_Plan_Container.loadAnnualPlanList(fiscal_year_id, fiscal_year);
-        } else {
-            $('#load_annual_plan_lists').html('');
-        }
-    });
 </script>

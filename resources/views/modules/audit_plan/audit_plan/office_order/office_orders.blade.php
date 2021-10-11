@@ -144,7 +144,8 @@
             data = $('#approval_authority_form').serialize();
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
-                    toastr.success('Successfully Saved!');
+                    toastr.success('সফলভাবে প্রেরণ করা হয়েছে');
+                    $('#kt_quick_panel_close').click();
                     Office_Order_Container.loadOfficeOrderList();
                 }
                 else {

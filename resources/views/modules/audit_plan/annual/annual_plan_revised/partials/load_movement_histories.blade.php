@@ -15,7 +15,7 @@
                                 <div class="timeline-content rounded-0">
                                     <div class="d-flex align-items-center justify-content-between mb-3 pr-2">
                                         <p class="text-dark-75 font-weight-bold">
-                                            অনুমোদনকারী
+                                            {{--অনুমোদনকারী--}}
                                         </p>
                                         <span
                                             class="text-muted ml-2">{{formatDateTime($annual_plan_movement['created_at'],'bn')}}</span>
@@ -32,7 +32,10 @@
                                                 <td>
                                                     <p class="mb-0">
                                                     <span class="main_recipient">
-                                                        <span>{{$annual_plan_movement['receiver_name_bn']}}</span>
+                                                        <span>
+                                                            {{$annual_plan_movement['receiver_name_bn'].','.$annual_plan_movement['receiver_office_name_bn']
+                                                                    .','.$annual_plan_movement['receiver_unit_name_bn']}}
+                                                        </span>
                                                         <small>({{$annual_plan_movement['receiver_designation_bn']}})</small>
                                                     </span>
                                                     </p>
@@ -44,10 +47,14 @@
                                                 </td>
                                                 <td>:</td>
                                                 <td>
-                                                    <p class="mb-0"><span class="sender">
-        <span class="sender_name">{{$annual_plan_movement['sender_name_bn']}}</span>
-        <small>({{$annual_plan_movement['sender_designation_bn']}})</small>
-        </span>
+                                                    <p class="mb-0">
+                                                        <span class="sender">
+                                                            <span class="sender_name">
+                                                                {{$annual_plan_movement['sender_name_bn'].','.$annual_plan_movement['sender_office_name_bn']
+                                                                    .','.$annual_plan_movement['sender_unit_name_bn']}}
+                                                            </span>
+                                                            <small>({{$annual_plan_movement['sender_designation_bn']}})</small>
+                                                        </span>
                                                     </p>
                                                 </td>
                                             </tr>

@@ -172,8 +172,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             //plan approve
             Route::get('approve-annual-plan', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class, 'approveAnnualPlan'])->name('plan.approve-annual-plan');
-            Route::post('load-directorate-list', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class, 'loadDirectorateList'])->name('plan.load-directorate-list');
-            Route::post('load-annual-plan-approval-form', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class, 'loadAnnualPlanApprovalForm'])->name('plan.load-annual-plan-approval-form');
+            Route::post('load-op-yearly-event-list', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class, 'loadOpYearlyEventList'])->name('plan.load-op-yearly-event-list');
+            Route::post('load-op-yearly-event-approval-form', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class, 'loadOpYearlyEventApprovalForm'])->name('plan.load-op-yearly-event-approval-form');
             Route::post('load-directorate-wise-annual-plan', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class, 'loadDirectorateWiseAnnualPlan'])->name('plan.load-directorate-wise-annual-plan');
             Route::post('send-annual-plan-receiver-to-sender', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class, 'sendAnnualPlanReceiverToSender'])->name('plan.send-annual-plan-receiver-to-sender');
 

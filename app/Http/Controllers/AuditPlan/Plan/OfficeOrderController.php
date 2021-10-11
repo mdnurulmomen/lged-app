@@ -53,6 +53,8 @@ class OfficeOrderController extends Controller
             'audit_plan_id' => $request->audit_plan_id,
             'annual_plan_id' => $request->annual_plan_id,
         ];
+
+        $data['current_designation_id'] = $this->current_designation_id();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_office_order'), $requestData)->json();
         //dd($responseData);
         if(isSuccess($responseData)){
@@ -180,7 +182,6 @@ class OfficeOrderController extends Controller
     public function approveOfficeOrder(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-//            dd($request->all());
             $data = Validator::make($request->all(), [
                 'fiscal_year_id' => 'required|integer',
                 'ap_office_order_id' => 'required|integer',
@@ -192,7 +193,6 @@ class OfficeOrderController extends Controller
             $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
 
             $responseGenerateOfficeOrder = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.approve_office_order'), $data)->json();
-//            dd($responseGenerateOfficeOrder);
             if (isSuccess($responseGenerateOfficeOrder)) {
                 return response()->json(['status' => 'success', 'data' => 'Added!']);
             } else {

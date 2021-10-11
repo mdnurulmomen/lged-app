@@ -831,7 +831,7 @@
                 {{$office_order['memorandum_no']}}
             </span>
             <span style="width: 30%;float: right">
-                তারিখঃ  {{formatDate($office_order['memorandum_date'],'bn')}} খ্রি।
+                তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
             </span>
         </div>
 
@@ -984,7 +984,7 @@
                 {{$office_order['memorandum_no']}}
             </span>
             <span style="width: 30%;float: right">
-                তারিখঃ  {{formatDate($office_order['memorandum_date'],'bn')}} খ্রি।
+                তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
             </span>
         </div>
 

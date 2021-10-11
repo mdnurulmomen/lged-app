@@ -81,8 +81,8 @@
             '<input name="op_audit_calendar_event_id" type="hidden" value="{{$op_audit_calendar_event_id}}"/>' +
             '<input name="receiver_type" type="hidden" value="approver"/>'+
             '<input name="receiver_office_id" type="hidden" value="' + officer_info.office_id + '"/>'+
-            '<input name="receiver_office_name_en" type="hidden" value="' + officer_info.office_id + '"/>'+
-            '<input name="receiver_office_name_bn" type="hidden" value="' + officer_info.office_id + '"/>'+
+            '<input name="receiver_office_name_en" type="hidden" value="' + officer_info.office_name_eng + '"/>'+
+            '<input name="receiver_office_name_bn" type="hidden" value="' + officer_info.office_name_bng + '"/>'+
             '<input name="receiver_unit_id" type="hidden" value="' + officer_info.unit_id + '"/>'+
             '<input name="receiver_unit_name_en" type="hidden" value="' + officer_info.unit_name_en + '"/>'+
             '<input name="receiver_unit_name_bn" type="hidden" value="' + officer_info.unit_name_bn + '"/>'+

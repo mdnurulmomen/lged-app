@@ -1,7 +1,7 @@
 <!--begin::Table-->
 <form class="mb-10" id="approval_form">
     <input type="hidden" name="fiscal_year_id" value="1">
-    <input type="hidden" name="op_audit_calendar_event_id" value="13">
+    <input type="hidden" name="op_audit_calendar_event_id" value="{{$op_audit_calendar_event_id}}">
     <input type="hidden" name="receiver_type" value="sender">
 
     <div class="row">
@@ -11,7 +11,7 @@
                     <label>Status</label>
                     <select class="form-control select-select2" name="status">
                         <option value="pending">Pending</option>
-                        <option value="approve">Approve</option>
+                        <option value="approved">Approved</option>
                         <option value="reject">Reject</option>
                     </select>
                 </div>
