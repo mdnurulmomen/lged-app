@@ -13,10 +13,9 @@
                 "icon": "fal fa-edit"
             },
         },
-        "plugins": ["dnd", "search", "types"]
+        "plugins": ["search", "types"]
     }).bind("select_node.jstree", function (e, data) {
         if (data.node.children.length > 0) {
-            $('.summernote').summernote('disable');
             $('#createPlanJsTree').jstree(true).deselect_node(data.node);
             $('#createPlanJsTree').jstree(true).toggle_node(data.node);
         }

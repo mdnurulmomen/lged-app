@@ -17,7 +17,7 @@
                 "icon": "fal fa-edit"
             },
         },
-        "plugins": ["dnd", "search", "types"]
+        "plugins": ["search", "types"]
     }).bind("select_node.jstree", function (e, data) {
         if (data.node.children.length > 0) {
             $('#createPlanJsTree').jstree(true).deselect_node(data.node);
@@ -45,7 +45,6 @@
         auditPaperList.push(arrayData);
 
         var dataHtml = '<div class="pdf-screen">' +
-            // '<p class="pageTileNumber">' + 'Audit Plan Form for Compliance Audit' + '</p>' +
             '<div id="pdfContent_' + templateArray[i].content_id + '">' + templateArray[i].content + '</div>' +
             '</div>';
         setCoverInformation();
