@@ -108,6 +108,12 @@
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
         team_filter = $('#team_filter').val();
-        Team_Calendar_Container.loadTeamFilter(directorate_id,fiscal_year_id,team_filter);
+        if(team_filter){
+            Team_Calendar_Container.loadTeamFilter(directorate_id,fiscal_year_id,team_filter);
+        }else{
+            Team_Calendar_Container.loadTeamCalendar(directorate_id,fiscal_year_id);
+        }
+
+
     });
 </script>

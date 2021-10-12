@@ -73,7 +73,7 @@ class TeamCalendarController extends Controller
         if (isSuccess($calendar_data)) {
             $calendar_data = $calendar_data['data'];
             $team_id = $request->team_id;
-            return view('modules.audit_plan.calendar.load_team_calendar', compact('calendar_data','team_id'));
+            return view('modules.audit_plan.calendar.load_team_filter_calendar', compact('calendar_data','team_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $calendar_data['data']]);
         }
