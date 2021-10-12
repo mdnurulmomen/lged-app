@@ -163,9 +163,10 @@
             activity_title = elem.data('activity-title');
             op_audit_calendar_event_id = elem.data('op-audit-calendar-event-id');
             data = {schedule_id, activity_id, milestone_id, activity_title, fiscal_year_id, op_audit_calendar_event_id}
-
-            let url = '{{route('audit.plan.annual.plan.list.show.revised.crate_plan_info')}}'
+            KTApp.block('#kt_content');
+            let url = '{{route('audit.plan.annual.plan.list.show.revised.create_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -194,6 +195,7 @@
         },
 
         loadRPChildOffices: function (node_id, target_tree = '#rp_auditee_offices') {
+            KTApp.block(target_tree);
             url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-child-offices')}}';
             parent_office_content = $('#' + node_id).attr('data-entity-info');
             parent_office_content = JSON.parse(parent_office_content);
@@ -204,6 +206,7 @@
             $('#' + node_id + ' ul').html('')
             $('#' + node_id + ' ul').remove()
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock(target_tree);
                 if (response.status === 'success') {
                     offices = response.data;
                     $.each(offices, function (i, office) {
