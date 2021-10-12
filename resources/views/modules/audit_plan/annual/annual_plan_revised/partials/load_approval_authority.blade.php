@@ -2,9 +2,9 @@
 <form id="approval_authority_form">
     <div class="row">
         <div class="col-md-12 officers_list_area">
-            <h5></h5>
+            <h5 class="mt-2 mb-4">{{empty($current_desk_approval_authority)?'':$current_desk_approval_authority['receiver_name_bn'].'('.$current_desk_approval_authority['receiver_designation_bn'].') কাছে প্রেরিত হয়েছে।'}}</h5>
             <div class="rounded-0" id="approvalAuthorityTree"
-                 style="overflow-y: scroll; height: 55vh">
+                 style="overflow-y: scroll; height: 50vh">
                 <ul>
                     @foreach($officer_lists as $key => $officer_list)
                         @foreach($officer_list['units'] as $unit)
@@ -90,8 +90,8 @@
             '<input name="receiver_name_en" type="hidden" value="' + officer_info.officer_name_en + '"/>'+
             '<input name="receiver_name_bn" type="hidden" value="' + officer_info.officer_name_bn + '"/>'+
             '<input name="receiver_designation_id" type="hidden" value="' + officer_info.designation_id + '"/>'+
-            '<input name="receiver_designation_bn" type="hidden" value="' + officer_info.designation_en + '"/>'+
-            '<input name="receiver_designation_en" type="hidden" value="' + officer_info.designation_bn + '"/>'+
+            '<input name="receiver_designation_bn" type="hidden" value="' + officer_info.designation_bn + '"/>'+
+            '<input name="receiver_designation_en" type="hidden" value="' + officer_info.designation_en + '"/>'+
             '</li>';
 
         let select_approval_authority =  $(".select_approval_authority");

@@ -91,6 +91,7 @@ return [
         'ap_nominated_offices' => env('API_URL_BEE', '') . '/planning/annual-plan/get-nominated-offices',
         'send_annual_plan_sender_to_receiver' => env('API_URL_BEE', '') . '/planning/annual-plan/send-annual-plan-sender-to-receiver',
         'get_movement_histories' => env('API_URL_BEE', '') . '/planning/annual-plan/get-movement-histories',
+        'get_current_desk_approval_authority' => env('API_URL_BEE', '') . '/planning/annual-plan/get-current-desk-approval-authority',
     ],
 
     'audit_entity_plan' => [

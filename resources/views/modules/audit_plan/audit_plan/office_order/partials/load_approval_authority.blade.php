@@ -1,7 +1,7 @@
 <!--begin::Table-->
 <div class="row">
     <div class="col-md-12 officers_list_area">
-        <h5>{{$office_order['office_order_movement'] != null?$office_order['office_order_movement']['employee_name_bn'].' ('.$office_order['office_order_movement']['employee_designation_bn'].') কাছে প্রেরিত হয়েছে।':''}}</h5>
+        <h5 class="mt-2 mb-4">{{$office_order['office_order_movement'] != null?$office_order['office_order_movement']['employee_name_bn'].' ('.$office_order['office_order_movement']['employee_designation_bn'].') কাছে প্রেরিত হয়েছে।':''}}</h5>
         <div class="rounded-0" id="approvalAuthorityTree"
              style="overflow-y: scroll; height: 60vh">
             <ul>

@@ -451,11 +451,22 @@ class AnnualPlanRevisedController extends Controller
 
     public function loadAnnualPlanApprovalAuthority(Request $request)
     {
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'op_audit_calendar_event_id' => 'required|integer',
+        ])->validate();
+
         $officeId = config('cag_amms_config.ocag_office_id');
-        $data['fiscal_year_id'] = $request->fiscal_year_id;
-        $data['op_audit_calendar_event_id'] = $request->op_audit_calendar_event_id;
-        $data['officer_lists'] = $this->cagDoptorOfficeUnitDesignationEmployees($officeId);
-        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_approval_authority', $data);
+        $fiscal_year_id = $request->fiscal_year_id;
+        $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
+        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($officeId);
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_current_desk_approval_authority'), $data)->json();
+        //dd($responseData);
+        $current_desk_approval_authority = isSuccess($responseData)?$responseData['data']:[];
+        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_approval_authority',
+            compact('officeId','fiscal_year_id','op_audit_calendar_event_id',
+            'officer_lists','current_desk_approval_authority'));
     }
 
     public function sendAnnualPlanSenderToReceiver(Request $request): \Illuminate\Http\JsonResponse
