@@ -206,11 +206,10 @@
             $('#' + node_id + ' ul').html('')
             $('#' + node_id + ' ul').remove()
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock(target_tree);
                 if (response.status === 'success') {
                     offices = response.data;
                     $.each(offices, function (i, office) {
-                        $(`${target_tree}`).jstree().create_node(node_id, {
+                        child_node_info = {
                             id: node_id + '_' + office.id,
                             li_attr: {
                                 "data-rp-auditee-entity-id": office.id,
@@ -229,12 +228,20 @@
                                     controlling_office_name_bn: parent_office_content.controlling_office_name_bn,
                                 })
                             },
-                            text: office.office_name_bn
-                        }, "last", function () {
+                            text: office.office_name_bn,
+                        };
+
+                        if (office.has_child) {
+                            child_node_info['children'] = [{'text': 'Child 1'}];
+                        }
+
+                        $(`${target_tree}`).jstree().create_node(node_id, child_node_info, "last", function () {
                         });
+                        child_node_info = {};
                     });
                     first_child_node = node_id.split("_")[0] + '_' + (parseInt(node_id.split("_")[1]) + 1);
                     $('#' + first_child_node).remove()
+                    KTApp.unblock(target_tree);
                 }
             });
         },
