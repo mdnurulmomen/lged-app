@@ -35,11 +35,11 @@ class PlanEditorController extends Controller
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $teamResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_wise_team'), $data)->json();
 
-        //$nominated_offices = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_nominated_offices'), $data)->json();
-        //$data['parent_office_id'] = 15130;
-        $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-wise-child-office'), $data)->json();
-        //$nominated_offices_list = json_decode($nominated_offices['data'], true);
-        $nominated_offices_list = $nominated_offices['data'];
+
+        $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $data)->json();
+        $nominated_offices_list = isSuccess($nominated_offices)?$nominated_offices['data']:[];
+        $nominated_offices_list = !empty($nominated_offices_list)?array_key_exists('child_offices',$nominated_offices_list)?$nominated_offices_list['child_offices']:[$nominated_offices_list['parent_office']]:[];
+
         $all_teams = isSuccess($teamResponseData) ? $teamResponseData['data'] : [];
 
         return view('modules.modal.load_team_modal', compact(
@@ -76,10 +76,12 @@ class PlanEditorController extends Controller
         ])->validate();
 
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
-        $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-wise-child-office'), $data)->json();
-        $nominated_offices = $nominated_offices['data'];
+        $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $data)->json();
+        $nominated_offices_list = isSuccess($nominated_offices)?$nominated_offices['data']:[];
+        $nominated_offices_list = !empty($nominated_offices_list)?array_key_exists('child_offices',$nominated_offices_list)?$nominated_offices_list['child_offices']:[$nominated_offices_list['parent_office']]:[];
+
         $team_layer_id = $request->team_layer_id;
         return view('modules.audit_plan.audit_plan.plan_revised.partials.load_team_schedule',
-            compact('team_layer_id', 'nominated_offices'));
+            compact('team_layer_id', 'nominated_offices_list'));
     }
 }

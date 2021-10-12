@@ -638,8 +638,8 @@
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .teamLeaderBtn').find('i').removeClass('fa-dot-circle').addClass('fa-circle');
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .subTeamLeaderBtn').find('i').removeClass('fa-dot-circle').addClass('fa-circle');
             } else if (role === 'teamLeader') {
+                data_content = $('.assignedMember_' + designation_id + '_' + layer_index).data('content');
                 Load_Team_Container.editor_leader_info = data_content.officer_name_bn + ', ' + data_content.designation_bn + ', ' + data_content.unit_name_bn + '|';
-                data_content = $('.assignedMember_' + designation_id + '_' + layer_index).data('content')
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .memberBtn').find('i').removeClass('fa-dot-circle').addClass('fa-circle');
                 $('.assignedMember_' + designation_id + '_' + layer_index + ' .subTeamLeaderBtn').find('i').removeClass('fa-dot-circle').addClass('fa-circle');
             } else if (role === 'subTeamLeader') {

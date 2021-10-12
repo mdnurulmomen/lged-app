@@ -1,7 +1,3 @@
-@php
-    //$nominatedOffices = json_decode($nominated_offices['nominated_offices'], true);
-@endphp
-
 <div class="audit_schedule_list_div">
     <table id="audit_schedule_table_{{$team_layer_id}}" class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm
                                             text-center">
@@ -34,7 +30,7 @@
                 <select id="branch_name_select_{{$team_layer_id}}_0" class="form-control select-select2 input-branch-name"
                         data-id="{{$team_layer_id}}_0">
                     <option value=''>--Select--</option>
-                    @foreach($nominated_offices as $key => $nominatedOffice)
+                    @foreach($nominated_offices_list as $key => $nominatedOffice)
                         <option value="{{$nominatedOffice['id']}}"
                                 data-cost-center-id="{{$nominatedOffice['id']}}"
                                 data-cost-center-name-bn="{{$nominatedOffice['office_name_bng']}}"
@@ -96,7 +92,7 @@
             teamScheduleHtml += "<td>" +
                 "<select id='branch_name_select_{{$team_layer_id}}_" + totalAuditScheduleRow + "' class='form-control select-select2 input-branch-name' data-id='{{$team_layer_id}}_" + totalAuditScheduleRow + "'>" +
                 "<option value=''>--Select--</option>" +
-                @foreach($nominated_offices as $key => $nominatedOffice)
+                @foreach($nominated_offices_list as $key => $nominatedOffice)
                     "<option value='{{$nominatedOffice['id']}}' data-cost-center-id='{{$nominatedOffice['id']}}' data-cost-center-name-bn='{{$nominatedOffice['office_name_bng']}}' data-cost-center-name-en='{{$nominatedOffice['office_name_eng']}}'>{{$nominatedOffice['office_name_bng']}}</option>" +
                 @endforeach
                     "</select></td>";
