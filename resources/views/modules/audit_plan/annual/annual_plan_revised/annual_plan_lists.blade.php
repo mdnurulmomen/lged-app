@@ -250,7 +250,7 @@
                     'data-entity-id="' + entity_info.entity_id + '" data-entity-en="' + entity_info.entity_name_en + '" data-entity-bn="' + entity_info.entity_name_bn + '" ' +
                     'data-controlling-office-id="' + entity_info.controlling_office_id + '" data-controlling-office-name-bn="' + entity_info.controlling_office_name_bn + '" ' +
                     'data-controlling-office-name-en="' + entity_info.controlling_office_name_en + '" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +
-                    '<span class="d-none" id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
+                    '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
                     '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_en +
                     '<input name="selected_entity[]" class="selected_entity" data-entity-id="' + entity_info.entity_id + '" id="selected_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
                     '<input name="controlling_office[]" class="controlling_office" id="controlling_office_' + entity_info.entity_id + '_' + entity_info.controlling_office_id + '" type="hidden" value=""/>' +
