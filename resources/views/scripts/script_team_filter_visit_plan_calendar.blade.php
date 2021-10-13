@@ -192,7 +192,7 @@
 
                             html += '<td>' + enTobn(event.event.extendedProps.audit_start_end_year) + '</td>';
 
-                            html += '<td>' + enTobn(DmyFormat(data.team_member_start_date)) + '</td>';
+                            html += '<td>' + enTobn(DmyFormat(data.team_member_start_date,'/')) + '-<br>'  +  enTobn(DmyFormat(data.team_member_end_date,'/')) +'</td>';
 
                             html += '<td>' + enTobn(data.activity_man_days) + '</td>';
 

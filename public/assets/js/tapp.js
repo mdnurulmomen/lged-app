@@ -294,15 +294,11 @@ function formatDate(data) {
   // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
 }
 
-function DmyFormat(data) {
+function DmyFormat(data,splitter='-') {
   var year  = data.split("-")[0];
   var month  = data.split("-")[1];
   var day  = data.split("-")[2];
-
-  //console.log(day,month,year);
-
-  return day + '-' + ("0"+month).slice(-2) + '-' + ("0"+year).slice(-2);
-  // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
+  return day + splitter + ("0"+month).slice(-2) + splitter + ("0"+year).slice(-2);
 }
 
 
