@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         @if(count($rp_offices) > 0 && array_key_exists('offices', $rp_offices))
-            <div class="tree-demo rounded-0 jstree-init jstree-1 jstree-default" id="rp_auditee_offices"
+            <div id="rp_auditee_offices"
                  style="overflow-y: scroll; height: 60vh">
                 <ul>
                     @foreach($rp_offices['offices'] as $rp_office_list)
@@ -20,7 +20,7 @@
         'controlling_office_id' => $rp_office_list['controlling_office_id'],
         'controlling_office_name_bn' => htmlspecialchars($rp_office_list['controlling_office_name_bn']),
         'controlling_office_name_en' => htmlspecialchars($rp_office_list['controlling_office_name_en']),
-        ], JSON_UNESCAPED_UNICODE)}}" data-jstree='{ "opened" : false}'>
+        ], JSON_UNESCAPED_UNICODE)}}" data-jstree='{ "type" : "default" }'>
                                 {{$rp_office['office_name_bn']}}
                                 @if($rp_office['has_child'])
                                     <ul>
@@ -50,10 +50,7 @@
             },
             "types": {
                 "default": {
-                    "icon": "fal fa-folder"
-                },
-                "person": {
-                    "icon": "fal fa-file "
+                    "icon": "fal fa-building text-warning"
                 }
             },
             "plugins": ["types", "checkbox",]
