@@ -12,10 +12,10 @@
         </thead>
         <tbody>
         @foreach($event_list as $event)
+            @if(!empty($event['office']))
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>
-                    {{$event['office']['office_name_bn']}}
+                <td>{{$event['office']['office_name_bn']}}
                     <span class="badge badge-info text-uppercase m-1 p-1">{{$event['approval_status']}}</span>
                 </td>
                 <td>
@@ -46,6 +46,7 @@
                     </div>
                 </td>
             </tr>
+            @endif
         @endforeach
         </tbody>
     </table>
