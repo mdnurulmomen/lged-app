@@ -30,8 +30,9 @@ class Controller extends BaseController
 
     public function viewSharer()
     {
-        //$wizard = $this->wizard();
-        //view()->share('wizardData', $wizard);
+        $wizard = $this->wizard();
+        view()->share('wizardData', $wizard);
+
         $userDetails = $this->getUserDetails();
         view()->share('userDetails', $userDetails);
 
