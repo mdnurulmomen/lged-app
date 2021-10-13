@@ -30,7 +30,7 @@ class TeamCalendarController extends Controller
     public function loadTeamCalendar(Request $request)
     {
         $data['cdesk'] = json_encode_unicode($this->current_desk());
-        $data['office_id'] = $request->office_id;
+        $data['office_id'] = $request->directorate_id ?: $this->current_office_id();
         $data['fiscal_year_id'] = $request->fiscal_year_id;
 
         $calendar_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.individual_calendar_list'), $data)->json();
@@ -39,7 +39,7 @@ class TeamCalendarController extends Controller
             $calendar_data = $calendar_data['data'];
             return view('modules.audit_plan.calendar.load_team_calendar', compact('calendar_data'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $calendar_data['data']]);
+            return response()->json(['status' => 'error', 'data' => $calendar_data]);
         }
     }
 
@@ -53,7 +53,7 @@ class TeamCalendarController extends Controller
             $team_list = $team_list['data'];
             return view('modules.audit_plan.calendar.team_select', compact('team_list'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $team_list['data']]);
+            return response()->json(['status' => 'error', 'data' => $team_list]);
         }
     }
 
@@ -70,7 +70,7 @@ class TeamCalendarController extends Controller
             $team_id = $request->team_id;
             return view('modules.audit_plan.calendar.load_team_filter_calendar', compact('calendar_data', 'team_id'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $calendar_data['data']]);
+            return response()->json(['status' => 'error', 'data' => $calendar_data]);
         }
     }
 
@@ -82,7 +82,7 @@ class TeamCalendarController extends Controller
         if (isSuccess($calendar_data_store)) {
             return response()->json(['status' => 'error', 'data' => 'Successfully saved!']);
         } else {
-            return response()->json(['status' => 'error', 'data' => $calendar_data_store['data']]);
+            return response()->json(['status' => 'error', 'data' => $calendar_data_store]);
         }
     }
 
@@ -99,7 +99,7 @@ class TeamCalendarController extends Controller
         if (isSuccess($updateStatus)) {
             return response()->json(['status' => 'success', 'data' => 'Status Update Successfully']);
         } else {
-            return response()->json(['status' => 'error', 'data' => $updateStatus['data']]);
+            return response()->json(['status' => 'error', 'data' => $updateStatus]);
         }
     }
 }
