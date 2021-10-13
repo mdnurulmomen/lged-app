@@ -78,10 +78,11 @@
     $(function () {
             directorate_id = $('#directorate_filter').val();
             fiscal_year_id = $('#fiscal_year_id').val();
-            if (directorate_id) {
+            if (directorate_id !== 'all') {
                 Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
                 Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
             } else {
+                toastr.info('Please select directorate.')
                 $('#load_team_calendar').html('');
             }
         }
