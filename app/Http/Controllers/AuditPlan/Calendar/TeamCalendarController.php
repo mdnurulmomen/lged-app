@@ -21,7 +21,7 @@ class TeamCalendarController extends Controller
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
 
         if (!empty($directorates)) {
-            return view('modules.audit_plan.calendar.team_calender', compact('directorates','fiscal_years'));
+            return view('modules.audit_plan.calendar.team_calender', compact('directorates', 'fiscal_years'));
         } else {
             return response()->json(['status' => 'error', 'data' => $directorates]);
         }
@@ -37,7 +37,6 @@ class TeamCalendarController extends Controller
 
         if (isSuccess($calendar_data)) {
             $calendar_data = $calendar_data['data'];
-//            dd($calendar_data);
             return view('modules.audit_plan.calendar.load_team_calendar', compact('calendar_data'));
         } else {
             return response()->json(['status' => 'error', 'data' => $calendar_data['data']]);
@@ -50,7 +49,6 @@ class TeamCalendarController extends Controller
         $data['fiscal_year_id'] = $request->fiscal_year_id;
 
         $team_list = $this->initHttpWithToken()->post(config('amms_bee_routes.mis_and_dashboard.get_fiscal_year_wise_team'), $data)->json();
-
         if (isSuccess($team_list)) {
             $team_list = $team_list['data'];
             return view('modules.audit_plan.calendar.team_select', compact('team_list'));
@@ -66,14 +64,11 @@ class TeamCalendarController extends Controller
         $data['team_id'] = $request->team_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
 
-//        dd($data);
-
         $calendar_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.team_calender_filter'), $data)->json();
-//        dd($calendar_data);
         if (isSuccess($calendar_data)) {
             $calendar_data = $calendar_data['data'];
             $team_id = $request->team_id;
-            return view('modules.audit_plan.calendar.load_team_filter_calendar', compact('calendar_data','team_id'));
+            return view('modules.audit_plan.calendar.load_team_filter_calendar', compact('calendar_data', 'team_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $calendar_data['data']]);
         }
