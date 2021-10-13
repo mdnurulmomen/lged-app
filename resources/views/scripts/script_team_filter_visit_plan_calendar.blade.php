@@ -135,7 +135,7 @@
 
                             html += '<td>' + value.team_member_role_bn + '</td>';
 
-                            html += '<td>' + value.officer_mobile + '</td>';
+                            html += '<td>' + enTobn(value.officer_mobile) + '</td>';
 
                             html += '</tr>';
                         });
@@ -150,7 +150,7 @@
 
                                 html += '<td>' + value.team_member_role_bn + '</td>';
 
-                                html += '<td>' + value.officer_mobile + '</td>';
+                                html += '<td>' + enTobn(value.officer_mobile) + '</td>';
 
                                 html += '</tr>';
                             });
@@ -166,7 +166,7 @@
 
                                 html += '<td>' + value.team_member_role_bn + '</td>';
 
-                                html += '<td>' + value.officer_mobile + '</td>';
+                                html += '<td>' + enTobn(value.officer_mobile) + '</td>';
 
                                 html += '</tr>';
                             });
