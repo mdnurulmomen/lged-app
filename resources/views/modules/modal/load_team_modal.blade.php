@@ -924,6 +924,7 @@
                 if (response.status === 'success') {
                     toastr.success(response.data);
                     Load_Team_Container.saveAuditTeamSchedule(mode);
+                    $('.draft_entity_audit_plan').click();
                     Load_Team_Container.insertTeamDataInBook();
                     Load_Team_Container.setJsonContentFromPlanBook();
                     $('#dismissTeamModal').click()
