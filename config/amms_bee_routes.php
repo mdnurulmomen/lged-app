@@ -138,10 +138,11 @@ return [
     ],
 
     'audit_visit_plan_calendar' => [
-        'individual_calendar_list' => env('API_URL_BEE', '') . '/planning/calendar/individual',
-        'individual_calendar_create' => env('API_URL_BEE', '') . '/planning/calendar/individual/create',
-        'update_visit_calender_status' => env('API_URL_BEE', '') . '/planning/calendar/individual/update-visit-calender-status',
-        'team_calender_filter' => env('API_URL_BEE', '') . '/planning/calendar/individual/team-filter',
+        'team_calendar_list' => env('API_URL_BEE', '') . '/planning/calendar/teams',
+        'update_visit_calender_status' => env('API_URL_BEE', '') . '/planning/calendar/update-visit-calender-status',
+        'team_calender_filter' => env('API_URL_BEE', '') . '/planning/calendar/team-filter',
+        'get_fiscal_year_wise_team' => env('API_URL_BEE', '') . '/planning/calendar/load-fiscal-year-wise-team',
+        'get_cost_center_directorate_fiscal_year_wise' => env('API_URL_BEE', '') . '/planning/calendar/load-cost-center-directorate-fiscal-year-wise',
     ],
 
     'follow_up' => [
@@ -159,7 +160,6 @@ return [
 
     'mis_and_dashboard' => [
         'all_team_lists' => env('API_URL_BEE', '') . '/mis-and-dashboard/load-all-team-lists',
-        'get_fiscal_year_wise_team' => env('API_URL_BEE', '') . '/mis-and-dashboard/load-fiscal-year-wise-team',
     ],
 
     'final_plan_file_list' => env('API_URL_BEE', '') . '/final-plan-file-list',

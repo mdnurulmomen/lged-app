@@ -285,11 +285,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     });
 
     Route::group(['prefix' => 'calendar/'], function () {
-        Route::get('individual', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'index'])->name('calendar.individual');
         Route::post('load-teams-calender', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'loadTeamCalendar'])->name('calendar.load-teams-calender');
         Route::post('load-teams-calender-filter', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'loadTeamCalendarFilter'])->name('calendar.load-teams-calender-filter');
         Route::post('load-teams-select', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'loadTeamsSelect'])->name('calendar.load-teams-select');
-        Route::get('team', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'index'])->name('calendar.team');
+        Route::post('load-cost-center-directorate-fiscal-year-wise-select', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'loadCostCenterDirectorateFiscalYearWiseSelect'])->name('calendar.load-cost-center-directorate-fiscal-year-wise-select');
+        Route::get('teams', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'index'])->name('calendar.teams');
         Route::post('update-visit-calender-status', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'updateVisitCalenderStatus'])->name('calendar.update-visit-calender-status');
     });
 

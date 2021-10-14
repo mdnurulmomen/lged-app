@@ -1,5 +1,5 @@
-<div class="row">
-    <div class="col-md-3">
+<div class="row mt-2">
+    <div class="col-md-4">
         <select class="form-select select-select2" id="fiscal_year_id">
             @foreach($fiscal_years as $fiscal_year)
                 <option
@@ -8,7 +8,7 @@
         </select>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
         <select class="form-select select-select2" id="directorate_filter">
             @if(count($directorates) > 1)
                 <option value="all">Select Directorate</option>
@@ -20,13 +20,29 @@
         </select>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
+        <select class="form-select select-select2" id="cost_center_filter">
+            <option value="">All Cost Center</option>
+        </select>
+    </div>
+</div>
+<div class="row mt-4 mb-2">
+    <div class="col-md-4">
         <select class="form-select select-select2" id="team_filter">
             <option value="">All Teams</option>
         </select>
     </div>
-    <button id="btn_filter" class="btn btn-icon btn-light-success btn-square mr-2" type="button"><i
+
+    <div class="col-md-4">
+        <select class="form-select select-select2" id="sub_team_filter">
+            <option value="">All Sub Teams</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <button id="btn_filter" class="btn btn-icon btn-light-success btn-square mr-2" type="button"><i
             class="fad fa-search"></i></button>
+    </div>
+
 </div>
 
 <div class="row">
@@ -49,6 +65,18 @@
                 }
             );
         },
+        loadCostCenterList: function (directorate_id, fiscal_year_id) {
+            let url = '{{route('calendar.load-cost-center-directorate-fiscal-year-wise-select')}}';
+            let data = {directorate_id, fiscal_year_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        $('#load_team_calendar').html(response);
+                    }
+                }
+            );
+        },
         loadTeamList: function (directorate_id, fiscal_year_id) {
             let url = '{{route('calendar.load-teams-select')}}';
             let data = {directorate_id, fiscal_year_id};
@@ -57,6 +85,18 @@
                         toastr.warning(response.data)
                     } else {
                         $('#team_filter').html(response);
+                    }
+                }
+            );
+        },
+        loadSubTeamList: function (directorate_id, fiscal_year_id, team_id) {
+            let url = '{{route('calendar.load-teams-calender-filter')}}';
+            let data = {directorate_id, fiscal_year_id, team_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        $('#load_team_calendar').html(response);
                     }
                 }
             );
