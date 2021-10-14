@@ -32,11 +32,14 @@ class PlanEditorController extends Controller
         $other_offices = $this->cagDoptorOtherOffices($this->current_office_id());
 
         //for all team data
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $cdesk = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $cdesk;
         $teamResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_wise_team'), $data)->json();
 
-
-        $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $data)->json();
+        //for office list
+        $getParentWithChildOfficePassData['parent_office_id'] = $parent_office_id;
+        $getParentWithChildOfficePassData['cdesk'] = $cdesk;
+        $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $getParentWithChildOfficePassData)->json();
         $nominated_offices_list = isSuccess($nominated_offices)?$nominated_offices['data']:[];
         $nominated_offices_list = !empty($nominated_offices_list)?!empty($nominated_offices_list['child_offices'])?$nominated_offices_list['child_offices']:[$nominated_offices_list['parent_office']]:[];
 
@@ -76,6 +79,7 @@ class PlanEditorController extends Controller
         ])->validate();
 
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+
         $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $data)->json();
         $nominated_offices_list = isSuccess($nominated_offices)?$nominated_offices['data']:[];
         //$nominated_offices_list = !empty($nominated_offices_list)?array_key_exists('child_offices',$nominated_offices_list)?$nominated_offices_list['child_offices']:[$nominated_offices_list['parent_office']]:[];
