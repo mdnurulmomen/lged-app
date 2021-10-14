@@ -15,8 +15,8 @@ class FinalPlanController extends Controller
      */
     public function index()
     {
-        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.final_plan_file_list'),[
-                'document_type' => 'operational'
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.final_plan_file.list'),[
+                'document_type' => 'operation'
             ]
         )->json();
         $data['final_plan_file_list'] = $response['data'];
@@ -60,7 +60,7 @@ class FinalPlanController extends Controller
 
         $data = [
             ['name' => 'id', 'contents' => $request->id],
-            ['name' => 'document_type', 'contents' => 'operational'],
+            ['name' => 'document_type', 'contents' => 'operation'],
             ['name' => 'fiscal_year', 'contents' => $request->fiscal_year]
         ];
 
@@ -76,7 +76,7 @@ class FinalPlanController extends Controller
         if (empty($request->id)){
             $response = $this->fileUPloadWithData(
                 'POST',
-                config('amms_bee_routes.final_plan_file_upload'),
+                config('amms_bee_routes.final_plan_file.store'),
                 $data
             );
 
@@ -84,7 +84,7 @@ class FinalPlanController extends Controller
         else{
             $response = $this->fileUPloadWithData(
                 'POST',
-                config('amms_bee_routes.final_plan_file_update'),
+                config('amms_bee_routes.final_plan_file.update'),
                 $data
             );
         }
@@ -128,7 +128,7 @@ class FinalPlanController extends Controller
             $data['plan_durations'] = [];
         }
 
-        $file_info = $this->initHttpWithToken()->post(config('amms_bee_routes.final_plan_file_edit'), [
+        $file_info = $this->initHttpWithToken()->post(config('amms_bee_routes.final_plan_file.edit'), [
             'id' => $id
         ])->json();
         if ($file_info['status'] == 'success') {
@@ -157,7 +157,7 @@ class FinalPlanController extends Controller
 
         $data = [
             ['name' => 'id', 'contents' => $request->id],
-            ['name' => 'document_type', 'contents' => 'operational'],
+            ['name' => 'document_type', 'contents' => 'operation'],
             ['name' => 'fiscal_year', 'contents' => $request->fiscal_year]
         ];
 
@@ -172,7 +172,7 @@ class FinalPlanController extends Controller
 
         $response = $this->fileUPloadWithData(
             'POST',
-            config('amms_bee_routes.final_plan_file_update'),
+            config('amms_bee_routes.final_plan_file.update'),
             $data
         );
         return json_decode($response->getBody(), true);
@@ -191,8 +191,8 @@ class FinalPlanController extends Controller
 
     public function isDocumentExist(Request $request)
     {
-        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.final_plan_document_is_exist'), [
-            'document_type' => 'operational',
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.document_is_exist'), [
+            'document_type' => 'operation',
             'fiscal_year' => $request->fiscal_year,
         ])->json();
 

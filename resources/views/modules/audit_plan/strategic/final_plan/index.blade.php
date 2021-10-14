@@ -7,6 +7,11 @@
         </a>
     </div>
 </div>
+
+{{--<div class="col-lg-12 p-0 mt-3">
+    <div class="load-final-plan-list"></div>
+</div>--}}
+
 <div class="col-lg-12">
     <!--begin::Advance Table Widget 4-->
     <div class="card card-custom card-stretch gutter-b">
@@ -50,3 +55,23 @@
     <!--end::Advance Table Widget 4-->
 </div>
 
+{{--<script>
+    $(function () {
+        Final_Plan_Container.loadFinalPlanList();
+    });
+
+    var Final_Plan_Container = {
+        loadFinalPlanList: function (page = 1, per_page = 200) {
+            let url = '{{route('audit.plan.audit.office-orders.load-office-order-list')}}';
+            document_type = 'strategic';
+            let data = {document_type, page, per_page};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $('.load-final-plan-list').html(response);
+                }
+            });
+        },
+    }
+</script>--}}

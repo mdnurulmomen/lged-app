@@ -162,11 +162,14 @@ return [
         'all_team_lists' => env('API_URL_BEE', '') . '/mis-and-dashboard/load-all-team-lists',
     ],
 
-    'final_plan_file_list' => env('API_URL_BEE', '') . '/final-plan-file-list',
-    'final_plan_file_upload' => env('API_URL_BEE', '') . '/final-plan-file-upload',
-    'final_plan_file_edit' => env('API_URL_BEE', '') . '/final-plan-file-edit',
-    'final_plan_file_update' => env('API_URL_BEE', '') . '/final-plan-file-update',
-    'final_plan_document_is_exist' => env('API_URL_BEE', '') . '/final-plan-document-is-exist',
+    'final_plan_file' => [
+        'list' => env('API_URL_BEE', '') . '/final-plan-file/list',
+        'store' => env('API_URL_BEE', '') . '/final-plan-file/store',
+        'edit' => env('API_URL_BEE', '') . '/final-plan-file/edit',
+        'update' => env('API_URL_BEE', '') . '/final-plan-file/update',
+    ],
+
+    'document_is_exist' => env('API_URL_BEE', '') . '/document-is-exist',
 
     'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',
 
