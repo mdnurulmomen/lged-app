@@ -4,7 +4,7 @@
         <div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-2">
             <img src="{{ asset('assets/media/users/blank.png') }}" class="img-responsive" alt="">
         </div>
-        <span class="font-weight-normal font-size-base d-none d-md-inline mr-3 text-violate">
+        <span class="font-weight-normal font-size-base d-none d-md-inline mr-3 text-violate" style="color: black">
             @if(isset($userDetails['user_role_id']) && $userDetails['user_role_id'] == 1)
                 {{__('Superman')}}
             @elseif(isset($userDetails['user_role_id']) && $userDetails['user_role_id'] == 3)
