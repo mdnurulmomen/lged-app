@@ -71,9 +71,10 @@ class MISAndDashboardController extends Controller
 
     public function loadFiscalYearWiseTeam(Request $request)
     {
+        $data['office_id'] = $request->office_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['cdesk'] = json_encode($this->current_desk());
-        $all_teams = $this->initHttpWithToken()->post(config('amms_bee_routes.mis_and_dashboard.get_fiscal_year_wise_team'), $data)->json();
+        $all_teams = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_fiscal_year_wise_team'), $data)->json();
 //        dd($all_teams);
         if (isSuccess($all_teams)) {
             $all_teams = $all_teams['data'];

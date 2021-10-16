@@ -3,11 +3,12 @@
 namespace App\View\Components;
 
 use App\Traits\UserInfoCollector;
+use App\Traits\GenericInfoCollection;
 use Illuminate\View\Component;
 
 class RpOfficeSelect extends Component
 {
-    use UserInfoCollector;
+    use UserInfoCollector, GenericInfoCollection;
 
     public $ministries = [];
     public $view_grid;
@@ -29,9 +30,14 @@ class RpOfficeSelect extends Component
         $responseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-ministry-list'), [
             'directorate_id' => $this->current_office_id()
         ])->json();
+
         $ministries = isSuccess($responseData) ? $responseData['data']: [];
+
+        $fiscal_years = $this->allFiscalYears();
+
         //dd($ministries);
         $this->ministries = $ministries;
+        $this->fiscal_years = $fiscal_years;
     }
 
     /**
@@ -42,7 +48,8 @@ class RpOfficeSelect extends Component
     public function render()
     {
         $ministries = $this->ministries;
+        $fiscal_years = $this->fiscal_years;
 
-        return view('components.rp-office-select', compact('ministries'));
+        return view('components.rp-office-select', compact('ministries','fiscal_years'));
     }
 }

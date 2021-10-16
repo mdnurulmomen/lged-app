@@ -83,8 +83,7 @@
             risk_category = $('#risk_category').val();
             let data = {directorate_id, office_ministry_id, audit_due_year, risk_category};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                let heading = '';
-                 heading += '<b>Showing Report For: </b>';
+                 let heading = '<p>Showing Report For: </p>';
                 if(directorate_id){
                     heading +='<p class="float-left pl-4""><b>Directorate:</b> '+$("#directorate_id option:selected").text()+'</p>';
                 }

@@ -54,17 +54,25 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col">
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i style="color:#3699FF !important"
+                                                class="fa fa-calendar" aria-hidden="true"></i></span></div>
                                 <input type="text" id="audit_year_start"
                                        class="year-picker form-control"
                                        placeholder="নিরীক্ষাধীন অর্থ বছর শুরু"
                                        value="{{empty($all_teams) || empty($all_teams[0]['audit_year_start'])?'':$all_teams[0]['audit_year_start']}}"
                                        autocomplete="off"/>
+                                </div>
                             </div>
                             <div class="col">
-                                <input type="text" id="audit_year_end"
-                                       class="year-picker form-control"
-                                       value="{{empty($all_teams) || empty($all_teams[0]['audit_year_end'])?'':$all_teams[0]['audit_year_end']}}"
-                                       placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" autocomplete="off"/>
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i style="color:#3699FF !important"
+                                                class="fa fa-calendar" aria-hidden="true"></i></span></div>
+                                    <input type="text" id="audit_year_end"
+                                           class="year-picker form-control"
+                                           value="{{empty($all_teams) || empty($all_teams[0]['audit_year_end'])?'':$all_teams[0]['audit_year_end']}}"
+                                           placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" autocomplete="off"/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -72,16 +80,24 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col">
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i style="color:#3699FF !important"
+                                                class="fa fa-calendar" aria-hidden="true"></i></span></div>
                                 <input type="text" id="team_start_date"
                                        class="date form-control"
                                        value="{{empty($all_teams) || empty($all_teams[0]['team_start_date'])?'':date('d/m/Y',strtotime($all_teams[0]['team_start_date']))}}"
                                        placeholder="সম্পাদনের সময়কাল শুরু" autocomplete="off"/>
+                                </div>
                             </div>
                             <div class="col">
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i style="color:#3699FF !important"
+                                                class="fa fa-calendar" aria-hidden="true"></i></span></div>
                                 <input type="text" id="team_end_date"
                                        class="date form-control"
                                        value="{{empty($all_teams) || empty($all_teams[0]['team_end_date'])?'':date('d/m/Y',strtotime($all_teams[0]['team_end_date']))}}"
                                        placeholder="সম্পাদনের সময়কাল শেষ" autocomplete="off"/>
+                                </div>
                             </div>
                         </div>
                     </div>

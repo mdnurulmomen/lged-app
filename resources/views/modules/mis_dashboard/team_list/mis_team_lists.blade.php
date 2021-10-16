@@ -36,9 +36,9 @@
                 }
             });
         },
-        loadMISTeamInfo: function (fiscal_year_id) {
+        loadMISTeamInfo: function (fiscal_year_id,office_id) {
             let url = '{{route('mis_and_dashboard.team_list.load-fiscal-year-wise-team')}}';
-            let data = {fiscal_year_id};
+            let data = {fiscal_year_id,office_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)
