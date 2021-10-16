@@ -31,7 +31,7 @@
                 <i class="fas fa-users"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
-                    onclick="Create_Entity_Plan_Container.printPlanBook($(this))">Print <i class="fas fa-print"></i>
+                    onclick="Create_Entity_Plan_Container.generatePDF($(this))">Save & Download <i class="fas fa-file-pdf"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success draft_entity_audit_plan"
                     data-activity-id="{{$activity_id}}"
@@ -153,6 +153,7 @@
             },
 
             generatePDF: function (elem) {
+                $('.draft_entity_audit_plan').click();
                 url = '{{route('audit.plan.audit.revised.plan.generate-audit-plan-pdf')}}';
                 plan = templateArray;
                 data = {plan};

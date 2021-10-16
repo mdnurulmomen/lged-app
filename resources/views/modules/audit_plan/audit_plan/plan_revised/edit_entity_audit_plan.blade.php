@@ -31,13 +31,13 @@
                     <i class="fas fa-users"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
-                    onclick="Edit_Entity_Plan_Container.printPlanBook($(this))">PDF <i class="fas fa-save"></i>
+                    onclick="Edit_Entity_Plan_Container.generatePDF($(this))">PDF <i class="fas fa-save"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success draft_entity_audit_plan"
                     data-audit-plan-id="{{$audit_plan['id']}}"
                     data-activity-id="{{$activity_id}}"
                     data-annual-plan-id="{{$annual_plan_id}}"
-                    onclick="Edit_Entity_Plan_Container.draftEntityPlan($(this))">Save<i class="fas fa-save"></i>
+                    onclick="Edit_Entity_Plan_Container.draftEntityPlan($(this))">Save & Download <i class="fas fa-file-pdf"></i>
             </button>
         </div>
     </div>
@@ -129,6 +129,33 @@
                     /* myWindow = window.open("data:text/html," + encodeURIComponent(response),
                          "_blank", "width=200,height=100");
                      myWindow.focus();*/
+                });
+            },
+
+            generatePDF: function (elem) {
+                $('.draft_entity_audit_plan').click();
+                url = '{{route('audit.plan.audit.revised.plan.generate-audit-plan-pdf')}}';
+                plan = templateArray;
+                data = {plan};
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: data,
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function (response) {
+                        var blob = new Blob([response]);
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = "audit_plan.pdf";
+                        link.click();
+                    },
+                    error: function (blob) {
+                        toastr.error('Failed to generate PDF.')
+                        console.log(blob);
+                    }
                 });
             },
         }

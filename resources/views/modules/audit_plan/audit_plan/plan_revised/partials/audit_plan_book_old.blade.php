@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {{--    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>--}}
+{{--    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>--}}
     <style>
         html {
             -ms-text-size-adjust: 100%;
@@ -12,11 +12,7 @@
 
         body {
             margin: 0;
-            font-family: solaimanlipipdf !important;
-        }
-
-        .bangla-font {
-            font-family: solaimanlipipdf !important;
+            font-family: solaimanlipipdf;
         }
 
         article,
@@ -227,13 +223,11 @@
         table {
             border-collapse: collapse;
             border-spacing: 0;
-            font-family: solaimanlipipdf !important;
         }
 
         td,
         th {
-            padding: 3px;
-            font-family: solaimanlipipdf !important;
+            padding: 0;
         }
 
         /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
@@ -783,17 +777,17 @@
 
 <body>
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen" style="height: 100%">
         {!! $cover['content'] !!}
     </div>
-
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen">
         @foreach($plans as $plan)
-            <div class="plan_content bangla-font">
+            <div class="plan_content">
                 {!! $plan['content'] !!}
             </div>
         @endforeach
     </div>
 </div>
+{{--<script src="public/assets/js/bootstrap.bundle.min.js"></script>--}}
 </body>
 </html>

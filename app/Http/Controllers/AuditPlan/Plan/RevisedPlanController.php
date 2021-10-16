@@ -144,7 +144,11 @@ class RevisedPlanController extends Controller
         $plans = $request->plan;
         $cover = $plans[0];
         array_shift($plans);
-        $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book', compact('plans', 'cover'));
+        $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
+            compact('plans', 'cover'));
+
+        /*$pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
+            ['plans' => $plans, 'cover' => $cover], [], ['orientation' => 'L', 'format' => 'A4']);*/
         return $pdf->stream('document.pdf');
     }
 

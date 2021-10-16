@@ -99,8 +99,7 @@
             url = '{{route('audit.plan.audit.office-orders.show-office-order')}}';
             audit_plan_id = elem.data('audit-plan-id');
             annual_plan_id = elem.data('annual-plan-id');
-            is_print = 0;
-            data = {audit_plan_id,annual_plan_id,is_print}
+            data = {audit_plan_id,annual_plan_id}
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)

@@ -25,9 +25,9 @@
 
         <button data-audit-plan-id="{{$office_order['audit_plan_id']}}"
                 data-annual-plan-id="{{$office_order['annual_plan_id']}}"
-                onclick="Show_Office_Order_Container.printOfficeOrder($(this))"
-                class="btn btn-warning btn-sm btn-bold btn-square">
-            <i class="far fa-print"></i>
+                onclick="Show_Office_Order_Container.generateOfficeOrderPDF($(this))"
+                class="btn btn-danger btn-sm btn-bold btn-square">
+            <i class="far fa-file-pdf"></i>
         </button>
     </div>
 </div>
@@ -48,7 +48,7 @@
             <span style="width: 85%;float: left">
                 {{$office_order['memorandum_no']}}
             </span>
-                <span style="width: 15%;float: right">
+                <span style="width: 15%;float: right;text-align: right">
                 তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
             </span>
             </div>
@@ -71,7 +71,7 @@
                         <th style="text-align: center" width="5%">ক্রমিক নং</th>
                         <th style="text-align: center" width="45%">নাম</th>
                         <th style="text-align: center" width="20%">পদবী</th>
-                        <th style="text-align: center" width="15%">নিরীক্ষা দলের অবস্থান</th>
+                        <th style="text-align: center" width="15%">নিরীক্ষা দলে অবস্থান</th>
                         <th style="text-align: center" width="15%">মোবাইল নং</th>
                     </tr>
                     </thead>
@@ -79,7 +79,7 @@
                     @foreach($audit_team_members as $audit_team_member)
                         <tr>
                             <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
-                            <td style="text-align: left">{{$audit_team_member['team_member_name_bn']}}</td>
+                            <td style="text-align: left;margin-left: 5px">জনাব {{$audit_team_member['team_member_name_bn']}}</td>
                             <td style="text-align: center">{{$audit_team_member['team_member_designation_bn']}}</td>
                             <td style="text-align: center">{{$audit_team_member['team_member_role_bn']}}</td>
                             <td style="text-align: center">{{enTobn($audit_team_member['mobile_no'])}}</td>
@@ -107,16 +107,18 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @php $teamMemberSL = 1; @endphp
                             @foreach(json_decode($audit_team_schedule['team_members'],true) as $role => $team_members)
                                 @if($role != 'teamLeader')
                                     @foreach($team_members as $key => $sub_team_leader)
                                         <tr>
-                                            <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
-                                            <td style="text-align: left">{{$sub_team_leader['officer_name_bn']}}</td>
+                                            <td style="text-align: center">{{enTobn($teamMemberSL)}}</td>
+                                            <td style="text-align: left;margin-left: 5px">জনাব {{$sub_team_leader['officer_name_bn']}}</td>
                                             <td style="text-align: center">{{$sub_team_leader['designation_bn'].' ও '.$sub_team_leader['team_member_role_bn']}}</td>
                                             <td style="text-align: center">{{enTobn($sub_team_leader['officer_mobile'])}}</td>
                                             <td style="text-align: center"></td>
                                         </tr>
+                                        @php $teamMemberSL++; @endphp
                                     @endforeach
                                 @endif
                             @endforeach
@@ -149,7 +151,7 @@
                                 @php $totalActivityManDays= $totalActivityManDays+$team_schedule['activity_man_days']; @endphp
                                 <tr>
                                     <td style="text-align: center">{{enTobn($scheduleSl)}}.</td>
-                                    <td style="text-align: left">{{$team_schedule['cost_center_name_bn']}}</td>
+                                    <td style="text-align: left;margin-left: 5px">{{$team_schedule['cost_center_name_bn']}}</td>
                                     <td style="text-align: center">{{enTobn($audit_team_schedule['audit_year_start'])}}-{{enTobn($audit_team_schedule['audit_year_end'])}}</td>
                                     <td style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি.
                                         হতে {{formatDate($team_schedule['team_member_end_date'],'bn')}} খ্রি.
@@ -200,7 +202,7 @@
                 <span style="width: 85%;float: left">
                     {{$office_order['memorandum_no']}}
                 </span>
-                    <span style="width: 15%;float: right">
+                    <span style="width: 15%;float: right;text-align: right">
                     তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
                 </span>
             </div>
@@ -227,20 +229,6 @@
 
 <script>
     var Show_Office_Order_Container={
-        printOfficeOrder: function (elem) {
-            url = '{{route('audit.plan.audit.office-orders.show-office-order')}}';
-            audit_plan_id = elem.data('audit-plan-id');
-            annual_plan_id = elem.data('annual-plan-id');
-            is_print = 1;
-            data = {audit_plan_id,annual_plan_id,is_print};
-
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                var newDoc = window.open("about:blank");
-                newDoc.document.open();
-                newDoc.document.write(response);
-            });
-        },
-
         loadOfficeOrderApprovalAuthority: function (element) {
             url = '{{route('audit.plan.audit.office-orders.load-office-order-approval-authority')}}';
             ap_office_order_id = element.data('ap-office-order-id');
@@ -295,6 +283,33 @@
                     else {
                         toastr.error(response.data.message);
                     }
+                }
+            });
+        },
+
+        generateOfficeOrderPDF: function (elem) {
+            url = '{{route('audit.plan.audit.office-orders.download-pdf')}}';
+            audit_plan_id = elem.data('audit-plan-id');
+            annual_plan_id = elem.data('annual-plan-id');
+            data = {audit_plan_id,annual_plan_id};
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (response) {
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "office_order.pdf";
+                    link.click();
+                },
+                error: function (blob) {
+                    toastr.error('Failed to generate PDF.')
+                    console.log(blob);
                 }
             });
         },
