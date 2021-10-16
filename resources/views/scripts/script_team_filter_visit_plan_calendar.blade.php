@@ -14,10 +14,32 @@
                     plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list'],
                     themeSystem: 'bootstrap',
 
+                    customButtons: {
+                        calendarListButton: {
+                            text: 'Custom List',
+                            click: function () {
+                                directorate_id = $('#directorate_filter').val();
+                                fiscal_year_id = $('#fiscal_year_id').val();
+                                team_filter = $('#team_filter').val();
+                                cost_center_id = $('#cost_center_filter').val();
+                                Team_Calendar_Container.loadTeamCalendarScheduleList(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+                                // if (directorate_id !== 'all') {
+                                //     if (team_filter || cost_center_id) {
+                                //         Team_Calendar_Container.loadTeamCalendarScheduleList(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+                                //     } else {
+                                //         Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
+                                //     }
+                                // } else {
+                                //     toastr.info('Please select a directorate.')
+                                // }
+                            }
+                        }
+                    },
+
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek,calendarListButton'
                     },
 
                     height: 800,
@@ -45,7 +67,18 @@
                                     @foreach($team['child'] as $sub_team)
                                         @if($sub_team['team_schedules'])
                                         @php
-                                            $schedules = json_decode($sub_team['team_schedules'],true);
+                                            if(isset($cost_center_id)){
+                                                $schedules = json_decode($sub_team['team_schedules'],true);
+
+                                                if(isset($schedules[$cost_center_id])){
+                                                    $schedules = [$schedules[$cost_center_id]];
+                                                }else{
+                                                    $schedules = [];
+                                                }
+
+                                            }else{
+                                                $schedules = json_decode($sub_team['team_schedules'],true);
+                                            }
                                         @endphp
                                         @foreach($schedules as $schedule)
 
@@ -68,7 +101,19 @@
                                 @else
                                     @if($team['team_schedules'])
                                         @php
-                                            $schedules = json_decode($team['team_schedules'],true);
+                                            if(isset($cost_center_id)){
+                                                $schedules = json_decode($team['team_schedules'],true);
+
+                                                if(isset($schedules[$cost_center_id])){
+                                                    $schedules = [$schedules[$cost_center_id]];
+                                                }else{
+                                                    $schedules = [];
+                                                }
+
+                                            }else{
+                                                $schedules = json_decode($team['team_schedules'],true);
+                                            }
+
                                         @endphp
                                         @foreach($schedules as $schedule)
 

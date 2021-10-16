@@ -34,7 +34,7 @@ class TeamCalendarController extends Controller
         $data['fiscal_year_id'] = $request->fiscal_year_id;
 
         $calendar_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.team_calendar_list'), $data)->json();
-
+//        dd($calendar_data);
         if (isSuccess($calendar_data)) {
             $calendar_data = $calendar_data['data'];
             return view('modules.audit_plan.calendar.load_team_calendar', compact('calendar_data'));
@@ -57,6 +57,23 @@ class TeamCalendarController extends Controller
         }
     }
 
+    public function loadSubTeamSelect(Request $request)
+    {
+        $data['office_id'] = $request->directorate_id;
+        $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['team_id'] = $request->team_id;
+        $data['cdesk'] = json_encode_unicode($this->current_desk());
+
+        $sub_team_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_sub_team'), $data)->json();
+//        dd($sub_team_list);
+        if (isSuccess($sub_team_list)) {
+            $sub_team_list = $sub_team_list['data'];
+            return view('modules.audit_plan.calendar.sub_team_select', compact('sub_team_list'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $sub_team_list]);
+        }
+    }
+
     public function loadCostCenterDirectorateFiscalYearWiseSelect(Request $request){
         $data['office_id'] = $request->directorate_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
@@ -76,12 +93,36 @@ class TeamCalendarController extends Controller
         $data['office_id'] = $request->directorate_id;
         $data['team_id'] = $request->team_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['cost_center_id'] = $request->cost_center_id;
 
         $calendar_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.team_calender_filter'), $data)->json();
+//        dd($calendar_data);
         if (isSuccess($calendar_data)) {
             $calendar_data = $calendar_data['data'];
             $team_id = $request->team_id;
-            return view('modules.audit_plan.calendar.load_team_filter_calendar', compact('calendar_data', 'team_id'));
+            $cost_center_id = $request->cost_center_id;
+            return view('modules.audit_plan.calendar.load_team_filter_calendar', compact('calendar_data', 'team_id','cost_center_id'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $calendar_data]);
+        }
+    }
+
+    public function loadTeamCalendarScheduleList(Request $request)
+    {
+        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['office_id'] = $request->directorate_id;
+        $data['team_id'] = $request->team_id;
+        $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['cost_center_id'] = $request->cost_center_id;
+//        dd($data);
+
+        $calendar_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.team_calender_schedule_list'), $data)->json();
+//        dd($calendar_data);
+        if (isSuccess($calendar_data)) {
+            $calendar_data = $calendar_data['data'];
+            $team_id = $request->team_id;
+            $cost_center_id = $request->cost_center_id;
+            return view('modules.audit_plan.calendar.individual_calender', compact('calendar_data', 'team_id','cost_center_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $calendar_data]);
         }

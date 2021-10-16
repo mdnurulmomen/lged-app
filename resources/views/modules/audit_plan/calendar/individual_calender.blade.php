@@ -206,17 +206,17 @@
                                                                          data-original-title="" title="">{{$datum['cost_center_name_bn']}}</a>
                                     </div>
                                     <div class=" subject-wrapper font-weight-normal font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">শুরুর তারিখ:</span>
-                                        <span class="description text-wrap font-size-14">{{formatDate($datum['team_member_start_date'],'bn')}}</span>
+                                        <span class="mr-2 font-size-1-1">নাম:</span>
+                                        <span class="description text-wrap font-size-14">{{$datum['team_member_name_bn']}}</span>
                                     </div>
                                     <div class=" subject-wrapper font-weight-normal font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">শেষের তারিখ:</span>
-                                        <span class="description text-wrap font-size-14">{{formatDate($datum['team_member_end_date'],'bn')}}</span>
+                                        <span class="mr-2 font-size-1-1">তারিখ:</span>
+                                        <span class="description text-wrap font-size-14">{{formatDate($datum['team_member_start_date'],'bn')}} - {{formatDate($datum['team_member_end_date'],'bn')}}</span>
                                     </div>
-                                    <div class=" subject-wrapper font-weight-normal font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">মন্তব্য:</span>
-                                        <span class="description text-wrap font-size-14">{{$datum['team_member_activity_description']}}</span>
-                                    </div>
+{{--                                    <div class=" subject-wrapper font-weight-normal font-weight-normal">--}}
+{{--                                        <span class="mr-2 font-size-1-1">মন্তব্য:</span>--}}
+{{--                                        <span class="description text-wrap font-size-14">{{$datum['team_member_activity_description']}}</span>--}}
+{{--                                    </div>--}}
                                     <div class=" font-weight-normal d-none predict-wrapper">
                                         <span class="predict-label text-success "></span>
                                     </div>
@@ -297,12 +297,13 @@
                                                                                      data-original-title="" title="">{{$datum['cost_center_name_bn']}}</a>
                                                 </div>
                                                 <div class=" subject-wrapper font-weight-normal font-weight-normal">
-                                                    <span class="mr-2 font-size-1-1">শুরুর তারিখ:</span>
-                                                    <span class="description text-wrap font-size-14">{{formatDate($datum['team_member_start_date'],'bn')}}</span>
+                                                    <span class="mr-2 font-size-1-1">নাম:</span>
+                                                    <span
+                                                        class="description text-wrap font-size-14">{{$datum['team_member_name_bn']}}</span>
                                                 </div>
                                                 <div class=" subject-wrapper font-weight-normal font-weight-normal">
-                                                    <span class="mr-2 font-size-1-1">শেষের তারিখ:</span>
-                                                    <span class="description text-wrap font-size-14">{{formatDate($datum['team_member_end_date'],'bn')}}</span>
+                                                    <span class="mr-2 font-size-1-1">তারিখ:</span>
+                                                    <span class="description text-wrap font-size-14">{{formatDate($datum['team_member_start_date'],'bn')}} - {{formatDate($datum['team_member_end_date'],'bn')}}</span>
                                                 </div>
                                                 <div class=" font-weight-normal d-none predict-wrapper">
                                                     <span class="predict-label text-success "></span>

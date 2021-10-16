@@ -263,7 +263,6 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/save-draft-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'saveDraftEntityAuditPlan'])->name('revised.plan.save-draft-entity-audit-plan');
             Route::post('/generate-audit-plan-pdf', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'generatePlanPDF'])->name('revised.plan.generate-audit-plan-pdf');
             Route::post('/print-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'printAuditPlan'])->name('revised.plan.print-audit-plan');
-            Route::post('/get-sub-team', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'getSubTeam'])->name('revised.plan.get-sub-team');
             Route::post('/get-team-info', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'getTeamInfo'])->name('revised.plan.get-team-info');
             Route::post('editor/load-audit-team-modal', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamModal'])->name('editor.load-audit-team-modal');
             Route::post('editor/load-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamSchedule'])->name('editor.load-audit-team-schedule');
@@ -291,6 +290,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('load-cost-center-directorate-fiscal-year-wise-select', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'loadCostCenterDirectorateFiscalYearWiseSelect'])->name('calendar.load-cost-center-directorate-fiscal-year-wise-select');
         Route::get('teams', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'index'])->name('calendar.teams');
         Route::post('update-visit-calender-status', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'updateVisitCalenderStatus'])->name('calendar.update-visit-calender-status');
+        Route::post('load-sub-team-select', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'loadSubTeamSelect'])->name('calendar.load-sub-teams-select');
+        Route::post('load-team-calendar-schedule-list', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'loadTeamCalendarScheduleList'])->name('calendar.load-team-calendar-schedule-list');
     });
 
     //Prepare

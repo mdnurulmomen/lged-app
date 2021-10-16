@@ -104,7 +104,6 @@ return [
         'update_audit_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/audit-team/update',
         'store_audit_team_schedule' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/audit-team/store-team-schedule',
         'update_audit_team_schedule' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/audit-team/update-team-schedule',
-        'get_sub_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-sub-tam',
         'get_team_info' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-team-info',
         'get_audit_plan_wise_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team',
         'ap_office_order' => [
@@ -142,7 +141,9 @@ return [
         'update_visit_calender_status' => env('API_URL_BEE', '') . '/planning/calendar/update-visit-calender-status',
         'team_calender_filter' => env('API_URL_BEE', '') . '/planning/calendar/team-filter',
         'get_fiscal_year_wise_team' => env('API_URL_BEE', '') . '/planning/calendar/load-fiscal-year-wise-team',
+        'get_sub_team' => env('API_URL_BEE', '') . '/planning/calendar/get-sub-tam',
         'get_cost_center_directorate_fiscal_year_wise' => env('API_URL_BEE', '') . '/planning/calendar/load-cost-center-directorate-fiscal-year-wise',
+        'team_calender_schedule_list' => env('API_URL_BEE', '') . '/planning/calendar/team-calender-schedule-list',
     ],
 
     'follow_up' => [

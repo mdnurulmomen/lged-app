@@ -1,5 +1,16 @@
-<div class="row mt-2">
-    <div class="col-md-4">
+<div class="row mt-2 mb-2">
+    <div class="col-md-3">
+        <select class="form-select select-select2" id="directorate_filter">
+            @if(count($directorates) > 1)
+                <option value="all">Select Directorate</option>
+            @endif
+            @foreach($directorates as $directorate)
+                <option value="{{$directorate['office_id']}}">{{$directorate['office_name_en']}}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="col-md-2">
         <select class="form-select select-select2" id="fiscal_year_id">
             @foreach($fiscal_years as $fiscal_year)
                 <option
@@ -8,41 +19,22 @@
         </select>
     </div>
 
-    <div class="col-md-4">
-        <select class="form-select select-select2" id="directorate_filter">
-            @if(count($directorates) > 1)
-                <option value="all">Select Directorate</option>
-            @endif
-            @foreach($directorates as $directorate)
-                <option
-                    value="{{$directorate['office_id']}}">{{$directorate['office_name_en']}}</option>
-            @endforeach
-        </select>
-    </div>
-
-    <div class="col-md-4">
+    <div class="col-md-3">
         <select class="form-select select-select2" id="cost_center_filter">
             <option value="">All Cost Center</option>
         </select>
     </div>
-</div>
-<div class="row mt-4 mb-2">
-    <div class="col-md-4">
+
+    <div class="col-md-3">
         <select class="form-select select-select2" id="team_filter">
             <option value="">All Teams</option>
         </select>
     </div>
 
-    <div class="col-md-4">
-        <select class="form-select select-select2" id="sub_team_filter">
-            <option value="">All Sub Teams</option>
-        </select>
-    </div>
-    <div class="col-md-4">
+    <div class="col-md-1">
         <button id="btn_filter" class="btn btn-icon btn-light-success btn-square mr-2" type="button"><i
             class="fad fa-search"></i></button>
     </div>
-
 </div>
 
 <div class="row">
@@ -58,6 +50,7 @@
             let data = {directorate_id, fiscal_year_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
+                        $('#load_team_calendar').html('<option value="">Select Team</option>');
                         toastr.error(response.data)
                     } else {
                         $('#load_team_calendar').html(response);
@@ -72,7 +65,7 @@
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
-                        $('#load_team_calendar').html(response);
+                        $('#cost_center_filter').html(response);
                     }
                 }
             );
@@ -90,8 +83,20 @@
             );
         },
         loadSubTeamList: function (directorate_id, fiscal_year_id, team_id) {
-            let url = '{{route('calendar.load-teams-calender-filter')}}';
+            let url = '{{route('calendar.load-sub-teams-select')}}';
             let data = {directorate_id, fiscal_year_id, team_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        $('#sub_team_filter').html(response);
+                    }
+                }
+            );
+        },
+        loadTeamFilter: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
+            let url = '{{route('calendar.load-teams-calender-filter')}}';
+            let data = {directorate_id, fiscal_year_id,cost_center_id,team_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
@@ -101,14 +106,23 @@
                 }
             );
         },
-        loadTeamFilter: function (directorate_id, fiscal_year_id, team_id) {
-            let url = '{{route('calendar.load-teams-calender-filter')}}';
-            let data = {directorate_id, fiscal_year_id, team_id};
+        loadTeamCalendarScheduleList: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
+            let url = '{{route('calendar.load-team-calendar-schedule-list')}}';
+            let data = {directorate_id, fiscal_year_id,cost_center_id,team_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
-                        $('#load_team_calendar').html(response);
+                        quick_panel = $("#kt_quick_panel");
+                        quick_panel.addClass('offcanvas-on');
+                        quick_panel.css('opacity', 1);
+                        quick_panel.css('width', '1200px');
+                        $('.offcanvas-footer').hide();
+                        quick_panel.removeClass('d-none');
+                        $("html").addClass("side-panel-overlay");
+
+                        $('.offcanvas-title').html('List');
+                        $('.offcanvas-wrapper').html(response);
                     }
                 }
             );
@@ -118,15 +132,19 @@
     $(function () {
             directorate_id = $('#directorate_filter').val();
             fiscal_year_id = $('#fiscal_year_id').val();
+            team_filter = $('#team_filter').val();
+            cost_center_id = $('#cost_center_filter').val();
+
             if (directorate_id !== 'all') {
-                Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
-                Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
+                //Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
+                 Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+                 Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
+                Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id);
             } else {
                 toastr.info('Please select directorate.')
                 $('#load_team_calendar').html('');
             }
-        }
-    );
+    });
     @else
     $(function () {
             directorate_id = $('#directorate_filter').val();
@@ -148,20 +166,27 @@
         }
     });
 
+    $('#team_filter').change(function () {
+        team_id = $('#team_filter').val();
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
+        Team_Calendar_Container.loadSubTeamList(directorate_id, fiscal_year_id, team_id);
+    });
+
     $('#btn_filter').click(function () {
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
         team_filter = $('#team_filter').val();
+        cost_center_id = $('#cost_center_filter').val();
         if (directorate_id !== 'all') {
-            if (team_filter) {
-                Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id, team_filter);
+            if (team_filter || cost_center_id) {
+                Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id,cost_center_id, team_filter);
             } else {
-                Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
+                 Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id,cost_center_id, team_filter);
+                // Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
             }
         } else {
             toastr.info('Please select a directorate.')
         }
-
-
     });
 </script>
