@@ -29,6 +29,12 @@
                              icon="fal fa-calendar-alt">Fiscal Year
                 </x-menu-item>
             </x-parent-menu-item>
+
+            <x-parent-menu-item icon="fas fa-list" name="Audit Conducting">
+                <x-menu-item class="" href="{{route('settings.audit-query.index')}}"
+                             icon="fal fa-calendar-alt">Query
+                </x-menu-item>
+            </x-parent-menu-item>
         </ul>
     </div>
 </div>

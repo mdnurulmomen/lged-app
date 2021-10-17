@@ -33,6 +33,12 @@ return [
         'responsible_offices_show' => env('API_URL_BEE', '') . '/responsible-offices/show',
         'responsible_offices_update' => env('API_URL_BEE', '') . '/responsible-offices/update',
         'responsible_offices_delete' => env('API_URL_BEE', '') . '/responsible-offices/delete',
+
+        'audit_query_lists' => env('API_URL_BEE', '') . '/audit-query',
+        'audit_query_create' => env('API_URL_BEE', '') . '/audit-query/create',
+        'audit_query_show' => env('API_URL_BEE', '') . '/audit-query/show',
+        'audit_query_update' => env('API_URL_BEE', '') . '/audit-query/update',
+        'audit_query_delete' => env('API_URL_BEE', '') . '/audit-query/delete',
     ],
 
     'audit_operational_plan' => [

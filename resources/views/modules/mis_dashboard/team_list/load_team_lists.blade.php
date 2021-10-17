@@ -16,7 +16,13 @@
             <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{$all_team['office_name_en']}}</td>
-                <td><a style="cursor: pointer" onclick="MIS_TEAM_LIST_CONTAINER.loadMISTeamInfo('{{$all_team['fiscal_year_id']}}','{{$all_team['office_id']}}')">{{$all_team['total_teams']}}</a></td>
+                <td>
+                    @if($all_team['total_teams'])
+                        <a style="cursor: pointer;text-decoration: underline;color: #0a58ca" onclick="MIS_TEAM_LIST_CONTAINER.loadMISTeamInfo('{{$all_team['fiscal_year_id']}}','{{$all_team['office_id']}}')">{{$all_team['total_teams']}}</a>
+                    @else
+                        {{$all_team['total_teams']}}
+                    @endif
+                </td>
                 <td>{{$all_team['total_team_members']}}</td>
                 <td>{{$all_team['total_working_days']}}</td>
                 <td>{{$all_team['total_employees']}}</td>
