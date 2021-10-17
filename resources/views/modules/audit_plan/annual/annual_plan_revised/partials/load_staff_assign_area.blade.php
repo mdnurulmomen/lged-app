@@ -24,10 +24,10 @@
         <input class="form-control staff_{{$count}}" type="number" name="staff">
     </div>
     <div class="col-md-2 mt-9">
-        <span onclick="Annual_Plan_Container.addTeamSection($(this))" class="btn btn-outline-primary btn-sm btn-square">
+        <span title="যোগ করুন" onclick="Annual_Plan_Container.addTeamSection($(this))" class="btn btn-outline-primary btn-sm btn-square">
             <i class="fal fa-plus"></i>
         </span>
-        <button onclick="Annual_Plan_Container.removeTeamSection($(this))"
+        <button title="মুছে ফেলুন" onclick="Annual_Plan_Container.removeTeamSection($(this))"
                 class="btn btn-outline-danger btn-sm btn-danger btn-square">
             <i class="fal fa-minus"></i>
         </button>

@@ -123,7 +123,7 @@
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_content');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {

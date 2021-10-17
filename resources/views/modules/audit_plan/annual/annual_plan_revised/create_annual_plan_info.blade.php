@@ -40,7 +40,7 @@
     <div class="col-7">
         <div class="row">
             <div class="offset-6 col-md-6 text-right p-2">
-                <button class="btn btn-sm btn-square btn-primary btn-hover-success"
+                <button class="btn btn-sm btn-square btn-primary btn-hover-success mr-2"
                         onclick="Annual_Plan_Container.submitAnnualPlan($(this))"><i class="fa fa-save"></i> সংরক্ষণ
                 </button>
             </div>
