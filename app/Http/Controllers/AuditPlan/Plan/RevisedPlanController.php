@@ -28,7 +28,8 @@ class RevisedPlanController extends Controller
         $all_entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data)->json();
         if (isSuccess($all_entities)) {
             $all_entities = $all_entities['data'];
-            return view('modules.audit_plan.audit_plan.plan_revised.plan_lists', compact('all_entities'));
+            return view('modules.audit_plan.audit_plan.plan_revised.partials.load_plan_lists',
+                compact('all_entities'));
         } else {
             return response()->json(['status' => 'error', 'data' => $all_entities]);
         }

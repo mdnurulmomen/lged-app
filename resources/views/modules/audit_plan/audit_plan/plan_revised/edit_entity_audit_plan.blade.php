@@ -31,13 +31,13 @@
                     <i class="fas fa-users"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
-                    onclick="Edit_Entity_Plan_Container.generatePDF($(this))">PDF <i class="fas fa-save"></i>
+                    onclick="Edit_Entity_Plan_Container.generatePDF($(this))">Save & Download <i class="fas fa-file-pdf"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success draft_entity_audit_plan"
                     data-audit-plan-id="{{$audit_plan['id']}}"
                     data-activity-id="{{$activity_id}}"
                     data-annual-plan-id="{{$annual_plan_id}}"
-                    onclick="Edit_Entity_Plan_Container.draftEntityPlan($(this))">Save & Download <i class="fas fa-file-pdf"></i>
+                    onclick="Edit_Entity_Plan_Container.draftEntityPlan($(this))">Save <i class="fas fa-save"></i>
             </button>
         </div>
     </div>

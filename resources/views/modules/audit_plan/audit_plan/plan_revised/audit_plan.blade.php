@@ -1,10 +1,8 @@
-<x-title-wrapper>Annual Plan Lists</x-title-wrapper>
-<form>
+<x-title-wrapper>Audit Plan Lists</x-title-wrapper>
+<form class="pl-4 pt-4">
     <div class="form-row">
-        <div class="col-md-2 d-md-flex align-items-md-center">
-            <p class="mb-0">Fiscal Year</p>
-        </div>
-        <div class="col-md-4 ">
+        <div class="col-md-4">
+            <label>Select Fiscal Year</label>
             <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
                 <option value="">Choose Fiscal Year</option>
                 @foreach($fiscal_years as $fiscal_year)

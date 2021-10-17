@@ -284,7 +284,7 @@
         <table class="table table-striped">
             <thead class="thead-light">
             <tr>
-                <th class="align-middle">মন্ত্রণালয়/বিভাগ</th>
+                <th>মন্ত্রণালয়/বিভাগ</th>
                 <th>প্রতিষ্ঠানের নাম</th>
                 <th>প্রতিষ্ঠানের ধরণ</th>
                 <th>প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা</th>
@@ -292,7 +292,7 @@
                 <th>সাবজেক্ট ম্যাটার</th>
                 <th>প্রয়োজনীয় লোকবল</th>
                 <th>মন্তব্য</th>
-                <th width="8%">প্ল্যান</th>
+                <th width="10%">প্ল্যান</th>
             </tr>
             </thead>
             <tbody>
