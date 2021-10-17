@@ -109,19 +109,25 @@
         loadTeamCalendarScheduleList: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
             let url = '{{route('calendar.load-team-calendar-schedule-list')}}';
             let data = {directorate_id, fiscal_year_id,cost_center_id,team_id};
+
+            quick_panel = $("#kt_quick_panel");
+            quick_panel.addClass('offcanvas-on');
+            quick_panel.css('opacity', 1);
+            quick_panel.css('width', '1200px');
+            $('.offcanvas-footer').hide();
+            quick_panel.removeClass('d-none');
+            $("html").addClass("side-panel-overlay");
+            $('.offcanvas-title').html('List');
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_content');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
-                        quick_panel = $("#kt_quick_panel");
-                        quick_panel.addClass('offcanvas-on');
-                        quick_panel.css('opacity', 1);
-                        quick_panel.css('width', '1200px');
-                        $('.offcanvas-footer').hide();
-                        quick_panel.removeClass('d-none');
-                        $("html").addClass("side-panel-overlay");
 
-                        $('.offcanvas-title').html('List');
                         $('.offcanvas-wrapper').html(response);
                     }
                 }
