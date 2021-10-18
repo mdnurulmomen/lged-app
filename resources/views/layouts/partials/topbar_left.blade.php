@@ -20,18 +20,6 @@
             </li>
             <li class="menu-item">
                 <button
-                    class="btn btn-outline-success btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown"
-                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-line-columns"></i><span>Prepare</span>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="{{route('audit.preparation.sampling')}}">Sampling</a>
-                    <a class="dropdown-item" href="{{route('audit.preparation.data_analysis')}}">Data Analysis</a>
-                    <a class="dropdown-item" href="{{route('audit.preparation.activities')}}">Activities</a>
-                </div>
-            </li>
-            <li class="menu-item">
-                <button
                     class="btn btn-outline-danger btn-square dropdown-toggle btn-sm width-160p text-left fixed-width-dropdown"
                     type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fal fa-network-wired"></i><span>Conducting</span>
@@ -42,6 +30,18 @@
                     <a class="dropdown-item" href="{{route('audit.execution.query')}}">Audit Query</a>
                     <a class="dropdown-item" href="{{route('audit.execution.discussion')}}">Audit Discussion</a>
                     <a class="dropdown-item" href="{{route('audit.execution.review')}}">Review</a>
+                </div>
+            </li>
+            <li class="menu-item">
+                <button
+                    class="btn btn-outline-success btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown"
+                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-line-columns"></i><span>Prepare</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{{route('audit.preparation.sampling')}}">Sampling</a>
+                    <a class="dropdown-item" href="{{route('audit.preparation.data_analysis')}}">Data Analysis</a>
+                    <a class="dropdown-item" href="{{route('audit.preparation.activities')}}">Activities</a>
                 </div>
             </li>
             <li class="menu-item">

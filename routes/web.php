@@ -313,7 +313,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     });
 
     //Execute
-    Route::group(['as' => 'audit.execution.', 'prefix' => 'audit-execution/'], function () {
+    Route::group(['as' => 'audit.execution.', 'prefix' => 'audit-conducting/'], function () {
         Route::get('/', function () {
             return redirect()->route('audit.execution.dashboard');
         });
