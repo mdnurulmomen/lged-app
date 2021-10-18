@@ -39,6 +39,8 @@ return [
         'audit_query_show' => env('API_URL_BEE', '') . '/audit-query/show',
         'audit_query_update' => env('API_URL_BEE', '') . '/audit-query/update',
         'audit_query_delete' => env('API_URL_BEE', '') . '/audit-query/delete',
+
+        'cost_center_type_lists' => env('API_URL_BEE', '') . '/cost-center-type',
     ],
 
     'audit_operational_plan' => [

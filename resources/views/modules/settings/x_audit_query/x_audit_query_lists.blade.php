@@ -10,7 +10,7 @@
             <div class="card-toolbar">
                 <button type="button" data-url="{{route('settings.audit-query.store')}}" data-method="POST"
                         class="font-weight-bolder font-size-sm mr-3 btn btn-success btn-sm btn-bold btn-square btn_create_audit_query">
-                    <i class="far fa-plus mr-1"></i> Create New Fiscal Year
+                    <i class="far fa-plus mr-1"></i> Create Query
                 </button>
             </div>
         </div>
@@ -36,27 +36,27 @@
             <div class="col-md-4">
                 <select name="cost_center_type_id" id="cost_center_type_id" class="form-control select-select2">
                     <option value="">Select Cost Center Type</option>
-                    <option value="1">Medical Collage</option>
-                    <option value="2">Financial</option>
+                    @foreach($cost_center_types as $key => $type)
+                        <option value="{{$type['id']}}">{{$type['name_bn']}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
-        <div class="form-row pt-4" id="team_section_1">
-            <div class="col-md-4">
-                <input class="form-control staff_1" type="text" name="staff">
-            </div>
-            <div class="col-md-4">
-                <input class="form-control staff_1" type="text" name="staff">
-            </div>
-            <div class="col-md-2 mt-4">
-                <span title="যোগ করুন" onclick="Annual_Plan_Container.addTeamSection($(this))"
-                      class="btn btn-outline-primary btn-sm btn-square">
+        <div class="appendQuery">
+            <div class="form-row pt-4">
+                <div class="col-md-4">
+                    <textarea placeholder="Query Title Bangla" class="form-control" type="text" name="query_title_bn[]"></textarea>
+
+                </div>
+                <div class="col-md-4">
+                    <textarea placeholder="Query Title Bangla" class="form-control" type="text" name="query_title_en[]"></textarea>
+                </div>
+                <div class="col-md-2">
+                <span title="যোগ করুন"
+                      class="btn btn-outline-primary btn-sm btn-square btn_query_add">
                     <i class="fal fa-plus"></i>
                 </span>
-                <button title="মুছে ফেলুন" onclick="Annual_Plan_Container.removeTeamSection($(this))"
-                        class="btn btn-outline-danger btn-sm btn-danger btn-square">
-                    <i class="fal fa-minus"></i>
-                </button>
+                </div>
             </div>
         </div>
         <input type="hidden" name="audit_query_id" id="audit_query_id" value="">
@@ -98,6 +98,32 @@
         data = $('#audit_query_form').serialize();
         method = $(this).data('method');
         submitModalData(url, data, method, 'audit_query_modal')
+    });
+
+    $('.btn_query_add').on('click', function () {
+        $('.appendQuery').append(
+            `<div class="form-row pt-4">
+                <div class="col-md-4">
+                    <textarea placeholder="Query Title Bangla" class="form-control" type="text" name="query_title_bn[]"></textarea>
+                </div>
+                <div class="col-md-4">
+                    <textarea placeholder="Query Title Bangla" class="form-control" type="text" name="query_title_en[]"></textarea>
+                </div>
+                <div class="col-md-2">
+                    <button title="মুছে ফেলুন" class="btn btn-outline-danger btn-sm btn-danger btn-square btn_query_remove">
+                        <i class="fal fa-minus"></i>
+                    </button>
+                </div>
+            </div>`
+        );
+
+        $('.appendQuery').on('click', '.btn_query_remove', function(e) {
+            e.preventDefault();
+            $(this).parent().parent().remove();
+        });
+
+        // $('.summernote').summernote();
+        // $('div.note-editable').height(150);
     });
 
 </script>

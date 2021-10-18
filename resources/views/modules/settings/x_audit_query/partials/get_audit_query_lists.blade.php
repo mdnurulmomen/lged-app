@@ -40,7 +40,7 @@
             </td>
             <td class="datatable-cell text-center">
                 <a href="javascript:;"
-                   data-fiscal-year-id="{{$audit_query['id']}}"
+                   data-audit-query-id="{{$audit_query['id']}}"
                    data-url="{{route('settings.audit-query.destroy', ['audit_query' => $audit_query['id']])}}"
                    class="btn btn-icon btn-outline-danger btn-xs border-0 mr-2 delete_audit_query">
                     <i class="fal fa-trash-alt"></i>

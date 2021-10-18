@@ -46,7 +46,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('is-document-exist', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
             ::class, 'isDocumentExist'])->name('is_document_exist');
 
-            
+
             //html view
             Route::get('setting-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController
             ::class, 'index'])->name('setting_list');
@@ -322,6 +322,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('area', [\App\Http\Controllers\AuditExecution\AuditExecutionAreaController::class, 'index'])->name('area');
 
         Route::get('query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'index'])->name('query');
+
+        Route::get('schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'queryScheduleList'])->name('query-schedule-list');
+        Route::get('load-schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadQueryScheduleList'])->name('load-query-schedule-list');
 
         Route::get('discussion', [\App\Http\Controllers\AuditExecution\AuditExecutionDiscussionController::class, 'index'])->name('discussion');
 

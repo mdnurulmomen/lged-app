@@ -27,6 +27,16 @@ trait GenericInfoCollection
         }
     }
 
+    public function allCostCenterType()
+    {
+        $cost_center_types = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.cost_center_type_lists'), ['all' => 1])->json();
+        if ($cost_center_types['status'] == 'success') {
+            return $cost_center_types['data'];
+        } else {
+            return [];
+        }
+    }
+
     public function allStrategicPlanOutcomes()
     {
         $plan_outcome = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_outcome_lists'), ['all' => 1])->json();

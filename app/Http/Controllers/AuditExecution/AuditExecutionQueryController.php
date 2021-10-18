@@ -17,6 +17,24 @@ class AuditExecutionQueryController extends Controller
         return view('modules.audit_execution.audit_execution_query.index');
     }
 
+    public function queryScheduleList()
+    {
+        return view('modules.audit_execution.audit_execution_query.schedule_list');
+    }
+
+    public function loadQueryScheduleList(Request $request)
+    {
+//        $data['cdesk'] = json_encode_unicode($this->current_desk());
+//        $data['fiscal_year_id'] = 1;
+//        $audit_query_schedule_list = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_lists'),$data)->json();
+//        dd();
+//        if ($audit_query_schedule_list['status'] == 'success') {
+//            $audit_query_schedule_list = $audit_query_schedule_list['data'];
+//            return view('modules.audit_execution.audit_execution_query.get_schedule_list', compact('audit_query_schedule_list'));
+//        }
+        return view('modules.audit_execution.audit_execution_query.get_shecule_llist');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

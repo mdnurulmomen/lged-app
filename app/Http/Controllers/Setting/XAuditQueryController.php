@@ -9,8 +9,8 @@ class XAuditQueryController extends Controller
 {
     public function index()
     {
-//        $strategic_durations = $this->allStrategicPlanDurations();
-        return view('modules.settings.x_audit_query.x_audit_query_lists');
+        $cost_center_types = $this->allCostCenterType();
+        return view('modules.settings.x_audit_query.x_audit_query_lists',compact('cost_center_types'));
     }
 
     public function getAuditQueryLists(Request $request)
@@ -34,6 +34,7 @@ class XAuditQueryController extends Controller
             'query_title_en' => $request->query_title_en,
             'query_title_bn' => $request->query_title_bn,
         ];
+
         $create_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_query_create'), $data)->json();
 
         if (isset($create_audit_query['status']) && $create_audit_query['status'] == 'success') {
@@ -64,8 +65,8 @@ class XAuditQueryController extends Controller
         $data = [
             'audit_query_id' => $audit_query_id,
         ];
+//        dd($data);
         $create_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_query_delete'), $data)->json();
-
         if (isset($create_audit_query['status']) && $create_audit_query['status'] == 'success') {
             return response()->json(responseFormat('success', 'Updated Successfully'));
         } else {
