@@ -24,17 +24,31 @@ class AuditExecutionQueryController extends Controller
 
     public function loadQueryScheduleList(Request $request)
     {
-//        $data['cdesk'] = json_encode_unicode($this->current_desk());
-//        $data['fiscal_year_id'] = 1;
-//        $audit_query_schedule_list = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_lists'),$data)->json();
-//        dd();
-//        if ($audit_query_schedule_list['status'] == 'success') {
-//            $audit_query_schedule_list = $audit_query_schedule_list['data'];
-//            return view('modules.audit_execution.audit_execution_query.get_schedule_list', compact('audit_query_schedule_list'));
-//        }
-        return view('modules.audit_execution.audit_execution_query.get_shecule_llist');
+        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['fiscal_year_id'] = 1;
+        $audit_query_schedule_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.get_query_schedule_list'),$data)->json();
+//        dd($audit_query_schedule_list);
+        if ($audit_query_schedule_list['status'] == 'success') {
+            $audit_query_schedule_list = $audit_query_schedule_list['data'];
+            return view('modules.audit_execution.audit_execution_query.get_schedule_list', compact('audit_query_schedule_list'));
+        }
     }
 
+    public function selectAuditQuery(Request $request){
+        $cost_center_types = $this->allCostCenterType();
+        return view('modules.audit_execution.audit_execution_query.select_audit_query',compact('cost_center_types'));
+    }
+
+    public function costCenterTypeWiseQuery(Request $request){
+        $data['cost_center_type_id'] = $request->cost_center_type_id;
+        $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.get_cost_center_type_wise_query'),$data)->json();
+//        dd($audit_query_list);
+        $cost_center_types = $this->allCostCenterType();
+        if ($audit_query_list['status'] == 'success') {
+            $audit_query_list = $audit_query_list['data'];
+            return view('modules.audit_execution.audit_execution_query.get_query_list', compact('audit_query_list','cost_center_types'));
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -21,17 +21,24 @@
     }
 </script>
 <script>
-    var calenderFunctions = {
-        updateVisitCalenderStatus: function (schedule_id, status) {
-            url = '{{route('calendar.update-visit-calender-status')}}';
-            data = {schedule_id, status};
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'success') {
-                    $('.fc-calendarListButton-button').trigger('click');
-                    toastr.success(response.data);
+    var auditQuerySchedule = {
+        selectQuery: function () {
+
+            quick_panel = $("#kt_quick_panel");
+            quick_panel.addClass('offcanvas-on');
+            quick_panel.css('opacity', 1);
+            quick_panel.css('width', '800px');
+            $('.offcanvas-footer').hide();
+            quick_panel.removeClass('d-none');
+            $("html").addClass("side-panel-overlay");
+            $('.offcanvas-title').html('Send Query');
+            url = '{{route('audit.execution.select-audit-query')}}';
+            data = {};
+            ajaxCallAsyncCallbackAPI(url, data, 'get', function (response) {
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
                 } else {
-                    toastr.error(response.data);
-                    console.log(response)
+                    $('.offcanvas-wrapper').html(response);
                 }
             })
         }

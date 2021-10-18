@@ -171,6 +171,11 @@ return [
         'all_team_lists' => env('API_URL_BEE', '') . '/mis-and-dashboard/load-all-team-lists',
     ],
 
+    'audit_conduct_query' => [
+        'get_query_schedule_list' => env('API_URL_BEE', '') . '/audit-conduct-query/audit-query-schedule-list',
+        'get_cost_center_type_wise_query' => env('API_URL_BEE', '') . '/cost-center-type-wise-query',
+    ],
+
     'final_plan_file' => [
         'list' => env('API_URL_BEE', '') . '/final-plan-file/list',
         'store' => env('API_URL_BEE', '') . '/final-plan-file/store',
