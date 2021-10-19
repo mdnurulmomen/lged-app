@@ -23,7 +23,7 @@
             </th>
         </tr>
         </thead>
-        <tbody data-tbody-id="{{$team_layer_id}}_1">
+        <tbody data-tbody-id="{{$team_layer_id}}_1" data-schedule-type="schedule">
         <tr class='audit_schedule_row_{{$team_layer_id}}' data-layer-id="{{$team_layer_id}}"
             data-audit-schedule-first-row='1_{{$team_layer_id}}'>
             <td>
@@ -56,6 +56,7 @@
             <td>
                 <input type="number" data-id="{{$team_layer_id}}_0" value="0"
                        class="form-control input-total-working-day"
+                       min="0"
                        id="input_total_working_day_{{$team_layer_id}}_0"/>
             </td>
             <td style="display: inline-flex;">
@@ -80,14 +81,14 @@
         </tr>
         </tbody>
 
-        <tbody data-tbody-id="{{$team_layer_id}}_2">
+        <tbody data-tbody-id="{{$team_layer_id}}_2" data-schedule-type="visit">
         <tr class="audit_schedule_row_{{$team_layer_id}}" data-layer-id="{{$team_layer_id}}"
             data-schedule-second-row='1_{{$team_layer_id}}'>
-            <td width="20%">
-                <input type="text" data-id="{{$team_layer_id}}_0" class="date form-control input-detail-duration"/>
-            </td>
-            <td width="50%" colspan="2">
+            <td>
                 <input type="text" data-id="{{$team_layer_id}}_0" class="form-control input-detail"/>
+            </td>
+            <td colspan="2">
+                <input type="text" data-id="{{$team_layer_id}}_0" class="date form-control input-detail-duration"/>
             </td>
             <td style="display: inline-flex;">
                 <button type="button"
@@ -115,7 +116,6 @@
 </div>
 
 <script>
-    //working days
     $(document).on('change', '.audit_schedule_row_{{$team_layer_id}} input', function () {
         populateData(this);
     });

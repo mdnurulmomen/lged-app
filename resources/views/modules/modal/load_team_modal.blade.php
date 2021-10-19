@@ -360,6 +360,7 @@
 
                                                                                         <td>
                                                                                             <input type="number"
+                                                                                                   min="0"
                                                                                                    data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
                                                                                                    class="form-control input-total-working-day"
                                                                                                    value="{{$schedule['activity_man_days']}}"
@@ -528,7 +529,7 @@
             "class='date form-control input-start-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শুরু'/></div><div class='col'>" +
             "<input type='text' class='date form-control input-end-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শেষ'/>" +
             "</div></div></td>"
-        teamScheduleHtml += "<td><input type='number' value='0' class='form-control input-total-working-day' id='input_total_working_day_" + layer_id + "_" + totalAuditScheduleRow + "' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'/></td>";
+        teamScheduleHtml += "<td><input type='number' min='0' value='0' class='form-control input-total-working-day' id='input_total_working_day_" + layer_id + "_" + totalAuditScheduleRow + "' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'/></td>";
         teamScheduleHtml += "<td style='display: inline-flex'>" +
             "<button type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
             "<span class='fad fa-calendar-day'></span>" +
