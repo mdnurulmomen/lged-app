@@ -4,7 +4,7 @@
     <input id="cost_center_name_bn" type="hidden" value="{{$cost_center_name_bn}}">
     <div class="col-md-4">
         <select id="cost_center_type" class="form-control">
-            <option value="">Select Query </option>
+            <option value="">Select Institution Type </option>
             @foreach($cost_center_types as $key => $cost_center)
                 <option value="{{$cost_center['id']}}">{{$cost_center['name_bn']}}</option>
             @endforeach
