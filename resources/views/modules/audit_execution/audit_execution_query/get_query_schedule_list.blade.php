@@ -71,7 +71,7 @@
                                                     <span
                                                         class="badge badge-pill badge-info border font-weight-bold mr-1 shadow">
                                                         <span
-                                                            class="en_to_bn_text text-light text-uppercase">{{__('Continuous')}}</span>
+                                                            class="en_to_bn_text text-light text-uppercase">{{__('চলমান')}}</span>
                                                     </span>
                                                 @endif
 

@@ -48,6 +48,23 @@
             })
         },
 
+        receivedQuery: function (query_id) {
+            cost_center_id = $('#cost_center_id').val();
+            cost_center_name_en = $('#cost_center_name_en').val();
+            cost_center_name_bn = $('#cost_center_name_bn').val();
+            cost_center_type_id = $('#cost_center_type').val();
+
+            url = '{{route('audit.execution.received-audit-query')}}';
+            data = {query_id, cost_center_id, cost_center_type_id, cost_center_name_bn, cost_center_name_en};
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    toastr.success(response.data)
+                }
+            })
+        },
+
         selectQuery: function (cost_center_id,cost_center_name_en,cost_center_name_bn) {
             quick_panel = $("#kt_quick_panel");
             quick_panel.addClass('offcanvas-on');

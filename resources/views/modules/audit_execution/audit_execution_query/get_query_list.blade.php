@@ -3,7 +3,7 @@
         type="button"
         data-id="1"
         class="float-right font-weight-bolder font-size-sm mb-3 btn btn-success btn-sm btn-bold btn-square btn_create_audit_query">
-        <i class="far fa-plus mr-1"></i> Add
+        <i class="far fa-plus mr-1"></i> Add Query
     </button>
     <button
         type="button"
@@ -29,7 +29,7 @@
     <tbody style="" class="datatable-body">
     @forelse($audit_query_list as $query)
         <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
-            <td class="datatable-cell text-center"><span><input class="selectQuery"
+            <td class="datatable-cell text-center"><span><input @if($query['audit_query']) checked  @endif class="selectQuery"
                                                                 data-query-bn="{{$query['query_title_bn']}}"
                                                                 data-query-en="{{$query['query_title_en']}}"
                                                                 data-query-id="{{$query['id']}}"
@@ -38,11 +38,18 @@
                                                                 type="checkbox"></span></td>
             <td class="datatable-cell"><span>{{$query['query_title_bn']}}</span></td>
             <td class="datatable-cell text-center">
-                <button
-                    type="button"
-                    class="float-right font-weight-bolder font-size-sm ml-2 btn btn-success btn-sm btn-bold btn-square receivedQuery">
-                    Received
-                </button>
+                @if($query['audit_query'])
+{{--                    @if(isset($query['audit_query']['is_query_received']))--}}
+{{--                        Received--}}
+{{--                    @else--}}
+                        <button
+                            onclick="Audit_Query_Container.receivedQuery('{{$query['id']}}')"
+                            type="button"
+                            class="float-right font-weight-bolder font-size-sm ml-2 btn btn-success btn-sm btn-bold btn-square receivedQuery">
+                            Receive
+                        </button>
+{{--                    @endif--}}
+                @endif
             </td>
         </tr>
     @empty
