@@ -80,13 +80,14 @@
                                                 $schedules = json_decode($sub_team['team_schedules'],true);
                                             }
                                         @endphp
+
                                         @foreach($schedules as $schedule)
 
                                             {
-                                                title: '{{$sub_team['team_name']}}  (উপদল নেতা : {{$sub_team['leader_name_bn']}}) - {{$schedule['cost_center_name_bn']}}',
+                                                title: '{{$sub_team['team_name']}}  (উপদল নেতা : {{$sub_team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
                                                 start: '{{$schedule['team_member_start_date']}}',
                                                 end: '{{$schedule['team_member_end_date']}}',
-                                                description: '{{$schedule['cost_center_name_bn']}}',
+                                                description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
                                                 team_id: '{{$sub_team['id']}}',
                                                 team_name: '{{$sub_team['team_name']}}',
                                                 team_members: '{{$sub_team['team_members']}}',
@@ -118,10 +119,10 @@
                                         @foreach($schedules as $schedule)
 
                                             {
-                                                title: '{{$team['team_name']}}  (উপদল নেতা : {{$team['leader_name_bn']}}) - {{$schedule['cost_center_name_bn']}}',
+                                                title: '{{$team['team_name']}}  (উপদল নেতা : {{$team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
                                                 start: '{{$schedule['team_member_start_date']}}',
                                                 end: '{{$schedule['team_member_end_date']}}',
-                                                description: '{{$schedule['cost_center_name_bn']}}',
+                                                description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
                                                 team_id: '{{$team['id']}}',
                                                 team_name: '{{$team['team_name']}}',
                                                 team_members: '{{$team['team_members']}}',
@@ -232,16 +233,23 @@
                                 </tr>`;
 
                         $.each(team_schedules, function (key, data) {
-                            html += '<tr>';
-                            html += '<td>' + data.cost_center_name_bn + '</td>';
+                            if (data.schedule_type === 'schedule'){
+                                html += '<tr>';
+                                html += '<td>' + data.cost_center_name_bn + '</td>';
 
-                            html += '<td>' + enTobn(event.event.extendedProps.audit_start_end_year) + '</td>';
+                                html += '<td>' + enTobn(event.event.extendedProps.audit_start_end_year) + '</td>';
 
-                            html += '<td>' + enTobn(DmyFormat(data.team_member_start_date,'/')) + '-<br>'  +  enTobn(DmyFormat(data.team_member_end_date,'/')) +'</td>';
+                                html += '<td>' + enTobn(DmyFormat(data.team_member_start_date,'/')) + '-<br>'  +  enTobn(DmyFormat(data.team_member_end_date,'/')) +'</td>';
 
-                            html += '<td>' + enTobn(data.activity_man_days) + '</td>';
+                                html += '<td>' + enTobn(data.activity_man_days) + '</td>';
 
-                            html += '</tr>';
+                                html += '</tr>';
+                            }
+                            else if(data.schedule_type === 'visit'){
+                                html += '<tr>';
+                                html += '<td class="text-center" colspan="4">' + enTobn(DmyFormat(data.team_member_start_date,'/'))+' খ্রি. '+data.activity_details + '</td>';
+                                html += '</tr>';
+                            }
                         });
 
                         html += `</table>`;

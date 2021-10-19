@@ -288,7 +288,7 @@
                                                                 @endphp
 
                                                                 <div class="audit_schedule_list_div">
-                                                                    <table id="audit_schedule_table_{{$value['id']}}"
+                                                                    <table id="audit_schedule_table_{{$loop->iteration}}"
                                                                            class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm text-center">
                                                                         <thead>
                                                                         <tr>
@@ -320,16 +320,15 @@
 
                                                                             <div class="px-2 pt-0"
                                                                                  id="team_schedule_list_{{$row}}">
-                                                                                <tbody
-                                                                                    data-tbody-id="{{$value['id']}}_{{$row}}">
-                                                                                <tr class='audit_schedule_row_{{$value['id']}}'
-                                                                                    data-layer-id="{{$value['id']}}"
-                                                                                    data-audit-schedule-first-row='{{$row}}_{{$value['id']}}'>
+                                                                                <tbody data-tbody-id="{{$loop->parent->iteration}}_{{$row}}">
+                                                                                <tr class='audit_schedule_row_{{$loop->parent->iteration}}'
+                                                                                    data-layer-id="{{ $loop->parent->iteration }}"
+                                                                                    data-audit-schedule-first-row='{{$row}}_{{ $loop->parent->iteration }}'>
                                                                                     <td>
                                                                                         <select
-                                                                                            id="branch_name_select_{{$value['id']}}_{{$row}}"
+                                                                                            id="branch_name_select_{{ $loop->parent->iteration }}_{{$row}}"
                                                                                             class="form-control select-select2 input-branch-name"
-                                                                                            data-id="{{$value['id']}}_{{$row}}">
+                                                                                            data-id="{{ $loop->parent->iteration }}_{{$row}}">
                                                                                             <option value=''>
                                                                                                 --Select--
                                                                                             </option>
@@ -347,14 +346,14 @@
                                                                                         <div class="row">
                                                                                             <div class="col pr-0">
                                                                                                 <input type="text"
-                                                                                                       data-id="{{$value['id']}}_{{$row}}"
+                                                                                                       data-id="{{ $loop->parent->iteration }}_{{$row}}"
                                                                                                        class="date form-control input-start-duration"
                                                                                                        value="{{date('d/m/Y',strtotime($schedule['team_member_start_date']))}}"
                                                                                                        placeholder="শুরু"/>
                                                                                             </div>
                                                                                             <div class="col pl-0">
                                                                                                 <input type="text"
-                                                                                                       data-id="{{$value['id']}}_{{$row}}"
+                                                                                                       data-id="{{ $loop->parent->iteration }}_{{$row}}"
                                                                                                        class="date form-control input-end-duration"
                                                                                                        value="{{date('d/m/Y',strtotime($schedule['team_member_end_date']))}}"
                                                                                                        placeholder="শেষ"/>
@@ -364,44 +363,77 @@
 
                                                                                     <td>
                                                                                         <input type="number"
-                                                                                               data-id="{{$value['id']}}_{{$row}}"
+                                                                                               data-id="{{ $loop->parent->iteration }}_{{$row}}"
                                                                                                class="form-control input-total-working-day"
                                                                                                value="{{$schedule['activity_man_days']}}"
-                                                                                               id="input_total_working_day_{{$value['id']}}_{{$row}}"/>
+                                                                                               id="input_total_working_day_{{$loop->parent->iteration}}_{{$row}}"/>
                                                                                     </td>
                                                                                     <td style="display: inline-flex;">
                                                                                         <button type="button"
-                                                                                                onclick="addAuditScheduleTblRow({{$value['id']}})"
+                                                                                                onclick="addAuditScheduleTblRow({{$loop->parent->iteration}})"
                                                                                                 class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
-                                                                                            <span
-                                                                                                class="fad fa-plus"></span>
+                                                                                            <span class="fad fa-calendar-day"></span>
                                                                                         </button>
+
+                                                                                        <button type="button"
+                                                                                                onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
+                                                                                                class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
+                                                                                            <span class="fad fa-plus"></span>
+                                                                                        </button>
+
                                                                                         <button type='button'
                                                                                                 data-row='row1'
-                                                                                                onclick="removeScheduleRow($(this), {{$value['id']}})"
-                                                                                                class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2 remove-schedule-row'>
+                                                                                                onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
+                                                                                                class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                                                                                             <span
                                                                                                 class='fal fa-trash-alt'></span>
                                                                                         </button>
                                                                                     </td>
                                                                                 </tr>
-                                                                                <tr class="audit_schedule_row_{{$value['id']}}"
-                                                                                    data-layer-id="{{$value['id']}}"
-                                                                                    data-schedule-second-row='{{$row}}_{{$value['id']}}'>
+                                                                                </tbody>
+
+                                                                                @if(!empty($schedule['activity_detail_date']))
+                                                                                <tbody data-tbody-id="{{ $loop->parent->iteration }}_{{$row+1}}">
+                                                                                <tr class="audit_schedule_row_{{ $loop->parent->iteration }}"
+                                                                                    data-layer-id="{{ $loop->parent->iteration }}"
+                                                                                    data-schedule-second-row="{{$row}}_{{ $loop->parent->iteration }}">
                                                                                     <td width="20%">
                                                                                         <input type="text"
-                                                                                               data-id="{{$value['id']}}_{{$row}}"
+                                                                                               data-id="{{ $loop->parent->iteration }}_{{$row}}"
                                                                                                value="{{$schedule['activity_detail_date'] == ""?"":date('d/m/Y',strtotime($schedule['activity_detail_date']))}}"
                                                                                                class="date form-control input-detail-duration"/>
                                                                                     </td>
-                                                                                    <td width="72%" colspan="2">
+
+                                                                                    <td colspan="2" width="50%">
                                                                                         <input type="text"
-                                                                                               data-id="{{$value['id']}}_{{$row}}"
+                                                                                               data-id="{{ $loop->parent->iteration }}_{{$row}}"
                                                                                                value="{{$schedule['activity_details'] == ""?"":$schedule['activity_details']}}"
                                                                                                class="form-control input-detail"/>
                                                                                     </td>
+
+                                                                                    <td style="display: inline-flex;">
+                                                                                        <button type="button"
+                                                                                                onclick="addAuditScheduleTblRow({{ $loop->parent->iteration }})"
+                                                                                                class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
+                                                                                            <span class="fad fa-calendar-day"></span>
+                                                                                        </button>
+
+                                                                                        <button type="button"
+                                                                                                onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
+                                                                                                class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
+                                                                                            <span class="fad fa-plus"></span>
+                                                                                        </button>
+
+                                                                                        <button type='button'
+                                                                                                data-row='row1'
+                                                                                                onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
+                                                                                                class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
+                                                                                            <span class='fal fa-trash-alt'></span>
+                                                                                        </button>
+                                                                                    </td>
                                                                                 </tr>
                                                                                 </tbody>
+                                                                                @endif
                                                                             </div>
                                                                         @endforeach
                                                                     </table>
@@ -412,7 +444,7 @@
 
                                                     <script>
                                                         //working days
-                                                        $(document).on('change', '.audit_schedule_row_{{$value['id']}} input', function () {
+                                                        $(document).on('change', '.audit_schedule_row_{{$loop->iteration}} input', function () {
                                                             populateData(this);
                                                         });
                                                     </script>
@@ -454,9 +486,12 @@
     all_schedules = {};
 
     function removeScheduleRow(elem, layer_id) {
-        let rowId = elem.closest("tr").data('audit-schedule-first-row');
-        $('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']').remove();
+        //let rowId = elem.closest("tr").data('audit-schedule-first-row');
+        //$('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']').remove();
         elem.closest("tr").remove();
+
+        //tblBodyId = elem.closest("tbody").data('tbody-id');
+        //$('#audit_schedule_table_' + layer_id + ' tbody[data-tbody-id=' + tblBodyId + ']').remove();
     }
 
     function removeAuditScheduleListDiv(layer_id) {
@@ -481,9 +516,8 @@
     }
 
     function addAuditScheduleTblRow(layer_id) {
-        var totalAuditScheduleTbody = $('.audit-schedule-table tbody').length + 1;
-        var totalAuditScheduleRow = $('.audit-schedule-table tbody tr').length + 1;
-        var teamScheduleHtml = "<tbody data-tbody-id='" + layer_id + "_" + totalAuditScheduleTbody + "'>" +
+        var totalAuditScheduleRow = $('#audit_schedule_table_'+layer_id+' tbody').length + 1;
+        var teamScheduleHtml = "<tbody data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
         teamScheduleHtml += "<td>" +
             "<select id='branch_name_select_" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control select-select2 input-branch-name' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
@@ -498,15 +532,45 @@
             "<input type='text' class='date form-control input-end-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শেষ'/>" +
             "</div></div></td>"
         teamScheduleHtml += "<td><input type='number' value='0' class='form-control input-total-working-day' id='input_total_working_day_" + layer_id + "_" + totalAuditScheduleRow + "' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'/></td>";
-        teamScheduleHtml += "<td style='display: inline-flex'><button type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'><span class='fad fa-plus'></span></button><button onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2 remove-schedule-row'><span class='fal fa-trash-alt'></span></button></td>";
-        teamScheduleHtml += "</tr>";
-        teamScheduleHtml += "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-schedule-second-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
-        teamScheduleHtml += "<td><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/></td>";
-        teamScheduleHtml += "<td colspan='3'><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
+        teamScheduleHtml += "<td style='display: inline-flex'>" +
+            "<button type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
+            "<span class='fad fa-calendar-day'></span>" +
+            "</button>" +
+            "<button type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
+            "<span class='fad fa-plus'></span>" +
+            "</button>" +
+            "<button onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
+            "data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>" +
+            "<span class='fal fa-trash-alt'></span>" +
+            "</button>" +
+            "</td>";
         teamScheduleHtml += "</tr></tbody>";
 
         $('#audit_schedule_table_' + layer_id).append(teamScheduleHtml);
         $('.select-select2').select2();
+    }
+
+    function addDetailsTblRow(layer_id) {
+        var totalAuditScheduleRow = $('#audit_schedule_table_'+layer_id+' tbody').length + 1;
+        var teamScheduleHtml = "<tbody data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
+            "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
+        teamScheduleHtml += "<td><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/></td>";
+        teamScheduleHtml += "<td colspan='2'><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
+        teamScheduleHtml += "<td style='display: inline-flex'>" +
+            "<button type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
+            "<span class='fad fa-calendar-day'></span>" +
+            "</button>" +
+            "<button type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
+            "<span class='fad fa-plus'></span>" +
+            "</button>" +
+            "<button onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
+            "data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>" +
+            "<span class='fal fa-trash-alt'></span>" +
+            "</button>" +
+            "</td>";
+        teamScheduleHtml += "</tr></tbody>";
+
+        $('#audit_schedule_table_' + layer_id).append(teamScheduleHtml);
     }
 
     $(document).off('click', '.layer_text').on('click', '.layer_text', function () {

@@ -144,29 +144,26 @@
                                 <td style="text-align: center" width="15%">৫</td>
                             </tr>
                             @php
-                                $scheduleSl = 1;
                                 $totalActivityManDays = 0;
                             @endphp
                             @foreach(json_decode($audit_team_schedule['team_schedules'],true) as $role => $team_schedule)
-                                @php $totalActivityManDays= $totalActivityManDays+$team_schedule['activity_man_days']; @endphp
-                                <tr>
-                                    <td style="text-align: center">{{enTobn($scheduleSl)}}.</td>
-                                    <td style="text-align: left;margin-left: 5px">{{$team_schedule['cost_center_name_bn']}}</td>
-                                    <td style="text-align: center">{{enTobn($audit_team_schedule['audit_year_start'])}}-{{enTobn($audit_team_schedule['audit_year_end'])}}</td>
-                                    <td style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি.
-                                        হতে {{formatDate($team_schedule['team_member_end_date'],'bn')}} খ্রি.
-                                    </td>
-                                    <td style="text-align: center">{{enTobn($team_schedule['activity_man_days'])}} কর্ম দিবস</td>
-                                </tr>
-                                @if(!empty($team_schedule['activity_detail_date']))
+                                @if($team_schedule['schedule_type'] == 'schedule')
+                                    @php $totalActivityManDays= $totalActivityManDays+$team_schedule['activity_man_days']; @endphp
                                     <tr>
-                                        <td style="text-align: center">{{enTobn($scheduleSl+1)}}.</td>
-                                        <td colspan="3" style="text-align: center">{{formatDate($team_schedule['activity_detail_date'],'bn')}} খ্রি. {{$team_schedule['activity_details']}}</td>
+                                        <td style="text-align: center">{{enTobn($loop->iteration)}}.</td>
+                                        <td style="text-align: left;margin-left: 5px">{{$team_schedule['cost_center_name_bn']}}</td>
+                                        <td style="text-align: center">{{enTobn($audit_team_schedule['audit_year_start'])}}-{{enTobn($audit_team_schedule['audit_year_end'])}}</td>
+                                        <td style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি.
+                                            হতে {{formatDate($team_schedule['team_member_end_date'],'bn')}} খ্রি.
+                                        </td>
+                                        <td style="text-align: center">{{enTobn($team_schedule['activity_man_days'])}} কর্ম দিবস</td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td style="text-align: center">{{enTobn($loop->iteration)}}.</td>
+                                        <td colspan="3" style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি. {{$team_schedule['activity_details']}}</td>
                                         <td></td>
                                     </tr>
-                                    @php $scheduleSl= $scheduleSl+2; @endphp
-                                @else
-                                    @php $scheduleSl++; @endphp
                                 @endif
                             @endforeach
                             <tr>
