@@ -174,6 +174,7 @@ return [
     'audit_conduct_query' => [
         'get_query_schedule_list' => env('API_URL_BEE', '') . '/audit-conduct-query/audit-query-schedule-list',
         'get_cost_center_type_wise_query' => env('API_URL_BEE', '') . '/cost-center-type-wise-query',
+        'send_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/send-audit-query',
     ],
 
     'final_plan_file' => [

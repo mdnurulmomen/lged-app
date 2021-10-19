@@ -1,6 +1,6 @@
-<x-title-wrapper>Fiscal Years</x-title-wrapper>
-<div class="col-md-12 p-0">
-    <div class="load-table-data" data-href="{{route('audit.execution.load-query-schedule-lists')}}"></div>
+<x-title-wrapper>Query Schedules</x-title-wrapper>
+<div class="col-md-12">
+    <div class="load-table-data" data-href="{{route('audit.execution.load-query-panel')}}"></div>
 </div>
 <script>
     $(function () {
@@ -22,7 +22,7 @@
 </script>
 <script>
     var auditQuerySchedule = {
-        selectQuery: function () {
+        selectQuery: function (cost_center_id) {
 
             quick_panel = $("#kt_quick_panel");
             quick_panel.addClass('offcanvas-on');
@@ -33,7 +33,7 @@
             $("html").addClass("side-panel-overlay");
             $('.offcanvas-title').html('Send Query');
             url = '{{route('audit.execution.select-audit-query')}}';
-            data = {};
+            data = {cost_center_id};
             ajaxCallAsyncCallbackAPI(url, data, 'get', function (response) {
                 if (response.status === 'error') {
                     toastr.warning(response.data)
