@@ -27,6 +27,7 @@ class AuditExecutionQueryController extends Controller
         $data['cdesk'] = json_encode_unicode($this->current_desk());
         $data['fiscal_year_id'] = 1;
         $audit_query_schedule_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.get_query_schedule_list'), $data)->json();
+//        dd($audit_query_schedule_list);
         if ($audit_query_schedule_list['status'] == 'success') {
             $audit_query_schedule_list = $audit_query_schedule_list['data'];
             return view('modules.audit_execution.audit_execution_query.get_query_schedule_list', compact('audit_query_schedule_list'));
@@ -62,9 +63,14 @@ class AuditExecutionQueryController extends Controller
         $data['cost_center_id'] = $request->cost_center_id;
         $data['cost_center_name_bn'] = $request->cost_center_name_bn;
         $data['cost_center_name_en'] = $request->cost_center_name_en;
-        $data['query_ids'] = $request->query_ids;
+        $data['queries'] = $request->queries;
         $send_audit_queries = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.send_audit_query'), $data)->json();
-        dd($send_audit_queries);
+        if ($send_audit_queries['status'] == 'success') {
+            $send_audit_queries = $send_audit_queries['data'];
+            return response()->json(['status' => 'success', 'data' => $send_audit_queries]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $send_audit_queries]);
+        }
     }
 
     /**

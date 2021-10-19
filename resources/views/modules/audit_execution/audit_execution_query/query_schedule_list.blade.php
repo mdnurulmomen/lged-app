@@ -43,12 +43,12 @@
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
-                    toastr.warning(response.data)
+                    toastr.success(response.data)
                 }
             })
         },
 
-        selectQuery: function (cost_center_id) {
+        selectQuery: function (cost_center_id,cost_center_name_en,cost_center_name_bn) {
             quick_panel = $("#kt_quick_panel");
             quick_panel.addClass('offcanvas-on');
             quick_panel.css('opacity', 1);
@@ -58,7 +58,7 @@
             $("html").addClass("side-panel-overlay");
             $('.offcanvas-title').html('Send Query');
             url = '{{route('audit.execution.select-audit-query')}}';
-            data = {cost_center_id};
+            data = {cost_center_id,cost_center_name_en,cost_center_name_bn};
             ajaxCallAsyncCallbackAPI(url, data, 'get', function (response) {
                 if (response.status === 'error') {
                     toastr.warning(response.data)
