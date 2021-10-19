@@ -324,9 +324,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'index'])->name('query');
 
         Route::get('schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'queryScheduleList'])->name('query-schedule-list');
-        Route::get('load-schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadQueryScheduleList'])->name('load-query-schedule-list');
+        Route::get('load-query-panel', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadQueryScheduleList'])->name('load-query-panel');
         Route::get('select-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'selectAuditQuery'])->name('select-audit-query');
-        Route::get('cost-center-type-wise-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'costCenterTypeWiseQuery'])->name('cost-center-type-wise-query');
+        Route::post('cost-center-type-wise-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'costCenterTypeWiseQuery'])->name('cost-center-type-wise-query');
 
         Route::get('discussion', [\App\Http\Controllers\AuditExecution\AuditExecutionDiscussionController::class, 'index'])->name('discussion');
 

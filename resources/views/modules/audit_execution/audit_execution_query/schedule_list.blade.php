@@ -1,6 +1,6 @@
 <x-title-wrapper>Fiscal Years</x-title-wrapper>
 <div class="col-md-12">
-    <div class="load-table-data" data-href="{{route('audit.execution.load-query-schedule-list')}}"></div>
+    <div class="load-table-data" data-href="{{route('audit.execution.load-query-panel')}}"></div>
 </div>
 <script>
     $(function () {

@@ -16,7 +16,7 @@
         cost_center_type_id = $(this).val();
         url = '{{route('audit.execution.cost-center-type-wise-query')}}';
         data = {cost_center_type_id};
-        ajaxCallAsyncCallbackAPI(url, data, 'get', function (response) {
+        ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             if (response.status === 'error') {
                 toastr.warning(response.data)
             } else {
