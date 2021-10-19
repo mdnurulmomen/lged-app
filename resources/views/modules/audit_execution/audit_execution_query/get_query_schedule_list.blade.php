@@ -6,8 +6,8 @@
                 <button class="btn btn-icon btn-light-info btn-square advanced_button" type="button"><i
                         class="fa fa-caret-down"></i>
                 </button>
-                <input type="text" placeholder="বিষয়/সিদ্ধান্ত দিয়ে খুঁজুন" name="list_daak_subject"
-                       title="বিষয়/সিদ্ধান্ত দিয়ে খুঁজুন" id="list_daak_subject" class="form-control rounded-0">
+                <input type="text" placeholder="বিষয় দিয়ে খুঁজুন" name="list_daak_subject"
+                       title="বিষয় দিয়ে খুঁজুন" id="list_daak_subject" class="form-control rounded-0">
                 <button data-toggle="tooltip" data-placement="left" title="খুঁজুন"
                         class="btn btn-icon btn-light-success btn-square daak_list_subject_search" type="button"><i
                         class="fad fa-search"></i></button>
@@ -33,23 +33,23 @@
             </div>
             <div id="daak_pagination_panel" class="float-right d-flex align-items-center"
                  style="vertical-align:middle;">
-            <span class="mr-2"><span id="daak_item_length_start">১</span> - <span id="daak_item_length_end">৫</span> সর্বমোট: <span
-                    id="daak_item_total_record">৫</span></span>
+            <span class="mr-2"><span id="daak_item_length_start">{{enTobn($audit_query_schedule_list['from'])}}</span> - <span
+                    id="daak_item_length_end">{{enTobn($audit_query_schedule_list['to'])}}</span> সর্বমোট: <span
+                    id="daak_item_total_record">{{enTobn($audit_query_schedule_list['total'])}}</span></span>
                 <div class="btn-group">
                     <button class="btn-list-prev btn btn-icon btn-secondary btn-square" disabled="disabled"
-                            type="button"><i
-                            class="fad fa-chevron-left" data-toggle="popover" data-content="পূর্ববর্তী"
-                            data-original-title="" title=""></i></button>
-                    <button class="btn-list-next btn btn-icon btn-secondary btn-square" type="button"
-                            disabled="disabled"><i
-                            class="fad fa-chevron-right" data-toggle="popover" data-content="পরবর্তী"
-                            data-original-title=""
-                            title=""></i></button>
+                            type="button">
+                        <i class="fad fa-chevron-left" data-toggle="tooltip" data-content="পূর্ববর্তী"></i>
+                    </button>
+                    <button class="btn-list-prev btn btn-icon btn-secondary btn-square" disabled="disabled"
+                            type="button"><i class="fad fa-chevron-right" data-toggle="tooltip"
+                                             data-title="পরবর্তী"></i>
+                    </button>
                 </div>
             </div>
         </div>
 
-        @foreach($audit_query_schedule_list as $key=> $schedule)
+        @foreach($audit_query_schedule_list['data'] as $key=> $schedule)
             <div class="">
                 <ul class="list-group list-group-flush">
                     <li id="daak_container_inbox_1_54_Daptorik"
@@ -62,20 +62,16 @@
                                 class="pr-2 flex-fill daak_list_item_clickable_area cursor-pointer position-relative"
                                 did="daak_container_inbox_1_54_Daptorik">
                                 <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
-                                    <!--begin::Title-->
                                     <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">
-                                        <div class="d-flex align-items-center flex-wrap  font-size-1-2"><span
-                                                class="mr-1 "></span><a href="javascript:void(0)"
-                                                                        class=" text-dark text-hover-primary font-size-h5"
-                                                                        data-toggle="popover" data-html="true"
-                                                                        data-content="উৎস : বোরহান উদ্দিন, <br/>( এডমিন স্পেশালিস্ট , এডমিন, এসপায়ার টু ইনোভেট (এটু্আই) প্রোগ্রাম)<br></a>মূল-প্রাপক: এ টি এম আল ফাত্তাহ,<br /> ( ন্যাশনাল কনসালটেন্ট, ই-সার্ভিস, এসপায়ার টু ইনোভেট (এটু্আই) প্রোগ্রাম )<br/>"
-                                                                        data-original-title=""
-                                                                        title="">{{$schedule['cost_center_name_bn']}}
+                                        <div class="d-flex align-items-center flex-wrap  font-size-1-2"><a
+                                                href="javascript:void(0)"
+                                                class=" text-dark text-hover-primary font-size-h5"
+                                                data-content="">{{$schedule['cost_center_name_bn']}}
                                                 @if ((now()->toDateString() >= date('Y-m-d', strtotime($schedule['team_member_start_date']))) && (now()->toDateString() <= date('Y-m-d', strtotime($schedule['team_member_end_date']))))
                                                     <span
                                                         class="badge badge-pill badge-info border font-weight-bold mr-1 shadow">
                                                         <span
-                                                            class="en_to_bn_text text-light text-uppercase">Continue</span>
+                                                            class="en_to_bn_text text-light text-uppercase">{{__('Continuous')}}</span>
                                                     </span>
                                                 @endif
 
@@ -95,8 +91,6 @@
                                         {{--                                        <span class="description text-wrap font-size-14">{{$datum['team_member_activity_description']}}</span>--}}
                                         {{--                                    </div>--}}
                                     </div>
-                                    <!--end::Title-->
-                                    <!--begin::Info-->
                                     <div
                                         class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-6">
                                         <div class="d-block">
@@ -110,7 +104,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--end::Info-->
                                 </div>
                             </div>
                         </div>

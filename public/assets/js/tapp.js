@@ -209,9 +209,9 @@ $('.english').on('keyup', function () {
 
 
 //for load page
-function loadPage(element){
+function loadPage(element) {
     url = element.data('url');
-    ajaxCallAsyncCallbackAPI(url,'', 'GET', function (response) {
+    ajaxCallAsyncCallbackAPI(url, '', 'GET', function (response) {
         if (response.status === 'error') {
             toastr.error('Error');
         } else {
@@ -222,19 +222,19 @@ function loadPage(element){
 
 
 //Date picker
-$(document).off('focus').on('focus', '.date', function() {
+$(document).off('focus').on('focus', '.date', function () {
     $(this).datepicker({
         autoclose: true,
-        format:'d/m/yyyy'
+        format: 'd/m/yyyy'
     });
 })
 
-$(document).off('focus').on('focus', '.year-picker', function() {
+$(document).off('focus').on('focus', '.year-picker', function () {
     $(this).datepicker({
         format: "yyyy",
         viewMode: "years",
         minViewMode: "years",
-        autoclose:true
+        autoclose: true
     });
 })
 // $('.date').datepicker({
@@ -271,38 +271,33 @@ function calcWorkingDays(fromDate, toDate) { // input given as Date objects
 function dateDifferenceInDay(date1, date2) {
     dt1 = new Date(date1);
     dt2 = new Date(date2);
-    return Math.floor(((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24))+1);
+    return Math.floor(((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) / (1000 * 60 * 60 * 24)) + 1);
 }
 
 //text disable on contact filed
-$(document).off('keypress').on('keypress', '.number-input', function() {
-    if(key.charCode < 48 || key.charCode > 57) {
+$(document).off('keypress').on('keypress', '.number-input', function () {
+    if (key.charCode < 48 || key.charCode > 57) {
         return false;
     }
 });
 
 
-
 function formatDate(data) {
-  var day  = data.split("/")[0];
-  var month  = data.split("/")[1];
-  var year  = data.split("/")[2];
-
-  //console.log(day,month,year);
-
-  return year + '-' + ("0"+month).slice(-2) + '-' + ("0"+day).slice(-2);
-  // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
+    var day = data.split("/")[0];
+    var month = data.split("/")[1];
+    var year = data.split("/")[2];
+    return year + '-' + ("0" + month).slice(-2) + '-' + ("0" + day).slice(-2);
 }
 
-function DmyFormat(data,splitter='-') {
-  var year  = data.split("-")[0];
-  var month  = data.split("-")[1];
-  var day  = data.split("-")[2];
-  return day + splitter + ("0"+month).slice(-2) + splitter + ("0"+year).slice(-2);
+function DmyFormat(data, splitter = '-') {
+    var year = data.split("-")[0];
+    var month = data.split("-")[1];
+    var day = data.split("-")[2];
+    return day + splitter + ("0" + month).slice(-2) + splitter + ("0" + year).slice(-2);
 }
 
 
-$("#kt_quick_panel_close").on('click',function () {
+$("#kt_quick_panel_close").on('click', function () {
     quick_panel = $("#kt_quick_panel");
     quick_panel.removeClass('offcanvas-on');
     quick_panel.css('opacity', 0);
@@ -310,3 +305,8 @@ $("#kt_quick_panel_close").on('click',function () {
     $("html").removeClass("side-panel-overlay");
     $(".offcanvas-wrapper").html('');
 });
+$(document).off('mouseenter').on('mouseenter', '#kt_content', function () {
+    console.log('global enter')
+    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="popover"]').popover()
+})
