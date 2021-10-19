@@ -79,8 +79,10 @@
                                                     $endDate = date('Y-m-d', strtotime($schedule['team_member_end_date']));
                                                 @endphp
                                                 @if (($toDay >= $startDate) && ($toDay <= $endDate))
-                                                    <span class="badge badge-pill badge-info border font-weight-bold mr-1 shadow">
-                                                        <span class="en_to_bn_text text-light text-uppercase">Continue</span>
+                                                    <span
+                                                        class="badge badge-pill badge-info border font-weight-bold mr-1 shadow">
+                                                        <span
+                                                            class="en_to_bn_text text-light text-uppercase">Continue</span>
                                                     </span>
                                                 @endif
 
@@ -110,7 +112,8 @@
                                         <div class="d-block">
                                             <div class="d-flex align-items-center justify-content-md-end">
                                                 <div class="btn-group folder-wrapper mb-2 mt-3 mr-3">
-                                                    <button onclick="auditQuerySchedule.selectQuery()" type="button" class="btn btn-sm rounded-0 alert-warning  folder_click">
+                                                    <button onclick="auditQuerySchedule.selectQuery()" type="button"
+                                                            class="btn btn-sm rounded-0 alert-warning  folder_click">
                                                         Query
                                                     </button>
                                                 </div>
