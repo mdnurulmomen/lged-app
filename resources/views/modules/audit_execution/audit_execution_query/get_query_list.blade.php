@@ -29,13 +29,19 @@
     <tbody style="" class="datatable-body">
     @forelse($audit_query_list as $query)
         <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
-            <td class="datatable-cell text-center"><span><input class="selectQuery" value="{{$query['id']}}-{{$query['query_title_bn']}}-{{$query['query_title_en']}}" name="select_query" type="checkbox"></span></td>
+            <td class="datatable-cell text-center"><span><input class="selectQuery"
+                                                                data-query-bn="{{$query['query_title_bn']}}"
+                                                                data-query-en="{{$query['query_title_en']}}"
+                                                                data-query-id="{{$query['id']}}"
+                                                                value="{{$query['id']}}"
+                                                                name="select_query"
+                                                                type="checkbox"></span></td>
             <td class="datatable-cell"><span>{{$query['query_title_bn']}}</span></td>
             <td class="datatable-cell text-center">
                 <button
                     type="button"
                     class="float-right font-weight-bolder font-size-sm ml-2 btn btn-success btn-sm btn-bold btn-square receivedQuery">
-                     Received
+                    Received
                 </button>
             </td>
         </tr>
@@ -51,22 +57,6 @@
 <script>
 
     $('.sendQuery').click(function () {
-        cost_center_id = $('#cost_center_id').val();
-        cost_center_name_en = $('#cost_center_name_en').val();
-        cost_center_name_bn = $('#cost_center_name_bn').val();
-        cost_center_type_id = $('#cost_center_type').val();
-        query_ids = [];
-        $(".selectQuery").each(function(i,value) {
-            query_ids[i] = $(this).val();
-        });
-        url = '{{route('audit.execution.send-audit-query')}}';
-        data = {query_ids,cost_center_id,cost_center_type_id,cost_center_name_bn,cost_center_name_en};
-        ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-            if (response.status === 'error') {
-                toastr.warning(response.data)
-            } else {
-                toastr.warning(response.data)
-            }
-        })
+        Audit_Query_Container.sendQuery($(this));
     });
 </script>
