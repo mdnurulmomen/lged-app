@@ -1,7 +1,7 @@
-<div style="display: none" class="search-all position-relative">
+{{--search area start--}}
+<div class="search-all position-relative d-none">
     <div class="row">
         <div class="col align-self-start">
-            <!-- <input type="text"  class="form-control rounded-0" placeholder="আবেদন গ্রহণ নম্বর"/> -->
             <div class="input-group-append">
                 <button class="btn btn-icon btn-light-info btn-square advanced_button" type="button"><i
                         class="fa fa-caret-down"></i>
@@ -14,7 +14,6 @@
                 <button data-toggle="tooltip" data-placement="left" title="রিসেট"
                         class="btn btn-icon btn-light-danger btn-square" id="reset_btn" type="reset"><i
                         class="fad fa-recycle"></i></button>
-                <!-- <button class="btn btn-icon btn-light-danger btn-square" type="button"><i class="fa fa-sync-alt"></i></button> -->
                 <button data-content=""
                         class="d-none btn btn-info btn-sm btn-square btn-nothi-list cd-btn js-cd-panel-trigger"
                         data-panel="main"><i class="fad fa-book"></i> নথিসমূহ
@@ -23,9 +22,9 @@
         </div>
     </div>
 </div>
+{{--search area end--}}
 
-<div class="row pt-5">
-
+<div class="row">
     <div class="col-md-12">
         <div class="toolbar flex-wrap justify-content-between shadow-sm pl-1 d-flex border-bottom">
             <div class="d-flex">
@@ -49,6 +48,7 @@
                 </div>
             </div>
         </div>
+
         @foreach($audit_query_schedule_list as $key=> $schedule)
             <div class="">
                 <ul class="list-group list-group-flush">
@@ -71,14 +71,7 @@
                                                                         data-content="উৎস : বোরহান উদ্দিন, <br/>( এডমিন স্পেশালিস্ট , এডমিন, এসপায়ার টু ইনোভেট (এটু্আই) প্রোগ্রাম)<br></a>মূল-প্রাপক: এ টি এম আল ফাত্তাহ,<br /> ( ন্যাশনাল কনসালটেন্ট, ই-সার্ভিস, এসপায়ার টু ইনোভেট (এটু্আই) প্রোগ্রাম )<br/>"
                                                                         data-original-title=""
                                                                         title="">{{$schedule['cost_center_name_bn']}}
-                                                @php
-                                                    $toDay = date('Y-m-d');
-                                                    $toDay=date('Y-m-d', strtotime($toDay));
-                                                    //echo $paymentDate; // echos today!
-                                                    $startDate = date('Y-m-d', strtotime($schedule['team_member_start_date']));
-                                                    $endDate = date('Y-m-d', strtotime($schedule['team_member_end_date']));
-                                                @endphp
-                                                @if (($toDay >= $startDate) && ($toDay <= $endDate))
+                                                @if ((now()->toDateString() >= date('Y-m-d', strtotime($schedule['team_member_start_date']))) && (now()->toDateString() <= date('Y-m-d', strtotime($schedule['team_member_end_date']))))
                                                     <span
                                                         class="badge badge-pill badge-info border font-weight-bold mr-1 shadow">
                                                         <span
@@ -101,9 +94,6 @@
                                         {{--                                        <span class="mr-2 font-size-1-1">মন্তব্য:</span>--}}
                                         {{--                                        <span class="description text-wrap font-size-14">{{$datum['team_member_activity_description']}}</span>--}}
                                         {{--                                    </div>--}}
-                                        <div class=" font-weight-normal d-none predict-wrapper">
-                                            <span class="predict-label text-success "></span>
-                                        </div>
                                     </div>
                                     <!--end::Title-->
                                     <!--begin::Info-->
