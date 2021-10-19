@@ -1,6 +1,6 @@
 <x-title-wrapper>Query Schedules</x-title-wrapper>
-<div class="col-md-12">
-    <div class="load-table-data" data-href="{{route('audit.execution.load-query-panel')}}"></div>
+<div class="col-md-12 p-0">
+    <div class="load-table-data" data-href="{{route('audit.execution.load-query-schedule-lists')}}"></div>
 </div>
 <script>
     $(function () {
@@ -21,9 +21,8 @@
     }
 </script>
 <script>
-    var auditQuerySchedule = {
+    var Audit_Query_Container = {
         selectQuery: function (cost_center_id) {
-
             quick_panel = $("#kt_quick_panel");
             quick_panel.addClass('offcanvas-on');
             quick_panel.css('opacity', 1);
