@@ -102,7 +102,7 @@
                                         <div class="d-block">
                                             <div class="d-flex align-items-center justify-content-md-end">
                                                 <div class="btn-group folder-wrapper mb-2 mt-3 mr-3">
-                                                    <button onclick="auditQuerySchedule.selectQuery()" type="button"
+                                                    <button onclick="auditQuerySchedule.selectQuery('{{$schedule['cost_center_id']}}','{{$schedule['cost_center_name_en']}}','{{$schedule['cost_center_name_bn']}}')" type="button"
                                                             class="btn btn-sm rounded-0 alert-warning  folder_click">
                                                         Query
                                                     </button>

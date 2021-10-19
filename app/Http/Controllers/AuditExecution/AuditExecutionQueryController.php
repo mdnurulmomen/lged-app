@@ -38,7 +38,10 @@ class AuditExecutionQueryController extends Controller
     public function selectAuditQuery(Request $request)
     {
         $cost_center_types = $this->allCostCenterType();
-        return view('modules.audit_execution.audit_execution_query.select_audit_query', compact('cost_center_types'));
+        $cost_center_id = $request->cost_center_id;
+        $cost_center_name_bn = $request->cost_center_name_bn;
+        $cost_center_name_en = $request->cost_center_name_en;
+        return view('modules.audit_execution.audit_execution_query.select_audit_query', compact('cost_center_types','cost_center_id','cost_center_name_bn','cost_center_name_en'));
     }
 
     public function costCenterTypeWiseQuery(Request $request)
@@ -50,6 +53,18 @@ class AuditExecutionQueryController extends Controller
             $audit_query_list = $audit_query_list['data'];
             return view('modules.audit_execution.audit_execution_query.get_query_list', compact('audit_query_list', 'cost_center_types'));
         }
+    }
+
+    public function sendAuditQuery(Request $request){
+        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['fiscal_year_id'] = 1;
+        $data['cost_center_type_id'] = $request->cost_center_type_id;
+        $data['cost_center_id'] = $request->cost_center_id;
+        $data['cost_center_name_bn'] = $request->cost_center_name_bn;
+        $data['cost_center_name_en'] = $request->cost_center_name_en;
+        $data['query_ids'] = $request->query_ids;
+        $send_audit_queries = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.send_audit_query'), $data)->json();
+        dd($send_audit_queries);
     }
 
     /**

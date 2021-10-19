@@ -1,4 +1,7 @@
 <div class="row">
+    <input id="cost_center_id" type="hidden" value="{{$cost_center_id}}">
+    <input id="cost_center_name_en" type="hidden" value="{{$cost_center_name_en}}">
+    <input id="cost_center_name_bn" type="hidden" value="{{$cost_center_name_bn}}">
     <div class="col-md-4">
         <select id="cost_center_type" class="form-control">
             <option value="">Select Query </option>

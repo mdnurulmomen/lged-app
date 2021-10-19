@@ -327,6 +327,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('load-query-schedule-lists', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadQueryScheduleList'])->name('load-query-schedule-lists');
         Route::get('select-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'selectAuditQuery'])->name('select-audit-query');
         Route::post('cost-center-type-wise-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'costCenterTypeWiseQuery'])->name('cost-center-type-wise-query');
+        Route::post('send-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'sendAuditQuery'])->name('send-audit-query');
 
         Route::get('discussion', [\App\Http\Controllers\AuditExecution\AuditExecutionDiscussionController::class, 'index'])->name('discussion');
 
