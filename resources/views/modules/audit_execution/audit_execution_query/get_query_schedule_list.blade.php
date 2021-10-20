@@ -100,6 +100,11 @@
                                                             class="btn btn-sm rounded-0 alert-warning  folder_click">
                                                         Query
                                                     </button>
+
+                                                    <button onclick="Audit_Query_Container.loadMemoList()" type="button"
+                                                            class="btn btn-sm rounded-0 alert-warning  folder_click">
+                                                        Memo
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>

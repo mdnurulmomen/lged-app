@@ -107,7 +107,20 @@
                     $('.offcanvas-wrapper').html(response);
                 }
             })
-        }
+        },
+
+        loadMemoList: function (elem) {
+            data = {};
+            let url = '{{route('audit.execution.load-memo-list')}}'
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('#kt_content').html(response)
+                }
+            });
+        },
     }
 </script>
 

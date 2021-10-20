@@ -333,6 +333,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('discussion', [\App\Http\Controllers\AuditExecution\AuditExecutionDiscussionController::class, 'index'])->name('discussion');
 
         Route::get('review', [\App\Http\Controllers\AuditExecution\AuditExecutionReviewController::class, 'index'])->name('review');
+
+        Route::post('load-memo-list', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'index'])->name('load-memo-list');
+        Route::group(['as' => 'memo.', 'prefix'=> 'memo/'],function (){
+            Route::post('create', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'create'])->name('create');
+        });
     });
 
     //Followup
