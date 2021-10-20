@@ -36,6 +36,60 @@
         </div>
     </div>
 
+    <div class="card-body pt-0 pb-3">
+        <!--begin::Table-->
+        <div class="table-responsive datatable datatable-default datatable-bordered datatable-loaded">
+
+            <table class="table" id="kt_datatable" style="display: block;">
+
+                <thead class="datatable-head">
+                <tr class="datatable-row" style="left: 0px;">
+                    <th class="datatable-cell datatable-cell-sort" style="width: 10%">
+                        ক্রমিক নং
+                    </th>
+
+                    <th class="datatable-cell datatable-cell-sort" style="width: 25%">
+                        অনুচ্ছেদ নং
+                    </th>
+
+                    <th class="datatable-cell datatable-cell-sort" style="width: 25%">
+                        আপত্তির শিরোনাম
+                    </th>
+
+                    <th class="datatable-cell datatable-cell-sort" style="width: 10%">
+                        আপত্তি অনিয়মের ধরন
+                    </th>
+
+                    <th class="datatable-cell datatable-cell-sort" style="width: 10%">
+                        জড়িত অর্থ (টাকা)
+                    </th>
+                </tr>
+                </thead>
+                <tbody style="" class="">
+                <tr data-row="1" class="datatable-row" style="left: 0px;">
+                    <td class="datatable-cell" style="width: 10%">
+                        <span>১</span>
+                    </td>
+                    <td class="datatable-cell" style="width: 10%">
+                        <span>৪</span>
+                    </td>
+                    <td class="datatable-cell" style="width: 25%">
+                        <span>
+                            সম্মানী ভাতা বিলের উপর আয়কর বাবদ ১৭,৫৯২/ টাকা কর্তন করা হয় নাই।
+                        </span>
+                    </td>
+                    <td class="datatable-cell" style="width: 25%">
+                        <span>সরকারের আর্থিক ক্ষতি</span>
+                    </td>
+                    <td class="datatable-cell" style=" width: 10% ">
+                        <span>১৭,৫৯২</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 
 <script>
