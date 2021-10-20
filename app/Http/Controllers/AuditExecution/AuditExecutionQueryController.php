@@ -67,6 +67,9 @@ class AuditExecutionQueryController extends Controller
         $data['cost_center_name_en'] = $request->cost_center_name_en;
         $data['queries'] = $request->queries;
         $send_audit_queries = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.send_audit_query'), $data)->json();
+
+        dd($send_audit_queries);
+
         if ($send_audit_queries['status'] == 'success') {
             $send_audit_queries = $send_audit_queries['data'];
             return response()->json(['status' => 'success', 'data' => $send_audit_queries]);
