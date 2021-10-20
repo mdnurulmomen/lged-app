@@ -203,14 +203,14 @@
                                                                     <div
                                                                         class="d-flex align-items-center justify-content-between mb-0 mt-0">
                                                                         <div class="mr-2">
-                                                                            @if($value['team_parent_id'])
+{{--                                                                            @if($value['team_parent_id'])--}}
                                                                                 <button type="button"
                                                                                         id="team_schedule_layer_btn_{{$loop->iteration}}"
                                                                                         onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$loop->iteration}}','{{$loop->iteration}}')"
                                                                                         class="justify-self-end text-danger btn btn-icon btn-md">
                                                                                     <i class="text-primary far fa-calendar-alt"></i>
                                                                                 </button>
-                                                                            @endif
+                                                                            {{--@endif--}}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -436,6 +436,8 @@
                                                                         @endforeach
                                                                     </table>
                                                                 </div>
+                                                            @else
+                                                                <div class="px-2 pt-0" id="team_schedule_list_{{$loop->iteration}}"></div>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -944,7 +946,7 @@
                         cost_center_id = '';
                         cost_center_name_en = '';
                         cost_center_name_bn = '';
-                        activity_man_days = 0;
+                        activity_man_days = '0';
                     }
                     else{
                         activity_details = '';
@@ -1040,7 +1042,7 @@
         saveAuditTeamSchedule: function (mode = 'save') {
             url = mode === 'save' ? '{{route('audit.plan.audit.revised.plan.store-audit-team-schedule')}}' : '{{route('audit.plan.audit.revised.plan.update-audit-team-schedule')}}';
             schedule_data = Load_Team_Container.makeAuditSchedule();
-            //console.log(schedule_data);
+            console.log(schedule_data);
             if (!$.isEmptyObject(schedule_data)) {
                 schedule = {"schedule": schedule_data}
                 team_schedules = JSON.stringify(schedule);
@@ -1196,7 +1198,7 @@
                 //console.log(totalTableArrayData[i]);
                 for (var j = 1; j < totalTableArrayData[i].length; j++) {
                     schedule += Load_Team_Container.createAuditScheduleTable(totalTableArrayData[i][j])
-                    //console.log(totalTableArrayData[i][j]);
+                    console.log(totalTableArrayData[i][j]);
                 }
             }
 
@@ -1249,7 +1251,7 @@
             for (var i in scheduleList) {
                 //console.log(scheduleList[i].cost_center_id);
                 totalActivityManDays = totalActivityManDays + parseInt(scheduleList[i].activity_man_days);
-                if (scheduleList[i].schedule_type === 'schedule'){
+                if (scheduleList[i].schedule_type == 'schedule'){
                     htmlTable += '<tr>' +
                         '<td style="text-align: center">' + BnFromEng(rowNumber) + '</td>' +
                         '<td style="text-align: center">' + scheduleList[i].cost_center_name_bn + '</td>' +
@@ -1262,7 +1264,7 @@
                 else {
                     htmlTable += '<tr>' +
                         '<td style="text-align: center">' + BnFromEng(rowNumber) + '</td>' +
-                        '<td colspan="4" style="text-align: center">' + BnFromEng(scheduleList[i].team_member_activity) + ' খ্রি. ' + scheduleList[i].activity_location + '</td>' +
+                        '<td colspan="4" style="text-align: center">' + BnFromEng(scheduleList[i].team_member_start_date) + ' খ্রি. ' + scheduleList[i].activity_details + '</td>' +
                         '</tr>';
 
                 }
