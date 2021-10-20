@@ -23,75 +23,67 @@
                 <div class="card">
                     <div class="card-body" style="height: calc(100vh - 145px);padding: 10px;">
                         <div class="row">
-                            {{--<div class="col-md-6">
-                                <div class="dropzone dropzone-default dropzone-primary dz-clickable kt_dropzone">
-                                    <div class="dropzone-msg dz-message needsclick">
-                                        <h3 class="dropzone-msg-title">কভার-পেজ</h3>
-                                        --}}{{--<span class="dropzone-msg-desc">Upload up to 10 files</span>--}}{{--
-                                    </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">
+                                        কভার পেজ
+                                    </label>
+                                    <input name="file" type="file" class="form-control rounded-0"
+                                           accept="image/*" multiple>
                                 </div>
-                            </div>--}}
-
-                            <div class="col-lg-6">
-                                <div class="dropzone dropzone-multi kt_dropzone">
-                                    <div class="dropzone-panel mb-lg-0 mb-2">
-                                        <a class="dropzone-select btn btn-light-primary font-weight-bold btn-sm dz-clickable">কভার-পেজ</a>
-                                        <a class="dropzone-upload btn btn-light-primary font-weight-bold btn-sm">Upload All</a>
-                                        <a class="dropzone-remove-all btn btn-light-primary font-weight-bold btn-sm">Remove All</a>
-                                    </div>
-                                    <div class="dropzone-items">
-
-                                    </div>
-                                    <div class="dz-default dz-message"><button class="dz-button" type="button">Drop files here to upload</button></div></div>
-                                <span class="form-text text-muted">Max file size is 1MB and max number of files is 5.</span>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="dropzone dropzone-default dropzone-primary dz-clickable">
-                                    <div class="dropzone-msg dz-message needsclick">
-                                        <h3 class="dropzone-msg-title">টপ-পেজ</h3>
-                                        {{--<span class="dropzone-msg-desc">Upload up to 10 files</span>--}}
-                                    </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">
+                                        টপ পেজ
+                                    </label>
+                                    <input name="file" type="file" class="form-control rounded-0"
+                                           accept="image/*" multiple>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row pt-4">
                             <div class="col-md-6">
-                                <div class="dropzone dropzone-default dropzone-primary dz-clickable">
-                                    <div class="dropzone-msg dz-message needsclick">
-                                        <h3 class="dropzone-msg-title">মূল আপত্তি সংযুক্তি</h3>
-                                       {{-- <span class="dropzone-msg-desc">Upload up to 10 files</span>--}}
-                                    </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">
+                                        মূল আপত্তি সংযুক্তি
+                                    </label>
+                                    <input name="file" type="file" class="form-control rounded-0"
+                                           accept="image/*" multiple>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="dropzone dropzone-default dropzone-primary dz-clickable">
-                                    <div class="dropzone-msg dz-message needsclick">
-                                        <h3 class="dropzone-msg-title">পরিশিষ্ট সংযুক্তি</h3>
-                                        {{-- <span class="dropzone-msg-desc">Upload up to 10 files</span>--}}
-                                    </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">
+                                        পরিশিষ্ট সংযুক্তি
+                                    </label>
+                                    <input name="file" type="file" class="form-control rounded-0"
+                                           accept="image/*" multiple>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row pt-4">
                             <div class="col-md-6">
-                                <div class="dropzone dropzone-default dropzone-primary dz-clickable">
-                                    <div class="dropzone-msg dz-message needsclick">
-                                        <h3 class="dropzone-msg-title">প্রামানক সংযুক্তি</h3>
-                                        {{-- <span class="dropzone-msg-desc">Upload up to 10 files</span>--}}
-                                    </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">
+                                        প্রামানক সংযুক্তি
+                                    </label>
+                                    <input name="file" type="file" class="form-control rounded-0"
+                                           accept="image/*" multiple>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="dropzone dropzone-default dropzone-primary dz-clickable">
-                                    <div class="dropzone-msg dz-message needsclick">
-                                        <h3 class="dropzone-msg-title">আপত্তির অন্যান্য সংযুক্তি</h3>
-                                        {{-- <span class="dropzone-msg-desc">Upload up to 10 files</span>--}}
-                                    </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">
+                                        আপত্তির অন্যান্য সংযুক্তি
+                                    </label>
+                                    <input name="file" type="file" class="form-control rounded-0"
+                                           accept="image/*" multiple>
                                 </div>
                             </div>
                         </div>
