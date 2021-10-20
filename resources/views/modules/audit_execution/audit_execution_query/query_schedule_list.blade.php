@@ -1,4 +1,4 @@
-<x-title-wrapper>Query Schedules</x-title-wrapper>
+<x-title-wrapper>Audit Schedules</x-title-wrapper>
 <div class="col-md-12 p-0">
     <div class="load-table-data" data-href="{{route('audit.execution.load-query-schedule-lists')}}"></div>
 </div>
@@ -29,7 +29,7 @@
             cost_center_type_id = $('#cost_center_type').val();
             queries = {};
             $(".selectQuery").each(function (i, value) {
-                if ($(this).is(':checked')) {
+                if ($(this).is(':checked') && !$(this).is(':disabled')) {
                     queries[$(this).val()] = {
                         query_id: $(this).attr('data-query-id'),
                         query_title_en: $(this).attr('data-query-en'),
@@ -37,12 +37,28 @@
                     }
                 }
             });
+
+            console.log(queries);
+
+            if(!queries){
+                toastr.warning('Please Select Query');
+                return;
+            }
+
             url = '{{route('audit.execution.send-audit-query')}}';
             data = {queries, cost_center_id, cost_center_type_id, cost_center_name_bn, cost_center_name_en};
+
+             KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+             });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
+                    $('#cost_center_type').trigger('change');
                     toastr.success(response.data)
                 }
             })
@@ -56,10 +72,18 @@
 
             url = '{{route('audit.execution.received-audit-query')}}';
             data = {query_id, cost_center_id, cost_center_type_id, cost_center_name_bn, cost_center_name_en};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
+                    $('#cost_center_type').trigger('change');
                     toastr.success(response.data)
                 }
             })
@@ -86,3 +110,4 @@
         }
     }
 </script>
+

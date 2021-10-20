@@ -8,7 +8,7 @@
             </x-menu-item>
             <hr>
             <x-menu-item class="" href="{{route('audit.execution.query-schedule-list')}}"
-                             icon="fal fa-calendar-alt">Query
+                             icon="fal fa-calendar-alt">Audit Schedules
             </x-menu-item>
         </ul>
     </div>

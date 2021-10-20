@@ -7,7 +7,7 @@
     </button>
     <button
         type="button"
-        class="float-right font-weight-bolder font-size-sm ml-2 btn btn-success btn-sm btn-bold btn-square sendQuery">
+        class="float-right font-weight-bolder font-size-sm mr-2 btn btn-success btn-sm btn-bold btn-square sendQuery">
         <i class="far fa-paper-plane mr-1"></i> Send
     </button>
 </div>
@@ -29,7 +29,7 @@
     <tbody style="" class="datatable-body">
     @forelse($audit_query_list as $query)
         <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
-            <td class="datatable-cell text-center"><span><input @if($query['audit_query']) checked  @endif class="selectQuery"
+            <td class="datatable-cell text-center"><span><input @if($query['audit_query']) checked disabled @endif class="selectQuery"
                                                                 data-query-bn="{{$query['query_title_bn']}}"
                                                                 data-query-en="{{$query['query_title_en']}}"
                                                                 data-query-id="{{$query['id']}}"
@@ -39,16 +39,20 @@
             <td class="datatable-cell"><span>{{$query['query_title_bn']}}</span></td>
             <td class="datatable-cell text-center">
                 @if($query['audit_query'])
-{{--                    @if(isset($query['audit_query']['is_query_received']))--}}
-{{--                        Received--}}
-{{--                    @else--}}
+                    @if($query['audit_query']['is_query_document_received'])
+                        <button
+                            type="button"
+                            class="float-right font-weight-bolder font-size-sm ml-2 btn btn-bg-secondary disabled btn-sm btn-bold btn-square">
+                            Received
+                        </button>
+                    @else
                         <button
                             onclick="Audit_Query_Container.receivedQuery('{{$query['id']}}')"
                             type="button"
                             class="float-right font-weight-bolder font-size-sm ml-2 btn btn-success btn-sm btn-bold btn-square receivedQuery">
                             Receive
                         </button>
-{{--                    @endif--}}
+                    @endif
                 @endif
             </td>
         </tr>
