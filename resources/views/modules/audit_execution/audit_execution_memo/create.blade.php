@@ -68,6 +68,13 @@
                                         <option value="পাণ্ডুলিপি">পাণ্ডুলিপি</option>
                                     </select>
 
+                                    <select class="form-control" name="memo_status">
+                                        <option value="">আপত্তির অবস্থা</option>
+                                        <option value="1">১. নিস্পন্ন</option>
+                                        <option value="2">২. অনিস্পন্ন</option>
+                                        <option value="3">৩. আংশিক নিস্পন্ন</option>
+                                    </select>
+
                                     <div class="form-group">
                                         <label class="col-form-label">
                                             পরিশিষ্ট সংযুক্তি
@@ -159,8 +166,11 @@
         $('#memo_submit').on('click', function(e){
             e.preventDefault();
 
+            from_data = new FormData(document.getElementById("memo_create_form")) ;
+            from_data.append('memo_description_bn',tinymce.get("kt-tinymce-1").getContent())
+
             $.ajax({
-                data: new FormData(document.getElementById("memo_create_form")),
+                data: from_data,
                 url: "{{route('audit.execution.memo.store')}}",
                 type: "POST",
                 dataType: 'json',

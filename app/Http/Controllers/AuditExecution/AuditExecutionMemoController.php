@@ -42,7 +42,7 @@ class AuditExecutionMemoController extends Controller
     {
         Validator::make($request->all(), [
             'schedule_id' => 'required',
-            'appendix_file' => 'required|max:10420',
+            /*'appendix_file' => 'required|max:10420',*/
         ])->validate();
 
         $data = [
@@ -59,6 +59,8 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'memo_irregularity_type', 'contents' => $request->memo_irregularity_type],
             ['name' => 'memo_irregularity_sub_type', 'contents' => $request->memo_irregularity_sub_type],
             ['name' => 'memo_type', 'contents' => $request->memo_type],
+            ['name' => 'memo_status', 'contents' => $request->memo_status],
+            ['name' => 'cdesk', 'contents' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE)],
         ];
 
         $appendix_file = $request->appendix_file;
