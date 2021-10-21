@@ -29,6 +29,7 @@
         <div class="row pb-4">
             <div class="col-md-6">
                 <button class="btn_annual_plan_submit_to_ocag btn-sm btn-primary btn-square"
+                        data-schedule-id="{{$schedule_id}}"
                         onclick="Memo_Container.createMemo($(this))">
                    Create Memo
                 </button>
@@ -44,11 +45,11 @@
 
                 <thead class="datatable-head">
                 <tr class="datatable-row" style="left: 0px;">
-                    <th class="datatable-cell datatable-cell-sort" style="width: 10%">
+                    <th class="datatable-cell datatable-cell-sort" style="width: 5%">
                         ক্রমিক নং
                     </th>
 
-                    <th class="datatable-cell datatable-cell-sort" style="width: 25%">
+                    <th class="datatable-cell datatable-cell-sort" style="width: 5%">
                         অনুচ্ছেদ নং
                     </th>
 
@@ -67,10 +68,10 @@
                 </thead>
                 <tbody style="" class="">
                 <tr data-row="1" class="datatable-row" style="left: 0px;">
-                    <td class="datatable-cell" style="width: 10%">
+                    <td class="datatable-cell" style="width: 5%">
                         <span>১</span>
                     </td>
-                    <td class="datatable-cell" style="width: 10%">
+                    <td class="datatable-cell" style="width: 5%">
                         <span>৪</span>
                     </td>
                     <td class="datatable-cell" style="width: 25%">
@@ -95,7 +96,8 @@
 <script>
     var Memo_Container = {
         createMemo: function (elem) {
-            data = {};
+            schedule_id = elem.data('schedule-id');
+            data = {schedule_id};
             let url = '{{route('audit.execution.memo.create')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {

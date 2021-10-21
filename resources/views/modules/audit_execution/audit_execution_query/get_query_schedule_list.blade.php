@@ -49,6 +49,7 @@
             </div>
         </div>
 
+        {{--{{dd($audit_query_schedule_list['data'])}}--}}
         @foreach($audit_query_schedule_list['data'] as $key=> $schedule)
             <div class="">
                 <ul class="list-group list-group-flush">
@@ -101,7 +102,8 @@
                                                         Query
                                                     </button>
 
-                                                    <button onclick="Audit_Query_Container.loadMemoList()" type="button"
+                                                    <button data-schedule-id="{{$schedule['id']}}"
+                                                            onclick="Audit_Query_Container.loadMemoList($(this))" type="button"
                                                             class="btn btn-sm rounded-0 alert-warning  folder_click">
                                                         Memo
                                                     </button>

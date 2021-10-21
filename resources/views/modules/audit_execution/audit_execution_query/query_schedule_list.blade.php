@@ -110,7 +110,8 @@
         },
 
         loadMemoList: function (elem) {
-            data = {};
+            schedule_id = elem.data('schedule-id');
+            data = {schedule_id};
             let url = '{{route('audit.execution.load-memo-list')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_content');

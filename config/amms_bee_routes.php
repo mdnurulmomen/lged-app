@@ -177,6 +177,9 @@ return [
         'send_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/send-audit-query',
         'received_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/received-audit-query',
         'audit_query_cost_center_type_wise' => env('API_URL_BEE', '') . '/audit-conduct-query/audit-query-cost-center-type-wise',
+        'memo' => [
+            'store' => env('API_URL_BEE', '') . 'audit-conduct-memo/audit-memo-store'
+        ]
     ],
 
     'final_plan_file' => [
