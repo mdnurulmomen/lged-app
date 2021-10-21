@@ -91,6 +91,7 @@
 
         selectQuery: function (elem) {
             quick_panel = $("#kt_quick_panel");
+            quick_panel.html();
             quick_panel.addClass('offcanvas-on');
             quick_panel.css('opacity', 1);
             quick_panel.css('width', '800px');
@@ -118,7 +119,7 @@
             audit_plan_id = elem.data('audit-plan-id');
             cost_center_id = elem.data('cost-center-id');
 
-            data = {schedule_id,audit_plan_id,cost_center_id};
+            data = {schedule_id, audit_plan_id, cost_center_id};
             let url = '{{route('audit.execution.memo.index')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_content');
