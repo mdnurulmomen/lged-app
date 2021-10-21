@@ -334,10 +334,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::get('review', [\App\Http\Controllers\AuditExecution\AuditExecutionReviewController::class, 'index'])->name('review');
 
-        Route::post('load-memo-list', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'index'])->name('load-memo-list');
-        Route::group(['as' => 'memo.', 'prefix' => 'memo/'], function () {
+        Route::group(['as' => 'memo.', 'prefix'=> 'memo/'],function (){
+            Route::post('index', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'index'])->name('index');
             Route::post('create', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'create'])->name('create');
             Route::post('store', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'store'])->name('store');
+            Route::post('list', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'list'])->name('list');
         });
     });
 

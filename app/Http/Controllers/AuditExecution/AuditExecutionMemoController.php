@@ -16,8 +16,29 @@ class AuditExecutionMemoController extends Controller
     public function index(Request $request)
     {
         $schedule_id = $request->schedule_id;
-        return view('modules.audit_execution.audit_execution_memo.partials.load_memo_list',
-            compact('schedule_id'));
+        $audit_plan_id = $request->audit_plan_id;
+        $cost_center_id = $request->cost_center_id;
+        return view('modules.audit_execution.audit_execution_memo.index',
+            compact('schedule_id','audit_plan_id','cost_center_id'));
+    }
+
+    public function list(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'audit_plan_id' => 'required|integer',
+            'cost_center_id' => 'required|integer',
+            'per_page' => 'required|integer',
+            'page' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $memo_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.list'), $data)->json();
+        if (isSuccess($memo_list)) {
+            $memo_list = $memo_list['data'];
+            return view('modules.audit_execution.audit_execution_memo.partials.load_memo_list',
+                compact('memo_list'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $memo_list]);
+        }
     }
 
     /**
@@ -42,6 +63,16 @@ class AuditExecutionMemoController extends Controller
     {
         Validator::make($request->all(), [
             'schedule_id' => 'required',
+            'memo_title_bn' => 'required',
+            'memo_description_bn' => 'required',
+            'jorito_ortho_poriman' => 'required',
+            'onishponno_jorito_ortho_poriman' => 'required',
+            'audit_year_start' => 'required',
+            'audit_year_end' => 'required',
+            'memo_irregularity_type' => 'required',
+            'memo_irregularity_sub_type' => 'required',
+            'memo_type' => 'required',
+            'memo_status' => 'required',
             /*'appendix_file' => 'required|max:10420',*/
         ])->validate();
 

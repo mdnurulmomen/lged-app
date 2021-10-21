@@ -62,10 +62,10 @@
 
                                     <select class="form-control" name="memo_type">
                                         <option value="">আপত্তির ধরন</option>
-                                        <option value="এসএফআই">এসএফআই</option>
-                                        <option value="নন-এসএফআই">নন-এসএফআই</option>
-                                        <option value="ড্রাফ্ট প্যারা">ড্রাফ্ট প্যারা</option>
-                                        <option value="পাণ্ডুলিপি">পাণ্ডুলিপি</option>
+                                        <option value="1">এসএফআই</option>
+                                        <option value="2">নন-এসএফআই</option>
+                                        <option value="3">ড্রাফ্ট প্যারা</option>
+                                        <option value="4">পাণ্ডুলিপি</option>
                                     </select>
 
                                     <select class="form-control" name="memo_status">

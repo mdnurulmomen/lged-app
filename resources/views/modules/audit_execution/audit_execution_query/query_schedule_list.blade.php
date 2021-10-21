@@ -113,10 +113,13 @@
             })
         },
 
-        loadMemoList: function (elem) {
+        memo: function (elem) {
             schedule_id = elem.data('schedule-id');
-            data = {schedule_id};
-            let url = '{{route('audit.execution.load-memo-list')}}'
+            audit_plan_id = elem.data('audit-plan-id');
+            cost_center_id = elem.data('cost-center-id');
+
+            data = {schedule_id,audit_plan_id,cost_center_id};
+            let url = '{{route('audit.execution.memo.index')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
