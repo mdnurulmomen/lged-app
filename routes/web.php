@@ -337,6 +337,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('load-memo-list', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'index'])->name('load-memo-list');
         Route::group(['as' => 'memo.', 'prefix'=> 'memo/'],function (){
             Route::post('create', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'create'])->name('create');
+            Route::post('store', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'store'])->name('store');
         });
     });
 
