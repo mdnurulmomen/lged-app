@@ -20,9 +20,10 @@
             opacity: 0.1,
             state: 'primary' // a bootstrap color
         });
+        cost_center_id = $('#cost_center_id').val();
         cost_center_type_id = $(this).val();
         url = '{{route('audit.execution.cost-center-type-wise-query')}}';
-        data = {cost_center_type_id};
+        data = {cost_center_type_id,cost_center_id};
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             KTApp.unblock('#kt_content');
             if (response.status === 'error') {

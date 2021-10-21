@@ -47,6 +47,7 @@ class AuditExecutionQueryController extends Controller
 
     public function costCenterTypeWiseQuery(Request $request)
     {
+        $data['cost_center_id'] = $request->cost_center_id;
         $data['cost_center_type_id'] = $request->cost_center_type_id;
         $data['cdesk'] = json_encode_unicode($this->current_desk());
         $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.audit_query_cost_center_type_wise'), $data)->json();
@@ -68,7 +69,7 @@ class AuditExecutionQueryController extends Controller
         $data['queries'] = $request->queries;
         $send_audit_queries = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.send_audit_query'), $data)->json();
 
-        dd($send_audit_queries);
+//        dd($send_audit_queries);
 
         if ($send_audit_queries['status'] == 'success') {
             $send_audit_queries = $send_audit_queries['data'];

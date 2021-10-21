@@ -1,15 +1,17 @@
-<div class="col-lg-12 mt-2">
-    <button
-        type="button"
-        data-id="1"
-        class="float-right font-weight-bolder font-size-sm mb-3 btn btn-success btn-sm btn-bold btn-square btn_create_audit_query">
-        <i class="far fa-plus mr-1"></i> Add Query
-    </button>
-    <button
-        type="button"
-        class="float-right font-weight-bolder font-size-sm mr-2 btn btn-success btn-sm btn-bold btn-square sendQuery">
-        <i class="far fa-paper-plane mr-1"></i> Send
-    </button>
+<div class="row" style="position: sticky;top: 0;background: white;">
+    <div class="col-lg-12 mt-2">
+        <button
+            type="button"
+            data-id="1"
+            class="float-right font-weight-bolder font-size-sm mb-3 btn btn-success btn-sm btn-bold btn-square btn_create_audit_query">
+            <i class="far fa-plus mr-1"></i> Add Query
+        </button>
+        <button
+            type="button"
+            class="float-right font-weight-bolder font-size-sm mr-2 btn btn-success btn-sm btn-bold btn-square sendQuery">
+            <i class="far fa-paper-plane mr-1"></i> Send
+        </button>
+    </div>
 </div>
 
 <table class="table table-striped mt-2">
