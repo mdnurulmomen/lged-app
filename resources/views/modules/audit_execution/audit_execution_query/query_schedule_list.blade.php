@@ -91,7 +91,7 @@
 
         selectQuery: function (elem) {
             quick_panel = $("#kt_quick_panel");
-            quick_panel.html();
+            $('.offcanvas-wrapper').html('');
             quick_panel.addClass('offcanvas-on');
             quick_panel.css('opacity', 1);
             quick_panel.css('width', '800px');
