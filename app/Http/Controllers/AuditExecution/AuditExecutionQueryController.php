@@ -27,7 +27,6 @@ class AuditExecutionQueryController extends Controller
         $data['cdesk'] = json_encode_unicode($this->current_desk());
         $data['fiscal_year_id'] = 1;
         $audit_query_schedule_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.get_query_schedule_list'), $data)->json();
-//        dd($audit_query_schedule_list);
         if ($audit_query_schedule_list['status'] == 'success') {
             $audit_query_schedule_list = $audit_query_schedule_list['data'];
             return view('modules.audit_execution.audit_execution_query.get_query_schedule_list', compact('audit_query_schedule_list'));
@@ -42,7 +41,8 @@ class AuditExecutionQueryController extends Controller
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
         $cost_center_name_en = $request->cost_center_name_en;
-        return view('modules.audit_execution.audit_execution_query.select_audit_query', compact('cost_center_types','cost_center_id','cost_center_name_bn','cost_center_name_en'));
+        $cost_center_type_id = $request->cost_center_type_id;
+        return view('modules.audit_execution.audit_execution_query.select_audit_query', compact('cost_center_type_id', 'cost_center_types', 'cost_center_id', 'cost_center_name_bn', 'cost_center_name_en'));
     }
 
     public function costCenterTypeWiseQuery(Request $request)
@@ -59,7 +59,8 @@ class AuditExecutionQueryController extends Controller
         }
     }
 
-    public function sendAuditQuery(Request $request){
+    public function sendAuditQuery(Request $request)
+    {
         $data['cdesk'] = json_encode_unicode($this->current_desk());
         $data['fiscal_year_id'] = 1;
         $data['cost_center_type_id'] = $request->cost_center_type_id;
@@ -79,7 +80,8 @@ class AuditExecutionQueryController extends Controller
         }
     }
 
-    public function receivedAuditQuery(Request $request){
+    public function receivedAuditQuery(Request $request)
+    {
         $data['cdesk'] = json_encode_unicode($this->current_desk());
         $data['fiscal_year_id'] = 1;
         $data['cost_center_type_id'] = $request->cost_center_type_id;

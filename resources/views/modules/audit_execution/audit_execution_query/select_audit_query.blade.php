@@ -4,7 +4,7 @@
     <input id="cost_center_name_bn" type="hidden" value="{{$cost_center_name_bn}}">
     <div class="col-md-4">
         <select id="cost_center_type" class="form-control">
-            <option value="">Select Institution Type </option>
+            <option value="">Select Cost Center Type</option>
             @foreach($cost_center_types as $key => $cost_center)
                 <option value="{{$cost_center['id']}}">{{$cost_center['name_bn']}}</option>
             @endforeach
@@ -15,6 +15,15 @@
 <div id="queryList"></div>
 @include('modules.settings.x_audit_query.partials.query_modal')
 <script>
+
+    $(function () {
+        cost_center_type_id = '{{$cost_center_type_id}}';
+        console.log(cost_center_type_id);
+        if (cost_center_type_id) {
+            $('#cost_center_type').val(cost_center_type_id).trigger('change')
+        }
+    })
+
     $('#cost_center_type').change(function () {
         KTApp.block('#kt_content', {
             opacity: 0.1,
@@ -23,7 +32,7 @@
         cost_center_id = $('#cost_center_id').val();
         cost_center_type_id = $(this).val();
         url = '{{route('audit.execution.cost-center-type-wise-query')}}';
-        data = {cost_center_type_id,cost_center_id};
+        data = {cost_center_type_id, cost_center_id};
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             KTApp.unblock('#kt_content');
             if (response.status === 'error') {

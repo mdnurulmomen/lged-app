@@ -40,7 +40,7 @@
 
             console.log(queries);
 
-            if(!queries){
+            if (!queries) {
                 toastr.warning('Please Select Query');
                 return;
             }
@@ -48,10 +48,10 @@
             url = '{{route('audit.execution.send-audit-query')}}';
             data = {queries, cost_center_id, cost_center_type_id, cost_center_name_bn, cost_center_name_en};
 
-             KTApp.block('#kt_content', {
+            KTApp.block('#kt_content', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
-             });
+            });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_content');
@@ -89,7 +89,7 @@
             })
         },
 
-        selectQuery: function (cost_center_id,cost_center_name_en,cost_center_name_bn) {
+        selectQuery: function (elem) {
             quick_panel = $("#kt_quick_panel");
             quick_panel.addClass('offcanvas-on');
             quick_panel.css('opacity', 1);
@@ -99,8 +99,12 @@
             $("html").addClass("side-panel-overlay");
             $('.offcanvas-title').html('Send Query');
             url = '{{route('audit.execution.select-audit-query')}}';
-            data = {cost_center_id,cost_center_name_en,cost_center_name_bn};
-            ajaxCallAsyncCallbackAPI(url, data, 'get', function (response) {
+            cost_center_name_en = elem.attr('data-cost-center-name-ed');
+            cost_center_name_bn = elem.attr('data-cost-center-name-bn');
+            cost_center_id = elem.attr('data-cost-center-id');
+            cost_center_type_id = elem.attr('data-cost-center-type-id');
+            data = {cost_center_id, cost_center_name_en, cost_center_name_bn, cost_center_type_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {

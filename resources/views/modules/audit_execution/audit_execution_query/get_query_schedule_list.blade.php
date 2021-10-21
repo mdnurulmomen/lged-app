@@ -97,13 +97,20 @@
                                         <div class="d-block">
                                             <div class="d-flex align-items-center justify-content-md-end">
                                                 <div class="btn-group folder-wrapper mb-2 mt-3 mr-3">
-                                                    <button onclick="Audit_Query_Container.selectQuery('{{$schedule['cost_center_id']}}','{{$schedule['cost_center_name_en']}}','{{$schedule['cost_center_name_bn']}}')" type="button"
-                                                            class="btn btn-sm rounded-0 alert-warning  folder_click">
+                                                    <button
+                                                        onclick="Audit_Query_Container.selectQuery($(this))"
+                                                        data-cost-center-id="{{$schedule['cost_center_id']}}"
+                                                        data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
+                                                        data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
+                                                        data-cost-center-type-id="{{isset($schedule['cost_center_type']) ? $schedule['cost_center_type']['cost_center_type_id'] : null}}"
+                                                        type="button"
+                                                        class="btn btn-sm rounded-0 alert-warning  folder_click">
                                                         Query
                                                     </button>
 
                                                     <button data-schedule-id="{{$schedule['id']}}"
-                                                            onclick="Audit_Query_Container.loadMemoList($(this))" type="button"
+                                                            onclick="Audit_Query_Container.loadMemoList($(this))"
+                                                            type="button"
                                                             class="btn btn-sm rounded-0 alert-warning  folder_click">
                                                         Memo
                                                     </button>

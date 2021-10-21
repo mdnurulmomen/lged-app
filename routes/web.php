@@ -325,7 +325,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::get('schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'queryScheduleList'])->name('query-schedule-list');
         Route::get('load-query-schedule-lists', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadQueryScheduleList'])->name('load-query-schedule-lists');
-        Route::get('select-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'selectAuditQuery'])->name('select-audit-query');
+        Route::post('select-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'selectAuditQuery'])->name('select-audit-query');
         Route::post('cost-center-type-wise-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'costCenterTypeWiseQuery'])->name('cost-center-type-wise-query');
         Route::post('send-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'sendAuditQuery'])->name('send-audit-query');
         Route::post('received-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'receivedAuditQuery'])->name('received-audit-query');
@@ -335,7 +335,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('review', [\App\Http\Controllers\AuditExecution\AuditExecutionReviewController::class, 'index'])->name('review');
 
         Route::post('load-memo-list', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'index'])->name('load-memo-list');
-        Route::group(['as' => 'memo.', 'prefix'=> 'memo/'],function (){
+        Route::group(['as' => 'memo.', 'prefix' => 'memo/'], function () {
             Route::post('create', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'create'])->name('create');
             Route::post('store', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'store'])->name('store');
         });
