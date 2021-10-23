@@ -94,19 +94,19 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'cdesk', 'contents' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE)],
         ];
 
-        $appendix_file = $request->appendix_file;
-        if ($request->hasfile('appendix_file')) {
+        $appendix_file = $request->porisishto;
+        if ($request->hasfile('porisishto')) {
             $data[] = [
-                'name'     => 'file',
+                'name'     => 'porisishto',
                 'contents' => file_get_contents($appendix_file->getRealPath()),
                 'filename' => $appendix_file->getClientOriginalName(),
             ];
         }
 
-        $authentic_file= $request->authentic_file;
-        if ($request->hasfile('authentic_file')) {
+        $authentic_file= $request->pramanok;
+        if ($request->hasfile('pramanok')) {
             $data[] = [
-                'name'     => 'file',
+                'name'     => 'pramanok',
                 'contents' => file_get_contents($authentic_file->getRealPath()),
                 'filename' => $authentic_file->getClientOriginalName(),
             ];
@@ -137,11 +137,38 @@ class AuditExecutionMemoController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $data = Validator::make($request->all(), [
+            'memo_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $memo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
+        if (isSuccess($memo)) {
+            $memo = $memo['data'];
+            return view('modules.audit_execution.audit_execution_memo.edit',
+                compact('memo'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $memo]);
+        }
+    }
+
+    public function sentToRpu(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'memos' => 'required',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+
+        dd($data);
+        $memo = $this->initHttpWithToken()->post(config('cag_rpu_api.'), $data)->json();
+        if (isSuccess($memo)) {
+            return response()->json(['status' => 'success', 'data' => 'Successfully! Memo has been saved']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseGenerateOfficeOrder]);
+        }
     }
 
     /**

@@ -104,7 +104,7 @@
                                                         data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
                                                         data-cost-center-type-id="{{isset($schedule['cost_center_type']) ? $schedule['cost_center_type']['cost_center_type_id'] : null}}"
                                                         type="button"
-                                                        class="btn btn-sm rounded-0 alert-warning  folder_click">
+                                                        class="btn btn-sm rounded-0 alert-primary  folder_click">
                                                         Query
                                                     </button>
 

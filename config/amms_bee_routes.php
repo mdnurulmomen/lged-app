@@ -179,7 +179,8 @@ return [
         'audit_query_cost_center_type_wise' => env('API_URL_BEE', '') . '/audit-conduct-query/audit-query-cost-center-type-wise',
         'memo' => [
             'store' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-store',
-            'list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-list'
+            'list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-list',
+            'edit' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-edit'
         ]
     ],
 
