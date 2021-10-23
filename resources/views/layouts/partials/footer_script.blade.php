@@ -76,6 +76,7 @@
 <script src="{{ asset('assets/js/tapp.js') }}"></script>
 <script src="{{ asset('assets/js/custom-script.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
+<script src="{{asset('assets/plugins/custom/lightgallery/dist/js/lightgallery.min.js')}}"></script>
 {{--<script src="{{ asset('assets/js/audit-script.js') }}"></script>--}}
 <!--end::Page Scripts-->
 {{--<script>--}}

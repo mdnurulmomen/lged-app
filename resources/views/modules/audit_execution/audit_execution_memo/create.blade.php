@@ -75,9 +75,9 @@
 
                                     <select class="form-control select-select2" name="memo_status">
                                         <option value="">আপত্তির অবস্থা</option>
-                                        <option value="1">১. নিস্পন্ন</option>
-                                        <option value="2">২. অনিস্পন্ন</option>
-                                        <option value="3">৩. আংশিক নিস্পন্ন</option>
+                                        <option value="1">নিস্পন্ন</option>
+                                        <option value="2">অনিস্পন্ন</option>
+                                        <option value="3">আংশিক নিস্পন্ন</option>
                                     </select>
 
                                     <div class="form-group">

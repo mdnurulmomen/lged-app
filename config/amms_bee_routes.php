@@ -181,6 +181,7 @@ return [
             'store' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-store',
             'list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-list',
             'edit' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-edit',
+            'update' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-update',
             'send_to_rpu' => env('API_URL_BEE', '') . '/audit-conduct-memo/send-audit-memo-to-rpu'
         ]
     ],

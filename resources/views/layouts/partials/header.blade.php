@@ -30,5 +30,17 @@
 <link href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/css/style_core_tapp.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/css/custom-style.css') }}" rel="stylesheet" type="text/css"/>
+
+<link type="text/css" rel="stylesheet" href="{{asset('assets/plugins/custom/lightgallery/dist/css/lightgallery.css')}}"/>
 <!--end::Layout Themes-->
+<style>
+    .tox-tinymce {
+        height: 78vh !important;
+        font-size: 11px !important;
+    }
+
+    .tox-notification.tox-notification--in.tox-notification--warning {
+        display: none !important;
+    }
+</style>
 

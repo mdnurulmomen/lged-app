@@ -73,7 +73,6 @@ class AuditExecutionMemoController extends Controller
             'memo_irregularity_sub_type' => 'required',
             'memo_type' => 'required',
             'memo_status' => 'required',
-            /*'appendix_file' => 'required|max:10420',*/
         ])->validate();
 
         $data = [
@@ -177,9 +176,66 @@ class AuditExecutionMemoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        Validator::make($request->all(), [
+            'memo_id' => 'required',
+            'memo_title_bn' => 'required',
+            'memo_description_bn' => 'required',
+            'jorito_ortho_poriman' => 'required',
+            'onishponno_jorito_ortho_poriman' => 'required',
+            'audit_year_start' => 'required',
+            'audit_year_end' => 'required',
+            'memo_irregularity_type' => 'required',
+            'memo_irregularity_sub_type' => 'required',
+            'memo_type' => 'required',
+            'memo_status' => 'required',
+        ])->validate();
+
+        $data = [
+            ['name' => 'memo_id', 'contents' => $request->memo_id],
+            ['name' => 'memo_title_bn', 'contents' => $request->memo_title_bn],
+            ['name' => 'memo_description_bn', 'contents' => $request->memo_description_bn],
+            ['name' => 'response_of_rpu', 'contents' => $request->response_of_rpu],
+            ['name' => 'audit_conclusion', 'contents' => $request->audit_conclusion],
+            ['name' => 'audit_recommendation', 'contents' => $request->audit_recommendation],
+            ['name' => 'jorito_ortho_poriman', 'contents' => $request->jorito_ortho_poriman],
+            ['name' => 'onishponno_jorito_ortho_poriman', 'contents' => $request->onishponno_jorito_ortho_poriman],
+            ['name' => 'audit_year_start', 'contents' => $request->audit_year_start],
+            ['name' => 'audit_year_end', 'contents' => $request->audit_year_end],
+            ['name' => 'memo_irregularity_type', 'contents' => $request->memo_irregularity_type],
+            ['name' => 'memo_irregularity_sub_type', 'contents' => $request->memo_irregularity_sub_type],
+            ['name' => 'memo_type', 'contents' => $request->memo_type],
+            ['name' => 'memo_status', 'contents' => $request->memo_status],
+            ['name' => 'cdesk', 'contents' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE)],
+        ];
+
+        $appendix_file = $request->porisishto;
+        if ($request->hasfile('porisishto')) {
+            $data[] = [
+                'name'     => 'porisishto',
+                'contents' => file_get_contents($appendix_file->getRealPath()),
+                'filename' => $appendix_file->getClientOriginalName(),
+            ];
+        }
+
+        $authentic_file= $request->pramanok;
+        if ($request->hasfile('pramanok')) {
+            $data[] = [
+                'name'     => 'pramanok',
+                'contents' => file_get_contents($authentic_file->getRealPath()),
+                'filename' => $authentic_file->getClientOriginalName(),
+            ];
+        }
+        //dd($data);
+
+        $response = $this->fileUPloadWithData(
+            'POST',
+            config('amms_bee_routes.audit_conduct_query.memo.update'),
+            $data
+        );
+
+        return json_decode($response->getBody(), true);
     }
 
     /**

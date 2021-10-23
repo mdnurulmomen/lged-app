@@ -28,13 +28,13 @@
                 <td>{{enTobn($loop->iteration)}}</td>
                 <td>{{$memo['onucched_no']}}</td>
                 <td>{{$memo['memo_title_bn']}}</td>
-                <td>{{$memo['memo_irregularity_type']}}</td>
+                <td>{{$memo['memo_irregularity_type_name']}}</td>
                 <td>{{$memo['jorito_ortho_poriman']}}</td>
                 <td>{{$memo['onishponno_jorito_ortho_poriman']}}</td>
                 <td>{{$memo['cost_center_name_bn']}}</td>
                 <td>{{$memo['audit_type']}}</td>
                 <td>{{enTobn($memo['audit_year_start']).'-'.enTobn($memo['audit_year_end'])}}</td>
-                <td>{{$memo['memo_irregularity_type']}}</td>
+                <td>{{$memo['memo_type_name']}}</td>
                 <td>
                     <div class="btn-group btn-group-sm" role="group">
                         <button class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"

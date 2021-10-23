@@ -1,4 +1,4 @@
-<form id="memo_create_form" enctype="multipart/form-data">
+<form id="memo_update_form" enctype="multipart/form-data">
 
     <div class="row p-4">
         <div class="col-md-12">
@@ -29,20 +29,20 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-body" style="height: calc(100vh - 145px);padding: 10px;">
-                                    <input class="form-control mb-1" pattern="[0-9\.]*" value="{{$memo['jorito_ortho_poriman']}}"
+                                <div class="card-body" style="padding: 10px;">
+                                    <input class="form-control" pattern="[0-9\.]*" value="{{$memo['jorito_ortho_poriman']}}"
                                            name="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
 
-                                    <input class="form-control mb-1" pattern="[0-9\.]*" value="{{$memo['onishponno_jorito_ortho_poriman']}}"
+                                    <input class="form-control" pattern="[0-9\.]*" value="{{$memo['onishponno_jorito_ortho_poriman']}}"
                                            name="onishponno_jorito_ortho_poriman" placeholder="অনিষ্পন্ন জড়িত অর্থ (টাকা)" type="text">
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input class="form-control mb-1 mt-1 year-picker" name="audit_year_start"
+                                            <input class="form-control year-picker" name="audit_year_start"
                                                    value="{{$memo['audit_year_start']}}" placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text">
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control mb-1 mt-1 year-picker" name="audit_year_end"
+                                            <input class="form-control year-picker" name="audit_year_end"
                                                    value="{{$memo['audit_year_end']}}" placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">
                                         </div>
                                     </div>
@@ -78,16 +78,24 @@
 
                                     <select class="form-control select-select2" name="memo_status">
                                         <option value="">আপত্তির অবস্থা</option>
-                                        <option value="1" {{$memo['memo_status'] == 1?'selected':''}}>১. নিস্পন্ন</option>
-                                        <option value="2" {{$memo['memo_status'] == 2?'selected':''}}>২. অনিস্পন্ন</option>
-                                        <option value="3" {{$memo['memo_status'] == 3?'selected':''}}>৩. আংশিক নিস্পন্ন</option>
+                                        <option value="1" {{$memo['memo_status'] == 1?'selected':''}}>নিস্পন্ন</option>
+                                        <option value="2" {{$memo['memo_status'] == 2?'selected':''}}>অনিস্পন্ন</option>
+                                        <option value="3" {{$memo['memo_status'] == 3?'selected':''}}>আংশিক নিস্পন্ন</option>
                                     </select>
 
                                     <div class="form-group">
                                         <label class="col-form-label">পরিশিষ্ট সংযুক্তি</label>
-                                        {{--<img src="{{$memo['ac_memo_attachments'][0]['attachment_path']}}" alt="">--}}
                                         <input name="porisishto" type="file" class="form-control rounded-0"
                                                accept="image/*" multiple>
+                                    </div>
+                                    <div id="lightgalleryPorisishto">
+                                        @foreach($memo['ac_memo_attachments'] as $attachment)
+                                            @if($attachment['attachment_type'] == 'porisishto')
+                                                <a href="{{$attachment['attachment_path']}}">
+                                                    <img width="50px" height="50px" class="img-thumbnail" src="{{$attachment['attachment_path']}}" />
+                                                </a>
+                                            @endif
+                                        @endforeach
                                     </div>
 
                                     <div class="form-group">
@@ -96,6 +104,16 @@
                                         </label>
                                         <input name="pramanok" type="file" class="form-control rounded-0"
                                                accept="image/*" multiple>
+                                    </div>
+
+                                    <div id="lightgalleryPramanok">
+                                        @foreach($memo['ac_memo_attachments'] as $attachment)
+                                            @if($attachment['attachment_type'] == 'pramanok')
+                                                <a href="{{$attachment['attachment_path']}}">
+                                                    <img width="50px" height="50px" class="img-thumbnail" src="{{$attachment['attachment_path']}}" />
+                                                </a>
+                                            @endif
+                                        @endforeach
                                     </div>
 
                                     {{--<div class="form-group">
@@ -140,8 +158,6 @@
 </form>
 
 
-
-
 <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
@@ -173,12 +189,12 @@
         $('#memo_submit').on('click', function(e){
             e.preventDefault();
 
-            from_data = new FormData(document.getElementById("memo_create_form")) ;
+            from_data = new FormData(document.getElementById("memo_update_form")) ;
             from_data.append('memo_description_bn',tinymce.get("kt-tinymce-1").getContent())
 
             $.ajax({
                 data: from_data,
-                url: "{{route('audit.execution.memo.store')}}",
+                url: "{{route('audit.execution.memo.update')}}",
                 type: "POST",
                 dataType: 'json',
                 contentType: false,
@@ -228,5 +244,13 @@
                 }
             });
         });
+    });
+
+    lightGallery(document.getElementById('lightgalleryPorisishto'), {
+        thumbnail:true
+    });
+
+    lightGallery(document.getElementById('lightgalleryPramanok'), {
+        thumbnail:true
     });
 </script>
