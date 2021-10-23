@@ -31,9 +31,7 @@
                    data-audit-query-id="{{$audit_query['id']}}"
                    data-audit-query-cost-center-type="{{$audit_query['cost_center_type_id']}}"
                    data-audit-query-title-en="{{$audit_query['query_title_en']}}"
-                   data-audit-query-title-bn="{{$audit_query['query_title_en']}}"
-                   data-url="{{route('settings.audit-query.update', ['audit_query' => $audit_query['id']])}}"
-                   data-method="PUT"
+                   data-audit-query-title-bn="{{$audit_query['query_title_bn']}}"
                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_audit_query">
                     <i class="fas fa-edit"></i>
                 </a>
@@ -57,16 +55,35 @@
 
 <script>
     $('.btn_edit_audit_query').click(function () {
-        $('#audit_query_modal_title').text('Update ' + $(this).data('fiscal-year-start') + ' - ' + $(this).data('fiscal-year-start'));
-        $('#btn_audit_query_modal_save').text('Update');
-        $('#btn_audit_query_modal_save').data('url', $(this).data('url'));
-        $('#btn_audit_query_modal_save').data('method', $(this).data('method'));
-        $('#audit_query_id').val($(this).data('fiscal-year-id'));
-        $('#duration_id').val($(this).data('fiscal-year-duration')).trigger('change');
-        $('#start_audit_query').val($(this).data('fiscal-year-start'));
-        $('#end_audit_query').val($(this).data('fiscal-year-end'));
-        $('#description').val($(this).data('fiscal-year-desc'));
-        $('#audit_query_modal').modal('show');
+        quick_panel = $("#kt_quick_panel");
+        $('.offcanvas-wrapper').html('');
+        quick_panel.addClass('offcanvas-on');
+        quick_panel.css('opacity', 1);
+        quick_panel.css('width', '500px');
+        $('.offcanvas-footer').hide();
+        quick_panel.removeClass('d-none');
+        $("html").addClass("side-panel-overlay");
+        $('.offcanvas-title').html('Edit Query');
+
+        audit_query_id = $(this).data('audit-query-id');
+        audit_query_cost_center_type = $(this).data('audit-query-cost-center-type');
+        audit_query_title_en =$(this).data('audit-query-title-en');
+        audit_query_title_bn = $(this).data('audit-query-title-bn');
+
+        url = '{{route('settings.audit-query.edit')}}';
+        var data = {audit_query_id,audit_query_cost_center_type,audit_query_title_en,audit_query_title_bn};
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
+            if (resp.status === 'error') {
+                toastr.error('no');
+                console.log(resp.data)
+            } else {
+                $('#audit_query_id').val(audit_query_id);
+                $('#cost_center_type_id').val(audit_query_cost_center_type);
+                $('#audit_query_title_en').text(audit_query_title_en);
+                $('#audit_query_title_bn').text(audit_query_title_bn);
+                $('.offcanvas-wrapper').html(resp);
+            }
+        });
     });
 
     $('.delete_audit_query').click(function () {

@@ -428,6 +428,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::resource('/fiscal-years', \App\Http\Controllers\Setting\XFiscalYearController::class, ['except' => ['edit', 'create']]);
 
         Route::post('/audit-query/lists', [\App\Http\Controllers\Setting\XAuditQueryController::class, 'getAuditQueryLists'])->name('audit-query.lists');
+        Route::post('/audit-query/edit', [\App\Http\Controllers\Setting\XAuditQueryController::class, 'auditQueryEdit'])->name('audit-query.edit');
         Route::resource('/audit-query', \App\Http\Controllers\Setting\XAuditQueryController::class, ['except' => ['edit', 'create']]);
 
         Route::group(['as' => 'strategic-plan.', 'prefix' => 'strategic-plan/'], function () {

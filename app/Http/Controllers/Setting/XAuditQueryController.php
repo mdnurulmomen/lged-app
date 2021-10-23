@@ -44,17 +44,28 @@ class XAuditQueryController extends Controller
         }
     }
 
+    public function auditQueryEdit(Request $request){
+        $cost_center_types = $this->allCostCenterType();
+        $audit_query_id = $request->audit_query_id;
+        $audit_query_cost_center_type = $request->audit_query_cost_center_type;
+        $audit_query_title_bn = $request->audit_query_title_bn;
+        $audit_query_title_en = $request->audit_query_title_en;
+        return view('modules.settings.x_audit_query.partials.update_query_modal',compact('cost_center_types','audit_query_id','audit_query_cost_center_type','audit_query_title_bn','audit_query_title_en'));
+    }
+
     public function update(Request $request)
     {
         $data = [
+            'id' => $request->audit_query_id,
             'cost_center_type_id' => $request->cost_center_type_id,
             'query_title_en' => $request->query_title_en,
             'query_title_bn' => $request->query_title_bn,
         ];
-        $create_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_query_update'), $data)->json();
 
+        $create_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_query_update'), $data)->json();
+//        dd($create_audit_query);
         if (isset($create_audit_query['status']) && $create_audit_query['status'] == 'success') {
-            return response()->json(responseFormat('success', 'Updated Successfully'));
+            return response()->json(['status' => 'success', 'data' => $create_audit_query['data']]);
         } else {
             return response()->json(['status' => 'error', 'data' => $create_audit_query]);
         }
