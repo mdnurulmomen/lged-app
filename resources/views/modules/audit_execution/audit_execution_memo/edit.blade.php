@@ -85,7 +85,7 @@
 
                                     <div class="form-group">
                                         <label class="col-form-label">পরিশিষ্ট সংযুক্তি</label>
-                                        <img src="{{$memo['ac_memo_attachments']['attachment_path']}}" alt="">
+                                        {{--<img src="{{$memo['ac_memo_attachments'][0]['attachment_path']}}" alt="">--}}
                                         <input name="porisishto" type="file" class="form-control rounded-0"
                                                accept="image/*" multiple>
                                     </div>
