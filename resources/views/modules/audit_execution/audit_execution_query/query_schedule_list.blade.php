@@ -100,7 +100,7 @@
             $("html").addClass("side-panel-overlay");
             $('.offcanvas-title').html('Send Query');
             url = '{{route('audit.execution.select-audit-query')}}';
-            cost_center_name_en = elem.attr('data-cost-center-name-ed');
+            cost_center_name_en = elem.attr('data-cost-center-name-en');
             cost_center_name_bn = elem.attr('data-cost-center-name-bn');
             cost_center_id = elem.attr('data-cost-center-id');
             cost_center_type_id = elem.attr('data-cost-center-type-id');
