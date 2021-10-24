@@ -76,7 +76,7 @@ class AuditExecutionMemoController extends Controller
         ])->validate();
 
         $data = [
-            ['name' => 'schedule_id', 'contents' => $request->schedule_id],
+            ['name' => 'team_member_schedule_id', 'contents' => $request->schedule_id],
             ['name' => 'memo_title_bn', 'contents' => $request->memo_title_bn],
             ['name' => 'memo_description_bn', 'contents' => $request->memo_description_bn],
             ['name' => 'response_of_rpu', 'contents' => $request->response_of_rpu],
