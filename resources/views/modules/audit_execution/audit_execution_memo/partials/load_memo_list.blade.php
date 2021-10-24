@@ -23,7 +23,7 @@
         @foreach($memo_list['data'] as $memo)
             <tr>
                 <td><input type="checkbox"  data-cost-center-id="{{$memo['cost_center_id']}}"
-                           {{$memo['has_sent_to_rpu'] == 1?'disabled':''}}
+                           {{$memo['has_sent_to_rpu'] == 1?'checked disabled':''}}
                            value="{{$memo['id']}}" class="select-memo"></td>
                 <td>{{enTobn($loop->iteration)}}</td>
                 <td>{{$memo['onucched_no']}}</td>
