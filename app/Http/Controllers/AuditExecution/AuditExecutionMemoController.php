@@ -238,6 +238,47 @@ class AuditExecutionMemoController extends Controller
         return json_decode($response->getBody(), true);
     }
 
+    public function authorityMemoList()
+    {
+        $all_directorates = $this->allAuditDirectorates();
+
+        $fiscal_years = $this->allFiscalYears();
+
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
+
+        if (!empty($directorates)) {
+            return view('modules.audit_execution.audit_execution_memo.authority_memo_list', compact('directorates', 'fiscal_years'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $directorates]);
+        }
+
+    }
+
+    public function loadAuthorityMemoList(Request $request){
+//        dd($request->all());
+
+        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['office_id'] = $request->directorate_id;
+        $data['team_id'] = $request->team_id;
+        $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['cost_center_id'] = $request->cost_center_id;
+
+        $memo_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.authority_memo_list'), $data)->json();
+//        dd($memo_list);
+        if (isSuccess($memo_list)) {
+            $memo_list = $memo_list['data'];
+            $team_id = $request->team_id;
+            $cost_center_id = $request->cost_center_id;
+            return view('modules.audit_execution.audit_execution_memo.partials.load_authority_memo_list', compact('memo_list', 'team_id','cost_center_id'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $memo_list]);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *

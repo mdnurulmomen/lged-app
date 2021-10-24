@@ -10,6 +10,9 @@
             <x-menu-item class="" href="{{route('audit.execution.query-schedule-list')}}"
                              icon="fal fa-calendar-alt">Audit Schedules
             </x-menu-item>
+            <x-menu-item class="" href="{{route('audit.execution.memo.authority-memo-list')}}"
+                             icon="fal fa-calendar-alt">Memo List
+            </x-menu-item>
         </ul>
     </div>
 </div>

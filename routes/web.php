@@ -342,6 +342,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('update', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'update'])->name('update');
             Route::post('list', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'list'])->name('list');
             Route::post('sent-to-rpu', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'sentToRpu'])->name('sent-to-rpu');
+            Route::get('authority-memo-list', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'authorityMemoList'])->name('authority-memo-list');
+            Route::post('load-authority-memo-list', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'loadAuthorityMemoList'])->name('load-authority-memo-list');
         });
     });
 
