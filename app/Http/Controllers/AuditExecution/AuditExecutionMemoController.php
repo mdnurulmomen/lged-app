@@ -127,12 +127,22 @@ class AuditExecutionMemoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $data = Validator::make($request->all(), [
+            'memo_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $memoInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
+        if (isSuccess($memoInfo)) {
+            $memoInfo = $memoInfo['data'];
+            return view('modules.audit_execution.audit_execution_memo.show',
+                compact('memoInfo'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $memoInfo]);
+        }
     }
 
     /**
@@ -298,5 +308,19 @@ class AuditExecutionMemoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function memoPDFDownload(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'memo_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
+        //dd($responseData);
+        $memoInfo = isSuccess($responseData)?$responseData['data']:[];
+        $pdf = \PDF::loadView('modules.audit_execution.audit_execution_memo.partials.memo_book',compact('memoInfo'));
+        return $pdf->stream('document.pdf');
     }
 }

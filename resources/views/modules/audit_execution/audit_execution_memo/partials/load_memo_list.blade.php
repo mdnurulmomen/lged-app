@@ -39,6 +39,12 @@
                     <div class="btn-group btn-group-sm" role="group">
                         <button class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                                 data-memo-id="{{$memo['id']}}"
+                                onclick="Memo_List_Container.showMemo($(this))">
+                            <i class="fad fa-eye"></i>
+                        </button>
+
+                        <button class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                data-memo-id="{{$memo['id']}}"
                                 onclick="Memo_List_Container.editMemo($(this))">
                             <i class="fad fa-edit"></i>
                         </button>
@@ -65,35 +71,32 @@
     });*/
 
     $(function (){
-        $('.select-memo').each(function(){ //iterate all listed checkbox items
-            if(this.checked == false){ //if this item is unchecked
-                $("#selectAll")[0].checked = false; //change "select all" checked status to false
+        $('.select-memo').each(function(){
+            if(this.checked == false){
+                $("#selectAll")[0].checked = false;
             }
-            //check "select all" if all checkbox items are checked
             if ($('.select-memo:checked').length == $('.select-memo').length ){
-                $("#selectAll")[0].checked = true; //change "select all" checked status to true
+                $("#selectAll")[0].checked = true;
                 $("#selectAll")[0].disabled = true;
             }
         });
     })
 
     //select all checkboxes
-    $("#selectAll").change(function(){  //"select all" change
-        var status = this.checked; // "select all" checked status
-        $('.select-memo').each(function(){ //iterate all listed checkbox items
-            this.checked = status; //change ".checkbox" checked status
+    $("#selectAll").change(function(){
+        var status = this.checked;
+        $('.select-memo').each(function(){
+            this.checked = status;
         });
     });
 
-    $('.select-memo').change(function(){ //".checkbox" change
-        //uncheck "select all", if one of the listed checkbox item is unchecked
-        if(this.checked == false){ //if this item is unchecked
-            $("#selectAll")[0].checked = false; //change "select all" checked status to false
+    $('.select-memo').change(function(){
+        if(this.checked == false){
+            $("#selectAll")[0].checked = false;
         }
 
-        //check "select all" if all checkbox items are checked
         if ($('.select-memo:checked').length == $('.select-memo').length ){
-            $("#selectAll")[0].checked = true; //change "select all" checked status to true
+            $("#selectAll")[0].checked = true;
         }
     });
 </script>
