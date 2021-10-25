@@ -124,6 +124,29 @@
                 }
             })
         },
+
+        recommendationMemo: function (memo_id) {
+
+            quick_panel = $("#kt_quick_panel");
+            $(".offcanvas-title").text('Memo Recommendation');
+            quick_panel.addClass('offcanvas-on');
+            quick_panel.css('opacity', 1);
+            quick_panel.css('width', '40%');
+            quick_panel.removeClass('d-none');
+            $("html").addClass("side-panel-overlay");
+
+
+            // memo_id = elem.data('memo-id');
+            data = {memo_id};
+            let url = '{{route('audit.execution.memo.audit-memo-recommendation')}}'
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
     };
 
     $(function () {
