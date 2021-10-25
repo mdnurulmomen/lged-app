@@ -269,6 +269,13 @@ class AuditExecutionMemoController extends Controller
         $data['team_id'] = $request->team_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['cost_center_id'] = $request->cost_center_id;
+        $data['memo_irregularity_type'] = $request->memo_irregularity_type;
+        $data['memo_irregularity_sub_type'] = $request->memo_irregularity_sub_type;
+        $data['memo_type'] = $request->memo_type;
+        $data['memo_status'] = $request->memo_status;
+        $data['jorito_ortho_poriman'] = $request->jorito_ortho_poriman;
+        $data['audit_year_start'] = $request->audit_year_start;
+        $data['audit_year_end'] = $request->audit_year_end;
 
         $memo_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.authority_memo_list'), $data)->json();
 //        dd($memo_list);

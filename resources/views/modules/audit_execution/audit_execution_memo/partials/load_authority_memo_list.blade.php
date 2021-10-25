@@ -3,10 +3,7 @@
     <table class="table table-striped">
         <thead class="thead-light">
         <tr>
-            <th width="5%">
-                <input type="checkbox" id="selectAll">
-            </th>
-{{--            <th width="5%">ক্রমিক নং</th>--}}
+            <th width="5%">ক্রমিক নং</th>
             <th width="7%">অনুচ্ছেদ নং</th>
             <th width="10%">আপত্তির শিরোনাম</th>
             <th width="10%">আপত্তি অনিয়মের ধরন</th>
@@ -22,9 +19,6 @@
         <tbody>
         @foreach($memo_list['data'] as $memo)
             <tr>
-{{--                <td><input type="checkbox"  data-cost-center-id="{{$memo['cost_center_id']}}"--}}
-{{--                           {{$memo['has_sent_to_rpu'] == 1?'disabled':''}}--}}
-{{--                           value="{{$memo['id']}}" class="select-memo"></td>--}}
                 <td>{{enTobn($loop->iteration)}}</td>
                 <td>{{$memo['onucched_no']}}</td>
                 <td>{{$memo['memo_title_bn']}}</td>

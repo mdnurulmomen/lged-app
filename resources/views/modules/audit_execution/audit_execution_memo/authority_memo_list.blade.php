@@ -30,13 +30,70 @@
             <option value="">All Teams</option>
         </select>
     </div>
+</div>
+<div class="row mt-2 mb-2">
+    <div class="col-md-3">
+        <select class="form-select select-select2" id="memo_irregularity_type">
+            <option value="">আপত্তি অনিয়মের ধরন</option>
+            <option value="1">আত্মসাত, চুরি, প্রতারণা ও জালিয়াতিমূলক</option>
+            <option value="2">সরকারের আর্থিক ক্ষতি</option>
+            <option value="3">বিধি ও পদ্ধতিগত অনিয়ম</option>
+            <option value="4">বিশেষ ধরনের আপত্তি</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select class="form-select select-select2" id="memo_irregularity_sub_type">
+            <option value="">আপত্তি অনিয়মের সাব-ধরন</option>
+            <option value="1">ভ্যাট-আইটিসহ সরকারি প্রাপ্য আদায় না করা</option>
+            <option value="2">কম আদায় করা</option>
+            <option value="3">আদায় করা সত্ত্বেও কোষাগারে জমা না করা</option>
+            <option value="4">বাজার দর অপেক্ষা উচ্চমূল্যে ক্রয় কার্য সম্পাদন</option>
+            <option value="5">রেসপন্সিভ সর্বনিম্ন দরদাতার স্থলে উচ্চ দরদাতার নিকট থেকে কার্য/পণ্য/সেবা ক্রয়</option>
+            <option value="6">প্রকল্প শেষে অব্যয়িত অর্থ ফেরত না দেওয়া</option>
+            <option value="7">ভুল বেতন নির্ধারণীর মাধ্যমে অতিরিক্ত বেতন উত্তোলন</option>
+            <option value="8">প্রাপ্যতাবিহীন ভাতা উত্তোলন</option>
+            <option value="9">জাতীয় অন্যান্য সরকারী অর্থের ক্ষতি সংক্রান্ত আপত্তি।</option>
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <select class="form-control select-select2" id="memo_type">
+            <option value="">আপত্তির ধরন</option>
+            <option value="1">এসএফআই</option>
+            <option value="2">নন-এসএফআই</option>
+            <option value="3">ড্রাফ্ট প্যারা</option>
+            <option value="4">পাণ্ডুলিপি</option>
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <select class="form-control select-select2" id="memo_status">
+            <option value="">আপত্তির অবস্থা</option>
+            <option value="1">নিস্পন্ন</option>
+            <option value="2">অনিস্পন্ন</option>
+            <option value="3">আংশিক নিস্পন্ন</option>
+        </select>
+    </div>
+</div>
+<div class="row mt-2 mb-2">
+    <div class="col-md-3">
+        <input class="form-control mb-1" pattern="[0-9\.]*" id="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
+    </div>
+
+    <div class="col-md-3">
+        <input class="form-control mb-1 mt-1 year-picker" id="audit_year_start" placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text">
+    </div>
+
+    <div class="col-md-3">
+        <input class="form-control mb-1 mt-1 year-picker" id="audit_year_end" placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">
+    </div>
 
     <div class="col-md-1">
         <button id="btn_filter" class="btn btn-icon btn-light-success btn-square mr-2" type="button"><i
-            class="fad fa-search"></i></button>
+                class="fad fa-search"></i></button>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-12" id="load_memo_list">
 
@@ -69,9 +126,9 @@
                 }
             );
         },
-        loadMemoList: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
+        loadMemoList: function (directorate_id, fiscal_year_id, cost_center_id, team_id ,memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end) {
             let url = '{{route('audit.execution.memo.load-authority-memo-list')}}';
-            let data = {directorate_id, fiscal_year_id,cost_center_id,team_id};
+            let data = {directorate_id, fiscal_year_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
@@ -83,34 +140,35 @@
         },
     };
     $(function () {
-            directorate_id = $('#directorate_filter').val();
-            fiscal_year_id = $('#fiscal_year_id').val();
-            team_filter = $('#team_filter').val();
-            cost_center_id = $('#cost_center_filter').val();
-
-            if (directorate_id !== 'all') {
-                 Team_Calendar_Container.loadMemoList(directorate_id, fiscal_year_id, cost_center_id, team_filter);
-                 Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id);
-                 Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
-            } else {
-                toastr.info('Please select directorate.')
-                $('#load_team_calendar').html('');
-            }
-    });
-
-      $('#btn_filter').click(function () {
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
         team_filter = $('#team_filter').val();
         cost_center_id = $('#cost_center_filter').val();
+
         if (directorate_id !== 'all') {
-            if (team_filter || cost_center_id) {
-                Team_Calendar_Container.loadMemoList(directorate_id, fiscal_year_id,cost_center_id, team_filter);
-                Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
-            } else {
-                 Team_Calendar_Container.loadMemoList(directorate_id, fiscal_year_id,cost_center_id, team_filter);
-                // Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
-            }
+            Team_Calendar_Container.loadMemoList(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+            Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id);
+            Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
+        } else {
+            toastr.info('Please select directorate.')
+            $('#load_team_calendar').html('');
+        }
+    });
+
+    $('#btn_filter').click(function () {
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
+        team_filter = $('#team_filter').val();
+        cost_center_id = $('#cost_center_filter').val();
+        memo_irregularity_type = $('#memo_irregularity_type').val();
+        memo_irregularity_sub_type = $('#memo_irregularity_sub_type').val();
+        memo_type = $('#memo_type').val();
+        memo_status = $('#memo_status').val();
+        jorito_ortho_poriman = $('#jorito_ortho_poriman').val();
+        audit_year_start = $('#audit_year_start').val();
+        audit_year_end = $('#audit_year_end').val();
+        if (directorate_id !== 'all') {
+            Team_Calendar_Container.loadMemoList(directorate_id, fiscal_year_id, cost_center_id, team_filter, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end);
         } else {
             toastr.info('Please select a directorate.')
         }
