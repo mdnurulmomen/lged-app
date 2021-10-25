@@ -55,18 +55,20 @@
                         <div class="row">
                             <div class="col">
                                 <div class="input-group">
-                                    <div class="input-group-prepend"><span class="input-group-text"><i style="color:#3699FF !important"
+                                    <div class="input-group-prepend"><span class="input-group-text"><i
+                                                style="color:#3699FF !important"
                                                 class="fa fa-calendar" aria-hidden="true"></i></span></div>
-                                <input type="text" id="audit_year_start"
-                                       class="year-picker form-control"
-                                       placeholder="নিরীক্ষাধীন অর্থ বছর শুরু"
-                                       value="{{empty($all_teams) || empty($all_teams[0]['audit_year_start'])?'':$all_teams[0]['audit_year_start']}}"
-                                       autocomplete="off"/>
+                                    <input type="text" id="audit_year_start"
+                                           class="year-picker form-control"
+                                           placeholder="নিরীক্ষাধীন অর্থ বছর শুরু"
+                                           value="{{empty($all_teams) || empty($all_teams[0]['audit_year_start'])?'':$all_teams[0]['audit_year_start']}}"
+                                           autocomplete="off"/>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="input-group">
-                                    <div class="input-group-prepend"><span class="input-group-text"><i style="color:#3699FF !important"
+                                    <div class="input-group-prepend"><span class="input-group-text"><i
+                                                style="color:#3699FF !important"
                                                 class="fa fa-calendar" aria-hidden="true"></i></span></div>
                                     <input type="text" id="audit_year_end"
                                            class="year-picker form-control"
@@ -81,22 +83,24 @@
                         <div class="row">
                             <div class="col">
                                 <div class="input-group">
-                                    <div class="input-group-prepend"><span class="input-group-text"><i style="color:#3699FF !important"
+                                    <div class="input-group-prepend"><span class="input-group-text"><i
+                                                style="color:#3699FF !important"
                                                 class="fa fa-calendar" aria-hidden="true"></i></span></div>
-                                <input type="text" id="team_start_date"
-                                       class="date form-control"
-                                       value="{{empty($all_teams) || empty($all_teams[0]['team_start_date'])?'':date('d/m/Y',strtotime($all_teams[0]['team_start_date']))}}"
-                                       placeholder="সম্পাদনের সময়কাল শুরু" autocomplete="off"/>
+                                    <input type="text" id="team_start_date"
+                                           class="date form-control"
+                                           value="{{empty($all_teams) || empty($all_teams[0]['team_start_date'])?'':date('d/m/Y',strtotime($all_teams[0]['team_start_date']))}}"
+                                           placeholder="সম্পাদনের সময়কাল শুরু" autocomplete="off"/>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="input-group">
-                                    <div class="input-group-prepend"><span class="input-group-text"><i style="color:#3699FF !important"
+                                    <div class="input-group-prepend"><span class="input-group-text"><i
+                                                style="color:#3699FF !important"
                                                 class="fa fa-calendar" aria-hidden="true"></i></span></div>
-                                <input type="text" id="team_end_date"
-                                       class="date form-control"
-                                       value="{{empty($all_teams) || empty($all_teams[0]['team_end_date'])?'':date('d/m/Y',strtotime($all_teams[0]['team_end_date']))}}"
-                                       placeholder="সম্পাদনের সময়কাল শেষ" autocomplete="off"/>
+                                    <input type="text" id="team_end_date"
+                                           class="date form-control"
+                                           value="{{empty($all_teams) || empty($all_teams[0]['team_end_date'])?'':date('d/m/Y',strtotime($all_teams[0]['team_end_date']))}}"
+                                           placeholder="সম্পাদনের সময়কাল শেষ" autocomplete="off"/>
                                 </div>
                             </div>
                         </div>
@@ -203,13 +207,13 @@
                                                                     <div
                                                                         class="d-flex align-items-center justify-content-between mb-0 mt-0">
                                                                         <div class="mr-2">
-{{--                                                                            @if($value['team_parent_id'])--}}
-                                                                                <button type="button"
-                                                                                        id="team_schedule_layer_btn_{{$loop->iteration}}"
-                                                                                        onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$loop->iteration}}','{{$loop->iteration}}')"
-                                                                                        class="justify-self-end text-danger btn btn-icon btn-md">
-                                                                                    <i class="text-primary far fa-calendar-alt"></i>
-                                                                                </button>
+                                                                            {{--                                                                            @if($value['team_parent_id'])--}}
+                                                                            <button type="button"
+                                                                                    id="team_schedule_layer_btn_{{$loop->iteration}}"
+                                                                                    onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$loop->iteration}}','{{$loop->iteration}}')"
+                                                                                    class="justify-self-end text-danger btn btn-icon btn-md">
+                                                                                <i class="text-primary far fa-calendar-alt"></i>
+                                                                            </button>
                                                                             {{--@endif--}}
                                                                         </div>
                                                                     </div>
@@ -287,8 +291,9 @@
                                                                 @endphp
 
                                                                 <div class="audit_schedule_list_div">
-                                                                    <table id="audit_schedule_table_{{$loop->iteration}}"
-                                                                           class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm text-center">
+                                                                    <table
+                                                                        id="audit_schedule_table_{{$loop->iteration}}"
+                                                                        class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm text-center">
                                                                         <thead>
                                                                         <tr>
                                                                             <th width="52%">
@@ -315,9 +320,15 @@
                                                                         </thead>
 
                                                                         @foreach($team_schedules as $key => $schedule)
-                                                                            <div class="px-2 pt-0" id="team_schedule_list_{{$loop->iteration}}">
-                                                                                @if($schedule['schedule_type'] == 'schedule')
-                                                                                    <tbody data-tbody-id="{{$loop->parent->iteration}}_{{$loop->iteration}}" data-schedule-type="{{$schedule['schedule_type']}}">
+                                                                            @php
+                                                                                $schedule_type = Arr::has($schedule, 'schedule_type') ? $schedule['schedule_type'] : 'schedule'
+                                                                            @endphp
+                                                                            <div class="px-2 pt-0"
+                                                                                 id="team_schedule_list_{{$loop->iteration}}">
+                                                                                @if($schedule_type == 'schedule')
+                                                                                    <tbody
+                                                                                        data-tbody-id="{{$loop->parent->iteration}}_{{$loop->iteration}}"
+                                                                                        data-schedule-type="{{$schedule_type}}">
                                                                                     <tr class='audit_schedule_row_{{$loop->parent->iteration}}'
                                                                                         data-layer-id="{{ $loop->parent->iteration }}"
                                                                                         data-audit-schedule-first-row='{{$loop->iteration}}_{{ $loop->parent->iteration }}'>
@@ -370,13 +381,15 @@
                                                                                             <button type="button"
                                                                                                     onclick="addAuditScheduleTblRow({{$loop->parent->iteration}})"
                                                                                                     class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
-                                                                                                <span class="fad fa-calendar-day"></span>
+                                                                                                <span
+                                                                                                    class="fad fa-calendar-day"></span>
                                                                                             </button>
 
                                                                                             <button type="button"
                                                                                                     onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
                                                                                                     class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
-                                                                                                <span class="fad fa-plus"></span>
+                                                                                                <span
+                                                                                                    class="fad fa-plus"></span>
                                                                                             </button>
 
                                                                                             <button type='button'
@@ -390,46 +403,51 @@
                                                                                     </tr>
                                                                                     </tbody>
 
-                                                                                @elseif($schedule['schedule_type'] == 'visit')
-                                                                                    <tbody data-tbody-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}" data-schedule-type="{{$schedule['schedule_type']}}">
-                                                                                        <tr class="audit_schedule_row_{{ $loop->parent->iteration }}"
-                                                                                            data-layer-id="{{ $loop->parent->iteration }}"
-                                                                                            data-schedule-second-row="{{$loop->iteration}}_{{ $loop->parent->iteration }}">
-                                                                                            <td>
-                                                                                                <input type="text"
-                                                                                                       data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
-                                                                                                       value="{{$schedule['activity_details']}}"
-                                                                                                       class="form-control input-detail"/>
-                                                                                            </td>
+                                                                                @elseif($schedule_type == 'visit')
+                                                                                    <tbody
+                                                                                        data-tbody-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
+                                                                                        data-schedule-type="{{$schedule_type}}">
+                                                                                    <tr class="audit_schedule_row_{{ $loop->parent->iteration }}"
+                                                                                        data-layer-id="{{ $loop->parent->iteration }}"
+                                                                                        data-schedule-second-row="{{$loop->iteration}}_{{ $loop->parent->iteration }}">
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                   data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
+                                                                                                   value="{{$schedule['activity_details']}}"
+                                                                                                   class="form-control input-detail"/>
+                                                                                        </td>
 
-                                                                                            <td colspan="2">
-                                                                                                <input type="text"
-                                                                                                       data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
-                                                                                                       value="{{$schedule['team_member_start_date'] == ""?"":formatDate($schedule['team_member_start_date'])}}"
-                                                                                                       class="date form-control input-detail-duration"/>
-                                                                                            </td>
+                                                                                        <td colspan="2">
+                                                                                            <input type="text"
+                                                                                                   data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
+                                                                                                   value="{{$schedule['team_member_start_date'] == ""?"":formatDate($schedule['team_member_start_date'])}}"
+                                                                                                   class="date form-control input-detail-duration"/>
+                                                                                        </td>
 
-                                                                                            <td style="display: inline-flex;">
-                                                                                                <button type="button"
-                                                                                                        onclick="addAuditScheduleTblRow({{ $loop->parent->iteration }})"
-                                                                                                        class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
-                                                                                                    <span class="fad fa-calendar-day"></span>
-                                                                                                </button>
+                                                                                        <td style="display: inline-flex;">
+                                                                                            <button type="button"
+                                                                                                    onclick="addAuditScheduleTblRow({{ $loop->parent->iteration }})"
+                                                                                                    class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
+                                                                                                <span
+                                                                                                    class="fad fa-calendar-day"></span>
+                                                                                            </button>
 
-                                                                                                <button type="button"
-                                                                                                        onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
-                                                                                                        class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
-                                                                                                    <span class="fad fa-plus"></span>
-                                                                                                </button>
+                                                                                            <button type="button"
+                                                                                                    onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
+                                                                                                    class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
+                                                                                                <span
+                                                                                                    class="fad fa-plus"></span>
+                                                                                            </button>
 
-                                                                                                <button type='button'
-                                                                                                        data-row='row1'
-                                                                                                        onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
-                                                                                                        class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
-                                                                                                    <span class='fal fa-trash-alt'></span>
-                                                                                                </button>
-                                                                                            </td>
-                                                                                        </tr>
+                                                                                            <button type='button'
+                                                                                                    data-row='row1'
+                                                                                                    onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
+                                                                                                    class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
+                                                                                                <span
+                                                                                                    class='fal fa-trash-alt'></span>
+                                                                                            </button>
+                                                                                        </td>
+                                                                                    </tr>
                                                                                     </tbody>
                                                                                 @endif
                                                                             </div>
@@ -437,7 +455,8 @@
                                                                     </table>
                                                                 </div>
                                                             @else
-                                                                <div class="px-2 pt-0" id="team_schedule_list_{{$loop->iteration}}"></div>
+                                                                <div class="px-2 pt-0"
+                                                                     id="team_schedule_list_{{$loop->iteration}}"></div>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -486,12 +505,7 @@
     all_schedules = {};
 
     function removeScheduleRow(elem, layer_id) {
-        //let rowId = elem.closest("tr").data('audit-schedule-first-row');
-        //$('#audit_schedule_table_' + layer_id + ' tbody tr[data-schedule-second-row=' + rowId + ']').remove();
         elem.closest("tr").remove();
-
-        //tblBodyId = elem.closest("tbody").data('tbody-id');
-        //$('#audit_schedule_table_' + layer_id + ' tbody[data-tbody-id=' + tblBodyId + ']').remove();
     }
 
     function removeAuditScheduleListDiv(layer_id) {
@@ -516,7 +530,7 @@
     }
 
     function addAuditScheduleTblRow(layer_id) {
-        var totalAuditScheduleRow = $('#audit_schedule_table_'+layer_id+' tbody').length + 1;
+        var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
         var teamScheduleHtml = "<tbody data-schedule-type='schedule' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
         teamScheduleHtml += "<td>" +
@@ -551,7 +565,7 @@
     }
 
     function addDetailsTblRow(layer_id) {
-        var totalAuditScheduleRow = $('#audit_schedule_table_'+layer_id+' tbody').length + 1;
+        var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
         var teamScheduleHtml = "<tbody data-schedule-type='visit' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
         teamScheduleHtml += "<td><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
@@ -734,7 +748,7 @@
             url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
             annual_plan_id = '{{$annual_plan_id}}';
             parent_office_id = '{{$parent_office_id}}';
-            data = {team_layer_id, annual_plan_id,parent_office_id};
+            data = {team_layer_id, annual_plan_id, parent_office_id};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error('No Auditable Units Chosen.');
@@ -917,7 +931,7 @@
             team_schedule = {};
             $('[id^=audit_schedule_table_]').each(function (i, v) {
                 layer_id = v.id.split('_')[3]
-                if ($('#list_group_' + layer_id).data('member-role') == 'teamLeader') {
+                if ($('#list_group_' + layer_id + ' [data-member-role="teamLeader"]').length > 0 || $('[id^=permitted_level_]').length == 1) {
                     leader_info = JSON.parse($('#list_group_' + layer_id + ' [data-member-role="teamLeader"]').attr('data-content'));
                 } else {
                     leader_info = JSON.parse($('#list_group_' + layer_id + ' [data-member-role="subTeamLeader"]').attr('data-content'));
@@ -947,8 +961,7 @@
                         cost_center_name_en = '';
                         cost_center_name_bn = '';
                         activity_man_days = '0';
-                    }
-                    else{
+                    } else {
                         activity_details = '';
                     }
 
@@ -1160,7 +1173,7 @@
                     teamName = team.team_name;
                 }
 
-                allTeamNameInfo += team.team_name+',';
+                allTeamNameInfo += team.team_name + ',';
                 $.each(team.members, function (key, members) {
                     $.each(members, function (key, member) {
                         serial++;
@@ -1251,7 +1264,7 @@
             for (var i in scheduleList) {
                 //console.log(scheduleList[i].cost_center_id);
                 totalActivityManDays = totalActivityManDays + parseInt(scheduleList[i].activity_man_days);
-                if (scheduleList[i].schedule_type == 'schedule'){
+                if (scheduleList[i].schedule_type == 'schedule') {
                     htmlTable += '<tr>' +
                         '<td style="text-align: center">' + BnFromEng(rowNumber) + '</td>' +
                         '<td style="text-align: center">' + scheduleList[i].cost_center_name_bn + '</td>' +
@@ -1260,8 +1273,7 @@
                         BnFromEng(scheduleList[i].team_member_end_date) + '</td>' +
                         '<td style="text-align: center">' + BnFromEng(scheduleList[i].activity_man_days) + ' কর্ম দিবস </td>' +
                         '</tr>';
-                }
-                else {
+                } else {
                     htmlTable += '<tr>' +
                         '<td style="text-align: center">' + BnFromEng(rowNumber) + '</td>' +
                         '<td colspan="4" style="text-align: center">' + BnFromEng(scheduleList[i].team_member_start_date) + ' খ্রি. ' + scheduleList[i].activity_details + '</td>' +
