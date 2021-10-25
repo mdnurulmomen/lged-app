@@ -21,8 +21,13 @@
 
                     <textarea id="kt-tinymce-1" name="memo_description_bn" class="kt-tinymce-1">{{$memo['memo_description_bn']}}</textarea>
 
+                    <label class="col-form-label">নিরীক্ষিত অফিসের জবাব</label>
                     <textarea class="form-control mb-1" name="response_of_rpu" placeholder="নিরীক্ষিত অফিসের জবাব" cols="30" rows="2">{{$memo['response_of_rpu']}}</textarea>
+
+                    <label class="col-form-label">নিরীক্ষার মন্তব্য</label>
                     <textarea class="form-control mb-1" name="audit_conclusion" placeholder="নিরীক্ষার মন্তব্য" cols="30" rows="2">{{$memo['audit_conclusion']}}</textarea>
+
+                    <label class="col-form-label">নিরীক্ষার সুপারিশ</label>
                     <textarea class="form-control mb-1" name="audit_recommendation" placeholder="নিরীক্ষার সুপারিশ" cols="30" rows="2">{{$memo['audit_recommendation']}}</textarea>
                 </div>
                 <div class="col-md-5 pr-0">
@@ -30,11 +35,17 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body" style="padding: 10px;">
-                                    <input class="form-control" pattern="[0-9\.]*" value="{{$memo['jorito_ortho_poriman']}}"
-                                           name="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input class="form-control" pattern="[0-9\.]*" value="{{$memo['jorito_ortho_poriman']}}"
+                                                   name="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
 
-                                    <input class="form-control" pattern="[0-9\.]*" value="{{$memo['onishponno_jorito_ortho_poriman']}}"
-                                           name="onishponno_jorito_ortho_poriman" placeholder="অনিষ্পন্ন জড়িত অর্থ (টাকা)" type="text">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input class="form-control" pattern="[0-9\.]*" value="{{$memo['onishponno_jorito_ortho_poriman']}}"
+                                                   name="onishponno_jorito_ortho_poriman" placeholder="অনিষ্পন্ন জড়িত অর্থ (টাকা)" type="text">
+                                        </div>
+                                    </div>
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -115,38 +126,6 @@
                                             @endif
                                         @endforeach
                                     </div>
-
-                                    {{--<div class="form-group">
-                                        <label class="col-form-label">
-                                            কভার পেজ
-                                        </label>
-                                        <input name="file" type="file" class="form-control rounded-0"
-                                               accept="image/*" multiple>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">
-                                            টপ পেজ
-                                        </label>
-                                        <input name="file" type="file" class="form-control rounded-0"
-                                               accept="image/*" multiple>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">
-                                            মূল আপত্তি সংযুক্তি
-                                        </label>
-                                        <input name="file" type="file" class="form-control rounded-0"
-                                               accept="image/*" multiple>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">
-                                            আপত্তির অন্যান্য সংযুক্তি
-                                        </label>
-                                        <input name="file" type="file" class="form-control rounded-0"
-                                               accept="image/*" multiple>
-                                    </div>--}}
                                 </div>
                             </div>
                         </div>

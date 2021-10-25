@@ -1,6 +1,12 @@
 <form id="memo_create_form" enctype="multipart/form-data">
     <div class="row p-4">
-        <div class="col-md-12">
+        <div class="col-md-8">
+            <div class="d-flex justify-content-start">
+                <h5 class="mt-5">{{$cost_center_name_bn}}</h5>
+            </div>
+        </div>
+
+        <div class="col-md-4">
             <div class="d-flex justify-content-end">
                 <a id="memo_submit" class="btn btn-success btn-sm btn-bold btn-square"
                    href="javascript:;">
@@ -20,8 +26,13 @@
 
                     <textarea id="kt-tinymce-1" name="memo_description_bn" class="kt-tinymce-1"></textarea>
 
+                    <label class="col-form-label">নিরীক্ষিত অফিসের জবাব</label>
                     <textarea class="form-control mb-1" name="response_of_rpu" placeholder="নিরীক্ষিত অফিসের জবাব" cols="30" rows="2"></textarea>
+
+                    <label class="col-form-label">নিরীক্ষার মন্তব্য</label>
                     <textarea class="form-control mb-1" name="audit_conclusion" placeholder="নিরীক্ষার মন্তব্য" cols="30" rows="2"></textarea>
+
+                    <label class="col-form-label">নিরীক্ষার সুপারিশ</label>
                     <textarea class="form-control mb-1" name="audit_recommendation" placeholder="নিরীক্ষার সুপারিশ" cols="30" rows="2"></textarea>
                 </div>
                 <div class="col-md-5 pr-0">
@@ -29,11 +40,16 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body" style="height: calc(100vh - 145px);padding: 10px;">
-                                    <input class="form-control mb-1" pattern="[0-9\.]*"
-                                           name="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
-
-                                    <input class="form-control mb-1" pattern="[0-9\.]*"
-                                           name="onishponno_jorito_ortho_poriman" placeholder="অনিষ্পন্ন জড়িত অর্থ (টাকা)" type="text">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input class="form-control mb-1" pattern="[0-9\.]*"
+                                                   name="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input class="form-control mb-1" pattern="[0-9\.]*"
+                                                   name="onishponno_jorito_ortho_poriman" placeholder="অনিষ্পন্ন জড়িত অর্থ (টাকা)" type="text">
+                                        </div>
+                                    </div>
 
                                     <div class="row">
                                         <div class="col-md-6">

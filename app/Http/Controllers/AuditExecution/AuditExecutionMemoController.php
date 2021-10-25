@@ -18,8 +18,10 @@ class AuditExecutionMemoController extends Controller
         $schedule_id = $request->schedule_id;
         $audit_plan_id = $request->audit_plan_id;
         $cost_center_id = $request->cost_center_id;
+        $cost_center_name_bn = $request->cost_center_name_bn;
         return view('modules.audit_execution.audit_execution_memo.index',
-            compact('schedule_id','audit_plan_id','cost_center_id'));
+            compact('schedule_id','audit_plan_id','cost_center_id',
+            'cost_center_name_bn'));
     }
 
     public function list(Request $request)
@@ -49,8 +51,9 @@ class AuditExecutionMemoController extends Controller
     public function create(Request $request)
     {
         $schedule_id = $request->schedule_id;
+        $cost_center_name_bn = $request->cost_center_name_bn;
         return view('modules.audit_execution.audit_execution_memo.create',
-            compact('schedule_id'));
+            compact('schedule_id','cost_center_name_bn'));
     }
 
     /**

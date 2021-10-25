@@ -111,6 +111,7 @@
                                                     <button data-schedule-id="{{$schedule['id']}}"
                                                             data-audit-plan-id="{{$schedule['audit_plan_id']}}"
                                                             data-cost-center-id="{{$schedule['cost_center_id']}}"
+                                                            data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
                                                             onclick="Audit_Query_Container.memo($(this))" type="button"
                                                             class="btn btn-sm rounded-0 alert-warning  folder_click">
                                                         Memo

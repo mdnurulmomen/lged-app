@@ -5,11 +5,12 @@
         <a class="btn btn-primary btn-sm btn-bold btn-square"
            onclick="Memo_List_Container.sentMemoListToRpu()"
            href="javascript:;">
-            <i class="far fa-share mr-1"></i> Sent To RPU
+            <i class="fa fa-paper-plane mr-1"></i> Sent To RPU
         </a>
 
         <a class="btn btn-success btn-sm btn-bold btn-square"
            data-schedule-id="{{$schedule_id}}"
+           data-cost-center-name-bn="{{$cost_center_name_bn}}"
            onclick="Memo_List_Container.createMemo($(this))"
            href="javascript:;">
             <i class="far fa-plus mr-1"></i> Create Memo
@@ -38,7 +39,8 @@
 
         createMemo: function (elem) {
             schedule_id = elem.data('schedule-id');
-            data = {schedule_id};
+            cost_center_name_bn = elem.data('cost-center-name-bn');
+            data = {schedule_id,cost_center_name_bn};
             let url = '{{route('audit.execution.memo.create')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {

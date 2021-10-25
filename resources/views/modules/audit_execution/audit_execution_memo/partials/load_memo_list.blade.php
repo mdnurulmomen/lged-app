@@ -60,8 +60,40 @@
 <!--end::Table-->
 
 <script>
-    $("#selectAll").click(function(){
+    /*$("#selectAll").click(function(){
         $(".select-memo").prop('checked', $(this).prop('checked'));
+    });*/
 
+    $(function (){
+        $('.select-memo').each(function(){ //iterate all listed checkbox items
+            if(this.checked == false){ //if this item is unchecked
+                $("#selectAll")[0].checked = false; //change "select all" checked status to false
+            }
+            //check "select all" if all checkbox items are checked
+            if ($('.select-memo:checked').length == $('.select-memo').length ){
+                $("#selectAll")[0].checked = true; //change "select all" checked status to true
+                $("#selectAll")[0].disabled = true;
+            }
+        });
+    })
+
+    //select all checkboxes
+    $("#selectAll").change(function(){  //"select all" change
+        var status = this.checked; // "select all" checked status
+        $('.select-memo').each(function(){ //iterate all listed checkbox items
+            this.checked = status; //change ".checkbox" checked status
+        });
+    });
+
+    $('.select-memo').change(function(){ //".checkbox" change
+        //uncheck "select all", if one of the listed checkbox item is unchecked
+        if(this.checked == false){ //if this item is unchecked
+            $("#selectAll")[0].checked = false; //change "select all" checked status to false
+        }
+
+        //check "select all" if all checkbox items are checked
+        if ($('.select-memo:checked').length == $('.select-memo').length ){
+            $("#selectAll")[0].checked = true; //change "select all" checked status to true
+        }
     });
 </script>

@@ -62,6 +62,7 @@ function ajaxCallAsyncCallbackAPI(url, data, method, callback) {
             callback(data);
         },
         error: function (data) {
+            KTApp.unblock('#kt_content');
             if (data.responseJSON.errors) {
                 $.each(data.responseJSON.errors, function (k, v) {
                     if (isArray(v)) {
