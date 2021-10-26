@@ -18,7 +18,7 @@
         <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
             <td class="datatable-cell text-center">
                 <span>
-                    <input @if($query['audit_query'] && $query['audit_query']['status']!='rejected') checked disabled @endif class="selectQuery"
+                    <input @if($query['audit_query'] && $query['audit_query']['status']!='removed') checked disabled @endif class="selectQuery"
                         data-query-bn="{{$query['query_title_bn']}}"
                         data-query-en="{{$query['query_title_en']}}"
                         data-query-id="{{$query['id']}}"
@@ -29,36 +29,29 @@
             </td>
             <td class="datatable-cell">
                 <span>{{$query['query_title_bn']}}</span>
-                @if($query['audit_query'])
-                    <span data-toggle="tooltip" data-placement="top" title="{{$query['audit_query']['comment']}}" class="badge {{$query['audit_query']['status']=='rejected'?'badge-danger':'badge-info' }}
-                        text-uppercase m-1 p-1 ">{{$query['audit_query']['status']}}</span>
+                @if($query['audit_query'] && $query['audit_query']['status'] != 'removed')
+                    <span class="badge badge-info text-uppercase m-1 p-1 ">
+                        {{$query['audit_query']['status']}}
+                    </span>
                 @endif
             </td>
             <td class="datatable-cell">
-                @if($query['audit_query'] && $query['audit_query']['status']!='rejected')
-                    @if($query['audit_query']['is_query_document_received'])
-                        <button
-                            type="button"
-                            class="font-weight-bolder font-size-sm ml-2 btn btn-bg-secondary disabled btn-sm btn-bold btn-square">
-                            Received
+                @if($query['audit_query'] && $query['audit_query']['status'] != 'removed')
+                    @if($query['audit_query']['is_query_document_received'] == 0)
+                        <button onclick="Audit_Query_Container.receivedQuery('{{$query['id']}}')"
+                            type="button" title="receive"
+                            class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary receivedQuery">
+                            <i class="fas fa-check-double"></i>
                         </button>
-                    @else
-                        <button
-                            onclick="Audit_Query_Container.receivedQuery('{{$query['id']}}')"
-                            type="button"
-                            class="font-weight-bolder font-size-sm ml-2 btn btn-success btn-sm btn-bold btn-square receivedQuery">
-                            Receive
+
+                        <button data-ac-query-id="{{$query['audit_query']['id']}}"
+                                data-query-title-bn="{{$query['query_title_bn']}}"
+                                onclick="Audit_Query_Container.rejectQuery($(this))"
+                                type="button" title="remove"
+                                class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger">
+                            <i class="fas fa-trash"></i>
                         </button>
                     @endif
-
-                    <button
-                        data-ac-query-id="{{$query['audit_query']['id']}}"
-                        data-query-title-bn="{{$query['query_title_bn']}}"
-                        onclick="Audit_Query_Container.rejectQuery($(this))"
-                        type="button"
-                        class="font-weight-bolder font-size-sm ml-2 btn btn-danger btn-sm btn-bold btn-square receivedQuery">
-                        Reject
-                    </button>
                 @endif
             </td>
         </tr>

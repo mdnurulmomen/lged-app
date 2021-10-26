@@ -17,6 +17,8 @@
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             if (response.status === 'success') {
                 toastr.success('সফলভাবে সংরক্ষণ করা হয়েছে');
+                cost_center_type_id = '{{$cost_center_type_id}}';
+                $('#cost_center_type').val(cost_center_type_id).trigger('change');
             }
             else {
                 if (response.statusCode === '422') {

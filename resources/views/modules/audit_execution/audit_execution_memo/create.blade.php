@@ -42,7 +42,7 @@
                                 <div class="card-body" style="height: calc(100vh - 145px);padding: 10px;">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input class="form-control mb-1" pattern="[0-9\.]*"
+                                            <input class="form-control integer_type_positive mb-1"
                                                    name="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
                                         </div>
                                         <div class="col-md-6">

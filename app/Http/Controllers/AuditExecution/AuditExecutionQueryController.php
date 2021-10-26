@@ -109,9 +109,10 @@ class AuditExecutionQueryController extends Controller
     public function loadRejectAuditQuery(Request $request)
     {
         $ac_query_id = $request->ac_query_id;
+        $cost_center_type_id = $request->cost_center_type_id;
         $query_title_bn = $request->query_title_bn;
         return view('modules.audit_execution.audit_execution_query.partials.load_query_reject',
-            compact('ac_query_id','query_title_bn'));
+            compact('ac_query_id','cost_center_type_id','query_title_bn'));
     }
 
     public function rejectAuditQuery(Request $request)

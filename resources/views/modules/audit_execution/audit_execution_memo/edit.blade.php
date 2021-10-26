@@ -1,7 +1,13 @@
 <form id="memo_update_form" enctype="multipart/form-data">
 
     <div class="row p-4">
-        <div class="col-md-12">
+        <div class="col-md-8">
+            <div class="d-flex justify-content-start">
+                <h5 class="mt-5">{{$memo['cost_center_name_bn']}}</h5>
+            </div>
+        </div>
+
+        <div class="col-md-4">
             <div class="d-flex justify-content-end">
                 <a id="memo_submit" class="btn btn-success btn-sm btn-bold btn-square"
                    href="javascript:;">

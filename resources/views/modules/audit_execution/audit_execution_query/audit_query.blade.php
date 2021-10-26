@@ -42,7 +42,6 @@
 
     $(function () {
         cost_center_type_id = '{{$cost_center_type_id}}';
-        console.log(cost_center_type_id);
         if (cost_center_type_id) {
             $('#cost_center_type').val(cost_center_type_id).trigger('change')
         }
@@ -81,6 +80,8 @@
                 KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error('No data found');
+                    cost_center_type_id = '{{$cost_center_type_id}}';
+                    $('#cost_center_type').val(cost_center_type_id).trigger('change');
                 } else {
                     $(".offcanvas-title").text('কোয়েরি যোগ করুন');
                     quick_panel = $("#kt_quick_panel");
@@ -154,6 +155,8 @@
                 KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.warning(response.data)
+                    cost_center_type_id = '{{$cost_center_type_id}}';
+                    $('#cost_center_type').val(cost_center_type_id).trigger('change');
                 } else {
                     $('#cost_center_type').trigger('change');
                     toastr.success(response.data)
@@ -163,9 +166,10 @@
 
         rejectQuery: function (elem) {
             ac_query_id = elem.data('ac-query-id');
+            cost_center_type_id = '{{$cost_center_type_id}}';
             query_title_bn = elem.data('query-title-bn');
             url = '{{route('audit.execution.load-reject-query-form')}}';
-            data = {ac_query_id,query_title_bn};
+            data = {ac_query_id,cost_center_type_id,query_title_bn};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

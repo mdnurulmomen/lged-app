@@ -10,36 +10,30 @@
 </div>
 
 <div class="col-lg-12 p-0 mt-3">
-    <!--begin::Advance Table Widget 4-->
-    <div class="card card-custom card-stretch gutter-b">
-        <!--begin::Body-->
-        <div class="card-body">
-            <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">অনুচ্ছেদ নং-{{enTobn($memoInfo['onucched_no'])}}</div>
-            {{--<div class="bangla-font" style="font-family:SolaimanLipi,serif !important;">
-                জিজ্ঞাসাপত্র নং-{{enTobn($memoInfo['onucched_no'])}}
-            </div>--}}
-            <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">
-                শিরোনামঃ {{$memoInfo['memo_title_bn']}}
-            </div>
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">অনুচ্ছেদ নং-{{enTobn($memoInfo['onucched_no'])}}</div>
+    {{--<div class="bangla-font" style="font-family:SolaimanLipi,serif !important;">
+        জিজ্ঞাসাপত্র নং-{{enTobn($memoInfo['onucched_no'])}}
+    </div>--}}
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">
+        শিরোনামঃ {{$memoInfo['memo_title_bn']}}
+    </div>
 
-            <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: justify;margin-top: 10px">
-                <span style="font-weight: bold">বিবরণঃ</span>
-                {!! $memoInfo['memo_description_bn'] !!}
-            </div>
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: justify;margin-top: 10px">
+        <span style="font-weight: bold">বিবরণঃ</span>
+        {!! $memoInfo['memo_description_bn'] !!}
+    </div>
 
-            <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-                <span style="font-weight: bold">স্থানীয় অফিসের জবাবঃ</span> {{$memoInfo['response_of_rpu']}}
-            </div>
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <span style="font-weight: bold">স্থানীয় অফিসের জবাবঃ</span> {{$memoInfo['response_of_rpu']}}
+    </div>
 
-            <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-                <span style="font-weight: bold">নিরীক্ষার মন্তব্যঃ</span> {{$memoInfo['comment']}}
-            </div>
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <span style="font-weight: bold">নিরীক্ষার মন্তব্যঃ</span> {{$memoInfo['comment']}}
+    </div>
 
-            <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-                <span style="font-weight: bold">নিরীক্ষার সুপারিশঃ</span>
-                {{$memoInfo['audit_recommendation']}}
-            </div>
-        </div>
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <span style="font-weight: bold">নিরীক্ষার সুপারিশঃ</span>
+        {{$memoInfo['audit_recommendation']}}
     </div>
 </div>
 

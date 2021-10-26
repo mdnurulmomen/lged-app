@@ -13,7 +13,7 @@
             <th width="10%">নিরীক্ষিত ধরন</th>
             <th width="10%">অর্থবছর</th>
             <th width="10%">আপত্তির ধরন</th>
-{{--            <th width="10%">সম্পাদন</th>--}}
+            <th width="10%">কার্যক্রম</th>
         </tr>
         </thead>
         <tbody>
@@ -23,29 +23,21 @@
                 <td>{{$memo['onucched_no']}}</td>
                 <td>{{$memo['memo_title_bn']}}</td>
                 <td>{{$memo['memo_irregularity_type_name']}}</td>
-                <td>{{$memo['jorito_ortho_poriman']}}</td>
-                <td>{{$memo['onishponno_jorito_ortho_poriman']}}</td>
+                <td class="text-right">{{enTobn(number_format($memo['jorito_ortho_poriman'],0))}}</td>
+                <td class="text-right">{{enTobn(number_format($memo['onishponno_jorito_ortho_poriman'],0))}}</td>
                 <td>{{$memo['cost_center_name_bn']}}</td>
                 <td>{{$memo['audit_type']}}</td>
                 <td>{{enTobn($memo['audit_year_start']).'-'.enTobn($memo['audit_year_end'])}}</td>
                 <td>{{$memo['memo_type_name']}}</td>
-{{--                <td>--}}
-{{--                    <div class="btn-group btn-group-sm" role="group">--}}
-{{--                        <button class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"--}}
-{{--                                data-memo-id="{{$memo['id']}}"--}}
-{{--                                onclick="Memo_List_Container.editMemo($(this))">--}}
-{{--                            <i class="fad fa-edit"></i>--}}
-{{--                        </button>--}}
-
-{{--                        --}}{{--data-toggle="tooltip" data-placement="top" title="Edit"--}}
-
-{{--                        <button class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger"--}}
-{{--                                data-memo-id="{{$memo['id']}}"--}}
-{{--                                onclick="">--}}
-{{--                            <i class="fad fa-trash"></i>--}}
-{{--                        </button>--}}
-{{--                    </div>--}}
-{{--                </td>--}}
+                <td>
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button title="দেখুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                data-memo-id="{{$memo['id']}}"
+                                onclick="Team_Calendar_Container.showMemo($(this))">
+                            <i class="fad fa-eye"></i>
+                        </button>
+                    </div>
+                </td>
             </tr>
         @endforeach
         </tbody>

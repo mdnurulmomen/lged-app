@@ -306,8 +306,13 @@ $("#kt_quick_panel_close").on('click', function () {
     $("html").removeClass("side-panel-overlay");
     $(".offcanvas-wrapper").html('');
 });
+
 $(document).off('mouseenter').on('mouseenter', '#kt_content', function () {
     console.log('global enter')
     $('[data-toggle="tooltip"]').tooltip()
     $('[data-toggle="popover"]').popover()
 })
+
+$(document).off('input').on("input", ".integer_type_positive", function (event) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
