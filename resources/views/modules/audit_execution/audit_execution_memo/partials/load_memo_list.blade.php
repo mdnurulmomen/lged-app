@@ -16,7 +16,7 @@
             <th width="10%">নিরীক্ষিত ধরন</th>
             <th width="10%">অর্থবছর</th>
             <th width="10%">আপত্তির ধরন</th>
-            <th width="10%">সম্পাদন</th>
+            <th width="10%">কার্যক্রম</th>
         </tr>
         </thead>
         <tbody>
@@ -37,13 +37,20 @@
                 <td>{{$memo['memo_type_name']}}</td>
                 <td>
                     <div class="btn-group btn-group-sm" role="group">
-                        <button class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                        <button title="দেখুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                                 data-memo-id="{{$memo['id']}}"
                                 onclick="Memo_List_Container.showMemo($(this))">
                             <i class="fad fa-eye"></i>
                         </button>
 
-                        <button class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                        <button title="নিরীক্ষার সুপারিশ" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                data-memo-id="{{$memo['id']}}"
+                                onclick="Memo_List_Container.recommendationMemo('{{$memo['id']}}')">
+                            <i class="fas fa-file-import"></i>
+                        </button>
+
+
+                        <button title="সম্পাদন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                                 data-memo-id="{{$memo['id']}}"
                                 onclick="Memo_List_Container.editMemo($(this))">
                             <i class="fad fa-edit"></i>
@@ -51,7 +58,7 @@
 
                         {{--data-toggle="tooltip" data-placement="top" title="Edit"--}}
 
-                        <button class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger"
+                        <button title="মুছে ফেলুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger"
                                 data-memo-id="{{$memo['id']}}"
                                 onclick="">
                             <i class="fad fa-trash"></i>

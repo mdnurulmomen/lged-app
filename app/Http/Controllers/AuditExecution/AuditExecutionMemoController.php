@@ -323,4 +323,38 @@ class AuditExecutionMemoController extends Controller
         $pdf = \PDF::loadView('modules.audit_execution.audit_execution_memo.partials.memo_book',compact('memoInfo'));
         return $pdf->stream('document.pdf');
     }
+
+    public function auditMemoRecommendation(Request $request){
+        $data = Validator::make($request->all(), [
+            'memo_id' => 'required',
+        ])->validate();
+
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+
+        $recommendation_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.audit_memo_recommendation_list'), $data)->json();
+//        dd($recommendation_list);
+        if (isSuccess($recommendation_list)) {
+            $memo_id = $request->memo_id;
+            $recommendation_list = $recommendation_list['data'];
+            return view('modules.audit_execution.audit_execution_memo.memo_recommendation.memo_recommendation_list', compact('recommendation_list','memo_id'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $recommendation_list]);
+        }
+    }
+
+    public function auditMemoRecommendationStore(Request $request){
+        $data = Validator::make($request->all(), [
+            'memo_id' => 'required',
+            'audit_recommendation' => 'required',
+        ])->validate();
+
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+//        dd($data);
+        $auditMemoRecommendation = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.audit_memo_recommendation_store'), $data)->json();
+        if (isSuccess($auditMemoRecommendation)) {
+            return response()->json(['status' => 'success', 'data' => 'Saved Successfully']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $auditMemoRecommendation]);
+        }
+    }
 }

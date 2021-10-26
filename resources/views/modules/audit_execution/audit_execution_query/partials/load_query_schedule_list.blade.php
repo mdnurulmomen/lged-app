@@ -98,7 +98,7 @@
                                             <div class="d-flex align-items-center justify-content-md-end">
                                                 <div class="btn-group folder-wrapper mb-2 mt-3 mr-3">
                                                     <button
-                                                        onclick="Audit_Query_Container.selectQuery($(this))"
+                                                        onclick="Audit_Query_Schedule_Container.query($(this))"
                                                         data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                         data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
                                                         data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
@@ -112,7 +112,7 @@
                                                             data-audit-plan-id="{{$schedule['audit_plan_id']}}"
                                                             data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                             data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
-                                                            onclick="Audit_Query_Container.memo($(this))" type="button"
+                                                            onclick="Audit_Query_Schedule_Container.memo($(this))" type="button"
                                                             class="btn btn-sm rounded-0 alert-warning  folder_click">
                                                         Memo
                                                     </button>

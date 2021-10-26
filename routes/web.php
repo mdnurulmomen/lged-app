@@ -323,12 +323,16 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::get('query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'index'])->name('query');
 
-        Route::get('schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'queryScheduleList'])->name('query-schedule-list');
+        Route::post('load-query-create', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadQueryCreateForm'])->name('load-query-create');
+
+        Route::get('schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'querySchedule'])->name('query-schedule-list');
         Route::get('load-query-schedule-lists', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadQueryScheduleList'])->name('load-query-schedule-lists');
-        Route::post('select-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'selectAuditQuery'])->name('select-audit-query');
-        Route::post('cost-center-type-wise-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'costCenterTypeWiseQuery'])->name('cost-center-type-wise-query');
+        Route::post('audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'auditQuery'])->name('audit-query');
+        Route::post('load-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadAuditQuery'])->name('load-audit-query');
         Route::post('send-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'sendAuditQuery'])->name('send-audit-query');
         Route::post('received-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'receivedAuditQuery'])->name('received-audit-query');
+        Route::post('load-reject-query-form', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadRejectAuditQuery'])->name('load-reject-query-form');
+        Route::post('reject-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'rejectAuditQuery'])->name('reject-audit-query');
 
         Route::get('discussion', [\App\Http\Controllers\AuditExecution\AuditExecutionDiscussionController::class, 'index'])->name('discussion');
 
@@ -346,6 +350,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('sent-to-rpu', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'sentToRpu'])->name('sent-to-rpu');
             Route::get('authority-memo-list', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'authorityMemoList'])->name('authority-memo-list');
             Route::post('load-authority-memo-list', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'loadAuthorityMemoList'])->name('load-authority-memo-list');
+            Route::post('audit-memo-recommendation', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'auditMemoRecommendation'])->name('audit-memo-recommendation');
+            Route::post('audit-memo-recommendation-store', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'auditMemoRecommendationStore'])->name('audit-memo-recommendation-store');
         });
     });
 

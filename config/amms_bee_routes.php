@@ -177,13 +177,16 @@ return [
         'send_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/send-audit-query',
         'received_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/received-audit-query',
         'audit_query_cost_center_type_wise' => env('API_URL_BEE', '') . '/audit-conduct-query/audit-query-cost-center-type-wise',
+        'rejected_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/rejected-audit-query',
         'memo' => [
             'store' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-store',
             'list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-list',
             'edit' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-edit',
             'update' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-update',
             'send_to_rpu' => env('API_URL_BEE', '') . '/audit-conduct-memo/send-audit-memo-to-rpu',
-            'authority_memo_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/authority-memo-list'
+            'authority_memo_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/authority-memo-list',
+            'audit_memo_recommendation_store' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-recommendation-store',
+            'audit_memo_recommendation_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-recommendation-list'
         ]
     ],
 
