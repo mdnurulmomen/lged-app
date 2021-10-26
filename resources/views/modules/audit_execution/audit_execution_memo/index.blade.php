@@ -5,7 +5,7 @@
         <a class="btn btn-primary btn-sm btn-bold btn-square"
            onclick="Memo_List_Container.sentMemoListToRpu()"
            href="javascript:;">
-            <i class="fa fa-paper-plane mr-1"></i> Sent To RPU
+            <i class="fa fa-paper-plane mr-1"></i> Send To RPU
         </a>
 
         <a class="btn btn-success btn-sm btn-bold btn-square"
