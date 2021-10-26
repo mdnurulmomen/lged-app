@@ -49,6 +49,12 @@
                             <i class="fas fa-file-import"></i>
                         </button>
 
+                        <button title="মেমো লগ" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                data-memo-id="{{$memo['id']}}"
+                                onclick="Memo_List_Container.memoLog($(this))">
+                            <i class="fa fa-history"></i>
+
+                        </button>
 
                         <button title="সম্পাদন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                                 data-memo-id="{{$memo['id']}}"

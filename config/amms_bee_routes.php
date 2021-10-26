@@ -186,7 +186,8 @@ return [
             'send_to_rpu' => env('API_URL_BEE', '') . '/audit-conduct-memo/send-audit-memo-to-rpu',
             'authority_memo_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/authority-memo-list',
             'audit_memo_recommendation_store' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-recommendation-store',
-            'audit_memo_recommendation_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-recommendation-list'
+            'audit_memo_recommendation_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-recommendation-list',
+            'audit_memo_log_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-log-list'
         ]
     ],
 

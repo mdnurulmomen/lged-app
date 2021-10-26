@@ -357,4 +357,27 @@ class AuditExecutionMemoController extends Controller
             return response()->json(['status' => 'error', 'data' => $auditMemoRecommendation]);
         }
     }
+
+    public function auditMemoLog(Request $request){
+        $data = Validator::make($request->all(), [
+            'memo_id' => 'required',
+        ])->validate();
+
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+
+        $log_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.audit_memo_log_list'), $data)->json();
+//        dd($log_list);
+        if (isSuccess($log_list)) {
+            $memo_id = $request->memo_id;
+            $log_list = $log_list['data'];
+            return view('modules.audit_execution.audit_execution_memo.memo_log.memo_log_list', compact('log_list','memo_id'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $log_list]);
+        }
+    }
+
+    public function auditMemoShow(Request $request){
+        $memo_log_info = json_decode($request->log_info,true);
+        return view('modules.audit_execution.audit_execution_memo.memo_log.show_memo_log', compact('memo_log_info'));
+    }
 }
