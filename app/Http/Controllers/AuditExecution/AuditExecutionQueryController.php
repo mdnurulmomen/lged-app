@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AuditExecution;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AuditExecutionQueryController extends Controller
 {
@@ -65,6 +66,13 @@ class AuditExecutionQueryController extends Controller
 
     public function sendAuditQuery(Request $request)
     {
+        $data = Validator::make($request->all(), [
+            'cost_center_type_id' => 'required|integer',
+            'cost_center_id' => 'required|integer',
+            'cost_center_name_bn' => 'required',
+            'cost_center_name_en' => 'required',
+            'queries' => 'required',
+        ])->validate();
         $data['cdesk'] = json_encode_unicode($this->current_desk());
         $data['fiscal_year_id'] = 1;
         $data['cost_center_type_id'] = $request->cost_center_type_id;
@@ -99,11 +107,13 @@ class AuditExecutionQueryController extends Controller
         }
     }
 
-    public function loadQueryCreateForm()
+    public function loadQueryCreateForm(Request $request)
     {
+        //($request->all());
         $cost_center_types = $this->allCostCenterType();
+        $cost_center_type_id = $request->cost_center_type_id;
         return view('modules.audit_execution.audit_execution_query.partials.load_query_add_form',
-            compact('cost_center_types'));
+            compact('cost_center_types','cost_center_type_id'));
     }
 
     public function loadRejectAuditQuery(Request $request)

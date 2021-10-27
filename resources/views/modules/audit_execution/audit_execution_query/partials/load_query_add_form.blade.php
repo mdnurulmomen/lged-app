@@ -4,7 +4,7 @@
             <select name="cost_center_type_id" id="cost_center_type_id" class="form-control">
                 <option value="">Select Cost Center Type</option>
                 @foreach($cost_center_types as $key => $type)
-                    <option value="{{$type['id']}}">{{$type['name_bn']}}</option>
+                    <option value="{{$type['id']}}" {{$type['id'] == $cost_center_type_id?'selected':''}}>{{$type['name_bn']}}</option>
                 @endforeach
             </select>
         </div>
@@ -39,13 +39,19 @@
                 toastr.success('সফলভাবে সংরক্ষণ করা হয়েছে');
                 cost_center_type_id = $("#cost_center_type_id").val();
                 $('#cost_center_type').val(cost_center_type_id).trigger('change');
+                $('#kt_quick_panel_close').click();
             }
             else {
-                if (response.statusCode === '422') {
-                    var errors = response.msg;
-                    $.each(errors, function (k, v) {
-                        if (v !== '') {
-                            toastr.error(v);
+                if (response.data.errors) {
+                    $.each(response.data.errors, function (k, v) {
+                        if (isArray(v)) {
+                            $.each(v, function (n, m) {
+                                toastr.error(m)
+                            })
+                        } else {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
                         }
                     });
                 }

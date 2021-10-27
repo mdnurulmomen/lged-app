@@ -99,7 +99,9 @@
     $("#selectAll").change(function(){
         var status = this.checked;
         $('.select-memo').each(function(){
-            this.checked = status;
+            if (!$(this).is(':disabled')) {
+                this.checked = status;
+            }
         });
     });
 

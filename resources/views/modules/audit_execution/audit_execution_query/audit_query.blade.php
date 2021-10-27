@@ -1,6 +1,6 @@
 <x-title-wrapper>Query Lists ({{$cost_center_name_bn}})</x-title-wrapper>
 
-<div class="row pt-4">
+<div class="row pt-4" style="position:sticky;top:30px;background: white">
     <div class="col-md-8">
         <div class="d-flex justify-content-start">
             <input id="cost_center_id" type="hidden" value="{{$cost_center_id}}">
@@ -68,8 +68,10 @@
 
     var Audit_Query_Container = {
         addQuery: function (elem) {
+
+            cost_center_type_id = $("#cost_center_type").val();
+            data = {cost_center_type_id};
             url = '{{route('audit.execution.load-query-create')}}';
-            data = {};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -83,7 +85,7 @@
                     cost_center_type_id = '{{$cost_center_type_id}}';
                     $('#cost_center_type').val(cost_center_type_id).trigger('change');
                 } else {
-                    $(".offcanvas-title").text('কোয়েরি যোগ করুন');
+                    $(".offcanvas-title").text('Add Query'); //কোয়েরি যোগ করুন
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
@@ -129,7 +131,7 @@
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
-                    toastr.warning(response.data)
+                    toastr.error(response.data)
                 } else {
                     $('#cost_center_type').trigger('change');
                     toastr.success(response.data)
