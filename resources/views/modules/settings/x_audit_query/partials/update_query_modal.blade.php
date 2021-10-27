@@ -4,7 +4,7 @@
             <select name="cost_center_type_id" id="cost_center_type_id" class="form-control select-select2">
                 <option value="">Select Cost Center Type</option>
                 @foreach($cost_center_types as $key => $type)
-                    <option @if($type['id'] = $audit_query_cost_center_type) selected
+                    <option @if($type['id'] == $audit_query_cost_center_type) selected
                             @endif value="{{$type['id']}}">{{$type['name_bn']}}</option>
                 @endforeach
             </select>
