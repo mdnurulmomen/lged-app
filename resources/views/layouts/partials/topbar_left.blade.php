@@ -19,18 +19,25 @@
                 </div>
             </li>
             <li class="menu-item">
-                <button
-                    class="btn btn-outline-danger btn-square dropdown-toggle btn-sm width-160p text-left fixed-width-dropdown"
-                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a
+                    href="{{route('audit.execution.query')}}"
+                    class="btn btn-outline-danger btn-square btn-sm width-160p text-left"
+                    type="button">
                     <i class="fal fa-network-wired"></i><span>Conducting</span>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="{{route('audit.execution.area')}}">Team Calendar</a>
-                    <a class="dropdown-item" href="{{route('audit.execution.area')}}">Audit Area</a>
-                    <a class="dropdown-item" href="{{route('audit.execution.query')}}">Audit Query</a>
-                    <a class="dropdown-item" href="{{route('audit.execution.discussion')}}">Audit Discussion</a>
-                    <a class="dropdown-item" href="{{route('audit.execution.review')}}">Review</a>
-                </div>
+                </a>
+
+{{--                <button--}}
+{{--                    class="btn btn-outline-danger btn-square dropdown-toggle btn-sm width-160p text-left fixed-width-dropdown"--}}
+{{--                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                    <i class="fal fa-network-wired"></i><span>Conducting</span>--}}
+{{--                </button>--}}
+{{--                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
+{{--                    <a class="dropdown-item" href="{{route('audit.execution.area')}}">Team Calendar</a>--}}
+{{--                    <a class="dropdown-item" href="{{route('audit.execution.area')}}">Audit Area</a>--}}
+{{--                    <a class="dropdown-item" href="{{route('audit.execution.query')}}">Audit Query</a>--}}
+{{--                    <a class="dropdown-item" href="{{route('audit.execution.discussion')}}">Audit Discussion</a>--}}
+{{--                    <a class="dropdown-item" href="{{route('audit.execution.review')}}">Review</a>--}}
+{{--                </div>--}}
             </li>
             <li class="menu-item">
                 <button
