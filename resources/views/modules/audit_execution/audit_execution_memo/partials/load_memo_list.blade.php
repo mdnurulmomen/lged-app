@@ -6,17 +6,17 @@
             <th width="5%">
                 <input type="checkbox" id="selectAll">
             </th>
-            <th width="5%">ক্রমিক নং</th>
-            <th width="7%">অনুচ্ছেদ নং</th>
-            <th width="10%">আপত্তির শিরোনাম</th>
-            <th width="10%">আপত্তি অনিয়মের ধরন</th>
-            <th width="10%">জড়িত অর্থ (টাকা)</th>
-            <th width="10%">অনিষ্পন্ন জড়িত অর্থ (টাকা)</th>
-            <th width="10%">নিরীক্ষিত প্রতিষ্ঠান</th>
-            <th width="10%">নিরীক্ষিত ধরন</th>
-            <th width="10%">অর্থবছর</th>
-            <th width="10%">আপত্তির ধরন</th>
-            <th width="10%">কার্যক্রম</th>
+            <th width="5%" class="text-center">ক্রমিক নং</th>
+            <th width="7%" class="text-center">অনুচ্ছেদ নং</th>
+            <th width="10%" class="text-center">আপত্তির শিরোনাম</th>
+            <th width="10%" class="text-center">আপত্তি অনিয়মের ধরন</th>
+            <th width="10%" class="text-center">জড়িত অর্থ (টাকা)</th>
+            <th width="10%" class="text-center">অনিষ্পন্ন জড়িত অর্থ (টাকা)</th>
+            <th width="10%" class="text-center">নিরীক্ষিত প্রতিষ্ঠান</th>
+            <th width="10%" class="text-center">নিরীক্ষিত ধরন</th>
+            <th width="10%" class="text-center">অর্থবছর</th>
+            <th width="10%" class="text-center">আপত্তির ধরন</th>
+            <th width="10%" class="text-center">কার্যক্রম</th>
         </tr>
         </thead>
         <tbody>
