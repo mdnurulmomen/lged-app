@@ -15,7 +15,7 @@
     </thead>
     <tbody style="" class="datatable-body">
     @forelse($audit_query_list as $query)
-        <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
+        <tr id="row_{{$query['id']}}" data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
             <td class="datatable-cell text-center">
                 <span>
                     <input @if($query['audit_query'] && $query['audit_query']['status']!='removed') checked disabled @endif class="selectQuery"

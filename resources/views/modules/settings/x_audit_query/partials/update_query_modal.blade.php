@@ -33,13 +33,37 @@
     $('.btn_update_audit_query').click(function () {
         url = '{{route('settings.audit-query.update', ['audit_query' => $audit_query_id])}}';
         var data = $('#audit_query_form_update').serialize();
-        ;
-        ajaxCallAsyncCallbackAPI(url, data, 'PUT', function (resp) {
-            if (resp.status === 'error') {
-                toastr.error('no');
-                console.log(resp.data)
+        // ajaxCallAsyncCallbackAPI(url, data, 'PUT', function (resp) {
+        //     if (resp.status === 'error') {
+        //         toastr.error('no');
+        //         console.log(resp.data)
+        //     } else {
+        //         toastr.success(resp.data);
+        //         $('.ki-close').click();
+        //     }
+        // });
+
+        ajaxCallAsyncCallbackAPI(url, data, 'PUT', function (response) {
+            if (response.status === 'success') {
+                toastr.success(response.data);
+                $('.ki-close').click();
+                $('.x_query_menu a').click();
             } else {
-                toastr.success(resp.data);
+                toastr.error(response.data.message)
+                if (response.data.errors) {
+                    $.each(response.data.errors, function (k, v) {
+                        if (isArray(v)) {
+                            $.each(v, function (n, m) {
+                                toastr.error(m)
+                            })
+                        } else {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        }
+                    });
+                }
+                console.log(response.data)
             }
         });
     });

@@ -19,7 +19,7 @@
 
                 </div>
                 <div class="col-md-4">
-                    <textarea placeholder="Query Title Bangla" class="form-control" type="text" name="query_title_en[]"></textarea>
+                    <textarea placeholder="Query Title English" class="form-control" type="text" name="query_title_en[]"></textarea>
                 </div>
                 <div class="col-md-2">
                 <span title="যোগ করুন"
@@ -51,7 +51,29 @@
         url = $(this).data('url');
         data = $('#audit_query_form').serialize();
         method = $(this).data('method');
-        submitModalData(url, data, method, 'audit_query_modal')
+        ajaxCallAsyncCallbackAPI(url, data, method, function (response) {
+            if (response.status === 'success') {
+                toastr.success('Success')
+                $('#audit_query_modal').modal('hide');
+                $('.x_query_menu a').click();
+            } else {
+                toastr.error(response.data.message)
+                if (response.data.errors) {
+                    $.each(response.data.errors, function (k, v) {
+                        if (isArray(v)) {
+                            $.each(v, function (n, m) {
+                                toastr.error(m)
+                            })
+                        } else {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        }
+                    });
+                }
+                console.log(response.data)
+            }
+        })
     });
 
     $('.btn_query_add').on('click', function () {

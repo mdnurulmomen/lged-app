@@ -85,16 +85,16 @@
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                  let heading = '<p>Showing Report For: </p>';
                 if(directorate_id){
-                    heading +='<p class="float-left pl-4""><b>Directorate:</b> '+$("#directorate_id option:selected").text()+'</p>';
+                    heading +='<p class="float-left pl-4"><b>Directorate:</b> '+$("#directorate_id option:selected").text()+'</p>';
                 }
                 if(office_ministry_id){
-                    heading +='<p class="float-left pl-4""><b>Ministry:</b> '+$("#office_ministry_id option:selected").text()+'</p>';
+                    heading +='<p class="float-left pl-4"><b>Ministry:</b> '+$("#office_ministry_id option:selected").text()+'</p>';
                 }
                 if(audit_due_year){
-                    heading +='<p class="float-left pl-4""><b>Due Year:</b> '+$("#audit_due_year option:selected").text()+'</p>';
+                    heading +='<p class="float-left pl-4"><b>Due Year:</b> '+$("#audit_due_year option:selected").text()+'</p>';
                 }
                 if(risk_category){
-                    heading +='<p class="float-left pl-4""><b>Risk Area:</b> '+$("#risk_category option:selected").text()+'</p>';
+                    heading +='<p class="float-left pl-4"><b>Risk Area:</b> '+$("#risk_category option:selected").text()+'</p>';
                 }
 
                 $('#report_heading').html(heading);

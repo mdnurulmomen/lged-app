@@ -22,7 +22,7 @@
     </thead>
     <tbody style="" class="datatable-body">
     @forelse($audit_querys as $audit_query)
-        <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
+        <tr id="row_{{$audit_query['id']}}" data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
             <td class="datatable-cell text-center"><span>{{$audit_query['cost_center_type']['name_bn']}}</span></td>
             <td class="datatable-cell text-center"><span>{{$audit_query['query_title_en']}}</span></td>
             <td class="datatable-cell text-center"><span>{{$audit_query['query_title_bn']}}</span></td>
@@ -86,8 +86,46 @@
         });
     });
 
-    $('.delete_audit_query').click(function () {
-        url = $(this).data('url');
-        submitModalData(url, {}, 'delete', 'audit_query_modal');
+    $(".delete_audit_query").click(function () {
+
+         id = $(this).data('audit-query-id');
+         url = $(this).data('url');
+
+        swal.fire({
+            title: 'আপনি কি তথ্যটি মুছে ফেলতে চান?',
+            text: "",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'হ্যাঁ',
+            cancelButtonText: 'না'
+        }).then(function (result) {
+            if (result.value) {
+                ajaxCallAsyncCallbackAPI(url, {}, 'delete', function (resp) {
+                    if (resp.status === 'error') {
+                        toastr.error('no');
+                        console.log(resp.data)
+                    } else {
+                        toastr.success('Delete Successfully');
+                        $('#row_' + id).remove();
+                    }
+                });
+
+            }
+        });
     });
+
+    // $('.delete_audit_query').click(function () {
+    //     id = $(this).data('audit-query-id');
+    //     url = $(this).data('url');
+    //     // submitModalData(url, {}, 'delete', 'audit_query_modal');
+    //     ajaxCallAsyncCallbackAPI(url, {}, 'delete', function (resp) {
+    //         if (resp.status === 'error') {
+    //             toastr.error('no');
+    //             console.log(resp.data)
+    //         } else {
+    //             toastr.success('Delete Successfully');
+    //             $('#row_'+id).remove();
+    //         }
+    //     });
+    // });
 </script>
