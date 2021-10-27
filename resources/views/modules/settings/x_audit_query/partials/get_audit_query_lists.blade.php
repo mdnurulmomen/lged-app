@@ -23,9 +23,9 @@
     <tbody style="" class="datatable-body">
     @forelse($audit_querys as $audit_query)
         <tr id="row_{{$audit_query['id']}}" data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
-            <td class="datatable-cell text-center"><span>{{$audit_query['cost_center_type']['name_bn']}}</span></td>
-            <td class="datatable-cell text-center"><span>{{$audit_query['query_title_en']}}</span></td>
-            <td class="datatable-cell text-center"><span>{{$audit_query['query_title_bn']}}</span></td>
+            <td class="datatable-cell text-left"><span>{{$audit_query['cost_center_type']['name_bn']}}</span></td>
+            <td class="datatable-cell text-left"><span>{{$audit_query['query_title_en']}}</span></td>
+            <td class="datatable-cell text-left"><span>{{$audit_query['query_title_bn']}}</span></td>
             <td class="datatable-cell text-center">
                 <a href="javascript:;"
                    data-audit-query-id="{{$audit_query['id']}}"

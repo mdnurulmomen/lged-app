@@ -57,7 +57,7 @@
                 $('#audit_query_modal').modal('hide');
                 $('.x_query_menu a').click();
             } else {
-                toastr.error(response.data.message)
+                // toastr.error(response.data.message)
                 if (response.data.errors) {
                     $.each(response.data.errors, function (k, v) {
                         if (isArray(v)) {
