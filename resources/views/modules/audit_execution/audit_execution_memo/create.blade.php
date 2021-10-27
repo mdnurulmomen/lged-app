@@ -46,7 +46,7 @@
                                                    name="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control mb-1" pattern="[0-9\.]*"
+                                            <input class="form-control integer_type_positive mb-1"
                                                    name="onishponno_jorito_ortho_poriman" placeholder="অনিষ্পন্ন জড়িত অর্থ (টাকা)" type="text">
                                         </div>
                                     </div>
@@ -61,7 +61,7 @@
                                     </div>
 
                                     <select class="form-control select-select2" name="memo_irregularity_type">
-                                        <option value="">আপত্তি অনিয়মের ধরন</option>
+                                        <option value="">আপত্তি অনিয়মের ধরন বাছাই করুন</option>
                                         <option value="1">আত্মসাত, চুরি, প্রতারণা ও জালিয়াতিমূলক</option>
                                         <option value="2">সরকারের আর্থিক ক্ষতি</option>
                                         <option value="3">বিধি ও পদ্ধতিগত অনিয়ম</option>
@@ -69,7 +69,7 @@
                                     </select>
 
                                     <select class="form-control select-select2" name="memo_irregularity_sub_type">
-                                        <option value="">আপত্তি অনিয়মের সাব-ধরন</option>
+                                        <option value="">আপত্তি অনিয়মের সাব-ধরন বাছাই করুন</option>
                                         <option value="1">ভ্যাট-আইটিসহ সরকারি প্রাপ্য আদায় না করা</option>
                                         <option value="2">কম আদায় করা</option>
                                         <option value="3">আদায় করা সত্ত্বেও কোষাগারে জমা না করা</option>
@@ -82,7 +82,7 @@
                                     </select>
 
                                     <select class="form-control select-select2" name="memo_type">
-                                        <option value="">আপত্তির ধরন</option>
+                                        <option value="">আপত্তির ধরন বাছাই করুন</option>
                                         <option value="1">এসএফআই</option>
                                         <option value="2">নন-এসএফআই</option>
                                         <option value="3">ড্রাফ্ট প্যারা</option>
@@ -90,7 +90,7 @@
                                     </select>
 
                                     <select class="form-control select-select2" name="memo_status">
-                                        <option value="">আপত্তির অবস্থা</option>
+                                        <option value="">আপত্তির অবস্থা বাছাই করুন</option>
                                         <option value="1">নিস্পন্ন</option>
                                         <option value="2">অনিস্পন্ন</option>
                                         <option value="3">আংশিক নিস্পন্ন</option>
@@ -111,38 +111,6 @@
                                         <input name="pramanok" type="file" class="form-control rounded-0"
                                                accept="image/*" multiple>
                                     </div>
-
-                                    {{--<div class="form-group">
-                                        <label class="col-form-label">
-                                            কভার পেজ
-                                        </label>
-                                        <input name="file" type="file" class="form-control rounded-0"
-                                               accept="image/*" multiple>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">
-                                            টপ পেজ
-                                        </label>
-                                        <input name="file" type="file" class="form-control rounded-0"
-                                               accept="image/*" multiple>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">
-                                            মূল আপত্তি সংযুক্তি
-                                        </label>
-                                        <input name="file" type="file" class="form-control rounded-0"
-                                               accept="image/*" multiple>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">
-                                            আপত্তির অন্যান্য সংযুক্তি
-                                        </label>
-                                        <input name="file" type="file" class="form-control rounded-0"
-                                               accept="image/*" multiple>
-                                    </div>--}}
                                 </div>
                             </div>
                         </div>

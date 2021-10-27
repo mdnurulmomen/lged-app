@@ -155,8 +155,6 @@
                 KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.warning(response.data)
-                    cost_center_type_id = '{{$cost_center_type_id}}';
-                    $('#cost_center_type').val(cost_center_type_id).trigger('change');
                 } else {
                     $('#cost_center_type').trigger('change');
                     toastr.success(response.data)

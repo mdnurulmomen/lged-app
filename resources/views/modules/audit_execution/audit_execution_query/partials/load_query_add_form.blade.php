@@ -1,7 +1,7 @@
 <form id="audit_query_form">
     <div class="form-row">
         <div class="col-md-12">
-            <select name="cost_center_type_id" id="cost_center_type_id" class="form-control select-select2">
+            <select name="cost_center_type_id" id="cost_center_type_id" class="form-control">
                 <option value="">Select Cost Center Type</option>
                 @foreach($cost_center_types as $key => $type)
                     <option value="{{$type['id']}}">{{$type['name_bn']}}</option>
@@ -37,6 +37,8 @@
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             if (response.status === 'success') {
                 toastr.success('সফলভাবে সংরক্ষণ করা হয়েছে');
+                cost_center_type_id = $("#cost_center_type_id").val();
+                $('#cost_center_type').val(cost_center_type_id).trigger('change');
             }
             else {
                 if (response.statusCode === '422') {
