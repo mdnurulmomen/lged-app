@@ -19,6 +19,7 @@
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;">
         <u>অডিট মেমো</u>
     </div>
+    <br>
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">অনুচ্ছেদ নং-{{enTobn($memoInfo['onucched_no'])}}</div>
     {{--<div class="bangla-font" style="font-family:SolaimanLipi,serif !important;">
         জিজ্ঞাসাপত্র নং-{{enTobn($memoInfo['onucched_no'])}}

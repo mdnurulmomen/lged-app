@@ -19,6 +19,7 @@
                 toastr.success('সফলভাবে সংরক্ষণ করা হয়েছে');
                 cost_center_type_id = '{{$cost_center_type_id}}';
                 $('#cost_center_type').val(cost_center_type_id).trigger('change');
+                $('#kt_quick_panel_close').click();
             }
             else {
                 if (response.statusCode === '422') {
