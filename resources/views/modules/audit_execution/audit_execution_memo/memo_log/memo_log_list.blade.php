@@ -18,7 +18,7 @@
             <td class="datatable-cell"><span>{{$loop->iteration}}</span></td>
 
             <td class="datatable-cell">
-                {{$log['created_at']}}
+                {{date('Y/m/d H:i:s',strtotime($log['created_at']))}}
             </td>
 
             <td class="datatable-cell">
