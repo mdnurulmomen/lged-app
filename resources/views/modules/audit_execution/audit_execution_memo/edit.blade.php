@@ -101,6 +101,21 @@
                                     </select>
 
                                     <div class="form-group">
+                                        <label class="col-form-label">মেমো সংযুক্তি <code>(optional)</code></label>
+                                        <input name="memo_attachment" type="file" class="form-control rounded-0"
+                                               accept="image/*" multiple>
+                                    </div>
+                                    <div id="lightgalleryPorisishto">
+                                        @foreach($memo['ac_memo_attachments'] as $attachment)
+                                            @if($attachment['attachment_type'] == 'memo')
+                                                <a href="{{$attachment['attachment_path']}}">
+                                                    <img width="50px" height="50px" class="img-thumbnail" src="{{$attachment['attachment_path']}}" />
+                                                </a>
+                                            @endif
+                                        @endforeach
+                                    </div>
+
+                                    <div class="form-group">
                                         <label class="col-form-label">পরিশিষ্ট সংযুক্তি</label>
                                         <input name="porisishto" type="file" class="form-control rounded-0"
                                                accept="image/*" multiple>

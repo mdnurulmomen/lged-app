@@ -782,6 +782,16 @@
 <body>
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center">
+            অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
+            সেগুনবাগিচা, ঢাকা -১০০০।
+        </div>
+
+        <br>
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;">
+            <u>অডিট মেমো</u>
+        </div>
+
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">অনুচ্ছেদ নং-{{enTobn($memoInfo['onucched_no'])}}</div>
         {{--<div class="bangla-font" style="font-family:SolaimanLipi,serif !important;">জিজ্ঞাসাপত্র নং-{{enTobn($memoInfo['onucched_no'])}}</div>--}}
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">
@@ -800,7 +810,7 @@
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
             <span style="font-weight: bold">নিরীক্ষার মন্তব্যঃ</span>
-            {{$memoInfo['comment']}}
+            {{$memoInfo['audit_conclusion']}}
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">

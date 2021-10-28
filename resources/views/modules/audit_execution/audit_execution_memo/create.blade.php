@@ -39,7 +39,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-body" style="height: calc(100vh - 145px);padding: 10px;">
+                                <div class="card-body" style="height: calc(100vh - 115px);padding: 10px;">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <input class="form-control integer_type_positive mb-1"
@@ -95,6 +95,15 @@
                                         <option value="2">অনিস্পন্ন</option>
                                         <option value="3">আংশিক নিস্পন্ন</option>
                                     </select>
+
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">
+                                            মেমো সংযুক্তি <code>(optional)</code>
+                                        </label>
+                                        <input name="memo_attachment" type="file" class="form-control rounded-0"
+                                               accept="image/*" multiple>
+                                    </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">

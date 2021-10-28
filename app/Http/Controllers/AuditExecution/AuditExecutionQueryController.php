@@ -56,7 +56,7 @@ class AuditExecutionQueryController extends Controller
         $data['cdesk'] = json_encode_unicode($this->current_desk());
         $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.audit_query_cost_center_type_wise'), $data)->json();
         $cost_center_types = $this->allCostCenterType();
-        //dd($audit_query_list);
+        //dd($data);
         if ($audit_query_list['status'] == 'success') {
             $audit_query_list = $audit_query_list['data'];
             return view('modules.audit_execution.audit_execution_query.partials.load_query_list',

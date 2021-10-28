@@ -96,6 +96,15 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'cdesk', 'contents' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE)],
         ];
 
+        $memo_attachment_file = $request->memo_attachment;
+        if ($request->hasfile('memo_attachment')) {
+            $data[] = [
+                'name'     => 'memo',
+                'contents' => file_get_contents($memo_attachment_file->getRealPath()),
+                'filename' => $memo_attachment_file->getClientOriginalName(),
+            ];
+        }
+
         $appendix_file = $request->porisishto;
         if ($request->hasfile('porisishto')) {
             $data[] = [
