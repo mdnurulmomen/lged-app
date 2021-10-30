@@ -95,7 +95,6 @@ class AnnualPlanRevisedController extends Controller
         return view('modules.audit_plan.annual.annual_plan_revised.partials.load_staff_assign_area', $data);
     }
 
-
     public function addAnnualPlanInfo(Request $request)
     {
         $data = Validator::make($request->all(), [
@@ -109,10 +108,9 @@ class AnnualPlanRevisedController extends Controller
         return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info')->with($data);
     }
 
-    public function storeAnnualPlanInfo(Request $request)
+    public function storeAnnualPlanInfo(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            //dd($request->all());
             Validator::make($request->all(), [
                 'op_audit_calendar_event_id' => 'required',
                 'activity_id' => 'required|integer',
@@ -143,37 +141,7 @@ class AnnualPlanRevisedController extends Controller
                 'comment' => $request->comment,
                 'budget' => $request->budget,
             ];
-
-            $ministry_info = [];
-            $controlling_office = [];
-            $parent_office = [];
-            $parent_entities = [];
-            $controlling_entities = [];
-            $ministry_entities = [];
             $nominated_offices = [];
-
-            foreach ($request->ministry_info as $ministry_info_data) {
-                $ministry_info_data = json2Array($ministry_info_data);
-                $ministry_entities[] = $ministry_info_data['entity_id'];
-                $ministry_info_data['entity_ids'] = $ministry_entities;
-                $ministry_info[$ministry_info_data['ministry_id']] = $ministry_info_data;
-            }
-
-            foreach ($request->controlling_office as $controlling_office_data) {
-                $controlling_office_data = json2Array($controlling_office_data);
-                $controlling_entities[] = $controlling_office_data['entity_id'];
-                $controlling_office_data['entity_ids'] = $controlling_entities;
-                $controlling_office_data['office_type'] = 'budgetary';
-                $controlling_office[$controlling_office_data['controlling_office_id']] = $controlling_office_data;
-            }
-
-            foreach ($request->parent_office as $parent_office_data) {
-                $parent_office_data = json2Array($parent_office_data);
-                $parent_entities[] = $parent_office_data['entity_id'];
-                $parent_office_data['entity_ids'] = $parent_entities;
-                $parent_office_data['office_type'] = 'budgetary';
-                $parent_office[$parent_office_data['parent_office_id']] = $parent_office_data;
-            }
 
             foreach ($request->selected_entity as $nominated_office) {
                 $nominated_office = json2Array($nominated_office);
@@ -186,7 +154,6 @@ class AnnualPlanRevisedController extends Controller
             $total_man_power = 0;
             if (is_array($staff_infos)) {
                 foreach ($staff_infos as $staff_info) {
-                    //dump($staff_info);
                     $staff_info_arr = explode('_', $staff_info);
                     $designation = $staff_info_arr[0];
                     $responsibility = $staff_info_arr[1];
@@ -208,15 +175,15 @@ class AnnualPlanRevisedController extends Controller
                 'staffs' => $staffs,
             ];
 
-            $data['ministry_info'] = json_encode($ministry_info, JSON_UNESCAPED_UNICODE);
-            $data['controlling_office'] = json_encode($controlling_office, JSON_UNESCAPED_UNICODE);
-            $data['parent_office'] = json_encode($parent_office, JSON_UNESCAPED_UNICODE);
+            $data['ministry_info'] = $request->ministry_info;
+            $data['controlling_office'] = $request->controlling_office;
+            $data['parent_office'] = $request->parent_office;
             $data['nominated_offices'] = json_encode($nominated_offices, JSON_UNESCAPED_UNICODE);
             $data['nominated_man_powers'] = json_encode($nominated_man_powers, JSON_UNESCAPED_UNICODE);
             $data['nominated_man_power_counts'] = $total_man_power;
 
             $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
-            //dd($store_plan);
+            dd($data, $store_plan);
             if (isSuccess($store_plan)) {
                 return response()->json(['status' => 'success', 'data' => 'Added!']);
             } else {
@@ -232,76 +199,6 @@ class AnnualPlanRevisedController extends Controller
             return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
         }
 
-    }
-
-    /**
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function showSelectedAuditeeEntities(Request $request)
-    {
-        $data = Validator::make($request->all(), [
-            'activity_id' => 'required|integer',
-            'schedule_id' => 'required|integer',
-            'milestone_id' => 'required|integer',
-        ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
-
-        $entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_selected_rp_lists'), $data)->json();
-        if (isSuccess($entities)) {
-            $entities = $entities['data'];
-            $party_ids = [];
-            foreach ($entities as $entity) {
-                $party_ids[] = $entity['party_id'];
-            }
-            $party_ids = $party_ids ? json_encode($party_ids) : json_encode([]);
-            return view('modules.audit_plan.annual.annual_plan_revised.partials.load_selected_auditee_entities', compact('entities', 'party_ids'));
-        } else {
-            return response()->json(['status' => 'error', 'data' => $entities]);
-        }
-    }
-
-    /**
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function storeSelectedAuditeeEntities(Request $request): \Illuminate\Http\JsonResponse
-    {
-        $data = Validator::make($request->all(), [
-            'activity_id' => 'required|integer',
-            'schedule_id' => 'required|integer',
-            'milestone_id' => 'required|integer',
-            'selected_entity' => 'required',
-        ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
-        $selected_entities_data = [];
-        $selected_entities = $request->selected_entity;
-        foreach ($selected_entities as $selected_entity) {
-            $selected_entity = json_decode($selected_entity, true);
-            $selected_entities_data[] = [
-                "party_id" => $selected_entity['entity_id'],
-                "party_name_en" => $selected_entity['entity_name_en'],
-                "party_name_bn" => $selected_entity['entity_name_bn'],
-                "ministry_id" => $selected_entity['ministry_id'],
-                "ministry_name_en" => $selected_entity['ministry_name_en'],
-                "ministry_name_bn" => $selected_entity['ministry_name_bn'],
-            ];
-        }
-        $data['selected_entities'] = json_encode($selected_entities_data, true);
-        unset($data['selected_entity']);
-
-        $entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_selected_rp_store'), $data)->json();
-        if (isSuccess($entities)) {
-            return response()->json(['status' => 'success', 'data' => 'Added!']);
-        } else {
-            return response()->json(['status' => 'error', 'data' => $entities]);
-        }
-    }
-
-    public function showAnnualSubmissionHRModal(Request $request)
-    {
-        $plan_responsible_party_id = $request->plan_responsible_party_id;
-        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
-
-        return view('modules.audit_plan.annual.annual_plan_revised.partials.load_annual_plan_submission_hr_modal', compact('officer_lists', 'plan_responsible_party_id'));
     }
 
     public function exportAnnualPlanBook(Request $request)
@@ -324,74 +221,6 @@ class AnnualPlanRevisedController extends Controller
         }
     }
 
-    /**
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function storeAnnualSubmissionHR(Request $request): \Illuminate\Http\JsonResponse
-    {
-        Validator::make($request->all(), [
-            'activity_id' => 'required|integer',
-            'schedule_id' => 'required|integer',
-            'milestone_id' => 'required|integer',
-            'plan_responsible_party_id' => 'required|integer',
-            'budget' => 'required|integer',
-            'designation_to_assign' => 'required',
-            'designation_role' => 'required',
-            'start' => 'required|date',
-            'end' => 'required|date',
-        ])->validate();
-
-        $designation_lists = $request->designation_to_assign;
-        $designation_roles = $request->designation_role;
-
-        $designations = [];
-
-        foreach ($designation_lists as $designation_list) {
-            foreach ($designation_roles as $designations_role) {
-                $designation = explode('_', $designations_role);
-                $designation_list_decoded = json_decode($designation_list, true);
-                if ($designation[1] == $designation_list_decoded['designation_id']) {
-                    $designations[] = [
-                        'designation_id' => $designation_list_decoded['designation_id'],
-                        'designation_en' => $designation_list_decoded['designation_en'],
-                        'designation_bn' => $designation_list_decoded['designation_bn'],
-
-                        'officer_id' => $designation_list_decoded['officer_id'],
-                        'officer_grade' => $designation_list_decoded['employee_grade'],
-                        'officer_name_en' => $designation_list_decoded['officer_name_en'],
-                        'officer_name_bn' => $designation_list_decoded['officer_name_bn'],
-
-                        'unit_id' => $designation_list_decoded['unit_id'],
-                        'unit_name_en' => $designation_list_decoded['unit_name_en'],
-                        'unit_name_bn' => $designation_list_decoded['unit_name_bn'],
-                        'office_id' => $designation_list_decoded['office_id'],
-                        'officer_category' => $designation[0],
-                    ];
-                }
-            }
-        }
-
-        $data = [
-            'schedule_id' => $request->schedule_id,
-            'activity_id' => $request->activity_id,
-            'milestone_id' => $request->milestone_id,
-            'start_date' => $request->start,
-            'end_date' => $request->end,
-            'budget' => $request->budget,
-            'plan_responsible_party_id' => $request->plan_responsible_party_id,
-            'designations' => json_encode($designations, JSON_UNESCAPED_UNICODE),
-            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
-        ];
-
-        $assign = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
-
-        if (isSuccess($assign)) {
-            return response()->json(['status' => 'success', 'data' => 'Submission Successful!']);
-        } else {
-            return response()->json(['status' => 'error', 'data' => $assign]);
-        }
-    }
-
     public function showRPAuditeeOffices(Request $request)
     {
         $ministry_id = $request->ministry_id;
@@ -409,7 +238,11 @@ class AnnualPlanRevisedController extends Controller
 //        dd($rp_offices);
         if (isSuccess($rp_offices)) {
             $rp_offices = $rp_offices['data'];
-            return view('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices', compact('rp_offices', 'ministry'));
+            if ($request->has('scope') && $request->scope == 'parent_office') {
+                return view('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_parent_offices', compact('rp_offices', 'ministry'));
+            } else {
+                return view('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices', compact('rp_offices', 'ministry'));
+            }
         } else {
             return response()->json(['status' => 'error', 'data' => $rp_offices]);
         }
@@ -463,10 +296,10 @@ class AnnualPlanRevisedController extends Controller
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_current_desk_approval_authority'), $data)->json();
         //dd($responseData);
-        $current_desk_approval_authority = isSuccess($responseData)?$responseData['data']:[];
+        $current_desk_approval_authority = isSuccess($responseData) ? $responseData['data'] : [];
         return view('modules.audit_plan.annual.annual_plan_revised.partials.load_approval_authority',
-            compact('officeId','fiscal_year_id','op_audit_calendar_event_id',
-            'officer_lists','current_desk_approval_authority'));
+            compact('officeId', 'fiscal_year_id', 'op_audit_calendar_event_id',
+                'officer_lists', 'current_desk_approval_authority'));
     }
 
     public function sendAnnualPlanSenderToReceiver(Request $request): \Illuminate\Http\JsonResponse

@@ -14,7 +14,13 @@ class GenericRPUController extends Controller
 
     public function getMinistryWiseOfficeLayer(Request $request)
     {
-        $ministry_id = $request->ministry_id;
+        if ($request->has('ministry_id')) {
+            $ministry_id = $request->ministry_id;
+        } else if ($request->has('parent_ministry_id')) {
+            $ministry_id = $request->parent_ministry_id;
+        } else {
+            $ministry_id = null;
+        }
         $layer = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-layer-ministry-wise'), ['ministry_id' => $ministry_id])->json();
         return isSuccess($layer) ? $layer['data'] : [];
     }

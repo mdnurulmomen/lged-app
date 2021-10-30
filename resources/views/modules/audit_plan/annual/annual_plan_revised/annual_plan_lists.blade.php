@@ -6,7 +6,8 @@
             <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
                 <option value="">Choose Fiscal Year</option>
                 @foreach($fiscal_years as $fiscal_year)
-                    <option value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                    <option
+                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
                 @endforeach
             </select>
         </div>
@@ -245,61 +246,89 @@
             });
         },
 
-        addSelectedRPAuditeeList: function (entity_info) {
+        loadRPParentAuditeeOffices: function (ministry_id, layer_id) {
+            let url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-offices')}}'
+            ministry_name_en = $('#parent_ministry_name_en').val()
+            ministry_name_bn = $('#parent_ministry_name_bn').val()
+            data = {ministry_id, layer_id, ministry_name_en, ministry_name_bn, scope: 'parent_office'};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $('.rp_auditee_parent_office_tree').html(response)
+                }
+            });
+        },
+
+        addSelectedRPAuditeeList: function (entity_info, parent_rp_office = false) {
+            let controlling_office = {};
+            let ministry_info = {};
+            let selected_auditee = {};
+            let newRow = '';
+
             if ($('#selected_rp_auditee_' + entity_info.entity_id).length === 0) {
-                console.log(entity_info);
-
-                var newRow = '<li id="selected_rp_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ' +
-                    'data-rp-auditee-entity-parent-id="' + entity_info.entity_parent_id + '" ' +
-                    'data-rp-auditee-entity-parent-name-en="' + entity_info.entity_parent_name_en + '" ' +
-                    'data-rp-auditee-entity-parent-name-bn="' + entity_info.entity_parent_name_bn + '" ' +
-                    'data-entity-id="' + entity_info.entity_id + '" data-entity-en="' + entity_info.entity_name_en + '" data-entity-bn="' + entity_info.entity_name_bn + '" ' +
-                    'data-controlling-office-id="' + entity_info.controlling_office_id + '" data-controlling-office-name-bn="' + entity_info.controlling_office_name_bn + '" ' +
-                    'data-controlling-office-name-en="' + entity_info.controlling_office_name_en + '" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +
-                    '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
-                    '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_en +
-                    '<input name="selected_entity[]" class="selected_entity" data-entity-id="' + entity_info.entity_id + '" id="selected_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
-                    '<input name="controlling_office[]" class="controlling_office" id="controlling_office_' + entity_info.entity_id + '_' + entity_info.controlling_office_id + '" type="hidden" value=""/>' +
-                    '<input name="parent_office[]" class="parent_office" id="parent_office_' + entity_info.entity_id + '_' + entity_info.entity_parent_id + '" type="hidden" value=""/>' +
-                    '<input name="ministry_info[]" class="ministry_info" id="ministry_info_' + entity_info.entity_id + '_' + entity_info.ministry_id + '" type="hidden" value=""/>' +
-                    '</li>';
-
-                let selected_rp_office = $(".selected_rp_offices");
+                if (parent_rp_office) {
+                    if ($('.parent_office').length > 0) {
+                        $('.parent_office').remove()
+                    }
+                    newRow = '<li class="parent_office" id="selected_rp_parent_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)"><span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_Container.removeSelectedRPParentAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
+                        '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_bn + '<span class="ml-2 badge badge-info">ইউনিট/গ্রুপ</span>' +
+                        '<input name="parent_office" class="selected_entity" id="selected_parent_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
+                        '<input name="controlling_office" class="controlling_office" id="controlling_office" type="hidden" value=""/>' +
+                        '<input name="ministry_info" class="ministry_info" id="ministry_info" type="hidden" value=""/>' +
+                        '</li>';
+                } else {
+                    newRow = '<li id="selected_rp_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)"><span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
+                        '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_en +
+                        '<input name="selected_entity[]" class="selected_entity" id="selected_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
+                        '</li>';
+                }
+                selected_rp_office = $(".selected_rp_offices");
                 selected_rp_office.append(newRow);
-                selected_auditee = {
-                    'office_id': entity_info.entity_id,
-                    'office_name_en': entity_info.entity_name_en,
-                    'office_name_bn': entity_info.entity_name_bn,
-                };
-                controlling_office = {
-                    'controlling_office_id': entity_info.controlling_office_id,
-                    'controlling_office_name_en': entity_info.controlling_office_name_en,
-                    'controlling_office_name_bn': entity_info.controlling_office_name_bn,
-                    'entity_id': entity_info.entity_id,
-                };
-                parent_office = {
-                    'parent_office_id': entity_info.entity_parent_id,
-                    'parent_office_name_en': entity_info.entity_parent_name_en,
-                    'parent_office_name_bn': entity_info.entity_parent_name_bn,
-                    'entity_id': entity_info.entity_id,
-                };
-                ministry_info = {
-                    'ministry_id': entity_info.ministry_id,
-                    'ministry_name_en': entity_info.ministry_name_en,
-                    'ministry_name_bn': entity_info.ministry_name_bn,
-                    'entity_id': entity_info.entity_id,
+
+                if (parent_rp_office) {
+                    controlling_office = {
+                        'controlling_office_id': entity_info.controlling_office_id,
+                        'controlling_office_name_en': entity_info.controlling_office_name_en,
+                        'controlling_office_name_bn': entity_info.controlling_office_name_bn,
+                    };
+                    ministry_info = {
+                        'ministry_id': $('#parent_ministry_id').val(),
+                        'ministry_name_en': $('#parent_ministry_name_en').val(),
+                        'ministry_name_bn': $('#parent_ministry_name_bn').val(),
+                    };
+                    selected_auditee = {
+                        'parent_office_id': entity_info.entity_id,
+                        'parent_office_name_en': entity_info.entity_name_en,
+                        'parent_office_name_bn': entity_info.entity_name_bn,
+                        'office_type': entity_info.office_type,
+                    };
+                    selected_rp_office.find('#controlling_office').val(JSON.stringify(controlling_office));
+                    selected_rp_office.find('#ministry_info').val(JSON.stringify(ministry_info));
+                    selected_rp_office.find('#selected_parent_entity_' + entity_info.entity_id).val(JSON.stringify(selected_auditee));
+                } else {
+                    selected_auditee = {
+                        'office_id': entity_info.entity_id,
+                        'office_name_en': entity_info.entity_name_en,
+                        'office_name_bn': entity_info.entity_name_bn,
+                    };
+                    selected_rp_office.find('#selected_entity_' + entity_info.entity_id).val(JSON.stringify(selected_auditee));
                 }
 
-                //console.log(entity_info);
-                selected_rp_office.find('#selected_entity_' + entity_info.entity_id).val(JSON.stringify(selected_auditee));
-                selected_rp_office.find('#controlling_office_' + entity_info.entity_id + '_' + entity_info.controlling_office_id).val(JSON.stringify(controlling_office));
-                selected_rp_office.find('#parent_office_' + entity_info.entity_id + '_' + entity_info.entity_parent_id).val(JSON.stringify(parent_office));
-                selected_rp_office.find('#ministry_info_' + entity_info.entity_id + '_' + entity_info.ministry_id).val(JSON.stringify(ministry_info));
             }
         },
 
         removeSelectedRPAuditee: function (entity_id) {
             $('#selected_rp_auditee_' + entity_id).remove();
+        },
+
+        removeSelectedRPParentAuditee: function (entity_id) {
+            $('#selected_rp_parent_auditee_' + entity_id).remove();
         },
 
         jsTreeInit: function (className) {

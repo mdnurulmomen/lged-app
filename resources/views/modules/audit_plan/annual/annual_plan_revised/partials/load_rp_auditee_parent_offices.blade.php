@@ -1,7 +1,8 @@
 <div class="row">
     <div class="col-md-12">
         @if(count($rp_offices) > 0 && array_key_exists('offices', $rp_offices))
-            <div id="rp_auditee_offices" style="overflow-y: scroll; height: 60vh">
+            <div id="rp_auditee_parent_offices"
+                 style="overflow-y: scroll; height: 60vh">
                 <ul>
                     @foreach($rp_offices['offices'] as $rp_office_list)
                         @foreach($rp_office_list['rp_offices'] as $rp_office)
@@ -35,7 +36,7 @@
 
 <script>
     $(document).ready(function () {
-        $(`#rp_auditee_offices`).jstree({
+        $(`#rp_auditee_parent_offices`).jstree({
             "core": {
                 "themes": {
                     "responsive": true
@@ -47,29 +48,21 @@
                     "icon": "fal fa-building text-warning"
                 }
             },
-            "plugins": ["types", "checkbox",]
+            "plugins": ["types"]
         });
     })
 
-    $('#rp_auditee_offices').on('select_node.jstree', function (e, data) {
+    $('#rp_auditee_parent_offices').on('select_node.jstree', function (e, data) {
         entity_info = $('#' + data.node.id).data('entity-info');
-        Annual_Plan_Container.addSelectedRPAuditeeList(entity_info);
-        data.node.children.map(child => {
-            entity_info = $('#' + child).data('entity-info');
-            Annual_Plan_Container.removeSelectedRPAuditee(entity_info.entity_id);
-        })
+        Annual_Plan_Container.addSelectedRPAuditeeList(entity_info, true);
     }).on('deselect_node.jstree', function (e, data) {
         entity_info = $('#' + data.node.id).data('entity-info');
-        Annual_Plan_Container.removeSelectedRPAuditee(entity_info.entity_id);
-        data.node.children.map(child => {
-            entity_info = $('#' + child).data('entity-info');
-            Annual_Plan_Container.removeSelectedRPAuditee(entity_info.entity_id);
-        })
+        Annual_Plan_Container.selected_rp_parent_auditee_(entity_info.entity_id);
     }).on('open_node.jstree', function (e, data) {
         parent_node = data.node.id;
-        Annual_Plan_Container.loadRPChildOffices(parent_node);
+        Annual_Plan_Container.loadRPChildOffices(parent_node, '#rp_auditee_parent_offices');
     }).on('close_node.jstree', function (e, data) {
         $('#' + data.node.id + ' ul').remove()
-        $('#rp_auditee_offices').jstree('refresh')
+        $('#rp_auditee_parent_offices').jstree('refresh')
     });
 </script>

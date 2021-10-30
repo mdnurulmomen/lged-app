@@ -5,33 +5,34 @@
         <div class="annual_entity_selection_area">
             <ul class="nav nav-tabs custom-tabs mb-0" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active rounded-0" id="activity" data-toggle="tab"
+                    <a class="nav-link active" id="calender" data-toggle="tab" href="#select_rp_parent_office"
+                       aria-controls="tree">
+                        <span class="nav-text">ইউনিট/গ্রুপ নির্বাচন</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0" id="activity" data-toggle="tab"
                        href="#select_entity_by_layer">
                         <span class="nav-text">অফিস নির্বাচন</span>
                     </a>
                 </li>
-                {{--                <li class="nav-item">--}}
-                {{--                    <a class="nav-link" id="calender" data-toggle="tab" href="#select_entity_by_search"--}}
-                {{--                       aria-controls="tree">--}}
-                {{--                        <span class="nav-text">Find Office</span>--}}
-                {{--                    </a>--}}
-                {{--                </li>--}}
             </ul>
-            <div class="tab-content" id="operational_calendar_tab">
-                <div class="tab-pane border border-top-0 p-3 fade show active" id="select_entity_by_layer"
+            <div class="tab-content" id="rp_office_tab">
+                <div class="tab-pane fade border border-top-0 p-3 show active" id="select_rp_parent_office"
+                     role="tabpanel"
+                     aria-labelledby="calender-tab">
+                    <div class="px-3">
+                        <x-rp-parent-office-select grid="6" unit="true"/>
+                    </div>
+                    <div class="col-md-12 rp_auditee_parent_office_tree"></div>
+                </div>
+                <div class="tab-pane border border-top-0 p-3 fade" id="select_entity_by_layer"
                      role="tabpanel" aria-labelledby="activity-tab">
                     <div class="px-3">
                         <x-rp-office-select grid="6" unit="true"/>
                     </div>
                     <div class="col-md-12 rp_auditee_office_tree"></div>
 
-                </div>
-                <div class="tab-pane fade border border-top-0 p-3" id="select_entity_by_search" role="tabpanel"
-                     aria-labelledby="calender-tab">
-                    <input type="text" class="form-control">
-                    <div class="rp_auditee_office_tree">
-
-                    </div>
                 </div>
             </div>
         </div>
@@ -116,6 +117,12 @@
         layer_id = $(this).val();
         ministry_id = $('#ministry_id').val();
         Annual_Plan_Container.loadRPAuditeeOffices(ministry_id, layer_id);
+    });
+
+    $("select#parent_office_layer_id").change(function () {
+        layer_id = $(this).val();
+        ministry_id = $('#parent_ministry_id').val();
+        Annual_Plan_Container.loadRPParentAuditeeOffices(ministry_id, layer_id);
     });
 
     selected = null
