@@ -182,7 +182,6 @@ class AnnualPlanRevisedController extends Controller
             $data['nominated_man_power_counts'] = $total_man_power;
 
             $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
-            dd($data, $store_plan);
             if (isSuccess($store_plan)) {
                 return response()->json(['status' => 'success', 'data' => 'Added!']);
             } else {
