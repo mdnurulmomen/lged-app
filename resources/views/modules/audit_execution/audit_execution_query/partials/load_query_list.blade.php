@@ -39,7 +39,7 @@
                 @if($query['audit_query'] && $query['audit_query']['status'] != 'removed')
                     @if($query['audit_query']['is_query_document_received'] == 0)
                         <button onclick="Audit_Query_Container.receivedQuery('{{$query['id']}}')"
-                            type="button" title="receive"
+                            type="button" title="Receive"
                             class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary receivedQuery">
                             <i class="fas fa-check-double"></i>
                         </button>
