@@ -125,8 +125,7 @@ class AnnualPlanRevisedController extends Controller
                 'total_unit_no' => 'required|string',
                 'staff_comment' => 'sometimes',
                 'staff_info' => 'sometimes',
-                'budget' => 'nullable|string',
-                'comment' => 'required|string',
+                'budget' => 'nullable|string'
             ])->validate();
 
             $data = [

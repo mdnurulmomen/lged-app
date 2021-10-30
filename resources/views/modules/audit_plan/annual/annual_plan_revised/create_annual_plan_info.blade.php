@@ -98,7 +98,7 @@
 
             <div class="form-row pt-4">
                 <div class="col-md-12">
-                    <label for="comment">মন্তব্য<span class="text-danger">*</span></label>
+                    <label for="comment">মন্তব্য</label>
                     <textarea class="form-control" id="comment" name="comment"></textarea>
                 </div>
             </div>

@@ -21,10 +21,6 @@
             <span class="badge badge-info text-uppercase m-1 p-1 ">
                 {{$annual_plans[array_key_first($annual_plans)][0]['op_organization_yearly_audit_calendar_event']['approval_status']}}
             </span>
-
-            {{--<button data-fiscal-year-id="{{$fiscal_year_id}}" class="btn-sm btn-primary btn-square"
-                    data-toggle="modal" data-target="#referenceNumberModal">Reference Number
-            </button>--}}
         </div>
     </div>
 
@@ -77,7 +73,7 @@
                         <div class='btn-group btn-group-sm' role='group'>
                             <button
                                 class="btn_annual_plan btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
-                                data-toggle="tooltip" data-placement="top" title="View Plan"
+                                title="View Plan"
                                 data-schedule-id="{{$plan['schedule_id']}}"
                                 data-activity-id="{{$plan['activity_id']}}"
                                 data-milestone-id="{{$plan['activity_milestone_id']}}"
@@ -109,43 +105,3 @@
     </table>
 </div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="referenceNumberModal" tabindex="-1" role="dialog"
-     aria-labelledby="referenceNumberModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="referenceNumberModalLabel">Add Reference Number</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label for="reference_number">Reference Number</label>
-                            <input id="reference_number" class="form-control" type="text"
-                                   name="reference_number"
-                                   placeholder="৪৬৬/বাঅঅ/প্রশা-৩/Operational Plan/২০২১-২২/১৫৮০">
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="approve_date">Date</label>
-                            <input id="approve_date" class="form-control" type="date"
-                                   name="approve_date">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
-        </div>
-    </div>
-</div>

@@ -33,6 +33,15 @@
         margin: 0 2px;
         border-radius: 5px;
     }
+
+    .field-icon {
+        float: right;
+        margin-left: -25px;
+        margin-right: 10px;
+        margin-top: -25px;
+        position: relative;
+        z-index: 2;
+    }
 </style>
 {{--<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
 <!-- Office Modal -->
@@ -378,21 +387,21 @@
                                                                                                    id="input_total_working_day_{{$loop->parent->iteration}}_{{$loop->iteration}}"/>
                                                                                         </td>
                                                                                         <td style="display: inline-flex;">
-                                                                                            <button type="button"
+                                                                                            <button type="button" title="schedule"
                                                                                                     onclick="addAuditScheduleTblRow({{$loop->parent->iteration}})"
                                                                                                     class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                                                                                                 <span
                                                                                                     class="fad fa-calendar-day"></span>
                                                                                             </button>
 
-                                                                                            <button type="button"
+                                                                                            <button type="button" title="visit"
                                                                                                     onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
                                                                                                     class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                                                                 <span
                                                                                                     class="fad fa-plus"></span>
                                                                                             </button>
 
-                                                                                            <button type='button'
+                                                                                            <button type='button' title="remove"
                                                                                                     data-row='row1'
                                                                                                     onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
                                                                                                     class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
@@ -422,24 +431,25 @@
                                                                                                    data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
                                                                                                    value="{{$schedule['team_member_start_date'] == ""?"":formatDate($schedule['team_member_start_date'])}}"
                                                                                                    class="date form-control input-detail-duration"/>
+                                                                                            <span class="fal fa-calendar field-icon"></span>
                                                                                         </td>
 
                                                                                         <td style="display: inline-flex;">
-                                                                                            <button type="button"
+                                                                                            <button type="button" title="schedule"
                                                                                                     onclick="addAuditScheduleTblRow({{ $loop->parent->iteration }})"
                                                                                                     class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                                                                                                 <span
                                                                                                     class="fad fa-calendar-day"></span>
                                                                                             </button>
 
-                                                                                            <button type="button"
+                                                                                            <button type="button" title="visit"
                                                                                                     onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
                                                                                                     class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                                                                 <span
                                                                                                     class="fad fa-plus"></span>
                                                                                             </button>
 
-                                                                                            <button type='button'
+                                                                                            <button type='button' title="remove"
                                                                                                     data-row='row1'
                                                                                                     onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
                                                                                                     class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
@@ -547,13 +557,13 @@
             "</div></div></td>"
         teamScheduleHtml += "<td><input type='number' min='0' value='0' class='form-control input-total-working-day' id='input_total_working_day_" + layer_id + "_" + totalAuditScheduleRow + "' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'/></td>";
         teamScheduleHtml += "<td style='display: inline-flex'>" +
-            "<button type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
+            "<button title='schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
             "<span class='fad fa-calendar-day'></span>" +
             "</button>" +
-            "<button type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
+            "<button title='visit' type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
             "<span class='fad fa-plus'></span>" +
             "</button>" +
-            "<button onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
+            "<button title='remove' onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
             "data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>" +
             "<span class='fal fa-trash-alt'></span>" +
             "</button>" +
@@ -569,15 +579,15 @@
         var teamScheduleHtml = "<tbody data-schedule-type='visit' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
         teamScheduleHtml += "<td><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
-        teamScheduleHtml += "<td colspan='2'><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/></td>";
+        teamScheduleHtml += "<td colspan='2'><div><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/><span class='fal fa-calendar field-icon'></span></div></td>";
         teamScheduleHtml += "<td style='display: inline-flex'>" +
-            "<button type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
+            "<button title='schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
             "<span class='fad fa-calendar-day'></span>" +
             "</button>" +
-            "<button type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
+            "<button title='visit' type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
             "<span class='fad fa-plus'></span>" +
             "</button>" +
-            "<button onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
+            "<button title='remove' onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
             "data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>" +
             "<span class='fal fa-trash-alt'></span>" +
             "</button>" +

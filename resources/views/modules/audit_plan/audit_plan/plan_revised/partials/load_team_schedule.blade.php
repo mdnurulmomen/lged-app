@@ -60,18 +60,18 @@
                        id="input_total_working_day_{{$team_layer_id}}_0"/>
             </td>
             <td style="display: inline-flex;">
-                <button type="button" onclick="addAuditScheduleTblRow({{$team_layer_id}})"
+                <button type="button" title="schedule" onclick="addAuditScheduleTblRow({{$team_layer_id}})"
                         class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                     <span class="fad fa-calendar-day"></span>
                 </button>
 
-                <button type="button"
+                <button type="button" title="visit"
                         onclick="addDetailsTblRow({{$team_layer_id}})"
                         class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                     <span class="fad fa-plus"></span>
                 </button>
 
-                <button type='button'
+                <button type='button' title="remove"
                         data-row='row1'
                         onclick="removeScheduleRow($(this), {{$team_layer_id}})"
                         class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
@@ -89,21 +89,22 @@
             </td>
             <td colspan="2">
                 <input type="text" data-id="{{$team_layer_id}}_0" class="date form-control input-detail-duration"/>
+                <span class="fal fa-calendar field-icon"></span>
             </td>
             <td style="display: inline-flex;">
-                <button type="button"
+                <button type="button" title="schedule"
                         onclick="addAuditScheduleTblRow({{$team_layer_id}})"
                         class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                     <span class="fad fa-calendar-day"></span>
                 </button>
 
-                <button type="button"
+                <button type="button" title="visit"
                         onclick="addDetailsTblRow({{$team_layer_id}})"
                         class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                     <span class="fad fa-plus"></span>
                 </button>
 
-                <button type='button'
+                <button type='button' title="remove"
                         data-row='row1'
                         onclick="removeScheduleRow($(this), {{$team_layer_id}})"
                         class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>

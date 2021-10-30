@@ -14,9 +14,7 @@
     </div>
 </form>
 
-<div class="px-3 py-3" id="load_annual_plan_lists">
-
-</div>
+<div class="px-3 py-3" id="load_annual_plan_lists"></div>
 
 @include('scripts.script_generic')
 <script>

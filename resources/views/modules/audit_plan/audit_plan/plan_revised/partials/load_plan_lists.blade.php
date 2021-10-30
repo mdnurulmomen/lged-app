@@ -282,17 +282,17 @@
     <!--begin::Table-->
     <div class="table-responsive">
         <table class="table table-striped">
-            <thead class="thead-light">
+            <thead class="bg-primary">
             <tr>
-                <th>মন্ত্রণালয়/বিভাগ</th>
-                <th>প্রতিষ্ঠানের নাম</th>
-                <th>প্রতিষ্ঠানের ধরণ</th>
-                <th>প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা</th>
-                <th>অডিটের জন্য প্রস্তাবিত ইউনিটের নাম ও সংখ্যা</th>
-                <th>সাবজেক্ট ম্যাটার</th>
-                <th>প্রয়োজনীয় লোকবল</th>
-                <th>মন্তব্য</th>
-                <th width="10%">প্ল্যান</th>
+                <th class="text-light">মন্ত্রণালয়/বিভাগ</th>
+                <th class="text-light">প্রতিষ্ঠানের নাম</th>
+                <th class="text-light">প্রতিষ্ঠানের ধরণ</th>
+                <th class="text-light">প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা</th>
+                <th class="text-light">অডিটের জন্য প্রস্তাবিত ইউনিটের নাম ও সংখ্যা</th>
+                <th class="text-light">সাবজেক্ট ম্যাটার</th>
+                <th class="text-light">প্রয়োজনীয় লোকবল</th>
+                <th class="text-light">মন্তব্য</th>
+                <th  class="text-light" width="10%">প্ল্যান</th>
             </tr>
             </thead>
             <tbody>
