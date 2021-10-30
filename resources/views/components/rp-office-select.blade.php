@@ -25,19 +25,19 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-{{ $view_grid }}">
-        <div class="form-group">
-            <label for="fiscal_year_id">Audit Due Year</label>
-            <select id="fiscal_year_id" class="form-control rounded-0 select-select2"
-                    name="fiscal_year_id">
-                <option value="" selected="selected">--বাছাই করুন--</option>
-                @foreach($fiscal_years as $fiscal_year)
-                     <option value="{{$fiscal_year['start']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
+{{--<div class="row">--}}
+{{--    <div class="col-md-{{ $view_grid }}">--}}
+{{--        <div class="form-group">--}}
+{{--            <label for="fiscal_year_id">Audit Due Year</label>--}}
+{{--            <select id="fiscal_year_id" class="form-control rounded-0 select-select2"--}}
+{{--                    name="fiscal_year_id">--}}
+{{--                <option value="" selected="selected">--বাছাই করুন--</option>--}}
+{{--                @foreach($fiscal_years as $fiscal_year)--}}
+{{--                     <option value="{{$fiscal_year['start']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>--}}
+{{--                @endforeach--}}
+{{--            </select>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 {{--    <div id="custom_layer_div" style="" class="col-md-{{ $view_grid }}">--}}
 {{--        <div class="form-group">--}}
 {{--            <label for="office_layer_id">অফিস লেয়ার </label>--}}
@@ -47,7 +47,7 @@
 {{--            </select>--}}
 {{--        </div>--}}
 {{--    </div>--}}
-</div>
+{{--</div>--}}
 
 <script>
 
