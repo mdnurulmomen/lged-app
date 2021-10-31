@@ -14,7 +14,7 @@
 
     <!--begin::Languages-->
     <div class="dropdown">
-        {{--        @include('layouts.partials.topbar._language')--}}
+        @include('layouts.partials.topbar._language')
     </div>
     <!--end::Languages-->
 
