@@ -28,6 +28,7 @@ class AuditExecutionQueryController extends Controller
         $data['cdesk'] = json_encode_unicode($this->current_desk());
         $data['fiscal_year_id'] = 1;
         $audit_query_schedule_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.get_query_schedule_list'), $data)->json();
+        //dd($audit_query_schedule_list);
         if ($audit_query_schedule_list['status'] == 'success') {
             $audit_query_schedule_list = $audit_query_schedule_list['data'];
             return view('modules.audit_execution.audit_execution_query.partials.load_query_schedule_list', compact('audit_query_schedule_list'));
@@ -137,5 +138,21 @@ class AuditExecutionQueryController extends Controller
         } else {
             return response()->json(['status' => 'error', 'data' => $rejected_audit_query]);
         }
+    }
+
+    public function sendQueryListDownload(Request $request)
+    {
+
+        $data = Validator::make($request->all(), [
+            'cost_center_id' => 'required|integer',
+            'cost_center_type_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.rpu-send-query-list'), $data)->json();
+        $queryList = isSuccess($responseData)?$responseData['data']:[];
+        $costCenterNameBn = $request->cost_center_name_bn;
+        $pdf = \PDF::loadView('modules.audit_execution.audit_execution_query.partials.query_book',
+            compact('queryList','costCenterNameBn'));
+        return $pdf->stream('document.pdf');
     }
 }

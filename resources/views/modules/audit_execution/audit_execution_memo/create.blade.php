@@ -53,10 +53,12 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input class="form-control mb-1 mt-1 year-picker" name="audit_year_start" placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text">
+                                            <input class="form-control mb-1 mt-1" name="audit_year_start"
+                                                  value="{{$audit_year_start}}" placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text" readonly>
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control mb-1 mt-1 year-picker" name="audit_year_end" placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">
+                                            <input class="form-control mb-1 mt-1" name="audit_year_end"
+                                                   value="{{$audit_year_end}}" placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text" readonly>
                                         </div>
                                     </div>
 

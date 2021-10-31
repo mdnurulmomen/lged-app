@@ -178,6 +178,7 @@ return [
         'received_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/received-audit-query',
         'audit_query_cost_center_type_wise' => env('API_URL_BEE', '') . '/audit-conduct-query/audit-query-cost-center-type-wise',
         'rejected_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/rejected-audit-query',
+        'rpu-send-query-list' => env('API_URL_BEE', '') . '/audit-conduct-query/rpu-send-query-list',
         'memo' => [
             'store' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-store',
             'list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-list',

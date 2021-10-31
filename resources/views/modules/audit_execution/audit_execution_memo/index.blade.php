@@ -11,6 +11,8 @@
         <a class="btn btn-success btn-sm btn-bold btn-square"
            data-schedule-id="{{$schedule_id}}"
            data-cost-center-name-bn="{{$cost_center_name_bn}}"
+           data-audit-year-start="{{$audit_year_start}}"
+           data-audit-year-end="{{$audit_year_end}}"
            onclick="Memo_List_Container.createMemo($(this))"
            href="javascript:;">
             <i class="far fa-plus mr-1"></i> Create Memo
@@ -40,7 +42,9 @@
         createMemo: function (elem) {
             schedule_id = elem.data('schedule-id');
             cost_center_name_bn = elem.data('cost-center-name-bn');
-            data = {schedule_id,cost_center_name_bn};
+            audit_year_start = elem.data('audit-year-start');
+            audit_year_end = elem.data('audit-year-end');
+            data = {schedule_id,cost_center_name_bn,audit_year_start,audit_year_end};
             let url = '{{route('audit.execution.memo.create')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {

@@ -45,6 +45,16 @@
         <span style="font-weight: bold">নিরীক্ষার সুপারিশঃ</span>
         {{$memoInfo['audit_recommendation']}}
     </div>
+
+    <br>
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 50px">
+        <div style="text-align: left;float: left;width: 60%;">
+            <h6>সংশ্লিষ্ট প্রতিষ্ঠান প্রধানের স্বাক্ষর ও তারিখ</h6>
+        </div>
+        <div style="text-align: right;float:right;width: 40%">
+            <h6>দলপ্রধানের স্বাক্ষর ও তারিখ</h6>
+        </div>
+    </div>
 </div>
 
 <script>

@@ -789,43 +789,28 @@
 
         <br>
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;">
-            <u>অডিট মেমো</u>
+            <span style="font-size: 15px"><u><b>{{$costCenterNameBn}} এর কুয়েরিসমূহ</b></u></span>
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">অনুচ্ছেদ নং-{{enTobn($memoInfo['onucched_no'])}}</div>
-        {{--<div class="bangla-font" style="font-family:SolaimanLipi,serif !important;">জিজ্ঞাসাপত্র নং-{{enTobn($memoInfo['onucched_no'])}}</div>--}}
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">
-            শিরোনামঃ {{$memoInfo['memo_title_bn']}}
-        </div>
-
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
-            <span style="font-weight: bold">বিবরণঃ</span>
-            {!! $memoInfo['memo_description_bn'] !!}
-        </div>
-
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">স্থানীয় অফিসের জবাবঃ</span> ব
-            {{$memoInfo['response_of_rpu']}}
-        </div>
-
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">নিরীক্ষার মন্তব্যঃ</span>
-            {{$memoInfo['audit_conclusion']}}
-        </div>
-
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">নিরীক্ষার সুপারিশঃ</span>
-            {{$memoInfo['audit_recommendation']}}
-        </div>
-
-        <br>
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 50px">
-            <div style="text-align: left;float: left;width: 60%;">
-                <span style="font-weight: bold">সংশ্লিষ্ট প্রতিষ্ঠান প্রধানের স্বাক্ষর ও তারিখ</span>
-            </div>
-            <div style="text-align: right;float:right;width: 40%">
-                <span style="font-weight: bold">দলপ্রধানের স্বাক্ষর ও তারিখ</span>
-            </div>
+        <div class="bangla-font" style="margin-top: 5px">
+            <table class="bangla-font" width="100%" border="1">
+                <thead>
+                <tr class="bangla-font">
+                    <th class="bangla-font" style="text-align: center" width="10%">ক্রমিক নং</th>
+                    <th class="bangla-font" style="text-align: center" width="75%">কুয়েরি</th>
+                    <th class="bangla-font" style="text-align: center" width="15%">স্ট্যাটাস</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($queryList as $query)
+                    <tr class="bangla-font">
+                        <td class="bangla-font" style="text-align: center">{{enTobn($loop->iteration)}}</td>
+                        <td class="bangla-font" style="text-align: left;">&nbsp;{{$query['query_title_bn']}}</td>
+                        <td class="bangla-font" style="text-align: center">{{strtoupper($query['status'])}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 

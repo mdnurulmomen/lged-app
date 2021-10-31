@@ -31,6 +31,12 @@
                         btn-bold btn-square">
                         <i class="far fa-paper-plane mr-1"></i> Send
                     </button>
+
+                    <button type="button" onclick="Audit_Query_Container.queryListDownload($(this))"
+                            class="float-right font-weight-bolder font-size-sm mr-2 btn btn-warning btn-sm
+                        btn-bold btn-square">
+                        <i class="far fa-file-pdf mr-1"></i> Download
+                    </button>
                 </div>
             </div>
         </div>
@@ -189,6 +195,34 @@
                     quick_panel.removeClass('d-none');
                     $("html").addClass("side-panel-overlay");
                     $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
+        queryListDownload: function (elem) {
+            url = '{{route('audit.execution.send_query_list.download')}}';
+            cost_center_id = $('#cost_center_id').val();
+            cost_center_type_id = $('#cost_center_type').val();
+            cost_center_name_bn = $('#cost_center_name_bn').val();
+            data = {cost_center_id,cost_center_type_id,cost_center_name_bn};
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (response) {
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "query_list.pdf";
+                    link.click();
+                },
+                error: function (blob) {
+                    toastr.error('Failed to generate PDF.')
+                    console.log(blob);
                 }
             });
         },
