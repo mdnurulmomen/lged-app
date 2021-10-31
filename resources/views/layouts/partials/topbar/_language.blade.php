@@ -15,7 +15,7 @@
                         <span class="symbol symbol-20 mr-3">
                             <img src="{{asset('assets/media/svg/flags/bangladesh.png')}}"/>
                         </span>
-                <span class="navi-text">{{ __('বাংলা') }}</span>
+                <span class="navi-text">বাংলা</span>
             </a>
         </li>
         <!--end::Item-->
@@ -27,7 +27,7 @@
                                  src="{{asset('assets/media/svg/flags/226-united-states.svg')}}"
                                  alt=""/>
                         </span>
-                <span class="navi-text">{{ __('ইংরেজি') }}</span>
+                <span class="navi-text">ইংরেজি</span>
             </a>
         </li>
         <!--end::Item-->

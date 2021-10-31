@@ -1,5 +1,12 @@
 <?php
 
+if (!function_exists('___')) {
+    function ___($translation_text)
+    {
+        return trans($translation_text);
+    }
+}
+
 if (!function_exists('generateRandomString')) {
     function generateRandomString($length = 8): string
     {
@@ -337,14 +344,14 @@ if (!function_exists('explodeAndMakeArray')) {
 }
 
 if (!function_exists('formatDate')) {
-    function formatDate($date, $lang = 'en',$separator='/')
+    function formatDate($date, $lang = 'en', $separator = '/')
     {
         if (!empty($date) || $date != '') {
             $date = bnToen($date);
             if ($lang == 'bn') {
-                $date = enToBn(date('d'.$separator.'m'.$separator.'Y', strtotime($date)));
+                $date = enToBn(date('d' . $separator . 'm' . $separator . 'Y', strtotime($date)));
             } else {
-                $date = date('d'.$separator.'m'.$separator.'Y', strtotime($date));
+                $date = date('d' . $separator . 'm' . $separator . 'Y', strtotime($date));
             }
         }
         return $date;
@@ -352,14 +359,14 @@ if (!function_exists('formatDate')) {
 }
 
 if (!function_exists('formatDateTime')) {
-    function formatDateTime($date_time, $lang = 'en',$separator='/')
+    function formatDateTime($date_time, $lang = 'en', $separator = '/')
     {
         if (!empty($date_time) || $date_time != '') {
             $date_time = bnToen($date_time);
             if ($lang == 'bn') {
-                $date_time = enToBn(date('d'.$separator.'m'.$separator.'Y g:i A', strtotime($date_time)));
+                $date_time = enToBn(date('d' . $separator . 'm' . $separator . 'Y g:i A', strtotime($date_time)));
             } else {
-                $date_time = date('d'.$separator.'m'.$separator.'Y g:i A', strtotime($date_time));
+                $date_time = date('d' . $separator . 'm' . $separator . 'Y g:i A', strtotime($date_time));
             }
         }
         return $date_time;
