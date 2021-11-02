@@ -125,6 +125,13 @@
         Annual_Plan_Container.loadRPParentAuditeeOffices(ministry_id, layer_id);
     });
 
+    $('#cost_center_search_btn').click(function () {
+        ministry_id = $('#ministry_id').val();
+        controlling_office_layer_id = $('#controlling_office_layer_id').val();
+        office_unit_layer_id = $('#office_unit_layer_id').val();
+        Annual_Plan_Container.loadRPAuditeeOffices(ministry_id, controlling_office_layer_id, office_unit_layer_id);
+    });
+
     selected = null
 
     function dragOver(e) {

@@ -14,4 +14,9 @@ return [
     'get-office-other-info' => env('API_URL_RPU', '') . '/get-office-other-info',
     'get-directorate-wise-ministry-list' => env('API_URL_RPU', '') . '/get-directorate-wise-ministry-list',
     'get-rpu-list-mis' => env('API_URL_RPU', '') . '/get-rpu-list-mis',
+
+    'get-controlling-office-layer-by-ministry-or-division' => env('API_URL_RPU', '') . '/get-controlling-office-layer-by-ministry-or-division',
+    'get-office-unit-layer-by-controlling-office-layer' => env('API_URL_RPU', '') . '/get-office-unit-layer-by-controlling-office-layer',
+    'search-office' => env('API_URL_RPU', '') . '/search-office',
+
 ];

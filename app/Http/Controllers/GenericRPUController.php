@@ -25,6 +25,21 @@ class GenericRPUController extends Controller
         return isSuccess($layer) ? $layer['data'] : [];
     }
 
+    public function getControllingOfficeLayerByMinistryOrDivision(Request $request)
+    {
+        if ($request->has('ministry_id')) {
+            $ministry_id = $request->ministry_id;
+        }
+        $layer = $this->initRPUHttp()->post(config('cag_rpu_api.get-controlling-office-layer-by-ministry-or-division'), ['office_ministry_id' => $ministry_id])->json();
+        return isSuccess($layer) ? $layer['data'] : [];
+    }
+
+    public function getOfficeUnitLayerByControllingOfficeLayer(Request $request)
+    {
+        $layer = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-unit-layer-by-controlling-office-layer'), ['office_ministry_id' => $request->ministry_id, 'controlling_office_layer_id' => $request->controlling_office_layer_id])->json();
+        return isSuccess($layer) ? $layer['data'] : [];
+    }
+
     public function getMinistryLayerWiseOffice(Request $request)
     {
         $ministry_id = $request->ministry_id;

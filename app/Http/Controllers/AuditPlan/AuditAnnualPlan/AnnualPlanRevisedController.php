@@ -125,7 +125,7 @@ class AnnualPlanRevisedController extends Controller
                 'total_unit_no' => 'required|string',
                 'staff_comment' => 'sometimes',
                 'staff_info' => 'sometimes',
-                'budget' => 'nullable|string'
+                'budget' => 'nullable|string',
             ])->validate();
 
             $data = [
@@ -219,7 +219,7 @@ class AnnualPlanRevisedController extends Controller
         }
     }
 
-    public function showRPAuditeeOffices(Request $request)
+    public function showRPAuditeeOfficesOld(Request $request)
     {
         $ministry_id = $request->ministry_id;
         $layer_id = $request->layer_id;
@@ -241,6 +241,24 @@ class AnnualPlanRevisedController extends Controller
             } else {
                 return view('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices', compact('rp_offices', 'ministry'));
             }
+        } else {
+            return response()->json(['status' => 'error', 'data' => $rp_offices]);
+        }
+    }
+
+    public function showRPAuditeeOffices(Request $request)
+    {
+        $data = [
+            'office_ministry_id' => $request->ministry_id,
+            'controlling_office_layer_id' => $request->controlling_office_layer_id,
+            'office_unit_layer_id' => $request->office_unit_layer_id,
+        ];
+//        $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.search-office'), $data)->json();
+        $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-rp-office-ministry-and-layer-wise'), $data)->json();
+        if (isSuccess($rp_offices)) {
+            $rp_offices = $rp_offices['data'];
+            dd($rp_offices);
+            return view('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices', compact('rp_offices'));
         } else {
             return response()->json(['status' => 'error', 'data' => $rp_offices]);
         }

@@ -339,7 +339,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::get('review', [\App\Http\Controllers\AuditExecution\AuditExecutionReviewController::class, 'index'])->name('review');
 
-        Route::group(['as' => 'memo.', 'prefix'=> 'memo/'],function (){
+        Route::group(['as' => 'memo.', 'prefix' => 'memo/'], function () {
             Route::post('index', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'index'])->name('index');
             Route::post('create', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'create'])->name('create');
             Route::post('store', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'store'])->name('store');
@@ -472,6 +472,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     //Generic RPU Data Collection
     Route::group(['as' => 'rpu.'], function () {
         Route::post('get-ministries', [\App\Http\Controllers\GenericRPUController::class, 'getMinistries'])->name('ministries.all');
+        Route::post('get-controlling-office-layer-by-ministry-or-division', [\App\Http\Controllers\GenericRPUController::class, 'getControllingOfficeLayerByMinistryOrDivision'])->name('controlling-layer.all');
+        Route::post('get-office-unit-layer-by-controlling-office-layer', [\App\Http\Controllers\GenericRPUController::class, 'getOfficeUnitLayerByControllingOfficeLayer'])->name('office-unit-layer.all');
         Route::post('get-office-layer', [\App\Http\Controllers\GenericRPUController::class, 'getMinistryWiseOfficeLayer'])->name('office-layer.all');
         Route::post('get-rp-offices', [\App\Http\Controllers\GenericRPUController::class, 'getMinistryLayerWiseOffice'])->name('rp-offices.all');
     });
