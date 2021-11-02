@@ -156,6 +156,11 @@ trait UserInfoCollector
         return $this->current_office()['office_domain_url'];
     }
 
+    public function employee_signature()
+    {
+        return session()->has('login') ? session('login')['data']['signature'] : null;
+    }
+
     public function forceLogout()
     {
         session()->forget('login');
