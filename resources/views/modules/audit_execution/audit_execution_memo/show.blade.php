@@ -57,8 +57,7 @@
             {{$memoInfo['rpu_acceptor_unit_name_bn']}}
         </div>
         <div style="text-align: center;float:right;width: 50%">
-            <img src="{{$memoInfo['rpu_acceptor_signature'] != NULL?$memoInfo['rpu_acceptor_signature'] : '' }}"
-                 style="width: 150px!important;height: 70px!important;">
+            <img src="" style="width: 150px!important;height: 70px!important;">
             <h6>দলপ্রধানের স্বাক্ষর ও তারিখ</h6>
             {{$memoInfo['sender_officer_name_bn']}} <br>
             {{$memoInfo['sender_designation_bn']}} <br>

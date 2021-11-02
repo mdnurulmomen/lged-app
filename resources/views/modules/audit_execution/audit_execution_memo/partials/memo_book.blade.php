@@ -830,8 +830,7 @@
                 {{$memoInfo['rpu_acceptor_unit_name_bn']}}
             </div>
             <div style="text-align: center;float:right;width: 50%">
-                <img src="{{$memoInfo['rpu_acceptor_signature'] != NULL?$memoInfo['rpu_acceptor_signature'] : '' }}"
-                     style="width: 150px!important;">
+                <img src="" style="width: 150px!important;">
                 <br>
                 <span style="font-weight: bold">দলপ্রধানের স্বাক্ষর ও তারিখ</span><br>
                 {{$memoInfo['sender_officer_name_bn']}} <br>
