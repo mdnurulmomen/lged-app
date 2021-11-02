@@ -173,28 +173,11 @@
             });
         },
 
-        {{--loadRPAuditeeOffices: function (ministry_id, layer_id) {--}}
-            {{--    let url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-offices')}}'--}}
-            {{--    ministry_name_en = $('#ministry_name_en').val()--}}
-            {{--    ministry_name_bn = $('#ministry_name_bn').val()--}}
-            {{--    data = {ministry_id, layer_id, ministry_name_en, ministry_name_bn};--}}
-            {{--    KTApp.block('#kt_content', {--}}
-            {{--        opacity: 0.1,--}}
-            {{--        state: 'primary' // a bootstrap color--}}
-            {{--    });--}}
-            {{--    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {--}}
-            {{--        KTApp.unblock('#kt_content');--}}
-            {{--        if (response.status === 'error') {--}}
-            {{--            toastr.error('No data found');--}}
-            {{--        } else {--}}
-            {{--            $('.rp_auditee_office_tree').html(response)--}}
-            {{--        }--}}
-            {{--    });--}}
-            {{--},--}}
-
-        loadRPAuditeeOffices: function (ministry_id, controlling_office_layer_id, office_unit_layer_id) {
+        loadRPAuditeeOffices: function (ministry_id, layer_id) {
             let url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-offices')}}'
-            data = {ministry_id, controlling_office_layer_id, office_unit_layer_id};
+            ministry_name_en = $('#ministry_name_en').val()
+            ministry_name_bn = $('#ministry_name_bn').val()
+            data = {ministry_id, layer_id, ministry_name_en, ministry_name_bn};
             KTApp.block('#kt_content', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
