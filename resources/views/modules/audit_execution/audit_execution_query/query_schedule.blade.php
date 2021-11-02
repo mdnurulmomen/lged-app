@@ -43,8 +43,10 @@
             audit_plan_id = elem.data('audit-plan-id');
             cost_center_id = elem.data('cost-center-id');
             cost_center_name_bn = elem.data('cost-center-name-bn');
+            audit_year_start = elem.data('audit-year-start');
+            audit_year_end = elem.data('audit-year-end');
 
-            data = {schedule_id, audit_plan_id, cost_center_id,cost_center_name_bn};
+            data = {schedule_id, audit_plan_id, cost_center_id,cost_center_name_bn,audit_year_start,audit_year_end};
             let url = '{{route('audit.execution.memo.index')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_content');

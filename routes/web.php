@@ -333,6 +333,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('received-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'receivedAuditQuery'])->name('received-audit-query');
         Route::post('load-reject-query-form', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadRejectAuditQuery'])->name('load-reject-query-form');
         Route::post('reject-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'rejectAuditQuery'])->name('reject-audit-query');
+        Route::post('send_query_list/download', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'sendQueryListDownload'])->name('send_query_list.download');
 
         Route::get('discussion', [\App\Http\Controllers\AuditExecution\AuditExecutionDiscussionController::class, 'index'])->name('discussion');
 

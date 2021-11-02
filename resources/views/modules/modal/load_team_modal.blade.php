@@ -42,6 +42,13 @@
         position: relative;
         z-index: 2;
     }
+
+    .layer_text{
+        font-size:15px;
+        font-weight:bold;
+        border: none;
+        background: none
+    }
 </style>
 {{--<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
 <!-- Office Modal -->
@@ -201,16 +208,26 @@
                                                 @foreach($all_teams as $key => $value)
                                                     <div
                                                         class="custom-timeline-item timeline-item border-left-0 d-flex align-items-start"
-                                                        style="padding-left: 15px;">
-                                                        <div class="timeline-media position-relative"><i
-                                                                class="fas fa-chair text-primary"></i></div>
+                                                        style="padding-left: 5px;">
+                                                        {{--<div class="timeline-media position-relative">
+                                                            <i class="fas fa-chair text-primary"></i>
+                                                        </div>--}}
                                                         <div class="timeline-content rounded-0 p-0 w-100"
                                                              data-layer_index="{{$loop->iteration}}"
                                                              id="permitted_level_{{$loop->iteration}}">
                                                             <div
                                                                 class="px-3 pt-2 pb-0 mb-0 d-flex align-items-center justify-content-between">
-                                                                <h5 class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2"
-                                                                    style="width: 20%;">{{$value['team_name']}}</h5>
+
+                                                                <div>
+                                                                    <span class="text-primary fal fa-edit"></span>
+                                                                    <input type="text" value="{{$value['team_name']}}"
+                                                                           class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2">
+                                                                </div>
+
+                                                                {{--<h5 class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2"
+                                                                    style="width: 60%;">{{$value['team_name']}}
+                                                                </h5>--}}
+
                                                                 <div
                                                                     class="d-flex align-items-center justify-content-end">
                                                                     <div
@@ -328,145 +345,144 @@
                                                                         </tr>
                                                                         </thead>
 
+                                                                        <div class="px-2 pt-0" id="team_schedule_list_{{$loop->iteration}}">
                                                                         @foreach($team_schedules as $key => $schedule)
                                                                             @php
                                                                                 $schedule_type = Arr::has($schedule, 'schedule_type') ? $schedule['schedule_type'] : 'schedule'
                                                                             @endphp
-                                                                            <div class="px-2 pt-0"
-                                                                                 id="team_schedule_list_{{$loop->iteration}}">
-                                                                                @if($schedule_type == 'schedule')
-                                                                                    <tbody
-                                                                                        data-tbody-id="{{$loop->parent->iteration}}_{{$loop->iteration}}"
-                                                                                        data-schedule-type="{{$schedule_type}}">
-                                                                                    <tr class='audit_schedule_row_{{$loop->parent->iteration}}'
-                                                                                        data-layer-id="{{ $loop->parent->iteration }}"
-                                                                                        data-audit-schedule-first-row='{{$loop->iteration}}_{{ $loop->parent->iteration }}'>
-                                                                                        <td>
-                                                                                            <select
-                                                                                                id="branch_name_select_{{ $loop->parent->iteration }}_{{$loop->iteration}}"
-                                                                                                class="form-control select-select2 input-branch-name"
-                                                                                                data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}">
-                                                                                                <option value=''>
-                                                                                                    --Select--
-                                                                                                </option>
-                                                                                                @foreach($nominated_offices_list as $key => $nominatedOffice)
-                                                                                                    <option
-                                                                                                        @if($nominatedOffice['id'] == $schedule['cost_center_id']) selected
-                                                                                                        @endif value="{{$nominatedOffice['id']}}"
-                                                                                                        data-cost-center-id="{{$nominatedOffice['id']}}"
-                                                                                                        data-cost-center-name-bn="{{$nominatedOffice['office_name_bng']}}"
-                                                                                                        data-cost-center-name-en="{{$nominatedOffice['office_name_eng']}}">{{$nominatedOffice['office_name_bng']}}</option>
-                                                                                                @endforeach
-                                                                                            </select>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="row">
-                                                                                                <div class="col pr-0">
-                                                                                                    <input type="text"
-                                                                                                           data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
-                                                                                                           class="date form-control input-start-duration"
-                                                                                                           value="{{date('d/m/Y',strtotime($schedule['team_member_start_date']))}}"
-                                                                                                           placeholder="শুরু"/>
-                                                                                                </div>
-                                                                                                <div class="col pl-0">
-                                                                                                    <input type="text"
-                                                                                                           data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
-                                                                                                           class="date form-control input-end-duration"
-                                                                                                           value="{{date('d/m/Y',strtotime($schedule['team_member_end_date']))}}"
-                                                                                                           placeholder="শেষ"/>
-                                                                                                </div>
+
+                                                                            @if($schedule_type == 'schedule')
+                                                                                <tbody
+                                                                                    data-tbody-id="{{$loop->parent->iteration}}_{{$loop->iteration}}"
+                                                                                    data-schedule-type="{{$schedule_type}}">
+                                                                                <tr class='audit_schedule_row_{{$loop->parent->iteration}}'
+                                                                                    data-layer-id="{{ $loop->parent->iteration }}"
+                                                                                    data-audit-schedule-first-row='{{$loop->iteration}}_{{ $loop->parent->iteration }}'>
+                                                                                    <td>
+                                                                                        <select
+                                                                                            id="branch_name_select_{{ $loop->parent->iteration }}_{{$loop->iteration}}"
+                                                                                            class="form-control select-select2 input-branch-name"
+                                                                                            data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}">
+                                                                                            <option value=''>
+                                                                                                --Select--
+                                                                                            </option>
+                                                                                            @foreach($nominated_offices_list as $key => $nominatedOffice)
+                                                                                                <option
+                                                                                                    @if($nominatedOffice['id'] == $schedule['cost_center_id']) selected
+                                                                                                    @endif value="{{$nominatedOffice['id']}}"
+                                                                                                    data-cost-center-id="{{$nominatedOffice['id']}}"
+                                                                                                    data-cost-center-name-bn="{{$nominatedOffice['office_name_bng']}}"
+                                                                                                    data-cost-center-name-en="{{$nominatedOffice['office_name_eng']}}">{{$nominatedOffice['office_name_bng']}}</option>
+                                                                                            @endforeach
+                                                                                        </select>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="row">
+                                                                                            <div class="col pr-0">
+                                                                                                <input type="text"
+                                                                                                       data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
+                                                                                                       class="date form-control input-start-duration"
+                                                                                                       value="{{date('d/m/Y',strtotime($schedule['team_member_start_date']))}}"
+                                                                                                       placeholder="শুরু"/>
                                                                                             </div>
-                                                                                        </td>
+                                                                                            <div class="col pl-0">
+                                                                                                <input type="text"
+                                                                                                       data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
+                                                                                                       class="date form-control input-end-duration"
+                                                                                                       value="{{date('d/m/Y',strtotime($schedule['team_member_end_date']))}}"
+                                                                                                       placeholder="শেষ"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </td>
 
-                                                                                        <td>
-                                                                                            <input type="number"
-                                                                                                   min="0"
-                                                                                                   data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
-                                                                                                   class="form-control input-total-working-day"
-                                                                                                   value="{{$schedule['activity_man_days']}}"
-                                                                                                   id="input_total_working_day_{{$loop->parent->iteration}}_{{$loop->iteration}}"/>
-                                                                                        </td>
-                                                                                        <td style="display: inline-flex;">
-                                                                                            <button type="button" title="schedule"
-                                                                                                    onclick="addAuditScheduleTblRow({{$loop->parent->iteration}})"
-                                                                                                    class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
-                                                                                                <span
-                                                                                                    class="fad fa-calendar-day"></span>
-                                                                                            </button>
+                                                                                    <td>
+                                                                                        <input type="number"
+                                                                                               min="0"
+                                                                                               data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
+                                                                                               class="form-control input-total-working-day"
+                                                                                               value="{{$schedule['activity_man_days']}}"
+                                                                                               id="input_total_working_day_{{$loop->parent->iteration}}_{{$loop->iteration}}"/>
+                                                                                    </td>
+                                                                                    <td style="display: inline-flex;">
+                                                                                        <button type="button" title="schedule"
+                                                                                                onclick="addAuditScheduleTblRow({{$loop->parent->iteration}})"
+                                                                                                class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
+                                                                                            <span
+                                                                                                class="fad fa-calendar-day"></span>
+                                                                                        </button>
 
-                                                                                            <button type="button" title="visit"
-                                                                                                    onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
-                                                                                                    class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
-                                                                                                <span
-                                                                                                    class="fad fa-plus"></span>
-                                                                                            </button>
+                                                                                        <button type="button" title="visit"
+                                                                                                onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
+                                                                                                class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
+                                                                                            <span
+                                                                                                class="fad fa-plus"></span>
+                                                                                        </button>
 
-                                                                                            <button type='button' title="remove"
-                                                                                                    data-row='row1'
-                                                                                                    onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
-                                                                                                    class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
+                                                                                        <button type='button' title="remove"
+                                                                                                data-row='row1'
+                                                                                                onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
+                                                                                                class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
+                                                                                        <span
+                                                                                            class='fal fa-trash-alt'></span>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+
+                                                                            @elseif($schedule_type == 'visit')
+                                                                                <tbody
+                                                                                    data-tbody-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
+                                                                                    data-schedule-type="{{$schedule_type}}">
+                                                                                <tr class="audit_schedule_row_{{ $loop->parent->iteration }}"
+                                                                                    data-layer-id="{{ $loop->parent->iteration }}"
+                                                                                    data-schedule-second-row="{{$loop->iteration}}_{{ $loop->parent->iteration }}">
+                                                                                    <td>
+                                                                                        <input type="text"
+                                                                                               data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
+                                                                                               value="{{$schedule['activity_details']}}"
+                                                                                               class="form-control input-detail"/>
+                                                                                    </td>
+
+                                                                                    <td colspan="2">
+                                                                                        <input type="text"
+                                                                                               data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
+                                                                                               value="{{$schedule['team_member_start_date'] == ""?"":formatDate($schedule['team_member_start_date'])}}"
+                                                                                               class="date form-control input-detail-duration"/>
+                                                                                        <span class="fal fa-calendar field-icon"></span>
+                                                                                    </td>
+
+                                                                                    <td style="display: inline-flex;">
+                                                                                        <button type="button" title="schedule"
+                                                                                                onclick="addAuditScheduleTblRow({{ $loop->parent->iteration }})"
+                                                                                                class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
+                                                                                            <span
+                                                                                                class="fad fa-calendar-day"></span>
+                                                                                        </button>
+
+                                                                                        <button type="button" title="visit"
+                                                                                                onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
+                                                                                                class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
+                                                                                            <span
+                                                                                                class="fad fa-plus"></span>
+                                                                                        </button>
+
+                                                                                        <button type='button' title="remove"
+                                                                                                data-row='row1'
+                                                                                                onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
+                                                                                                class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                                                                                             <span
                                                                                                 class='fal fa-trash-alt'></span>
-                                                                                            </button>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    </tbody>
-
-                                                                                @elseif($schedule_type == 'visit')
-                                                                                    <tbody
-                                                                                        data-tbody-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
-                                                                                        data-schedule-type="{{$schedule_type}}">
-                                                                                    <tr class="audit_schedule_row_{{ $loop->parent->iteration }}"
-                                                                                        data-layer-id="{{ $loop->parent->iteration }}"
-                                                                                        data-schedule-second-row="{{$loop->iteration}}_{{ $loop->parent->iteration }}">
-                                                                                        <td>
-                                                                                            <input type="text"
-                                                                                                   data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
-                                                                                                   value="{{$schedule['activity_details']}}"
-                                                                                                   class="form-control input-detail"/>
-                                                                                        </td>
-
-                                                                                        <td colspan="2">
-                                                                                            <input type="text"
-                                                                                                   data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
-                                                                                                   value="{{$schedule['team_member_start_date'] == ""?"":formatDate($schedule['team_member_start_date'])}}"
-                                                                                                   class="date form-control input-detail-duration"/>
-                                                                                            <span class="fal fa-calendar field-icon"></span>
-                                                                                        </td>
-
-                                                                                        <td style="display: inline-flex;">
-                                                                                            <button type="button" title="schedule"
-                                                                                                    onclick="addAuditScheduleTblRow({{ $loop->parent->iteration }})"
-                                                                                                    class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
-                                                                                                <span
-                                                                                                    class="fad fa-calendar-day"></span>
-                                                                                            </button>
-
-                                                                                            <button type="button" title="visit"
-                                                                                                    onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
-                                                                                                    class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
-                                                                                                <span
-                                                                                                    class="fad fa-plus"></span>
-                                                                                            </button>
-
-                                                                                            <button type='button' title="remove"
-                                                                                                    data-row='row1'
-                                                                                                    onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
-                                                                                                    class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
-                                                                                                <span
-                                                                                                    class='fal fa-trash-alt'></span>
-                                                                                            </button>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    </tbody>
-                                                                                @endif
-                                                                            </div>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            @endif
                                                                         @endforeach
+                                                                        </div>
                                                                     </table>
                                                                 </div>
                                                             @else
-                                                                <div class="px-2 pt-0"
-                                                                     id="team_schedule_list_{{$loop->iteration}}"></div>
+                                                                <div class="px-2 pt-0" id="team_schedule_list_{{$loop->iteration}}"></div>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -551,8 +567,8 @@
             @endforeach
                 "</select></td>";
 
-        teamScheduleHtml += "<td><div class='row'><div class='col'><input type='text' " +
-            "class='date form-control input-start-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শুরু'/></div><div class='col'>" +
+        teamScheduleHtml += "<td><div class='row'><div class='col pr-0'><input type='text' " +
+            "class='date form-control input-start-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শুরু'/></div><div class='col pl-0'>" +
             "<input type='text' class='date form-control input-end-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শেষ'/>" +
             "</div></div></td>"
         teamScheduleHtml += "<td><input type='number' min='0' value='0' class='form-control input-total-working-day' id='input_total_working_day_" + layer_id + "_" + totalAuditScheduleRow + "' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'/></td>";
@@ -885,7 +901,7 @@
                         leader_info[layer_id] = {};
                     }
 
-                    team_name = $('#permitted_level_' + layer_id).find('.layer_text').html();
+                    team_name = $('#permitted_level_' + layer_id).find('.layer_text').val();
                     if (layer_id == $('[id^=permitted_level_]').first().attr('data-layer_index')) {
                         team_type = 'parent';
                         if (role == 'teamLeader') {
@@ -1089,8 +1105,8 @@
 
         insertTeamDataInBook: function () {
             $('.audit_team_leader').html(Load_Team_Container.editor_leader_info);
-            $('.audit_team_number').html($('#permitted_level_1').find('.layer_text').html());
-            //$('.proposed_date_commencement_audit').html($('#permitted_level_1').find('.layer_text').html());
+            $('.audit_team_number').html($('#permitted_level_1').find('.layer_text').val());
+            //$('.proposed_date_commencement_audit').html($('#permitted_level_1').find('.layer_text').text());
             $('.proposed_date_commencement_audit').text(BnFromEng($('#team_start_date').val()));
             $('.proposed_date_completion_audit').text(BnFromEng($('#team_end_date').val()));
             $('.duration_audit_performance').text(BnFromEng($('#team_start_date').val()) + ' খ্রি. হতে ' + BnFromEng($('#team_end_date').val()) + ' খ্রি. পর্যন্ত।');
@@ -1117,6 +1133,7 @@
         addLayer: function () {
             var innerDivLength = $("#permitted_designations").children('.timeline-item');
             var number = innerDivLength.length + 1;
+            console.log(number)
             if (number === 1) {
                 team_name = 'দল ' + enTobn(number);
             } else {
@@ -1125,12 +1142,19 @@
                 $("#team_schedule_layer_btn_" + 1).hide();
             }
             var level_html = `
-                <div class="custom-timeline-item timeline-item border-left-0 d-flex align-items-start" style="padding-left: 15px;">
-    <div class="timeline-media position-relative"><i
-            class="fas fa-chair text-primary"></i></div>
+                <div class="custom-timeline-item timeline-item border-left-0 d-flex align-items-start"
+style="padding-left: 5px;">
+                <!--<div class="timeline-media position-relative">
+                    <i class="fas fa-chair text-primary"></i>
+                </div>-->
     <div class="timeline-content rounded-0 p-0 w-100" data-layer_index="${number}" id="permitted_level_${number}">
         <div class="px-3 pt-2 pb-0 mb-0 d-flex align-items-center justify-content-between">
-            <h5 class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2" style="width: 20%;">${team_name}</h5>
+            <div>
+                <span class="text-primary fal fa-edit"></span>
+                <input type="text" value="${team_name}"
+                       class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2">
+            </div>
+            <!--<h5 class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2" style="width: 20%;">${team_name}</h5>-->
             <div class="d-flex align-items-center justify-content-end">
                 <div class="d-flex align-items-center justify-content-between mb-0 mt-0">
                     <div class="mr-2">
