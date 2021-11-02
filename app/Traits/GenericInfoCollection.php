@@ -82,8 +82,7 @@ trait GenericInfoCollection
     public function allAuditDirectorates()
     {
         $offices = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.directorate_lists'), ['all' => 1])->json();
-        return $offices;
-        if (\Arr::has($offices, 'status') && $offices['status'] == 'success') {
+        if ($offices['status'] == 'success') {
             return $offices['data'];
         } else {
             return [];

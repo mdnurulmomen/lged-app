@@ -11,7 +11,6 @@ class TeamCalendarController extends Controller
     public function index()
     {
         $all_directorates = $this->allAuditDirectorates();
-        dd($all_directorates);
 
         $fiscal_years = $this->allFiscalYears();
 
@@ -75,8 +74,7 @@ class TeamCalendarController extends Controller
         }
     }
 
-    public function loadCostCenterDirectorateFiscalYearWiseSelect(Request $request)
-    {
+    public function loadCostCenterDirectorateFiscalYearWiseSelect(Request $request){
         $data['office_id'] = $request->directorate_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
 
@@ -103,7 +101,7 @@ class TeamCalendarController extends Controller
             $calendar_data = $calendar_data['data'];
             $team_id = $request->team_id;
             $cost_center_id = $request->cost_center_id;
-            return view('modules.audit_plan.calendar.load_team_filter_calendar', compact('calendar_data', 'team_id', 'cost_center_id'));
+            return view('modules.audit_plan.calendar.load_team_filter_calendar', compact('calendar_data', 'team_id','cost_center_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $calendar_data]);
         }
@@ -124,7 +122,7 @@ class TeamCalendarController extends Controller
             $calendar_data = $calendar_data['data'];
             $team_id = $request->team_id;
             $cost_center_id = $request->cost_center_id;
-            return view('modules.audit_plan.calendar.individual_calender', compact('calendar_data', 'team_id', 'cost_center_id'));
+            return view('modules.audit_plan.calendar.individual_calender', compact('calendar_data', 'team_id','cost_center_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $calendar_data]);
         }
