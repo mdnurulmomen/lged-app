@@ -820,11 +820,23 @@
 
         <br>
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 50px">
-            <div style="text-align: left;float: left;width: 60%;">
-                <span style="font-weight: bold">সংশ্লিষ্ট প্রতিষ্ঠান প্রধানের স্বাক্ষর ও তারিখ</span>
+            <div style="text-align: center;float: left;width: 50%;">
+                <img src="{{$memoInfo['rpu_acceptor_signature'] != NULL?$memoInfo['rpu_acceptor_signature'] : '' }}"
+                     style="width: 150px!important;">
+                <br>
+                <span style="font-weight: bold">সংশ্লিষ্ট প্রতিষ্ঠান প্রধানের স্বাক্ষর ও তারিখ</span> <br>
+                {{$memoInfo['rpu_acceptor_officer_name_bn']}} <br>
+                {{$memoInfo['rpu_acceptor_designation_name_bn']}} <br>
+                {{$memoInfo['rpu_acceptor_unit_name_bn']}}
             </div>
-            <div style="text-align: right;float:right;width: 40%">
-                <span style="font-weight: bold">দলপ্রধানের স্বাক্ষর ও তারিখ</span>
+            <div style="text-align: center;float:right;width: 50%">
+                <img src="{{$memoInfo['rpu_acceptor_signature'] != NULL?$memoInfo['rpu_acceptor_signature'] : '' }}"
+                     style="width: 150px!important;">
+                <br>
+                <span style="font-weight: bold">দলপ্রধানের স্বাক্ষর ও তারিখ</span><br>
+                {{$memoInfo['sender_officer_name_bn']}} <br>
+                {{$memoInfo['sender_designation_bn']}} <br>
+                {{$memoInfo['sender_unit_name_bn']}}
             </div>
         </div>
     </div>

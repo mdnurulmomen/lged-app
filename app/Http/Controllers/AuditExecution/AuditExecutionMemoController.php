@@ -150,6 +150,7 @@ class AuditExecutionMemoController extends Controller
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $memoInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
+        dd($memoInfo);
         if (isSuccess($memoInfo)) {
             $memoInfo = $memoInfo['data'];
             return view('modules.audit_execution.audit_execution_memo.show',
