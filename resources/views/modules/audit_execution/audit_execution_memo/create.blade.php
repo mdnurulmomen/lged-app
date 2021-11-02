@@ -117,7 +117,7 @@
 
                                     <div class="form-group">
                                         <label class="col-form-label">
-                                            প্রামানক সংযুক্তি
+                                            প্রমানক সংযুক্তি
                                         </label>
                                         <input name="pramanok" type="file" class="form-control rounded-0"
                                                accept="image/*" multiple>

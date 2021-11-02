@@ -187,7 +187,8 @@
         directorate_id = $('#directorate_filter').val();
         if (directorate_id) {
             Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
-            Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
+            Team_Calendar_Container.loadEntityList(directorate_id, fiscal_year_id);
+            // Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
         } else {
             $('#load_team_calendar').html('');
         }
@@ -201,6 +202,7 @@
     });
 
     $('#btn_filter').click(function () {
+        $('#load_team_calendar').html('');
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
         team_filter = $('#team_filter').val();
