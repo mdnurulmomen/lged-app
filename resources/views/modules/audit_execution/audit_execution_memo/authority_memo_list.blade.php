@@ -20,14 +20,14 @@
     </div>
 
     <div class="col-md-3">
-        <select class="form-select select-select2" id="cost_center_filter">
-            <option value="">All Cost Center</option>
+        <select class="form-select select-select2" id="entity_filter">
+            <option value="">All Entity</option>
         </select>
     </div>
 
     <div class="col-md-3">
-        <select class="form-select select-select2" id="team_filter">
-            <option value="">All Teams</option>
+        <select class="form-select select-select2" id="cost_center_filter">
+            <option value="">All Cost Center</option>
         </select>
     </div>
 </div>
@@ -66,7 +66,6 @@
             <option value="4">পাণ্ডুলিপি</option>
         </select>
     </div>
-
     <div class="col-md-3">
         <select class="form-control select-select2" id="memo_status">
             <option value="">আপত্তির অবস্থা</option>
@@ -102,9 +101,21 @@
 
 <script>
     var Team_Calendar_Container = {
-        loadCostCenterList: function (directorate_id, fiscal_year_id) {
-            let url = '{{route('calendar.load-cost-center-directorate-fiscal-year-wise-select')}}';
+        loadEntityList: function (directorate_id, fiscal_year_id) {
+            let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
             let data = {directorate_id, fiscal_year_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        $('#entity_filter').html(response);
+                    }
+                }
+            );
+        },
+        loadCostCenterList: function (directorate_id, fiscal_year_id, entity_id) {
+            let url = '{{route('calendar.load-cost-center-directorate-fiscal-year-wise-select')}}';
+            let data = {directorate_id, fiscal_year_id, entity_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
@@ -138,7 +149,32 @@
                 }
             );
         },
+        showMemoDetails: function (element) {
+            url = '{{route('audit.execution.memo.show-details')}}'
+            memo_id = element.data('memo-id');
+            data = {memo_id};
 
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('মেমো');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
         showMemo: function (element) {
             url = '{{route('audit.execution.memo.show')}}'
             memo_id = element.data('memo-id');
@@ -174,7 +210,8 @@
 
         if (directorate_id !== 'all') {
             Team_Calendar_Container.loadMemoList(directorate_id, fiscal_year_id, cost_center_id, team_filter);
-            Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id);
+            Team_Calendar_Container.loadEntityList(directorate_id, fiscal_year_id);
+            // Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id);
             Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
         } else {
             toastr.info('Please select directorate.')
@@ -199,5 +236,10 @@
         } else {
             toastr.info('Please select a directorate.')
         }
+    });
+
+    $('#entity_filter').change(function (){
+        entity_id = $('#entity_filter').val();
+        Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id, entity_id);
     });
 </script>

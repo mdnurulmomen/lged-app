@@ -34,6 +34,11 @@
                         <button title="দেখুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                                 data-memo-id="{{$memo['id']}}"
                                 onclick="Team_Calendar_Container.showMemo($(this))">
+                            <i class="fad fa-download"></i>
+                        </button>
+                        <button title="দেখুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                data-memo-id="{{$memo['id']}}"
+                                onclick="Team_Calendar_Container.showMemoDetails($(this))">
                             <i class="fad fa-eye"></i>
                         </button>
                     </div>
@@ -44,10 +49,3 @@
     </table>
 </div>
 <!--end::Table-->
-
-<script>
-    $("#selectAll").click(function(){
-        $(".select-memo").prop('checked', $(this).prop('checked'));
-
-    });
-</script>

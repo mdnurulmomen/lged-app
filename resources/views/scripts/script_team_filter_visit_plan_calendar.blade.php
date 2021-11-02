@@ -70,11 +70,9 @@
                                             if(isset($cost_center_id)){
                                                 $schedules = json_decode($sub_team['team_schedules'],true);
 
-                                                if(isset($schedules[$cost_center_id])){
-                                                    $schedules = [$schedules[$cost_center_id]];
-                                                }else{
-                                                    $schedules = [];
-                                                }
+                                                $schedules = array_filter($schedules, function ($var) use ($cost_center_id) {
+                                                         return ($var['cost_center_id'] == $cost_center_id);
+                                                    });
 
                                             }else{
                                                 $schedules = json_decode($sub_team['team_schedules'],true);
@@ -104,13 +102,9 @@
                                         @php
                                             if(isset($cost_center_id)){
                                                 $schedules = json_decode($team['team_schedules'],true);
-
-                                                if(isset($schedules[$cost_center_id])){
-                                                    $schedules = [$schedules[$cost_center_id]];
-                                                }else{
-                                                    $schedules = [];
-                                                }
-
+                                                $schedules = array_filter($schedules, function ($var) use ($cost_center_id){
+                                                         return ($var['cost_center_id'] == $cost_center_id);
+                                                    });
                                             }else{
                                                 $schedules = json_decode($team['team_schedules'],true);
                                             }

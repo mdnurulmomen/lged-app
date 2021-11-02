@@ -150,6 +150,7 @@ return [
         'team_calender_filter' => env('API_URL_BEE', '') . '/planning/calendar/team-filter',
         'get_fiscal_year_wise_team' => env('API_URL_BEE', '') . '/planning/calendar/load-fiscal-year-wise-team',
         'get_sub_team' => env('API_URL_BEE', '') . '/planning/calendar/get-sub-tam',
+        'get_schedule_entity_fiscal_year_wise' => env('API_URL_BEE', '') . '/planning/calendar/load-schedule-entity-fiscal-year-wise',
         'get_cost_center_directorate_fiscal_year_wise' => env('API_URL_BEE', '') . '/planning/calendar/load-cost-center-directorate-fiscal-year-wise',
         'team_calender_schedule_list' => env('API_URL_BEE', '') . '/planning/calendar/team-calender-schedule-list',
     ],

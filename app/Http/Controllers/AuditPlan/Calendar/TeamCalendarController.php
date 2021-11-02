@@ -74,9 +74,24 @@ class TeamCalendarController extends Controller
         }
     }
 
+    public function loadScheduleEntityFiscalYearWiseSelect(Request $request){
+        $data['office_id'] = $request->directorate_id;
+        $data['fiscal_year_id'] = $request->fiscal_year_id;
+
+        $entity_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_schedule_entity_fiscal_year_wise'), $data)->json();
+//        dd($entity_list);
+        if (isSuccess($entity_list)) {
+            $entity_list = $entity_list['data'];
+            return view('modules.audit_plan.calendar.entity_select', compact('entity_list'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $entity_list]);
+        }
+    }
+
     public function loadCostCenterDirectorateFiscalYearWiseSelect(Request $request){
         $data['office_id'] = $request->directorate_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['entity_id'] = $request->entity_id;
 
         $cost_center_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_cost_center_directorate_fiscal_year_wise'), $data)->json();
         if (isSuccess($cost_center_list)) {
@@ -94,7 +109,7 @@ class TeamCalendarController extends Controller
         $data['team_id'] = $request->team_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['cost_center_id'] = $request->cost_center_id;
-
+//        dd($data);
         $calendar_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.team_calender_filter'), $data)->json();
 //        dd($calendar_data);
         if (isSuccess($calendar_data)) {

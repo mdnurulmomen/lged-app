@@ -159,6 +159,23 @@ class AuditExecutionMemoController extends Controller
         }
     }
 
+    public function showDetails(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'memo_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $memo_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
+//        dd($memo_info);
+        if (isSuccess($memo_info)) {
+            $memo_info = $memo_info['data'];
+            return view('modules.audit_execution.audit_execution_memo.show_details',
+                compact('memo_info'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $memo_info]);
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
