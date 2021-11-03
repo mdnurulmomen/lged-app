@@ -121,6 +121,7 @@
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_content');
+                Memo_List_Container.loadMemoList();
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
