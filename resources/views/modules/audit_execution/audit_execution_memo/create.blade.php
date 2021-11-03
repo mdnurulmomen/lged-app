@@ -2,7 +2,7 @@
     <div class="row p-4">
         <div class="col-md-8">
             <div class="d-flex justify-content-start">
-                <h5 class="mt-5">{{$cost_center_name_bn}}</h5>
+                <h5 class="mt-5">{{$cost_center_name_bn}} ( অর্থবছর : ২০২১-২০২২)</h5>
             </div>
         </div>
 
