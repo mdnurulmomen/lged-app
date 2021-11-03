@@ -65,7 +65,7 @@
                                     </div>
 
                                     <select class="form-control select-select2" name="memo_irregularity_type">
-                                        <option value="">আপত্তি অনিয়মের ধরন বাছাই করুন</option>
+                                        <option value="0" {{$memo['memo_irregularity_sub_type'] == 0?'selected':''}}>আপত্তি অনিয়মের ধরন বাছাই করুন</option>
                                         <option value="1" {{$memo['memo_irregularity_type'] == 1?'selected':''}}>আত্মসাত, চুরি, প্রতারণা ও জালিয়াতিমূলক</option>
                                         <option value="2" {{$memo['memo_irregularity_type'] == 2?'selected':''}}>সরকারের আর্থিক ক্ষতি</option>
                                         <option value="3" {{$memo['memo_irregularity_type'] == 3?'selected':''}}>বিধি ও পদ্ধতিগত অনিয়ম</option>
@@ -73,7 +73,7 @@
                                     </select>
 
                                     <select class="form-control select-select2" name="memo_irregularity_sub_type">
-                                        <option value="">আপত্তি অনিয়মের সাব-ধরন বাছাই করুন</option>
+                                        <option value="0" {{$memo['memo_irregularity_sub_type'] == 0?'selected':''}}>আপ অনিয়মের সাব-ধরন বাছাই করুন</option>
                                         <option value="1" {{$memo['memo_irregularity_sub_type'] == 1?'selected':''}}>ভ্যাট-আইটিসহ সরকারি প্রাপ্য আদায় না করা</option>
                                         <option value="2" {{$memo['memo_irregularity_sub_type'] == 2?'selected':''}}>কম আদায় করা</option>
                                         <option value="3" {{$memo['memo_irregularity_sub_type'] == 3?'selected':''}}>আদায় করা সত্ত্বেও কোষাগারে জমা না করা</option>
@@ -86,7 +86,7 @@
                                     </select>
 
                                     <select class="form-control select-select2" name="memo_type">
-                                        <option value="">আপত্তির ধরন বাছাই করুন</option>
+                                        <option value="0" {{$memo['memo_type'] == 0?'selected':''}}>আপত্তির ধরন বাছাই করুন</option>
                                         <option value="1" {{$memo['memo_type'] == 1?'selected':''}}>এসএফআই</option>
                                         <option value="2" {{$memo['memo_type'] == 2?'selected':''}}>নন-এসএফআই</option>
                                         <option value="3" {{$memo['memo_type'] == 3?'selected':''}}>ড্রাফ্ট প্যারা</option>
@@ -94,7 +94,7 @@
                                     </select>
 
                                     <select class="form-control select-select2" name="memo_status">
-                                        <option value="">আপত্তির অবস্থা বাছাই করুন</option>
+                                        <option value="0" {{$memo['memo_status'] == 0?'selected':''}}>আপত্তির অবস্থা বাছাই করুন</option>
                                         <option value="1" {{$memo['memo_status'] == 1?'selected':''}}>নিস্পন্ন</option>
                                         <option value="2" {{$memo['memo_status'] == 2?'selected':''}}>অনিস্পন্ন</option>
                                         <option value="3" {{$memo['memo_status'] == 3?'selected':''}}>আংশিক নিস্পন্ন</option>
