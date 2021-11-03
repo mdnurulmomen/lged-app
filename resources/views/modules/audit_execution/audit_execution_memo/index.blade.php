@@ -1,4 +1,4 @@
-<x-title-wrapper>Memo Lists</x-title-wrapper>
+<x-title-wrapper>Audit Memo Lists</x-title-wrapper>
 
 <div class="col-md-12">
     <div class="d-flex justify-content-end">
@@ -15,7 +15,7 @@
            data-audit-year-end="{{$audit_year_end}}"
            onclick="Memo_List_Container.createMemo($(this))"
            href="javascript:;">
-            <i class="far fa-plus mr-1"></i> Create Memo
+            <i class="far fa-plus mr-1"></i> Create Audit Memo
         </a>
     </div>
 </div>

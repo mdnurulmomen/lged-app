@@ -77,10 +77,10 @@ class AuditExecutionMemoController extends Controller
             'onishponno_jorito_ortho_poriman' => 'required',
             'audit_year_start' => 'required',
             'audit_year_end' => 'required',
-            'memo_irregularity_type' => 'required',
-            'memo_irregularity_sub_type' => 'required',
-            'memo_type' => 'required',
-            'memo_status' => 'required',
+//            'memo_irregularity_type' => 'required',
+//            'memo_irregularity_sub_type' => 'required',
+//            'memo_type' => 'required',
+//            'memo_status' => 'required',
         ])->validate();
 
         $data = [
@@ -231,10 +231,10 @@ class AuditExecutionMemoController extends Controller
             'onishponno_jorito_ortho_poriman' => 'required',
             'audit_year_start' => 'required',
             'audit_year_end' => 'required',
-            'memo_irregularity_type' => 'required',
-            'memo_irregularity_sub_type' => 'required',
-            'memo_type' => 'required',
-            'memo_status' => 'required',
+//            'memo_irregularity_type' => 'required',
+//            'memo_irregularity_sub_type' => 'required',
+//            'memo_type' => 'required',
+//            'memo_status' => 'required',
         ])->validate();
 
         $data = [

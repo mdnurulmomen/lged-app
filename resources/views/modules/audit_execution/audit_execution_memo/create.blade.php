@@ -63,7 +63,7 @@
                                     </div>
 
                                     <select class="form-control select-select2" name="memo_irregularity_type">
-                                        <option value="">আপত্তি অনিয়মের ধরন বাছাই করুন</option>
+                                        <option value="0">আপত্তি অনিয়মের ধরন বাছাই করুন</option>
                                         <option value="1">আত্মসাত, চুরি, প্রতারণা ও জালিয়াতিমূলক</option>
                                         <option value="2">সরকারের আর্থিক ক্ষতি</option>
                                         <option value="3">বিধি ও পদ্ধতিগত অনিয়ম</option>
@@ -71,7 +71,7 @@
                                     </select>
 
                                     <select class="form-control select-select2" name="memo_irregularity_sub_type">
-                                        <option value="">আপত্তি অনিয়মের সাব-ধরন বাছাই করুন</option>
+                                        <option value="0">আপত্তি অনিয়মের সাব-ধরন বাছাই করুন</option>
                                         <option value="1">ভ্যাট-আইটিসহ সরকারি প্রাপ্য আদায় না করা</option>
                                         <option value="2">কম আদায় করা</option>
                                         <option value="3">আদায় করা সত্ত্বেও কোষাগারে জমা না করা</option>
@@ -84,7 +84,7 @@
                                     </select>
 
                                     <select class="form-control select-select2" name="memo_type">
-                                        <option value="">আপত্তির ধরন বাছাই করুন</option>
+                                        <option value="0">আপত্তির ধরন বাছাই করুন</option>
                                         <option value="1">এসএফআই</option>
                                         <option value="2">নন-এসএফআই</option>
                                         <option value="3">ড্রাফ্ট প্যারা</option>
@@ -92,7 +92,7 @@
                                     </select>
 
                                     <select class="form-control select-select2" name="memo_status">
-                                        <option value="">আপত্তির অবস্থা বাছাই করুন</option>
+                                        <option value="0">আপত্তির অবস্থা বাছাই করুন</option>
                                         <option value="1">নিস্পন্ন</option>
                                         <option value="2">অনিস্পন্ন</option>
                                         <option value="3">আংশিক নিস্পন্ন</option>
