@@ -26,10 +26,10 @@
 
                     <textarea id="kt-tinymce-1" name="memo_description_bn" class="kt-tinymce-1"></textarea>
 
-                    <label class="col-form-label">নিরীক্ষিত অফিসের জবাব</label>
+                    <label class="col-form-label">নিরীক্ষিত প্রতিষ্ঠানের জবাব </label>
                     <textarea class="form-control mb-1" name="response_of_rpu" placeholder="নিরীক্ষিত অফিসের জবাব" cols="30" rows="2"></textarea>
 
-                    <label class="col-form-label">নিরীক্ষার মন্তব্য</label>
+                    <label class="col-form-label">নিরীক্ষা মন্তব্য</label>
                     <textarea class="form-control mb-1" name="audit_conclusion" placeholder="নিরীক্ষার মন্তব্য" cols="30" rows="2"></textarea>
 
                     <label class="col-form-label">নিরীক্ষার সুপারিশ</label>
