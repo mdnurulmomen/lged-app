@@ -43,11 +43,11 @@
                             <i class="fad fa-eye"></i>
                         </button>
 
-                        <button title="নিরীক্ষার সুপারিশ" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
-                                data-memo-id="{{$memo['id']}}"
-                                onclick="Memo_List_Container.recommendationMemo('{{$memo['id']}}')">
-                            <i class="fas fa-file-import"></i>
-                        </button>
+{{--                        <button title="নিরীক্ষার সুপারিশ" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"--}}
+{{--                                data-memo-id="{{$memo['id']}}"--}}
+{{--                                onclick="Memo_List_Container.recommendationMemo('{{$memo['id']}}')">--}}
+{{--                            <i class="fas fa-file-import"></i>--}}
+{{--                        </button>--}}
 
                         <button title="মেমো লগ" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                                 data-memo-id="{{$memo['id']}}"
