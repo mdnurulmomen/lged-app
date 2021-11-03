@@ -53,12 +53,22 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input class="form-control mb-1 mt-1" name="audit_year_start"
-                                                  value="{{$audit_year_start}}" placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text" readonly>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"><span class="input-group-text">নিরীক্ষা বছর শুরু</span>
+                                                </div>
+                                                <input class="form-control" name="audit_year_start"
+                                                       value="{{$audit_year_start}}"
+                                                       placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text" readonly>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control mb-1 mt-1" name="audit_year_end"
-                                                   value="{{$audit_year_end}}" placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text" readonly>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"><span class="input-group-text">নিরীক্ষা বছর শেষ</span>
+                                                </div>
+                                                <input class="form-control" name="audit_year_end"
+                                                       value="{{$audit_year_end}}"
+                                                       placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text" readonly>
+                                            </div>
                                         </div>
                                     </div>
 

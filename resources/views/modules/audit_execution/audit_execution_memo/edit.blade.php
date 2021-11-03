@@ -43,8 +43,12 @@
                                 <div class="card-body" style="padding: 10px;">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input class="form-control integer_type_positive" value="{{$memo['jorito_ortho_poriman']}}"
-                                                   name="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
+
+                                                <input class="form-control integer_type_positive"
+                                                       value="{{$memo['jorito_ortho_poriman']}}"
+                                                       name="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)"
+                                                       type="text">
+
 
                                         </div>
                                         <div class="col-md-6">
@@ -55,12 +59,22 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input class="form-control year-picker" name="audit_year_start"
-                                                   value="{{$memo['audit_year_start']}}" placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"><span class="input-group-text">নিরীক্ষা বছর শুরু</span>
+                                                </div>
+                                                <input class="form-control year-picker" name="audit_year_start"
+                                                       value="{{$memo['audit_year_start']}}"
+                                                       placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text">
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control year-picker" name="audit_year_end"
-                                                   value="{{$memo['audit_year_end']}}" placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"><span class="input-group-text">নিরীক্ষা বছর শেষ</span>
+                                                </div>
+                                                <input class="form-control year-picker" name="audit_year_end"
+                                                       value="{{$memo['audit_year_end']}}"
+                                                       placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">
+                                            </div>
                                         </div>
                                     </div>
 
