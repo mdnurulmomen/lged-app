@@ -119,9 +119,14 @@
         Annual_Plan_Container.loadRPAuditeeOffices(ministry_id, layer_id);
     });
 
+    $('select#parent_ministry_id').change(function () {
+        $('select#ministry_id').val($(this).val()).trigger('change')
+    })
+
     $("select#parent_office_layer_id").change(function () {
         layer_id = $(this).val();
         ministry_id = $('#parent_ministry_id').val();
+        $('select#office_layer_id').val(layer_id).trigger('change')
         Annual_Plan_Container.loadRPParentAuditeeOffices(ministry_id, layer_id);
     });
 
@@ -137,6 +142,10 @@
 
     function dragEnd() {
         selected = null
+        $('.selected_entity_sr').each(function (i, v) {
+            i = ++i;
+            $(this).html(enTobn(i))
+        })
     }
 
     function dragStart(e) {
