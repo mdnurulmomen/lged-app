@@ -10,7 +10,7 @@
         </select>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-3">
         <select class="form-select select-select2" id="fiscal_year_id">
             @foreach($fiscal_years as $fiscal_year)
                 <option
@@ -33,6 +33,11 @@
 </div>
 <div class="row mt-2 mb-2">
     <div class="col-md-3">
+        <select class="form-select select-select2" id="team_filter">
+            <option value="">All Teams</option>
+        </select>
+    </div>
+    <div class="col-md-3">
         <select class="form-select select-select2" id="memo_irregularity_type">
             <option value="">আপত্তি অনিয়মের ধরন</option>
             <option value="1">আত্মসাত, চুরি, প্রতারণা ও জালিয়াতিমূলক</option>
@@ -42,7 +47,7 @@
         </select>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-3">
         <select class="form-select select-select2" id="memo_irregularity_sub_type">
             <option value="">আপত্তি অনিয়মের সাব-ধরন</option>
             <option value="1">ভ্যাট-আইটিসহ সরকারি প্রাপ্য আদায় না করা</option>
@@ -66,6 +71,8 @@
             <option value="4">পাণ্ডুলিপি</option>
         </select>
     </div>
+</div>
+<div class="row mt-2 mb-2">
     <div class="col-md-3">
         <select class="form-control select-select2" id="memo_status">
             <option value="">আপত্তির অবস্থা</option>
@@ -74,17 +81,15 @@
             <option value="3">আংশিক নিস্পন্ন</option>
         </select>
     </div>
-</div>
-<div class="row mt-2 mb-2">
     <div class="col-md-3">
         <input class="form-control mb-1" pattern="[0-9\.]*" id="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2">
         <input class="form-control mb-1 mt-1 year-picker" id="audit_year_start" placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text">
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2">
         <input class="form-control mb-1 mt-1 year-picker" id="audit_year_end" placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">
     </div>
 
@@ -125,9 +130,9 @@
                 }
             );
         },
-        loadTeamList: function (directorate_id, fiscal_year_id) {
+        loadTeamList: function (directorate_id, fiscal_year_id, cost_center_id) {
             let url = '{{route('calendar.load-teams-select')}}';
-            let data = {directorate_id, fiscal_year_id};
+            let data = {directorate_id, fiscal_year_id, cost_center_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
@@ -212,7 +217,7 @@
             Team_Calendar_Container.loadMemoList(directorate_id, fiscal_year_id, cost_center_id, team_filter);
             Team_Calendar_Container.loadEntityList(directorate_id, fiscal_year_id);
             // Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id);
-            Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
+            // Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
         } else {
             toastr.info('Please select directorate.')
             $('#load_team_calendar').html('');
@@ -238,8 +243,17 @@
         }
     });
 
-    $('#entity_filter').change(function (){
+    $('#entity_filter').change(function () {
         entity_id = $('#entity_filter').val();
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
         Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id, entity_id);
+    });
+
+    $('#cost_center_filter').change(function () {
+        cost_center_id = $('#cost_center_filter').val();
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
+        Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
     });
 </script>

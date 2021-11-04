@@ -90,9 +90,9 @@
                 }
             );
         },
-        loadTeamList: function (directorate_id, fiscal_year_id) {
+        loadTeamList: function (directorate_id, fiscal_year_id, cost_center_id) {
             let url = '{{route('calendar.load-teams-select')}}';
-            let data = {directorate_id, fiscal_year_id};
+            let data = {directorate_id, fiscal_year_id, cost_center_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
@@ -164,7 +164,7 @@
         if (directorate_id !== 'all') {
             //Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
             Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id, cost_center_id, team_filter);
-            Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
+            // Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
             Team_Calendar_Container.loadEntityList(directorate_id, fiscal_year_id);
             // Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id);
         } else {
@@ -186,7 +186,7 @@
     $('#directorate_filter').change(function () {
         directorate_id = $('#directorate_filter').val();
         if (directorate_id) {
-            Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
+            // Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
             Team_Calendar_Container.loadEntityList(directorate_id, fiscal_year_id);
             // Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
         } else {
@@ -221,6 +221,15 @@
 
     $('#entity_filter').change(function () {
         entity_id = $('#entity_filter').val();
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
         Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id, entity_id);
+    });
+
+    $('#cost_center_filter').change(function () {
+        cost_center_id = $('#cost_center_filter').val();
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
+        Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
     });
 </script>

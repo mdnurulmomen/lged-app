@@ -149,6 +149,7 @@ return [
         'update_visit_calender_status' => env('API_URL_BEE', '') . '/planning/calendar/update-visit-calender-status',
         'team_calender_filter' => env('API_URL_BEE', '') . '/planning/calendar/team-filter',
         'get_fiscal_year_wise_team' => env('API_URL_BEE', '') . '/planning/calendar/load-fiscal-year-wise-team',
+        'get_fiscal_year_cost_center_wise_team' => env('API_URL_BEE', '') . '/planning/calendar/load-fiscal-year-cost-center-wise-team',
         'get_sub_team' => env('API_URL_BEE', '') . '/planning/calendar/get-sub-tam',
         'get_schedule_entity_fiscal_year_wise' => env('API_URL_BEE', '') . '/planning/calendar/load-schedule-entity-fiscal-year-wise',
         'get_cost_center_directorate_fiscal_year_wise' => env('API_URL_BEE', '') . '/planning/calendar/load-cost-center-directorate-fiscal-year-wise',
