@@ -125,7 +125,7 @@ class AnnualPlanRevisedController extends Controller
                 'total_unit_no' => 'required|string',
                 'staff_comment' => 'sometimes',
                 'staff_info' => 'sometimes',
-                'budget' => 'nullable|string'
+                'budget' => 'nullable|string',
             ])->validate();
 
             $data = [
@@ -257,6 +257,21 @@ class AnnualPlanRevisedController extends Controller
             return response()->json(['status' => 'success', 'data' => $nominated_offices['data']]);
         } else {
             return response()->json(['status' => 'error', 'data' => $nominated_offices]);
+        }
+    }
+
+    public function showRPChildAuditeeOfficesList(Request $request)
+    {
+        $data = [
+            'parent_office_id' => $request->parent_office_id,
+        ];
+        $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-wise-child-office'), $data)->json();
+
+        if (isSuccess($rp_offices)) {
+            $rp_offices = $rp_offices['data'];
+            return view('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices_list', compact('rp_offices'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $rp_offices]);
         }
     }
 

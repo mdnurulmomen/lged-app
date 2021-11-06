@@ -1,19 +1,19 @@
 <x-title-wrapper>Annual Plan</x-title-wrapper>
 
 <div class="row ml-7 mr-7 pt-4">
-    <div class="col-5">
+    <div class="col-6">
         <div class="annual_entity_selection_area">
             <ul class="nav nav-tabs custom-tabs mb-0" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="calender" data-toggle="tab" href="#select_rp_parent_office"
                        aria-controls="tree">
-                        <span class="nav-text">ইউনিট/গ্রুপ নির্বাচন</span>
+                        <span class="nav-text">এন্টিটি নির্বাচন</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-0" id="activity" data-toggle="tab"
+                    <a id="select_cost_centers" class="nav-link rounded-0 disabled" data-toggle="tab"
                        href="#select_entity_by_layer">
-                        <span class="nav-text">অফিস নির্বাচন</span>
+                        <span class="nav-text">কস্ট সেন্টার নির্বাচন</span>
                     </a>
                 </li>
             </ul>
@@ -28,17 +28,16 @@
                 </div>
                 <div class="tab-pane border border-top-0 p-3 fade" id="select_entity_by_layer"
                      role="tabpanel" aria-labelledby="activity-tab">
-                    <div class="px-3">
-                        <x-rp-office-select grid="6" unit="true"/>
-                    </div>
+                    {{--                    <div class="px-3">--}}
+                    {{--                        <x-rp-office-select grid="6" unit="true"/>--}}
+                    {{--                    </div>--}}
                     <div class="col-md-12 rp_auditee_office_tree"></div>
-
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-7">
+    <div class="col-6">
         <div class="row">
             <div class="offset-6 col-md-6 text-right p-2">
                 <button class="btn btn-sm btn-square btn-primary btn-hover-success mr-2"
@@ -49,19 +48,25 @@
 
         <form id="annual_plan_form">
             <div class="form-row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="total_unit_no" name="total_unit_no">
+                    <input class="form-control text-right" type="text" id="total_unit_no" name="total_unit_no">
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter">
                 </div>
 
-                <div class="col-md-4">
-                    <label for="budget">বাজেট</label>
+                <div class="col-md-6">
+                    <label for="budget">এন্টিটি মোট বাজেট</label>
                     <input class="form-control" type="text" id="budget" name="budget">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="budget">কস্ট সেন্টার মোট বাজেট</label>
+                    <input class="form-control" type="text" id="cost_center_total_budget"
+                           name="cost_center_total_budget">
                 </div>
             </div>
 
@@ -113,20 +118,19 @@
 
 @include('scripts.script_generic')
 <script>
-    $("select#office_layer_id").change(function () {
-        layer_id = $(this).val();
-        ministry_id = $('#ministry_id').val();
-        Annual_Plan_Container.loadRPAuditeeOffices(ministry_id, layer_id);
-    });
+    // $("select#office_layer_id").change(function () {
+    //     layer_id = $(this).val();
+    //     ministry_id = $('#ministry_id').val();
+    //     Annual_Plan_Container.loadRPAuditeeOffices(ministry_id, layer_id);
+    // });
 
-    $('select#parent_ministry_id').change(function () {
-        $('select#ministry_id').val($(this).val()).trigger('change')
-    })
+    // $('select#parent_ministry_id').change(function () {
+    //     $('select#ministry_id').val($(this).val()).trigger('change')
+    // })
 
     $("select#parent_office_layer_id").change(function () {
         layer_id = $(this).val();
         ministry_id = $('#parent_ministry_id').val();
-        $('select#office_layer_id').val(layer_id).trigger('change')
         Annual_Plan_Container.loadRPParentAuditeeOffices(ministry_id, layer_id);
     });
 
@@ -144,7 +148,7 @@
         selected = null
         $('.selected_entity_sr').each(function (i, v) {
             i = ++i;
-            $(this).html(enTobn(i))
+            $(this).html(enTobn(i) + '|')
         })
     }
 

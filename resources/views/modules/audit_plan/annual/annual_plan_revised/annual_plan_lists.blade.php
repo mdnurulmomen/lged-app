@@ -192,6 +192,24 @@
             });
         },
 
+        loadEntityChildOffices: function (entity_id) {
+            KTApp.block('.content');
+            url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-child-offices-list')}}';
+            parent_office_id = entity_id;
+            data = {
+                parent_office_id,
+            };
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $('.rp_auditee_office_tree').html(response)
+                    $('#select_cost_centers').removeClass('disabled')
+                }
+                KTApp.unblock('.content');
+            });
+        },
+
         loadRPChildOffices: function (node_id, target_tree = '#rp_auditee_offices') {
             KTApp.block(target_tree);
             url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-child-offices')}}';
@@ -212,18 +230,9 @@
                             li_attr: {
                                 "data-rp-auditee-entity-id": office.id,
                                 "data-entity-info": JSON.stringify({
-                                    entity_parent_id: office.id,
-                                    entity_parent_name_en: office.office_name_en,
-                                    entity_parent_name_bn: office.office_name_bn,
                                     entity_id: office.id,
                                     entity_name_en: office.office_name_en,
                                     entity_name_bn: office.office_name_bn,
-                                    ministry_id: parent_office_content.ministry_id,
-                                    ministry_name_en: parent_office_content.ministry_name_en,
-                                    ministry_name_bn: parent_office_content.ministry_name_bn,
-                                    controlling_office_id: parent_office_content.controlling_office_id,
-                                    controlling_office_name_en: parent_office_content.controlling_office_name_en,
-                                    controlling_office_name_bn: parent_office_content.controlling_office_name_bn,
                                 })
                             },
                             text: office.office_name_bn,
@@ -272,16 +281,17 @@
             if ($('#selected_rp_auditee_' + entity_info.entity_id).length === 0) {
                 if (parent_rp_office) {
                     if ($('.parent_office').length > 0) {
-                        $('.parent_office').remove()
+                        // $('.parent_office').remove()
+                        $('.selected_rp_offices li').remove()
                     }
-                    newRow = '<li class="parent_office" id="selected_rp_parent_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +
-                        '<span class="selected_entity_sr badge badge-white" >&nbsp</span>' +
-                        '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_Container.removeSelectedRPParentAuditee(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
+                    newRow = '<li class="parent_office" id="selected_rp_parent_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;">' +
+                        '<span class="badge badge-white" >&nbsp</span>' +
                         '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_bn + '<span class="ml-2 badge badge-info">ইউনিট/গ্রুপ</span>' +
                         '<input name="parent_office" class="selected_entity" id="selected_parent_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
                         '<input name="controlling_office" class="controlling_office" id="controlling_office" type="hidden" value=""/>' +
                         '<input name="ministry_info" class="ministry_info" id="ministry_info" type="hidden" value=""/>' +
                         '</li>';
+                    Annual_Plan_Container.loadEntityChildOffices(entity_info.entity_id)
                 } else {
                     count = $('[id^=selected_rp_auditee_]').length
                     newRow = '<li id="selected_rp_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +

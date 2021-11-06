@@ -17,11 +17,6 @@
         'controlling_office_name_en' => htmlspecialchars($rp_office_list['controlling_office_name_en']),
         ], JSON_UNESCAPED_UNICODE)}}" data-jstree='{ "type" : "default" }'>
                                 {{$rp_office['office_name_bn']}}
-                                @if($rp_office['has_child'])
-                                    <ul>
-                                        <li data-jstree='{"opened" : false}'>&nbsp;</li>
-                                    </ul>
-                                @endif
                             </li>
                         @endforeach
                     @endforeach

@@ -59,7 +59,6 @@
         $('#parent_ministry_name_en').val(parent_ministry_name_en)
         $('#parent_ministry_name_bn').val(parent_ministry_name_bn)
         $("#parent_office_layer_id").html('');
-        console.log('fdas')
         loadParentLayer(parent_ministry_id);
         $('#parent_office_layer_id').show();
     });
