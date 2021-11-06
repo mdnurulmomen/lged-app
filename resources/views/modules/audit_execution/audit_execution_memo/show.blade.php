@@ -34,11 +34,11 @@
     </div>
 
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-        <span style="font-weight: bold">স্থানীয় অফিসের জবাবঃ</span> {{$memoInfo['response_of_rpu']}}
+        <span style="font-weight: bold">নিরীক্ষিত প্রতিষ্ঠানের জবাবঃ</span> {{$memoInfo['response_of_rpu']}}
     </div>
 
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-        <span style="font-weight: bold">নিরীক্ষার মন্তব্যঃ</span> {{$memoInfo['audit_conclusion']}}
+        <span style="font-weight: bold">নিরীক্ষা মন্তব্যঃ</span> {{$memoInfo['audit_conclusion']}}
     </div>
 
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">

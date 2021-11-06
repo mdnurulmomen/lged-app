@@ -54,7 +54,7 @@
                         </td>
                     @endif
                     <td width="20%">{{$plan['milestone_title_en']}}</td>
-                    <td width="10%">{{$plan['milestone_target']}}</td>
+                    <td width="10%">{{formatDate($plan['milestone_target'])}}</td>
 
                     <td width="5%">
                         {{$plan['assigned_budget']}}

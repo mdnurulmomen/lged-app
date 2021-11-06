@@ -31,7 +31,7 @@ class OfficeOrderController extends Controller
         return view('modules.audit_plan.audit_plan.office_order.partials.load_office_orders',$data);
     }
 
-    public function loadOfficeOrderGenerateModal(Request $request){
+    public function loadOfficeOrderCreate(Request $request){
         $requestData = [
             'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
             'audit_plan_id' => $request->audit_plan_id,
@@ -43,7 +43,17 @@ class OfficeOrderController extends Controller
         $data['office_order'] = isSuccess($responseData)?$responseData['data']['office_order']:'';
         $data['audit_plan_id'] = $request->audit_plan_id;
         $data['annual_plan_id'] = $request->annual_plan_id;
-        return view('modules.modal.load_office_order_generate_modal',$data);
+        return view('modules.audit_plan.audit_plan.office_order.partials.load_office_order_create',$data);
+    }
+
+    public function loadOfficeOrderCCCreate(Request $request){
+        $requestData = [
+            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+            'audit_plan_id' => $request->audit_plan_id,
+            'annual_plan_id' => $request->annual_plan_id,
+        ];
+
+        return view('modules.modal.load_office_order_cc_modal');
     }
 
     public function showOfficeOrder(Request $request)

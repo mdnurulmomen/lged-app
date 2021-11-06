@@ -52,47 +52,34 @@
             }
         },
 
-        loadOfficeOrderGenerateModal: function (element) {
-            url = '{{route('audit.plan.audit.office-orders.load-office-order-generate-modal')}}';
+        loadOfficeOrderCreateForm: function (element) {
+            url = '{{route('audit.plan.audit.office-orders.load-office-order-create')}}';
             audit_plan_id = element.data('audit-plan-id');
             annual_plan_id = element.data('annual-plan-id');
 
             data = {audit_plan_id,annual_plan_id};
 
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error('No data found');
-                } else {
-                    $(".load-office-order-modal").html(response)
-                    $('#officeOrderGenerateModal').modal('show');
-                }
-            });
-        },
-
-        generateOfficeOrder: function (elem) {
-            url = '{{route('audit.plan.audit.office-orders.generate-office-order')}}';
-            data = $('#office_order_generate_form').serialize();
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'success') {
-                    toastr.success('Successfully Office Order Generated!');
-                    $("#officeOrderGenerateModal").hide();
-                    $('.ki-close').click();
-                    Office_Order_Container.loadOfficeOrderList();
                 }
                 else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
-                            if (v !== '') {
-                                toastr.error(v);
-                            }
-                        });
-                    }
-                    else {
-                        toastr.error(response.data.message);
-                    }
+                    $(".offcanvas-title").text('অফিস আদেশ');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
                 }
-            })
+            });
         },
 
         showOfficeOrder: function (elem) {
@@ -192,6 +179,30 @@
                 }
             });
         },
+
+        loadOfficeOrderCCForm: function (element){
+            url = '{{route('audit.plan.audit.office-orders.load-office-order-cc-create')}}';
+            audit_plan_id = element.data('audit-plan-id');
+            annual_plan_id = element.data('annual-plan-id');
+
+            data = {audit_plan_id,annual_plan_id};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                }
+                else {
+                    $(".load-office-order-modal").html(response)
+                    $('#officeOrderGenerateCCModal').modal('show');
+                }
+            });
+        }
     }
 </script>
 

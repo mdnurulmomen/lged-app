@@ -27,11 +27,11 @@
 
                     <textarea id="kt-tinymce-1" name="memo_description_bn" class="kt-tinymce-1">{{$memo['memo_description_bn']}}</textarea>
 
-                    <label class="col-form-label">নিরীক্ষিত প্রতিষ্ঠানের জবাব </label>
-                    <textarea class="form-control mb-1" name="response_of_rpu" placeholder="নিরীক্ষিত অফিসের জবাব" cols="30" rows="2">{{$memo['response_of_rpu']}}</textarea>
+                    <label class="col-form-label">নিরীক্ষিত প্রতিষ্ঠানের জবাব</label>
+                    <textarea class="form-control mb-1" name="response_of_rpu" placeholder="নিরীক্ষিত প্রতিষ্ঠানের জবাব" cols="30" rows="2">{{$memo['response_of_rpu']}}</textarea>
 
                     <label class="col-form-label">নিরীক্ষা মন্তব্য</label>
-                    <textarea class="form-control mb-1" name="audit_conclusion" placeholder="নিরীক্ষার মন্তব্য" cols="30" rows="2">{{$memo['audit_conclusion']}}</textarea>
+                    <textarea class="form-control mb-1" name="audit_conclusion" placeholder="নিরীক্ষা মন্তব্য" cols="30" rows="2">{{$memo['audit_conclusion']}}</textarea>
 
                     <label class="col-form-label">নিরীক্ষার সুপারিশ</label>
                     <textarea class="form-control mb-1" name="audit_recommendation" placeholder="নিরীক্ষার সুপারিশ" cols="30" rows="2">{{$memo['audit_recommendation']}}</textarea>
@@ -115,7 +115,7 @@
                                     </select>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">মেমো সংযুক্তি <code>(optional)</code></label>
+                                        <label class="col-form-label">মেমো সংযুক্তি <span class="text-primary">(ঐচ্ছিক)</span></label>
                                         <input name="memo_attachment" type="file" class="form-control rounded-0"
                                                accept="image/*" multiple>
                                     </div>
