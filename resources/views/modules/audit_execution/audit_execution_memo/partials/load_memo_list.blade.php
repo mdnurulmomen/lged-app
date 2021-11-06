@@ -14,7 +14,7 @@
             <th width="10%" class="text-center">অনিষ্পন্ন জড়িত অর্থ (টাকা)</th>
             <th width="10%" class="text-center">নিরীক্ষিত প্রতিষ্ঠান</th>
             <th width="10%" class="text-center">নিরীক্ষিত ধরন</th>
-            <th width="10%" class="text-center">অর্থবছর</th>
+            <th width="10%" class="text-center">নিরীক্ষা বছর</th>
             <th width="10%" class="text-center">আপত্তির ধরন</th>
             <th width="10%" class="text-center">কার্যক্রম</th>
         </tr>

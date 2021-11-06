@@ -37,7 +37,7 @@
                                class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"
                                data-audit-plan-id="{{$audit_plan['id']}}"
                                data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
-                               onclick="Office_Order_Container.loadOfficeOrderGenerateModal($(this))">
+                               onclick="Office_Order_Container.loadOfficeOrderCreateForm($(this))">
                                 <i class="fad fa-file-import"></i>
                             </a>
                         @endif
@@ -48,11 +48,19 @@
                                    class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"
                                    data-audit-plan-id="{{$audit_plan['id']}}"
                                    data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
-                                   onclick="Office_Order_Container.loadOfficeOrderGenerateModal($(this))">
+                                   onclick="Office_Order_Container.loadOfficeOrderCreateForm($(this))">
                                     <i class="fa fa-pencil"></i>
                                 </a>
                             @endif
                         @endif
+
+                        {{--<a href="javascript:;" type="button"
+                           class="mr-2 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn-archive list-btn-toggle"
+                           data-audit-plan-id="{{$audit_plan['id']}}"
+                           data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                           onclick="Office_Order_Container.loadOfficeOrderCCForm($(this))">
+                            <i class="fad fa-paper-plane"></i>
+                        </a>--}}
 
                         @if($audit_plan['has_office_order'] == 1)
                             <button
