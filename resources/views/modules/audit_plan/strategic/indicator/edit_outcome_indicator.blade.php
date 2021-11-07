@@ -153,14 +153,14 @@
                                         </td>
                                         @endforeach
                                     </tr>
-                                    
+
                                 </table>
-                                
-                                
+
+
                                 </div>
                             </div>
 
-                        
+
                             <div class="card-footer" style="padding: 3rem 0.25rem;">
                                 <div class="d-flex align-items-center">
                                     <button type="button" id="submit_form" class="btn-primary btn btn-square">Submit</button>
@@ -199,20 +199,21 @@
         });
     });
 
-    $('#base_fiscal_year').change(function() {
-        let base_year = $(this).find("option:selected").text();
-        url = "{{route('audit.plan.strategy.indicator.gen.year')}}/" + base_year;
-        data = {};
-        ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
-            if (resp.status === 'error') {
-                toastr.error('Error on genarating year');
-            } else {
-                $('.baseYears').html(resp.columns);
-                $('.targetValues').html(resp.target_value);
-            }
-        });
+    {{--$('#base_fiscal_year').change(function() {--}}
+    {{--    // let base_year = $(this).find("option:selected").text();--}}
+    {{--    base_year = 'all';--}}
+    {{--    url = "{{route('audit.plan.strategy.indicator.gen.year')}}/" + base_year;--}}
+    {{--    data = {};--}}
+    {{--    ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {--}}
+    {{--        if (resp.status === 'error') {--}}
+    {{--            toastr.error('Error on genarating year');--}}
+    {{--        } else {--}}
+    {{--            $('.baseYears').html(resp.columns);--}}
+    {{--            $('.targetValues').html(resp.target_value);--}}
+    {{--        }--}}
+    {{--    });--}}
 
-    });
+    {{--});--}}
 
 </script>
 

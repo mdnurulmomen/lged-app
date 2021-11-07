@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\AuditPlan\AuditStrategicPlan;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class IndicatorOutcomeController extends Controller
@@ -35,10 +35,10 @@ class IndicatorOutcomeController extends Controller
     public function create()
     {
         $plan_durations = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_duration_lists'), [
-            'all' => 1
+            'all' => 1,
         ])->json();
         $plan_outcomes = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_outcome_lists'), [
-            'all' => 1
+            'all' => 1,
         ])->json();
         $fiscal_years = $this->allFiscalYears();
 
@@ -52,7 +52,7 @@ class IndicatorOutcomeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -87,7 +87,7 @@ class IndicatorOutcomeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\IndicatorOutcome  $indicatorOutcome
+     * @param \App\Models\IndicatorOutcome $indicatorOutcome
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -108,16 +108,16 @@ class IndicatorOutcomeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\IndicatorOutcome  $indicatorOutcome
+     * @param \App\Models\IndicatorOutcome $indicatorOutcome
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $plan_durations = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_duration_lists'), [
-            'all' => 1
+            'all' => 1,
         ])->json();
         $plan_outcomes = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_outcome_lists'), [
-            'all' => 1
+            'all' => 1,
         ])->json();
         $fiscal_years = $this->allFiscalYears();
 
@@ -139,8 +139,8 @@ class IndicatorOutcomeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\IndicatorOutcome  $indicatorOutcome
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\IndicatorOutcome $indicatorOutcome
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -178,22 +178,22 @@ class IndicatorOutcomeController extends Controller
         $columns = "<th>#</th>";
         $target_value = "<td>Target value</td>";
         foreach ($fiscal_years as $value) {
-            if ($year < $value['start']) {
+            if ($year < $value['end']) {
                 $columns .= '<input type="hidden" name="fiscal_year_id[]" value="' . $value['id'] . '"/>';
-                $columns .= '<th>' . $value['start'] . '</th>';
+                $columns .= '<th>' . $value['end'] . '</th>';
                 $target_value .= '<td><input type="text" name="target_value[]" class="form-control rounded-0" placeholder="target value"/></td>';
             }
         }
         return response()->json([
             'columns' => $columns,
-            'target_value' => $target_value
+            'target_value' => $target_value,
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\IndicatorOutcome  $indicatorOutcome
+     * @param \App\Models\IndicatorOutcome $indicatorOutcome
      * @return \Illuminate\Http\Response
      */
     public function destroy()
