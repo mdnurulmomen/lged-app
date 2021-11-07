@@ -11,13 +11,15 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="duration" class="col-form-label">Duration <span class="text-danger">(*)</span></label>
+                                    <label for="duration" class="col-form-label">Duration <span
+                                            class="text-danger">(*)</span></label>
                                     <select class="form-control rounded-0 select-select2" id="duration"
                                             name="duration_id">
                                         <option value="">Choose Duration</option>
                                         @foreach($plan_durations['data'] as $duration)
                                             <option
-                                                value="{{$duration['id']}}">{{$duration['start_year']}} - {{$duration['end_year']}}</option>
+                                                value="{{$duration['id']}}">{{$duration['start_year']}}
+                                                - {{$duration['end_year']}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -41,7 +43,8 @@
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Indicator Name English
                                         :</label>
-                                        <input type="text" name="name_en" class="form-control rounded-0" placeholder="Name English" />
+                                    <input type="text" name="name_en" class="form-control rounded-0"
+                                           placeholder="Name English"/>
                                 </div>
                             </div>
 
@@ -49,7 +52,8 @@
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Indicator Name Bangla
                                         :</label>
-                                        <input type="text" name="name_bn" class="form-control rounded-0" placeholder="Name Bangla" />
+                                    <input type="text" name="name_bn" class="form-control rounded-0"
+                                           placeholder="Name Bangla"/>
                                 </div>
                             </div>
 
@@ -57,7 +61,8 @@
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Frequency English
                                         :</label>
-                                        <input type="text" name="frequency_en" class="form-control rounded-0" placeholder="Frequency English" />
+                                    <input type="text" name="frequency_en" class="form-control rounded-0"
+                                           placeholder="Frequency English"/>
                                 </div>
                             </div>
 
@@ -65,7 +70,8 @@
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Frequency Bangla
                                         :</label>
-                                        <input type="text"  name="frequency_bn" class="form-control rounded-0" placeholder="Frequency Bangla" />
+                                    <input type="text" name="frequency_bn" class="form-control rounded-0"
+                                           placeholder="Frequency Bangla"/>
                                 </div>
                             </div>
 
@@ -73,7 +79,8 @@
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Data Source English
                                         :</label>
-                                        <input type="text" name="datasource_en" class="form-control rounded-0" placeholder="DataSource English" />
+                                    <input type="text" name="datasource_en" class="form-control rounded-0"
+                                           placeholder="DataSource English"/>
                                 </div>
                             </div>
 
@@ -81,7 +88,8 @@
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Data Source Bangla
                                         :</label>
-                                        <input type="text"  name="datasource_bn" class="form-control rounded-0" placeholder="DataSource Bangla" />
+                                    <input type="text" name="datasource_bn" class="form-control rounded-0"
+                                           placeholder="DataSource Bangla"/>
                                 </div>
                             </div>
 
@@ -101,7 +109,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Base Value:</label>
-                                        <input type="text" name="base_value" class="form-control rounded-0" placeholder="Base Value"/>
+                                    <input type="text" name="base_value" class="form-control rounded-0"
+                                           placeholder="Base Value"/>
                                 </div>
                             </div>
 
@@ -120,13 +129,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="status" class="col-form-label">Status:</label>
-                                    <input style="width:20%; height: 16px;"  name="status" class="form-check-input form-control" type="checkbox">
+                                    <input style="width:20%; height: 16px;" name="status"
+                                           class="form-check-input form-control" type="checkbox">
                                 </div>
                             </div>
                         </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
                                 <h3>Details</h3>
                                 <hr>
 
@@ -135,18 +145,19 @@
                                     </tr>
                                     <tr class="targetValues">
                                     </tr>
-                                    
+
                                 </table>
 
-                                </div>
                             </div>
+                        </div>
 
 
-                            <div class="card-footer" style="padding: 3rem 0.25rem;">
-                                <div class="d-flex align-items-center">
-                                    <button type="button" id="submit_form" class="btn-primary btn btn-square">Submit</button>
-                                </div>
+                        <div class="card-footer" style="padding: 3rem 0.25rem;">
+                            <div class="d-flex align-items-center">
+                                <button type="button" id="submit_form" class="btn-primary btn btn-square">Submit
+                                </button>
                             </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -180,8 +191,9 @@
         });
     });
 
-    $('#base_fiscal_year').change(function() {
-        let base_year = $(this).find("option:selected").text();
+    $('#base_fiscal_year').change(function () {
+        // let base_year = $(this).find("option:selected").text();
+        base_year = 'all';
         url = "{{route('audit.plan.strategy.indicator.gen.year')}}/" + base_year;
         data = {};
         ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
