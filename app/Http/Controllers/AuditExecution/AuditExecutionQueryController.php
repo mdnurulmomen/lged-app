@@ -89,13 +89,10 @@ class AuditExecutionQueryController extends Controller
     public function receivedAuditQuery(Request $request)
     {
         $data['cdesk'] = json_encode_unicode($this->current_desk());
-        $data['fiscal_year_id'] = 1;
-        $data['cost_center_type_id'] = $request->cost_center_type_id;
-        $data['cost_center_id'] = $request->cost_center_id;
-        $data['cost_center_name_bn'] = $request->cost_center_name_bn;
-        $data['cost_center_name_en'] = $request->cost_center_name_en;
-        $data['query_id'] = $request->query_id;
+        $data['ac_query_item_id'] = $request->ac_query_item_id;
+        $data['ac_query_id'] = $request->ac_query_id;
         $received_audit_queries = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.received_audit_query'), $data)->json();
+        //dd($received_audit_queries);
         if ($received_audit_queries['status'] == 'success') {
             $received_audit_queries = $received_audit_queries['data'];
             return response()->json(['status' => 'success', 'data' => $received_audit_queries]);

@@ -37,18 +37,34 @@
         <table class="table table-bordered" width="100%">
             <thead>
             <tr>
-                <th class="text-center" colspan="2">কোয়েরিসমূহ</th>
+                <th class="text-center" colspan="3">কোয়েরিসমূহ</th>
             </tr>
             <tr>
                 <th width="15%">ক্রমিক নং</th>
-                <th width="85%">কোয়েরি</th>
+                <th width="75%">কোয়েরি</th>
+                <th width="10%"></th>
             </tr>
             </thead>
             <tbody>
             @foreach($auditQueryInfo['query_items'] as $item)
                 <tr>
                     <th class="text-center">{{enTobn($loop->iteration)}}</th>
-                    <td>{{$item['item_title_bn']}}</td>
+                    <td>
+                        {{$item['item_title_bn']}}
+                        <span class="badge badge-{{$item['status'] =="pending"?'info':'success'}} text-uppercase m-1 p-1 ">
+                            {{$item['status']}}
+                        </span>
+                    </td>
+                    <td>
+                        @if($item['status'] == 'pending')
+                            <button title="রিসিভ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                    data-ac-query-item-id="{{$item['id']}}"
+                                    data-ac-query-id="{{$item['ac_query_id']}}"
+                                    onclick="Show_Query_Container.receivedQuery($(this))">
+                                <i class="fad fa-check-circle"></i>
+                            </button>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
             </tbody>
@@ -58,13 +74,12 @@
 
 <script>
     var Show_Query_Container={
-        receivedQuery: function (query_id) {
-            cost_center_id = $('#cost_center_id').val();
-            cost_center_name_en = $('#cost_center_name_en').val();
-            cost_center_name_bn = $('#cost_center_name_bn').val();
+        receivedQuery: function (elem) {
+            ac_query_item_id = elem.data('ac-query-item-id');
+            ac_query_id = elem.data('ac-query-id');
 
-            url = '{{route('audit.execution.received-audit-query')}}';
-            data = {query_id, cost_center_id, cost_center_name_bn, cost_center_name_en};
+            url = '{{route('audit.execution.query.received')}}';
+            data = {ac_query_item_id, ac_query_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -73,10 +88,10 @@
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_content');
+                $("#kt_quick_panel_close").click();
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
-                    $('#cost_center_type').trigger('change');
                     toastr.success(response.data)
                 }
             })

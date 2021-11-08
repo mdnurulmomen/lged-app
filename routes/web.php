@@ -344,10 +344,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('view', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'viewAuditQuery'])->name('view');
             Route::post('download', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'downloadAuditQuery'])->name('download');
             Route::post('send-to-rpu', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'sendAuditQuery'])->name('send-to-rpu');
+            Route::post('received', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'receivedAuditQuery'])->name('received');
         });
         Route::post('load-type-wise-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadTypeWiseAuditQuery'])->name('load-type-wise-audit-query');
 
-        Route::post('received-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'receivedAuditQuery'])->name('received-audit-query');
+
         Route::post('load-reject-query-form', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadRejectAuditQuery'])->name('load-reject-query-form');
         Route::post('reject-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'rejectAuditQuery'])->name('reject-audit-query');
 
