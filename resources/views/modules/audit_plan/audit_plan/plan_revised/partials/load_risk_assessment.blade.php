@@ -37,6 +37,13 @@
         loadData('inherent');
     });
 
+    function setJsonContentFromPlanBook(){
+        templateArray.map(function (value, index) {
+            cover = $("#pdfContent_" + value.content_id).html();
+            value.content = cover;
+        });
+    }
+
     $('[data-toggle="tab"]').click(function(e) {
         type = $(this).attr('data-type');
 
@@ -177,6 +184,7 @@
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 // $('.authorithy').html(response);
                 $('.risk_'+risk_assessment_type).html(response);
+                setJsonContentFromPlanBook();
         });
     }
 </script>
