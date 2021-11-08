@@ -40,6 +40,12 @@ return [
         'audit_query_update' => env('API_URL_BEE', '') . '/audit-query/update',
         'audit_query_delete' => env('API_URL_BEE', '') . '/audit-query/delete',
 
+        'risk_assessment_lists' => env('API_URL_BEE', '') . '/risk-assessment',
+        'risk_assessment_create' => env('API_URL_BEE', '') . '/risk-assessment/create',
+        'risk_assessment_show' => env('API_URL_BEE', '') . '/risk-assessment/show',
+        'risk_assessment_update' => env('API_URL_BEE', '') . '/risk-assessment/update',
+        'risk_assessment_delete' => env('API_URL_BEE', '') . '/risk-assessment/delete',
+
         'cost_center_type_lists' => env('API_URL_BEE', '') . '/cost-center-type',
     ],
 
@@ -114,6 +120,7 @@ return [
         'update_audit_team_schedule' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/audit-team/update-team-schedule',
         'get_team_info' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-team-info',
         'get_audit_plan_wise_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team',
+        'ap_risk_assessment_store' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/store',
         'ap_office_order' => [
             'audit_plan_list' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/audit-plan-list',
             'generate_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/generate',

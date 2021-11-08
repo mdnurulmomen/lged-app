@@ -35,6 +35,12 @@
                              icon="fal fa-calendar-alt">Query
                 </x-menu-item>
             </x-parent-menu-item>
+
+            <x-parent-menu-item icon="fas fa-list" name="Risk Assessment">
+                <x-menu-item class="x_risk_assessment" href="{{route('settings.risk-assessment.index')}}"
+                             icon="fal fa-calendar-alt">Risk Assessment
+                </x-menu-item>
+            </x-parent-menu-item>
         </ul>
     </div>
 </div>
