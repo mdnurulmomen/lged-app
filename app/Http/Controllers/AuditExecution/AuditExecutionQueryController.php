@@ -31,7 +31,8 @@ class AuditExecutionQueryController extends Controller
         //dd($audit_query_schedule_list);
         if ($audit_query_schedule_list['status'] == 'success') {
             $audit_query_schedule_list = $audit_query_schedule_list['data'];
-            return view('modules.audit_execution.audit_execution_query.partials.load_query_schedule_list', compact('audit_query_schedule_list'));
+            return view('modules.audit_execution.audit_execution_query.partials.load_query_schedule_list',
+                compact('audit_query_schedule_list'));
         } else {
             return response()->json(['status' => 'error', 'data' => $audit_query_schedule_list]);
         }

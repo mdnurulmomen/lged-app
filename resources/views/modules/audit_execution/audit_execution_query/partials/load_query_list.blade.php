@@ -24,20 +24,25 @@
             <td class="text-left">{{$query['subject']}}</td>
             <td class="text-left">
                 <div class="btn-group btn-group-sm" role="group">
-                    <button title="হালনাগাদ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
-                            data-ac-query-id="{{$query['id']}}" onclick="Audit_Query_List_Container.editQuery($(this))">
-                        <i class="fad fa-edit"></i>
-                    </button>
+                    @if($query['has_sent_to_rpu'] == 0)
+                        <button title="হালনাগাদ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                data-ac-query-id="{{$query['id']}}" onclick="Audit_Query_List_Container.editQuery($(this))">
+                            <i class="fad fa-edit"></i>
+                        </button>
+                    @endif
 
-                    <button title="ডাউনলোড করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                    <button title="দেখুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                     data-ac-query-id="{{$query['id']}}" onclick="Audit_Query_List_Container.viewQuery($(this))">
                         <i class="fad fa-eye"></i>
                     </button>
 
-                    <button title="প্রেরণ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
-                            data-ac-query-id="{{$query['id']}}" onclick="Audit_Query_List_Container.sendQueryToRpu($(this))">
-                        <i class="fa fa-paper-plane"></i>
-                    </button>
+                    @if($query['has_sent_to_rpu'] == 0)
+                        <button title="প্রেরণ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                data-ac-query-id="{{$query['id']}}" data-cost-center-id="{{$query['cost_center_id']}}" onclick="Audit_Query_List_Container.sendQueryToRpu($(this))">
+                            <i class="fa fa-paper-plane"></i>
+                        </button>
+                    @endif
+
                 </div>
             </td>
         </tr>
@@ -87,7 +92,7 @@
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".offcanvas-title").text('কোয়েরি বিস্তারিত');
+                    $(".offcanvas-title").text('কোয়েরি শিটের বিস্তারিত');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
@@ -115,6 +120,22 @@
                     toastr.error(response.data)
                 } else {
                     toastr.success(response.data)
+
+                    KTApp.block('#kt_content', {
+                        opacity: 0.1,
+                        state: 'primary' // a bootstrap color
+                    });
+                    cost_center_id = elem.data('cost-center-id');
+                    url = '{{route('audit.execution.query.load-list')}}';
+                    data = { cost_center_id};
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        KTApp.unblock('#kt_content');
+                        if (response.status === 'error') {
+                            toastr.warning(response.data)
+                        } else {
+                            $('#load_query_list').html(response);
+                        }
+                    })
                 }
             })
         },

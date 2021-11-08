@@ -67,6 +67,11 @@
                                 <input type="text" id="subject" class="form-control" name="subject" value="{{$auditQueryInfo['subject']}}" placeholder="বিষয়">
                             </div>
 
+                            <div class="form-group">
+                                <label for="description">বিস্তারিত</label>
+                                <textarea class="form-control" id="description" name="description" cols="30" rows="4">{{$auditQueryInfo['description']}}</textarea>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <fieldset class="scheduler-border">
@@ -111,11 +116,6 @@
                                         </table>
                                     </fieldset>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="description">বিস্তারিত</label>
-                                <textarea class="form-control" id="description" name="description" cols="30" rows="4">{{$auditQueryInfo['description']}}</textarea>
                             </div>
 
                             <div class="form-group">
