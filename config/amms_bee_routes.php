@@ -185,7 +185,11 @@ return [
         'get_cost_center_type_wise_query' => env('API_URL_BEE', '') . '/cost-center-type-wise-query',
         'send_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/send-audit-query',
         'received_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/received-audit-query',
-        'audit_query_cost_center_type_wise' => env('API_URL_BEE', '') . '/audit-conduct-query/audit-query-cost-center-type-wise',
+        'load_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/load-audit-query',
+        'load_type_wise_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/load-type-wise-audit-query',
+        'store_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/store-audit-query',
+        'view_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/view-audit-query',
+        'update_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/update-audit-query',
         'rejected_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/rejected-audit-query',
         'rpu-send-query-list' => env('API_URL_BEE', '') . '/audit-conduct-query/rpu-send-query-list',
         'memo' => [

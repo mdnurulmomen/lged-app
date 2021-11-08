@@ -23,12 +23,16 @@
 <script>
     var Audit_Query_Schedule_Container = {
         query: function (elem) {
-            url = '{{route('audit.execution.audit-query')}}';
+            url = '{{route('audit.execution.query.index')}}';
+
+            schedule_id = elem.attr('data-schedule-id');
+            cost_center_id = elem.attr('data-cost-center-id');
             cost_center_name_en = elem.attr('data-cost-center-name-en');
             cost_center_name_bn = elem.attr('data-cost-center-name-bn');
-            cost_center_id = elem.attr('data-cost-center-id');
-            cost_center_type_id = elem.attr('data-cost-center-type-id');
-            data = {cost_center_id, cost_center_name_en, cost_center_name_bn, cost_center_type_id};
+
+            data = {schedule_id,cost_center_id, cost_center_name_en,
+                cost_center_name_bn};
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)

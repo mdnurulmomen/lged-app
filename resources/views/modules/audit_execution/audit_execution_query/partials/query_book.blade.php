@@ -231,7 +231,7 @@
 
         td,
         th {
-            padding: 0;
+            padding: 2px;
         }
 
         /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
@@ -783,34 +783,75 @@
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center">
+            গণপ্রজাতন্ত্রী বাংলাদেশ সরকার <br>
+            <b>{{$directorateName}}</b> <br>
             অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
-            সেগুনবাগিচা, ঢাকা -১০০০।
+            সেগুনবাগিচা, ঢাকা -১০০০। <br>
+            <u>https://www.cad.org.bd</u>
         </div>
 
-        <br>
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;">
-            <span style="font-size: 15px"><u><b>{{$costCenterNameBn}} এর কুয়েরিসমূহ</b></u></span>
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">
+            <div style="text-align: left;float: left;width: 70%;">
+                স্মারক নং-{{$auditQueryInfo['memorandum_no']}}
+            </div>
+            <div style="text-align: right;float:right;width: 30%">
+                তারিখঃ  {{enTobn($auditQueryInfo['memorandum_date'])}} খ্রি।
+            </div>
         </div>
 
-        <div class="bangla-font" style="margin-top: 5px">
-            <table class="bangla-font" width="100%" border="1">
-                <thead>
-                <tr class="bangla-font">
-                    <th class="bangla-font" style="text-align: center" width="10%">ক্রমিক নং</th>
-                    <th class="bangla-font" style="text-align: center" width="75%">কুয়েরি</th>
-                    <th class="bangla-font" style="text-align: center" width="15%">স্ট্যাটাস</th>
-                </tr>
-                </thead>
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+            <span>বরাবর,</span><br>
+            <span style="margin-left: 20px!important;">
+                {!! nl2br($auditQueryInfo['rpu_office_head_details']) !!}
+            </span>
+        </div>
+
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+            <span style="font-weight: bold">বিষয়ঃ {!! str_repeat('&nbsp;',3) !!} {{$auditQueryInfo['subject']}}</span>
+        </div>
+
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+            {!! str_repeat('&nbsp;',10) !!} {{$auditQueryInfo['description']}}
+
+            <table class="bangla-font"  width="100%">
                 <tbody>
-                @foreach($queryList as $query)
-                    <tr class="bangla-font">
-                        <td class="bangla-font" style="text-align: center">{{enTobn($loop->iteration)}}</td>
-                        <td class="bangla-font" style="text-align: left;">&nbsp;{{$query['query_title_bn']}}</td>
-                        <td class="bangla-font" style="text-align: center">{{strtoupper($query['status'])}}</td>
+                @foreach($auditQueryInfo['query_items'] as $item)
+                    <tr>
+                        <td width="10%" class="text-center">
+                            {!! str_repeat('&nbsp;',10) !!} {{enTobn($loop->iteration)}}.
+                        </td>
+                        <td width="90%">{{$item['item_title_bn']}}</td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
+        </div>
+
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top:10px;text-align: center;float: right;width: 35%">
+            ({{$auditQueryInfo['querier_officer_name_bn']}}) <br>
+            {{$auditQueryInfo['querier_designation_bn']}} ও {{$auditQueryInfo['plan_team']['team_parent_id'] ==0?'দলনেতা':'উপ দলনেতা'}} <br>
+            {{$auditQueryInfo['querier_unit_name_bn']}} <br>
+            অডিট এনগেজমেন্ট {{$auditQueryInfo['plan_team']['team_name']}}
+        </div>
+
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">
+            <div style="text-align: left;float: left;width: 70%;">
+                স্মারক নং-{{$auditQueryInfo['memorandum_no']}}
+            </div>
+            <div style="text-align: right;float:right;width: 30%">
+                তারিখঃ  {{enTobn($auditQueryInfo['memorandum_date'])}} খ্রি।
+            </div>
+        </div>
+
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+            <span>অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য:</span>
+        </div>
+
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top:10px;text-align: center;float: right;width: 35%">
+            ({{$auditQueryInfo['querier_officer_name_bn']}}) <br>
+            {{$auditQueryInfo['querier_designation_bn']}} ও {{$auditQueryInfo['plan_team']['team_parent_id'] ==0?'দলনেতা':'উপ দলনেতা'}}<br>
+            {{$auditQueryInfo['querier_unit_name_bn']}} <br>
+            অডিট এনগেজমেন্ট {{$auditQueryInfo['plan_team']['team_name']}}
         </div>
     </div>
 

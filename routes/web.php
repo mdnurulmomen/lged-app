@@ -325,23 +325,31 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/', function () {
             return redirect()->route('audit.execution.dashboard');
         });
+
+        Route::get('/', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'index'])->name('index');
         Route::get('dashboard', [\App\Http\Controllers\AuditExecution\AuditExecutionDashboardController::class, 'index'])->name('dashboard');
 
         Route::get('area', [\App\Http\Controllers\AuditExecution\AuditExecutionAreaController::class, 'index'])->name('area');
 
-        Route::get('query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'index'])->name('query');
-
-        Route::post('load-query-create', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadQueryCreateForm'])->name('load-query-create');
-
         Route::get('schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'querySchedule'])->name('query-schedule-list');
         Route::get('load-query-schedule-lists', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadQueryScheduleList'])->name('load-query-schedule-lists');
-        Route::post('audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'auditQuery'])->name('audit-query');
-        Route::post('load-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadAuditQuery'])->name('load-audit-query');
-        Route::post('send-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'sendAuditQuery'])->name('send-audit-query');
+
+        Route::group(['as' => 'query.', 'prefix'=> 'query/'],function (){
+            Route::post('index', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'auditQuery'])->name('index');
+            Route::post('load-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadAuditQuery'])->name('load-list');
+            Route::post('create', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'auditQueryCreate'])->name('create');
+            Route::post('store', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'storeAuditQuery'])->name('store');
+            Route::post('edit', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'editAuditQuery'])->name('edit');
+            Route::post('update', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'updateAuditQuery'])->name('update');
+            Route::post('view', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'viewAuditQuery'])->name('view');
+            Route::post('download', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'downloadAuditQuery'])->name('download');
+            Route::post('send-to-rpu', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'sendAuditQuery'])->name('send-to-rpu');
+        });
+        Route::post('load-type-wise-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadTypeWiseAuditQuery'])->name('load-type-wise-audit-query');
+
         Route::post('received-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'receivedAuditQuery'])->name('received-audit-query');
         Route::post('load-reject-query-form', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadRejectAuditQuery'])->name('load-reject-query-form');
         Route::post('reject-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'rejectAuditQuery'])->name('reject-audit-query');
-        Route::post('send_query_list/download', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'sendQueryListDownload'])->name('send_query_list.download');
 
         Route::get('discussion', [\App\Http\Controllers\AuditExecution\AuditExecutionDiscussionController::class, 'index'])->name('discussion');
 

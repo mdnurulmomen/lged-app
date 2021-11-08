@@ -20,7 +20,7 @@
             </li>
             <li class="menu-item">
                 <a
-                    href="{{route('audit.execution.query')}}"
+                    href="{{route('audit.execution.index')}}"
                     class="btn btn-outline-danger btn-square btn-sm width-160p text-left"
                     type="button">
                     <i class="fal fa-network-wired"></i><span>Conducting</span>
