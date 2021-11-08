@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 
 class ChangeController extends Controller
@@ -27,8 +26,8 @@ class ChangeController extends Controller
 
     public function changeLocale($locale): RedirectResponse
     {
-        App::setLocale($locale);
         Session::put('locale', $locale);
+        app()->setLocale($locale);
         return redirect()->back();
     }
 }

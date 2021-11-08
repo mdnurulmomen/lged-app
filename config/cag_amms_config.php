@@ -4,9 +4,13 @@ return [
     'office_domain_redirection' => env('OFFICE_DOMAIN_REDIRECTION', 'false'),
     'visit_calendar_status' => [
         '0' => 'done',
-        '1' =>'reject',
-        '2' =>'pending',
-        '3' =>'in-progress'
+        '1' => 'reject',
+        '2' => 'pending',
+        '3' => 'in-progress',
     ],
-    'ocag_office_id' => 1
+    'ocag_office_id' => 1,
+    'lang' => [
+        'en' => 'en',
+        'bn' => 'bn',
+    ],
 ];

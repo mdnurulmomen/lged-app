@@ -1,7 +1,11 @@
 <!--begin::Toggle-->
 <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
     <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
-        <img class="h-20px w-20px" src="{{asset('assets/media/svg/flags/bangladesh.png')}}" alt=""/>
+        @if(app()->getLocale() == 'bn')
+            <img class="h-20px w-20px" src="{{asset('assets/media/svg/flags/bangladesh.png')}}"/>
+        @else
+            <img class="h-20px w-20px" src="{{asset('assets/media/svg/flags/226-united-states.svg')}}"/>
+        @endif
     </div>
 </div>
 <!--end::Toggle-->
