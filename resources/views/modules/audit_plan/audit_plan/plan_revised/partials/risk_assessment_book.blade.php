@@ -1,12 +1,12 @@
-<h4>
-    @if($risk_assessment_type == 'inherent')
-        সহজাত ঝুঁকি
-    @elseif($risk_assessment_type == 'control')
-        নিয়ন্ত্রণ ঝুঁকি
-    @elseif($risk_assessment_type == 'detection')
-        সনাক্ত ঝুঁকি
-    @endif
-</h4>
+{{--<h4>--}}
+{{--    @if($risk_assessment_type == 'inherent')--}}
+{{--        সহজাত ঝুঁকি--}}
+{{--    @elseif($risk_assessment_type == 'control')--}}
+{{--        নিয়ন্ত্রণ ঝুঁকি--}}
+{{--    @elseif($risk_assessment_type == 'detection')--}}
+{{--        সনাক্ত ঝুঁকি--}}
+{{--    @endif--}}
+{{--</h4>--}}
 <table class="table table-bordered">
                 <thead>
                 <tr>
