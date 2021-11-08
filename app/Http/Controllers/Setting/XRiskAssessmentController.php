@@ -60,32 +60,35 @@ class XRiskAssessmentController extends Controller
     public function update(Request $request)
     {
         $data = [
-            'id' => $request->audit_query_id,
-            'cost_center_type_id' => $request->cost_center_type_id,
-            'query_title_en' => $request->query_title_en,
-            'query_title_bn' => $request->query_title_bn,
+            'id' => $request->id,
+            'risk_assessment_type' => $request->risk_assessment_type,
+            'company_type' => $request->company_type,
+            'risk_assessment_title_en' => $request->risk_assessment_title_en,
+            'risk_assessment_title_bn' => $request->risk_assessment_title_bn,
         ];
 
-        $create_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_query_update'), $data)->json();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+
+        $update_risk_assessment = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.risk_assessment_update'), $data)->json();
 //        dd($create_audit_query);
-        if (isset($create_audit_query['status']) && $create_audit_query['status'] == 'success') {
-            return response()->json(['status' => 'success', 'data' => $create_audit_query['data']]);
+        if (isset($update_risk_assessment['status']) && $update_risk_assessment['status'] == 'success') {
+            return response()->json(['status' => 'success', 'data' => $update_risk_assessment['data']]);
         } else {
-            return response()->json(['status' => 'error', 'data' => $create_audit_query]);
+            return response()->json(['status' => 'error', 'data' => $update_risk_assessment]);
         }
     }
 
-    public function destroy($audit_query_id)
+    public function destroy($risk_assessment_id)
     {
         $data = [
-            'audit_query_id' => $audit_query_id,
+            'id' => $risk_assessment_id,
         ];
 //        dd($data);
-        $create_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_query_delete'), $data)->json();
-        if (isset($create_audit_query['status']) && $create_audit_query['status'] == 'success') {
+        $delete_risk_assessment = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.risk_assessment_delete'), $data)->json();
+        if (isset($delete_risk_assessment['status']) && $delete_risk_assessment['status'] == 'success') {
             return response()->json(responseFormat('success', 'Updated Successfully'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $create_audit_query]);
+            return response()->json(['status' => 'error', 'data' => $delete_risk_assessment]);
         }
     }
 }

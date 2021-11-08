@@ -67,7 +67,7 @@
                 <a href="javascript:;"
                    data-risk-assessment-id="{{$risk_assessment['id']}}"
                    data-url="{{route('settings.risk-assessment.destroy', ['risk_assessment' => $risk_assessment['id']])}}"
-                   class="btn btn-icon btn-outline-danger btn-xs border-0 mr-2 delete_audit_query">
+                   class="btn btn-icon btn-outline-danger btn-xs border-0 mr-2 delete_risk_assessment">
                     <i class="fal fa-trash-alt"></i>
                 </a>
             </td>
