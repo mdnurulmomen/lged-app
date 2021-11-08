@@ -34,12 +34,16 @@
 <script>
 
     $(function () {
-            loadData('inherent');
+        loadData('inherent');
     });
 
     $('[data-toggle="tab"]').click(function(e) {
         type = $(this).attr('data-type');
-        loadData(type);
+
+        if ( !$('.load_data_'+type ).children().length > 0 ) {
+            loadData(type);
+        }
+
     });
 
 
@@ -59,11 +63,20 @@
     function calculateRiskRate(risk_type){
         checked_count = $('.select_'+risk_type).filter(':checked').length;
 
+        if(!checked_count){
+            toastr.warning('Please Select Risk Assessment');
+            return;
+        }
         total_number = 0;
 
         $(".number_"+risk_type).each(function () {
             total_number += +$(this).val();
         });
+
+        if(!total_number){
+            toastr.warning('Please Enter Value For Risk Assessment');
+            return;
+        }
 
         total_value = checked_count * 5;
 
@@ -93,6 +106,8 @@
         $('#risk_'+risk_type).val(risk_en);
 
         $('.risk_rate_div_'+risk_type).show();
+
+        $('.save_'+risk_type).prop("disabled",false);
     }
 
     function riskRateSubmit(risk_type) {
@@ -148,7 +163,6 @@
             if (response.status === 'error') {
                 toastr.error(response.data);
             } else {
-                $('#kt_quick_panel_close').trigger('click');
                 toastr.success(response.data);
                 saveInBook(risk_assessments,risk_assessment_type,risk,risk_rate,total_number);
             }
@@ -161,7 +175,7 @@
         url = '{{route('audit.plan.audit.editor.risk-assessment-book')}}';
 
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                // $('.risk_analysis').html(response);
+                // $('.authorithy').html(response);
                 $('.risk_'+risk_assessment_type).html(response);
         });
     }

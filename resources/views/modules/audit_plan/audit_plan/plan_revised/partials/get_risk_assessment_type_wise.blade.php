@@ -28,7 +28,7 @@
                             <td>
                                 <input class="no" type="checkbox" value="0">
                             </td>
-                            <td><input type="text" class="form-control number_{{$risk_assessment_type}}" value=""></td>
+                            <td><input type="text" class="form-control integer_type_positive number_{{$risk_assessment_type}} max_value_five" value=""></td>
                         </tr>
                 @endforeach
                 </tbody>
@@ -58,11 +58,24 @@
             </div>
         <div class="row mt-4">
                 <div class="col-lg-12">
-                    <button type="button" onclick="calculateRiskRate('{{$risk_assessment_type}}')" class="btn  btn-success btn-square"><i
-                            class="fas fa-save mr-2"></i> Calculate
+                    <button type="button" onclick="calculateRiskRate('{{$risk_assessment_type}}')" class="btn  btn-info btn-square calculate_{{$risk_assessment_type}}"><i
+                            class="fas fa-calculator mr-2"></i> Calculate
                     </button>
-                    <button type="button" onclick="riskRateSubmit('{{$risk_assessment_type}}')" class="btn  btn-success btn-square"><i
+                    <button type="button" onclick="riskRateSubmit('{{$risk_assessment_type}}')" class="btn  btn-success btn-square save_{{$risk_assessment_type}}"><i
                             class="fas fa-save mr-2"></i> Submit
                     </button>
                 </div>
         </div>
+
+<script>
+    $(function () {
+        type = '{{$risk_assessment_type}}';
+        $('.save_'+type).prop("disabled",true);
+    });
+
+    $('.max_value_five').on('blur', function() {
+        if($(this).val() > 5){
+            $(this).val('');
+        }
+    });
+</script>

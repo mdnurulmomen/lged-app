@@ -28,7 +28,7 @@
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
                     data-parent-office-id="{{$parent_office_id}}"
                     onclick="Create_Entity_Plan_Container.riskAssessment($(this));">Risk Assessment
-                <i class="fas fa-users"></i>
+                <i class="fas fa-ballot-check"></i>
             </button>
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
                     data-parent-office-id="{{$parent_office_id}}"
