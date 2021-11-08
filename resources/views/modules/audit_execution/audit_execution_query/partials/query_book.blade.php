@@ -799,15 +799,15 @@
             </div>
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
-            <span>বরাবর,</span><br>
-            <span style="margin-left: 20px!important;">
-                {!! nl2br($auditQueryInfo['rpu_office_head_details']) !!}
-            </span>
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 20px">
+            <span>বরাবর,</span>
+        </div>
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-left: 40px">
+            {!! nl2br($auditQueryInfo['rpu_office_head_details']) !!}
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
-            <span style="font-weight: bold">বিষয়ঃ {!! str_repeat('&nbsp;',3) !!} {{$auditQueryInfo['subject']}}</span>
+            <span style="font-weight: bold">বিষয়ঃ {!! str_repeat('&nbsp;',1) !!} {{$auditQueryInfo['subject']}}</span>
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
@@ -823,11 +823,15 @@
                         <td width="90%">{{$item['item_title_bn']}}</td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td width="10%"></td>
+                    <td width="90%">সময় সময় চাহিদা মোতাবেক অন্যান্য রেকর্ডপত্র /তথ্যাদি।</td>
+                </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top:10px;text-align: center;float: right;width: 35%">
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top:40px;text-align: center;float: right;width: 35%">
             ({{$auditQueryInfo['querier_officer_name_bn']}}) <br>
             {{$auditQueryInfo['querier_designation_bn']}} ও {{$auditQueryInfo['plan_team']['team_parent_id'] ==0?'দলনেতা':'উপ দলনেতা'}} <br>
             {{$auditQueryInfo['querier_unit_name_bn']}} <br>
@@ -844,10 +848,11 @@
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
-            <span>অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য:</span>
+            <span style="margin-bottom: 10px">অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য:</span> <br>
+            {!! nl2br($auditQueryInfo['cc']) !!}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top:10px;text-align: center;float: right;width: 35%">
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top:50px;text-align: center;float: right;width: 35%">
             ({{$auditQueryInfo['querier_officer_name_bn']}}) <br>
             {{$auditQueryInfo['querier_designation_bn']}} ও {{$auditQueryInfo['plan_team']['team_parent_id'] ==0?'দলনেতা':'উপ দলনেতা'}}<br>
             {{$auditQueryInfo['querier_unit_name_bn']}} <br>

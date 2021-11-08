@@ -1,11 +1,11 @@
-<x-title-wrapper>কোয়েরিসমূহ ({{$cost_center_name_bn}})</x-title-wrapper>
+<x-title-wrapper>অডিট কোয়েরি শিটের তালিকা ({{$cost_center_name_bn}})</x-title-wrapper>
 
 <div class="col-md-12">
     <div class="d-flex justify-content-end">
         <a class="btn btn-primary btn-sm btn-bold btn-square"
            onclick="Audit_Query_Container.addQuery($(this))"
            href="javascript:;">
-            <i class="far fa-plus mr-1"></i> কোয়েরি যোগ করুন
+            <i class="far fa-plus mr-1"></i> কোয়েরি শিট যোগ করুন
         </a>
     </div>
 </div>

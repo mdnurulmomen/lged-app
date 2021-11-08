@@ -117,6 +117,11 @@
                                 <label for="description">বিস্তারিত</label>
                                 <textarea class="form-control" id="description" name="description" cols="30" rows="4">{{$auditQueryInfo['description']}}</textarea>
                             </div>
+
+                            <div class="form-group">
+                                <label for="cc">অনুলিপি</label>
+                                <textarea class="form-control" id="cc" name="cc" cols="30" rows="4">{{$auditQueryInfo['cc']}}</textarea>
+                            </div>
                         </div>
                     </div>
                 </div>

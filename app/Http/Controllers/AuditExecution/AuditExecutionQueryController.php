@@ -135,6 +135,7 @@ class AuditExecutionQueryController extends Controller
 
         $data['cdesk'] = json_encode_unicode($this->current_desk());
         $data['description'] = $request->description;
+        $data['cc'] = $request->cc;
         $rejected_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.store_audit_query'), $data)->json();
         if ($rejected_audit_query['status'] == 'success') {
             $rejected_audit_query = $rejected_audit_query['data'];
@@ -189,6 +190,7 @@ class AuditExecutionQueryController extends Controller
 
         $data['cdesk'] = json_encode_unicode($this->current_desk());
         $data['description'] = $request->description;
+        $data['cc'] = $request->cc;
         $rejected_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.update_audit_query'), $data)->json();
         if ($rejected_audit_query['status'] == 'success') {
             $rejected_audit_query = $rejected_audit_query['data'];
