@@ -121,6 +121,8 @@ return [
         'get_team_info' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-team-info',
         'get_audit_plan_wise_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team',
         'ap_risk_assessment_store' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/store',
+        'ap_risk_assessment_update' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/update',
+        'ap_risk_assessment_list' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/ap-risk-assessment-list',
         'ap_office_order' => [
             'audit_plan_list' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/audit-plan-list',
             'generate_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/generate',

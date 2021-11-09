@@ -27,6 +27,11 @@
         <div class="col-md-6 text-right">
             <button class="btn btn-sm btn-square btn-primary btn-hover-success"
                     data-parent-office-id="{{$parent_office_id}}"
+                    onclick="Edit_Entity_Plan_Container.riskAssessment($(this));">Risk Assessment
+                <i class="fas fa-ballot-check"></i>
+            </button>
+            <button class="btn btn-sm btn-square btn-primary btn-hover-success"
+                    data-parent-office-id="{{$parent_office_id}}"
                     onclick="Edit_Entity_Plan_Container.showTeamCreateModal($(this));">Team
                     <i class="fas fa-users"></i>
             </button>
@@ -157,6 +162,39 @@
                         console.log(blob);
                     }
                 });
+            },
+
+            riskAssessment: function (elem) {
+                quick_panel = $("#kt_quick_panel");
+                $('.offcanvas-wrapper').html('');
+                quick_panel.addClass('offcanvas-on');
+                quick_panel.css('opacity', 1);
+                quick_panel.css('width', '800px');
+                $('.offcanvas-footer').hide();
+                quick_panel.removeClass('d-none');
+                $("html").addClass("side-panel-overlay");
+                $('.offcanvas-title').html('Risk Assessment');
+
+                url = '{{route('audit.plan.audit.editor.load-risk-assessment-list')}}';
+                annual_plan_id = '{{$annual_plan_id}}';
+                activity_id = '{{$activity_id}}';
+                fiscal_year_id = '{{$fiscal_year_id}}';
+                parent_office_id = elem.data('parent-office-id');
+                audit_plan_id = '{{$audit_plan['id']}}';
+                data = {annual_plan_id, activity_id, fiscal_year_id, audit_plan_id,parent_office_id};
+                KTApp.block('.content', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('.content');
+                    if (response.status === 'error') {
+                        toastr.error('No data found');
+                    } else {
+                        $(".offcanvas-wrapper").html(response);
+                    }
+                })
+
             },
         }
     </script>

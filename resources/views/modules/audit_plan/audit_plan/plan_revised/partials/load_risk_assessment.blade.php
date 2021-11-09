@@ -33,8 +33,11 @@
 
 <script>
 
+    fiscal_year_id = '{{$fiscal_year_id}}';
+    audit_plan_id = '{{$audit_plan_id}}';
+
     $(function () {
-        loadData('inherent');
+        loadData('inherent',fiscal_year_id,audit_plan_id);
     });
 
     function setJsonContentFromPlanBook(){
@@ -48,14 +51,14 @@
         type = $(this).attr('data-type');
 
         if ( !$('.load_data_'+type ).children().length > 0 ) {
-            loadData(type);
+            loadData(type,fiscal_year_id,audit_plan_id);
         }
 
     });
 
 
-    function loadData(risk_assessment_type) {
-        data = {risk_assessment_type};
+    function loadData(risk_assessment_type,fiscal_year_id,audit_plan_id) {
+        data = {risk_assessment_type,fiscal_year_id,audit_plan_id};
         url = '{{route('audit.plan.audit.editor.load-risk-assessment-type-wise-list')}}';
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             // KTApp.unblock('.content');
@@ -117,7 +120,7 @@
         $('.save_'+risk_type).prop("disabled",false);
     }
 
-    function riskRateSubmit(risk_type) {
+    function riskRateSubmit(risk_type,submit_type,id) {
 
         risk_assessments = {};
 
@@ -161,9 +164,14 @@
         risk = $('#risk_'+risk_type).val();
         risk_assessment_type = $('#risk_assessment_type_'+risk_type).val();
 
-        data = {risk_assessments,fiscal_year_id,activity_id,audit_plan_id,risk_rate,total_number,risk,risk_assessment_type};
+        data = {id,risk_assessments,fiscal_year_id,activity_id,audit_plan_id,risk_rate,total_number,risk,risk_assessment_type};
 
-        url = '{{route('audit.plan.audit.editor.store-risk-assessment')}}';
+        if(submit_type == 'add'){
+            url = '{{route('audit.plan.audit.editor.store-risk-assessment')}}';
+        }else{
+             url = '{{route('audit.plan.audit.editor.update-risk-assessment')}}';
+        }
+
 
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             // KTApp.unblock('.content');
