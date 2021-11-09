@@ -7,7 +7,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" id="calender" data-toggle="tab" href="#select_rp_parent_office"
                        aria-controls="tree">
-                        <span class="nav-text">এন্টিটি নির্বাচন</span>
+                        <span class="nav-text">এনটিটি নির্বাচন</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -48,31 +48,34 @@
 
         <form id="annual_plan_form">
             <div class="form-row">
-                <div class="col-md-4">
-                    <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা<span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                    <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা<span class="text-danger">*</span></label>
                     <input class="form-control text-right" type="text" id="total_unit_no" name="total_unit_no" readonly>
                 </div>
 
-                <div class="col-md-4">
-                    <label for="total_unit_no">নির্বাচিত ইউনিটের মোট সংখ্যা<span class="text-danger">*</span></label>
+                <div class="col-md-6">
+                    <label for="total_unit_no">নির্বাচিত ইউনিট সংখ্যা<span class="text-danger">*</span></label>
                     <input class="form-control text-right" type="text" id="total_selected_unit_no" readonly>
                 </div>
+                <div class="col-md-6">
+                    <label for="budget">প্রতিষ্ঠানের মোট বাজেট</label>
+                    <input class="form-control text-right" type="text" id="budget" name="budget">
+                </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
+                    <label for="budget">নির্বাচিত ইউনিটের মোট বাজেট</label>
+                    <input class="form-control text-right" type="text" id="cost_center_total_budget"
+                           name="cost_center_total_budget">
+                </div>
+                <div class="col-md-6">
                     <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter">
                 </div>
-
                 <div class="col-md-6">
-                    <label for="budget">এন্টিটি মোট বাজেট</label>
-                    <input class="form-control" type="text" id="budget" name="budget">
+                    <label for="subject_matter">প্রতিষ্ঠানের শ্রেণি<span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" id="office_type" name="office_type">
                 </div>
 
-                <div class="col-md-6">
-                    <label for="budget">কস্ট সেন্টার মোট বাজেট</label>
-                    <input class="form-control" type="text" id="cost_center_total_budget"
-                           name="cost_center_total_budget">
-                </div>
             </div>
 
             <div class="p-4 mt-4 card">
