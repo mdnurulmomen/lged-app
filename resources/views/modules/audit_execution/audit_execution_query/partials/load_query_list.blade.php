@@ -3,11 +3,11 @@
     <table class="table table-striped">
         <thead class="thead-light">
         <tr>
-            <th width="10%" class="text-center">ক্রমিক নং</th>
-            <th width="25%" class="text-left">স্মারক নং</th>
-            <th width="15%" class="text-center">স্মারক তারিখ</th>
-            <th width="40%" class="text-left">বিষয়</th>
-            <th width="10%" class="text-left">কার্যক্রম</th>
+            <th width="10%" class="text-center">{{___('generic.table_row_header.serial_no')}}</th>
+            <th width="25%" class="text-left">{{___('generic.table_row_header.memorandum_no')}}</th>
+            <th width="15%" class="text-center">{{___('generic.table_row_header.memorandum_date')}}</th>
+            <th width="40%" class="text-left">{{___('generic.table_row_header.subject')}}</th>
+            <th width="10%" class="text-left">{{___('generic.table_row_header.action')}}</th>
         </tr>
         </thead>
         <tbody>
