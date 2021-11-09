@@ -15,16 +15,6 @@
             <x-menu-item href="{{route('audit.plan.annual.plan.revised.all')}}"
                          icon="fal fa-list">Annual Plan
             </x-menu-item>
-
-            <x-parent-menu-item icon="fal fa-calendar" name="Annual Calendar">
-                <x-menu-item href="{{route('audit.plan.annual.calendar.entity')}}"
-                             icon="fal fa-calendar">Entity Calendar
-                </x-menu-item>
-
-                <x-menu-item href="{{route('audit.plan.annual.calendar.staff')}}"
-                             icon="fal fa-calendar">Staff Calendar
-                </x-menu-item>
-            </x-parent-menu-item>
         </ul>
         <!--end::Menu Nav-->
     </div>
