@@ -52,6 +52,7 @@
             entity_info = $('#' + child).data('entity-info');
             Annual_Plan_Container.removeSelectedRPAuditee(entity_info.entity_id);
         })
+        $('#total_selected_unit_no').val($('.selected_entity_sr').length);
     }).on('deselect_node.jstree', function (e, data) {
         entity_info = $('#' + data.node.id).data('entity-info');
         Annual_Plan_Container.removeSelectedRPAuditee(entity_info.entity_id);
@@ -59,6 +60,7 @@
             entity_info = $('#' + child).data('entity-info');
             Annual_Plan_Container.removeSelectedRPAuditee(entity_info.entity_id);
         })
+        $('#total_selected_unit_no').val($('.selected_entity_sr').length);
     }).on('open_node.jstree', function (e, data) {
         parent_node = data.node.id;
         Annual_Plan_Container.loadRPChildOffices(parent_node);

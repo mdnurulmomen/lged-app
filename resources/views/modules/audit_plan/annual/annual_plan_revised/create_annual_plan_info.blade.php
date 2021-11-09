@@ -48,12 +48,17 @@
 
         <form id="annual_plan_form">
             <div class="form-row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা<span class="text-danger">*</span></label>
-                    <input class="form-control text-right" type="text" id="total_unit_no" name="total_unit_no">
+                    <input class="form-control text-right" type="text" id="total_unit_no" name="total_unit_no" readonly>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
+                    <label for="total_unit_no">নির্বাচিত ইউনিটের মোট সংখ্যা<span class="text-danger">*</span></label>
+                    <input class="form-control text-right" type="text" id="total_selected_unit_no" readonly>
+                </div>
+
+                <div class="col-md-4">
                     <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter">
                 </div>

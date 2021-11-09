@@ -16,7 +16,7 @@
     </div>
     <div id="custom_layer_div" style="" class="col-md-{{ $view_grid }}">
         <div class="form-group">
-            <label for="parent_office_layer_id">অফিস লেয়ার </label>
+            <label for="parent_office_layer_id">এন্টিটি/প্রতিষ্ঠান এর ধরন</label>
             <select id="parent_office_layer_id" class="form-control rounded-0 select-select2"
                     name="parent_office_layer_id">
                 <option value="0">--বাছাই করুন--</option>
