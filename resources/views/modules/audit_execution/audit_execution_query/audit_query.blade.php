@@ -1,4 +1,4 @@
-<x-title-wrapper>অডিট কোয়েরি শিটের তালিকা ({{$cost_center_name_bn}})</x-title-wrapper>
+<x-title-wrapper-return>অডিট কোয়েরি শিটের তালিকা ({{$cost_center_name_bn}})</x-title-wrapper-return>
 
 <div class="col-md-12">
     <div class="d-flex justify-content-end">

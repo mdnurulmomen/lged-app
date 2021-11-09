@@ -57,6 +57,10 @@
                     <label for="total_unit_no">নির্বাচিত ইউনিট সংখ্যা<span class="text-danger">*</span></label>
                     <input class="form-control text-right" type="text" id="total_selected_unit_no" readonly>
                 </div>
+            </div>
+
+            <div class="form-row mt-2">
+
                 <div class="col-md-6">
                     <label for="budget">প্রতিষ্ঠানের মোট বাজেট</label>
                     <input class="form-control text-right" type="text" id="budget" name="budget">
@@ -67,6 +71,8 @@
                     <input class="form-control text-right" type="text" id="cost_center_total_budget"
                            name="cost_center_total_budget">
                 </div>
+            </div>
+            <div class="form-row mt-2">
                 <div class="col-md-6">
                     <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter">

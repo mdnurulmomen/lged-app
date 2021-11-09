@@ -1,17 +1,37 @@
-<x-title-wrapper>Annual Plan For {{$fiscal_year}} - ({{$activity_title}})</x-title-wrapper>
 <div class="px-3 py-3">
-    <div class="d-flex justify-content-end">
-        <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
-           data-activity-id="{{$activity_id}}"
-           data-activity-title="{{$activity_title}}"
-           data-schedule-id="{{$schedule_id}}"
-           data-fiscal-year-id="{{$fiscal_year_id}}"
-           data-milestone-id="{{$milestone_id}}"
-           data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-           class="btn btn-success btn-sm btn-bold btn-square btn_create"
-           href="javascript:;">
-            <i class="far fa-plus mr-1"></i> Add Responsible Party
-        </a>
+    <div class="row pb-4">
+        {{--{{dd($annual_plans)}}--}}
+        <div class="col-md-6">
+            <button class="btn_annual_plan_submit_to_ocag btn-sm btn-primary btn-square"
+                    data-fiscal-year-id="{{$fiscal_year_id}}"
+                    data-op-audit-calendar-event-id="{{$plan_list[0]['op_audit_calendar_event_id']}}"
+                    onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">Submit to OCAG
+            </button>
+
+            <button data-fiscal-year-id="{{$fiscal_year_id}}" onclick="Annual_Plan_Container.printAnnualPlan($(this))"
+                    class="btn-sm btn-warning btn-square">Download
+            </button>
+
+            <button class="btn-sm btn-primary btn-square"
+                    data-fiscal-year-id="{{$fiscal_year_id}}"
+                    data-op-audit-calendar-event-id="{{$plan_list[0]['op_audit_calendar_event_id']}}"
+                    onclick="Annual_Plan_Container.movementHistory($(this))">History
+            </button>
+
+            <span class="badge badge-info text-uppercase m-1 p-1 ">
+{{--                {{$plan_list[0]['op_organization_yearly_audit_calendar_event']['approval_status']}}--}}
+            </span>
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex justify-content-end">
+                <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
+                   data-fiscal-year-id="{{$fiscal_year_id}}"
+                   class="btn btn-success btn-sm btn-bold btn-square btn_create"
+                   href="javascript:;">
+                    <i class="far fa-plus mr-1"></i> Add Responsible Party
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 

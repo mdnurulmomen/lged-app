@@ -27,7 +27,7 @@
     });
 
     var Annual_Plan_Container = {
-        loadAnnualPlanList: function () {
+        loadAnnualActivityEventList: function () {
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
             if (fiscal_year_id) {
@@ -447,6 +447,24 @@
                 }
 
             });
+        },
+
+        loadAnnualPlanList: function () {
+            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
+            if (fiscal_year_id) {
+                let url = '{{route('audit.plan.annual.plan.revised.annual-entities-show')}}';
+                let data = {fiscal_year_id, fiscal_year};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data)
+                    } else {
+                        $('#load_annual_plan_lists').html(response);
+                    }
+                });
+            } else {
+                $('#load_annual_plan_lists').html('');
+            }
         },
     };
 </script>
