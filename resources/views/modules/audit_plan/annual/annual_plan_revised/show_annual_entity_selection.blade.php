@@ -19,13 +19,14 @@
             </button>
 
             <span class="badge badge-info text-uppercase m-1 p-1 ">
-{{--                {{$plan_list[0]['op_organization_yearly_audit_calendar_event']['approval_status']}}--}}
+                {{$approval_status}}
             </span>
         </div>
         <div class="col-md-6">
             <div class="d-flex justify-content-end">
                 <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
                    data-fiscal-year-id="{{$fiscal_year_id}}"
+                   data-op-audit-calendar-event-id="{{$plan_list[0]['op_audit_calendar_event_id']}}"
                    class="btn btn-success btn-sm btn-bold btn-square btn_create"
                    href="javascript:;">
                     <i class="far fa-plus mr-1"></i> Add Responsible Party

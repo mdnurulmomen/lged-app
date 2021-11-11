@@ -122,3 +122,11 @@ body,
     right: -15px;
     top: -15px;
 }
+
+@font-face {
+font-family: SutonnyBanglaFont;
+src: url(../font/SutonnyMJ.woff);
+}
+.bijoy-bangla{
+    font-family: SutonnyBanglaFont, serif;
+}

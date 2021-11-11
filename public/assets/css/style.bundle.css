@@ -44034,8 +44034,8 @@ code {
   font-size: 0.9rem;
   font-weight: 400; }
 
-.form-control[readonly] {
-  background-color: #ffffff; }
+/*.form-control[readonly] {*/
+/*  background-color: #ffffff; }*/
 
 .form-control.form-control-pill {
   border-radius: 1.5; }

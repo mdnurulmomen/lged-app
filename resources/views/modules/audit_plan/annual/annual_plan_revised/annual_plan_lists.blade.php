@@ -154,13 +154,9 @@
         },
 
         addPlanInfo: function (elem) {
-            schedule_id = elem.data('schedule-id');
-            activity_id = elem.data('activity-id');
-            milestone_id = elem.data('milestone-id');
             fiscal_year_id = elem.data('fiscal-year-id');
-            activity_title = elem.data('activity-title');
             op_audit_calendar_event_id = elem.data('op-audit-calendar-event-id');
-            data = {schedule_id, activity_id, milestone_id, activity_title, fiscal_year_id, op_audit_calendar_event_id}
+            data = {fiscal_year_id, op_audit_calendar_event_id}
             KTApp.block('#kt_content');
             let url = '{{route('audit.plan.annual.plan.list.show.revised.create_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -169,6 +165,20 @@
                     toastr.error(response.data)
                 } else {
                     $('#kt_content').html(response)
+                }
+            });
+        },
+
+        loadActivityWiseMilestone: function (activity_id) {
+            data = {
+                activity_id,
+            }
+            let url = '{{route('audit.plan.annual.plan.list.show.revised.activity-wise-milestone-select')}}'
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('#milestone_id').html(response)
                 }
             });
         },
@@ -403,10 +413,16 @@
 
         submitAnnualPlan: function (elem) {
             url = '{{route('audit.plan.annual.plan.revised.store')}}';
-            data = $('#annual_plan_form').serialize();
+
+            data = $('#annual_plan_form').serializeArray();
+
+            data.push({name: "activity_id", value: $('#activity_id').val()});
+            data.push({name: "milestone_id", value: $('#milestone_id').val()});
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
                     toastr.success('Successfully Added!');
+                    $('.annual_plan_menu a').click();
                 } else {
                     if (response.statusCode === '422') {
                         var errors = response.msg;

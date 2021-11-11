@@ -42,11 +42,11 @@
                                 <div class="card-body" style="height: calc(100vh - 115px);padding: 10px;">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input class="form-control integer_type_positive mb-1"
+                                            <input class="form-control bijoy-bangla integer_type_positive mb-1"
                                                    name="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control integer_type_positive mb-1"
+                                            <input class="form-control bijoy-bangla integer_type_positive mb-1"
                                                    name="onishponno_jorito_ortho_poriman" placeholder="অনিষ্পন্ন জড়িত অর্থ (টাকা)" type="text">
                                         </div>
                                     </div>
@@ -108,15 +108,6 @@
                                         <option value="3">আংশিক নিস্পন্ন</option>
                                     </select>
 
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">
-                                            মেমো সংযুক্তি <span class="text-primary">(ঐচ্ছিক)</span>
-                                        </label>
-                                        <input name="memo_attachment" type="file" class="form-control rounded-0"
-                                               accept="image/*" multiple>
-                                    </div>
-
                                     <div class="form-group">
                                         <label class="col-form-label">
                                             পরিশিষ্ট সংযুক্তি
@@ -130,6 +121,14 @@
                                             প্রমানক সংযুক্তি
                                         </label>
                                         <input name="pramanok" type="file" class="form-control rounded-0"
+                                               accept="image/*" multiple>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">
+                                            মেমো সংযুক্তি <span class="text-primary">(ঐচ্ছিক)</span>
+                                        </label>
+                                        <input name="memo_attachment" type="file" class="form-control rounded-0"
                                                accept="image/*" multiple>
                                     </div>
                                 </div>

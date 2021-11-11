@@ -6,8 +6,7 @@
             <th width="5%">
                 <input type="checkbox" id="selectAll">
             </th>
-            <th width="5%" class="text-center">ক্রমিক নং</th>
-            <th width="7%" class="text-center">অনুচ্ছেদ নং</th>
+            <th width="7%" class="text-center">মেমো নং</th>
             <th width="10%" class="text-center">আপত্তির শিরোনাম</th>
             <th width="10%" class="text-center">আপত্তি অনিয়মের ধরন</th>
             <th width="10%" class="text-center">জড়িত অর্থ (টাকা)</th>
@@ -25,8 +24,7 @@
                 <td><input type="checkbox"  data-cost-center-id="{{$memo['cost_center_id']}}"
                            {{$memo['has_sent_to_rpu'] == 1?'checked disabled':''}}
                            value="{{$memo['id']}}" class="select-memo"></td>
-                <td>{{enTobn($loop->iteration)}}</td>
-                <td>{{$memo['onucched_no']}}</td>
+                <td class="text-center">{{enTobn($memo['onucched_no'])}}</td>
                 <td>{{$memo['memo_title_bn']}}</td>
                 <td>{{$memo['memo_irregularity_type_name']}}</td>
                 <td class="text-right">{{enTobn(number_format($memo['jorito_ortho_poriman'],0))}}</td>

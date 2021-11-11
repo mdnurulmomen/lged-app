@@ -880,7 +880,7 @@
                                 <td class="bangla-font" width="10%">{{$annual_plans['ministry_name_bn']}}</td>
                                 <td class="bangla-font" style="text-align: center"
                                     width="10%">{{$annual_plans['controlling_office_bn']}}</td>
-                                <td class="bangla-font" width="10%">{{$annual_plans['office_type']}}</td>
+                                <td class="bangla-font" width="10%"></td>
                                 <td class="bangla-font" style="text-align: center"
                                     width="10%">{{enTobn($annual_plans['total_unit_no'])}}</td>
                                 <td class="bangla-font" width="20%">

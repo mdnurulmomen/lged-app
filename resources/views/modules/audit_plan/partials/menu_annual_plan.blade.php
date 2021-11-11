@@ -12,7 +12,7 @@
 {{--                         icon="fal fa-list">Annual Plan--}}
 {{--            </x-menu-item>--}}
 
-            <x-menu-item href="{{route('audit.plan.annual.plan.revised.all')}}"
+            <x-menu-item class="annual_plan_menu" href="{{route('audit.plan.annual.plan.revised.all')}}"
                          icon="fal fa-list">Annual Plan
             </x-menu-item>
         </ul>

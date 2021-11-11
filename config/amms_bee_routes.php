@@ -51,6 +51,7 @@ return [
 
     'audit_operational_plan' => [
         'op_activity_lists' => env('API_URL_BEE', '') . '/planning/operational-plan/activity',
+        'get_all_op_activity' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/get-all-activity',
         'op_activity_find' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/find',
         'op_activity_by_fiscal_year' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/all-by-fiscal-year',
         'op_activity_milestones_load' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/milestones',

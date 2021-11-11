@@ -2,12 +2,10 @@
 
 <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
     <div class="col-md-12">
-        <div class="title">
-            <span class="btn btn-icon btn-secondary btn-square float-left {{$class}}" data-container="{{$area}}" type="button">
-                <i title="{{$title}}" class="{{$icon}}" onclick="returnToBack($(this))"></i>
-            </span>
-            <span>{{$slot}}</span>
+        <div class="btn btn-icon btn-secondary btn-square float-left {{$class}}" data-container="{{$area}}" type="button">
+            <i title="{{$title}}" class="{{$icon}}" onclick="returnToBack($(this))"></i>
         </div>
+        <div><span>{{$slot}}</span></div>
     </div>
 </div>
 <script>

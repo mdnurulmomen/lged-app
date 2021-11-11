@@ -2,6 +2,28 @@
 
 <div class="row ml-7 mr-7 pt-4">
     <div class="col-6">
+        <div class="form-row">
+            <div class="col-md-6">
+                <label for="activity_id">অ্যাক্টিভিটি<span class="text-danger">*</span></label>
+                <select class="form-control" name="activity_id" id="activity_id">
+                    <option value="">অ্যাক্টিভিটি বাছাই করুন</option>
+                    @foreach($all_activity as $activity)
+                        <option value="{{$activity['id']}}">{{$activity['title_bn']}} </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="activity_id">মাইলস্টোন<span class="text-danger">*</span></label>
+                <select class="form-control" name="milestone_id" id="milestone_id">
+                    <option value="">মাইলস্টোন বাছাই করুন</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row ml-7 mr-7 pt-4">
+    <div class="col-6">
         <div class="annual_entity_selection_area">
             <ul class="nav nav-tabs custom-tabs mb-0" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -24,13 +46,11 @@
                     <div class="px-3">
                         <x-rp-parent-office-select grid="6" unit="true"/>
                     </div>
+                    <h5 class="text-primary pl-3"><u>এনটিটি/প্রতিষ্ঠানের তালিকাঃ</u></h5>
                     <div class="col-md-12 rp_auditee_parent_office_tree"></div>
                 </div>
                 <div class="tab-pane border border-top-0 p-3 fade" id="select_entity_by_layer"
                      role="tabpanel" aria-labelledby="activity-tab">
-                    {{--                    <div class="px-3">--}}
-                    {{--                        <x-rp-office-select grid="6" unit="true"/>--}}
-                    {{--                    </div>--}}
                     <div class="col-md-12 rp_auditee_office_tree"></div>
                 </div>
             </div>
@@ -54,7 +74,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="total_unit_no">নির্বাচিত ইউনিট সংখ্যা<span class="text-danger">*</span></label>
+                    <label for="total_selected_unit_no">নির্বাচিত ইউনিট সংখ্যা<span class="text-danger">*</span></label>
                     <input class="form-control text-right" type="text" id="total_selected_unit_no" readonly>
                 </div>
             </div>
@@ -63,12 +83,12 @@
 
                 <div class="col-md-6">
                     <label for="budget">প্রতিষ্ঠানের মোট বাজেট</label>
-                    <input class="form-control text-right" type="text" id="budget" name="budget">
+                    <input class="form-control text-right bijoy-bangla integer_type_positive" type="text" id="budget" name="budget">
                 </div>
 
                 <div class="col-md-6">
                     <label for="budget">নির্বাচিত ইউনিটের মোট বাজেট</label>
-                    <input class="form-control text-right" type="text" id="cost_center_total_budget"
+                    <input class="form-control text-right bijoy-bangla integer_type_positive" type="text" id="cost_center_total_budget"
                            name="cost_center_total_budget">
                 </div>
             </div>
@@ -79,7 +99,11 @@
                 </div>
                 <div class="col-md-6">
                     <label for="subject_matter">প্রতিষ্ঠানের শ্রেণি<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="office_type" name="office_type">
+                    <select class="form-control" name="office_type" id="office_type">
+                        <option value="">প্রতিষ্ঠানের শ্রেণি বাছাই করুন</option>
+                        <option value="Budgetary Central Government">Budgetary Central Government</option>
+                        <option value="Non Budgetary Central Government">Non Budgetary Central Government</option>
+                    </select>
                 </div>
 
             </div>
@@ -121,10 +145,10 @@
                     <textarea class="form-control" id="comment" name="comment"></textarea>
                 </div>
             </div>
-            <input type="hidden" name="schedule_id" value="{{$schedule_id}}">
+{{--            <input type="hidden" name="schedule_id" value="{{$schedule_id}}">--}}
             <input type="hidden" name="op_audit_calendar_event_id" value="{{$op_audit_calendar_event_id}}">
-            <input type="hidden" name="activity_id" value="{{$activity_id}}">
-            <input type="hidden" name="milestone_id" value="{{$milestone_id}}">
+{{--            <input type="hidden" name="activity_id" value="{{$activity_id}}">--}}
+{{--            <input type="hidden" name="milestone_id" value="{{$milestone_id}}">--}}
             <input type="hidden" name="fiscal_year_id" value="{{$fiscal_year_id}}">
         </form>
     </div>
@@ -146,6 +170,11 @@
         layer_id = $(this).val();
         ministry_id = $('#parent_ministry_id').val();
         Annual_Plan_Container.loadRPParentAuditeeOffices(ministry_id, layer_id);
+    });
+
+    $("#activity_id").change(function () {
+        activity_id = $(this).val();
+        Annual_Plan_Container.loadActivityWiseMilestone(activity_id);
     });
 
     selected = null

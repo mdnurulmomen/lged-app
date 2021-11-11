@@ -326,12 +326,12 @@ button[disabled]{
     margin-right: 15px;
 }
 .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link{
-    background-color: #c1e0ff !important; 
+    background-color: #c1e0ff !important;
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
 }
 .aside-menu .menu-link:hover{
-    background-color: #F3F6F9 !important; 
+    background-color: #F3F6F9 !important;
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
 }
@@ -435,7 +435,7 @@ button[disabled]{
     border-color: transparent !important;
 }
 .ndoptro-menu .ndoptor-links{
-    width: 350px !important; 
+    width: 350px !important;
 }
 .ndoptro-menu .es_links_wrap{
     padding: 0 !important;
@@ -451,8 +451,8 @@ button[disabled]{
     -webkit-box-flex: 0 !important;
     -ms-flex: 0 0 50% !important;
     flex: 0 0 50% !important;
-    max-width: 50% !important; 
-    width: 50% !important; 
+    max-width: 50% !important;
+    width: 50% !important;
     border-bottom: 1px solid #EBEDF3 !important;
     border-right: 1px solid #EBEDF3 !important;
     box-shadow: none !important;

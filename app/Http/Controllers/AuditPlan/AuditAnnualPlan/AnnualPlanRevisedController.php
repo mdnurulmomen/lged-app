@@ -51,37 +51,30 @@ class AnnualPlanRevisedController extends Controller
 
         $planListResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_entities_list_show'),
             $data)->json();
+
+
         if (isSuccess($planListResponseData)) {
-            $plan_list = $planListResponseData['data'];
+            $plan_list = $planListResponseData['data']['annual_plan_list'];
+            $approval_status = $planListResponseData['data']['approval_status'];
         }
 
-//        dd($plan_list);
-
-//        $activity_id = $request->activity_id;
-//        $schedule_id = $request->schedule_id;
-//        $milestone_id = $request->milestone_id;
         $fiscal_year = $request->fiscal_year;
         $fiscal_year_id = $request->fiscal_year_id;
-//        $activity_title = $request->activity_title;
-        $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
 
         return view('modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection',
             compact('plan_list','fiscal_year',
-                'fiscal_year_id'));
+                'fiscal_year_id','approval_status'));
 
     }
 
     public function showStaffAssignList(Request $request)
     {
-        //dd($this->current_office_id());
         $responseData = $this->initDoptorHttp()
             ->post(config('cag_doptor_api.office_and_grade_wise_designation'),
                 [
                     'office_ids' => $this->current_office_id(),
                     'grade_id' => 12,
                 ])->json();
-
-        //dd($responseData);
 
         if (isSuccess($responseData)) {
             $data['designations'] = $responseData['data']['designations'];
@@ -97,14 +90,43 @@ class AnnualPlanRevisedController extends Controller
     public function addAnnualPlanInfo(Request $request)
     {
         $data = Validator::make($request->all(), [
-            'activity_id' => 'required|integer',
-            'schedule_id' => 'required|integer',
-            'milestone_id' => 'required|integer',
             'fiscal_year_id' => 'required|integer',
             'op_audit_calendar_event_id' => 'required|integer',
         ])->validate();
 
-        return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info')->with($data);
+        $all_activity = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_all_op_activity'),
+            $data)->json();
+
+        $fiscal_year_id = $request->fiscal_year_id;
+        $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
+
+        if (isSuccess($all_activity)) {
+            $all_activity = $all_activity['data'];
+            return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info',compact('all_activity','fiscal_year_id','op_audit_calendar_event_id'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $all_activity]);
+        }
+
+    }
+
+    public function activityWiseMilestoneSelect(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'activity_id' => 'required|integer',
+        ])->validate();
+
+        $all_milestone = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_milestones_load'),
+            $data)->json();
+
+//        dd($all_milestone);
+
+        if (isSuccess($all_milestone)) {
+            $all_milestone = $all_milestone['data'];
+            return view('modules.audit_plan.annual.annual_plan_revised.milestone_select',compact('all_milestone'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $all_milestone]);
+        }
+
     }
 
     public function storeAnnualPlanInfo(Request $request): \Illuminate\Http\JsonResponse
@@ -113,12 +135,12 @@ class AnnualPlanRevisedController extends Controller
             Validator::make($request->all(), [
                 'op_audit_calendar_event_id' => 'required',
                 'activity_id' => 'required|integer',
-                'schedule_id' => 'required|integer',
                 'milestone_id' => 'required|integer',
                 'fiscal_year_id' => 'required|integer',
                 'ministry_info' => 'required',
                 'controlling_office' => 'required',
                 'parent_office' => 'required',
+                'office_type' => 'required',
                 'selected_entity' => 'required',
                 'subject_matter' => 'required|string',
                 'total_unit_no' => 'required|string',
@@ -131,11 +153,11 @@ class AnnualPlanRevisedController extends Controller
             $data = [
                 'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
                 'activity_id' => $request->activity_id,
-                'schedule_id' => $request->schedule_id,
                 'audit_calendar_event_id' => $request->op_audit_calendar_event_id,
                 'fiscal_year_id' => $request->fiscal_year_id,
                 'milestone_id' => $request->milestone_id,
                 'subject_matter' => $request->subject_matter,
+                'office_type' => $request->office_type,
                 'total_unit_no' => $request->total_unit_no,
                 'comment' => $request->comment,
                 'budget' => $request->budget,
@@ -212,7 +234,6 @@ class AnnualPlanRevisedController extends Controller
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
             $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos], [], ['orientation' => 'L', 'format' => 'A4']);
-
             return $pdf->stream('annual_plan.pdf');
         } else {
             return response()->json(['status' => 'error', 'data' => $plan_infos]);
