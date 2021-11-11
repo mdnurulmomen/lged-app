@@ -788,9 +788,10 @@
     </div>
 
     <div class="pdf-screen bangla-font" style="height: 100%">
-        @foreach($plans as $plan)
+        @foreach(json_decode($plans,true) as $plan)
             <div class="plan_content bangla-font">
-                {!! $plan['content'] !!}
+                {!! dump($plan['id']) !!}
+                {!! dump(@$plan['content']) !!}
             </div>
         @endforeach
     </div>
