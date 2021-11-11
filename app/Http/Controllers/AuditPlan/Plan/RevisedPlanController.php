@@ -146,7 +146,6 @@ class RevisedPlanController extends Controller
         $cover = $plans[0];
         array_shift($plans);
         //dd($plans);
-        $plans = json_encode($plans,JSON_HEX_TAG|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_HEX_APOS|JSON_HEX_QUOT);
         $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
             compact('plans', 'cover'));
 
