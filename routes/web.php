@@ -330,7 +330,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'querySchedule'])->name('query-schedule-list');
         Route::get('load-query-schedule-lists', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadQueryScheduleList'])->name('load-query-schedule-lists');
 
-        Route::group(['as' => 'query.', 'prefix'=> 'query/'],function (){
+        Route::group(['as' => 'query.', 'prefix' => 'query/'], function () {
             Route::post('index', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'auditQuery'])->name('index');
             Route::post('load-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadAuditQuery'])->name('load-list');
             Route::post('create', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'auditQueryCreate'])->name('create');
@@ -352,7 +352,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::get('review', [\App\Http\Controllers\AuditExecution\AuditExecutionReviewController::class, 'index'])->name('review');
 
-        Route::group(['as' => 'memo.', 'prefix'=> 'memo/'],function (){
+        Route::group(['as' => 'memo.', 'prefix' => 'memo/'], function () {
             Route::post('index', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'index'])->name('index');
             Route::post('create', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'create'])->name('create');
             Route::post('store', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'store'])->name('store');
@@ -475,6 +475,10 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::post('/output/lists', [\App\Http\Controllers\Setting\XStrategicPlan\OutputController::class, 'getOutputLists'])->name('output.lists');
             Route::resource('/output', \App\Http\Controllers\Setting\XStrategicPlan\OutputController::class, ['except' => ['edit', 'create']]);
+        });
+
+        Route::group(['as' => 'permission.', 'prefix' => 'permissions/'], function () {
+
         });
     });
 
