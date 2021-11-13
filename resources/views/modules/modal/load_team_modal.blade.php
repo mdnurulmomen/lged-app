@@ -1090,7 +1090,7 @@
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'success') {
                         toastr.success(response.data);
-                        $(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
+                        //$(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
                         Load_Team_Container.insertAuditScheduleListInBook();
                         Load_Team_Container.setJsonContentFromPlanBook();
                     } else {
@@ -1104,11 +1104,11 @@
         },
 
         insertTeamDataInBook: function () {
-            $('.audit_team_leader').html(Load_Team_Container.editor_leader_info);
+            //$('.audit_team_leader').html(Load_Team_Container.editor_leader_info);
             $('.audit_team_number').html($('#permitted_level_1').find('.layer_text').val());
             //$('.proposed_date_commencement_audit').html($('#permitted_level_1').find('.layer_text').text());
-            $('.proposed_date_commencement_audit').text(BnFromEng($('#team_start_date').val()));
-            $('.proposed_date_completion_audit').text(BnFromEng($('#team_end_date').val()));
+            $('.proposed_date_commencement_audit').text(BnFromEng($('#team_start_date').val())+' খ্রি:');
+            $('.proposed_date_completion_audit').text(BnFromEng($('#team_end_date').val())+' খ্রি:');
             $('.duration_audit_performance').text(BnFromEng($('#team_start_date').val()) + ' খ্রি. হতে ' + BnFromEng($('#team_end_date').val()) + ' খ্রি. পর্যন্ত।');
             Load_Team_Container.insertAuditTeamListInBook();
         },
@@ -1188,17 +1188,17 @@ style="padding-left: 5px;">
         },
 
         insertAuditTeamListInBook: function () {
+            auditTeamLeaderInfo = '';
             auditTeamMember = '';
-            auditTeamMember += `<table border="1">
+            auditTeamMember += `<table width="100%" border="1">
                                 <thead>
                                     <tr>
                                         <th class="text-center">ক্রমিক নং</th>
                                         <th class="text-center">নাম</th>
-                                        <th class="text-center">পদবী</th>
-                                        <th class="text-center">নিরীক্ষা দলে অবস্থান</th>
-                                        <th class="text-center">মোবাইল নং</th>
+                                        <th class="text-center">সংশোধিত</th>
                                     </tr>
-                                </thead><tbody>`;
+                                </thead>
+                                <tbody>`;
             serial = 0;
             teamName = '';
             allTeamNameInfo = '';
@@ -1207,16 +1207,17 @@ style="padding-left: 5px;">
                     teamName = team.team_name;
                 }
 
-                allTeamNameInfo += team.team_name + ',';
+                allTeamNameInfo += team.team_name + ', ';
                 $.each(team.members, function (key, members) {
                     $.each(members, function (key, member) {
                         serial++;
+                        if (serial === 1){
+                            auditTeamLeaderInfo = member.officer_name_bn+','+member.designation_bn;
+                        }
                         auditTeamMember += '<tr>' +
-                            '<td class="text-center">' + enTobn(serial) + '</td>' +
-                            '<td class="text-center">' + member.officer_name_bn + '</td>' +
-                            '<td class="text-center">' + member.designation_bn + '</td>' +
-                            '<td class="text-center">' + member.team_member_role_bn + '</td>' +
-                            '<td class="text-center">' + enTobn(member.officer_mobile) + '</td>' +
+                            '<td style="text-align: center">' + enTobn(serial) +'.'+ '</td>' +
+                            '<td class="text-center">' + member.officer_name_bn+','+member.designation_bn + '</td>' +
+                            '<td class="text-center"></td>' +
                             '</tr>';
                     });
                 });
@@ -1225,10 +1226,11 @@ style="padding-left: 5px;">
 
             auditTeamMember += '</tbody></table>';
 
-            $(".audit_team_name").html(teamName);
-            $(".seniority_wise_audit_team").html(auditTeamMember);
-            $(".audit_team_members").html(auditTeamMember);
-            $(".audit_team_number").html(allTeamNameInfo);
+            //$(".audit_team_names").html(teamName);
+            $(".seniority_wise_audit_engagement_team_member").html(auditTeamMember);
+            //$(".audit_team_members").html(auditTeamMember);
+            $(".audit_team_names").html(allTeamNameInfo);
+            $(".audit_team_leader").html(auditTeamLeaderInfo);
 
         },
 

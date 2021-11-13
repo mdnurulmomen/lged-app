@@ -62,10 +62,9 @@
 
 
     function setCoverInformation() {
-        $('.top_audit_directorate_name_field').html("{{$cover_info['directorate_name']}}")
-        $('.bottom_audit_directorate_name_field').html("{{$cover_info['directorate_name']}}")
+        $('.directorate_name').html("{{$cover_info['directorate_name']}}")
         $('.entity_name').html("{{$cover_info['entity_name']}}")
-        $('.responsible_party_name_field').html("{{$cover_info['party_name']}}")
+        $('.party_name').html("{{$cover_info['party_name']}}")
         $('.audit_fiscal_year').html("{{$cover_info['fiscal_year']}}")
 
         if (!isEmpty(parentOfficeOtherDataJSON)) {

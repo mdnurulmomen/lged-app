@@ -185,13 +185,15 @@
     }
 
     function saveInBook(risk_assessments,risk_assessment_type,risk,risk_rate,total_number){
-        data = {risk_assessments,risk_assessment_type,risk,risk_rate,total_number};
 
+        $('.risk_'+risk_assessment_type+'_point').html(BnFromEng(risk_rate));
+
+        data = {risk_assessments,risk_assessment_type,risk,risk_rate,total_number};
         url = '{{route('audit.plan.audit.editor.risk-assessment-book')}}';
 
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 // $('.authorithy').html(response);
-                $('.risk_'+risk_assessment_type).html(response);
+                $('.risk_'+risk_assessment_type+'_details').html(response);
                 setJsonContentFromPlanBook();
         });
     }
