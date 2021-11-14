@@ -92,7 +92,7 @@ trait UserInfoCollector
             'is_unit_head' => json_decode($this->current_designation_role())->is_unit_head ?? false,
             'is_unit_admin' => json_decode($this->current_designation_role())->is_unit_admin ?? false,
             'designation_id' => $this->current_designation_id(),
-            'master_designation_id' => $this->current_office()['ref_master_designation_info_id'],
+            'master_designation_id' => $this->current_office()['ref_designation_master_info_id'],
             'officer_id' => $this->getOfficerId(),
             'user_primary_id' => $this->getUserId(),
             'user_id' => $this->getUsername(),
