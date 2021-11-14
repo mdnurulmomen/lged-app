@@ -176,7 +176,7 @@ trait UserInfoCollector
             'module_link' => $module_link,
         ])->json();
         if (is_array($menus) && isset($menus['status']) && $menus['status'] == 'success') {
-            session()->put('_module_menus', $menus);
+            session()->put('_module_menus', $menus['data']);
             session()->save();
             return session('_module_menus');
         }
