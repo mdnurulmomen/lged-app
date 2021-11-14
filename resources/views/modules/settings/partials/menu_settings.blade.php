@@ -50,6 +50,15 @@
                              icon="fal fa-calendar-alt">Menus
                 </x-menu-item>
             </x-parent-menu-item>
+
+            <x-parent-menu-item icon="fas fa-list" name="Permission">
+                <x-menu-item class="p_modules" href="{{route('settings.risk-assessment.index')}}"
+                             icon="fal fa-calendar-alt">Roles
+                </x-menu-item>
+                <x-menu-item class="p_modules" href="{{route('settings.risk-assessment.index')}}"
+                             icon="fal fa-calendar-alt">Permission Assign
+                </x-menu-item>
+            </x-parent-menu-item>
         </ul>
     </div>
 </div>

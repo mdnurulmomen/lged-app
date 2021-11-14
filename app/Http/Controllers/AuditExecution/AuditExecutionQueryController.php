@@ -52,13 +52,14 @@ class AuditExecutionQueryController extends Controller
 
     public function loadAuditQuery(Request $request)
     {
+        $schedule_id = $request->schedule_id;
         $data['cost_center_id'] = $request->cost_center_id;
         $data['cdesk'] = json_encode_unicode($this->current_desk());
         $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.load_audit_query'), $data)->json();
         //dd($data);
         $audit_query_list = $audit_query_list['status'] == 'success'?$audit_query_list['data']:[];
         return view('modules.audit_execution.audit_execution_query.partials.load_query_list',
-            compact('audit_query_list'));
+            compact('audit_query_list','schedule_id'));
     }
 
     public function loadTypeWiseAuditQuery(Request $request)
@@ -105,9 +106,11 @@ class AuditExecutionQueryController extends Controller
     {
         $cost_center_types = $this->allCostCenterType();
         $schedule_id = $request->schedule_id;
+        $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
+        $cost_center_name_en = $request->cost_center_name_en;
         return view('modules.audit_execution.audit_execution_query.create',
-            compact('cost_center_types','schedule_id','cost_center_name_bn'));
+            compact('cost_center_types','schedule_id','cost_center_id','cost_center_name_bn','cost_center_name_en'));
     }
 
     public function loadRejectAuditQuery(Request $request)
@@ -134,12 +137,16 @@ class AuditExecutionQueryController extends Controller
         $data['cdesk'] = json_encode_unicode($this->current_desk());
         $data['description'] = $request->description;
         $data['cc'] = $request->cc;
-        $rejected_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.store_audit_query'), $data)->json();
-        if ($rejected_audit_query['status'] == 'success') {
-            $rejected_audit_query = $rejected_audit_query['data'];
-            return response()->json(['status' => 'success', 'data' => $rejected_audit_query]);
+
+        $store_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.store_audit_query'), $data)->json();
+
+//        dd($store_audit_query);
+
+        if ($store_audit_query['status'] == 'success') {
+            $store_audit_query = $store_audit_query['data'];
+            return response()->json(['status' => 'success', 'data' => $store_audit_query]);
         } else {
-            return response()->json(['status' => 'error', 'data' => $rejected_audit_query]);
+            return response()->json(['status' => 'error', 'data' => $store_audit_query]);
         }
     }
 
@@ -162,12 +169,13 @@ class AuditExecutionQueryController extends Controller
     {
         $data['cdesk'] = json_encode_unicode($this->current_desk());
         $data['ac_query_id'] = $request->ac_query_id;
+        $schedule_id = $request->schedule_id;
         $audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.view_audit_query'), $data)->json();
         if (isSuccess($audit_query)) {
             $auditQueryInfo = $audit_query['data'];
             $cost_center_types = $this->allCostCenterType();
             return view('modules.audit_execution.audit_execution_query.edit',
-                compact('auditQueryInfo','cost_center_types'));
+                compact('auditQueryInfo','cost_center_types', 'schedule_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $audit_query]);
         }
