@@ -1,6 +1,6 @@
 <div class="col-md-12 pl-4 text-capitalize">
     @if($type == 'module')
-        @foreach ($module_children as $module) {
+        @foreach ($module_children as $module)
         <div class="col-md-12 pl-0 text-capitalize">
             <label>
                 <input data-type="module" name="modules[]"

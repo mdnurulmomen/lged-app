@@ -41,6 +41,10 @@ class Controller extends BaseController
 
         $userOffices = $this->getUserOffices();
         view()->share('userOffices', $userOffices);
+
+        $moduleMenus = $this->userPermittedModules();
+        view()->share('modules', $moduleMenus);
+
     }
 
     public function wizard()

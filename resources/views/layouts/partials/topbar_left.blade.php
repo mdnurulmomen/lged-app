@@ -3,6 +3,38 @@
     <div id="kt_header_menu" class="header-menu header-menu-mobile header-menu-layout-default">
         <!--begin::Header Nav-->
         <ul class="menu-nav">
+            @foreach($modules as $module)
+                @if(!empty($module['children']))
+                    <li class="menu-item">
+                        <div class="dropdown">
+                            <button
+                                class="btn btn-outline-primary btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown"
+                                type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fad fa-ballot-check"></i> <span>{{$module['module_name_en']}}</span>
+                            </button>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @foreach($module['children'] as $child)
+                                    <a class="dropdown-item"
+                                       href="{{url($child['module_link'])}}}">{{$child['module_name_en']}}</a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </li>
+                @else
+                    <li class="menu-item">
+                        <a
+                            href="{{url($module['module_link'])}}}"
+                            class="btn btn-outline-danger btn-square btn-sm width-160p text-left"
+                            type="button">
+                            <i class="fal fa-network-wired"></i><span>{{$module['module_name_en']}}</span>
+                        </a>
+                    </li>
+
+                @endif
+
+            @endforeach
+{{--comment below--}}
             <li class="menu-item">
                 <div class="dropdown">
                     <button
@@ -26,18 +58,18 @@
                     <i class="fal fa-network-wired"></i><span>Conducting</span>
                 </a>
 
-{{--                <button--}}
-{{--                    class="btn btn-outline-danger btn-square dropdown-toggle btn-sm width-160p text-left fixed-width-dropdown"--}}
-{{--                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-{{--                    <i class="fal fa-network-wired"></i><span>Conducting</span>--}}
-{{--                </button>--}}
-{{--                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
-{{--                    <a class="dropdown-item" href="{{route('audit.execution.area')}}">Team Calendar</a>--}}
-{{--                    <a class="dropdown-item" href="{{route('audit.execution.area')}}">Audit Area</a>--}}
-{{--                    <a class="dropdown-item" href="{{route('audit.execution.query')}}">Audit Query</a>--}}
-{{--                    <a class="dropdown-item" href="{{route('audit.execution.discussion')}}">Audit Discussion</a>--}}
-{{--                    <a class="dropdown-item" href="{{route('audit.execution.review')}}">Review</a>--}}
-{{--                </div>--}}
+                {{--                <button--}}
+                {{--                    class="btn btn-outline-danger btn-square dropdown-toggle btn-sm width-160p text-left fixed-width-dropdown"--}}
+                {{--                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                {{--                    <i class="fal fa-network-wired"></i><span>Conducting</span>--}}
+                {{--                </button>--}}
+                {{--                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
+                {{--                    <a class="dropdown-item" href="{{route('audit.execution.area')}}">Team Calendar</a>--}}
+                {{--                    <a class="dropdown-item" href="{{route('audit.execution.area')}}">Audit Area</a>--}}
+                {{--                    <a class="dropdown-item" href="{{route('audit.execution.query')}}">Audit Query</a>--}}
+                {{--                    <a class="dropdown-item" href="{{route('audit.execution.discussion')}}">Audit Discussion</a>--}}
+                {{--                    <a class="dropdown-item" href="{{route('audit.execution.review')}}">Review</a>--}}
+                {{--                </div>--}}
             </li>
             <li class="menu-item">
                 <button

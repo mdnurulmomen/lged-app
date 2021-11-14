@@ -20,7 +20,8 @@
                                type="checkbox"
                                value="{{$menu['id']}}"
                                class="parent_menu" id="parent_{{$menu['id']}}"> <span
-                            class="pl-2">{{$menu['menu_name_en']}} <span class="badge badge-primary p-1">Menu</span>
+                            class="pl-2">{{$menu['menu_name_en']}} </span><span
+                            class="badge badge-primary p-1">Menu</span>
                     </label>
                     @if(!empty($menu['children']))
                         @include('modules.settings.permission.partials.load_menu_module_child_lists',['menu_children' => $menu['children'], 'type' => 'menu'])

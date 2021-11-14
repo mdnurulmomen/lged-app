@@ -80,15 +80,17 @@ trait UserInfoCollector
 
     public function userPermittedModules()
     {
-        $modules = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.modules'), [
-            'cdesk' => json_encode_unicode($this->current_desk()),
-        ])->json();
-        if (is_array($modules) && isset($modules['status']) && $modules['status'] == 'success') {
-            session()->put('_modules', $modules);
-            session()->save();
-            return session('_modules');
+        if (!session()->has('_modules') || session('_modules') == null) {
+            $modules = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.modules'), [
+                'cdesk' => json_encode_unicode($this->current_desk()),
+            ])->json();
+            if (is_array($modules) && isset($modules['status']) && $modules['status'] == 'success') {
+                session()->put('_modules', $modules['data']);
+                session()->save();
+                return session('_modules');
+            }
         }
-        return null;
+        return session('_modules');
     }
 
     function current_desk(): array
