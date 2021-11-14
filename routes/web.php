@@ -477,7 +477,10 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::resource('/output', \App\Http\Controllers\Setting\XStrategicPlan\OutputController::class, ['except' => ['edit', 'create']]);
         });
 
-        Route::group(['as' => 'permission.', 'prefix' => 'permissions/'], function () {
+        Route::post('/module-menus/lists', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'getModules'])->name('module-menus.lists');
+        Route::resource('/module-menus', \App\Http\Controllers\Setting\PMenuModuleController::class, ['except' => ['edit', 'create']]);
+
+        Route::group(['as' => 'role-permissions.', 'prefix' => 'role-permissions/'], function () {
 
         });
     });
