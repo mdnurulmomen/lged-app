@@ -7,9 +7,10 @@
 @endsection
 
 @section('sideMenu')
-    @if(session('_module_menus') != null)
-        @include('layouts.partials._sidenav')
-    @endif
+{{--    @if(session('_module_menus') != null)--}}
+{{--        @include('layouts.partials._sidenav')--}}
+{{--    @endif--}}
+    @include('modules.audit_plan.partials.menu_strategic_plan')
 @endsection
 
 @section('content')
