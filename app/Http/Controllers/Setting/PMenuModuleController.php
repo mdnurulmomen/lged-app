@@ -44,12 +44,14 @@ class PMenuModuleController extends Controller
             'module_name_en' => 'required',
             'module_name_bn' => 'required',
             'is_other_module' => 'required',
+            'parent_module_id' => 'nullable',
+            'module_link' => 'nullable',
+            'module_class' => 'nullable',
+            'module_icon' => 'nullable',
+            'display_order' => 'nullable',
+            'module_controller' => 'nullable',
+            'module_method' => 'nullable',
         ])->validate();
-        $data['parent_module_id'] = $request->parent_module_id;
-        $data['module_link'] = $request->module_link;
-        $data['module_class'] = $request->module_class;
-        $data['module_icon'] = $request->module_icon;
-        $data['display_order'] = $request->display_order;
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.module_store'), $data)->json();
         if (isSuccess($responseData)) {
@@ -58,4 +60,48 @@ class PMenuModuleController extends Controller
             return response()->json(['status' => 'error', 'data' => $responseData]);
         }
     }
+
+    public function edit(Request $request)
+    {
+        Validator::make($request->all(), [
+            'menu_module_id' => 'required|integer',
+        ])->validate();
+
+        $data['menu_module_id'] = $request->menu_module_id;
+        $moduleInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.module_show'), $data)->json();
+        $moduleInfo = isSuccess($moduleInfo)?$moduleInfo['data']:[];
+
+        $data['all'] = 'all';
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $moduleList = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.module_list'), $data)->json();
+        $moduleList = isSuccess($moduleList)?$moduleList['data']:[];
+
+        return view('modules.settings.p_module.p_module_edit',compact('moduleList',
+            'moduleInfo'));
+    }
+
+    public function update(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'menu_module_id' => 'required|integer',
+            'module_name_en' => 'required',
+            'module_name_bn' => 'required',
+            'is_other_module' => 'required',
+            'parent_module_id' => 'nullable',
+            'module_link' => 'nullable',
+            'module_class' => 'nullable',
+            'module_icon' => 'nullable',
+            'display_order' => 'nullable',
+            'module_controller' => 'nullable',
+            'module_method' => 'nullable',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.module_update'), $data)->json();
+        if (isSuccess($responseData)) {
+            return response()->json(responseFormat('success', 'Updated Successfully'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData]);
+        }
+    }
+
 }

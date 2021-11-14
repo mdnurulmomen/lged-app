@@ -43,12 +43,46 @@ class PRoleController extends Controller
             'description_en' => 'required',
             'description_bn' => 'required',
             'user_level' => 'required|integer',
-            'master_designation_id' => 'nullable|integer',
+            'master_designation_id' => 'required|integer',
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.role_store'), $data)->json();
         if (isSuccess($responseData)) {
             return response()->json(responseFormat('success', 'Created Successfully'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData]);
+        }
+    }
+
+    public function edit(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'role_id' => 'required|integer'
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $roleInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.role_show'), $data)->json();
+        //dd($roleInfo);
+        $roleInfo = isSuccess($roleInfo)?$roleInfo['data']:[];
+        $masterDesignationList = $this->cagDoptorMasterDesignations();
+        return view('modules.settings.p_role.p_role_edit',compact('roleInfo',
+            'masterDesignationList'));
+    }
+
+    public function update(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'role_id' => 'required|integer',
+            'role_name_en' => 'required',
+            'role_name_bn' => 'required',
+            'description_en' => 'required',
+            'description_bn' => 'required',
+            'user_level' => 'required|integer',
+            'master_designation_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.role_update'), $data)->json();
+        if (isSuccess($responseData)) {
+            return response()->json(responseFormat('success', 'Updated Successfully'));
         } else {
             return response()->json(['status' => 'error', 'data' => $responseData]);
         }

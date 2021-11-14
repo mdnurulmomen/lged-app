@@ -1,12 +1,12 @@
 <!--begin::Table-->
 <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped" width="100%">
         <thead class="thead-light">
         <tr>
-            <th class="text-left">Role Name</th>
-            <th class="text-left">Role Description</th>
-            <th class="text-left">User Level</th>
-            <th  class="text-left" width="10%">Action</th>
+            <th width="20%" class="text-left">Role Name</th>
+            <th width="50%" class="text-left">Role Description</th>
+            <th width="10%" class="text-left">User Level</th>
+            <th width="20%" class="text-left" width="10%">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -16,7 +16,13 @@
                 <td>{{$role['description_en']}}</td>
                 <td>{{$role['user_level']}}</td>
                 <td>
-
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button title="হালনাগাদ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                data-role-id="{{$role['id']}}"
+                                onclick="Role_Container.editRole($(this))">
+                            <i class="fad fa-edit"></i>
+                        </button>
+                    </div>
                 </td>
             </tr>
         @endforeach

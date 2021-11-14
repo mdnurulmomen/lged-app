@@ -482,6 +482,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'index'])->name('index');
             Route::post('/create', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'create'])->name('create');
             Route::post('/store', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'store'])->name('store');
+            Route::post('/edit', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'edit'])->name('edit');
+            Route::post('/update', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'update'])->name('update');
             Route::post('/lists', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'getModules'])->name('lists');
         });
 
@@ -492,6 +494,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/', [\App\Http\Controllers\Setting\PMenuController::class, 'index'])->name('index');
             Route::post('/create', [\App\Http\Controllers\Setting\PMenuController::class, 'create'])->name('create');
             Route::post('/store', [\App\Http\Controllers\Setting\PMenuController::class, 'store'])->name('store');
+            Route::post('/edit', [\App\Http\Controllers\Setting\PMenuController::class, 'edit'])->name('edit');
+            Route::post('/update', [\App\Http\Controllers\Setting\PMenuController::class, 'update'])->name('update');
             Route::post('/lists', [\App\Http\Controllers\Setting\PMenuController::class, 'getMenus'])->name('lists');
         });
 
@@ -500,6 +504,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/', [\App\Http\Controllers\Setting\PRoleController::class, 'index'])->name('index');
             Route::post('/create', [\App\Http\Controllers\Setting\PRoleController::class, 'create'])->name('create');
             Route::post('/store', [\App\Http\Controllers\Setting\PRoleController::class, 'store'])->name('store');
+            Route::post('/edit', [\App\Http\Controllers\Setting\PRoleController::class, 'edit'])->name('edit');
+            Route::post('/update', [\App\Http\Controllers\Setting\PRoleController::class, 'update'])->name('update');
             Route::post('/lists', [\App\Http\Controllers\Setting\PRoleController::class, 'getRoles'])->name('lists');
         });
 

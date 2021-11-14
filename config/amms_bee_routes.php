@@ -50,12 +50,18 @@ return [
 
         'module_list' => env('API_URL_BEE', '') . '/module-menus',
         'module_store' => env('API_URL_BEE', '') . '/module-menus/create',
+        'module_show' => env('API_URL_BEE', '') . '/module-menus/show',
+        'module_update' => env('API_URL_BEE', '') . '/module-menus/update',
 
         'menu_list' => env('API_URL_BEE', '') . '/menus',
         'menu_store' => env('API_URL_BEE', '') . '/menus/create',
+        'menu_show' => env('API_URL_BEE', '') . '/menus/show',
+        'menu_update' => env('API_URL_BEE', '') . '/menus/update',
 
         'role_list' => env('API_URL_BEE', '') . '/roles',
         'role_store' => env('API_URL_BEE', '') . '/roles/create',
+        'role_show' => env('API_URL_BEE', '') . '/roles/show',
+        'role_update' => env('API_URL_BEE', '') . '/roles/update',
     ],
 
     'audit_operational_plan' => [

@@ -30,7 +30,13 @@
                 <td>{{$module['module_link']}}</td>
                 <td>{{$module['is_other_module'] == 1?'Yes':'No'}}</td>
                 <td>
-
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button title="হালনাগাদ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                data-menu-module-id="{{$module['id']}}"
+                                onclick="Module_Container.editModule($(this))">
+                            <i class="fad fa-edit"></i>
+                        </button>
+                    </div>
                 </td>
             </tr>
         @endforeach

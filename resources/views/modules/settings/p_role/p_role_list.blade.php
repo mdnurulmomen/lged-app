@@ -51,6 +51,35 @@
                 }
             });
         },
+
+        editRole: function (elem) {
+            role_id = elem.data('role-id');
+
+            data = {role_id};
+            url = '{{route('settings.roles.edit')}}';
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                }
+                else {
+                    $(".offcanvas-title").text('Role Edit');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
     };
 
     $(function () {

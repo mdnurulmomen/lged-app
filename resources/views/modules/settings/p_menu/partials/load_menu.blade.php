@@ -24,7 +24,13 @@
                 <td>{{$menu['menu_icon']}}</td>
                 <td>{{$menu['menu_link']}}</td>
                 <td>
-
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button title="হালনাগাদ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                data-menu-id="{{$menu['id']}}"
+                                onclick="Menu_Container.editMenu($(this))">
+                            <i class="fad fa-edit"></i>
+                        </button>
+                    </div>
                 </td>
             </tr>
         @endforeach
