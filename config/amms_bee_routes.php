@@ -204,8 +204,8 @@ return [
             'authority_memo_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/authority-memo-list',
             'audit_memo_recommendation_store' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-recommendation-store',
             'audit_memo_recommendation_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-recommendation-list',
-            'audit_memo_log_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-log-list'
-        ]
+            'audit_memo_log_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-log-list',
+        ],
     ],
 
     'final_plan_file' => [
@@ -213,6 +213,12 @@ return [
         'store' => env('API_URL_BEE', '') . '/final-plan-file/store',
         'edit' => env('API_URL_BEE', '') . '/final-plan-file/edit',
         'update' => env('API_URL_BEE', '') . '/final-plan-file/update',
+    ],
+
+    'role-and-permissions' => [
+        'modules' => env('API_URL_BEE', '') . '/role-and-permissions/modules',
+        'other-modules' => env('API_URL_BEE', '') . '/role-and-permissions/modules/other',
+        'menus' => env('API_URL_BEE', '') . '/role-and-permissions/module/menus',
     ],
 
     'document_is_exist' => env('API_URL_BEE', '') . '/document-is-exist',

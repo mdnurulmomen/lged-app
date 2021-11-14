@@ -42,16 +42,10 @@ trait UserInfoCollector
         $login_cookie = isset($_COOKIE['_ndoptor']) ? $_COOKIE['_ndoptor'] : null;
         if ($login_cookie) {
             $login_cag_bee = $this->loginIntoCagBee($login_cookie);
-            $login_data_from_cookie = json_decode(gzuncompress(base64_decode($login_cookie)), true);
             $this->getDesignationRole();
             if ($login_cag_bee && $login_cag_bee['status'] === 'success') {
                 return session('login');
             }
-//            if ($login_data_from_cookie && $login_data_from_cookie['status'] === 'success') {
-//                session()->put('login', $login_data_from_cookie);
-//                session()->save();
-//                return session('login');
-//            }
         }
         return null;
     }
@@ -61,25 +55,40 @@ trait UserInfoCollector
         return session('login') ?: $this->loginIntoCagBeeCore($data);
     }
 
-    function getDeskInformation($cdesk)
+    public function current_office_domain()
     {
-        return [
-            'office_id' => $cdesk['office_id'],
-            'office_unit_id' => $cdesk['office_unit_id'],
-            'designation_id' => $cdesk['office_unit_organogram_id'],
-            'officer_id' => $cdesk['employee_record_id'],
-            'user_primary_id' => $cdesk['user_primary_id'],
-            'user_id' => $cdesk['user_id'],
-            'office' => $cdesk['office_name_bn'],
-            'office_unit' => $cdesk['unit_name_en'],
-            'designation' => $cdesk['designation'],
-            'officer' => $cdesk['officer_name'],
-            'officer_grade' => $cdesk['employee_grade'],
-            'designation_level' => $cdesk['designation_level'],
-            'designation_sequence' => $cdesk['designation_sequence'],
-            'email' => $cdesk['email'],
-            'phone' => $cdesk['phone'],
-        ];
+        return $this->current_office()['office_domain_url'];
+    }
+
+    public function current_office()
+    {
+        return session('_current_office') ?: $this->getUserOffices()[0];
+    }
+
+    public function employee_signature()
+    {
+        return session()->has('login') ? session('login')['data']['signature'] : null;
+    }
+
+    public function forceLogout()
+    {
+        session()->forget('login');
+        unset($_COOKIE['_ndoptor']);
+        $return_url = url('/login');
+        return redirect(config('jisf.logout_sso_url') . '?referer=' . base64_encode($return_url));
+    }
+
+    public function userPermittedModules()
+    {
+        $modules = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.modules'), [
+            'cdesk' => json_encode_unicode($this->current_desk()),
+        ])->json();
+        if (is_array($modules) && isset($modules['status']) && $modules['status'] == 'success') {
+            session()->put('_modules', $modules);
+            session()->save();
+            return session('_modules');
+        }
+        return null;
     }
 
     function current_desk(): array
@@ -127,11 +136,6 @@ trait UserInfoCollector
         return session('_designation_role') ?: json_encode([]);
     }
 
-    public function current_office()
-    {
-        return session('_current_office') ?: $this->getUserOffices()[0];
-    }
-
     public function getOfficerId()
     {
         return $this->checkLogin() ? session('login')['data']['user']['employee_record_id'] : null;
@@ -152,21 +156,30 @@ trait UserInfoCollector
         return session()->has('login') ? session('login')['data']['employee_info'] : null;
     }
 
-    public function current_office_domain()
+    public function userPermittedOtherModules()
     {
-        return $this->current_office()['office_domain_url'];
+        $other_modules = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.other-modules'), [
+            'cdesk' => json_encode_unicode($this->current_desk()),
+        ])->json();
+        if (is_array($other_modules) && isset($other_modules['status']) && $other_modules['status'] == 'success') {
+            session()->put('_other_modules', $other_modules);
+            session()->save();
+            return session('_other_modules');
+        }
+        return null;
     }
 
-    public function employee_signature()
+    public function userPermittedMenusByModule($module_link)
     {
-        return session()->has('login') ? session('login')['data']['signature'] : null;
-    }
-
-    public function forceLogout()
-    {
-        session()->forget('login');
-        unset($_COOKIE['_ndoptor']);
-        $return_url = url('/login');
-        return redirect(config('jisf.logout_sso_url') . '?referer=' . base64_encode($return_url));
+        $menus = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.menus'), [
+            'cdesk' => json_encode_unicode($this->current_desk()),
+            'module_link' => $module_link,
+        ])->json();
+        if (is_array($menus) && isset($menus['status']) && $menus['status'] == 'success') {
+            session()->put('_module_menus', $menus);
+            session()->save();
+            return session('_module_menus');
+        }
+        return null;
     }
 }
