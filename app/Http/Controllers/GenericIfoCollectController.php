@@ -17,4 +17,9 @@ class GenericIfoCollectController extends Controller
         $outcome_id = $request->outcome_id;
         return $this->strategicPlanOutcomeRemarks($outcome_id);
     }
+
+    public function cagDoptorMasterDesignations()
+    {
+        return $this->cagDoptorMasterDesignations();
+    }
 }

@@ -231,6 +231,8 @@ return [
     ],
 
     'role-and-permissions' => [
+        'get-module-menu-lists' => env('API_URL_BEE', '') . '/role-and-permissions/get-module-menu-lists',
+        'assign-menus-to-role' => env('API_URL_BEE', '') . '/role-and-permissions/assign-menus-to-role',
         'modules' => env('API_URL_BEE', '') . '/role-and-permissions/modules',
         'other-modules' => env('API_URL_BEE', '') . '/role-and-permissions/modules/other',
         'menus' => env('API_URL_BEE', '') . '/role-and-permissions/module/menus',

@@ -55,7 +55,7 @@
                 <x-menu-item class="p_modules" href="{{route('settings.roles.index')}}"
                              icon="fal fa-calendar-alt">Roles
                 </x-menu-item>
-                <x-menu-item class="p_modules" href="{{route('settings.risk-assessment.index')}}"
+                <x-menu-item class="p_modules" href="{{route('settings.role-permissions.index')}}"
                              icon="fal fa-calendar-alt">Permission Assign
                 </x-menu-item>
             </x-parent-menu-item>

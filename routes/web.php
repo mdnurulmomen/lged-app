@@ -511,7 +511,10 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         //role permission
         Route::group(['as' => 'role-permissions.', 'prefix' => 'role-permissions/'], function () {
-
+            Route::get('/', [\App\Http\Controllers\Setting\PermissionController::class, 'index'])->name('index');
+            Route::post('/get-menu-module-lists', [\App\Http\Controllers\Setting\PermissionController::class, 'loadMenuModuleLists'])->name('get-menu-module-lists');
+            Route::post('/get-roles-list', [\App\Http\Controllers\Setting\PermissionController::class, 'loadAllRoles'])->name('get-roles-list');
+            Route::post('/assign-menus-to-role', [\App\Http\Controllers\Setting\PermissionController::class, 'assignMenuModuleToRole'])->name('assign-menus-to-role');
         });
     });
 
@@ -524,6 +527,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     Route::group(['as' => 'generic.'], function () {
         Route::post('get-strategic-outcome-remarks', [\App\Http\Controllers\GenericIfoCollectController::class, 'getStrategicOutcomeRemarks'])->name('outcome.remarks');
         Route::post('get-strategic-output-by-outcome', [\App\Http\Controllers\GenericIfoCollectController::class, 'getStrategicOutputByOutcome'])->name('output.by.outcome');
+        Route::post('designation-master-data', [\App\Http\Controllers\GenericIfoCollectController::class, 'cagDoptorMasterDesignations'])->name('designation-master-data');
     });
 
     //Generic RPU Data Collection
