@@ -25,9 +25,18 @@
                 <h5 class="mt-5">{{$cost_center_name_bn}} (অর্থবছর : ২০২১-২০২২)</h5>
             </div>
         </div>
-
         <div class="col-md-4">
             <div class="d-flex justify-content-end">
+                <a
+                    onclick="Audit_Query_Schedule_Container.query($(this))"
+                    data-schedule-id="{{$schedule_id}}"
+                    data-cost-center-id="{{$cost_center_id}}"
+                    data-cost-center-name-en="{{$cost_center_name_en}}"
+                    data-cost-center-name-bn="{{$cost_center_name_bn}}"
+                    class="btn btn-sm btn-outline-warning btn_back btn-square mr-3">
+                    <i class="fad fa-arrow-alt-left"></i> ফেরত যান
+                </a>
+
                 <a id="memo_submit" class="btn btn-success btn-sm btn-bold btn-square"
                    onclick="Query_Create_Container.saveAuditQuery()"
                    href="javascript:;">
@@ -191,6 +200,7 @@
                 KTApp.unblock('#kt_content');
                 if (response.status === 'success') {
                     toastr.success('Successfully Added!');
+                    $('.btn_back').click();
                 } else {
                     if (response.statusCode === '422') {
                         var errors = response.msg;

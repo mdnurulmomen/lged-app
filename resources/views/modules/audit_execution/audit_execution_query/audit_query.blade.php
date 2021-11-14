@@ -18,9 +18,10 @@
             opacity: 0.1,
             state: 'primary' // a bootstrap color
         });
+        schedule_id = '{{$schedule_id}}';
         cost_center_id ='{{$cost_center_id}}';
         url = '{{route('audit.execution.query.load-list')}}';
-        data = { cost_center_id};
+        data = { cost_center_id,schedule_id};
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             KTApp.unblock('#kt_content');
             if (response.status === 'error') {
@@ -34,8 +35,10 @@
     var Audit_Query_Container = {
         addQuery: function (elem) {
             schedule_id = '{{$schedule_id}}';
+            cost_center_id = '{{$cost_center_id}}';
             cost_center_name_bn = '{{$cost_center_name_bn}}';
-            data = {schedule_id,cost_center_name_bn};
+            cost_center_name_en = '{{$cost_center_name_bn}}';
+            data = {schedule_id,cost_center_id,cost_center_name_bn,cost_center_name_en};
             url = '{{route('audit.execution.query.create')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {

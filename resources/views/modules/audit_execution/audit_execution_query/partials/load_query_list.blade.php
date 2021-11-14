@@ -26,7 +26,7 @@
                 <div class="btn-group btn-group-sm" role="group">
                     @if($query['has_sent_to_rpu'] == 0)
                         <button title="হালনাগাদ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
-                                data-ac-query-id="{{$query['id']}}" onclick="Audit_Query_List_Container.editQuery($(this))">
+                               data-schedule-id="{{$schedule_id}}" data-ac-query-id="{{$query['id']}}" onclick="Audit_Query_List_Container.editQuery($(this))">
                             <i class="fad fa-edit"></i>
                         </button>
                     @endif
@@ -59,7 +59,8 @@
     var Audit_Query_List_Container = {
         editQuery: function (elem) {
             ac_query_id = elem.data('ac-query-id');
-            data = {ac_query_id};
+            schedule_id = elem.data('schedule-id');
+            data = {ac_query_id,schedule_id};
             url = '{{route('audit.execution.query.edit')}}';
 
             KTApp.block('#kt_content', {

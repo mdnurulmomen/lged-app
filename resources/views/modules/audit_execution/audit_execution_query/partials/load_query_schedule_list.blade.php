@@ -46,24 +46,27 @@
                                             <div class="d-flex align-items-center justify-content-md-end">
                                                 <div class="btn-group folder-wrapper mb-2 mt-3 mr-3">
                                                     <button
+                                                        id="query_schedule_{{$schedule['id']}}"
                                                         onclick="Audit_Query_Schedule_Container.query($(this))"
                                                         data-schedule-id="{{$schedule['id']}}"
                                                         data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                         data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
                                                         data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
                                                         type="button"
-                                                        class="btn btn-sm rounded-0 alert-primary  folder_click">
+                                                        class="btn btn-sm rounded-0 alert-primary query_schedule_{{$schedule['id']}}  folder_click">
                                                         Query
                                                     </button>
 
-                                                    <button data-schedule-id="{{$schedule['id']}}"
-                                                            data-audit-plan-id="{{$schedule['audit_plan_id']}}"
-                                                            data-cost-center-id="{{$schedule['cost_center_id']}}"
-                                                            data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
-                                                            data-audit-year-start="{{$schedule['plan_team']['audit_year_start']}}"
-                                                            data-audit-year-end="{{$schedule['plan_team']['audit_year_end']}}"
-                                                            onclick="Audit_Query_Schedule_Container.memo($(this))" type="button"
-                                                            class="btn btn-sm rounded-0 alert-warning  folder_click">
+                                                    <button
+                                                        id="memo_schedule_{{$schedule['id']}}"
+                                                        data-schedule-id="{{$schedule['id']}}"
+                                                        data-audit-plan-id="{{$schedule['audit_plan_id']}}"
+                                                        data-cost-center-id="{{$schedule['cost_center_id']}}"
+                                                        data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
+                                                        data-audit-year-start="{{$schedule['plan_team']['audit_year_start']}}"
+                                                        data-audit-year-end="{{$schedule['plan_team']['audit_year_end']}}"
+                                                        onclick="Audit_Query_Schedule_Container.memo($(this))" type="button"
+                                                        class="btn btn-sm rounded-0 alert-warning  folder_click">
                                                         Memo
                                                     </button>
                                                 </div>
