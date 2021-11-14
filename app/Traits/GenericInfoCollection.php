@@ -111,6 +111,16 @@ trait GenericInfoCollection
         }
     }
 
+    public function cagDoptorMasterDesignations()
+    {
+        $designations = $this->initDoptorHttp()->post(config('cag_doptor_api.designation_master_data'), [])->json();
+        if ($designations['status'] == 'success') {
+            return $designations['data'];
+        } else {
+            return [];
+        }
+    }
+
     public function getAuditTemplate($template_type, $lang = 'en'): array
     {
         return $this->initHttpWithToken()->post(config('amms_bee_routes.audit_template_show'), ['template' => $template_type, 'language' => $lang])->json();

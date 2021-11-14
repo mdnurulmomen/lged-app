@@ -477,13 +477,38 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::resource('/output', \App\Http\Controllers\Setting\XStrategicPlan\OutputController::class, ['except' => ['edit', 'create']]);
         });
 
-        Route::post('/module-menus/lists', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'getModules'])->name('module-menus.lists');
-        Route::resource('/module-menus', \App\Http\Controllers\Setting\PMenuModuleController::class, ['except' => ['edit', 'create']]);
+        //for module menu
+        Route::group(['as' => 'module-menus.', 'prefix' => 'module-menus/'], function () {
+            Route::get('/', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'index'])->name('index');
+            Route::post('/create', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'store'])->name('store');
+            Route::post('/lists', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'getModules'])->name('lists');
+        });
 
+        //Route::resource('/module-menus', \App\Http\Controllers\Setting\PMenuModuleController::class, ['except' => ['edit', 'create']]);
+
+        //for menu
+        Route::group(['as' => 'menus.', 'prefix' => 'menus/'], function () {
+            Route::get('/', [\App\Http\Controllers\Setting\PMenuController::class, 'index'])->name('index');
+            Route::post('/create', [\App\Http\Controllers\Setting\PMenuController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\Setting\PMenuController::class, 'store'])->name('store');
+            Route::post('/lists', [\App\Http\Controllers\Setting\PMenuController::class, 'getMenus'])->name('lists');
+        });
+
+        //for role
+        Route::group(['as' => 'roles.', 'prefix' => 'roles/'], function () {
+            Route::get('/', [\App\Http\Controllers\Setting\PRoleController::class, 'index'])->name('index');
+            Route::post('/create', [\App\Http\Controllers\Setting\PRoleController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\Setting\PRoleController::class, 'store'])->name('store');
+            Route::post('/lists', [\App\Http\Controllers\Setting\PRoleController::class, 'getRoles'])->name('lists');
+        });
+
+        //role permission
         Route::group(['as' => 'role-permissions.', 'prefix' => 'role-permissions/'], function () {
 
         });
     });
+
 
     //Miscellaneous
     Route::get('locale/{locale}', [App\Http\Controllers\ChangeController::class, 'changeLocale'])->name('change.locale');

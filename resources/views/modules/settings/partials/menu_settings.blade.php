@@ -43,16 +43,16 @@
             </x-parent-menu-item>
 
             <x-parent-menu-item icon="fas fa-list" name="Modules & Menus">
-                <x-menu-item class="p_modules" href="{{route('settings.risk-assessment.index')}}"
+                <x-menu-item class="p_modules" href="{{route('settings.module-menus.index')}}"
                              icon="fal fa-calendar-alt">Modules
                 </x-menu-item>
-                <x-menu-item class="p_modules" href="{{route('settings.risk-assessment.index')}}"
+                <x-menu-item class="p_modules" href="{{route('settings.menus.index')}}"
                              icon="fal fa-calendar-alt">Menus
                 </x-menu-item>
             </x-parent-menu-item>
 
             <x-parent-menu-item icon="fas fa-list" name="Permission">
-                <x-menu-item class="p_modules" href="{{route('settings.risk-assessment.index')}}"
+                <x-menu-item class="p_modules" href="{{route('settings.roles.index')}}"
                              icon="fal fa-calendar-alt">Roles
                 </x-menu-item>
                 <x-menu-item class="p_modules" href="{{route('settings.risk-assessment.index')}}"

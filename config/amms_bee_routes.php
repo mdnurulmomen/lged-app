@@ -47,6 +47,15 @@ return [
         'risk_assessment_delete' => env('API_URL_BEE', '') . '/risk-assessment/delete',
 
         'cost_center_type_lists' => env('API_URL_BEE', '') . '/cost-center-type',
+
+        'module_list' => env('API_URL_BEE', '') . '/module-menus',
+        'module_store' => env('API_URL_BEE', '') . '/module-menus/create',
+
+        'menu_list' => env('API_URL_BEE', '') . '/menus',
+        'menu_store' => env('API_URL_BEE', '') . '/menus/create',
+
+        'role_list' => env('API_URL_BEE', '') . '/roles',
+        'role_store' => env('API_URL_BEE', '') . '/roles/create',
     ],
 
     'audit_operational_plan' => [

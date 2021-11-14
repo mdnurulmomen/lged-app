@@ -14,4 +14,5 @@ return [
     'office_unit_designation_map' => env('API_URL_DOPTOR', '') . '/office/unit-designation-map',
     'office_unit_designation_employee_map' => env('API_URL_DOPTOR', '') . '/office/unit-designation-employee-map',
     'designation_role' => env('API_URL_DOPTOR', '') . '/office/designation-role',
+    'designation_master_data' => env('API_URL_DOPTOR', '') . '/designation-master-data',
 ];
