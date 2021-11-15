@@ -68,7 +68,7 @@
 <script>
     var Role_Edit_Container ={
         updateRole: function () {
-            url = '{{route('settings.roles.update')}}';
+            url = '{{route('settings.roles.store')}}';
             data = $('#role_update_form').serialize();
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {

@@ -16,7 +16,7 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 @foreach($module['children'] as $child)
                                     <a class="dropdown-item"
-                                       href="{{url($child['module_link'])}}">{{$child['module_name_en']}}</a>
+                                       href="{{url(htmlspecialchars($child['module_link']))}}">{{$child['module_name_en']}}</a>
                                 @endforeach
                             </div>
                         </div>
@@ -24,7 +24,7 @@
                 @else
                     <li class="menu-item">
                         <a
-                            href="{{url($module['module_link'])}}"
+                            href="{{url(htmlspecialchars($module['module_link']))}}"
                             class="btn {{$module['module_class']}} btn-square btn-sm width-160p text-left"
                             type="button">
                             <i class="{{$module['module_icon']}}"></i><span>{{$module['module_name_en']}}</span>
