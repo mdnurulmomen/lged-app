@@ -15,6 +15,7 @@ class AuditExecutionQueryController extends Controller
      */
     public function index()
     {
+        $this->userPermittedMenusByModule(request()->path());
         return view('modules.audit_execution.audit_execution_query.index');
     }
 

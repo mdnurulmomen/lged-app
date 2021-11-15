@@ -88,7 +88,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="display_order">Display Order</label>
+                <label for="display_order">Display Order<span class="text-danger">*</span></label>
                 <input class="form-control integer_type_positive" type="text" id="display_order" name="display_order"
                        value="{{$moduleInfo['display_order']}}"
                        placeholder="Enter display order">
@@ -99,7 +99,7 @@
                 <label for="is_other_module">Other Module</label>
                 <select class="form-control select-select2" id="is_other_module" name="is_other_module">
                     <option value="1" {{$moduleInfo['is_other_module'] == 1?'selected':''}}>Yes</option>
-                    <option value="0" {{$moduleInfo['is_other_module'] == 1?'selected':''}}>No</option>
+                    <option value="0" {{$moduleInfo['is_other_module'] == 0?'selected':''}}>No</option>
                 </select>
             </div>
         </div>

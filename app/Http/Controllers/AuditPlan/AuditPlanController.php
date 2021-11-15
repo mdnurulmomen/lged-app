@@ -8,6 +8,7 @@ class AuditPlanController extends Controller
 {
     public function index()
     {
+        $this->userPermittedMenusByModule(request()->path());
         return view('modules.audit_plan.audit_plan.index');
     }
 

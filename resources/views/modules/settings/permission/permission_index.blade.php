@@ -18,7 +18,7 @@
             });
         },
 
-        loadRolesList: function (page = 1, per_page = 100) {
+        loadRolesList: function () {
             let url = '{{route('settings.role-permissions.get-roles-list')}}';
             ajaxCallAsyncCallbackAPI(url, {}, 'POST', function (response) {
                 if (response.status === 'error') {
@@ -28,6 +28,7 @@
                 }
             });
         },
+
         assignMenusToRole: function () {
             menus = $("#menuAssignForm input:checkbox:checked").map(function () {
                 if ($(this).attr('data-type') == 'menu') {

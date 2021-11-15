@@ -44,11 +44,11 @@ class PMenuModuleController extends Controller
             'module_name_en' => 'required',
             'module_name_bn' => 'required',
             'is_other_module' => 'required',
+            'display_order' => 'required',
             'parent_module_id' => 'nullable',
             'module_link' => 'nullable',
             'module_class' => 'nullable',
             'module_icon' => 'nullable',
-            'display_order' => 'nullable',
             'module_controller' => 'nullable',
             'module_method' => 'nullable',
         ])->validate();

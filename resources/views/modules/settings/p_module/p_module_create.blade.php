@@ -78,7 +78,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="display_order">Display Order</label>
+                <label for="display_order">Display Order<span class="text-danger">*</span></label>
                 <input class="form-control integer_type_positive" type="text" id="display_order" name="display_order"
                        placeholder="Enter display order">
             </div>
