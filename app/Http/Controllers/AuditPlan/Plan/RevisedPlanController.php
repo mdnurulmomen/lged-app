@@ -48,6 +48,23 @@ class RevisedPlanController extends Controller
 
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
 
+        if ($this->current_office_id() == 19){
+            $directorate_address_footer = 'অডিট কমপ্লেক্স,১ম তলা,সেগুনবাগিচা,ঢাকা-1000।';
+            $directorate_address_top = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-1000।';
+            $directorate_website = 'www.dgcivil-cagbd.org';
+        }
+        elseif ($this->current_office_id() == 32){
+            $directorate_address_footer = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা),সেগুনবাগিচা,ঢাকা-1000।';
+            $directorate_address_top = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-1000।';
+            $directorate_website = 'www.worksaudit.org.bd';
+        }
+        else{
+            $directorate_address_footer = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা),সেগুনবাগিচা,ঢাকা-1000।';
+            $directorate_address_top = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-1000।';
+            $directorate_website = 'www.cad.org.bd';
+        }
+
+
         $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_create_draft'), $data)->json();
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
@@ -60,9 +77,14 @@ class RevisedPlanController extends Controller
             $parent_office_id = $audit_plan['annual_plan']['parent_office_id'];
             $content = $audit_plan['plan_description'];
             $cover_info = [
+                'directorate_address_footer' => $directorate_address_footer,
+                'directorate_address_top' => $directorate_address_top,
+                'directorate_website' => $directorate_website,
+                'created_by' => $this->getEmployeeInfo()['name_bng'].',<br>'.$this->current_office()['designation'],
                 'directorate_name' => $this->current_office()['office_name_bn'],
                 'party_name' => $audit_plan['annual_plan']['controlling_office_bn'],
                 'entity_name' => $audit_plan['annual_plan']['parent_office_name_bn'],
+                'entity_office_type' => $audit_plan['annual_plan']['office_type'],
                 'fiscal_year' => enTobn($audit_plan['annual_plan']['fiscal_year']['start']) . ' - ' . enTobn($audit_plan['annual_plan']['fiscal_year']['end']).' অর্থ বছর।',
             ];
             //dd($cover_info);
@@ -145,9 +167,14 @@ class RevisedPlanController extends Controller
         $plans = $request->plan;
         $cover = $plans[0];
         array_shift($plans);
+
+        $formThree = $plans[26];
+        $porishisto = $plans[28];
+        unset($plans[26],$plans[28]);
+
         //dd($plans);
         $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
-            compact('plans', 'cover'));
+            compact('plans', 'cover','formThree','porishisto'));
 
         /*$pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
             ['plans' => $plans, 'cover' => $cover], [], ['orientation' => 'L', 'format' => 'A4']);*/

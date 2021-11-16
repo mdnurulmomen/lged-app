@@ -795,6 +795,13 @@
         @endforeach
     </div>
 
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $formThree['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $porishisto['content'] !!}
+    </div>
 </div>
 </body>
 </html>

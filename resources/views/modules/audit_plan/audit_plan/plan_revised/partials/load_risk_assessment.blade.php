@@ -186,7 +186,7 @@
 
     function saveInBook(risk_assessments,risk_assessment_type,risk,risk_rate,total_number){
 
-        $('.risk_'+risk_assessment_type+'_point').html(BnFromEng(risk_rate));
+        $('.risk_'+risk_assessment_type+'_point').text(BnFromEng(parseFloat(risk_rate).toFixed(2)));
 
         data = {risk_assessments,risk_assessment_type,risk,risk_rate,total_number};
         url = '{{route('audit.plan.audit.editor.risk-assessment-book')}}';

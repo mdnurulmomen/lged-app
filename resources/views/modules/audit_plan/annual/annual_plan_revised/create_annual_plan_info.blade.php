@@ -123,7 +123,7 @@
                     <div class="col-md-6">
                         <span onclick="Annual_Plan_Container.addTeamSection($(this))"
                               class="btn btn-outline-primary btn-square mr-2">
-                            <i class="fa fa-plus"></i> টিম গঠন করুন
+                            <i class="fa fa-plus"></i> দল গঠন করুন
                         </span>
                     </div>
                 </div>

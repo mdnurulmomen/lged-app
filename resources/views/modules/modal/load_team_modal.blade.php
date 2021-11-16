@@ -192,8 +192,9 @@
                                         class="form-group custom-form-group p-0 mb-2 d-md-flex align-items-md-center justify-content-md-between">
                                         <div class="d-flex flex-wrarp mt-3 align-items-center">
                                             <button type="button" class="btn btn-sm btn-primary btn-square"
+                                                    title="নতুন দল গঠন করুন"
                                                     id="createNewLayer" onclick="Load_Team_Container.addLayer()"><i
-                                                    class="fad fa-plus"></i>নতুন তৈরি করুন
+                                                    class="fad fa-plus"></i>নতুন দল গঠন
                                             </button>
                                         </div>
                                     </div>

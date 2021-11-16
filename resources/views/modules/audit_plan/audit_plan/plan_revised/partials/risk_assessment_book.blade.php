@@ -47,7 +47,7 @@
             @endif
         </td>
         <td style="text-align: center">
-            {{enTobn($risk_rate)}}
+            {{enTobn(number_format($risk_rate,2))}}
 
             {{--@if($risk == 'high')
                 (উচ্চ ঝুঁকি)

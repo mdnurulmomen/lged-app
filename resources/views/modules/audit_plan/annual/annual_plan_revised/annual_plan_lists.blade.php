@@ -296,7 +296,7 @@
                     }
                     newRow = '<li class="parent_office" id="selected_rp_parent_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;">' +
                         '<span class="badge badge-white" >&nbsp</span>' +
-                        '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_bn + '<span class="ml-2 badge badge-info">ইউনিট/গ্রুপ</span>' +
+                        '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_bn + '<span class="ml-2 badge badge-info">এনটিটি</span>' +
                         '<input name="parent_office" class="selected_entity" id="selected_parent_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
                         '<input name="controlling_office" class="controlling_office" id="controlling_office" type="hidden" value=""/>' +
                         '<input name="ministry_info" class="ministry_info" id="ministry_info" type="hidden" value=""/>' +
