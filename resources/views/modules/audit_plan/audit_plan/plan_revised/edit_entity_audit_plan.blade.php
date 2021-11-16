@@ -25,24 +25,29 @@
             </div>
         </div>
         <div class="col-md-6 text-right">
-            <button class="btn btn-sm btn-square btn-primary btn-hover-success"
+            <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
                     data-parent-office-id="{{$parent_office_id}}"
-                    onclick="Edit_Entity_Plan_Container.riskAssessment($(this));">Risk Assessment
-                <i class="fas fa-ballot-check"></i>
+                    onclick="Edit_Entity_Plan_Container.showTeamCreateModal($(this));">
+                    <i class="fas fa-users"></i> Team
             </button>
-            <button class="btn btn-sm btn-square btn-primary btn-hover-success"
+
+            <button class="btn btn-sm btn-square btn-warning btn-hover-warning"
                     data-parent-office-id="{{$parent_office_id}}"
-                    onclick="Edit_Entity_Plan_Container.showTeamCreateModal($(this));">Team
-                    <i class="fas fa-users"></i>
+                    onclick="Edit_Entity_Plan_Container.riskAssessment($(this));">
+                <i class="fas fa-ballot-check"></i> Risk Assessment
             </button>
-            <button class="btn btn-sm btn-square btn-primary btn-hover-success"
-                    onclick="Edit_Entity_Plan_Container.generatePDF($(this))">Save & Download <i class="fas fa-file-pdf"></i>
+
+            <button class="btn btn-sm btn-square btn-info btn-hover-info"
+                    onclick="Edit_Entity_Plan_Container.previewAuditPlan()">
+                <i class="fas fa-eye"></i> Preview
             </button>
-            <button class="btn btn-sm btn-square btn-primary btn-hover-success draft_entity_audit_plan"
+
+            <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan"
                     data-audit-plan-id="{{$audit_plan['id']}}"
                     data-activity-id="{{$activity_id}}"
                     data-annual-plan-id="{{$annual_plan_id}}"
-                    onclick="Edit_Entity_Plan_Container.draftEntityPlan($(this))">Save <i class="fas fa-save"></i>
+                    onclick="Edit_Entity_Plan_Container.draftEntityPlan($(this))">
+                <i class="fas fa-save"></i> Save
             </button>
         </div>
     </div>
@@ -60,7 +65,7 @@
         <div id="split-1">
             <textarea id="kt-tinymce-1" name="kt-tinymce-1" class="kt-tinymce-1"></textarea>
         </div>
-        <div id="split-2">
+        <div id="split-2" class="d-none">
             <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">
             </div>
         </div>
@@ -137,8 +142,36 @@
                 });
             },
 
-            generatePDF: function (elem) {
+            previewAuditPlan: function () {
                 $('.draft_entity_audit_plan').click();
+                plan = templateArray;
+                data = {plan};
+                url = '{{route('audit.plan.audit.revised.plan.preview-audit-plan-edit')}}';
+
+                KTApp.block('#kt_content', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
+
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('#kt_content');
+                    if (response.status === 'error') {
+                        toastr.error('No data found');
+                    } else {
+                        $(".offcanvas-title").text('অডিট প্ল্যান');
+                        quick_panel = $("#kt_quick_panel");
+                        quick_panel.addClass('offcanvas-on');
+                        quick_panel.css('opacity', 1);
+                        quick_panel.css('width', '40%');
+                        quick_panel.removeClass('d-none');
+                        $("html").addClass("side-panel-overlay");
+                        $(".offcanvas-wrapper").html(response);
+                    }
+                });
+            },
+
+            generatePDF: function () {
+                //$('.draft_entity_audit_plan').click();
                 url = '{{route('audit.plan.audit.revised.plan.generate-audit-plan-pdf')}}';
                 plan = templateArray;
                 data = {plan};

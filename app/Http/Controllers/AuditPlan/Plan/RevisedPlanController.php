@@ -49,18 +49,18 @@ class RevisedPlanController extends Controller
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
 
         if ($this->current_office_id() == 19){
-            $directorate_address_footer = 'অডিট কমপ্লেক্স,১ম তলা,সেগুনবাগিচা,ঢাকা-1000।';
-            $directorate_address_top = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-1000।';
+            $directorate_address_footer = 'অডিট কমপ্লেক্স,১ম তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorate_address_top = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorate_website = 'www.dgcivil-cagbd.org';
         }
         elseif ($this->current_office_id() == 32){
-            $directorate_address_footer = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা),সেগুনবাগিচা,ঢাকা-1000।';
-            $directorate_address_top = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-1000।';
+            $directorate_address_footer = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা),সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorate_address_top = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorate_website = 'www.worksaudit.org.bd';
         }
         else{
-            $directorate_address_footer = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা),সেগুনবাগিচা,ঢাকা-1000।';
-            $directorate_address_top = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-1000।';
+            $directorate_address_footer = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা),সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorate_address_top = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorate_website = 'www.cad.org.bd';
         }
 
@@ -160,6 +160,36 @@ class RevisedPlanController extends Controller
         $index = $plans[0];
         array_shift($plans);
         return view('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book_print', compact('plans', 'cover', 'index'));
+    }
+
+    public function previewAuditPlan(Request $request)
+    {
+        $plans = $request->plan;
+        $cover = $plans[0];
+        array_shift($plans);
+
+        $formThree = $plans[26];
+        $porishisto = $plans[28];
+        unset($plans[26],$plans[28]);
+
+        //dd($plans);
+        return view('modules.audit_plan.audit_plan.plan_revised.partials.preview_audit_plan',
+            compact('plans', 'cover','formThree','porishisto'));
+    }
+
+    public function previewAuditPlanEdit(Request $request)
+    {
+        $plans = $request->plan;
+        $cover = $plans[0];
+        array_shift($plans);
+
+        $formThree = $plans[26];
+        $porishisto = $plans[28];
+        unset($plans[26],$plans[28]);
+
+        //dd($plans);
+        return view('modules.audit_plan.audit_plan.plan_revised.partials.preview_audit_plan_edit',
+            compact('plans', 'cover','formThree','porishisto'));
     }
 
     public function generatePlanPDF(Request $request)

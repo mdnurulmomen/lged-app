@@ -32,7 +32,8 @@
                     @endif
 
                     <button title="দেখুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
-                    data-ac-query-id="{{$query['id']}}" onclick="Audit_Query_List_Container.viewQuery($(this))">
+                            data-ac-query-id="{{$query['id']}}"  data-has-sent-to-rpu="{{$query['has_sent_to_rpu']}}"
+                            onclick="Audit_Query_List_Container.viewQuery($(this))">
                         <i class="fad fa-eye"></i>
                     </button>
 
@@ -80,7 +81,9 @@
 
         viewQuery: function (elem) {
             ac_query_id = elem.data('ac-query-id');
-            data = {ac_query_id};
+            has_sent_to_rpu = elem.data('has-sent-to-rpu');
+
+            data = {ac_query_id,has_sent_to_rpu};
             url = '{{route('audit.execution.query.view')}}';
 
             KTApp.block('#kt_content', {

@@ -142,7 +142,7 @@
         },
     });
 
-    Split(['#split-0', '#split-1', '#split-2'], {
+    Split(['#split-0', '#split-1'], {
         minSize: 150,
         snapOffset: 10,
         gutterSize: 5,

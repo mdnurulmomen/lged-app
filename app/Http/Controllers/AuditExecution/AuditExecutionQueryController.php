@@ -215,8 +215,9 @@ class AuditExecutionQueryController extends Controller
         $audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.view_audit_query'), $data)->json();
         if (isSuccess($audit_query)) {
             $auditQueryInfo = $audit_query['data'];
+            $hasSentToRpu = $request->has_sent_to_rpu;
             return view('modules.audit_execution.audit_execution_query.show',
-                compact('auditQueryInfo'));
+                compact('auditQueryInfo','hasSentToRpu'));
         } else {
             return response()->json(['status' => 'error', 'data' => $audit_query]);
         }
