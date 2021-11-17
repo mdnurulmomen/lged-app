@@ -35,6 +35,7 @@ class RevisedPlanController extends Controller
         }
     }
 
+
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -68,6 +69,7 @@ class RevisedPlanController extends Controller
         $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_create_draft'), $data)->json();
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
+            //dd($audit_plan);
             //$parent_office_data = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-other-info'), ['office_id' => $audit_plan['annual_plan']['parent_office_id']])->json();
             $parent_office_data = []; //isSuccess($parent_office_data) ? $parent_office_data['data'] : [];
             $parent_office_content = (is_array($parent_office_data) && !empty($parent_office_data)) ? json_encode($parent_office_data['content_list']) : json_encode([]);
@@ -152,17 +154,8 @@ class RevisedPlanController extends Controller
         }
     }
 
-    public function printAuditPlan(Request $request)
-    {
-        $plans = $request->plan;
-        $cover = $plans[0];
-        array_shift($plans);
-        $index = $plans[0];
-        array_shift($plans);
-        return view('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book_print', compact('plans', 'cover', 'index'));
-    }
 
-    public function previewAuditPlan(Request $request)
+    public function auditPlanBook(Request $request)
     {
         $plans = $request->plan;
         $cover = $plans[0];
@@ -173,42 +166,25 @@ class RevisedPlanController extends Controller
         unset($plans[26],$plans[28]);
 
         //dd($plans);
-        return view('modules.audit_plan.audit_plan.plan_revised.partials.preview_audit_plan',
-            compact('plans', 'cover','formThree','porishisto'));
-    }
 
-    public function previewAuditPlanEdit(Request $request)
-    {
-        $plans = $request->plan;
-        $cover = $plans[0];
-        array_shift($plans);
+        if ($request->scope == 'generate'){
+            $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
+                compact('plans', 'cover','formThree','porishisto'));
 
-        $formThree = $plans[26];
-        $porishisto = $plans[28];
-        unset($plans[26],$plans[28]);
+            /*$pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
+                ['plans' => $plans, 'cover' => $cover], [], ['orientation' => 'L', 'format' => 'A4']);*/
 
-        //dd($plans);
-        return view('modules.audit_plan.audit_plan.plan_revised.partials.preview_audit_plan_edit',
-            compact('plans', 'cover','formThree','porishisto'));
-    }
+            $fileName = 'audit_plan_'.date('D_M_j_Y').'.pdf';
+            return $pdf->stream($fileName);
+        }
+        elseif ($request->scope == 'preview'){
+            return view('modules.audit_plan.audit_plan.plan_revised.partials.preview_audit_plan',
+                compact('plans', 'cover','formThree','porishisto'));
+        }
 
-    public function generatePlanPDF(Request $request)
-    {
-        $plans = $request->plan;
-        $cover = $plans[0];
-        array_shift($plans);
-
-        $formThree = $plans[26];
-        $porishisto = $plans[28];
-        unset($plans[26],$plans[28]);
-
-        //dd($plans);
-        $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
-            compact('plans', 'cover','formThree','porishisto'));
-
-        /*$pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
-            ['plans' => $plans, 'cover' => $cover], [], ['orientation' => 'L', 'format' => 'A4']);*/
-        return $pdf->stream('document.pdf');
+        else{
+            return ['status' => 'error', 'data' => 'Somethings went wrong'];
+        }
     }
 
 
@@ -250,8 +226,7 @@ class RevisedPlanController extends Controller
             'teams' => 'required',
         ])->validate();
 
-//        dd($data);
-
+        //dd($data);
         $teams = json_encode_unicode($request->teams);
         $data['teams'] = json_encode(['teams' => json_decode($teams)], JSON_UNESCAPED_UNICODE);
         $data['approve_status'] = 'approved';
@@ -298,21 +273,6 @@ class RevisedPlanController extends Controller
         }
     }
 
-    public function getSubTeam(Request $request): \Illuminate\Http\JsonResponse
-    {
-        $data = Validator::make($request->all(), [
-            'team_id' => 'required|integer',
-        ])->validate();
-
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
-
-        $sub_team = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_sub_team'), $data)->json();
-        if (isSuccess($sub_team)) {
-            return response()->json(['status' => 'error', 'data' => $sub_team['data']]);
-        } else {
-            return response()->json(['status' => 'error', 'data' => $sub_team]);
-        }
-    }
 
     public function getTeamInfo(Request $request): \Illuminate\Http\JsonResponse
     {

@@ -258,12 +258,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/create-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'createAuditPlan'])->name('revised.plan.create-entity-audit-plan');
             Route::post('/update-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'updateAuditPlan'])->name('revised.plan.update-entity-audit-plan');
             Route::post('/save-draft-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'saveDraftEntityAuditPlan'])->name('revised.plan.save-draft-entity-audit-plan');
-            Route::post('/generate-audit-plan-pdf', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'generatePlanPDF'])->name('revised.plan.generate-audit-plan-pdf');
+            Route::post('/book-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'auditPlanBook'])->name('revised.plan.book-audit-plan');
 
-            Route::post('/preview-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'previewAuditPlan'])->name('revised.plan.preview-audit-plan');
-            Route::post('/preview-audit-plan-edit', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'previewAuditPlanEdit'])->name('revised.plan.preview-audit-plan-edit');
-
-            Route::post('/print-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'printAuditPlan'])->name('revised.plan.print-audit-plan');
             Route::post('/get-team-info', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'getTeamInfo'])->name('revised.plan.get-team-info');
             Route::post('editor/load-audit-team-modal', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamModal'])->name('editor.load-audit-team-modal');
             Route::post('editor/load-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamSchedule'])->name('editor.load-audit-team-schedule');

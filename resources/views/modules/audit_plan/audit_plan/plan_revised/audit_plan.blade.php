@@ -62,11 +62,15 @@
                 state: 'primary' // a bootstrap color
             });
 
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (res) {
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_content');
-                var newDoc = document.open("text/html", "replace");
-                newDoc.write(res);
-                newDoc.close();
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(response);
+                    newDoc.close();
+                }
             })
         },
 
@@ -81,15 +85,21 @@
                 annual_plan_id,
                 fiscal_year_id,
             };
+
             KTApp.block('#kt_content', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (res) {
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_content');
-                var newDoc = document.open("text/html", "replace");
-                newDoc.write(res);
-                newDoc.close();
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(response);
+                    newDoc.close();
+                }
             })
         },
     };
