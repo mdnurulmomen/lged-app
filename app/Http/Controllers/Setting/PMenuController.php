@@ -19,7 +19,7 @@ class PMenuController extends Controller
             'per_page' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $allMenu = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_list'), $data)->json();
         if (isSuccess($allMenu)) {
             $allMenu = $allMenu['data'];
@@ -32,7 +32,7 @@ class PMenuController extends Controller
     public function create()
     {
         $data['all'] = 'all';
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $menuList = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_list'), $data)->json();
         $menuList = isSuccess($menuList)?$menuList['data']:[];
@@ -58,7 +58,7 @@ class PMenuController extends Controller
         $data['module_menu_id'] = $request->module_menu_id;
         $data['parent_menu_id'] = $request->parent_menu_id;
         $data['display_order'] = $request->display_order;
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_store'), $data)->json();
         if (isSuccess($responseData)) {
             return response()->json(responseFormat('success', 'Created Successfully'));
@@ -78,7 +78,7 @@ class PMenuController extends Controller
         $menuInfo = isSuccess($menuInfo)?$menuInfo['data']:[];
 
         $data['all'] = 'all';
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $menuList = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_list'), $data)->json();
         $menuList = isSuccess($menuList)?$menuList['data']:[];
@@ -106,7 +106,7 @@ class PMenuController extends Controller
         $data['module_menu_id'] = $request->module_menu_id;
         $data['parent_menu_id'] = $request->parent_menu_id;
         $data['display_order'] = $request->display_order;
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_update'), $data)->json();
         if (isSuccess($responseData)) {
             return response()->json(responseFormat('success', 'Created Successfully'));

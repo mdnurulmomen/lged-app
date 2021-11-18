@@ -23,7 +23,7 @@ class OfficeOrderController extends Controller
             'page' => 'required|integer',
         ])->validate();
 
-        $requestData['cdesk'] =json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $requestData['cdesk'] =$this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.audit_plan_list'), $requestData)->json();
         //dd($responseData);
         $data['audit_plans'] = isSuccess($responseData)?$responseData['data']:[];
@@ -33,7 +33,7 @@ class OfficeOrderController extends Controller
 
     public function loadOfficeOrderCreate(Request $request){
         $requestData = [
-            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+            'cdesk' => $this->current_desk_json(),
             'audit_plan_id' => $request->audit_plan_id,
             'annual_plan_id' => $request->annual_plan_id,
         ];
@@ -48,7 +48,7 @@ class OfficeOrderController extends Controller
 
     public function loadOfficeOrderCCCreate(Request $request){
         $requestData = [
-            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+            'cdesk' => $this->current_desk_json(),
             'audit_plan_id' => $request->audit_plan_id,
             'annual_plan_id' => $request->annual_plan_id,
         ];
@@ -59,7 +59,7 @@ class OfficeOrderController extends Controller
     public function showOfficeOrder(Request $request)
     {
         $requestData = [
-            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+            'cdesk' => $this->current_desk_json(),
             'audit_plan_id' => $request->audit_plan_id,
             'annual_plan_id' => $request->annual_plan_id,
         ];
@@ -93,7 +93,7 @@ class OfficeOrderController extends Controller
             ])->validate();
 
             $data = [
-                'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+                'cdesk' => $this->current_desk_json(),
                 'audit_plan_id' => $request->audit_plan_id,
                 'annual_plan_id' => $request->annual_plan_id,
                 'memorandum_no' => $request->memorandum_no,
@@ -126,7 +126,7 @@ class OfficeOrderController extends Controller
     public function loadOfficeOrderApprovalAuthority(Request $request)
     {
         $requestData = [
-            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+            'cdesk' => $this->current_desk_json(),
             'audit_plan_id' => $request->audit_plan_id,
             'annual_plan_id' => $request->annual_plan_id,
         ];
@@ -164,7 +164,7 @@ class OfficeOrderController extends Controller
                 'received_by' => 'required|integer',
             ])->validate();
 
-            $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+            $data['cdesk'] = $this->current_desk_json();
 
             $responseGenerateOfficeOrder = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.store_approval_authority'), $data)->json();
             //dd($responseGenerateOfficeOrder);
@@ -195,7 +195,7 @@ class OfficeOrderController extends Controller
                 'approved_status' => 'required',
             ])->validate();
 
-            $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+            $data['cdesk'] = $this->current_desk_json();
 
             $responseGenerateOfficeOrder = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.approve_office_order'), $data)->json();
             if (isSuccess($responseGenerateOfficeOrder)) {
@@ -217,7 +217,7 @@ class OfficeOrderController extends Controller
     public function generateOfficeOrderPDF(Request $request)
     {
         $requestData = [
-            'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+            'cdesk' => $this->current_desk_json(),
             'audit_plan_id' => $request->audit_plan_id,
             'annual_plan_id' => $request->annual_plan_id,
         ];

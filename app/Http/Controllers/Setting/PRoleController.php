@@ -19,7 +19,7 @@ class PRoleController extends Controller
             'per_page' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $allRole = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.role_list'), $data)->json();
         if (isSuccess($allRole)) {
             $allRole = $allRole['data'];
@@ -44,7 +44,7 @@ class PRoleController extends Controller
             'description_bn' => 'required',
             'user_level' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.role_store'), $data)->json();
         if (isSuccess($responseData)) {
             return response()->json(responseFormat('success', 'Created Successfully'));
@@ -58,7 +58,7 @@ class PRoleController extends Controller
         $data = Validator::make($request->all(), [
             'role_id' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $roleInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.role_show'), $data)->json();
         //dd($roleInfo);
         $roleInfo = isSuccess($roleInfo) ? $roleInfo['data'] : [];
@@ -77,7 +77,7 @@ class PRoleController extends Controller
             'description_bn' => 'required',
             'user_level' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.role_update'), $data)->json();
         if (isSuccess($responseData)) {
             return response()->json(responseFormat('success', 'Updated Successfully'));

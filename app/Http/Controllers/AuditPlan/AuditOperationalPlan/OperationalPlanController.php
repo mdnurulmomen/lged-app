@@ -85,7 +85,7 @@ class OperationalPlanController extends Controller
         $data = Validator::make($request->all(), [
             'calendar_id' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $event_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_event_lists'), $data)->json();
         //dd($event_list);
@@ -111,7 +111,7 @@ class OperationalPlanController extends Controller
             'fiscal_year_id' => 'required|integer',
             'office_id' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
 
@@ -135,7 +135,7 @@ class OperationalPlanController extends Controller
             ])->validate();
 
             $data['comments'] = $request->comments;
-            $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+            $data['cdesk'] = $this->current_desk_json();
 
             $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.send_annual_plan_receiver_to_sender'), $data)->json();
             //dd($responseData);

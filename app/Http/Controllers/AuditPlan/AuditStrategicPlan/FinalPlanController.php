@@ -16,7 +16,7 @@ class FinalPlanController extends Controller
     public function index()
     {
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.final_plan_file.list'),[
-                'cdesk' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE),
+                'cdesk' => $this->current_desk_json(),
                 'document_type' => 'strategic',
             ]
         )->json();

@@ -29,7 +29,7 @@ class TeamCalendarController extends Controller
 
     public function loadTeamCalendar(Request $request)
     {
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['office_id'] = $request->directorate_id ?: $this->current_office_id();
         $data['fiscal_year_id'] = $request->fiscal_year_id;
 
@@ -64,7 +64,7 @@ class TeamCalendarController extends Controller
         $data['office_id'] = $request->directorate_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['team_id'] = $request->team_id;
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
 
         $sub_team_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_sub_team'), $data)->json();
 //        dd($sub_team_list);
@@ -106,7 +106,7 @@ class TeamCalendarController extends Controller
 
     public function loadTeamCalendarFilter(Request $request)
     {
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['office_id'] = $request->directorate_id;
         $data['team_id'] = $request->team_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
@@ -126,7 +126,7 @@ class TeamCalendarController extends Controller
 
     public function loadTeamCalendarScheduleList(Request $request)
     {
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['office_id'] = $request->directorate_id;
         $data['team_id'] = $request->team_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
@@ -152,7 +152,7 @@ class TeamCalendarController extends Controller
             'status' => 'required|string',
         ])->validate();
 
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $updateStatus = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.update_visit_calender_status'), $data)->json();
         if (isSuccess($updateStatus)) {

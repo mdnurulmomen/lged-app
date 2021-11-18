@@ -34,7 +34,7 @@ class AuditExecutionMemoController extends Controller
             'per_page' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $memo_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.list'), $data)->json();
         if (isSuccess($memo_list)) {
             $memo_list = $memo_list['data'];
@@ -98,7 +98,7 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'memo_irregularity_sub_type', 'contents' => $request->memo_irregularity_sub_type],
             ['name' => 'memo_type', 'contents' => $request->memo_type],
             ['name' => 'memo_status', 'contents' => $request->memo_status],
-            ['name' => 'cdesk', 'contents' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE)],
+            ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
 
         $memo_attachment_file = $request->memo_attachment;
@@ -148,7 +148,7 @@ class AuditExecutionMemoController extends Controller
         $data = Validator::make($request->all(), [
             'memo_id' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $memoInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
         //dd($memoInfo);
         if (isSuccess($memoInfo)) {
@@ -165,7 +165,7 @@ class AuditExecutionMemoController extends Controller
         $data = Validator::make($request->all(), [
             'memo_id' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $memo_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
 //        dd($memo_info);
         if (isSuccess($memo_info)) {
@@ -188,7 +188,7 @@ class AuditExecutionMemoController extends Controller
         $data = Validator::make($request->all(), [
             'memo_id' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $memo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
         if (isSuccess($memo)) {
             $memo = $memo['data'];
@@ -204,7 +204,7 @@ class AuditExecutionMemoController extends Controller
         $data = Validator::make($request->all(), [
             'memos' => 'required',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         //dd($data);
         $memoSendToRpu = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.send_to_rpu'), $data)->json();
         if (isSuccess($memoSendToRpu)) {
@@ -252,7 +252,7 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'memo_irregularity_sub_type', 'contents' => $request->memo_irregularity_sub_type],
             ['name' => 'memo_type', 'contents' => $request->memo_type],
             ['name' => 'memo_status', 'contents' => $request->memo_status],
-            ['name' => 'cdesk', 'contents' => json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE)],
+            ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
 
         $appendix_file = $request->porisishto;
@@ -306,7 +306,7 @@ class AuditExecutionMemoController extends Controller
     public function loadAuthorityMemoList(Request $request){
 //        dd($request->all());
 
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['office_id'] = $request->directorate_id;
         $data['team_id'] = $request->team_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
@@ -348,7 +348,7 @@ class AuditExecutionMemoController extends Controller
         $data = Validator::make($request->all(), [
             'memo_id' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
         //dd($responseData);
         $memoInfo = isSuccess($responseData)?$responseData['data']:[];
@@ -361,7 +361,7 @@ class AuditExecutionMemoController extends Controller
             'memo_id' => 'required',
         ])->validate();
 
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $recommendation_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.audit_memo_recommendation_list'), $data)->json();
 //        dd($recommendation_list);
@@ -380,7 +380,7 @@ class AuditExecutionMemoController extends Controller
             'audit_recommendation' => 'required',
         ])->validate();
 
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 //        dd($data);
         $auditMemoRecommendation = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.audit_memo_recommendation_store'), $data)->json();
         if (isSuccess($auditMemoRecommendation)) {
@@ -395,7 +395,7 @@ class AuditExecutionMemoController extends Controller
             'memo_id' => 'required',
         ])->validate();
 
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $log_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.audit_memo_log_list'), $data)->json();
 //        dd($log_list);

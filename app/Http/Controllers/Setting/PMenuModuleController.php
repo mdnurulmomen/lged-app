@@ -19,7 +19,7 @@ class PMenuModuleController extends Controller
             'per_page' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $allModule = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.module_list'), $data)->json();
         if (isSuccess($allModule)) {
             $allModule = $allModule['data'];
@@ -32,7 +32,7 @@ class PMenuModuleController extends Controller
     public function create()
     {
         $data['all'] = 'all';
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $moduleList = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.module_list'), $data)->json();
         $moduleList = isSuccess($moduleList)?$moduleList['data']:[];
         return view('modules.settings.p_module.p_module_create',compact('moduleList'));
@@ -52,7 +52,7 @@ class PMenuModuleController extends Controller
             'module_controller' => 'nullable',
             'module_method' => 'nullable',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.module_store'), $data)->json();
         if (isSuccess($responseData)) {
             return response()->json(responseFormat('success', 'Created Successfully'));
@@ -72,7 +72,7 @@ class PMenuModuleController extends Controller
         $moduleInfo = isSuccess($moduleInfo)?$moduleInfo['data']:[];
 
         $data['all'] = 'all';
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $moduleList = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.module_list'), $data)->json();
         $moduleList = isSuccess($moduleList)?$moduleList['data']:[];
 
@@ -95,7 +95,7 @@ class PMenuModuleController extends Controller
             'module_controller' => 'nullable',
             'module_method' => 'nullable',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.module_update'), $data)->json();
         if (isSuccess($responseData)) {
             return response()->json(responseFormat('success', 'Updated Successfully'));

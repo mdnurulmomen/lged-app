@@ -24,7 +24,7 @@ class RiskAssessmentController extends Controller
 
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['audit_plan_id'] = $request->audit_plan_id;
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $ap_risk_assessment_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_risk_assessment_list'), $data)->json();
 
         if ($x_risk_assessment_list['status'] == 'success') {
@@ -39,7 +39,7 @@ class RiskAssessmentController extends Controller
 
     public function store(Request $request)
     {
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['risk_assessments'] = $request->risk_assessments;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['activity_id'] = $request->activity_id;
@@ -61,7 +61,7 @@ class RiskAssessmentController extends Controller
 
     public function update(Request $request)
     {
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['id'] = $request->id;
         $data['risk_assessments'] = $request->risk_assessments;
         $data['fiscal_year_id'] = $request->fiscal_year_id;

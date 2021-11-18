@@ -26,7 +26,7 @@ class AuditExecutionQueryController extends Controller
 
     public function loadQueryScheduleList(Request $request)
     {
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['fiscal_year_id'] = 1;
         $audit_query_schedule_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.get_query_schedule_list'), $data)->json();
         //dd($audit_query_schedule_list);
@@ -55,7 +55,7 @@ class AuditExecutionQueryController extends Controller
     {
         $schedule_id = $request->schedule_id;
         $data['cost_center_id'] = $request->cost_center_id;
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.load_audit_query'), $data)->json();
         //dd($data);
         $audit_query_list = $audit_query_list['status'] == 'success'?$audit_query_list['data']:[];
@@ -78,7 +78,7 @@ class AuditExecutionQueryController extends Controller
         $data = Validator::make($request->all(), [
             'ac_query_id' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $send_audit_queries = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.send_audit_query'), $data)->json();
         if ($send_audit_queries['status'] == 'success') {
             $send_audit_queries = $send_audit_queries['data'];
@@ -90,7 +90,7 @@ class AuditExecutionQueryController extends Controller
 
     public function receivedAuditQuery(Request $request)
     {
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['ac_query_item_id'] = $request->ac_query_item_id;
         $data['ac_query_id'] = $request->ac_query_id;
         $received_audit_queries = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.received_audit_query'), $data)->json();
@@ -135,7 +135,7 @@ class AuditExecutionQueryController extends Controller
             'description' => 'required',
         ])->validate();
 
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['description'] = $request->description;
         $data['cc'] = $request->cc;
 
@@ -153,7 +153,7 @@ class AuditExecutionQueryController extends Controller
 
     public function rejectAuditQuery(Request $request)
     {
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['ac_query_id'] = $request->ac_query_id;
         $data['comment'] = $request->comment;
         $rejected_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.rejected_audit_query'), $data)->json();
@@ -168,7 +168,7 @@ class AuditExecutionQueryController extends Controller
     //edit
     public function editAuditQuery(Request $request)
     {
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['ac_query_id'] = $request->ac_query_id;
         $schedule_id = $request->schedule_id;
         $audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.view_audit_query'), $data)->json();
@@ -195,7 +195,7 @@ class AuditExecutionQueryController extends Controller
             'description' => 'required',
         ])->validate();
 
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['description'] = $request->description;
         $data['cc'] = $request->cc;
         $rejected_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.update_audit_query'), $data)->json();
@@ -210,7 +210,7 @@ class AuditExecutionQueryController extends Controller
     //view
     public function viewAuditQuery(Request $request)
     {
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['ac_query_id'] = $request->ac_query_id;
         $audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.view_audit_query'), $data)->json();
         if (isSuccess($audit_query)) {
@@ -226,7 +226,7 @@ class AuditExecutionQueryController extends Controller
     //download
     public function downloadAuditQuery(Request $request)
     {
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $data['ac_query_id'] = $request->ac_query_id;
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.view_audit_query'), $data)->json();
         $auditQueryInfo = isSuccess($responseData)?$responseData['data']:[];

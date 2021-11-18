@@ -15,7 +15,7 @@ class PermissionController extends Controller
     public function loadMenuModuleLists(Request $request)
     {
         $module_menus = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.get-module-menu-lists'), [
-            'cdesk' => json_encode_unicode($this->current_desk()),
+            'cdesk' => $this->current_desk_json(),
         ])->json();
         if (is_array($module_menus) && isset($module_menus['status']) && $module_menus['status'] == 'success') {
             $module_menus = $module_menus['data'];
@@ -27,7 +27,7 @@ class PermissionController extends Controller
 
     public function loadAllRoles(Request $request)
     {
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $roles = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.role_list'), $data)->json();
         if (isSuccess($roles)) {
             $roles = $roles['data'];
@@ -43,7 +43,7 @@ class PermissionController extends Controller
         $data['modules'] = $request->modules;
         $data['menus'] = $request->menus;
         $data['role_id'] = $request->role_id;
-        $data['cdesk'] = json_encode_unicode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $assign = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.assign-menus-to-role'), $data)->json();
         if (isSuccess($assign)) {
             return response()->json(['data' => $assign, 'status' => 'success']);

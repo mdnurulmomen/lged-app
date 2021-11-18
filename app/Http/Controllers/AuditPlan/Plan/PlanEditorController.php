@@ -32,7 +32,7 @@ class PlanEditorController extends Controller
         $other_offices = $this->cagDoptorOtherOffices($this->current_office_id());
 
         //for all team data
-        $cdesk = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $cdesk = $this->current_desk_json();
         $data['cdesk'] = $cdesk;
         $teamResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_wise_team'), $data)->json();
 
@@ -78,7 +78,7 @@ class PlanEditorController extends Controller
             'parent_office_id' => 'required|integer',
         ])->validate();
 
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $data)->json();
         $nominated_offices_list = isSuccess($nominated_offices)?$nominated_offices['data']:[];

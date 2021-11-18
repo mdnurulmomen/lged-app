@@ -45,7 +45,7 @@ class MISAndDashboardController extends Controller
     public function loadTeamLists(Request $request)
     {
         $data = Validator::make($request->all(), ['fiscal_year_id' => 'integer|required'])->validate();
-        $data['cdesk'] = json_encode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
 
         $all_teams = $this->initHttpWithToken()->post(config('amms_bee_routes.mis_and_dashboard.all_team_lists'), $data)->json();
         if (isSuccess($all_teams)) {
@@ -73,7 +73,7 @@ class MISAndDashboardController extends Controller
     {
         $data['office_id'] = $request->office_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
-        $data['cdesk'] = json_encode($this->current_desk());
+        $data['cdesk'] = $this->current_desk_json();
         $all_teams = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_fiscal_year_wise_team'), $data)->json();
 //        dd($all_teams);
         if (isSuccess($all_teams)) {

@@ -37,7 +37,7 @@ class XRiskAssessmentController extends Controller
             'risk_assessment_title_bn' => $request->risk_assessment_title_bn,
         ];
 
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 //        dd($data);
         $create_risk_assessment = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.risk_assessment_create'), $data)->json();
 //        dd($create_risk_assessment);
@@ -67,7 +67,7 @@ class XRiskAssessmentController extends Controller
             'risk_assessment_title_bn' => $request->risk_assessment_title_bn,
         ];
 
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $update_risk_assessment = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.risk_assessment_update'), $data)->json();
 //        dd($create_audit_query);

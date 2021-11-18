@@ -24,7 +24,7 @@ class RevisedPlanController extends Controller
             'per_page' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $all_entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data)->json();
         if (isSuccess($all_entities)) {
             $all_entities = $all_entities['data'];
@@ -47,7 +47,7 @@ class RevisedPlanController extends Controller
             'fiscal_year_id' => 'required|integer',
         ])->validate();
 
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         if ($this->current_office_id() == 19){
             $directorate_address_footer = 'অডিট কমপ্লেক্স,১ম তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
@@ -108,7 +108,7 @@ class RevisedPlanController extends Controller
             'annual_plan_id' => 'required|integer',
         ])->validate();
 
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
 
@@ -145,7 +145,7 @@ class RevisedPlanController extends Controller
         $data['annual_plan_id'] = $request->annual_plan_id;
         $data['plan_description'] = makeEncryptedData(gzcompress(json_encode($request->plan_description)));
         $data['status'] = 'approved';
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
         $save_draft = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_make_draft'), $data)->json();
         if (isSuccess($save_draft)) {
             return response()->json(['status' => 'success', 'data' => $save_draft['data']]);
@@ -203,7 +203,7 @@ class RevisedPlanController extends Controller
         $teams = json_encode_unicode($request->teams);
         $data['teams'] = json_encode(['teams' => json_decode($teams)], JSON_UNESCAPED_UNICODE);
         $data['approve_status'] = 'approved';
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team'), $data)->json();
 
@@ -230,7 +230,7 @@ class RevisedPlanController extends Controller
         $teams = json_encode_unicode($request->teams);
         $data['teams'] = json_encode(['teams' => json_decode($teams)], JSON_UNESCAPED_UNICODE);
         $data['approve_status'] = 'approved';
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.update_audit_team'), $data)->json();
 
@@ -247,7 +247,7 @@ class RevisedPlanController extends Controller
             'audit_plan_id' => 'required|integer',
             'team_schedules' => 'required|json',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team_schedule'), $data)->json();
         if (isSuccess($responseData)) {
@@ -263,7 +263,7 @@ class RevisedPlanController extends Controller
             'audit_plan_id' => 'required|integer',
             'team_schedules' => 'required|json',
         ])->validate();
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.update_audit_team_schedule'), $data)->json();
         if (isSuccess($responseData)) {
@@ -280,7 +280,7 @@ class RevisedPlanController extends Controller
             'team_id' => 'required|integer',
         ])->validate();
 
-        $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
+        $data['cdesk'] = $this->current_desk_json();
 
         $team_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_team_info'), $data)->json();
         //dd($team_info);

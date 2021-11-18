@@ -82,7 +82,7 @@ trait UserInfoCollector
     {
         if (!session()->has('_modules') || session('_modules') == null) {
             $modules = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.modules'), [
-                'cdesk' => json_encode_unicode($this->current_desk()),
+                'cdesk' => $this->current_desk_json(),
             ])->json();
             if (is_array($modules) && isset($modules['status']) && $modules['status'] == 'success') {
                 session()->put('_modules', $modules['data']);
@@ -91,6 +91,11 @@ trait UserInfoCollector
             }
         }
         return session('_modules');
+    }
+
+    public function current_desk_json()
+    {
+        return json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
     }
 
     function current_desk(): array
@@ -161,7 +166,7 @@ trait UserInfoCollector
     public function userPermittedOtherModules()
     {
         $other_modules = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.other-modules'), [
-            'cdesk' => json_encode_unicode($this->current_desk()),
+            'cdesk' => $this->current_desk_json(),
         ])->json();
         if (is_array($other_modules) && isset($other_modules['status']) && $other_modules['status'] == 'success') {
             session()->put('_other_modules', $other_modules);
@@ -174,7 +179,7 @@ trait UserInfoCollector
     public function userPermittedMenusByModule($module_link)
     {
         $menus = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.menus'), [
-            'cdesk' => json_encode_unicode($this->current_desk()),
+            'cdesk' => $this->current_desk_json(),
             'module_link' => $module_link,
         ])->json();
         if (is_array($menus) && isset($menus['status']) && $menus['status'] == 'success') {
