@@ -85,4 +85,10 @@ class PRoleController extends Controller
             return response()->json(['status' => 'error', 'data' => $responseData]);
         }
     }
+
+    public function designationRoleMap()
+    {
+        $masterDesignationList = $this->cagDoptorMasterDesignations();
+
+    }
 }

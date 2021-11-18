@@ -8,7 +8,8 @@
                 <select class="form-control select-select2" name="master_designation_id" id="master_designation_id">
                     <option value="0">Select</option>
                     @foreach($masterDesignationList as $designation)
-                        <option value="{{$designation['id']}}" {{$roleInfo['master_designation_id'] == $designation['id']?'selected':''}}>
+                        <option
+                            value="{{$designation['id']}}" {{$roleInfo['master_designation_id'] == $designation['id']?'selected':''}}>
                             {{$designation['designation_name_eng']}}
                         </option>
                     @endforeach
@@ -38,7 +39,8 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="description_en">Role Description Bn<span class="text-danger">*</span></label>
-                <textarea class="form-control" name="description_en" id="description_en" cols="30" rows="3">{{$roleInfo['description_en']}}</textarea>
+                <textarea class="form-control" name="description_en" id="description_en" cols="30"
+                          rows="3">{{$roleInfo['description_en']}}</textarea>
             </div>
         </div>
     </div>
@@ -47,7 +49,8 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="description_bn">Role Description En<span class="text-danger">*</span></label>
-                <textarea class="form-control" name="description_bn" id="description_bn" cols="30" rows="3">{{$roleInfo['description_bn']}}</textarea>
+                <textarea class="form-control" name="description_bn" id="description_bn" cols="30"
+                          rows="3">{{$roleInfo['description_bn']}}</textarea>
             </div>
         </div>
     </div>
@@ -64,39 +67,10 @@
     </div>
 
     <div class="d-flex justify-content-end">
-        <a href="javascript:;" role="button" onclick="Role_Edit_Container.updateRole()"
+        <a href="javascript:;" role="button" onclick="Role_Container.updateRole()"
            class="btn btn-primary btn-sm btn-square btn-forward">
             <i class="fa fa-save"></i>
             Update
         </a>
     </div>
 </form>
-
-<script>
-    var Role_Edit_Container ={
-        updateRole: function () {
-            url = '{{route('settings.roles.update')}}';
-            data = $('#role_create_form').serialize();
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'success') {
-                    toastr.success('Successfully role has been saved');
-                    $('#kt_quick_panel_close').click();
-                    Role_Container.loadRoleList();
-                }
-                else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
-                            if (v !== '') {
-                                toastr.error(v);
-                            }
-                        });
-                    }
-                    else {
-                        toastr.error(response.data.message);
-                    }
-                }
-            })
-        },
-    };
-</script>

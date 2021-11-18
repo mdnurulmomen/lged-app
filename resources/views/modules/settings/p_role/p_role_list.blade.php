@@ -38,8 +38,7 @@
                 KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error('No data found');
-                }
-                else {
+                } else {
                     $(".offcanvas-title").text('Role');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
@@ -67,8 +66,7 @@
                 KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error('No data found');
-                }
-                else {
+                } else {
                     $(".offcanvas-title").text('Role Edit');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
@@ -80,6 +78,40 @@
                 }
             });
         },
+
+        saveRole: function (url, data, mode = 'create') {
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'success') {
+                    toastr.success('Successfully role has been saved');
+                    $('#kt_quick_panel_close').click();
+                    Role_Container.loadRoleList();
+                } else {
+                    if (response.statusCode === '422') {
+                        var errors = response.msg;
+                        $.each(errors, function (k, v) {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        });
+                    } else {
+                        toastr.error(response.data.message);
+                    }
+                }
+            })
+        },
+
+        storeRole: function () {
+            url = '{{route('settings.roles.update')}}';
+            data = $('#role_create_form').serialize();
+            Role_Container.saveRole(url, data, 'create');
+        },
+
+        updateRole: function () {
+            url = '{{route('settings.roles.store')}}';
+            data = $('#role_update_form').serialize();
+            Role_Container.saveRole(url, data, 'update');
+        },
+
     };
 
     $(function () {

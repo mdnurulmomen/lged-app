@@ -57,39 +57,10 @@
     </div>
 
     <div class="d-flex justify-content-end">
-        <a href="javascript:;" role="button" onclick="Role_Edit_Container.updateRole()"
+        <a href="javascript:;" role="button" onclick="Role_Container.storeRole()"
            class="btn btn-primary btn-sm btn-square btn-forward">
             <i class="fa fa-save"></i>
             Save
         </a>
     </div>
 </form>
-
-<script>
-    var Role_Edit_Container ={
-        updateRole: function () {
-            url = '{{route('settings.roles.store')}}';
-            data = $('#role_update_form').serialize();
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'success') {
-                    toastr.success('Successfully role has been saved');
-                    $('#kt_quick_panel_close').click();
-                    Role_Container.loadRoleList();
-                }
-                else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
-                            if (v !== '') {
-                                toastr.error(v);
-                            }
-                        });
-                    }
-                    else {
-                        toastr.error(response.data.message);
-                    }
-                }
-            })
-        },
-    };
-</script>
