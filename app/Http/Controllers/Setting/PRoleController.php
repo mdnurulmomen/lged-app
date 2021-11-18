@@ -23,7 +23,7 @@ class PRoleController extends Controller
         $allRole = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.role_list'), $data)->json();
         if (isSuccess($allRole)) {
             $allRole = $allRole['data'];
-            return view('modules.settings.p_role.partials.load_role',compact('allRole'));
+            return view('modules.settings.p_role.partials.load_role', compact('allRole'));
         } else {
             return response()->json(['status' => 'error', 'data' => $allRole]);
         }
@@ -32,7 +32,7 @@ class PRoleController extends Controller
     public function create()
     {
         $masterDesignationList = $this->cagDoptorMasterDesignations();
-        return view('modules.settings.p_role.p_role_create',compact('masterDesignationList'));
+        return view('modules.settings.p_role.p_role_create', compact('masterDesignationList'));
     }
 
     public function store(Request $request)
@@ -43,7 +43,6 @@ class PRoleController extends Controller
             'description_en' => 'required',
             'description_bn' => 'required',
             'user_level' => 'required|integer',
-            'master_designation_id' => 'required|integer',
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.role_store'), $data)->json();
@@ -57,14 +56,14 @@ class PRoleController extends Controller
     public function edit(Request $request)
     {
         $data = Validator::make($request->all(), [
-            'role_id' => 'required|integer'
+            'role_id' => 'required|integer',
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $roleInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.role_show'), $data)->json();
         //dd($roleInfo);
-        $roleInfo = isSuccess($roleInfo)?$roleInfo['data']:[];
+        $roleInfo = isSuccess($roleInfo) ? $roleInfo['data'] : [];
         $masterDesignationList = $this->cagDoptorMasterDesignations();
-        return view('modules.settings.p_role.p_role_edit',compact('roleInfo',
+        return view('modules.settings.p_role.p_role_edit', compact('roleInfo',
             'masterDesignationList'));
     }
 
@@ -77,7 +76,6 @@ class PRoleController extends Controller
             'description_en' => 'required',
             'description_bn' => 'required',
             'user_level' => 'required|integer',
-            'master_designation_id' => 'required|integer',
         ])->validate();
         $data['cdesk'] = json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.role_update'), $data)->json();
