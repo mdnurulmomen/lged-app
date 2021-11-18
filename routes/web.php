@@ -507,7 +507,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/edit', [\App\Http\Controllers\Setting\PRoleController::class, 'edit'])->name('edit');
             Route::post('/update', [\App\Http\Controllers\Setting\PRoleController::class, 'update'])->name('update');
             Route::post('/lists', [\App\Http\Controllers\Setting\PRoleController::class, 'getRoles'])->name('lists');
-            Route::post('/assign', [\App\Http\Controllers\Setting\PRoleController::class, 'getRoles'])->name('assign');
+            Route::post('/designation-role-map', [\App\Http\Controllers\Setting\PRoleController::class, 'designationRoleMap'])->name('designation-role-map');
         });
 
         //role permission

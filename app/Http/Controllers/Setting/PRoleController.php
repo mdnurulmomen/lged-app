@@ -86,9 +86,13 @@ class PRoleController extends Controller
         }
     }
 
-    public function designationRoleMap()
+    public function designationRoleMap(Request $request)
     {
+        $roleId = $request->role_id;
+        $roleNameEn = $request->role_name_en;
         $masterDesignationList = $this->cagDoptorMasterDesignations();
+        return view('modules.settings.p_role.partials.load_role_designation_map',
+            compact('roleId','roleNameEn','masterDesignationList'));
 
     }
 }
