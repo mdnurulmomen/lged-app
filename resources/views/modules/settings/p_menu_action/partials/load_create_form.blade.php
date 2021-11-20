@@ -1,5 +1,5 @@
 <form autocomplete="off" id="menu_action_create_form">
-    <input type="hidden" name="type" value="{{$type}}">
+    <input type="hidden" name="type" value="{{$type}}" id="pageType">
 
     <div class="row">
         <div class="col-md-6">

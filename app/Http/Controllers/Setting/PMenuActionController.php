@@ -37,14 +37,16 @@ class PMenuActionController extends Controller
 
     public function create(Request $request)
     {
+        $data = Validator::make($request->all(), [
+            'type' => 'required|string',
+        ])->validate();
 
         $data['all'] = 'all';
-        $type = $request->type;
-        $data['type'] = $type;
         $data['cdesk'] = $this->current_desk_json();
         $menuActionList = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_action_list'), $data)->json();
         //dd($menuActionList);
         $menuActionList = isSuccess($menuActionList)?$menuActionList['data']:[];
+        $type = $request->type;
         return view('modules.settings.p_menu_action.partials.load_create_form',
             compact('type','menuActionList'));
     }
@@ -77,44 +79,46 @@ class PMenuActionController extends Controller
     public function edit(Request $request)
     {
         Validator::make($request->all(), [
+            'type' => 'required',
             'menu_action_id' => 'required|integer',
         ])->validate();
 
-        $data['menu_id'] = $request->menu_id;
-        $menuActionInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_action_show'), $data)->json();
+        $menuActionInfoData['menu_action_id'] = $request->menu_action_id;
+        $menuActionInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_action_show'), $menuActionInfoData)->json();
         $menuActionInfo = isSuccess($menuActionInfo)?$menuActionInfo['data']:[];
 
-        $data['all'] = 'all';
-        $type = $request->type;
-        $data['type'] = $type;
-        $data['cdesk'] = $this->current_desk_json();
-        $menuActionList = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_action_list'), $data)->json();
+        $menuActionListData['all'] = 'all';
+        $menuActionListData['type'] = $request->type == 'action'?'menu':$request->type;
+        $menuActionListData['cdesk'] = $this->current_desk_json();
+        $menuActionList = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_action_list'), $menuActionListData)->json();
         $menuActionList = isSuccess($menuActionList)?$menuActionList['data']:[];
+        $type = $request->type;
 
-        return view('modules.settings.p_menu.p_menu_edit',compact('type',
+        return view('modules.settings.p_menu_action.partials.load_edit_form',compact('type',
             'menuActionInfo', 'menuActionList'));
     }
 
     public function update(Request $request)
     {
         $data = Validator::make($request->all(), [
-            'menu_id' => 'required|integer',
-            'menu_name_en' => 'required',
-            'menu_name_bn' => 'required',
+            'menu_action_id' => 'required|integer',
+            'title_en' => 'required',
+            'title_bn' => 'required',
+            'link' => 'required',
         ])->validate();
 
-        $data['menu_class'] = $request->menu_class;
-        $data['menu_link'] = $request->menu_link;
-        $data['menu_controller'] = $request->menu_controller;
-        $data['menu_method'] = $request->menu_method;
-        $data['menu_icon'] = $request->menu_icon;
-        $data['module_menu_id'] = $request->module_menu_id;
-        $data['parent_menu_id'] = $request->parent_menu_id;
+        $data['class'] = $request->class;
+        $data['controller'] = $request->controller;
+        $data['method'] = $request->method_name;
+        $data['icon'] = $request->icon;
         $data['display_order'] = $request->display_order;
+        $data['parent_id'] = $request->parent_id;
+        $data['is_other_module'] = $request->is_other_module;
+        $data['type'] = $request->type;
         $data['cdesk'] = $this->current_desk_json();
-        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_update'), $data)->json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_action_update'), $data)->json();
         if (isSuccess($responseData)) {
-            return response()->json(responseFormat('success', 'Created Successfully'));
+            return response()->json(responseFormat('success', 'Updated Successfully'));
         } else {
             return response()->json(['status' => 'error', 'data' => $responseData]);
         }

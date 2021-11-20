@@ -70,10 +70,9 @@
         },
 
 
-        saveMenuAction: function (url, data, mode = 'create') {
+        saveMenuAction: function (url, type, data, mode = 'create') {
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
-                    type = '{{$type}}';
                     toastr.success('Successfully '+type+' has been saved');
                     $('#kt_quick_panel_close').click();
                     Menu_Action_Container.loadTypeWiseMenuActionList(type);
@@ -94,14 +93,16 @@
 
         storeMenuAction: function () {
             url = '{{route('settings.menu-actions.store')}}';
+            type = $("#pageType").val();
             data = $('#menu_action_create_form').serialize();
-            Menu_Action_Container.saveMenuAction(url, data, 'create');
+            Menu_Action_Container.saveMenuAction(url, type, data, 'create');
         },
 
         updateMenuAction: function () {
             url = '{{route('settings.menu-actions.update')}}';
+            type = $("#pageType").val();
             data = $('#menu_action_update_form').serialize();
-            Menu_Action_Container.saveMenuAction(url, data, 'update');
+            Menu_Action_Container.saveMenuAction(url, type, data, 'update');
         },
     };
 </script>
