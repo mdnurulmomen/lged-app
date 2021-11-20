@@ -477,26 +477,17 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::resource('/output', \App\Http\Controllers\Setting\XStrategicPlan\OutputController::class, ['except' => ['edit', 'create']]);
         });
 
-        //for module menu
-        Route::group(['as' => 'module-menus.', 'prefix' => 'module-menus/'], function () {
-            Route::get('/', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'index'])->name('index');
-            Route::post('/create', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'store'])->name('store');
-            Route::post('/edit', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'edit'])->name('edit');
-            Route::post('/update', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'update'])->name('update');
-            Route::post('/lists', [\App\Http\Controllers\Setting\PMenuModuleController::class, 'getModules'])->name('lists');
-        });
 
-        //Route::resource('/module-menus', \App\Http\Controllers\Setting\PMenuModuleController::class, ['except' => ['edit', 'create']]);
+        //for menu action
+        Route::group(['as' => 'menu-actions.', 'prefix' => 'menu-actions/'], function () {
+            Route::get('/{page}', [\App\Http\Controllers\Setting\PMenuActionController::class, 'index'])->name('index');
 
-        //for menu
-        Route::group(['as' => 'menus.', 'prefix' => 'menus/'], function () {
-            Route::get('/', [\App\Http\Controllers\Setting\PMenuController::class, 'index'])->name('index');
-            Route::post('/create', [\App\Http\Controllers\Setting\PMenuController::class, 'create'])->name('create');
-            Route::post('/store', [\App\Http\Controllers\Setting\PMenuController::class, 'store'])->name('store');
-            Route::post('/edit', [\App\Http\Controllers\Setting\PMenuController::class, 'edit'])->name('edit');
-            Route::post('/update', [\App\Http\Controllers\Setting\PMenuController::class, 'update'])->name('update');
-            Route::post('/lists', [\App\Http\Controllers\Setting\PMenuController::class, 'getMenus'])->name('lists');
+            Route::post('/create', [\App\Http\Controllers\Setting\PMenuActionController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\Setting\PMenuActionController::class, 'store'])->name('store');
+            Route::post('/edit', [\App\Http\Controllers\Setting\PMenuActionController::class, 'edit'])->name('edit');
+            Route::post('/update', [\App\Http\Controllers\Setting\PMenuActionController::class, 'update'])->name('update');
+
+            Route::post('/load-type-wise-menu-action', [\App\Http\Controllers\Setting\PMenuActionController::class, 'loadTypeWiseMenuActionData'])->name('load-type-wise-menu-action');
         });
 
         //for role

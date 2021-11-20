@@ -48,15 +48,10 @@ return [
 
         'cost_center_type_lists' => env('API_URL_BEE', '') . '/cost-center-type',
 
-        'module_list' => env('API_URL_BEE', '') . '/module-menus',
-        'module_store' => env('API_URL_BEE', '') . '/module-menus/create',
-        'module_show' => env('API_URL_BEE', '') . '/module-menus/show',
-        'module_update' => env('API_URL_BEE', '') . '/module-menus/update',
-
-        'menu_list' => env('API_URL_BEE', '') . '/menus',
-        'menu_store' => env('API_URL_BEE', '') . '/menus/create',
-        'menu_show' => env('API_URL_BEE', '') . '/menus/show',
-        'menu_update' => env('API_URL_BEE', '') . '/menus/update',
+        'menu_action_list' => env('API_URL_BEE', '') . '/menu-actions',
+        'menu_action_store' => env('API_URL_BEE', '') . '/menu-actions/create',
+        'menu_action_show' => env('API_URL_BEE', '') . '/menu-actions/show',
+        'menu_action_update' => env('API_URL_BEE', '') . '/menu-actions/update',
 
         'role_list' => env('API_URL_BEE', '') . '/roles',
         'role_store' => env('API_URL_BEE', '') . '/roles/create',

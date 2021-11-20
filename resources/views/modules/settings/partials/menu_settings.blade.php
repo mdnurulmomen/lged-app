@@ -43,11 +43,14 @@
             </x-parent-menu-item>
 
             <x-parent-menu-item icon="fas fa-list" name="Modules & Menus">
-                <x-menu-item class="p_modules" href="{{route('settings.module-menus.index')}}"
+                <x-menu-item class="p_modules" href="{{url('settings/menu-actions/module')}}"
                              icon="fal fa-calendar-alt">Modules
                 </x-menu-item>
-                <x-menu-item class="p_modules" href="{{route('settings.menus.index')}}"
+                <x-menu-item class="p_modules" href="{{url('settings/menu-actions/menu')}}"
                              icon="fal fa-calendar-alt">Menus
+                </x-menu-item>
+                <x-menu-item class="p_modules" href="{{url('settings/menu-actions/action')}}"
+                             icon="fal fa-calendar-alt">Actions
                 </x-menu-item>
             </x-parent-menu-item>
 
