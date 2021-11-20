@@ -17,6 +17,7 @@ class PermissionController extends Controller
         $module_menus = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.get-module-menu-lists'), [
             'cdesk' => $this->current_desk_json(),
         ])->json();
+        dd($module_menus);
         if (is_array($module_menus) && isset($module_menus['status']) && $module_menus['status'] == 'success') {
             $module_menus = $module_menus['data'];
             return view('modules.settings.permission.partials.load_menu_module_lists', compact('module_menus'));
