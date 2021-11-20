@@ -498,8 +498,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/edit', [\App\Http\Controllers\Setting\PRoleController::class, 'edit'])->name('edit');
             Route::post('/update', [\App\Http\Controllers\Setting\PRoleController::class, 'update'])->name('update');
             Route::post('/lists', [\App\Http\Controllers\Setting\PRoleController::class, 'getRoles'])->name('lists');
-            Route::post('/load-master-designation-role-map', [\App\Http\Controllers\Setting\PRoleController::class, 'designationRoleMap'])->name('load-master-designation-role-map');
-            Route::post('/store-master-designation-role-map', [\App\Http\Controllers\Setting\PRoleController::class, 'storeDesignationRoleMap'])->name('store-master-designation-role-map');
+            Route::post('/load-master-designation-role-map', [\App\Http\Controllers\Setting\PRoleController::class, 'loadMasterDesignationRoleMap'])->name('load-master-designation-role-map');
+            Route::post('/store-master-designation-role-map', [\App\Http\Controllers\Setting\PRoleController::class, 'storeMasterDesignationRoleMap'])->name('store-master-designation-role-map');
         });
 
         //role permission

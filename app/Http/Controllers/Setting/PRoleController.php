@@ -86,7 +86,7 @@ class PRoleController extends Controller
         }
     }
 
-    public function designationRoleMap(Request $request)
+    public function loadMasterDesignationRoleMap(Request $request)
     {
         $roleId = $request->role_id;
         $roleNameEn = $request->role_name_en;
@@ -96,12 +96,26 @@ class PRoleController extends Controller
 
     }
 
-    public function storeDesignationRoleMap(Request $request)
+    public function storeMasterDesignationRoleMap(Request $request)
     {
+        Validator::make($request->all(), [
+            'role_id' => 'required',
+            'master_designation' => 'required',
+        ])->validate();
         $roleId = $request->role_id;
-        $masterDesignations = $request->master_designations;
+        $masterDesignations = implode(',', $request->master_designation);
+        $data = [
+            'role_id' => $roleId,
+            'master_designations' => $masterDesignations,
+        ];
 
-
+        $data['cdesk'] = $this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.assign_master_designation_to_role'), $data)->json();
+        if (isSuccess($responseData)) {
+            return response()->json(responseFormat('success', 'Updated Successfully'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData]);
+        }
 
     }
 

@@ -57,6 +57,7 @@ return [
         'role_store' => env('API_URL_BEE', '') . '/roles/create',
         'role_show' => env('API_URL_BEE', '') . '/roles/show',
         'role_update' => env('API_URL_BEE', '') . '/roles/update',
+        'assign_master_designation_to_role' => env('API_URL_BEE', '') . '/roles/assign-master-designations-to-role',
     ],
 
     'audit_operational_plan' => [

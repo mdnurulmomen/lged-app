@@ -26,7 +26,7 @@
                         <button title="এসাইন করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-warning"
                                 data-role-id="{{$role['id']}}"
                                 data-role-name-en="{{$role['role_name_en']}}"
-                                onclick="Role_Container.loadDesignationAssignCreateForm($(this))">
+                                onclick="Role_Container.loadMasterDesignationAssignCreateForm($(this))">
                             <i class="fad fa-users"></i>
                         </button>
                     </div>

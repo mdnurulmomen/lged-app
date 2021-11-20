@@ -112,7 +112,7 @@
             Role_Container.saveRole(url, data, 'update');
         },
 
-        loadDesignationAssignCreateForm: function (elem) {
+        loadMasterDesignationAssignCreateForm: function (elem) {
             role_id = elem.data('role-id');
             role_name_en = elem.data('role-name-en');
             data = {role_id, role_name_en};
@@ -139,6 +139,30 @@
                 }
             });
         },
+
+        storeMasterDesignationRoleMap: function () {
+            data = $('#master_designation_role_map_form').serializeArray();
+            url = '{{route('settings.roles.store-master-designation-role-map')}}';
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'success') {
+
+                    toastr.success('Successfully role has been saved');
+                    $('#kt_quick_panel_close').click();
+                    Role_Container.loadRoleList();
+                } else {
+                    if (response.statusCode === '422') {
+                        var errors = response.msg;
+                        $.each(errors, function (k, v) {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        });
+                    } else {
+                        toastr.error(response.data.message);
+                    }
+                }
+            })
+        }
     };
 
     $(function () {
