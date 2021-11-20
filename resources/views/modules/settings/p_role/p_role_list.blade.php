@@ -115,8 +115,8 @@
         loadDesignationAssignCreateForm: function (elem) {
             role_id = elem.data('role-id');
             role_name_en = elem.data('role-name-en');
-            data = {role_id,role_name_en};
-            url = '{{route('settings.roles.designation-role-map')}}';
+            data = {role_id, role_name_en};
+            url = '{{route('settings.roles.load-master-designation-role-map')}}';
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -128,7 +128,7 @@
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".offcanvas-title").text('Role Designation Map ('+role_name_en+')');
+                    $(".offcanvas-title").text('Role Designation Map (' + role_name_en + ')');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);

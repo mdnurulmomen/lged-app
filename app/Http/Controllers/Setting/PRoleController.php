@@ -92,7 +92,18 @@ class PRoleController extends Controller
         $roleNameEn = $request->role_name_en;
         $masterDesignationList = $this->cagDoptorMasterDesignations();
         return view('modules.settings.p_role.partials.load_role_designation_map',
-            compact('roleId','roleNameEn','masterDesignationList'));
+            compact('roleId', 'roleNameEn', 'masterDesignationList'));
 
     }
+
+    public function storeDesignationRoleMap(Request $request)
+    {
+        $roleId = $request->role_id;
+        $masterDesignations = $request->master_designations;
+
+
+
+    }
+
+
 }
