@@ -9,10 +9,8 @@
             <th class="text-center">Display Order</th>
             <th class="text-left">Class</th>
             <th class="text-left">Icon</th>
-            <th class="text-left">Controller</th>
-            <th class="text-left">Method</th>
             <th class="text-left">Link</th>
-            <th class="text-left">Other Module</th>
+{{--            <th class="text-left">Other Module</th>--}}
             <th  class="text-left" width="10%">Action</th>
         </tr>
         </thead>
@@ -25,10 +23,8 @@
                 <td class="text-center">{{$menuAction['display_order']}}</td>
                 <td>{{$menuAction['class']}}</td>
                 <td>{{$menuAction['icon']}}</td>
-                <td>{{$menuAction['controller']}}</td>
-                <td>{{$menuAction['method']}}</td>
                 <td>{{$menuAction['link']}}</td>
-                <td>{{$menuAction['is_other_module'] == 1?'Yes':'No'}}</td>
+{{--                <td>{{$menuAction['is_other_module'] == 1?'Yes':'No'}}</td>--}}
                 <td>
                     <div class="btn-group btn-group-sm" role="group">
                         <button title="হালনাগাদ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
