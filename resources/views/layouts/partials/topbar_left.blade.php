@@ -5,19 +5,19 @@
         <ul class="menu-nav">
             @if($modules != null)
                 @foreach($modules as $module)
-                    @if(!empty($module['children']))
+                    @if(!empty($module['module_childrens']))
                         <li class="menu-item">
                             <div class="dropdown">
                                 <button
                                     class="btn btn-outline-primary btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown"
                                     type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fad fa-ballot-check"></i> <span>{{$module['module_name_en']}}</span>
+                                    <i class="fad fa-ballot-check"></i> <span>{{$module['title_en']}}</span>
                                 </button>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    @foreach($module['children'] as $child)
+                                    @foreach($module['module_childrens'] as $child)
                                         <a class="dropdown-item"
-                                           href="{{url($child['module_link'])}}}">{{$child['module_name_en']}}</a>
+                                           href="{{$child['link']}}">{{$child['title_en']}}</a>
                                     @endforeach
                                 </div>
                             </div>
@@ -25,10 +25,10 @@
                     @else
                         <li class="menu-item">
                             <a
-                                href="{{url($module['module_link'])}}}"
+                                href="{{$module['link']}}"
                                 class="btn btn-outline-danger btn-square btn-sm width-160p text-left"
                                 type="button">
-                                <i class="fal fa-network-wired"></i><span>{{$module['module_name_en']}}</span>
+                                <i class="fal fa-network-wired"></i><span>{{$module['title_en']}}</span>
                             </a>
                         </li>
 
