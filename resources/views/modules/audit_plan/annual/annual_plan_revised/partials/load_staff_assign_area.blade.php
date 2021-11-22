@@ -1,10 +1,10 @@
-<div class="form-row pt-4" id="team_section_{{$count}}">
+<div class="form-row pt-4 staff_row" id="team_section_{{$count}}">
     <div class="col-md-4">
         <label for="designation">পদবি</label>
-        <select class="form-control select-select2 designation_{{$count}}" name="designation[]">
+        <select class="form-control select-select2 staff_designation designation_{{$count}}" name="designation[]">
             <option value="">--বাছাই করুন--</option>
             @foreach($designations as $designation)
-                <option value="{{$designation['designation_eng']}}|{{$designation['designation_bng']}}">
+                <option data-designation-en="{{$designation['designation_eng']}}" value="{{$designation['designation_eng']}}|{{$designation['designation_bng']}}">
                     {{$designation['designation_bng']}}
                 </option>
             @endforeach
@@ -12,16 +12,16 @@
     </div>
     <div class="col-md-3">
         <label for="responsibility">দায়িত্ব</label>
-        <select class="form-control select-select2 responsibility_{{$count}}" name="responsibility">
+        <select class="form-control select-select2 staff_responsibility responsibility_{{$count}}" name="responsibility">
             <option value="">--বাছাই করুন--</option>
-            <option value="Team Leader|দলনেতা">দলনেতা</option>
-            <option value="Sub Team Leader|উপদলনেতা">উপদলনেতা</option>
-            <option value="Member|সদস্য">সদস্য</option>
+            <option data-responsibility-en="Team Leader" value="Team Leader|দলনেতা">দলনেতা</option>
+            <option data-responsibility-en="Sub Team Leader" value="Sub Team Leader|উপদলনেতা">উপদলনেতা</option>
+            <option data-responsibility-en="Member" value="Member|সদস্য">সদস্য</option>
         </select>
     </div>
     <div class="col-md-3">
         <label for="staff">জন</label>
-        <input class="form-control staff_{{$count}}" type="number" name="staff">
+        <input class="form-control staff_number staff_{{$count}}" type="number" name="staff">
     </div>
     <div class="col-md-2 mt-9">
         <span title="যোগ করুন" onclick="Annual_Plan_Container.addTeamSection($(this))" class="btn btn-outline-primary btn-sm btn-square">

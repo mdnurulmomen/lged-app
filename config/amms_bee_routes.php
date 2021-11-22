@@ -112,6 +112,8 @@ return [
         'ap_yearly_plan_list_show' => env('API_URL_BEE', '') . '/planning/annual-plan/show',
         'ap_yearly_plan_entities_list_show' => env('API_URL_BEE', '') . '/planning/annual-plan/show-entities',
         'ap_yearly_plan_submission' => env('API_URL_BEE', '') . '/planning/annual-plan/create',
+        'ap_yearly_plan_update' => env('API_URL_BEE', '') . '/planning/annual-plan/update',
+        'get_annual_plan_info' => env('API_URL_BEE', '') . '/planning/annual-plan/get-annual-plan-info',
         'ap_yearly_plan_book' => env('API_URL_BEE', '') . '/planning/annual-plan/book',
         'ap_submit_plan_to_ocag' => env('API_URL_BEE', '') . '/planning/annual-plan/submit-plan-to-ocag',
         'ap_nominated_offices' => env('API_URL_BEE', '') . '/planning/annual-plan/get-nominated-offices',

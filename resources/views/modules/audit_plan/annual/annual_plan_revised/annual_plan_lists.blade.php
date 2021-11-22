@@ -169,6 +169,23 @@
             });
         },
 
+        editPlanInfo: function (elem) {
+            annual_plan_id = elem.data('annual-plan-id');
+            fiscal_year_id = elem.data('fiscal-year-id');
+            op_audit_calendar_event_id = elem.data('op-audit-calendar-event-id');
+            data = {annual_plan_id,fiscal_year_id, op_audit_calendar_event_id}
+            KTApp.block('#kt_content');
+            let url = '{{route('audit.plan.annual.plan.revised.edit_plan_info')}}'
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('#kt_content').html(response)
+                }
+            });
+        },
+
         loadActivityWiseMilestone: function (activity_id) {
             data = {
                 activity_id,
@@ -424,6 +441,30 @@
             url = '{{route('audit.plan.annual.plan.revised.store')}}';
 
             data = $('#annual_plan_form').serializeArray();
+
+            // staff_list = {};
+            //
+            // $(".staff_row input, .staff_row select").each(function () {
+            //     // alert(count);
+            //     row_count = 0;
+            //     if ($(this).hasClass('staff_number')) {
+            //         row_count = $(this).attr('data-row-count');
+            //         alert(row_count);
+            //         staff_list[row_count] = {
+            //             staff: $(this).val(),
+            //         }
+            //     }
+            //     if ($(this).hasClass('staff_designation') && $(this).is("select")) {
+            //         staff_list[row_count]['designation_bn'] = $(this).val();
+            //         staff_list[row_count]['designation_en'] = $(this).find(':selected').attr('data-designation-en')
+            //     }
+            //     if ($(this).hasClass('staff_responsibility') && $(this).is("select")) {
+            //         staff_list[row_count]['responsibility_bn'] = $(this).val();
+            //         staff_list[row_count]['responsibility_en'] = $(this).find(':selected').attr('data-responsibility-en')
+            //     }
+            // });
+            //
+            // console.log(staff_list);
 
             data.push({name: "activity_id", value: $('#activity_id').val()});
             data.push({name: "milestone_id", value: $('#milestone_id').val()});
