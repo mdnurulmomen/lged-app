@@ -3,7 +3,7 @@
 <div class="px-3 py-3" id="load_role_list"></div>
 
 <div class="px-3" id="load_menu_module_list"></div>
-<button class="btn btn-primary" onclick="PermissionAssignContainer.assignMenusToRole()"> Assign</button>
+<button class="btn btn-primary mb-5" onclick="PermissionAssignContainer.assignMenusToRole()"> Assign</button>
 <script>
     var PermissionAssignContainer = {
         loadMenuModuleLists: function (page = 1, per_page = 100) {
@@ -40,12 +40,18 @@
                     return $(this).val();
                 }
             }).get();
+            menu_actions = $("#menuAssignForm input:checkbox:checked").map(function () {
+                if ($(this).attr('data-type') == 'menu_action') {
+                    return $(this).val();
+                }
+            }).get();
             modules = JSON.stringify(modules);
             menus = JSON.stringify(menus);
+            menu_actions = JSON.stringify(menu_actions);
             role_id = $('#role_id').val();
 
             url = '{{route('settings.role-permissions.assign-menus-to-role')}}';
-            data = {modules, menus, role_id};
+            data = {modules, menus, menu_actions, role_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'success') {
                     toastr.success(response.data);

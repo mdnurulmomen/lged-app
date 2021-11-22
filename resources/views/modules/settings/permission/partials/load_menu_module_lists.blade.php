@@ -7,10 +7,10 @@
                        data-type="module"
                        value="{{$module['id']}}"
                        class="parent_module" id="parent_{{$module['id']}}"><span
-                    class="pl-2">{{$module['module_name_en']}}</span> <span class="badge badge-info p-1">Module</span>
+                    class="pl-2">{{$module['title_en']}}</span> <span class="badge badge-info p-1">Module</span>
             </label>
-            @if(!empty($module['children']))
-                @include('modules.settings.permission.partials.load_menu_module_child_lists',['module_children' => $module['children'], 'type' => 'module'])
+            @if(!empty($module['module_childrens']))
+                @include('modules.settings.permission.partials.load_menu_module_child_lists',['module_childrens' => $module['module_childrens'], 'type' => 'module'])
             @endif
             @foreach($module['menus'] as $menu)
                 <div class="col-md-12 pl-4 text-capitalize">
@@ -20,11 +20,11 @@
                                type="checkbox"
                                value="{{$menu['id']}}"
                                class="parent_menu" id="parent_{{$menu['id']}}"> <span
-                            class="pl-2">{{$menu['menu_name_en']}} </span><span
+                            class="pl-2">{{$menu['title_en']}} </span><span
                             class="badge badge-primary p-1">Menu</span>
                     </label>
-                    @if(!empty($menu['children']))
-                        @include('modules.settings.permission.partials.load_menu_module_child_lists',['menu_children' => $menu['children'], 'type' => 'menu'])
+                    @if(!empty($menu['menu_childrens']))
+                        @include('modules.settings.permission.partials.load_menu_module_child_lists',['menu_childrens' => $menu['menu_childrens'], 'type' => 'menu'])
                     @endif
                 </div>
             @endforeach
