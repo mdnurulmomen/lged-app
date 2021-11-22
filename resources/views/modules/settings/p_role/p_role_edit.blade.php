@@ -1,22 +1,5 @@
-<form autocomplete="off" id="role_create_form">
+<form autocomplete="off" id="role_update_form">
     <input type="hidden" name="role_id" value="{{$roleInfo['id']}}">
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="master_designation_id">Master Designation<span class="text-danger">*</span></label>
-                <select class="form-control select-select2" name="master_designation_id" id="master_designation_id">
-                    <option value="0">Select</option>
-                    @foreach($masterDesignationList as $designation)
-                        <option
-                            value="{{$designation['id']}}" {{$roleInfo['master_designation_id'] == $designation['id']?'selected':''}}>
-                            {{$designation['designation_name_eng']}}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -59,9 +42,17 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="user_level">User Level<span class="text-danger">*</span></label>
-                <input class="form-control integer_type_positive" type="text" id="user_level" name="user_level"
-                       value="{{$roleInfo['user_level']}}"
-                       placeholder="Enter user level">
+                <div class="form-check form-check-inline">
+                    <input @if($roleInfo['user_level'] == 1) checked @endif class="form-check-input" type="radio"
+                           name="user_level" id="user_level_super_admin"
+                           value="1">
+                    <label class="form-check-label" for="user_level_super_admin">Super Admin</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input @if($roleInfo['user_level'] == 3) checked @endif class="form-check-input" type="radio"
+                           name="user_level" id="user_level_user" value="3">
+                    <label class="form-check-label" for="user_level_user">User</label>
+                </div>
             </div>
         </div>
     </div>

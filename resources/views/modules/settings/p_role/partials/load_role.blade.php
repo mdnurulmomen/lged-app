@@ -14,16 +14,22 @@
             <tr>
                 <td>{{$role['role_name_en']}}</td>
                 <td>{{$role['description_en']}}</td>
-                <td>{{$role['user_level']}}</td>
+                @if($role['user_level'] == 1)
+                    <td>Super Admin</td>
+                @elseif($role['user_level'] == 3)
+                    <td>User</td>
+                @endif
                 <td>
                     <div class="btn-group btn-group-sm" role="group">
-                        <button title="হালনাগাদ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                        <button title="হালনাগাদ করুন"
+                                class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                                 data-role-id="{{$role['id']}}"
                                 onclick="Role_Container.editRole($(this))">
                             <i class="fad fa-edit"></i>
                         </button>
 
-                        <button title="এসাইন করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-warning"
+                        <button title="এসাইন করুন"
+                                class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-warning"
                                 data-role-id="{{$role['id']}}"
                                 data-role-name-en="{{$role['role_name_en']}}"
                                 onclick="Role_Container.loadMasterDesignationAssignCreateForm($(this))">

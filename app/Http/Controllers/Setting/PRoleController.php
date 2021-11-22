@@ -31,8 +31,7 @@ class PRoleController extends Controller
 
     public function create()
     {
-        $masterDesignationList = $this->cagDoptorMasterDesignations();
-        return view('modules.settings.p_role.p_role_create', compact('masterDesignationList'));
+        return view('modules.settings.p_role.p_role_create');
     }
 
     public function store(Request $request)
@@ -62,9 +61,7 @@ class PRoleController extends Controller
         $roleInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.role_show'), $data)->json();
         //dd($roleInfo);
         $roleInfo = isSuccess($roleInfo) ? $roleInfo['data'] : [];
-        $masterDesignationList = $this->cagDoptorMasterDesignations();
-        return view('modules.settings.p_role.p_role_edit', compact('roleInfo',
-            'masterDesignationList'));
+        return view('modules.settings.p_role.p_role_edit', compact('roleInfo'));
     }
 
     public function update(Request $request)

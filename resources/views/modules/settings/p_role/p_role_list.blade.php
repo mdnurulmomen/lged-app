@@ -101,13 +101,13 @@
         },
 
         storeRole: function () {
-            url = '{{route('settings.roles.update')}}';
+            url = '{{route('settings.roles.store')}}';
             data = $('#role_create_form').serialize();
             Role_Container.saveRole(url, data, 'create');
         },
 
         updateRole: function () {
-            url = '{{route('settings.roles.store')}}';
+            url = '{{route('settings.roles.update')}}';
             data = $('#role_update_form').serialize();
             Role_Container.saveRole(url, data, 'update');
         },
