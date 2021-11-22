@@ -1,6 +1,5 @@
 <form autocomplete="off" id="menu_action_create_form">
     <input type="hidden" name="type" value="{{$type}}" id="pageType">
-
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -21,44 +20,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="parent_id">Parent</label>
-                <select class="form-control select-select2" name="parent_id" id="parent_id">
-                    <option value="">Select</option>
-                    @foreach($menuActionList as $menuAction)
-                        <option value="{{$menuAction['id']}}">{{$menuAction['title_bn']}}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
                 <label for="link">Link<span class="text-danger">*</span></label>
                 <input class="form-control" type="text" id="link" name="link"
                        placeholder="Enter link">
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="controller">Controller</label>
-                <input class="form-control" type="text" id="controller" name="controller"
-                       placeholder="Enter controller">
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="method">Method</label>
-                <input class="form-control" type="text" id="method_name" name="method_name"
-                       placeholder="Enter method">
-            </div>
-        </div>
-    </div>
-
 
     <div class="row">
         <div class="col-md-6">
@@ -92,6 +59,29 @@
                     <option value="1">Yes</option>
                     <option value="0" selected>No</option>
                 </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="parent_id">Parent</label>
+                <select class="form-control select-select2" name="parent_id" id="parent_id">
+                    <option value="">Select</option>
+                    @foreach($menuActionList as $menuAction)
+                        <option value="{{$menuAction['id']}}">{{$menuAction['title_bn']}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="status" id="status"
+                           value="1">
+                    <label class="form-check-label" for="status">Status</label>
+                </div>
             </div>
         </div>
     </div>
