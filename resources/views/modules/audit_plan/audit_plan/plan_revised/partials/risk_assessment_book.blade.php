@@ -7,6 +7,7 @@
         Detection Risk
     @endif
 </h4>
+
 <table class="table" border="1" width="100%">
     <thead>
     <tr>
@@ -47,7 +48,7 @@
             @endif
         </td>
         <td style="text-align: center">
-            {{enTobn(number_format($risk_rate,2))}}
+            {{enTobn(round($risk_rate,2))}}
 
             {{--@if($risk == 'high')
                 (উচ্চ ঝুঁকি)
