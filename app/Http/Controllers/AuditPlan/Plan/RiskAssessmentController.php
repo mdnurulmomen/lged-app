@@ -26,7 +26,7 @@ class RiskAssessmentController extends Controller
         $data['audit_plan_id'] = $request->audit_plan_id;
         $data['cdesk'] = $this->current_desk_json();
         $ap_risk_assessment_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_risk_assessment_list'), $data)->json();
-
+        //dd($ap_risk_assessment_list);
         if ($x_risk_assessment_list['status'] == 'success') {
             $x_risk_assessment_list = $x_risk_assessment_list['data'];
             $ap_risk_assessment_list = $ap_risk_assessment_list['data'];
@@ -45,7 +45,7 @@ class RiskAssessmentController extends Controller
         $data['activity_id'] = $request->activity_id;
         $data['audit_plan_id'] = $request->audit_plan_id;
         $data['risk_rate'] = $request->risk_rate;
-        $data['total_number'] = $request->total_number;
+        $data['total_score'] = $request->total_score;
         $data['risk'] = $request->risk;
         $data['risk_assessment_type'] = $request->risk_assessment_type;
 
@@ -68,7 +68,7 @@ class RiskAssessmentController extends Controller
         $data['activity_id'] = $request->activity_id;
         $data['audit_plan_id'] = $request->audit_plan_id;
         $data['risk_rate'] = $request->risk_rate;
-        $data['total_number'] = $request->total_number;
+        $data['total_score'] = $request->total_score;
         $data['risk'] = $request->risk;
         $data['risk_assessment_type'] = $request->risk_assessment_type;
 
@@ -86,7 +86,7 @@ class RiskAssessmentController extends Controller
     {
         $data['risk_assessments'] = $request->risk_assessments;
         $data['risk_rate'] = $request->risk_rate;
-        $data['total_number'] = $request->total_number;
+        $data['total_number'] = $request->total_score;
         $data['risk'] = $request->risk;
         $data['risk_assessment_type'] = $request->risk_assessment_type;
 
