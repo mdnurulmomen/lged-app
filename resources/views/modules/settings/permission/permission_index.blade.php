@@ -30,28 +30,14 @@
         },
 
         assignMenusToRole: function () {
-            menus = $("#menuAssignForm input:checkbox:checked").map(function () {
-                if ($(this).attr('data-type') == 'menu') {
-                    return $(this).val();
-                }
-            }).get();
-            modules = $("#menuAssignForm input:checkbox:checked").map(function () {
-                if ($(this).attr('data-type') == 'module') {
-                    return $(this).val();
-                }
-            }).get();
             menu_actions = $("#menuAssignForm input:checkbox:checked").map(function () {
-                if ($(this).attr('data-type') == 'menu_action') {
-                    return $(this).val();
-                }
+                return $(this).val();
             }).get();
-            modules = JSON.stringify(modules);
-            menus = JSON.stringify(menus);
             menu_actions = JSON.stringify(menu_actions);
             role_id = $('#role_id').val();
 
             url = '{{route('settings.role-permissions.assign-menus-to-role')}}';
-            data = {modules, menus, menu_actions, role_id};
+            data = {menu_actions, role_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'success') {
                     toastr.success(response.data);

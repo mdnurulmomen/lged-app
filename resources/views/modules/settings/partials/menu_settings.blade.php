@@ -61,6 +61,9 @@
                 <x-menu-item class="p_modules" href="{{route('settings.role-permissions.index')}}"
                              icon="fal fa-calendar-alt">Permission Assign
                 </x-menu-item>
+                <x-menu-item class="p_modules" href="{{route('settings.role-permissions.employee-permission')}}"
+                             icon="fal fa-calendar-alt">Employee Permission
+                </x-menu-item>
             </x-parent-menu-item>
         </ul>
     </div>

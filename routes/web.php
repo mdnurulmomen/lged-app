@@ -506,9 +506,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         //role permission
         Route::group(['as' => 'role-permissions.', 'prefix' => 'role-permissions/'], function () {
             Route::get('/', [\App\Http\Controllers\Setting\PermissionController::class, 'index'])->name('index');
+            Route::get('/employee-permission', [\App\Http\Controllers\Setting\PermissionController::class, 'employeePermission'])->name('employee-permission');
             Route::post('/get-menu-module-lists', [\App\Http\Controllers\Setting\PermissionController::class, 'loadMenuModuleLists'])->name('get-menu-module-lists');
             Route::post('/get-roles-list', [\App\Http\Controllers\Setting\PermissionController::class, 'loadAllRoles'])->name('get-roles-list');
             Route::post('/assign-menus-to-role', [\App\Http\Controllers\Setting\PermissionController::class, 'assignMenuModuleToRole'])->name('assign-menus-to-role');
+            Route::post('/assign-menus-to-employee', [\App\Http\Controllers\Setting\PermissionController::class, 'assignMenuModuleToEmployee'])->name('assign-menus-to-employee');
         });
     });
 

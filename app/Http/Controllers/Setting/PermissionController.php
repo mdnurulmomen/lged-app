@@ -12,6 +12,16 @@ class PermissionController extends Controller
         return view('modules.settings.permission.permission_index');
     }
 
+    public function employeePermission()
+    {
+        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
+        if ($officer_lists) {
+            return view('modules.settings.permission.individual_permission_index', compact('officer_lists'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $officer_lists]);
+        }
+    }
+
     public function loadMenuModuleLists(Request $request)
     {
         $module_menus = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.get-module-menu-lists'), [
@@ -40,8 +50,6 @@ class PermissionController extends Controller
 
     public function assignMenuModuleToRole(Request $request): \Illuminate\Http\JsonResponse
     {
-        $data['modules'] = $request->modules;
-        $data['menus'] = $request->menus;
         $data['menu_actions'] = $request->menu_actions;
         $data['role_id'] = $request->role_id;
         $data['cdesk'] = $this->current_desk_json();
@@ -50,6 +58,20 @@ class PermissionController extends Controller
             return response()->json(['data' => $assign, 'status' => 'success']);
         } else {
             return response()->json(['data' => $assign, 'status' => 'error']);
+        }
+    }
+
+    public function assignMenuModuleToEmployee(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $data['menu_actions'] = $request->menu_actions;
+        $data['designation_id'] = $request->designation_id;
+        $data['master_designation_id'] = $request->master_designation_id;
+        $data['cdesk'] = $this->current_desk_json();
+        $assign = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.assign-menus-to-employee'), $data)->json();
+        if (isSuccess($assign)) {
+            return response()->json(['data' => $assign['data'], 'status' => 'success']);
+        } else {
+            return response()->json(['data' => $assign['data'], 'status' => 'error']);
         }
     }
 }
