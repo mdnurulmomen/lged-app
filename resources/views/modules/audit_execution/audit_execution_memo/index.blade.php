@@ -2,6 +2,11 @@
 
 <div class="col-md-12">
     <div class="d-flex justify-content-end">
+        <a
+            onclick="Audit_Query_Container.backToQuerySchedule($(this))"
+            class="btn btn-sm btn-outline-warning btn_back btn-square mr-3">
+            <i class="fad fa-arrow-alt-left"></i> ফেরত যান
+        </a>
         <a class="btn btn-primary btn-sm btn-bold btn-square"
            onclick="Memo_List_Container.sentMemoListToRpu()"
            href="javascript:;">
@@ -10,6 +15,8 @@
 
         <a class="btn btn-success btn-sm btn-bold btn-square"
            data-schedule-id="{{$schedule_id}}"
+           data-audit-plan-id="{{$audit_plan_id}}"
+           data-cost-center-id="{{$cost_center_id}}"
            data-cost-center-name-bn="{{$cost_center_name_bn}}"
            data-audit-year-start="{{$audit_year_start}}"
            data-audit-year-end="{{$audit_year_end}}"
@@ -41,10 +48,13 @@
 
         createMemo: function (elem) {
             schedule_id = elem.data('schedule-id');
+            cost_center_id = elem.data('cost-center-id');
+            audit_plan_id = elem.data('audit-plan-id');
+            cost_center_name_bn = elem.data('cost-center-name-bn');
             cost_center_name_bn = elem.data('cost-center-name-bn');
             audit_year_start = elem.data('audit-year-start');
             audit_year_end = elem.data('audit-year-end');
-            data = {schedule_id,cost_center_name_bn,audit_year_start,audit_year_end};
+            data = {schedule_id,audit_plan_id,cost_center_id,cost_center_name_bn,audit_year_start,audit_year_end};
             let url = '{{route('audit.execution.memo.create')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {

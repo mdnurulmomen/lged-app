@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use MongoDB\Driver\Session;
+use Sabberworm\CSS\Value\URL;
 
 class AnnualPlanRevisedController extends Controller
 {
@@ -89,6 +91,12 @@ class AnnualPlanRevisedController extends Controller
 
     public function addAnnualPlanInfo(Request $request)
     {
+//        $temp = url()->previous();
+//        dd($temp);
+//        dd(\URL::previous());
+        \Session::put('url',request()->fullUrl());
+//        dd(\Session::get('url'));
+
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
             'op_audit_calendar_event_id' => 'required|integer',
@@ -271,6 +279,7 @@ class AnnualPlanRevisedController extends Controller
     {
         $data = [
             'parent_office_id' => $request->parent_office_id,
+            'parent_ministry_id' => $request->parent_ministry_id,
         ];
         $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-wise-child-office'), $data)->json();
 
@@ -285,8 +294,13 @@ class AnnualPlanRevisedController extends Controller
     {
         $data = [
             'parent_office_id' => $request->parent_office_id,
+            'parent_ministry_id' => $request->parent_ministry_id,
+            'parent_office_layer_id' => $request->parent_office_layer_id,
         ];
+//        dd($data);
         $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-wise-child-office'), $data)->json();
+
+//       dd($rp_offices);
 
         if (isSuccess($rp_offices)) {
             $rp_offices = $rp_offices['data'];

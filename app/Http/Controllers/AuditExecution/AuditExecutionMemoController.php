@@ -53,11 +53,13 @@ class AuditExecutionMemoController extends Controller
     public function create(Request $request)
     {
         $schedule_id = $request->schedule_id;
+        $audit_plan_id = $request->audit_plan_id;
+        $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
         $audit_year_start = $request->audit_year_start;
         $audit_year_end = $request->audit_year_end;
         return view('modules.audit_execution.audit_execution_memo.create',
-            compact('schedule_id','cost_center_name_bn',
+            compact('schedule_id','audit_plan_id','cost_center_id','cost_center_name_bn',
                 'audit_year_start','audit_year_end'));
     }
 

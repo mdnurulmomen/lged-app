@@ -6,7 +6,7 @@
                 <ul>
                     @foreach($rp_offices['offices'] as $rp_office_list)
                         @foreach($rp_office_list['rp_offices'] as $rp_office)
-                            <li data-rp-auditee-entity-id="{{$rp_office['id']}}" data-entity-info="{{json_encode(
+                            <li data-rp-auditee-ministry-id="{{$rp_office['office_ministry_id']}}" data-rp-auditee-layer-id="{{$rp_office['office_layer_id']}}" data-rp-auditee-entity-id="{{$rp_office['id']}}" data-entity-info="{{json_encode(
     [
         'entity_id' => $rp_office['id'],
         'entity_name_en' =>  htmlspecialchars($rp_office['office_name_en']),

@@ -203,11 +203,14 @@
         },
 
         loadEntityChildOffices: function (entity_id) {
+           parent_ministry_id =  $('#parent_ministry_id').val();
+           parent_office_layer_id =  $('#parent_office_layer_id').val();
+
             KTApp.block('.content');
             url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-child-offices-list')}}';
             parent_office_id = entity_id;
             data = {
-                parent_office_id,
+                parent_office_id,parent_ministry_id,parent_office_layer_id
             };
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
@@ -226,8 +229,11 @@
             parent_office_content = $('#' + node_id).attr('data-entity-info');
             parent_office_content = JSON.parse(parent_office_content);
             parent_office_id = $('#' + node_id).attr('data-rp-auditee-entity-id');
+            parent_ministry_id = $('#parent_ministry_id').val();
+            parent_office_layer_id = $('#' + node_id).attr('data-rp-auditee-layer-id');
+
             data = {
-                parent_office_id,
+                parent_office_id,parent_ministry_id,parent_office_layer_id
             };
             $('#' + node_id + ' ul').html('')
             $('#' + node_id + ' ul').remove()
@@ -348,6 +354,9 @@
 
         removeSelectedRPAuditee: function (entity_id) {
             $('#selected_rp_auditee_' + entity_id).remove();
+            total_selected_unit_no = $('#total_selected_unit_no').val();
+            total = total_selected_unit_no - 1;
+            $('#total_selected_unit_no').val(total);
         },
 
         removeSelectedRPParentAuditee: function (entity_id) {
@@ -481,6 +490,10 @@
             } else {
                 $('#load_annual_plan_lists').html('');
             }
+        },
+
+        backToAnnualPlanList:function (){
+            $('.annual_plan_menu a').click();
         },
     };
 </script>

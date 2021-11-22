@@ -8,6 +8,18 @@
 
         <div class="col-md-4">
             <div class="d-flex justify-content-end">
+
+                <a
+                    onclick="Audit_Query_Schedule_Container.memo($(this))"
+                    data-schedule-id="{{$schedule_id}}"
+                    data-audit-plan-id="{{$audit_plan_id}}"
+                    data-cost-center-id="{{$cost_center_id}}"
+                    data-cost-center-name-bn="{{$cost_center_name_bn}}"
+                    data-audit-year-start="{{$audit_year_start}}"
+                    data-audit-year-end="{{$audit_year_end}}"
+                    class="btn btn-sm btn-outline-warning btn_back btn-square mr-3">
+                    <i class="fad fa-arrow-alt-left"></i> ফেরত যান
+                </a>
                 <a id="memo_submit" class="btn btn-success btn-sm btn-bold btn-square"
                    href="javascript:;">
                     <i class="far fa-save mr-1"></i> Save
@@ -189,14 +201,7 @@
                 success: function (responseData) {
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
-                        /*var url = '{{route('audit.plan.strategy.sp_file_list')}}';
-                        ajaxCallAsyncCallbackAPI(url,'', 'GET', function (response) {
-                            if (response.status === 'error') {
-                                toastr.error('Error');
-                            } else {
-                                $("#kt_content").html(response);
-                            }
-                        });*/
+                        $('.btn_back').click();
                     }
                     else {
                         if (responseData.statusCode === '422') {

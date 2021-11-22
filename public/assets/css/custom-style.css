@@ -129,4 +129,5 @@ src: url(../font/SutonnyMJ.woff);
 }
 .bijoy-bangla{
     font-family: SutonnyBanglaFont, serif;
+    font-size: 16px;
 }

@@ -2,6 +2,11 @@
 
 <div class="col-md-12">
     <div class="d-flex justify-content-end">
+        <a
+            onclick="Audit_Query_Container.backToQuerySchedule($(this))"
+            class="btn btn-sm btn-outline-warning btn_back btn-square mr-3">
+            <i class="fad fa-arrow-alt-left"></i> ফেরত যান
+        </a>
         <a class="btn btn-primary btn-sm btn-bold btn-square"
            onclick="Audit_Query_Container.addQuery($(this))"
            href="javascript:;">
@@ -47,6 +52,9 @@
                     $('#kt_content').html(response)
                 }
             });
+        },
+        backToQuerySchedule:function (){
+            $('.audit_query_schedule_menu a').click();
         }
     }
 </script>

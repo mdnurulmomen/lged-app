@@ -7,10 +7,10 @@
                          icon="fal fa-tachometer-alt-average">Dashboard
             </x-menu-item>
             <hr>
-            <x-menu-item class="" href="{{route('audit.execution.query-schedule-list')}}"
+            <x-menu-item class="audit_query_schedule_menu" href="{{route('audit.execution.query-schedule-list')}}"
                              icon="fal fa-calendar-alt">Audit Schedules
             </x-menu-item>
-            <x-menu-item class="" href="{{route('audit.execution.memo.authority-memo-list')}}"
+            <x-menu-item class="authority_memo_list_menu" href="{{route('audit.execution.memo.authority-memo-list')}}"
                              icon="fal fa-file-invoice">Audit Memo List
             </x-menu-item>
         </ul>

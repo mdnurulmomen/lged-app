@@ -60,6 +60,11 @@
     <div class="col-6">
         <div class="row">
             <div class="offset-6 col-md-6 text-right p-2">
+                <a
+                    onclick="Annual_Plan_Container.backToAnnualPlanList()"
+                    class="btn btn-sm btn-outline-warning btn_back btn-square mr-3">
+                    <i class="fad fa-arrow-alt-left"></i> ফেরত যান
+                </a>
                 <button class="btn btn-sm btn-square btn-primary btn-hover-success mr-2"
                         onclick="Annual_Plan_Container.submitAnnualPlan($(this))"><i class="fa fa-save"></i> সংরক্ষণ
                 </button>
@@ -70,12 +75,12 @@
             <div class="form-row">
                 <div class="col-md-6">
                     <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা<span class="text-danger">*</span></label>
-                    <input class="form-control text-right" type="text" id="total_unit_no" name="total_unit_no" readonly>
+                    <input class="form-control bijoy-bangla text-right" type="text" id="total_unit_no" name="total_unit_no" readonly>
                 </div>
 
                 <div class="col-md-6">
                     <label for="total_selected_unit_no">নির্বাচিত ইউনিট সংখ্যা<span class="text-danger">*</span></label>
-                    <input class="form-control text-right" type="text" id="total_selected_unit_no" readonly>
+                    <input class="form-control bijoy-bangla text-right" type="text" id="total_selected_unit_no" readonly>
                 </div>
             </div>
 
