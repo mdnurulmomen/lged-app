@@ -103,11 +103,13 @@
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter">
                 </div>
                 <div class="col-md-6">
-                    <label for="subject_matter">প্রতিষ্ঠানের শ্রেণি<span class="text-danger">*</span></label>
+                    <label for="subject_matter">প্রতিষ্ঠানের শ্রেণী<span class="text-danger">*</span></label>
                     <select class="form-control" name="office_type" id="office_type">
                         <option value="">প্রতিষ্ঠানের শ্রেণি বাছাই করুন</option>
-                        <option value="Budgetary Central Government">Budgetary Central Government</option>
-                        <option value="Non Budgetary Central Government">Non Budgetary Central Government</option>
+                        <option value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>
+                        <option value="স্ট্যাটুটরি পাবলিক অথোরিটিজ">স্ট্যাটুটরি পাবলিক অথোরিটিজ</option>
+                        <option value="লোকাল অথোরিটিজ">লোকাল অথোরিটিজ </option>
+                        <option value="স্ট্যাটুটরি পাবলিক অথোরিটিজ">স্ট্যাটুটরি পাবলিক অথোরিটিজ</option>
                     </select>
                 </div>
 

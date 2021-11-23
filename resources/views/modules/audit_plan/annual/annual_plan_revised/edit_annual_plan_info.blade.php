@@ -104,11 +104,13 @@
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter" value="{{$annual_plan_info['subject_matter']}}">
                 </div>
                 <div class="col-md-6">
-                    <label for="subject_matter">প্রতিষ্ঠানের শ্রেণি<span class="text-danger">*</span></label>
+                    <label for="subject_matter">প্রতিষ্ঠানের শ্রেণী<span class="text-danger">*</span></label>
                     <select class="form-control" name="office_type" id="office_type">
-                        <option value="">প্রতিষ্ঠানের শ্রেণি বাছাই করুন</option>
-                        <option @if($annual_plan_info['office_type'] == 'Budgetary Central Government') selected @endif value="Budgetary Central Government">Budgetary Central Government</option>
-                        <option @if($annual_plan_info['office_type'] == 'Non Budgetary Central Government') selected @endif value="Non Budgetary Central Government">Non Budgetary Central Government</option>
+                        <option  value="">প্রতিষ্ঠানের শ্রেণি বাছাই করুন</option>
+                        <option @if($annual_plan_info['office_type'] == 'বাজেটারি সেন্ট্রাল গভর্নমেন্ট') selected @endif value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>
+                        <option @if($annual_plan_info['office_type'] == 'স্ট্যাটুটরি পাবলিক অথোরিটিজ') selected @endif value="স্ট্যাটুটরি পাবলিক অথোরিটিজ">স্ট্যাটুটরি পাবলিক অথোরিটিজ</option>
+                        <option @if($annual_plan_info['office_type'] == 'লোকাল অথোরিটিজ') selected @endif value="লোকাল অথোরিটিজ">লোকাল অথোরিটিজ </option>
+                        <option @if($annual_plan_info['office_type'] == 'স্ট্যাটুটরি পাবলিক অথোরিটিজ') selected @endif value="স্ট্যাটুটরি পাবলিক অথোরিটিজ">স্ট্যাটুটরি পাবলিক অথোরিটিজ</option>
                     </select>
                 </div>
 
