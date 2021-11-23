@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs" role="tablist">
+<ul class="nav nav-tabs custom-tabs mb-0" role="tablist">
     <li class="nav-item">
         <a data-type="inherent" class="nav-link active" data-toggle="tab" href="#"
            data-target="#inherentRisk">
@@ -209,7 +209,7 @@
         <tr id="riskAssessmentId${riskAssessmentId}" class="row_risk_item_${riskAssessmentType}">
             <th width="85%">${riskAssessmentTitleBn}</th>
             <th width="10%">
-            <input style="width: 100%" type="number" data-risk-assessment-id="${riskAssessmentId}"
+            <input style="width: 100%" type="number" min="1" max="5" data-risk-assessment-id="${riskAssessmentId}"
 data-risk-assessment-title-bn="${riskAssessmentTitleBn}" data-risk-assessment-title-en="${riskAssessmentTitleBn}"
 class="integer_type_positive risk_score" value="1">
             </th>

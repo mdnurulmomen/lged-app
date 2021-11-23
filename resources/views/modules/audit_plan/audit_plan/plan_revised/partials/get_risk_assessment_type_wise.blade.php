@@ -96,7 +96,7 @@
                     <tr id="riskAssessmentId{{$ap_risk_assessment_item['x_risk_assessment_id']}}" class="row_risk_item_{{$risk_assessment_type}}">
                         <th width="85%">{{$ap_risk_assessment_item['risk_assessment_title_bn']}}</th>
                         <th width="10%">
-                            <input style="width: 100%" type="number" data-risk-assessment-id="{{$ap_risk_assessment_item['x_risk_assessment_id']}}"
+                            <input style="width: 100%" type="number" min="1" max="5" data-risk-assessment-id="{{$ap_risk_assessment_item['x_risk_assessment_id']}}"
                                    data-risk-assessment-title-bn="{{$ap_risk_assessment_item['risk_assessment_title_bn']}}"
                                    data-risk-assessment-title-en="{{$ap_risk_assessment_item['risk_assessment_title_en']}}"
                                    class="integer_type_positive risk_score" value="{{$ap_risk_assessment_item['risk_value']}}">

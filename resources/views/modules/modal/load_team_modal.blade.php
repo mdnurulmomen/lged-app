@@ -1111,7 +1111,7 @@
             auditYearStart = $('#audit_year_start').val();
             auditYearEnd = $('#audit_year_end').val();
 
-            $('.audit_year').text(BnFromEng(auditYearStart)+'-'+BnFromEng(auditYearEnd)+' (০৭/'+BnFromEng(auditYearStart.toString().substr(-2))+' হতে '+'০৬/'+BnFromEng(auditYearStart.toString().substr(-2)));
+            $('.audit_year').text(BnFromEng(auditYearStart)+'-'+BnFromEng(auditYearEnd)+' (০৭/'+BnFromEng(auditYearStart.toString().substr(-2))+' হতে '+'০৬/'+BnFromEng(auditYearEnd.toString().substr(-2)))+')';
             //$('.proposed_date_commencement_audit').html($('#permitted_level_1').find('.layer_text').text());
             $('.proposed_date_commencement_audit').text(BnFromEng($('#team_start_date').val())+' খ্রি:');
             $('.proposed_date_completion_audit').text(BnFromEng($('#team_end_date').val())+' খ্রি:');
@@ -1252,8 +1252,7 @@ style="padding-left: 5px;">
             for (var i = 0; i < totalTableArrayData.length; i++) {
                 //console.log(totalTableArrayData[i]);
                 for (var j = 1; j < totalTableArrayData[i].length; j++) {
-                    schedule += Load_Team_Container.createAuditScheduleTable(totalTableArrayData[i][j])
-                    console.log(totalTableArrayData[i][j]);
+                    schedule += Load_Team_Container.createAuditScheduleTable(totalTableArrayData[i][j])+'<br>';
                 }
             }
 
@@ -1277,30 +1276,26 @@ style="padding-left: 5px;">
             });
 
             $(".team_list").html(auditTeamMember);
-            $(".audit_team_schedules").html(schedule);
+            //console.log(schedule);
+            $(".audit_schedule_details").html(schedule);
         },
 
         createAuditScheduleTable: function (scheduleList) {
             rowNumber = 1;
             htmlTable = `
-            <table class="audit_schedule_view_list mt-5" width="100%" border="1">
+            <table class="mt-5" width="100%" border="1">
                 <thead>
                 <tr>
                     <th class="text-center" width="5%">ক্রমিক নং</th>
-                    <th class="text-center" width="15%">শাখার নাম</th>
-                    <th class="text-center" width="27%">নিরীক্ষা বছর</th>
-                    <th class="text-center" width="40%">নিরীক্ষার সময়কাল</th>
-                    <th class="text-center" width="13%">মোট কর্ম দিবস</th>
+                    <th class="text-center" width="30%">নিরীক্ষা প্রতিষ্ঠানের নাম</th>
+                    <th class="text-center" width="15%">নিরীক্ষার বৎসর (অর্থ বছর)</th>
+                    <th class="text-center" width="15%">নিরীক্ষার শুরুর তারিখ</th>
+                    <th class="text-center" width="15%">নিরীক্ষার শেষ</th>
+                    <th class="text-center" width="15%">কর্ম দিবস</th>
+                    <th class="text-center" width="15%">মন্তব্য</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th class="text-center">১</th>
-                    <th class="text-center">২</th>
-                    <th class="text-center">৩</th>
-                    <th class="text-center">৪</th>
-                    <th class="text-center">৫</th>
-                </tr>
         `;
             totalActivityManDays = 0;
             for (var i in scheduleList) {
@@ -1308,17 +1303,18 @@ style="padding-left: 5px;">
                 totalActivityManDays = totalActivityManDays + parseInt(scheduleList[i].activity_man_days);
                 if (scheduleList[i].schedule_type == 'schedule') {
                     htmlTable += '<tr>' +
-                        '<td style="text-align: center">' + BnFromEng(rowNumber) + '</td>' +
-                        '<td style="text-align: center">' + scheduleList[i].cost_center_name_bn + '</td>' +
-                        '<td style="text-align: center">২০২০-২০২১</td>' +
+                        '<td style="text-align: center">' + BnFromEng(rowNumber) + '.</td>' +
+                        '<td style="text-align: left">' + scheduleList[i].cost_center_name_bn + '</td>' +
+                        '<td style="text-align: center">'+BnFromEng($('#audit_year_start').val())+'-'+BnFromEng($('#audit_year_end').val())+'</td>' +
                         '<td style="text-align: center">' + BnFromEng(scheduleList[i].team_member_start_date) + ' হতে ' +
-                        BnFromEng(scheduleList[i].team_member_end_date) + '</td>' +
-                        '<td style="text-align: center">' + BnFromEng(scheduleList[i].activity_man_days) + ' কর্ম দিবস </td>' +
+                        '<td style="text-align: center">' + BnFromEng(scheduleList[i].team_member_end_date) + '</td>' +
+                        '<td style="text-align: center">' + BnFromEng(scheduleList[i].activity_man_days) + ' দিন </td>' +
+                        '<td></td>' +
                         '</tr>';
                 } else {
                     htmlTable += '<tr>' +
-                        '<td style="text-align: center">' + BnFromEng(rowNumber) + '</td>' +
-                        '<td colspan="4" style="text-align: center">' + BnFromEng(scheduleList[i].team_member_start_date) + ' খ্রি. ' + scheduleList[i].activity_details + '</td>' +
+                        '<td style="text-align: center">' + BnFromEng(rowNumber) + '.</td>' +
+                        '<td colspan="6" style="text-align: center">' + BnFromEng(scheduleList[i].team_member_start_date) + ' খ্রি. ' + scheduleList[i].activity_details + '</td>' +
                         '</tr>';
 
                 }
@@ -1327,8 +1323,8 @@ style="padding-left: 5px;">
 
             htmlTable += `
                 <tr>
-                    <th colspan="4" style="text-align: right">সর্বমোট</th>
-                    <th style="text-align: center">` + BnFromEng(totalActivityManDays) + ` কর্ম দিবস</th>
+                    <th colspan="5" style="text-align: right">সর্বমোট</th>
+                    <th colspan="2" style="text-align: center">` + BnFromEng(totalActivityManDays) + ` কর্ম দিবস</th>
                 </tr>
             </tbody>
             </table>`;
