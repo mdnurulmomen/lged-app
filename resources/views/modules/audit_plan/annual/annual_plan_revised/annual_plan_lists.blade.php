@@ -195,7 +195,10 @@
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
-                    $('#milestone_id').html(response)
+                    $('#milestone_id').html(response);
+                    if(milestone_id){
+                        $('#milestone_id').val(milestone_id);
+                    }
                 }
             });
         },

@@ -264,8 +264,6 @@
         Annual_Plan_Container.loadActivityWiseMilestone(activity_id,milestone_id);
         parent_ministry_id = '{{$annual_plan_info['ministry_id']}}';
         parent_office_id = '{{$annual_plan_info['parent_office_id']}}';
-
-        $('#milestone_id').val(milestone_id);
         $('#parent_ministry_id').val(parent_ministry_id);
         Annual_Plan_Container.loadEntityChildOffices(parent_office_id);
     });
