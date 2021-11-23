@@ -13,7 +13,7 @@
                 </select>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" style="display: none">
                 <label for="activity_id">মাইলস্টোন<span class="text-danger">*</span></label>
                 <select class="form-control" name="milestone_id" id="milestone_id">
                     <option value="">মাইলস্টোন বাছাই করুন</option>
@@ -38,6 +38,12 @@
                         <span class="nav-text">কস্ট সেন্টার নির্বাচন</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a id="select_cost_centers" class="nav-link rounded-0" data-toggle="tab"
+                       href="#select_milestone">
+                        <span class="nav-text">নিরীক্ষা কাজের পর্যায়</span>
+                    </a>
+                </li>
             </ul>
             <div class="tab-content" id="rp_office_tab">
                 <div class="tab-pane fade border border-top-0 p-3 show active" id="select_rp_parent_office"
@@ -52,6 +58,10 @@
                 <div class="tab-pane border border-top-0 p-3 fade" id="select_entity_by_layer"
                      role="tabpanel" aria-labelledby="activity-tab">
                     <div class="col-md-12 rp_auditee_office_tree"></div>
+                </div>
+                <div class="tab-pane border border-top-0 p-3 fade" id="select_milestone"
+                     role="tabpanel" aria-labelledby="activity-tab">
+                    <div class="col-md-12 load_milestone"></div>
                 </div>
             </div>
         </div>
@@ -72,6 +82,7 @@
         </div>
 
         <form id="annual_plan_form">
+            <input type="hidden" value="" name="id">
             <div class="form-row">
                 <div class="col-md-6">
                     <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা<span class="text-danger">*</span></label>
@@ -156,7 +167,8 @@
             <input type="hidden" name="op_audit_calendar_event_id" value="{{$op_audit_calendar_event_id}}">
 {{--            <input type="hidden" name="activity_id" value="{{$activity_id}}">--}}
 {{--            <input type="hidden" name="milestone_id" value="{{$milestone_id}}">--}}
-            <input type="hidden" name="fiscal_year_id" value="{{$fiscal_year_id}}">
+            <input type="hidden" id="fiscal_year_id" name="fiscal_year_id" value="{{$fiscal_year_id}}">
+
         </form>
     </div>
 </div>

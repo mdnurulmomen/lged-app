@@ -139,13 +139,13 @@ class AnnualPlanRevisedController extends Controller
 
     public function storeAnnualPlanInfo(Request $request): \Illuminate\Http\JsonResponse
     {
-//        dd($request->id);
+//        dd(json_decode($request->milestone_list,true));
 
         try {
             Validator::make($request->all(), [
                 'op_audit_calendar_event_id' => 'required',
                 'activity_id' => 'required|integer',
-                'milestone_id' => 'required|integer',
+//                'milestone_id' => 'required|integer',
                 'fiscal_year_id' => 'required|integer',
                 'ministry_info' => 'required',
                 'controlling_office' => 'required',
@@ -166,13 +166,14 @@ class AnnualPlanRevisedController extends Controller
                 'activity_id' => $request->activity_id,
                 'audit_calendar_event_id' => $request->op_audit_calendar_event_id,
                 'fiscal_year_id' => $request->fiscal_year_id,
-                'milestone_id' => $request->milestone_id,
+//                'milestone_id' => $request->milestone_id,
                 'subject_matter' => $request->subject_matter,
                 'office_type' => $request->office_type,
                 'total_unit_no' => $request->total_unit_no,
                 'comment' => $request->comment,
                 'budget' => $request->budget,
                 'cost_center_total_budget' => $request->cost_center_total_budget,
+                'milestone_list' => json_decode($request->milestone_list,true),
             ];
             $nominated_offices = [];
 
@@ -219,7 +220,6 @@ class AnnualPlanRevisedController extends Controller
 
 
             if ($request->id) {
-//                dd($request->id);
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_update'), $data)->json();
             } else {
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();

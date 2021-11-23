@@ -13,7 +13,7 @@
                 </select>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" style="display: none">
                 <label for="milestone_id">মাইলস্টোন<span class="text-danger">*</span></label>
                 <select class="form-control" name="milestone_id" id="milestone_id">
                     <option value="">মাইলস্টোন বাছাই করুন</option>
@@ -38,6 +38,12 @@
                         <span class="nav-text">কস্ট সেন্টার নির্বাচন</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a id="select_cost_centers" class="nav-link rounded-0" data-toggle="tab"
+                       href="#select_milestone">
+                        <span class="nav-text">নিরীক্ষা কাজের পর্যায়</span>
+                    </a>
+                </li>
             </ul>
             <div class="tab-content" id="rp_office_tab">
                 <div class="tab-pane fade border border-top-0 p-3" id="select_rp_parent_office"
@@ -52,6 +58,52 @@
                 <div class="tab-pane border border-top-0 p-3 fade show active" id="select_entity_by_layer"
                      role="tabpanel" aria-labelledby="activity-tab">
                     <div class="col-md-12 rp_auditee_office_tree"></div>
+                </div>
+                <div class="tab-pane border border-top-0 p-3 fade" id="select_milestone"
+                     role="tabpanel" aria-labelledby="activity-tab">
+                    <div class="col-md-12 load_milestone">
+                        @if($annual_plan_info['ap_milestones'])
+                            <table class="table table-striped">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th width="5%">ক্রঃ নং</th>
+                                    <th width="30%">মাইলস্টোন</th>
+                                    <th width="15%">নির্ধারিত তারিখ</th>
+                                    <th width="15%">শুরুর তারিখ</th>
+                                    <th width="15%">শেষের তারিখ</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($annual_plan_info['ap_milestones'] as $milestone)
+                                    <tr class="milestone_row">
+                                        <td>{{enTobn($loop->iteration)}}</td>
+                                        <td>
+                                            {{$milestone['milestone']['title_bn']}}
+                                            <input name="milestone_id" class="milestone_id" type="hidden"
+                                                   value="{{$milestone['milestone_id']}}">
+                                        </td>
+                                        <td>
+                                            {{formatDate($milestone['milestone_target_date'],'bn','/')}}
+                                            <input name="milestone_target_date" class="milestone_target_date"
+                                                   type="hidden"
+                                                   value="{{$milestone['milestone_target_date']}}">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="start_date"
+                                                   class="form-control milestone_start_date date"
+                                                   value="{{$milestone['start_date']}}">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="end_date"
+                                                   class="form-control milestone_end_date date"
+                                                   value="{{$milestone['end_date']}}">
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -251,7 +303,7 @@
             <input type="hidden" name="op_audit_calendar_event_id" value="{{$op_audit_calendar_event_id}}">
 {{--            <input type="hidden" name="activity_id" value="{{$activity_id}}">--}}
 {{--            <input type="hidden" name="milestone_id" value="{{$milestone_id}}">--}}
-            <input type="hidden" name="fiscal_year_id" value="{{$fiscal_year_id}}">
+            <input type="hidden" id="fiscal_year_id" name="fiscal_year_id" value="{{$fiscal_year_id}}">
         </form>
     </div>
 </div>
@@ -261,7 +313,7 @@
     $( function (){
         activity_id = '{{$annual_plan_info['activity_id']}}';
         milestone_id = '{{$annual_plan_info['milestone_id']}}';
-        Annual_Plan_Container.loadActivityWiseMilestone(activity_id,milestone_id);
+        // Annual_Plan_Container.loadActivityWiseMilestone(activity_id,milestone_id);
         parent_ministry_id = '{{$annual_plan_info['ministry_id']}}';
         parent_office_id = '{{$annual_plan_info['parent_office_id']}}';
         $('#parent_ministry_id').val(parent_ministry_id);
