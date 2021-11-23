@@ -1111,7 +1111,7 @@
             auditYearStart = $('#audit_year_start').val();
             auditYearEnd = $('#audit_year_end').val();
 
-            $('.audit_year').text(BnFromEng(auditYearStart)+'-'+BnFromEng(auditYearEnd)+' (০৭/'+BnFromEng(auditYearStart.toString().substr(-2))+' হতে '+'০৬/'+BnFromEng(auditYearEnd.toString().substr(-2)))+')';
+            $('.audit_year').text(BnFromEng(auditYearStart)+'-'+BnFromEng(auditYearEnd)+' (০৭/'+BnFromEng(auditYearStart.toString().substr(-2))+' হতে '+'০৬/'+BnFromEng(auditYearEnd.toString().substr(-2))+')');
             //$('.proposed_date_commencement_audit').html($('#permitted_level_1').find('.layer_text').text());
             $('.proposed_date_commencement_audit').text(BnFromEng($('#team_start_date').val())+' খ্রি:');
             $('.proposed_date_completion_audit').text(BnFromEng($('#team_end_date').val())+' খ্রি:');
