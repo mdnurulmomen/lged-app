@@ -29,6 +29,24 @@
             });
         },
 
+        loadRoleWiseMenuModuleList: function (role) {
+            let data = {role};
+            let url = '{{route('settings.role-permissions.get-role-wise-menu-module-lists')}}';
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $("#menuAssignForm input:checkbox").map(function () {
+                        num = parseInt($(this).val());
+                        if (response.data.includes(num.toString())) {
+                            $(this).prop('checked', true);
+                        }
+
+                    })
+                }
+            });
+        },
+
         assignMenusToRole: function () {
             menu_actions = $("#menuAssignForm input:checkbox:checked").map(function () {
                 return $(this).val();
@@ -48,8 +66,13 @@
         },
     };
 
+    $(document).on('change', 'select#role_id', function () {
+        PermissionAssignContainer.loadRoleWiseMenuModuleList($(this).val());
+    });
+
     $(function () {
         PermissionAssignContainer.loadRolesList();
         PermissionAssignContainer.loadMenuModuleLists();
+        PermissionAssignContainer.loadRoleWiseMenuModuleList($('#role_id').val());
     });
 </script>

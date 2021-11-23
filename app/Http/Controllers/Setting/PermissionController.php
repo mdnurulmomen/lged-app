@@ -35,6 +35,20 @@ class PermissionController extends Controller
         }
     }
 
+    public function loadMenuModuleListsByRole(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $module_menus = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.get-module-menu-actions-role-wise'), [
+            'role' => $request->role,
+            'cdesk' => $this->current_desk_json(),
+        ])->json();
+        if (is_array($module_menus) && isset($module_menus['status']) && $module_menus['status'] == 'success') {
+            $module_menus = explode(',', $module_menus['data']);
+            return response()->json(['status' => 'success', 'data' => $module_menus]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $module_menus]);
+        }
+    }
+
     public function loadAllRoles(Request $request)
     {
         $data['cdesk'] = $this->current_desk_json();

@@ -14,7 +14,7 @@
                     @include('modules.settings.permission.partials.load_menu_module_child_lists',['module_childrens' => $module['module_childrens'], 'type' => 'module'])
                 @endif
                 @foreach($module['menus'] as $menu)
-                    <div class="col-md-12 pl-8 text-capitalize">
+                    <div class="col-md-12 pl-4 text-capitalize">
                         <label>
                             <input name="menus[]"
                                    data-type="menu"
