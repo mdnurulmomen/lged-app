@@ -24,8 +24,79 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="parent_id">Parent</label>
-                <select class="form-control select-select2" id="parent_id" name="parent_id">
+                <label for="link">Link</label>
+                <input class="form-control" type="text" id="link" name="link"
+                       value="{{$menuActionInfo['link']}}"
+                       placeholder="Enter link">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="class">Class</label>
+                <input class="form-control" type="text" id="class" name="class"
+                       value="{{$menuActionInfo['class']}}"
+                       placeholder="Enter class">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="icon">Icon</label>
+                <input class="form-control" type="text" id="icon" name="icon"
+                       value="{{$menuActionInfo['icon']}}"
+                       placeholder="Enter icon">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="display_order">Display Order<span class="text-danger">*</span></label>
+                <input class="form-control integer_type_positive" type="text" id="display_order" name="display_order"
+                       value="{{$menuActionInfo['display_order']}}"
+                       placeholder="Enter display order">
+            </div>
+        </div>
+    </div>
+
+    @if($type == 'module')
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="is_other_module">Other Module</label>
+                    <select class="form-control select-select2" id="is_other_module" name="is_other_module">
+                        <option value="1" {{$menuActionInfo['is_other_module'] == 1?'selected':''}}>Yes</option>
+                        <option value="0" {{$menuActionInfo['is_other_module'] == 0?'selected':''}}>No</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if(!empty($moduleList))
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="menu_module_id">Module</label>
+                    <select class="form-control select-select2" name="menu_module_id" id="menu_module_id">
+                        <option value="">Select</option>
+                        @foreach($moduleList as $module)
+                            <option value="{{$module['id']}}"
+                                {{$module['id'] == $menuActionInfo['menu_module_id']?'selected':''}}>
+                                {{$module['title_bn']}}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="parent_id">{{$type == 'action'?'Menu':'Parent'}}</label>
+                <select class="form-control select-select2" name="parent_id" id="parent_id">
                     <option value="">Select</option>
                     @foreach($menuActionList as $menuAction)
                         <option value="{{$menuAction['id']}}" {{$menuActionInfo['parent_id'] == $menuAction['id']?'selected':''}}>
@@ -36,72 +107,14 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="link">Module Link</label>
-                <input class="form-control" type="text" id="link" name="link"
-                       value="{{$menuActionInfo['link']}}"
-                       placeholder="Enter link">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="controller">Module Controller</label>
-                <input class="form-control" type="text" id="controller" name="controller"
-                       value="{{$menuActionInfo['controller']}}"
-                       placeholder="Enter controller">
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="method_name">Method</label>
-                <input class="form-control" type="text" id="method_name" name="method_name"
-                       value="{{$menuActionInfo['method']}}" placeholder="Enter method">
-            </div>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="class">Class</label>
-                <input class="form-control" type="text" id="class" name="class"
-                       value="{{$menuActionInfo['class']}}"
-                       placeholder="Enter class">
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="icon">Icon</label>
-                <input class="form-control" type="text" id="icon" name="icon"
-                       value="{{$menuActionInfo['icon']}}"
-                       placeholder="Enter icon">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="display_order">Display Order<span class="text-danger">*</span></label>
-                <input class="form-control integer_type_positive" type="text" id="display_order" name="display_order"
-                       value="{{$menuActionInfo['display_order']}}"
-                       placeholder="Enter display order">
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="is_other_module">Other Module</label>
-                <select class="form-control select-select2" id="is_other_module" name="is_other_module">
-                    <option value="1" {{$menuActionInfo['is_other_module'] == 1?'selected':''}}>Yes</option>
-                    <option value="0" {{$menuActionInfo['is_other_module'] == 0?'selected':''}}>No</option>
-                </select>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="status" id="status"
+                        {{$menuActionInfo['status'] == 1?'checked':''}}>
+                    <label class="form-check-label" for="status">Status</label>
+                </div>
             </div>
         </div>
     </div>

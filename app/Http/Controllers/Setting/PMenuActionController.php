@@ -37,18 +37,33 @@ class PMenuActionController extends Controller
 
     public function create(Request $request)
     {
-        $data = Validator::make($request->all(), [
+        Validator::make($request->all(), [
             'type' => 'required|string',
         ])->validate();
 
         $data['all'] = 'all';
+        $data['type'] = $request->type == 'action'?'menu':$request->type;
         $data['cdesk'] = $this->current_desk_json();
         $menuActionList = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_action_list'), $data)->json();
         //dd($menuActionList);
         $menuActionList = isSuccess($menuActionList)?$menuActionList['data']:[];
+
+        //only for menu
+        if ($request->type == 'menu'){
+            $moduleData['all'] = 'all';
+            $moduleData['type'] = 'module';
+            $moduleData['cdesk'] = $this->current_desk_json();
+            $moduleList = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_action_list'), $moduleData)->json();
+            //dd($menuActionList);
+            $moduleList = isSuccess($moduleList)?$moduleList['data']:[];
+        }
+        else{
+            $moduleList = [];
+        }
+
         $type = $request->type;
         return view('modules.settings.p_menu_action.partials.load_create_form',
-            compact('type','menuActionList'));
+            compact('type','menuActionList','moduleList'));
     }
 
     public function store(Request $request)
@@ -65,9 +80,12 @@ class PMenuActionController extends Controller
         $data['icon'] = $request->icon;
         $data['display_order'] = $request->display_order;
         $data['parent_id'] = $request->parent_id;
-        $data['is_other_module'] = $request->is_other_module;
+        $data['is_other_module'] = isset($request->is_other_module)?$request->is_other_module:null;
         $data['type'] = $request->type;
+        $data['menu_module_id'] = $request->type =='menu'?$request->menu_module_id:null;
+        $data['status'] = isset($request->status)?1:0;
         $data['cdesk'] = $this->current_desk_json();
+
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_action_store'), $data)->json();
         if (isSuccess($responseData)) {
             return response()->json(responseFormat('success', 'Created Successfully'));
@@ -92,10 +110,22 @@ class PMenuActionController extends Controller
         $menuActionListData['cdesk'] = $this->current_desk_json();
         $menuActionList = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_action_list'), $menuActionListData)->json();
         $menuActionList = isSuccess($menuActionList)?$menuActionList['data']:[];
-        $type = $request->type;
 
+        //only for menu
+        if ($request->type == 'menu'){
+            $moduleData['all'] = 'all';
+            $moduleData['type'] = 'module';
+            $moduleData['cdesk'] = $this->current_desk_json();
+            $moduleList = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_action_list'), $moduleData)->json();
+            $moduleList = isSuccess($moduleList)?$moduleList['data']:[];
+        }
+        else{
+            $moduleList = [];
+        }
+
+        $type = $request->type;
         return view('modules.settings.p_menu_action.partials.load_edit_form',compact('type',
-            'menuActionInfo', 'menuActionList'));
+            'menuActionInfo', 'menuActionList','moduleList'));
     }
 
     public function update(Request $request)
@@ -113,8 +143,10 @@ class PMenuActionController extends Controller
         $data['icon'] = $request->icon;
         $data['display_order'] = $request->display_order;
         $data['parent_id'] = $request->parent_id;
-        $data['is_other_module'] = $request->is_other_module;
+        $data['is_other_module'] = isset($request->is_other_module)?$request->is_other_module:null;
         $data['type'] = $request->type;
+        $data['menu_module_id'] = $request->type =='menu'?$request->menu_module_id:null;
+        $data['status'] = isset($request->status)?1:0;
         $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.menu_action_update'), $data)->json();
         if (isSuccess($responseData)) {
