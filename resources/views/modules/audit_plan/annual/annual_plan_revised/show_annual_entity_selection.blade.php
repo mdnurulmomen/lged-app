@@ -2,25 +2,28 @@
     <div class="row pb-4">
         {{--{{dd($annual_plans)}}--}}
         <div class="col-md-6">
-            <button class="btn_annual_plan_submit_to_ocag btn-sm btn-primary btn-square"
-                    data-fiscal-year-id="{{$fiscal_year_id}}"
-                    data-op-audit-calendar-event-id="{{$plan_list[0]['op_audit_calendar_event_id']}}"
-                    onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">Submit to OCAG
-            </button>
+            @if(!empty($plan_list))
+                <button class="btn_annual_plan_submit_to_ocag btn-sm btn-primary btn-square"
+                        data-fiscal-year-id="{{$fiscal_year_id}}"
+                        data-op-audit-calendar-event-id="{{$plan_list[0]['op_audit_calendar_event_id']}}"
+                        onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">Submit to OCAG
+                </button>
 
-            <button data-fiscal-year-id="{{$fiscal_year_id}}" onclick="Annual_Plan_Container.printAnnualPlan($(this))"
-                    class="btn-sm btn-warning btn-square">Download
-            </button>
+                <button data-fiscal-year-id="{{$fiscal_year_id}}"
+                        onclick="Annual_Plan_Container.printAnnualPlan($(this))"
+                        class="btn-sm btn-warning btn-square">Download
+                </button>
 
-            <button class="btn-sm btn-primary btn-square"
-                    data-fiscal-year-id="{{$fiscal_year_id}}"
-                    data-op-audit-calendar-event-id="{{$plan_list[0]['op_audit_calendar_event_id']}}"
-                    onclick="Annual_Plan_Container.movementHistory($(this))">History
-            </button>
+                <button class="btn-sm btn-primary btn-square"
+                        data-fiscal-year-id="{{$fiscal_year_id}}"
+                        data-op-audit-calendar-event-id="{{$plan_list[0]['op_audit_calendar_event_id']}}"
+                        onclick="Annual_Plan_Container.movementHistory($(this))">History
+                </button>
 
-            <span class="badge badge-info text-uppercase m-1 p-1 ">
+                <span class="badge badge-info text-uppercase m-1 p-1 ">
                 {{$approval_status}}
             </span>
+            @endif
         </div>
         <div class="col-md-6">
             <div class="d-flex justify-content-end">
@@ -79,7 +82,8 @@
                     </td>
                     <td>{{$plan['comment']}}</td>
                     <td>
-                        <button title="সম্পাদন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                        <button title="সম্পাদন"
+                                class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                                 data-annual-plan-id="{{$plan['id']}}"
                                 data-fiscal-year-id="{{$fiscal_year_id}}"
                                 data-op-audit-calendar-event-id="{{$plan_list[0]['op_audit_calendar_event_id']}}"

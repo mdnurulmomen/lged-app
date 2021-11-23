@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
-use MongoDB\Driver\Session;
-use Sabberworm\CSS\Value\URL;
 
 class AnnualPlanRevisedController extends Controller
 {
@@ -64,8 +62,8 @@ class AnnualPlanRevisedController extends Controller
         $fiscal_year_id = $request->fiscal_year_id;
 
         return view('modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection',
-            compact('plan_list','fiscal_year',
-                'fiscal_year_id','approval_status'));
+            compact('plan_list', 'fiscal_year',
+                'fiscal_year_id', 'approval_status'));
 
     }
 
@@ -96,7 +94,7 @@ class AnnualPlanRevisedController extends Controller
 //        $temp = url()->previous();
 //        dd($temp);
 //        dd(\URL::previous());
-        \Session::put('url',request()->fullUrl());
+        \Session::put('url', request()->fullUrl());
 //        dd(\Session::get('url'));
 
         $data = Validator::make($request->all(), [
@@ -112,7 +110,7 @@ class AnnualPlanRevisedController extends Controller
 
         if (isSuccess($all_activity)) {
             $all_activity = $all_activity['data'];
-            return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info',compact('all_activity','fiscal_year_id','op_audit_calendar_event_id'));
+            return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info', compact('all_activity', 'fiscal_year_id', 'op_audit_calendar_event_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $all_activity]);
         }
@@ -132,7 +130,7 @@ class AnnualPlanRevisedController extends Controller
 
         if (isSuccess($all_milestone)) {
             $all_milestone = $all_milestone['data'];
-            return view('modules.audit_plan.annual.annual_plan_revised.milestone_select',compact('all_milestone'));
+            return view('modules.audit_plan.annual.annual_plan_revised.milestone_select', compact('all_milestone'));
         } else {
             return response()->json(['status' => 'error', 'data' => $all_milestone]);
         }
@@ -220,10 +218,10 @@ class AnnualPlanRevisedController extends Controller
             $data['nominated_man_power_counts'] = $total_man_power;
 
 
-            if($request->id){
+            if ($request->id) {
 //                dd($request->id);
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_update'), $data)->json();
-            }else{
+            } else {
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
             }
 
@@ -279,8 +277,8 @@ class AnnualPlanRevisedController extends Controller
             $annual_plan_info = $annual_plan_info['data'];
             $designations = $master_designation['data']['designations'];
 //            dd($designations);
-            $nominated_office_list =  json_decode($annual_plan_info['nominated_offices'],true);
-            $nominated_man_powers =  json_decode($annual_plan_info['nominated_man_powers'],true);
+            $nominated_office_list = json_decode($annual_plan_info['nominated_offices'], true);
+            $nominated_man_powers = json_decode($annual_plan_info['nominated_man_powers'], true);
             $staff_list = $nominated_man_powers['staffs'];
             $staff_comment = $nominated_man_powers['comment'];
             $parent_office_info = json_encode(
@@ -311,7 +309,7 @@ class AnnualPlanRevisedController extends Controller
                 compact(
                     'annual_plan_info',
                     'all_activity',
-                     'fiscal_year_id',
+                    'fiscal_year_id',
                     'op_audit_calendar_event_id',
                     'nominated_office_list',
                     'parent_office_info',
