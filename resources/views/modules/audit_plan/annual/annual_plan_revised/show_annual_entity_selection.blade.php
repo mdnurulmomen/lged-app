@@ -5,7 +5,7 @@
             @if(!empty($plan_list))
                 <button class="btn_annual_plan_submit_to_ocag btn-sm btn-primary btn-square"
                         data-fiscal-year-id="{{$fiscal_year_id}}"
-                        data-op-audit-calendar-event-id="{{$plan_list[0]['op_audit_calendar_event_id']}}"
+                        data-op-audit-calendar-event-id="13"
                         onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">Submit to OCAG
                 </button>
 
@@ -16,7 +16,7 @@
 
                 <button class="btn-sm btn-primary btn-square"
                         data-fiscal-year-id="{{$fiscal_year_id}}"
-                        data-op-audit-calendar-event-id="{{$plan_list[0]['op_audit_calendar_event_id']}}"
+                        data-op-audit-calendar-event-id="13"
                         onclick="Annual_Plan_Container.movementHistory($(this))">History
                 </button>
 
@@ -29,7 +29,7 @@
             <div class="d-flex justify-content-end">
                 <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
                    data-fiscal-year-id="{{$fiscal_year_id}}"
-                   data-op-audit-calendar-event-id="{{$plan_list[0]['op_audit_calendar_event_id']}}"
+                   data-op-audit-calendar-event-id="13"
                    class="btn btn-success btn-sm btn-bold btn-square btn_create"
                    href="javascript:;">
                     <i class="far fa-plus mr-1"></i> Add Responsible Party
@@ -86,7 +86,7 @@
                                 class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                                 data-annual-plan-id="{{$plan['id']}}"
                                 data-fiscal-year-id="{{$fiscal_year_id}}"
-                                data-op-audit-calendar-event-id="{{$plan_list[0]['op_audit_calendar_event_id']}}"
+                                data-op-audit-calendar-event-id="13"
                                 onclick="Annual_Plan_Container.editPlanInfo($(this))">
                             <i class="fad fa-edit"></i>
                         </button>

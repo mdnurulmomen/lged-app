@@ -258,8 +258,8 @@
 <script>
     $( function (){
         activity_id = '{{$annual_plan_info['activity_id']}}';
-        Annual_Plan_Container.loadActivityWiseMilestone(activity_id);
         milestone_id = '{{$annual_plan_info['milestone_id']}}';
+        Annual_Plan_Container.loadActivityWiseMilestone(activity_id,milestone_id);
         parent_ministry_id = '{{$annual_plan_info['ministry_id']}}';
         parent_office_id = '{{$annual_plan_info['parent_office_id']}}';
 

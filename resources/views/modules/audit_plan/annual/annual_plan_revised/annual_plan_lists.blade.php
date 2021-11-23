@@ -186,7 +186,7 @@
             });
         },
 
-        loadActivityWiseMilestone: function (activity_id) {
+        loadActivityWiseMilestone: function (activity_id,milestone_id=0) {
             data = {
                 activity_id,
             }
