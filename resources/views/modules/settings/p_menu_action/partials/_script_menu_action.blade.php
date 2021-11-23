@@ -26,8 +26,7 @@
                 KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error('No data found');
-                }
-                else {
+                } else {
                     $(".offcanvas-title").text(type.charAt(0).toUpperCase() + type.slice(1));
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
@@ -43,7 +42,7 @@
         loadMenuActionEditForm: function (elem) {
             menu_action_id = elem.data('menu-action-id')
             type = elem.data('type')
-            data = {menu_action_id,type};
+            data = {menu_action_id, type};
             url = '{{route('settings.menu-actions.edit')}}';
 
             KTApp.block('#kt_content', {
@@ -55,9 +54,8 @@
                 KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error('No data found');
-                }
-                else {
-                    $(".offcanvas-title").text(type.charAt(0).toUpperCase() + type.slice(1)+' Edit');
+                } else {
+                    $(".offcanvas-title").text(type.charAt(0).toUpperCase() + type.slice(1) + ' Edit');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
@@ -73,7 +71,7 @@
         saveMenuAction: function (url, type, data, mode = 'create') {
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
-                    toastr.success('Successfully '+type+' has been saved');
+                    toastr.success('Successfully ' + type + ' has been saved');
                     $('#kt_quick_panel_close').click();
                     Menu_Action_Container.loadTypeWiseMenuActionList(type);
                 } else {
