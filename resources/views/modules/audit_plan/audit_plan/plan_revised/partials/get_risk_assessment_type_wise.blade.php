@@ -115,8 +115,13 @@
 
             @if($risk_assessment_type == 'detection')
                 <div class="form-row">
-                    <div class="col-md-12">
-                        <label for="comment{{$risk_assessment_type}}">মন্তব্য</label>
+                    <div class="col-md-6">
+                        <label for="comment{{$risk_assessment_type}}">ঝুঁকি</label>
+                        <textarea class="form-control" id="comment{{$risk_assessment_type}}"></textarea>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="comment{{$risk_assessment_type}}">মিটিগেশন</label>
                         <textarea class="form-control" id="comment{{$risk_assessment_type}}"></textarea>
                     </div>
                 </div>
