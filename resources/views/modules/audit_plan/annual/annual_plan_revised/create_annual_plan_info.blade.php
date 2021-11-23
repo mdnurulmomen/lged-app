@@ -118,8 +118,9 @@
                     <select class="form-control" name="office_type" id="office_type">
                         <option value="">প্রতিষ্ঠানের শ্রেণি বাছাই করুন</option>
                         <option value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>
-                        <option value="স্ট্যাটুটরি পাবলিক অথোরিটিজ">স্ট্যাটুটরি পাবলিক অথোরিটিজ</option>
-                        <option value="লোকাল অথোরিটিজ">লোকাল অথোরিটিজ </option>
+                        <option value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ</option>
+                        <option value="লোকাল অথরিটিজ">লোকাল অথরিটিজ </option>
+                        <option value="পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স">পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স</option>
                     </select>
                 </div>
 
