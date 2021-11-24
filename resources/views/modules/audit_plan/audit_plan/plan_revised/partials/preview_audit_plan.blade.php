@@ -32,6 +32,11 @@
     <div class="pdf-screen bangla-font" style="height: 100%">
         {!! $porishisto['content'] !!}
     </div>
+    
+    <br>
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $auditSchedule['content'] !!}
+    </div>
 </div>
 
 <script>

@@ -165,13 +165,14 @@ class RevisedPlanController extends Controller
 
         $formThree = $plans[26];
         $porishisto = $plans[28];
-        unset($plans[26],$plans[28]);
+        $auditSchedule = $plans[29];
+        unset($plans[26],$plans[28],$plans[29]);
 
         //dd($plans);
 
         if ($request->scope == 'generate'){
             $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
-                compact('plans', 'cover','formThree','porishisto'));
+                compact('plans', 'cover','formThree','porishisto','auditSchedule'));
 
             /*$pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
                 ['plans' => $plans, 'cover' => $cover], [], ['orientation' => 'L', 'format' => 'A4']);*/
@@ -181,7 +182,7 @@ class RevisedPlanController extends Controller
         }
         elseif ($request->scope == 'preview'){
             return view('modules.audit_plan.audit_plan.plan_revised.partials.preview_audit_plan',
-                compact('plans', 'cover','formThree','porishisto'));
+                compact('plans', 'cover','formThree','porishisto','auditSchedule'));
         }
 
         else{

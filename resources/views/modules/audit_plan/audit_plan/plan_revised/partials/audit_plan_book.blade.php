@@ -802,6 +802,10 @@
     <div class="pdf-screen bangla-font" style="height: 100%">
         {!! $porishisto['content'] !!}
     </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $auditSchedule['content'] !!}
+    </div>
 </div>
 </body>
 </html>
