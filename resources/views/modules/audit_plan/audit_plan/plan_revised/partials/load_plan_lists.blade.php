@@ -5,21 +5,21 @@
             <thead class="bg-primary">
             <tr>
                 <th class="text-light">মন্ত্রণালয়/বিভাগ</th>
-                <th class="text-light">প্রতিষ্ঠানের নাম</th>
+                <th class="text-light">এনটিটি / প্রতিষ্ঠান</th>
                 <th class="text-light">প্রতিষ্ঠানের ধরণ</th>
-                <th class="text-light">প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা</th>
+                <th class="text-light">প্রতিষ্ঠানের ইউনিটের সংখ্যা</th>
                 <th class="text-light">অডিটের জন্য প্রস্তাবিত ইউনিটের নাম ও সংখ্যা</th>
                 <th class="text-light">সাবজেক্ট ম্যাটার</th>
                 <th class="text-light">প্রয়োজনীয় লোকবল</th>
                 <th class="text-light">মন্তব্য</th>
-                <th  class="text-light" width="10%">প্ল্যান</th>
+                <th class="text-light" width="10%">প্ল্যান</th>
             </tr>
             </thead>
             <tbody>
             @foreach($all_entities['data'] as $annual_plan)
                 <tr>
                     <td>{{$annual_plan['ministry_name_bn']}}</td>
-                    <td>{{$annual_plan['controlling_office_bn']}}</td>
+                    <td>{{$annual_plan['parent_office_name_bn']}}</td>
                     <td>{{$annual_plan['office_type']}}</td>
                     <td>{{enTobn($annual_plan['total_unit_no'])}}</td>
                     <td>
