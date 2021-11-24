@@ -95,11 +95,13 @@
                     toastr.error(response.data);
                 } else {
                     $("#menuAssignForm input:checkbox").map(function () {
+                        $(this).prop('checked', false);
+                    })
+                    $("#menuAssignForm input:checkbox").map(function () {
                         num = parseInt($(this).val());
                         if (response.data.includes(num.toString())) {
                             $(this).prop('checked', true);
                         }
-
                     })
                 }
             });
