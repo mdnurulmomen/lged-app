@@ -13,6 +13,11 @@
                 </select>
             </div>
 
+            <div class="col-md-6">
+                <input style="margin-top: 35px" type="radio" name="annual_plan_type" value="thematic" @if($annual_plan_info['annual_plan_type'] == 'thematic') checked @endif> Thematic
+                <input type="radio" name="annual_plan_type" value="entity_based" @if($annual_plan_info['annual_plan_type'] == 'entity_based') checked @endif> Entity Based
+            </div>
+
             <div class="col-md-6" style="display: none">
                 <label for="milestone_id">মাইলস্টোন<span class="text-danger">*</span></label>
                 <select class="form-control" name="milestone_id" id="milestone_id">

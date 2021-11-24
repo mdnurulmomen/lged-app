@@ -139,7 +139,7 @@ class AnnualPlanRevisedController extends Controller
 
     public function storeAnnualPlanInfo(Request $request): \Illuminate\Http\JsonResponse
     {
-//        dd(json_decode($request->milestone_list,true));
+//        dd($request->annual_plan_type);
 
         try {
             Validator::make($request->all(), [
@@ -174,6 +174,7 @@ class AnnualPlanRevisedController extends Controller
                 'budget' => $request->budget,
                 'cost_center_total_budget' => $request->cost_center_total_budget,
                 'milestone_list' => json_decode($request->milestone_list,true),
+                'annual_plan_type' => $request->annual_plan_type
             ];
             $nominated_offices = [];
 
