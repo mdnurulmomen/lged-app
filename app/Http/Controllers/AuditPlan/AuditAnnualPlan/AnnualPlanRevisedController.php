@@ -56,6 +56,7 @@ class AnnualPlanRevisedController extends Controller
         if (isSuccess($planListResponseData)) {
             $plan_list = $planListResponseData['data']['annual_plan_list'];
             $approval_status = $planListResponseData['data']['approval_status'];
+            $op_audit_calendar_event_id = $planListResponseData['data']['op_audit_calendar_event_id'];
         }
 
         $fiscal_year = $request->fiscal_year;
@@ -63,7 +64,7 @@ class AnnualPlanRevisedController extends Controller
 
         return view('modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection',
             compact('plan_list', 'fiscal_year',
-                'fiscal_year_id', 'approval_status'));
+                'fiscal_year_id', 'approval_status','op_audit_calendar_event_id'));
 
     }
 
