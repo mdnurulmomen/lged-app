@@ -47,3 +47,9 @@
         </a>
     </div>
 </form>
+
+<script>
+    $(function () {
+        Role_Container.loadAssignedMasterDesignationRoleMap("{{$roleId}}");
+    })
+</script>

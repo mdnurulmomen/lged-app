@@ -140,6 +140,26 @@
             });
         },
 
+        loadAssignedMasterDesignationRoleMap: function (role) {
+            let data = {role};
+            let url = '{{route('settings.roles.assigned-master-designation-role-map')}}';
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $("#master_designation_role_map_form input:checkbox").map(function () {
+                        $(this).prop('checked', false);
+                    })
+                    $("#master_designation_role_map_form input:checkbox").map(function () {
+                        num = parseInt($(this).val());
+                        if (response.data.includes(num.toString())) {
+                            $(this).prop('checked', true);
+                        }
+                    })
+                }
+            });
+        },
+
         storeMasterDesignationRoleMap: function () {
             data = $('#master_designation_role_map_form').serializeArray();
             url = '{{route('settings.roles.store-master-designation-role-map')}}';

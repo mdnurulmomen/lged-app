@@ -90,7 +90,18 @@ class PRoleController extends Controller
         $masterDesignationList = $this->cagDoptorMasterDesignations();
         return view('modules.settings.p_role.partials.load_role_designation_map',
             compact('roleId', 'roleNameEn', 'masterDesignationList'));
+    }
 
+    public function assignedMasterDesignationRoleMap(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $data['role'] = $request->role;
+        $data['cdesk'] = $this->current_desk_json();
+        $assign = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.assigned_master_designation_to_role'), $data)->json();
+        if (isSuccess($assign)) {
+            return response()->json(['data' => explodeAndMakeArray($assign['data'], ','), 'status' => 'success']);
+        } else {
+            return response()->json(['data' => $assign, 'status' => 'error']);
+        }
     }
 
     public function storeMasterDesignationRoleMap(Request $request)
@@ -113,8 +124,5 @@ class PRoleController extends Controller
         } else {
             return response()->json(['status' => 'error', 'data' => $responseData]);
         }
-
     }
-
-
 }
