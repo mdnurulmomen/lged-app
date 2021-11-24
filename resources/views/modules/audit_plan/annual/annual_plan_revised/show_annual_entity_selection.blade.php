@@ -46,7 +46,7 @@
             <thead class="bg-primary">
             <tr>
                 <th class="align-middle text-light">মন্ত্রণালয়/বিভাগ</th>
-                <th class="text-light">প্রতিষ্ঠানের নাম</th>
+                <th class="text-light">এনটিটি / প্রতিষ্ঠানের নাম</th>
                 <th class="text-light">প্রতিষ্ঠানের ধরণ</th>
                 <th class="text-light">প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা</th>
                 <th class="text-light">অডিটের জন্য প্রস্তাবিত ইউনিটের নাম ও সংখ্যা</th>
@@ -60,7 +60,7 @@
             @foreach($plan_list as $plan)
                 <tr>
                     <td>{{$plan['ministry_name_bn']}}</td>
-                    <td>{{$plan['controlling_office_bn']}}</td>
+                    <td>{{$plan['parent_office_name_bn']}}</td>
                     <td>{{$plan['office_type']}}</td>
                     <td>{{enTobn($plan['total_unit_no'])}}</td>
                     <td style="height:100px;overflow: hidden">
