@@ -46,7 +46,7 @@
             <thead class="bg-primary">
             <tr>
                 <th class="align-middle text-light">মন্ত্রণালয়/বিভাগ</th>
-                <th class="text-light">এনটিটি / প্রতিষ্ঠানের নাম</th>
+                <th class="text-light">এনটিটি / প্রতিষ্ঠান</th>
                 <th class="text-light">প্রতিষ্ঠানের ধরণ</th>
                 <th class="text-light">প্রতিষ্ঠানের মোট ইউনিটের সংখ্যা</th>
                 <th class="text-light">অডিটের জন্য প্রস্তাবিত ইউনিটের নাম ও সংখ্যা</th>
