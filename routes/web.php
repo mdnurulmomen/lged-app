@@ -275,6 +275,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('editor/store-risk-assessment', [\App\Http\Controllers\AuditPlan\Plan\RiskAssessmentController::class, 'store'])->name('editor.store-risk-assessment');
             Route::post('editor/update-risk-assessment', [\App\Http\Controllers\AuditPlan\Plan\RiskAssessmentController::class, 'update'])->name('editor.update-risk-assessment');
             Route::post('editor/risk-assessment-book', [\App\Http\Controllers\AuditPlan\Plan\RiskAssessmentController::class, 'book'])->name('editor.risk-assessment-book');
+            Route::post('editor/detection-risk-assessment-book', [\App\Http\Controllers\AuditPlan\Plan\RiskAssessmentController::class, 'bookDetection'])->name('editor.detection-risk-assessment-book');
 
             //office order
             Route::get('/office-orders', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'index'])->name('office-orders.index');

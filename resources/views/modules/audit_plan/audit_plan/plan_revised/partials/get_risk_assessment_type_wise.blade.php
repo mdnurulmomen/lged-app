@@ -94,19 +94,19 @@
                 @if(!empty($ap_risk_assessment_list))
                     @foreach($ap_risk_assessment_list['risk_assessment_items'] as $ap_risk_assessment_item)
                     <tr id="riskAssessmentId{{$ap_risk_assessment_item['x_risk_assessment_id']}}" class="row_risk_item_{{$risk_assessment_type}}">
-                        <th width="85%">{{$ap_risk_assessment_item['risk_assessment_title_bn']}}</th>
-                        <th width="10%">
+                        <td width="85%">{{$ap_risk_assessment_item['risk_assessment_title_bn']}}</td>
+                        <td width="10%">
                             <input style="width: 100%" type="number" min="1" max="5" data-risk-assessment-id="{{$ap_risk_assessment_item['x_risk_assessment_id']}}"
                                    data-risk-assessment-title-bn="{{$ap_risk_assessment_item['risk_assessment_title_bn']}}"
                                    data-risk-assessment-title-en="{{$ap_risk_assessment_item['risk_assessment_title_en']}}"
                                    class="integer_type_positive risk_score" value="{{$ap_risk_assessment_item['risk_value']}}">
-                        </th>
-                        <th width="5%">
+                        </td>
+                        <td width="5%">
                             <button type="button" class="btn btn-icon btn-outline-danger btn-xs border-0"
                             onclick="deleteRiskItem($(this))">
                                 <i class="fal fa-trash-alt"></i>
                             </button>
-                        </th>
+                        </td>
                     </tr>
                 @endforeach
                 @endif
@@ -156,9 +156,9 @@
         $('.save_' + type).prop("disabled", true);
     });
 
-    $('.max_value_five').on('blur', function () {
+    /*$('.max_value_five').on('blur', function () {
         if ($(this).val() > 5) {
             $(this).val('');
         }
-    });
+    });*/
 </script>

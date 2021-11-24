@@ -77,6 +77,7 @@ class RevisedPlanController extends Controller
             $fiscal_year_id = $request->fiscal_year_id;
             $annual_plan_id = $request->annual_plan_id;
             $parent_office_id = $audit_plan['annual_plan']['parent_office_id'];
+            $annual_plan_type = $audit_plan['annual_plan']['annual_plan_type']=='thematic'?'থিমেটিক (ইস্যু)':'এনটিটি ভিত্তিক';
             $content = $audit_plan['plan_description'];
             $cover_info = [
                 'directorate_address_footer' => $directorate_address_footer,
@@ -88,6 +89,7 @@ class RevisedPlanController extends Controller
                 'entity_name' => $audit_plan['annual_plan']['parent_office_name_bn'],
                 'entity_office_type' => $audit_plan['annual_plan']['office_type'],
                 'fiscal_year' => enTobn($audit_plan['annual_plan']['fiscal_year']['start']) . ' - ' . enTobn($audit_plan['annual_plan']['fiscal_year']['end']).' অর্থ বছর।',
+                'annual_plan_type' => $annual_plan_type
             ];
             //dd($cover_info);
             return view('modules.audit_plan.audit_plan.plan_revised.create_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan',
