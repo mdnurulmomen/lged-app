@@ -85,7 +85,7 @@ class PermissionController extends Controller
         if (isSuccess($assign)) {
             return response()->json(['data' => $assign['data'], 'status' => 'success']);
         } else {
-            return response()->json(['data' => $assign['data'], 'status' => 'error']);
+            return response()->json(['data' => $assign, 'status' => 'error']);
         }
     }
 }
