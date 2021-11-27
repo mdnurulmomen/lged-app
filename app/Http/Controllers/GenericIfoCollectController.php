@@ -18,8 +18,13 @@ class GenericIfoCollectController extends Controller
         return $this->strategicPlanOutcomeRemarks($outcome_id);
     }
 
-    public function cagDoptorMasterDesignations()
+    public function getCagDoptorMasterDesignations()
     {
         return $this->cagDoptorMasterDesignations();
+    }
+
+    public function getCagDoptorOtherOffices(Request $request)
+    {
+        return $this->cagDoptorOtherOffices($request->own_office_id);
     }
 }

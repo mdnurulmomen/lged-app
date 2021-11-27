@@ -528,7 +528,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     Route::group(['as' => 'generic.'], function () {
         Route::post('get-strategic-outcome-remarks', [\App\Http\Controllers\GenericIfoCollectController::class, 'getStrategicOutcomeRemarks'])->name('outcome.remarks');
         Route::post('get-strategic-output-by-outcome', [\App\Http\Controllers\GenericIfoCollectController::class, 'getStrategicOutputByOutcome'])->name('output.by.outcome');
-        Route::post('designation-master-data', [\App\Http\Controllers\GenericIfoCollectController::class, 'cagDoptorMasterDesignations'])->name('designation-master-data');
+        Route::post('designation-master-data', [\App\Http\Controllers\GenericIfoCollectController::class, 'getCagDoptorMasterDesignations'])->name('designation-master-data');
     });
 
     //Generic RPU Data Collection
