@@ -95,10 +95,10 @@
                     {{formatDate($milestone['milestone_target_date'],'bn','/')}}
                 </td>
                 <td>
-                    {{formatDate($milestone['end_date'],'bn','/')}}
+                    {{formatDate($milestone['start_date'],'bn','/')}}
                 </td>
                 <td>
-                    {{formatDate($milestone['start_date'],'bn','/')}}
+                    {{formatDate($milestone['end_date'],'bn','/')}}
                 </td>
             </tr>
         @endforeach

@@ -51,9 +51,9 @@ class RiskAssessmentController extends Controller
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['activity_id'] = $request->activity_id;
         $data['audit_plan_id'] = $request->audit_plan_id;
-        $data['risk_rate'] = isset($request->risk_rate)?$request->risk_rate:null;
-        $data['total_score'] = isset($request->total_score)?$request->total_score:null;
-        $data['risk'] = isset($request->risk)?$request->risk:null;
+        $data['risk_rate'] = $request->risk_rate ?? null;
+        $data['total_score'] = $request->total_score ?? null;
+        $data['risk'] = $request->risk ?? null;
         $data['risk_assessment_type'] = $request->risk_assessment_type;
 
         $risk_assessment_store = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_risk_assessment_store'), $data)->json();
@@ -74,9 +74,9 @@ class RiskAssessmentController extends Controller
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['activity_id'] = $request->activity_id;
         $data['audit_plan_id'] = $request->audit_plan_id;
-        $data['risk_rate'] = isset($request->risk_rate)?$request->risk_rate:null;
-        $data['total_score'] = isset($request->total_score)?$request->total_score:null;
-        $data['risk'] = isset($request->risk)?$request->risk:null;
+        $data['risk_rate'] = $request->risk_rate ?? null;
+        $data['total_score'] = $request->total_score ?? null;
+        $data['risk'] = $request->risk ?? null;
         $data['risk_assessment_type'] = $request->risk_assessment_type;
 
         $risk_assessment_store = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_risk_assessment_update'), $data)->json();
@@ -92,22 +92,12 @@ class RiskAssessmentController extends Controller
     public function book(Request $request)
     {
         $data['risk_assessments'] = $request->risk_assessments;
-        $data['risk_rate'] = $request->risk_rate;
-        $data['total_number'] = $request->total_score;
-        $data['risk'] = $request->risk;
+        $data['risk_rate'] = $request->risk_rate ?? null;
+        $data['total_number'] = $request->total_score ?? null;
+        $data['risk'] = $request->risk ?? null;
         $data['risk_assessment_type'] = $request->risk_assessment_type;
 
         return view('modules.audit_plan.audit_plan.plan_revised.partials.risk_assessment_book', $data);
 
     }
-
-    public function bookDetection(Request $request)
-    {
-        $data['risk_assessments'] = $request->risk_assessments;
-        $data['risk_assessment_type'] = $request->risk_assessment_type;
-        return view('modules.audit_plan.audit_plan.plan_revised.partials.risk_assessment_book_detection', $data);
-    }
-
-
-
 }

@@ -103,36 +103,43 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
 
-        $memo_attachment_file = $request->memo_attachment;
-        if ($request->hasfile('memo_attachment')) {
-            $data[] = [
-                'name'     => 'memo',
-                'contents' => file_get_contents($memo_attachment_file->getRealPath()),
-                'filename' => $memo_attachment_file->getClientOriginalName(),
-            ];
+        //for porisishtos
+        if ($request->hasfile('porisishtos')) {
+            foreach ($request->file('porisishtos') as $file){
+                $data[] = [
+                    'name'     => 'porisishtos[]',
+                    'contents' => file_get_contents($file->getRealPath()),
+                    'filename' => $file->getClientOriginalName(),
+                ];
+            }
         }
 
-        $appendix_file = $request->porisishto;
-        if ($request->hasfile('porisishto')) {
-            $data[] = [
-                'name'     => 'porisishto',
-                'contents' => file_get_contents($appendix_file->getRealPath()),
-                'filename' => $appendix_file->getClientOriginalName(),
-            ];
+
+        //for pramanoks
+        if ($request->hasfile('pramanoks')) {
+            foreach ($request->file('pramanoks') as $file){
+                $data[] = [
+                    'name'     => 'pramanoks[]',
+                    'contents' => file_get_contents($file->getRealPath()),
+                    'filename' => $file->getClientOriginalName(),
+                ];
+            }
         }
 
-        $authentic_file= $request->pramanok;
-        if ($request->hasfile('pramanok')) {
-            $data[] = [
-                'name'     => 'pramanok',
-                'contents' => file_get_contents($authentic_file->getRealPath()),
-                'filename' => $authentic_file->getClientOriginalName(),
-            ];
+
+        //for memos
+        if ($request->hasfile('memos')) {
+            foreach ($request->file('memos') as $file){
+                $data[] = [
+                    'name'     => 'memos[]',
+                    'contents' => file_get_contents($file->getRealPath()),
+                    'filename' => $file->getClientOriginalName(),
+                ];
+            }
         }
-        //dd($data);
+
 
         $response = $this->fileUPloadWithData(
-            'POST',
             config('amms_bee_routes.audit_conduct_query.memo.store'),
             $data
         );
