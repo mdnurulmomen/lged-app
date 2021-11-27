@@ -47,7 +47,7 @@
                 </button>
                 <!--end::Toolbar-->
             </div>
-            <h4 class="text-center"> {{$userOffices[0]['office_name_bn']}}</h4>
+            <h4 class="text-center"> {{session('_current_office')['office_name_bn']}}</h4>
             <!--end::Brand-->
             @yield('sideMenu')
         </div>
