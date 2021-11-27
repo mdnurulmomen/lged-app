@@ -57,6 +57,17 @@ class PlanEditorController extends Controller
         ));
     }
 
+    public function loadNominatedOfficesSelectView(Request $request)
+    {
+        $getParentWithChildOfficePassData['parent_office_id'] = $request->parent_office_id;
+        $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $getParentWithChildOfficePassData)->json();
+        $nominated_offices_list = isSuccess($nominated_offices) ? $nominated_offices['data'] : [];
+        $nominated_offices_list = !empty($nominated_offices_list) ? !empty($nominated_offices_list['child_offices']) ? $nominated_offices_list['child_offices'] : [$nominated_offices_list['parent_office']] : [];
+        $layer_id = $request->layer_id;
+        $total_audit_schedule_row = $request->total_audit_schedule_row;
+        return view('modules.audit_plan.audit_plan.plan_revised.partials.select_nominated_offices', compact('nominated_offices_list', 'layer_id', 'total_audit_schedule_row'));
+    }
+
     public function loadOfficeEmployeeList(Request $request)
     {
         Validator::make($request->all(), ['office_id' => 'integer|required'])->validate();

@@ -360,6 +360,9 @@
                                                                                                         data-cost-center-id="{{$nominatedOffice['id']}}"
                                                                                                         data-cost-center-name-bn="{{$nominatedOffice['office_name_bng']}}"
                                                                                                         data-cost-center-name-en="{{$nominatedOffice['office_name_eng']}}">{{$nominatedOffice['office_name_bng']}}</option>
+                                                                                                    @if(count($nominatedOffice) > 0)
+                                                                                                        @include('modules.audit_plan.audit_plan.plan_revised.partials.select_nominated_office_child', ['nominated_offices_list' => $nominatedOffice['child']])
+                                                                                                    @endif
                                                                                                 @endforeach
                                                                                             </select>
                                                                                         </td>
@@ -546,13 +549,9 @@
         var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
         var teamScheduleHtml = "<tbody data-schedule-type='schedule' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
-        teamScheduleHtml += "<td>" +
-            "<select id='branch_name_select_" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control select-select2 input-branch-name' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
-            "<option value=''>--Select--</option>" +
-            @foreach($nominated_offices_list as $key => $nominatedOffice)
-                "<option value='{{$nominatedOffice['id']}}' data-cost-center-id='{{$nominatedOffice['id']}}' data-cost-center-name-bn='{{$nominatedOffice['office_name_bng']}}' data-cost-center-name-en='{{$nominatedOffice['office_name_eng']}}'>{{$nominatedOffice['office_name_bng']}}</option>" +
-            @endforeach
-                "</select></td>";
+        teamScheduleHtml += "<td class='selected_nominated_office_data_" + layer_id + "'>" +
+            "<select class='form-control select-select2 input-branch-name'><option>--Loading--</option></select>" +
+            "</td>";
 
         teamScheduleHtml += "<td><div class='row'><div class='col pr-0'><input type='text' " +
             "class='date form-control input-start-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শুরু'/></div><div class='col pl-0'>" +
@@ -560,13 +559,13 @@
             "</div></div></td>"
         teamScheduleHtml += "<td><input type='number' min='0' value='0' class='form-control input-total-working-day' id='input_total_working_day_" + layer_id + "_" + totalAuditScheduleRow + "' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'/></td>";
         teamScheduleHtml += "<td style='display: inline-flex'>" +
-            "<button title='schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
+            "<button title='Add Schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='pulse pulse-primary btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
             "<span class='fad fa-calendar-day'></span>" +
             "</button>" +
-            "<button title='visit' type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
+            "<button title='Add Visit' type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
             "<span class='fad fa-plus'></span>" +
             "</button>" +
-            "<button title='remove' onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
+            "<button title='Remove' onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
             "data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>" +
             "<span class='fal fa-trash-alt'></span>" +
             "</button>" +
@@ -574,7 +573,26 @@
         teamScheduleHtml += "</tr></tbody>";
 
         $('#audit_schedule_table_' + layer_id).append(teamScheduleHtml);
-        $('.select-select2').select2();
+        parent_office_id = '{{$parent_office_id}}';
+        loadSelectNominatedOffices(parent_office_id, layer_id, totalAuditScheduleRow);
+    }
+
+    function loadSelectNominatedOffices(parent_office_id, layer_id, total_audit_schedule_row) {
+        url = '{{route('audit.plan.audit.editor.load-select-nominated-offices')}}';
+        data = {parent_office_id, layer_id, total_audit_schedule_row};
+
+        KTApp.block('.kt-portlet')
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+            KTApp.unblock('.kt-portlet')
+            if (response.status === 'error') {
+                toastr.error('Internal Serve Error');
+            } else {
+                console.log(response)
+                $('.selected_nominated_office_data_' + layer_id).html(response);
+                $('.select-select2').select2();
+            }
+        });
+
     }
 
     function addDetailsTblRow(layer_id) {
@@ -758,11 +776,13 @@
         },
 
         loadTeamSchedule: function (team_schedule_list_div, team_layer_id) {
+            KTApp.block('.kt-portlet')
             url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
             annual_plan_id = '{{$annual_plan_id}}';
             parent_office_id = '{{$parent_office_id}}';
             data = {team_layer_id, annual_plan_id, parent_office_id};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('.kt-portlet')
                 if (response.status === 'error') {
                     toastr.error('No Auditable Units Chosen.');
                 } else {

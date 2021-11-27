@@ -323,6 +323,13 @@ if (!function_exists('json_encode_unicode')) {
     }
 }
 
+if (!function_exists('json_encode_escaped')) {
+    function json_encode_escaped($string)
+    {
+        return json_encode($string, JSON_UNESCAPED_UNICODE | JSON_HEX_APOS | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
+}
+
 if (!function_exists('explodeAndMakeArray')) {
     function explodeAndMakeArray($data, $expect = 'string')
     {
