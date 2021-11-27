@@ -51,7 +51,7 @@
 
            if (target_date < date) {
                 toastr.warning('নির্ধারিত তারিখ '+ enTobn($(this).attr('data-target-date')));
-                $(this).val($(this).val());
+                $(this).val('');
            }
     });
 </script>
