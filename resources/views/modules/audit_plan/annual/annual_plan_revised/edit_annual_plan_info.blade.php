@@ -66,7 +66,7 @@
                 </div>
                 <div class="tab-pane border border-top-0 p-3 fade" id="select_milestone"
                      role="tabpanel" aria-labelledby="activity-tab">
-                    <div class="col-md-12 load_milestone">
+                    <div class="col-md-12 load_milestone p-0">
                         @if($annual_plan_info['ap_milestones'])
                             <table class="table table-striped">
                                 <thead class="thead-light">
@@ -93,13 +93,13 @@
                                                    type="hidden"
                                                    value="{{$milestone['milestone_target_date']}}">
                                         </td>
-                                        <td>
+                                        <td class="pl-0 pr-0">
                                             <input type="text" name="start_date"
                                                    class="form-control milestone_start_date date"
                                                    data-target-date="{{formatDate($milestone['milestone_target_date'],'en','/')}}"
                                                    value="{{formatDate($milestone['end_date'],'en','/')}}">
                                         </td>
-                                        <td>
+                                        <td class="pl-0 pr-0">
                                             <input type="text" name="end_date"
                                                    class="form-control milestone_end_date date"
                                                    data-target-date="{{formatDate($milestone['milestone_target_date'],'en','/')}}"
@@ -386,13 +386,21 @@
         return false;
     }
 
-    $('.milestone_start_date,.milestone_end_date').change(function (){
+    $('.milestone_start_date,.milestone_end_date').blur(function (){
            target_date =  $(this).attr('data-target-date');
+           target_date = formatDate(target_date);
+           target_date = target_date.replaceAll('-', '/');
+
            date =  $(this).val();
+           date = date.replaceAll('-', '/');
            date = formatDate(date);
-           date = DmyFormat(date);
-           if (target_date > date) {
-                toastr.warning('নির্ধারিত তারিখ '+ enTobn(target_date));
+           date = date.replaceAll('-', '/');
+
+           target_date = new Date(target_date);
+           date = new Date(date);
+           console.log(target_date,date);
+           if (target_date < date) {
+                toastr.warning('নির্ধারিত তারিখ '+ enTobn($(this).attr('data-target-date')));
                 $(this).val($(this).val());
            }
     });
