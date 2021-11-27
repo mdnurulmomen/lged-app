@@ -284,17 +284,18 @@ $(document).off('keypress').on('keypress', '.number-input', function () {
 
 
 function formatDate(data) {
-    var day = data.split("/")[0];
-    var month = data.split("/")[1];
-    var year = data.split("/")[2];
+     day = data.split("/")[0];
+     month = data.split("/")[1];
+     year = data.split("/")[2];
     return year + '-' + ("0" + month).slice(-2) + '-' + ("0" + day).slice(-2);
 }
 
 function DmyFormat(data, splitter = '-') {
-    var year = data.split("-")[0];
-    var month = data.split("-")[1];
-    var day = data.split("-")[2];
-    return day + splitter + ("0" + month).slice(-2) + splitter + ("0" + year).slice(-2);
+     year = data.split("-")[0];
+     month = data.split("-")[1];
+     day = data.split("-")[2];
+     // console.log(year);
+    return day + splitter + ("0" + month).slice(-2) + splitter + year;
 }
 
 

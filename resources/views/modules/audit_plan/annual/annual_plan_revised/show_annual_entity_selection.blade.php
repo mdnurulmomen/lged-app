@@ -53,7 +53,7 @@
                 <th class="text-light">সাবজেক্ট ম্যাটার</th>
                 <th class="text-light">প্রয়োজনীয় লোকবল</th>
                 <th class="text-light">মন্তব্য</th>
-                <th class="text-light">কার্যক্রম</th>
+                <th class="text-light">সম্পাদনা</th>
             </tr>
             </thead>
             <tbody>
@@ -82,14 +82,28 @@
                     </td>
                     <td>{{$plan['comment']}}</td>
                     <td>
-                        <button title="সম্পাদন"
-                                class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
-                                data-annual-plan-id="{{$plan['id']}}"
-                                data-fiscal-year-id="{{$fiscal_year_id}}"
-                                data-op-audit-calendar-event-id="13"
-                                onclick="Annual_Plan_Container.editPlanInfo($(this))">
-                            <i class="fad fa-edit"></i>
-                        </button>
+                        <div class="btn-group">
+                            <button title="সম্পাদন"
+                                    class="btn btn-icon btn-square btn-sm btn-light btn-icon-primary"
+                                    data-annual-plan-id="{{$plan['id']}}"
+                                    data-fiscal-year-id="{{$fiscal_year_id}}"
+                                    data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
+                                    onclick="Annual_Plan_Container.editPlanInfo($(this))">
+                                <i class="fad fa-edit"></i>
+                            </button>
+                            <button title="দেখুন"
+                                    class="btn btn-icon btn-square btn-sm btn-light btn-icon-primary"
+                                    data-annual-plan-id="{{$plan['id']}}"
+                                    onclick="Annual_Plan_Container.showPlanInfo($(this))">
+                                <i class="fad fa-eye"></i>
+                            </button>
+                            <button title="বাতিল করুন"
+                                    class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger"
+                                    data-annual-plan-id="{{$plan['id']}}"
+                                    onclick="Annual_Plan_Container.deletePlan($(this))">
+                                <i class="fad fa-trash"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             @endforeach

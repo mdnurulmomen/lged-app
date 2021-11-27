@@ -96,12 +96,14 @@
                                         <td>
                                             <input type="text" name="start_date"
                                                    class="form-control milestone_start_date date"
-                                                   value="{{$milestone['start_date']}}">
+                                                   data-target-date="{{formatDate($milestone['milestone_target_date'],'en','/')}}"
+                                                   value="{{formatDate($milestone['end_date'],'en','/')}}">
                                         </td>
                                         <td>
                                             <input type="text" name="end_date"
                                                    class="form-control milestone_end_date date"
-                                                   value="{{$milestone['end_date']}}">
+                                                   data-target-date="{{formatDate($milestone['milestone_target_date'],'en','/')}}"
+                                                   value="{{formatDate($milestone['start_date'],'en','/')}}">
                                         </td>
                                     </tr>
                                 @endforeach
@@ -236,7 +238,7 @@
                     <div class="col-md-6">
                         <span onclick="Annual_Plan_Container.addTeamSection($(this))"
                               class="btn btn-outline-primary btn-square mr-2">
-                            <i class="fa fa-plus"></i> দল গঠন করুন
+                            <i class="fa fa-plus"></i> জনবল
                         </span>
                     </div>
                 </div>
@@ -384,6 +386,16 @@
         return false;
     }
 
+    $('.milestone_start_date,.milestone_end_date').change(function (){
+           target_date =  $(this).attr('data-target-date');
+           date =  $(this).val();
+           date = formatDate(date);
+           date = DmyFormat(date);
+           if (target_date > date) {
+                toastr.warning('নির্ধারিত তারিখ '+ enTobn(target_date));
+                $(this).val($(this).val());
+           }
+    });
 </script>
 
 

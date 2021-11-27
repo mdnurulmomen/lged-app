@@ -26,12 +26,30 @@
                 <input name="milestone_target_date" class="milestone_target_date" type="hidden" value="{{$milestone['milestone_calendar']['target_date']}}">
             </td>
             <td>
-                <input type="text" name="start_date" class="form-control milestone_start_date date" placeholder="শুরুর তারিখ">
+                <input type="text" data-target-date="{{$milestone['milestone_calendar']['target_date']}}" name="start_date" class="form-control milestone_start_date date" placeholder="শুরুর তারিখ">
             </td>
             <td>
-                <input type="text" name="end_date" class="form-control milestone_end_date date" placeholder="শেষের তারিখ">
+                <input type="text" data-target-date="{{$milestone['milestone_calendar']['target_date']}}" name="end_date" class="form-control milestone_end_date date" placeholder="শেষের তারিখ">
             </td>
         </tr>
     @endforeach
     </tbody>
 </table>
+
+<script>
+    $('.milestone_start_date,.milestone_end_date').change(function (){
+           target_date =  $(this).attr('data-target-date');
+           date =  $(this).val();
+           date = formatDate(date);
+           date = DmyFormat(date);
+
+           target_date = new Date(target_date);
+           date = new Date(date);
+
+           console.log(target_date,date);
+           if (date > target_date) {
+                // toastr.warning('নির্ধারিত তারিখ '+ enTobn(target_date));
+                // $(this).val('');
+           }
+    });
+</script>

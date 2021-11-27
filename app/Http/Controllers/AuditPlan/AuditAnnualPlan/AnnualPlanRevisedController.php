@@ -175,7 +175,8 @@ class AnnualPlanRevisedController extends Controller
                 'budget' => $request->budget,
                 'cost_center_total_budget' => $request->cost_center_total_budget,
                 'milestone_list' => json_decode($request->milestone_list,true),
-                'annual_plan_type' => $request->annual_plan_type
+                'annual_plan_type' => $request->annual_plan_type,
+                'thematic_title' => $request->thematic_title
             ];
             $nominated_offices = [];
 
@@ -324,7 +325,43 @@ class AnnualPlanRevisedController extends Controller
         } else {
             return response()->json(['status' => 'error', 'data' => $all_activity]);
         }
+    }
 
+    public function showAnnualPlanInfo(Request $request){
+        $data = Validator::make($request->all(), [
+            'annual_plan_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $annual_plan_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_annual_plan_info'),
+            $data)->json();
+
+        if (isSuccess($annual_plan_info)) {
+            $annual_plan_info = $annual_plan_info['data'];
+//            dd($annual_plan_info);
+            $nominated_office_list = json_decode($annual_plan_info['nominated_offices'], true);
+            $nominated_man_powers = json_decode($annual_plan_info['nominated_man_powers'], true);
+
+            return view('modules.audit_plan.annual.annual_plan_revised.show_annual_plan_info',
+                compact('annual_plan_info','nominated_office_list', 'nominated_man_powers'));
+
+        } else {
+            return response()->json(['status' => 'error', 'data' => $annual_plan_info]);
+        }
+//        dd($annual_plan_info);
+    }
+
+    public function deleteAnnualPlan(Request $request){
+        $data = Validator::make($request->all(), [
+            'annual_plan_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $annual_plan_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_annual_plan_info'),
+            $data)->json();
+//        dd($request->all());
     }
 
     public function exportAnnualPlanBook(Request $request)

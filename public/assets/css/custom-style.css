@@ -131,3 +131,16 @@ src: url(../font/SutonnyMJ.woff);
     font-family: SutonnyBanglaFont, serif;
     font-size: 16px;
 }
+
+.annual-plan-table {
+    width: 100%;
+}
+
+.annual-plan-table table tr td {
+    background-color: black;
+}
+.annual-plan-title {
+    width: 40%;
+    padding: 2%;
+    background-color: #ebedf3
+}

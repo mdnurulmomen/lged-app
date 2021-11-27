@@ -14,8 +14,9 @@
             </div>
 
             <div class="col-md-6">
-                <input style="margin-top: 35px" type="radio" name="annual_plan_type" value="themetic"> Themetic
+                <input style="margin-top: 35px" type="radio" name="annual_plan_type" value="thematic"> Thematic
                 <input type="radio" name="annual_plan_type" value="entity_based" checked> Entity Based
+                <input style="display: none" class="form-control thematic_title" name="thematic_title" value="" placeholder="Thematic Title">
             </div>
 
             <div class="col-md-6" style="display: none">
@@ -199,6 +200,15 @@
     $("#activity_id").change(function () {
         activity_id = $(this).val();
         Annual_Plan_Container.loadActivityWiseMilestone(activity_id);
+    });
+
+    $("input[name$='annual_plan_type']").click(function () {
+       annual_plan_type = $(this).val();
+       if(annual_plan_type == 'thematic'){
+           $('.thematic_title').show();
+       }else{
+           $('.thematic_title').hide();
+       }
     });
 
     selected = null

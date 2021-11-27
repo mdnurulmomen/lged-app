@@ -186,6 +186,50 @@
             });
         },
 
+        showPlanInfo: function (elem) {
+            annual_plan_id = elem.data('annual-plan-id');
+            data = {annual_plan_id}
+            KTApp.block('#kt_content');
+            let url = '{{route('audit.plan.annual.plan.revised.show_plan_info')}}'
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $(".offcanvas-title").text('Annual Plan');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
+        deletePlan: function (elem) {
+            annual_plan_id = elem.data('annual-plan-id');
+            data = {annual_plan_id}
+            KTApp.block('#kt_content');
+            let url = '{{route('audit.plan.annual.plan.revised.delete_annual_plan')}}'
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $(".offcanvas-title").text('Annual Plan');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
         loadActivityWiseMilestone: function (activity_id,milestone_id=0) {
             data = {
                 activity_id,
@@ -505,6 +549,7 @@
             data.push({name: "milestone_id", value: $('#milestone_id').val()});
             data.push({name: "milestone_list", value: milestone_list});
             data.push({name: "annual_plan_type", value: annual_plan_type});
+            data.push({name: "thematic_title", value: $('#thematic_title').val()});
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
