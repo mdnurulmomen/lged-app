@@ -226,7 +226,7 @@ function loadPage(element) {
 $(document).off('focus').on('focus', '.date', function () {
     $(this).datepicker({
         autoclose: true,
-        format: 'd/m/yyyy'
+        format: 'dd/mm/yyyy'
     });
 })
 

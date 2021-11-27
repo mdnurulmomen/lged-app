@@ -67,7 +67,7 @@
                 </div>
                 <div class="tab-pane border border-top-0 p-3 fade" id="select_milestone"
                      role="tabpanel" aria-labelledby="activity-tab">
-                    <div class="col-md-12 load_milestone"></div>
+                    <div class="col-md-12 load_milestone p-0"></div>
                 </div>
             </div>
         </div>
