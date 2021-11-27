@@ -89,7 +89,7 @@ trait ApiHeart
         return null;
     }
 
-    public function fileUPloadWithData($method = 'POST', $uri, $data): \Psr\Http\Message\ResponseInterface
+    public function fileUPloadWithData($uri, $data,$method = 'POST'): \Psr\Http\Message\ResponseInterface
     {
         $client = new Client();
         $response = $client->request(
@@ -104,6 +104,7 @@ trait ApiHeart
                 ],
             ]
         );
+        //dd(json_decode($response->getBody(), true));
         return $response;
     }
 }

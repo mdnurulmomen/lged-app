@@ -76,4 +76,10 @@
 @section('scripts')
     @include('scripts.audit_plan.edit.script_edit_entity_audit_plan')
     @include('scripts.audit_plan.script_entity_audit_plan')
+
+    <script>
+        let inherentRiskTotalPoint = 0;
+        let controlRiskTotalPoint = 0;
+        let detectionRiskTotalPoint = 0;
+    </script>
 @endsection

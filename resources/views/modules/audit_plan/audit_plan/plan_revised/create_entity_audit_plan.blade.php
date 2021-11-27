@@ -107,6 +107,10 @@
         $('.entity_audit_plan_team_schedule').prop( "disabled", true );
         $('.entity_audit_plan_risk_assessment').prop( "disabled", true );
         $('.entity_audit_plan_preview').prop( "disabled", true );
+
+        let inherentRiskTotalPoint = 0;
+        let controlRiskTotalPoint = 0;
+        let detectionRiskTotalPoint = 0;
     })
     </script>
 @endsection

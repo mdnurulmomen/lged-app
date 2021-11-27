@@ -43,8 +43,9 @@
 <div class="row pt-6">
     <div class="col-md-12">
         <div class="form-group">
-            <label for="risk_assessment_point_{{$risk_assessment_type}}">রিস্ক এসেসমেন্ট</label>
-            <input type="text" class="form-control" name="" id="risk_assessment_point_{{$risk_assessment_type}}">
+            <label for="risk_assessment_point_{{$risk_assessment_type}}">রিস্ক স্কোর</label>
+            <input type="text" class="form-control" id="risk_assessment_point_{{$risk_assessment_type}}"
+            value="{{!empty($ap_risk_assessment_list)?$ap_risk_assessment_list['risk_rate']:''}}">
         </div>
 
         <fieldset class="scheduler-border">

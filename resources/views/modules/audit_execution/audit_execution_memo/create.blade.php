@@ -124,7 +124,7 @@
                                         <label class="col-form-label">
                                             পরিশিষ্ট সংযুক্তি
                                         </label>
-                                        <input name="porisishto" type="file" class="form-control rounded-0"
+                                        <input name="porisishtos[]" type="file" class="form-control rounded-0"
                                                accept="image/*" multiple>
                                     </div>
 
@@ -132,7 +132,7 @@
                                         <label class="col-form-label">
                                             প্রমানক সংযুক্তি
                                         </label>
-                                        <input name="pramanok" type="file" class="form-control rounded-0"
+                                        <input name="pramanoks[]" type="file" class="form-control rounded-0"
                                                accept="image/*" multiple>
                                     </div>
 
@@ -140,7 +140,7 @@
                                         <label class="col-form-label">
                                             মেমো সংযুক্তি <span class="text-primary">(ঐচ্ছিক)</span>
                                         </label>
-                                        <input name="memo_attachment" type="file" class="form-control rounded-0"
+                                        <input name="memos[]" type="file" class="form-control rounded-0"
                                                accept="image/*" multiple>
                                     </div>
                                 </div>

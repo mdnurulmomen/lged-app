@@ -38,10 +38,6 @@
     fiscal_year_id = '{{$fiscal_year_id}}';
     audit_plan_id = '{{$audit_plan_id}}';
 
-    inherentRiskTotalPoint = 0;
-    controlRiskTotalPoint = 0;
-    detectionRiskTotalPoint = 0;
-
     $(function () {
         loadData('inherent',fiscal_year_id,audit_plan_id);
     });
@@ -84,7 +80,7 @@
         total_number = 0;
 
         $(".row_risk_item_"+ risk_type + " .risk_score").each(function () {
-            total_number += $(this).val();
+            total_number += +$(this).val();
         });
 
         if(!total_number){
@@ -174,9 +170,19 @@
 
     function saveInBook(risk_assessments,risk_assessment_type,risk,risk_rate,total_score,total_number){
 
-        $('.risk_'+risk_assessment_type+'_point').text(BnFromEng(parseFloat(risk_rate).toFixed(2)));
+        risk_rate = parseFloat(risk_rate).toFixed(2);
+        $('.risk_'+risk_assessment_type+'_point').text(BnFromEng(risk_rate));
         $('.total_score_risk_'+risk_assessment_type).text(BnFromEng(total_score));
         $('.risk_'+risk_assessment_type+'_calculation').text('('+BnFromEng(total_score)+'/'+BnFromEng(total_number)+')');
+
+        if (risk_assessment_type == 'inherent'){
+            inherentRiskTotalPoint = risk_rate;
+        }
+        else if(risk_assessment_type == 'control'){
+            controlRiskTotalPoint = risk_rate;
+        }
+
+        saveInBookOverallRiskData();
 
         data = {risk_assessments,risk_assessment_type,risk,risk_rate,total_score};
         url = '{{route('audit.plan.audit.editor.risk-assessment-book')}}';
@@ -285,8 +291,24 @@
         audit_plan_id ="{{$audit_plan_id}}";
         risk_assessment_type = 'detection';
 
+        riskDetectionPoint = $("#risk_assessment_point_detection").val();
+        risk_rate = parseFloat(riskDetectionPoint).toFixed(2);
+        risk_bn = '';
+        risk = '';
+
+        if(risk_rate >= 0 && risk_rate <= 0.2){
+            risk_bn = 'নিম্ন ঝুঁকি';
+            risk = 'low'
+        }else if(risk_rate > 0.2 && risk_rate <= 0.6){
+            risk_bn = 'মধ্যম ঝুঁকি';
+            risk = 'medium'
+        }else if(risk_rate > 0.6 && risk_rate <= 1.0){
+            risk_bn = 'উচ্চ ঝুঁকি';
+            risk = 'high'
+        }
+
         //console.log(risk_assessments);
-        data = {id,risk_assessments,fiscal_year_id,activity_id,audit_plan_id,risk_assessment_type};
+        data = {id,risk_assessments,fiscal_year_id,activity_id,audit_plan_id,risk_assessment_type,risk_rate,risk};
 
         if(submit_type == 'add'){
             url = '{{route('audit.plan.audit.editor.store-risk-assessment')}}';
@@ -300,14 +322,18 @@
                 toastr.error(response.data);
             } else {
                 toastr.success(response.data);
-                saveInBookRiskDetectionData(risk_assessments,risk_assessment_type);
+                saveInBookRiskDetectionData(risk_assessments,risk_assessment_type,risk_rate);
             }
         })
     }
 
-    function saveInBookRiskDetectionData(risk_assessments,risk_assessment_type){
+    function saveInBookRiskDetectionData(risk_assessments,risk_assessment_type,risk_rate){
+        $('.risk_'+risk_assessment_type+'_point').text(BnFromEng(risk_rate));
+        detectionRiskTotalPoint = risk_rate;
+
+        saveInBookOverallRiskData();
         data = {risk_assessments,risk_assessment_type};
-        url = '{{route('audit.plan.audit.editor.detection-risk-assessment-book')}}';
+        url = '{{route('audit.plan.audit.editor.risk-assessment-book')}}';
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             $('.risk_detection_list').html(response);
             setJsonContentFromPlanBook();
@@ -323,5 +349,20 @@
             }
         });
         $(".total-"+risk_type+"-risk-score").text(total_number);
+    }
+
+    function saveInBookOverallRiskData(){
+        overAllPoint = detectionRiskTotalPoint * detectionRiskTotalPoint * detectionRiskTotalPoint;
+        risk_bn = '';
+        if(overAllPoint >= 0 && overAllPoint <= 0.2){
+            risk_bn = 'নিম্ন ঝুঁকি';
+        }else if(overAllPoint > 0.2 && overAllPoint <= 0.6){
+            risk_bn = 'মধ্যম ঝুঁকি';
+        }else if(overAllPoint > 0.6 && overAllPoint <= 1.0){
+            risk_bn = 'উচ্চ ঝুঁকি';
+        }
+
+        $('.risk_overall_point').text(BnFromEng(parseFloat(overAllPoint).toFixed(4)));
+        $('.risk_overall_type').text(risk_bn);
     }
 </script>
