@@ -89,7 +89,8 @@ class RevisedPlanController extends Controller
                 'entity_name' => $audit_plan['annual_plan']['parent_office_name_bn'],
                 'entity_office_type' => $audit_plan['annual_plan']['office_type'],
                 'fiscal_year' => enTobn($audit_plan['annual_plan']['fiscal_year']['start']) . ' - ' . enTobn($audit_plan['annual_plan']['fiscal_year']['end']).' অর্থ বছর।',
-                'annual_plan_type' => $annual_plan_type
+                'annual_plan_type' => $annual_plan_type,
+                'audit_subject_matter' => $audit_plan['annual_plan']['subject_matter'],
             ];
             //dd($cover_info);
             return view('modules.audit_plan.audit_plan.plan_revised.create_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan',

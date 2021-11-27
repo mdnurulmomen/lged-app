@@ -33,7 +33,7 @@
         <div class="col-md-2 mt-9">
             <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
                     data-risk-assessment-type="{{$risk_assessment_type}}"
-                    onclick="addDetectionRiskItemList($(this))">
+                    onclick="addRiskItemList($(this))">
                 <i class="fas fa-plus"></i> Add
             </button>
         </div>
@@ -42,6 +42,11 @@
 
 <div class="row pt-6">
     <div class="col-md-12">
+        <div class="form-group">
+            <label for="risk_assessment_point_{{$risk_assessment_type}}">রিস্ক এসেসমেন্ট</label>
+            <input type="text" class="form-control" name="" id="risk_assessment_point_{{$risk_assessment_type}}">
+        </div>
+
         <fieldset class="scheduler-border">
             <legend class="scheduler-border">
                 রিস্কসমূহ
@@ -65,7 +70,7 @@
                         </td>
                         <td width="10%">
                             <button type="button" class="btn btn-icon btn-outline-danger btn-xs border-0"
-                            onclick="deleteDetectionRiskItem($(this))">
+                            onclick="deleteRiskItem($(this))">
                                 <i class="fal fa-trash-alt"></i>
                             </button>
                         </td>

@@ -38,6 +38,10 @@
     fiscal_year_id = '{{$fiscal_year_id}}';
     audit_plan_id = '{{$audit_plan_id}}';
 
+    inherentRiskTotalPoint = 0;
+    controlRiskTotalPoint = 0;
+    detectionRiskTotalPoint = 0;
+
     $(function () {
         loadData('inherent',fiscal_year_id,audit_plan_id);
     });
@@ -70,8 +74,9 @@
         })
     }
 
+
     function calculateRiskRate(risk_type){
-        totalRow = $("#"+risk_type+"ItemTblList tr").length -1;
+        totalRow = $("#"+risk_type+"ItemListTblBody tr").length -1;
         if(!totalRow){
             toastr.warning('No Data Found');
             return;
@@ -79,7 +84,7 @@
         total_number = 0;
 
         $(".row_risk_item_"+ risk_type + " .risk_score").each(function () {
-            total_number += +$(this).val();
+            total_number += $(this).val();
         });
 
         if(!total_number){
@@ -109,7 +114,7 @@
         $('.risk_rate_number_'+risk_type).text(EngFromBn(risk_rate));
         $('#risk_rate_'+risk_type).val(risk_rate);
 
-        $('.risk_rate_'+risk_type).text(' ( '+risk+' )');
+        $('.risk_rate_'+risk_type).text('('+risk+')');
         $('#total_risk_value_'+risk_type).val(total_value);
         $('#total_risk_score_'+risk_type).val(total_number);
 
@@ -189,53 +194,16 @@
         riskAssessmentId = selectedRiskAssessment.val();
         riskAssessmentTitleBn = selectedRiskAssessment.text().trim();
 
-        if(riskAssessmentId === ""){
-            toastr.warning('Please Select Risk Assessment');
+        if (riskAssessmentId === "") {
+            toastr.warning('দয়া করে রিস্ক এসেসমেন্ট আইটেম সিলেক্ট করুন');
             return;
         }
 
-        if ($("#"+riskAssessmentType+"ItemTblList").find("#riskAssessmentId"+riskAssessmentId).length > 0) {
-            toastr.warning('Item already exist');
-            return;
-        }
+        $("#risk_assessment_"+riskAssessmentType+" option[value='"+riskAssessmentId+"']").remove();
 
-
-        $("#"+riskAssessmentType+"ItemTblList").append(`
-        <tr id="riskAssessmentId${riskAssessmentId}" class="row_risk_item_${riskAssessmentType}">
-            <td width="85%">${riskAssessmentTitleBn}</td>
-            <td width="10%">
-            <input style="width: 100%" type="number" min="1" max="5" data-risk-assessment-id="${riskAssessmentId}"
-data-risk-assessment-title-bn="${riskAssessmentTitleBn}" data-risk-assessment-title-en="${riskAssessmentTitleBn}"
-class="integer_type_positive risk_score" value="1">
-            </td>
-            <td width="5%">
-                <button type="button" class="btn btn-icon btn-outline-danger btn-xs border-0"
-                    onclick="deleteRiskItem($(this))">
-                    <i class="fal fa-trash-alt"></i>
-                </button>
-            </td>
-        </tr>
-        `);
-    }
-
-    function deleteRiskItem(elem){
-        var delete_row = elem.closest('tr').attr('id');
-        console.log(delete_row);
-        $('#' + delete_row).remove();
-    }
-</script>
-
-
-<script>
-    function addDetectionRiskItemList(elem){
-        riskAssessmentType = elem.data('risk-assessment-type');
-        selectedRiskAssessment = $("#risk_assessment_"+riskAssessmentType+" option:selected");
-        riskAssessmentId = selectedRiskAssessment.val();
-        riskAssessmentTitleBn = selectedRiskAssessment.text().trim();
-
-        if (riskAssessmentId !== ""){
+        if (riskAssessmentType === 'detection'){
             $("#detectionItemTblList").append(`
-            <tr id="riskAssessmentId${riskAssessmentId}" class="row_risk_item_detection">
+            <tr id="riskAssessmentId${riskAssessmentId}" class="row_risk_item_${riskAssessmentType}">
                 <td width="45%">${riskAssessmentTitleBn}</td>
                 <td width="45%">
                     <textarea class="form-control risk_score" data-risk-assessment-id="${riskAssessmentId}"
@@ -243,6 +211,9 @@ class="integer_type_positive risk_score" value="1">
                 </td>
                 <td width="10%">
                     <button type="button" class="btn btn-icon btn-outline-danger btn-xs border-0"
+                        data-risk-assessment-type="${riskAssessmentType}"
+                        data-risk-assessment-id="${riskAssessmentId}"
+                        data-risk-assessment-title-bn="${riskAssessmentTitleBn}"
                         onclick="deleteRiskItem($(this))">
                         <i class="fal fa-trash-alt"></i>
                     </button>
@@ -250,20 +221,48 @@ class="integer_type_positive risk_score" value="1">
             </tr>
             `);
         }
-        else{
-            toastr.warning('Please Select Risk Assessment');
+
+        else {
+            $("#"+riskAssessmentType+"ItemListTblBody").append(`
+                <tr id="riskAssessmentId${riskAssessmentId}" class="row_risk_item_${riskAssessmentType}">
+                    <td width="85%">${riskAssessmentTitleBn}</td>
+                    <td width="10%">
+                    <input style="width: 100%" type="number" min="1" max="5" data-risk-assessment-id="${riskAssessmentId}"
+        data-risk-assessment-title-bn="${riskAssessmentTitleBn}" data-risk-assessment-title-en="${riskAssessmentTitleBn}"
+        onchange="calculateTotalRiskScoreSum('${riskAssessmentType}')"
+        class="integer_type_positive risk_score" value="0">
+                    </td>
+                    <td width="5%">
+                        <button type="button" class="btn btn-icon btn-outline-danger btn-xs border-0"
+                            data-risk-assessment-type="${riskAssessmentType}"
+                            data-risk-assessment-id="${riskAssessmentId}"
+                            data-risk-assessment-title-bn="${riskAssessmentTitleBn}"
+                            onclick="deleteRiskItem($(this))">
+                            <i class="fal fa-trash-alt"></i>
+                        </button>
+                    </td>
+                </tr>
+           `);
+        }
+    }
+
+    function deleteRiskItem(elem){
+        riskAssessmentType = elem.data('risk-assessment-type')
+        riskAssessmentId = elem.data('risk-assessment-id')
+        riskAssessmenTitleBn = elem.data('risk-assessment-title-bn')
+        $("#risk_assessment_"+riskAssessmentType).append('<option value="'+riskAssessmentId+'">'+riskAssessmenTitleBn+'</option>');
+
+        var delete_row = elem.closest('tr').attr('id');
+        $('#' + delete_row).remove();
+
+        if (riskAssessmentType !== 'detection'){
+            calculateTotalRiskScoreSum(riskAssessmentType);
         }
     }
 
 
-    function deleteDetectionRiskItem(elem){
-        var delete_row = elem.closest('tr').attr('id');
-        $('#' + delete_row).remove();
-    }
-
 
     function detectionRiskSubmit(submit_type,id) {
-
         risk_assessments = {};
         $(".row_risk_item_detection textarea").each(function () {
             if($(this).hasClass('risk_score')) {
@@ -276,7 +275,8 @@ class="integer_type_positive risk_score" value="1">
                     risk_assessment_title_bn: risk_assessment_title_bn,
                     risk_assessment_title_en: risk_assessment_title_en,
                 }
-                risk_assessments[risk_assessment_id]['risk_value'] =  $(this).val();
+                risk_assessments[risk_assessment_id]['detection_risk_value_en'] =  $(this).val();
+                risk_assessments[risk_assessment_id]['detection_risk_value_bn'] =  $(this).val();
             }
         });
 
@@ -285,7 +285,7 @@ class="integer_type_positive risk_score" value="1">
         audit_plan_id ="{{$audit_plan_id}}";
         risk_assessment_type = 'detection';
 
-        console.log(risk_assessments)
+        //console.log(risk_assessments);
         data = {id,risk_assessments,fiscal_year_id,activity_id,audit_plan_id,risk_assessment_type};
 
         if(submit_type == 'add'){
@@ -312,5 +312,16 @@ class="integer_type_positive risk_score" value="1">
             $('.risk_detection_list').html(response);
             setJsonContentFromPlanBook();
         });
+    }
+
+
+    function calculateTotalRiskScoreSum(risk_type){
+        total_number = 0;
+        $(".row_risk_item_"+risk_type+"  .risk_score").each(function () {
+            if($(this).val() != ""){
+                total_number += parseInt($(this).val());
+            }
+        });
+        $(".total-"+risk_type+"-risk-score").text(total_number);
     }
 </script>

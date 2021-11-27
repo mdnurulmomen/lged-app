@@ -20,11 +20,12 @@ class RiskAssessmentController extends Controller
     public function loadRiskAssessmentTypeWise(Request $request)
     {
         $data['risk_assessment_type'] = $request->risk_assessment_type;
-        $x_risk_assessment_list = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.risk_assessment_lists'), $data)->json();
-
-        $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['audit_plan_id'] = $request->audit_plan_id;
+        $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['cdesk'] = $this->current_desk_json();
+        $x_risk_assessment_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.risk_assessment_type_wise_item'), $data)->json();
+        //dd($x_risk_assessment_list);
+
         $ap_risk_assessment_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_risk_assessment_list'), $data)->json();
         //dd($ap_risk_assessment_list);
         if ($x_risk_assessment_list['status'] == 'success') {

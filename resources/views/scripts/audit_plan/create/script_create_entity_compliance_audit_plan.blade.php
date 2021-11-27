@@ -73,6 +73,7 @@
         $('.party_name').html("{{$cover_info['party_name']}}")
         $('.audit_fiscal_year').html("{{$cover_info['fiscal_year']}}")
         $('.thematic_issue').text("{{$cover_info['annual_plan_type']}}")
+        $('.audit_subject_matter').text("{{$cover_info['audit_subject_matter']}}")
 
         if (!isEmpty(parentOfficeOtherDataJSON)) {
             parentOfficeOtherDataJSON.map((content) => {

@@ -13,7 +13,7 @@
         <tr>
             <td width="10%" style="text-align: center">{{enTobn($loop->iteration)}}</td>
             <td width="45%">{{$risk_assessment['risk_assessment_title_bn']}}</td>
-            <td width="45%">{{enTobn($risk_assessment['risk_value'])}}</td>
+            <td width="45%">{{$risk_assessment['detection_risk_value_bn']}}</td>
         </tr>
     @endforeach
     </tbody>
