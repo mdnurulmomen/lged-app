@@ -690,6 +690,25 @@
         load_level_selection_panel: 0,
         selected_designation_ids: JSON.parse('{"228237":228237,"22418":22418}'),
 
+        loadPreviouslySelectedDesignationIds: function (office_id, fiscal_year_id, activity_id) {
+            url = '{{route('audit.plan.audit.revised.plan.previously-assigned-designations')}}';
+            data = {office_id, fiscal_year_id, activity_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error('Internal Serve Error');
+                } else {
+                    if (isArray(response.data)) {
+                        response.data.map(function (designation_id) {
+                            designation_node = $('[data-employee-designation-id=' + designation_id + ']');
+                            if (designation_node.attr('data-employee-designation-grade') > 9) {
+                                designation_node.addClass('d-none')
+                            }
+                        })
+                    }
+                }
+            })
+        },
+
         loadOfficer: function (office_id, office_type) {
             tree_area_div = office_type == 'own_office' ? '.office_organogram_tree_div' : '.other_office_organogram_tree_div';
             KTApp.block(tree_area_div, {
@@ -706,6 +725,7 @@
                     toastr.error('Internal Serve Error');
                 } else {
                     $(tree_area_div).html(response);
+                    Load_Team_Container.loadPreviouslySelectedDesignationIds(office_id, '{{$fiscal_year_id}}', '{{$activity_id}}')
                 }
             })
         },

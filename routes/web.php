@@ -260,20 +260,21 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/plans', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'index'])->name('plan.all');
             Route::post('/load-auditable-plan-lists', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'showAuditablePlanLists'])->name('revised.plan.load-all-lists');
             Route::post('/create-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'createAuditPlan'])->name('revised.plan.create-entity-audit-plan');
+            Route::post('/entity-audit-plan/audit-team/previously-assigned-designations', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'getPreviouslyAssignedDesignations'])->name('revised.plan.previously-assigned-designations');
             Route::post('/update-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'updateAuditPlan'])->name('revised.plan.update-entity-audit-plan');
             Route::post('/save-draft-entity-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'saveDraftEntityAuditPlan'])->name('revised.plan.save-draft-entity-audit-plan');
             Route::post('/book-audit-plan', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'auditPlanBook'])->name('revised.plan.book-audit-plan');
 
             Route::post('/get-team-info', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'getTeamInfo'])->name('revised.plan.get-team-info');
-            Route::post('editor/load-audit-team-modal', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamModal'])->name('editor.load-audit-team-modal');
-            Route::post('editor/load-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamSchedule'])->name('editor.load-audit-team-schedule');
-            Route::post('editor/load-select-nominated-offices', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadNominatedOfficesSelectView'])->name('editor.load-select-nominated-offices');
             Route::post('/load-officer-lists', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadOfficeEmployeeList'])->name('revised.plan.load-officer-lists');
             Route::post('/store-audit-team', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'storeAuditTeam'])->name('revised.plan.store-audit-team');
             Route::post('/update-audit-team', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'updateAuditTeam'])->name('revised.plan.update-audit-team');
             Route::post('/store-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'storeAuditTeamSchedule'])->name('revised.plan.store-audit-team-schedule');
             Route::post('/update-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'updateAuditTeamSchedule'])->name('revised.plan.update-audit-team-schedule');
 
+            Route::post('editor/load-audit-team-modal', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamModal'])->name('editor.load-audit-team-modal');
+            Route::post('editor/load-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamSchedule'])->name('editor.load-audit-team-schedule');
+            Route::post('editor/load-select-nominated-offices', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadNominatedOfficesSelectView'])->name('editor.load-select-nominated-offices');
             Route::post('editor/load-risk-assessment-list', [\App\Http\Controllers\AuditPlan\Plan\RiskAssessmentController::class, 'loadRiskAssessment'])->name('editor.load-risk-assessment-list');
             Route::post('editor/load-risk-assessment-list-type-wise', [\App\Http\Controllers\AuditPlan\Plan\RiskAssessmentController::class, 'loadRiskAssessmentTypeWise'])->name('editor.load-risk-assessment-type-wise-list');
             Route::post('editor/store-risk-assessment', [\App\Http\Controllers\AuditPlan\Plan\RiskAssessmentController::class, 'store'])->name('editor.store-risk-assessment');

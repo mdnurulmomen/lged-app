@@ -49,17 +49,15 @@ class RevisedPlanController extends Controller
 
         $data['cdesk'] = $this->current_desk_json();
 
-        if ($this->current_office_id() == 19){
+        if ($this->current_office_id() == 19) {
             $directorate_address_footer = 'অডিট কমপ্লেক্স,১ম তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorate_address_top = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorate_website = 'www.dgcivil-cagbd.org';
-        }
-        elseif ($this->current_office_id() == 32){
+        } elseif ($this->current_office_id() == 32) {
             $directorate_address_footer = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা),সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorate_address_top = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorate_website = 'www.worksaudit.org.bd';
-        }
-        else{
+        } else {
             $directorate_address_footer = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা),সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorate_address_top = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorate_website = 'www.cad.org.bd';
@@ -77,22 +75,21 @@ class RevisedPlanController extends Controller
             $fiscal_year_id = $request->fiscal_year_id;
             $annual_plan_id = $request->annual_plan_id;
             $parent_office_id = $audit_plan['annual_plan']['parent_office_id'];
-            $annual_plan_type = $audit_plan['annual_plan']['annual_plan_type']=='thematic'?'থিমেটিক (ইস্যু)':'এনটিটি ভিত্তিক';
+            $annual_plan_type = $audit_plan['annual_plan']['annual_plan_type'] == 'thematic' ? 'থিমেটিক (ইস্যু)' : 'এনটিটি ভিত্তিক';
             $content = $audit_plan['plan_description'];
             $cover_info = [
                 'directorate_address_footer' => $directorate_address_footer,
                 'directorate_address_top' => $directorate_address_top,
                 'directorate_website' => $directorate_website,
-                'created_by' => $this->getEmployeeInfo()['name_bng'].',<br>'.$this->current_office()['designation'],
+                'created_by' => $this->getEmployeeInfo()['name_bng'] . ',<br>' . $this->current_office()['designation'],
                 'directorate_name' => $this->current_office()['office_name_bn'],
                 'party_name' => $audit_plan['annual_plan']['controlling_office_bn'],
                 'entity_name' => $audit_plan['annual_plan']['parent_office_name_bn'],
                 'entity_office_type' => $audit_plan['annual_plan']['office_type'],
-                'fiscal_year' => enTobn($audit_plan['annual_plan']['fiscal_year']['start']) . ' - ' . enTobn($audit_plan['annual_plan']['fiscal_year']['end']).' অর্থ বছর।',
+                'fiscal_year' => enTobn($audit_plan['annual_plan']['fiscal_year']['start']) . ' - ' . enTobn($audit_plan['annual_plan']['fiscal_year']['end']) . ' অর্থ বছর।',
                 'annual_plan_type' => $annual_plan_type,
                 'audit_subject_matter' => $audit_plan['annual_plan']['subject_matter'],
             ];
-            //dd($cover_info);
             return view('modules.audit_plan.audit_plan.plan_revised.create_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan',
                 'parent_office_id', 'content', 'cover_info', 'fiscal_year_id', 'parent_office_content'));
         } else {
@@ -123,7 +120,7 @@ class RevisedPlanController extends Controller
             $annual_plan_id = $audit_plan['annual_plan_id'];
             $fiscal_year_id = $request->fiscal_year_id;
             return view('modules.audit_plan.audit_plan.plan_revised.edit_entity_audit_plan', compact('activity_id', 'annual_plan_id',
-                'audit_plan', 'content', 'fiscal_year_id','parent_office_id'));
+                'audit_plan', 'content', 'fiscal_year_id', 'parent_office_id'));
         } else {
             return ['status' => 'error', 'data' => $audit_plan];
         }
@@ -157,6 +154,23 @@ class RevisedPlanController extends Controller
         }
     }
 
+    public function getPreviouslyAssignedDesignations(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'activity_id' => 'required|integer',
+            'fiscal_year_id' => 'required|integer',
+            'office_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = $this->current_desk_json();
+
+        $designation_ids = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.previously_assigned_designations'), $data)->json();
+        if (isSuccess($designation_ids)) {
+            return response()->json(['status' => 'success', 'data' => explode(',', $designation_ids['data'])]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $designation_ids]);
+        }
+    }
+
 
     public function auditPlanBook(Request $request)
     {
@@ -167,26 +181,23 @@ class RevisedPlanController extends Controller
         $formThree = $plans[26];
         $porishisto = $plans[28];
         $auditSchedule = $plans[29];
-        unset($plans[26],$plans[28],$plans[29]);
+        unset($plans[26], $plans[28], $plans[29]);
 
         //dd($plans);
 
-        if ($request->scope == 'generate'){
+        if ($request->scope == 'generate') {
             $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
-                compact('plans', 'cover','formThree','porishisto','auditSchedule'));
+                compact('plans', 'cover', 'formThree', 'porishisto', 'auditSchedule'));
 
             /*$pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
                 ['plans' => $plans, 'cover' => $cover], [], ['orientation' => 'L', 'format' => 'A4']);*/
 
-            $fileName = 'audit_plan_'.date('D_M_j_Y').'.pdf';
+            $fileName = 'audit_plan_' . date('D_M_j_Y') . '.pdf';
             return $pdf->stream($fileName);
-        }
-        elseif ($request->scope == 'preview'){
+        } elseif ($request->scope == 'preview') {
             return view('modules.audit_plan.audit_plan.plan_revised.partials.preview_audit_plan',
-                compact('plans', 'cover','formThree','porishisto','auditSchedule'));
-        }
-
-        else{
+                compact('plans', 'cover', 'formThree', 'porishisto', 'auditSchedule'));
+        } else {
             return ['status' => 'error', 'data' => 'Somethings went wrong'];
         }
     }
