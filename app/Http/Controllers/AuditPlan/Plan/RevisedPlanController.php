@@ -163,6 +163,8 @@ class RevisedPlanController extends Controller
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
 
+        $data['office_id'] = $data['office_id'] < 1 ? $this->current_office_id() : $data['office_id'];
+
         $designation_ids = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.previously_assigned_designations'), $data)->json();
         if (isSuccess($designation_ids)) {
             return response()->json(['status' => 'success', 'data' => explode(',', $designation_ids['data'])]);
