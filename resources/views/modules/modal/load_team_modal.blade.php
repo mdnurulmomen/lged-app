@@ -549,7 +549,7 @@
         var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
         var teamScheduleHtml = "<tbody data-schedule-type='schedule' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
-        teamScheduleHtml += "<td class='selected_nominated_office_data_" + layer_id + "'>" +
+        teamScheduleHtml += "<td class='selected_nominated_office_data_" + totalAuditScheduleRow + "'>" +
             "<select class='form-control select-select2 input-branch-name'><option>--Loading--</option></select>" +
             "</td>";
 
@@ -588,7 +588,7 @@
                 toastr.error('Internal Serve Error');
             } else {
                 console.log(response)
-                $('.selected_nominated_office_data_' + layer_id).html(response);
+                $('.selected_nominated_office_data_' + total_audit_schedule_row).html(response);
                 $('.select-select2').select2();
             }
         });
