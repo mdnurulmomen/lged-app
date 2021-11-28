@@ -125,7 +125,7 @@
                                             পরিশিষ্ট সংযুক্তি
                                         </label>
                                         <input name="porisishtos[]" type="file" class="form-control rounded-0"
-                                               accept="image/*" multiple>
+                                               accept="image/*,.pdf" multiple>
                                     </div>
 
                                     <div class="form-group">
@@ -133,7 +133,7 @@
                                             প্রমানক সংযুক্তি
                                         </label>
                                         <input name="pramanoks[]" type="file" class="form-control rounded-0"
-                                               accept="image/*" multiple>
+                                               accept="image/*,.pdf" multiple>
                                     </div>
 
                                     <div class="form-group">
@@ -141,7 +141,7 @@
                                             মেমো সংযুক্তি <span class="text-primary">(ঐচ্ছিক)</span>
                                         </label>
                                         <input name="memos[]" type="file" class="form-control rounded-0"
-                                               accept="image/*" multiple>
+                                               accept="image/*,.pdf" multiple>
                                     </div>
                                 </div>
                             </div>
