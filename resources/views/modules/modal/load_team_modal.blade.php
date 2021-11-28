@@ -222,11 +222,12 @@
                                                                     <div
                                                                         class="d-flex align-items-center justify-content-between mb-0 mt-0">
                                                                         <div class="mr-2">
-                                                                            <button type="button"
+                                                                            <button title="Add Team Schedule" type="button"
                                                                                     id="team_schedule_layer_btn_{{$loop->iteration}}"
                                                                                     onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$loop->iteration}}','{{$loop->iteration}}')"
-                                                                                    class="justify-self-end text-danger btn btn-icon btn-md">
+                                                                                    class="pulse pulse-primary justify-self-end text-danger btn btn-icon btn-md">
                                                                                 <i class="text-primary far fa-calendar-alt"></i>
+                                                                                <span class="pulse-ring"></span>
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -1192,9 +1193,10 @@ style="padding-left: 5px;">
             <div class="d-flex align-items-center justify-content-end">
                 <div class="d-flex align-items-center justify-content-between mb-0 mt-0">
                     <div class="mr-2">
-                        <button type="button" id="team_schedule_layer_btn_${number}" onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_${number}',${number})"
-                                class="justify-self-end text-danger btn btn-icon btn-md">
+                        <button title="Add Team Schedule" type="button" id="team_schedule_layer_btn_${number}" onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_${number}',${number})"
+                                class="pulse pulse-primary justify-self-end text-danger btn btn-icon btn-md">
                             <i class="text-primary far fa-calendar-alt"></i>
+                            <span class="pulse-ring"></span>
                         </button>`
             if (number > 1) {
                 level_html = level_html + `                        <button type="button" onclick="Load_Team_Container.deleteNode('layer','right_${number}', 0)"
