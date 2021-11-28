@@ -208,6 +208,7 @@
            $('.thematic_title').show();
        }else{
            $('.thematic_title').hide();
+           $('.thematic_title').val('');
        }
     });
 

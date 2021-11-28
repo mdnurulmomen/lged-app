@@ -16,14 +16,10 @@
             <div class="col-md-6">
                 <input style="margin-top: 35px" type="radio" name="annual_plan_type" value="thematic" @if($annual_plan_info['annual_plan_type'] == 'thematic') checked @endif> Thematic
                 <input type="radio" name="annual_plan_type" value="entity_based" @if($annual_plan_info['annual_plan_type'] == 'entity_based') checked @endif> Entity Based
+                <input @if($annual_plan_info['annual_plan_type'] == 'thematic') style="display: block" @else style="display: none" @endif class="form-control thematic_title" name="thematic_title" value="{{$annual_plan_info['thematic_title']}}" placeholder="Thematic Title">
+
             </div>
 
-            <div class="col-md-6" style="display: none">
-                <label for="milestone_id">মাইলস্টোন<span class="text-danger">*</span></label>
-                <select class="form-control" name="milestone_id" id="milestone_id">
-                    <option value="">মাইলস্টোন বাছাই করুন</option>
-                </select>
-            </div>
         </div>
     </div>
 </div>
@@ -403,6 +399,16 @@
                 toastr.warning('নির্ধারিত তারিখ '+ enTobn($(this).attr('data-target-date')));
                 $(this).val('');
            }
+    });
+
+    $("input[name$='annual_plan_type']").click(function () {
+       annual_plan_type = $(this).val();
+       if(annual_plan_type == 'thematic'){
+           $('.thematic_title').show();
+       }else{
+           $('.thematic_title').hide();
+           $('.thematic_title').val('');
+       }
     });
 </script>
 

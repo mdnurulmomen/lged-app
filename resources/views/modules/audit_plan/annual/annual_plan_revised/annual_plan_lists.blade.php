@@ -549,7 +549,7 @@
             data.push({name: "milestone_id", value: $('#milestone_id').val()});
             data.push({name: "milestone_list", value: milestone_list});
             data.push({name: "annual_plan_type", value: annual_plan_type});
-            data.push({name: "thematic_title", value: $('#thematic_title').val()});
+            data.push({name: "thematic_title", value: $('.thematic_title').val()});
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
