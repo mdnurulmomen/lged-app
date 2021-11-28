@@ -15,6 +15,12 @@ class AnnualPlanRevisedController extends Controller
         return view('modules.audit_plan.annual.annual_plan_revised.annual_plan_lists', compact('fiscal_years'));
     }
 
+    public function annualPlanCalender()
+    {
+        $fiscal_years = $this->allFiscalYears();
+        return view('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_calender', compact('fiscal_years'));
+    }
+
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -28,6 +34,8 @@ class AnnualPlanRevisedController extends Controller
         $annual_plans = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_lists'), $data)->json();
         $fiscal_year_id = $request->fiscal_year_id;
         $fiscal_year = $request->fiscal_year;
+
+//        dd($annual_plans);
 
         if (isSuccess($annual_plans)) {
             $annual_plans = $annual_plans['data'];
