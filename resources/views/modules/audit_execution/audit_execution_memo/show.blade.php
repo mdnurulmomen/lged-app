@@ -1,29 +1,17 @@
 
 <div class="col-md-12">
     <div class="d-flex justify-content-end mt-4">
-        <button data-memo-id="{{$memoInfo['id']}}"
+        <button title="ডাউনলোড করুন" data-memo-id="{{$memoInfo['id']}}"
                 onclick="Show_Memo_Container.memoPDFDownload($(this))"
-                class="btn btn-danger btn-sm btn-bold btn-square">
-            <i class="far fa-file-pdf"></i>
+                class="btn btn-info btn-sm btn-bold btn-square">
+            <i class="far fa-download"></i> ডাউনলোড
         </button>
     </div>
 </div>
 
 <div class="col-lg-12 p-0 mt-3">
-    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center">
-        অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
-        সেগুনবাগিচা, ঢাকা -১০০০।
-    </div>
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">মেমো নং-{{enTobn($memoInfo['onucched_no'])}}</div>
 
-    <br>
-    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;">
-        <u>অডিট মেমো</u>
-    </div>
-    <br>
-    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">অনুচ্ছেদ নং-{{enTobn($memoInfo['onucched_no'])}}</div>
-    {{--<div class="bangla-font" style="font-family:SolaimanLipi,serif !important;">
-        জিজ্ঞাসাপত্র নং-{{enTobn($memoInfo['onucched_no'])}}
-    </div>--}}
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">
         শিরোনামঃ {{$memoInfo['memo_title_bn']}}
     </div>
@@ -74,8 +62,8 @@
             <div class="mt-3">
                 @foreach($memoInfo['ac_memo_attachments'] as $attachment)
                     @if($attachment['attachment_type'] == 'porisishto')
-                        <a href="{{$attachment['attachment_path']}}" target="_blank" class="btn btn-outline-primary btn-square">
-                            <i class="fal fa-file"></i> {{$attachment['attachment_name']}}
+                        <a title="ডাউনলোড করুন" href="{{$attachment['attachment_path']}}" target="_blank" class="btn btn-outline-primary btn-square mt-2">
+                            <i class="fal fa-file"></i> {{$attachment['user_define_name']}}
                         </a>
                     @endif
                 @endforeach
@@ -92,8 +80,8 @@
             <div class="mt-3">
                 @foreach($memoInfo['ac_memo_attachments'] as $attachment)
                     @if($attachment['attachment_type'] == 'pramanok')
-                        <a href="{{$attachment['attachment_path']}}" target="_blank" class="btn btn-outline-primary btn-square">
-                            <i class="fal fa-file"></i> {{$attachment['attachment_name']}}
+                        <a href="{{$attachment['attachment_path']}}" target="_blank" class="btn btn-outline-primary btn-square mt-2">
+                            <i class="fal fa-file"></i> {{$attachment['user_define_name']}}
                         </a>
                     @endif
                 @endforeach
@@ -110,8 +98,8 @@
             <div class="mt-3">
                 @foreach($memoInfo['ac_memo_attachments'] as $attachment)
                     @if($attachment['attachment_type'] == 'memo')
-                        <a href="{{$attachment['attachment_path']}}" target="_blank" class="btn btn-outline-primary btn-square">
-                            <i class="fal fa-file"></i> {{$attachment['attachment_name']}}
+                        <a href="{{$attachment['attachment_path']}}" target="_blank" class="btn btn-outline-primary btn-square mt-2">
+                            <i class="fal fa-file"></i> {{$attachment['user_define_name']}}
                         </a>
                     @endif
                 @endforeach

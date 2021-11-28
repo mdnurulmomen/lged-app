@@ -110,6 +110,7 @@
             let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
             let data = {directorate_id, fiscal_year_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                console.log(response)
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {

@@ -1,9 +1,9 @@
 <div class="col-md-12">
-    <div class="d-flex justify-content-end mt-4">
-        <button data-memo-id="{{$memo_info['id']}}"
+    <div class="d-flex justify-content-end">
+        <button title="ডাউনলোড করুন" data-memo-id="{{$memo_info['id']}}"
                 onclick="Show_Memo_Container.memoPDFDownload($(this))"
-                class="btn btn-danger btn-sm btn-bold btn-square">
-            <i class="far fa-file-pdf"></i>
+                class="btn btn-info btn-sm btn-bold btn-square">
+            <i class="far fa-download"></i> ডাউনলোড
         </button>
     </div>
 </div>
@@ -11,11 +11,11 @@
     <div class="col-md-12">
         <table class="table table-bordered">
             <tr>
-                <td width="20%"><b>আপত্তির শিরোনাম : </b></td>
+                <td width="20%"><b>আপত্তির শিরোনাম</b></td>
                 <td width="80%">{{$memo_info['memo_title_bn']}}</td>
             </tr>
             <tr>
-                <td width="20%"><b>বিবরণ : </b></td>
+                <td width="20%"><b>বিবরণ</b></td>
                 <td width="80%">{!! $memo_info['memo_description_bn']  !!}</td>
             </tr>
         </table>
@@ -25,23 +25,23 @@
     <div class="col-md-6">
         <table class="table table-bordered">
             <tr>
-                <td width="50%"><b>অনুচ্ছেদ নং : </b></td>
+                <td width="50%"><b>মেমো নং</b></td>
                 <td width="50%">{{enTobn($memo_info['onucched_no'])}}</td>
             </tr>
             <tr>
-                <td width="50%"><b>জড়িত অর্থ (টাকা) : </b></td>
-                <td width="50%">{{enTobn($memo_info['jorito_ortho_poriman'])}}</td>
+                <td width="50%"><b>জড়িত অর্থ (টাকা)</b></td>
+                <td width="50%">{{enTobn(number_format($memo_info['jorito_ortho_poriman'],0))}}</td>
             </tr>
             <tr>
-                <td width="50%"><b>আপত্তি অনিয়মের ধরন : </b></td>
+                <td width="50%"><b>আপত্তি অনিয়মের ধরন</b></td>
                 <td width="50%">{{$memo_info['memo_irregularity_type_name']}}</td>
             </tr>
             <tr>
-                <td width="50%"><b>আপত্তি অনিয়মের সাব ধরন : </b></td>
+                <td width="50%"><b>আপত্তি অনিয়মের সাব ধরন</b></td>
                 <td width="50%">{{$memo_info['memo_irregularity_sub_type_name']}}</td>
             </tr>
             <tr>
-                <td width="50%"><b>আপত্তির অবস্থা  : </b></td>
+                <td width="50%"><b>আপত্তির অবস্থা</b></td>
                 <td width="50%">{{$memo_info['memo_status_name']}}</td>
             </tr>
         </table>
@@ -50,28 +50,24 @@
     <div class="col-md-6">
         <table class="table table-bordered">
             <tr>
-                <td width="50%"><b>পত্র নং: </b></td>
-                <td width="50%">{{enTobn($memo_info['ac_query_potro_no'])}}</td>
-            </tr>
-            <tr>
-                <td width="50%"><b>তারিখ : </b></td>
+                <td width="50%"><b>তারিখ</b></td>
                 <td width="50%">{{enTobn(date('d/m/Y',strtotime($memo_info['created_at'])))}}</td>
             </tr>
              <tr>
-                <td width="50%"><b>অনিষ্পন্ন জড়িত অর্থ (টাকা) : </b></td>
-                <td width="50%">{{enTobn($memo_info['onishponno_jorito_ortho_poriman'])}}</td>
+                <td width="50%"><b>অনিষ্পন্ন জড়িত অর্থ (টাকা)</b></td>
+                <td width="50%">{{enTobn(number_format($memo_info['onishponno_jorito_ortho_poriman'],0))}}</td>
             </tr>
             <tr>
-                <td width="50%"><b>নিরীক্ষা বছর : </b></td>
+                <td width="50%"><b>নিরীক্ষা বছর</b></td>
                 <td width="50%">{{enTobn($memo_info['audit_year_start'])}} - {{enTobn($memo_info['audit_year_end'])}}</td>
             </tr>
             <tr>
-                <td width="50%"><b>নিরীক্ষার ধরন : </b></td>
+                <td width="50%"><b>নিরীক্ষার ধরন</b></td>
                 <td width="50%">{{$memo_info['audit_type']}}</td>
             </tr>
             <tr>
-                <td width="50%"><b>আপত্তির ধরন : </b></td>
-                <td width="50%">{{$memo_info['memo_type']}}</td>
+                <td width="50%"><b>আপত্তির ধরন</b></td>
+                <td width="50%">{{$memo_info['memo_type_name']}}</td>
             </tr>
 
         </table>
@@ -92,7 +88,9 @@
                     <td>{{$attachment['attachment_type']}}</td>
                     <td>{{$attachment['user_define_name']}}</td>
                     <td>
-                        <a href="{{$attachment['attachment_path']}}"><i class="fa fa-download"></i></a>
+                        <a title="ডাউনলোড করুন" class="text-primary" href="{{$attachment['attachment_path']}}">
+                            <i class="fa fa-download"></i>
+                        </a>
                     </td>
                 </tr>
             @endforeach

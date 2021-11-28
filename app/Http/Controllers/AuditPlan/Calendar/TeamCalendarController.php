@@ -50,7 +50,7 @@ class TeamCalendarController extends Controller
         $data['cost_center_id'] = $request->cost_center_id;
 
         $team_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_fiscal_year_cost_center_wise_team'), $data)->json();
-
+        //dd($team_list);
         if (isSuccess($team_list)) {
             $team_list = $team_list['data'];
             return view('modules.audit_plan.calendar.team_select', compact('team_list'));
@@ -81,7 +81,7 @@ class TeamCalendarController extends Controller
         $data['fiscal_year_id'] = $request->fiscal_year_id;
 
         $entity_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_schedule_entity_fiscal_year_wise'), $data)->json();
-//        dd($entity_list);
+        //dd($entity_list);
         if (isSuccess($entity_list)) {
             $entity_list = $entity_list['data'];
             return view('modules.audit_plan.calendar.entity_select', compact('entity_list'));

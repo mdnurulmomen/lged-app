@@ -115,23 +115,8 @@
                                     </select>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">মেমো সংযুক্তি <span class="text-primary">(ঐচ্ছিক)</span></label>
-                                        <input name="memo_attachment" type="file" class="form-control rounded-0"
-                                               accept="image/*,.pdf" multiple>
-                                    </div>
-                                    <div id="lightgalleryPorisishto">
-                                        @foreach($memo['ac_memo_attachments'] as $attachment)
-                                            @if($attachment['attachment_type'] == 'memo')
-                                                <a href="{{$attachment['attachment_path']}}">
-                                                    <img width="50px" height="50px" class="img-thumbnail" src="{{$attachment['attachment_path']}}" />
-                                                </a>
-                                            @endif
-                                        @endforeach
-                                    </div>
-
-                                    <div class="form-group">
                                         <label class="col-form-label">পরিশিষ্ট সংযুক্তি</label>
-                                        <input name="porisishto" type="file" class="form-control rounded-0"
+                                        <input name="porisishtos[]" type="file" class="form-control rounded-0"
                                                accept="image/*,.pdf" multiple>
                                     </div>
                                     <div id="lightgalleryPorisishto">
@@ -148,13 +133,28 @@
                                         <label class="col-form-label">
                                             প্রমানক সংযুক্তি
                                         </label>
-                                        <input name="pramanok" type="file" class="form-control rounded-0"
+                                        <input name="pramanoks[]" type="file" class="form-control rounded-0"
                                                accept="image/*,.pdf" multiple>
                                     </div>
 
                                     <div id="lightgalleryPramanok">
                                         @foreach($memo['ac_memo_attachments'] as $attachment)
                                             @if($attachment['attachment_type'] == 'pramanok')
+                                                <a href="{{$attachment['attachment_path']}}">
+                                                    <img width="50px" height="50px" class="img-thumbnail" src="{{$attachment['attachment_path']}}" />
+                                                </a>
+                                            @endif
+                                        @endforeach
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">মেমো সংযুক্তি <span class="text-primary">(ঐচ্ছিক)</span></label>
+                                        <input name="memos[]" type="file" class="form-control rounded-0"
+                                               accept="image/*,.pdf" multiple>
+                                    </div>
+                                    <div id="lightgalleryPorisishto">
+                                        @foreach($memo['ac_memo_attachments'] as $attachment)
+                                            @if($attachment['attachment_type'] == 'memo')
                                                 <a href="{{$attachment['attachment_path']}}">
                                                     <img width="50px" height="50px" class="img-thumbnail" src="{{$attachment['attachment_path']}}" />
                                                 </a>
