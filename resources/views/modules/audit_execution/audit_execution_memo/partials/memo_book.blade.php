@@ -783,8 +783,8 @@
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center">
-            অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
-            সেগুনবাগিচা, ঢাকা -১০০০।
+            {{$directorateName}} <br>
+            {!! $directorateAddress !!}
         </div>
 
         <br>
@@ -804,7 +804,7 @@
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">নিরীক্ষিত প্রতিষ্ঠানের জবাবঃ</span> ব
+            <span style="font-weight: bold">নিরীক্ষিত প্রতিষ্ঠানের জবাবঃ</span>
             {{$memoInfo['response_of_rpu']}}
         </div>
 

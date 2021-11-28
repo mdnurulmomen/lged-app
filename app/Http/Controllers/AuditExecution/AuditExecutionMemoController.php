@@ -361,7 +361,23 @@ class AuditExecutionMemoController extends Controller
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
         //dd($responseData);
         $memoInfo = isSuccess($responseData)?$responseData['data']:[];
-        $pdf = \PDF::loadView('modules.audit_execution.audit_execution_memo.partials.memo_book',compact('memoInfo'));
+
+        $directorateName = $this->current_office()['office_name_bn'];
+        if ($this->current_office_id() == 19){
+            $directorateAddress = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.dgcivil-cagbd.org';
+        }
+        elseif ($this->current_office_id() == 32){
+            $directorateAddress = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.worksaudit.org.bd';
+        }
+        else{
+            $directorateAddress = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.cad.org.bd';
+        }
+
+        $pdf = \PDF::loadView('modules.audit_execution.audit_execution_memo.partials.memo_book',
+            compact('memoInfo','directorateName','directorateAddress'));
         return $pdf->stream('document.pdf');
     }
 
