@@ -767,7 +767,9 @@
                 $('.teamLeaderBtn').click();
             }
 
-            $('[data-employee-designation-id=' + data_content.designation_id + ']').addClass('d-none');
+            if (data_content.employee_grade > 9) {
+                $('[data-employee-designation-id=' + data_content.designation_id + ']').addClass('d-none');
+            }
         },
 
 
