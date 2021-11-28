@@ -701,7 +701,7 @@
                     if (isArray(response.data)) {
                         response.data.map(function (designation_id) {
                             designation_node = $('[data-employee-designation-id=' + designation_id + ']');
-                            if (designation_node.attr('data-employee-designation-grade') > 9) {
+                            if (designation_node.attr('data-employee-designation-grade') > 6) {
                                 designation_node.addClass('d-none')
                             }
                         })
@@ -768,7 +768,7 @@
                 $('.teamLeaderBtn').click();
             }
 
-            if (data_content.employee_grade > 9) {
+            if (data_content.employee_grade > 6) {
                 $('[data-employee-designation-id=' + data_content.designation_id + ']').addClass('d-none');
             }
         },
