@@ -43,7 +43,7 @@
                                     <tr>
                                         <td id="added_responsible_area_{{$activity_calendar['id']}}">
                                             @forelse($activity_calendar['responsibles'] as $responsible)
-                                                {{$responsible['office']['short_name_en']}} {{$loop->last ? '' : ','}}
+                                                {{$responsible['short_name_en']}} {{$loop->last ? '' : ','}}
                                             @empty
                                                 <table>
                                                     <tr id="">

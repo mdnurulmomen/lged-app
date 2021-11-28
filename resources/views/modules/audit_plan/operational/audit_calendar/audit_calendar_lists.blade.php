@@ -79,7 +79,7 @@
                                 }
                             @endphp
 
-                            @if (in_array(@$emp['id'], $viewer) || in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor))
+{{--                            @if (in_array(@$emp['id'], $viewer) || in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor))--}}
                                 <td class="datatable-cell" style="width: 5%">
                                     <a href="javascript:;"
                                        data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
@@ -89,7 +89,7 @@
                                         <i class="fad fa-eye"></i>
                                     </a>
                                 </td>
-                            @endif
+{{--                            @endif--}}
 
                             @if ($yearly_calendar['status'] == 'draft' && (in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor)))
                                 <td class="datatable-cell" style="width: 5%">
