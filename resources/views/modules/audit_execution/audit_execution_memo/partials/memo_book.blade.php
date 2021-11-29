@@ -823,7 +823,7 @@
             <div style="text-align: center;float: left;width: 50%;">
                 {{--<img src="{{$memoInfo['rpu_acceptor_signature'] != NULL?$memoInfo['rpu_acceptor_signature'] : '' }}"
                      style="width: 150px!important;">--}}
-                <img src="{{asset('assets/images/signature_two.png')}}" style="width: 150px!important;height: 70px!important;">
+                <img src="{{asset('assets/images/user_signature.png')}}" style="width: 80px!important;height: 70px!important;">
                 <br>
                 <span style="font-weight: bold">সংশ্লিষ্ট প্রতিষ্ঠান প্রধানের স্বাক্ষর ও তারিখ</span> <br>
                 {{$memoInfo['rpu_acceptor_officer_name_bn']}} <br>
@@ -831,7 +831,7 @@
                 {{$memoInfo['rpu_acceptor_unit_name_bn']}}
             </div>
             <div style="text-align: center;float:right;width: 50%">
-                <img src="{{asset('assets/images/user_signature.png')}}" style="width: 150px!important;height: 70px!important;">
+                <img src="{{asset('assets/images/user_signature.png')}}" style="width: 80px!important;height: 70px!important;">
                 <br>
                 <span style="font-weight: bold">দলপ্রধানের স্বাক্ষর ও তারিখ</span><br>
                 {{$memoInfo['sender_officer_name_bn']}} <br>
