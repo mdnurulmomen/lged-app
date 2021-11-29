@@ -92,7 +92,7 @@
                                             @foreach($auditQueryInfo['query_items'] as $item)
                                                 <tr>
                                                     <td width="82%">
-                                                        <input class="form-control" type="text" name="audit_query_items[]" value="{{$item['item_title_bn']}}">
+                                                        <textarea class="form-control" name="audit_query_items[]" cols="30" rows="1">{{$item['item_title_bn']}}</textarea>
                                                     </td>
                                                     <td class="pt-2">
                                                         <button title="যোগ করুন" type='button' class='btn btn-outline-primary btn-sm btn-square'
@@ -182,7 +182,7 @@
             queryItemHtml = `
             <tr>
                 <td width="82%">
-                    <input class="form-control" type="text" value="${value}" name="audit_query_items[]">
+                    <textarea class="form-control" name="audit_query_items[]" cols="30" rows="1">${value}</textarea>
                 </td>
                 <td class="pt-2">
                     <button title="যোগ করুন" type='button' class='btn btn-outline-primary btn-sm btn-square'
