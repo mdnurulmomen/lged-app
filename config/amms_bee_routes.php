@@ -212,6 +212,7 @@ return [
         'update_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/update-audit-query',
         'rejected_audit_query' => env('API_URL_BEE', '') . '/audit-conduct-query/rejected-audit-query',
         'rpu-send-query-list' => env('API_URL_BEE', '') . '/audit-conduct-query/rpu-send-query-list',
+        'authority_query_list' => env('API_URL_BEE', '') . '/audit-conduct-query/authority-query-list',
         'memo' => [
             'store' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-store',
             'list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-list',

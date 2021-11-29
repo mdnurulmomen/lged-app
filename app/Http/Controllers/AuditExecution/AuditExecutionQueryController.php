@@ -235,4 +235,17 @@ class AuditExecutionQueryController extends Controller
             compact('auditQueryInfo','directorateName'));
         return $pdf->stream('query_'.$request->ac_query_id.'.pdf');
     }
+
+    public function authorityQueryList()
+    {
+        $data['cdesk'] = $this->current_desk_json();
+        $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.authority_query_list'), $data)->json();
+//        dd($query_list);
+        if (isSuccess($audit_query_list)) {
+            $audit_query_list = $audit_query_list['data'];
+            return view('modules.audit_execution.audit_execution_query.authority_query_list', compact('audit_query_list'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $audit_query_list]);
+        }
+    }
 }

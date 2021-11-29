@@ -13,6 +13,9 @@
             <x-menu-item class="authority_memo_list_menu" href="{{route('audit.execution.memo.authority-memo-list')}}"
                              icon="fal fa-file-invoice">Audit Memo List
             </x-menu-item>
+            <x-menu-item class="authority_memo_list_menu" href="{{route('audit.execution.authority-query-list')}}"
+                             icon="fal fa-file-invoice">Audit Query List
+            </x-menu-item>
         </ul>
     </div>
 </div>
