@@ -8,16 +8,14 @@
                          icon="fal fa-tachometer-alt-average">Dashboard
             </x-menu-item>
             <hr>
-{{--            <x-menu-item href="{{route('audit.plan.annual.plan.all')}}"--}}
-{{--                         icon="fal fa-list">Annual Plan--}}
-{{--            </x-menu-item>--}}
+            <x-menu-item class="annual_plan_menu" href="{{route('audit.plan.annual.plan.revised.all')}}"
+                         icon="fal fa-list">Annual Plan
+            </x-menu-item>
+
             <x-menu-item class="annual_plan_calender" href="{{route('audit.plan.annual.plan.annual-plan-calender')}}"
                          icon="fal fa-list">Annual Calender
             </x-menu-item>
 
-            <x-menu-item class="annual_plan_menu" href="{{route('audit.plan.annual.plan.revised.all')}}"
-                         icon="fal fa-list">Annual Plan
-            </x-menu-item>
         </ul>
         <!--end::Menu Nav-->
     </div>

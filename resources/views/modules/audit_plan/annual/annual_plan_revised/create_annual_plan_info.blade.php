@@ -14,9 +14,9 @@
             </div>
 
             <div class="col-md-6">
-                <input style="margin-top: 35px" type="radio" name="annual_plan_type" value="thematic"> Thematic
+                <input class="annual_plan_type mt-12" type="radio" name="annual_plan_type" value="thematic"> Thematic
                 <input type="radio" name="annual_plan_type" value="entity_based" checked> Entity Based
-                <input style="display: none" class="form-control thematic_title" name="thematic_title" value="" placeholder="Thematic Title">
+                <input style="display: none" class="form-control thematic_title mt-2" name="thematic_title" value="" placeholder="Thematic Title">
             </div>
 
             <div class="col-md-6" style="display: none">
@@ -81,7 +81,7 @@
                     class="btn btn-sm btn-outline-warning btn_back btn-square mr-3">
                     <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                 </a>
-                <button class="btn btn-sm btn-square btn-primary btn-hover-success mr-2"
+                <button class="btn btn-sm btn-square btn-outline-primary mr-2"
                         onclick="Annual_Plan_Container.submitAnnualPlan($(this))"><i class="fa fa-save"></i> সংরক্ষণ
                 </button>
             </div>
@@ -206,9 +206,11 @@
        annual_plan_type = $(this).val();
        if(annual_plan_type == 'thematic'){
            $('.thematic_title').show();
+           $('.annual_plan_type').removeClass('mt-12');
        }else{
            $('.thematic_title').hide();
            $('.thematic_title').val('');
+           $('.annual_plan_type').addClass('mt-12');
        }
     });
 

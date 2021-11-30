@@ -120,7 +120,7 @@
                     class="btn btn-sm btn-outline-warning btn_back btn-square mr-3">
                     <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                 </a>
-                <button class="btn btn-sm btn-square btn-primary btn-hover-success mr-2"
+                <button class="btn btn-sm btn-square btn-outline-primary mr-2"
                         onclick="Annual_Plan_Container.submitAnnualPlan($(this))"><i class="fa fa-save"></i> সংরক্ষণ
                 </button>
             </div>

@@ -3,21 +3,27 @@
         {{--{{dd($annual_plans)}}--}}
         <div class="col-md-6">
             @if(!empty($plan_list))
-                <button class="btn_annual_plan_submit_to_ocag btn-sm btn-primary btn-square"
+                <button class="btn_annual_plan_submit_to_ocag btn btn-sm btn-square btn-outline-primary"
                         data-fiscal-year-id="{{$fiscal_year_id}}"
                         data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                        onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">Submit to OCAG
+                        onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">
+                        <i class="fa fa-paper-plane"></i>
+                        Submit to OCAG
                 </button>
 
                 <button data-fiscal-year-id="{{$fiscal_year_id}}"
                         onclick="Annual_Plan_Container.printAnnualPlan($(this))"
-                        class="btn-sm btn-warning btn-square">Download
+                        class="btn btn-sm btn-outline-warning btn-square">
+                        <i class="fa fa-arrow-alt-down"></i>
+                        Download
                 </button>
 
-                <button class="btn-sm btn-primary btn-square"
+                <button class="btn btn-sm btn-outline-success btn-square"
                         data-fiscal-year-id="{{$fiscal_year_id}}"
                         data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                        onclick="Annual_Plan_Container.movementHistory($(this))">History
+                        onclick="Annual_Plan_Container.movementHistory($(this))">
+                        <i class="fa fa-eye"></i>
+                        History
                 </button>
 
                 <span class="badge badge-info text-uppercase m-1 p-1 ">
@@ -30,7 +36,7 @@
                 <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
                    data-fiscal-year-id="{{$fiscal_year_id}}"
                    data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                   class="btn btn-success btn-sm btn-bold btn-square btn_create"
+                   class="btn btn-outline-success btn-sm btn-square btn_create"
                    href="javascript:;">
                     <i class="far fa-plus mr-1"></i> Add Responsible Party
                 </a>
