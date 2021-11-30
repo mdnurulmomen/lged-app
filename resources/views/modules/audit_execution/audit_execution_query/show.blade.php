@@ -1,4 +1,3 @@
-
 <div class="col-md-12">
     <div class="d-flex justify-content-end mt-4">
         <button onclick="Show_Query_Container.queryDownload()"
@@ -9,7 +8,7 @@
 </div>
 
 <div class="col-lg-12 p-0 mt-3">
-{{--    {{dd($auditQueryInfo)}}--}}
+    {{--    {{dd($auditQueryInfo)}}--}}
     <div class="table-responsive">
         <table class="table" width="100%">
             <tbody>
@@ -51,7 +50,7 @@
                     <th class="text-center">{{enTobn($loop->iteration)}}</th>
                     <td>
                         {{$item['item_title_bn']}}
-                        <span class="badge badge-{{$item['status'] =="pending"?'info':'success'}} text-uppercase m-1 p-1 ">
+                        <span class="query_receive_status badge badge-{{$item['status'] =="pending"?'info':'success'}} text-uppercase m-1 p-1 ">
                             {{$item['status']}}
                         </span>
                     </td>
@@ -73,7 +72,7 @@
 </div>
 
 <script>
-    var Show_Query_Container={
+    var Show_Query_Container = {
         receivedQuery: function (elem) {
             ac_query_item_id = elem.data('ac-query-item-id');
             ac_query_id = elem.data('ac-query-id');
@@ -81,17 +80,17 @@
             url = '{{route('audit.execution.query.received')}}';
             data = {ac_query_item_id, ac_query_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_quick_panel', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
-                $("#kt_quick_panel_close").click();
+                KTApp.unblock('#kt_quick_panel');
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
+                    elem.parent().prev('td').find('.query_receive_status').text('Received').addClass('badge-success').removeClass('badge-info')
                     toastr.success(response.data)
                 }
             })
