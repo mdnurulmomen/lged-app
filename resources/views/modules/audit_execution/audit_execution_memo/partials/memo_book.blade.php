@@ -788,14 +788,12 @@
         </div>
 
         <br>
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;">
-            <u>অডিট মেমো</u>
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">
+            অডিট মেমো নং-{{enTobn($memoInfo['onucched_no'])}}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">মেমো নং-{{enTobn($memoInfo['onucched_no'])}}</div>
-        {{--<div class="bangla-font" style="font-family:SolaimanLipi,serif !important;">জিজ্ঞাসাপত্র নং-{{enTobn($memoInfo['onucched_no'])}}</div>--}}
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">
-            শিরোনামঃ {{$memoInfo['memo_title_bn']}}
+            আপত্তির শিরোনামঃ {{$memoInfo['memo_title_bn']}}
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
@@ -804,39 +802,60 @@
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">নিরীক্ষিত প্রতিষ্ঠানের জবাবঃ</span>
+            <span style="font-weight: bold">অনিয়মের কারণঃ</span>
             {{$memoInfo['response_of_rpu']}}
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">নিরীক্ষা মন্তব্যঃ</span>
-            {{$memoInfo['audit_conclusion']}}
-        </div>
-
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">নিরীক্ষার সুপারিশঃ</span>
-            {{$memoInfo['audit_recommendation']}}
+            <span style="font-weight: bold">অডিট প্রতিষ্ঠানের জবাবঃ</span>
+            {{$memoInfo['response_of_rpu']}}
         </div>
 
         <br>
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 50px">
-            <div style="text-align: center;float: left;width: 50%;">
-                {{--<img src="{{$memoInfo['rpu_acceptor_signature'] != NULL?$memoInfo['rpu_acceptor_signature'] : '' }}"
-                     style="width: 150px!important;">--}}
-                <img src="{{asset('assets/images/user_signature.png')}}" style="width: 80px!important;height: 70px!important;">
-                <br>
-                <span style="font-weight: bold">সংশ্লিষ্ট প্রতিষ্ঠান প্রধানের স্বাক্ষর ও তারিখ</span> <br>
-                {{$memoInfo['rpu_acceptor_officer_name_bn']}} <br>
-                {{$memoInfo['rpu_acceptor_designation_name_bn']}} <br>
-                {{$memoInfo['rpu_acceptor_unit_name_bn']}}
+            <div style="float: left;padding-left:10%;width: 40%;">
+                <table width="100%" class="bangla-font" style="font-family:SolaimanLipi,serif !important;">
+                    <tr>
+                        <th style="text-align: center" colspan="3">অডিট ইউনিট/কস্ট সেন্টার</th>
+                    </tr>
+                    <tr>
+                        <td width="20%">নাম</td>
+                        <td width="5%">:</td>
+                        <td width="75%">{{$memoInfo['rpu_acceptor_officer_name_bn']}}</td>
+                    </tr>
+                    <tr>
+                        <td width="20%">পদবী</td>
+                        <td width="5%">:</td>
+                        <td width="75%">{{$memoInfo['rpu_acceptor_designation_name_bn']}}</td>
+                    </tr>
+                </table>
             </div>
-            <div style="text-align: center;float:right;width: 50%">
-                <img src="{{asset('assets/images/user_signature.png')}}" style="width: 80px!important;height: 70px!important;">
-                <br>
-                <span style="font-weight: bold">দলপ্রধানের স্বাক্ষর ও তারিখ</span><br>
-                {{$memoInfo['sender_officer_name_bn']}} <br>
-                {{$memoInfo['sender_designation_bn']}} <br>
-                {{$memoInfo['sender_unit_name_bn']}}
+            <div style="float:right;padding-left:10%;width: 40%">
+                <table width="100%" class="bangla-font" style="font-family:SolaimanLipi,serif !important;">
+                    <tr>
+                        <th style="text-align: center" colspan="3">ইস্যুকারী</th>
+                    </tr>
+                    <tr>
+                        <td width="20%">নাম</td>
+                        <td width="5%">:</td>
+                        <td width="75%">{{$memoInfo['sender_officer_name_bn']}}</td>
+                    </tr>
+                    <tr>
+                        <td width="20%">পদবী</td>
+                        <td width="5%">:</td>
+                        <td width="75%">{{$memoInfo['sender_designation_bn']}}</td>
+                    </tr>
+                    <tr>
+                        <td width="20%">দলনেতা</td>
+                        <td width="5%">:</td>
+                        <td width="75%">{{$memoInfo['sender_officer_name_bn']}}</td>
+                    </tr>
+                    <tr>
+                        <td width="20%">উপদলনেতা</td>
+                        <td width="5%">:</td>
+                        <td width="75%">{{$memoInfo['sender_officer_name_bn']}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

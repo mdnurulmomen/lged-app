@@ -10,10 +10,10 @@
 </div>
 
 <div class="col-lg-12 p-0 mt-3">
-    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">মেমো নং-{{enTobn($memoInfo['onucched_no'])}}</div>
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">অডিট মেমো নং-{{enTobn($memoInfo['onucched_no'])}}</div>
 
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">
-        শিরোনামঃ {{$memoInfo['memo_title_bn']}}
+        আপত্তির শিরোনামঃ {{$memoInfo['memo_title_bn']}}
     </div>
 
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: justify;margin-top: 10px">
@@ -22,7 +22,11 @@
     </div>
 
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-        <span style="font-weight: bold">নিরীক্ষিত প্রতিষ্ঠানের জবাবঃ</span> {{$memoInfo['response_of_rpu']}}
+        <span style="font-weight: bold">অনিয়মের কারণঃ</span> {{$memoInfo['response_of_rpu']}}
+    </div>
+
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <span style="font-weight: bold">অডিট প্রতিষ্ঠানের জবাবঃ</span> {{$memoInfo['response_of_rpu']}}
     </div>
 
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">

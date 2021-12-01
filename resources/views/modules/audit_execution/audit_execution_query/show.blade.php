@@ -91,6 +91,7 @@
                     toastr.warning(response.data)
                 } else {
                     elem.parent().prev('td').find('.query_receive_status').text('Received').addClass('badge-success').removeClass('badge-info')
+                    elem.remove();
                     toastr.success(response.data)
                 }
             })

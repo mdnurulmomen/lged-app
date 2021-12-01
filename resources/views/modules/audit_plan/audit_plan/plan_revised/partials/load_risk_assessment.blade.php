@@ -72,7 +72,8 @@
 
 
     function calculateRiskRate(risk_type){
-        totalRow = $("#"+risk_type+"ItemListTblBody tr").length -1;
+        totalRow = $("#"+risk_type+"ItemListTblBody tr").length;
+
         if(!totalRow){
             toastr.warning('No Data Found');
             return;

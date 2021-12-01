@@ -18,7 +18,7 @@
         <tbody>
         @foreach($memo_list['data'] as $memo)
             <tr>
-                <td>{{$memo['onucched_no']}}</td>
+                <td>{{enTobn($memo['onucched_no'])}}</td>
                 <td>{{$memo['memo_title_bn']}}</td>
                 <td>{{$memo['memo_irregularity_type_name']}}</td>
                 <td>{{enTobn(number_format($memo['jorito_ortho_poriman'],0))}}</td>

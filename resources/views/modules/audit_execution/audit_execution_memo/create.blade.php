@@ -1,4 +1,4 @@
-<form id="memo_create_form" enctype="multipart/form-data">
+<form id="memo_create_form" enctype="multipart/form-data" autocomplete="off">
     <div class="row p-4">
         <div class="col-md-8">
             <div class="d-flex justify-content-start">
@@ -8,7 +8,6 @@
 
         <div class="col-md-4">
             <div class="d-flex justify-content-end">
-
                 <a
                     onclick="Audit_Query_Schedule_Container.memo($(this))"
                     data-schedule-id="{{$schedule_id}}"
@@ -34,11 +33,15 @@
         <div class="card-body pt-0 pb-3">
             <div class="row">
                 <div class="col-md-7 p-3">
-                    <textarea class="form-control mb-1" name="memo_title_bn" placeholder="আপত্তি শিরোনাম লিখুন" cols="30" rows="2"></textarea>
+                    <textarea class="form-control mb-1" name="memo_title_bn" placeholder="আপত্তির শিরোনাম লিখুন" cols="30" rows="2"></textarea>
 
                     <textarea id="kt-tinymce-1" name="memo_description_bn" class="kt-tinymce-1"></textarea>
 
-                    <label class="col-form-label">নিরীক্ষিত প্রতিষ্ঠানের জবাব </label>
+                    <label class="col-form-label">অনিয়মের কারণ</label>
+                    <textarea class="form-control mb-1" name="irregularity_cause" placeholder="অনিয়মের কারণ" cols="30" rows="2"></textarea>
+
+
+                    <label class="col-form-label">অডিট প্রতিষ্ঠানের জবাব</label>
                     <textarea class="form-control mb-1" name="response_of_rpu" placeholder="নিরীক্ষিত প্রতিষ্ঠানের জবাব" cols="30" rows="2"></textarea>
 
                     <label class="col-form-label">নিরীক্ষা মন্তব্য</label>
@@ -48,10 +51,10 @@
                     <textarea class="form-control mb-1" name="audit_recommendation" placeholder="নিরীক্ষার সুপারিশ" cols="30" rows="2"></textarea>
                 </div>
                 <div class="col-md-5 pr-0">
-                    <div class="row">
+                    <div class="row mb-4">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-body" style="height: calc(100vh - 115px);padding: 10px;">
+                                <div class="card-body" style="height: calc(100vh - 400px);padding: 10px;">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <input class="form-control bijoy-bangla integer_type_positive mb-1"
@@ -119,7 +122,15 @@
                                         <option value="2">অনিস্পন্ন</option>
                                         <option value="3">আংশিক নিস্পন্ন</option>
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body" style="height: calc(100vh - 350px);padding: 10px;">
                                     <div class="form-group">
                                         <label class="col-form-label">
                                             পরিশিষ্ট সংযুক্তি

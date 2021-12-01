@@ -46,14 +46,23 @@ class RiskAssessmentController extends Controller
 
     public function store(Request $request)
     {
+        Validator::make($request->all(), [
+            'risk_assessments' => 'required',
+            'fiscal_year_id' => 'required',
+            'activity_id' => 'required',
+            'audit_plan_id' => 'required',
+            'risk_rate' => 'required',
+            'risk' => 'required',
+        ])->validate();
+
         $data['cdesk'] = $this->current_desk_json();
         $data['risk_assessments'] = $request->risk_assessments;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['activity_id'] = $request->activity_id;
         $data['audit_plan_id'] = $request->audit_plan_id;
-        $data['risk_rate'] = $request->risk_rate ?? null;
+        $data['risk_rate'] = $request->risk_rate;
         $data['total_score'] = $request->total_score ?? null;
-        $data['risk'] = $request->risk ?? null;
+        $data['risk'] = $request->risk;
         $data['risk_assessment_type'] = $request->risk_assessment_type;
 
         $risk_assessment_store = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_risk_assessment_store'), $data)->json();
@@ -68,15 +77,25 @@ class RiskAssessmentController extends Controller
 
     public function update(Request $request)
     {
+        Validator::make($request->all(), [
+            'id' => 'required',
+            'risk_assessments' => 'required',
+            'fiscal_year_id' => 'required',
+            'activity_id' => 'required',
+            'audit_plan_id' => 'required',
+            'risk_rate' => 'required',
+            'risk' => 'required',
+        ])->validate();
+
         $data['cdesk'] = $this->current_desk_json();
         $data['id'] = $request->id;
         $data['risk_assessments'] = $request->risk_assessments;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['activity_id'] = $request->activity_id;
         $data['audit_plan_id'] = $request->audit_plan_id;
-        $data['risk_rate'] = $request->risk_rate ?? null;
+        $data['risk_rate'] = $request->risk_rate;
         $data['total_score'] = $request->total_score ?? null;
-        $data['risk'] = $request->risk ?? null;
+        $data['risk'] = $request->risk;
         $data['risk_assessment_type'] = $request->risk_assessment_type;
 
         $risk_assessment_store = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_risk_assessment_update'), $data)->json();

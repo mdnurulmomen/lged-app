@@ -1,22 +1,30 @@
 <x-title-wrapper>Audit Plan Lists</x-title-wrapper>
-<form class="pl-4 pt-4">
-    <div class="form-row">
-        <div class="col-md-4">
-            <label>Select Audit Year</label>
-            <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
-                <option value="">Choose Audit Year</option>
-                @foreach($fiscal_years as $fiscal_year)
-                    <option
-                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
-                @endforeach
-            </select>
-        </div>
+
+<div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
+    <div class="col-xl-12">
+        <form>
+            <div class="form-row">
+                <div class="col-md-3">
+                    <label>Select Audit Year</label>
+                    <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
+                        <option value="">Choose Audit Year</option>
+                        @foreach($fiscal_years as $fiscal_year)
+                            <option
+                                value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </form>
     </div>
-</form>
-
-<div class="px-3" id="load_auditable_plan_lists">
-
 </div>
+
+<div class="card card-custom card-stretch">
+    <div class="card-body p-0">
+        <div id="load_auditable_plan_lists"></div>
+    </div>
+</div>
+
 
 @include('scripts.script_generic')
 <script>

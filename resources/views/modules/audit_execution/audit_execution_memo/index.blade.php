@@ -1,34 +1,55 @@
-<x-title-wrapper>Audit Memo Lists</x-title-wrapper>
+<x-title-wrapper>
+    অডিট মেমোসমূহ
+</x-title-wrapper>
 
-<div class="col-md-12">
-    <div class="d-flex justify-content-end">
-        <a
-            onclick="Audit_Query_Container.backToQuerySchedule($(this))"
-            class="btn btn-sm btn-outline-warning btn_back btn-square mr-3">
-            <i class="fad fa-arrow-alt-left"></i> ফেরত যান
-        </a>
-        <a class="btn btn-primary btn-sm btn-bold btn-square"
-           onclick="Memo_List_Container.sentMemoListToRpu()"
-           href="javascript:;">
-            <i class="fa fa-paper-plane mr-1"></i> Send To RPU
-        </a>
 
-        <a class="btn btn-success btn-sm btn-bold btn-square"
-           data-schedule-id="{{$schedule_id}}"
-           data-audit-plan-id="{{$audit_plan_id}}"
-           data-cost-center-id="{{$cost_center_id}}"
-           data-cost-center-name-bn="{{$cost_center_name_bn}}"
-           data-audit-year-start="{{$audit_year_start}}"
-           data-audit-year-end="{{$audit_year_end}}"
-           onclick="Memo_List_Container.createMemo($(this))"
-           href="javascript:;">
-            <i class="far fa-plus mr-1"></i> Create Audit Memo
-        </a>
+<div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
+    <div class="col-xl-12">
+        <div class="row">
+            <div class="col-md-7">
+                <h4 class="mt-3">
+                    {{$cost_center_name_bn.' ('.enTobn($audit_year_start).'-'.enTobn($audit_year_end).')'}}
+                </h4>
+            </div>
+            <div class="col-md-5">
+                <div class="d-flex justify-content-md-end">
+                    <a href="javascript:;" title="ফেরত যান"
+                       onclick="Audit_Query_Container.backToQuerySchedule($(this))"
+                       class="btn btn-sm btn-light-warning btn_back btn-square mr-1">
+                        <i class="fad fa-arrow-alt-left"></i> ফেরত যান
+                    </a>
+
+                    <a class="btn btn-sm btn-light-primary btn-square mr-1"
+                       onclick="Memo_List_Container.sentMemoListToRpu()"
+                       title="আরপিইউতে প্রেরণ করুন" href="javascript:;">
+                        <i class="fa fa-paper-plane mr-1"></i> আরপিইউতে প্রেরণ
+                    </a>
+
+                    <a class="btn btn-sm btn-light-success btn_back btn-square"
+                       data-schedule-id="{{$schedule_id}}"
+                       data-audit-plan-id="{{$audit_plan_id}}"
+                       data-cost-center-id="{{$cost_center_id}}"
+                       data-cost-center-name-bn="{{$cost_center_name_bn}}"
+                       data-audit-year-start="{{$audit_year_start}}"
+                       data-audit-year-end="{{$audit_year_end}}"
+                       onclick="Memo_List_Container.createMemo($(this))"
+                       title="মেমো তৈরি করুন"
+                       href="javascript:;">
+                        <i class="fa fa-plus mr-1"></i> মেমো তৈরি
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card card-custom card-stretch">
+    <div class="card-body p-0">
+        <div id="load_memo_lists"></div>
     </div>
 </div>
 
 
-<div class="px-3" id="load_memo_lists"></div>
 
 <script>
     var Memo_List_Container = {
