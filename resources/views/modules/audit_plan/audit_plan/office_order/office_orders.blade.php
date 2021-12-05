@@ -1,26 +1,28 @@
 <x-title-wrapper>Office Order List</x-title-wrapper>
 
-<form>
-    <div class="form-row">
-        <div class="col-md-2 d-md-flex align-items-md-center">
-            <p class="mb-0">Fiscal Year</p>
-        </div>
-        <div class="col-md-4 ">
-            <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
-                <option value="">Choose Fiscal Year</option>
-                @foreach($fiscal_years as $fiscal_year)
-                    <option
-                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
-                @endforeach
-            </select>
-        </div>
+<div class="table-search-header-wrapper pt-3 pb-3">
+    <div class="col-xl-12">
+        <form>
+            <div class="m-0 form-group row">
+                <label for="select_fiscal_year_annual_plan" class="col-sm-1 col-form-label font-size-1-1">অর্থ বছর</label>
+                <div class="col-sm-11">
+                    <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
+                        <option value="">--সিলেক্ট--</option>
+                        @foreach($fiscal_years as $fiscal_year)
+                            <option
+                                value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </form>
     </div>
-</form>
+</div>
 
-<div class="col-lg-12 p-0 mt-3">
-    <div class="load-office-orders"></div>
-
-    <div class="load-office-order-modal"></div>
+<div class="card card-custom card-stretch">
+    <div class="card-body p-0">
+        <div class="load-office-orders"></div>
+    </div>
 </div>
 
 
@@ -179,30 +181,6 @@
                 }
             });
         },
-
-        loadOfficeOrderCCForm: function (element){
-            url = '{{route('audit.plan.audit.office-orders.load-office-order-cc-create')}}';
-            audit_plan_id = element.data('audit-plan-id');
-            annual_plan_id = element.data('annual-plan-id');
-
-            data = {audit_plan_id,annual_plan_id};
-
-            KTApp.block('#kt_content', {
-                opacity: 0.1,
-                state: 'primary' // a bootstrap color
-            });
-
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
-                if (response.status === 'error') {
-                    toastr.error('No data found');
-                }
-                else {
-                    $(".load-office-order-modal").html(response)
-                    $('#officeOrderGenerateCCModal').modal('show');
-                }
-            });
-        }
     }
 </script>
 

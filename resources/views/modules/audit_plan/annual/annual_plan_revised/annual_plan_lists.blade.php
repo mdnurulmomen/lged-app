@@ -1,20 +1,30 @@
 <x-title-wrapper>Annual Plan List</x-title-wrapper>
-<form class="pl-4 pt-4">
-    <div class="form-row">
-        <div class="col-md-4 ">
-            <label>Select Fiscal Year For Annual Planning</label>
-            <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
-                <option value="">Choose Fiscal Year</option>
-                @foreach($fiscal_years as $fiscal_year)
-                    <option
-                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
-                @endforeach
-            </select>
-        </div>
+<div class="table-search-header-wrapper pt-3 pb-3">
+    <div class="col-xl-12">
+        <form>
+            <div class="m-0 form-group row">
+                <label for="select_fiscal_year_annual_plan" class="col-sm-1 col-form-label font-size-h4">অর্থ বছর</label>
+                <div class="col-sm-11">
+                    <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
+                        <option value="">--সিলেক্ট--</option>
+                        @foreach($fiscal_years as $fiscal_year)
+                            <option
+                                value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </form>
     </div>
-</form>
+</div>
 
-<div class="px-3 py-3" id="load_annual_plan_lists"></div>
+
+<div class="card card-custom card-stretch">
+    <div class="card-body p-0">
+        <div id="load_annual_plan_lists"></div>
+    </div>
+</div>
+
 
 @include('scripts.script_generic')
 <script>
@@ -27,7 +37,7 @@
     });
 
     var Annual_Plan_Container = {
-        loadAnnualActivityEventList: function () {
+        loadAnnualActivityEventList: function (page = 1, per_page = 100) {
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
             if (fiscal_year_id) {
@@ -196,7 +206,7 @@
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
-                    $(".offcanvas-title").text('Annual Plan');
+                    $(".offcanvas-title").text('বিস্তারিত');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);

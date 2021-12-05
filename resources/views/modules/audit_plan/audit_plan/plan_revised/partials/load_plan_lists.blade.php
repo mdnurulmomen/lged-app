@@ -90,12 +90,12 @@
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
                                     <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">মন্ত্রণালয়/বিভাগ:</span>
+                                        <span class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.ministry_or_bivag')}}</span>
                                         <span class="font-size-14">
                                             @php
                                                 $ministries = [];
                                                 foreach($annual_plan['ap_entities'] as $ap_entities){
-                                                   $ministry =  $ap_entities['ministry_name_bn'];
+                                                    $ministry =  $ap_entities['ministry_name_bn'];
                                                     $ministries[] = $ministry;
                                                 }
                                             @endphp
@@ -103,12 +103,12 @@
                                         </span>
                                     </div>
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
-                                        <span class="mr-1">এনটিটি/প্রতিষ্ঠান:</span>
+                                        <span class="mr-1">{{___('generic.list_views.plan.audit_plan.entity_or_institute')}}</span>
                                         <a href="javascript:void(0)" class="text-info font-size-h5">
                                             @php
                                                 $entities = [];
                                                 foreach($annual_plan['ap_entities'] as $ap_entities){
-                                                   $entity =  $ap_entities['entity_name_bn'];
+                                                    $entity =  $ap_entities['entity_name_bn'];
                                                     $entities[] = $entity;
                                                 }
                                             @endphp
@@ -116,7 +116,7 @@
                                         </a>
                                     </div>
                                     <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">প্রতিষ্ঠানের ধরণ:</span>
+                                        <span class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.institute_type')}}</span>
                                         <span class="font-size-14">
                                             {{$annual_plan['office_type']}}
                                         </span>
@@ -125,7 +125,7 @@
                                         </span>
                                     </div>
                                     <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">সাবজেক্ট ম্যাটার:</span>
+                                        <span class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.subject_matter')}}</span>
                                         <span class="font-size-14">
                                         {{$annual_plan['subject_matter']}}
                                     </span>
@@ -138,7 +138,8 @@
                                         @foreach($annual_plan['audit_plans'] as $audit_plans)
                                             <a href="javascript:;"
                                                title="প্ল্যান-{{enTobn($audit_plans['id'])}} বিস্তারিত দেখুন"
-                                               class="badge-square rounded-0 badge d-flex align-items-center alert-{{$loop->odd?'success':'danger'}}
+                                               class="badge-square rounded-0 badge d-flex align-items-center
+                                               alert-{{$audit_plans['office_order'] == null || $audit_plans['office_order']['approved_status'] !='approved'?'danger':'success'}}
                                                                 font-weight-normal mr-1 border decision"
                                                data-audit-plan-id="{{$audit_plans['id']}}"
                                                data-fiscal-year-id="{{$audit_plans['fiscal_year_id']}}"
@@ -170,10 +171,8 @@
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
                                             <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
                                                     data-annual-plan-id="{{$annual_plan['id']}}"
-                                                    data-activity-id="{{$annual_plan['activity_id']}}"
-                                                    data-fiscal-year-id="{{$annual_plan['fiscal_year_id']}}"
-                                                    onclick="Audit_Plan_Container.loadAuditPlanBookCreatable($(this))">
-                                                <i class="fa fa-eye"></i> বিস্তারিত
+                                                    onclick="Audit_Plan_Container.showPlanInfo($(this))">
+                                                <i class="fad fa-eye"></i> বিস্তারিত
                                             </button>
 
                                             <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="নতুন অডিট প্ল্যান করুন"
@@ -181,7 +180,7 @@
                                                     data-activity-id="{{$annual_plan['activity_id']}}"
                                                     data-fiscal-year-id="{{$annual_plan['fiscal_year_id']}}"
                                                     onclick="Audit_Plan_Container.loadAuditPlanBookCreatable($(this))">
-                                                <i class="fas fa-plus-circle"></i> নতুন অডিট প্ল্যান
+                                                <i class="fad fa-plus-circle"></i> নতুন অডিট প্ল্যান
                                             </button>
                                         </div>
                                     </div>

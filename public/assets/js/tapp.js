@@ -227,6 +227,13 @@ $(document).off('focus').on('focus', '.date', function () {
     $(this).datepicker({
         autoclose: true,
         format: 'dd/mm/yyyy',
+    });
+})
+
+$(document).off('focus').on('focus', '.datepicker-bottom', function () {
+    $(this).datepicker({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
         orientation: "bottom"
     });
 })

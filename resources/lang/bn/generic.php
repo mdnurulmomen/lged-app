@@ -23,6 +23,14 @@ return [
         ]
     ],
     'list_views' => [
+        'plan' => [
+            'audit_plan' => [
+                'ministry_or_bivag' => 'মন্ত্রণালয়/বিভাগঃ',
+                'entity_or_institute' => 'এনটিটি/প্রতিষ্ঠানঃ',
+                'institute_type' => 'প্রতিষ্ঠানের ধরণঃ',
+                'subject_matter' => 'সাবজেক্ট ম্যাটারঃ',
+            ],
+        ],
         'conducting' => [
             'query' => [
 

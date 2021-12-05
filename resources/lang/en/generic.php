@@ -23,6 +23,14 @@ return [
         ]
     ],
     'list_views' => [
+        'plan' => [
+            'audit_plan' => [
+                'ministry_or_bivag' => 'Ministry/Bivag:',
+                'entity_or_institute' => 'Entity/Institute:',
+                'institute_type' => 'Institute Type:',
+                'subject_matter' => 'Subject Matter:',
+            ],
+        ],
         'conducting' => [
             'query' => [
 

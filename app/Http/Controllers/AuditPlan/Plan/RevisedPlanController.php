@@ -26,7 +26,7 @@ class RevisedPlanController extends Controller
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
         $all_entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data)->json();
-//        dd($all_entities);
+        //dd($all_entities);
         if (isSuccess($all_entities)) {
             $all_entities = $all_entities['data'];
             return view('modules.audit_plan.audit_plan.plan_revised.partials.load_plan_lists',
