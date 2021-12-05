@@ -105,9 +105,8 @@
             annual_plan_id = '{{$annual_plan_id}}';
             activity_id = '{{$activity_id}}';
             fiscal_year_id = '{{$fiscal_year_id}}';
-            parent_office_id = elem.data('parent-office-id');
             audit_plan_id = $(".draft_entity_audit_plan").data('audit-plan-id');
-            data = {annual_plan_id, activity_id, fiscal_year_id, audit_plan_id,parent_office_id};
+            data = {annual_plan_id, activity_id, fiscal_year_id, audit_plan_id};
             KTApp.block('.content', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color

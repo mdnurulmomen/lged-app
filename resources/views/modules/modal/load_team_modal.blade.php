@@ -52,7 +52,6 @@
 </style>
 {{--<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
 <!-- Office Modal -->
-
 <div class="modal fade custom-modal" id="officeEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="officeEmployeeModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content rounded-0">
@@ -310,7 +309,10 @@
                                                                         class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm text-center">
                                                                         <thead>
                                                                         <tr>
-                                                                            <th width="52%">
+                                                                            <th width="20%">
+                                                                                এনটিটি নাম
+                                                                            </th>
+                                                                            <th width="25%">
                                                                                 শাখার নাম
                                                                             </th>
                                                                             <th width="30%">
@@ -348,23 +350,47 @@
                                                                                         data-audit-schedule-first-row='{{$loop->iteration}}_{{ $loop->parent->iteration }}'>
                                                                                         <td>
                                                                                             <select
+                                                                                                id="entity_name_select_{{ $loop->parent->iteration }}_{{$loop->iteration}}"
+                                                                                                class="form-control select-select2 input-entity-name"
+                                                                                                data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}">
+                                                                                                <option value=''>
+                                                                                                    --Select--
+                                                                                                </option>
+                                                                                                @foreach(json_decode($parent_office_id,true) as $key => $entity)
+                                                                                                    <option
+                                                                                                        @if($entity['entity_id'] == $schedule['entity_id']) selected
+                                                                                                        @endif value="{{$entity['entity_id']}}">{{$entity['entity_name_bn']}}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                        </td>
+                                                                                        <td class="selected_nominated_office_data_{{$loop->iteration}}">
+                                                                                            <select
                                                                                                 id="branch_name_select_{{ $loop->parent->iteration }}_{{$loop->iteration}}"
                                                                                                 class="form-control select-select2 input-branch-name"
                                                                                                 data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}">
                                                                                                 <option value=''>
                                                                                                     --Select--
                                                                                                 </option>
-                                                                                                @foreach($nominated_offices_list as $key => $nominatedOffice)
-                                                                                                    <option
-                                                                                                        @if($nominatedOffice['id'] == $schedule['cost_center_id']) selected
-                                                                                                        @endif value="{{$nominatedOffice['id']}}"
-                                                                                                        data-cost-center-id="{{$nominatedOffice['id']}}"
-                                                                                                        data-cost-center-name-bn="{{$nominatedOffice['office_name_bng']}}"
-                                                                                                        data-cost-center-name-en="{{$nominatedOffice['office_name_eng']}}">{{$nominatedOffice['office_name_bng']}}</option>
-                                                                                                    @if(count($nominatedOffice) > 0)
-                                                                                                        @include('modules.audit_plan.audit_plan.plan_revised.partials.select_nominated_office_child', ['nominated_offices_list' => $nominatedOffice['child'], 'mode' => 'selected_check'])
-                                                                                                    @endif
-                                                                                                @endforeach
+                                                                                                <option
+                                                                                                    value="{{$schedule['cost_center_id']}}"
+                                                                                                    data-cost-center-id="{{$schedule['cost_center_id']}}"
+                                                                                                    data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
+                                                                                                    data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
+                                                                                                    selected
+                                                                                                    >
+                                                                                                    {{$schedule['cost_center_name_bn']}}
+                                                                                                </option>
+{{--                                                                                                @foreach($nominated_offices_list as $key => $nominatedOffice)--}}
+{{--                                                                                                    <option--}}
+{{--                                                                                                        @if($nominatedOffice['id'] == $schedule['cost_center_id']) selected--}}
+{{--                                                                                                        @endif value="{{$nominatedOffice['id']}}"--}}
+{{--                                                                                                        data-cost-center-id="{{$nominatedOffice['id']}}"--}}
+{{--                                                                                                        data-cost-center-name-bn="{{$nominatedOffice['office_name_bng']}}"--}}
+{{--                                                                                                        data-cost-center-name-en="{{$nominatedOffice['office_name_eng']}}">{{$nominatedOffice['office_name_bng']}}</option>--}}
+{{--                                                                                                    @if(count($nominatedOffice) > 0)--}}
+{{--                                                                                                        @include('modules.audit_plan.audit_plan.plan_revised.partials.select_nominated_office_child', ['nominated_offices_list' => $nominatedOffice['child'], 'mode' => 'selected_check'])--}}
+{{--                                                                                                    @endif--}}
+{{--                                                                                                @endforeach--}}
                                                                                             </select>
                                                                                         </td>
                                                                                         <td>
@@ -434,7 +460,7 @@
                                                                                                    class="form-control input-detail"/>
                                                                                         </td>
 
-                                                                                        <td colspan="2">
+                                                                                        <td colspan="3">
                                                                                             <input type="text"
                                                                                                    data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
                                                                                                    value="{{$schedule['team_member_start_date'] == ""?"":formatDate($schedule['team_member_start_date'])}}"
@@ -547,35 +573,59 @@
     }
 
     function addAuditScheduleTblRow(layer_id) {
-        var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
-        var teamScheduleHtml = "<tbody data-schedule-type='schedule' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
-            "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
-        teamScheduleHtml += "<td class='selected_nominated_office_data_" + totalAuditScheduleRow + "'>" +
-            "<select class='form-control select-select2 input-branch-name'><option>--Loading--</option></select>" +
-            "</td>";
+        total_audit_schedule_row = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
+        entity_list = '{{$parent_office_id}}';
+        entity_list = entity_list.replace(/&quot;/g, '"');
+        url = '{{route('audit.plan.audit.editor.add-audit-schedule-row')}}';
+        data = {layer_id, total_audit_schedule_row, entity_list};
 
-        teamScheduleHtml += "<td><div class='row'><div class='col pr-0'><input type='text' " +
-            "class='date form-control input-start-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শুরু'/></div><div class='col pl-0'>" +
-            "<input type='text' class='date form-control input-end-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শেষ'/>" +
-            "</div></div></td>"
-        teamScheduleHtml += "<td><input type='number' min='0' value='0' class='form-control input-total-working-day' id='input_total_working_day_" + layer_id + "_" + totalAuditScheduleRow + "' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'/></td>";
-        teamScheduleHtml += "<td style='display: inline-flex'>" +
-            "<button title='Add Schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='pulse pulse-primary btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
-            "<span class='fad fa-calendar-day'></span>" +
-            "</button>" +
-            "<button title='Add Visit' type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
-            "<span class='fad fa-plus'></span>" +
-            "</button>" +
-            "<button title='Remove' onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
-            "data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>" +
-            "<span class='fal fa-trash-alt'></span>" +
-            "</button>" +
-            "</td>";
-        teamScheduleHtml += "</tr></tbody>";
+        KTApp.block('.kt-portlet')
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+            KTApp.unblock('.kt-portlet')
+            if (response.status === 'error') {
+                toastr.error('Internal Serve Error');
+            } else {
+                console.log(response)
+                $('#audit_schedule_table_' + layer_id).append(response);
+                // $('.audit_schedule_table_' + layer_id).html(response);
+                // $('.select-select2').select2();
+            }
+        });
+        {{--var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;--}}
+        {{--var teamScheduleHtml = "<tbody data-schedule-type='schedule' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +--}}
+        {{--    "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";--}}
+        {{--teamScheduleHtml += "<td class='selected_entity_data_" + totalAuditScheduleRow + "'>" +--}}
+        {{--    "<select class='form-control select-select2 input-entity-name'><option>--Loading--</option>"+--}}
+        {{--    @foreach(json_decode($parent_office_id,true) as $key => $entity)--}}
+        {{--    "<option @if($entity['entity_id'] == $schedule['cost_center_id']) selected @endif value="{{$entity['id']}}">"+--}}
+        {{--{{$entity['entity_name_bn']}}</option>@endforeach</select>" +--}}
+        {{--    "</td>";--}}
+        {{--teamScheduleHtml += "<td class='selected_nominated_office_data_" + totalAuditScheduleRow + "'>" +--}}
+        {{--    "<select class='form-control select-select2 input-branch-name'><option>--Loading--</option></select>" +--}}
+        {{--    "</td>";--}}
 
-        $('#audit_schedule_table_' + layer_id).append(teamScheduleHtml);
-        parent_office_id = '{{$parent_office_id}}';
-        loadSelectNominatedOffices(parent_office_id, layer_id, totalAuditScheduleRow);
+        {{--teamScheduleHtml += "<td><div class='row'><div class='col pr-0'><input type='text' " +--}}
+        {{--    "class='date form-control input-start-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শুরু'/></div><div class='col pl-0'>" +--}}
+        {{--    "<input type='text' class='date form-control input-end-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শেষ'/>" +--}}
+        {{--    "</div></div></td>"--}}
+        {{--teamScheduleHtml += "<td><input type='number' min='0' value='0' class='form-control input-total-working-day' id='input_total_working_day_" + layer_id + "_" + totalAuditScheduleRow + "' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'/></td>";--}}
+        {{--teamScheduleHtml += "<td style='display: inline-flex'>" +--}}
+        {{--    "<button title='Add Schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='pulse pulse-primary btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +--}}
+        {{--    "<span class='fad fa-calendar-day'></span>" +--}}
+        {{--    "</button>" +--}}
+        {{--    "<button title='Add Visit' type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +--}}
+        {{--    "<span class='fad fa-plus'></span>" +--}}
+        {{--    "</button>" +--}}
+        {{--    "<button title='Remove' onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +--}}
+        {{--    "data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>" +--}}
+        {{--    "<span class='fal fa-trash-alt'></span>" +--}}
+        {{--    "</button>" +--}}
+        {{--    "</td>";--}}
+        {{--teamScheduleHtml += "</tr></tbody>";--}}
+
+        // $('#audit_schedule_table_' + layer_id).append(teamScheduleHtml);
+        {{--parent_office_id = '{{$parent_office_id}}';--}}
+        {{--loadSelectNominatedOffices(parent_office_id, layer_id, totalAuditScheduleRow);--}}
     }
 
     function loadSelectNominatedOffices(parent_office_id, layer_id, total_audit_schedule_row) {
@@ -588,9 +638,28 @@
             if (response.status === 'error') {
                 toastr.error('Internal Serve Error');
             } else {
-                console.log(response)
+                // console.log(response)
                 $('.selected_nominated_office_data_' + total_audit_schedule_row).html(response);
                 $('.select-select2').select2();
+            }
+        });
+
+    }
+
+    function loadSelectNominatedOfficeOption(parent_office_id, layer_id, total_audit_schedule_row) {
+        url = '{{route('audit.plan.audit.editor.load-select-nominated-office-option')}}';
+        data = {parent_office_id, layer_id, total_audit_schedule_row};
+
+        KTApp.block('.kt-portlet')
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+            KTApp.unblock('.kt-portlet')
+            if (response.status === 'error') {
+                toastr.error('Internal Serve Error');
+            } else {
+                // console.log(response)
+                $('#branch_name_select_' + layer_id + '_'+ total_audit_schedule_row).append(response);
+                $('#branch_name_select_' + layer_id + '_'+ total_audit_schedule_row).select('open');
+
             }
         });
 
@@ -601,7 +670,7 @@
         var teamScheduleHtml = "<tbody data-schedule-type='visit' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
         teamScheduleHtml += "<td><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
-        teamScheduleHtml += "<td colspan='2'><div><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/><span class='fal fa-calendar field-icon'></span></div></td>";
+        teamScheduleHtml += "<td colspan='3'><div><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/><span class='fal fa-calendar field-icon'></span></div></td>";
         teamScheduleHtml += "<td style='display: inline-flex'>" +
             "<button title='schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
             "<span class='fad fa-calendar-day'></span>" +
@@ -805,6 +874,7 @@
             url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
             annual_plan_id = '{{$annual_plan_id}}';
             parent_office_id = '{{$parent_office_id}}';
+            parent_office_id = parent_office_id.replace(/&quot;/g, '"');
             data = {team_layer_id, annual_plan_id, parent_office_id};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('.kt-portlet')
@@ -1013,12 +1083,23 @@
 
                     schedule_type = $(this).closest('tbody').data('schedule-type');
                     if (schedule_type === 'visit') {
+                        ministry_id = '';
+                        entity_id = '';
+                        entity_name_bn = '';
+                        entity_name_en = '';
                         cost_center_id = '';
                         cost_center_name_en = '';
                         cost_center_name_bn = '';
                         activity_man_days = '0';
                     } else {
                         activity_details = '';
+                    }
+
+                    if ($(this).hasClass('input-entity-name') && $(this).is("select")) {
+                        ministry_id = $(this).find(':selected').attr('data-ministry-id') ? $(this).find(':selected').attr('data-ministry-id') : '';
+                        entity_id = $(this).find(':selected').val();
+                        entity_name_bn = $(this).find(':selected').attr('data-entity-name-bn') ? $(this).find(':selected').attr('data-entity-name-bn') : '';
+                        entity_name_en = $(this).find(':selected').attr('data-entity-name-en') ? $(this).find(':selected').attr('data-entity-name-en') : '';
                     }
 
                     if ($(this).is("select")) {
@@ -1049,6 +1130,10 @@
                     sequence_level = tbodySerialId[1];
 
                     schedule_data = {
+                        ministry_id,
+                        entity_id,
+                        entity_name_bn,
+                        entity_name_en,
                         cost_center_id,
                         cost_center_name_en,
                         cost_center_name_bn,
@@ -1416,4 +1501,30 @@ style="padding-left: 5px;">
         office_id = $(this).children("option:selected").val();
         Load_Team_Container.loadOfficer(office_id, 'other_office');
     });
+
+    $(".input-entity-name").change(function () {
+        parent_office_id = $(this).val();
+
+        layer_row = $(this).attr('data-id');
+        layer_row  = layer_row.split("_");
+
+        layer_id = layer_row[0];
+        row = layer_row[1];
+
+        loadSelectNominatedOffices(parent_office_id, layer_id, row);
+    });
+
+    $('.input-branch-name').on('select2:opening', function (e) {
+        // $(this).find('[value="'+$(this).val()+'"]').remove();
+        layer_row = $(this).attr('data-id');
+        parent_office_id = $('#entity_name_select_'+layer_row).val();
+        layer_row  = layer_row.split("_");
+        layer_id = layer_row[0];
+        row = layer_row[1];
+        $('#branch_name_select_' + layer_id + '_'+ row).select2().trigger("select2:close");
+        loadSelectNominatedOfficeOption(parent_office_id, layer_id, row);
+    });
+
+    $('.select-select2').select2({ width: '100%' });
+
 </script>

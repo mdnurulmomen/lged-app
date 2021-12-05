@@ -274,7 +274,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::post('editor/load-audit-team-modal', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamModal'])->name('editor.load-audit-team-modal');
             Route::post('editor/load-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamSchedule'])->name('editor.load-audit-team-schedule');
+            Route::post('editor/add-audit-schedule-row', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'addAuditScheduleRow'])->name('editor.add-audit-schedule-row');
             Route::post('editor/load-select-nominated-offices', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadNominatedOfficesSelectView'])->name('editor.load-select-nominated-offices');
+            Route::post('editor/load-select-nominated-office-option', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadNominatedOfficesSelectOption'])->name('editor.load-select-nominated-office-option');
             Route::post('editor/load-risk-assessment-list', [\App\Http\Controllers\AuditPlan\Plan\RiskAssessmentController::class, 'loadRiskAssessment'])->name('editor.load-risk-assessment-list');
             Route::post('editor/load-risk-assessment-list-type-wise', [\App\Http\Controllers\AuditPlan\Plan\RiskAssessmentController::class, 'loadRiskAssessmentTypeWise'])->name('editor.load-risk-assessment-type-wise-list');
             Route::post('editor/store-risk-assessment', [\App\Http\Controllers\AuditPlan\Plan\RiskAssessmentController::class, 'store'])->name('editor.store-risk-assessment');

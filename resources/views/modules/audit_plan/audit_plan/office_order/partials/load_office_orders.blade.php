@@ -4,7 +4,6 @@
         <thead class="thead-light">
         <tr>
             <th>মন্ত্রণালয়/বিভাগ</th>
-            <th>নিয়ন্ত্রণকারী অফিস</th>
             <th>ঊর্ধ্বতন অফিস</th>
             <th>প্রতিষ্ঠানের ধরণ</th>
             <th>অডিট প্ল্যান</th>
@@ -15,9 +14,26 @@
         <tbody>
         @foreach($audit_plans['data'] as $audit_plan)
             <tr>
-                <td>{{$audit_plan['annual_plan']['ministry_name_bn']}}</td>
-                <td>{{$audit_plan['annual_plan']['controlling_office_bn']}}</td>
-                <td>{{$audit_plan['annual_plan']['parent_office_name_bn']}}</td>
+                <td>
+                    @php
+                        $ministries = [];
+                        foreach($audit_plan['annual_plan']['ap_entities'] as $ap_entities){
+                           $ministry =  $ap_entities['ministry_name_bn'];
+                            $ministries[] = $ministry;
+                        }
+                    @endphp
+                    {{implode(' , ', array_unique($ministries))}}
+                </td>
+                <td>
+                    @php
+                        $entities = [];
+                        foreach($audit_plan['annual_plan']['ap_entities'] as $ap_entities){
+                           $entity =  $ap_entities['entity_name_bn'];
+                            $entities[] = $entity;
+                        }
+                    @endphp
+                    {{implode(' , ', array_unique($entities))}}
+                </td>
                 <td>{{$audit_plan['annual_plan']['office_type']}}</td>
                 <td>
                     অডিট প্ল্যান {{$audit_plan['id']}}

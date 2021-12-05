@@ -26,6 +26,7 @@ class RevisedPlanController extends Controller
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
         $all_entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data)->json();
+//        dd($all_entities);
         if (isSuccess($all_entities)) {
             $all_entities = $all_entities['data'];
             return view('modules.audit_plan.audit_plan.plan_revised.partials.load_plan_lists',
@@ -74,24 +75,46 @@ class RevisedPlanController extends Controller
             $activity_id = $request->activity_id;
             $fiscal_year_id = $request->fiscal_year_id;
             $annual_plan_id = $request->annual_plan_id;
-            $parent_office_id = $audit_plan['annual_plan']['parent_office_id'];
+            $parent_office_id = 0;
             $annual_plan_type = $audit_plan['annual_plan']['annual_plan_type'] == 'thematic' ? 'থিমেটিক (ইস্যু)' : 'এনটিটি ভিত্তিক';
             $content = $audit_plan['plan_description'];
+
+            $entities = [];
+            $entity_list = [];
+            foreach ($audit_plan['annual_plan']['ap_entities'] as $ap_entities) {
+                $entity = $ap_entities['entity_name_bn'];
+                $entities[] = $entity;
+
+                $entity_info = [
+                  'ministry_id' =>  $ap_entities['ministry_id'],
+                  'entity_id' =>  $ap_entities['entity_id'],
+                  'entity_name_bn' =>  $ap_entities['entity_name_bn'],
+                  'entity_name_en' =>  $ap_entities['entity_name_en'],
+                ];
+                $entity_list[] = $entity_info;
+            }
+
+            $entity_list = json_encode($entity_list);
+
+            $entity_name = implode(' , ', array_unique($entities));
+
+
             $cover_info = [
                 'directorate_address_footer' => $directorate_address_footer,
                 'directorate_address_top' => $directorate_address_top,
                 'directorate_website' => $directorate_website,
                 'created_by' => $this->getEmployeeInfo()['name_bng'] . ',<br>' . $this->current_office()['designation'],
                 'directorate_name' => $this->current_office()['office_name_bn'],
-                'party_name' => $audit_plan['annual_plan']['controlling_office_bn'],
-                'entity_name' => $audit_plan['annual_plan']['parent_office_name_bn'],
+                'party_name' => '',
+                'entity_name' => $entity_name,
                 'entity_office_type' => $audit_plan['annual_plan']['office_type'],
                 'fiscal_year' => enTobn($audit_plan['annual_plan']['fiscal_year']['start']) . ' - ' . enTobn($audit_plan['annual_plan']['fiscal_year']['end']) . ' অর্থ বছর।',
                 'annual_plan_type' => $annual_plan_type,
                 'audit_subject_matter' => $audit_plan['annual_plan']['subject_matter'],
             ];
+//            dd($cover_info);
             return view('modules.audit_plan.audit_plan.plan_revised.create_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan',
-                'parent_office_id', 'content', 'cover_info', 'fiscal_year_id', 'parent_office_content'));
+                'entity_list', 'content', 'cover_info', 'fiscal_year_id', 'parent_office_content'));
         } else {
             return ['status' => 'error', 'data' => $audit_plan];
         }
@@ -114,13 +137,32 @@ class RevisedPlanController extends Controller
 
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
-            $parent_office_id = $audit_plan['annual_plan']['parent_office_id'];
+            $parent_office_id = 0;
             $content = json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])));
             $activity_id = $audit_plan['activity_id'];
             $annual_plan_id = $audit_plan['annual_plan_id'];
             $fiscal_year_id = $request->fiscal_year_id;
+
+            $entities = [];
+            $entity_list = [];
+
+            foreach ($audit_plan['annual_plan']['ap_entities'] as $ap_entities) {
+                $entity = $ap_entities['entity_name_bn'];
+                $entities[] = $entity;
+
+                $entity_info = [
+                  'ministry_id' =>  $ap_entities['ministry_id'],
+                  'entity_id' =>  $ap_entities['entity_id'],
+                  'entity_name_bn' =>  $ap_entities['entity_name_bn'],
+                  'entity_name_en' =>  $ap_entities['entity_name_en'],
+                ];
+                $entity_list[] = $entity_info;
+            }
+
+            $entity_list = json_encode($entity_list);
+
             return view('modules.audit_plan.audit_plan.plan_revised.edit_entity_audit_plan', compact('activity_id', 'annual_plan_id',
-                'audit_plan', 'content', 'fiscal_year_id', 'parent_office_id'));
+                'audit_plan', 'content', 'fiscal_year_id', 'parent_office_id','entity_list'));
         } else {
             return ['status' => 'error', 'data' => $audit_plan];
         }
@@ -217,6 +259,8 @@ class RevisedPlanController extends Controller
             'teams' => 'required',
         ])->validate();
 
+//        dd($data);
+
         $teams = json_encode_unicode($request->teams);
         $data['teams'] = json_encode(['teams' => json_decode($teams)], JSON_UNESCAPED_UNICODE);
         $data['approve_status'] = 'approved';
@@ -265,7 +309,7 @@ class RevisedPlanController extends Controller
             'team_schedules' => 'required|json',
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
-
+//        dd($data);
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team_schedule'), $data)->json();
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);

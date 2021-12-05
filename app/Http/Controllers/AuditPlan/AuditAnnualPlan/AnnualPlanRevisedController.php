@@ -67,6 +67,8 @@ class AnnualPlanRevisedController extends Controller
             $op_audit_calendar_event_id = $planListResponseData['data']['op_audit_calendar_event_id'];
         }
 
+//        dd($plan_list);
+
         $fiscal_year = $request->fiscal_year;
         $fiscal_year_id = $request->fiscal_year_id;
 
@@ -148,19 +150,14 @@ class AnnualPlanRevisedController extends Controller
 
     public function storeAnnualPlanInfo(Request $request): \Illuminate\Http\JsonResponse
     {
-//        dd($request->annual_plan_type);
-
         try {
             Validator::make($request->all(), [
                 'op_audit_calendar_event_id' => 'required',
                 'activity_id' => 'required|integer',
-//                'milestone_id' => 'required|integer',
                 'fiscal_year_id' => 'required|integer',
-                'ministry_info' => 'required',
-                'controlling_office' => 'required',
-                'parent_office' => 'required',
                 'office_type' => 'required',
                 'selected_entity' => 'required',
+                'total_selected_unit_no' => 'required',
                 'subject_matter' => 'required|string',
                 'total_unit_no' => 'required|string',
                 'staff_comment' => 'sometimes',
@@ -172,13 +169,14 @@ class AnnualPlanRevisedController extends Controller
             $data = [
                 'id' => $request->id,
                 'cdesk' => $this->current_desk_json(),
+                'entity_list' => json_decode($request->entity_list,true),
                 'activity_id' => $request->activity_id,
                 'audit_calendar_event_id' => $request->op_audit_calendar_event_id,
                 'fiscal_year_id' => $request->fiscal_year_id,
-//                'milestone_id' => $request->milestone_id,
                 'subject_matter' => $request->subject_matter,
                 'office_type' => $request->office_type,
                 'total_unit_no' => $request->total_unit_no,
+                'total_selected_unit_no' => $request->total_selected_unit_no,
                 'comment' => $request->comment,
                 'budget' => $request->budget,
                 'cost_center_total_budget' => $request->cost_center_total_budget,
@@ -186,12 +184,6 @@ class AnnualPlanRevisedController extends Controller
                 'annual_plan_type' => $request->annual_plan_type,
                 'thematic_title' => $request->thematic_title
             ];
-            $nominated_offices = [];
-
-            foreach ($request->selected_entity as $nominated_office) {
-                $nominated_office = json2Array($nominated_office);
-                $nominated_offices[$nominated_office['office_id']] = $nominated_office;
-            }
 
             $staff_infos = $request->staff_info;
 //
@@ -214,18 +206,12 @@ class AnnualPlanRevisedController extends Controller
                 }
             }
 
-//            dd($staffs);
-
             $nominated_man_powers = [
                 'comment' => $request->staff_comment ?? '',
                 'nominated_man_power_counts' => $total_man_power,
                 'staffs' => $staffs,
             ];
 
-            $data['ministry_info'] = $request->ministry_info;
-            $data['controlling_office'] = $request->controlling_office;
-            $data['parent_office'] = $request->parent_office;
-            $data['nominated_offices'] = json_encode($nominated_offices, JSON_UNESCAPED_UNICODE);
             $data['nominated_man_powers'] = json_encode($nominated_man_powers, JSON_UNESCAPED_UNICODE);
             $data['nominated_man_power_counts'] = $total_man_power;
 
@@ -235,9 +221,6 @@ class AnnualPlanRevisedController extends Controller
             } else {
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
             }
-
-//            dd($store_plan);
-
             if (isSuccess($store_plan)) {
                 return response()->json(['status' => 'success', 'data' => 'Added!']);
             } else {
@@ -347,12 +330,10 @@ class AnnualPlanRevisedController extends Controller
 
         if (isSuccess($annual_plan_info)) {
             $annual_plan_info = $annual_plan_info['data'];
-//            dd($annual_plan_info);
-            $nominated_office_list = json_decode($annual_plan_info['nominated_offices'], true);
             $nominated_man_powers = json_decode($annual_plan_info['nominated_man_powers'], true);
 
             return view('modules.audit_plan.annual.annual_plan_revised.show_annual_plan_info',
-                compact('annual_plan_info','nominated_office_list', 'nominated_man_powers'));
+                compact('annual_plan_info', 'nominated_man_powers'));
 
         } else {
             return response()->json(['status' => 'error', 'data' => $annual_plan_info]);
@@ -447,7 +428,11 @@ class AnnualPlanRevisedController extends Controller
 
         if (isSuccess($rp_offices)) {
             $rp_offices = $rp_offices['data'];
-            return view('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices_list', compact('rp_offices'));
+            $entity_id = $request->parent_office_id;
+            $entity_name_en = $request->parent_office_en;
+            $entity_name_bn = $request->parent_office_bn;
+//            dd($rp_offices);
+            return view('modules.audit_plan.annual.annual_plan_revised.partials.load_rp_auditee_offices_list', compact('rp_offices','entity_id','entity_name_en','entity_name_bn'));
         } else {
             return response()->json(['status' => 'error', 'data' => $rp_offices]);
         }

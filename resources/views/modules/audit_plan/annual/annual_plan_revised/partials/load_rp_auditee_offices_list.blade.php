@@ -4,11 +4,15 @@
             <div id="rp_auditee_offices" style="overflow-y: scroll; height: 60vh">
                 <ul>
                     @foreach($rp_offices as $rp_office)
-                        <li data-rp-auditee-entity-id="{{$rp_office['id']}}" data-entity-info="{{json_encode(
+                        <li data-rp-auditee-entity-id="{{$entity_id}}" data-entity-info="{{json_encode(
     [
-        'entity_id' => $rp_office['id'],
-        'entity_name_en' =>  htmlspecialchars($rp_office['office_name_en']),
-        'entity_name_bn' =>  htmlspecialchars($rp_office['office_name_bn']),
+        'office_id' => $rp_office['id'],
+        'office_name_en' =>  htmlspecialchars($rp_office['office_name_en']),
+        'office_name_bn' =>  htmlspecialchars($rp_office['office_name_bn']),
+        'entity_id' => $entity_id,
+        'entity_name_en' =>  htmlspecialchars($entity_name_en),
+        'entity_name_bn' =>  htmlspecialchars($entity_name_bn),
+        'entity_count' => count($rp_offices),
         ], JSON_UNESCAPED_UNICODE)}}" data-jstree='{ "type" : "default" }'>
                             {{$rp_office['office_name_bn']}}
                             @if($rp_office['has_child'])
@@ -47,6 +51,7 @@
 
     $('#rp_auditee_offices').on('select_node.jstree', function (e, data) {
         entity_info = $('#' + data.node.id).data('entity-info');
+        console.log(entity_info);
         Annual_Plan_Container.addSelectedRPAuditeeList(entity_info);
         data.node.children.map(child => {
             entity_info = $('#' + child).data('entity-info');
@@ -69,5 +74,15 @@
         $('#rp_auditee_offices').jstree('refresh')
     });
 
-    $('#total_unit_no').val('{{count($rp_offices)}}').prop('readonly', true)
+    count = '{{count($rp_offices)}}';
+
+    // if ($('#total_unit').val()) {
+    //     total_count = parseInt($('#total_unit').val()) + parseInt(count);
+    //     $('#total_unit_no').val(total_count).prop('readonly', true);
+    //     $('#total_unit').val(total_count);
+    //
+    // } else {
+    //     $('#total_unit').val(count);
+    //     $('#total_unit_no').val(count).prop('readonly', true);
+    // }
 </script>

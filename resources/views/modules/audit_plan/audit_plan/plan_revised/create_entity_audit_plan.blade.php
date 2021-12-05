@@ -27,13 +27,12 @@
         </div>
         <div class="col-md-6 text-right">
             <button class="btn btn-sm btn-square btn-primary btn-hover-primary entity_audit_plan_team_schedule"
-                    data-parent-office-id="{{$parent_office_id}}"
+                    data-parent-office-id="{{$entity_list}}"
                     onclick="Entity_Plan_Container.showTeamCreateModal($(this));">
                 <i class="fas fa-users"></i> Team
             </button>
 
             <button class="btn btn-sm btn-square btn-warning btn-hover-warning entity_audit_plan_risk_assessment"
-                    data-parent-office-id="{{$parent_office_id}}"
                     onclick="Entity_Plan_Container.riskAssessment($(this));">
                 <i class="fas fa-ballot-check"></i> Risk Assessment
             </button>

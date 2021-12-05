@@ -11,10 +11,7 @@
         'entity_id' => $rp_office['id'],
         'entity_name_en' =>  htmlspecialchars($rp_office['office_name_en']),
         'entity_name_bn' =>  htmlspecialchars($rp_office['office_name_bn']),
-        'office_type' => htmlspecialchars($rp_office['office_type']),
-        'controlling_office_id' => '0',
-        'controlling_office_name_bn' => '',
-        'controlling_office_name_en' => '',
+        'child_count' =>  $rp_office['child_count'],
         ], JSON_UNESCAPED_UNICODE)}}" data-jstree='{ "type" : "default" }'>
                                 {{$rp_office['office_name_bn']}}
                             </li>
@@ -43,7 +40,7 @@
                     "icon": "fal fa-building text-warning"
                 }
             },
-            "plugins": ["types"]
+            "plugins": ["types", "checkbox",]
         });
     })
 

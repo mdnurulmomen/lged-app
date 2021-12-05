@@ -3,7 +3,10 @@
                                             text-center">
         <thead>
         <tr>
-            <th width="52%">
+            <th width="26%">
+                এনটিটি নাম
+            </th>
+            <th width="26%">
                 শাখার নাম
             </th>
             <th width="30%">
@@ -27,18 +30,18 @@
         <tr class='audit_schedule_row_{{$team_layer_id}}' data-layer-id="{{$team_layer_id}}"
             data-audit-schedule-first-row='1_{{$team_layer_id}}'>
             <td>
+                <select id="entity_name_select_{{$team_layer_id}}_0" class="form-control select-select2 input-entity-name"
+                        data-id="{{$team_layer_id}}_0">
+                    <option value=''>--Select--</option>
+                    @foreach(json_decode($parent_office_id,true) as $key => $entity)
+                        <option data-ministry-id="{{$entity['ministry_id']}}"  data-entity-name-bn="{{$entity['entity_name_bn']}}" data-entity-name-en="{{$entity['entity_name_en']}}" value="{{$entity['entity_id']}}">{{$entity['entity_name_bn']}}</option>
+                    @endforeach
+                </select>
+            </td>
+            <td class="selected_nominated_office_data_0">
                 <select id="branch_name_select_{{$team_layer_id}}_0" class="form-control select-select2 input-branch-name"
                         data-id="{{$team_layer_id}}_0">
                     <option value=''>--Select--</option>
-                    @foreach($nominated_offices_list as $key => $nominatedOffice)
-                        <option value="{{$nominatedOffice['id']}}"
-                                data-cost-center-id="{{$nominatedOffice['id']}}"
-                                data-cost-center-name-bn="{{$nominatedOffice['office_name_bng']}}"
-                                data-cost-center-name-en="{{$nominatedOffice['office_name_eng']}}">{{$nominatedOffice['office_name_bng']}}</option>
-                        @if(count($nominatedOffice) > 0)
-                            @include('modules.audit_plan.audit_plan.plan_revised.partials.select_nominated_office_child', ['nominated_offices_list' => $nominatedOffice['child']])
-                        @endif
-                    @endforeach
                 </select>
             </td>
             <td>
@@ -90,7 +93,7 @@
             <td>
                 <input type="text" data-id="{{$team_layer_id}}_0" class="form-control input-detail"/>
             </td>
-            <td colspan="2">
+            <td colspan="3">
                 <input type="text" data-id="{{$team_layer_id}}_0" class="date form-control input-detail-duration"/>
                 <span class="fal fa-calendar field-icon"></span>
             </td>
@@ -123,6 +126,19 @@
     $(document).on('change', '.audit_schedule_row_{{$team_layer_id}} input', function () {
         populateData(this);
     });
+
+    $(".input-entity-name").change(function () {
+        parent_office_id = $(this).val();
+
+        layer_row = $(this).attr('data-id');
+        layer_row  = layer_row.split("_");
+
+        layer_id = layer_row[0];
+        row = layer_row[1];
+
+        loadSelectNominatedOffices(parent_office_id, layer_id, row);
+    });
+    $('.select-select2').select2({ width: '100%' });
 </script>
 
 

@@ -39,7 +39,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a id="select_cost_centers" class="nav-link rounded-0 disabled" data-toggle="tab"
+                    <a id="select_cost_centers" class="nav-link rounded-0" data-toggle="tab"
                        href="#select_entity_by_layer">
                         <span class="nav-text">কস্ট সেন্টার নির্বাচন</span>
                     </a>
@@ -63,6 +63,13 @@
                 </div>
                 <div class="tab-pane border border-top-0 p-3 fade" id="select_entity_by_layer"
                      role="tabpanel" aria-labelledby="activity-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-control" id="selected_entity">
+                                <option value=""> --এনটিটি বাছাই করুন--</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-md-12 rp_auditee_office_tree"></div>
                 </div>
                 <div class="tab-pane border border-top-0 p-3 fade" id="select_milestone"
@@ -93,11 +100,12 @@
                 <div class="col-md-6">
                     <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা<span class="text-danger">*</span></label>
                     <input class="form-control bijoy-bangla text-right" type="text" id="total_unit_no" name="total_unit_no" readonly>
+                    <input type="hidden" id="total_unit">
                 </div>
 
                 <div class="col-md-6">
                     <label for="total_selected_unit_no">নির্বাচিত ইউনিট সংখ্যা<span class="text-danger">*</span></label>
-                    <input class="form-control bijoy-bangla text-right" type="text" id="total_selected_unit_no" readonly>
+                    <input class="form-control bijoy-bangla text-right" type="text" name="total_selected_unit_no" id="total_selected_unit_no" readonly>
                 </div>
             </div>
 
@@ -181,15 +189,14 @@
 
 @include('scripts.script_generic')
 <script>
-    // $("select#office_layer_id").change(function () {
-    //     layer_id = $(this).val();
-    //     ministry_id = $('#ministry_id').val();
-    //     Annual_Plan_Container.loadRPAuditeeOffices(ministry_id, layer_id);
-    // });
-
-    // $('select#parent_ministry_id').change(function () {
-    //     $('select#ministry_id').val($(this).val()).trigger('change')
-    // })
+    $("select#selected_entity").change(function () {
+        ministry_id = $(this).find(':selected').attr('data-ministry-id');
+        layer_id = $(this).find(':selected').attr('data-layer-id');
+        entity_id = $(this).val();
+        entity_name_bn = $(this).text();
+        entity_name_en = $(this).find(':selected').attr('data-entity-name-en');
+        Annual_Plan_Container.loadEntityChildOffices(ministry_id,layer_id,entity_id,entity_name_en,entity_name_bn);
+    });
 
     $("select#parent_office_layer_id").change(function () {
         layer_id = $(this).val();

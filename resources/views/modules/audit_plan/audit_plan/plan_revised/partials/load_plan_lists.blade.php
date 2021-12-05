@@ -91,12 +91,28 @@
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
                                     <div class="font-weight-normal">
                                         <span class="mr-2 font-size-1-1">মন্ত্রণালয়/বিভাগ:</span>
-                                        <span class="font-size-14">{{$annual_plan['ministry_name_bn']}}</span>
+                                        <span class="font-size-14">
+                                            @php
+                                                $ministries = [];
+                                                foreach($annual_plan['ap_entities'] as $ap_entities){
+                                                   $ministry =  $ap_entities['ministry_name_bn'];
+                                                    $ministries[] = $ministry;
+                                                }
+                                            @endphp
+                                            {{implode(' , ', array_unique($ministries))}}
+                                        </span>
                                     </div>
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                         <span class="mr-1">এনটিটি/প্রতিষ্ঠান:</span>
                                         <a href="javascript:void(0)" class="text-info font-size-h5">
-                                            {{$annual_plan['parent_office_name_bn']}}
+                                            @php
+                                                $entities = [];
+                                                foreach($annual_plan['ap_entities'] as $ap_entities){
+                                                   $entity =  $ap_entities['entity_name_bn'];
+                                                    $entities[] = $entity;
+                                                }
+                                            @endphp
+                                            {{implode(' , ', array_unique($entities))}}
                                         </a>
                                     </div>
                                     <div class="font-weight-normal">

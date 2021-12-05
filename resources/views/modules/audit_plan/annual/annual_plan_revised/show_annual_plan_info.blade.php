@@ -1,11 +1,29 @@
 <table class="annual-plan-table" border="1">
     <tr>
         <td class="annual-plan-title">মন্ত্রণালয়/বিভাগ</td>
-        <td style="width: 60%;padding-left: 2%">{{$annual_plan_info['ministry_name_bn']}}</td>
+        <td style="width: 60%;padding-left: 2%">
+            @php
+                $ministries = [];
+                foreach($annual_plan_info['ap_entities'] as $ap_entities){
+                   $ministry =  $ap_entities['ministry_name_bn'];
+                    $ministries[] = $ministry;
+                }
+            @endphp
+            {{implode(' , ', array_unique($ministries))}}
+        </td>
     </tr>
     <tr>
         <td class="annual-plan-title">এনটিটি / প্রতিষ্ঠান</td>
-        <td style="width: 60%;padding-left: 2%">{{$annual_plan_info['parent_office_name_bn']}}</td>
+        <td style="width: 60%;padding-left: 2%">
+            @php
+                $entities = [];
+                foreach($annual_plan_info['ap_entities'] as $ap_entities){
+                   $entity =  $ap_entities['entity_name_bn'];
+                    $entities[] = $entity;
+                }
+            @endphp
+            {{implode(' , ', array_unique($entities))}}
+        </td>
     </tr>
     <tr>
         <td class="annual-plan-title">প্রতিষ্ঠানের ধরণ</td>
@@ -18,8 +36,12 @@
     <tr>
         <td class="annual-plan-title">অডিটের জন্য প্রস্তাবিত ইউনিটের নাম</td>
         <td style="width: 60%;padding-left: 2%">
-            @foreach($nominated_office_list as $nominated)
-                <p> {{$loop->iteration}}| {{$nominated['office_name_bn']}}</p>
+            @foreach($annual_plan_info['ap_entities'] as $ap_entities)
+                {{$ap_entities['entity_name_bn']}} (এনটিটি) <br>
+                @foreach(json_decode($ap_entities['nominated_offices'],true) as $office)
+                    {{enTobn($loop->iteration)}}| {{$office['office_name_bn']}} <br>
+                @endforeach
+                <br>
             @endforeach
         </td>
     </tr>

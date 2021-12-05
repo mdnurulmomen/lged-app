@@ -65,13 +65,35 @@
             <tbody>
             @foreach($plan_list as $plan)
                 <tr>
-                    <td>{{$plan['ministry_name_bn']}}</td>
-                    <td>{{$plan['parent_office_name_bn']}}</td>
+                    <td>
+                        @php
+                            $ministries = [];
+                            foreach($plan['ap_entities'] as $ap_entities){
+                               $ministry =  $ap_entities['ministry_name_bn'];
+                                $ministries[] = $ministry;
+                            }
+                        @endphp
+                        {{implode(' , ', array_unique($ministries))}}
+                    </td>
+                    <td>
+                        @php
+                            $entities = [];
+                            foreach($plan['ap_entities'] as $ap_entities){
+                               $entity =  $ap_entities['entity_name_bn'];
+                                $entities[] = $entity;
+                            }
+                        @endphp
+                        {{implode(' , ', array_unique($entities))}}
+                    </td>
                     <td>{{$plan['office_type']}}</td>
                     <td>{{enTobn($plan['total_unit_no'])}}</td>
                     <td style="height:100px;overflow: hidden">
-                        @foreach(json_decode($plan['nominated_offices'],true) as $office)
-                            {{enTobn($loop->iteration)}}| {{$office['office_name_bn']}} <br>
+                        @foreach($plan['ap_entities'] as $ap_entities)
+                            {{$ap_entities['entity_name_bn']}} (এনটিটি) <br>
+                            @foreach(json_decode($ap_entities['nominated_offices'],true) as $office)
+                                {{enTobn($loop->iteration)}}| {{$office['office_name_bn']}} <br>
+                            @endforeach
+                            <br>
                         @endforeach
                         <span style="float: right;font-weight: bold">মোট {{enTobn($plan['nominated_office_counts'])}}টি ইউনিট</span>
                     </td>
@@ -84,7 +106,7 @@
                             @endforeach
                             <br>
                         @endif
-                        {{json_decode($plan['nominated_man_powers'],true)['comment']}}
+{{--                        {{json_decode($plan['nominated_man_powers'],true)['comment']}}--}}
                     </td>
                     <td>{{$plan['comment']}}</td>
                     <td>
