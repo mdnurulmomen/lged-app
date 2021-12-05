@@ -93,7 +93,7 @@
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
                                     <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">মন্ত্রণালয়/বিভাগঃ</span>
+                                        <span class="mr-2 font-size-1-1">এনটিটি/প্রতিষ্ঠানঃ</span>
                                         <span class="font-size-14">
                                             {{$schedule['entity_name_bn']}}
                                         </span>
