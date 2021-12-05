@@ -1,7 +1,4 @@
-<x-title-wrapper>
-    অডিট মেমোসমূহ
-</x-title-wrapper>
-
+<x-title-wrapper>অডিট মেমোসমূহ</x-title-wrapper>
 
 <div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
     <div class="col-xl-12">
@@ -103,6 +100,34 @@
                     toastr.error('No data found');
                 } else {
                     $(".offcanvas-title").text('মেমো');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
+        showMemoAttachment: function (element) {
+            url = '{{route('audit.execution.memo.show-attachment')}}'
+            memo_id = element.data('memo-id');
+            memo_title_bn = element.data('memo-title-bn');
+            data = {memo_id,memo_title_bn};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('সংযুক্তি সমূহ');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);

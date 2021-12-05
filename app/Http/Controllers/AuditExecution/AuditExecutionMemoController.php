@@ -169,6 +169,25 @@ class AuditExecutionMemoController extends Controller
         }
     }
 
+    public function showAttachment(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'memo_id' => 'required|integer',
+            'memo_title_bn' => 'required',
+        ])->validate();
+        $data['cdesk'] = $this->current_desk_json();
+        $attachments = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.attachment_list'), $data)->json();
+        //dd($attachments);
+        if (isSuccess($attachments)) {
+            $attachments = $attachments['data'];
+            $memoTitleBn = $request->memo_title_bn;
+            return view('modules.audit_execution.audit_execution_memo.partials.load_memo_attachment',
+                compact('attachments','memoTitleBn'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $attachments]);
+        }
+    }
+
     public function showDetails(Request $request)
     {
         $data = Validator::make($request->all(), [

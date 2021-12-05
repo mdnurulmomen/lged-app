@@ -365,6 +365,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('store', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'store'])->name('store');
             Route::post('edit', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'edit'])->name('edit');
             Route::post('show', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'show'])->name('show');
+            Route::post('show-attachment', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'showAttachment'])->name('show-attachment');
             Route::post('show-details', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'showDetails'])->name('show-details');
             Route::post('download-pdf', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'memoPDFDownload'])->name('download.pdf');
             Route::post('update', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'update'])->name('update');

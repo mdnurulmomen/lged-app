@@ -10,11 +10,37 @@ class AuditQCReportController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('modules.audit_report.qc.index');
+        $data['template_type'] = 'air';
+        $data['cdesk'] = $this->current_desk_json();
+
+        $auditReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.qc.create_air_report'), $data)->json();
+        //dd($auditReport);
+        if (isSuccess($auditReport)) {
+            $content = $auditReport['data']['content'];
+
+            if ($this->current_office_id() == 19) {
+                $directorate_address = 'অডিট কমপ্লেক্স,১ম তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
+            } elseif ($this->current_office_id() == 32) {
+                $directorate_address = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা),সেগুনবাগিচা,ঢাকা-১০০০।';
+            } else {
+                $directorate_address = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা),সেগুনবাগিচা,ঢাকা-১০০০।';
+            }
+
+            $cover_info = [
+                'directorate_name' => $this->current_office()['office_name_bn'],
+                'directorate_address' => $directorate_address,
+            ];
+
+            return view('modules.audit_report.qc.index',
+                compact('content','cover_info'));
+        }
+        else {
+            return ['status' => 'error', 'data' => $auditReport['data']];
+        }
     }
 
     /**

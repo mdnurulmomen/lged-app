@@ -59,59 +59,6 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">পরিশিষ্ট</span>
-
-            <div class="mt-3">
-                @foreach($memoInfo['ac_memo_attachments'] as $attachment)
-                    @if($attachment['attachment_type'] == 'porisishto')
-                        <a title="ডাউনলোড করুন" href="{{$attachment['attachment_path']}}" target="_blank" class="btn btn-outline-primary btn-square mt-2">
-                            <i class="fal fa-file"></i> {{$attachment['user_define_name']}}
-                        </a>
-                    @endif
-                @endforeach
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">প্রমানক</span>
-
-            <div class="mt-3">
-                @foreach($memoInfo['ac_memo_attachments'] as $attachment)
-                    @if($attachment['attachment_type'] == 'pramanok')
-                        <a href="{{$attachment['attachment_path']}}" target="_blank" class="btn btn-outline-primary btn-square mt-2">
-                            <i class="fal fa-file"></i> {{$attachment['user_define_name']}}
-                        </a>
-                    @endif
-                @endforeach
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">মেমো</span>
-
-            <div class="mt-3">
-                @foreach($memoInfo['ac_memo_attachments'] as $attachment)
-                    @if($attachment['attachment_type'] == 'memo')
-                        <a href="{{$attachment['attachment_path']}}" target="_blank" class="btn btn-outline-primary btn-square mt-2">
-                            <i class="fal fa-file"></i> {{$attachment['user_define_name']}}
-                        </a>
-                    @endif
-                @endforeach
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
     var Show_Memo_Container={

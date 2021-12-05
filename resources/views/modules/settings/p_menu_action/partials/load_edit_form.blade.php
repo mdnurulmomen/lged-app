@@ -95,11 +95,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
+                @php $parentOrMenuId = $type == 'action'?$menuActionInfo['action_menu_id']:$menuActionInfo['parent_id']; @endphp
                 <label for="parent_id">{{$type == 'action'?'Menu':'Parent'}}</label>
                 <select class="form-control select-select2" name="parent_id" id="parent_id">
                     <option value="">Select</option>
                     @foreach($menuActionList as $menuAction)
-                        <option value="{{$menuAction['id']}}" {{$menuActionInfo['parent_id'] == $menuAction['id']?'selected':''}}>
+                        <option value="{{$menuAction['id']}}" {{$menuAction['id']==$parentOrMenuId?'selected':''}}>
                             {{$menuAction['title_bn']}}
                         </option>
                     @endforeach

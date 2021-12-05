@@ -71,7 +71,7 @@ class PMenuActionController extends Controller
         $data = Validator::make($request->all(), [
             'title_en' => 'required',
             'title_bn' => 'required',
-            'link' => 'required',
+            'link' => 'nullable',
         ])->validate();
 
         $data['class'] = $request->class;
@@ -134,7 +134,7 @@ class PMenuActionController extends Controller
             'menu_action_id' => 'required|integer',
             'title_en' => 'required',
             'title_bn' => 'required',
-            'link' => 'required',
+            'link' => 'nullable',
         ])->validate();
 
         $data['class'] = $request->class;
