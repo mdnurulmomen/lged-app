@@ -34,7 +34,12 @@
                         data-id="{{$team_layer_id}}_0">
                     <option value=''>--Select--</option>
                     @foreach(json_decode($parent_office_id,true) as $key => $entity)
-                        <option data-ministry-id="{{$entity['ministry_id']}}"  data-entity-name-bn="{{$entity['entity_name_bn']}}" data-entity-name-en="{{$entity['entity_name_en']}}" value="{{$entity['entity_id']}}">{{$entity['entity_name_bn']}}</option>
+                        <option data-ministry-id="{{$entity['ministry_id']}}"
+                                data-ministry-name-bn="{{$entity['ministry_name_bn']}}"
+                                data-ministry-name-en="{{$entity['ministry_name_en']}}"
+                                data-entity-name-bn="{{$entity['entity_name_bn']}}"
+                                data-entity-name-en="{{$entity['entity_name_en']}}"
+                                value="{{$entity['entity_id']}}">{{$entity['entity_name_bn']}}</option>
                     @endforeach
                 </select>
             </td>

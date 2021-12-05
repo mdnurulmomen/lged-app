@@ -6,7 +6,12 @@
         <select data-id="{{$layer_id}}_{{$total_audit_schedule_row}}" class='form-control select-select2 input-entity-name'>
             <option>--Loading--</option>
             @foreach(json_decode($entity_list,true) as $key => $entity)
-                <option data-ministry-id="{{$entity['ministry_id']}}"  data-entity-name-bn="{{$entity['entity_name_bn']}}" data-entity-name-en="{{$entity['entity_name_en']}}" value="{{$entity['entity_id']}}">{{$entity['entity_name_bn']}}</option>
+                <option data-ministry-id="{{$entity['ministry_id']}}"
+                        data-ministry-name-bn="{{$entity['ministry_name_bn']}}"
+                        data-ministry-name-en="{{$entity['ministry_name_bn']}}"
+                        data-entity-name-bn="{{$entity['entity_name_bn']}}"
+                        data-entity-name-en="{{$entity['entity_name_en']}}"
+                        value="{{$entity['entity_id']}}">{{$entity['entity_name_bn']}}</option>
             @endforeach
         </select>
     </td>

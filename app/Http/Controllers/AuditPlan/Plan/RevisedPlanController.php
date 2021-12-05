@@ -87,6 +87,8 @@ class RevisedPlanController extends Controller
 
                 $entity_info = [
                   'ministry_id' =>  $ap_entities['ministry_id'],
+                  'ministry_name_bn' =>  $ap_entities['ministry_name_bn'],
+                  'ministry_name_en' =>  $ap_entities['ministry_name_en'],
                   'entity_id' =>  $ap_entities['entity_id'],
                   'entity_name_bn' =>  $ap_entities['entity_name_bn'],
                   'entity_name_en' =>  $ap_entities['entity_name_en'],
@@ -152,6 +154,8 @@ class RevisedPlanController extends Controller
 
                 $entity_info = [
                   'ministry_id' =>  $ap_entities['ministry_id'],
+                  'ministry_name_bn' =>  $ap_entities['ministry_name_bn'],
+                  'ministry_name_en' =>  $ap_entities['ministry_name_en'],
                   'entity_id' =>  $ap_entities['entity_id'],
                   'entity_name_bn' =>  $ap_entities['entity_name_bn'],
                   'entity_name_en' =>  $ap_entities['entity_name_en'],

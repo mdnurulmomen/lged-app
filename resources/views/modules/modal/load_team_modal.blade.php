@@ -359,7 +359,14 @@
                                                                                                 @foreach(json_decode($parent_office_id,true) as $key => $entity)
                                                                                                     <option
                                                                                                         @if($entity['entity_id'] == $schedule['entity_id']) selected
-                                                                                                        @endif value="{{$entity['entity_id']}}">{{$entity['entity_name_bn']}}</option>
+                                                                                                        @endif
+                                                                                                        value="{{$entity['entity_id']}}"
+                                                                                                        data-ministry-id="{{$entity['ministry_id']}}"
+                                                                                                        data-ministry-name-bn="{{$entity['ministry_name_bn']}}"
+                                                                                                        data-ministry-name-en="{{$entity['ministry_name_en']}}"
+                                                                                                        data-entity-name-bn="{{$entity['entity_name_bn']}}"
+                                                                                                        data-entity-name-en="{{$entity['entity_name_en']}}"
+                                                                                                    >{{$entity['entity_name_bn']}}</option>
                                                                                                 @endforeach
                                                                                             </select>
                                                                                         </td>
@@ -1084,6 +1091,8 @@
                     schedule_type = $(this).closest('tbody').data('schedule-type');
                     if (schedule_type === 'visit') {
                         ministry_id = '';
+                        ministry_name_bn = '';
+                        ministry_name_en = '';
                         entity_id = '';
                         entity_name_bn = '';
                         entity_name_en = '';
@@ -1097,6 +1106,8 @@
 
                     if ($(this).hasClass('input-entity-name') && $(this).is("select")) {
                         ministry_id = $(this).find(':selected').attr('data-ministry-id') ? $(this).find(':selected').attr('data-ministry-id') : '';
+                        ministry_name_bn = $(this).find(':selected').attr('data-ministry-name-bn') ? $(this).find(':selected').attr('data-ministry-name-bn') : '';
+                        ministry_name_en = $(this).find(':selected').attr('data-ministry-name-en') ? $(this).find(':selected').attr('data-ministry-name-en') : '';
                         entity_id = $(this).find(':selected').val();
                         entity_name_bn = $(this).find(':selected').attr('data-entity-name-bn') ? $(this).find(':selected').attr('data-entity-name-bn') : '';
                         entity_name_en = $(this).find(':selected').attr('data-entity-name-en') ? $(this).find(':selected').attr('data-entity-name-en') : '';
@@ -1131,6 +1142,8 @@
 
                     schedule_data = {
                         ministry_id,
+                        ministry_name_bn,
+                        ministry_name_en,
                         entity_id,
                         entity_name_bn,
                         entity_name_en,
@@ -1521,7 +1534,7 @@ style="padding-left: 5px;">
         layer_row  = layer_row.split("_");
         layer_id = layer_row[0];
         row = layer_row[1];
-        $('#branch_name_select_' + layer_id + '_'+ row).select2().trigger("select2:close");
+        // $('#branch_name_select_' + layer_id + '_'+ row).select2().trigger("select2:close");
         loadSelectNominatedOfficeOption(parent_office_id, layer_id, row);
     });
 
