@@ -364,10 +364,9 @@
             });
         },
 
-        addSelectedRPAuditeeList: function (entity_info, parent_rp_office = false) {
+        addSelectedRPAuditeeList: function (entity_info, node_id, parent_rp_office = false) {
             let selected_auditee = {};
             let newRow = '';
-
             if ($('#selected_rp_auditee_' + entity_info.entity_id).length === 0) {
                 if (parent_rp_office) {
 
@@ -378,13 +377,15 @@
                         $('#selected_entity').append('<option data-ministry-id="' + ministry_id + '" data-layer-id="' + layer_id + '" data-entity-name-en="' + entity_info.entity_name_en + '" value="' + entity_info.entity_id + '">' + entity_info.entity_name_bn + '</option>');
                     }
 
-                    if($('.parent_office').attr('id') == 'selected_rp_parent_auditee_'+ entity_info.entity_id){
-                        // Annual_Plan_Container.loadEntityChildOffices(entity_info.entity_id,entity_info.entity_name_en,entity_info.entity_name_bn)
-                        return;
-                    }
+                    $('.parent_office').each(function (){
+                        id = $(this).attr('id');
+                        if( id == 'selected_rp_parent_auditee_'+ entity_info.entity_id){
+                            return;
+                        }
+                    });
 
                     newRow = '<li class="parent_office" data-child-count="' + entity_info.child_count + '" data-entity-info="'+JSON.stringify(entity_info)+'" id="selected_rp_parent_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;">' +
-                        '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_Container.removeSelectedEntity(' + entity_info.entity_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
+                        '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_Container.removeSelectedEntity(' + entity_info.entity_id + ',' + node_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
                         '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_bn + '<span class="ml-2 badge badge-info">এনটিটি</span>' +
                         '<input name="parent_office" class="selected_entity" id="selected_parent_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
                         '</li>';
@@ -395,7 +396,7 @@
 
                 } else {
                     count = $('[id^=selected_rp_auditee_]').length
-                    newRow = '<li id="selected_rp_auditee_' + entity_info.office_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +
+                    newRow = '<li class="entity_' + entity_info.entity_id + '" id="selected_rp_auditee_' + entity_info.office_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +
                         '<span class="selected_entity_sr badge badge-white pl-1" >' + enTobn(count + 1) + '| </span>' +
                         '<span id="btn_remove_auditee_' + entity_info.office_id + '" data-auditee-id="' + entity_info.office_id + '"  onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.office_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
                         '<i class="fa fa-home pr-2"></i>' + entity_info.office_name_en +
@@ -410,10 +411,13 @@
                         'entity_id': entity_info.entity_id,
                         'entity_name_en': entity_info.entity_name_en,
                         'entity_name_bn': entity_info.entity_name_bn,
+                        'layer_id': $('#parent_office_layer_id').val(),
                         'ministry_id': $('#parent_ministry_id').val(),
                         'ministry_name_en': $('#parent_ministry_name_en').val(),
                         'ministry_name_bn': $('#parent_ministry_name_bn').val(),
+                        'child_count': entity_info.child_count,
                     };
+                    selected_rp_office = $(".selected_rp_offices");
                     selected_rp_office.find('#selected_parent_entity_' + entity_info.entity_id).val(JSON.stringify(selected_entity));
                 } else {
                     selected_auditee = {
@@ -422,6 +426,8 @@
                         'office_name_en': entity_info.office_name_en,
                         'office_name_bn': entity_info.office_name_bn,
                     };
+                    // console.log(selected_auditee);
+                    selected_rp_office = $(".selected_rp_offices");
                     selected_rp_office.find('#selected_entity_' + entity_info.office_id).val(JSON.stringify(selected_auditee));
                 }
 
@@ -445,8 +451,10 @@
             $('#total_unit_no').val(count).prop('readonly', true);
         },
 
-        removeSelectedEntity: function (entity_id) {
+        removeSelectedEntity: function (entity_id,node_id) {
+            $("#rp_auditee_parent_offices").jstree("uncheck_node", node_id);
             $('#selected_rp_parent_auditee_' + entity_id).remove();
+            $('.entity_' + entity_id).remove();
             $("#selected_entity").find('option[value="'+entity_id+'"]').remove();
             Annual_Plan_Container.selectedEntityTotalUnit();
         },
@@ -525,6 +533,8 @@
                     ministry_id:entity_data.ministry_id,
                     ministry_name_en:entity_data.ministry_name_en,
                     ministry_name_bn:entity_data.ministry_name_bn,
+                    layer_id:entity_data.layer_id,
+                    entity_total_unit:entity_data.child_count,
                 }
 
                 $(".selected_auditee").each(function () {

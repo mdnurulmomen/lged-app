@@ -46,10 +46,10 @@
 
     $('#rp_auditee_parent_offices').on('select_node.jstree', function (e, data) {
         entity_info = $('#' + data.node.id).data('entity-info');
-        Annual_Plan_Container.addSelectedRPAuditeeList(entity_info, true);
+        Annual_Plan_Container.addSelectedRPAuditeeList(entity_info, data.node.id, true);
     }).on('deselect_node.jstree', function (e, data) {
         entity_info = $('#' + data.node.id).data('entity-info');
-        Annual_Plan_Container.selected_rp_parent_auditee_(entity_info.entity_id);
+        Annual_Plan_Container.removeSelectedEntity(entity_info.entity_id,data.node.id);
     }).on('open_node.jstree', function (e, data) {
         parent_node = data.node.id;
         Annual_Plan_Container.loadRPChildOffices(parent_node, '#rp_auditee_parent_offices');

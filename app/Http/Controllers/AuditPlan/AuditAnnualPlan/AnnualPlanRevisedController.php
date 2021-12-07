@@ -156,7 +156,6 @@ class AnnualPlanRevisedController extends Controller
                 'activity_id' => 'required|integer',
                 'fiscal_year_id' => 'required|integer',
                 'office_type' => 'required',
-                'selected_entity' => 'required',
                 'total_selected_unit_no' => 'required',
                 'subject_matter' => 'required|string',
                 'total_unit_no' => 'required|string',
@@ -270,34 +269,9 @@ class AnnualPlanRevisedController extends Controller
             $all_activity = $all_activity['data'];
             $annual_plan_info = $annual_plan_info['data'];
             $designations = $master_designation['data']['designations'];
-//            dd($designations);
-            $nominated_office_list = json_decode($annual_plan_info['nominated_offices'], true);
             $nominated_man_powers = json_decode($annual_plan_info['nominated_man_powers'], true);
             $staff_list = $nominated_man_powers['staffs'];
             $staff_comment = $nominated_man_powers['comment'];
-            $parent_office_info = json_encode(
-                [
-                    'parent_office_id' => $annual_plan_info['parent_office_id'],
-                    'parent_office_name_en' => $annual_plan_info['parent_office_name_en'],
-                    'parent_office_name_bn' => $annual_plan_info['parent_office_name_bn'],
-                ]
-            );
-
-            $controlling_office_info = json_encode(
-                [
-                    'controlling_office_id' => $annual_plan_info['controlling_office_id'],
-                    'controlling_office_name_en' => $annual_plan_info['controlling_office_en'],
-                    'controlling_office_name_bn' => $annual_plan_info['controlling_office_bn'],
-                ]
-            );
-
-            $ministry_info = json_encode(
-                [
-                    'ministry_id' => $annual_plan_info['ministry_id'],
-                    'ministry_name_en' => $annual_plan_info['ministry_name_en'],
-                    'ministry_name_bn' => $annual_plan_info['ministry_name_bn'],
-                ]
-            );
 
             return view('modules.audit_plan.annual.annual_plan_revised.edit_annual_plan_info',
                 compact(
@@ -305,10 +279,6 @@ class AnnualPlanRevisedController extends Controller
                     'all_activity',
                     'fiscal_year_id',
                     'op_audit_calendar_event_id',
-                    'nominated_office_list',
-                    'parent_office_info',
-                    'controlling_office_info',
-                    'ministry_info',
                     'staff_list',
                     'designations',
                     'staff_comment',

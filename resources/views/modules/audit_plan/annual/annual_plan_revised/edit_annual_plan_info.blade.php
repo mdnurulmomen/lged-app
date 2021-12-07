@@ -28,13 +28,13 @@
         <div class="annual_entity_selection_area">
             <ul class="nav nav-tabs custom-tabs mb-0" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link disabled" id="calender" data-toggle="tab" href="#select_rp_parent_office"
+                    <a class="nav-link active" id="calender" data-toggle="tab" href="#select_rp_parent_office"
                        aria-controls="tree">
                         <span class="nav-text">এনটিটি নির্বাচন</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a id="select_cost_centers" class="nav-link rounded-0 active" data-toggle="tab"
+                    <a id="select_cost_centers" class="nav-link rounded-0" data-toggle="tab"
                        href="#select_entity_by_layer">
                         <span class="nav-text">কস্ট সেন্টার নির্বাচন</span>
                     </a>
@@ -47,7 +47,7 @@
                 </li>
             </ul>
             <div class="tab-content" id="rp_office_tab">
-                <div class="tab-pane fade border border-top-0 p-3" id="select_rp_parent_office"
+                <div class="tab-pane fade border border-top-0 p-3 show active" id="select_rp_parent_office"
                      role="tabpanel"
                      aria-labelledby="calender-tab">
                     <div class="px-3">
@@ -56,8 +56,23 @@
                     <h5 class="text-primary pl-3"><u>এনটিটি/প্রতিষ্ঠানের তালিকাঃ</u></h5>
                     <div class="col-md-12 rp_auditee_parent_office_tree"></div>
                 </div>
-                <div class="tab-pane border border-top-0 p-3 fade show active" id="select_entity_by_layer"
+                <div class="tab-pane border border-top-0 p-3 fade" id="select_entity_by_layer"
                      role="tabpanel" aria-labelledby="activity-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-control" id="selected_entity">
+                                <option value=""> --এনটিটি বাছাই করুন--</option>
+                                @foreach($annual_plan_info['ap_entities'] as $entity)
+                                    <option
+                                        data-ministry-id="{{$entity['ministry_id']}}"
+                                        data-layer-id="{{$entity['layer_id']}}"
+                                        data-entity-name-en="{{$entity['entity_name_en']}}"
+                                        value="{{$entity['entity_id']}}"> {{$entity['entity_name_bn']}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-md-12 rp_auditee_office_tree"></div>
                 </div>
                 <div class="tab-pane border border-top-0 p-3 fade" id="select_milestone"
@@ -136,7 +151,7 @@
 
                 <div class="col-md-6">
                     <label for="total_selected_unit_no">নির্বাচিত ইউনিট সংখ্যা<span class="text-danger">*</span></label>
-                    <input class="form-control bijoy-bangla text-right" type="text" id="total_selected_unit_no"  value="{{$annual_plan_info['nominated_office_counts']}}" readonly>
+                    <input name="total_selected_unit_no" class="form-control bijoy-bangla text-right" type="text" id="total_selected_unit_no"  value="{{$annual_plan_info['nominated_office_counts']}}" readonly>
                 </div>
             </div>
 
@@ -176,54 +191,59 @@
                     <div class="col-md-12">
                         <div class="pl-4 selected_rp_offices">
                             <h5 class="text-primary"><u>অডিটের জন্য প্রস্তাবিত ইউনিটের তালিকাঃ</u></h5>
-
-                            <li class="parent_office" id="selected_rp_parent_auditee_{{$annual_plan_info['parent_office_id']}}"
-                                style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;">
-                                <span class="badge badge-white">&nbsp;</span><i class="fa fa-home pr-2"></i>
-                                {{$annual_plan_info['parent_office_name_bn']}}
-                                <span class="ml-2 badge badge-info">এনটিটি</span>
-                                <input
-                                    name="parent_office"
-                                    class="selected_entity"
-                                    id="selected_parent_entity_{{$annual_plan_info['parent_office_id']}}"
-                                    type="hidden"
-                                    value="{{$parent_office_info}}">
-                                <input
-                                    name="controlling_office"
-                                    class="controlling_office"
-                                    id="controlling_office"
-                                    type="hidden"
-                                    value="{{$controlling_office_info}}">
-                                <input
-                                    name="ministry_info"
-                                    class="ministry_info"
-                                    id="ministry_info"
-                                    type="hidden"
-                                    value="{{$ministry_info}}">
-                            </li>
-                            @foreach($nominated_office_list as $nominated_office)
-                                @php
-                                   $office_info =  json_encode(
-                                        [
-                                            'office_id' => $nominated_office['office_id'],
-                                            'office_name_en' => $nominated_office['office_name_en'],
-                                            'office_name_bn' => $nominated_office['office_name_bn']
-                                        ]
-                                    );
-                                @endphp
-                                <li id="selected_rp_auditee_{{$nominated_office['office_id']}}"
-                                    style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;"
-                                    draggable="true" ondragend="dragEnd()" ondragover="dragOver(event)"
-                                    ondragstart="dragStart(event)"><span class="selected_entity_sr badge badge-white pl-1">{{enTobn($loop->iteration)}}| </span><span
-                                        id="btn_remove_auditee_{{$nominated_office['office_id']}}" data-auditee-id="{{$nominated_office['office_id']}}"
-                                        onclick="Annual_Plan_Container.removeSelectedRPAuditee({{$nominated_office['office_id']}})"
-                                        style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span><i
-                                        class="fa fa-home pr-2"></i>{{$nominated_office['office_name_bn']}}<input
-                                        name="selected_entity[]" class="selected_entity" id="selected_entity_{{$nominated_office['office_id']}}"
-                                        type="hidden"
-                                        value="{{$office_info}}">
+                            @foreach($annual_plan_info['ap_entities'] as $entity)
+                                <li class="parent_office" data-child-count="{{$entity['entity_total_unit']}}" id="selected_rp_parent_auditee_{{$entity['entity_id']}}"
+                                    style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;">
+                                    <span id="btn_remove_auditee_{{$entity['entity_id']}}" data-auditee-id="{{$entity['entity_id']}}"  onclick="Annual_Plan_Container.removeSelectedEntity({{$entity['entity_id']}},0)" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>
+                                    <span class="badge badge-white">&nbsp;</span><i class="fa fa-home pr-2"></i>
+                                    {{$entity['entity_name_bn']}}
+                                    <span class="ml-2 badge badge-info">এনটিটি</span>
+                                     @php
+                                        $entity_info =  json_encode(
+                                             [
+                                                 'entity_id' => $entity['entity_id'],
+                                                 'entity_name_en' => $entity['entity_name_en'],
+                                                 'entity_name_bn' => $entity['entity_name_bn'],
+                                                 'layer_id' => $entity['layer_id'],
+                                                 'ministry_id' => $entity['ministry_id'],
+                                                 'ministry_name_en' => $entity['ministry_name_en'],
+                                                 'ministry_name_bn' => $entity['ministry_name_bn'],
+                                             ]
+                                         );
+                                    @endphp
+                                    <input  class="selected_entity" id="selected_parent_entity_{{$entity['entity_id']}}" type="hidden" value="{{$entity_info}}"/>
                                 </li>
+                                @foreach(json_decode($entity['nominated_offices'],true) as $nominated_office)
+                                    @php
+                                        $office_info =  json_encode(
+                                             [
+                                                 'entity_id' => $nominated_office['entity_id'],
+                                                 'office_id' => $nominated_office['office_id'],
+                                                 'office_name_en' => $nominated_office['office_name_en'],
+                                                 'office_name_bn' => $nominated_office['office_name_bn']
+                                             ]
+                                         );
+                                    @endphp
+                                    <li class="entity_{{$entity['entity_id']}}"
+                                        id="selected_rp_auditee_{{$nominated_office['office_id']}}"
+                                        style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;"
+                                        draggable="true" ondragend="dragEnd()" ondragover="dragOver(event)"
+                                        ondragstart="dragStart(event)"><span
+                                            class="selected_entity_sr badge badge-white pl-1">{{enTobn($loop->iteration)}}| </span><span
+                                            id="btn_remove_auditee_{{$nominated_office['office_id']}}"
+                                            data-auditee-id="{{$nominated_office['office_id']}}"
+                                            onclick="Annual_Plan_Container.removeSelectedRPAuditee({{$nominated_office['office_id']}})"
+                                            style="cursor:pointer;color:red;"><i
+                                                class="fas fa-trash-alt text-danger pr-2"></i></span><i
+                                            class="fa fa-home pr-2"></i>{{$nominated_office['office_name_bn']}}<input
+                                            class="selected_auditee"
+                                            id="selected_entity_{{$nominated_office['office_id']}}"
+                                            type="hidden"
+                                            value="{{$office_info}}">
+                                    </li>
+                                @endforeach
                             @endforeach
+
                         </div>
                     </div>
                 </div>
@@ -316,26 +336,17 @@
     $( function (){
         activity_id = '{{$annual_plan_info['activity_id']}}';
         milestone_id = '{{$annual_plan_info['milestone_id']}}';
-        // Annual_Plan_Container.loadActivityWiseMilestone(activity_id,milestone_id);
-        parent_ministry_id = '{{$annual_plan_info['ministry_id']}}';
-        parent_office_id = '{{$annual_plan_info['parent_office_id']}}';
-        $('#parent_ministry_id').val(parent_ministry_id);
-        Annual_Plan_Container.loadEntityChildOffices(parent_office_id);
+        // Annual_Plan_Container.loadEntityChildOffices(parent_office_id);
     });
 
-//     function selectNodeByMyAttribute (AttrValue) {
-//     $("#jstree").jstree().deselect_all(true);
-//
-//     var instance = $("#jstree").jstree(true);
-//     var m = instance._model.data;
-//     for (var i in m) {
-//         if (m.hasOwnProperty(i) && i !== '#' && m[i].li_attr.MyAttribute && m[i].li_attr.MyAttribute === AttrValue) {
-//             instance.select_node(i);
-//             break;
-//         }
-//     }
-// }
-
+    $("select#selected_entity").change(function () {
+        ministry_id = $(this).find(':selected').attr('data-ministry-id');
+        layer_id = $(this).find(':selected').attr('data-layer-id');
+        entity_id = $(this).val();
+        entity_name_bn = $(this).text();
+        entity_name_en = $(this).find(':selected').attr('data-entity-name-en');
+        Annual_Plan_Container.loadEntityChildOffices(ministry_id,layer_id,entity_id,entity_name_en,entity_name_bn);
+    });
 
     $("select#parent_office_layer_id").change(function () {
         layer_id = $(this).val();
