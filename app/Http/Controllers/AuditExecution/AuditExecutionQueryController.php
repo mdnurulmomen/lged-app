@@ -216,8 +216,9 @@ class AuditExecutionQueryController extends Controller
         if (isSuccess($audit_query)) {
             $auditQueryInfo = $audit_query['data'];
             $hasSentToRpu = $request->has_sent_to_rpu;
+            $scopeAuthority = $request->scope_authority;
             return view('modules.audit_execution.audit_execution_query.show',
-                compact('auditQueryInfo','hasSentToRpu'));
+                compact('auditQueryInfo','hasSentToRpu','scopeAuthority'));
         } else {
             return response()->json(['status' => 'error', 'data' => $audit_query]);
         }
@@ -236,16 +237,18 @@ class AuditExecutionQueryController extends Controller
         return $pdf->stream('query_'.$request->ac_query_id.'.pdf');
     }
 
+    //authority
     public function authorityQueryList()
+    {
+        return view('modules.audit_execution.audit_execution_query.authority_query_list');
+    }
+
+    public function loadAuthorityQueryList(Request $request)
     {
         $data['cdesk'] = $this->current_desk_json();
         $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.authority_query_list'), $data)->json();
-//        dd($query_list);
-        if (isSuccess($audit_query_list)) {
-            $audit_query_list = $audit_query_list['data'];
-            return view('modules.audit_execution.audit_execution_query.authority_query_list', compact('audit_query_list'));
-        } else {
-            return response()->json(['status' => 'error', 'data' => $audit_query_list]);
-        }
+        $audit_query_list = isSuccess($audit_query_list)?$audit_query_list['data']:[];
+        return view('modules.audit_execution.audit_execution_query.partials.load_authority_query_list',
+            compact('audit_query_list'));
     }
 }

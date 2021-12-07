@@ -55,7 +55,7 @@
                         </span>
                     </td>
                     <td>
-                        @if($hasSentToRpu == 1 && $item['status'] == 'pending')
+                        @if($scopeAuthority == 0 && $hasSentToRpu == 1 && $item['status'] == 'pending')
                             <button title="রিসিভ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                                     data-ac-query-item-id="{{$item['id']}}"
                                     data-ac-query-id="{{$item['ac_query_id']}}"

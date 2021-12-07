@@ -1,21 +1,40 @@
-<x-title-wrapper>অডিট কোয়েরি শিটের তালিকা ({{$cost_center_name_bn}})</x-title-wrapper>
+<x-title-wrapper>অডিট কোয়েরি শিটের তালিকা</x-title-wrapper>
 
-<div class="col-md-12">
-    <div class="d-flex justify-content-end">
-        <a
-            onclick="Audit_Query_Container.backToQuerySchedule($(this))"
-            class="btn btn-sm btn-outline-warning btn_back btn-square mr-3">
-            <i class="fad fa-arrow-alt-left"></i> ফেরত যান
-        </a>
-        <a class="btn btn-primary btn-sm btn-bold btn-square"
-           onclick="Audit_Query_Container.addQuery($(this))"
-           href="javascript:;">
-            <i class="far fa-plus mr-1"></i> কোয়েরি শিট যোগ করুন
-        </a>
+
+<div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
+    <div class="col-xl-12">
+        <div class="row">
+            <div class="col-md-7">
+                <h4 class="mt-3">
+                    {{$cost_center_name_bn}}
+                </h4>
+            </div>
+            <div class="col-md-5">
+                <div class="d-flex justify-content-md-end">
+                    <a href="javascript:;" title="ফেরত যান"
+                       onclick="Audit_Query_Container.backToQuerySchedule($(this))"
+                       class="btn btn-sm btn-light-warning btn_back btn-square mr-1">
+                        <i class="fad fa-arrow-alt-left"></i> ফেরত যান
+                    </a>
+
+                    <a class="btn btn-sm btn-light-success btn_back btn-square"
+                       onclick="Audit_Query_Container.addQuery($(this))"
+                       title="মেমো তৈরি করুন"
+                       href="javascript:;">
+                        <i class="fa fa-plus mr-1"></i> কোয়েরি শিট
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="px-3" id="load_query_list"></div>
+<div class="card card-custom card-stretch">
+    <div class="card-body p-0">
+        <div id="load_query_list"></div>
+    </div>
+</div>
+
 <script>
 
     $(function () {

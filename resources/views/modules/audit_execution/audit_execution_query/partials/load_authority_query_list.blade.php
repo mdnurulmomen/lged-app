@@ -1,4 +1,4 @@
-@if(!empty($memo_list['data']))
+@if(!empty($audit_query_list))
     <div class="search-all position-relative">
         <div class="row">
             <div class="col align-self-start">
@@ -20,17 +20,11 @@
         </div>
     </div>
 
-    <div class="toolbar flex-wrap justify-content-between shadow-sm p-0 d-flex border-bottom">
+    <div class="toolbar flex-wrap justify-content-between shadow-sm pl-1 d-flex border-bottom">
         <div class="d-flex">
             <div id="daak_group_action_panel">
                 <div class="d-flex flex-wrap">
                     <div class="btn-group">
-                   <span class="input-group-text bg-transparent border-0 inbox_checkbox" data-toggle="popover">
-                       <label id="selectAllLabel" class="checkbox" for="selectAll">
-                       <input type="checkbox" id="selectAll">
-                       <span></span>
-                   </label>
-                   </span>
                         <div class="dropdown bootstrap-select form-control">
                             <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light border-0"
                                     data-toggle="dropdown" role="combobox" aria-owns="bs-select-1"
@@ -88,50 +82,30 @@
     {{--list view--}}
     <div>
         <ul class="list-group list-group-flush">
-            @foreach($memo_list['data'] as $memo)
-                <li class="list-group-item pl-0 py-2 border-bottom">
+            @foreach($audit_query_list as $query)
+                <li class="list-group-item py-2 border-bottom">
                     <div class="d-flex justify-content-between align-items-start">
-                       <span class="input-group-text bg-transparent border-0">
-                          <label class="checkbox {{$memo['has_sent_to_rpu'] == 1?'checkbox-disabled':''}}">
-                              <input type="checkbox"  data-cost-center-id="{{$memo['cost_center_id']}}"
-                                     {{$memo['has_sent_to_rpu'] == 1?'checked disabled':''}}
-                                     value="{{$memo['id']}}" class="select-memo">
-                                <span></span>
-                          </label>
-                       </span>
                         <div class="pr-2 flex-fill cursor-pointer position-relative">
                             <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
-                                        <span class="mr-1 ">{{___('generic.list_views.conducting.memo.memo_no')}}: </span>
+                                        <span class="mr-1 ">স্মারক নংঃ</span>
                                         <a href="javascript:void(0)" class="text-dark text-hover-primary font-size-h5">
-                                            {{enTobn($memo['onucched_no'])}}
+                                            {{$query['memorandum_no']}}
                                         </a>
+                                        <span class="ml-2 label label-outline-info label-pill label-inline">
+                                            {{strtoupper($query['status'])}}
+                                        </span>
                                     </div>
                                     <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.audit_title')}}:</span>
-                                        <span class="description text-info text-wrap font-size-14">{{$memo['memo_title_bn']}}</span>
+                                        <span class="mr-2 font-size-1-1">স্মারক তারিখঃ</span>
+                                        <span class="font-size-14">{{enTobn($query['memorandum_date'])}}</span>
                                     </div>
                                     <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.memo_irregularity_type')}}:</span>
-                                        <span class="font-size-14">
-                                            {{$memo['memo_irregularity_type_name']}}
-                                        </span>
-                                        <span class="label label-outline-danger label-pill label-inline">
-                                            {{$memo['memo_type_name']}}
-                                        </span>
-                                    </div>
-                                    <div class=" subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.jorito_ortho')}}:</span>
-                                        <span class="text-info font-size-14">
-                                            {{enTobn(number_format($memo['jorito_ortho_poriman'],0))}}
-                                        </span>
-                                    </div>
-                                    <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.onishponno_jorito_ortho')}}:</span>
-                                        <span class="text-danger font-size-14">
-                                           {{enTobn(number_format($memo['onishponno_jorito_ortho_poriman'],0))}}
+                                        <span class="mr-2 font-size-1-1">বিষয়ঃ</span>
+                                        <span class="description text-info text-wrap font-size-14">
+                                            {{$query['subject']}}
                                         </span>
                                     </div>
                                     <div class="font-weight-normal d-none predict-wrapper">
@@ -151,35 +125,16 @@
                                         <div class="d-flex align-items-center justify-content-md-end">
                                             <div class="mb-2 mt-3 soongukto-wrapper">
                                                 <div class="d-flex justify-content-end align-items-center">
-                                                    <button class="btn-attachment btn btn-outline-warning btn-sm" type="button"
-                                                            data-memo-id="{{$memo['id']}}"
-                                                            data-memo-title-bn="{{$memo['memo_title_bn']}}"
-                                                            onclick="Memo_List_Container.showMemoAttachment($(this))">
-                                                        <i class="fal fa-link" style="font-size:11px"></i>
-                                                        <span class="text-danger">{{enTobn(count($memo['ac_memo_attachments']))}}</span>
-                                                    </button>
-                                                    <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($memo['created_at'],'bn')}}</div>
+                                                    <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($query['created_at'],'bn')}}</div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
                                             <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                title="{{___('generic.buttons.title.details')}}" data-memo-id="{{$memo['id']}}"
-                                                    onclick="Memo_List_Container.showMemo($(this))">
+                                                    title="{{___('generic.buttons.title.details')}}" data-ac-query-id="{{$query['id']}}"
+                                                    data-has-sent-to-rpu="{{$query['has_sent_to_rpu']}}"
+                                                    onclick="Audit_Authority_Query_List_Container.viewQuery($(this))">
                                                 <i class="fad fa-eye"></i>
-                                            </button>
-
-                                            <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                    title="{{___('generic.buttons.title.edit')}}" data-memo-id="{{$memo['id']}}"
-                                                    onclick="Memo_List_Container.editMemo($(this))">
-                                                <i class="fad fa-edit"></i>
-                                            </button>
-
-                                            <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
-                                            list-btn-toggle"
-                                                    title="{{___('generic.buttons.title.history')}}" data-memo-id="{{$memo['id']}}"
-                                                    onclick="Memo_List_Container.memoLog($(this))">
-                                                <i class="fad fa-repeat-alt"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -194,39 +149,37 @@
     </div>
 
     <script>
-        $(function (){
-            $('.select-memo').each(function(){
-                if(this.checked == false){
-                    $("#selectAll")[0].checked = false;
-                }
-                if ($('.select-memo:checked').length == $('.select-memo').length ){
-                    $("#selectAll")[0].checked = true;
-                    $("#selectAll")[0].disabled = true;
-                    $("#selectAll")[0].addClass('checkbox-disabled');
-                }
-            });
-        })
+        var Audit_Authority_Query_List_Container = {
+            viewQuery: function (elem) {
+                scope_authority = 1;
+                ac_query_id = elem.data('ac-query-id');
+                has_sent_to_rpu = elem.data('has-sent-to-rpu');
 
-        //select all checkboxes
-        $("#selectAll").change(function(){
-            var status = this.checked;
-            $('.select-memo').each(function(){
-                if (!$(this).is(':disabled')) {
-                    this.checked = status;
-                }
-            });
-        });
+                data = {scope_authority,ac_query_id,has_sent_to_rpu};
+                url = '{{route('audit.execution.query.view')}}';
 
-        $('.select-memo').change(function(){
-            if(this.checked == false){
-                $("#selectAll")[0].checked = false;
-            }
+                KTApp.block('#kt_content', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
 
-            if ($('.select-memo:checked').length == $('.select-memo').length ){
-                $("#selectAll")[0].checked = true;
-                $("#selectAll")[0].addClass('checkbox-disabled');
-            }
-        });
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('#kt_content');
+                    if (response.status === 'error') {
+                        toastr.error('No data found');
+                    } else {
+                        $(".offcanvas-title").text('কোয়েরি শিটের বিস্তারিত');
+                        quick_panel = $("#kt_quick_panel");
+                        quick_panel.addClass('offcanvas-on');
+                        quick_panel.css('opacity', 1);
+                        quick_panel.css('width', '40%');
+                        quick_panel.removeClass('d-none');
+                        $("html").addClass("side-panel-overlay");
+                        $(".offcanvas-wrapper").html(response);
+                    }
+                });
+            },
+        }
     </script>
 
 @else
@@ -237,3 +190,7 @@
         <div class="alert-text">{{___('generic.no_data_found')}}</div>
     </div>
 @endif
+
+
+
+
