@@ -292,17 +292,17 @@ $(document).off('keypress').on('keypress', '.number-input', function () {
 
 
 function formatDate(data) {
-     day = data.split("/")[0];
-     month = data.split("/")[1];
-     year = data.split("/")[2];
+    day = data.split("/")[0];
+    month = data.split("/")[1];
+    year = data.split("/")[2];
     return year + '-' + ("0" + month).slice(-2) + '-' + ("0" + day).slice(-2);
 }
 
 function DmyFormat(data, splitter = '-') {
-     year = data.split("-")[0];
-     month = data.split("-")[1];
-     day = data.split("-")[2];
-     // console.log(year);
+    year = data.split("-")[0];
+    month = data.split("-")[1];
+    day = data.split("-")[2];
+    // console.log(year);
     return day + splitter + ("0" + month).slice(-2) + splitter + year;
 }
 
@@ -325,3 +325,37 @@ $(document).off('mouseenter').on('mouseenter', '#kt_content', function () {
 $(document).off('input').on("input", ".integer_type_positive", function (event) {
     this.value = this.value.replace(/[^0-9]/g, '');
 });
+
+function mFilerDrag(elem) {
+    console.log(elem)
+    $dropzone = elem;
+    input = elem;
+
+    $dropzone.ondragover = function (e) {
+        e.preventDefault();
+        this.classList.add('dragover');
+    };
+    $dropzone.ondragleave = function (e) {
+        e.preventDefault();
+        this.classList.remove('dragover');
+    };
+    $dropzone.ondrop = function (e) {
+        e.preventDefault();
+        this.classList.remove('dragover');
+        input.files = e.dataTransfer.files;
+        files = e.dataTransfer.files;
+        console.log(files)
+        // appendHtml = '';
+        // $.each(files, function (k, file) {
+        //     appendHtml += '<li class="jFiler-item"><div class="jFiler-item-container"><div class="jFiler-item-inner"><div class="jFiler-item-icon pull-left"><i></div><div class="jFiler-item-info pull-left"><div class="jFiler-item-title">' + file.name + '</div><div class="jFiler-item-others"><span>size: ' + file.size + '</span><span>type: ' + file.type + '</span><span class="jFiler-item-status"></span></div><div class="jFiler-item-assets"><ul class="list-inline"><li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li></ul></div></div></div></div></li>';
+        // })
+        // if ($('jFiler-dragged').length > 0) {
+        //     appendWrap = '<div class="jFiler-items jFiler-row jFiler-dragged"><ul class="jFiler-dragged-ul jFiler-items-list jFiler-items-default">';
+        //     appendWrap += appendHtml;
+        //     appendWrap += '</ul></div>';
+        // } else {
+        //     appendWrap = '';
+        //     appendWrap += appendHtml;
+        // }
+    }
+}

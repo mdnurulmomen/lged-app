@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="{{asset('assets/css/mFiler-font.css')}}" referrerpolicy="origin">
+<link rel="stylesheet" href="{{asset('assets/css/mFiler.css')}}" referrerpolicy="origin">
+
 <form id="memo_create_form" enctype="multipart/form-data" autocomplete="off">
     <div class="row p-4">
         <div class="col-md-8">
@@ -54,7 +57,7 @@
                     <div class="row mb-4">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-body" style="height: calc(100vh - 400px);padding: 10px;">
+                                <div class="card-body p-2">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <input class="form-control bijoy-bangla integer_type_positive mb-1"
@@ -130,20 +133,21 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-body" style="height: calc(100vh - 350px);padding: 10px;">
+                                <div class="card-body p-2">
                                     <div class="form-group">
                                         <label class="col-form-label">
                                             পরিশিষ্ট সংযুক্তি
                                         </label>
-                                        <input name="porisishtos[]" type="file" class="form-control rounded-0"
+                                        <input name="porisishtos[]" type="file" class="mFilerInit form-control rounded-0"
                                                accept="image/*,.pdf" multiple>
+
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">
                                             প্রমানক সংযুক্তি
                                         </label>
-                                        <input name="pramanoks[]" type="file" class="form-control rounded-0"
+                                        <input name="pramanoks[]" type="file" class="mFilerInit form-control rounded-0"
                                                accept="image/*,.pdf" multiple>
                                     </div>
 
@@ -151,7 +155,7 @@
                                         <label class="col-form-label">
                                             মেমো সংযুক্তি <span class="text-primary">(ঐচ্ছিক)</span>
                                         </label>
-                                        <input name="memos[]" type="file" class="form-control rounded-0"
+                                        <input name="memos[]" type="file" class="mFilerInit form-control rounded-0"
                                                accept="image/*,.pdf" multiple>
                                     </div>
                                 </div>
@@ -164,11 +168,18 @@
     </div>
 </form>
 
-
-
-
+<script src="{{asset('assets/js/mFiler.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
 <script>
+    $(document).ready(function () {
+        $('.mFilerInit').filer({
+            showThumbs: true,
+            addMore: true,
+            allowDuplicates: false
+        });
+
+    });
+
     tinymce.init({
         selector: '.kt-tinymce-1',
         menubar: false,
@@ -184,7 +195,8 @@
             'bullist numlist | outdent indent | advlist | autolink | lists charmap | print preview |  code'],
         plugins: 'advlist paste autolink link image lists charmap print preview code table',
         context_menu: 'link image table',
-        setup: function (editor) {},
+        setup: function (editor) {
+        },
     });
 
     //for submit form
@@ -195,11 +207,11 @@
             }
         });
 
-        $('#memo_submit').on('click', function(e){
+        $('#memo_submit').on('click', function (e) {
             e.preventDefault();
 
-            from_data = new FormData(document.getElementById("memo_create_form")) ;
-            from_data.append('memo_description_bn',tinymce.get("kt-tinymce-1").getContent())
+            from_data = new FormData(document.getElementById("memo_create_form"));
+            from_data.append('memo_description_bn', tinymce.get("kt-tinymce-1").getContent())
 
             $.ajax({
                 data: from_data,
@@ -213,8 +225,7 @@
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
                         $('.btn_back').click();
-                    }
-                    else {
+                    } else {
                         if (responseData.statusCode === '422') {
                             var errors = responseData.msg;
                             $.each(errors, function (k, v) {
@@ -222,8 +233,7 @@
                                     toastr.error(v);
                                 }
                             });
-                        }
-                        else {
+                        } else {
                             toastr.error(responseData.data);
                         }
                     }
@@ -234,7 +244,7 @@
                             if (isArray(v)) {
                                 $.each(v, function (n, m) {
                                     toastr.error(m)
-                                    console.log(m,n,v);
+                                    console.log(m, n, v);
                                 })
                             } else {
                                 if (v !== '') {
