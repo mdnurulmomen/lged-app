@@ -34,6 +34,10 @@
         <td style="width: 60%;padding-left: 2%">{{enTobn($annual_plan_info['total_unit_no'])}}</td>
     </tr>
     <tr>
+        <td class="annual-plan-title">নির্বাচিত ইউনিটের সংখ্যা</td>
+        <td style="width: 60%;padding-left: 2%">{{enTobn($annual_plan_info['nominated_office_counts'])}}</td>
+    </tr>
+    <tr>
         <td class="annual-plan-title">অডিটের জন্য প্রস্তাবিত ইউনিটের নাম</td>
         <td style="width: 60%;padding-left: 2%">
             @foreach($annual_plan_info['ap_entities'] as $ap_entities)
@@ -54,7 +58,7 @@
         <td style="width: 60%;padding-left: 2%">{{enTobn($annual_plan_info['budget'])}}</td>
     </tr>
     <tr>
-        <td class="annual-plan-title">নির্বাচিত ইউনিটের মোট বাজেট</td>
+        <td class="annual-plan-title"> নির্বাচিত ইউনিটের মোট বাজেট</td>
         <td style="width: 60%;padding-left: 2%">{{ enTobn($annual_plan_info['cost_center_total_budget'])}}</td>
     </tr>
     <tr>
