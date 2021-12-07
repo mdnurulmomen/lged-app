@@ -150,6 +150,8 @@ class AnnualPlanRevisedController extends Controller
 
     public function storeAnnualPlanInfo(Request $request): \Illuminate\Http\JsonResponse
     {
+//        dd($request->milestone_list);
+
         try {
             Validator::make($request->all(), [
                 'op_audit_calendar_event_id' => 'required',

@@ -572,21 +572,21 @@
                     }
                 }
                 if ($(this).hasClass('milestone_target_date')) {
-                    milestone_list[milestone_id]['milestone_target_date'] = $(this).val();
+                    milestone_list[milestone_id]['milestone_target_date'] = formatDate($(this).val());
                 }
                 if ($(this).hasClass('milestone_start_date')) {
                     if(!$(this).val()){
                         toastr.warning('Select start date');
                         return;
                     }
-                    milestone_list[milestone_id]['start_date'] = $(this).val();
+                    milestone_list[milestone_id]['start_date'] = formatDate($(this).val());
                 }
                 if ($(this).hasClass('milestone_end_date')) {
                     if(!$(this).val()){
                         toastr.warning('Select end date');
                         return;
                     }
-                    milestone_list[milestone_id]['end_date'] = $(this).val();
+                    milestone_list[milestone_id]['end_date'] = formatDate($(this).val());
                 }
             });
 
