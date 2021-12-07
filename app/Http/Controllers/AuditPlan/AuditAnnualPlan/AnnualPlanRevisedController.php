@@ -221,7 +221,6 @@ class AnnualPlanRevisedController extends Controller
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_update'), $data)->json();
             } else {
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
-                dd($store_plan);
             }
             if (isSuccess($store_plan)) {
                 return response()->json(['status' => 'success', 'data' => 'Added!']);
