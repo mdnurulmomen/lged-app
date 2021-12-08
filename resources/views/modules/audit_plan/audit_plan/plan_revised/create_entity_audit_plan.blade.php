@@ -83,10 +83,7 @@
             </div>
         </div>
     </div>
-
-
-    <div class="load-audit-schedule"></div>
-
+    <div class="load-office-wise-employee"></div>
 @endsection
 @section('scripts')
     @if($audit_plan['audit_type'] == 'compliance')
