@@ -190,7 +190,7 @@
             },
 
             viewQuery: function (elem) {
-                scope_authority = 1;
+                scope_authority = 0;
                 ac_query_id = elem.data('ac-query-id');
                 has_sent_to_rpu = elem.data('has-sent-to-rpu');
 
