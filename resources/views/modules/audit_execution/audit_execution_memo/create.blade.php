@@ -183,9 +183,9 @@
     tinymce.init({
         selector: '.kt-tinymce-1',
         menubar: false,
-        min_height: 600,
-        height: 600,
-        max_height: 640,
+        min_height: 400,
+        height: 400,
+        max_height: 400,
         branding: false,
         content_style: "body {font-family: solaimanlipi;font-size: 13pt;}",
         fontsize_formats: "8pt 10pt 12pt 13pt 14pt 18pt 24pt 36pt",

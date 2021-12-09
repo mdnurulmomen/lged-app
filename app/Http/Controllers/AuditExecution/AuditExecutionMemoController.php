@@ -233,8 +233,9 @@ class AuditExecutionMemoController extends Controller
             'memos' => 'required',
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
-        //dd($data);
+
         $memoSendToRpu = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.send_to_rpu'), $data)->json();
+//        dd($memoSendToRpu);
         if (isSuccess($memoSendToRpu)) {
             return response()->json(['status' => 'success', 'data' => 'Successfully! Memo has been saved']);
         } else {

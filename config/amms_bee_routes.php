@@ -225,6 +225,11 @@ return [
             'audit_memo_recommendation_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-recommendation-list',
             'audit_memo_log_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-log-list',
         ],
+
+        'apotti' => [
+            'list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-list',
+            'onucched_merge' => env('API_URL_BEE', '') . '/audit-conduct-apotti/onucched-merge',
+        ],
     ],
 
     'audit_report' => [

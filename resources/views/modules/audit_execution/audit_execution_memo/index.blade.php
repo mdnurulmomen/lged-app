@@ -210,7 +210,6 @@
         },
 
         memoLog: function (elem) {
-
             quick_panel = $("#kt_quick_panel");
             $(".offcanvas-title").text('Memo Log');
             quick_panel.addClass('offcanvas-on');
