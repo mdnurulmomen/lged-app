@@ -79,4 +79,54 @@
 @section('scripts')
     @include('scripts.air_report.create.script_create_air_report')
     @include('scripts.air_report.script_air_report')
+
+    <script>
+        $(function () {
+            Create_AIR_Container.insertAuditTeam();
+            Create_AIR_Container.insertAuditTeamSchedule();
+        });
+
+        Create_AIR_Container = {
+            setJsonContentFromPlanBook:function () {
+                templateArray.map(function (value, index) {
+                    cover = $("#pdfContent_" + value.content_id).html();
+                    value.content = cover;
+                });
+            },
+
+            insertAuditTeam: function () {
+                url = '{{route('audit.report.qc.air-report.get-audit-team')}}';
+                fiscal_year_id = '{{$fiscal_year_id}}';
+                activity_id = '{{$activity_id}}';
+                annual_plan_id = '{{$annual_plan_id}}';
+                audit_plan_id = '{{$audit_plan_id}}';
+                let data = {fiscal_year_id, activity_id, annual_plan_id, audit_plan_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data);
+                    } else {
+                        $('.audit_team').html(response);
+                        Create_AIR_Container.setJsonContentFromPlanBook();
+                    }
+                });
+            },
+
+            insertAuditTeamSchedule: function () {
+                url = '{{route('audit.report.qc.air-report.get-audit-team-schedule')}}';
+                fiscal_year_id = '{{$fiscal_year_id}}';
+                activity_id = '{{$activity_id}}';
+                annual_plan_id = '{{$annual_plan_id}}';
+                audit_plan_id = '{{$audit_plan_id}}';
+                let data = {fiscal_year_id, activity_id, annual_plan_id, audit_plan_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data);
+                    } else {
+                        $('.audit_schedule').html(response);
+                        Create_AIR_Container.setJsonContentFromPlanBook();
+                    }
+                });
+            },
+        }
+    </script>
 @endsection

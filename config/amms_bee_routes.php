@@ -237,6 +237,8 @@ return [
             'create_air_report' => env('API_URL_BEE', '') . '/audit-report/create-air-report',
             'load_approve_plan_list' => env('API_URL_BEE', '') . '/audit-report/load-approve-plan-list',
             'store_air_report' => env('API_URL_BEE', '') . '/audit-report/store-air-report',
+            'get_audit_team' => env('API_URL_BEE', '') . '/audit-report/get-audit-team',
+            'get_audit_team_schedule' => env('API_URL_BEE', '') . '/audit-report/get-audit-team-schedule',
         ]
     ],
 

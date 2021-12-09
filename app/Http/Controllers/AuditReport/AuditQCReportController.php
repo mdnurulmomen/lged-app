@@ -29,16 +29,10 @@ class AuditQCReportController extends Controller
         $data['template_type'] = 'air';
         $data['cdesk'] = $this->current_desk_json();
 
-        $fiscal_year_id = $request->fiscal_year_id;
-        $activity_id = $request->activity_id;
-        $annual_plan_id = $request->annual_plan_id;
-        $audit_plan_id = $request->audit_plan_id;
-
-
-        $auditReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.qc.create_air_report'), $data)->json();
-        //dd($auditReport);
-        if (isSuccess($auditReport)) {
-            $content = $auditReport['data']['content'];
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.qc.create_air_report'), $data)->json();
+        //dd($responseData);
+        if (isSuccess($responseData)) {
+            $content = $responseData['data']['content'];
 
             if ($this->current_office_id() == 19) {
                 $directorate_address = 'অডিট কমপ্লেক্স,১ম তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
@@ -53,12 +47,17 @@ class AuditQCReportController extends Controller
                 'directorate_address' => $directorate_address,
             ];
 
+            $fiscal_year_id = $request->fiscal_year_id;
+            $activity_id = $request->activity_id;
+            $annual_plan_id = $request->annual_plan_id;
+            $audit_plan_id = $request->audit_plan_id;
+
             return view('modules.audit_report.qc.create',
                 compact('content','cover_info','fiscal_year_id','activity_id',
                 'annual_plan_id','audit_plan_id'));
         }
         else {
-            return ['status' => 'error', 'data' => $auditReport['data']];
+            return ['status' => 'error', 'data' => $responseData['data']];
         }
     }
 
@@ -219,5 +218,36 @@ class AuditQCReportController extends Controller
         } else {
             return ['status' => 'error', 'data' => 'Somethings went wrong'];
         }
+    }
+
+
+    public function getAuditTeam(Request $request)
+    {
+        $requestData = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'activity_id' => 'required|integer',
+            'annual_plan_id' => 'required|integer',
+            'audit_plan_id' => 'required|integer',
+        ])->validate();
+
+        $requestData['cdesk'] =$this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.qc.get_audit_team'), $requestData)->json();
+        $auditTeamMembers = isSuccess($responseData)?$responseData['data']:[];
+        return view('modules.audit_report.qc.partials.load_audit_teams',compact('auditTeamMembers'));
+    }
+
+    public function getAuditTeamSchedule(Request $request)
+    {
+        $requestData = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'activity_id' => 'required|integer',
+            'annual_plan_id' => 'required|integer',
+            'audit_plan_id' => 'required|integer',
+        ])->validate();
+
+        $requestData['cdesk'] =$this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.qc.get_audit_team_schedule'), $requestData)->json();
+        $audit_team_schedules = isSuccess($responseData)?$responseData['data']:[];
+        return view('modules.audit_report.qc.partials.load_audit_team_schedules',compact('audit_team_schedules'));
     }
 }
