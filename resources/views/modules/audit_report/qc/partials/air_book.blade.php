@@ -783,14 +783,14 @@
 
 <body>
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
-    {{--<div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%">
         {!! $cover['content'] !!}
-    </div>--}}
+    </div>
 
     <div class="pdf-screen bangla-font" style="height: 100%">
-        @foreach($air_description as $air)
+        @foreach($airReports as $report)
             <div class="plan_content bangla-font">
-                {!! $air['content'] !!}
+                {!! $report['content'] !!}
             </div>
         @endforeach
     </div>

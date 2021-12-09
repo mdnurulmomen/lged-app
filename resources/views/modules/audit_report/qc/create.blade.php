@@ -27,11 +27,17 @@
         </div>
         <div class="col-md-6 text-right">
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
-            onclick="AIR_Container.generatePDF($(this))">
-                <i class="fad fa-download"></i> Download
+                onclick="AIR_Report_Container.previewAirReport($(this))">
+                <i class="fad fa-search"></i> Preview
             </button>
 
-            <button class="btn btn-sm btn-square btn-success btn-hover-success">
+            <button class="btn btn-sm btn-square btn-success btn-hover-success air_report_save"
+                data-air-id=""
+                data-activity-id="{{$activity_id}}"
+                data-fiscal-year-id="{{$fiscal_year_id}}"
+                data-annual-plan-id="{{$annual_plan_id}}"
+                data-audit-plan-id="{{$audit_plan_id}}"
+                onclick="AIR_Report_Container.storeAIRReportPlan($(this))">
                 <i class="fas fa-save"></i> Save
             </button>
         </div>

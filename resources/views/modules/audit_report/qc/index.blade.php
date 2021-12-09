@@ -55,16 +55,13 @@
         },
 
         loadAIRCreate: function (elem) {
-            url = '{{route('audit.report.qc.air-create')}}';
-            annual_plan_id = elem.data('annual-plan-id')
-            fiscal_year_id = elem.data('fiscal-year-id')
-            activity_id = elem.data('activity-id')
+            url = '{{route('audit.report.qc.air-report.create')}}';
+            fiscal_year_id = elem.data('fiscal-year-id');
+            activity_id = elem.data('activity-id');
+            annual_plan_id = elem.data('annual-plan-id');
+            audit_plan_id = elem.data('audit-plan-id');
 
-            data = {
-                activity_id,
-                annual_plan_id,
-                fiscal_year_id,
-            };
+            data = {fiscal_year_id,activity_id,annual_plan_id, audit_plan_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

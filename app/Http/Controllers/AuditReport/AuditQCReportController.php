@@ -24,10 +24,16 @@ class AuditQCReportController extends Controller
      *
      * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $data['template_type'] = 'air';
         $data['cdesk'] = $this->current_desk_json();
+
+        $fiscal_year_id = $request->fiscal_year_id;
+        $activity_id = $request->activity_id;
+        $annual_plan_id = $request->annual_plan_id;
+        $audit_plan_id = $request->audit_plan_id;
+
 
         $auditReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.qc.create_air_report'), $data)->json();
         //dd($auditReport);
@@ -48,7 +54,8 @@ class AuditQCReportController extends Controller
             ];
 
             return view('modules.audit_report.qc.create',
-                compact('content','cover_info'));
+                compact('content','cover_info','fiscal_year_id','activity_id',
+                'annual_plan_id','audit_plan_id'));
         }
         else {
             return ['status' => 'error', 'data' => $auditReport['data']];
@@ -63,6 +70,7 @@ class AuditQCReportController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->fiscal_year_id);
         Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
             'annual_plan_id' => 'required|integer',
@@ -71,8 +79,12 @@ class AuditQCReportController extends Controller
             'air_description' => 'required',
         ])->validate();
 
-        $data['plan_description'] = makeEncryptedData(gzcompress(json_encode($request->air_description)));
-        $data['status'] = 'approved';
+        $data['air_id'] = $request->air_id;
+        $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['activity_id'] = $request->activity_id;
+        $data['annual_plan_id'] = $request->annual_plan_id;
+        $data['audit_plan_id'] = $request->audit_plan_id;
+        $data['air_description'] = makeEncryptedData(gzcompress($request->air_description));
         $data['cdesk'] = $this->current_desk_json();
         $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.qc.store_air_report'), $data)->json();
         if (isSuccess($saveAirReport)) {
@@ -191,16 +203,21 @@ class AuditQCReportController extends Controller
 
     public function download(Request $request)
     {
-        $air_description = $request->air_description;
-        /*$cover = $air_description[0];
-        array_shift($air_description);*/
-        $cover ='';
+        //dd($request->air_description);
+        $airReports = $request->air_description;
+        $cover = $airReports[0];
+        array_shift($airReports);
 
-        //dd($air_description);
-
-        $pdf = \PDF::loadView('modules.audit_report.qc.partials.air_book',compact('air_description',
-            'cover'));
-        $fileName = 'air_' . date('D_M_j_Y') . '.pdf';
-        return $pdf->stream($fileName);
+        if ($request->scope == 'generate') {
+            $pdf = \PDF::loadView('modules.audit_report.qc.partials.air_book',
+                compact('airReports', 'cover'));
+            $fileName = 'Air_Report_' . date('D_M_j_Y') . '.pdf';
+            return $pdf->stream($fileName);
+        } elseif ($request->scope == 'preview') {
+            return view('modules.audit_report.qc.partials.preview_air_book',
+                compact('airReports', 'cover'));
+        } else {
+            return ['status' => 'error', 'data' => 'Somethings went wrong'];
+        }
     }
 }

@@ -133,6 +133,18 @@
                                     <div class="font-weight-normal d-none predict-wrapper">
                                         <span class="predict-label text-success "></span>
                                     </div>
+
+                                    <div class="d-flex mt-3">
+                                        @foreach($audit_plan['air_reports'] as $airReport)
+                                            <a href="javascript:;"
+                                               title="রিপোর্ট-{{enTobn($airReport['id'])}} বিস্তারিত দেখুন"
+                                               class="badge-square rounded-0 badge d-flex align-items-center alert-success
+                                                   font-weight-normal mr-1 border decision">
+                                                <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
+                                                রিপোর্ট: {{enTobn($airReport['id'])}}
+                                            </a>
+                                        @endforeach
+                                    </div>
                                 </div>
                                 <!--end::Title-->
                                 <!--begin::Info-->
@@ -153,8 +165,10 @@
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
                                             <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="নতুন এআইআর করুন"
-                                                    data-audit-plan-id="{{$audit_plan['id']}}"
+                                                    data-fiscal-year-id="{{$audit_plan['fiscal_year_id']}}"
+                                                    data-activity-id="{{$audit_plan['activity_id']}}"
                                                     data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                                                    data-audit-plan-id="{{$audit_plan['id']}}"
                                                     onclick="AIR_Container.loadAIRCreate($(this))">
                                                 <i class="fad fa-plus-circle"></i> নতুন এআইআর
                                             </button>
