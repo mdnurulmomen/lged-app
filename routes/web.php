@@ -437,7 +437,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::get('final-report', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'index'])->name('final_report');
 
-        Route::get('qc', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'index'])->name('qc');
+        Route::group(['as' => 'qc.', 'prefix' => 'qc/'], function () {
+            Route::get('/', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'index'])->name('index');
+            Route::post('load-audit-plan-list', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'loadAuditPlanList'])->name('load-audit-plan-list');
+            Route::post('air-create', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'create'])->name('air-create');
+            Route::post('air-download', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'download'])->name('air-download');
+            Route::post('store-air', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'download'])->name('air-download');
+        });
     });
 
     //Sub Modules
@@ -687,7 +693,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     });
 });
 
-// Route::get('/ajax-load', 'ajaxLoadPageController@getTemplate');
+
 Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
     Artisan::call('view:clear');

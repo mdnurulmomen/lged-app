@@ -7,7 +7,7 @@
 @endsection
 
 @section('sideMenu')
-    @include('modules.audit_report.partials.menu_report_dashboard')
+    @include('modules.audit_report.partials.menu_audit_report_qc')
 @endsection
 
 @section('content')

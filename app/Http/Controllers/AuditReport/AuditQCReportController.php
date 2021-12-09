@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AuditReport;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AuditQCReportController extends Controller
 {
@@ -13,6 +14,17 @@ class AuditQCReportController extends Controller
      * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index(Request $request)
+    {
+        $fiscal_years = $this->allFiscalYears();
+        return view('modules.audit_report.qc.index', compact('fiscal_years'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     */
+    public function create()
     {
         $data['template_type'] = 'air';
         $data['cdesk'] = $this->current_desk_json();
@@ -35,7 +47,7 @@ class AuditQCReportController extends Controller
                 'directorate_address' => $directorate_address,
             ];
 
-            return view('modules.audit_report.qc.index',
+            return view('modules.audit_report.qc.create',
                 compact('content','cover_info'));
         }
         else {
@@ -44,24 +56,30 @@ class AuditQCReportController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'annual_plan_id' => 'required|integer',
+            'audit_plan_id' => 'required|integer',
+            'activity_id' => 'required|integer',
+            'air_description' => 'required',
+        ])->validate();
+
+        $data['plan_description'] = makeEncryptedData(gzcompress(json_encode($request->air_description)));
+        $data['status'] = 'approved';
+        $data['cdesk'] = $this->current_desk_json();
+        $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.qc.store_air_report'), $data)->json();
+        if (isSuccess($saveAirReport)) {
+            return response()->json(['status' => 'success', 'data' => $saveAirReport['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $saveAirReport]);
+        }
     }
 
     /**
@@ -107,5 +125,37 @@ class AuditQCReportController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function loadAuditPlanList(Request $request)
+    {
+        $requestData = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'per_page' => 'required|integer',
+            'page' => 'required|integer',
+        ])->validate();
+
+        $requestData['cdesk'] =$this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.qc.load_approve_plan_list'), $requestData)->json();
+        //dd($responseData);
+        $data['audit_plans'] = isSuccess($responseData)?$responseData['data']:[];
+        $data['current_designation_id'] = $this->current_designation_id();
+        return view('modules.audit_report.qc.partials.load_audit_plans',$data);
+    }
+
+    public function download(Request $request)
+    {
+        $air_description = $request->air_description;
+        /*$cover = $air_description[0];
+        array_shift($air_description);*/
+        $cover ='';
+
+        //dd($air_description);
+
+        $pdf = \PDF::loadView('modules.audit_report.qc.partials.air_book',compact('air_description',
+            'cover'));
+        $fileName = 'air_' . date('D_M_j_Y') . '.pdf';
+        return $pdf->stream($fileName);
     }
 }

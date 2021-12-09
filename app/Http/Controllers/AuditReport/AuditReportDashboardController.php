@@ -14,7 +14,7 @@ class AuditReportDashboardController extends Controller
      */
     public function index()
     {
-        //
+        return view('modules.audit_report.index');
     }
 
     /**
