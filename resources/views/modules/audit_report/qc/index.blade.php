@@ -39,7 +39,7 @@
         loadAuditPlanList: function (page = 1, per_page = 200) {
             let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             if (fiscal_year_id) {
-                let url = '{{route('audit.report.qc.load-audit-plan-list')}}';
+                let url = '{{route('audit.report.qc.load-approved-plan-list')}}';
                 let data = {fiscal_year_id, page, per_page};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {

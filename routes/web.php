@@ -439,7 +439,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::group(['as' => 'qc.', 'prefix' => 'qc/'], function () {
             Route::get('/', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'index'])->name('index');
-            Route::post('load-audit-plan-list', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'loadAuditPlanList'])->name('load-audit-plan-list');
+            Route::post('load-approved-plan-list', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'loadApprovedAuditPlanList'])->name('load-approved-plan-list');
             Route::post('air-create', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'create'])->name('air-create');
             Route::post('air-download', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'download'])->name('air-download');
             Route::post('store-air', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'download'])->name('air-download');

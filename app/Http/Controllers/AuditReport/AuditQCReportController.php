@@ -111,9 +111,54 @@ class AuditQCReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function update(Request $request)
     {
-        //
+        $data = Validator::make($request->all(), [
+            'audit_plan_id' => 'required|integer',
+            'fiscal_year_id' => 'required|integer',
+            'annual_plan_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
+
+        if (isSuccess($audit_plan)) {
+            $audit_plan = $audit_plan['data'];
+            $parent_office_id = 0;
+            $content = json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])));
+            $activity_id = $audit_plan['activity_id'];
+            $annual_plan_id = $audit_plan['annual_plan_id'];
+            $fiscal_year_id = $request->fiscal_year_id;
+
+            $entities = [];
+            $entity_list = [];
+
+            foreach ($audit_plan['annual_plan']['ap_entities'] as $ap_entities) {
+                $entity = $ap_entities['entity_name_bn'];
+                $entities[] = $entity;
+
+                $entity_info = [
+                    'ministry_id' =>  $ap_entities['ministry_id'],
+                    'ministry_name_bn' =>  $ap_entities['ministry_name_bn'],
+                    'ministry_name_en' =>  $ap_entities['ministry_name_en'],
+                    'entity_id' =>  $ap_entities['entity_id'],
+                    'entity_name_bn' =>  $ap_entities['entity_name_bn'],
+                    'entity_name_en' =>  $ap_entities['entity_name_en'],
+                ];
+                $entity_list[] = $entity_info;
+            }
+
+            $entity_list = json_encode($entity_list);
+
+            return view('modules.audit_plan.audit_plan.plan_revised.edit_entity_audit_plan', compact('activity_id', 'annual_plan_id',
+                'audit_plan', 'content', 'fiscal_year_id', 'parent_office_id','entity_list'));
+        } else {
+            return ['status' => 'error', 'data' => $audit_plan];
+        }
     }
 
     /**
@@ -128,7 +173,7 @@ class AuditQCReportController extends Controller
     }
 
 
-    public function loadAuditPlanList(Request $request)
+    public function loadApprovedAuditPlanList(Request $request)
     {
         $requestData = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
