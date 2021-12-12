@@ -52,8 +52,8 @@
             <h6>ইস্যুকারী</h6>
             নামঃ {{$memoInfo['sender_officer_name_bn']}} <br>
             পদবিঃ {{$memoInfo['sender_designation_bn']}} <br>
-            দলনেতাঃ {{$memoInfo['sender_unit_name_bn']}} <br>
-            উপদলনেতাঃ {{$memoInfo['sender_unit_name_bn']}}
+            দলনেতাঃ  <br>
+            উপদলনেতাঃ 
         </div>
     </div>
 </div>
