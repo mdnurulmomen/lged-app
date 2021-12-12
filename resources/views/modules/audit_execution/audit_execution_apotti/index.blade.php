@@ -1,23 +1,25 @@
 <div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
+
             <div class="col-md-3">
-                <select class="form-select select-select2" id="directorate_filter">
-{{--                    @if(count($directorates) > 1)--}}
-{{--                        <option value="all">Select Directorate</option>--}}
-{{--                    @endif--}}
-{{--                    @foreach($directorates as $directorate)--}}
-{{--                        <option value="{{$directorate['office_id']}}">{{$directorate['office_name_en']}}</option>--}}
-{{--                    @endforeach--}}
+                <select class="form-select select-select2" id="fiscal_year_id">
+                    @foreach($fiscal_years as $fiscal_year)
+                        <option
+                            value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="col-md-3">
-                <select class="form-select select-select2" id="fiscal_year_id">
-{{--                    @foreach($fiscal_years as $fiscal_year)--}}
-{{--                        <option--}}
-{{--                            value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>--}}
-{{--                    @endforeach--}}
+                <select class="form-select select-select2" id="activity_id">
+                    <option value="">Select Activity</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <select class="form-select select-select2" id="audit_plan_id">
+                    <option value="">Select Plan</option>
                 </select>
             </div>
 
@@ -27,11 +29,11 @@
                 </select>
             </div>
 
-            <div class="col-md-3">
-                <select class="form-select select-select2" id="cost_center_filter">
-                    <option value="">All Cost Center</option>
-                </select>
-            </div>
+{{--            <div class="col-md-3">--}}
+{{--                <select class="form-select select-select2" id="cost_center_filter">--}}
+{{--                    <option value="">All Cost Center</option>--}}
+{{--                </select>--}}
+{{--            </div>--}}
         </div>
         <div class="row mt-2 mb-2">
             <div class="col-md-3">
@@ -115,12 +117,43 @@
 
 
 <script>
+    $(function () {
+        fiscal_year_id = $('#fiscal_year_id').val();
+        team_filter = $('#team_filter').val();
+        cost_center_id = $('#cost_center_filter').val();
+        Apotti_Container.loadApottiList(fiscal_year_id);
+        Apotti_Container.loadActivity(fiscal_year_id);
+
+    });
     var Apotti_Container = {
-        loadEntityList: function (directorate_id, fiscal_year_id) {
-            let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
-            let data = {directorate_id, fiscal_year_id};
+        loadActivity: function (fiscal_year_id) {
+            let url = '{{route('audit.plan.operational.activity.select')}}';
+            let data = {fiscal_year_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                console.log(response)
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        $('#activity_id').html(response);
+                    }
+                }
+            );
+        },
+        loadActivityWiseAuditPlan: function (fiscal_year_id,activity_id) {
+            let url = '{{route('audit.plan.operational.activity.audit-plan')}}';
+            let data = {fiscal_year_id,activity_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        $('#audit_plan_id').html(response);
+                    }
+                }
+            );
+        },
+        loadPlanWiseEntity: function (entity_list) {
+            let url = '{{route('audit.execution.apotti.audit-plan-wise-entity-select')}}';
+            let data = {entity_list};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -155,9 +188,9 @@
             );
         },
 
-        loadApottiList: function () {
+        loadApottiList: function (fiscal_year_id) {
             let url = '{{route('audit.execution.apotti.load-apotti-list')}}';
-            let data = {};
+            let data = {fiscal_year_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
@@ -169,10 +202,10 @@
         },
 
 
-        showMemo: function (element) {
-            url = '{{route('audit.execution.memo.show')}}'
-            memo_id = element.data('memo-id');
-            data = {memo_id};
+        showApotti: function (element) {
+            url = '{{route('audit.execution.apotti.onucched-show')}}'
+            apotti_id = element.data('apotti-id');
+            data = {apotti_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -184,11 +217,11 @@
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".offcanvas-title").text('মেমো');
+                    $(".offcanvas-title").text('বিস্তারিত');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
-                    quick_panel.css('width', '40%');
+                    quick_panel.css('width', '60%');
                     quick_panel.removeClass('d-none');
                     $("html").addClass("side-panel-overlay");
                     $(".offcanvas-wrapper").html(response);
@@ -197,23 +230,37 @@
         },
 
         mergeOnucched:function (){
-            quick_panel = $("#kt_quick_panel");
-            $(".offcanvas-title").text('Merge Onucched');
-            quick_panel.addClass('offcanvas-on');
-            quick_panel.css('opacity', 1);
-            quick_panel.css('width', '60%');
-            quick_panel.removeClass('d-none');
-            $("html").addClass("side-panel-overlay");
-            data:{}
-            let url = '{{route('audit.execution.apotti.onucched-merge-form')}}'
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'error') {
-                    toastr.error(response.data)
-                } else {
-                    $(".offcanvas-wrapper").html(response);
+            if($('.select-apotti').filter(':checked').length < 2){
+                toastr.warning('দয়া করে দুইয়ের অধিক আপত্তি বাছাই করুন');
+                return;
+            }
+            swal.fire({
+                title: 'আপনি কি একীভূত করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    quick_panel = $("#kt_quick_panel");
+                    $(".offcanvas-title").text('Merge Onucched');
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '60%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    data:{}
+                    let url = '{{route('audit.execution.apotti.onucched-merge-form')}}'
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        if (response.status === 'error') {
+                            toastr.error(response.data)
+                        } else {
+                            $(".offcanvas-wrapper").html(response);
+                        }
+                    });
                 }
             });
-
         },
 
         mergeOnucchedSubmit:function (){
@@ -233,29 +280,83 @@
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
-                    toastr.success(response.data)
+                    toastr.success(response.data);
+                    $('#kt_quick_panel_close').click();
+                    $('.apotti_menue a').trigger('click');
+                }
+            });
+        },
+
+        unMergeOnucched:function (elem){
+            is_combined = elem.data('is-combined');
+            if(!is_combined){
+                toastr.warning('ইহা একটি বিচ্ছিন্ন অনুচ্ছেদ');
+                return;
+            }
+            swal.fire({
+                title: 'আপনি কি বিচ্ছিন্ন করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    apotti_item_id = elem.data('apotti-item-id');
+                    data  = {apotti_item_id}
+                    let url = '{{route('audit.execution.apotti.onucched-unmerge')}}'
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        if (response.status === 'error') {
+                            toastr.error(response.data);
+                        } else {
+                            toastr.success(response.data);
+                            $('#kt_quick_panel_close').click();
+                            $('.apotti_menue a').trigger('click');
+                        }
+                    });
+                }
+            });
+        },
+
+        reArrangeOnucched:function (elem){
+            is_rearranged = elem.data('is-rearranged');
+            if(!is_rearranged){
+                toastr.warning('পুনঃবিন্যাস করে নিন');
+                return;
+            }
+            swal.fire({
+                title: 'আপনি কি পুনর্বিন্যাস করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    apotti_sequence = {};
+                    $('.apotti_sequence').each(function (){
+                        apotti_sequence[$(this).attr('data-apotti-id')] = {
+                            apotti_id: $(this).attr('data-apotti-id'),
+                            apotti_sequence: $(this).val(),
+                        }
+                    });
+
+                    data  = {apotti_sequence}
+
+                    let url = '{{route('audit.execution.apotti.onucched-rearrange')}}'
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        if (response.status === 'error') {
+                            toastr.error(response.data);
+                        } else {
+                            toastr.success(response.data);
+                            $('#kt_quick_panel_close').click();
+                            $('.apotti_menue a').trigger('click');
+                        }
+                    });
                 }
             });
         },
     };
-
-
-    $(function () {
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        team_filter = $('#team_filter').val();
-        cost_center_id = $('#cost_center_filter').val();
-
-        Apotti_Container.loadApottiList();
-
-        // if (directorate_id !== 'all') {
-        //     Authority_Memo_Container.loadMemoList(directorate_id, fiscal_year_id, cost_center_id, team_filter);
-        //     Authority_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
-        // } else {
-        //     toastr.info('Please select directorate.')
-        //     $('#load_team_calendar').html('');
-        // }
-    });
 
     $('#btn_filter').click(function () {
         directorate_id = $('#directorate_filter').val();
@@ -288,5 +389,16 @@
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
         Authority_Memo_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
+    });
+
+    $('#activity_id').change(function (){
+        activity_id = $('#activity_id').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
+        Apotti_Container.loadActivityWiseAuditPlan(fiscal_year_id,activity_id);
+    });
+
+    $('#audit_plan_id').change(function (){
+        entity_list = $(this).find(':selected').attr('data-entity-info');
+        Apotti_Container.loadPlanWiseEntity(entity_list);
     });
 </script>

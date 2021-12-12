@@ -16,7 +16,7 @@
                          icon="fal fa-list">Annual Calender
             </x-menu-item>
 
-            <x-menu-item class="annual_plan_calender" href="{{route('audit.execution.apotti.index')}}"
+            <x-menu-item class="apotti_menue" href="{{route('audit.execution.apotti.index')}}"
                          icon="fal fa-list">Apotti
             </x-menu-item>
 

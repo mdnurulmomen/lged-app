@@ -173,4 +173,45 @@ class AuditActivityController extends Controller
             return response()->json(['status' => 'error', 'data' => $deleteActivity]);
         }
     }
+
+    public function activitySelect(Request $request){
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+        ])->validate();
+
+        $all_activity = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_all_op_activity'),
+            $data)->json();
+
+//        dd($all_activity);
+
+        if (isSuccess($all_activity)) {
+            $all_activity = $all_activity['data'];
+            return view('modules.audit_plan.operational.audit_activity.activity_select', compact('all_activity'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $all_activity]);
+        }
+    }
+
+    public function activityWiseAuditPlan(Request $request){
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'activity_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+//        dd($data);
+
+        $all_audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.activity_wise_audit_plan'),
+            $data)->json();
+
+//        dd($all_audit_plan);
+
+        if (isSuccess($all_audit_plan)) {
+            $all_audit_plan = $all_audit_plan['data'];
+            return view('modules.audit_plan.operational.audit_activity.activity_wise_plan_select', compact('all_audit_plan'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $all_audit_plan]);
+        }
+    }
 }

@@ -71,6 +71,7 @@ return [
         'op_activity_show' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/show',
         'op_activity_update' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/update',
         'op_activity_delete' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/delete',
+        'activity_wise_audit_plan' => env('API_URL_BEE', '') . '/planning/operational-plan/activity/activity-wise-audit-plan',
 
         'op_activity_milestone_lists' => env('API_URL_BEE', '') . '/planning/operational-plan/activity-milestone',
         'op_activity_milestone_create' => env('API_URL_BEE', '') . '/planning/operational-plan/activity-milestone/create',
@@ -229,6 +230,9 @@ return [
         'apotti' => [
             'list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-list',
             'onucched_merge' => env('API_URL_BEE', '') . '/audit-conduct-apotti/onucched-merge',
+            'onucched_unmerge' => env('API_URL_BEE', '') . '/audit-conduct-apotti/onucched-unmerge',
+            'onucched_rearrange' => env('API_URL_BEE', '') . '/audit-conduct-apotti/onucched-rearrange',
+            'get_apotti_info' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-info',
         ],
     ],
 

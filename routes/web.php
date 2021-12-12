@@ -139,6 +139,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('load-outputs-by-outcome', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'loadOutputsByOutcome'])->name('activity.load.outputs.by.outcome');
             Route::post('load-create-output-activity-tree', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'loadCreateOutputActivityTree'])->name('activity.create.output.tree.load');
             Route::post('load-edit-activity-tree', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'loadEditActivityTree'])->name('activity.edit.tree.load');
+            Route::post('activity-select', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'activitySelect'])->name('activity.select');
+            Route::post('activity-wise-audit-plan', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'activityWiseAuditPlan'])->name('activity.audit-plan');
 
             Route::post('activity', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'show'])->name('activity.single');
 
@@ -387,7 +389,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('index', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'index'])->name('index');
             Route::post('load-apotti-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadApottiList'])->name('load-apotti-list');
             Route::post('onucched-merge', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedMarge'])->name('onucched-merge');
+            Route::post('onucched-unmerge', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedUnMarge'])->name('onucched-unmerge');
+            Route::post('onucched-rearrange', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedReArrange'])->name('onucched-rearrange');
             Route::post('onucched-merge-form', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedMargeForm'])->name('onucched-merge-form');
+            Route::post('onucched-show', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedShow'])->name('onucched-show');
+            Route::post('audit-plan-wise-entity', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'auditPlanWiseEntitySelect'])->name('audit-plan-wise-entity-select');
         });
     });
 

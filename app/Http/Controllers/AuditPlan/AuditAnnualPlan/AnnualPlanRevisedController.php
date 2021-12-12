@@ -102,12 +102,6 @@ class AnnualPlanRevisedController extends Controller
 
     public function addAnnualPlanInfo(Request $request)
     {
-//        $temp = url()->previous();
-//        dd($temp);
-//        dd(\URL::previous());
-        \Session::put('url', request()->fullUrl());
-//        dd(\Session::get('url'));
-
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
             'op_audit_calendar_event_id' => 'required|integer',
