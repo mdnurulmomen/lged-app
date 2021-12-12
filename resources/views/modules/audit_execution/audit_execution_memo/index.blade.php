@@ -29,6 +29,11 @@
                        data-cost-center-name-bn="{{$cost_center_name_bn}}"
                        data-audit-year-start="{{$audit_year_start}}"
                        data-audit-year-end="{{$audit_year_end}}"
+                       data-team-leader-name-bn="{{$team_leader_name}}"
+                       data-team-leader-designation-name-bn="{{$team_leader_designation_name}}"
+                       data-scope-sub-team-leader="{{$scope_sub_team_leader}}"
+                       data-sub-team-leader-name-bn="{{$sub_team_leader_name}}"
+                       data-sub-team-leader-designation-name-bn="{{$sub_team_leader_designation_name}}"
                        onclick="Memo_List_Container.createMemo($(this))"
                        title="মেমো তৈরি করুন"
                        href="javascript:;">
@@ -72,7 +77,14 @@
             cost_center_name_bn = elem.data('cost-center-name-bn');
             audit_year_start = elem.data('audit-year-start');
             audit_year_end = elem.data('audit-year-end');
-            data = {schedule_id,audit_plan_id,cost_center_id,cost_center_name_bn,audit_year_start,audit_year_end};
+            team_leader_name = elem.data('team-leader-name-bn');
+            team_leader_designation_name = elem.data('team-leader-designation-name-bn');
+            scope_sub_team_leader = elem.data('scope-sub-team-leader');
+            sub_team_leader_name = elem.data('sub-team-leader-name-bn');
+            sub_team_leader_designation_name = elem.data('sub-team-leader-designation-name-bn');
+            data = {schedule_id,audit_plan_id,cost_center_id,cost_center_name_bn,audit_year_start,audit_year_end,
+                team_leader_name,team_leader_designation_name,scope_sub_team_leader,
+                sub_team_leader_name,sub_team_leader_designation_name};
             let url = '{{route('audit.execution.memo.create')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {

@@ -21,9 +21,15 @@ class AuditExecutionMemoController extends Controller
         $cost_center_name_bn = $request->cost_center_name_bn;
         $audit_year_start = $request->audit_year_start;
         $audit_year_end = $request->audit_year_end;
+        $team_leader_name = $request->team_leader_name;
+        $team_leader_designation_name = $request->team_leader_designation_name;
+        $scope_sub_team_leader = $request->scope_sub_team_leader;
+        $sub_team_leader_name = $request->sub_team_leader_name;
+        $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
         return view('modules.audit_execution.audit_execution_memo.index',
-            compact('schedule_id','audit_plan_id','cost_center_id',
-            'cost_center_name_bn','audit_year_start','audit_year_end'));
+            compact('schedule_id','audit_plan_id','cost_center_id','cost_center_name_bn',
+                'audit_year_start','audit_year_end','team_leader_name','team_leader_designation_name',
+                'scope_sub_team_leader','sub_team_leader_name','sub_team_leader_designation_name'));
     }
 
     public function list(Request $request)
@@ -58,9 +64,16 @@ class AuditExecutionMemoController extends Controller
         $cost_center_name_bn = $request->cost_center_name_bn;
         $audit_year_start = $request->audit_year_start;
         $audit_year_end = $request->audit_year_end;
+        $team_leader_name = $request->team_leader_name;
+        $team_leader_designation_name = $request->team_leader_designation_name;
+        $scope_sub_team_leader = $request->scope_sub_team_leader;
+        $sub_team_leader_name = $request->sub_team_leader_name;
+        $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
+
         return view('modules.audit_execution.audit_execution_memo.create',
             compact('schedule_id','audit_plan_id','cost_center_id','cost_center_name_bn',
-                'audit_year_start','audit_year_end'));
+                'audit_year_start','audit_year_end','team_leader_name','team_leader_designation_name',
+                'scope_sub_team_leader','sub_team_leader_name','sub_team_leader_designation_name'));
     }
 
     /**
@@ -79,16 +92,13 @@ class AuditExecutionMemoController extends Controller
             'onishponno_jorito_ortho_poriman' => 'required',
             'audit_year_start' => 'required',
             'audit_year_end' => 'required',
-//            'memo_irregularity_type' => 'required',
-//            'memo_irregularity_sub_type' => 'required',
-//            'memo_type' => 'required',
-//            'memo_status' => 'required',
         ])->validate();
 
         $data = [
             ['name' => 'team_member_schedule_id', 'contents' => $request->schedule_id],
             ['name' => 'memo_title_bn', 'contents' => $request->memo_title_bn],
             ['name' => 'memo_description_bn', 'contents' => $request->memo_description_bn],
+            ['name' => 'irregularity_cause', 'contents' => $request->irregularity_cause],
             ['name' => 'response_of_rpu', 'contents' => $request->response_of_rpu],
             ['name' => 'audit_conclusion', 'contents' => $request->audit_conclusion],
             ['name' => 'audit_recommendation', 'contents' => $request->audit_recommendation],
@@ -100,6 +110,8 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'memo_irregularity_sub_type', 'contents' => $request->memo_irregularity_sub_type],
             ['name' => 'memo_type', 'contents' => $request->memo_type],
             ['name' => 'memo_status', 'contents' => $request->memo_status],
+            ['name' => 'rpu_acceptor_officer_name_bn', 'contents' => $request->rpu_acceptor_officer_name_bn],
+            ['name' => 'rpu_acceptor_designation_name_bn', 'contents' => $request->rpu_acceptor_designation_name_bn],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
 

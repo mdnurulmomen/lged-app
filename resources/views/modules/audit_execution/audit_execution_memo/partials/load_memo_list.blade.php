@@ -118,7 +118,7 @@
                                         <span class="font-size-14">
                                             {{$memo['memo_irregularity_type_name']}}
                                         </span>
-                                        <span class="label label-outline-danger label-pill label-inline">
+                                        <span class="label label-outline-warning label-pill label-inline">
                                             {{$memo['memo_type_name']}}
                                         </span>
                                     </div>
@@ -151,13 +151,15 @@
                                         <div class="d-flex align-items-center justify-content-md-end">
                                             <div class="mb-2 mt-3 soongukto-wrapper">
                                                 <div class="d-flex justify-content-end align-items-center">
-                                                    <button class="btn-attachment btn btn-outline-warning btn-sm" type="button"
-                                                            data-memo-id="{{$memo['id']}}"
-                                                            data-memo-title-bn="{{$memo['memo_title_bn']}}"
-                                                            onclick="Memo_List_Container.showMemoAttachment($(this))">
-                                                        <i class="fal fa-link" style="font-size:11px"></i>
-                                                        <span class="text-danger">{{enTobn(count($memo['ac_memo_attachments']))}}</span>
-                                                    </button>
+                                                    @if(count($memo['ac_memo_attachments']) >0)
+                                                        <button class="btn-attachment btn btn-outline-warning btn-sm" type="button"
+                                                                data-memo-id="{{$memo['id']}}"
+                                                                data-memo-title-bn="{{$memo['memo_title_bn']}}"
+                                                                onclick="Memo_List_Container.showMemoAttachment($(this))">
+                                                            <i class="fal fa-link" style="font-size:11px"></i>
+                                                            <span class="text-danger">{{enTobn(count($memo['ac_memo_attachments']))}}</span>
+                                                        </button>
+                                                    @endif
                                                     <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($memo['created_at'],'bn')}}</div>
                                                 </div>
                                             </div>

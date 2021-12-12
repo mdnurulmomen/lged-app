@@ -41,20 +41,19 @@
     <br>
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 50px;">
         <div style="float: left;width: 50%;text-align: center">
-            <img src="{{asset('assets/images/user_signature.png')}}" style="width: 150px!important;height: 70px!important;">
+            {{--<img src="{{asset('assets/images/user_signature.png')}}" style="width: 150px!important;height: 70px!important;">--}}
             {{--<img src="{{$memoInfo['rpu_acceptor_signature'] != NULL?$memoInfo['rpu_acceptor_signature'] : '' }}"
                  style="width: 150px!important;height: 70px!important;">--}}
-            <h6>সংশ্লিষ্ট প্রতিষ্ঠান প্রধানের স্বাক্ষর ও তারিখ</h6>
-            {{$memoInfo['rpu_acceptor_officer_name_bn']}} <br>
-            {{$memoInfo['rpu_acceptor_designation_name_bn']}} <br>
-            {{$memoInfo['rpu_acceptor_unit_name_bn']}}
+            <h6>অডিট ইউনিট/কস্ট সেন্টার</h6>
+            নামঃ {{$memoInfo['rpu_acceptor_officer_name_bn']}} <br>
+            পদবিঃ {{$memoInfo['rpu_acceptor_designation_name_bn']}}
         </div>
         <div style="text-align: center;float:right;width: 50%">
-            <img src="{{asset('assets/images/user_signature.png')}}" style="width: 150px!important;height: 70px!important;">
-            <h6>দলপ্রধানের স্বাক্ষর ও তারিখ</h6>
-            {{$memoInfo['sender_officer_name_bn']}} <br>
-            {{$memoInfo['sender_designation_bn']}} <br>
-            {{$memoInfo['sender_unit_name_bn']}}
+            <h6>ইস্যুকারী</h6>
+            নামঃ {{$memoInfo['sender_officer_name_bn']}} <br>
+            পদবিঃ {{$memoInfo['sender_designation_bn']}} <br>
+            দলনেতাঃ {{$memoInfo['sender_unit_name_bn']}} <br>
+            উপদলনেতাঃ {{$memoInfo['sender_unit_name_bn']}}
         </div>
     </div>
 </div>

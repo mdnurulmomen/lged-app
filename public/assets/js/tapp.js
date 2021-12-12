@@ -326,6 +326,19 @@ $(document).off('input').on("input", ".integer_type_positive", function (event) 
     this.value = this.value.replace(/[^0-9]/g, '');
 });
 
+
+$(document).off('input').on("input", ".amount_number_format", function (event) {
+    nStr = this.value.replace(/[^0-9]/g, '')+'';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    this.value = x1 + x2;
+});
+
 function mFilerDrag(elem) {
     console.log(elem)
     $dropzone = elem;

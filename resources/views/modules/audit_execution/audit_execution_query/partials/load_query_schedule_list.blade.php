@@ -105,7 +105,7 @@
                                             {{$schedule['cost_center_name_bn']}}
                                         </span>
                                         @if ((now()->toDateString() >= date('Y-m-d', strtotime($schedule['team_member_start_date']))) && (now()->toDateString() <= date('Y-m-d', strtotime($schedule['team_member_end_date']))))
-                                            <span class="ml-2 label label-outline-danger label-pill label-inline">{{__('চলমান')}}</span>
+                                            <span class="ml-2 label label-outline-warning label-pill label-inline">{{__('চলমান')}}</span>
                                         @endif
                                     </div>
 
@@ -137,29 +137,38 @@
                                             </div>
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
-                                            <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
-                                                    title="কোয়েরি"
-                                                    onclick="Audit_Query_Schedule_Container.query($(this))"
-                                                    data-schedule-id="{{$schedule['id']}}"
-                                                    data-cost-center-id="{{$schedule['cost_center_id']}}"
-                                                    data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
-                                                    data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
-                                                    type="button" {{$schedule['office_order'] != null && $schedule['office_order']['approved_status'] != 'approved'?'disabled':''}}>
-                                                <i class="fad fa-clipboard-list"></i> কোয়েরি
-                                            </button>
+                                            @if($schedule['office_order'] != null && $schedule['office_order']['approved_status'] == 'approved')
+                                                <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
+                                                        title="কোয়েরি"
+                                                        onclick="Audit_Query_Schedule_Container.query($(this))"
+                                                        data-schedule-id="{{$schedule['id']}}"
+                                                        data-cost-center-id="{{$schedule['cost_center_id']}}"
+                                                        data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
+                                                        data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}">
+                                                    <i class="fad fa-clipboard-list"></i> কোয়েরি
+                                                </button>
 
-                                            <button class="mr-3 btn btn-sm btn-outline-warning btn-square"
-                                                    title="মেমো"
-                                                    data-schedule-id="{{$schedule['id']}}"
-                                                    data-audit-plan-id="{{$schedule['audit_plan_id']}}"
-                                                    data-cost-center-id="{{$schedule['cost_center_id']}}"
-                                                    data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
-                                                    data-audit-year-start="{{$schedule['plan_team']['audit_year_start']}}"
-                                                    data-audit-year-end="{{$schedule['plan_team']['audit_year_end']}}"
-                                                    {{$schedule['office_order'] != null && $schedule['office_order']['approved_status'] != 'approved'?'disabled':''}}
-                                                    onclick="Audit_Query_Schedule_Container.memo($(this))">
-                                                <i class="fad fa-clipboard-list"></i> মেমো
-                                            </button>
+                                                <button class="mr-3 btn btn-sm btn-outline-warning btn-square"
+                                                        title="মেমো"
+                                                        data-schedule-id="{{$schedule['id']}}"
+                                                        data-audit-plan-id="{{$schedule['audit_plan_id']}}"
+                                                        data-cost-center-id="{{$schedule['cost_center_id']}}"
+                                                        data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
+                                                        data-audit-year-start="{{$schedule['plan_team']['audit_year_start']}}"
+                                                        data-audit-year-end="{{$schedule['plan_team']['audit_year_end']}}"
+                                                        data-team-leader-name-bn="{{$schedule['plan_parent_team']['leader_name_bn']}}"
+                                                        data-team-leader-designation-name-bn="{{$schedule['plan_parent_team']['leader_designation_name_bn']}}"
+                                                        data-scope-sub-team-leader="{{$schedule['plan_team']['team_parent_id']}}"
+                                                        data-sub-team-leader-name-bn="{{$schedule['plan_team']['leader_name_bn']}}"
+                                                        data-sub-team-leader-designation-name-bn="{{$schedule['plan_team']['leader_designation_name_bn']}}"
+                                                        onclick="Audit_Query_Schedule_Container.memo($(this))">
+                                                    <i class="fad fa-clipboard-list"></i> মেমো
+                                                </button>
+                                            @else
+                                                <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="অননুমোদিত অফিস আদেশ">
+                                                    <i class="fad fa-info-square"></i> অননুমোদিত
+                                                </button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
