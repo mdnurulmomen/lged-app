@@ -250,4 +250,30 @@ class AuditQCReportController extends Controller
         $audit_team_schedules = isSuccess($responseData)?$responseData['data']:[];
         return view('modules.audit_report.qc.partials.load_audit_team_schedules',compact('audit_team_schedules'));
     }
+
+    public function getAuditApottiSummary(Request $request)
+    {
+        $requestData = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'audit_plan_id' => 'required|integer',
+        ])->validate();
+
+        $requestData['cdesk'] =$this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.qc.get_audit_apotti'), $requestData)->json();
+        $apottis = isSuccess($responseData)?$responseData['data']:[];
+        return view('modules.audit_report.qc.partials.load_audit_apottis_summary',compact('apottis'));
+    }
+
+    public function getAuditApottiDetails(Request $request)
+    {
+        $requestData = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'audit_plan_id' => 'required|integer',
+        ])->validate();
+
+        $requestData['cdesk'] =$this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.qc.get_audit_apotti'), $requestData)->json();
+        $apottis = isSuccess($responseData)?$responseData['data']:[];
+        return view('modules.audit_report.qc.partials.load_audit_apottis_details',compact('apottis'));
+    }
 }

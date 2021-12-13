@@ -848,12 +848,12 @@
                     <tr>
                         <td width="20%">দলনেতা</td>
                         <td width="5%">:</td>
-                        <td width="75%">{{$memoInfo['sender_officer_name_bn']}}</td>
+                        <td width="75%"></td>
                     </tr>
                     <tr>
                         <td width="20%">উপদলনেতা</td>
                         <td width="5%">:</td>
-                        <td width="75%">{{$memoInfo['sender_officer_name_bn']}}</td>
+                        <td width="75%"></td>
                     </tr>
                 </table>
             </div>

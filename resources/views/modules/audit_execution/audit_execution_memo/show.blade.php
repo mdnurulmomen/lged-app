@@ -53,7 +53,7 @@
             নামঃ {{$memoInfo['sender_officer_name_bn']}} <br>
             পদবিঃ {{$memoInfo['sender_designation_bn']}} <br>
             দলনেতাঃ  <br>
-            উপদলনেতাঃ 
+            উপদলনেতাঃ
         </div>
     </div>
 </div>

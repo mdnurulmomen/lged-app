@@ -21,7 +21,7 @@
                     <a href="">
                         <i title="Back To Audit Plan" class="fad fa-backward mr-3"></i>
                     </a>
-                    Create AIR Report
+                    প্রাথমিক এআইআর
                 </h4>
             </div>
         </div>
@@ -84,6 +84,8 @@
         $(function () {
             Create_AIR_Container.insertAuditTeam();
             Create_AIR_Container.insertAuditTeamSchedule();
+            Create_AIR_Container.insertAuditApottiSummary();
+            Create_AIR_Container.insertAuditApottiDetails();
         });
 
         Create_AIR_Container = {
@@ -123,6 +125,36 @@
                         toastr.error(response.data);
                     } else {
                         $('.audit_schedule').html(response);
+                        Create_AIR_Container.setJsonContentFromPlanBook();
+                    }
+                });
+            },
+
+            insertAuditApottiSummary: function () {
+                url = '{{route('audit.report.qc.air-report.get-audit-apotti-summary')}}';
+                fiscal_year_id = '{{$fiscal_year_id}}';
+                audit_plan_id = '{{$audit_plan_id}}';
+                let data = {fiscal_year_id, audit_plan_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data);
+                    } else {
+                        $('.audit_apotti_summary').html(response);
+                        Create_AIR_Container.setJsonContentFromPlanBook();
+                    }
+                });
+            },
+
+            insertAuditApottiDetails: function () {
+                url = '{{route('audit.report.qc.air-report.get-audit-apotti-details')}}';
+                fiscal_year_id = '{{$fiscal_year_id}}';
+                audit_plan_id = '{{$audit_plan_id}}';
+                let data = {fiscal_year_id, audit_plan_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data);
+                    } else {
+                        $('.audit_apotti_details').html(response);
                         Create_AIR_Container.setJsonContentFromPlanBook();
                     }
                 });

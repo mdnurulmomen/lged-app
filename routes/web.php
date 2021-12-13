@@ -453,6 +453,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('download', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'download'])->name('download');
                 Route::post('get-audit-team', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'getAuditTeam'])->name('get-audit-team');
                 Route::post('get-audit-team-schedule', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'getAuditTeamSchedule'])->name('get-audit-team-schedule');
+                Route::post('get-audit-apotti-summary', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'getAuditApottiSummary'])->name('get-audit-apotti-summary');
+                Route::post('get-audit-apotti-details', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'getAuditApottiDetails'])->name('get-audit-apotti-details');
             });
         });
     });
