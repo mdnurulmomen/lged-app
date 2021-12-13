@@ -51,10 +51,12 @@ class AuditQCReportController extends Controller
             $activity_id = $request->activity_id;
             $annual_plan_id = $request->annual_plan_id;
             $audit_plan_id = $request->audit_plan_id;
+            $audit_year = '২০১৯-২০২০';
+            $audit_plan_entities = $request->audit_plan_entities;
 
             return view('modules.audit_report.qc.create',
                 compact('content','cover_info','fiscal_year_id','activity_id',
-                'annual_plan_id','audit_plan_id'));
+                'annual_plan_id','audit_plan_id','audit_year','audit_plan_entities'));
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];

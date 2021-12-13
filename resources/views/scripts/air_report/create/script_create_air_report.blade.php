@@ -62,6 +62,9 @@
     function setCoverInformation() {
         $('.directorate_name').html("{{$cover_info['directorate_name']}}");
         $('.directorate_address_cover').html("{{$cover_info['directorate_address']}}");
+        $('.audit_year').html("{{$audit_year}}");
+        $('.entity_name').html("{{$audit_plan_entities}}");
+        $('.audit_type').html("কমপ্লায়েন্স অডিট");
     }
 
     function checkIdAndSetContentTinyMce(e) {

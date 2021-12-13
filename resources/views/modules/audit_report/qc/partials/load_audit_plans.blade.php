@@ -169,6 +169,7 @@
                                                     data-activity-id="{{$audit_plan['activity_id']}}"
                                                     data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
                                                     data-audit-plan-id="{{$audit_plan['id']}}"
+                                                    data-audit-plan-entities="{{implode(' , ', array_unique($entities))}}"
                                                     onclick="AIR_Container.loadAIRCreate($(this))">
                                                 <i class="fad fa-plus-circle"></i> নতুন এআইআর
                                             </button>

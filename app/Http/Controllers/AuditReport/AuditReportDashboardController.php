@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class AuditReportDashboardController extends Controller
 {
+    public function apottiPage()
+    {
+        return view('modules.audit_execution.audit_execution_apotti.page');
+    }
+
     /**
      * Display a listing of the resource.
      *

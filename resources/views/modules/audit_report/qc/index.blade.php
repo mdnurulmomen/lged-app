@@ -60,8 +60,9 @@
             activity_id = elem.data('activity-id');
             annual_plan_id = elem.data('annual-plan-id');
             audit_plan_id = elem.data('audit-plan-id');
+            audit_plan_entities = elem.data('audit-plan-entities');
 
-            data = {fiscal_year_id,activity_id,annual_plan_id, audit_plan_id};
+            data = {fiscal_year_id,activity_id,annual_plan_id, audit_plan_id,audit_plan_entities};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

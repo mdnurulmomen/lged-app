@@ -386,6 +386,10 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         });
 
         Route::group(['as' => 'apotti.', 'prefix' => 'apotti/'], function () {
+            Route::get('/', function () {
+                return redirect()->route('audit.execution.apotti.dashboard');
+            });
+            Route::get('dashboard', [\App\Http\Controllers\AuditReport\AuditReportDashboardController::class, 'apottiPage'])->name('dashboard');
             Route::get('index', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'index'])->name('index');
             Route::post('load-apotti-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadApottiList'])->name('load-apotti-list');
             Route::post('onucched-merge', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedMarge'])->name('onucched-merge');

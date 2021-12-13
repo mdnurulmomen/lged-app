@@ -4,17 +4,14 @@
          data-menu-dropdown-timeout="500">
         <!--begin::Menu Nav-->
         <ul class="menu-nav">
-            <x-menu-item class="menu-item-active" href="{{route('audit.plan.annual.dashboard')}}"
+            <x-menu-item class="menu-item-active" href="#"
                          icon="fal fa-tachometer-alt-average">Dashboard
             </x-menu-item>
             <hr>
-            <x-menu-item class="annual_plan_menu" href="{{route('audit.plan.annual.plan.revised.all')}}"
-                         icon="fal fa-list">Annual Plan
+            <x-menu-item class="apotti_menue" href="{{route('audit.execution.apotti.index')}}"
+                         icon="fal fa-list">Apotti
             </x-menu-item>
 
-            <x-menu-item class="annual_plan_calender" href="{{route('audit.plan.annual.plan.annual-plan-calender')}}"
-                         icon="fal fa-list">Annual Calender
-            </x-menu-item>
         </ul>
         <!--end::Menu Nav-->
     </div>
