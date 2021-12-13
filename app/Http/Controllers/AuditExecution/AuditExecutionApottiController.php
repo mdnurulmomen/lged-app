@@ -169,8 +169,8 @@ class AuditExecutionApottiController extends Controller
         ])->validate();
 
         $data = [
-            'apotti_id' => $request->apotti_id,
             'cdesk' => $this->current_desk_json(),
+            'apotti_id' => $request->apotti_id,
             'onucched_no' => $request->onucched_no,
             'apotti_title' => $request->apotti_title,
             'apotti_description' => $request->apotti_description,
@@ -180,14 +180,13 @@ class AuditExecutionApottiController extends Controller
             'audit_recommendation' => $request->audit_recommendation,
         ];
 
-        $apotti_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.update_apotti'), $data)->json();
+        $apotti_update = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.update_apotti'), $data)->json();
 
-        if (isSuccess($apotti_info)) {
-            $apotti_info = $apotti_info['data'];
-            return view('modules.audit_execution.audit_execution_apotti.apotti_edit',
-                compact('apotti_info'));
+        if (isSuccess($apotti_update)) {
+            $apotti_update = $apotti_update['data'];
+            return response()->json(['status' => 'success', 'data' => $apotti_update]);
         } else {
-            return response()->json(['status' => 'error', 'data' => $apotti_info]);
+            return response()->json(['status' => 'error', 'data' => $apotti_update]);
         }
     }
 

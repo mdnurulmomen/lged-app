@@ -65,7 +65,7 @@
 
     <tbody>
     @forelse($apotti_list['data'] as $apotti)
-        <tr>
+        <tr class="text-center">
             <td>
                 <span class="input-group-text bg-transparent border-0">
                       <label class="checkbox">
@@ -98,12 +98,12 @@
                 <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
                         data-apotti-id="{{$apotti['id']}}"
                         onclick="Apotti_Container.showApotti($(this))">
-                    <i class="fad fa-eye"></i>
+                    <i class="fad fa-eye"></i>বিস্তারিত
                 </button>
-                <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
+                <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
                         data-apotti-id="{{$apotti['id']}}"
                         onclick="Apotti_Container.editApotti($(this))">
-                    <i class="fad fa-pencil"></i>
+                    <i class="fad fa-pencil"></i>সম্পাদনা
                 </button>
             </td>
         </tr>

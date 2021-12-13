@@ -268,8 +268,7 @@
                     toastr.error(response.data)
                 } else {
                     toastr.success(response.data);
-                    $('#kt_quick_panel_close').click();
-                    // $('.apotti_menue a').trigger('click');
+                    $('.apotti_menue a').trigger('click');
                 }
             });
         },
