@@ -100,6 +100,11 @@
                         onclick="Apotti_Container.showApotti($(this))">
                     <i class="fad fa-eye"></i>
                 </button>
+                <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
+                        data-apotti-id="{{$apotti['id']}}"
+                        onclick="Apotti_Container.editApotti($(this))">
+                    <i class="fad fa-pencil"></i>
+                </button>
             </td>
         </tr>
     @empty

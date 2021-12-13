@@ -1,35 +1,29 @@
-
 <div class="row ml-1 mt-2">
     <div class="col-7">
         <div class="card">
             <div class="card-body p-4">
                 <form id="onucched_marge_form">
                     <div class="form-row pt-4">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label class="col-form-label"> অনুচ্ছেদ নং</label>
-                            <input class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নং" value="">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="col-form-label"> জড়িত অর্থ (টাকা) </label>
-                            <input class="form-control" name="total_jorito_ortho_poriman" readonly value="{{$jorito_ourtho}}">
+                            <input class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নং" value="{{$apotti_info['onucched_no']}}">
                         </div>
 
                         <div class="col-md-12">
                             <label class="col-form-label"> আপত্তির শিরোনাম লিখুন</label>
                             <input class="form-control" name="apotti_title" placeholder="আপত্তির শিরোনাম লিখুন"
-                                   value="">
+                                   value="{{$apotti_info['apotti_title']}}">
                         </div>
 
                         <div class="col-md-12 mb-2">
-                            <textarea id="kt-tinymce-1" name="apotti_description" class="kt-tinymce-1"></textarea>
+                            <textarea id="kt-tinymce-1" name="apotti_description" class="kt-tinymce-1">{!! $apotti_info['apotti_description'] !!}</textarea>
                         </div>
 
                         <div class="col-md-12 mb-2">
                             <label class="col-form-label">অনিয়মের কারণ</label>
                             <textarea class="form-control mb-1" name="irregularity_cause" placeholder="অনিয়মের কারণ"
                                       cols="30"
-                                      rows="2"></textarea>
+                                      rows="2">{{$apotti_info['irregularity_cause']}}</textarea>
                         </div>
 
                         <div class="col-md-12 mb-2">
@@ -37,26 +31,26 @@
                             <textarea class="form-control mb-1" name="response_of_rpu"
                                       placeholder="নিরীক্ষিত প্রতিষ্ঠানের জবাব"
                                       cols="30"
-                                      rows="2"></textarea>
+                                      rows="2">{{$apotti_info['response_of_rpu']}}</textarea>
                         </div>
 
                         <div class="col-md-12 mb-2">
                             <label class="col-form-label">নিরীক্ষা মন্তব্য</label>
                             <textarea class="form-control mb-1" name="audit_conclusion" placeholder="নিরীক্ষা মন্তব্য"
                                       cols="30"
-                                      rows="2"></textarea>
+                                      rows="2">{{$apotti_info['audit_conclusion']}}</textarea>
                         </div>
 
                         <div class="col-md-12 mb-2">
                             <label class="col-form-label">নিরীক্ষার সুপারিশ</label>
                             <textarea class="form-control mb-1" name="audit_recommendation"
                                       placeholder="নিরীক্ষার সুপারিশ" cols="30"
-                                      rows="2"></textarea>
+                                      rows="2">{{$apotti_info['audit_recommendation']}}</textarea>
                         </div>
                     </div>
                     <button type="button" class="btn btn-sm btn-square btn-outline-primary mr-2"
-                            data-apotti-ids = "{{$apotti_ids}}"
-                            onclick="Apotti_Container.mergeOnucchedSubmit($(this))"><i class="fa fa-save"></i> সংরক্ষণ
+                            data-apotti-id = "{{$apotti_info['id']}}"
+                            onclick="Apotti_Container.updateApotti($(this))"><i class="fa fa-save"></i> সংরক্ষণ
                     </button>
                 </form>
             </div>
@@ -70,8 +64,8 @@
                         <label class="col-form-label"> অনুচ্ছেদ</label>
                         <select id="selected_onucched" class="form-control select-selct2">
                             <option value="">অনুচ্ছেদ বাছাই করুন</option>
-                            @foreach($apotti_item_list as $apotti_item)
-                                <option value="{{$apotti_item['apotti_item_id']}}">{{$apotti_item['memo_title_bn']}}</option>
+                            @foreach($apotti_info['apotti_items'] as $apotti_item)
+                                <option value="{{$apotti_item['id']}}">{{$apotti_item['memo_title_bn']}}</option>
                             @endforeach
                         </select>
                     </div>

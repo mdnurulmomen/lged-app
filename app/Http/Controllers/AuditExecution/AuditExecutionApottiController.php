@@ -38,7 +38,25 @@ class AuditExecutionApottiController extends Controller
 
     public function onucchedMargeForm(Request $request)
     {
-        return view('modules.audit_execution.audit_execution_apotti.partial.onucched_form');
+        $data = Validator::make($request->all(), [
+            'apottiId' => 'required',
+        ])->validate();
+        $data['cdesk'] = $this->current_desk_json();
+
+        $apotti_item_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.apotti_wise_all_tiem'), $data)->json();
+
+
+        if (isSuccess($apotti_item_list)) {
+            $apotti_item_list = $apotti_item_list['data'];
+            $jorito_ourtho = 0;
+            foreach ($apotti_item_list as $apotti_item){
+                $jorito_ourtho += $apotti_item['jorito_ortho_poriman'];
+            }
+            $apotti_ids = json_encode($request->apottiId);
+            return view('modules.audit_execution.audit_execution_apotti.partial.onucched_form',compact('apotti_item_list','apotti_ids','jorito_ourtho'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $apotti_item_list]);
+        }
     }
 
     public function onucchedMarge(Request $request)
@@ -48,14 +66,13 @@ class AuditExecutionApottiController extends Controller
                 'onucched_no' => $request->onucched_no,
                 'apotti_title' => $request->apotti_title,
                 'apotti_description' => $request->apotti_description,
+                'total_jorito_ortho_poriman' => $request->total_jorito_ortho_poriman,
                 'irregularity_cause' => $request->irregularity_cause,
                 'response_of_rpu' => $request->response_of_rpu,
                 'audit_conclusion' => $request->audit_conclusion,
                 'audit_recommendation' => $request->audit_recommendation,
                 'apotti_id' => json_decode($request->apottiId,true),
             ];
-
-//        dd($data);
 
         $merged_apotti = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.onucched_merge'), $data)->json();
 
@@ -125,7 +142,76 @@ class AuditExecutionApottiController extends Controller
         }
     }
 
+    public function editApotti(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'apotti_id' => 'required',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+
+        $apotti_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.get_apotti_info'), $data)->json();
+//        dd($apotti_info);
+        if (isSuccess($apotti_info)) {
+            $apotti_info = $apotti_info['data'];
+            return view('modules.audit_execution.audit_execution_apotti.apotti_edit',
+                compact('apotti_info'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $apotti_info]);
+        }
+    }
+
+    public function updateApotti(Request $request){
+
+        Validator::make($request->all(), [
+            'apotti_id' => 'required',
+        ])->validate();
+
+        $data = [
+            'apotti_id' => $request->apotti_id,
+            'cdesk' => $this->current_desk_json(),
+            'onucched_no' => $request->onucched_no,
+            'apotti_title' => $request->apotti_title,
+            'apotti_description' => $request->apotti_description,
+            'irregularity_cause' => $request->irregularity_cause,
+            'response_of_rpu' => $request->response_of_rpu,
+            'audit_conclusion' => $request->audit_conclusion,
+            'audit_recommendation' => $request->audit_recommendation,
+        ];
+
+        $apotti_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.update_apotti'), $data)->json();
+
+        if (isSuccess($apotti_info)) {
+            $apotti_info = $apotti_info['data'];
+            return view('modules.audit_execution.audit_execution_apotti.apotti_edit',
+                compact('apotti_info'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $apotti_info]);
+        }
+    }
+
     public function auditPlanWiseEntitySelect(Request $request){
-        dd($request->all());
+        $entity_list = json_decode($request->entity_list,true);
+        return view('modules.audit_execution.audit_execution_apotti.plan_wise_enitity_select',
+            compact('entity_list'));
+    }
+
+    public function apottiItemInfo(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'apotti_item_id' => 'required',
+        ])->validate();
+        $data['cdesk'] = $this->current_desk_json();
+
+        $apotti_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.get_apotti_item_info'), $data)->json();
+//        dd($apotti_info);
+        if (isSuccess($apotti_info)) {
+            $apotti_info = $apotti_info['data'];
+            return view('modules.audit_execution.audit_execution_apotti.apotti_item_show',
+                compact('apotti_info'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $apotti_info]);
+        }
     }
 }

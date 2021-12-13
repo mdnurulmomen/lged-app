@@ -24,87 +24,85 @@
             </div>
 
             <div class="col-md-3">
-                <select class="form-select select-select2" id="entity_filter">
+                <select class="form-select select-select2" id="entity_id">
                     <option value="">All Entity</option>
                 </select>
             </div>
-
-{{--            <div class="col-md-3">--}}
-{{--                <select class="form-select select-select2" id="cost_center_filter">--}}
-{{--                    <option value="">All Cost Center</option>--}}
-{{--                </select>--}}
-{{--            </div>--}}
         </div>
         <div class="row mt-2 mb-2">
+            <div class="col-md-3">
+                <select class="form-select select-select2" id="cost_center_filter">
+                    <option value="">All Cost Center</option>
+                </select>
+            </div>
             <div class="col-md-3">
                 <select class="form-select select-select2" id="team_filter">
                     <option value="">All Teams</option>
                 </select>
             </div>
-            <div class="col-md-3">
-                <select class="form-select select-select2" id="memo_irregularity_type">
-                    <option value="">আপত্তি অনিয়মের ধরন</option>
-                    <option value="1">আত্মসাত, চুরি, প্রতারণা ও জালিয়াতিমূলক</option>
-                    <option value="2">সরকারের আর্থিক ক্ষতি</option>
-                    <option value="3">বিধি ও পদ্ধতিগত অনিয়ম</option>
-                    <option value="4">বিশেষ ধরনের আপত্তি</option>
-                </select>
-            </div>
-
-            <div class="col-md-3">
-                <select class="form-select select-select2" id="memo_irregularity_sub_type">
-                    <option value="">আপত্তি অনিয়মের সাব-ধরন</option>
-                    <option value="1">ভ্যাট-আইটিসহ সরকারি প্রাপ্য আদায় না করা</option>
-                    <option value="2">কম আদায় করা</option>
-                    <option value="3">আদায় করা সত্ত্বেও কোষাগারে জমা না করা</option>
-                    <option value="4">বাজার দর অপেক্ষা উচ্চমূল্যে ক্রয় কার্য সম্পাদন</option>
-                    <option value="5">রেসপন্সিভ সর্বনিম্ন দরদাতার স্থলে উচ্চ দরদাতার নিকট থেকে কার্য/পণ্য/সেবা ক্রয়</option>
-                    <option value="6">প্রকল্প শেষে অব্যয়িত অর্থ ফেরত না দেওয়া</option>
-                    <option value="7">ভুল বেতন নির্ধারণীর মাধ্যমে অতিরিক্ত বেতন উত্তোলন</option>
-                    <option value="8">প্রাপ্যতাবিহীন ভাতা উত্তোলন</option>
-                    <option value="9">জাতীয় অন্যান্য সরকারী অর্থের ক্ষতি সংক্রান্ত আপত্তি।</option>
-                </select>
-            </div>
-
-            <div class="col-md-3">
-                <select class="form-control select-select2" id="memo_type">
-                    <option value="">আপত্তির ধরন</option>
-                    <option value="1">এসএফআই</option>
-                    <option value="2">নন-এসএফআই</option>
-                    <option value="3">ড্রাফ্ট প্যারা</option>
-                    <option value="4">পাণ্ডুলিপি</option>
-                </select>
-            </div>
-        </div>
-        <div class="row mt-2 mb-2">
-            <div class="col-md-3">
-                <select class="form-control select-select2" id="memo_status">
-                    <option value="">আপত্তির অবস্থা</option>
-                    <option value="1">নিস্পন্ন</option>
-                    <option value="2">অনিস্পন্ন</option>
-                    <option value="3">আংশিক নিস্পন্ন</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <input class="form-control mb-1" pattern="[0-9\.]*" id="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
-            </div>
-
-            <div class="col-md-2">
-                <input class="form-control mb-1 mt-1 year-picker" id="audit_year_start" placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text">
-            </div>
-
-            <div class="col-md-2">
-                <input class="form-control mb-1 mt-1 year-picker" id="audit_year_end" placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">
-            </div>
-
             <div class="col-md-1">
-                <div class="mt-2 action-group d-flex justify-content-end position-absolute action-group-wrapper">
+                <div class="mt-1 action-group d-flex justify-content-end position-absolute action-group-wrapper">
                     <button id="btn_filter" class="btn btn-sm btn-outline-primary btn-square" type="button">
                         <i class="fad fa-search"></i> অনুসন্ধান
                     </button>
                 </div>
             </div>
+{{--            <div class="col-md-3">--}}
+{{--                <select class="form-select select-select2" id="memo_irregularity_type">--}}
+{{--                    <option value="">আপত্তি অনিয়মের ধরন</option>--}}
+{{--                    <option value="1">আত্মসাত, চুরি, প্রতারণা ও জালিয়াতিমূলক</option>--}}
+{{--                    <option value="2">সরকারের আর্থিক ক্ষতি</option>--}}
+{{--                    <option value="3">বিধি ও পদ্ধতিগত অনিয়ম</option>--}}
+{{--                    <option value="4">বিশেষ ধরনের আপত্তি</option>--}}
+{{--                </select>--}}
+{{--            </div>--}}
+
+{{--            <div class="col-md-3">--}}
+{{--                <select class="form-select select-select2" id="memo_irregularity_sub_type">--}}
+{{--                    <option value="">আপত্তি অনিয়মের সাব-ধরন</option>--}}
+{{--                    <option value="1">ভ্যাট-আইটিসহ সরকারি প্রাপ্য আদায় না করা</option>--}}
+{{--                    <option value="2">কম আদায় করা</option>--}}
+{{--                    <option value="3">আদায় করা সত্ত্বেও কোষাগারে জমা না করা</option>--}}
+{{--                    <option value="4">বাজার দর অপেক্ষা উচ্চমূল্যে ক্রয় কার্য সম্পাদন</option>--}}
+{{--                    <option value="5">রেসপন্সিভ সর্বনিম্ন দরদাতার স্থলে উচ্চ দরদাতার নিকট থেকে কার্য/পণ্য/সেবা ক্রয়</option>--}}
+{{--                    <option value="6">প্রকল্প শেষে অব্যয়িত অর্থ ফেরত না দেওয়া</option>--}}
+{{--                    <option value="7">ভুল বেতন নির্ধারণীর মাধ্যমে অতিরিক্ত বেতন উত্তোলন</option>--}}
+{{--                    <option value="8">প্রাপ্যতাবিহীন ভাতা উত্তোলন</option>--}}
+{{--                    <option value="9">জাতীয় অন্যান্য সরকারী অর্থের ক্ষতি সংক্রান্ত আপত্তি।</option>--}}
+{{--                </select>--}}
+{{--            </div>--}}
+
+{{--            <div class="col-md-3">--}}
+{{--                <select class="form-control select-select2" id="memo_type">--}}
+{{--                    <option value="">আপত্তির ধরন</option>--}}
+{{--                    <option value="1">এসএফআই</option>--}}
+{{--                    <option value="2">নন-এসএফআই</option>--}}
+{{--                    <option value="3">ড্রাফ্ট প্যারা</option>--}}
+{{--                    <option value="4">পাণ্ডুলিপি</option>--}}
+{{--                </select>--}}
+{{--            </div>--}}
         </div>
+{{--        <div class="row mt-2 mb-2">--}}
+{{--            <div class="col-md-3">--}}
+{{--                <select class="form-control select-select2" id="memo_status">--}}
+{{--                    <option value="">আপত্তির অবস্থা</option>--}}
+{{--                    <option value="1">নিস্পন্ন</option>--}}
+{{--                    <option value="2">অনিস্পন্ন</option>--}}
+{{--                    <option value="3">আংশিক নিস্পন্ন</option>--}}
+{{--                </select>--}}
+{{--            </div>--}}
+{{--            <div class="col-md-3">--}}
+{{--                <input class="form-control mb-1" pattern="[0-9\.]*" id="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">--}}
+{{--            </div>--}}
+
+{{--            <div class="col-md-2">--}}
+{{--                <input class="form-control mb-1 mt-1 year-picker" id="audit_year_start" placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text">--}}
+{{--            </div>--}}
+
+{{--            <div class="col-md-2">--}}
+{{--                <input class="form-control mb-1 mt-1 year-picker" id="audit_year_end" placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 </div>
 
@@ -157,7 +155,7 @@
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
-                        $('#entity_filter').html(response);
+                        $('#entity_id').html(response);
                     }
                 }
             );
@@ -201,6 +199,19 @@
             );
         },
 
+        loadApottiItemInfo: function (apotti_item_id) {
+            let url = '{{route('audit.execution.apotti.apotti-item-info')}}';
+            let data = {apotti_item_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        $('#apotti_item_info').html(response);
+                    }
+                }
+            );
+        },
+
 
         showApotti: function (element) {
             url = '{{route('audit.execution.apotti.onucched-show')}}'
@@ -229,6 +240,40 @@
             });
         },
 
+        editApotti: function (element){
+            apotti_id = element.data('apotti-id');
+            data = {apotti_id}
+            let url = '{{route('audit.execution.apotti.edit-apotti')}}'
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $("#kt_content").html(response);
+                }
+            });
+        },
+
+        updateApotti:function (elem){
+            data  = $('#onucched_marge_form').serializeArray();
+            data.push({name: "apotti_description", value: tinymce.get("kt-tinymce-1").getContent()});
+
+            apotti_id = elem.data('apotti-id');
+
+            data.push({name: "apotti_id", value: apotti_id});
+
+            let url = '{{route('audit.execution.apotti.update-apotti')}}';
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    toastr.success(response.data);
+                    $('#kt_quick_panel_close').click();
+                    // $('.apotti_menue a').trigger('click');
+                }
+            });
+        },
+
         mergeOnucched:function (){
             if($('.select-apotti').filter(':checked').length < 2){
                 toastr.warning('দয়া করে দুইয়ের অধিক আপত্তি বাছাই করুন');
@@ -243,35 +288,31 @@
                 cancelButtonText: 'না'
             }).then(function(result) {
                 if (result.value) {
-                    quick_panel = $("#kt_quick_panel");
-                    $(".offcanvas-title").text('Merge Onucched');
-                    quick_panel.addClass('offcanvas-on');
-                    quick_panel.css('opacity', 1);
-                    quick_panel.css('width', '60%');
-                    quick_panel.removeClass('d-none');
-                    $("html").addClass("side-panel-overlay");
-                    data:{}
+                    apottiId = {};
+                    $('.select-apotti').each(function(i){
+                        if(this.checked){
+                            apottiId[i] = $(this).val();
+                        }
+                    });
+                    data = {apottiId}
                     let url = '{{route('audit.execution.apotti.onucched-merge-form')}}'
                     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                         if (response.status === 'error') {
                             toastr.error(response.data)
                         } else {
-                            $(".offcanvas-wrapper").html(response);
+                            $("#kt_content").html(response);
                         }
                     });
                 }
             });
         },
 
-        mergeOnucchedSubmit:function (){
+        mergeOnucchedSubmit:function (elem){
             data  = $('#onucched_marge_form').serializeArray();
             data.push({name: "apotti_description", value: tinymce.get("kt-tinymce-1").getContent()});
-            apottiId = {};
-            $('.select-apotti').each(function(i){
-                if(this.checked){
-                    apottiId[i] = $(this).val();
-                }
-            });
+
+            apottiId = elem.data('apotti-ids');
+            console.log(apottiId);
 
             data.push({name: "apottiId", value: JSON.stringify(apottiId)});
 

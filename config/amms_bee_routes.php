@@ -233,6 +233,9 @@ return [
             'onucched_unmerge' => env('API_URL_BEE', '') . '/audit-conduct-apotti/onucched-unmerge',
             'onucched_rearrange' => env('API_URL_BEE', '') . '/audit-conduct-apotti/onucched-rearrange',
             'get_apotti_info' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-info',
+            'apotti_wise_all_tiem' => env('API_URL_BEE', '') . '/audit-conduct-apotti/apotti-wise-all-tiem',
+            'get_apotti_item_info' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-item-info',
+            'update_apotti' => env('API_URL_BEE', '') . '/audit-conduct-apotti/update-apotti',
         ],
     ],
 
