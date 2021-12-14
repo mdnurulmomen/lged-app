@@ -404,6 +404,20 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         });
     });
 
+    //Quality Control
+    Route::group(['as' => 'audit.qac.', 'prefix' => 'audit-qac/'], function () {
+
+        Route::get('/', function () {
+            return redirect()->route('audit.qac.dashboard');
+        });
+
+        Route::get('dashboard', [\App\Http\Controllers\QualityControl\AuditQacDashboardController::class, 'index'])->name('dashboard');
+        Route::get('qac/{any}', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'index'])->name('qac');
+        Route::post('qac-apotti-list', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'loadApottiQacList'])->name('qac-apotti-list');
+        Route::post('qac-apotti', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'qacApotti'])->name('qac-apotti');
+        Route::post('qac-apotti-submit', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'qacApottiSubmit'])->name('qac-apotti-submit');
+    });
+
     //Followup
     Route::group(['as' => 'audit.followup.', 'prefix' => 'audit-followup/'], function () {
         Route::get('/', function () {

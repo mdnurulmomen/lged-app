@@ -250,6 +250,12 @@ return [
         ]
     ],
 
+    'audit_quality_control' => [
+        'qac' => [
+            'qac_apotti_submit' => env('API_URL_BEE', '') . '/audit-quality-control/qac-apotti',
+        ]
+    ],
+
     'final_plan_file' => [
         'list' => env('API_URL_BEE', '') . '/final-plan-file/list',
         'store' => env('API_URL_BEE', '') . '/final-plan-file/store',

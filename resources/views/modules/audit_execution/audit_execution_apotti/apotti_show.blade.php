@@ -55,7 +55,7 @@
     </tr>
 </table>
 
-@if($apotti_info['apotti_items'])
+@if($apotti_info['is_combined'])
     <br>
     <h4>একীভূত আপত্তি সমূহ</h4>
     <table class="table table-striped">
