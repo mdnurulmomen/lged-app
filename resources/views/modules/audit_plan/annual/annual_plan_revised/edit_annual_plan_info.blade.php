@@ -102,19 +102,19 @@
                                             {{formatDate($milestone['milestone_target_date'],'bn','/')}}
                                             <input name="milestone_target_date" class="milestone_target_date"
                                                    type="hidden"
-                                                   value="{{$milestone['milestone_target_date']}}">
+                                                   value="{{formatDate($milestone['milestone_target_date'],'en','/')}}">
                                         </td>
                                         <td class="pl-0 pr-0">
                                             <input type="text" name="start_date"
                                                    class="form-control milestone_start_date date"
                                                    data-target-date="{{formatDate($milestone['milestone_target_date'],'en','/')}}"
-                                                   value="{{formatDate($milestone['end_date'],'en','/')}}">
+                                                   value="{{formatDate($milestone['start_date'],'en','/')}}">
                                         </td>
                                         <td class="pl-0 pr-0">
                                             <input type="text" name="end_date"
                                                    class="form-control milestone_end_date date"
                                                    data-target-date="{{formatDate($milestone['milestone_target_date'],'en','/')}}"
-                                                   value="{{formatDate($milestone['start_date'],'en','/')}}">
+                                                   value="{{formatDate($milestone['end_date'],'en','/')}}">
                                         </td>
                                     </tr>
                                 @endforeach
@@ -208,6 +208,7 @@
                                                  'ministry_id' => $entity['ministry_id'],
                                                  'ministry_name_en' => $entity['ministry_name_en'],
                                                  'ministry_name_bn' => $entity['ministry_name_bn'],
+                                                 'child_count' => $entity['entity_total_unit'],
                                              ]
                                          );
                                     @endphp

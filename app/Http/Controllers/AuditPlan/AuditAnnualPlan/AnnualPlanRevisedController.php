@@ -144,7 +144,7 @@ class AnnualPlanRevisedController extends Controller
 
     public function storeAnnualPlanInfo(Request $request): \Illuminate\Http\JsonResponse
     {
-//        dd($request->milestone_list);
+//        dd(json_decode($request->entity_list,true));
 
         try {
             Validator::make($request->all(), [
