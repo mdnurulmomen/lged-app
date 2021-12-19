@@ -13,6 +13,9 @@
             <x-menu-item class="qac_2_menu" href="{{url('audit-qac/qac/qac-2')}}"
                          icon="fal fa-calendar-alt">QAC-2
             </x-menu-item>
+            <x-menu-item class="qac_2_menu" href="#"
+                         icon="fal fa-calendar-alt">CQAT
+            </x-menu-item>
         </ul>
     </div>
 </div>
