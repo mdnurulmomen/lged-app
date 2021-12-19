@@ -189,4 +189,36 @@ trait UserInfoCollector
         }
         return null;
     }
+
+    function profile_picture()
+    {
+        if (!session()->has('_user_profile_image') || session('_user_profile_image') == null) {
+            $url = config('cag_doptor_api.user_image');
+
+            $sendRequest = $this->initDoptorHttp()->post($url, [
+                'employee_record_ids' => $this->user->employee_record_id,
+                'encode' => '2',
+            ])->json();
+            if (is_array($sendRequest) && isset($sendRequest['status']) && $sendRequest['status'] == 'success') {
+                session()->put('_user_profile_image', $sendRequest['data'][0]['image']);
+                session()->save();
+                return session('_user_profile_image');
+            }
+        }
+        return session('_user_profile_image');
+    }
+
+    function profile_picture_url()
+    {
+        $url = config('cag_doptor_api.user_image');
+        $sendRequest = $this->initDoptorHttp()->post($url, [
+            'employee_record_ids' => $this->getOfficerId(),
+            'encode' => '2',
+        ])->json();
+        if (is_array($sendRequest) && isset($sendRequest['status']) && $sendRequest['status'] == 'success') {
+            return $sendRequest['data'][0]['image'];
+        } else {
+            return 'assets/media/users/blank.png';
+        }
+    }
 }

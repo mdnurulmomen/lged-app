@@ -1,4 +1,3 @@
-<!--begin::Global Config(global config for global JS scripts)-->
 <script>var KTAppSettings = {
         "breakpoints": {"sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1400},
         "colors": {
@@ -51,18 +50,13 @@
         },
         "font-family": "Poppins"
     };</script>
-<!--end::Global Config-->
-<!--begin::Global Theme Bundle(used by all pages)-->
 
 <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
 <script src="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
 
-<!--end::Global Theme Bundle-->
-<!--begin::Page Vendors(used by this page)-->
 <script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
-<!--end::Page Vendors-->
-<!--begin::Page Scripts(used by this page)-->
+
 <script src="{{ asset('assets/js/pages/widgets.js') }}"></script>
 <script src="{{ asset('assets/js/split.min.js') }}"></script>
 <script src="{{ asset('assets/js/croppie.min.js') }}"></script>
@@ -71,21 +65,7 @@
 <script src="{{ asset('assets/js/pages/crud/file-upload/dropzonejs.js') }}"></script>
 <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }}"></script>
 <script src="{{asset('assets/js/jquery-sortable.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/js/pages/custom/login/login-general.js') }}"></script>
-<script src="{{ asset('assets/js/pages/crud/forms/editors/summernote.js') }}"></script>
 <script src="{{ asset('assets/js/tapp.js') }}"></script>
 <script src="{{ asset('assets/js/custom-script.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 <script src="{{asset('assets/plugins/custom/lightgallery/dist/js/lightgallery.min.js')}}"></script>
-{{--<script src="{{ asset('assets/js/audit-script.js') }}"></script>--}}
-<!--end::Page Scripts-->
-{{--<script>--}}
-{{--    $(document).ready(function () {--}}
-{{--        is_logged_in = '{{$is_logged_in}}';--}}
-{{--        if (is_logged_in) {--}}
-{{--            toastr.success('Welcome!')--}}
-{{--        } else {--}}
-{{--            toastr.error('true')--}}
-{{--        }--}}
-{{--    })--}}
-{{--</script>--}}

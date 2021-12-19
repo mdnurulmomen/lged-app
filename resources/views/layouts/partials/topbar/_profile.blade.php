@@ -39,28 +39,19 @@
                             </a>
                         @endforelse
                     @endif
-{{--                    <div class="d-flex pl-2">--}}
-{{--                        <a href="#" class="btn-switch-designation">--}}
-{{--                            <span--}}
-{{--                                class="badge badge-success rounded-0"><span>{{ __('৫') }}</span> {{ __('টাইটেল') }}</span>--}}
-{{--                        </a>--}}
-{{--                        <a href="#" class="btn-switch-designation">--}}
-{{--                            <span class="badge badge-warning rounded-0 text-light"><span>{{ __('৫') }}</span> {{ __('টাইটেল') }}</span>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
                 </li>
             </ul>
         @endif
         <div class="btn-group w-100 d-flex justify-content-between" role="group"
              aria-label="User Profile Management">
-            <a href="/profile" data-toggle="popover" data-placement="bottom" data-content="{{ __('প্রোফাইল') }}"
-               class="btn btn-primary font-weight-bold text-white btn-profile btn-square">
+            <button onclick="Generic_Container.show_user_profile()" data-toggle="popover" data-placement="bottom" data-content="{{ __('প্রোফাইল') }}"
+                    class="btn btn-primary font-weight-bold text-white btn-profile btn-square">
                 <i class="fa fa-user"></i><span class="ml-2">{{ __('প্রোফাইল') }} </span>
-            </a>
-            <a href="#" data-content="{{ __('হেল্প ডেস্ক') }}" data-toggle="popover" data-placement="bottom"
-               class="btn btn-success font-weight-bold text-white btn-square">
+            </button>
+            <button data-content="{{ __('হেল্প ডেস্ক') }}" data-toggle="popover" data-placement="bottom"
+                    class="btn btn-success font-weight-bold text-white btn-square">
                 <i class="fad fa-user-headset"></i><span class="ml-2">{{ __('হেল্প ডেস্ক') }}</span>
-            </a>
+            </button>
             <a onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                class="btn btn-danger font-weight-bold text-white btn-square" data-toggle="popover"
                data-placement="bottom" data-content="{{ __('লগ আউট') }}" data-original-title="" title="">

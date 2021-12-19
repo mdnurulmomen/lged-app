@@ -8,6 +8,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/profile', [\App\Http\Controllers\DashboardController::class, 'getUserProfile'])->name('user_profile');
 
     // Plan Route Start
     Route::group(['as' => 'audit.plan.', 'prefix' => 'audit-plan/'], function () {
