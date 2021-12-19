@@ -16,7 +16,7 @@ class FinalPlanController extends Controller
     public function index()
     {
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.final_plan_file.list'),[
-                'document_type' => 'operation'
+                'document_type' => 'operational'
             ]
         )->json();
         $data['final_plan_file_list'] = $response['data'];
@@ -29,7 +29,7 @@ class FinalPlanController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
@@ -60,7 +60,7 @@ class FinalPlanController extends Controller
 
         $data = [
             ['name' => 'id', 'contents' => $request->id],
-            ['name' => 'document_type', 'contents' => 'operation'],
+            ['name' => 'document_type', 'contents' => 'operational'],
             ['name' => 'fiscal_year', 'contents' => $request->fiscal_year]
         ];
 
@@ -73,31 +73,9 @@ class FinalPlanController extends Controller
             ];
         }
 
-        if (empty($request->id)){
-            $response = $this->fileUPloadWithData(
-                config('amms_bee_routes.final_plan_file.store'),
-                $data,
-                'POST'
-            );
-
-        }
-        else{
-            $response = $this->fileUPloadWithData(
-                config('amms_bee_routes.final_plan_file.update'),
-                $data,
-                'POST',
-            );
-        }
-
+        $apiUri = empty($request->id)?config('amms_bee_routes.final_plan_file.store'):config('amms_bee_routes.final_plan_file.update');
+        $response = $this->fileUPloadWithData($apiUri, $data);
         return json_decode($response->getBody(), true);
-
-
-
-        /*if (isset($response['status']) && $response['status'] == 'success') {
-            return response()->json(responseFormat('success', 'Saved Successfully'));
-        } else {
-            return response()->json(['status' => 'error', 'data' => $response]);
-        }*/
     }
 
     /**
@@ -140,43 +118,6 @@ class FinalPlanController extends Controller
         return view('modules.audit_plan.operational.final_plan.edit',$data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
-    {
-        Validator::make($request->all(), [
-            'id' => 'required|numeric',
-            'fiscal_year' => 'required',
-            'file' => 'required|mimes:pdf|max:10420',
-        ])->validate();
-
-        $data = [
-            ['name' => 'id', 'contents' => $request->id],
-            ['name' => 'document_type', 'contents' => 'operation'],
-            ['name' => 'fiscal_year', 'contents' => $request->fiscal_year]
-        ];
-
-        $attachment = $request->file;
-        if ($request->hasfile('file')) {
-            $data[] = [
-                'name'     => 'file',
-                'contents' => file_get_contents($attachment->getRealPath()),
-                'filename' => $attachment->getClientOriginalName(),
-            ];
-        }
-
-        $response = $this->fileUPloadWithData(
-            'POST',
-            config('amms_bee_routes.final_plan_file.update'),
-            $data
-        );
-        return json_decode($response->getBody(), true);
-    }
 
     /**
      * Remove the specified resource from storage.

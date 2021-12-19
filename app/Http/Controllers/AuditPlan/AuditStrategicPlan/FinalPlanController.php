@@ -163,7 +163,6 @@ class FinalPlanController extends Controller
         }
 
         $response = $this->fileUPloadWithData(
-            'POST',
             config('amms_bee_routes.final_plan_file.update'),
             $data
         );

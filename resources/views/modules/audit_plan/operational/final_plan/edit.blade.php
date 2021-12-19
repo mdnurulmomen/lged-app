@@ -65,7 +65,7 @@
 
             $.ajax({
                 data: new FormData(document.getElementById("sp_file_form")),
-                url: "{{route('audit.plan.operational.file_update')}}",
+                url: "{{route('audit.plan.operational.file_store')}}",
                 type: "POST",
                 dataType: 'json',
                 contentType: false,
