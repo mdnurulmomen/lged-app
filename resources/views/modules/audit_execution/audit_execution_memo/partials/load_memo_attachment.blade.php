@@ -1,4 +1,6 @@
 <h5 class="text-info text-center">শিরোনামঃ {{$memoTitleBn}}</h5>
+
+@if(count($attachments['porisishtos']) >0)
 <div class="card border-0 mb-0 mt-5">
     <div class="card-header border-top-0 border-bottom-0 bg-white p-0 mb-3">
         <div class="d-flex justify-content-between align-items-center">
@@ -43,7 +45,9 @@
         </div>
     </div>
 </div>
+@endif
 
+@if(count($attachments['pramanoks']) >0)
 <div class="card border-0 mb-0 mt-5">
     <div class="card-header border-top-0 border-bottom-0 bg-white p-0 mb-3">
         <div class="d-flex justify-content-between align-items-center">
@@ -88,7 +92,9 @@
         </div>
     </div>
 </div>
+@endif
 
+{{--@if(count($attachments['memos']) >0)
 <div class="card border-0 mb-0 mt-5">
     <div class="card-header border-top-0 border-bottom-0 bg-white p-0 mb-3">
         <div class="d-flex justify-content-between align-items-center">
@@ -133,4 +139,5 @@
         </div>
     </div>
 </div>
+@endif--}}
 

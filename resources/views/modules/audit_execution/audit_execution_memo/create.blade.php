@@ -70,14 +70,14 @@
                         <div class="card mb-4">
                             <div class="card-body p-4">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <input class="form-control bangla-number-input amount_number_format mb-1"
                                                name="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
                                     </div>
-                                    <div class="col-md-6">
+                                    {{--<div class="col-md-6">
                                         <input class="form-control bangla-number-input amount_number_format mb-1"
                                                name="onishponno_jorito_ortho_poriman" placeholder="অনিষ্পন্ন জড়িত অর্থ (টাকা)" type="text">
-                                    </div>
+                                    </div>--}}
                                 </div>
 
                                 <div class="row">
@@ -149,8 +149,8 @@
                                 <label class="col-form-label">প্রমানক সংযুক্তি</label>
                                 <input name="pramanoks[]" type="file" class="mFilerInit form-control rounded-0" multiple>
 
-                                <label class="col-form-label">মেমো সংযুক্তি <span class="text-primary">(ঐচ্ছিক)</span></label>
-                                <input name="memos[]" type="file" class="mFilerInit form-control rounded-0" multiple>
+                                {{--<label class="col-form-label">মেমো সংযুক্তি <span class="text-primary">(ঐচ্ছিক)</span></label>
+                                <input name="memos[]" type="file" class="mFilerInit form-control rounded-0" multiple>--}}
                             </div>
                         </div>
 

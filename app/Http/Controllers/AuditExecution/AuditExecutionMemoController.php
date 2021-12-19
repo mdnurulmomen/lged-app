@@ -89,7 +89,6 @@ class AuditExecutionMemoController extends Controller
             'memo_title_bn' => 'required',
             'memo_description_bn' => 'required',
             'jorito_ortho_poriman' => 'required',
-            'onishponno_jorito_ortho_poriman' => 'required',
             'audit_year_start' => 'required',
             'audit_year_end' => 'required',
         ])->validate();
@@ -103,7 +102,6 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'audit_conclusion', 'contents' => $request->audit_conclusion],
             ['name' => 'audit_recommendation', 'contents' => $request->audit_recommendation],
             ['name' => 'jorito_ortho_poriman', 'contents' => $request->jorito_ortho_poriman],
-            ['name' => 'onishponno_jorito_ortho_poriman', 'contents' => $request->onishponno_jorito_ortho_poriman],
             ['name' => 'audit_year_start', 'contents' => $request->audit_year_start],
             ['name' => 'audit_year_end', 'contents' => $request->audit_year_end],
             ['name' => 'memo_irregularity_type', 'contents' => $request->memo_irregularity_type],
@@ -140,7 +138,7 @@ class AuditExecutionMemoController extends Controller
 
 
         //for memos
-        if ($request->hasfile('memos')) {
+        /*if ($request->hasfile('memos')) {
             foreach ($request->file('memos') as $file){
                 $data[] = [
                     'name'     => 'memos[]',
@@ -148,7 +146,7 @@ class AuditExecutionMemoController extends Controller
                     'filename' => $file->getClientOriginalName(),
                 ];
             }
-        }
+        }*/
 
 
         $response = $this->fileUPloadWithData(

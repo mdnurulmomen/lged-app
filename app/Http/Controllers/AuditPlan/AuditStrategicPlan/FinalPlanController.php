@@ -76,16 +76,16 @@ class FinalPlanController extends Controller
 
         if (empty($request->id)){
             $response = $this->fileUPloadWithData(
-                'POST',
                 config('amms_bee_routes.final_plan_file.store'),
-                $data
+                $data,
+                'POST'
             );
         }
         else{
             $response = $this->fileUPloadWithData(
-                'POST',
                 config('amms_bee_routes.final_plan_file.update'),
-                $data
+                $data,
+                'POST'
             );
         }
 
