@@ -99,8 +99,6 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'memo_description_bn', 'contents' => $request->memo_description_bn],
             ['name' => 'irregularity_cause', 'contents' => $request->irregularity_cause],
             ['name' => 'response_of_rpu', 'contents' => $request->response_of_rpu],
-            ['name' => 'audit_conclusion', 'contents' => $request->audit_conclusion],
-            ['name' => 'audit_recommendation', 'contents' => $request->audit_recommendation],
             ['name' => 'jorito_ortho_poriman', 'contents' => $request->jorito_ortho_poriman],
             ['name' => 'audit_year_start', 'contents' => $request->audit_year_start],
             ['name' => 'audit_year_end', 'contents' => $request->audit_year_end],
@@ -228,10 +226,27 @@ class AuditExecutionMemoController extends Controller
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
         $memo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
+
+        $schedule_id = $request->schedule_id;
+        $audit_plan_id = $request->audit_plan_id;
+        $cost_center_id = $request->cost_center_id;
+        $cost_center_name_bn = $request->cost_center_name_bn;
+        $audit_year_start = $request->audit_year_start;
+        $audit_year_end = $request->audit_year_end;
+        $team_leader_name = $request->team_leader_name;
+        $team_leader_designation_name = $request->team_leader_designation_name;
+        $scope_sub_team_leader = $request->scope_sub_team_leader;
+        $sub_team_leader_name = $request->sub_team_leader_name;
+        $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
+
+        //dd($team_leader_name);
+
         if (isSuccess($memo)) {
             $memo = $memo['data'];
             return view('modules.audit_execution.audit_execution_memo.edit',
-                compact('memo'));
+                compact('memo','schedule_id','audit_plan_id','cost_center_id','cost_center_name_bn',
+                    'audit_year_start','audit_year_end','team_leader_name','team_leader_designation_name',
+                    'scope_sub_team_leader','sub_team_leader_name','sub_team_leader_designation_name'));
         } else {
             return response()->json(['status' => 'error', 'data' => $memo]);
         }
@@ -267,24 +282,17 @@ class AuditExecutionMemoController extends Controller
             'memo_title_bn' => 'required',
             'memo_description_bn' => 'required',
             'jorito_ortho_poriman' => 'required',
-            'onishponno_jorito_ortho_poriman' => 'required',
             'audit_year_start' => 'required',
             'audit_year_end' => 'required',
-//            'memo_irregularity_type' => 'required',
-//            'memo_irregularity_sub_type' => 'required',
-//            'memo_type' => 'required',
-//            'memo_status' => 'required',
         ])->validate();
 
         $data = [
             ['name' => 'memo_id', 'contents' => $request->memo_id],
             ['name' => 'memo_title_bn', 'contents' => $request->memo_title_bn],
             ['name' => 'memo_description_bn', 'contents' => $request->memo_description_bn],
+            ['name' => 'irregularity_cause', 'contents' => $request->irregularity_cause],
             ['name' => 'response_of_rpu', 'contents' => $request->response_of_rpu],
-            ['name' => 'audit_conclusion', 'contents' => $request->audit_conclusion],
-            ['name' => 'audit_recommendation', 'contents' => $request->audit_recommendation],
             ['name' => 'jorito_ortho_poriman', 'contents' => $request->jorito_ortho_poriman],
-            ['name' => 'onishponno_jorito_ortho_poriman', 'contents' => $request->onishponno_jorito_ortho_poriman],
             ['name' => 'audit_year_start', 'contents' => $request->audit_year_start],
             ['name' => 'audit_year_end', 'contents' => $request->audit_year_end],
             ['name' => 'memo_irregularity_type', 'contents' => $request->memo_irregularity_type],
@@ -317,18 +325,6 @@ class AuditExecutionMemoController extends Controller
             }
         }
 
-
-        //for memos
-        if ($request->hasfile('memos')) {
-            foreach ($request->file('memos') as $file){
-                $data[] = [
-                    'name'     => 'memos[]',
-                    'contents' => file_get_contents($file->getRealPath()),
-                    'filename' => $file->getClientOriginalName(),
-                ];
-            }
-        }
-        //dd($data);
 
         $response = $this->fileUPloadWithData(
             config('amms_bee_routes.audit_conduct_query.memo.update'),

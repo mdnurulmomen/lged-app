@@ -4,10 +4,10 @@
          data-menu-dropdown-timeout="500">
         <!--begin::Menu Nav-->
         <ul class="menu-nav">
-            <x-menu-item class="menu-item-active" href="#"
+            {{--<x-menu-item class="menu-item-active" href="#"
                          icon="fal fa-tachometer-alt-average">Dashboard
             </x-menu-item>
-            <hr>
+            <hr>--}}
             <x-menu-item class="apotti_menue" href="{{route('audit.execution.apotti.index')}}"
                          icon="fal fa-list">Apotti
             </x-menu-item>

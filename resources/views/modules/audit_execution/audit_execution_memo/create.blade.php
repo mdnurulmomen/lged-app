@@ -52,10 +52,6 @@
                                 <label class="col-form-label">অডিট প্রতিষ্ঠানের জবাব</label>
                                 <textarea class="form-control mb-1" name="response_of_rpu" placeholder="নিরীক্ষিত প্রতিষ্ঠানের জবাব" cols="30" rows="2"></textarea>
 
-                                <input type="hidden" name="audit_conclusion">
-                                <input type="hidden" name="audit_recommendation">
-
-
                                 {{--<label class="col-form-label">নিরীক্ষা মন্তব্য</label>
                                     <textarea class="form-control mb-1" name="audit_conclusion" placeholder="নিরীক্ষা মন্তব্য" cols="30" rows="2"></textarea>
 

@@ -74,7 +74,7 @@
             cost_center_id = elem.data('cost-center-id');
             audit_plan_id = elem.data('audit-plan-id');
             cost_center_name_bn = elem.data('cost-center-name-bn');
-            cost_center_name_bn = elem.data('cost-center-name-bn');
+            cost_center_name_en = elem.data('cost-center-name-bn');
             audit_year_start = elem.data('audit-year-start');
             audit_year_end = elem.data('audit-year-end');
             team_leader_name = elem.data('team-leader-name-bn');
@@ -153,7 +153,21 @@
 
         editMemo: function (elem) {
             memo_id = elem.data('memo-id');
-            data = {memo_id};
+            schedule_id = '{{$schedule_id}}';
+            audit_plan_id = '{{$audit_plan_id}}';
+            cost_center_id = '{{$cost_center_id}}';
+            cost_center_name_bn = '{{$cost_center_name_bn}}';
+            cost_center_name_en = '{{$cost_center_name_bn}}';
+            audit_year_start = '{{$audit_year_start}}';
+            audit_year_end = '{{$audit_year_end}}';
+            team_leader_name = '{{$team_leader_name}}';
+            team_leader_designation_name = '{{$team_leader_designation_name}}';
+            scope_sub_team_leader = '{{$scope_sub_team_leader}}';
+            sub_team_leader_name = '{{$sub_team_leader_name}}';
+            sub_team_leader_designation_name = '{{$sub_team_leader_designation_name}}';
+            data = {memo_id,schedule_id,audit_plan_id,cost_center_id,cost_center_name_bn,audit_year_start,audit_year_end,
+                team_leader_name,team_leader_designation_name,scope_sub_team_leader,
+                sub_team_leader_name,sub_team_leader_designation_name};
             let url = '{{route('audit.execution.memo.edit')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
