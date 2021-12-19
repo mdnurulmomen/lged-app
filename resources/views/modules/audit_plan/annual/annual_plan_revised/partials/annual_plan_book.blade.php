@@ -849,7 +849,7 @@
                            border="1px">
                         <tr class="bangla-font">
                             <td class="bangla-font" style="text-align: center" width="3%">ক্রঃনং</td>
-                            <td class="bangla-font" style="text-align: center" width="10%">মন্ত্রণালয়/ বিভাগ</td>
+{{--                            <td class="bangla-font" style="text-align: center" width="10%">মন্ত্রণালয়/ বিভাগ</td>--}}
                             <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের নাম</td>
                             <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের ধরন</td>
                             <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা
@@ -877,15 +877,28 @@
                             <tr class="bangla-font">
                                 <td class="bangla-font" style="text-align: center"
                                     width="3%">{{enTobn($loop->iteration)}}</td>
-                                <td class="bangla-font" width="10%">{{$annual_plans['ministry_name_bn']}}</td>
+{{--                                <td class="bangla-font" width="10%">{{$annual_plans['ministry_name_bn']}}</td>--}}
                                 <td class="bangla-font" style="text-align: center"
-                                    width="10%">{{$annual_plans['controlling_office_bn']}}</td>
+                                    width="10%">
+                                    @php
+                                        $entities = [];
+                                        foreach($annual_plans['ap_entities'] as $ap_entities){
+                                           $entity =  $ap_entities['entity_name_bn'];
+                                            $entities[] = $entity;
+                                        }
+                                    @endphp
+                                    {{implode(' , ', array_unique($entities))}}
+                                </td>
                                 <td class="bangla-font" width="10%"></td>
                                 <td class="bangla-font" style="text-align: center"
                                     width="10%">{{enTobn($annual_plans['total_unit_no'])}}</td>
                                 <td class="bangla-font" width="20%">
-                                    @foreach(json_decode($annual_plans['nominated_offices'],true) as $office)
-                                        {{enTobn($loop->iteration)}}| {{$office['office_name_bn']}} <br>
+                                    @foreach($annual_plans['ap_entities'] as $ap_entities)
+                                        {{$ap_entities['entity_name_bn']}} (এনটিটি) <br>
+                                        @foreach(json_decode($ap_entities['nominated_offices'],true) as $office)
+                                            {{enTobn($loop->iteration)}}| {{$office['office_name_bn']}} <br>
+                                        @endforeach
+                                        <br>
                                     @endforeach
                                     <span style="float: right!important;font-weight: bold">মোট {{enTobn($annual_plans['nominated_office_counts'])}}টি ইউনিট</span>
                                 </td>

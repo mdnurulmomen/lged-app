@@ -25,13 +25,17 @@
                     @endif
                     <td width="20%">{{$plan['milestone_title_en']}}</td>
                     <td width="10%">{{formatDate($plan['milestone_target'])}}</td>
+                    @if($loop->iteration == 1)
+                        <td width="5%" class="vertical-middle text-center" rowspan="{{count($annual_plan)}}">
+                            {{isset($plan['assigned_budget']) ? enTobn($plan['assigned_budget']) : 0}}
+                        </td>
+                    @endif
+                    @if($loop->iteration == 1)
+                        <td width="5%" class="vertical-middle text-center" rowspan="{{count($annual_plan)}}">
+                            {{isset($plan['assigned_budget']) ? enTobn($plan['assigned_budget']) : 0}}
+                        </td>
+                    @endif
 
-                    <td width="5%">
-                        {{$plan['assigned_budget']}}
-                    </td>
-                    <td width="5%">
-                        {{$plan['assigned_staff']}}
-                    </td>
                 </tr>
             @endforeach
         @empty
