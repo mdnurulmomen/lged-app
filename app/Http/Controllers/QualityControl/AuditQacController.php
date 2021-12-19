@@ -23,6 +23,7 @@ class AuditQacController extends Controller
     public function loadApottiQacList(Request $request){
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
+            'qac_type' => 'required',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
