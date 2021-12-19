@@ -24,6 +24,7 @@ class DashboardController extends Controller
             'nid' =>  $this->getEmployeeInfo()['nid'],
             'personal_email' =>  $this->getEmployeeInfo()['personal_email'],
             'personal_mobile' =>  $this->getEmployeeInfo()['personal_mobile'],
+            'joining_date' =>  $this->getEmployeeInfo()['joining_date'],
         ];
         $profile_pic = $this->profile_picture_url();
         return view('layouts.partials._quick_profile', compact('profile_pic', 'user_data'));
