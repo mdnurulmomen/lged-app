@@ -253,6 +253,7 @@ return [
     'audit_quality_control' => [
         'qac' => [
             'qac_apotti_submit' => env('API_URL_BEE', '') . '/audit-quality-control/qac-apotti',
+            'get_qac_apotti_status' => env('API_URL_BEE', '') . '/audit-quality-control/get-qac-apotti-status',
         ]
     ],
 

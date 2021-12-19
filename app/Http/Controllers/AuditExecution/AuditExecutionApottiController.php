@@ -36,7 +36,7 @@ class AuditExecutionApottiController extends Controller
         }
     }
 
-    public function onucchedMargeForm(Request $request)
+    public function onucchedMergeForm(Request $request)
     {
         $data = Validator::make($request->all(), [
             'apottiId' => 'required',
@@ -53,13 +53,14 @@ class AuditExecutionApottiController extends Controller
                 $jorito_ourtho += $apotti_item['jorito_ortho_poriman'];
             }
             $apotti_ids = json_encode($request->apottiId);
-            return view('modules.audit_execution.audit_execution_apotti.partial.onucched_form',compact('apotti_item_list','apotti_ids','jorito_ourtho'));
+            $sequence = $request->sequence;
+            return view('modules.audit_execution.audit_execution_apotti.partial.onucched_form',compact('apotti_item_list','apotti_ids','jorito_ourtho','sequence'));
         } else {
             return response()->json(['status' => 'error', 'data' => $apotti_item_list]);
         }
     }
 
-    public function onucchedMarge(Request $request)
+    public function onucchedMerge(Request $request)
     {
         $data = [
                 'cdesk' => $this->current_desk_json(),
@@ -71,8 +72,11 @@ class AuditExecutionApottiController extends Controller
                 'response_of_rpu' => $request->response_of_rpu,
                 'audit_conclusion' => $request->audit_conclusion,
                 'audit_recommendation' => $request->audit_recommendation,
+                'sequence' => $request->sequence,
                 'apotti_id' => json_decode($request->apottiId,true),
             ];
+
+//        dd($data);
 
         $merged_apotti = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.onucched_merge'), $data)->json();
 
@@ -86,7 +90,7 @@ class AuditExecutionApottiController extends Controller
         }
     }
 
-    public function onucchedUnMarge(Request $request)
+    public function onucchedUnMerge(Request $request)
     {
         $data = [
             'cdesk' => $this->current_desk_json(),

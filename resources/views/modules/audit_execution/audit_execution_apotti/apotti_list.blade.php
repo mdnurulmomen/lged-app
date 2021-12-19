@@ -53,9 +53,9 @@
             জড়িত অর্থ (টাকা)
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
-            অনিষ্পন্ন জড়িত অর্থ (টাকা)
-        </th>
+{{--        <th class="datatable-cell datatable-cell-sort text-center">--}}
+{{--            অনিষ্পন্ন জড়িত অর্থ (টাকা)--}}
+{{--        </th>--}}
 
         <th class="datatable-cell datatable-cell-sort text-center">
             কার্যক্রম
@@ -69,8 +69,11 @@
             <td>
                 <span class="input-group-text bg-transparent border-0">
                       <label class="checkbox">
-                          <input type="checkbox"
-                                 value="{{$apotti['id']}}" class="select-apotti">
+                          <input
+                                 type="checkbox"
+                                 data-sequence="{{$apotti['apotti_sequence']}}"
+                                 value="{{$apotti['id']}}"
+                                 class="select-apotti">
                             <span></span>
                       </label>
                 </span>
@@ -91,9 +94,9 @@
             <td>
                 <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
             </td>
-            <td>
-                <span>{{enTobn(number_format($apotti['total_onishponno_jorito_ortho_poriman'],0))}}</span>
-            </td>
+{{--            <td>--}}
+{{--                <span>{{enTobn(number_format($apotti['total_onishponno_jorito_ortho_poriman'],0))}}</span>--}}
+{{--            </td>--}}
             <td>
                 <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
                         data-apotti-id="{{$apotti['id']}}"

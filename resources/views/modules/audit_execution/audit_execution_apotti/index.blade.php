@@ -288,12 +288,20 @@
             }).then(function(result) {
                 if (result.value) {
                     apottiId = {};
+                    sequence = []
+                     apotti = document.getElementsByClassName('select-apotti');
+                     // sequence = $(apotti[0]).attr('data-sequence');
+
+
                     $('.select-apotti').each(function(i){
                         if(this.checked){
                             apottiId[i] = $(this).val();
+                            // sequence = $(this).attr('data-sequence');
+                            sequence.push($(this).attr('data-sequence'));
                         }
                     });
-                    data = {apottiId}
+                    sequence = Math.min(...sequence);
+                    data = {apottiId,sequence}
                     let url = '{{route('audit.execution.apotti.onucched-merge-form')}}'
                     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                         if (response.status === 'error') {
@@ -311,9 +319,10 @@
             data.push({name: "apotti_description", value: tinymce.get("kt-tinymce-1").getContent()});
 
             apottiId = elem.data('apotti-ids');
-            console.log(apottiId);
+            sequence = elem.data('sequence');
 
             data.push({name: "apottiId", value: JSON.stringify(apottiId)});
+            data.push({name: "sequence", value: sequence});
 
             let url = '{{route('audit.execution.apotti.onucched-merge')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -322,7 +331,7 @@
                 } else {
                     toastr.success(response.data);
                     $('#kt_quick_panel_close').click();
-                    $('.apotti_menue a').trigger('click');
+                    // $('.apotti_menue a').trigger('click');
                 }
             });
         },

@@ -211,8 +211,9 @@
             $("html").addClass("side-panel-overlay");
 
             apotti_id = elem.data('apotti-id');
+            qac_type = elem.data('qac-type');
 
-            data = {apotti_id}
+            data = {apotti_id,qac_type}
 
             let url = '{{route('audit.qac.qac-apotti')}}';
 
@@ -265,7 +266,12 @@
                 } else {
                     toastr.success(response.data);
                     $('#kt_quick_panel_close').click();
-                    // $('.apotti_menue a').trigger('click');
+                    if(qac_type == 'qac-1'){
+                        $('.qac_1_menu a').trigger('click');
+                    }else{
+                        $('.qac_2_menu a').trigger('click');
+                    }
+
                 }
             });
         },

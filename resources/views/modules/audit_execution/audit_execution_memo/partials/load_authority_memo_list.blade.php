@@ -31,22 +31,21 @@
                             </div>
                         </div>
                     </div>
-                    <button id="btn-daak-toolbar-reset" class="btn btn-icon mx-1" type="button" data-toggle="tooltip"
-                            title="{{___('generic.buttons.title.reset')}}">
-                        <span class="fas fa-recycle text-warning"></span>
-                    </button>
-                    <button id="btn-daak-toolbar-refresh" class="btn btn-icon mx-1" type="button" data-toggle="tooltip"
-                            title="{{___('generic.buttons.title.refresh')}}">
-                        <span class="fa fa-sync text-info"></span>
-                    </button>
-                    <div id="personal_folder_selected_name" class="p-2 d-none">
-                    </div>
+{{--                    <button id="btn-daak-toolbar-reset" class="btn btn-icon mx-1" type="button" data-toggle="tooltip"--}}
+{{--                            title="{{___('generic.buttons.title.reset')}}">--}}
+{{--                        <span class="fas fa-recycle text-warning"></span>--}}
+{{--                    </button>--}}
+{{--                    <button id="btn-daak-toolbar-refresh" class="btn btn-icon mx-1" type="button" data-toggle="tooltip"--}}
+{{--                            title="{{___('generic.buttons.title.refresh')}}">--}}
+{{--                        <span class="fa fa-sync text-info"></span>--}}
+{{--                    </button>--}}
+
                 </div>
             </div>
         </div>
         <div id="daak_pagination_panel" class="float-right d-flex align-items-center" style="vertical-align:middle;">
-                <span class="mr-2"><span id="daak_item_length_start">১</span> - <span id="daak_item_length_end">৫</span> সর্বমোট: <span
-                        id="daak_item_total_record">৫</span></span>
+                <span class="mr-2"><span id="daak_item_length_start">১</span> - <span id="daak_item_length_end">{{enTobn(count($memo_list['data']))}}</span> সর্বমোট: <span
+                        id="daak_item_total_record">{{enTobn($total_memo)}}</span></span>
             <div class="btn-group">
                 <button class="btn-list-prev btn btn-icon btn-secondary btn-square" disabled="disabled" type="button"><i
                         class="fad fa-chevron-left" data-toggle="popover"

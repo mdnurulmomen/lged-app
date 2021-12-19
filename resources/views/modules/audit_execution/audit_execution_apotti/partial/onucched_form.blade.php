@@ -56,6 +56,7 @@
                     </div>
                     <button type="button" class="btn btn-sm btn-square btn-outline-primary mr-2"
                             data-apotti-ids = "{{$apotti_ids}}"
+                            data-sequence = "{{$sequence}}"
                             onclick="Apotti_Container.mergeOnucchedSubmit($(this))"><i class="fa fa-save"></i> সংরক্ষণ
                     </button>
                 </form>

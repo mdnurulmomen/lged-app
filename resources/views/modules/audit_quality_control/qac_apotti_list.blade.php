@@ -66,15 +66,15 @@
                         @if($apotti_status['qac_type'] == $qac_type)
                            @php
                                $apotti_type = $apotti_status['apotti_type'];
-                                
                            @endphp
                         @endif
                     @endforeach
                     {{$apotti_type}}
             </td>
             <td>
-                <button class="mr-3 btn btn-sm btn-outline-info btn-square" title="সম্পাদনা করুন"
+                <button class="mr-3 btn btn-sm btn-outline-info btn-square" title="QAC"
                         data-apotti-id="{{$apotti['id']}}"
+                        data-qac-type="{{$qac_type}}"
                         onclick="Qac_Container.qacApotti($(this))">
                     QAC
                 </button>

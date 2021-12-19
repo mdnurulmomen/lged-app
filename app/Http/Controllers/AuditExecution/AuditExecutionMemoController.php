@@ -377,15 +377,16 @@ class AuditExecutionMemoController extends Controller
         $data['audit_year_start'] = $request->audit_year_start;
         $data['audit_year_end'] = $request->audit_year_end;
 
-        $memo_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.authority_memo_list'), $data)->json();
-//        dd($memo_list);
-        if (isSuccess($memo_list)) {
-            $memo_list = $memo_list['data'];
+        $get_memo_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.authority_memo_list'), $data)->json();
+//        dd($memo_list['data']['total_memo']);
+        if (isSuccess($get_memo_list)) {
+            $memo_list = $get_memo_list['data']['memo_list'];
+            $total_memo = $get_memo_list['data']['total_memo'];
             $team_id = $request->team_id;
             $cost_center_id = $request->cost_center_id;
-            return view('modules.audit_execution.audit_execution_memo.partials.load_authority_memo_list', compact('memo_list', 'team_id','cost_center_id'));
+            return view('modules.audit_execution.audit_execution_memo.partials.load_authority_memo_list', compact('memo_list', 'team_id','cost_center_id','total_memo'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $memo_list]);
+            return response()->json(['status' => 'error', 'data' => $get_memo_list]);
         }
     }
 

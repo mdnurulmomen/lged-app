@@ -392,10 +392,10 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('dashboard', [\App\Http\Controllers\AuditReport\AuditReportDashboardController::class, 'apottiPage'])->name('dashboard');
             Route::get('index', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'index'])->name('index');
             Route::post('load-apotti-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadApottiList'])->name('load-apotti-list');
-            Route::post('onucched-merge', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedMarge'])->name('onucched-merge');
-            Route::post('onucched-unmerge', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedUnMarge'])->name('onucched-unmerge');
+            Route::post('onucched-merge', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedMerge'])->name('onucched-merge');
+            Route::post('onucched-unmerge', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedUnMerge'])->name('onucched-unmerge');
             Route::post('onucched-rearrange', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedReArrange'])->name('onucched-rearrange');
-            Route::post('onucched-merge-form', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedMargeForm'])->name('onucched-merge-form');
+            Route::post('onucched-merge-form', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedMergeForm'])->name('onucched-merge-form');
             Route::post('onucched-show', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedShow'])->name('onucched-show');
             Route::post('edit-apotti', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'editApotti'])->name('edit-apotti');
             Route::post('update-apotti', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'updateApotti'])->name('update-apotti');

@@ -41,22 +41,23 @@ class AuditQacController extends Controller
     }
 
     public function qacApotti(Request $request){
-        Validator::make($request->all(), [
+        $data = Validator::make($request->all(), [
             'apotti_id' => 'required|integer',
+            'qac_type' => 'required',
         ])->validate();
 
         $apotti_id = $request->apotti_id;
 
-//        $data['cdesk'] = $this->current_desk_json();
-//        $apotti_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.list'), $data)->json();
-        return view('modules.audit_quality_control.qac_apotti_form',compact('apotti_id'));
-//        if (isSuccess($apotti_list)) {
-//            $apotti_list = $apotti_list['data'];
-//            return view('modules.audit_quality_control.qac_apotti_list',
-//                compact('apotti_list'));
-//        } else {
-//            return response()->json(['status' => 'error', 'data' => $apotti_list]);
-//        }
+        $data['cdesk'] = $this->current_desk_json();
+        $qac_apotti_status = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.get_qac_apotti_status'), $data)->json();
+//        dd($qac_apotti_status);
+        if (isSuccess($qac_apotti_status)) {
+            $qac_apotti_status = $qac_apotti_status['data'];
+            return view('modules.audit_quality_control.qac_apotti_form',compact('apotti_id','qac_apotti_status'));
+
+        } else {
+            return response()->json(['status' => 'error', 'data' => $qac_apotti_status]);
+        }
     }
 
     public function qacApottiSubmit(Request $request){
