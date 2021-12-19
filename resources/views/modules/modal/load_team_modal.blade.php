@@ -460,15 +460,15 @@
                                                                                     <tr class="audit_schedule_row_{{ $loop->parent->iteration }}"
                                                                                         data-layer-id="{{ $loop->parent->iteration }}"
                                                                                         data-schedule-second-row="{{$loop->iteration}}_{{ $loop->parent->iteration }}">
-                                                                                        <td>
-                                                                                            <input type="text"
+                                                                                        <td colspan="2">
+                                                                                            <input type="text" placeholder="যাত্রার বিবরণ"
                                                                                                    data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
                                                                                                    value="{{$schedule['activity_details']}}"
                                                                                                    class="form-control input-detail"/>
                                                                                         </td>
 
-                                                                                        <td colspan="3">
-                                                                                            <input type="text"
+                                                                                        <td colspan="2">
+                                                                                            <input type="text" placeholder="যাত্রার তারিখ"
                                                                                                    data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
                                                                                                    value="{{$schedule['team_member_start_date'] == ""?"":formatDate($schedule['team_member_start_date'])}}"
                                                                                                    class="date form-control input-detail-duration"/>
@@ -676,8 +676,8 @@
         var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
         var teamScheduleHtml = "<tbody data-schedule-type='visit' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
-        teamScheduleHtml += "<td><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
-        teamScheduleHtml += "<td colspan='3'><div><input type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/><span class='fal fa-calendar field-icon'></span></div></td>";
+        teamScheduleHtml += "<td colspan='2'><input placeholder='যাত্রার বিবরণ' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
+        teamScheduleHtml += "<td colspan='2'><div><input placeholder='যাত্রার তারিখ' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/><span class='fal fa-calendar field-icon'></span></div></td>";
         teamScheduleHtml += "<td style='display: inline-flex'>" +
             "<button title='schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
             "<span class='fad fa-calendar-day'></span>" +
