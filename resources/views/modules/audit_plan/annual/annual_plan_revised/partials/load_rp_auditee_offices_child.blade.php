@@ -23,3 +23,37 @@
         </li>
     @endforeach
 </ul>
+
+
+<script>
+    $(document).ready(function () {
+        $(`#rp_auditee_parent_offices`).jstree({
+            "core": {
+                "themes": {
+                    "responsive": true
+                },
+                "check_callback": true,
+            },
+            "types": {
+                "default": {
+                    "icon": "fal fa-building text-warning"
+                }
+            },
+            "plugins": ["types", "checkbox",]
+        });
+    })
+
+    $('#rp_auditee_parent_offices').on('select_node.jstree', function (e, data) {
+        entity_info = $('#' + data.node.id).attr('data-entity-info');
+        Annual_Plan_Container.addSelectedRPAuditeeList(entity_info, data.node.id, false);
+    }).on('deselect_node.jstree', function (e, data) {
+        entity_info = $('#' + data.node.id).data('entity-info');
+        Annual_Plan_Container.removeSelectedEntity(entity_info.entity_id,data.node.id);
+    }).on('open_node.jstree', function (e, data) {
+        parent_node = data.node.id;
+        Annual_Plan_Container.loadRPChildOffices(parent_node, '#rp_auditee_parent_offices');
+    }).on('close_node.jstree', function (e, data) {
+        $('#' + data.node.id + ' ul').remove()
+        $('#rp_auditee_parent_offices').jstree('refresh')
+    });
+</script>
