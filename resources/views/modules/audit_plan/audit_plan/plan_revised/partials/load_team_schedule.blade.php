@@ -9,14 +9,14 @@
             <th width="26%">
                 শাখার নাম
             </th>
-            <th width="30%">
+            <th width="28%">
                 নিরীক্ষার সময়কাল
             </th>
 
-            <th width="12%">
+            <th width=10%">
                 কর্ম দিবস
             </th>
-            <th width="6%">
+            <th width="10%">
                 <div style="display: flex" class="ml-1" align="left">
                     <button type="button"
                             class="btn btn-icon btn-outline-danger border-0 btn-xs mr-2 remove_audit_schedule_list_div">
