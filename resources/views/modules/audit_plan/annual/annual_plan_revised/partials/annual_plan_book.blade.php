@@ -799,8 +799,8 @@
 
         <div style="text-align: center;font-size: 15px;margin-top: 5px">
             সেক্টর-০২ঃ
-            @foreach($plan_infos['all_ministries'] as $ministry)
-                {{enTobn($loop->iteration)}} | {{$ministry['ministry_name_bn']}}
+            @foreach(array_unique( array_column( $plan_infos['all_ministries'] , 'ministry_name_bn' )) as $ministry)
+                {{enTobn($loop->iteration)}} | {{$ministry}}
             @endforeach
         </div>
         {{--pdf screen 02--}}
