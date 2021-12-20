@@ -320,19 +320,21 @@
                         child_node_info = {
                             id: node_id + '_' + office.id,
                             li_attr: {
-                                "data-rp-auditee-entity-id": office.id,
+                                "data-rp-auditee-entity-id": parent_office_id,
                                 "data-entity-info": JSON.stringify({
-                                    entity_id: office.id,
-                                    entity_name_en: office.office_name_en,
-                                    entity_name_bn: office.office_name_bn,
+                                    office_id: office.id,
+                                    office_name_en: office.office_name_en,
+                                    office_name_bn: office.office_name_bn,
+                                    entity_id: parent_office_id,
+                                    child_count: office.child_count,
                                 })
                             },
                             text: office.office_name_bn,
                         };
 
-                        if (office.has_child) {
-                            child_node_info['children'] = [{'text': 'Child 1'}];
-                        }
+                        // if (office.has_child) {
+                        //     child_node_info['children'] = [{'text': 'Child 1'}];
+                        // }
 
                         $(`${target_tree}`).jstree().create_node(node_id, child_node_info, "last", function () {
                         });

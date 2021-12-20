@@ -51,7 +51,7 @@
 
     $('#rp_auditee_offices').on('select_node.jstree', function (e, data) {
         entity_info = $('#' + data.node.id).data('entity-info');
-        console.log(entity_info);
+        // console.log(entity_info);
         Annual_Plan_Container.addSelectedRPAuditeeList(entity_info);
         data.node.children.map(child => {
             entity_info = $('#' + child).data('entity-info');
