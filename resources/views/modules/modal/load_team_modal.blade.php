@@ -305,6 +305,7 @@
 
                                                                 <div class="audit_schedule_list_div">
                                                                     <table
+                                                                        style="table-layout: fixed"
                                                                         id="audit_schedule_table_{{$loop->iteration}}"
                                                                         class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm text-center">
                                                                         <thead>
@@ -315,20 +316,19 @@
                                                                             <th width="25%">
                                                                                 শাখার নাম
                                                                             </th>
-                                                                            <th width="30%">
+                                                                            <th width="28%">
                                                                                 নিরীক্ষার সময়কাল
                                                                             </th>
 
-                                                                            <th width="12%">
+                                                                            <th width="8%">
                                                                                 কর্ম দিবস
                                                                             </th>
-                                                                            <th width="6%">
-                                                                                <div class="ml-1" align="left">
+                                                                            <th width="12%">
+                                                                                <div style="display: flex" class="ml-1" align="left">
                                                                                     <button type="button"
                                                                                             onclick="removeAuditScheduleListDiv({{$loop->iteration}})"
                                                                                             class="btn btn-icon btn-outline-danger border-0 btn-xs mr-2 remove_audit_schedule_list_div">
-                                                                                <span
-                                                                                    class="fal fa-trash-alt"></span>
+                                                                                        <span class="fal fa-trash-alt"></span>
                                                                                     </button>
                                                                                 </div>
                                                                             </th>
@@ -384,20 +384,20 @@
                                                                                                     data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
                                                                                                     data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
                                                                                                     selected
-                                                                                                    >
+                                                                                                >
                                                                                                     {{$schedule['cost_center_name_bn']}}
                                                                                                 </option>
-{{--                                                                                                @foreach($nominated_offices_list as $key => $nominatedOffice)--}}
-{{--                                                                                                    <option--}}
-{{--                                                                                                        @if($nominatedOffice['id'] == $schedule['cost_center_id']) selected--}}
-{{--                                                                                                        @endif value="{{$nominatedOffice['id']}}"--}}
-{{--                                                                                                        data-cost-center-id="{{$nominatedOffice['id']}}"--}}
-{{--                                                                                                        data-cost-center-name-bn="{{$nominatedOffice['office_name_bng']}}"--}}
-{{--                                                                                                        data-cost-center-name-en="{{$nominatedOffice['office_name_eng']}}">{{$nominatedOffice['office_name_bng']}}</option>--}}
-{{--                                                                                                    @if(count($nominatedOffice) > 0)--}}
-{{--                                                                                                        @include('modules.audit_plan.audit_plan.plan_revised.partials.select_nominated_office_child', ['nominated_offices_list' => $nominatedOffice['child'], 'mode' => 'selected_check'])--}}
-{{--                                                                                                    @endif--}}
-{{--                                                                                                @endforeach--}}
+                                                                                                {{--                                                                                                @foreach($nominated_offices_list as $key => $nominatedOffice)--}}
+                                                                                                {{--                                                                                                    <option--}}
+                                                                                                {{--                                                                                                        @if($nominatedOffice['id'] == $schedule['cost_center_id']) selected--}}
+                                                                                                {{--                                                                                                        @endif value="{{$nominatedOffice['id']}}"--}}
+                                                                                                {{--                                                                                                        data-cost-center-id="{{$nominatedOffice['id']}}"--}}
+                                                                                                {{--                                                                                                        data-cost-center-name-bn="{{$nominatedOffice['office_name_bng']}}"--}}
+                                                                                                {{--                                                                                                        data-cost-center-name-en="{{$nominatedOffice['office_name_eng']}}">{{$nominatedOffice['office_name_bng']}}</option>--}}
+                                                                                                {{--                                                                                                    @if(count($nominatedOffice) > 0)--}}
+                                                                                                {{--                                                                                                        @include('modules.audit_plan.audit_plan.plan_revised.partials.select_nominated_office_child', ['nominated_offices_list' => $nominatedOffice['child'], 'mode' => 'selected_check'])--}}
+                                                                                                {{--                                                                                                    @endif--}}
+                                                                                                {{--                                                                                                @endforeach--}}
                                                                                             </select>
                                                                                         </td>
                                                                                         <td>
@@ -427,28 +427,29 @@
                                                                                                    value="{{$schedule['activity_man_days']}}"
                                                                                                    id="input_total_working_day_{{$loop->parent->iteration}}_{{$loop->iteration}}"/>
                                                                                         </td>
-                                                                                        <td style="display: inline-flex;">
-                                                                                            <button type="button" title="schedule"
-                                                                                                    onclick="addAuditScheduleTblRow({{$loop->parent->iteration}})"
-                                                                                                    class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
+                                                                                        <td>
+                                                                                            <div style="display: inline-flex;">
+                                                                                                <button type="button" title="schedule"
+                                                                                                        onclick="addAuditScheduleTblRow({{$loop->parent->iteration}})"
+                                                                                                        class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-calendar-day"></span>
-                                                                                            </button>
+                                                                                                </button>
 
-                                                                                            <button type="button" title="visit"
-                                                                                                    onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
-                                                                                                    class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
+                                                                                                <button type="button" title="visit"
+                                                                                                        onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
+                                                                                                        class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-plus"></span>
-                                                                                            </button>
+                                                                                                </button>
 
-                                                                                            <button type='button' title="remove"
-                                                                                                    data-row='row1'
-                                                                                                    onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
-                                                                                                    class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
-                                                                                        <span
-                                                                                            class='fal fa-trash-alt'></span>
-                                                                                            </button>
+                                                                                                <button type='button' title="remove"
+                                                                                                        data-row='row1'
+                                                                                                        onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
+                                                                                                        class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
+                                                                                                    <span class='fal fa-trash-alt'></span>
+                                                                                                </button>
+                                                                                            </div>
                                                                                         </td>
                                                                                     </tr>
                                                                                     </tbody>
@@ -475,28 +476,30 @@
                                                                                             <span class="fal fa-calendar field-icon"></span>
                                                                                         </td>
 
-                                                                                        <td style="display: inline-flex;">
-                                                                                            <button type="button" title="schedule"
-                                                                                                    onclick="addAuditScheduleTblRow({{ $loop->parent->iteration }})"
-                                                                                                    class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
+                                                                                        <td>
+                                                                                            <div style="display: flex">
+                                                                                                <button type="button" title="schedule"
+                                                                                                        onclick="addAuditScheduleTblRow({{ $loop->parent->iteration }})"
+                                                                                                        class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-calendar-day"></span>
-                                                                                            </button>
+                                                                                                </button>
 
-                                                                                            <button type="button" title="visit"
-                                                                                                    onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
-                                                                                                    class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
+                                                                                                <button type="button" title="visit"
+                                                                                                        onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
+                                                                                                        class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-plus"></span>
-                                                                                            </button>
+                                                                                                </button>
 
-                                                                                            <button type='button' title="remove"
-                                                                                                    data-row='row1'
-                                                                                                    onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
-                                                                                                    class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
+                                                                                                <button type='button' title="remove"
+                                                                                                        data-row='row1'
+                                                                                                        onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
+                                                                                                        class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                                                                                             <span
                                                                                                 class='fal fa-trash-alt'></span>
-                                                                                            </button>
+                                                                                                </button>
+                                                                                            </div>
                                                                                         </td>
                                                                                     </tr>
                                                                                     </tbody>
@@ -664,8 +667,8 @@
                 toastr.error('Internal Serve Error');
             } else {
                 // console.log(response)
-                $('#branch_name_select_' + layer_id + '_'+ total_audit_schedule_row).append(response);
-                $('#branch_name_select_' + layer_id + '_'+ total_audit_schedule_row).select('open');
+                $('#branch_name_select_' + layer_id + '_' + total_audit_schedule_row).append(response);
+                $('#branch_name_select_' + layer_id + '_' + total_audit_schedule_row).select('open');
 
             }
         });
@@ -1519,7 +1522,7 @@ style="padding-left: 5px;">
         parent_office_id = $(this).val();
 
         layer_row = $(this).attr('data-id');
-        layer_row  = layer_row.split("_");
+        layer_row = layer_row.split("_");
 
         layer_id = layer_row[0];
         row = layer_row[1];
@@ -1530,14 +1533,14 @@ style="padding-left: 5px;">
     $('.input-branch-name').on('select2:opening', function (e) {
         // $(this).find('[value="'+$(this).val()+'"]').remove();
         layer_row = $(this).attr('data-id');
-        parent_office_id = $('#entity_name_select_'+layer_row).val();
-        layer_row  = layer_row.split("_");
+        parent_office_id = $('#entity_name_select_' + layer_row).val();
+        layer_row = layer_row.split("_");
         layer_id = layer_row[0];
         row = layer_row[1];
         // $('#branch_name_select_' + layer_id + '_'+ row).select2().trigger("select2:close");
         loadSelectNominatedOfficeOption(parent_office_id, layer_id, row);
     });
 
-    $('.select-select2').select2({ width: '100%' });
+    $('.select-select2').select2({width: '100%'});
 
 </script>

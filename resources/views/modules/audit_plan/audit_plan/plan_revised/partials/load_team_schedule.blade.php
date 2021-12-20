@@ -1,5 +1,5 @@
 <div class="audit_schedule_list_div">
-    <table id="audit_schedule_table_{{$team_layer_id}}" class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm
+    <table id="audit_schedule_table_{{$team_layer_id}}" style="table-layout: fixed" class="audit-schedule-table table table-bordered table-striped table-hover table-condensed table-sm
                                             text-center">
         <thead>
         <tr>
@@ -17,7 +17,7 @@
                 কর্ম দিবস
             </th>
             <th width="6%">
-                <div class="ml-1" align="left">
+                <div style="display: flex" class="ml-1" align="left">
                     <button type="button"
                             class="btn btn-icon btn-outline-danger border-0 btn-xs mr-2 remove_audit_schedule_list_div">
                         <span class="fal fa-trash-alt"></span>
@@ -70,24 +70,26 @@
                        min="0"
                        id="input_total_working_day_{{$team_layer_id}}_0"/>
             </td>
-            <td style="display: inline-flex;">
-                <button type="button" title="schedule" onclick="addAuditScheduleTblRow({{$team_layer_id}})"
-                        class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
-                    <span class="fad fa-calendar-day"></span>
-                </button>
+            <td>
+                <div style="display: flex">
+                    <button type="button" title="schedule" onclick="addAuditScheduleTblRow({{$team_layer_id}})"
+                            class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
+                        <span class="fad fa-calendar-day"></span>
+                    </button>
 
-                <button type="button" title="visit"
-                        onclick="addDetailsTblRow({{$team_layer_id}})"
-                        class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
-                    <span class="fad fa-plus"></span>
-                </button>
+                    <button type="button" title="visit"
+                            onclick="addDetailsTblRow({{$team_layer_id}})"
+                            class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
+                        <span class="fad fa-plus"></span>
+                    </button>
 
-                <button type='button' title="remove"
-                        data-row='row1'
-                        onclick="removeScheduleRow($(this), {{$team_layer_id}})"
-                        class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
-                    <span class='fal fa-trash-alt'></span>
-                </button>
+                    <button type='button' title="remove"
+                            data-row='row1'
+                            onclick="removeScheduleRow($(this), {{$team_layer_id}})"
+                            class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
+                        <span class='fal fa-trash-alt'></span>
+                    </button>
+                </div>
             </td>
         </tr>
         </tbody>
@@ -102,25 +104,27 @@
                 <input placeholder="যাত্রার তারিখ" type="text" data-id="{{$team_layer_id}}_0" class="date form-control input-detail-duration"/>
                 <span class="fal fa-calendar field-icon"></span>
             </td>
-            <td style="display: inline-flex;">
-                <button type="button" title="schedule"
-                        onclick="addAuditScheduleTblRow({{$team_layer_id}})"
-                        class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
-                    <span class="fad fa-calendar-day"></span>
-                </button>
+            <td>
+                <div style="display: flex">
+                    <button type="button" title="schedule"
+                            onclick="addAuditScheduleTblRow({{$team_layer_id}})"
+                            class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
+                        <span class="fad fa-calendar-day"></span>
+                    </button>
 
-                <button type="button" title="visit"
-                        onclick="addDetailsTblRow({{$team_layer_id}})"
-                        class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
-                    <span class="fad fa-plus"></span>
-                </button>
+                    <button type="button" title="visit"
+                            onclick="addDetailsTblRow({{$team_layer_id}})"
+                            class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
+                        <span class="fad fa-plus"></span>
+                    </button>
 
-                <button type='button' title="remove"
-                        data-row='row1'
-                        onclick="removeScheduleRow($(this), {{$team_layer_id}})"
-                        class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
-                    <span class='fal fa-trash-alt'></span>
-                </button>
+                    <button type='button' title="remove"
+                            data-row='row1'
+                            onclick="removeScheduleRow($(this), {{$team_layer_id}})"
+                            class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
+                        <span class='fal fa-trash-alt'></span>
+                    </button>
+                </div>
             </td>
         </tr>
         </tbody>
@@ -136,14 +140,14 @@
         parent_office_id = $(this).val();
 
         layer_row = $(this).attr('data-id');
-        layer_row  = layer_row.split("_");
+        layer_row = layer_row.split("_");
 
         layer_id = layer_row[0];
         row = layer_row[1];
 
         loadSelectNominatedOffices(parent_office_id, layer_id, row);
     });
-    $('.select-select2').select2({ width: '100%' });
+    $('.select-select2').select2({width: '100%'});
 </script>
 
 
