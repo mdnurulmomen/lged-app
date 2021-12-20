@@ -1,4 +1,3 @@
-
 <tbody data-schedule-type='schedule' data-tbody-id='{{$layer_id}}_{{$total_audit_schedule_row}}'>
 <tr class='audit_schedule_row_{{$layer_id}}' data-layer-id='{{$layer_id}}'
     data-audit-schedule-first-row='{{$total_audit_schedule_row}}_{{$layer_id}}'>
@@ -38,30 +37,32 @@
     <td><input type='number' min='0' value='0' class='form-control input-total-working-day'
                id='input_total_working_day_{{$layer_id}}_{{$total_audit_schedule_row}}'
                data-id='{{$layer_id}}_{{$total_audit_schedule_row}}'/></td>
-    <td style='display: inline-flex'>
-        <button title='Add Schedule' type='button' onclick='addAuditScheduleTblRow({{$layer_id}})'
-                class='pulse pulse-primary btn btn-icon btn-outline-success border-0 btn-xs mr-2'>
-            <span class='fad fa-calendar-day'></span>
-        </button>
-        <button title='Add Visit' type='button' onclick='addDetailsTblRow({{$layer_id}})'
-                class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>
-            <span class='fad fa-plus'></span>
-        </button>
-        <button title='Remove' onclick='removeScheduleRow($(this), {{$layer_id}})' type='button'
-                data-row='row{{$total_audit_schedule_row}}'
-                class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
-            <span class='fal fa-trash-alt'></span>
-        </button>
+    <td>
+        <div style="display:flex;">
+            <button title='Add Schedule' type='button' onclick='addAuditScheduleTblRow({{$layer_id}})'
+                    class='pulse pulse-primary btn btn-icon btn-outline-success border-0 btn-xs mr-2'>
+                <span class='fad fa-calendar-day'></span>
+            </button>
+            <button title='Add Visit' type='button' onclick='addDetailsTblRow({{$layer_id}})'
+                    class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>
+                <span class='fad fa-plus'></span>
+            </button>
+            <button title='Remove' onclick='removeScheduleRow($(this), {{$layer_id}})' type='button'
+                    data-row='row{{$total_audit_schedule_row}}'
+                    class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
+                <span class='fal fa-trash-alt'></span>
+            </button>
+        </div>
     </td>
 </tr>
 </tbody>
 
 <script>
-     $(".input-entity-name").change(function () {
+    $(".input-entity-name").change(function () {
         parent_office_id = $(this).val();
 
         layer_row = $(this).attr('data-id');
-        layer_row  = layer_row.split("_");
+        layer_row = layer_row.split("_");
 
         layer_id = layer_row[0];
         row = layer_row[1];
