@@ -433,3 +433,11 @@ if (!function_exists('getDecryptedData')) {
         return '';
     }
 }
+
+if (!function_exists('numberConvertToBnWord')) {
+    function numberConvertToBnWord($number)
+    {
+        $number_convert = new \App\Helpers\NumberConversionToBn();
+        return $number_convert->numToWord($number);
+    }
+}
