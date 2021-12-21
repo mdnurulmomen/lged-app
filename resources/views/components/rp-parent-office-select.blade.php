@@ -53,6 +53,8 @@
 <script>
 
     $("select#parent_ministry_id").change(function () {
+        $('.rp_auditee_office_tree').html('');
+        $('.rp_auditee_parent_office_tree').html('');
         parent_ministry_id = $(this).val();
         parent_ministry_name_en = $(this).find(':selected').data('ministry-en')
         parent_ministry_name_bn = $(this).find(':selected').data('ministry-bn')

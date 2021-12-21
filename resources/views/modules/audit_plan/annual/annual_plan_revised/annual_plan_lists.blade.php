@@ -454,11 +454,14 @@
         },
 
         removeSelectedEntity: function (entity_id,node_id) {
-            $("#rp_auditee_parent_offices").jstree("uncheck_node", node_id);
             $('#selected_rp_parent_auditee_' + entity_id).remove();
             $('.entity_' + entity_id).remove();
             $("#selected_entity").find('option[value="'+entity_id+'"]').remove();
             Annual_Plan_Container.selectedEntityTotalUnit();
+
+            if($('#rp_auditee_parent_offices').jstree(true)){
+                $("#rp_auditee_parent_offices").jstree("uncheck_node", node_id);
+            }
         },
 
         jsTreeInit: function (className) {

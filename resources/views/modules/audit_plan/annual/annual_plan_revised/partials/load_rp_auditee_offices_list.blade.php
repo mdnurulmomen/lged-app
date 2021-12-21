@@ -60,7 +60,7 @@
         $('#total_selected_unit_no').val($('.selected_entity_sr').length);
     }).on('deselect_node.jstree', function (e, data) {
         entity_info = $('#' + data.node.id).data('entity-info');
-        Annual_Plan_Container.removeSelectedRPAuditee(entity_info.entity_id);
+        Annual_Plan_Container.removeSelectedRPAuditee(entity_info.office_id);
         data.node.children.map(child => {
             entity_info = $('#' + child).data('entity-info');
             Annual_Plan_Container.removeSelectedRPAuditee(entity_info.entity_id);
