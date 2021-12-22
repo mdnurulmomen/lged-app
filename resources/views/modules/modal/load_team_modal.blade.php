@@ -594,8 +594,8 @@
             KTApp.unblock('.kt-portlet')
             if (response.status === 'error') {
                 toastr.error('Internal Serve Error');
-            } else {
                 console.log(response)
+            } else {
                 $('#audit_schedule_table_' + layer_id).append(response);
                 // $('.audit_schedule_table_' + layer_id).html(response);
                 // $('.select-select2').select2();
