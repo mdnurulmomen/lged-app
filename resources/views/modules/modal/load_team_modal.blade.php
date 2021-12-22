@@ -428,7 +428,7 @@
                                                                                                    id="input_total_working_day_{{$loop->parent->iteration}}_{{$loop->iteration}}"/>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <div style="display: inline-flex;">
+                                                                                            <div style="display: flex;">
                                                                                                 <button type="button" title="schedule"
                                                                                                         onclick="addAuditScheduleTblRow({{$loop->parent->iteration}})"
                                                                                                         class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
@@ -681,7 +681,7 @@
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
         teamScheduleHtml += "<td colspan='2'><input placeholder='যাত্রার বিবরণ' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
         teamScheduleHtml += "<td colspan='2'><div><input placeholder='যাত্রার তারিখ' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/><span class='fal fa-calendar field-icon'></span></div></td>";
-        teamScheduleHtml += "<td style='display: inline-flex'>" +
+        teamScheduleHtml += "<td><div style='display: flex'>" +
             "<button title='schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
             "<span class='fad fa-calendar-day'></span>" +
             "</button>" +
@@ -692,7 +692,7 @@
             "data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>" +
             "<span class='fal fa-trash-alt'></span>" +
             "</button>" +
-            "</td>";
+            "</div></td>";
         teamScheduleHtml += "</tr></tbody>";
 
         $('#audit_schedule_table_' + layer_id).append(teamScheduleHtml);
