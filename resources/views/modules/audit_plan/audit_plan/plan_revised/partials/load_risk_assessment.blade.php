@@ -346,7 +346,12 @@
         total_number = 0;
         $(".row_risk_item_"+risk_type+"  .risk_score").each(function () {
             if($(this).val() != ""){
+                    if ($(this).val() > 5) {
+                        $(this).val(0);
+                        toastr.warning('স্কোর (০-৫)');
+                    }
                 total_number += parseInt($(this).val());
+
             }
         });
         $(".total-"+risk_type+"-risk-score").text(total_number);

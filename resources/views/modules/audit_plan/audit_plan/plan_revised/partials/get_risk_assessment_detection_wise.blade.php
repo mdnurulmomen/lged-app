@@ -44,7 +44,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="risk_assessment_point_{{$risk_assessment_type}}">রিস্ক স্কোর</label>
-            <input type="text" class="form-control" id="risk_assessment_point_{{$risk_assessment_type}}"
+            <input type="text" class="form-control detection-risk-score" id="risk_assessment_point_{{$risk_assessment_type}}"
             value="{{!empty($ap_risk_assessment_list)?$ap_risk_assessment_list['risk_rate']:''}}">
         </div>
 
@@ -98,4 +98,13 @@
         </button>
     </div>
 </div>
+
+<script>
+    $('.detection-risk-score').on('blur', function () {
+        if ($(this).val() > 1) {
+            $(this).val('');
+            toastr.warning('সর্বোচ্চ ঝুঁকি মান ১');
+        }
+    });
+</script>
 
