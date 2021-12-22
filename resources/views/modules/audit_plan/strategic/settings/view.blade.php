@@ -34,7 +34,7 @@
                                                         <label for="fiscal_year">Fiscal Year</label>
                                                         <select id="fiscal_year" class="form-control rounded-0 select-select2"
                                                                 name="fiscal_year">
-                                                            <option value="" selected="selected">--Select--</option>
+                                                            <option value="" selected="selected">--{{___('generic.select')}}--</option>
                                                             @foreach($plan_durations as $plan_duration)
                                                                 <option value="{{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}">
                                                                     {{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}

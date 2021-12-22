@@ -32,7 +32,7 @@
             <td>
                 <select id="entity_name_select_{{$team_layer_id}}_0" class="form-control select-select2 input-entity-name"
                         data-id="{{$team_layer_id}}_0">
-                    <option value=''>--Select--</option>
+                    <option value=''>--{{___('generic.select')}}--</option>
                     @foreach(json_decode($parent_office_id,true) as $key => $entity)
                         <option data-ministry-id="{{$entity['ministry_id']}}"
                                 data-ministry-name-bn="{{$entity['ministry_name_bn']}}"
@@ -46,7 +46,7 @@
             <td class="selected_nominated_office_data_0">
                 <select id="branch_name_select_{{$team_layer_id}}_0" class="form-control select-select2 input-branch-name"
                         data-id="{{$team_layer_id}}_0">
-                    <option value=''>--Select--</option>
+                    <option value=''>--{{___('generic.select')}}--</option>
                 </select>
             </td>
             <td>

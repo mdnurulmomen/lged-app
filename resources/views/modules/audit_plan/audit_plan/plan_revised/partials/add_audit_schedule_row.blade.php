@@ -3,7 +3,7 @@
     data-audit-schedule-first-row='{{$total_audit_schedule_row}}_{{$layer_id}}'>
     <td class='selected_entity_data_{{$total_audit_schedule_row}}'>
         <select data-id="{{$layer_id}}_{{$total_audit_schedule_row}}" class='form-control select-select2 input-entity-name'>
-            <option>--Loading--</option>
+            <option>--{{___('generic.choose')}}--</option>
             @foreach(json_decode($entity_list,true) as $key => $entity)
                 <option data-ministry-id="{{$entity['ministry_id']}}"
                         data-ministry-name-bn="{{$entity['ministry_name_bn']}}"
@@ -16,7 +16,7 @@
     </td>
     <td class='selected_nominated_office_data_{{$total_audit_schedule_row}}'>
         <select class='form-control select-select2 input-branch-name'>
-            <option>--Loading--</option>
+            <option>--{{___('generic.loading')}}--</option>
         </select>
     </td>
 
