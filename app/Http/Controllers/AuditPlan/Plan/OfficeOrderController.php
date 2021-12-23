@@ -68,11 +68,11 @@ class OfficeOrderController extends Controller
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_office_order'), $requestData)->json();
         //dd($responseData);
         $directorateName = $this->current_office()['office_name_bn'];
-        if ($this->current_office_id() == 19){
+        if ($this->current_office_id() == 14){
             $directorateAddress = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.dgcivil-cagbd.org';
         }
-        elseif ($this->current_office_id() == 32){
+        elseif ($this->current_office_id() == 3){
             $directorateAddress = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.worksaudit.org.bd';
         }
@@ -243,11 +243,11 @@ class OfficeOrderController extends Controller
             ->json();
         //dd($responseData);
         $directorateName = $this->current_office()['office_name_bn'];
-        if ($this->current_office_id() == 19){
+        if ($this->current_office_id() == 14){
             $directorateAddress = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.dgcivil-cagbd.org';
         }
-        elseif ($this->current_office_id() == 32){
+        elseif ($this->current_office_id() == 3){
             $directorateAddress = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.worksaudit.org.bd';
         }

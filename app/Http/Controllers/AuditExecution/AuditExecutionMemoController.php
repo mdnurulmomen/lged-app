@@ -407,11 +407,11 @@ class AuditExecutionMemoController extends Controller
         $memoInfo = isSuccess($responseData)?$responseData['data']:[];
 
         $directorateName = $this->current_office()['office_name_bn'];
-        if ($this->current_office_id() == 19){
+        if ($this->current_office_id() == 14){
             $directorateAddress = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.dgcivil-cagbd.org';
         }
-        elseif ($this->current_office_id() == 32){
+        elseif ($this->current_office_id() == 3){
             $directorateAddress = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.worksaudit.org.bd';
         }
