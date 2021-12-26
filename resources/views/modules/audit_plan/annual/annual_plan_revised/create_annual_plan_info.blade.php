@@ -41,7 +41,7 @@
                 <li class="nav-item">
                     <a id="select_cost_centers" class="nav-link rounded-0" data-toggle="tab"
                        href="#select_entity_by_layer">
-                        <span class="nav-text">কস্ট সেন্টার নির্বাচন</span>
+                        <span class="nav-text">কস্ট সেন্টার/ইউনিট নির্বাচন</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -99,13 +99,13 @@
             <div class="form-row">
                 <div class="col-md-6">
                     <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা<span class="text-danger">*</span></label>
-                    <input class="form-control bijoy-bangla text-right" type="text" id="total_unit_no" name="total_unit_no" readonly>
+                    <input class="form-control bijoy-bangla text-right" type="text" id="total_unit_no" name="total_unit_no">
                     <input type="hidden" id="total_unit">
                 </div>
 
                 <div class="col-md-6">
                     <label for="total_selected_unit_no">নির্বাচিত ইউনিট সংখ্যা<span class="text-danger">*</span></label>
-                    <input class="form-control bijoy-bangla text-right" type="text" name="total_selected_unit_no" id="total_selected_unit_no" readonly>
+                    <input class="form-control bijoy-bangla text-right" type="text" name="total_selected_unit_no" id="total_selected_unit_no">
                 </div>
             </div>
 
@@ -128,9 +128,9 @@
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter">
                 </div>
                 <div class="col-md-6">
-                    <label for="subject_matter">প্রতিষ্ঠানের শ্রেণী<span class="text-danger">*</span></label>
+                    <label for="subject_matter">প্রতিষ্ঠানের ক্যাটাগরি<span class="text-danger">*</span></label>
                     <select class="form-control" name="office_type" id="office_type">
-                        <option value="">প্রতিষ্ঠানের শ্রেণি বাছাই করুন</option>
+                        <option value="">প্রতিষ্ঠানের ক্যাটাগরি বাছাই করুন</option>
                         <option value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>
                         <option value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ</option>
                         <option value="লোকাল অথরিটিজ">লোকাল অথরিটিজ </option>
