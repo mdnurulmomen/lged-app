@@ -276,9 +276,9 @@
             });
         },
 
-        loadEntityChildOffices: function (ministry_id, layer_id, entity_id, entity_name_en, entity_name_bn) {
+        OldloadEntityChildOffices: function (ministry_id, layer_id, entity_id, entity_name_en, entity_name_bn) {
             parent_ministry_id = ministry_id;
-            parent_office_layer_id = layer_id;
+            // parent_office_layer_id = layer_id;
 
             KTApp.block('.content');
             url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-child-offices-list')}}';
@@ -287,6 +287,29 @@
             parent_office_bn = entity_name_bn;
             data = {
                 parent_office_id, parent_office_en, parent_office_bn, parent_ministry_id, parent_office_layer_id
+            };
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $('.rp_auditee_office_tree').html(response)
+                    $('#select_cost_centers').removeClass('disabled')
+                }
+                KTApp.unblock('.content');
+            });
+        },
+
+        loadEntityChildOffices: function (ministry_id, entity_id, entity_name_en, entity_name_bn) {
+            parent_ministry_id = ministry_id;
+            // parent_office_layer_id = layer_id;
+
+            KTApp.block('.content');
+            url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-child-offices-list')}}';
+            parent_office_id = entity_id;
+            parent_office_en = entity_name_en;
+            parent_office_bn = entity_name_bn;
+            data = {
+                parent_office_id, parent_office_en, parent_office_bn, parent_ministry_id
             };
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {

@@ -191,11 +191,11 @@
 <script>
     $("select#selected_entity").change(function () {
         ministry_id = $(this).find(':selected').attr('data-ministry-id');
-        layer_id = $(this).find(':selected').attr('data-layer-id');
+        // layer_id = $(this).find(':selected').attr('data-layer-id');
         entity_id = $(this).val();
         entity_name_bn = $(this).text();
         entity_name_en = $(this).find(':selected').attr('data-entity-name-en');
-        Annual_Plan_Container.loadEntityChildOffices(ministry_id, layer_id, entity_id, entity_name_en, entity_name_bn);
+        Annual_Plan_Container.loadEntityChildOffices(ministry_id, entity_id, entity_name_en, entity_name_bn);
     });
 
     $("select#parent_ministry_id").change(function () {

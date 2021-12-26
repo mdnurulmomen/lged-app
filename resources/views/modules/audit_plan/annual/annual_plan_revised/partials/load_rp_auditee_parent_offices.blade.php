@@ -65,9 +65,9 @@
             <div id="rp_auditee_parent_offices" style="overflow-y: scroll; height: 60vh">
                 <ul>
                     @foreach($rp_offices as $rp_office)
-                        <li data-rp-auditee-ministry-id="{{$rp_office['office_ministry_id']}}" data-rp-auditee-entity-id="{{$rp_office['id']}}" data-entity-info="{{json_encode(
+                        <li data-rp-auditee-ministry-id="{{$rp_office['office_ministry_id']}}" data-rp-auditee-entity-id="{{$rp_office['office']['id']}}" data-entity-info="{{json_encode(
     [
-        'entity_id' => $rp_office['id'],
+        'entity_id' => $rp_office['office']['id'],
         'entity_name_en' =>  htmlspecialchars($rp_office['office']['office_name_en']),
         'entity_name_bn' =>  htmlspecialchars($rp_office['office']['office_name_bn']),
         'child_count' =>  $rp_office['child_count'],

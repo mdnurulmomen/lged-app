@@ -414,9 +414,7 @@ class AnnualPlanRevisedController extends Controller
             'parent_office_layer_id' => $request->parent_office_layer_id,
         ];
 //        dd($data);
-        $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-wise-child-office'), $data)->json();
-
-       dd($rp_offices);
+        $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-ministry-parent-wise-child-office'), $data)->json();
 
         if (isSuccess($rp_offices)) {
             $rp_offices = $rp_offices['data'];
