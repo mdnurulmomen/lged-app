@@ -8,7 +8,7 @@
                 <select class="form-control" name="activity_id" id="activity_id">
                     <option value="">অ্যাক্টিভিটি বাছাই করুন</option>
                     @foreach($all_activity as $activity)
-                        <option @if($annual_plan_info['activity_id'] == $activity['id']) selected  @endif value="{{$activity['id']}}">{{$activity['title_bn']}} </option>
+                        <option @if($annual_plan_info['activity_id'] == $activity['id']) selected @endif value="{{$activity['id']}}">{{$activity['title_bn']}} </option>
                     @endforeach
                 </select>
             </div>
@@ -146,12 +146,12 @@
             <div class="form-row">
                 <div class="col-md-6">
                     <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা<span class="text-danger">*</span></label>
-                    <input class="form-control bijoy-bangla text-right" type="text" id="total_unit_no" name="total_unit_no" value="{{$annual_plan_info['total_unit_no']}}" readonly>
+                    <input class="form-control bijoy-bangla text-right" type="text" id="total_unit_no" name="total_unit_no" value="{{$annual_plan_info['total_unit_no']}}">
                 </div>
 
                 <div class="col-md-6">
                     <label for="total_selected_unit_no">নির্বাচিত ইউনিট সংখ্যা<span class="text-danger">*</span></label>
-                    <input name="total_selected_unit_no" class="form-control bijoy-bangla text-right" type="text" id="total_selected_unit_no"  value="{{$annual_plan_info['nominated_office_counts']}}" readonly>
+                    <input name="total_selected_unit_no" class="form-control bijoy-bangla text-right" type="text" id="total_selected_unit_no" value="{{$annual_plan_info['nominated_office_counts']}}">
                 </div>
             </div>
 
@@ -176,10 +176,10 @@
                 <div class="col-md-6">
                     <label for="subject_matter">প্রতিষ্ঠানের শ্রেণী<span class="text-danger">*</span></label>
                     <select class="form-control" name="office_type" id="office_type">
-                        <option  value="">প্রতিষ্ঠানের শ্রেণি বাছাই করুন</option>
+                        <option value="">প্রতিষ্ঠানের শ্রেণি বাছাই করুন</option>
                         <option @if($annual_plan_info['office_type'] == 'বাজেটারি সেন্ট্রাল গভর্নমেন্ট') selected @endif value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>
                         <option @if($annual_plan_info['office_type'] == 'স্ট্যাটুটরি পাবলিক অথরিটিজ') selected @endif value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ</option>
-                        <option @if($annual_plan_info['office_type'] == 'লোকাল অথরিটিজ') selected @endif value="লোকাল অথরিটিজ">লোকাল অথোরিটিজ </option>
+                        <option @if($annual_plan_info['office_type'] == 'লোকাল অথরিটিজ') selected @endif value="লোকাল অথরিটিজ">লোকাল অথোরিটিজ</option>
                         <option @if($annual_plan_info['office_type'] == 'পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স') selected @endif value="পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স">পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স</option>
                     </select>
                 </div>
@@ -194,11 +194,11 @@
                             @foreach($annual_plan_info['ap_entities'] as $entity)
                                 <li class="parent_office" data-child-count="{{$entity['entity_total_unit']}}" id="selected_rp_parent_auditee_{{$entity['entity_id']}}"
                                     style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;">
-                                    <span id="btn_remove_auditee_{{$entity['entity_id']}}" data-auditee-id="{{$entity['entity_id']}}"  onclick="Annual_Plan_Container.removeSelectedEntity({{$entity['entity_id']}},0)" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>
+                                    <span id="btn_remove_auditee_{{$entity['entity_id']}}" data-auditee-id="{{$entity['entity_id']}}" onclick="Annual_Plan_Container.removeSelectedEntity({{$entity['entity_id']}},0)" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>
                                     <span class="badge badge-white">&nbsp;</span><i class="fa fa-home pr-2"></i>
                                     {{$entity['entity_name_bn']}}
                                     <span class="ml-2 badge badge-info">এনটিটি</span>
-                                     @php
+                                    @php
                                         $entity_info =  json_encode(
                                              [
                                                  'entity_id' => $entity['entity_id'],
@@ -212,7 +212,7 @@
                                              ]
                                          );
                                     @endphp
-                                    <input  class="selected_entity" id="selected_parent_entity_{{$entity['entity_id']}}" type="hidden" value="{{$entity_info}}"/>
+                                    <input class="selected_entity" id="selected_parent_entity_{{$entity['entity_id']}}" type="hidden" value="{{$entity_info}}"/>
                                 </li>
                                 @foreach(json_decode($entity['nominated_offices'],true) as $nominated_office)
                                     @php
@@ -270,7 +270,7 @@
                                     @foreach($designations as $designation)
                                         <option
                                             @if($designation['designation_eng'] == $staff['designation_en']) selected @endif
-                                            data-designation-en="{{$designation['designation_eng']}}"
+                                        data-designation-en="{{$designation['designation_eng']}}"
                                             value="{{$designation['designation_eng']}}|{{$designation['designation_bng']}}">
                                             {{$designation['designation_bng']}}
                                         </option>
@@ -323,10 +323,10 @@
                     <textarea class="form-control" id="comment" name="comment">{{$annual_plan_info['comment']}}</textarea>
                 </div>
             </div>
-{{--            <input type="hidden" name="schedule_id" value="{{$schedule_id}}">--}}
+            {{--            <input type="hidden" name="schedule_id" value="{{$schedule_id}}">--}}
             <input type="hidden" name="op_audit_calendar_event_id" value="{{$op_audit_calendar_event_id}}">
-{{--            <input type="hidden" name="activity_id" value="{{$activity_id}}">--}}
-{{--            <input type="hidden" name="milestone_id" value="{{$milestone_id}}">--}}
+            {{--            <input type="hidden" name="activity_id" value="{{$activity_id}}">--}}
+            {{--            <input type="hidden" name="milestone_id" value="{{$milestone_id}}">--}}
             <input type="hidden" id="fiscal_year_id" name="fiscal_year_id" value="{{$fiscal_year_id}}">
         </form>
     </div>
@@ -334,7 +334,7 @@
 
 @include('scripts.script_generic')
 <script>
-    $( function (){
+    $(function () {
         activity_id = '{{$annual_plan_info['activity_id']}}';
         milestone_id = '{{$annual_plan_info['milestone_id']}}';
         // Annual_Plan_Container.loadEntityChildOffices(parent_office_id);
@@ -346,7 +346,7 @@
         entity_id = $(this).val();
         entity_name_bn = $(this).text();
         entity_name_en = $(this).find(':selected').attr('data-entity-name-en');
-        Annual_Plan_Container.loadEntityChildOffices(ministry_id,layer_id,entity_id,entity_name_en,entity_name_bn);
+        Annual_Plan_Container.loadEntityChildOffices(ministry_id, layer_id, entity_id, entity_name_en, entity_name_bn);
     });
 
     $("select#parent_office_layer_id").change(function () {
@@ -394,33 +394,33 @@
         return false;
     }
 
-    $('.milestone_start_date,.milestone_end_date').blur(function (){
-           target_date =  $(this).attr('data-target-date');
-           target_date = formatDate(target_date);
-           target_date = target_date.replaceAll('-', '/');
+    $('.milestone_start_date,.milestone_end_date').blur(function () {
+        target_date = $(this).attr('data-target-date');
+        target_date = formatDate(target_date);
+        target_date = target_date.replaceAll('-', '/');
 
-           date =  $(this).val();
-           date = date.replaceAll('-', '/');
-           date = formatDate(date);
-           date = date.replaceAll('-', '/');
+        date = $(this).val();
+        date = date.replaceAll('-', '/');
+        date = formatDate(date);
+        date = date.replaceAll('-', '/');
 
-           target_date = new Date(target_date);
-           date = new Date(date);
-           console.log(target_date,date);
-           if (target_date < date) {
-                toastr.warning('নির্ধারিত তারিখ '+ enTobn($(this).attr('data-target-date')));
-                $(this).val('');
-           }
+        target_date = new Date(target_date);
+        date = new Date(date);
+        console.log(target_date, date);
+        if (target_date < date) {
+            toastr.warning('নির্ধারিত তারিখ ' + enTobn($(this).attr('data-target-date')));
+            $(this).val('');
+        }
     });
 
     $("input[name$='annual_plan_type']").click(function () {
-       annual_plan_type = $(this).val();
-       if(annual_plan_type == 'thematic'){
-           $('.thematic_title').show();
-       }else{
-           $('.thematic_title').hide();
-           $('.thematic_title').val('');
-       }
+        annual_plan_type = $(this).val();
+        if (annual_plan_type == 'thematic') {
+            $('.thematic_title').show();
+        } else {
+            $('.thematic_title').hide();
+            $('.thematic_title').val('');
+        }
     });
 </script>
 
