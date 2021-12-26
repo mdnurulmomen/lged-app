@@ -35,13 +35,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" id="calender" data-toggle="tab" href="#select_rp_parent_office"
                        aria-controls="tree">
-                        <span class="nav-text">এনটিটি নির্বাচন</span>
+                        <span class="nav-text">এনটিটি/সংস্থা</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a id="select_cost_centers" class="nav-link rounded-0" data-toggle="tab"
                        href="#select_entity_by_layer">
-                        <span class="nav-text">কস্ট সেন্টার/ইউনিট নির্বাচন</span>
+                        <span class="nav-text">কস্ট সেন্টার/ইউনিট</span>
                     </a>
                 </li>
                 <li class="nav-item">
