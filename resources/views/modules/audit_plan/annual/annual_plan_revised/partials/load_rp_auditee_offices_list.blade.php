@@ -1,6 +1,8 @@
 <div class="row">
     <div class="col-md-12">
         @if(count($rp_offices) > 0)
+            <input id="unit_search" type="text" class="form-control mb-1"
+                   placeholder="কস্ট সেন্টার/ইউনিট খুঁজুন">
             <div id="rp_auditee_offices" style="overflow-y: scroll; height: 60vh">
                 <ul>
                     @foreach($rp_offices as $rp_office)
@@ -45,9 +47,23 @@
                     "icon": "fal fa-building text-warning"
                 }
             },
-            "plugins": ["types", "checkbox",]
+            "plugins": ["types", "checkbox", "search"],
+            "search": {
+                "show_only_matches": true,
+                "show_only_matches_children": true,
+                "case_insensitive": true,
+            },
+        }).bind('search.jstree', function (nodes, str, res) {
+            if (str.nodes.length === 0) {
+                $('#rp_auditee_offices').jstree(true).hide_all();
+            }
         });
     })
+
+    $('#unit_search').keyup(function () {
+        $('#rp_auditee_offices').jstree(true).show_all();
+        $('#rp_auditee_offices').jstree('search', $(this).val());
+    });
 
     $('#rp_auditee_offices').on('select_node.jstree', function (e, data) {
         entity_info = $('#' + data.node.id).data('entity-info');
