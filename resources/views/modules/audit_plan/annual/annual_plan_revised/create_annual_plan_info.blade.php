@@ -65,7 +65,7 @@
                      role="tabpanel" aria-labelledby="activity-tab">
                     <div class="row">
                         <div class="col-md-6">
-                            <select class="form-control" id="selected_entity">
+                            <select class="form-control select-select2" id="selected_entity">
                                 <option value=""> --এনটিটি বাছাই করুন--</option>
                             </select>
                         </div>
@@ -133,7 +133,7 @@
                         <option value="">প্রতিষ্ঠানের ক্যাটাগরি বাছাই করুন</option>
                         <option value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>
                         <option value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ</option>
-                        <option value="লোকাল অথরিটিজ">লোকাল অথরিটিজ </option>
+                        <option value="লোকাল অথরিটিজ">লোকাল অথরিটিজ</option>
                         <option value="পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স">পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স</option>
                     </select>
                 </div>
@@ -177,10 +177,10 @@
                     <textarea class="form-control" id="comment" name="comment"></textarea>
                 </div>
             </div>
-{{--            <input type="hidden" name="schedule_id" value="{{$schedule_id}}">--}}
+            {{--            <input type="hidden" name="schedule_id" value="{{$schedule_id}}">--}}
             <input type="hidden" name="op_audit_calendar_event_id" value="{{$op_audit_calendar_event_id}}">
-{{--            <input type="hidden" name="activity_id" value="{{$activity_id}}">--}}
-{{--            <input type="hidden" name="milestone_id" value="{{$milestone_id}}">--}}
+            {{--            <input type="hidden" name="activity_id" value="{{$activity_id}}">--}}
+            {{--            <input type="hidden" name="milestone_id" value="{{$milestone_id}}">--}}
             <input type="hidden" id="fiscal_year_id" name="fiscal_year_id" value="{{$fiscal_year_id}}">
 
         </form>
@@ -195,13 +195,13 @@
         entity_id = $(this).val();
         entity_name_bn = $(this).text();
         entity_name_en = $(this).find(':selected').attr('data-entity-name-en');
-        Annual_Plan_Container.loadEntityChildOffices(ministry_id,layer_id,entity_id,entity_name_en,entity_name_bn);
+        Annual_Plan_Container.loadEntityChildOffices(ministry_id, layer_id, entity_id, entity_name_en, entity_name_bn);
     });
 
-    $("select#parent_office_layer_id").change(function () {
-        layer_id = $(this).val();
-        ministry_id = $('#parent_ministry_id').val();
-        Annual_Plan_Container.loadRPParentAuditeeOffices(ministry_id, layer_id);
+    $("select#parent_ministry_id").change(function () {
+        ministry_id = $(this).val();
+        console.log(ministry_id)
+        Annual_Plan_Container.loadRPParentAuditeeOfficesMinistryWise(ministry_id);
     });
 
     $("#activity_id").change(function () {
@@ -210,15 +210,15 @@
     });
 
     $("input[name$='annual_plan_type']").click(function () {
-       annual_plan_type = $(this).val();
-       if(annual_plan_type == 'thematic'){
-           $('.thematic_title').show();
-           $('.annual_plan_type').removeClass('mt-12');
-       }else{
-           $('.thematic_title').hide();
-           $('.thematic_title').val('');
-           $('.annual_plan_type').addClass('mt-12');
-       }
+        annual_plan_type = $(this).val();
+        if (annual_plan_type == 'thematic') {
+            $('.thematic_title').show();
+            $('.annual_plan_type').removeClass('mt-12');
+        } else {
+            $('.thematic_title').hide();
+            $('.thematic_title').val('');
+            $('.annual_plan_type').addClass('mt-12');
+        }
     });
 
     selected = null

@@ -14,15 +14,15 @@
             <input type="hidden" id="parent_ministry_name_bn" value="">
         </div>
     </div>
-    <div id="custom_layer_div" style="" class="col-md-{{ $view_grid }}">
-        <div class="form-group">
-            <label for="parent_office_layer_id">এনটিটি/প্রতিষ্ঠান এর ধরন</label>
-            <select id="parent_office_layer_id" class="form-control rounded-0 select-select2"
-                    name="parent_office_layer_id">
-                <option value="0">--বাছাই করুন--</option>
-            </select>
-        </div>
-    </div>
+    {{--    <div id="custom_layer_div" style="" class="col-md-{{ $view_grid }}">--}}
+    {{--        <div class="form-group">--}}
+    {{--            <label for="parent_office_layer_id">এনটিটি/প্রতিষ্ঠান এর ধরন</label>--}}
+    {{--            <select id="parent_office_layer_id" class="form-control rounded-0 select-select2"--}}
+    {{--                    name="parent_office_layer_id">--}}
+    {{--                <option value="0">--বাছাই করুন--</option>--}}
+    {{--            </select>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
 </div>
 
 {{--<div class="row">--}}
@@ -58,12 +58,31 @@
         parent_ministry_id = $(this).val();
         parent_ministry_name_en = $(this).find(':selected').data('ministry-en')
         parent_ministry_name_bn = $(this).find(':selected').data('ministry-bn')
+        console.log(parent_ministry_name_bn)
         $('#parent_ministry_name_en').val(parent_ministry_name_en)
         $('#parent_ministry_name_bn').val(parent_ministry_name_bn)
-        $("#parent_office_layer_id").html('');
-        loadParentLayer(parent_ministry_id);
-        $('#parent_office_layer_id').show();
+        // $("#parent_office_layer_id").html('');
+        // loadParentLayer(parent_ministry_id);
+        // loadEntities(parent_ministry_id);
+        // $('#parent_office_layer_id').show();
     });
+
+
+
+    function loadEntities(parent_ministry_id) {
+        var url = '{{route('rpu.office-layer.all')}}';
+        var data = {parent_ministry_id};
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+            console.log(response)
+            layers = `<option value="0" selected="selected">--বাছাই করুন--</option>`;
+            $("#parent_office_layer_id").append(layers);
+            response.map((layer) => {
+                layers = `<option value="${layer.id}">${layer.layer_name_bng}</option>`;
+                $("#parent_office_layer_id").append(layers);
+            })
+
+        });
+    }
 
     function loadParentLayer(parent_ministry_id) {
         var url = '{{route('rpu.office-layer.all')}}';
