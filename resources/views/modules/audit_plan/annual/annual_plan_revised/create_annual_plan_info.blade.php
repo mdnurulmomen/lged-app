@@ -58,7 +58,7 @@
                     <div class="px-3">
                         <x-rp-parent-office-select grid="6" unit="true"/>
                     </div>
-                    <h5 class="text-primary pl-3"><u>এনটিটি/প্রতিষ্ঠানের তালিকাঃ</u></h5>
+                    <h5 class="text-primary pl-3"><u>এনটিটি/সংস্থার তালিকাঃ</u></h5>
                     <div class="col-md-12 rp_auditee_parent_office_tree"></div>
                 </div>
                 <div class="tab-pane border border-top-0 p-3 fade" id="select_entity_by_layer"
@@ -66,7 +66,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <select class="form-control select-select2" id="selected_entity">
-                                <option value=""> --এনটিটি বাছাই করুন--</option>
+                                <option value=""> --এনটিটি/সংস্থা বাছাই করুন--</option>
                             </select>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                     <select class="form-control" name="office_type" id="office_type">
                         <option value="">প্রতিষ্ঠানের ক্যাটাগরি বাছাই করুন</option>
                         <option value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>
-                        <option value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ</option>
+                        <option value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ কর্পোরেশন ব্যতীত</option>
                         <option value="লোকাল অথরিটিজ">লোকাল অথরিটিজ</option>
                         <option value="পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স">পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স</option>
                     </select>
