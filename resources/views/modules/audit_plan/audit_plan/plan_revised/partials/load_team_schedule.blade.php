@@ -98,10 +98,10 @@
         <tr class="audit_schedule_row_{{$team_layer_id}}" data-layer-id="{{$team_layer_id}}"
             data-schedule-second-row='1_{{$team_layer_id}}'>
             <td colspan="2">
-                <input placeholder="যাত্রার বিবরণ" type="text" data-id="{{$team_layer_id}}_0" class="form-control input-detail"/>
+                <input placeholder="ট্রানজিট" type="text" data-id="{{$team_layer_id}}_0" class="form-control input-detail"/>
             </td>
             <td colspan="2">
-                <input placeholder="যাত্রার তারিখ" type="text" data-id="{{$team_layer_id}}_0" class="date form-control input-detail-duration"/>
+                <input placeholder="ট্রানজিটের তারিখ" type="text" data-id="{{$team_layer_id}}_0" class="date form-control input-detail-duration"/>
                 <span class="fal fa-calendar field-icon"></span>
             </td>
             <td>

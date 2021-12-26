@@ -436,7 +436,7 @@
                                                                                                 class="fad fa-calendar-day"></span>
                                                                                                 </button>
 
-                                                                                                <button type="button" title="visit"
+                                                                                                <button type="button" title="Transit"
                                                                                                         onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
                                                                                                         class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                                                             <span
@@ -462,14 +462,14 @@
                                                                                         data-layer-id="{{ $loop->parent->iteration }}"
                                                                                         data-schedule-second-row="{{$loop->iteration}}_{{ $loop->parent->iteration }}">
                                                                                         <td colspan="2">
-                                                                                            <input type="text" placeholder="যাত্রার বিবরণ"
+                                                                                            <input type="text" placeholder="ট্রানজিট"
                                                                                                    data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
                                                                                                    value="{{$schedule['activity_details']}}"
                                                                                                    class="form-control input-detail"/>
                                                                                         </td>
 
                                                                                         <td colspan="2">
-                                                                                            <input type="text" placeholder="যাত্রার তারিখ"
+                                                                                            <input type="text" placeholder="ট্রানজিটের তারিখ"
                                                                                                    data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
                                                                                                    value="{{$schedule['team_member_start_date'] == ""?"":formatDate($schedule['team_member_start_date'])}}"
                                                                                                    class="date form-control input-detail-duration"/>
@@ -485,7 +485,7 @@
                                                                                                 class="fad fa-calendar-day"></span>
                                                                                                 </button>
 
-                                                                                                <button type="button" title="visit"
+                                                                                                <button type="button" title="Transit"
                                                                                                         onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
                                                                                                         class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                                                             <span
@@ -679,13 +679,13 @@
         var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
         var teamScheduleHtml = "<tbody data-schedule-type='visit' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
-        teamScheduleHtml += "<td colspan='2'><input placeholder='যাত্রার বিবরণ' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
-        teamScheduleHtml += "<td colspan='2'><div><input placeholder='যাত্রার তারিখ' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/><span class='fal fa-calendar field-icon'></span></div></td>";
+        teamScheduleHtml += "<td colspan='2'><input placeholder='ট্রানজিট' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
+        teamScheduleHtml += "<td colspan='2'><div><input placeholder='ট্রানজিটের তারিখ' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/><span class='fal fa-calendar field-icon'></span></div></td>";
         teamScheduleHtml += "<td><div style='display: flex'>" +
             "<button title='schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
             "<span class='fad fa-calendar-day'></span>" +
             "</button>" +
-            "<button title='visit' type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
+            "<button title='Transit' type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
             "<span class='fad fa-plus'></span>" +
             "</button>" +
             "<button title='remove' onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +

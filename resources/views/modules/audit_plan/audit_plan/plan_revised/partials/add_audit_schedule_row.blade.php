@@ -43,7 +43,7 @@
                     class='pulse pulse-primary btn btn-icon btn-outline-success border-0 btn-xs mr-2'>
                 <span class='fad fa-calendar-day'></span>
             </button>
-            <button title='Add Visit' type='button' onclick='addDetailsTblRow({{$layer_id}})'
+            <button title='Add Transit' type='button' onclick='addDetailsTblRow({{$layer_id}})'
                     class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>
                 <span class='fad fa-plus'></span>
             </button>
