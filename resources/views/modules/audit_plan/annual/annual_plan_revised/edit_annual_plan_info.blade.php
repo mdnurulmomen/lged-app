@@ -169,21 +169,20 @@
                 </div>
             </div>
             <div class="form-row mt-2">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter" value="{{$annual_plan_info['subject_matter']}}">
                 </div>
-                <div class="col-md-6">
-                    <label for="subject_matter">প্রতিষ্ঠানের শ্রেণী<span class="text-danger">*</span></label>
-                    <select class="form-control" name="office_type" id="office_type">
-                        <option value="">প্রতিষ্ঠানের শ্রেণি বাছাই করুন</option>
-                        <option @if($annual_plan_info['office_type'] == 'বাজেটারি সেন্ট্রাল গভর্নমেন্ট') selected @endif value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>
-                        <option @if($annual_plan_info['office_type'] == 'স্ট্যাটুটরি পাবলিক অথরিটিজ') selected @endif value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ</option>
-                        <option @if($annual_plan_info['office_type'] == 'লোকাল অথরিটিজ') selected @endif value="লোকাল অথরিটিজ">লোকাল অথোরিটিজ</option>
-                        <option @if($annual_plan_info['office_type'] == 'পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স') selected @endif value="পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স">পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স</option>
-                    </select>
-                </div>
-
+                {{--                <div class="col-md-6">--}}
+                {{--                    <label for="subject_matter">প্রতিষ্ঠানের শ্রেণী<span class="text-danger">*</span></label>--}}
+                {{--                    <select class="form-control" name="office_type" id="office_type">--}}
+                {{--                        <option value="">প্রতিষ্ঠানের শ্রেণি বাছাই করুন</option>--}}
+                {{--                        <option @if($annual_plan_info['office_type'] == 'বাজেটারি সেন্ট্রাল গভর্নমেন্ট') selected @endif value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>--}}
+                {{--                        <option @if($annual_plan_info['office_type'] == 'স্ট্যাটুটরি পাবলিক অথরিটিজ') selected @endif value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ</option>--}}
+                {{--                        <option @if($annual_plan_info['office_type'] == 'লোকাল অথরিটিজ') selected @endif value="লোকাল অথরিটিজ">লোকাল অথোরিটিজ</option>--}}
+                {{--                        <option @if($annual_plan_info['office_type'] == 'পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স') selected @endif value="পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স">পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স</option>--}}
+                {{--                    </select>--}}
+                {{--                </div>--}}
             </div>
 
             <div class="p-4 mt-4 card">
@@ -340,6 +339,9 @@
         @if($annual_plan_info['ap_entities'][0])
         $('select#parent_ministry_id').val('{{$annual_plan_info['ap_entities'][0]['ministry_id']}}').trigger('change')
         @endif
+        $('#office_category_type_title_en').val('{{$annual_plan_info['office_type_en']}}')
+        $('#office_category_type_title_bn').val('{{$annual_plan_info['office_type']}}')
+        $('#office_category_type_select').val('{{$annual_plan_info['office_type_id']}}').trigger('change')
         // Annual_Plan_Container.loadEntityChildOffices(parent_office_id);
     });
 

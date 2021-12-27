@@ -19,7 +19,7 @@
             <label for="office_category_type_select">এনটিটি/প্রতিষ্ঠান এর ধরন</label>
             <select id="office_category_type_select" class="form-control rounded-0 select-select2"
                     name="office_category_type">
-{{--                <option value="" selected="selected">--{{___('generic.choose')}}--</option>--}}
+                {{--                <option value="" selected="selected">--{{___('generic.choose')}}--</option>--}}
                 <option value="0">সকল</option>
                 @foreach($category_types as $category_type)
                     <option data-category-type-en="{{$category_type['category_title_en']}}" data-category-type-bn="{{$category_type['category_title_bn']}}"
@@ -86,16 +86,17 @@
     $("select#office_category_type_select").change(function () {
         $('.rp_auditee_office_tree').html('');
         $('.rp_auditee_parent_office_tree').html('');
-        parent_ministry_id = $(this).val();
-        parent_ministry_name_en = $(this).find(':selected').data('ministry-en')
-        parent_ministry_name_bn = $(this).find(':selected').data('ministry-bn')
-        console.log(parent_ministry_name_bn)
-        $('#parent_ministry_name_en').val(parent_ministry_name_en)
-        $('#parent_ministry_name_bn').val(parent_ministry_name_bn)
-        // $("#parent_office_layer_id").html('');
-        // loadParentLayer(parent_ministry_id);
-        // loadEntities(parent_ministry_id);
-        // $('#parent_office_layer_id').show();
+        office_type_id = $(this).val();
+        console.log(office_type_id)
+        if (office_type_id > 0) {
+            office_type_name_en = $(this).find(':selected').data('category-type-en')
+            office_type = $(this).find(':selected').data('category-type-bn')
+            console.log(office_type)
+            console.log(office_type_name_en)
+            $('#office_category_type_title_en').val(office_type_name_en)
+            $('#office_category_type_title_bn').val(office_type)
+            $('#office_category_type_select').val(office_type_id)
+        }
     });
 
 

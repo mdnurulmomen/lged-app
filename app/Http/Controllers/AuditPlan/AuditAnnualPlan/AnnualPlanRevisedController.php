@@ -144,14 +144,14 @@ class AnnualPlanRevisedController extends Controller
 
     public function storeAnnualPlanInfo(Request $request): \Illuminate\Http\JsonResponse
     {
-//        dd(json_decode($request->entity_list,true));
-
         try {
             Validator::make($request->all(), [
                 'op_audit_calendar_event_id' => 'required',
                 'activity_id' => 'required|integer',
                 'fiscal_year_id' => 'required|integer',
-                'office_type' => 'required',
+                'office_type' => 'nullable',
+                'office_type_en' => 'nullable',
+                'office_type_id' => 'nullable',
                 'total_selected_unit_no' => 'required',
                 'subject_matter' => 'required|string',
                 'total_unit_no' => 'required|string',
@@ -170,6 +170,8 @@ class AnnualPlanRevisedController extends Controller
                 'fiscal_year_id' => $request->fiscal_year_id,
                 'subject_matter' => $request->subject_matter,
                 'office_type' => $request->office_type,
+                'office_type_en' => $request->office_type_en,
+                'office_type_id' => $request->office_type_id,
                 'total_unit_no' => $request->total_unit_no,
                 'total_selected_unit_no' => $request->total_selected_unit_no,
                 'comment' => $request->comment,

@@ -671,6 +671,9 @@
             data.push({name: "entity_list", value: entity_list});
             data.push({name: "annual_plan_type", value: annual_plan_type});
             data.push({name: "thematic_title", value: $('.thematic_title').val()});
+            data.push({name: "office_type", value: $('#office_category_type_title_bn').val() ? $('#office_category_type_title_bn').val() : null});
+            data.push({name: "office_type_en", value: $('#office_category_type_title_en').val() ? $('#office_category_type_title_en').val() : null});
+            data.push({name: "office_type_id", value: $('#office_category_type_select').val() ? $('#office_category_type_select').val() : null});
 
             elem.prop('disabled', true)
 
