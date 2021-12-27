@@ -19,7 +19,7 @@
             <label for="office_category_type_select">এনটিটি/প্রতিষ্ঠান এর ধরন</label>
             <select id="office_category_type_select" class="form-control rounded-0 select-select2"
                     name="office_category_type">
-                <option value="" selected="selected">--{{___('generic.choose')}}--</option>
+{{--                <option value="" selected="selected">--{{___('generic.choose')}}--</option>--}}
                 <option value="0">সকল</option>
                 @foreach($category_types as $category_type)
                     <option data-category-type-en="{{$category_type['category_title_en']}}" data-category-type-bn="{{$category_type['category_title_bn']}}"
