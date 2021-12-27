@@ -390,12 +390,11 @@
             });
         },
 
-        loadRPParentAuditeeOfficesMinistryWise: function (ministry_id) {
+        loadRPParentAuditeeOfficesMinistryWise: function (ministry_id, office_category_type) {
             let url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-offices-ministry-wise')}}'
             ministry_name_en = $('#parent_ministry_name_en').val()
             ministry_name_bn = $('#parent_ministry_name_bn').val()
-            data = {ministry_id, ministry_name_en, ministry_name_bn, scope: 'parent_office'};
-            console.log()
+            data = {ministry_id, ministry_name_en, ministry_name_bn, office_category_type, scope: 'parent_office'};
             KTApp.block('#kt_content', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color

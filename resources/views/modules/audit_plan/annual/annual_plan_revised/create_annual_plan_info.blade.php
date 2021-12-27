@@ -200,8 +200,14 @@
 
     $("select#parent_ministry_id").change(function () {
         ministry_id = $(this).val();
-        console.log(ministry_id)
-        Annual_Plan_Container.loadRPParentAuditeeOfficesMinistryWise(ministry_id);
+        office_category_type = $('#office_category_type_select').val();
+        Annual_Plan_Container.loadRPParentAuditeeOfficesMinistryWise(ministry_id, office_category_type);
+    });
+
+    $("select#office_category_type_select").change(function () {
+        ministry_id = $('#parent_ministry_id').val();
+        office_category_type = $(this).val();
+        Annual_Plan_Container.loadRPParentAuditeeOfficesMinistryWise(ministry_id, office_category_type);
     });
 
     $("#activity_id").change(function () {

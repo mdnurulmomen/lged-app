@@ -61,8 +61,7 @@
 
 <div class="row">
     <div class="col-md-12">
-
-        @if(count($rp_offices) > 0)
+        @if(count($rp_offices['offices']) > 0)
             <input id="entity_search" type="text" class="form-control mb-1"
                    placeholder="এনটিটি/সংস্থা খুঁজুন">
             <div id="rp_auditee_parent_offices" style="overflow-y: scroll; height: 60vh">

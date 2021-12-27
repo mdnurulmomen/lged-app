@@ -370,6 +370,7 @@ class AnnualPlanRevisedController extends Controller
     public function showRPAuditeeOfficesMinistryWise(Request $request)
     {
         $ministry_id = $request->ministry_id;
+        $office_category_type = $request->office_category_type;
         $ministry = [
             'id' => $request->ministry_id,
             'name_en' => $request->ministry_name_en,
@@ -377,6 +378,7 @@ class AnnualPlanRevisedController extends Controller
         ];
         $data = [
             'office_ministry_id' => $ministry_id,
+            'office_category_type' => $office_category_type,
         ];
         $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-rp-office-ministry-wise'), $data)->json();
         if (isSuccess($rp_offices)) {
