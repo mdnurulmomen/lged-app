@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Traits\GenericInfoCollection;
 use App\Traits\UserInfoCollector;
-use http\Client;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -50,7 +49,7 @@ class Controller extends BaseController
     public function wizard()
     {
         if (!session('_wizard')) {
-            $http = new \GuzzleHttp\Client();
+            $http = new \GuzzleHttp\Client(['verify' => false]);
             $response = $http->get(config('cag_doptor_api.widget'));
             $data = json_decode($response->getBody()->getContents(), true);
             session()->put(['_wizard' => $data['data']]);
