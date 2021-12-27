@@ -9,7 +9,7 @@ trait ApiHeart
 {
     public function initHttpWithToken(): \Illuminate\Http\Client\PendingRequest
     {
-        return Http::withHeaders($this->apiHeaders())->withToken($this->getBeeToken());
+        return Http::withoutVerifying()->withHeaders($this->apiHeaders())->withToken($this->getBeeToken());
     }
 
     public function apiHeaders(): array
@@ -24,7 +24,7 @@ trait ApiHeart
 
     public function initDoptorHttp(): \Illuminate\Http\Client\PendingRequest
     {
-        return Http::withHeaders($this->apiHeaders())->withToken($this->getDoptorToken($this->getUsername()));
+        return Http::withoutVerifying()->withHeaders($this->apiHeaders())->withToken($this->getDoptorToken($this->getUsername()));
     }
 
     public function getDoptorToken($username)
@@ -57,12 +57,12 @@ trait ApiHeart
 
     public function initHttp(): \Illuminate\Http\Client\PendingRequest
     {
-        return Http::withHeaders($this->apiHeaders());
+        return Http::withoutVerifying()->withHeaders($this->apiHeaders());
     }
 
     public function initRPUHttp(): \Illuminate\Http\Client\PendingRequest
     {
-        return Http::withHeaders($this->apiHeaders())->withToken($this->getRPUniverseToken());
+        return Http::withoutVerifying()->withHeaders($this->apiHeaders())->withToken($this->getRPUniverseToken());
     }
 
     public function getRPUniverseToken()
@@ -79,7 +79,7 @@ trait ApiHeart
 
     public function loginIntoCagBeeCore($data)
     {
-        $response = Http::withHeaders(['Accept' => 'application/json', 'Content-Type' => 'application/json; charset=utf-8', 'api-version' => '1', 'device-id' => 'avc', 'device-type' => 'web'])->post(config('amms_bee_routes.login_in_cag_bee'), ['user_data' => $data])->json();
+        $response = Http::withoutVerifying()->withHeaders(['Accept' => 'application/json', 'Content-Type' => 'application/json; charset=utf-8', 'api-version' => '1', 'device-id' => 'avc', 'device-type' => 'web'])->post(config('amms_bee_routes.login_in_cag_bee'), ['user_data' => $data])->json();
 
         if (is_array($response) && isset($response['status']) && $response['status'] == 'success') {
             session()->put('login', $response);
@@ -89,9 +89,9 @@ trait ApiHeart
         return null;
     }
 
-    public function fileUPloadWithData($uri, $data,$method = 'POST'): \Psr\Http\Message\ResponseInterface
+    public function fileUPloadWithData($uri, $data, $method = 'POST'): \Psr\Http\Message\ResponseInterface
     {
-        $client = new Client();
+        $client = new Client(['verify' => false]);
         $response = $client->request(
             $method,
             $uri,
