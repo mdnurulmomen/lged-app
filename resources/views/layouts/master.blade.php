@@ -48,6 +48,7 @@
                 <!--end::Toolbar-->
             </div>
             <h4 class="text-center mt-3"> {{$userOffices[0]['office_name_bn']}}</h4>
+            <h5 class="text-center mt-3"> {{session('dashboard_audit_type')}}</h5>
             <!--end::Brand-->
             @yield('sideMenu')
         </div>
