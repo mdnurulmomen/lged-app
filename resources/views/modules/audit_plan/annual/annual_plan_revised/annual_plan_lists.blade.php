@@ -327,7 +327,8 @@
             url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-child-offices')}}';
             parent_office_content = $('#' + node_id).attr('data-entity-info');
             parent_office_content = JSON.parse(parent_office_content);
-            parent_office_id = $('#' + node_id).attr('data-rp-auditee-entity-id');
+            // parent_office_id = $('#' + node_id).attr('data-rp-auditee-entity-id');
+            parent_office_id = $('#' + node_id).attr('data-office-id');
             parent_ministry_id = $('#parent_ministry_id').val();
             parent_office_layer_id = $('#' + node_id).attr('data-rp-auditee-layer-id');
 

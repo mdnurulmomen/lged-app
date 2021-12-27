@@ -415,7 +415,6 @@ class AnnualPlanRevisedController extends Controller
         ];
 //        dd($data);
         $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-ministry-parent-wise-child-office'), $data)->json();
-
         if (isSuccess($rp_offices)) {
             $rp_offices = $rp_offices['data'];
             $entity_id = $request->parent_office_id;

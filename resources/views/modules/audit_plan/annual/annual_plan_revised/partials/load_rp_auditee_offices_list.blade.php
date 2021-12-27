@@ -6,7 +6,7 @@
             <div id="rp_auditee_offices" style="overflow-y: scroll; height: 60vh">
                 <ul>
                     @foreach($rp_offices as $rp_office)
-                        <li data-rp-auditee-entity-id="{{$entity_id}}" data-entity-info="{{json_encode(
+                        <li data-office-id="{{$rp_office['id']}}" data-rp-auditee-entity-id="{{$entity_id}}" data-entity-info="{{json_encode(
     [
         'office_id' => $rp_office['id'],
         'office_name_en' =>  htmlspecialchars($rp_office['office_name_en']),
