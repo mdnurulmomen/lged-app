@@ -67,15 +67,15 @@
                    placeholder="এনটিটি/সংস্থা খুঁজুন">
             <div id="rp_auditee_parent_offices" style="overflow-y: scroll; height: 60vh">
                 <ul>
-                    @foreach($rp_offices as $rp_office)
-                        <li data-office-id="{{$rp_office['office']['id']}}" data-rp-auditee-ministry-id="{{$rp_office['office_ministry_id']}}" data-rp-auditee-entity-id="{{$rp_office['office']['id']}}" data-entity-info="{{json_encode(
+                    @foreach($rp_offices['offices'] as $rp_office)
+                        <li data-office-id="{{$rp_office['id']}}" data-rp-auditee-ministry-id="{{$rp_office['office_ministry_id']}}" data-rp-auditee-entity-id="{{$rp_office['id']}}" data-entity-info="{{json_encode(
     [
-        'entity_id' => $rp_office['office']['id'],
-        'entity_name_en' =>  htmlspecialchars($rp_office['office']['office_name_en']),
-        'entity_name_bn' =>  htmlspecialchars($rp_office['office']['office_name_bn']),
+        'entity_id' => $rp_office['id'],
+        'entity_name_en' =>  htmlspecialchars($rp_office['office_name_en']),
+        'entity_name_bn' =>  htmlspecialchars($rp_office['office_name_bn']),
         'child_count' =>  $rp_office['child_count'],
         ], JSON_UNESCAPED_UNICODE)}}" data-jstree='{ "type" : "default" }'>
-                            {{$rp_office['office']['office_name_bn']}}
+                            {{$rp_office['office_name_bn']}}
                         </li>
                     @endforeach
                 </ul>
@@ -106,7 +106,7 @@
                 "show_only_matches_children": true,
                 "case_insensitive": true,
             },
-            "plugins": ["types", "checkbox","search"]
+            "plugins": ["types", "checkbox", "search"]
         }).bind('search.jstree', function (nodes, str, res) {
             if (str.nodes.length === 0) {
                 $('#rp_auditee_parent_offices').jstree(true).hide_all();

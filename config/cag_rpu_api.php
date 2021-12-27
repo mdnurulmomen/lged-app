@@ -6,6 +6,7 @@ return [
         'client_pass' => env('RPU_CLIENT_PASS', ''),
     ],
 
+    'get-office-category-types' => env('API_URL_RPU', '') . '/get-all-office-category-types',
     'get-office-ministry-list' => env('API_URL_RPU', '') . '/get-office-ministry-list',
     'get-parent-wise-child-office' => env('API_URL_RPU', '') . '/get-parent-wise-child-office',
     'get-parent-with-child-office' => env('API_URL_RPU', '') . '/get-parent-with-child-office',

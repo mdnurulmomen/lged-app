@@ -11,6 +11,7 @@ class RpParentOfficeSelect extends Component
     use UserInfoCollector, GenericInfoCollection;
 
     public $ministries = [];
+    public $category_types = [];
     public $view_grid;
     public $is_unit_show;
     public $only_office;
@@ -33,10 +34,13 @@ class RpParentOfficeSelect extends Component
 
         $ministries = isSuccess($responseData) ? $responseData['data'] : [];
 
+        $office_category_types = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-category-types'), [])->json();
+
         $fiscal_years = $this->allFiscalYears();
 
         //dd($ministries);
         $this->ministries = $ministries;
+        $this->category_types = isSuccess($office_category_types) ? $office_category_types['data'] : [];
         $this->fiscal_years = $fiscal_years;
     }
 
@@ -49,7 +53,8 @@ class RpParentOfficeSelect extends Component
     {
         $ministries = $this->ministries;
         $fiscal_years = $this->fiscal_years;
+        $category_types = $this->category_types;
 
-        return view('components.rp-parent-office-select', compact('ministries', 'fiscal_years'));
+        return view('components.rp-parent-office-select', compact('ministries', 'fiscal_years', 'category_types'));
     }
 }
