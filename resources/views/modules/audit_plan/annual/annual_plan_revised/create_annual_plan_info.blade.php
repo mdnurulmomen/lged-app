@@ -127,9 +127,9 @@
                     <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter">
                 </div>
-{{--                <input type="hidden" name="office_type" value="">--}}
-{{--                <input type="hidden" name="office_type_en" value="">--}}
-{{--                <input type="hidden" name="office_type_id" value="">--}}
+                {{--                <input type="hidden" name="office_type" value="">--}}
+                {{--                <input type="hidden" name="office_type_en" value="">--}}
+                {{--                <input type="hidden" name="office_type_id" value="">--}}
                 {{--                <div class="col-md-6">--}}
                 {{--                    <label for="subject_matter">প্রতিষ্ঠানের ক্যাটাগরি<span class="text-danger">*</span></label>--}}
                 {{--                    <select class="form-control" name="office_type" id="office_type">--}}
