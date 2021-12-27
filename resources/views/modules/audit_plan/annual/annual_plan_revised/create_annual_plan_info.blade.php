@@ -123,20 +123,20 @@
                 </div>
             </div>
             <div class="form-row mt-2">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter">
                 </div>
-                <div class="col-md-6">
-                    <label for="subject_matter">প্রতিষ্ঠানের ক্যাটাগরি<span class="text-danger">*</span></label>
-                    <select class="form-control" name="office_type" id="office_type">
-                        <option value="">প্রতিষ্ঠানের ক্যাটাগরি বাছাই করুন</option>
-                        <option value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>
-                        <option value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ কর্পোরেশন ব্যতীত</option>
-                        <option value="লোকাল অথরিটিজ">লোকাল অথরিটিজ</option>
-                        <option value="পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স">পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স</option>
-                    </select>
-                </div>
+{{--                <div class="col-md-6">--}}
+{{--                    <label for="subject_matter">প্রতিষ্ঠানের ক্যাটাগরি<span class="text-danger">*</span></label>--}}
+{{--                    <select class="form-control" name="office_type" id="office_type">--}}
+{{--                        <option value="">প্রতিষ্ঠানের ক্যাটাগরি বাছাই করুন</option>--}}
+{{--                        <option value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>--}}
+{{--                        <option value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ কর্পোরেশন ব্যতীত</option>--}}
+{{--                        <option value="লোকাল অথরিটিজ">লোকাল অথরিটিজ</option>--}}
+{{--                        <option value="পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স">পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স</option>--}}
+{{--                    </select>--}}
+{{--                </div>--}}
 
             </div>
 

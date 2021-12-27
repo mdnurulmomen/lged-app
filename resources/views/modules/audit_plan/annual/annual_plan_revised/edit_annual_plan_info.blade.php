@@ -348,10 +348,16 @@
         Annual_Plan_Container.loadEntityChildOffices(ministry_id, entity_id, entity_name_en, entity_name_bn);
     });
 
-    $("select#parent_office_layer_id").change(function () {
-        layer_id = $(this).val();
+    $("select#parent_ministry_id").change(function () {
+        ministry_id = $(this).val();
+        office_category_type = $('#office_category_type_select').val();
+        Annual_Plan_Container.loadRPParentAuditeeOfficesMinistryWise(ministry_id, office_category_type);
+    });
+
+    $("select#office_category_type_select").change(function () {
         ministry_id = $('#parent_ministry_id').val();
-        Annual_Plan_Container.loadRPParentAuditeeOffices(ministry_id, layer_id);
+        office_category_type = $(this).val();
+        Annual_Plan_Container.loadRPParentAuditeeOfficesMinistryWise(ministry_id, office_category_type);
     });
 
     $("#activity_id").change(function () {
