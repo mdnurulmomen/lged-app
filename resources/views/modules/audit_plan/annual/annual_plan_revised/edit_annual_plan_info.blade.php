@@ -337,6 +337,9 @@
     $(function () {
         activity_id = '{{$annual_plan_info['activity_id']}}';
         milestone_id = '{{$annual_plan_info['milestone_id']}}';
+        @if($annual_plan_info['ap_entities'][0])
+        $('select#parent_ministry_id').val('{{$annual_plan_info['ap_entities'][0]['ministry_id']}}').trigger('change')
+        @endif
         // Annual_Plan_Container.loadEntityChildOffices(parent_office_id);
     });
 
