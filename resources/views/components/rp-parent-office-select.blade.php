@@ -16,11 +16,11 @@
     </div>
     <div id="office_category_type_area" style="" class="col-md-{{ $view_grid }}">
         <div class="form-group">
-            <label for="office_category_type_select">এনটিটি/প্রতিষ্ঠান এর ধরন</label>
+            <label for="office_category_type_select">এনটিটি/প্রতিষ্ঠানের ক্যাটাগরি</label>
             <select id="office_category_type_select" class="form-control rounded-0 select-select2"
                     name="office_category_type">
-                {{--                <option value="" selected="selected">--{{___('generic.choose')}}--</option>--}}
-                <option value="0">সকল</option>
+                {{--                                <option value="0" selected="selected">--{{___('generic.choose')}}--</option>--}}
+                <option value="0">সকল ক্যাটাগরি</option>
                 @foreach($category_types as $category_type)
                     <option data-category-type-en="{{$category_type['category_title_en']}}" data-category-type-bn="{{$category_type['category_title_bn']}}"
                             value="{{$category_type['id']}}">{{$category_type['category_title_bn']}}</option>
@@ -96,6 +96,10 @@
             $('#office_category_type_title_en').val(office_type_name_en)
             $('#office_category_type_title_bn').val(office_type)
             $('#office_category_type_select').val(office_type_id)
+        } else {
+            $('#office_category_type_title_en').val('')
+            $('#office_category_type_title_bn').val('')
+            $('#office_category_type_select').val('')
         }
     });
 
