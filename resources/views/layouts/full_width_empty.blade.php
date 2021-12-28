@@ -70,4 +70,5 @@
 <!--end::Scrolltop-->
 @include('layouts.partials.footer_script')
 @yield('scripts')
+@include('scripts.layout_navigation_spa')
 </html>
