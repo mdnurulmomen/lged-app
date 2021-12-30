@@ -8,6 +8,7 @@
 
 @section('content')
     <div class="row my-35 mb-15">
+        <a href="{{route('dashboard.index_referer',['type' => 'Compliance Audit'])}}">
         <div class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7 text-center h-250px ">
 															<span class="svg-icon svg-icon-3x svg-icon-warning d-block my-8">
 																<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Media/Equalizer.svg-->
@@ -32,6 +33,8 @@
 															</span>
             <a href="{{route('dashboard.index_referer',['type' => 'Compliance Audit'])}}" class="text-warning font-weight-bold font-size-h1 mt-5">Compliance Audit</a>
         </div>
+        </a>
+        <a href="{{route('dashboard.index_referer',['type' => 'Performance Audit'])}}">
         <div class="col bg-light-danger px-6 py-8 rounded-xl mb-7 mr-7 text-center h-250px">
 															<span class="svg-icon svg-icon-3x svg-icon-danger d-block my-8">
 																<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Communication/Add-user.svg-->
@@ -48,6 +51,8 @@
 															</span>
             <a href="{{route('dashboard.index_referer',['type' => 'Performance Audit'])}}" class="text-danger font-weight-bold font-size-h1 mt-5">Performance Audit</a>
         </div>
+        </a>
+            <a href="{{route('dashboard.index_referer',['type' => 'Financial Audit'])}}">
         <div class="col bg-light-success px-6 py-8 rounded-xl mb-7 text-center h-250px">
 															<span class="svg-icon svg-icon-3x svg-icon-success d-block my-8">
 																<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Communication/Add-user.svg-->
@@ -64,6 +69,7 @@
 															</span>
             <a href="{{route('dashboard.index_referer',['type' => 'Financial Audit'])}}" class="text-success font-weight-bold font-size-h1 mt-5">Financial Audit</a>
         </div>
+            </a>
     </div>
     <div class="row my-15 d-flex flex-column flex-item-center ">
         <p class="font-size-h1 text-center" style="color: #eb8005; font-size: 3.2rem">Welcome To AMMS 2.0</p>
