@@ -2,7 +2,7 @@
 
 <div class="card card-custom card-stretch">
     <div class="card-body p-0">
-        <div class="load-table-data" data-href="{{route('audit.execution.load-query-schedule-lists')}}"></div>
+        <div class="load-table-data" data-href="{{route('audit.execution.load-audit-schedule-list')}}"></div>
     </div>
 </div>
 

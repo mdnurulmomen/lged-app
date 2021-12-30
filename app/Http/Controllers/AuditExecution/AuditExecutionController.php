@@ -5,7 +5,7 @@ namespace App\Http\Controllers\AuditExecution;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AuditExecutionDashboardController extends Controller
+class AuditExecutionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class AuditExecutionDashboardController extends Controller
      */
     public function index()
     {
-       /* return view('modules.audit_execution.index');*/
+        $this->userPermittedMenusByModule(request()->path());
+        return view('modules.audit_execution.index');
     }
 
     /**

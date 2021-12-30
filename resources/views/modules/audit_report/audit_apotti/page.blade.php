@@ -7,13 +7,11 @@
 @endsection
 
 @section('sideMenu')
-    @if(session('_module_menus') != null)
-        @include('layouts.partials._sidenav')
-    @endif
+    @include('modules.audit_execution.partials.menu_audit_execution_apotti')
 @endsection
 
 @section('content')
-
+    <h1 class="text-center">Audit Apotti</h1>
 @endsection
 
 @section('scripts')

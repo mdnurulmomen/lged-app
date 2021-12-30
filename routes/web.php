@@ -289,18 +289,15 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
     //Execute
     Route::group(['as' => 'audit.execution.', 'prefix' => 'audit-conducting/'], function () {
-        Route::get('/', function () {
-            return redirect()->route('audit.execution.dashboard');
-        });
-
-        Route::get('/', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'index'])->name('index');
-        Route::get('dashboard', [\App\Http\Controllers\AuditExecution\AuditExecutionDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', [\App\Http\Controllers\AuditExecution\AuditExecutionController::class, 'index']);
 
         Route::get('area', [\App\Http\Controllers\AuditExecution\AuditExecutionAreaController::class, 'index'])->name('area');
 
-        Route::get('schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'querySchedule'])->name('query-schedule-list');
-        Route::get('load-query-schedule-lists', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadQueryScheduleList'])->name('load-query-schedule-lists');
+        //audit schedule
+        Route::get('audit-schedule', [\App\Http\Controllers\AuditExecution\AuditExecutionScheduleController::class, 'auditSchedule'])->name('audit-schedule');
+        Route::get('load-audit-schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionScheduleController::class, 'loadAuditScheduleList'])->name('load-audit-schedule-list');
 
+        //authority query list
         Route::get('authority-query-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'authorityQueryList'])->name('authority-query-list');
         Route::post('load-authority-query-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadAuthorityQueryList'])->name('load-authority-query-list');
 
@@ -431,6 +428,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::group(['as' => 'air-report.', 'prefix' => 'air-report/'], function () {
                 Route::post('create', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'create'])->name('create');
+                Route::post('edit', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'edit'])->name('edit');
                 Route::post('store', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'store'])->name('store');
                 Route::post('download', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'download'])->name('download');
                 Route::post('get-audit-team', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'getAuditTeam'])->name('get-audit-team');

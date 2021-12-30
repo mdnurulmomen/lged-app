@@ -15,28 +15,7 @@ class AuditExecutionQueryController extends Controller
      */
     public function index()
     {
-        $this->userPermittedMenusByModule(request()->path());
-        return view('modules.audit_execution.audit_execution_query.index');
-    }
-
-    public function querySchedule()
-    {
-        return view('modules.audit_execution.audit_execution_query.query_schedule');
-    }
-
-    public function loadQueryScheduleList(Request $request)
-    {
-        $data['cdesk'] = $this->current_desk_json();
-        $data['fiscal_year_id'] = 1;
-        $audit_query_schedule_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.get_query_schedule_list'), $data)->json();
-        //dd($audit_query_schedule_list);
-        if ($audit_query_schedule_list['status'] == 'success') {
-            $audit_query_schedule_list = $audit_query_schedule_list['data'];
-            return view('modules.audit_execution.audit_execution_query.partials.load_query_schedule_list',
-                compact('audit_query_schedule_list'));
-        } else {
-            return response()->json(['status' => 'error', 'data' => $audit_query_schedule_list]);
-        }
+        /*return view('modules.audit_execution.audit_execution_query.index');*/
     }
 
 

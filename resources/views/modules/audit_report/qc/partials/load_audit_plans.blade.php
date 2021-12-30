@@ -139,7 +139,14 @@
                                             <a href="javascript:;"
                                                title="রিপোর্ট-{{enTobn($airReport['id'])}} বিস্তারিত দেখুন"
                                                class="badge-square rounded-0 badge d-flex align-items-center alert-success
-                                                   font-weight-normal mr-1 border decision">
+                                                   font-weight-normal mr-1 border decision"
+                                               data-fiscal-year-id="{{$audit_plan['fiscal_year_id']}}"
+                                               data-activity-id="{{$audit_plan['activity_id']}}"
+                                               data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                                               data-audit-plan-id="{{$audit_plan['id']}}"
+                                               data-audit-plan-entities="{{implode(' , ', array_unique($entities))}}"
+                                               data-air-report-id="{{$airReport['id']}}"
+                                               onclick="AIR_Container.loadAIREdit($(this))">
                                                 <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
                                                 রিপোর্ট: {{enTobn($airReport['id'])}}
                                             </a>
