@@ -32,7 +32,7 @@
             <td>
                 <select id="entity_name_select_{{$team_layer_id}}_0" class="form-control select-select2 input-entity-name"
                         data-id="{{$team_layer_id}}_0">
-                    <option value=''>--Select--</option>
+                    <option value=''>--{{___('generic.select')}}--</option>
                     @foreach(json_decode($parent_office_id,true) as $key => $entity)
                         <option data-ministry-id="{{$entity['ministry_id']}}"
                                 data-ministry-name-bn="{{$entity['ministry_name_bn']}}"
@@ -46,7 +46,7 @@
             <td class="selected_nominated_office_data_0">
                 <select id="branch_name_select_{{$team_layer_id}}_0" class="form-control select-select2 input-branch-name"
                         data-id="{{$team_layer_id}}_0">
-                    <option value=''>--Select--</option>
+                    <option value=''>--{{___('generic.select')}}--</option>
                 </select>
             </td>
             <td>
@@ -98,10 +98,10 @@
         <tr class="audit_schedule_row_{{$team_layer_id}}" data-layer-id="{{$team_layer_id}}"
             data-schedule-second-row='1_{{$team_layer_id}}'>
             <td colspan="2">
-                <input placeholder="যাত্রার বিবরণ" type="text" data-id="{{$team_layer_id}}_0" class="form-control input-detail"/>
+                <input placeholder="ট্রানজিট" type="text" data-id="{{$team_layer_id}}_0" class="form-control input-detail"/>
             </td>
             <td colspan="2">
-                <input placeholder="যাত্রার তারিখ" type="text" data-id="{{$team_layer_id}}_0" class="date form-control input-detail-duration"/>
+                <input placeholder="ট্রানজিটের তারিখ" type="text" data-id="{{$team_layer_id}}_0" class="date form-control input-detail-duration"/>
                 <span class="fal fa-calendar field-icon"></span>
             </td>
             <td>

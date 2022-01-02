@@ -42,6 +42,12 @@
                 </x-menu-item>
             </x-parent-menu-item>
 
+            <x-parent-menu-item icon="fas fa-list" name="Audit Assessment">
+                <x-menu-item class="x_audit_assessment" href="{{route('settings.audit-assessment.criteria.index')}}"
+                             icon="fal fa-calendar-alt">Criteria
+                </x-menu-item>
+            </x-parent-menu-item>
+
             <x-parent-menu-item icon="fas fa-list" name="Modules & Menus">
                 <x-menu-item class="p_modules" href="{{url('settings/menu-actions/module')}}"
                              icon="fal fa-calendar-alt">Modules

@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'loading' => 'লোডিং',
+    'choose' => 'বাছাই করুন',
+    'select' => 'সিলেক্ট',
     'no_data_found' => 'কোন তথ্য পাওয়া যায়নি',
     'placeholders' => [
         'search' => 'অনুসন্ধান করুন',

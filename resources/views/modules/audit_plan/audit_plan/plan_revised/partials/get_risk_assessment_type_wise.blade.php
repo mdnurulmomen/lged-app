@@ -97,8 +97,8 @@
             table-condensed table-sm" id="{{$risk_assessment_type}}ItemTblList">
                 <thead>
                 <tr>
-                    <th width="85%">রিস্ক এসেসমেন্ট</th>
-                    <th width="10%">স্কোর</th>
+                    <th width="80%">রিস্ক এসেসমেন্ট</th>
+                    <th width="15%">স্কোর (০-৫)</th>
                     <th width="5%">সম্পাদন</th>
                 </tr>
                 </thead>
@@ -181,10 +181,4 @@
         type = '{{$risk_assessment_type}}';
         $('.save_' + type).prop("disabled", true);
     });
-
-    /*$('.max_value_five').on('blur', function () {
-        if ($(this).val() > 5) {
-            $(this).val('');
-        }
-    });*/
 </script>

@@ -7,11 +7,13 @@
 @endsection
 
 @section('sideMenu')
-    @include('modules.audit_execution.partials.menu_execution_dashboard')
+    @if(session('_module_menus') != null)
+        @include('layouts.partials._sidenav')
+    @endif
 @endsection
 
 @section('content')
-    <h1 class="text-center">Plan</h1>
+
 @endsection
 
 @section('scripts')

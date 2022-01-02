@@ -14,7 +14,7 @@
                                 Plan For <span class="text-danger">(*)</span>
                             </label>
                             <select class="form-control" name="fiscal_year" id="fiscal_year">
-                                <option value="">--Select--</option>
+                                <option value="">--{{___('generic.select')}}--</option>
                                 @foreach($plan_durations as $plan_duration)
                                     <option value="{{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}">
                                         {{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}
@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <label class="col-form-label">Parent</label>
                             <select class="form-control" id="parent_id" name="parent_id">
-                                <option value="0">--Select--</option>
+                                <option value="0">--{{___('generic.select')}}--</option>
                             </select>
                         </div>
                     </div>

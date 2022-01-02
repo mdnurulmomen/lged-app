@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-md-12">
-        @if(count($rp_offices) > 0 && array_key_exists('offices', $rp_offices))
+        @if(count($rp_offices) > 0 && array_key_exists('office', $rp_offices))
             <div id="rp_auditee_offices" style="overflow-y: scroll; height: 60vh">
                 <ul>
-                    @foreach($rp_offices['offices'] as $rp_office_list)
+                    @foreach($rp_offices['office'] as $rp_office_list)
                         @foreach($rp_office_list['rp_offices'] as $rp_office)
                             <li data-rp-auditee-entity-id="{{$rp_office['id']}}" data-entity-info="{{json_encode(
     [

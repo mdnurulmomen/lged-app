@@ -80,6 +80,34 @@
                 }
             })
         },
+
+        loadAIREdit: function (elem) {
+            url = '{{route('audit.report.qc.air-report.edit')}}';
+            fiscal_year_id = elem.data('fiscal-year-id');
+            activity_id = elem.data('activity-id');
+            annual_plan_id = elem.data('annual-plan-id');
+            audit_plan_id = elem.data('audit-plan-id');
+            audit_plan_entities = elem.data('audit-plan-entities');
+            air_report_id = elem.data('air-report-id');
+
+            data = {fiscal_year_id,activity_id,annual_plan_id, audit_plan_id,audit_plan_entities, air_report_id};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(response);
+                    newDoc.close();
+                }
+            })
+        },
     }
 </script>
 

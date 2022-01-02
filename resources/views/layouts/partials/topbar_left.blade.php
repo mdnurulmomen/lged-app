@@ -11,7 +11,7 @@
                                 <button
                                     class="btn btn-outline-primary btn-square dropdown-toggle btn-sm width-130p text-left fixed-width-dropdown"
                                     type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fad fa-ballot-check"></i> <span>{{$module['title_en']}}</span>
+                                    <i class="{{$module['icon']}}"></i> <span>{{$module['title_en']}}</span>
                                 </button>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -32,9 +32,9 @@
                             @endphp
                             <a
                                 href="{{url("$url")}}"
-                                class="btn btn-outline-danger btn-square btn-sm width-160p text-left"
+                                class="btn btn-outline-primary btn-square btn-sm width-160p text-left"
                                 type="button">
-                                <i class="fal fa-network-wired"></i><span>{{$module['title_en']}}</span>
+                                <i class="{{$module['icon']}}"></i><span>{{$module['title_en']}}</span>
                             </a>
                         </li>
 

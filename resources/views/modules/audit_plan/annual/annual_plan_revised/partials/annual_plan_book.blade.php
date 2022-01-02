@@ -799,20 +799,20 @@
 
         <div style="text-align: center;font-size: 15px;margin-top: 5px">
             সেক্টর-০২ঃ
-            @foreach($plan_infos['all_ministries'] as $ministry)
-                {{enTobn($loop->iteration)}} | {{$ministry['ministry_name_bn']}}
+            @foreach(array_unique( array_column( $plan_infos['all_ministries'] , 'ministry_name_bn' )) as $ministry)
+                {{enTobn($loop->iteration)}} | {{$ministry}}
             @endforeach
         </div>
         {{--pdf screen 02--}}
         @foreach($plan_infos['plans'] as $plan)
             <div class="bangla-font" style="height: 100%;margin-top: 10px">
                 <div class="bangla-font">
-                    <table class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px"
+                    <table  class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px;padding: 5px"
                            border="1px">
                         <tr class="bangla-font">
                             <td class="bangla-font" style="text-align: center" width="5%">ক্রম</td>
                             <td class="bangla-font" style="text-align: center" width="20%">কার্যক্রম</td>
-                            <td class="bangla-font" style="text-align: center" width="60%"> বিভিন্ন পর্যায়</td>
+                            <td class="bangla-font" style="text-align: center" width="60%">কমপ্লায়েন্স অডিটের বিভিন্ন পর্যায়</td>
                             <td class="bangla-font" style="text-align: center" width="15%">নির্ধারিত সময়সীমা</td>
                         </tr>
                         <tr class="bangla-font">
@@ -821,14 +821,14 @@
                         </tr>
                         @foreach($plan['milestones'] as $milestone)
                             <tr class="bangla-font">
-                                <td class="bangla-font">{{$milestone['title_bn']}}</td>
+                                <td class="bangla-font pl-2">{{$milestone['title_bn']}}</td>
                                 <td class="bangla-font"
                                     style="text-align: center">{{enTobn($milestone['milestone_calendar']['target_date'])}}</td>
                             </tr>
                         @endforeach
                         <tr class="bangla-font">
                             <td class="bangla-font">নিরীক্ষা পরিদর্শন প্রতিবেদন (এআইআর) এর সংখ্যা</td>
-                            <td class="bangla-font" style="text-align: center">{{enTobn(count($plan['annual_plans']))}} টি</td>
+                            <td class="bangla-font" style="text-align: center">{{enTobn(count($plan['annual_plans']))}} ({{numberConvertToBnWord(count($plan['annual_plans']))}}) টি</td>
                         </tr>
                     </table>
                 </div>
@@ -847,9 +847,9 @@
                 <div class="bangla-font">
                     <table class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px"
                            border="1px">
-                        <tr class="bangla-font">
+                        <tr class="bangla-font" style="padding: 5px">
                             <td class="bangla-font" style="text-align: center" width="3%">ক্রঃনং</td>
-{{--                            <td class="bangla-font" style="text-align: center" width="10%">মন্ত্রণালয়/ বিভাগ</td>--}}
+                            <td class="bangla-font" style="text-align: center" width="10%">মন্ত্রণালয়/ বিভাগ</td>
                             <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের নাম</td>
                             <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের ধরন</td>
                             <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা
@@ -862,7 +862,7 @@
                             <td class="bangla-font" style="text-align: center" width="15%">প্রয়োজনীয় লোকবল</td>
                             <td class="bangla-font" style="text-align: center" width="12%">মন্তব্য</td>
                         </tr>
-                        <tr class="bangla-font">
+                        <tr class="bangla-font" style="padding: 5px">
                             <td class="bangla-font" style="text-align: center" width="3%">০১</td>
                             <td class="bangla-font" style="text-align: center" width="10%">০২</td>
                             <td class="bangla-font" style="text-align: center" width="10%">০৩</td>
@@ -874,10 +874,19 @@
                             <td class="bangla-font" style="text-align: center" width="12%">০৯</td>
                         </tr>
                         @foreach($plan['annual_plans'] as $id => $annual_plans)
-                            <tr class="bangla-font">
+                            <tr class="bangla-font" style="padding: 5px">
                                 <td class="bangla-font" style="text-align: center"
                                     width="3%">{{enTobn($loop->iteration)}}</td>
-{{--                                <td class="bangla-font" width="10%">{{$annual_plans['ministry_name_bn']}}</td>--}}
+                                <td class="bangla-font" width="10%">
+                                    @php
+                                        $ministries = [];
+                                        foreach($annual_plans['ap_entities'] as $ap_entities){
+                                           $ministry =  $ap_entities['ministry_name_bn'];
+                                            $ministries[] = $ministry;
+                                        }
+                                    @endphp
+                                    {{implode(' , ', array_unique($ministries))}}
+                                </td>
                                 <td class="bangla-font" style="text-align: center"
                                     width="10%">
                                     @php
@@ -889,7 +898,7 @@
                                     @endphp
                                     {{implode(' , ', array_unique($entities))}}
                                 </td>
-                                <td class="bangla-font" width="10%"></td>
+                                <td class="bangla-font" width="10%">{{$annual_plans['office_type']}}</td>
                                 <td class="bangla-font" style="text-align: center"
                                     width="10%">{{enTobn($annual_plans['total_unit_no'])}}</td>
                                 <td class="bangla-font" width="20%">

@@ -14,7 +14,7 @@ class AuditExecutionDashboardController extends Controller
      */
     public function index()
     {
-        return view('modules.audit_execution.index');
+       /* return view('modules.audit_execution.index');*/
     }
 
     /**

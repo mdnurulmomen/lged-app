@@ -35,13 +35,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" id="calender" data-toggle="tab" href="#select_rp_parent_office"
                        aria-controls="tree">
-                        <span class="nav-text">এনটিটি নির্বাচন</span>
+                        <span class="nav-text">এনটিটি/সংস্থা</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a id="select_cost_centers" class="nav-link rounded-0" data-toggle="tab"
                        href="#select_entity_by_layer">
-                        <span class="nav-text">কস্ট সেন্টার নির্বাচন</span>
+                        <span class="nav-text">কস্ট সেন্টার/ইউনিট</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -58,15 +58,15 @@
                     <div class="px-3">
                         <x-rp-parent-office-select grid="6" unit="true"/>
                     </div>
-                    <h5 class="text-primary pl-3"><u>এনটিটি/প্রতিষ্ঠানের তালিকাঃ</u></h5>
+                    <h5 class="text-primary pl-3"><u>এনটিটি/সংস্থার তালিকাঃ</u></h5>
                     <div class="col-md-12 rp_auditee_parent_office_tree"></div>
                 </div>
                 <div class="tab-pane border border-top-0 p-3 fade" id="select_entity_by_layer"
                      role="tabpanel" aria-labelledby="activity-tab">
                     <div class="row">
                         <div class="col-md-6">
-                            <select class="form-control" id="selected_entity">
-                                <option value=""> --এনটিটি বাছাই করুন--</option>
+                            <select class="form-control select-select2" id="selected_entity">
+                                <option value=""> --এনটিটি/সংস্থা বাছাই করুন--</option>
                             </select>
                         </div>
                     </div>
@@ -99,13 +99,13 @@
             <div class="form-row">
                 <div class="col-md-6">
                     <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা<span class="text-danger">*</span></label>
-                    <input class="form-control bijoy-bangla text-right" type="text" id="total_unit_no" name="total_unit_no" readonly>
+                    <input class="form-control bijoy-bangla text-right" type="text" id="total_unit_no" name="total_unit_no">
                     <input type="hidden" id="total_unit">
                 </div>
 
                 <div class="col-md-6">
                     <label for="total_selected_unit_no">নির্বাচিত ইউনিট সংখ্যা<span class="text-danger">*</span></label>
-                    <input class="form-control bijoy-bangla text-right" type="text" name="total_selected_unit_no" id="total_selected_unit_no" readonly>
+                    <input class="form-control bijoy-bangla text-right" type="text" name="total_selected_unit_no" id="total_selected_unit_no">
                 </div>
             </div>
 
@@ -123,20 +123,23 @@
                 </div>
             </div>
             <div class="form-row mt-2">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter">
                 </div>
-                <div class="col-md-6">
-                    <label for="subject_matter">প্রতিষ্ঠানের শ্রেণী<span class="text-danger">*</span></label>
-                    <select class="form-control" name="office_type" id="office_type">
-                        <option value="">প্রতিষ্ঠানের শ্রেণি বাছাই করুন</option>
-                        <option value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>
-                        <option value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ</option>
-                        <option value="লোকাল অথরিটিজ">লোকাল অথরিটিজ </option>
-                        <option value="পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স">পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স</option>
-                    </select>
-                </div>
+                {{--                <input type="hidden" name="office_type" value="">--}}
+                {{--                <input type="hidden" name="office_type_en" value="">--}}
+                {{--                <input type="hidden" name="office_type_id" value="">--}}
+                {{--                <div class="col-md-6">--}}
+                {{--                    <label for="subject_matter">প্রতিষ্ঠানের ক্যাটাগরি<span class="text-danger">*</span></label>--}}
+                {{--                    <select class="form-control" name="office_type" id="office_type">--}}
+                {{--                        <option value="">প্রতিষ্ঠানের ক্যাটাগরি বাছাই করুন</option>--}}
+                {{--                        <option value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>--}}
+                {{--                        <option value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ কর্পোরেশন ব্যতীত</option>--}}
+                {{--                        <option value="লোকাল অথরিটিজ">লোকাল অথরিটিজ</option>--}}
+                {{--                        <option value="পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স">পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স</option>--}}
+                {{--                    </select>--}}
+                {{--                </div>--}}
 
             </div>
 
@@ -177,10 +180,10 @@
                     <textarea class="form-control" id="comment" name="comment"></textarea>
                 </div>
             </div>
-{{--            <input type="hidden" name="schedule_id" value="{{$schedule_id}}">--}}
+            {{--            <input type="hidden" name="schedule_id" value="{{$schedule_id}}">--}}
             <input type="hidden" name="op_audit_calendar_event_id" value="{{$op_audit_calendar_event_id}}">
-{{--            <input type="hidden" name="activity_id" value="{{$activity_id}}">--}}
-{{--            <input type="hidden" name="milestone_id" value="{{$milestone_id}}">--}}
+            {{--            <input type="hidden" name="activity_id" value="{{$activity_id}}">--}}
+            {{--            <input type="hidden" name="milestone_id" value="{{$milestone_id}}">--}}
             <input type="hidden" id="fiscal_year_id" name="fiscal_year_id" value="{{$fiscal_year_id}}">
 
         </form>
@@ -191,17 +194,23 @@
 <script>
     $("select#selected_entity").change(function () {
         ministry_id = $(this).find(':selected').attr('data-ministry-id');
-        layer_id = $(this).find(':selected').attr('data-layer-id');
+        // layer_id = $(this).find(':selected').attr('data-layer-id');
         entity_id = $(this).val();
         entity_name_bn = $(this).text();
         entity_name_en = $(this).find(':selected').attr('data-entity-name-en');
-        Annual_Plan_Container.loadEntityChildOffices(ministry_id,layer_id,entity_id,entity_name_en,entity_name_bn);
+        Annual_Plan_Container.loadEntityChildOffices(ministry_id, entity_id, entity_name_en, entity_name_bn);
     });
 
-    $("select#parent_office_layer_id").change(function () {
-        layer_id = $(this).val();
+    $("select#parent_ministry_id").change(function () {
+        ministry_id = $(this).val();
+        office_category_type = $('#office_category_type_select').val();
+        Annual_Plan_Container.loadRPParentAuditeeOfficesMinistryWise(ministry_id, office_category_type);
+    });
+
+    $("select#office_category_type_select").change(function () {
         ministry_id = $('#parent_ministry_id').val();
-        Annual_Plan_Container.loadRPParentAuditeeOffices(ministry_id, layer_id);
+        office_category_type = $(this).val();
+        Annual_Plan_Container.loadRPParentAuditeeOfficesMinistryWise(ministry_id, office_category_type);
     });
 
     $("#activity_id").change(function () {
@@ -210,15 +219,15 @@
     });
 
     $("input[name$='annual_plan_type']").click(function () {
-       annual_plan_type = $(this).val();
-       if(annual_plan_type == 'thematic'){
-           $('.thematic_title').show();
-           $('.annual_plan_type').removeClass('mt-12');
-       }else{
-           $('.thematic_title').hide();
-           $('.thematic_title').val('');
-           $('.annual_plan_type').addClass('mt-12');
-       }
+        annual_plan_type = $(this).val();
+        if (annual_plan_type == 'thematic') {
+            $('.thematic_title').show();
+            $('.annual_plan_type').removeClass('mt-12');
+        } else {
+            $('.thematic_title').hide();
+            $('.thematic_title').val('');
+            $('.annual_plan_type').addClass('mt-12');
+        }
     });
 
     selected = null

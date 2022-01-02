@@ -39,9 +39,8 @@
         <div class="card-body">
             <div style="font-family:SolaimanLipi,serif !important;text-align: center">
                 গণপ্রজাতন্ত্রী বাংলাদেশ সরকার <br>
-                <b>বাণিজ্যিক অডিট অধিদপ্তর</b> <br>
-                অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
-                সেগুনবাগিচা, ঢাকা -১০০০।
+                <b>{{$directorateName}}</b> <br>
+                {!! $directorateAddress !!}
             </div>
 
             <div style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">

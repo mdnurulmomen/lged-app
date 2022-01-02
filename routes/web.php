@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentController;
+use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentScoreController;
+use App\Http\Controllers\Setting\XAuditAssessment\CriteriaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -7,7 +10,9 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
-    Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard/referer/{type?}', [\App\Http\Controllers\DashboardController::class, 'index_referer'])->name('dashboard.index_referer');
+    Route::get('/dashboard/index', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
     Route::post('/profile', [\App\Http\Controllers\DashboardController::class, 'getUserProfile'])->name('user_profile');
 
     // Plan Route Start
@@ -24,100 +29,63 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::get('/dashboard', [\App\Http\Controllers\AuditPlan\AuditStrategicPlanController::class, 'showAuditStrategicPlanDashboard'])->name('dashboard');
 
-            Route::get('draft-plans', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
-            ::class, 'index'])->name('draft_plan.all');
-            Route::post('draft-plan', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController
-            ::class, 'show'])->name('draft_plan.single');
+            Route::get('draft-plans', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController::class, 'index'])->name('draft_plan.all');
+            Route::post('draft-plan', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController::class, 'show'])->name('draft_plan.single');
             Route::get('draft-plan/create', function () {
                 return view('modules.audit_plan.strategic.draft_plan.strategic_plan_draft_create');
             })->name('draft_plan_create');
 
             //sp file upload
-            Route::get('sp-file-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
-            ::class, 'index'])->name('sp_file_list');
-            Route::get('file-upload', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
-            ::class, 'create'])->name('sp_file_upload');
-            Route::post('file-store', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
-            ::class, 'store'])->name('sp_file_store');
-            Route::get('final-plan-edit/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
-            ::class, 'edit'])->name('sp_file_edit');
-            Route::post('file-update', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
-            ::class, 'update'])->name('sp_file_update');
+            Route::get('sp-file-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'index'])->name('sp_file_list');
+            Route::get('file-upload', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'create'])->name('sp_file_upload');
+            Route::post('file-store', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'store'])->name('sp_file_store');
+            Route::get('final-plan-edit/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'edit'])->name('sp_file_edit');
+            Route::post('file-update', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'update'])->name('sp_file_update');
 
-            Route::post('is-document-exist', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
-            ::class, 'isDocumentExist'])->name('is_document_exist');
+            Route::post('is-document-exist', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'isDocumentExist'])->name('is_document_exist');
 
 
             //html view
-            Route::get('setting-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController
-            ::class, 'index'])->name('setting_list');
+            Route::get('setting-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController::class, 'index'])->name('setting_list');
 
-            Route::get('html-view-content', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController
-            ::class, 'contentView'])->name('html_view_content');
-            Route::get('html-view-content-create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController
-            ::class, 'createContent'])->name('html_view_content_create');
-            Route::get('html-view-content-key-create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController
-            ::class, 'createKey'])->name('html_view_content_key_create');
-            Route::post('html-view-content-key-store', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController
-            ::class, 'storeKey'])->name('html_view_content_key_store');
-            Route::get('html-view-content-title-duration-wise', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController
-            ::class, 'loadParentDurationWiseSelect'])->name('html_view_content_title_duration_wise');
+            Route::get('html-view-content', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController::class, 'contentView'])->name('html_view_content');
+            Route::get('html-view-content-create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController::class, 'createContent'])->name('html_view_content_create');
+            Route::get('html-view-content-key-create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController::class, 'createKey'])->name('html_view_content_key_create');
+            Route::post('html-view-content-key-store', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController::class, 'storeKey'])->name('html_view_content_key_store');
+            Route::get('html-view-content-title-duration-wise', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController::class, 'loadParentDurationWiseSelect'])->name('html_view_content_title_duration_wise');
 
-            Route::get('meetings', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController
-            ::class, 'index'])->name('meeting.all');
-            Route::post('meeting', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController
-            ::class, 'show'])->name('meeting.single');
+            Route::get('meetings', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController::class, 'index'])->name('meeting.all');
+            Route::post('meeting', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController::class, 'show'])->name('meeting.single');
 
-            Route::get('final-plans', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
-            ::class, 'index'])->name('final-plan.all');
-            Route::post('final-plan', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController
-            ::class, 'show'])->name('final-plan.single');
+            Route::get('final-plans', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'index'])->name('final-plan.all');
+            Route::post('final-plan', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'show'])->name('final-plan.single');
 
-            Route::get('milestones', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MilestoneController
-            ::class, 'index'])->name('milestone.all');
-            Route::post('milestone', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MilestoneController
-            ::class, 'show'])->name('milestone.single');
+            Route::get('milestones', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MilestoneController::class, 'index'])->name('milestone.all');
+            Route::post('milestone', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MilestoneController::class, 'show'])->name('milestone.single');
 
-            Route::get('risks', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\RiskController
-            ::class, 'index'])->name('risk.all');
-            Route::post('risk', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\RiskController
-            ::class, 'show'])->name('risk.single');
+            Route::get('risks', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\RiskController::class, 'index'])->name('risk.all');
+            Route::post('risk', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\RiskController::class, 'show'])->name('risk.single');
 
-            Route::get('indicator/outcome', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
-            ::class, 'index'])->name('indicator.outcome');
-            Route::get('indicator/outcome/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
-            ::class, 'create'])->name('indicator.outcome.create');
-            Route::post('indicator/outcome/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
-            ::class, 'store'])->name('indicator.outcome.store');
-            Route::get('indicator/outcome/edit/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
-            ::class, 'edit'])->name('indicator.outcome.edit');
-            Route::post('indicator/outcome/update', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
-            ::class, 'update'])->name('indicator.outcome.update');
-            Route::get('indicator/outcome/show/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
-            ::class, 'show'])->name('indicator.outcome.show');
+            Route::get('indicator/outcome', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'index'])->name('indicator.outcome');
+            Route::get('indicator/outcome/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'create'])->name('indicator.outcome.create');
+            Route::post('indicator/outcome/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'store'])->name('indicator.outcome.store');
+            Route::get('indicator/outcome/edit/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'edit'])->name('indicator.outcome.edit');
+            Route::post('indicator/outcome/update', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'update'])->name('indicator.outcome.update');
+            Route::get('indicator/outcome/show/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'show'])->name('indicator.outcome.show');
 
-            Route::get('indicator/outcome/all', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
-            ::class, 'outcomes'])->name('indicator.outcomes');
+            Route::get('indicator/outcome/all', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'outcomes'])->name('indicator.outcomes');
 
-            Route::get('indicator/genYear/{year?}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController
-            ::class, 'genYear'])->name('indicator.gen.year');
+            Route::get('indicator/genYear/{year?}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'genYear'])->name('indicator.gen.year');
 
 
-            Route::get('indicator/output', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
-            ::class, 'index'])->name('indicator.output');
-            Route::post('indicator/output/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
-            ::class, 'store'])->name('indicator.output.store');
-            Route::get('indicator/output/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
-            ::class, 'create'])->name('indicator.output.create');
-            Route::get('indicator/output/edit/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
-            ::class, 'edit'])->name('indicator.output.edit');
-            Route::post('indicator/output/update', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
-            ::class, 'update'])->name('indicator.output.update');
-            Route::get('indicator/output/show/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
-            ::class, 'show'])->name('indicator.output.show');
+            Route::get('indicator/output', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'index'])->name('indicator.output');
+            Route::post('indicator/output/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'store'])->name('indicator.output.store');
+            Route::get('indicator/output/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'create'])->name('indicator.output.create');
+            Route::get('indicator/output/edit/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'edit'])->name('indicator.output.edit');
+            Route::post('indicator/output/update', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'update'])->name('indicator.output.update');
+            Route::get('indicator/output/show/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'show'])->name('indicator.output.show');
 
-            Route::get('indicator/output/all', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController
-            ::class, 'outputs'])->name('indicator.outputs');
+            Route::get('indicator/output/all', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'outputs'])->name('indicator.outputs');
 
 
             Route::get('/final-plan-add', function () {
@@ -191,19 +159,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('load-activity-wise-team', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanController::class, 'showActivityWiseTeam'])->name('plan.load-activity-wise-team');
 
             //op final file upload
-            Route::get('file-list', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController
-            ::class, 'index'])->name('file_list');
-            Route::get('file-create', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController
-            ::class, 'create'])->name('file_create');
-            Route::post('file-store', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController
-            ::class, 'store'])->name('file_store');
-            Route::get('file-edit/{id}', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController
-            ::class, 'edit'])->name('file_edit');
-            Route::post('file-update', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController
-            ::class, 'update'])->name('file_update');
+            Route::get('file-list', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController::class, 'index'])->name('file_list');
+            Route::get('file-create', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController::class, 'create'])->name('file_create');
+            Route::post('file-store', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController::class, 'store'])->name('file_store');
+            Route::get('file-edit/{id}', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController::class, 'edit'])->name('file_edit');
+            Route::post('file-update', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController::class, 'update'])->name('file_update');
 
-            Route::post('is-document-exist', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController
-            ::class, 'isDocumentExist'])->name('is_document_exist');
+            Route::post('is-document-exist', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\FinalPlanController::class, 'isDocumentExist'])->name('is_document_exist');
         });
 
         //annual plan
@@ -242,11 +204,30 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/show-plan-info', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'showAnnualPlanInfo'])->name('plan.revised.show_plan_info');
             Route::post('/delete-plan-info', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'deleteAnnualPlan'])->name('plan.revised.delete_annual_plan');
             Route::post('/load-rp-auditee-offices', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'showRPAuditeeOffices'])->name('plan.list.show.rp-auditee-offices');
+            Route::post('/load-rp-auditee-offices-ministry-wise', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'showRPAuditeeOfficesMinistryWise'])->name('plan.list.show.rp-auditee-offices-ministry-wise');
             Route::post('/load-rp-auditee-child-offices', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'showRPChildAuditeeOffices'])->name('plan.list.show.rp-auditee-child-offices');
             Route::post('/load-rp-auditee-child-offices-list', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'showRPChildAuditeeOfficesList'])->name('plan.list.show.rp-auditee-child-offices-list');
             Route::post('/submit-audit-plan-to-ocag', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'submitPlanToOCAG'])->name('plan.list.submit.revised.plan-to-ocag');
 
             Route::get('/calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendarController::class, 'index'])->name('calendar');
+
+            //audit assessment score
+            Route::group(['as' => 'audit-assessment-score.', 'prefix' => 'audit-assessment-score/'], function () {
+                Route::get('/', [AuditAssessmentScoreController::class, 'index']);
+                Route::post('/list', [AuditAssessmentScoreController::class, 'list'])->name('list');
+                Route::post('/create', [AuditAssessmentScoreController::class, 'create'])->name('create');
+                Route::post('/load-ministry-wise-entity', [AuditAssessmentScoreController::class, 'loadMinistryWiseEntity'])->name('load-ministry-wise-entity');
+                Route::post('/store', [AuditAssessmentScoreController::class, 'store'])->name('store');
+            });
+
+            //audit assessment
+            Route::group(['as' => 'audit-assessment.', 'prefix' => 'audit-assessment/'], function () {
+                Route::get('/', [AuditAssessmentController::class, 'index']);
+                Route::post('/list', [AuditAssessmentController::class, 'list'])->name('list');
+                Route::post('/create', [AuditAssessmentController::class, 'create'])->name('create');
+                Route::post('/store', [AuditAssessmentController::class, 'store'])->name('store');
+            });
+
         });
 
         //audit Plan
@@ -329,18 +310,15 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
     //Execute
     Route::group(['as' => 'audit.execution.', 'prefix' => 'audit-conducting/'], function () {
-        Route::get('/', function () {
-            return redirect()->route('audit.execution.dashboard');
-        });
-
-        Route::get('/', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'index'])->name('index');
-        Route::get('dashboard', [\App\Http\Controllers\AuditExecution\AuditExecutionDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', [\App\Http\Controllers\AuditExecution\AuditExecutionController::class, 'index']);
 
         Route::get('area', [\App\Http\Controllers\AuditExecution\AuditExecutionAreaController::class, 'index'])->name('area');
 
-        Route::get('schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'querySchedule'])->name('query-schedule-list');
-        Route::get('load-query-schedule-lists', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadQueryScheduleList'])->name('load-query-schedule-lists');
+        //audit schedule
+        Route::get('audit-schedule', [\App\Http\Controllers\AuditExecution\AuditExecutionScheduleController::class, 'auditSchedule'])->name('audit-schedule');
+        Route::get('load-audit-schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionScheduleController::class, 'loadAuditScheduleList'])->name('load-audit-schedule-list');
 
+        //authority query list
         Route::get('authority-query-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'authorityQueryList'])->name('authority-query-list');
         Route::post('load-authority-query-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadAuthorityQueryList'])->name('load-authority-query-list');
 
@@ -471,6 +449,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::group(['as' => 'air-report.', 'prefix' => 'air-report/'], function () {
                 Route::post('create', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'create'])->name('create');
+                Route::post('edit', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'edit'])->name('edit');
                 Route::post('store', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'store'])->name('store');
                 Route::post('download', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'download'])->name('download');
                 Route::post('get-audit-team', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'getAuditTeam'])->name('get-audit-team');
@@ -573,6 +552,23 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/assign-menus-to-role', [\App\Http\Controllers\Setting\PermissionController::class, 'assignMenuModuleToRole'])->name('assign-menus-to-role');
             Route::post('/assign-menus-to-employee', [\App\Http\Controllers\Setting\PermissionController::class, 'assignMenuModuleToEmployee'])->name('assign-menus-to-employee');
         });
+
+        //audit assessment
+        Route::group(['as' => 'audit-assessment.', 'prefix' => 'audit-assessment/'], function () {
+            Route::group(['as' => 'criteria.', 'prefix' => 'criteria/'], function () {
+                Route::get('/', [CriteriaController::class, 'index'])->name('index');
+                Route::post('/list', [CriteriaController::class, 'list'])->name('list');
+                Route::post('/create', [CriteriaController::class, 'create'])->name('create');
+                Route::post('/store', [CriteriaController::class, 'store'])->name('store');
+            });
+
+            /*Route::group(['as' => 'category.', 'prefix' => 'category/'], function () {
+                Route::get('/', [AuditAssessmentController::class, 'index']);
+                Route::post('/list', [AuditAssessmentController::class, 'list'])->name('list');
+                Route::post('/create', [AuditAssessmentController::class, 'create'])->name('create');
+                Route::post('/store', [AuditAssessmentController::class, 'store'])->name('store');
+            });*/
+        });
     });
 
 
@@ -592,6 +588,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('get-ministries', [\App\Http\Controllers\GenericRPUController::class, 'getMinistries'])->name('ministries.all');
         Route::post('get-office-layer', [\App\Http\Controllers\GenericRPUController::class, 'getMinistryWiseOfficeLayer'])->name('office-layer.all');
         Route::post('get-rp-offices', [\App\Http\Controllers\GenericRPUController::class, 'getMinistryLayerWiseOffice'])->name('rp-offices.all');
+        Route::post('get-ministry-wise-rp-entities', [\App\Http\Controllers\GenericRPUController::class, 'getMinistryWiseEntities'])->name('rp-offices.all');
     });
 
     /*

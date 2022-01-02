@@ -59,6 +59,25 @@ return [
         'role_update' => env('API_URL_BEE', '') . '/roles/update',
         'assign_master_designation_to_role' => env('API_URL_BEE', '') . '/roles/assign-master-designations-to-role',
         'assigned_master_designation_to_role' => env('API_URL_BEE', '') . '/roles/assigned-master-designations-to-role',
+
+        'audit_assessment' => [
+            'category' => [
+                'lists' => env('API_URL_BEE', '') . '/audit-assessment-category',
+                'create' => env('API_URL_BEE', '') . '/audit-assessment-category/create',
+                'show' => env('API_URL_BEE', '') . '/audit-assessment-category/show',
+                'update' => env('API_URL_BEE', '') . '/audit-assessment-category/update',
+                'delete' => env('API_URL_BEE', '') . '/audit-assessment-category/delete',
+            ],
+
+            'criteria' => [
+                'lists' => env('API_URL_BEE', '') . '/audit-assessment-criteria',
+                'create' => env('API_URL_BEE', '') . '/audit-assessment-criteria/create',
+                'show' => env('API_URL_BEE', '') . '/audit-assessment-criteria/show',
+                'update' => env('API_URL_BEE', '') . '/audit-assessment-criteria/update',
+                'delete' => env('API_URL_BEE', '') . '/audit-assessment-criteria/delete',
+            ]
+        ]
+
     ],
 
     'audit_operational_plan' => [
@@ -107,6 +126,15 @@ return [
         'ap_yearly_plan_selected_rp_lists' => env('API_URL_BEE', '') . '/planning/annual-plan/rp-entities/all-added',
         'ap_yearly_plan_selected_rp_store' => env('API_URL_BEE', '') . '/planning/annual-plan/rp-entities/store',
         'ap_submit_plan_to_ocag' => env('API_URL_BEE', '') . '/planning/annual-plan/submit-plan-to-ocag',
+
+        'audit_assessment' => [
+            'list' => env('API_URL_BEE', '') . '/audit-assessment/list',
+            'store' => env('API_URL_BEE', '') . '/audit-assessment/store',
+            'score' => [
+                'list' => env('API_URL_BEE', '') . '/audit-assessment-score/list',
+                'store' => env('API_URL_BEE', '') . '/audit-assessment-score/store',
+            ],
+        ]
     ],
 
     'audit_annual_plan_revised' => [
@@ -242,6 +270,7 @@ return [
     'audit_report' => [
         'qc' => [
             'create_air_report' => env('API_URL_BEE', '') . '/audit-report/create-air-report',
+            'edit_air_report' => env('API_URL_BEE', '') . '/audit-report/edit-air-report',
             'load_approve_plan_list' => env('API_URL_BEE', '') . '/audit-report/load-approve-plan-list',
             'store_air_report' => env('API_URL_BEE', '') . '/audit-report/store-air-report',
             'get_audit_team' => env('API_URL_BEE', '') . '/audit-report/get-audit-team',

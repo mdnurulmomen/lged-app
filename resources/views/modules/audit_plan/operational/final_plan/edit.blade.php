@@ -14,7 +14,7 @@
                                 Plan For <span class="text-danger">(*)</span>
                             </label>
                             <select class="form-control" name="fiscal_year">
-                                <option value="">--Select--</option>
+                                <option value="">--{{___('generic.select')}}--</option>
                                 @foreach($plan_durations as $plan_duration)
                                     <option value="{{'FY '.$plan_duration['start'].' - '.'FY '.$plan_duration['end']}}"
                                     {{'FY '.$plan_duration['start'].' - '.'FY '.$plan_duration['end']==$file_info['fiscal_year']?'selected':''}}>
