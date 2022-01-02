@@ -1,0 +1,188 @@
+<style>
+    fieldset.scheduler-border {
+        border: 1px groove #ddd !important;
+        padding: 0 1.4em 1.4em 1.4em !important;
+        margin: 0 0 1.5em 0 !important;
+        -webkit-box-shadow:  0px 0px 0px 0px #000;
+        box-shadow:  0px 0px 0px 0px #000;
+    }
+
+    legend.scheduler-border {
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        width:auto;
+        padding:0 10px;
+        border-bottom:none;
+    }
+</style>
+
+<form id="score_create_form" autocomplete="off">
+    <div class="row">
+        <div class="col-md-6">
+            <label class="col-form-label">ক্যাটাগরি<span class="text-danger">*</span></label>
+            <select class="form-control select-select2" name="category_id">
+                <option value="0">বাছাই করুন</option>
+                @foreach($categories as $category)
+                    <option value="{{$category['id']}}">{{$category['name_bn']}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="fiscal_year_id" class="col-form-label">অর্থ বছর</label>
+            <select class="form-control select-select2" name="fiscal_year_id" id="fiscal_year_id">
+                <option value="">--সিলেক্ট--</option>
+                @foreach($fiscal_years as $fiscal_year)
+                    <option
+                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label for="ministry_id" class="col-form-label">মন্ত্রণালয়<span class="text-danger">*</span></label>
+            <select class="form-control select-select2" name="ministry_id" id="ministry_id">
+                <option value="0">বাছাই করুন</option>
+                @foreach($ministries as $ministry)
+                    <option value="{{$ministry['id']}}">{{$ministry['name_bng']}}</option>
+                @endforeach
+            </select>
+            <input type="hidden" name="ministry_name_en" class="form-control ministry_name">
+            <input type="hidden" name="ministry_name_bn" class="form-control ministry_name">
+        </div>
+        <div class="col-md-6">
+            <label for="entity_id" class="col-form-label">এনটিটি</label>
+            <select class="form-control select-select2" name="entity_id" id="entity_id">
+                <option value="">--সিলেক্ট--</option>
+            </select>
+            <input type="hidden" name="entity_name_en" class="form-control entity_name">
+            <input type="hidden" name="entity_name_bn" class="form-control entity_name">
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">
+                    ডাটাসমূহ
+                </legend>
+                <table width="100%" class="table table-bordered table-striped table-hover table-condensed table-sm"
+                       id="tblAuditAssessmentScore">
+                    <thead>
+                    <tr>
+                        <th width="20%">Criteria</th>
+                        <th width="10%">Weight</th>
+                        <th width="40%">Value</th>
+                        <th width="20%">Score</th>
+                        <th width="10%">Total(W*S)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php $totalWeight=0; @endphp
+                    @foreach($criteriaList as $criteria)
+                        @php $totalWeight += $criteria['weight']??0; @endphp
+
+                        <input type="hidden" name="criteria_ids[]" value="{{$criteria['id']}}" class="criteria_id">
+                        <input type="hidden" name="weights[]" value="{{$criteria['weight']}}">
+
+                        <tr class="criteria_row">
+                            <td>{{$criteria['name_bn']}}</td>
+                            <td><span class="weight">{{$criteria['weight']}}</span></td>
+                            <td><input type="text" name="values[]" class="form-control"></td>
+                            <td><input type="number" name="scores[]" class="form-control score"></td>
+                            <td><span class="rowTotal"></span></td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <th>Total</th>
+                        <th>{{$totalWeight}}</th>
+                        <th></th>
+                        <th><span id="finalTotalScore"></span></th>
+                        <th><span id="finalTotal"></span></th>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-success btn-sm btn-bold btn-square"
+        onclick="auditAssessmentScoreSubmit('insert','')">
+        <i class="far fa-save mr-1"></i> Save
+    </button>
+</form>
+
+
+<script>
+    $("select#ministry_id").change(function () {
+        var ministry_id = $('#ministry_id').val();
+        loadEntity(ministry_id);
+    });
+
+    function loadEntity(ministry_id) {
+        url = '{{route('audit.plan.annual.audit-assessment-score.load-ministry-wise-entity')}}';
+        data = {ministry_id};
+        ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+            if (response.status === 'error') {
+                toastr.error('Server Error');
+            } else {
+                $("#entity_id").html(response);
+            }
+        });
+    }
+
+    $(".score").keyup(calculateTotal);
+
+    function calculateTotal() {
+        let finalTotal = 0;
+        let finalTotalScore = 0;
+        $("tr.criteria_row").each(function () {
+            let weight = parseInt($('.weight', this).text());
+            let score = $('.score', this).val() == ''?0:parseInt($('.score', this).val());
+            let rowTotal = (weight) * score;
+            $('.rowTotal', this).text(rowTotal);
+            finalTotalScore += score;
+            finalTotal += rowTotal;
+        });
+        $("#finalTotalScore").text(finalTotalScore);
+        $("#finalTotal").text(finalTotal);
+    }
+
+
+    function auditAssessmentScoreSubmit(submit_type,id) {
+
+        let ministry_name = $( "#ministry_id option:selected" ).text();
+        $(".ministry_name").val(ministry_name);
+        let entity_name = $( "#entity_id option:selected" ).text();
+        $(".entity_name").val(entity_name);
+
+        url = '{{route('audit.plan.annual.audit-assessment-score.store')}}';
+        data = $('#score_create_form').serialize();
+
+        KTApp.block('#kt_content', {
+            opacity: 0.1,
+            state: 'primary' // a bootstrap color
+        });
+
+        ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+            KTApp.unblock('#kt_content');
+            if (response.status === 'success') {
+                toastr.success('Successfully Added!');
+            } else {
+                if (response.statusCode === '422') {
+                    var errors = response.msg;
+                    $.each(errors, function (k, v) {
+                        if (v !== '') {
+                            toastr.error(v);
+                        }
+                    });
+                } else {
+                    toastr.error(response.data.message);
+                }
+            }
+        })
+    }
+</script>
+

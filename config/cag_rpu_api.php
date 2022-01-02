@@ -17,4 +17,5 @@ return [
     'get-office-other-info' => env('API_URL_RPU', '') . '/get-office-other-info',
     'get-directorate-wise-ministry-list' => env('API_URL_RPU', '') . '/get-directorate-wise-ministry-list',
     'get-rpu-list-mis' => env('API_URL_RPU', '') . '/get-rpu-list-mis',
+    'office-ministry-wise-entity' => env('API_URL_RPU', '') . '/office-ministry-wise-entity',
 ];

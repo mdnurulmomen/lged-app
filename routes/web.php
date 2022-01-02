@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentController;
+use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentScoreController;
+use App\Http\Controllers\Setting\XAuditAssessment\CriteriaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -207,6 +210,24 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/submit-audit-plan-to-ocag', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'submitPlanToOCAG'])->name('plan.list.submit.revised.plan-to-ocag');
 
             Route::get('/calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendarController::class, 'index'])->name('calendar');
+
+            //audit assessment score
+            Route::group(['as' => 'audit-assessment-score.', 'prefix' => 'audit-assessment-score/'], function () {
+                Route::get('/', [AuditAssessmentScoreController::class, 'index']);
+                Route::post('/list', [AuditAssessmentScoreController::class, 'list'])->name('list');
+                Route::post('/create', [AuditAssessmentScoreController::class, 'create'])->name('create');
+                Route::post('/load-ministry-wise-entity', [AuditAssessmentScoreController::class, 'loadMinistryWiseEntity'])->name('load-ministry-wise-entity');
+                Route::post('/store', [AuditAssessmentScoreController::class, 'store'])->name('store');
+            });
+
+            //audit assessment
+            Route::group(['as' => 'audit-assessment.', 'prefix' => 'audit-assessment/'], function () {
+                Route::get('/', [AuditAssessmentController::class, 'index']);
+                Route::post('/list', [AuditAssessmentController::class, 'list'])->name('list');
+                Route::post('/create', [AuditAssessmentController::class, 'create'])->name('create');
+                Route::post('/store', [AuditAssessmentController::class, 'store'])->name('store');
+            });
+
         });
 
         //audit Plan
@@ -530,6 +551,23 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/get-roles-list', [\App\Http\Controllers\Setting\PermissionController::class, 'loadAllRoles'])->name('get-roles-list');
             Route::post('/assign-menus-to-role', [\App\Http\Controllers\Setting\PermissionController::class, 'assignMenuModuleToRole'])->name('assign-menus-to-role');
             Route::post('/assign-menus-to-employee', [\App\Http\Controllers\Setting\PermissionController::class, 'assignMenuModuleToEmployee'])->name('assign-menus-to-employee');
+        });
+
+        //audit assessment
+        Route::group(['as' => 'audit-assessment.', 'prefix' => 'audit-assessment/'], function () {
+            Route::group(['as' => 'criteria.', 'prefix' => 'criteria/'], function () {
+                Route::get('/', [CriteriaController::class, 'index'])->name('index');
+                Route::post('/list', [CriteriaController::class, 'list'])->name('list');
+                Route::post('/create', [CriteriaController::class, 'create'])->name('create');
+                Route::post('/store', [CriteriaController::class, 'store'])->name('store');
+            });
+
+            /*Route::group(['as' => 'category.', 'prefix' => 'category/'], function () {
+                Route::get('/', [AuditAssessmentController::class, 'index']);
+                Route::post('/list', [AuditAssessmentController::class, 'list'])->name('list');
+                Route::post('/create', [AuditAssessmentController::class, 'create'])->name('create');
+                Route::post('/store', [AuditAssessmentController::class, 'store'])->name('store');
+            });*/
         });
     });
 
