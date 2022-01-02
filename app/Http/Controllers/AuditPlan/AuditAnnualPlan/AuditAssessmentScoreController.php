@@ -41,7 +41,6 @@ class AuditAssessmentScoreController extends Controller
     {
         $data['cdesk'] = $this->current_desk_json();
         $scores = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.audit_assessment.score.list'), $data)->json();
-        //dd($scores);
         if (isSuccess($scores)) {
             $scores = $scores['data'];
             //dd($scores);

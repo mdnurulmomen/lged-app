@@ -30,8 +30,8 @@
                     <tr>
                         <th width="25%">মন্ত্রণালয়</th>
                         <th width="25%">এনটিটি</th>
-                        <th width="10%">Score</th>
-                        <th width="15%">Last Audit Year</th>
+                        <th width="10%">স্কোর</th>
+                        <th width="15%">গত অডিট বছর</th>
                         <th width="10%">1s Half</th>
                         <th width="10%">2nd Half</th>
                     </tr>
@@ -41,8 +41,8 @@
                         <tr class="criteria_row">
                             <td>{{$entity['ministry_name_bn']}}</td>
                             <td>{{$entity['entity_name_bn']}}</td>
-                            <td>0</td>
-                            <td>2019</td>
+                            <td>{{enTobn($entity['total_score'])}}</td>
+                            <td>২০১৯</td>
                             <td><input type="checkbox" name="firstHalf[]"></td>
                             <td><input type="checkbox" name="firstHalf[]"></td>
                         </tr>
@@ -55,6 +55,6 @@
 
     <button type="button" class="btn btn-success btn-sm btn-bold btn-square"
             onclick="">
-        <i class="far fa-save mr-1"></i> Save
+        <i class="far fa-save mr-1"></i> সংরক্ষণ করুন
     </button>
 </form>

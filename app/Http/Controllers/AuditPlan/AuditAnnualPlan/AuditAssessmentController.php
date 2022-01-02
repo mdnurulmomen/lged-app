@@ -42,7 +42,6 @@ class AuditAssessmentController extends Controller
         $data['cdesk'] = $this->current_desk_json();
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.audit_assessment.list'), $data)->json();
-        //dd($entities);
         if (isSuccess($entities)) {
             $entities = $entities['data'];
             return view('modules.audit_plan.annual.audit_assessment.partials.load_assessment_list', compact('entities'));

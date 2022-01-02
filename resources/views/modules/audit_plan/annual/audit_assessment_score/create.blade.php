@@ -110,7 +110,7 @@
 
     <button type="button" class="btn btn-success btn-sm btn-bold btn-square"
         onclick="auditAssessmentScoreSubmit('insert','')">
-        <i class="far fa-save mr-1"></i> Save
+        <i class="far fa-save mr-1"></i> সংরক্ষণ করুন
     </button>
 </form>
 

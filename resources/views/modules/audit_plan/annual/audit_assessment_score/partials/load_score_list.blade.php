@@ -108,6 +108,12 @@
                                             {{$score['audit_assessment_category']['name_bn']}}
                                         </span>
                                     </div>
+                                    <div class="font-weight-normal">
+                                        <span class="mr-2 font-size-1-1">মোট স্কোরঃ</span>
+                                        <span class="description text-info text-wrap font-size-14">
+                                            {{enTobn($score['total_score'])}}
+                                        </span>
+                                    </div>
                                     <div class="font-weight-normal d-none predict-wrapper">
                                         <span class="predict-label text-success "></span>
                                     </div>
