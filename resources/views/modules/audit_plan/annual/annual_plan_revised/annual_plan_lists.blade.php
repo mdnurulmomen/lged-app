@@ -9,7 +9,7 @@
                         <option value="">--সিলেক্ট--</option>
                         @foreach($fiscal_years as $fiscal_year)
                             <option
-                                value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                                value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -183,7 +183,7 @@
             annual_plan_id = elem.data('annual-plan-id');
             fiscal_year_id = elem.data('fiscal-year-id');
             op_audit_calendar_event_id = elem.data('op-audit-calendar-event-id');
-            data = {annual_plan_id,fiscal_year_id, op_audit_calendar_event_id}
+            data = {annual_plan_id, fiscal_year_id, op_audit_calendar_event_id}
             KTApp.block('#kt_content');
             let url = '{{route('audit.plan.annual.plan.revised.edit_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -240,7 +240,7 @@
             });
         },
 
-        loadActivityWiseMilestone: function (activity_id,milestone_id=0) {
+        loadActivityWiseMilestone: function (activity_id, milestone_id = 0) {
             data = {
                 activity_id,
             }
@@ -276,9 +276,9 @@
             });
         },
 
-        loadEntityChildOffices: function (ministry_id,layer_id,entity_id,entity_name_en,entity_name_bn) {
-           parent_ministry_id =  ministry_id;
-           parent_office_layer_id =  layer_id;
+        loadEntityChildOffices: function (ministry_id, layer_id, entity_id, entity_name_en, entity_name_bn) {
+            parent_ministry_id = ministry_id;
+            parent_office_layer_id = layer_id;
 
             KTApp.block('.content');
             url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-child-offices-list')}}';
@@ -286,7 +286,7 @@
             parent_office_en = entity_name_en;
             parent_office_bn = entity_name_bn;
             data = {
-                parent_office_id,parent_office_en,parent_office_bn,parent_ministry_id,parent_office_layer_id
+                parent_office_id, parent_office_en, parent_office_bn, parent_ministry_id, parent_office_layer_id
             };
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
@@ -309,7 +309,7 @@
             parent_office_layer_id = $('#' + node_id).attr('data-rp-auditee-layer-id');
 
             data = {
-                parent_office_id,parent_ministry_id,parent_office_layer_id
+                parent_office_id, parent_ministry_id, parent_office_layer_id
             };
             $('#' + node_id + ' ul').html('')
             $('#' + node_id + ' ul').remove()
@@ -377,14 +377,14 @@
                         $('#selected_entity').append('<option data-ministry-id="' + ministry_id + '" data-layer-id="' + layer_id + '" data-entity-name-en="' + entity_info.entity_name_en + '" value="' + entity_info.entity_id + '">' + entity_info.entity_name_bn + '</option>');
                     }
 
-                    $('.parent_office').each(function (){
+                    $('.parent_office').each(function () {
                         id = $(this).attr('id');
-                        if( id == 'selected_rp_parent_auditee_'+ entity_info.entity_id){
+                        if (id == 'selected_rp_parent_auditee_' + entity_info.entity_id) {
                             return;
                         }
                     });
 
-                    newRow = '<li class="parent_office" data-child-count="' + entity_info.child_count + '" data-entity-info="'+JSON.stringify(entity_info)+'" id="selected_rp_parent_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;">' +
+                    newRow = '<li class="parent_office" data-child-count="' + entity_info.child_count + '" data-entity-info="' + JSON.stringify(entity_info) + '" id="selected_rp_parent_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;">' +
                         '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_Container.removeSelectedEntity(' + entity_info.entity_id + ',' + node_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
                         '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_bn + '<span class="ml-2 badge badge-info">এনটিটি</span>' +
                         '<input name="parent_office" class="selected_entity" id="selected_parent_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
@@ -402,7 +402,7 @@
                         '<i class="fa fa-home pr-2"></i>' + entity_info.office_name_en +
                         '<input name="selected_entity[]" class="selected_auditee" id="selected_entity_' + entity_info.office_id + '" type="hidden" value=""/>' +
                         '</li>';
-                    $('#selected_rp_parent_auditee_'+entity_info.entity_id).after(newRow);
+                    $('#selected_rp_parent_auditee_' + entity_info.entity_id).after(newRow);
                 }
 
 
@@ -441,7 +441,7 @@
             $('#total_selected_unit_no').val(total);
         },
 
-        selectedEntityTotalUnit:function (){
+        selectedEntityTotalUnit: function () {
             count = 0;
 
             $('.parent_office').each(function () {
@@ -451,11 +451,11 @@
             $('#total_unit_no').val(count).prop('readonly', true);
         },
 
-        removeSelectedEntity: function (entity_id,node_id) {
+        removeSelectedEntity: function (entity_id, node_id) {
             $("#rp_auditee_parent_offices").jstree("uncheck_node", node_id);
             $('#selected_rp_parent_auditee_' + entity_id).remove();
             $('.entity_' + entity_id).remove();
-            $("#selected_entity").find('option[value="'+entity_id+'"]').remove();
+            $("#selected_entity").find('option[value="' + entity_id + '"]').remove();
             Annual_Plan_Container.selectedEntityTotalUnit();
         },
 
@@ -527,14 +527,14 @@
             $(".selected_entity").each(function () {
                 entity_data = JSON.parse($(this).val());
                 entity_info[entity_data.entity_id] = {
-                    entity_id:entity_data.entity_id,
-                    entity_en:entity_data.entity_name_en,
-                    entity_bn:entity_data.entity_name_bn,
-                    ministry_id:entity_data.ministry_id,
-                    ministry_name_en:entity_data.ministry_name_en,
-                    ministry_name_bn:entity_data.ministry_name_bn,
-                    layer_id:entity_data.layer_id,
-                    entity_total_unit:entity_data.child_count,
+                    entity_id: entity_data.entity_id,
+                    entity_en: entity_data.entity_name_en,
+                    entity_bn: entity_data.entity_name_bn,
+                    ministry_id: entity_data.ministry_id,
+                    ministry_name_en: entity_data.ministry_name_en,
+                    ministry_name_bn: entity_data.ministry_name_bn,
+                    layer_id: entity_data.layer_id,
+                    entity_total_unit: entity_data.child_count,
                 }
 
                 $(".selected_auditee").each(function () {
@@ -543,7 +543,7 @@
                     if (typeof auditee[temp.entity_id] === 'undefined') {
                         auditee[temp.entity_id] = {};
                     }
-                    if(entity_data.entity_id == temp.entity_id){
+                    if (entity_data.entity_id == temp.entity_id) {
                         if (typeof auditee[temp.entity_id][temp.office_id] === 'undefined') {
                             auditee[temp.entity_id][temp.office_id] = {};
                         }
@@ -551,7 +551,7 @@
                         if (typeof entity_info[auditee.entity_id] === 'undefined') {
                             entity_info[auditee.entity_id] = {};
                         }
-                        if(entity_data.entity_id){
+                        if (entity_data.entity_id) {
                             entity_info[entity_data.entity_id]['nominated_offices'] = auditee[entity_data.entity_id];
                         }
                     }
@@ -575,14 +575,14 @@
                     milestone_list[milestone_id]['milestone_target_date'] = formatDate($(this).val());
                 }
                 if ($(this).hasClass('milestone_start_date')) {
-                    if(!$(this).val()){
+                    if (!$(this).val()) {
                         toastr.warning('Select start date');
                         return;
                     }
                     milestone_list[milestone_id]['start_date'] = formatDate($(this).val());
                 }
                 if ($(this).hasClass('milestone_end_date')) {
-                    if(!$(this).val()){
+                    if (!$(this).val()) {
                         toastr.warning('Select end date');
                         return;
                     }
@@ -688,7 +688,7 @@
             }
         },
 
-        backToAnnualPlanList:function (){
+        backToAnnualPlanList: function () {
             $('.annual_plan_menu a').click();
         },
     };
