@@ -170,6 +170,7 @@
             KTApp.unblock('#kt_content');
             if (response.status === 'success') {
                 toastr.success('Successfully Added!');
+                Assessment_Score_Container.list();
             } else {
                 if (response.statusCode === '422') {
                     var errors = response.msg;

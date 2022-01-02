@@ -46,7 +46,6 @@ class CriteriaController extends Controller
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_assessment.criteria.create'), $data)->json();
 
         //dd($responseData);
-
         if ($responseData['status'] == 'success') {
             return response()->json(responseFormat('success', 'Created Successfully'));
         } else {
