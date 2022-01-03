@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'app_name' => 'Audit Monitoring & Management System',
     'loading' => 'লোডিং',
     'choose' => 'বাছাই করুন',
     'select' => 'সিলেক্ট',

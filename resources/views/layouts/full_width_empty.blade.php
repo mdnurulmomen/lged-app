@@ -28,7 +28,7 @@
                     <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
                         <!--begin::Header Logo-->
                         <div class="header-logo">
-                            @include('partials.logo', ['area_style' => 'height: 120px !important', 'img_style' => 'width: 110px !important'])
+                            @include('partials.logo', ['area_style' => 'height: 120px !important', 'img_style' => 'width: 110px !important', 'text'=> 'Comptroller and Auditor General of Bangladesh'])
                         </div>
                         <!--end::Header Logo-->
                         <!--begin::Header Menu-->

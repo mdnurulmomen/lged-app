@@ -7,7 +7,10 @@
 @endsection
 
 @section('content')
-    <div class="row my-35 mb-15">
+    <div class="row mt-30 d-flex flex-column flex-item-center mb-10">
+        <h3 class="h1 text-center text-danger">{{___('generic.app_name')}}</h3>
+    </div>
+    <div class="row mb-15">
         <a href="{{route('dashboard.index_referer',['type' => 'Compliance Audit'])}}" class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7 text-center h-250px ">
 															<span class="svg-icon svg-icon-3x svg-icon-warning d-block my-8">
 																<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Media/Equalizer.svg-->

@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'app_name' => 'Audit Monitoring & Management System',
+    'loading' => 'Loading',
+    'choose' => 'বাছাই করুন',
+    'select' => 'সিলেক্ট',
     'no_data_found' => 'No Data To Display',
     'placeholders' => [
         'search' => 'Search',
