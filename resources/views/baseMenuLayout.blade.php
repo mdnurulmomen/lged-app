@@ -222,8 +222,8 @@
 					</li>
 				</ul>
 				<div class="offcanvas-close mt-n1 pr-5">
-					<a href="#" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_panel_close">
-						<i class="ki ki-close icon-xs text-muted"></i>
+					<a href="#" title="বন্ধ করুন" class="btn btn-xs btn-icon btn-danger btn-hover-danger" id="kt_quick_panel_close">
+						<i class="ki ki-close icon-xs"></i>
 					</a>
 				</div>
 			</div>

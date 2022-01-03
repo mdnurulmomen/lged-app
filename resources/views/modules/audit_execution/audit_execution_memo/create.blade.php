@@ -223,7 +223,7 @@
             e.preventDefault();
 
             from_data = new FormData(document.getElementById("memo_create_form"));
-            from_data.append('memo_description_bn', tinymce.get("kt-tinymce-1").getContent())
+            from_data.append('memo_description_bn', tinymce.get("kt-tinymce-1").getContent());
 
             $.ajax({
                 data: from_data,

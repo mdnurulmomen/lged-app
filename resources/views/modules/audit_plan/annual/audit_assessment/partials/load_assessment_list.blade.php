@@ -17,14 +17,14 @@
     }
 </style>
 
-<form id="score_create_form" autocomplete="off">
+<form id="generate_form" autocomplete="off">
     <div class="row">
         <div class="col-md-12">
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">
                     ডাটাসমূহ
                 </legend>
-                <table width="100%" class="table table-bordered table-striped table-hover table-condensed table-sm"
+                <table width="100%" class="table table-bordered table-hover table-condensed table-sm"
                        id="tblAuditAssessmentScore">
                     <thead>
                     <tr>
@@ -38,28 +38,151 @@
                     </thead>
                     <tbody>
                     @foreach($entities as $entity)
-                        <tr class="criteria_row">
-                            <td>{{$entity['ministry_name_bn']}}</td>
-                            <td>{{$entity['entity_name_bn']}}</td>
+                        <tr class="assessment_score_row">
+                            <td>
+                                <input type="hidden" name="audit_assessment_score_ids[]" value="{{$entity['id']}}">
+                                <input type="hidden" name="ministry_ids[]" value="{{$entity['ministry_id']}}">
+                                <input type="hidden" name="bn_ministry_names[]" value="{{$entity['ministry_name_bn']}}">
+                                <input type="hidden" name="en_ministry_names[]" value="{{$entity['ministry_name_en']}}">
+                                {{$entity['ministry_name_bn']}}
+                            </td>
+                            <td>
+                                <input type="hidden" name="entity_ids[]" value="{{$entity['entity_id']}}">
+                                <input type="hidden" name="bn_entity_names[]" value="{{$entity['entity_name_bn']}}">
+                                <input type="hidden" name="en_entity_names[]" value="{{$entity['entity_name_en']}}">
+                                {{$entity['entity_name_bn']}}
+                            </td>
                             <td>{{enTobn($entity['total_score'])}}</td>
-                            <td>২০১৯</td>
-                            <td><input type="checkbox" name="firstHalf[]"></td>
-                            <td><input type="checkbox" name="firstHalf[]"></td>
+                            <td>---</td>
+                            <td><input name="first_half"  value="{{$entity['id']}}" {{$entity['is_first_half'] ==1?'checked':''}} type="checkbox"  {{$entity['has_annual_plan'] ==1?'disabled':''}}></td>
+                            <td><input name="second_half" value="{{$entity['id']}}" {{$entity['is_second_half'] ==1?'checked':''}} type="checkbox" {{$entity['has_annual_plan'] ==1?'disabled':''}}></td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+
+                <input type="hidden" name="first_half_data" id="first_half_data">
+                <input type="hidden" name="second_half_data" id="second_half_data">
             </fieldset>
         </div>
     </div>
 
     <button type="button" class="btn btn-success btn-sm btn-bold btn-square"
-            onclick="">
+            onclick="Assessment_Container.store()">
         <i class="far fa-save mr-1"></i> সংরক্ষণ করুন
     </button>
 
     <button type="button" class="btn btn-primary btn-sm btn-bold btn-square"
-            onclick="">
+            onclick="Assessment_Container.storeAnnualPlan()">
         <i class="far fa-save mr-1"></i> বার্ষিক পরিকল্পনা তৈরি করুন
     </button>
 </form>
+
+<script>
+    var Assessment_Container = {
+        store: function () {
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            var first_half_data = [];
+            $.each($("input[name='first_half']"), function(index, element){
+                if (element.checked === true) {
+                    first_half_data.push(1);
+                }
+                else {
+                    first_half_data.push(0);
+                }
+            });
+            $("#first_half_data").val(first_half_data);
+
+            var second_half_data = [];
+            $.each($("input[name='second_half']"), function(index, element){
+                if (element.checked === true) {
+                    second_half_data.push(1);
+                }
+                else {
+                    second_half_data.push(0);
+                }
+            });
+            $("#second_half_data").val(second_half_data);
+
+            url = '{{route('audit.plan.annual.audit-assessment.store')}}';
+            data = $('#generate_form').serialize();
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'success') {
+                    toastr.success('Successfully Added!');
+                    let fiscal_year_id = $("#fiscal_year_id").val();
+                    Assessment_Score_Container.list(fiscal_year_id);
+                } else {
+                    if (response.statusCode === '422') {
+                        var errors = response.msg;
+                        $.each(errors, function (k, v) {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        });
+                    } else {
+                        toastr.error(response.data.message);
+                    }
+                }
+            })
+        },
+
+        storeAnnualPlan: function () {
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            var first_half_data = [];
+            $.each($("input[name='first_half']"), function(index, element){
+                if (element.checked === true) {
+                    first_half_data.push(1);
+                }
+                else {
+                    first_half_data.push(0);
+                }
+            });
+            $("#first_half_data").val(first_half_data);
+
+            var second_half_data = [];
+            $.each($("input[name='second_half']"), function(index, element){
+                if (element.checked === true) {
+                    second_half_data.push(1);
+                }
+                else {
+                    second_half_data.push(0);
+                }
+            });
+            $("#second_half_data").val(second_half_data);
+
+            url = '{{route('audit.plan.annual.audit-assessment.store_annual_plan')}}';
+            data = $('#generate_form').serialize();
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'success') {
+                    toastr.success('Successfully Added!');
+                    let fiscal_year_id = $("#fiscal_year_id").val();
+                    Assessment_Score_Container.list(fiscal_year_id);
+                } else {
+                    if (response.statusCode === '422') {
+                        var errors = response.msg;
+                        $.each(errors, function (k, v) {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        });
+                    } else {
+                        toastr.error(response.data.message);
+                    }
+                }
+            })
+        }
+    }
+</script>

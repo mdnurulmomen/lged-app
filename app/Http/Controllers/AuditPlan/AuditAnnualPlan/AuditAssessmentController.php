@@ -14,29 +14,6 @@ class AuditAssessmentController extends Controller
         return view('modules.audit_plan.annual.audit_assessment.index', compact('fiscal_years'));
     }
 
-    public function create()
-    {
-        $data['cdesk'] = $this->current_desk_json();
-
-        $fiscal_years = $this->allFiscalYears();
-
-        //categories
-        $categoryResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_assessment.category.lists'), [])->json();
-        $categories = isSuccess($categoryResponseData) ? $categoryResponseData['data'] : [];
-
-        //ministries
-        $ministryResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-ministry-list'),       ['directorate_id' => $this->current_office_id()])->json();
-        $ministries = isSuccess($ministryResponseData) ? $ministryResponseData['data'] : [];
-
-        //criteria
-        $criteriaResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_assessment.criteria.lists'), $data)->json();
-        $criteriaList = isSuccess($criteriaResponseData) ? $criteriaResponseData['data'] : [];
-
-        return view('modules.audit_plan.annual.audit_assessment.create', compact('fiscal_years','categories',
-            'ministries','criteriaList'));
-
-    }
-
     public function list(Request $request)
     {
         $data['cdesk'] = $this->current_desk_json();
@@ -52,22 +29,39 @@ class AuditAssessmentController extends Controller
 
     public function store(Request $request)
     {
+        //dd($request->all());
         $data['cdesk'] = $this->current_desk_json();
-        $data['category_id'] = $request->category_id;
-        $data['fiscal_year_id'] = $request->fiscal_year_id;
-        $data['ministry_id'] = $request->ministry_id;
-        $data['ministry_name_en'] = $request->ministry_name_en;
-        $data['ministry_name_bn'] = $request->ministry_name_bn;
-        $data['entity_id'] = $request->entity_id;
-        $data['entity_name_en'] = $request->entity_name_en;
-        $data['entity_name_bn'] = $request->entity_name_bn;
-
-        $data['criteria_ids'] = $request->criteria_ids;
-        $data['weights'] = $request->weights;
-        $data['values'] = $request->values;
-        $data['scores'] = $request->scores;
+        $data['audit_assessment_score_ids'] = $request->audit_assessment_score_ids;
+        $data['first_half_data'] = explode(",",$request->first_half_data);
+        $data['second_half_data'] = explode(",",$request->second_half_data);
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.audit_assessment.store'), $data)->json();
+
+        //dd($responseData);
+
+        if ($responseData['status'] == 'success') {
+            $responseData = $responseData['data'];
+            return response()->json(['status' => 'success', 'data' => $responseData]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData]);
+        }
+    }
+
+    public function storeAnnualPlan(Request $request)
+    {
+        //dd($request->all());
+        $data['cdesk'] = $this->current_desk_json();
+        $data['audit_assessment_score_ids'] = $request->audit_assessment_score_ids;
+        $data['ministry_ids'] = $request->ministry_ids;
+        $data['bn_ministry_names'] = $request->bn_ministry_names;
+        $data['en_ministry_names'] = $request->en_ministry_names;
+        $data['entity_ids'] = $request->entity_ids;
+        $data['bn_entity_names'] = $request->bn_entity_names;
+        $data['en_entity_names'] = $request->en_entity_names;
+        $data['first_half_data'] = explode(",",$request->first_half_data);
+        $data['second_half_data'] = explode(",",$request->second_half_data);
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.audit_assessment.store_annual_plan'), $data)->json();
 
         //dd($responseData);
 

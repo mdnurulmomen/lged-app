@@ -122,6 +122,7 @@ return [
         'audit_assessment' => [
             'list' => env('API_URL_BEE', '') . '/audit-assessment/list',
             'store' => env('API_URL_BEE', '') . '/audit-assessment/store',
+            'store_annual_plan' => env('API_URL_BEE', '') . '/audit-assessment/store-annual-plan',
             'score' => [
                 'list' => env('API_URL_BEE', '') . '/audit-assessment-score/list',
                 'store' => env('API_URL_BEE', '') . '/audit-assessment-score/store',

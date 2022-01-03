@@ -17,7 +17,7 @@
     }
 </style>
 
-<form id="score_create_form" autocomplete="off">
+<form style="height: 100vh" id="score_create_form" autocomplete="off">
     <div class="row">
         <div class="col-md-6">
             <label class="col-form-label">ক্যাটাগরি<span class="text-danger">*</span></label>
@@ -67,7 +67,7 @@
     </div>
 
     {{--style="overflow-y: scroll;height: 28em"--}}
-    <div class="row mt-5">
+    <div style="overflow-y: scroll;height: 24em" class="row mt-5 mb-5">
         <div class="col-md-12">
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">
@@ -79,9 +79,9 @@
                     <tr>
                         <th width="20%">Criteria</th>
                         <th width="10%">Weight</th>
-                        <th width="40%">Value</th>
+                        <th width="35%">Value</th>
                         <th width="15%">Score</th>
-                        <th width="15%">Total(w x s)</th>
+                        <th width="20%">Total(w x s)</th>
                     </tr>
                     </thead>
                     <tbody>
