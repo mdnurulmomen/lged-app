@@ -61,14 +61,6 @@ return [
         'assigned_master_designation_to_role' => env('API_URL_BEE', '') . '/roles/assigned-master-designations-to-role',
 
         'audit_assessment' => [
-            'category' => [
-                'lists' => env('API_URL_BEE', '') . '/audit-assessment-category',
-                'create' => env('API_URL_BEE', '') . '/audit-assessment-category/create',
-                'show' => env('API_URL_BEE', '') . '/audit-assessment-category/show',
-                'update' => env('API_URL_BEE', '') . '/audit-assessment-category/update',
-                'delete' => env('API_URL_BEE', '') . '/audit-assessment-category/delete',
-            ],
-
             'criteria' => [
                 'lists' => env('API_URL_BEE', '') . '/audit-assessment-criteria',
                 'create' => env('API_URL_BEE', '') . '/audit-assessment-criteria/create',

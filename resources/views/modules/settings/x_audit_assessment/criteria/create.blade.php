@@ -2,12 +2,19 @@
     <div class="row">
         <div class="col-md-12">
             <label class="col-form-label">ক্যাটাগরি<span class="text-danger">*</span></label>
-            <select class="form-control select-select2" name="category_id">
+            <select class="form-control select-select2" name="category_id" id="category_id">
                 <option value="0">বাছাই করুন</option>
                 @foreach($categories as $category)
-                    <option value="{{$category['id']}}">{{$category['name_bn']}}</option>
+                    <option data-category-title-en="{{$category['category_title_en']}}"
+                            data-category-title-bn="{{$category['category_title_bn']}}"
+                            value="{{$category['id']}}">
+                        {{$category['category_title_bn']}}
+                    </option>
                 @endforeach
             </select>
+
+            <input type="hidden" name="category_title_en" id="category_title_en">
+            <input type="hidden" name="category_title_bn" id="category_title_bn">
         </div>
     </div>
     <br>

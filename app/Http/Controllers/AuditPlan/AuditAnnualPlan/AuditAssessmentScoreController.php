@@ -21,7 +21,7 @@ class AuditAssessmentScoreController extends Controller
         $fiscal_years = $this->allFiscalYears();
 
         //categories
-        $categoryResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_assessment.category.lists'), [])->json();
+        $categoryResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-category-types'), [])->json();
         $categories = isSuccess($categoryResponseData) ? $categoryResponseData['data'] : [];
 
         //ministries
@@ -40,10 +40,11 @@ class AuditAssessmentScoreController extends Controller
     public function list(Request $request)
     {
         $data['cdesk'] = $this->current_desk_json();
+        $data['fiscal_year_id'] = $request->fiscal_year_id;
         $scores = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.audit_assessment.score.list'), $data)->json();
+        //dd($scores);
         if (isSuccess($scores)) {
             $scores = $scores['data'];
-            //dd($scores);
             return view('modules.audit_plan.annual.audit_assessment_score.partials.load_score_list', compact('scores'));
         } else {
             return response()->json(['status' => 'error', 'data' => $scores]);
@@ -64,6 +65,8 @@ class AuditAssessmentScoreController extends Controller
     {
         $data['cdesk'] = $this->current_desk_json();
         $data['category_id'] = $request->category_id;
+        $data['category_title_en'] = $request->category_title_en;
+        $data['category_title_bn'] = $request->category_title_bn;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['ministry_id'] = $request->ministry_id;
         $data['ministry_name_en'] = $request->ministry_name_en;

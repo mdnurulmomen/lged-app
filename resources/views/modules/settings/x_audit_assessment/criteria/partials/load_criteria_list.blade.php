@@ -13,7 +13,7 @@
         <tbody>
         @foreach($criteriaList as $criteria)
             <tr>
-                <td>{{$criteria['audit_assessment_category']['name_bn']}}</td>
+                <td>{{$criteria['category_title_bn']}}</td>
                 <td>{{$criteria['name_en']}}</td>
                 <td>{{$criteria['name_bn']}}</td>
                 <td>{{$criteria['weight']}}</td>
@@ -22,11 +22,6 @@
                         <button title="হালনাগাদ করুন"
                                 class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary">
                             <i class="fad fa-edit"></i>
-                        </button>
-
-                        <button title="এসাইন করুন"
-                                class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-warning">
-                            <i class="fad fa-users"></i>
                         </button>
                     </div>
                 </td>

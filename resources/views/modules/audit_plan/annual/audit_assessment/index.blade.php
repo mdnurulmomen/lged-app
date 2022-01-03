@@ -1,8 +1,7 @@
-<x-title-wrapper>Auditability Assessment Score</x-title-wrapper>
+<x-title-wrapper>Auditability Assessment</x-title-wrapper>
 
-<div class="row px-3">
+<div class="row mt-3 px-3">
     <div class="col-md-12">
-        <label for="fiscal_year_id" class="col-form-label">অর্থ বছর</label>
         <select class="form-control select-select2" id="fiscal_year_id">
             <option value="">--সিলেক্ট--</option>
             @foreach($fiscal_years as $fiscal_year)

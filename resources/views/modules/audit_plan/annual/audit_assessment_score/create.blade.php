@@ -21,12 +21,16 @@
     <div class="row">
         <div class="col-md-6">
             <label class="col-form-label">ক্যাটাগরি<span class="text-danger">*</span></label>
-            <select class="form-control select-select2" name="category_id">
+            <select class="form-control select-select2" name="category_id" id="category_id">
                 <option value="0">বাছাই করুন</option>
                 @foreach($categories as $category)
-                    <option value="{{$category['id']}}">{{$category['name_bn']}}</option>
+                    <option value="{{$category['id']}}" data-category-title-en="{{$category['category_title_en']}}"
+                            data-category-title-bn="{{$category['category_title_bn']}}">{{$category['category_title_bn']}}</option>
                 @endforeach
             </select>
+
+            <input type="hidden" name="category_title_en" id="category_title_en">
+            <input type="hidden" name="category_title_bn" id="category_title_bn">
         </div>
         <div class="col-md-6">
             <label for="fiscal_year_id" class="col-form-label">অর্থ বছর</label>
@@ -42,7 +46,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <label for="ministry_id" class="col-form-label">মন্ত্রণালয়<span class="text-danger">*</span></label>
+            <label for="ministry_id" class="col-form-label">মন্ত্রণালয়/বিভাগ<span class="text-danger">*</span></label>
             <select class="form-control select-select2" name="ministry_id" id="ministry_id">
                 <option value="0">বাছাই করুন</option>
                 @foreach($ministries as $ministry)
@@ -53,7 +57,7 @@
             <input type="hidden" name="ministry_name_bn" class="form-control ministry_name">
         </div>
         <div class="col-md-6">
-            <label for="entity_id" class="col-form-label">এনটিটি</label>
+            <label for="entity_id" class="col-form-label">এনটিটি/সংস্থা</label>
             <select class="form-control select-select2" name="entity_id" id="entity_id">
                 <option value="">--সিলেক্ট--</option>
             </select>
@@ -62,6 +66,7 @@
         </div>
     </div>
 
+    {{--style="overflow-y: scroll;height: 28em"--}}
     <div class="row mt-5">
         <div class="col-md-12">
             <fieldset class="scheduler-border">
@@ -75,20 +80,20 @@
                         <th width="20%">Criteria</th>
                         <th width="10%">Weight</th>
                         <th width="40%">Value</th>
-                        <th width="20%">Score</th>
-                        <th width="10%">Total(W*S)</th>
+                        <th width="15%">Score</th>
+                        <th width="15%">Total(w x s)</th>
                     </tr>
                     </thead>
                     <tbody>
                     @php $totalWeight=0; @endphp
                     @foreach($criteriaList as $criteria)
                         @php $totalWeight += $criteria['weight']??0; @endphp
-
-                        <input type="hidden" name="criteria_ids[]" value="{{$criteria['id']}}" class="criteria_id">
-                        <input type="hidden" name="weights[]" value="{{$criteria['weight']}}">
-
                         <tr class="criteria_row">
-                            <td>{{$criteria['name_bn']}}</td>
+                            <td>
+                                <input type="hidden" name="criteria_ids[]" value="{{$criteria['id']}}" class="criteria_id">
+                                <input type="hidden" name="weights[]" value="{{$criteria['weight']}}">
+                                {{$criteria['name_bn']}}
+                            </td>
                             <td><span class="weight">{{$criteria['weight']}}</span></td>
                             <td><input type="text" name="values[]" class="form-control"></td>
                             <td><input type="number" name="scores[]" class="form-control score"></td>
@@ -152,6 +157,11 @@
 
 
     function auditAssessmentScoreSubmit(submit_type,id) {
+        let category = $("#category_id");
+        let category_title_en = category.find('option:selected').attr('data-category-title-en');
+        let category_title_bn = category.find('option:selected').attr('data-category-title-bn');
+        $("#category_title_en").val(category_title_en);
+        $("#category_title_bn").val(category_title_bn);
 
         let ministry_name = $( "#ministry_id option:selected" ).text();
         $(".ministry_name").val(ministry_name);

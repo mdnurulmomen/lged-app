@@ -101,6 +101,12 @@
         },
 
         storeCriteria: function () {
+            let category = $("#category_id");
+            let category_title_en = category.find('option:selected').attr('data-category-title-en');
+            let category_title_bn = category.find('option:selected').attr('data-category-title-bn');
+            $("#category_title_en").val(category_title_en);
+            $("#category_title_bn").val(category_title_bn);
+
             url = '{{route('settings.audit-assessment.criteria.store')}}';
             data = $('#criteria_create_form').serialize();
             Criteria_Container.saveCriteria(url, data, 'create');

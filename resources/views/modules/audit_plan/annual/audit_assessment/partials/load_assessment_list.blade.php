@@ -28,11 +28,11 @@
                        id="tblAuditAssessmentScore">
                     <thead>
                     <tr>
-                        <th width="25%">মন্ত্রণালয়</th>
-                        <th width="25%">এনটিটি</th>
+                        <th width="25%">মন্ত্রণালয়/বিভাগ</th>
+                        <th width="25%">এনটিটি/সংস্থা</th>
                         <th width="10%">স্কোর</th>
-                        <th width="15%">গত অডিট বছর</th>
-                        <th width="10%">1s Half</th>
+                        <th width="15%">Last Audit Year</th>
+                        <th width="10%">1st Half</th>
                         <th width="10%">2nd Half</th>
                     </tr>
                     </thead>
@@ -56,5 +56,10 @@
     <button type="button" class="btn btn-success btn-sm btn-bold btn-square"
             onclick="">
         <i class="far fa-save mr-1"></i> সংরক্ষণ করুন
+    </button>
+
+    <button type="button" class="btn btn-primary btn-sm btn-bold btn-square"
+            onclick="">
+        <i class="far fa-save mr-1"></i> বার্ষিক পরিকল্পনা তৈরি করুন
     </button>
 </form>

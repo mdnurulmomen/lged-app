@@ -561,13 +561,6 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('/create', [CriteriaController::class, 'create'])->name('create');
                 Route::post('/store', [CriteriaController::class, 'store'])->name('store');
             });
-
-            /*Route::group(['as' => 'category.', 'prefix' => 'category/'], function () {
-                Route::get('/', [AuditAssessmentController::class, 'index']);
-                Route::post('/list', [AuditAssessmentController::class, 'list'])->name('list');
-                Route::post('/create', [AuditAssessmentController::class, 'create'])->name('create');
-                Route::post('/store', [AuditAssessmentController::class, 'store'])->name('store');
-            });*/
         });
     });
 

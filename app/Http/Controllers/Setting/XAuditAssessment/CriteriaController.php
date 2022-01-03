@@ -16,7 +16,7 @@ class CriteriaController extends Controller
     public function create()
     {
         //categories
-        $categoryResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_assessment.category.lists'), [])->json();
+        $categoryResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-category-types'), [])->json();
         $categories = isSuccess($categoryResponseData) ? $categoryResponseData['data'] : [];
         return view('modules.settings.x_audit_assessment.criteria.create', compact('categories'));
     }
@@ -39,6 +39,8 @@ class CriteriaController extends Controller
     {
         $data = [
             'category_id' => $request->category_id,
+            'category_title_en' => $request->category_title_en,
+            'category_title_bn' => $request->category_title_bn,
             'name_en' => $request->name_en,
             'name_bn' => $request->name_bn,
             'weight' => $request->weight,
