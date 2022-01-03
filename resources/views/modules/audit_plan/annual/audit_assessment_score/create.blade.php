@@ -67,7 +67,7 @@
     </div>
 
     {{--style="overflow-y: scroll;height: 28em"--}}
-    <div style="overflow-y: scroll;height: 24em" class="row mt-5 mb-5">
+    <div style="overflow-y: scroll;height: 21em" class="row mt-5 mb-5">
         <div class="col-md-12">
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">
@@ -90,7 +90,7 @@
                                 {{$criteria['name_bn']}}
                             </td>
                             <td><input type="text" name="values[]" class="form-control"></td>
-                            <td><input type="number" min="0" max="5" name="scores[]" onkeyup="if(this.value > 5) this.value = null;" class="form-control score"></td>
+                            <td><input type="number" min="0" max="5" name="scores[]" onkeyup="if(this.value > 5 || this.value < 0) this.value = null;" class="form-control score"></td>
                         </tr>
                     @endforeach
                     <tr>
