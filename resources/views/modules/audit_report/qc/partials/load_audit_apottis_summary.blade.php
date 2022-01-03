@@ -3,8 +3,8 @@
         <thead>
         <tr>
             <th style="text-align: center" width="10%">অনুচ্ছেদ নং</th>
-            <th style="text-align: center" width="80%">আপত্তির শিরোনাম</th>
-            <th style="text-align: center" width="10%">জড়িত টাকা</th>
+            <th style="text-align: center" width="70%">আপত্তির শিরোনাম</th>
+            <th style="text-align: center" width="20%">জড়িত টাকা</th>
         </tr>
         </thead>
         <tbody>
