@@ -78,15 +78,17 @@
         </div>
     </div>
 
-    <button type="button" class="btn btn-success btn-sm btn-bold btn-square"
-            onclick="Assessment_Container.store()">
-        <i class="far fa-save mr-1"></i> সংরক্ষণ করুন
-    </button>
+    @if(!empty($entities))
+        <button type="button" class="btn btn-success btn-sm btn-bold btn-square"
+                onclick="Assessment_Container.store()">
+            <i class="far fa-save mr-1"></i> সংরক্ষণ করুন
+        </button>
 
-    <button type="button" class="btn btn-primary btn-sm btn-bold btn-square"
-            onclick="Assessment_Container.storeAnnualPlan()">
-        <i class="far fa-save mr-1"></i> বার্ষিক পরিকল্পনা তৈরি করুন
-    </button>
+        <button type="button" class="btn btn-primary btn-sm btn-bold btn-square"
+                onclick="Assessment_Container.storeAnnualPlan()">
+            <i class="far fa-save mr-1"></i> বার্ষিক পরিকল্পনা তৈরি করুন
+        </button>
+    @endif
 </form>
 
 <script>
