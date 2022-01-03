@@ -13,14 +13,14 @@
                 <div class="float-right">
                     <a class="btn btn-sm btn-light-primary btn-square mr-1"
                        onclick="Apotti_Container.mergeOnucched()"
-                       title="আরপিইউতে প্রেরণ করুন" href="javascript:;">
+                       title="একীভূত করুন" href="javascript:;">
                         <i class="fa fa-link mr-1"></i> একীভূত করুন
                     </a>
                 </div>
                 <div class="float-right">
                     <a id="re-arrange-btn" class="btn btn-sm btn-light-primary btn-square mr-1"
                        onclick="Apotti_Container.reArrangeOnucched($(this))"
-                       title="আরপিইউতে প্রেরণ করুন" href="javascript:;">
+                       title="পুনর্বিন্যাস করুন" href="javascript:;">
                         <i class="fa fa-repeat mr-1"></i> পুনর্বিন্যাস করুন
                     </a>
                 </div>

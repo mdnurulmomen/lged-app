@@ -3,7 +3,7 @@
         <thead>
         <tr>
             <th style="text-align: center" width="10%">অনুচ্ছেদ নং</th>
-            <th style="text-align: center" width="80%">আপত্তির শিরোনাম</th>
+            <th style="text-align: center" width="80%">শিরোনাম</th>
             <th style="text-align: center" width="10%">জড়িত টাকা</th>
         </tr>
         </thead>
