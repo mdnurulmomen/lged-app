@@ -1,4 +1,4 @@
-<div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
+<div class="header-menu-wrapper header-menu-wrapper-left align-items-center " id="kt_header_menu_wrapper">
     <!--begin::Header Menu-->
     <div id="kt_header_menu" class="header-menu header-menu-mobile header-menu-layout-default">
         <!--begin::Header Nav-->
@@ -322,5 +322,5 @@
     <!--end::Header Menu-->
 </div>
 @if(session()->has('dashboard_audit_type'))
-    <h5 class="text-center mt-3"> {{session('dashboard_audit_type')}}</h5>
+    <h5 class="ml-5 text-center mt-3"> {{session('dashboard_audit_type')}}</h5>
 @endif
