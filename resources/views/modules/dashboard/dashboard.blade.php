@@ -13,8 +13,8 @@
 																<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Media/Equalizer.svg-->
 <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-    <title>Stockholm-icons / Communication / Clipboard-list</title>
-    <desc>Created with Sketch.</desc>
+    <title></title>
+    <desc></desc>
     <defs></defs>
     <g id="Stockholm-icons-/-Communication-/-Clipboard-list" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <rect id="bound" x="0" y="0" width="24" height="24"></rect>
@@ -32,7 +32,23 @@
 															</span>
             <p class="text-warning font-weight-bold font-size-h1 mt-5">Compliance Audit</p>
         </a>
-        <a href="{{route('dashboard.index_referer',['type' => 'Performance Audit'])}}" class="col bg-light-danger px-6 py-8 rounded-xl mb-7 mr-7 text-center h-250px">
+        <a href="{{route('dashboard.index_referer',['type' => 'Financial Audit'])}}" class="col bg-light-success px-6 py-8 rounded-xl mb-7 mr-7 text-center h-250px">
+															<span class="svg-icon svg-icon-3x svg-icon-success d-block my-8">
+																<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Communication/Add-user.svg-->
+                                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+																	<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+																		<rect x="0" y="0" width="24" height="24"></rect>
+																		<rect fill="#000000" opacity="0.3" x="13" y="4" width="3" height="16" rx="1.5"></rect>
+																		<rect fill="#000000" x="8" y="9" width="3" height="11" rx="1.5"></rect>
+																		<rect fill="#000000" x="18" y="11" width="3" height="9" rx="1.5"></rect>
+																		<rect fill="#000000" x="3" y="13" width="3" height="7" rx="1.5"></rect>
+																	</g>
+																</svg>
+                                                                <!--end::Svg Icon-->
+															</span>
+            <p class="text-success font-weight-bold font-size-h1 mt-5">Financial Audit</p>
+        </a>
+        <a href="{{route('dashboard.index_referer',['type' => 'Performance Audit'])}}" class="col bg-light-danger px-6 py-8 rounded-xl mb-7 text-center h-250px">
 															<span class="svg-icon svg-icon-3x svg-icon-danger d-block my-8">
 																<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Communication/Add-user.svg-->
 																<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -49,22 +65,7 @@
             <p class="text-danger font-weight-bold font-size-h1 mt-5">Performance Audit</p>
 
         </a>
-            <a href="{{route('dashboard.index_referer',['type' => 'Financial Audit'])}}" class="col bg-light-success px-6 py-8 rounded-xl mb-7 text-center h-250px">
-															<span class="svg-icon svg-icon-3x svg-icon-success d-block my-8">
-																<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Communication/Add-user.svg-->
-                                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-																	<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-																		<rect x="0" y="0" width="24" height="24"></rect>
-																		<rect fill="#000000" opacity="0.3" x="13" y="4" width="3" height="16" rx="1.5"></rect>
-																		<rect fill="#000000" x="8" y="9" width="3" height="11" rx="1.5"></rect>
-																		<rect fill="#000000" x="18" y="11" width="3" height="9" rx="1.5"></rect>
-																		<rect fill="#000000" x="3" y="13" width="3" height="7" rx="1.5"></rect>
-																	</g>
-																</svg>
-                                                                <!--end::Svg Icon-->
-															</span>
-            <p  class="text-success font-weight-bold font-size-h1 mt-5">Financial Audit</p>
-            </a>
+
     </div>
     <div class="row my-15 d-flex flex-column flex-item-center ">
         <p class="font-size-h1 text-center" style="color: #eb8005; font-size: 3.2rem">Welcome To AMMS 2.0</p>

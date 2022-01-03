@@ -41,81 +41,6 @@
                     @endif
                 @endforeach
             @endif
-            {{--comment below--}}
-            {{--            <li class="menu-item">--}}
-            {{--                <div class="dropdown">--}}
-            {{--                    <button--}}
-            {{--                        class="btn btn-outline-primary btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown"--}}
-            {{--                        type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-            {{--                        <i class="fad fa-ballot-check"></i> <span>Plan</span>--}}
-            {{--                    </button>--}}
-            {{--                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
-            {{--                        <a class="dropdown-item" href="{{route('audit.plan.strategy.index')}}">Strategic Plan</a>--}}
-            {{--                        <a class="dropdown-item" href="{{route('audit.plan.operational.index')}}">Operational Plan</a>--}}
-            {{--                        <a class="dropdown-item" href="{{route('audit.plan.annual.index')}}">Annual plan</a>--}}
-            {{--                        <a class="dropdown-item" href="{{route('audit.plan.audit.index')}}">Audit plan</a>--}}
-            {{--                    </div>--}}
-            {{--                </div>--}}
-            {{--            </li>--}}
-            {{--            <li class="menu-item">--}}
-            {{--                <a--}}
-            {{--                    href="{{route('audit.execution.index')}}"--}}
-            {{--                    class="btn btn-outline-danger btn-square btn-sm width-160p text-left"--}}
-            {{--                    type="button">--}}
-            {{--                    <i class="fal fa-network-wired"></i><span>Conducting</span>--}}
-            {{--                </a>--}}
-
-            {{--                --}}{{--                <button--}}
-            {{--                --}}{{--                    class="btn btn-outline-danger btn-square dropdown-toggle btn-sm width-160p text-left fixed-width-dropdown"--}}
-            {{--                --}}{{--                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-            {{--                --}}{{--                    <i class="fal fa-network-wired"></i><span>Conducting</span>--}}
-            {{--                --}}{{--                </button>--}}
-            {{--                --}}{{--                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
-            {{--                --}}{{--                    <a class="dropdown-item" href="{{route('audit.execution.area')}}">Team Calendar</a>--}}
-            {{--                --}}{{--                    <a class="dropdown-item" href="{{route('audit.execution.area')}}">Audit Area</a>--}}
-            {{--                --}}{{--                    <a class="dropdown-item" href="{{route('audit.execution.query')}}">Audit Query</a>--}}
-            {{--                --}}{{--                    <a class="dropdown-item" href="{{route('audit.execution.discussion')}}">Audit Discussion</a>--}}
-            {{--                --}}{{--                    <a class="dropdown-item" href="{{route('audit.execution.review')}}">Review</a>--}}
-            {{--                --}}{{--                </div>--}}
-            {{--            </li>--}}
-            {{--            <li class="menu-item">--}}
-            {{--                <button--}}
-            {{--                    class="btn btn-outline-success btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown"--}}
-            {{--                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-            {{--                    <i class="fas fa-line-columns"></i><span>Prepare</span>--}}
-            {{--                </button>--}}
-            {{--                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
-            {{--                    <a class="dropdown-item" href="{{route('audit.preparation.sampling')}}">Sampling</a>--}}
-            {{--                    <a class="dropdown-item" href="{{route('audit.preparation.data_analysis')}}">Data Analysis</a>--}}
-            {{--                    <a class="dropdown-item" href="{{route('audit.preparation.activities')}}">Activities</a>--}}
-            {{--                </div>--}}
-            {{--            </li>--}}
-            {{--            <li class="menu-item">--}}
-            {{--                <button--}}
-            {{--                    class="btn btn-outline-warning btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown"--}}
-            {{--                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-            {{--                    <i class="fal fa-file-chart-line"></i><span>Report</span>--}}
-            {{--                </button>--}}
-            {{--                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
-            {{--                    <a class="dropdown-item" href="{{route('audit.report.draft_report')}}">Draft Report</a>--}}
-            {{--                    <a class="dropdown-item" href="{{route('audit.report.final_report')}}">Final Report</a>--}}
-            {{--                    <a class="dropdown-item" href="{{route('audit.report.qc')}}">QC</a>--}}
-            {{--                </div>--}}
-            {{--            </li>--}}
-            {{--            <li class="menu-item">--}}
-            {{--                <button--}}
-            {{--                    class="btn btn-outline-info btn-square dropdown-toggle btn-sm width-120p text-left fixed-width-dropdown"--}}
-            {{--                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-            {{--                    <i class="fab fa-watchman-monitoring"></i><span>Follow-Up</span>--}}
-            {{--                </button>--}}
-            {{--                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
-            {{--                    <a class="dropdown-item" href="{{route('audit.followup.due_report')}}">Due Report</a>--}}
-            {{--                    <a class="dropdown-item" href="{{route('audit.followup.observation')}}">Observation</a>--}}
-            {{--                    <a class="dropdown-item" href="{{route('audit.followup.reminder')}}">Reminder</a>--}}
-            {{--                    <a class="dropdown-item" href="{{route('audit.followup.record')}}">Record</a>--}}
-            {{--                    <a class="dropdown-item" href="{{route('audit.followup.settlement_review')}}">Settlement Review</a>--}}
-            {{--                </div>--}}
-            {{--            </li>--}}
         </ul>
         <!--end::Header Nav-->
         <div class="topbar d-none d-lg-flex">
@@ -396,3 +321,6 @@
     </div>
     <!--end::Header Menu-->
 </div>
+@if(session()->has('dashboard_audit_type'))
+    <h5 class="text-center mt-3"> {{session('dashboard_audit_type')}}</h5>
+@endif
