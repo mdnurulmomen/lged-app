@@ -18,6 +18,7 @@
 </style>
 
 <form id="generate_form" autocomplete="off">
+    <input type="hidden" name="fiscal_year_id" value="{{$fiscal_year_id}}">
     <div class="row">
         <div class="col-md-12">
             <fieldset class="scheduler-border">
@@ -38,9 +39,13 @@
                     </thead>
                     <tbody>
                     @foreach($entities as $entity)
+                        <input type="hidden" name="audit_assessment_score_ids[]" value="{{$entity['id']}}">
+                        <input type="hidden" name="category_ids[]" value="{{$entity['category_id']}}">
+                        <input type="hidden" name="en_category_titles[]" value="{{$entity['category_title_en']}}">
+                        <input type="hidden" name="bn_category_titles[]" value="{{$entity['category_title_bn']}}">
+
                         <tr class="assessment_score_row">
                             <td>
-                                <input type="hidden" name="audit_assessment_score_ids[]" value="{{$entity['id']}}">
                                 <input type="hidden" name="ministry_ids[]" value="{{$entity['ministry_id']}}">
                                 <input type="hidden" name="bn_ministry_names[]" value="{{$entity['ministry_name_bn']}}">
                                 <input type="hidden" name="en_ministry_names[]" value="{{$entity['ministry_name_en']}}">
@@ -54,8 +59,14 @@
                             </td>
                             <td>{{enTobn($entity['total_score'])}}</td>
                             <td>---</td>
-                            <td><input name="first_half"  value="{{$entity['id']}}" {{$entity['is_first_half'] ==1?'checked':''}} type="checkbox"  {{$entity['has_annual_plan'] ==1?'disabled':''}}></td>
-                            <td><input name="second_half" value="{{$entity['id']}}" {{$entity['is_second_half'] ==1?'checked':''}} type="checkbox" {{$entity['has_annual_plan'] ==1?'disabled':''}}></td>
+                            <td>
+                                <input name="first_half"  value="{{$entity['id']}}" {{$entity['is_first_half'] ==1?'checked':''}} type="checkbox"  {{$entity['has_first_half_annual_plan']==1?'disabled':''}}>
+                                <input type="hidden" name="has_first_half_annual_plans[]" value="{{$entity['has_first_half_annual_plan']}}">
+                            </td>
+                            <td>
+                                <input name="second_half" value="{{$entity['id']}}" {{$entity['is_second_half'] ==1?'checked':''}} type="checkbox" {{$entity['has_second_half_annual_plan']==1?'disabled':''}}>
+                                <input type="hidden" name="has_second_half_annual_plans[]" value="{{$entity['has_second_half_annual_plan']}}">
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
