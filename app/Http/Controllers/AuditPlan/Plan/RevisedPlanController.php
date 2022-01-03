@@ -86,20 +86,23 @@ class RevisedPlanController extends Controller
                 $entities[] = $entity;
 
                 $entity_info = [
-                  'ministry_id' =>  $ap_entities['ministry_id'],
-                  'ministry_name_bn' =>  $ap_entities['ministry_name_bn'],
-                  'ministry_name_en' =>  $ap_entities['ministry_name_en'],
-                  'entity_id' =>  $ap_entities['entity_id'],
-                  'entity_name_bn' =>  $ap_entities['entity_name_bn'],
-                  'entity_name_en' =>  $ap_entities['entity_name_en'],
+                    'ministry_id' => $ap_entities['ministry_id'],
+                    'ministry_name_bn' => $ap_entities['ministry_name_bn'],
+                    'ministry_name_en' => $ap_entities['ministry_name_en'],
+                    'entity_id' => $ap_entities['entity_id'],
+                    'entity_name_bn' => $ap_entities['entity_name_bn'],
+                    'entity_name_en' => $ap_entities['entity_name_en'],
                 ];
                 $entity_list[] = $entity_info;
             }
 
             $entity_list = json_encode($entity_list);
 
-            $entity_name = implode(' , ', array_unique($entities));
-
+            if ($audit_plan['annual_plan']['annual_plan_type'] == 'thematic') {
+                $entity_name = $audit_plan['annual_plan']['thematic_title'];
+            } else {
+                $entity_name = implode(' , ', array_unique($entities));
+            }
 
             $cover_info = [
                 'directorate_address_footer' => $directorate_address_footer,
@@ -153,12 +156,12 @@ class RevisedPlanController extends Controller
                 $entities[] = $entity;
 
                 $entity_info = [
-                  'ministry_id' =>  $ap_entities['ministry_id'],
-                  'ministry_name_bn' =>  $ap_entities['ministry_name_bn'],
-                  'ministry_name_en' =>  $ap_entities['ministry_name_en'],
-                  'entity_id' =>  $ap_entities['entity_id'],
-                  'entity_name_bn' =>  $ap_entities['entity_name_bn'],
-                  'entity_name_en' =>  $ap_entities['entity_name_en'],
+                    'ministry_id' => $ap_entities['ministry_id'],
+                    'ministry_name_bn' => $ap_entities['ministry_name_bn'],
+                    'ministry_name_en' => $ap_entities['ministry_name_en'],
+                    'entity_id' => $ap_entities['entity_id'],
+                    'entity_name_bn' => $ap_entities['entity_name_bn'],
+                    'entity_name_en' => $ap_entities['entity_name_en'],
                 ];
                 $entity_list[] = $entity_info;
             }
@@ -166,7 +169,7 @@ class RevisedPlanController extends Controller
             $entity_list = json_encode($entity_list);
 
             return view('modules.audit_plan.audit_plan.plan_revised.edit_entity_audit_plan', compact('activity_id', 'annual_plan_id',
-                'audit_plan', 'content', 'fiscal_year_id', 'parent_office_id','entity_list'));
+                'audit_plan', 'content', 'fiscal_year_id', 'parent_office_id', 'entity_list'));
         } else {
             return ['status' => 'error', 'data' => $audit_plan];
         }
