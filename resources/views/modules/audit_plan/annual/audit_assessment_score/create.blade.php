@@ -90,7 +90,7 @@
                                 {{$criteria['name_bn']}}
                             </td>
                             <td><input type="text" name="values[]" class="form-control"></td>
-                            <td><input type="number" min="0" max="5" name="scores[]" class="form-control score"></td>
+                            <td><input type="number" min="0" max="5" name="scores[]" onkeyup="if(this.value > 5) this.value = null;" class="form-control score"></td>
                         </tr>
                     @endforeach
                     <tr>
@@ -133,11 +133,13 @@
 
     function calculateTotal() {
         let finalTotalScore = 0;
+        let totalData = $("tr.criteria_row").length * 5;
         $("tr.criteria_row").each(function () {
             let score = $('.score', this).val() == ''?0:parseInt($('.score', this).val());
             finalTotalScore += score;
         });
-        $("#finalTotalScore").text(finalTotalScore);
+        let totalPoint = parseFloat(finalTotalScore/totalData).toFixed(2);
+        $("#finalTotalScore").text(finalTotalScore+' ('+totalPoint+')');
     }
 
 
