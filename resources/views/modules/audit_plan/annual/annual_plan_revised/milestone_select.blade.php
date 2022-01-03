@@ -26,10 +26,10 @@
                 <input name="milestone_target_date" class="milestone_target_date" type="hidden" value="{{formatDate($milestone['milestone_calendar']['target_date'],'en','/')}}">
             </td>
             <td class="pl-0 pr-0">
-                <input type="text" data-target-date="{{formatDate($milestone['milestone_calendar']['target_date'],'en','/')}}" name="start_date" class="form-control milestone_start_date datepicker-bottom" placeholder="শুরুর তারিখ">
+                <input type="text" data-target-date="{{formatDate($milestone['milestone_calendar']['target_date'],'en','/')}}" name="start_date" class="form-control bijoy-bangla milestone_start_date datepicker-bottom" placeholder="শুরুর তারিখ">
             </td>
             <td class="pl-0 pr-0">
-                <input type="text" data-target-date="{{formatDate($milestone['milestone_calendar']['target_date'],'en','/')}}" name="end_date" class="form-control milestone_end_date datepicker-bottom" placeholder="শেষের তারিখ">
+                <input type="text" data-target-date="{{formatDate($milestone['milestone_calendar']['target_date'],'en','/')}}" name="end_date" class="form-control bijoy-bangla milestone_end_date datepicker-bottom" placeholder="শেষের তারিখ">
             </td>
         </tr>
     @endforeach
