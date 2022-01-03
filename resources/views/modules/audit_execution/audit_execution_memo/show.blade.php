@@ -21,22 +21,28 @@
         {!! $memoInfo['memo_description_bn'] !!}
     </div>
 
-    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-        <span style="font-weight: bold">অনিয়মের কারণঃ</span> {{$memoInfo['response_of_rpu']}}
-    </div>
+{{--    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">--}}
+{{--        <span style="font-weight: bold">অনিয়মের কারণঃ</span> {{$memoInfo['response_of_rpu']}}--}}
+{{--    </div>--}}
 
+    @if($memoInfo['response_of_rpu'])
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
         <span style="font-weight: bold">অডিট প্রতিষ্ঠানের জবাবঃ</span> {{$memoInfo['response_of_rpu']}}
     </div>
+    @endif
 
+    @if($memoInfo['audit_conclusion'])
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
         <span style="font-weight: bold">নিরীক্ষা মন্তব্যঃ</span> {{$memoInfo['audit_conclusion']}}
     </div>
+    @endif
 
+    @if($memoInfo['audit_recommendation'])
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
         <span style="font-weight: bold">নিরীক্ষার সুপারিশঃ</span>
         {{$memoInfo['audit_recommendation']}}
     </div>
+    @endif
 
     <br>
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 50px;">
