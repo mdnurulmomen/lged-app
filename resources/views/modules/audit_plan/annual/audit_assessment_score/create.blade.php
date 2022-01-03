@@ -33,8 +33,8 @@
             <input type="hidden" name="category_title_bn" id="category_title_bn">
         </div>
         <div class="col-md-6">
-            <label for="fiscal_year_id" class="col-form-label">অর্থ বছর</label>
-            <select class="form-control select-select2" name="fiscal_year_id" id="fiscal_year_id">
+            <label class="col-form-label">অর্থ বছর</label>
+            <select class="form-control select-select2" name="fiscal_year_id">
                 <option value="">--সিলেক্ট--</option>
                 @foreach($fiscal_years as $fiscal_year)
                     <option
@@ -77,35 +77,26 @@
                        id="tblAuditAssessmentScore">
                     <thead>
                     <tr>
-                        <th width="20%">Criteria</th>
-                        <th width="10%">Weight</th>
+                        <th width="40%">Criteria</th>
                         <th width="35%">Value</th>
-                        <th width="15%">Score</th>
-                        <th width="20%">Total(w x s)</th>
+                        <th width="25%">Score</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @php $totalWeight=0; @endphp
                     @foreach($criteriaList as $criteria)
-                        @php $totalWeight += $criteria['weight']??0; @endphp
                         <tr class="criteria_row">
                             <td>
                                 <input type="hidden" name="criteria_ids[]" value="{{$criteria['id']}}" class="criteria_id">
-                                <input type="hidden" name="weights[]" value="{{$criteria['weight']}}">
                                 {{$criteria['name_bn']}}
                             </td>
-                            <td><span class="weight">{{$criteria['weight']}}</span></td>
                             <td><input type="text" name="values[]" class="form-control"></td>
-                            <td><input type="number" name="scores[]" class="form-control score"></td>
-                            <td><span class="rowTotal"></span></td>
+                            <td><input type="number" min="0" max="5" name="scores[]" class="form-control score"></td>
                         </tr>
                     @endforeach
                     <tr>
                         <th>Total</th>
-                        <th>{{$totalWeight}}</th>
                         <th></th>
                         <th><span id="finalTotalScore"></span></th>
-                        <th><span id="finalTotal"></span></th>
                     </tr>
                     </tbody>
                 </table>
@@ -141,18 +132,12 @@
     $(".score").keyup(calculateTotal);
 
     function calculateTotal() {
-        let finalTotal = 0;
         let finalTotalScore = 0;
         $("tr.criteria_row").each(function () {
-            let weight = parseInt($('.weight', this).text());
             let score = $('.score', this).val() == ''?0:parseInt($('.score', this).val());
-            let rowTotal = (weight) * score;
-            $('.rowTotal', this).text(rowTotal);
             finalTotalScore += score;
-            finalTotal += rowTotal;
         });
         $("#finalTotalScore").text(finalTotalScore);
-        $("#finalTotal").text(finalTotal);
     }
 
 
@@ -180,7 +165,8 @@
             KTApp.unblock('#kt_content');
             if (response.status === 'success') {
                 toastr.success('Successfully Added!');
-                Assessment_Score_Container.list();
+                fiscal_year_id = $("#fiscal_year_id").val();
+                Assessment_Score_Container.list(fiscal_year_id);
             } else {
                 if (response.statusCode === '422') {
                     var errors = response.msg;

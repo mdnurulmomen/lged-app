@@ -76,7 +76,6 @@ class AuditAssessmentScoreController extends Controller
         $data['entity_name_bn'] = $request->entity_name_bn;
 
         $data['criteria_ids'] = $request->criteria_ids;
-        $data['weights'] = $request->weights;
         $data['values'] = $request->values;
         $data['scores'] = $request->scores;
 
