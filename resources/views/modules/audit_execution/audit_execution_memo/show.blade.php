@@ -13,7 +13,7 @@
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">অডিট মেমো নং-{{enTobn($memoInfo['onucched_no'])}}</div>
 
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">
-        আপত্তির শিরোনামঃ {{$memoInfo['memo_title_bn']}}
+        শিরোনামঃ {{$memoInfo['memo_title_bn']}}
     </div>
 
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: justify;margin-top: 10px">
@@ -27,7 +27,7 @@
 
     @if($memoInfo['response_of_rpu'])
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-        <span style="font-weight: bold">অডিট প্রতিষ্ঠানের জবাবঃ</span> {{$memoInfo['response_of_rpu']}}
+        <span style="font-weight: bold">অডিটি প্রতিষ্ঠানের জবাবঃ</span> {{$memoInfo['response_of_rpu']}}
     </div>
     @endif
 

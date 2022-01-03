@@ -11,7 +11,7 @@
     <div class="col-md-12">
         <table class="table table-bordered">
             <tr>
-                <td width="20%"><b>আপত্তির শিরোনাম</b></td>
+                <td width="20%"><b>শিরোনাম</b></td>
                 <td width="80%">{{$memo_info['memo_title_bn']}}</td>
             </tr>
             <tr>

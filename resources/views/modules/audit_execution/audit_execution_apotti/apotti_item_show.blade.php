@@ -6,13 +6,13 @@
         </td>
     </tr>
     <tr>
-        <td class="annual-plan-title"> আপত্তির শিরোনাম </td>
+        <td class="annual-plan-title">শিরোনাম </td>
         <td style="width: 60%;padding-left: 2%">
             <p>{{$apotti_info['memo_title_bn']}}</p>
         </td>
     </tr>
     <tr>
-        <td class="annual-plan-title">আপত্তির বিবরণ</td>
+        <td class="annual-plan-title">বিবরণ</td>
         <td style="width: 60%;padding-left: 2%">
             <p>{!! $apotti_info['memo_description_bn'] !!}</p>
         </td>
@@ -36,7 +36,7 @@
         </td>
     </tr>
     <tr>
-        <td class="annual-plan-title">অডিট প্রতিষ্ঠানের জবাব</td>
+        <td class="annual-plan-title">অডিটি প্রতিষ্ঠানের জবাব</td>
         <td style="width: 60%;padding-left: 2%">
             <p>{{$apotti_info['response_of_rpu']}}</p>
         </td>
@@ -48,7 +48,7 @@
         </td>
     </tr>
     <tr>
-        <td class="annual-plan-title"> নিরীক্ষার সুপারিশ</td>
+        <td class="annual-plan-title">নিরীক্ষার সুপারিশ</td>
         <td style="width: 60%;padding-left: 2%">
             <p>{{$apotti_info['audit_recommendation']}}</p>
         </td>

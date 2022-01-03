@@ -5,17 +5,18 @@
                 <form id="onucched_marge_form">
                     <div class="form-row pt-4">
                         <div class="col-md-12">
-                            <label class="col-form-label"> অনুচ্ছেদ নং</label>
+                            <label class="col-form-label">অনুচ্ছেদ নং</label>
                             <input class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নং" value="{{$apotti_info['onucched_no']}}">
                         </div>
 
                         <div class="col-md-12">
-                            <label class="col-form-label"> আপত্তির শিরোনাম লিখুন</label>
+                            <label class="col-form-label">শিরোনাম</label>
                             <input class="form-control" name="apotti_title" placeholder="আপত্তির শিরোনাম লিখুন"
                                    value="{{$apotti_info['apotti_title']}}">
                         </div>
 
                         <div class="col-md-12 mb-2">
+                            <label class="col-form-label">বিবরণ</label>
                             <textarea id="kt-tinymce-1" name="apotti_description" class="kt-tinymce-1">{!! $apotti_info['apotti_description'] !!}</textarea>
                         </div>
 
@@ -27,9 +28,9 @@
                         </div>
 
                         <div class="col-md-12 mb-2">
-                            <label class="col-form-label">অডিট প্রতিষ্ঠানের জবাব</label>
+                            <label class="col-form-label">অডিটি প্রতিষ্ঠানের জবাব</label>
                             <textarea class="form-control mb-1" name="response_of_rpu"
-                                      placeholder="নিরীক্ষিত প্রতিষ্ঠানের জবাব"
+                                      placeholder="অডিটি প্রতিষ্ঠানের জবাব"
                                       cols="30"
                                       rows="2">{{$apotti_info['response_of_rpu']}}</textarea>
                         </div>
@@ -63,7 +64,7 @@
                     <div class="col-md-12">
                         <label class="col-form-label"> অনুচ্ছেদ</label>
                         <select id="selected_onucched" class="form-control select-selct2">
-                            <option value="">অনুচ্ছেদ বাছাই করুন</option>
+                            <option value="">বাছাই করুন</option>
                             @foreach($apotti_info['apotti_items'] as $apotti_item)
                                 <option value="{{$apotti_item['id']}}">{{$apotti_item['memo_title_bn']}}</option>
                             @endforeach

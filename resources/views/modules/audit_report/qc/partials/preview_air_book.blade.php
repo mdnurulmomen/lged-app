@@ -4,7 +4,7 @@
             <button onclick="Preview_AIR_Container.generatePDF()"
                     title="Download"
                     class="btn btn-danger btn-sm btn-bold btn-square">
-                <i class="far fa-file-pdf"></i>
+                <i class="far fa-file-pdf"></i> Download
             </button>
         </div>
     </div>

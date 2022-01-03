@@ -41,7 +41,7 @@ return [
             ],
             'memo' => [
                 'memo_no' => 'মেমো নং',
-                'audit_title' => 'আপত্তির শিরোনাম',
+                'audit_title' => 'শিরোনাম',
                 'memo_type' => 'আপত্তির ধরন',
                 'memo_irregularity_type' => 'আপত্তি অনিয়মের ধরন',
                 'jorito_ortho' => 'জড়িত অর্থ',

@@ -19,8 +19,18 @@
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">অডিট প্রতিষ্ঠানের জবাবঃ</span>
+            <span style="font-weight: bold">অডিটি প্রতিষ্ঠানের জবাবঃ</span>
             {{$apotti['response_of_rpu']}}
+        </div>
+
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+            <span style="font-weight: bold">নিরীক্ষা মন্তব্যঃ</span>
+            {{$apotti['audit_conclusion']}}
+        </div>
+
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+            <span style="font-weight: bold">নিরীক্ষার সুপারিশঃ</span>
+            {{$apotti['audit_recommendation']}}
         </div>
     </div>
     <br>

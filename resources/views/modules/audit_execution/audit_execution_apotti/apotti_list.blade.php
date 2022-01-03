@@ -33,29 +33,20 @@
     <thead class="thead-light">
     <tr class="bg-hover-warning">
         <th class="datatable-cell datatable-cell-sort text-center">
-            <span class="input-group-text bg-transparent border-0 inbox_checkbox" data-toggle="popover">
-                <label id="selectAllLabel" class="checkbox" for="selectAll">
-                    <input type="checkbox" id="selectAll">
-                    <span></span>
-                 </label>
-            </span>
+            <input type="checkbox" id="selectAll">
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
+        <th class="datatable-cell datatable-cell-sort text-left">
             অনুচ্ছেদ নং
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
-            আপত্তির শিরোনাম
+        <th class="datatable-cell datatable-cell-sort text-left">
+            শিরোনাম
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
+        <th class="datatable-cell datatable-cell-sort text-right">
             জড়িত অর্থ (টাকা)
         </th>
-
-{{--        <th class="datatable-cell datatable-cell-sort text-center">--}}
-{{--            অনিষ্পন্ন জড়িত অর্থ (টাকা)--}}
-{{--        </th>--}}
 
         <th class="datatable-cell datatable-cell-sort text-center">
             কার্যক্রম
@@ -67,19 +58,14 @@
     @forelse($apotti_list['data'] as $apotti)
         <tr class="text-center">
             <td>
-                <span class="input-group-text bg-transparent border-0">
-                      <label class="checkbox">
-                          <input
-                                 type="checkbox"
-                                 data-sequence="{{$apotti['apotti_sequence']}}"
-                                 value="{{$apotti['id']}}"
-                                 class="select-apotti">
-                            <span></span>
-                      </label>
-                </span>
+                <input
+                    type="checkbox"
+                    data-sequence="{{$apotti['apotti_sequence']}}"
+                    value="{{$apotti['id']}}"
+                    class="select-apotti">
                 <input class="apotti_sequence" data-apotti-id="{{$apotti['id']}}" type="hidden" value="{{$apotti['apotti_sequence']}}">
             </td>
-            <td>
+            <td class="text-left">
                 {{enTobn($apotti['onucched_no'])}}
 
                 @if(count($apotti['apotti_items']) > 1)
@@ -88,15 +74,13 @@
                         আপত্তি একীভূত</span>
                 @endif
             </td>
-            <td>
-                <span>{{$apotti['apotti_title']}}</span>
+            <td class="text-left">
+                {{$apotti['apotti_title']}}
             </td>
-            <td>
+            <td class="text-right">
                 <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
             </td>
-{{--            <td>--}}
-{{--                <span>{{enTobn(number_format($apotti['total_onishponno_jorito_ortho_poriman'],0))}}</span>--}}
-{{--            </td>--}}
+
             <td>
                 <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
                         data-apotti-id="{{$apotti['id']}}"

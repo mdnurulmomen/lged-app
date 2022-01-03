@@ -41,7 +41,7 @@ return [
             ],
             'memo' => [
                 'memo_no' => 'Memo No.',
-                'audit_title' => 'Audit Title',
+                'audit_title' => 'Title',
                 'memo_type' => 'Memo Type',
                 'memo_irregularity_type' => 'Memo Irregularity Type',
                 'jorito_ortho' => 'Jorito Ortho',

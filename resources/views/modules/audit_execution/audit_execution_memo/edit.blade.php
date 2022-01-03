@@ -40,8 +40,8 @@
                     <div class="col-md-7">
                         <div class="card">
                             <div class="card-body p-4">
-                                <label class="col-form-label">আপত্তির শিরোনাম<span class="text-danger">*</span></label>
-                                <textarea class="form-control mb-1" name="memo_title_bn" placeholder="আপত্তির শিরোনাম লিখুন" cols="30" rows="2">{{$memo['memo_title_bn']}}</textarea>
+                                <label class="col-form-label">শিরোনাম<span class="text-danger">*</span></label>
+                                <textarea class="form-control mb-1" name="memo_title_bn" placeholder="শিরোনাম লিখুন" cols="30" rows="2">{{$memo['memo_title_bn']}}</textarea>
 
                                 <label class="col-form-label">বিবরণ<span class="text-danger">*</span></label>
                                 <textarea id="kt-tinymce-1" name="memo_description_bn" class="kt-tinymce-1">{{$memo['memo_description_bn']}}</textarea>
@@ -50,8 +50,8 @@
                                 <textarea class="form-control mb-1" name="irregularity_cause" placeholder="অনিয়মের কারণ" cols="30" rows="2">{{$memo['irregularity_cause']}}</textarea>
 
 
-                                <label class="col-form-label">অডিট প্রতিষ্ঠানের জবাব</label>
-                                <textarea class="form-control mb-1" name="response_of_rpu" placeholder="নিরীক্ষিত প্রতিষ্ঠানের জবাব" cols="30" rows="2">{{$memo['response_of_rpu']}}</textarea>
+                                <label class="col-form-label">অডিটি প্রতিষ্ঠানের জবাব</label>
+                                <textarea class="form-control mb-1" name="response_of_rpu" placeholder="অডিটি প্রতিষ্ঠানের জবাব" cols="30" rows="2">{{$memo['response_of_rpu']}}</textarea>
 
 
                                 {{--<label class="col-form-label">নিরীক্ষা মন্তব্য</label>

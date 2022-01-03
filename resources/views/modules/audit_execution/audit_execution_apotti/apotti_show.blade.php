@@ -1,18 +1,18 @@
 <table class="annual-plan-table" border="1">
     <tr>
-        <td class="annual-plan-title"> অনুচ্ছেদ নং </td>
+        <td class="annual-plan-title">অনুচ্ছেদ নং </td>
         <td style="width: 60%;padding-left: 2%">
             {{$apotti_info['onucched_no']}}
         </td>
     </tr>
     <tr>
-        <td class="annual-plan-title"> আপত্তির শিরোনাম </td>
+        <td class="annual-plan-title">শিরোনাম </td>
         <td style="width: 60%;padding-left: 2%">
             {{$apotti_info['apotti_title']}}
         </td>
     </tr>
     <tr>
-        <td class="annual-plan-title">আপত্তির বিবরণ</td>
+        <td class="annual-plan-title">বিবরণ</td>
         <td style="width: 60%;padding-left: 2%">
             {!! $apotti_info['apotti_description'] !!}
         </td>
@@ -36,7 +36,7 @@
         </td>
     </tr>
     <tr>
-        <td class="annual-plan-title">অডিট প্রতিষ্ঠানের জবাব</td>
+        <td class="annual-plan-title">অডিটি প্রতিষ্ঠানের জবাব</td>
         <td style="width: 60%;padding-left: 2%">
             {{$apotti_info['response_of_rpu']}}
         </td>
@@ -48,7 +48,7 @@
         </td>
     </tr>
     <tr>
-        <td class="annual-plan-title"> নিরীক্ষার সুপারিশ</td>
+        <td class="annual-plan-title">নিরীক্ষার সুপারিশ</td>
         <td style="width: 60%;padding-left: 2%">
             {{$apotti_info['audit_recommendation']}}
         </td>
@@ -62,8 +62,8 @@
         <thead class="thead-light">
             <tr>
                 <th width="5%">অনুচ্ছেদ নং</th>
-                <th width="30%">কজ সেন্টার</th>
-                <th width="15%">আপত্তির শিরোনাম</th>
+                <th width="30%">ইউনিট</th>
+                <th width="15%">শিরোনাম</th>
                 <th width="15%">জড়িত অর্থ (টাকা) </th>
                 <th width="15%">অনিষ্পন্ন জড়িত অর্থ (টাকা)</th>
                 <th width="15%">কার্যক্রম</th>
