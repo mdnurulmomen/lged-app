@@ -331,7 +331,8 @@
             parent_office_id = $('#' + node_id).attr('data-office-id');
             parent_ministry_id = $('#parent_ministry_id').val();
             parent_office_layer_id = $('#' + node_id).attr('data-rp-auditee-layer-id');
-
+            entity_id = $('#selected_entity').val();
+            // alert(entity_id);
             data = {
                 parent_office_id, parent_ministry_id, parent_office_layer_id
             };
@@ -349,7 +350,7 @@
                                     office_id: office.id,
                                     office_name_en: office.office_name_en,
                                     office_name_bn: office.office_name_bn,
-                                    entity_id: parent_office_id,
+                                    entity_id: entity_id,
                                     child_count: office.child_count,
                                 })
                             },

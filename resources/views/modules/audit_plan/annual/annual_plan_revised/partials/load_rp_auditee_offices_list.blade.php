@@ -15,8 +15,12 @@
         'entity_name_en' =>  htmlspecialchars($entity_name_en),
         'entity_name_bn' =>  htmlspecialchars($entity_name_bn),
         'entity_count' => count($rp_offices),
-        ], JSON_UNESCAPED_UNICODE)}}" data-jstree='{ "type" : "default" }'>
+        ], JSON_UNESCAPED_UNICODE)}}" data-jstree='{ "type" : "default" , "checkbox_disabled" : @if($rp_office['office_structure_type'] == 'unit_group') true @else false @endif}'>
                             {{$rp_office['office_name_bn']}}
+                            @if($rp_office['office_structure_type'] == 'unit_group')
+                                <span class="badge badge-info text-uppercase m-1 p-1 ">
+                                    ইউনিট গ্রুপ</span>
+                            @endif
                             @if($rp_office['has_child'])
                                 <ul>
                                     <li data-jstree='{"opened" : false}'>&nbsp;</li>
@@ -91,14 +95,4 @@
     });
 
     count = '{{count($rp_offices)}}';
-
-    // if ($('#total_unit').val()) {
-    //     total_count = parseInt($('#total_unit').val()) + parseInt(count);
-    //     $('#total_unit_no').val(total_count).prop('readonly', true);
-    //     $('#total_unit').val(total_count);
-    //
-    // } else {
-    //     $('#total_unit').val(count);
-    //     $('#total_unit_no').val(count).prop('readonly', true);
-    // }
 </script>
