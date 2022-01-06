@@ -210,6 +210,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/submit-audit-plan-to-ocag', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'submitPlanToOCAG'])->name('plan.list.submit.revised.plan-to-ocag');
 
             Route::get('/calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendarController::class, 'index'])->name('calendar');
+            Route::post('/load-assessment-entity', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'loadAssessmentEntity'])->name('load-assessment-entity');
 
             //audit assessment score
             Route::group(['as' => 'audit-assessment-score.', 'prefix' => 'audit-assessment-score/'], function () {

@@ -58,7 +58,25 @@
 {{--        $('#rp_auditee_parent_offices').jstree('refresh')--}}
 {{--    });--}}
 {{--</script>--}}
-
+{{--<div class="col-md-12">--}}
+{{--    <div class="form-group mb-1">--}}
+{{--        <label class="col-form-label">Auditability Assessment</label>--}}
+{{--        <div class="col-form-label">--}}
+{{--            <div class="radio-inline">--}}
+{{--                <label for="with_assessment" class="radio radio-success">--}}
+{{--                    <input id="with_assessment" type="radio" name="assessment" value="with_assessment" />--}}
+{{--                    <span></span>--}}
+{{--                   With Auditability Assessment--}}
+{{--                </label>--}}
+{{--                <label for="with_out_assessment" class="radio radio-success">--}}
+{{--                    <input checked id="with_out_assessment" type="radio" name="assessment" value="with_out_assessment"/>--}}
+{{--                    <span></span>--}}
+{{--                    With Out Auditability Assessment--}}
+{{--                </label>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 <div class="row">
     <div class="col-md-12">
         @if(count($rp_offices['offices']) > 0)
@@ -131,4 +149,5 @@
         $('#rp_auditee_parent_offices').jstree(true).show_all();
         $('#rp_auditee_parent_offices').jstree('search', $(this).val());
     });
+
 </script>

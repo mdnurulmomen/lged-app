@@ -66,7 +66,7 @@
         <td style="width: 60%;padding-left: 2%">{{$annual_plan_info['comment']}}</td>
     </tr>
 </table>
-@if($nominated_man_powers['staffs'])
+@if(isset($nominated_man_powers['staffs']))
     <br>
     <h4>জনবল</h4>
     <table class="table table-striped text-center">

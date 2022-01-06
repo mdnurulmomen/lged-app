@@ -30,6 +30,8 @@
                     {{$approval_status}}
                 @endif
             </div>
+
+{{--            @if($approval_status != 'approved')--}}
             <div class="col-md-5">
                 <div class="d-flex justify-content-md-end">
                     <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
@@ -41,6 +43,7 @@
                     </a>
                 </div>
             </div>
+{{--                @endif--}}
         </div>
     </div>
 </div>
@@ -204,7 +207,7 @@
                                                     onclick="Annual_Plan_Container.showPlanInfo($(this))">
                                                 <i class="fad fa-eye"></i> বিস্তারিত
                                             </button>
-
+{{--                                            @if($approval_status != 'approved')--}}
                                             <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
                                                     data-annual-plan-id="{{$plan['id']}}"
                                                     data-fiscal-year-id="{{$fiscal_year_id}}"
@@ -212,6 +215,7 @@
                                                     onclick="Annual_Plan_Container.editPlanInfo($(this))">
                                                 <i class="fad fa-edit"></i> সম্পাদনা
                                             </button>
+{{--                                            @endif--}}
                                         </div>
                                     </div>
                                 </div>

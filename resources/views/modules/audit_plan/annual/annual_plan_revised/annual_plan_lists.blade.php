@@ -743,6 +743,25 @@
             }
         },
 
+        loadAssessmentEntity: function (parent_ministry_id,office_category_type,activity_id) {
+            url = '{{route('audit.plan.annual.load-assessment-entity')}}';
+            data = {parent_ministry_id,office_category_type,activity_id};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $('.rp_auditee_parent_office_tree').html(response)
+                }
+            });
+        },
+
         backToAnnualPlanList: function () {
             $('.annual_plan_menu a').click();
         },

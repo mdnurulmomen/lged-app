@@ -59,6 +59,24 @@
                         <x-rp-parent-office-select grid="6" unit="true"/>
                     </div>
                     <h5 class="text-primary pl-3"><u>এনটিটি/সংস্থার তালিকাঃ</u></h5>
+                    <div class="col-md-12">
+                        <div class="form-group mb-1">
+                            <div class="col-form-label">
+                                <div class="radio-inline">
+                                    <label for="with_assessment" class="radio radio-success">
+                                        <input id="with_assessment" type="radio" name="assessment" value="with_assessment" />
+                                        <span></span>
+                                        With Auditability Assessment
+                                    </label>
+                                    <label for="with_out_assessment" class="radio radio-success">
+                                        <input checked id="with_out_assessment" type="radio" name="assessment" value="with_out_assessment"/>
+                                        <span></span>
+                                        With Out Auditability Assessment
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-12 rp_auditee_parent_office_tree"></div>
                 </div>
                 <div class="tab-pane border border-top-0 p-3 fade" id="select_entity_by_layer"
@@ -263,6 +281,22 @@
         }
         return false;
     }
+
+    $('input[type=radio][name=assessment]').on('change', function() {
+        if($(this).val() == 'with_assessment'){
+            parent_ministry_id =  $('#parent_ministry_id').val();
+            office_category_type =  $('#office_category_type_select').val();
+            activity_id =  $('#activity_id').val();
+            if(parent_ministry_id && activity_id){
+                Annual_Plan_Container.loadAssessmentEntity(parent_ministry_id,office_category_type,activity_id);
+            }else{
+                toastr.warning('Please select ministry and activity');
+            }
+        }else{
+            parent_ministry_id =  $('#parent_ministry_id').val();
+            $('#parent_ministry_id').val(parent_ministry_id).trigger('change');
+        }
+    });
 
 </script>
 

@@ -59,7 +59,7 @@ class AnnualPlanRevisedController extends Controller
 
         $planListResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_entities_list_show'),
             $data)->json();
-
+//        dd($planListResponseData);
 
         if (isSuccess($planListResponseData)) {
             $plan_list = $planListResponseData['data']['annual_plan_list'];
@@ -67,7 +67,7 @@ class AnnualPlanRevisedController extends Controller
             $op_audit_calendar_event_id = $planListResponseData['data']['op_audit_calendar_event_id'];
         }
 
-//        dd($plan_list);
+
 
         $fiscal_year = $request->fiscal_year;
         $fiscal_year_id = $request->fiscal_year_id;
@@ -217,6 +217,7 @@ class AnnualPlanRevisedController extends Controller
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_update'), $data)->json();
             } else {
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
+//                dd($store_plan);
             }
             if (isSuccess($store_plan)) {
                 return response()->json(['status' => 'success', 'data' => 'Added!']);
@@ -296,6 +297,7 @@ class AnnualPlanRevisedController extends Controller
 
         $annual_plan_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_annual_plan_info'),
             $data)->json();
+//        dd($annual_plan_info);
 
         if (isSuccess($annual_plan_info)) {
             $annual_plan_info = $annual_plan_info['data'];
@@ -407,6 +409,28 @@ class AnnualPlanRevisedController extends Controller
             return response()->json(['status' => 'success', 'data' => $nominated_offices['data']]);
         } else {
             return response()->json(['status' => 'error', 'data' => $nominated_offices]);
+        }
+    }
+
+    public function loadAssessmentEntity(Request $request)
+    {
+        $data = [
+            'office_ministry_id' => $request->parent_ministry_id,
+            'office_category_type' => $request->office_category_type,
+            'activity_id' => $request->activity_id,
+            'fiscal_year_id' => 1,
+            'cdesk' => $this->current_desk_json(),
+        ];
+
+//        dd($data);
+
+        $rp_offices = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.audit_assessment.get_assessment_entity'), $data)->json();
+//        dd($rp_offices);
+        if (isSuccess($rp_offices)) {
+            $rp_offices = $rp_offices['data'];
+            return view('modules.audit_plan.annual.annual_plan_revised.partials.load_assessment_entity', compact('rp_offices'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $rp_offices]);
         }
     }
 
