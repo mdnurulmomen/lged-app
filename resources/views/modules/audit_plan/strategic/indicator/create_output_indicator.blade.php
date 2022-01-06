@@ -96,13 +96,8 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="base_fiscal_year" class="col-form-label">Base Fiscal Year :</label>
-                                    <select class="form-control rounded-0 select-select2" id="base_fiscal_year"
-                                            name="base_fiscal_year_id">
-                                        <option value="">Base Fiscal Year</option>
-                                        @foreach($fiscal_years as $fiscal_year)
-                                            <option value="{{$fiscal_year['id']}}">{{$fiscal_year['start']}}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" id="base_fiscal_year" name="base_fiscal_year_id" class="form-control year-picker -0"
+                                           placeholder="Base Value"/>
                                 </div>
                             </div>
 
@@ -191,20 +186,24 @@
         });
     });
 
-    $('#base_fiscal_year').change(function () {
-        // let base_year = $(this).find("option:selected").text();
-        base_year = 'all';
-        url = "{{route('audit.plan.strategy.indicator.gen.year')}}/" + base_year;
-        data = {};
-        ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
-            if (resp.status === 'error') {
-                toastr.error('Error on genarating year');
-            } else {
-                $('.baseYears').html(resp.columns);
-                $('.targetValues').html(resp.target_value);
-            }
-        });
-
+    $('#duration').change(function () {
+        let duration_id = $(this).val();
+        if (duration_id !== ''){
+            let duration = $(this).find("option:selected").text();
+            url = "{{route('audit.plan.strategy.indicator.gen.year')}}";
+            data = {duration_id,duration};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
+                if (resp.status === 'error') {
+                    toastr.error('Error on generating year');
+                } else {
+                    $('.baseYears').html(resp.columns);
+                    $('.targetValues').html(resp.target_value);
+                }
+            });
+        }else {
+            $('.baseYears').html('');
+            $('.targetValues').html('');
+        }
     });
 
 </script>

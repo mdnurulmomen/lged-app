@@ -16,8 +16,6 @@ class AuditAssessmentScoreController extends Controller
 
     public function create()
     {
-        $data['cdesk'] = $this->current_desk_json();
-
         $fiscal_years = $this->allFiscalYears();
 
         //categories
@@ -28,12 +26,8 @@ class AuditAssessmentScoreController extends Controller
         $ministryResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-ministry-list'),       ['directorate_id' => $this->current_office_id()])->json();
         $ministries = isSuccess($ministryResponseData) ? $ministryResponseData['data'] : [];
 
-        //criteria
-        $criteriaResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_assessment.criteria.lists'), $data)->json();
-        $criteriaList = isSuccess($criteriaResponseData) ? $criteriaResponseData['data'] : [];
-
         return view('modules.audit_plan.annual.audit_assessment_score.create', compact('fiscal_years','categories',
-            'ministries','criteriaList'));
+            'ministries'));
 
     }
 
@@ -53,12 +47,44 @@ class AuditAssessmentScoreController extends Controller
 
     public function loadMinistryWiseEntity(Request $request)
     {
-        //offices
-        $officeResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.office-ministry-wise-entity'),       ['office_ministry_id' => $request->ministry_id])->json();
+        $data['office_type'] = $request->category_id;
+        $data['office_ministry_id'] = $request->ministry_id;
+        $officeResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.office-ministry-wise-entity'),$data)->json();
         $offices = isSuccess($officeResponseData) ? $officeResponseData['data'] : [];
-
         return view('modules.audit_plan.annual.audit_assessment_score.partials.load_office_entity',compact('offices'));
+    }
 
+    public function loadCategoryWiseCriteriaList(Request $request)
+    {
+        $data['category_id'] = $request->category_id;
+        $criteriaResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_assessment.criteria.list-category-wise'), $data)->json();
+        $criteriaList = isSuccess($criteriaResponseData) ? $criteriaResponseData['data'] : [];
+        return view('modules.audit_plan.annual.audit_assessment_score.partials.load_criteria_table',compact('criteriaList'));
+    }
+
+    public function edit(Request $request)
+    {
+        $fiscal_years = $this->allFiscalYears();
+
+        //categories
+        $categoryResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-category-types'), [])->json();
+        $categories = isSuccess($categoryResponseData) ? $categoryResponseData['data'] : [];
+
+        //ministries
+        $ministryResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-ministry-list'),       ['directorate_id' => $this->current_office_id()])->json();
+        $ministries = isSuccess($ministryResponseData) ? $ministryResponseData['data'] : [];
+
+        //edit
+        $data['cdesk'] = $this->current_desk_json();
+        $data['audit_assessment_score_id'] = $request->audit_assessment_score_id;
+        $auditAssessmentScoreInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.audit_assessment.score.edit'), $data)->json();
+        //dd($auditAssessmentScoreInfo);
+        if (isSuccess($auditAssessmentScoreInfo)) {
+            $auditAssessmentScoreInfo = $auditAssessmentScoreInfo['data'];
+            return view('modules.audit_plan.annual.audit_assessment_score.edit', compact('fiscal_years','categories','ministries','auditAssessmentScoreInfo'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $auditAssessmentScoreInfo]);
+        }
     }
 
     public function store(Request $request)
@@ -74,6 +100,7 @@ class AuditAssessmentScoreController extends Controller
         $data['entity_id'] = $request->entity_id;
         $data['entity_name_en'] = $request->entity_name_en;
         $data['entity_name_bn'] = $request->entity_name_bn;
+        $data['point'] = $request->point;
 
         $data['criteria_ids'] = $request->criteria_ids;
         $data['values'] = $request->values;

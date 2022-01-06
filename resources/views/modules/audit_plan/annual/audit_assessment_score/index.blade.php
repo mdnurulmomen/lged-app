@@ -16,7 +16,7 @@
         <select class="form-control select-select2" id="fiscal_year_id">
             <option value="">--সিলেক্ট--</option>
             @foreach($fiscal_years as $fiscal_year)
-                <option value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>
+                <option value="{{$fiscal_year['id']}}" {{$fiscal_year['id'] == 1?'selected':''}}>
                     {{$fiscal_year['description']}}
                 </option>
             @endforeach
@@ -81,6 +81,33 @@
                     $('#load_assessment_score_list').html(response);
                 }
             })
-        }
+        },
+
+        edit: function (elem) {
+            let audit_assessment_score_id = elem.data('audit-assessment-score-id');
+            url = '{{route('audit.plan.annual.audit-assessment-score.edit')}}';
+            data = {audit_assessment_score_id};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('Server Error');
+                } else {
+                    $(".offcanvas-title").text('Auditability Assessment Score');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '50%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
     }
 </script>

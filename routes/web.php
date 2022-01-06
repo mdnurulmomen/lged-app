@@ -75,7 +75,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::get('indicator/outcome/all', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'outcomes'])->name('indicator.outcomes');
 
-            Route::get('indicator/genYear/{year?}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'genYear'])->name('indicator.gen.year');
+            Route::post('indicator/genYear', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'genYear'])->name('indicator.gen.year');
 
 
             Route::get('indicator/output', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'index'])->name('indicator.output');
@@ -218,7 +218,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('/list', [AuditAssessmentScoreController::class, 'list'])->name('list');
                 Route::post('/create', [AuditAssessmentScoreController::class, 'create'])->name('create');
                 Route::post('/load-ministry-wise-entity', [AuditAssessmentScoreController::class, 'loadMinistryWiseEntity'])->name('load-ministry-wise-entity');
+                Route::post('/load-criteria-list', [AuditAssessmentScoreController::class, 'loadCategoryWiseCriteriaList'])->name('load-criteria-list');
                 Route::post('/store', [AuditAssessmentScoreController::class, 'store'])->name('store');
+                Route::post('/edit', [AuditAssessmentScoreController::class, 'edit'])->name('edit');
             });
 
             //audit assessment

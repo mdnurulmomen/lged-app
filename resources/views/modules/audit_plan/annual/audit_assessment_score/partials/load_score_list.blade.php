@@ -29,9 +29,9 @@
                                         </span>
                                     </div>
                                     <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">মোট স্কোরঃ</span>
+                                        <span class="mr-2 font-size-1-1">মোট পয়েন্টঃ</span>
                                         <span class="description text-info text-wrap font-size-14">
-                                            {{enTobn($score['total_score'])}}
+                                            {{enTobn($score['point'])}}
                                         </span>
                                     </div>
                                     <div class="font-weight-normal d-none predict-wrapper">
@@ -57,13 +57,16 @@
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
                                             <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                    title="{{___('generic.buttons.title.details')}}">
+                                                    title="{{___('generic.buttons.title.details')}}"
+                                                    data-audit-assessment-score-id="{{$score['id']}}"
+                                                    onclick="Assessment_Score_Container.edit($(this))">
                                                 <i class="fad fa-eye"></i>
                                             </button>
 
                                             <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                     title="{{___('generic.buttons.title.edit')}}"
-                                                    data-ac-query-id="{{$score['id']}}">
+                                                    data-audit-assessment-score-id="{{$score['id']}}"
+                                                    onclick="Assessment_Score_Container.edit($(this))">
                                                 <i class="fad fa-edit"></i>
                                             </button>
                                         </div>

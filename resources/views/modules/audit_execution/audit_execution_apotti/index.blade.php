@@ -40,12 +40,10 @@
                     <option value="">All Teams</option>
                 </select>
             </div>
-            <div class="col-md-1">
-                <div class="mt-1 action-group d-flex justify-content-end position-absolute action-group-wrapper">
-                    <button id="btn_filter" class="btn btn-sm btn-outline-primary btn-square" type="button">
-                        <i class="fad fa-search"></i> অনুসন্ধান
-                    </button>
-                </div>
+            <div class="col-md-3">
+                <button id="btn_filter" class="btn btn-sm btn-outline-primary btn-square" type="button">
+                    <i class="fad fa-search"></i> অনুসন্ধান
+                </button>
             </div>
 {{--            <div class="col-md-3">--}}
 {{--                <select class="form-select select-select2" id="memo_irregularity_type">--}}

@@ -30,7 +30,7 @@ class IndicatorOutcomeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
@@ -172,17 +172,18 @@ class IndicatorOutcomeController extends Controller
         }
     }
 
-    public function genYear($year)
+    public function genYear(Request $request)
     {
-        $fiscal_years = $this->allFiscalYears();
+        $duration = explode("-",$request->duration);
+        $startYear = trim($duration[0]);
+        $endYear = trim($duration[1]);
         $columns = "<th>#</th>";
         $target_value = "<td>Target value</td>";
-        foreach ($fiscal_years as $value) {
-            if ($year < $value['end']) {
-                $columns .= '<input type="hidden" name="fiscal_year_id[]" value="' . $value['id'] . '"/>';
-                $columns .= '<th>' . $value['end'] . '</th>';
-                $target_value .= '<td><input type="text" name="target_value[]" class="form-control rounded-0" placeholder="target value"/></td>';
-            }
+
+        for ($startYear;$startYear<=$endYear;$startYear++){
+            $columns .= '<input type="hidden" name="fiscal_year_id[]" value="' . $request->duration_id . '"/>';
+            $columns .= '<th>' . $startYear . '</th>';
+            $target_value .= '<td><input type="text" name="target_value[]" class="form-control rounded-0" placeholder="target value"/></td>';
         }
         return response()->json([
             'columns' => $columns,

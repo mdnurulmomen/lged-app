@@ -32,23 +32,23 @@
 <table class="table table-hover" id="tblLocations">
     <thead class="thead-light">
     <tr class="bg-hover-warning">
-        <th class="datatable-cell datatable-cell-sort text-center">
+        <th width="5%" class="datatable-cell datatable-cell-sort text-center">
             <input type="checkbox" id="selectAll">
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-left">
+        <th width="10%" class="datatable-cell datatable-cell-sort text-left">
             অনুচ্ছেদ নং
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-left">
+        <th width="55%" class="datatable-cell datatable-cell-sort text-left">
             শিরোনাম
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-right">
+        <th width="10%" class="datatable-cell datatable-cell-sort text-right">
             জড়িত অর্থ (টাকা)
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
+        <th width="20%" class="datatable-cell datatable-cell-sort text-center">
             কার্যক্রম
         </th>
     </tr>

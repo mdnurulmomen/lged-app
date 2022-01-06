@@ -67,6 +67,7 @@ return [
                 'show' => env('API_URL_BEE', '') . '/audit-assessment-criteria/show',
                 'update' => env('API_URL_BEE', '') . '/audit-assessment-criteria/update',
                 'delete' => env('API_URL_BEE', '') . '/audit-assessment-criteria/delete',
+                'list-category-wise' => env('API_URL_BEE', '') . '/audit-assessment-criteria/list-category-wise',
             ]
         ]
 
@@ -127,6 +128,7 @@ return [
             'score' => [
                 'list' => env('API_URL_BEE', '') . '/audit-assessment-score/list',
                 'store' => env('API_URL_BEE', '') . '/audit-assessment-score/store',
+                'edit' => env('API_URL_BEE', '') . '/audit-assessment-score/edit',
             ],
         ]
     ],

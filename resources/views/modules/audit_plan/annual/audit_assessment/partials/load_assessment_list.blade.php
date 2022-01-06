@@ -31,10 +31,10 @@
                     <tr>
                         <th width="25%">মন্ত্রণালয়/বিভাগ</th>
                         <th width="25%">এনটিটি/সংস্থা</th>
-                        <th width="10%">স্কোর</th>
-                        <th width="15%">Last Audit Year</th>
-                        <th width="10%">1st Half</th>
-                        <th width="10%">2nd Half</th>
+                        <th width="10%">পয়েন্ট</th>
+                        <th width="15%">সর্বশেষ অডিট বছর</th>
+                        <th width="10%">১ম অর্ধ বার্ষিক</th>
+                        <th width="10%">২য় অর্ধ বার্ষিক</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,7 +57,7 @@
                                 <input type="hidden" name="en_entity_names[]" value="{{$entity['entity_name_en']}}">
                                 {{$entity['entity_name_bn']}}
                             </td>
-                            <td>{{enTobn($entity['total_score'])}}</td>
+                            <td>{{enTobn($entity['point'])}}</td>
                             <td>---</td>
                             <td>
                                 <input name="first_half"  value="{{$entity['id']}}" {{$entity['is_first_half'] ==1?'checked':''}} type="checkbox"  {{$entity['has_first_half_annual_plan']==1?'disabled':''}}>
@@ -84,10 +84,10 @@
             <i class="far fa-save mr-1"></i> সংরক্ষণ করুন
         </button>
 
-        <button type="button" class="btn btn-primary btn-sm btn-bold btn-square"
+        {{--<button type="button" class="btn btn-primary btn-sm btn-bold btn-square"
                 onclick="Assessment_Container.storeAnnualPlan()">
             <i class="far fa-save mr-1"></i> বার্ষিক পরিকল্পনা তৈরি করুন
-        </button>
+        </button>--}}
     @endif
 </form>
 
