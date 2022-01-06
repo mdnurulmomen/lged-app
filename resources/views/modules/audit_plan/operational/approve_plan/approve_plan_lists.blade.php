@@ -34,8 +34,7 @@
             fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
             if (fiscal_year_id) {
                 let url = '{{route('audit.plan.operational.plan.load-op-yearly-event-list')}}';
-                calendar_id = 1;
-                let data = {fiscal_year_id, fiscal_year,calendar_id};
+                let data = {fiscal_year_id, fiscal_year};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.error(response.data)

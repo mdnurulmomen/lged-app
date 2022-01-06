@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col-md-7">
                 @if(!empty($plan_list))
+                    @if($approval_status == 'draft' || $approval_status == 'reject')
                     <button class="btn btn-sm btn-light-primary btn-square mr-1"
                             data-fiscal-year-id="{{$fiscal_year_id}}"
                             data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
@@ -10,6 +11,7 @@
                         <i class="fad fa-paper-plane"></i>
                         ওসিএজিতে প্রেরণ
                     </button>
+                    @endif
 
                     <button data-fiscal-year-id="{{$fiscal_year_id}}"
                             onclick="Annual_Plan_Container.printAnnualPlan($(this))"
@@ -31,7 +33,7 @@
                 @endif
             </div>
 
-{{--            @if($approval_status != 'approved')--}}
+            @if($approval_status == 'draft' || $approval_status == 'reject')
             <div class="col-md-5">
                 <div class="d-flex justify-content-md-end">
                     <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
@@ -43,7 +45,7 @@
                     </a>
                 </div>
             </div>
-{{--                @endif--}}
+            @endif
         </div>
     </div>
 </div>

@@ -291,6 +291,8 @@
                 Annual_Plan_Container.loadAssessmentEntity(parent_ministry_id,office_category_type,activity_id);
             }else{
                 toastr.warning('Please select ministry and activity');
+                $('#with_assessment').prop('checked', false);
+                return;
             }
         }else{
             parent_ministry_id =  $('#parent_ministry_id').val();
