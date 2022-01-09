@@ -21,8 +21,7 @@
                             <td>{{$res['office_name_en']}}</td>
                             <td>{{$res['total_plan']}}</td>
                             <td>
-                                <div class="operational_assigned_staffs" data-activity-id=""
-                                onclick="loadActivityWiseTeam($(this))">
+                                <div class="operational_assigned_staffs" data-activity-id="">
                                     <strong>{{$res['assigned_staffs']}}</strong>
                                 </div>
                             </td>
