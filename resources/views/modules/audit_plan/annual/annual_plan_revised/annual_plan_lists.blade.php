@@ -762,7 +762,12 @@
             if (fiscal_year_id) {
                 let url = '{{route('audit.plan.annual.plan.revised.annual-entities-show')}}';
                 let data = {fiscal_year_id, fiscal_year, activity_id};
+                KTApp.block('#kt_content', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_content');
                     if (response.status === 'error') {
                         toastr.error(response.data)
                     } else {
