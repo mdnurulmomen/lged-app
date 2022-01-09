@@ -564,6 +564,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('/list', [CriteriaController::class, 'list'])->name('list');
                 Route::post('/create', [CriteriaController::class, 'create'])->name('create');
                 Route::post('/store', [CriteriaController::class, 'store'])->name('store');
+                Route::post('/edit', [CriteriaController::class, 'edit'])->name('edit');
+                Route::post('/update', [CriteriaController::class, 'update'])->name('update');
             });
         });
     });

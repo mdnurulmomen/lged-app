@@ -51,11 +51,11 @@
             });
         },
 
-        editRole: function (elem) {
-            role_id = elem.data('role-id');
+        edit: function (elem) {
+            criteria_id = elem.data('criteria-id');
 
-            data = {role_id};
-            url = '{{route('settings.roles.edit')}}';
+            data = {criteria_id};
+            url = '{{route('settings.audit-assessment.criteria.edit')}}';
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -67,7 +67,7 @@
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".offcanvas-title").text('Role Edit');
+                    $(".offcanvas-title").text('Criteria Edit');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
@@ -113,8 +113,14 @@
         },
 
         updateCriteria: function () {
-            url = '{{route('settings.roles.update')}}';
-            data = $('#role_update_form').serialize();
+            let category = $("#category_id");
+            let category_title_en = category.find('option:selected').attr('data-category-title-en');
+            let category_title_bn = category.find('option:selected').attr('data-category-title-bn');
+            $("#category_title_en").val(category_title_en);
+            $("#category_title_bn").val(category_title_bn);
+
+            url = '{{route('settings.audit-assessment.criteria.update')}}';
+            data = $('#criteria_update_form').serialize();
             Criteria_Container.saveCriteria(url, data, 'update');
         }
     };

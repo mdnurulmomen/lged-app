@@ -6,7 +6,7 @@
             <option value="">--সিলেক্ট--</option>
             @foreach($fiscal_years as $fiscal_year)
                 <option
-                    value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['start']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                    value="{{$fiscal_year['id']}}" {{$fiscal_year['id'] == 1?'selected':''}}>{{$fiscal_year['description']}}</option>
             @endforeach
         </select>
     </div>

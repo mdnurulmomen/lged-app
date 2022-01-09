@@ -15,7 +15,6 @@ class CriteriaController extends Controller
 
     public function create()
     {
-        //categories
         $categoryResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-category-types'), [])->json();
         $categories = isSuccess($categoryResponseData) ? $categoryResponseData['data'] : [];
         return view('modules.settings.x_audit_assessment.criteria.create', compact('categories'));
@@ -43,7 +42,6 @@ class CriteriaController extends Controller
             'category_title_bn' => $request->category_title_bn,
             'name_en' => $request->name_en,
             'name_bn' => $request->name_bn,
-            'weight' => $request->weight,
         ];
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_assessment.criteria.create'), $data)->json();
 
@@ -55,21 +53,36 @@ class CriteriaController extends Controller
         }
     }
 
+    public function edit(Request $request)
+    {
+        $data = ['criteria_id' => $request->criteria_id];
+        $criteriaResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_assessment.criteria.show'), $data)->json();
+        $criteria = isSuccess($criteriaResponseData) ? $criteriaResponseData['data'] : [];
+
+        $categoryResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-category-types'), [])->json();
+        $categories = isSuccess($categoryResponseData) ? $categoryResponseData['data'] : [];
+
+        return view('modules.settings.x_audit_assessment.criteria.edit',
+            compact('criteria','categories'));
+    }
+
     public function update(Request $request)
     {
         $data = [
-            'fiscal_year_id' => $request->fiscal_year_id,
-            'duration_id' => $request->duration_id,
-            'start_year' => $request->start_year,
-            'end_year' => $request->end_year,
-            'description' => $request->description,
+            'criteria_id' => $request->criteria_id,
+            'category_id' => $request->category_id,
+            'category_title_en' => $request->category_title_en,
+            'category_title_bn' => $request->category_title_bn,
+            'name_en' => $request->name_en,
+            'name_bn' => $request->name_bn,
         ];
-        $create_fiscal_year = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_update'), $data)->json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.audit_assessment.criteria.update'), $data)->json();
 
-        if (isset($create_fiscal_year['status']) && $create_fiscal_year['status'] == 'success') {
+        //dd($responseData);
+        if ($responseData['status'] == 'success') {
             return response()->json(responseFormat('success', 'Updated Successfully'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $create_fiscal_year]);
+            return response()->json(['status' => 'error', 'data' => $responseData]);
         }
     }
 
