@@ -10,6 +10,7 @@
                     <tr>
                         <th class="text-light">Serial Number</th>
                         <th class="text-light">Audit Directorates</th>
+                        <th class="text-light">Number of Audits</th>
                         <th class="text-light">Assigned Staff</th>
                     </tr>
                     </thead>
@@ -18,6 +19,7 @@
                         <tr>
                             <td>{{$loop->iteration}}.</td>
                             <td>{{$res['office_name_en']}}</td>
+                            <td>{{$res['total_plan']}}</td>
                             <td>
                                 <div class="operational_assigned_staffs" data-activity-id=""
                                 onclick="loadActivityWiseTeam($(this))">
