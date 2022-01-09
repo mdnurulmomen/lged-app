@@ -3,14 +3,21 @@
     <div class="col-xl-12">
         <form>
             <div class="m-0 form-group row">
-                <label for="select_fiscal_year_annual_plan" class="col-sm-1 col-form-label font-size-h4">অর্থ বছর</label>
-                <div class="col-sm-11">
+                <div class="col-sm-4">
+                    <label for="select_fiscal_year_annual_plan" class="col-form-label font-size-h4">অর্থ বছর</label>
                     <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
                         <option value="">--সিলেক্ট--</option>
                         @foreach($fiscal_years as $fiscal_year)
                             <option
                                 value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
                         @endforeach
+                    </select>
+                </div>
+
+                <div class="col-sm-4">
+                    <label for="select_fiscal_year_annual_plan" class="col-form-label font-size-h4">অ্যাক্টিভিটি</label>
+                    <select class="form-control select-select2" id="activity_id">
+                        <option value="">--সিলেক্ট--</option>
                     </select>
                 </div>
             </div>
@@ -29,10 +36,15 @@
 @include('scripts.script_generic')
 <script>
     $(function () {
+        Annual_Plan_Container.loadFiscalYearWiseActivity();
         Annual_Plan_Container.loadAnnualPlanList();
     });
 
     $('#select_fiscal_year_annual_plan').change(function () {
+        Annual_Plan_Container.loadAnnualPlanList();
+    });
+
+    $('#activity_id').change(function () {
         Annual_Plan_Container.loadAnnualPlanList();
     });
 
@@ -724,13 +736,32 @@
 
             });
         },
-
-        loadAnnualPlanList: function () {
+        loadFiscalYearWiseActivity: function () {
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
             if (fiscal_year_id) {
-                let url = '{{route('audit.plan.annual.plan.revised.annual-entities-show')}}';
+                let url = '{{route('audit.plan.annual.plan.revised.fiscal-year-wise-activity-select')}}';
                 let data = {fiscal_year_id, fiscal_year};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data)
+                    } else {
+                        $('#activity_id').html(response);
+                        // $('#activity_id').val(7);
+                        // Annual_Plan_Container.loadAnnualPlanList();
+                    }
+                });
+            } else {
+                $('#activity_id').html('');
+            }
+        },
+        loadAnnualPlanList: function () {
+            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            activity_id = $('#activity_id').val();
+            fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
+            if (fiscal_year_id) {
+                let url = '{{route('audit.plan.annual.plan.revised.annual-entities-show')}}';
+                let data = {fiscal_year_id, fiscal_year, activity_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.error(response.data)

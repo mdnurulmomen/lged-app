@@ -53,6 +53,7 @@ class AnnualPlanRevisedController extends Controller
     {
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
+            'activity_id' => 'nullable',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
@@ -116,6 +117,26 @@ class AnnualPlanRevisedController extends Controller
         if (isSuccess($all_activity)) {
             $all_activity = $all_activity['data'];
             return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info', compact('all_activity', 'fiscal_year_id', 'op_audit_calendar_event_id'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $all_activity]);
+        }
+
+    }
+
+    public function fiscalYearWiseActivitySelect(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+        ])->validate();
+
+//        dd($data);
+
+        $all_activity = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_all_op_activity'),
+            $data)->json();
+
+        if (isSuccess($all_activity)) {
+            $all_activity = $all_activity['data'];
+            return view('modules.audit_plan.operational.audit_activity.activity_select', compact('all_activity'));
         } else {
             return response()->json(['status' => 'error', 'data' => $all_activity]);
         }
