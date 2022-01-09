@@ -229,7 +229,6 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::get('/', [AuditAssessmentController::class, 'index']);
                 Route::post('/list', [AuditAssessmentController::class, 'list'])->name('list');
                 Route::post('/store', [AuditAssessmentController::class, 'store'])->name('store');
-                Route::post('/store_annual_plan', [AuditAssessmentController::class, 'storeAnnualPlan'])->name('store_annual_plan');
             });
 
         });

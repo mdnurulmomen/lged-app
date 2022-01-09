@@ -89,6 +89,14 @@
 
 
 <script>
+    $("select#ministry_id").change(function () {
+        let category_id = $('#category_id').val();
+        Audit_Assessment_Score_Create_Container.loadCriteriaList(category_id);
+
+        let ministry_id = $('#ministry_id').val();
+        Audit_Assessment_Score_Create_Container.loadEntityList(ministry_id,category_id);
+    });
+
     $("select#category_id").change(function () {
         let category_id = $('#category_id').val();
         Audit_Assessment_Score_Create_Container.loadCriteriaList(category_id);

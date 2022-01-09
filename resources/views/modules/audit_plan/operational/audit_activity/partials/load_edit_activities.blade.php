@@ -9,8 +9,9 @@
                     @foreach ($activity_lists['data']['data'] as $outcome)
                         <li>
                             <div class="d-flex align-item-center">
-                                <div class="mr-5"><i
-                                        class="fad fa-book-spells text-primary text-hover-warning"></i>{{ $outcome['outcome_no'] }}
+                                <div class="mr-5">
+                                    <i class="fad fa-book-spells text-primary text-hover-warning"></i>
+                                    {{ $outcome['outcome_no'] }}
                                     @if ($outcome['plan_output'])
                                         <ul>
                                             @foreach ($outcome['plan_output'] as $output)
