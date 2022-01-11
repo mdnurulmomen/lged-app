@@ -48,13 +48,14 @@ class AuditQacController extends Controller
         ])->validate();
 
         $apotti_id = $request->apotti_id;
+        $qac_type = $request->qac_type;
 
         $data['cdesk'] = $this->current_desk_json();
         $qac_apotti_status = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.get_qac_apotti_status'), $data)->json();
 //        dd($qac_apotti_status);
         if (isSuccess($qac_apotti_status)) {
             $qac_apotti_status = $qac_apotti_status['data'];
-            return view('modules.audit_quality_control.qac_apotti_form',compact('apotti_id','qac_apotti_status'));
+            return view('modules.audit_quality_control.qac_apotti_form',compact('apotti_id','qac_apotti_status','qac_type'));
 
         } else {
             return response()->json(['status' => 'error', 'data' => $qac_apotti_status]);
@@ -73,9 +74,16 @@ class AuditQacController extends Controller
             'cdesk' => $this->current_desk_json(),
             'apotti_type' => $request->apotti_type,
             'qac_type' => $request->qac_type,
+            'is_same_porishisto' => $request->is_same_porishisto,
+            'is_rules_and_regulation' => $request->is_rules_and_regulation,
+            'is_imperfection' => $request->is_imperfection,
+            'is_risk_analysis' => $request->is_risk_analysis,
+            'is_broadsheet_response' => $request->is_broadsheet_response,
             'apotti_id' => $request->apotti_id,
             'comment' => $request->comment,
         ];
+
+//        dd($data);
 
         $apotti_submit = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.qac_apotti_submit'), $data)->json();
 

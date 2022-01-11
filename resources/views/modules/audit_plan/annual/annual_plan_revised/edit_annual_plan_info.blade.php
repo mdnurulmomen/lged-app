@@ -300,7 +300,7 @@
                                         name="responsibility">
                                     <option value="">--বাছাই করুন--</option>
                                     <option data-responsibility-en="Team Leader" @if($staff['responsibility_en'] == 'Team Leader') selected @endif value="Team Leader|দলনেতা">দলনেতা</option>
-                                    <option data-responsibility-en="Sub Team Leader" @if($staff['responsibility_en'] == 'Sub Team Leader') selected @endif value="Sub Team Leade|উপদলনেতা">উপদলনেতা</option>
+                                    <option data-responsibility-en="Sub Team Leader" @if($staff['responsibility_en'] == 'Sub Team Leader') selected @endif value="Sub Team Leader|উপদলনেতা">উপদলনেতা</option>
                                     <option data-responsibility-en="Member" @if($staff['responsibility_en'] == 'Member') selected @endif value="Member|সদস্য">সদস্য</option>
                                 </select>
                             </div>
