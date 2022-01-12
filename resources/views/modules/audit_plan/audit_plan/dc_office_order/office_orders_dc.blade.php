@@ -1,4 +1,4 @@
-<x-title-wrapper>Office Order List</x-title-wrapper>
+<x-title-wrapper>Data Collection Office Order List</x-title-wrapper>
 
 <div class="table-search-header-wrapper pt-3 pb-3">
     <div class="col-xl-12">

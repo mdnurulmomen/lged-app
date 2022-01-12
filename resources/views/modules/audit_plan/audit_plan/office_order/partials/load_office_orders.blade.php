@@ -126,8 +126,8 @@
                                         <span class="font-size-14">
                                             অডিট প্ল্যান {{enTobn($audit_plan['id'])}}
                                         </span>
-                                        <span title="প্রতিষ্ঠানের ইউনিটের সংখ্যা" class="label label-outline-primary label-pill label-inline">
-                                            {{$audit_plan['office_order'] != null? ucfirst($audit_plan['office_order']['approved_status']):'Not Generated'}}
+                                        <span title="প্রতিষ্ঠানের ইউনিটের সংখ্যা" class="label label-outline-danger label-pill label-inline">
+                                            {{$audit_plan['office_order'] != null? ucfirst($audit_plan['office_order']['approved_status']):'অফিস অর্ডার তৈরি হয়নি'}}
                                         </span>
                                     </div>
                                     <div class="font-weight-normal d-none predict-wrapper">
@@ -153,12 +153,11 @@
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
                                             @if($audit_plan['has_office_order'] == 0)
-                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
-                                                list-btn-toggle" title="অফিস অর্ডার করুন"
+                                                <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="অফিস অর্ডার করুন"
                                                         data-audit-plan-id="{{$audit_plan['id']}}"
                                                         data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
                                                         onclick="Office_Order_Container.loadOfficeOrderCreateForm($(this))">
-                                                    <i class="fad fa-plus-circle"></i>
+                                                    <i class="fad fa-plus-circle"></i>অফিস অর্ডার তৈরি করুন
                                                 </button>
                                             @endif
 

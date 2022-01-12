@@ -51,6 +51,15 @@
 </div>
 
 @if(!empty($plan_list))
+    <div class="mb-4 text-right action-group">
+        <button class="mr-3 btn btn-sm btn-outline-primary btn-square first-btn">
+             ১ম অর্ধ বার্ষিক
+        </button>
+        <button class="mr-3 btn btn-sm btn-outline-warning btn-square second-btn" title="সম্পাদনা করুন">
+            ২য় অর্ধ বার্ষিক
+        </button>
+    </div>
+
     <div class="search-all position-relative">
         <div class="row">
             <div class="col align-self-start">
@@ -135,7 +144,7 @@
     <div>
         <ul class="list-group list-group-flush">
             @foreach($plan_list as $plan)
-                <li class="list-group-item py-2 border-bottom">
+                <li class="list-group-item py-2 border-bottom {{$plan['activity']['activity_key']}}">
                     <div class="d-flex justify-content-between align-items-start">
                         <div class="pr-2 flex-fill cursor-pointer position-relative">
                             <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
@@ -152,6 +161,9 @@
                                                 }
                                             @endphp
                                             {{implode(' , ', array_unique($ministries))}}
+                                            <span class="label label-outline-warning label-pill label-inline">
+                                                {{$plan['activity']['title_bn']}}
+                                            </span>
                                         </span>
                                     </div>
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
@@ -172,9 +184,11 @@
                                         <span class="font-size-14">
                                             {{$plan['office_type']}}
                                         </span>
-                                        <span title="প্রতিষ্ঠানের ইউনিটের সংখ্যা" class="label label-outline-danger label-pill label-inline">
-                                            {{enTobn($plan['total_unit_no'])}}
-                                        </span>
+                                        @if($plan['total_unit_no'])
+                                            <span title="প্রতিষ্ঠানের ইউনিটের সংখ্যা" class="label label-outline-danger label-pill label-inline">
+                                                {{enTobn($plan['total_unit_no'])}}
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="font-weight-normal">
                                         <span class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.subject_matter')}}</span>
@@ -189,21 +203,8 @@
                                 <!--end::Title-->
                                 <!--begin::Info-->
                                 <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-4">
-                                    <div class="d-block">
-                                        <div
-                                            class="d-md-flex flex-wrap mb-2 align-items-center justify-content-md-end text-nowrap">
-                                            <div class="ml-3  d-flex align-items-center text-primary">
-                                                <i class="flaticon2-copy mr-2 text-primary"></i>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-md-end">
-                                            <div class="mb-2 mt-3 soongukto-wrapper">
-                                                <div class="d-flex justify-content-end align-items-center">
-                                                    <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($plan['created_at'],'bn')}}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
+                                    <div>
+                                        <div class="action-group">
                                             <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
                                                     data-annual-plan-id="{{$plan['id']}}"
                                                     onclick="Annual_Plan_Container.showPlanInfo($(this))">
@@ -218,6 +219,13 @@
                                                 <i class="fad fa-edit"></i> সম্পাদনা
                                             </button>
 {{--                                            @endif--}}
+                                        </div>
+                                        <div>
+                                            <div class="mb-2 mt-3">
+                                                <div>
+                                                    <div class="text-dark-75 ml-3" cspas="date">{{formatDateTime($plan['created_at'],'bn')}}</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -234,6 +242,16 @@
         $('.entity_list_item_clickable_area').click(function () {
             Audit_Plan_Container.loaoAuditPlanBookEditable($(this));
         })
+
+        $('.first-btn').click(function () {
+            $('.second').hide();
+            $('.first').show();
+        });
+
+        $('.second-btn').click(function () {
+            $('.second').show();
+            $('.first').hide();
+        });
     </script>
 
 @else

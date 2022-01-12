@@ -43,6 +43,15 @@
         <button id="btn_filter" class="btn btn-icon btn-light-success btn-square mr-2" type="button"><i
                 class="fad fa-search"></i></button>
     </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="btn-group">
+            <button id="btn_filter" class="btn btn-icon bg-success btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
+            <span class="mr-4">Data Collection Schedule</span>
+            <button id="btn_filter" class="btn btn-icon bg-primary btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
+            <span>Individul Audit schedule</span>
+        </div>
+    </div>
 </div>
 
 <div class="row">
