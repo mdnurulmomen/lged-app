@@ -21,12 +21,12 @@
             <div class="col-form-label">
                 <div class="radio-inline">
                         <label for="is_same_porishisto_yes" class="radio radio-success">
-                            <input @if($qac_apotti_status['is_same_porishisto'] == 1) checked @endif id="is_same_porishisto_yes" type="radio" name="is_same_porishisto" value="1"/>
+                            <input @if($qac_apotti_status &&  $qac_apotti_status['is_same_porishisto'] == 1) checked @endif id="is_same_porishisto_yes" type="radio" name="is_same_porishisto" value="1"/>
                             <span></span>
                             হ্যাঁ
                         </label>
                         <label for="is_same_porishisto_no" class="radio radio-success">
-                            <input @if($qac_apotti_status['is_same_porishisto'] == 0) checked @endif checked id="is_same_porishisto_no" type="radio" name="is_same_porishisto" value="0"/>
+                            <input @if($qac_apotti_status && $qac_apotti_status['is_same_porishisto'] == 0) checked @endif id="is_same_porishisto_no" type="radio" name="is_same_porishisto" value="0"/>
                             <span></span>
                             না
                         </label>
@@ -39,12 +39,12 @@
             <div class="col-form-label">
                 <div class="radio-inline">
                     <label for="is_rules_and_regulation_yes" class="radio radio-success">
-                        <input @if($qac_apotti_status['is_rules_and_regulation'] == 1) checked @endif id="is_rules_and_regulation_yes" type="radio" name="is_rules_and_regulation" value="1"/>
+                        <input @if($qac_apotti_status && $qac_apotti_status['is_rules_and_regulation'] == 1) checked @endif id="is_rules_and_regulation_yes" type="radio" name="is_rules_and_regulation" value="1"/>
                         <span></span>
                         হ্যাঁ
                     </label>
                     <label for="is_rules_and_regulation_no" class="radio radio-success">
-                        <input @if($qac_apotti_status['is_rules_and_regulation'] == 0) checked @endif id="is_rules_and_regulation_no" type="radio" name="is_rules_and_regulation" value="0"/>
+                        <input @if($qac_apotti_status && $qac_apotti_status['is_rules_and_regulation'] == 0) checked @endif id="is_rules_and_regulation_no" type="radio" name="is_rules_and_regulation" value="0"/>
                         <span></span>
                         না
                     </label>
@@ -57,12 +57,12 @@
             <div class="col-form-label">
                 <div class="radio-inline">
                     <label for="is_imperfection_yes" class="radio radio-success">
-                        <input @if($qac_apotti_status['is_imperfection'] == 1) checked @endif  id="is_imperfection_yes" type="radio" name="is_imperfection" value="1"/>
+                        <input @if($qac_apotti_status && $qac_apotti_status['is_imperfection'] == 1) checked @endif  id="is_imperfection_yes" type="radio" name="is_imperfection" value="1"/>
                         <span></span>
                         হ্যাঁ
                     </label>
                     <label for="is_imperfection_no" class="radio radio-success">
-                        <input @if($qac_apotti_status['is_imperfection'] == 0) checked @endif id="is_imperfection_no" type="radio" name="is_imperfection" value="0"/>
+                        <input @if($qac_apotti_status && $qac_apotti_status['is_imperfection'] == 0) checked @endif id="is_imperfection_no" type="radio" name="is_imperfection" value="0"/>
                         <span></span>
                         না
                     </label>
@@ -75,12 +75,12 @@
             <div class="col-form-label">
                 <div class="radio-inline">
                     <label for="is_risk_analysis_yes" class="radio radio-success">
-                        <input @if($qac_apotti_status['is_risk_analysis'] == 1) checked @endif id="is_risk_analysis_yes" type="radio" name="is_risk_analysis" value="1"/>
+                        <input @if($qac_apotti_status && $qac_apotti_status['is_risk_analysis'] == 1) checked @endif id="is_risk_analysis_yes" type="radio" name="is_risk_analysis" value="1"/>
                         <span></span>
                         হ্যাঁ
                     </label>
                     <label for="is_risk_analysis_no" class="radio radio-success">
-                        <input @if($qac_apotti_status['is_risk_analysis'] == 0) checked @endif id="is_risk_analysis_no" type="radio" name="is_risk_analysis" value="0"/>
+                        <input @if($qac_apotti_status && $qac_apotti_status['is_risk_analysis'] == 0) checked @endif id="is_risk_analysis_no" type="radio" name="is_risk_analysis" value="0"/>
                         <span></span>
                         না
                     </label>
@@ -94,12 +94,12 @@
             <div class="col-form-label">
                 <div class="radio-inline">
                     <label for="is_broadsheet_response_yes" class="radio radio-success">
-                        <input @if($qac_apotti_status['is_broadsheet_response'] == 1) checked @endif id="is_broadsheet_response_yes" type="radio" name="is_broadsheet_response" value="1"/>
+                        <input @if($qac_apotti_status && $qac_apotti_status['is_broadsheet_response'] == 1) checked @endif id="is_broadsheet_response_yes" type="radio" name="is_broadsheet_response" value="1"/>
                         <span></span>
                         হ্যাঁ
                     </label>
                     <label for="is_broadsheet_response_no" class="radio radio-success">
-                        <input @if($qac_apotti_status['is_broadsheet_response'] == 0) checked @endif id="is_broadsheet_response_no" type="radio" name="is_broadsheet_response" value="0"/>
+                        <input @if($qac_apotti_status && $qac_apotti_status['is_broadsheet_response'] == 0) checked @endif id="is_broadsheet_response_no" type="radio" name="is_broadsheet_response" value="0"/>
                         <span></span>
                         না
                     </label>

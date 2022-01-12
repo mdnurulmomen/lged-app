@@ -286,9 +286,11 @@ return [
             'get_audit_team' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-team',
             'get_audit_team_schedule' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-team-schedule',
             'get_audit_apotti_list' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-apotti-list',
+            'get_air_wise_audit_apotti_list' => env('API_URL_BEE', '') . '/audit-report/air/get-air-wise-audit-apotti-list',
             'get_audit_apotti' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-apotti',
             'store_air_movement' => env('API_URL_BEE', '') . '/audit-report/air/store-air-movement',
             'get_air_last_movement' => env('API_URL_BEE', '') . '/audit-report/air/get-air-last-movement',
+            'get_approve_preliminary_air' => env('API_URL_BEE', '') . '/audit-report/air/get-approve-preliminary-air',
         ],
     ],
 

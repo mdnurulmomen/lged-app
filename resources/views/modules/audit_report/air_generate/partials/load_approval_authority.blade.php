@@ -117,6 +117,7 @@
                 if (response.status === 'success') {
                     toastr.success('সফলভাবে প্রেরণ করা হয়েছে');
                     $('#kt_quick_panel_close').click();
+                    AIR_Container.loadAuditPlanList();
                 }
                 else {
                     if (response.statusCode === '422') {

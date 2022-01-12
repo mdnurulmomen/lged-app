@@ -15,7 +15,7 @@ class AuditQacController extends Controller
      */
     public function index($qac_type)
     {
-//        dd($qac_type);
+        //dd($qac_type);
         $fiscal_years = $this->allFiscalYears();
         return view('modules.audit_quality_control.qac',compact('fiscal_years','qac_type'));
     }
@@ -41,6 +41,15 @@ class AuditQacController extends Controller
         }
     }
 
+    public function loadAirWiseApottiList(Request $request){
+        $requestData['air_id'] = $request->air_id;
+        $requestData['cdesk'] =$this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_audit_apotti_list'), $requestData)->json();
+        $apottiList = isSuccess($responseData)?$responseData['data']:[];
+        $qac_type = $request->qac_type;
+        return view('modules.audit_quality_control.qac_apotti_list',compact('apottiList','qac_type'));
+    }
+
     public function qacApotti(Request $request){
         $data = Validator::make($request->all(), [
             'apotti_id' => 'required|integer',
@@ -52,7 +61,7 @@ class AuditQacController extends Controller
 
         $data['cdesk'] = $this->current_desk_json();
         $qac_apotti_status = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.get_qac_apotti_status'), $data)->json();
-//        dd($qac_apotti_status);
+        //dd($qac_apotti_status);
         if (isSuccess($qac_apotti_status)) {
             $qac_apotti_status = $qac_apotti_status['data'];
             return view('modules.audit_quality_control.qac_apotti_form',compact('apotti_id','qac_apotti_status','qac_type'));
@@ -78,7 +87,7 @@ class AuditQacController extends Controller
             'is_rules_and_regulation' => $request->is_rules_and_regulation,
             'is_imperfection' => $request->is_imperfection,
             'is_risk_analysis' => $request->is_risk_analysis,
-            'is_broadsheet_response' => $request->is_broadsheet_response,
+            'is_broadsheet_response' => empty($request->is_broadsheet_response)?0:$request->is_broadsheet_response,
             'apotti_id' => $request->apotti_id,
             'comment' => $request->comment,
         ];

@@ -1,17 +1,3 @@
-<div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
-    <div class="col-xl-12">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="d-flex justify-content-md-end">
-                    <a onclick="" class="btn btn-sm btn-light-info btn-square mr-1" href="javascript:;">
-                        <i class="fas fa-plus-circle mr-1"></i> এআইআর
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <table class="table table-hover" width="100%">
     <thead class="thead-light">
     <tr class="bg-hover-warning">
@@ -38,7 +24,7 @@
     </thead>
 
     <tbody>
-    @forelse($apottiList as $apotti)
+    @forelse($apotti_list['data'] as $apotti)
         <tr class="text-center">
             <td>
                 {{enTobn($apotti['onucched_no'])}}
@@ -59,13 +45,9 @@
                     @php $apotti_type = ''; @endphp
                     @foreach($apotti['apotti_status'] as $apotti_status)
                         @if($apotti_status['qac_type'] == $qac_type)
-                            @if($apotti_status['apotti_type'] == 'sfi')
-                               @php $apotti_type = 'এসএফআই'; @endphp
-                            @elseif($apotti_status['apotti_type'] == 'non-sfi')
-                                @php $apotti_type = 'নন-এসএফআই'; @endphp
-                            @else
-                                @php $apotti_type = $apotti_status['apotti_type']; @endphp
-                           @endif
+                           @php
+                               $apotti_type = $apotti_status['apotti_type'];
+                           @endphp
                         @endif
                     @endforeach
                     {{$apotti_type}}
