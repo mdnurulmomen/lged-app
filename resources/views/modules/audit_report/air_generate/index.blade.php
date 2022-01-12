@@ -37,10 +37,11 @@
 
     var AIR_Container = {
         loadAuditPlanList: function (page = 1, per_page = 200) {
+            let air_type = '{{$air_type}}';
             let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             if (fiscal_year_id) {
-                let url = '{{route('audit.report.qc.load-approved-plan-list')}}';
-                let data = {fiscal_year_id, page, per_page};
+                let url = '{{route('audit.report.air.load-approved-plan-list')}}';
+                let data = {air_type, fiscal_year_id, page, per_page};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.error(response.data);
@@ -55,14 +56,15 @@
         },
 
         loadAIRCreate: function (elem) {
-            url = '{{route('audit.report.qc.air-report.create')}}';
+            url = '{{route('audit.report.air.create')}}';
+            air_type = '{{$air_type}}';
             fiscal_year_id = elem.data('fiscal-year-id');
             activity_id = elem.data('activity-id');
             annual_plan_id = elem.data('annual-plan-id');
             audit_plan_id = elem.data('audit-plan-id');
             audit_plan_entities = elem.data('audit-plan-entities');
 
-            data = {fiscal_year_id,activity_id,annual_plan_id, audit_plan_id,audit_plan_entities};
+            data = {air_type,fiscal_year_id,activity_id,annual_plan_id, audit_plan_id,audit_plan_entities};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -81,8 +83,43 @@
             })
         },
 
+
+        loadAIRShow: function (elem) {
+            url = '{{route('audit.report.air.show')}}';
+            fiscal_year_id = elem.data('fiscal-year-id');
+            activity_id = elem.data('activity-id');
+            annual_plan_id = elem.data('annual-plan-id');
+            audit_plan_id = elem.data('audit-plan-id');
+            audit_plan_entities = elem.data('audit-plan-entities');
+            air_report_id = elem.data('air-report-id');
+
+            data = {fiscal_year_id,activity_id,annual_plan_id, audit_plan_id,audit_plan_entities, air_report_id};
+
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('এআইআর');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '70%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
         loadAIREdit: function (elem) {
-            url = '{{route('audit.report.qc.air-report.edit')}}';
+            url = '{{route('audit.report.air.edit')}}';
             fiscal_year_id = elem.data('fiscal-year-id');
             activity_id = elem.data('activity-id');
             annual_plan_id = elem.data('annual-plan-id');

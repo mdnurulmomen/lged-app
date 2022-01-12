@@ -1,32 +1,23 @@
-<table class="table table-hover" id="">
+<table class="table table-hover" width="100%">
     <thead class="thead-light">
     <tr class="bg-hover-warning">
-{{--        <th class="datatable-cell datatable-cell-sort text-center">--}}
-{{--            <span class="input-group-text bg-transparent border-0 inbox_checkbox" data-toggle="popover">--}}
-{{--                <label id="selectAllLabel" class="checkbox" for="selectAll">--}}
-{{--                    <input type="checkbox" id="selectAll">--}}
-{{--                    <span></span>--}}
-{{--                 </label>--}}
-{{--            </span>--}}
-{{--        </th>--}}
-
-        <th class="datatable-cell datatable-cell-sort text-center">
+        <th width="10%" class="text-center">
             অনুচ্ছেদ নং
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
+        <th width="40%" class="text-left">
             আপত্তির শিরোনাম
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
+        <th width="15%" class="text-right">
             জড়িত অর্থ (টাকা)
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
+        <th width="10%" class="text-left">
             আপত্তির ধরন
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
+        <th width="30%" class="text-left">
             কার্যক্রম
         </th>
     </tr>
@@ -35,16 +26,6 @@
     <tbody>
     @forelse($apotti_list['data'] as $apotti)
         <tr class="text-center">
-{{--            <td>--}}
-{{--                <span class="input-group-text bg-transparent border-0">--}}
-{{--                      <label class="checkbox">--}}
-{{--                          <input type="checkbox"--}}
-{{--                                 value="{{$apotti['id']}}" class="select-apotti">--}}
-{{--                            <span></span>--}}
-{{--                      </label>--}}
-{{--                </span>--}}
-{{--                <input class="apotti_sequence" data-apotti-id="{{$apotti['id']}}" type="hidden" value="{{$apotti['apotti_sequence']}}">--}}
-{{--            </td>--}}
             <td>
                 {{enTobn($apotti['onucched_no'])}}
 
@@ -54,13 +35,13 @@
                         আপত্তি একীভূত</span>
                 @endif
             </td>
-            <td>
+            <td class="text-left">
                 <span>{{$apotti['apotti_title']}}</span>
             </td>
-            <td>
+            <td class="text-right">
                 <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
             </td>
-            <td>
+            <td class="text-left">
                     @php $apotti_type = ''; @endphp
                     @foreach($apotti['apotti_status'] as $apotti_status)
                         @if($apotti_status['qac_type'] == $qac_type)
@@ -71,19 +52,19 @@
                     @endforeach
                     {{$apotti_type}}
             </td>
-            <td>
-                <button class="mr-3 btn btn-sm btn-outline-info btn-square" title="QAC"
+            <td class="text-left">
+                <button class="btn btn-sm btn-outline-primary btn-square mr-1" title="QAC-01"
                         data-apotti-id="{{$apotti['id']}}"
                         data-qac-type="{{$qac_type}}"
                         onclick="Qac_Container.qacApotti($(this))">
-                    QAC
+                    QAC-01
                 </button>
-                <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
+                <button class="mr-1 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
                         data-apotti-id="{{$apotti['id']}}"
                         onclick="Qac_Container.showApotti($(this))">
                     <i class="fad fa-eye"></i>বিস্তারিত
                 </button>
-                <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
+                <button class="mr-1 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
                         data-apotti-id="{{$apotti['id']}}"
                         onclick="Qac_Container.editApotti($(this))">
                     <i class="fad fa-pencil"></i>সম্পাদনা

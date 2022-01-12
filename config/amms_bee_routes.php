@@ -270,23 +270,26 @@ return [
         ],
     ],
 
-    'audit_report' => [
-        'qc' => [
-            'create_air_report' => env('API_URL_BEE', '') . '/audit-report/create-air-report',
-            'edit_air_report' => env('API_URL_BEE', '') . '/audit-report/edit-air-report',
-            'load_approve_plan_list' => env('API_URL_BEE', '') . '/audit-report/load-approve-plan-list',
-            'store_air_report' => env('API_URL_BEE', '') . '/audit-report/store-air-report',
-            'get_audit_team' => env('API_URL_BEE', '') . '/audit-report/get-audit-team',
-            'get_audit_team_schedule' => env('API_URL_BEE', '') . '/audit-report/get-audit-team-schedule',
-            'get_audit_apotti' => env('API_URL_BEE', '') . '/audit-report/get-audit-apotti',
-        ]
-    ],
-
     'audit_quality_control' => [
         'qac' => [
             'qac_apotti_submit' => env('API_URL_BEE', '') . '/audit-quality-control/qac-apotti',
             'get_qac_apotti_status' => env('API_URL_BEE', '') . '/audit-quality-control/get-qac-apotti-status',
-        ]
+        ],
+    ],
+
+    'audit_report' => [
+        'air' => [
+            'create_air_report' => env('API_URL_BEE', '') . '/audit-report/air/create-air-report',
+            'edit_air_report' => env('API_URL_BEE', '') . '/audit-report/air/edit-air-report',
+            'load_approve_plan_list' => env('API_URL_BEE', '') . '/audit-report/air/load-approve-plan-list',
+            'store_air_report' => env('API_URL_BEE', '') . '/audit-report/air/store-air-report',
+            'get_audit_team' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-team',
+            'get_audit_team_schedule' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-team-schedule',
+            'get_audit_apotti_list' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-apotti-list',
+            'get_audit_apotti' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-apotti',
+            'store_air_movement' => env('API_URL_BEE', '') . '/audit-report/air/store-air-movement',
+            'get_air_last_movement' => env('API_URL_BEE', '') . '/audit-report/air/get-air-last-movement',
+        ],
     ],
 
     'final_plan_file' => [

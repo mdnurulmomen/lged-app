@@ -7,8 +7,8 @@
                          icon="fal fa-tachometer-alt-average">Dashboard
             </x-menu-item>
             <hr>--}}
-            <x-menu-item class="audit_query_schedule_menu" href="{{route('audit.report.qc.index')}}"
-                         icon="fal fa-calendar-alt">AIR
+            <x-menu-item class="audit_query_schedule_menu" href="{{url('audit-report/air/preliminary')}}"
+                         icon="fal fa-tanakh"> Preliminary Audit Inspection Report (AIR)
             </x-menu-item>
         </ul>
     </div>

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentController;
 use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentScoreController;
+use App\Http\Controllers\AuditReport\AuditAIRReportController;
+use App\Http\Controllers\AuditReport\AuditAIRReportMovementController;
 use App\Http\Controllers\Setting\XAuditAssessment\CriteriaController;
 use Illuminate\Support\Facades\Route;
 
@@ -453,25 +455,27 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         });
 
         Route::get('dashboard', [\App\Http\Controllers\AuditReport\AuditReportDashboardController::class, 'index'])->name('dashboard');
-
         Route::get('draft-report', [\App\Http\Controllers\AuditReport\AuditDraftReportController::class, 'index'])->name('draft_report');
-
         Route::get('final-report', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'index'])->name('final_report');
 
-        Route::group(['as' => 'qc.', 'prefix' => 'qc/'], function () {
-            Route::get('/', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'index'])->name('index');
-            Route::post('load-approved-plan-list', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'loadApprovedAuditPlanList'])->name('load-approved-plan-list');
+        Route::group(['as' => 'air.', 'prefix' => 'air/'], function () {
+            Route::get('/{any}', [AuditAIRReportController::class, 'index'])->name('index');
+            Route::post('load-approved-plan-list', [AuditAIRReportController::class, 'loadApprovedAuditPlanList'])->name('load-approved-plan-list');
 
-            Route::group(['as' => 'air-report.', 'prefix' => 'air-report/'], function () {
-                Route::post('create', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'create'])->name('create');
-                Route::post('edit', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'edit'])->name('edit');
-                Route::post('store', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'store'])->name('store');
-                Route::post('download', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'download'])->name('download');
-                Route::post('get-audit-team', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'getAuditTeam'])->name('get-audit-team');
-                Route::post('get-audit-team-schedule', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'getAuditTeamSchedule'])->name('get-audit-team-schedule');
-                Route::post('get-audit-apotti-summary', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'getAuditApottiSummary'])->name('get-audit-apotti-summary');
-                Route::post('get-audit-apotti-details', [\App\Http\Controllers\AuditReport\AuditQCReportController::class, 'getAuditApottiDetails'])->name('get-audit-apotti-details');
-            });
+            Route::post('create', [AuditAIRReportController::class, 'create'])->name('create');
+            Route::post('edit', [AuditAIRReportController::class, 'edit'])->name('edit');
+            Route::post('show', [AuditAIRReportController::class, 'show'])->name('show');
+            Route::post('store', [AuditAIRReportController::class, 'store'])->name('store');
+            Route::post('download', [AuditAIRReportController::class, 'download'])->name('download');
+
+            Route::post('get-audit-team', [AuditAIRReportController::class, 'getAuditTeam'])->name('get-audit-team');
+            Route::post('get-audit-team-schedule', [AuditAIRReportController::class, 'getAuditTeamSchedule'])->name('get-audit-team-schedule');
+
+            Route::post('get-audit-apotti-list', [AuditAIRReportController::class, 'getAuditApottiList'])->name('get-audit-apotti-list');
+            Route::post('get-audit-apotti', [AuditAIRReportController::class, 'getAuditApotti'])->name('get-audit-apotti');
+
+            Route::post('get-approval-authority', [AuditAIRReportMovementController::class, 'loadApprovalAuthority'])->name('get-approval-authority');
+            Route::post('store-air-movement', [AuditAIRReportMovementController::class, 'store'])->name('store-air-movement');
         });
     });
 

@@ -56,7 +56,11 @@
                 <input type="hidden" id="risk_{{$risk_assessment_type}}" name="risk" value="@if($ap_risk_assessment_list) {{$ap_risk_assessment_list['risk']}} @endif">
 
                 <div style="font-size: 15px">
-                    <span>ঝুঁকির মাত্রা : </span>
+                    <span>মোট স্কোরঃ</span>
+                    <span style="font-weight: bold" class="risk_total_score_{{$risk_assessment_type}}"></span>
+                    <br>
+
+                    <span>ঝুঁকির মাত্রাঃ</span>
                     <span style="font-weight: bold" class="risk_rate_number_{{$risk_assessment_type}}">
                         @if($ap_risk_assessment_list) {{enTobn($ap_risk_assessment_list['risk_rate'])}} @endif
                     </span>
@@ -160,7 +164,7 @@
     <div class="col-md-12">
         <button type="button" onclick="calculateRiskRate('{{$risk_assessment_type}}')"
                 class="btn btn-info btn-square calculate_{{$risk_assessment_type}}">
-            <i class="fas fa-calculator mr-2"></i> Calculate
+            <i class="fas fa-calculator mr-2"></i> ক্যালকুলেট করুন
         </button>
         <button
             type="button"
@@ -169,9 +173,11 @@
             @else
             onclick="riskRateSubmit('{{$risk_assessment_type}}','add','')"
             @endif
-            class="btn btn-success btn-square save_{{$risk_assessment_type}}">
-            <i class="fas fa-save mr-2"></i> {{!empty($ap_risk_assessment_list)?'Update':'Save'}}
+            class="btn btn-primary btn-square save_{{$risk_assessment_type}}">
+            <i class="fas fa-save mr-2"></i> সংরক্ষণ করুন
         </button>
+        <span style="font-size: 20px" class="text-danger"><i class="far fa-arrow-alt-left text-danger"></i> অনুগ্রহ পূর্বক সংরক্ষণ করুন</span>
+
     </div>
 </div>
 

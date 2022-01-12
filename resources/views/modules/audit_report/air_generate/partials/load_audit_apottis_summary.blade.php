@@ -19,7 +19,7 @@
         @endforeach
         <tr>
             <td colspan="2" style="text-align: right">সর্বমোটঃ</td>
-            <td style="text-align: center">{{enTobn(number_format($totalJoritoOrtho,0))}}</td>
+            <td style="text-align: center">{{enTobn(number_format($totalJoritoOrtho,0))}}/-</td>
         </tr>
         </tbody>
     </table>

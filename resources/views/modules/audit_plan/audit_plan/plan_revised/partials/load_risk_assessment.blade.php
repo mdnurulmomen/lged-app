@@ -108,6 +108,7 @@
         }
 
 
+        $('.risk_total_score_'+risk_type).text(EngFromBn(total_number));
         $('.risk_rate_number_'+risk_type).text(EngFromBn(risk_rate));
         $('#risk_rate_'+risk_type).val(risk_rate);
 
