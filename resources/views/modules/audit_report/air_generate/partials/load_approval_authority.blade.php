@@ -85,19 +85,19 @@
         //console.log(officer_info);
 
         var newRow = '<li id="approval_authority_' + officer_info.officer_id + '">' +
-            '<input name="sender_officer_id" type="hidden" value="' + officer_info.officer_id + '"/>'+
-            '<input name="sender_office_id" type="hidden" value="' + officer_info.office_id + '"/>' +
-            '<input name="sender_unit_id" type="hidden" value="' + officer_info.unit_id + '"/>' +
-            '<input name="sender_unit_name_en" type="hidden" value="' + officer_info.unit_name_en + '"/>' +
-            '<input name="sender_unit_name_bn" type="hidden" value="' + officer_info.unit_name_bn + '"/>'+
-            '<input name="sender_employee_id" type="hidden" value="' + officer_info.officer_id + '"/>'+
-            '<input name="sender_employee_name_en" type="hidden" value="' + officer_info.officer_name_en + '"/>'+
-            '<input name="sender_employee_name_bn" type="hidden" value="' + officer_info.officer_name_bn + '"/>'+
-            '<input name="sender_employee_designation_id" type="hidden" value="' + officer_info.designation_id + '"/>'+
-            '<input name="sender_employee_designation_en" type="hidden" value="' + officer_info.designation_en + '"/>'+
-            '<input name="sender_employee_designation_bn" type="hidden" value="' + officer_info.designation_bn + '"/>'+
-            '<input name="sender_officer_phone" type="hidden" value="' + officer_info.officer_mobile + '"/>'+
-            '<input name="sender_officer_email" type="hidden" value="' + officer_info.officer_email + '"/>'+
+            '<input name="receiver_officer_id" type="hidden" value="' + officer_info.officer_id + '"/>'+
+            '<input name="receiver_office_id" type="hidden" value="' + officer_info.office_id + '"/>' +
+            '<input name="receiver_unit_id" type="hidden" value="' + officer_info.unit_id + '"/>' +
+            '<input name="receiver_unit_name_en" type="hidden" value="' + officer_info.unit_name_en + '"/>' +
+            '<input name="receiver_unit_name_bn" type="hidden" value="' + officer_info.unit_name_bn + '"/>'+
+            '<input name="receiver_employee_id" type="hidden" value="' + officer_info.officer_id + '"/>'+
+            '<input name="receiver_employee_name_en" type="hidden" value="' + officer_info.officer_name_en + '"/>'+
+            '<input name="receiver_employee_name_bn" type="hidden" value="' + officer_info.officer_name_bn + '"/>'+
+            '<input name="receiver_employee_designation_id" type="hidden" value="' + officer_info.designation_id + '"/>'+
+            '<input name="receiver_employee_designation_en" type="hidden" value="' + officer_info.designation_en + '"/>'+
+            '<input name="receiver_employee_designation_bn" type="hidden" value="' + officer_info.designation_bn + '"/>'+
+            '<input name="receiver_officer_phone" type="hidden" value="' + officer_info.officer_mobile + '"/>'+
+            '<input name="receiver_officer_email" type="hidden" value="' + officer_info.officer_email + '"/>'+
             '</li>';
 
         let select_approval_authority =  $(".select_approval_authority");

@@ -126,9 +126,9 @@
                                         <span class="font-size-14">
                                             অডিট প্ল্যান {{enTobn($audit_plan['id'])}}
                                         </span>
-                                        <span title="প্রতিষ্ঠানের ইউনিটের সংখ্যা" class="label label-outline-primary label-pill label-inline">
+                                        {{--<span class="label label-outline-primary label-pill label-inline">
                                             {{$audit_plan['office_order'] != null? ucfirst($audit_plan['office_order']['approved_status']):'Not Generated'}}
-                                        </span>
+                                        </span>--}}
                                     </div>
                                     <div class="font-weight-normal d-none predict-wrapper">
                                         <span class="predict-label text-success "></span>
@@ -148,7 +148,7 @@
                                                data-air-report-id="{{$airReport['id']}}"
                                                onclick="AIR_Container.loadAIRShow($(this))">
                                                 <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
-                                                রিপোর্ট: {{enTobn($airReport['id'])}}
+                                                প্রিলিমিনারি এআইআর: {{enTobn($airReport['id'])}}
                                             </a>
                                         @endforeach
                                     </div>
