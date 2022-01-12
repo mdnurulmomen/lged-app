@@ -1,4 +1,4 @@
-@if(!empty($all_entities['data']))
+@if(!empty($audit_plans['data']))
     <div class="search-all position-relative">
         <div class="row">
             <div class="col align-self-start">
@@ -82,7 +82,7 @@
     {{--list view--}}
     <div>
         <ul class="list-group list-group-flush">
-            @foreach($all_entities['data'] as $annual_plan)
+            @foreach($audit_plans['data'] as $audit_plan)
                 <li class="list-group-item py-2 border-bottom">
                     <div class="d-flex justify-content-between align-items-start">
                         <div class="pr-2 flex-fill cursor-pointer position-relative">
@@ -94,7 +94,7 @@
                                         <span class="font-size-14">
                                             @php
                                                 $ministries = [];
-                                                foreach($annual_plan['ap_entities'] as $ap_entities){
+                                                foreach($audit_plan['ap_entities'] as $ap_entities){
                                                     $ministry =  $ap_entities['ministry_name_bn'];
                                                     $ministries[] = $ministry;
                                                 }
@@ -107,7 +107,7 @@
                                         <a href="javascript:void(0)" class="text-info font-size-h5">
                                             @php
                                                 $entities = [];
-                                                foreach($annual_plan['ap_entities'] as $ap_entities){
+                                                foreach($audit_plan['ap_entities'] as $ap_entities){
                                                     $entity =  $ap_entities['entity_name_bn'];
                                                     $entities[] = $entity;
                                                 }
@@ -118,37 +118,16 @@
                                     <div class="font-weight-normal">
                                         <span class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.institute_type')}}</span>
                                         <span class="font-size-14">
-                                            {{$annual_plan['office_type']}}
-                                        </span>
-                                        <span title="প্রতিষ্ঠানের ইউনিটের সংখ্যা" class="label label-outline-danger label-pill label-inline">
-                                            {{enTobn($annual_plan['total_unit_no'])}}
+                                            {{$audit_plan['office_type']}}
                                         </span>
                                     </div>
                                     <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.subject_matter')}}</span>
-                                        <span class="font-size-14">
-                                        {{$annual_plan['subject_matter']}}
-                                    </span>
+                                        <span title="প্রতিষ্ঠানের ইউনিটের সংখ্যা" class="label label-outline-primary label-pill label-inline">
+                                            {{$audit_plan['office_order'] != null? ucfirst($audit_plan['office_order']['approved_status']):'Not Generated'}}
+                                        </span>
                                     </div>
                                     <div class="font-weight-normal d-none predict-wrapper">
                                         <span class="predict-label text-success "></span>
-                                    </div>
-
-                                    <div class="d-flex mt-3">
-                                        @foreach($annual_plan['audit_plans'] as $audit_plans)
-                                            <a href="javascript:;"
-                                               title="প্ল্যান-{{enTobn($audit_plans['id'])}} বিস্তারিত দেখুন"
-                                               class="badge-square rounded-0 badge d-flex align-items-center
-                                               alert-{{$audit_plans['office_order'] == null || $audit_plans['office_order']['approved_status'] !='approved'?'danger':'success'}}
-                                                                font-weight-normal mr-1 border decision"
-                                               data-audit-plan-id="{{$audit_plans['id']}}"
-                                               data-fiscal-year-id="{{$audit_plans['fiscal_year_id']}}"
-                                               data-annual-plan-id="{{$audit_plans['annual_plan_id']}}"
-                                               onclick="Audit_Plan_Container.loadAuditPlanBookEditable($(this))">
-                                              <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
-                                                প্ল্যান: {{enTobn($audit_plans['id'])}}
-                                            </a>
-                                        @endforeach
                                     </div>
                                 </div>
                                 <!--end::Title-->
@@ -164,50 +143,73 @@
                                         <div class="d-flex align-items-center justify-content-md-end">
                                             <div class="mb-2 mt-3 soongukto-wrapper">
                                                 <div class="d-flex justify-content-end align-items-center">
-                                                    <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($annual_plan['created_at'],'bn')}}</div>
+                                                    <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($audit_plan['created_at'],'bn')}}</div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
+                                            @if(!$audit_plan['office_order'])
+                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
+                                                list-btn-toggle" title="অফিস অর্ডার করুন"
+                                                        data-audit-plan-id="0"
+                                                        data-annual-plan-id="{{$audit_plan['id']}}"
+                                                        onclick="Office_Order_Container_Dc.loadOfficeOrderCreateForm($(this))">
+                                                    <i class="fad fa-plus-circle"></i>
+                                                </button>
+                                            @endif
 
-                                            @php
-                                                $entity_list = [];
-                                                foreach ($annual_plan['ap_entities'] as $ap_entitie) {
-                                                    $entity_info = [
-                                                        'ministry_id' => $ap_entitie['ministry_id'],
-                                                        'ministry_name_bn' => $ap_entitie['ministry_name_bn'],
-                                                        'ministry_name_en' => $ap_entitie['ministry_name_en'],
-                                                        'entity_id' => $ap_entitie['entity_id'],
-                                                        'entity_name_bn' => $ap_entitie['entity_name_bn'],
-                                                        'entity_name_en' => $ap_entitie['entity_name_en'],
-                                                    ];
-                                                    $entity_list[] = $entity_info;
-                                                }
-                                                $entity_list = json_encode($entity_list);
-                                            @endphp
-                                            <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
-                                                    data-annual-plan-id="{{$annual_plan['id']}}"
-                                                    data-activity-id="{{$annual_plan['activity_id']}}"
-                                                    data-fiscal-year-id="{{$annual_plan['fiscal_year_id']}}"
-                                                    data-parent-office-id="{{$entity_list}}"
-                                                    onclick="Audit_Plan_Container.showTeamDataCollectionCreateModal($(this));">
-                                                <i class="fa fa-database" aria-hidden="true"></i>
-                                                প্রাইমারি ডাটা কালেকশন
-                                            </button>
+                                            @if($audit_plan['office_order'])
+                                                    @if($audit_plan['office_order']['approved_status'] == 'draft')
+                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
+                                            list-btn-toggle" title="অফিস অর্ডার করুন"
+                                                        data-audit-plan-id="0"
+                                                        data-annual-plan-id="{{$audit_plan['id']}}"
+                                                        onclick="Office_Order_Container_Dc.loadOfficeOrderCreateForm($(this))">
+                                                    <i class="fad fa-edit"></i>
+                                                </button>
+                                                @endif
+                                            @endif
 
-                                            <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
-                                                    data-annual-plan-id="{{$annual_plan['id']}}"
-                                                    onclick="Audit_Plan_Container.showPlanInfo($(this))">
-                                                <i class="fad fa-eye"></i> বিস্তারিত
-                                            </button>
 
-                                            <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="নতুন অডিট প্ল্যান করুন"
-                                                    data-annual-plan-id="{{$annual_plan['id']}}"
-                                                    data-activity-id="{{$annual_plan['activity_id']}}"
-                                                    data-fiscal-year-id="{{$annual_plan['fiscal_year_id']}}"
-                                                    onclick="Audit_Plan_Container.loadAuditPlanBookCreatable($(this))">
-                                                <i class="fad fa-plus-circle"></i> নতুন অডিট প্ল্যান
-                                            </button>
+                                            @if($audit_plan['office_order'])
+                                                <button
+                                                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
+                                            list-btn-toggle"
+                                                    data-audit-plan-id="0"
+                                                    data-annual-plan-id="{{$audit_plan['id']}}"
+                                                    onclick="Office_Order_Container_Dc.showOfficeOrder($(this))" type="button">
+                                                    <i class="fad fa-eye"></i>
+                                                </button>
+                                            @endif
+
+                                            @if($audit_plan['office_order'])
+                                                @if($audit_plan['office_order']['approved_status'] == 'draft')
+                                                    <button
+                                                        class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
+                                            list-btn-toggle"
+                                                        data-ap-office-order-id="{{$audit_plan['office_order']['id']}}"
+                                                        data-audit-plan-id="0"
+                                                        data-annual-plan-id="{{$audit_plan['id']}}"
+                                                        onclick="Office_Order_Container_Dc.loadOfficeOrderApprovalAuthority($(this))"
+                                                        type="button">
+                                                        <i class="fad fa-share-square"></i>
+                                                    </button>
+                                                @endif
+
+                                                @if($audit_plan['office_order']['approved_status'] == 'draft' && $audit_plan['office_order']['office_order_movement'] != null
+                                                && $audit_plan['office_order']['office_order_movement']['employee_designation_id'] == $current_designation_id)
+                                                    <button
+                                                        class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
+                                            list-btn-toggle"
+                                                        data-ap-office-order-id="{{$audit_plan['office_order']['id']}}"
+                                                        data-audit-plan-id="0"
+                                                        data-annual-plan-id="{{$audit_plan['id']}}"
+                                                        onclick="Office_Order_Container_Dc.approveOfficeOrder($(this))"
+                                                        type="button">
+                                                        <i class="fad fa-check"></i>
+                                                    </button>
+                                                @endif
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -219,13 +221,6 @@
             @endforeach
         </ul>
     </div>
-
-    <script>
-        $('.entity_list_item_clickable_area').click(function () {
-            Audit_Plan_Container.loaoAuditPlanBookEditable($(this));
-        })
-    </script>
-
 @else
     <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">
         <div class="alert-icon">
@@ -234,3 +229,4 @@
         <div class="alert-text">{{___('generic.no_data_found')}}</div>
     </div>
 @endif
+

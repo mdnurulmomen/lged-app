@@ -26,7 +26,7 @@ class RevisedPlanController extends Controller
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
         $all_entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data)->json();
-        //dd($all_entities);
+//        dd($all_entities);
         if (isSuccess($all_entities)) {
             $all_entities = $all_entities['data'];
             return view('modules.audit_plan.audit_plan.plan_revised.partials.load_plan_lists',
@@ -260,13 +260,12 @@ class RevisedPlanController extends Controller
             'activity_id' => 'required|integer',
             'fiscal_year_id' => 'required|integer',
             'annual_plan_id' => 'required|integer',
-            'audit_plan_id' => 'required|integer',
+            'audit_plan_id' => 'integer',
             'audit_year_start' => 'required',
             'audit_year_end' => 'required',
             'teams' => 'required',
+            'modal_type' => 'nullable',
         ])->validate();
-
-//        dd($data);
 
         $teams = json_encode_unicode($request->teams);
         $data['teams'] = json_encode(['teams' => json_decode($teams)], JSON_UNESCAPED_UNICODE);
@@ -292,6 +291,7 @@ class RevisedPlanController extends Controller
             'audit_year_start' => 'required',
             'audit_year_end' => 'required',
             'teams' => 'required',
+            'modal_type' => 'nullable',
         ])->validate();
 
         //dd($data);
@@ -312,7 +312,7 @@ class RevisedPlanController extends Controller
     public function storeAuditTeamSchedule(Request $request)
     {
         $data = Validator::make($request->all(), [
-            'audit_plan_id' => 'required|integer',
+            'audit_plan_id' => 'integer',
             'team_schedules' => 'required|json',
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();

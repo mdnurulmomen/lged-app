@@ -22,6 +22,7 @@ class PlanEditorController extends Controller
             'parent_office_id' => 'required',
         ])->validate();
 
+        $modal_type = $request->modal_type;
         $activity_id = $request->activity_id;
         $annual_plan_id = $request->annual_plan_id;
         $fiscal_year_id = $request->fiscal_year_id;
@@ -54,7 +55,8 @@ class PlanEditorController extends Controller
             'own_office',
             'all_teams',
             'other_offices',
-            'parent_office_id'
+            'parent_office_id',
+            'modal_type'
         ));
     }
 

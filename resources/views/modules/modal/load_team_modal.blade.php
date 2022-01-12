@@ -56,7 +56,7 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content rounded-0">
             <div class="modal-header">
-                <h5 class="modal-title" id="officeEmployeeModalLabel">Add Audit Team</h5>
+                <h5 class="modal-title" id="officeEmployeeModalLabel">@if($modal_type == 'data-collection') Add Data Collection Team @else Add Audit Team @endif</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
@@ -1176,13 +1176,13 @@
         saveAuditTeam: function (mode = 'save') {
             url = mode === 'save' ? '{{route('audit.plan.audit.revised.plan.store-audit-team')}}' : '{{route('audit.plan.audit.revised.plan.update-audit-team')}}';
             annual_plan_id = '{{$annual_plan_id}}';
-            audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
+            audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id') ? $('.draft_entity_audit_plan').data('audit-plan-id') : 0;
             activity_id = '{{$activity_id}}';
             fiscal_year_id = '{{$fiscal_year_id}}';
             audit_year_start = $('#audit_year_start').val();
             audit_year_end = $('#audit_year_end').val();
             teams = Load_Team_Container.makeAuditTeam();
-
+            modal_type = '{{$modal_type}}';
             data = {
                 annual_plan_id,
                 activity_id,
@@ -1190,6 +1190,7 @@
                 audit_year_start,
                 audit_year_end,
                 audit_plan_id,
+                modal_type,
                 teams
             };
             KTApp.block('#saveAuditTeam');
@@ -1197,10 +1198,15 @@
                 if (response.status === 'success') {
                     toastr.success(response.data);
                     Load_Team_Container.saveAuditTeamSchedule(mode);
-                    $('.draft_entity_audit_plan').click();
-                    Load_Team_Container.insertTeamDataInBook();
-                    Load_Team_Container.setJsonContentFromPlanBook();
-                    $('#dismissTeamModal').click()
+                    if(modal_type == 'data-collection'){
+                        $('#dismissTeamModal').click()
+                    }else {
+                        $('.draft_entity_audit_plan').click();
+                        Load_Team_Container.insertTeamDataInBook();
+                        Load_Team_Container.setJsonContentFromPlanBook();
+                        $('#dismissTeamModal').click()
+                    }
+
                 } else {
                     toastr.error(response.data);
                     console.log(response)
@@ -1216,7 +1222,7 @@
             if (!$.isEmptyObject(schedule_data)) {
                 schedule = {"schedule": schedule_data}
                 team_schedules = JSON.stringify(schedule);
-                audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id');
+                audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id') ? $('.draft_entity_audit_plan').data('audit-plan-id') : 0;
                 data = {team_schedules, audit_plan_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'success') {

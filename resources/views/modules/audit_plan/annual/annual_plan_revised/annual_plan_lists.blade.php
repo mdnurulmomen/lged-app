@@ -638,18 +638,24 @@
                 if ($(this).hasClass('milestone_start_date')) {
                     if (!$(this).val()) {
                         toastr.warning('Select start date');
-                        return;
+                        milestone_list = {};
+                        return false;
                     }
                     milestone_list[milestone_id]['start_date'] = formatDate($(this).val());
                 }
                 if ($(this).hasClass('milestone_end_date')) {
                     if (!$(this).val()) {
                         toastr.warning('Select end date');
-                        return;
+                        milestone_list = {};
+                        return false;
                     }
                     milestone_list[milestone_id]['end_date'] = formatDate($(this).val());
                 }
             });
+
+            if(Object.keys(milestone_list).length === 0){
+                return;
+            }
 
             milestone_list = JSON.stringify(milestone_list);
             entity_list = JSON.stringify(entity_info);

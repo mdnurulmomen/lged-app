@@ -25,7 +25,7 @@
         <div id="load_auditable_plan_lists"></div>
     </div>
 </div>
-
+<div class="load-office-wise-employee"></div>
 
 @include('scripts.script_generic')
 <script>
@@ -84,32 +84,44 @@
         },
 
         loadAuditPlanBookCreatable: function (elem) {
-            url = '{{route('audit.plan.audit.revised.plan.create-entity-audit-plan')}}';
-            annual_plan_id = elem.data('annual-plan-id')
-            fiscal_year_id = elem.data('fiscal-year-id')
-            activity_id = elem.data('activity-id')
+            swal.fire({
+                title: 'আপনি কি নতুন প্ল্যান প্রস্তুত করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    url = '{{route('audit.plan.audit.revised.plan.create-entity-audit-plan')}}';
+                    annual_plan_id = elem.data('annual-plan-id')
+                    fiscal_year_id = elem.data('fiscal-year-id')
+                    activity_id = elem.data('activity-id')
 
-            data = {
-                activity_id,
-                annual_plan_id,
-                fiscal_year_id,
-            };
+                    data = {
+                        activity_id,
+                        annual_plan_id,
+                        fiscal_year_id,
+                    };
 
-            KTApp.block('#kt_content', {
-                opacity: 0.1,
-                state: 'primary' // a bootstrap color
+                    KTApp.block('#kt_content', {
+                        opacity: 0.1,
+                        state: 'primary' // a bootstrap color
+                    });
+
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        KTApp.unblock('#kt_content');
+                        if (response.status === 'error') {
+                            toastr.error(response.data);
+                        } else {
+                            var newDoc = document.open("text/html", "replace");
+                            newDoc.write(response);
+                            newDoc.close();
+                        }
+                    })
+                }
             });
 
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
-                if (response.status === 'error') {
-                    toastr.error(response.data);
-                } else {
-                    var newDoc = document.open("text/html", "replace");
-                    newDoc.write(response);
-                    newDoc.close();
-                }
-            })
         },
 
         showPlanInfo: function (elem) {
@@ -132,6 +144,30 @@
                     $(".offcanvas-wrapper").html(response);
                 }
             });
+        },
+
+        showTeamDataCollectionCreateModal: function (elem) {
+            url = '{{route('audit.plan.audit.editor.load-audit-team-modal')}}';
+            annual_plan_id = elem.data('annual-plan-id');
+            fiscal_year_id = elem.data('fiscal-year-id')
+            activity_id = elem.data('activity-id')
+            audit_plan_id = '0';
+            parent_office_id = elem.data('parent-office-id');
+            modal_type = 'data-collection';
+            data = {annual_plan_id, activity_id, fiscal_year_id, audit_plan_id, parent_office_id,modal_type};
+            KTApp.block('.content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('.content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".load-office-wise-employee").html(response)
+                    $('#officeEmployeeModal').modal('show');
+                }
+            })
         },
     };
 

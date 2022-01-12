@@ -281,6 +281,18 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/generate-office-order', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'generateOfficeOrder'])->name('office-orders.generate-office-order');
             Route::post('/show-office-order', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'showOfficeOrder'])->name('office-orders.show-office-order');
             Route::post('/download-pdf', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'generateOfficeOrderPDF'])->name('office-orders.download-pdf');
+
+            //data collection office order
+            Route::get('/office-orders-dc', [\App\Http\Controllers\AuditPlan\Plan\DcOfficeOrderController::class, 'index'])->name('office-orders-dc.index');
+            Route::post('/load-office-order-list-dc', [\App\Http\Controllers\AuditPlan\Plan\DcOfficeOrderController::class, 'loadOfficeOrderList'])->name('office-orders-dc.load-office-order-list');
+            Route::post('/load-office-order-create-dc', [\App\Http\Controllers\AuditPlan\Plan\DcOfficeOrderController::class, 'loadOfficeOrderCreate'])->name('office-orders-dc.load-office-order-create');
+            Route::post('/load-office-order-cc-create-dc', [\App\Http\Controllers\AuditPlan\Plan\DcOfficeOrderController::class, 'loadOfficeOrderCCCreate'])->name('office-orders-dc.load-office-order-cc-create');
+            Route::post('/load-office-order-approval-authority-dc', [\App\Http\Controllers\AuditPlan\Plan\DcOfficeOrderController::class, 'loadOfficeOrderApprovalAuthority'])->name('office-orders-dc.load-office-order-approval-authority');
+            Route::post('/store-office-order-approval-authority-dc', [\App\Http\Controllers\AuditPlan\Plan\DcOfficeOrderController::class, 'storeOfficeOrderApprovalAuthority'])->name('office-orders-dc.store-office-order-approval-authority');
+            Route::post('/approve-office-order-dc', [\App\Http\Controllers\AuditPlan\Plan\DcOfficeOrderController::class, 'approveOfficeOrder'])->name('office-orders-dc.approve-office-order');
+            Route::post('/generate-office-order-dc', [\App\Http\Controllers\AuditPlan\Plan\DcOfficeOrderController::class, 'generateOfficeOrder'])->name('office-orders-dc.generate-office-order');
+            Route::post('/show-office-order-dc', [\App\Http\Controllers\AuditPlan\Plan\DcOfficeOrderController::class, 'showOfficeOrder'])->name('office-orders-dc.show-office-order');
+            Route::post('/download-pdf-dc', [\App\Http\Controllers\AuditPlan\Plan\DcOfficeOrderController::class, 'generateOfficeOrderPDF'])->name('office-orders-dc.download-pdf');
         });
     });
 

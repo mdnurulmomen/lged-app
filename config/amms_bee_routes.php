@@ -172,6 +172,14 @@ return [
             'store_approval_authority' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/store-approval-authority',
             'approve_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/approve',
         ],
+
+        'ap_office_order_dc' => [
+            'annual_plan_list' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order-dc/annual-plan-list',
+            'generate_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order-dc/generate',
+            'show_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order-dc/show',
+            'store_approval_authority' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order-dc/store-approval-authority',
+            'approve_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order-dc/approve',
+        ],
     ],
 
     'audit_strategic_plan' => [
