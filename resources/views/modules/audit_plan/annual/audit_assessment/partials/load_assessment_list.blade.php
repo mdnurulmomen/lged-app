@@ -83,6 +83,10 @@
                 onclick="Assessment_Container.store()">
             <i class="far fa-save mr-1"></i> সংরক্ষণ করুন
         </button>
+        <button type="button" class="btn btn-primary btn-sm btn-bold btn-square"
+                onclick="Assessment_Container.storeAnnualPlan()">
+            <i class="far fa-save mr-1"></i> বার্ষিক পরিকল্পনা তৈরি করুন
+        </button>
     @endif
 </form>
 
@@ -118,6 +122,57 @@
             $("#second_half_data").val(second_half_data);
 
             url = '{{route('audit.plan.annual.audit-assessment.store')}}';
+            data = $('#generate_form').serialize();
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'success') {
+                    toastr.success('Successfully Added!');
+                    let fiscal_year_id = $("#fiscal_year_id").val();
+                    Assessment_Score_Container.list(fiscal_year_id);
+                } else {
+                    if (response.statusCode === '422') {
+                        var errors = response.msg;
+                        $.each(errors, function (k, v) {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        });
+                    } else {
+                        toastr.error(response.data.message);
+                    }
+                }
+            })
+        },
+        storeAnnualPlan: function () {
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            var first_half_data = [];
+            $.each($("input[name='first_half']"), function(index, element){
+                if (element.checked === true) {
+                    first_half_data.push(1);
+                }
+                else {
+                    first_half_data.push(0);
+                }
+            });
+            $("#first_half_data").val(first_half_data);
+
+            var second_half_data = [];
+            $.each($("input[name='second_half']"), function(index, element){
+                if (element.checked === true) {
+                    second_half_data.push(1);
+                }
+                else {
+                    second_half_data.push(0);
+                }
+            });
+            $("#second_half_data").val(second_half_data);
+
+            url = '{{route('audit.plan.annual.audit-assessment.store_annual_plan')}}';
             data = $('#generate_form').serialize();
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {

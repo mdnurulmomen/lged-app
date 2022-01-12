@@ -290,6 +290,7 @@ class AnnualPlanRevisedController extends Controller
             $annual_plan_info = $annual_plan_info['data'];
             $designations = $master_designation['data']['designations'];
             $nominated_man_powers = json_decode($annual_plan_info['nominated_man_powers'], true);
+//            dd($nominated_man_powers);
             $staff_list = $nominated_man_powers['staffs'];
             $staff_comment = $nominated_man_powers['comment'];
 

@@ -360,6 +360,10 @@
         $('#office_category_type_title_en').val('{{$annual_plan_info['office_type_en']}}')
         $('#office_category_type_title_bn').val('{{$annual_plan_info['office_type']}}')
         $('#office_category_type_select').val('{{$annual_plan_info['office_type_id']}}').trigger('change')
+
+        @if(!$annual_plan_info['ap_milestones'])
+        $('#activity_id').val(activity_id).trigger('change');
+        @endif
         // Annual_Plan_Container.loadEntityChildOffices(parent_office_id);
     });
 
