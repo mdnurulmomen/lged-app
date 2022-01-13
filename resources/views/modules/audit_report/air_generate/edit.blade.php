@@ -13,6 +13,9 @@
 @endsection
 @section('content')
     <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
+    <input type="hidden" id="auditAllApottis">
+    <input type="hidden" id="auditApottis">
+    <input type="hidden" id="airId" value="{{$air_report_id}}">
     <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
         <div class="col-md-6">
             <div class="title py-2">
@@ -25,6 +28,13 @@
             </div>
         </div>
         <div class="col-md-6 text-right">
+            <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
+                    data-fiscal-year-id="{{$fiscal_year_id}}"
+                    data-audit-plan-id="{{$audit_plan_id}}"
+                    onclick="AIR_Report_Create_Container.loadApottiList($(this))">
+                <i class="fad fa-search"></i> অনুচ্ছেদ
+            </button>
+
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
                     onclick="AIR_Report_Create_Container.previewAirReport($(this))">
                 <i class="fad fa-search"></i> Preview
@@ -64,4 +74,15 @@
 @section('scripts')
     @include('scripts.air_report.edit.script_edit_air_report')
     @include('scripts.air_report.script_air_report')
+
+    <script>
+        var Insert_AIR_Data_Container = {
+            setJsonContentFromPlanBook: function () {
+                templateArray.map(function (value, index) {
+                    cover = $("#pdfContent_" + value.content_id).html();
+                    value.content = cover;
+                });
+            }
+        }
+    </script>
 @endsection
