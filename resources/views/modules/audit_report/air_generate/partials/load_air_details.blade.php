@@ -4,15 +4,15 @@
 
             @if($air_status != 'approved')
                 <button onclick="Report_AIR_Details_Container.loadApprovalAuthority()"
-                        title="অনুমোদনের জন্য প্রেরণ করুন"
+                        title="প্রাপক বাছাই করুন"
                         class="ml-2 btn btn-primary btn-sm btn-bold btn-square">
-                    <i class="fad fa-share-square"></i> অনুমোদনের জন্য প্রেরণ করুন
+                    <i class="fad fa-share-square"></i> প্রাপক বাছাই করুন
                 </button>
 
                 <button data-air-report-id="{{$air_report_id}}"
-                        onclick="AIR_Container.loadAIREdit($(this))" title="হালনাগাদ করুন"
+                        onclick="AIR_Container.loadAIREdit($(this))" title="সম্পাদন করুন"
                         class="ml-2 btn btn-warning btn-sm btn-bold btn-square">
-                    <i class="fad fa-edit"></i> হালনাগাদ করুন
+                    <i class="fad fa-edit"></i> সম্পাদনা করুন
                 </button>
             @endif
         </div>
@@ -51,7 +51,7 @@
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".offcanvas-title").text('অনুমোদনকারী বাছাই করুন');
+                    $(".offcanvas-title").text('প্রাপক বাছাই করুন');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);

@@ -29,11 +29,11 @@
             জড়িত অর্থ (টাকা)
         </th>
 
-        <th width="15%" class="text-left">
+        <th width="10%" class="text-left">
             আপত্তির ধরন
         </th>
 
-        <th width="25%" class="text-left">
+        <th width="30%" class="text-left">
             কার্যক্রম
         </th>
     </tr>
@@ -80,24 +80,26 @@
                 <button class="mr-1 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
                         data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
                         onclick="Qac_Container.showApotti($(this))">
-                    <i class="fad fa-eye"></i>
+                    <i class="fad fa-eye"></i> বিস্তারিত
                 </button>
 
                 @if($responseData['rAirInfo']['r_air_child']['status'] != 'approved')
                     <button class="btn btn-sm btn-outline-primary btn-square mr-1" title="QAC-01"
+                            data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                            data-is-delete="{{$apotti['is_delete']}}"
                             data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
                             data-qac-type="{{$qac_type}}"
                             onclick="Qac_Container.qacApotti($(this))">
-                        <i class="fad fa-star-of-david"></i>
+                        {{--<i class="fad fa-star-of-david"></i>--}} QAC-01
                     </button>
 
-                    <button class="mr-1 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
+                    <button class="mr-1 btn btn-sm btn-outline-warning btn-square" title="সম্পাদন করুন"
                             data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
                             onclick="Qac_Container.editApotti($(this))">
-                        <i class="fad fa-pencil"></i>
+                        <i class="fad fa-pencil"></i> সম্পাদন
                     </button>
 
-                    @if($apotti['is_delete'] == 1)
+                    {{--@if($apotti['is_delete'] == 1)
                         <button class="mr-1 btn btn-sm btn-outline-danger btn-square" title="মুছে ফেলুন"
                                 data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                                 data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
@@ -113,7 +115,7 @@
                                 onclick="QAC_Apotti_List_Container.softDeleteApotti($(this))">
                             <i class="fad fa-trash"></i>
                         </button>
-                    @endif
+                    @endif--}}
                 @endif
             </td>
         </tr>
@@ -169,23 +171,6 @@
                     newDoc.close();
                 }
             })
-        },
-
-
-        softDeleteApotti: function (elem){
-            air_report_id = elem.data('air-report-id');
-            apotti_id = elem.data('apotti-id');
-            is_delete = elem.data('is-delete');
-            data = {air_report_id,apotti_id,is_delete};
-            let url = '{{route('audit.report.air.qac.delete-air-report-wise-apotti')}}';
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'error') {
-                    toastr.error(response.data)
-                } else {
-                    toastr.success('সফলভাবে সংরক্ষণ করা হয়েছে');
-                    $('#btn_filter').click();
-                }
-            });
         },
 
         loadDeleteApottiView: function (elem) {

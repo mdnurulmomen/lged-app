@@ -229,10 +229,12 @@
             quick_panel.removeClass('d-none');
             $("html").addClass("side-panel-overlay");
 
+            air_report_id = elem.data('air-report-id');
+            is_delete = elem.data('is-delete');
             apotti_id = elem.data('apotti-id');
             qac_type = elem.data('qac-type');
 
-            data = {apotti_id,qac_type}
+            data = {air_report_id,is_delete,apotti_id,qac_type}
 
             let url = '{{route('audit.qac.qac-apotti')}}';
 

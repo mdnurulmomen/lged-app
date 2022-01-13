@@ -1,3 +1,18 @@
+<div class="d-flex justify-content-end mt-4">
+    <button class="mr-1 btn btn-sm {{$is_delete==1?'btn-outline-primary':'btn-outline-danger'}} btn-square" title="{{$is_delete==1?'ফেরত আনুন':'বাদ দিন'}}"
+            data-air-report-id="{{$air_report_id}}"
+            data-apotti-id="{{$apotti_id}}"
+            data-is-delete="{{$is_delete==1?0:1}}"
+            onclick="QAC_Apotti_Edit_Container.softDeleteApotti($(this))">
+        @if($is_delete==1)
+            ফেরত আনুন
+        @else
+            বাদ দিন
+        @endif
+    </button>
+</div>
+
+
 <form id="apotti_qac_form">
     <div class="form-row pt-4">
         <input type="hidden" name="apotti_id" value="{{$apotti_id}}">
@@ -123,3 +138,24 @@
             onclick="Qac_Container.qacApottiSubmit()"><i class="fa fa-save"></i> সংরক্ষণ
     </button>
 </form>
+
+<script>
+    var QAC_Apotti_Edit_Container ={
+        softDeleteApotti: function (elem){
+            air_report_id = elem.data('air-report-id');
+            apotti_id = elem.data('apotti-id');
+            is_delete = elem.data('is-delete');
+            data = {air_report_id,apotti_id,is_delete};
+            let url = '{{route('audit.report.air.qac.delete-air-report-wise-apotti')}}';
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    toastr.success('সফলভাবে সংরক্ষণ করা হয়েছে');
+                    $('#btn_filter').click();
+                    $('#kt_quick_panel_close').click();
+                }
+            });
+        }
+    }
+</script>

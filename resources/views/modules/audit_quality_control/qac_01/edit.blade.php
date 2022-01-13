@@ -35,7 +35,7 @@
                 <button class="btn btn-sm btn-square btn-warning btn-hover-warning"
                         title="অনুমোদনের জন্য প্রেরণ করুন"
                         onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
-                    <i class="fad fa-paper-plane"></i> অনুমোদনের জন্য প্রেরণ করুন
+                    <i class="fad fa-paper-plane"></i> প্রাপক বাছাই করুন
                 </button>
             @endif
 
@@ -181,7 +181,7 @@
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {
-                        $(".offcanvas-title").text('অনুমোদনকারী বাছাই করুন');
+                        $(".offcanvas-title").text('প্রাপক বাছাই করুন');
                         quick_panel = $("#kt_quick_panel");
                         quick_panel.addClass('offcanvas-on');
                         quick_panel.css('opacity', 1);
