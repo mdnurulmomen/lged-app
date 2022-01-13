@@ -25,17 +25,19 @@
             </div>
         </div>
         <div class="col-md-6 text-right">
-            <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
-                    data-air-id=""
-                    onclick="">
-                <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টিকে প্রেরণ করুন
-            </button>
-
-            <button class="btn btn-sm btn-square btn-warning btn-hover-warning"
-                    title="অনুমোদনের জন্য প্রেরণ করুন"
-                    onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
-                <i class="fad fa-paper-plane"></i> অনুমোদনের জন্য প্রেরণ করুন
-            </button>
+            @if($approved_status == 'approved')
+                <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
+                        data-air-id=""
+                        onclick="">
+                    <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টিকে প্রেরণ করুন
+                </button>
+            @else
+                <button class="btn btn-sm btn-square btn-warning btn-hover-warning"
+                        title="অনুমোদনের জন্য প্রেরণ করুন"
+                        onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
+                    <i class="fad fa-paper-plane"></i> অনুমোদনের জন্য প্রেরণ করুন
+                </button>
+            @endif
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
                     data-air-id="{{$air_report_id}}"
@@ -166,7 +168,8 @@
             loadApprovalAuthority: function () {
                 url = '{{route('audit.report.air.get-approval-authority')}}';
                 air_report_id = '{{$air_report_id}}';
-                data = {air_report_id};
+                air_type = 'qac-1';
+                data = {air_report_id,air_type};
 
                 KTApp.block('#kt_content', {
                     opacity: 0.1,

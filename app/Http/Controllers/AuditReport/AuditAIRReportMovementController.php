@@ -41,6 +41,7 @@ class AuditAIRReportMovementController extends Controller
                 'receiver_officer_phone' => 'required',
                 'receiver_officer_email' => 'required',
                 'status' => 'required',
+                'air_type' => 'required',
             ])->validate();
 
             $data['comments'] = $request->comments;
@@ -79,12 +80,13 @@ class AuditAIRReportMovementController extends Controller
     public function loadApprovalAuthority(Request $request)
     {
         $air_report_id = $request->air_report_id;
+        $air_type= $request->air_type;
         $data['r_air_id'] = $air_report_id;
         $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_last_movement'), $data)->json();
         $last_air_movement = isSuccess($responseData)?$responseData['data']:[];
         //dd($last_air_movement);
         $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
-        return view('modules.audit_report.air_generate.partials.load_approval_authority',compact('officer_lists','air_report_id','last_air_movement'));
+        return view('modules.audit_report.air_generate.partials.load_approval_authority',compact('officer_lists','air_report_id','last_air_movement','air_type'));
     }
 }

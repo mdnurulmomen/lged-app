@@ -120,15 +120,8 @@
 
         loadAIREdit: function (elem) {
             url = '{{route('audit.report.air.edit')}}';
-            fiscal_year_id = elem.data('fiscal-year-id');
-            activity_id = elem.data('activity-id');
-            annual_plan_id = elem.data('annual-plan-id');
-            audit_plan_id = elem.data('audit-plan-id');
-            audit_plan_entities = elem.data('audit-plan-entities');
             air_report_id = elem.data('air-report-id');
-
-            data = {fiscal_year_id,activity_id,annual_plan_id, audit_plan_id,audit_plan_entities, air_report_id};
-
+            data = {air_report_id};
             KTApp.block('#kt_content', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color

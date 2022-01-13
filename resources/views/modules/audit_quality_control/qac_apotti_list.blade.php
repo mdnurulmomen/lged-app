@@ -3,7 +3,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="d-flex justify-content-md-end">
-                    <a data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}" onclick="QAC_Apotti_List_Container.loadAIREdit($(this))" class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
+                    <a data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                       onclick="QAC_Apotti_List_Container.loadAIREdit($(this))"
+                       class="mr-1 btn btn-sm {{$responseData['rAirInfo']['r_air_child']['status']=='approved'?'btn-outline-primary':'btn-outline-danger'}} btn-square" href="javascript:;">
                         <i class="far fa-book"></i> এআইআর
                     </a>
                 </div>
@@ -53,61 +55,65 @@
                 <span>{{$apotti['apotti_map_data']['apotti_title']}}</span>
             </td>
             <td class="text-right">
-                <span>{{enTobn(number_format($apotti['apotti_map_data']['total_jorito_ortho_poriman'],0))}}</span>
+                <span>{{enTobn(number_format($apotti['apotti_map_data']['total_jorito_ortho_poriman'],0))}}/-</span>
             </td>
             <td class="text-left">
+                @if($apotti['is_delete'] == 1)
+                    প্রত্যাহার
+                @else
                     @php $apotti_type = ''; @endphp
                     @foreach($apotti['apotti_map_data']['apotti_status'] as $apotti_status)
                         @if($apotti_status['qac_type'] == $qac_type)
                             @if($apotti_status['apotti_type'] == 'sfi')
-                               @php $apotti_type = 'এসএফআই'; @endphp
+                                @php $apotti_type = 'এসএফআই'; @endphp
                             @elseif($apotti_status['apotti_type'] == 'non-sfi')
                                 @php $apotti_type = 'নন-এসএফআই'; @endphp
                             @else
                                 @php $apotti_type = $apotti_status['apotti_type']; @endphp
-                           @endif
+                            @endif
                         @endif
                     @endforeach
                     {{$apotti_type}}
-
-                @if($apotti['is_delete'] == 1)
-                    <span class="badge badge-danger">Delete</span>
                 @endif
             </td>
             <td class="text-left">
-                <button class="btn btn-sm btn-outline-primary btn-square mr-1" title="QAC-01"
-                        data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
-                        data-qac-type="{{$qac_type}}"
-                        onclick="Qac_Container.qacApotti($(this))">
-                    <i class="fad fa-star-of-david"></i>
-                </button>
                 <button class="mr-1 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
                         data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
                         onclick="Qac_Container.showApotti($(this))">
                     <i class="fad fa-eye"></i>
                 </button>
-                <button class="mr-1 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
-                        data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
-                        onclick="Qac_Container.editApotti($(this))">
-                    <i class="fad fa-pencil"></i>
-                </button>
 
-                @if($apotti['is_delete'] == 1)
-                    <button class="mr-1 btn btn-sm btn-outline-danger btn-square" title="মুছে ফেলুন"
-                            data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                @if($responseData['rAirInfo']['r_air_child']['status'] != 'approved')
+                    <button class="btn btn-sm btn-outline-primary btn-square mr-1" title="QAC-01"
                             data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
-                            data-is-delete="0"
-                            onclick="QAC_Apotti_List_Container.softDeleteApotti($(this))">
-                        <i class="fad fa-undo-alt"></i>
+                            data-qac-type="{{$qac_type}}"
+                            onclick="Qac_Container.qacApotti($(this))">
+                        <i class="fad fa-star-of-david"></i>
                     </button>
-                @else
-                    <button class="mr-1 btn btn-sm btn-outline-danger btn-square" title="মুছে ফেলুন"
-                            data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+
+                    <button class="mr-1 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
                             data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
-                            data-is-delete="1"
-                            onclick="QAC_Apotti_List_Container.softDeleteApotti($(this))">
-                        <i class="fad fa-trash"></i>
+                            onclick="Qac_Container.editApotti($(this))">
+                        <i class="fad fa-pencil"></i>
                     </button>
+
+                    @if($apotti['is_delete'] == 1)
+                        <button class="mr-1 btn btn-sm btn-outline-danger btn-square" title="মুছে ফেলুন"
+                                data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                                data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
+                                data-is-delete="0"
+                                onclick="QAC_Apotti_List_Container.softDeleteApotti($(this))">
+                            <i class="fad fa-undo-alt"></i>
+                        </button>
+                    @else
+                        <button class="mr-1 btn btn-sm btn-outline-danger btn-square" title="মুছে ফেলুন"
+                                data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                                data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
+                                data-is-delete="1"
+                                onclick="QAC_Apotti_List_Container.softDeleteApotti($(this))">
+                            <i class="fad fa-trash"></i>
+                        </button>
+                    @endif
                 @endif
             </td>
         </tr>

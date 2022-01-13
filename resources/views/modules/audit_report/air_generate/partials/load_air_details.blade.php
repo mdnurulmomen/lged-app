@@ -1,16 +1,18 @@
 <div class="row">
     <div class="col-md-12">
         <div class="d-flex justify-content-end mt-4">
-            @if($air_status == 'approved')
-                <button onclick="" title="Send To Rpu"
-                        class="ml-2 btn btn-warning btn-sm btn-bold btn-square">
-                    <i class="fad fa-share-square"></i> Send To Rpu
-                </button>
-            @else
+
+            @if($air_status != 'approved')
                 <button onclick="Report_AIR_Details_Container.loadApprovalAuthority()"
-                        title="Send For Approval"
+                        title="অনুমোদনের জন্য প্রেরণ করুন"
                         class="ml-2 btn btn-primary btn-sm btn-bold btn-square">
-                    <i class="fad fa-share-square"></i> Send For Approval
+                    <i class="fad fa-share-square"></i> অনুমোদনের জন্য প্রেরণ করুন
+                </button>
+
+                <button data-air-report-id="{{$air_report_id}}"
+                        onclick="AIR_Container.loadAIREdit($(this))" title="হালনাগাদ করুন"
+                        class="ml-2 btn btn-warning btn-sm btn-bold btn-square">
+                    <i class="fad fa-edit"></i> হালনাগাদ করুন
                 </button>
             @endif
         </div>
@@ -33,10 +35,11 @@
 
 <script>
     var Report_AIR_Details_Container = {
-        loadApprovalAuthority: function (element) {
+        loadApprovalAuthority: function () {
             url = '{{route('audit.report.air.get-approval-authority')}}';
+            air_type = '{{$air_type}}';
             air_report_id = '{{$air_report_id}}';
-            data = {air_report_id};
+            data = {air_report_id,air_type};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

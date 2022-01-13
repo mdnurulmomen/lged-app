@@ -26,7 +26,7 @@
         </div>
         <div class="col-md-6 text-right">
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
-                    onclick="AIR_Report_Container.previewAirReport($(this))">
+                    onclick="AIR_Report_Create_Container.previewAirReport($(this))">
                 <i class="fad fa-search"></i> Preview
             </button>
 
@@ -36,7 +36,7 @@
                     data-fiscal-year-id="{{$fiscal_year_id}}"
                     data-annual-plan-id="{{$annual_plan_id}}"
                     data-audit-plan-id="{{$audit_plan_id}}"
-                    onclick="AIR_Report_Container.storeAIRReportPlan($(this))">
+                    onclick="AIR_Report_Create_Container.storeAIRReportPlan($(this))">
                 <i class="fas fa-save"></i> Update
             </button>
         </div>

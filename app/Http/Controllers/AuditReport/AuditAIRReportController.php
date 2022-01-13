@@ -165,9 +165,10 @@ class AuditAIRReportController extends Controller
             $airReport = $responseData['data'];
             $content = gzuncompress(getDecryptedData($airReport['air_description']));
             $air_report_id = $airReport['id'];
+            $approved_status = $airReport['status'];
 
             return view('modules.audit_quality_control.qac_01.edit',
-                compact('content','air_report_id'));
+                compact('content','air_report_id','approved_status'));
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];
@@ -196,11 +197,12 @@ class AuditAIRReportController extends Controller
             $annual_plan_id = $airReport['annual_plan_id'];
             $audit_plan_id = $airReport['audit_plan_id'];
             $air_status = $airReport['status'];
+            $air_type = $airReport['type'];
             $fiscal_year_id = $request->fiscal_year_id;
             $activity_id = $request->activity_id;
 
             return view('modules.audit_report.air_generate.partials.load_air_details',
-                compact('air_descriptions','air_report_id','annual_plan_id','audit_plan_id','air_status','fiscal_year_id','activity_id'));
+                compact('air_descriptions','air_report_id','annual_plan_id','audit_plan_id','air_status','fiscal_year_id','activity_id','air_type'));
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];
@@ -212,9 +214,6 @@ class AuditAIRReportController extends Controller
     {
         $data = Validator::make($request->all(), [
             'air_report_id' => 'required|integer',
-            'fiscal_year_id' => 'required|integer',
-            'annual_plan_id' => 'required|integer',
-            'audit_plan_id' => 'required|integer',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
@@ -222,17 +221,17 @@ class AuditAIRReportController extends Controller
         //dd($responseData);
         if (isSuccess($responseData)) {
             $airReport = $responseData['data'];
-
             $content = gzuncompress(getDecryptedData($airReport['air_description']));
             $air_report_id = $airReport['id'];
             $annual_plan_id = $airReport['annual_plan_id'];
             $audit_plan_id = $airReport['audit_plan_id'];
-            $fiscal_year_id = $request->fiscal_year_id;
-            $activity_id= $request->activity_id;
+            $fiscal_year_id = $airReport['fiscal_year_id'];
+            $activity_id= $airReport['activity_id'];
+            $air_type = $airReport['type'];
 
             return view('modules.audit_report.air_generate.edit',
                 compact('content','air_report_id','annual_plan_id',
-                    'audit_plan_id','fiscal_year_id','activity_id'));
+                    'audit_plan_id','fiscal_year_id','activity_id','air_type'));
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];

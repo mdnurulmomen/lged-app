@@ -38,6 +38,7 @@
 
         <form id="approval_authority_form">
             <input type="hidden" name="r_air_id" value="{{$air_report_id}}">
+            <input type="hidden" name="air_type" value="{{$air_type}}">
 
             <ul class="d-none select_approval_authority"></ul>
 
