@@ -76,6 +76,7 @@
     @include('scripts.air_report.script_air_report')
 
     <script>
+        
         var Insert_AIR_Data_Container = {
             setJsonContentFromPlanBook: function () {
                 templateArray.map(function (value, index) {
