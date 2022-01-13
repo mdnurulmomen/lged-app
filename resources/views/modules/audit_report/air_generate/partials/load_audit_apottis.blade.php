@@ -13,10 +13,10 @@
         <tbody>
         @foreach($apottiData['auditMapApottis'] as $apotti)
             <tr>
-                <td><input type="checkbox" checked class="apotti" value="{{$apotti['apotti_map_list']['id']}}" name="apotti"></td>
-                <td style="text-align: center">{{enTobn($apotti['apotti_map_list']['onucched_no'])}}.</td>
-                <td style="text-align: left;margin-left: 5px">{{$apotti['apotti_map_list']['apotti_title']}}</td>
-                <td style="text-align: right">{{enTobn(number_format($apotti['apotti_map_list']['total_jorito_ortho_poriman'],0))}}/-</td>
+                <td><input type="checkbox" checked class="apotti" value="{{$apotti['apotti_map_data']['id']}}" name="apotti"></td>
+                <td style="text-align: center">{{enTobn($apotti['apotti_map_data']['onucched_no'])}}.</td>
+                <td style="text-align: left;margin-left: 5px">{{$apotti['apotti_map_data']['apotti_title']}}</td>
+                <td style="text-align: right">{{enTobn(number_format($apotti['apotti_map_data']['total_jorito_ortho_poriman'],0))}}/-</td>
             </tr>
         @endforeach
 

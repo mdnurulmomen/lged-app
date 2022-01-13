@@ -8,7 +8,6 @@
         }
     @endphp
     <option data-entity-info="{{json_encode($audit_plan['ap_entities'])}}" value="{{$audit_plan['id']}}">
-        Plan {{enTobn($audit_plan['id'])}}
-        ({{implode(' , ', $entities)}})
+        {{implode(' , ', $entities)}} - প্ল্যান {{enTobn($audit_plan['id'])}}
     </option>
 @endforeach

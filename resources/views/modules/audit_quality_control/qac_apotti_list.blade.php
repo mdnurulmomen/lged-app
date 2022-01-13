@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="d-flex justify-content-md-end">
-                    <a onclick="" class="btn btn-sm btn-light-info btn-square mr-1" href="javascript:;">
-                        <i class="fas fa-plus-circle mr-1"></i> এআইআর
+                    <a data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}" onclick="QAC_Apotti_List_Container.loadAIREdit($(this))" class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
+                        <i class="far fa-book"></i> এআইআর
                     </a>
                 </div>
             </div>
@@ -27,37 +27,37 @@
             জড়িত অর্থ (টাকা)
         </th>
 
-        <th width="10%" class="text-left">
+        <th width="15%" class="text-left">
             আপত্তির ধরন
         </th>
 
-        <th width="30%" class="text-left">
+        <th width="25%" class="text-left">
             কার্যক্রম
         </th>
     </tr>
     </thead>
 
     <tbody>
-    @forelse($apottiList as $apotti)
+    @forelse($responseData['apottiList'] as $apotti)
         <tr class="text-center">
             <td>
-                {{enTobn($apotti['onucched_no'])}}
+                {{enTobn($apotti['apotti_map_data']['onucched_no'])}}
 
-                @if(count($apotti['apotti_items']) > 1)
+                @if(count($apotti['apotti_map_data']['apotti_items']) > 1)
                     <span class="badge badge-info text-uppercase m-1 p-1 ">
-                     {{enTobn(count($apotti['apotti_items'])) }} টি
+                     {{enTobn(count($apotti['apotti_map_data']['apotti_items'])) }} টি
                         আপত্তি একীভূত</span>
                 @endif
             </td>
             <td class="text-left">
-                <span>{{$apotti['apotti_title']}}</span>
+                <span>{{$apotti['apotti_map_data']['apotti_title']}}</span>
             </td>
             <td class="text-right">
-                <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
+                <span>{{enTobn(number_format($apotti['apotti_map_data']['total_jorito_ortho_poriman'],0))}}</span>
             </td>
             <td class="text-left">
                     @php $apotti_type = ''; @endphp
-                    @foreach($apotti['apotti_status'] as $apotti_status)
+                    @foreach($apotti['apotti_map_data']['apotti_status'] as $apotti_status)
                         @if($apotti_status['qac_type'] == $qac_type)
                             @if($apotti_status['apotti_type'] == 'sfi')
                                @php $apotti_type = 'এসএফআই'; @endphp
@@ -69,25 +69,46 @@
                         @endif
                     @endforeach
                     {{$apotti_type}}
+
+                @if($apotti['is_delete'] == 1)
+                    <span class="badge badge-danger">Delete</span>
+                @endif
             </td>
             <td class="text-left">
                 <button class="btn btn-sm btn-outline-primary btn-square mr-1" title="QAC-01"
-                        data-apotti-id="{{$apotti['id']}}"
+                        data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
                         data-qac-type="{{$qac_type}}"
                         onclick="Qac_Container.qacApotti($(this))">
-                    QAC-01
+                    <i class="fad fa-star-of-david"></i>
                 </button>
                 <button class="mr-1 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
-                        data-apotti-id="{{$apotti['id']}}"
+                        data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
                         onclick="Qac_Container.showApotti($(this))">
-                    <i class="fad fa-eye"></i>বিস্তারিত
+                    <i class="fad fa-eye"></i>
                 </button>
                 <button class="mr-1 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
-                        data-apotti-id="{{$apotti['id']}}"
+                        data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
                         onclick="Qac_Container.editApotti($(this))">
-                    <i class="fad fa-pencil"></i>সম্পাদনা
+                    <i class="fad fa-pencil"></i>
                 </button>
 
+                @if($apotti['is_delete'] == 1)
+                    <button class="mr-1 btn btn-sm btn-outline-danger btn-square" title="মুছে ফেলুন"
+                            data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                            data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
+                            data-is-delete="0"
+                            onclick="QAC_Apotti_List_Container.softDeleteApotti($(this))">
+                        <i class="fad fa-undo-alt"></i>
+                    </button>
+                @else
+                    <button class="mr-1 btn btn-sm btn-outline-danger btn-square" title="মুছে ফেলুন"
+                            data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                            data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
+                            data-is-delete="1"
+                            onclick="QAC_Apotti_List_Container.softDeleteApotti($(this))">
+                        <i class="fad fa-trash"></i>
+                    </button>
+                @endif
             </td>
         </tr>
     @empty
@@ -119,4 +140,74 @@
             $("#selectAll")[0].addClass('checkbox-disabled');
         }
     });
+
+
+    var QAC_Apotti_List_Container = {
+        loadAIREdit: function (elem) {
+            url = '{{route('audit.report.air.qac.edit-air-report')}}';
+            air_report_id = elem.data('air-report-id');
+            data = {air_report_id};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(response);
+                    newDoc.close();
+                }
+            })
+        },
+
+
+        softDeleteApotti: function (elem){
+            air_report_id = elem.data('air-report-id');
+            apotti_id = elem.data('apotti-id');
+            is_delete = elem.data('is-delete');
+            data = {air_report_id,apotti_id,is_delete};
+            let url = '{{route('audit.report.air.qac.delete-air-report-wise-apotti')}}';
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    toastr.success('সফলভাবে সংরক্ষণ করা হয়েছে');
+                    $('#btn_filter').click();
+                }
+            });
+        },
+
+        loadDeleteApottiView: function (elem) {
+            url = '{{route('audit.report.air.qac.load-apotti-delete-view')}}';
+            air_report_id = elem.data('air-report-id');
+            apotti_id = elem.data('apotti-id');
+            data = {air_report_id,apotti_id};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $(".offcanvas-title").text('বিস্তারিত');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '30%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            })
+        },
+    };
 </script>

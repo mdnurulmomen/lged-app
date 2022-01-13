@@ -479,6 +479,15 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::post('get-approval-authority', [AuditAIRReportMovementController::class, 'loadApprovalAuthority'])->name('get-approval-authority');
             Route::post('store-air-movement', [AuditAIRReportMovementController::class, 'store'])->name('store-air-movement');
+
+            //for qac01
+            Route::group(['as' => 'qac.', 'prefix' => 'qac/'], function () {
+                Route::post('edit-air-report', [AuditAIRReportController::class, 'editQACAirReport'])->name('edit-air-report');
+                Route::post('update-air-report', [AuditAIRReportController::class, 'updateQACAirReport'])->name('update-air-report');
+                Route::post('load-apotti-delete-view', [AuditAIRReportController::class, 'loadAirWiseApottiDeleteView'])->name('load-apotti-delete-view');
+                Route::post('delete-air-report-wise-apotti', [AuditAIRReportController::class, 'softDeleteAirReportWiseApotti'])->name('delete-air-report-wise-apotti');
+                Route::post('get-air-wise-qac-apotti', [AuditAIRReportController::class, 'getAirWiseQACApotti'])->name('get-air-wise-qac-apotti');
+            });
         });
     });
 

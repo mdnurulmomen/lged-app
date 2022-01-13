@@ -45,9 +45,10 @@ class AuditQacController extends Controller
         $requestData['air_id'] = $request->air_id;
         $requestData['cdesk'] =$this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_audit_apotti_list'), $requestData)->json();
-        $apottiList = isSuccess($responseData)?$responseData['data']:[];
+        $responseData = isSuccess($responseData)?$responseData['data']:[];
+        //dd($responseData);
         $qac_type = $request->qac_type;
-        return view('modules.audit_quality_control.qac_apotti_list',compact('apottiList','qac_type'));
+        return view('modules.audit_quality_control.qac_apotti_list',compact('responseData','qac_type'));
     }
 
     public function qacApotti(Request $request){

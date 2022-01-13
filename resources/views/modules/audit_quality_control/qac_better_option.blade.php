@@ -19,33 +19,8 @@
                 </select>
             </div>
 
-            <div class="col-md-6">
-                <select class="form-select select-select2" id="audit_plan_id">
-                    <option value="">সিলেক্ট এনটিটি</option>
-                </select>
-            </div>
-        </div>
-        <div class="row mt-2 mb-2">
-            {{--<div class="col-md-3">
-                <select class="form-select select-select2" id="cost_center_filter">
-                    <option value="">All Cost Center</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <select class="form-select select-select2" id="team_filter">
-                    <option value="">All Teams</option>
-                </select>
-            </div>--}}
-
-            <div class="col-md-6">
-                <label for="">কিউসি ০১ এর জন্য প্রেরিত প্রিলিমিনারি এআইআর এর তালিকা</label>
-                <select class="form-select select-select2" id="preliminary_air_filter">
-                    <option value="">প্রিলিমিনারি এআইআর</option>
-                </select>
-            </div>
-
             <div class="col-md-1">
-                <div class="mt-8 action-group d-flex justify-content-end position-absolute action-group-wrapper">
+                <div class="mt-1 action-group d-flex justify-content-end position-absolute action-group-wrapper">
                     <button id="btn_filter" class="btn btn-sm btn-outline-primary btn-square" type="button">
                         <i class="fad fa-search"></i> অনুসন্ধান
                     </button>
@@ -57,7 +32,7 @@
 
 <div class="card card-custom card-stretch">
     <div class="card-body p-0">
-        <div id="load_apotti_list"></div>
+        <div id="load_preliminary_air_list"></div>
     </div>
 </div>
 
@@ -65,11 +40,7 @@
 <script>
     $(function () {
         fiscal_year_id = $('#fiscal_year_id').val();
-        team_filter = $('#team_filter').val();
-        cost_center_id = $('#cost_center_filter').val();
-        //Qac_Container.loadApottiList(fiscal_year_id);
         Qac_Container.loadActivity(fiscal_year_id);
-
     });
 
     var Qac_Container = {
@@ -208,7 +179,7 @@
 
         editApotti: function (element){
             apotti_id = element.data('apotti-id');
-            data = {apotti_id};
+            data = {apotti_id}
             let url = '{{route('audit.execution.apotti.edit-apotti')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
