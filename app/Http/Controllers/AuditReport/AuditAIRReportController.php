@@ -274,7 +274,6 @@ class AuditAIRReportController extends Controller
         $requestData['air_id'] = $request->air_id;
         $requestData['cdesk'] =$this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_audit_apotti_list'), $requestData)->json();
-        dd($responseData);
         $apottiData = isSuccess($responseData)?$responseData['data']:[];
         //dd($apottiData);
         return view('modules.audit_report.air_generate.partials.load_audit_apottis',compact('apottiData'));
