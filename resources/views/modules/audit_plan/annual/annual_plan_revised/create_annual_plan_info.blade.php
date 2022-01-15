@@ -12,8 +12,8 @@
                     @endforeach
                 </select>
             </div>
-
-            <div class="col-md-6">
+{{--            @php dump(session('dashboard_audit_type')) @endphp--}}
+            <div class="col-md-6 @if(session('dashboard_audit_type') == 'Performance Audit') d-none @endif">
                 <input class="annual_plan_type mt-12" type="radio" name="annual_plan_type" value="thematic"> Thematic
                 <input type="radio" name="annual_plan_type" value="entity_based" checked> Entity Based
                 <input style="display: none" class="form-control thematic_title mt-2" name="thematic_title" value="" placeholder="Thematic Title">
@@ -26,6 +26,18 @@
                 </select>
             </div>
         </div>
+        @if(session('dashboard_audit_type') == 'Performance Audit')
+            <div class="form-row mt-2">
+                <div class="col-md-12">
+                    <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" id="subject_matter" name="subject_matter">
+                </div>
+                <div class="col-md-12">
+                    <label for="sub_subject_matter">সাব সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" id="sub_subject_matter" name="sub_subject_matter">
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 <div class="row ml-7 mr-7 pt-4">
@@ -59,7 +71,8 @@
                         <x-rp-parent-office-select grid="6" unit="true"/>
                     </div>
                     <h5 class="text-primary pl-3"><u>এনটিটি/সংস্থার তালিকাঃ</u></h5>
-                    <div class="col-md-12">
+                    @if(session('dashboard_audit_type') != 'Performance Audit')
+                        <div class="col-md-12">
                         <div class="form-group mb-1">
                             <div class="col-form-label">
                                 <div class="radio-inline">
@@ -77,6 +90,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     <div class="col-md-12 rp_auditee_parent_office_tree"></div>
                 </div>
                 <div class="tab-pane border border-top-0 p-3 fade" id="select_entity_by_layer"
@@ -140,26 +154,14 @@
                            name="cost_center_total_budget">
                 </div>
             </div>
+            @if(session('dashboard_audit_type') != 'Performance Audit')
             <div class="form-row mt-2">
                 <div class="col-md-12">
                     <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="subject_matter" name="subject_matter">
                 </div>
-                {{--                <input type="hidden" name="office_type" value="">--}}
-                {{--                <input type="hidden" name="office_type_en" value="">--}}
-                {{--                <input type="hidden" name="office_type_id" value="">--}}
-                {{--                <div class="col-md-6">--}}
-                {{--                    <label for="subject_matter">প্রতিষ্ঠানের ক্যাটাগরি<span class="text-danger">*</span></label>--}}
-                {{--                    <select class="form-control" name="office_type" id="office_type">--}}
-                {{--                        <option value="">প্রতিষ্ঠানের ক্যাটাগরি বাছাই করুন</option>--}}
-                {{--                        <option value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>--}}
-                {{--                        <option value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ কর্পোরেশন ব্যতীত</option>--}}
-                {{--                        <option value="লোকাল অথরিটিজ">লোকাল অথরিটিজ</option>--}}
-                {{--                        <option value="পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স">পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স</option>--}}
-                {{--                    </select>--}}
-                {{--                </div>--}}
-
             </div>
+            @endif
 
             <div class="p-4 mt-4 card">
                 <div class="form-row">
@@ -210,6 +212,12 @@
 
 @include('scripts.script_generic')
 <script>
+    $(function () {
+        @if(session('dashboard_audit_type') == 'Performance Audit')
+            $('#activity_id').val(9).trigger('change');
+        @endif
+        // Annual_Plan_Container.loadEntityChildOffices(parent_office_id);
+    });
     $("select#selected_entity").change(function () {
         ministry_id = $(this).find(':selected').attr('data-ministry-id');
         // layer_id = $(this).find(':selected').attr('data-layer-id');

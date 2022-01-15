@@ -13,14 +13,26 @@
                 </select>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6 @if(session('dashboard_audit_type') == 'Performance Audit') d-none @endif">
                 <input style="margin-top: 35px" type="radio" name="annual_plan_type" value="thematic" @if($annual_plan_info['annual_plan_type'] == 'thematic') checked @endif> Thematic
                 <input type="radio" name="annual_plan_type" value="entity_based" @if($annual_plan_info['annual_plan_type'] == 'entity_based') checked @endif> Entity Based
                 <input @if($annual_plan_info['annual_plan_type'] == 'thematic') style="display: block" @else style="display: none" @endif class="form-control thematic_title" name="thematic_title" value="{{$annual_plan_info['thematic_title']}}" placeholder="Thematic Title">
-
             </div>
 
         </div>
+
+        @if(session('dashboard_audit_type') == 'Performance Audit')
+            <div class="form-row mt-2">
+                <div class="col-md-12">
+                    <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" id="subject_matter" name="subject_matter" value="{{$annual_plan_info['subject_matter']}}">
+                </div>
+                <div class="col-md-12">
+                    <label for="sub_subject_matter">সাব সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" id="sub_subject_matter" name="sub_subject_matter" value="{{$annual_plan_info['sub_subject_matter']}}">
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 <div class="row ml-7 mr-7 pt-4">
@@ -53,6 +65,7 @@
                     <div class="px-3">
                         <x-rp-parent-office-select grid="6" unit="true"/>
                     </div>
+                    @if(session('dashboard_audit_type') != 'Performance Audit')
                     <div class="col-md-12">
                         <div class="form-group mb-1">
                             <div class="col-form-label">
@@ -71,6 +84,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     <h5 class="text-primary pl-3"><u>এনটিটি/প্রতিষ্ঠানের তালিকাঃ</u></h5>
                     <div class="col-md-12 rp_auditee_parent_office_tree"></div>
                 </div>
@@ -186,22 +200,14 @@
                            name="cost_center_total_budget" value="{{$annual_plan_info['cost_center_total_budget']}}">
                 </div>
             </div>
-            <div class="form-row mt-2">
-                <div class="col-md-12">
-                    <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="subject_matter" name="subject_matter" value="{{$annual_plan_info['subject_matter']}}">
+            @if(session('dashboard_audit_type') != 'Performance Audit')
+                <div class="form-row mt-2">
+                    <div class="col-md-12">
+                        <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" id="subject_matter" name="subject_matter" value="{{$annual_plan_info['subject_matter']}}">
+                    </div>
                 </div>
-                {{--                <div class="col-md-6">--}}
-                {{--                    <label for="subject_matter">প্রতিষ্ঠানের শ্রেণী<span class="text-danger">*</span></label>--}}
-                {{--                    <select class="form-control" name="office_type" id="office_type">--}}
-                {{--                        <option value="">প্রতিষ্ঠানের শ্রেণি বাছাই করুন</option>--}}
-                {{--                        <option @if($annual_plan_info['office_type'] == 'বাজেটারি সেন্ট্রাল গভর্নমেন্ট') selected @endif value="বাজেটারি সেন্ট্রাল গভর্নমেন্ট">বাজেটারি সেন্ট্রাল গভর্নমেন্ট</option>--}}
-                {{--                        <option @if($annual_plan_info['office_type'] == 'স্ট্যাটুটরি পাবলিক অথরিটিজ') selected @endif value="স্ট্যাটুটরি পাবলিক অথরিটিজ">স্ট্যাটুটরি পাবলিক অথরিটিজ</option>--}}
-                {{--                        <option @if($annual_plan_info['office_type'] == 'লোকাল অথরিটিজ') selected @endif value="লোকাল অথরিটিজ">লোকাল অথোরিটিজ</option>--}}
-                {{--                        <option @if($annual_plan_info['office_type'] == 'পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স') selected @endif value="পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স">পাবলিক এন্টারপ্রাইজেস এন্ড কর্পোরেশন্স</option>--}}
-                {{--                    </select>--}}
-                {{--                </div>--}}
-            </div>
+            @endif
 
             <div class="p-4 mt-4 card">
                 <div class="form-row">

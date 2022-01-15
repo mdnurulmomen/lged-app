@@ -295,6 +295,7 @@ return [
             'get_air_last_movement' => env('API_URL_BEE', '') . '/audit-report/air/get-air-last-movement',
             'get_approve_preliminary_air' => env('API_URL_BEE', '') . '/audit-report/air/get-approve-preliminary-air',
             'delete_air_report_wise_apotti' => env('API_URL_BEE', '') . '/audit-report/air/delete-air-report-wise-apotti',
+            'air_send_to_rpu' => env('API_URL_BEE', '') . '/audit-report/air/air-send-to-rpu',
         ],
     ],
 

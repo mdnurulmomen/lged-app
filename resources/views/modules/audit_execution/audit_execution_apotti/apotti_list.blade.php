@@ -12,6 +12,13 @@
             <div class="col-md-12">
                 <div class="float-right">
                     <a class="btn btn-sm btn-light-primary btn-square mr-1"
+                       onclick="Apotti_Container.airSendToRpu(4)"
+                       title="একীভূত করুন" href="javascript:;">
+                        <i class="fa fa-link mr-1"></i> Send to rpu
+                    </a>
+                </div>
+                <div class="float-right">
+                    <a class="btn btn-sm btn-light-primary btn-square mr-1"
                        onclick="Apotti_Container.mergeOnucched()"
                        title="একীভূত করুন" href="javascript:;">
                         <i class="fa fa-link mr-1"></i> একীভূত করুন

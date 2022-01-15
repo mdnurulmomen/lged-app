@@ -190,6 +190,7 @@ class AnnualPlanRevisedController extends Controller
                 'audit_calendar_event_id' => $request->op_audit_calendar_event_id,
                 'fiscal_year_id' => $request->fiscal_year_id,
                 'subject_matter' => $request->subject_matter,
+                'sub_subject_matter' => $request->sub_subject_matter,
                 'office_type' => $request->office_type,
                 'office_type_en' => $request->office_type_en,
                 'office_type_id' => $request->office_type_id,

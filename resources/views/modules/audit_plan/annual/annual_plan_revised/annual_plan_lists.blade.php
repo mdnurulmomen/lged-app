@@ -693,6 +693,8 @@
             data.push({name: "office_type", value: $('#office_category_type_title_bn').val() ? $('#office_category_type_title_bn').val() : null});
             data.push({name: "office_type_en", value: $('#office_category_type_title_en').val() ? $('#office_category_type_title_en').val() : null});
             data.push({name: "office_type_id", value: $('#office_category_type_select').val() ? $('#office_category_type_select').val() : null});
+            data.push({name: "subject_matter", value: $('#subject_matter').val() ? $('#subject_matter').val() : null});
+            data.push({name: "sub_subject_matter", value: $('#sub_subject_matter').val() ? $('#sub_subject_matter').val() : null});
 
             elem.prop('disabled', true)
 
