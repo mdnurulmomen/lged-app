@@ -116,9 +116,17 @@ class OperationalPlanController extends Controller
 
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
 
-        $directorateInfo = $this->initDoptorHttp()->post(config('cag_doptor_api.offices'), ['office_ids' => $request->office_id])->json();
+        /*$directorateInfo = $this->initDoptorHttp()->post(config('cag_doptor_api.offices'), ['office_ids' => $request->office_id])->json();
         $directorateInfo = $directorateInfo['status'] == 'success'?$directorateInfo['data']:[];
-        dd($directorateInfo);
+        dd($directorateInfo);*/
+
+        if ($request->office_id == 19) {
+            $directorateInfo = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+        } elseif ($request->office_id == 32) {
+            $directorateInfo = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+        } else {
+            $directorateInfo = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+        }
 
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
