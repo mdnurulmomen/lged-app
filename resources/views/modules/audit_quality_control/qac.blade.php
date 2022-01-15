@@ -38,7 +38,7 @@
             </div>--}}
 
             <div class="col-md-6">
-                <label for="">{{$qac_type_name_bn}} এর জন্য প্রেরিত প্রিলিমিনারি এআইআর এর তালিকা</label>
+                <label for=""><b>{{$qac_type_name_bn}} এর জন্য প্রেরিত প্রিলিমিনারি এআইআর এর তালিকা</b></label>
                 <select class="form-select select-select2" id="preliminary_air_filter">
                     <option value="">প্রিলিমিনারি এআইআর</option>
                 </select>

@@ -120,17 +120,7 @@
                     AIR_Container.loadAuditPlanList();
                 }
                 else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
-                            if (v !== '') {
-                                toastr.error(v);
-                            }
-                        });
-                    }
-                    else {
-                        toastr.error(response.data.message);
-                    }
+                    toastr.error(response.data.message);
                 }
             })
         },

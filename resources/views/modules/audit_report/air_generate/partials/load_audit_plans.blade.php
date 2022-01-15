@@ -137,7 +137,7 @@
                                     <div class="d-flex mt-3">
                                         @foreach($audit_plan['air_reports'] as $airReport)
                                             <a href="javascript:;"
-                                               title="রিপোর্ট-{{enTobn($airReport['id'])}} বিস্তারিত দেখুন"
+                                               title="এআইআর-{{enTobn($airReport['id'])}} বিস্তারিত দেখুন"
                                                class="badge-square rounded-0 badge d-flex align-items-center {{$airReport['status'] == 'approved'?'alert-success':'alert-danger'}}
                                                    font-weight-normal mr-1 border decision"
                                                data-fiscal-year-id="{{$audit_plan['fiscal_year_id']}}"
@@ -149,7 +149,7 @@
                                                onclick="AIR_Container.loadAIRShow($(this))">
                                                 <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
                                                 প্রিলিমিনারি এআইআর: {{enTobn($airReport['id'])}}
-                                                {{empty($airReport['latest_r_air_movement'])?'':$airReport['latest_r_air_movement']['receiver_employee_name_bn'].' এর কাছে প্রেরণ করা হয়েছে'}}
+                                                {{empty($airReport['latest_r_air_movement'])?'':'('.$airReport['latest_r_air_movement']['receiver_employee_name_bn'].' এর কাছে প্রেরণ করা হয়েছে)'}}
                                             </a>
                                         @endforeach
                                     </div>

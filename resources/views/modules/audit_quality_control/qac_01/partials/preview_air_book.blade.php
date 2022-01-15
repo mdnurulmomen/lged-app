@@ -31,7 +31,7 @@
             scope = 'generate';
             data = {scope,air_description};
 
-            url = '{{route('audit.report.qc.air-report.download')}}';
+            url = '{{route('audit.report.air.download')}}';
 
             $.ajax({
                 type: 'POST',

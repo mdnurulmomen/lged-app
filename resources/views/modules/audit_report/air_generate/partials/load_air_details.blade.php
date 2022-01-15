@@ -17,6 +17,11 @@
                     </button>
                 @endif
             @endif
+
+            {{--<button onclick="Report_AIR_Details_Container.generatePDF()" title="ডাউনলোড করুন"
+                    class="ml-2 btn btn-danger btn-sm btn-bold btn-square">
+                <i class="fad fa-download"></i> ডাউনলোড করুন
+            </button>--}}
         </div>
     </div>
 </div>
@@ -64,6 +69,34 @@
                 }
             });
         },
+
+        /*generatePDF: function () {
+            air_description = '{!! $air_descriptions !!}}';
+            scope = 'generate';
+            data = {scope,air_description};
+
+            url = '{{route('audit.report.air.download')}}';
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (response) {
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "Air_Report_"+new Date().toDateString().replace(/ /g,"_")+".pdf";
+                    link.click();
+                },
+                error: function (blob) {
+                    toastr.error('Failed to generate PDF.')
+                    console.log(blob);
+                }
+            });
+        },*/
     }
 </script>
 

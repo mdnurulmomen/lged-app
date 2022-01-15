@@ -41,7 +41,7 @@
                     <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
                             title="প্রাপক বাছাই করুন"
                             onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
-                        <i class="fad fa-paper-plane"></i> প্রাপক বাছাই করুন
+                        <i class="fad fa-paper-plane"></i> প্রেরণ করুন
                     </button>
                 @endif
             @endif

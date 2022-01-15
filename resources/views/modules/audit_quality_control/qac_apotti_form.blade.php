@@ -1,16 +1,16 @@
-<div class="d-flex justify-content-end mt-4">
+{{--<div class="d-flex justify-content-end mt-4">
     <button class="mr-1 btn btn-sm {{$is_delete==1?'btn-outline-primary':'btn-outline-danger'}} btn-square" title="{{$is_delete==1?'ফেরত আনুন':'বাদ দিন'}}"
             data-air-report-id="{{$air_report_id}}"
             data-apotti-id="{{$apotti_id}}"
             data-is-delete="{{$is_delete==1?0:1}}"
             onclick="QAC_Apotti_Edit_Container.softDeleteApotti($(this))">
         @if($is_delete==1)
-            ফেরত আনুন
+            আপত্তিটি ফেরত আনুন
         @else
-            বাদ দিন
+            আপত্তিটি বাতিল করুন
         @endif
     </button>
-</div>
+</div>--}}
 
 
 <form id="apotti_qac_form">
@@ -136,6 +136,18 @@
     </div>
     <button type="button" class="btn btn-sm btn-square btn-outline-primary mr-2"
             onclick="Qac_Container.qacApottiSubmit()"><i class="fa fa-save"></i> সংরক্ষণ
+    </button>
+
+    <button class="ml-1 btn btn-sm {{$is_delete==1?'btn-outline-primary':'btn-outline-danger'}} btn-square" title="{{$is_delete==1?'ফেরত আনুন':'বাদ দিন'}}"
+            data-air-report-id="{{$air_report_id}}"
+            data-apotti-id="{{$apotti_id}}"
+            data-is-delete="{{$is_delete==1?0:1}}"
+            onclick="QAC_Apotti_Edit_Container.softDeleteApotti($(this))">
+        @if($is_delete==1)
+            আপত্তিটি ফেরত আনুন
+        @else
+            আপত্তিটি বাতিল করুন
+        @endif
     </button>
 </form>
 

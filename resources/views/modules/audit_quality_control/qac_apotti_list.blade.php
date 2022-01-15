@@ -1,20 +1,31 @@
 <div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
     <div class="col-xl-12">
         <div class="row">
-            <div class="col-md-6 mt-2">
-                <span class="text-warning ">
-                        {{empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement'])?'':$responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_name_bn'].' এর কাছে প্রেরণ করা হয়েছে'}}
-                    </span>
-            </div>
-            <div class="col-md-6">
-                <div class="d-flex justify-content-md-end">
-                    <a data-qac-type="{{$qac_type}}"
-                        data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
-                       onclick="QAC_Apotti_List_Container.loadAIREdit($(this))"
-                       class="mr-1 btn btn-sm {{$responseData['rAirInfo']['r_air_child']['status']=='approved'?'btn-outline-primary':'btn-outline-danger'}} btn-square" href="javascript:;">
-                        <i class="far fa-book"></i> এআইআর
-                    </a>
-                </div>
+            <div class="col-md-12">
+                <a data-qac-type="{{$qac_type}}"
+                   data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                   onclick="QAC_Apotti_List_Container.loadAIREdit($(this))"
+                   class="mr-1 btn btn-sm {{$responseData['rAirInfo']['r_air_child']['status']=='approved'?'btn-outline-primary':'btn-outline-danger'}} btn-square" href="javascript:;">
+                    <i class="far fa-book"></i> এআইআর বিস্তারিত
+                </a>
+
+                @if($responseData['rAirInfo']['r_air_child']['status']=='approved')
+                    @if($responseData['rAirInfo']['r_air_child']['is_sent']== 0)
+                        <button data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                            class="btn btn-sm btn-square btn-primary btn-hover-primary air_sent_responsible_party"
+                                onclick="QAC_Apotti_List_Container.airSendToRpu($(this))">
+                            <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টিকে প্রেরণ করুন
+                        </button>
+                    @else
+                        <span class="badge badge-primary">
+                          <i class="fal fa-info text-white"></i>  রেস্পন্সিবল পার্টিকে প্রেরণ করা হয়েছে
+                        </span>
+                    @endif
+                @endif
+
+                <span class="text-warning ml-2 mt-2">
+                    {{empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement'])?'':'('.$responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_name_bn'].' এর কাছে প্রেরণ করা হয়েছে)'}}
+                </span>
             </div>
         </div>
     </div>
@@ -208,6 +219,21 @@
                     $(".offcanvas-wrapper").html(response);
                 }
             })
+        },
+
+        airSendToRpu: function (elem) {
+            let url = '{{route('audit.report.air.air-send-to-rpu')}}';
+            air_id = elem.data('air-report-id');
+            let data = {air_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        toastr.success(response.data);
+                        $('.air_sent_responsible_party').hide();
+                    }
+                }
+            );
         },
     };
 </script>
