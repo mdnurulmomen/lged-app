@@ -185,13 +185,13 @@
                 air_type = '{{$qac_type}}';
                 data = {air_report_id,air_type};
 
-                KTApp.block('#kt_content', {
+                KTApp.block('.content', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('.content');
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {

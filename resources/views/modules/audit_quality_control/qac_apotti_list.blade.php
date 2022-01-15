@@ -1,11 +1,13 @@
 <div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
     <div class="col-xl-12">
         <div class="row">
-            <div class="col-md-12">
-                <div class="d-flex justify-content-md-end">
-                    <span class="text-warning mt-2 mr-2">
+            <div class="col-md-6 mt-2">
+                <span class="text-warning ">
                         {{empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement'])?'':$responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_name_bn'].' এর কাছে প্রেরণ করা হয়েছে'}}
                     </span>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex justify-content-md-end">
                     <a data-qac-type="{{$qac_type}}"
                         data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                        onclick="QAC_Apotti_List_Container.loadAIREdit($(this))"
@@ -88,7 +90,7 @@
                 </button>
 
                 @if($responseData['rAirInfo']['r_air_child']['status'] != 'approved')
-                    @if(!empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement']) && $responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_designation_id'] == $current_designation_id)
+                    @if(empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement']) || $responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_designation_id'] == $current_designation_id)
                         <button class="btn btn-sm btn-outline-primary btn-square mr-1" title="QAC-01"
                                 data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                                 data-is-delete="{{$apotti['is_delete']}}"
