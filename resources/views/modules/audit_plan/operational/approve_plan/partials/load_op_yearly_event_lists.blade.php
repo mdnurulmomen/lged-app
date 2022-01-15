@@ -30,7 +30,7 @@
                             class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                             data-office-id="{{$event['office']['office_id']}}" data-office-name-bn="{{$event['office']['office_name_bn']}}"
                             onclick="Approve_Plan_List_Container.viewDirectorateWiseAnnualPlan($(this))"
-                            data-toggle="tooltip" data-placement="top" title="View Plan">
+                            title="View Plan">
                             <i class="fad fa-eye"></i>
                         </button>
 
@@ -40,7 +40,7 @@
                             data-office-id="{{$event['office']['office_id']}}"
                             data-office-name-bn="{{$event['office']['office_name_bn']}}"
                             onclick="Approve_Plan_List_Container.loadOpYearlyEventApprovalForm($(this))"
-                            data-toggle="tooltip" data-placement="top" title="View Approval Form">
+                            title="View Approval Form">
                             <i class="fad fa-check"></i>
                         </button>
                     </div>

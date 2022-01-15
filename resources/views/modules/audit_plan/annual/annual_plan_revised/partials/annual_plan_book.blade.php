@@ -784,8 +784,9 @@
     <div class="pdf-screen bangla-font" style="height: 100%">
         <div class="bangla-font" style="text-align: center;font-size: 12px;margin-top: 5px">
             {{$plan_infos['office_info']['office_name_bn']}} <br>
-            অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
-            সেগুন বাগিচা, ঢাকা-১০০০।
+            {{--অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
+            সেগুন বাগিচা, ঢাকা-১০০০।--}}
+            {{$directorateInfo['office_address']}}
         </div>
         <div class="bangla-font" style="text-align: center;font-size: 15px;margin-top: 5px">
             <span>
@@ -798,7 +799,7 @@
         </div>
 
         <div style="text-align: center;font-size: 15px;margin-top: 5px">
-            সেক্টর-০২ঃ
+            {{--সেক্টর-০২ঃ--}}
             @foreach(array_unique( array_column( $plan_infos['all_ministries'] , 'ministry_name_bn' )) as $ministry)
                 {{enTobn($loop->iteration)}} | {{$ministry}}
             @endforeach
@@ -826,10 +827,10 @@
                                     style="text-align: center">{{enTobn($milestone['milestone_calendar']['target_date'])}}</td>
                             </tr>
                         @endforeach
-                        <tr class="bangla-font">
+                        {{--<tr class="bangla-font">
                             <td class="bangla-font">নিরীক্ষা পরিদর্শন প্রতিবেদন (এআইআর) এর সংখ্যা</td>
                             <td class="bangla-font" style="text-align: center">{{enTobn(count($plan['annual_plans']))}} ({{numberConvertToBnWord(count($plan['annual_plans']))}}) টি</td>
-                        </tr>
+                        </tr>--}}
                     </table>
                 </div>
                 <div class="bangla-font" style="text-align: center;font-size: 12px;margin-top: 5px">
@@ -839,7 +840,7 @@
                 </div>
 
                 <div class="bangla-font" style="text-align: center;font-size: 15px;margin-top: 5px">
-                    বার্ষিক অডিট পরিকল্পনা(সেক্টর-০২)- অর্থ-বছরঃ{{enTobn($plan_infos['fiscal_year']['start'])}}
+                    বার্ষিক অডিট পরিকল্পনা{{--(সেক্টর-০২)--}}- অর্থ-বছরঃ{{enTobn($plan_infos['fiscal_year']['start'])}}
                     -{{enTobn($plan_infos['fiscal_year']['end'])}}ঃ
                     {{enTobn($loop->iteration)}} | {{$plan['ministries']['ministry_name_bn']}}
                 </div>
