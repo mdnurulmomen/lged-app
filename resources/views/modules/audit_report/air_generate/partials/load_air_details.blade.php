@@ -7,7 +7,7 @@
                     <button onclick="Report_AIR_Details_Container.loadApprovalAuthority()"
                             title="প্রাপক বাছাই করুন"
                             class="ml-2 btn btn-primary btn-sm btn-bold btn-square">
-                        <i class="fad fa-share-square"></i> প্রাপক বাছাই করুন
+                        <i class="fad fa-share-square"></i> প্রেরণ করুন
                     </button>
 
                     <button data-air-report-id="{{$air_report_id}}"
