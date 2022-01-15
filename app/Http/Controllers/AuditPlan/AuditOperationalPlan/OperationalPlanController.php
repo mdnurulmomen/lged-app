@@ -118,6 +118,7 @@ class OperationalPlanController extends Controller
 
         $directorateInfo = $this->initDoptorHttp()->post(config('cag_doptor_api.offices'), ['office_id' => $request->office_id])->json();
         $directorateInfo = $directorateInfo['status'] == 'success'?$directorateInfo['data']:[];
+        dd($directorateInfo);
 
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
