@@ -786,7 +786,7 @@
             {{$plan_infos['office_info']['office_name_bn']}} <br>
             {{--অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
             সেগুন বাগিচা, ঢাকা-১০০০।--}}
-            {{$directorateInfo[0]['office_address']}}
+            {{$directorate_address}}
         </div>
         <div class="bangla-font" style="text-align: center;font-size: 15px;margin-top: 5px">
             <span>

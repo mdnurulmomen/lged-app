@@ -121,16 +121,16 @@ class OperationalPlanController extends Controller
         dd($directorateInfo);*/
 
         if ($request->office_id == 19) {
-            $directorateInfo = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorate_address = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
         } elseif ($request->office_id == 32) {
-            $directorateInfo = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorate_address = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
         } else {
-            $directorateInfo = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorate_address = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
         }
 
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
-            return view('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos,'directorateInfo'=> $directorateInfo], [], ['orientation' => 'L', 'format' => 'A4']);
+            return view('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos,'directorate_address'=> $directorate_address], [], ['orientation' => 'L', 'format' => 'A4']);
         } else {
             return response()->json(['status' => 'error', 'data' => $plan_infos]);
         }
