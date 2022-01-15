@@ -3,7 +3,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="d-flex justify-content-md-end">
-                    <a data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                    <span class="text-warning mt-2 mr-2">
+                        {{empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement'])?'':$responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_name_bn'].' এর কাছে প্রেরণ করা হয়েছে'}}
+                    </span>
+                    <a data-qac-type="{{$qac_type}}"
+                        data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                        onclick="QAC_Apotti_List_Container.loadAIREdit($(this))"
                        class="mr-1 btn btn-sm {{$responseData['rAirInfo']['r_air_child']['status']=='approved'?'btn-outline-primary':'btn-outline-danger'}} btn-square" href="javascript:;">
                         <i class="far fa-book"></i> এআইআর
@@ -90,7 +94,7 @@
                             data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
                             data-qac-type="{{$qac_type}}"
                             onclick="Qac_Container.qacApotti($(this))">
-                        {{--<i class="fad fa-star-of-david"></i>--}} QAC-01
+                        {{strtoupper($qac_type)}}
                     </button>
 
                     <button class="mr-1 btn btn-sm btn-outline-warning btn-square" title="সম্পাদন করুন"
@@ -153,8 +157,9 @@
     var QAC_Apotti_List_Container = {
         loadAIREdit: function (elem) {
             url = '{{route('audit.report.air.qac.edit-air-report')}}';
+            qac_type = elem.data('qac-type');
             air_report_id = elem.data('air-report-id');
-            data = {air_report_id};
+            data = {qac_type,air_report_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

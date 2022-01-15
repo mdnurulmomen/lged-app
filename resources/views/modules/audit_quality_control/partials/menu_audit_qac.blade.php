@@ -34,15 +34,15 @@
             </x-parent-menu-item>--}}
 
             <x-menu-item class="qac_1_menu" href="{{url('audit-qac/qac/qac-1')}}"
-                         icon="fal fa-clipboard-list"> QAC-01
+                         icon="fad fa-books"> QAC-01
             </x-menu-item>
 
             <x-menu-item class="qac_2_menu" href="{{url('audit-qac/qac/qac-2')}}"
-                         icon="fal fa-clipboard-list"> QAC-02
+                         icon="fad fa-books"> QAC-02
             </x-menu-item>
 
-            <x-menu-item class="qac_2_menu" href="{{url('audit-qac/qac/qac-3')}}"
-                         icon="fal fa-clipboard-list"> CQAT
+            <x-menu-item class="qac_2_menu" href="{{url('audit-qac/qac/cqat')}}"
+                         icon="fad fa-books"> CQAT
             </x-menu-item>
         </ul>
     </div>

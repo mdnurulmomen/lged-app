@@ -122,18 +122,6 @@
 
     });
     var Apotti_Container = {
-        airSendToRpu: function (air_id) {
-            let url = '{{route('audit.report.air.air-send-to-rpu')}}';
-            let data = {air_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        toastr.success(response.data)
-                    }
-                }
-            );
-        },
         loadActivity: function (fiscal_year_id) {
             let url = '{{route('audit.plan.operational.activity.select')}}';
             let data = {fiscal_year_id};

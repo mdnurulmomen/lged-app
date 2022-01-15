@@ -4,6 +4,7 @@ use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentController;
 use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentScoreController;
 use App\Http\Controllers\AuditReport\AuditAIRReportController;
 use App\Http\Controllers\AuditReport\AuditAIRReportMovementController;
+use App\Http\Controllers\AuditReport\AuditQACAIRReportController;
 use App\Http\Controllers\Setting\XAuditAssessment\CriteriaController;
 use Illuminate\Support\Facades\Route;
 
@@ -482,11 +483,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             //for qac01
             Route::group(['as' => 'qac.', 'prefix' => 'qac/'], function () {
-                Route::post('edit-air-report', [AuditAIRReportController::class, 'editQACAirReport'])->name('edit-air-report');
-                Route::post('update-air-report', [AuditAIRReportController::class, 'updateQACAirReport'])->name('update-air-report');
-                Route::post('load-apotti-delete-view', [AuditAIRReportController::class, 'loadAirWiseApottiDeleteView'])->name('load-apotti-delete-view');
-                Route::post('delete-air-report-wise-apotti', [AuditAIRReportController::class, 'softDeleteAirReportWiseApotti'])->name('delete-air-report-wise-apotti');
-                Route::post('get-air-wise-qac-apotti', [AuditAIRReportController::class, 'getAirWiseQACApotti'])->name('get-air-wise-qac-apotti');
+                Route::post('edit-air-report', [AuditQACAIRReportController::class, 'editQACAirReport'])->name('edit-air-report');
+                Route::post('update-air-report', [AuditQACAIRReportController::class, 'updateQACAirReport'])->name('update-air-report');
+                Route::post('load-apotti-delete-view', [AuditQACAIRReportController::class, 'loadAirWiseApottiDeleteView'])->name('load-apotti-delete-view');
+                Route::post('delete-air-report-wise-apotti', [AuditQACAIRReportController::class, 'softDeleteAirReportWiseApotti'])->name('delete-air-report-wise-apotti');
+                Route::post('get-air-wise-qac-apotti', [AuditQACAIRReportController::class, 'getAirWiseQACApotti'])->name('get-air-wise-qac-apotti');
             });
             Route::post('air-send-to-rpu', [\App\Http\Controllers\AuditReport\RpuAirReportController::class, 'airSendToRpu'])->name('air-send-to-rpu');
         });

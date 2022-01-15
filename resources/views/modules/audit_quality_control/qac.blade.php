@@ -1,5 +1,5 @@
-<input type="hidden" id="qac_type" value="{{$qac_type}}">
 
+<input type="hidden" id="qac_type" value="{{$qac_type}}">
 <div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
@@ -38,7 +38,7 @@
             </div>--}}
 
             <div class="col-md-6">
-                <label for="">কিউসি ০১ এর জন্য প্রেরিত প্রিলিমিনারি এআইআর এর তালিকা</label>
+                <label for="">{{$qac_type_name_bn}} এর জন্য প্রেরিত প্রিলিমিনারি এআইআর এর তালিকা</label>
                 <select class="form-select select-select2" id="preliminary_air_filter">
                     <option value="">প্রিলিমিনারি এআইআর</option>
                 </select>
@@ -114,7 +114,8 @@
 
         loadPreliminaryAIRList: function (audit_plan_id) {
             let url = '{{route('audit.execution.apotti.audit-plan-wise-preliminary-air')}}';
-            let data = {audit_plan_id};
+            let qac_type = '{{$qac_type}}';
+            let data = {qac_type,audit_plan_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
@@ -260,11 +261,12 @@
                 } else {
                     toastr.success(response.data);
                     $('#kt_quick_panel_close').click();
-                    if(qac_type == 'qac-1'){
+                    $('#btn_filter').click();
+                    /*if(qac_type == 'qac-1'){
                         $('.qac_1_menu a').trigger('click');
                     }else{
                         $('.qac_2_menu a').trigger('click');
-                    }
+                    }*/
 
                 }
             });

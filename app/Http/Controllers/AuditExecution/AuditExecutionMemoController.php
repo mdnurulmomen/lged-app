@@ -262,7 +262,7 @@ class AuditExecutionMemoController extends Controller
         $memoSendToRpu = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.send_to_rpu'), $data)->json();
 //        dd($memoSendToRpu);
         if (isSuccess($memoSendToRpu)) {
-            return response()->json(['status' => 'success', 'data' => 'Successfully! Memo has been saved']);
+            return response()->json(['status' => 'success', 'data' => 'Memo has been sent to RPU successfully']);
         } else {
             return response()->json(['status' => 'error', 'data' => $memoSendToRpu]);
         }

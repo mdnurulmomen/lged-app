@@ -40,19 +40,17 @@
                 @endif
             @endif
 
-                <button class="btn btn-sm btn-square btn-info btn-hover-info"
-                        data-air-id="{{$air_report_id}}"
-                        onclick="QAC_AIR_Report_Container.previewAirReport($(this))">
-                    <i class="fad fa-search"></i> Preview
-                </button>
+            <button class="btn btn-sm btn-square btn-info btn-hover-info"
+                    data-air-id="{{$air_report_id}}"
+                    onclick="QAC_AIR_Report_Container.previewAirReport($(this))">
+                <i class="fad fa-search"></i> Preview
+            </button>
 
-            @if($approved_status != 'approved')
-                <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
-                        data-air-id="{{$air_report_id}}"
-                        onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
-                    <i class="fas fa-save"></i> Update
-                </button>
-            @endif
+            <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
+                    data-air-id="{{$air_report_id}}"
+                    onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
+                <i class="fas fa-save"></i> Update
+            </button>
         </div>
     </div>
 
@@ -109,10 +107,7 @@
             },
 
             previewAirReport: function () {
-                let approved_status = '{{$approved_status}}';
-                if (approved_status != 'approved'){
-                    $('.update-qac-air-report').click();
-                }
+                $('.update-qac-air-report').click();
                 air_description = templateArray;
                 scope = 'preview';
                 data = {scope,air_description};
@@ -142,10 +137,9 @@
 
             insertAuditApottiSummary: function () {
                 url = '{{route('audit.report.air.qac.get-air-wise-qac-apotti')}}';
-                qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'summary';
                 air_id = '{{$air_report_id}}';
-                let data = {qac_type,apotti_view_scope,air_id};
+                let data = {apotti_view_scope,air_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.error(response.data);
@@ -159,10 +153,9 @@
 
             insertAuditApottiDetails: function () {
                 url = '{{route('audit.report.air.qac.get-air-wise-qac-apotti')}}';
-                qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'details';
                 air_id = '{{$air_report_id}}';
-                let data = {qac_type,apotti_view_scope,air_id};
+                let data = {apotti_view_scope,air_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.error(response.data);
@@ -176,7 +169,7 @@
             loadApprovalAuthority: function () {
                 url = '{{route('audit.report.air.get-approval-authority')}}';
                 air_report_id = '{{$air_report_id}}';
-                air_type = '{{$qac_type}}';
+                air_type = 'qac-1';
                 data = {air_report_id,air_type};
 
                 KTApp.block('#kt_content', {
@@ -189,7 +182,7 @@
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {
-                        $(".offcanvas-title").text('');
+                        $(".offcanvas-title").text('প্রাপক বাছাই করুন');
                         quick_panel = $("#kt_quick_panel");
                         quick_panel.addClass('offcanvas-on');
                         quick_panel.css('opacity', 1);

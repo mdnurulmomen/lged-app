@@ -1,9 +1,10 @@
 <!--begin::Table-->
 <div class="row">
     <div class="col-md-12 officers_list_area">
-        <h5 class="mt-2 mb-4">{{!empty($last_air_movement)?$last_air_movement['receiver_employee_name_bn'].' ('.$last_air_movement['receiver_employee_designation_bn'].') কাছে প্রেরিত হয়েছে।':''}}</h5>
+        <h5 class="mt-2 mb-4">{{!empty($last_air_movement)?$last_air_movement['receiver_employee_name_bn'].' ('.$last_air_movement['receiver_employee_designation_bn'].') এর কাছে প্রেরণ করা হয়েছে':''}}</h5>
+        <label class="col-form-label">প্রাপক বাছাই করুন</label>
         <div class="rounded-0" id="approvalAuthorityTree"
-             style="overflow-y: scroll; height: 50vh">
+             style="overflow-y: scroll; height: 20vh">
             <ul>
                 @foreach($officer_lists as $key => $officer_list)
                     @foreach($officer_list['units'] as $unit)
@@ -118,7 +119,11 @@
                 if (response.status === 'success') {
                     toastr.success('সফলভাবে প্রেরণ করা হয়েছে');
                     $('#kt_quick_panel_close').click();
-                    AIR_Container.loadAuditPlanList();
+                    $(".load_approval_authority").hide();
+                    let air_type = '{{$air_type}}'
+                    if(air_type === 'preliminary'){
+                        AIR_Container.loadAuditPlanList();
+                    }
                 }
                 else {
                     if (response.statusCode === '422') {

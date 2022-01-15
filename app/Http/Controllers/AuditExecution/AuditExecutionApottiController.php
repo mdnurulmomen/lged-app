@@ -201,9 +201,11 @@ class AuditExecutionApottiController extends Controller
     }
 
     public function auditPlanWisePreliminaryAir(Request $request){
+        $data['qac_type'] = $request->qac_type;
         $data['audit_plan_id'] = $request->audit_plan_id;
         $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_approve_preliminary_air'), $data)->json();
+        //dd($responseData);
         $preliminaryAIRList = isSuccess($responseData)?$responseData['data']:[];
         return view('modules.audit_execution.audit_execution_apotti.plan_wise_preliminary_air_select',
             compact('preliminaryAIRList'));

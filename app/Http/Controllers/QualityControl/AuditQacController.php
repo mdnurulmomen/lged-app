@@ -16,8 +16,18 @@ class AuditQacController extends Controller
     public function index($qac_type)
     {
         //dd($qac_type);
+        if($qac_type=='qac-1'){
+            $qac_type_name_bn = 'কিউএসি ১';
+        }elseif ($qac_type=='qac-2'){
+            $qac_type_name_bn = 'কিউএসি ২';
+        }
+        else{
+            $qac_type_name_bn = '';
+        }
+
         $fiscal_years = $this->allFiscalYears();
-        return view('modules.audit_quality_control.qac',compact('fiscal_years','qac_type'));
+        return view('modules.audit_quality_control.qac',compact('fiscal_years',
+            'qac_type','qac_type_name_bn'));
     }
 
     public function loadApottiQacList(Request $request){
@@ -86,10 +96,10 @@ class AuditQacController extends Controller
             'cdesk' => $this->current_desk_json(),
             'apotti_type' => $request->apotti_type,
             'qac_type' => $request->qac_type,
-            'is_same_porishisto' => $request->is_same_porishisto,
-            'is_rules_and_regulation' => $request->is_rules_and_regulation,
-            'is_imperfection' => $request->is_imperfection,
-            'is_risk_analysis' => $request->is_risk_analysis,
+            'is_same_porishisto' => $request->is_same_porishisto ?? 0,
+            'is_rules_and_regulation' => $request->is_rules_and_regulation ?? 0,
+            'is_imperfection' => $request->is_imperfection ?? 0,
+            'is_risk_analysis' => $request->is_risk_analysis ?? 0,
             'is_broadsheet_response' => empty($request->is_broadsheet_response)?0:$request->is_broadsheet_response,
             'apotti_id' => $request->apotti_id,
             'comment' => $request->comment,
