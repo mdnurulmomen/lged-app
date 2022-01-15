@@ -65,18 +65,7 @@
                 </div>
             </div>
         </div>
-        <div id="daak_pagination_panel" class="float-right d-flex align-items-center" style="vertical-align:middle;">
-                <span class="mr-2"><span id="daak_item_length_start">১</span> - <span id="daak_item_length_end">৫</span> সর্বমোট: <span
-                        id="daak_item_total_record">৫</span></span>
-            <div class="btn-group">
-                <button class="btn-list-prev btn btn-icon btn-secondary btn-square" disabled="disabled" type="button"><i
-                        class="fad fa-chevron-left" data-toggle="popover" data-content="পূর্ববর্তী"
-                        data-original-title="" title=""></i></button>
-                <button class="btn-list-next btn btn-icon btn-secondary btn-square" type="button" disabled="disabled"><i
-                        class="fad fa-chevron-right" data-toggle="popover" data-content="পরবর্তী" data-original-title=""
-                        title=""></i></button>
-            </div>
-        </div>
+        <x-paginate from="{{$all_entities['from']}}" to="{{$all_entities['to']}}" total="{{$all_entities['total']}}" appLocale="{{app()->getLocale()}}" extraClass="" callbackFunction="A"></x-paginate>
     </div>
 
     {{--list view--}}
@@ -140,12 +129,12 @@
                                                title="প্ল্যান-{{enTobn($audit_plans['id'])}} বিস্তারিত দেখুন"
                                                class="badge-square rounded-0 badge d-flex align-items-center
                                                alert-{{$audit_plans['office_order'] == null || $audit_plans['office_order']['approved_status'] !='approved'?'danger':'success'}}
-                                                                font-weight-normal mr-1 border decision"
+                                                   font-weight-normal mr-1 border decision"
                                                data-audit-plan-id="{{$audit_plans['id']}}"
                                                data-fiscal-year-id="{{$audit_plans['fiscal_year_id']}}"
                                                data-annual-plan-id="{{$audit_plans['annual_plan_id']}}"
                                                onclick="Audit_Plan_Container.loadAuditPlanBookEditable($(this))">
-                                              <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
+                                                <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
                                                 প্ল্যান: {{enTobn($audit_plans['id'])}}
                                             </a>
                                         @endforeach
