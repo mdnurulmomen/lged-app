@@ -116,9 +116,9 @@ class OperationalPlanController extends Controller
 
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
 
-        $directorateInfo = $this->initDoptorHttp()->post(config('cag_doptor_api.offices'), ['office_id' => $request->office_id])->json();
+        $directorateInfo = $this->initDoptorHttp()->post(config('cag_doptor_api.offices'), ['office_ids' => $request->office_id])->json();
         $directorateInfo = $directorateInfo['status'] == 'success'?$directorateInfo['data']:[];
-        dd($directorateInfo);
+        //dd($directorateInfo);
 
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
