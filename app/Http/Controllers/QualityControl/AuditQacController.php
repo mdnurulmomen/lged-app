@@ -58,7 +58,9 @@ class AuditQacController extends Controller
         $responseData = isSuccess($responseData)?$responseData['data']:[];
         //dd($responseData);
         $qac_type = $request->qac_type;
-        return view('modules.audit_quality_control.qac_apotti_list',compact('responseData','qac_type'));
+        $current_designation_id = $this->current_designation_id();
+        return view('modules.audit_quality_control.qac_apotti_list',compact('responseData',
+            'qac_type','current_designation_id'));
     }
 
     public function qacApotti(Request $request){

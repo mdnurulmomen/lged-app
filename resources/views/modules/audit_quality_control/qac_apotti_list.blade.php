@@ -88,20 +88,22 @@
                 </button>
 
                 @if($responseData['rAirInfo']['r_air_child']['status'] != 'approved')
-                    <button class="btn btn-sm btn-outline-primary btn-square mr-1" title="QAC-01"
-                            data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
-                            data-is-delete="{{$apotti['is_delete']}}"
-                            data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
-                            data-qac-type="{{$qac_type}}"
-                            onclick="Qac_Container.qacApotti($(this))">
-                        {{strtoupper($qac_type)}}
-                    </button>
+                    @if(!empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement']) && $responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_designation_id'] == $current_designation_id)
+                        <button class="btn btn-sm btn-outline-primary btn-square mr-1" title="QAC-01"
+                                data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                                data-is-delete="{{$apotti['is_delete']}}"
+                                data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
+                                data-qac-type="{{$qac_type}}"
+                                onclick="Qac_Container.qacApotti($(this))">
+                            {{strtoupper($qac_type)}}
+                        </button>
 
-                    <button class="mr-1 btn btn-sm btn-outline-warning btn-square" title="সম্পাদন করুন"
-                            data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
-                            onclick="Qac_Container.editApotti($(this))">
-                        <i class="fad fa-pencil"></i> সম্পাদন
-                    </button>
+                        <button class="mr-1 btn btn-sm btn-outline-warning btn-square" title="সম্পাদন করুন"
+                                data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
+                                onclick="Qac_Container.editApotti($(this))">
+                            <i class="fad fa-pencil"></i> সম্পাদন
+                        </button>
+                    @endif
 
                     {{--@if($apotti['is_delete'] == 1)
                         <button class="mr-1 btn btn-sm btn-outline-danger btn-square" title="মুছে ফেলুন"

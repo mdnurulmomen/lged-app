@@ -60,6 +60,7 @@
             <td>
                 <input
                     type="checkbox"
+                    {{$apotti['air_generate_type'] == 'preliminary'?'disabled':''}}
                     data-sequence="{{$apotti['apotti_sequence']}}"
                     value="{{$apotti['id']}}"
                     class="select-apotti">
@@ -87,11 +88,14 @@
                         onclick="Apotti_Container.showApotti($(this))">
                     <i class="fad fa-eye"></i>বিস্তারিত
                 </button>
-                <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
-                        data-apotti-id="{{$apotti['id']}}"
-                        onclick="Apotti_Container.editApotti($(this))">
-                    <i class="fad fa-pencil"></i>সম্পাদনা
-                </button>
+                
+                @if($apotti['air_generate_type'] != 'preliminary')
+                    <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
+                            data-apotti-id="{{$apotti['id']}}"
+                            onclick="Apotti_Container.editApotti($(this))">
+                        <i class="fad fa-pencil"></i>সম্পাদনা
+                    </button>
+                @endif
             </td>
         </tr>
     @empty
