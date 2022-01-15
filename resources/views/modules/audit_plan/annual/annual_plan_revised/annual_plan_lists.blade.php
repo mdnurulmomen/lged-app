@@ -231,25 +231,33 @@
         },
 
         deletePlan: function (elem) {
-            annual_plan_id = elem.data('annual-plan-id');
-            data = {annual_plan_id}
-            KTApp.block('#kt_content');
-            let url = '{{route('audit.plan.annual.plan.revised.delete_annual_plan')}}'
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
-                if (response.status === 'error') {
-                    toastr.error(response.data)
-                } else {
-                    $(".offcanvas-title").text('Annual Plan');
-                    quick_panel = $("#kt_quick_panel");
-                    quick_panel.addClass('offcanvas-on');
-                    quick_panel.css('opacity', 1);
-                    quick_panel.css('width', '40%');
-                    quick_panel.removeClass('d-none');
-                    $("html").addClass("side-panel-overlay");
-                    $(".offcanvas-wrapper").html(response);
+            swal.fire({
+                title: 'আপনি কি তথ্যটি মুছে ফেলতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+
+                    annual_plan_id = elem.data('annual-plan-id');
+                    data = {annual_plan_id}
+                    KTApp.block('#kt_content');
+                    let url = '{{route('audit.plan.annual.plan.revised.delete_annual_plan')}}'
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        KTApp.unblock('#kt_content');
+                        if (response.status === 'error') {
+                            toastr.error(response.data);
+                        } else {
+                            toastr.success(response.data);
+                            $('.annual_plan_menu a').click();
+                        }
+                    });
+
                 }
             });
+
         },
 
         loadActivityWiseMilestone: function (activity_id, milestone_id = 0) {

@@ -210,15 +210,23 @@
                                                     onclick="Annual_Plan_Container.showPlanInfo($(this))">
                                                 <i class="fad fa-eye"></i> বিস্তারিত
                                             </button>
-{{--                                            @if($approval_status != 'approved')--}}
-                                            <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
-                                                    data-annual-plan-id="{{$plan['id']}}"
-                                                    data-fiscal-year-id="{{$fiscal_year_id}}"
-                                                    data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                                                    onclick="Annual_Plan_Container.editPlanInfo($(this))">
-                                                <i class="fad fa-edit"></i> সম্পাদনা
-                                            </button>
-{{--                                            @endif--}}
+                                            @if($approval_status == 'draft' || $approval_status == 'reject')
+                                                <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
+                                                        data-annual-plan-id="{{$plan['id']}}"
+                                                        data-fiscal-year-id="{{$fiscal_year_id}}"
+                                                        data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
+                                                        onclick="Annual_Plan_Container.editPlanInfo($(this))">
+                                                    <i class="fad fa-edit"></i> সম্পাদনা
+                                                </button>
+                                                <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="সম্পাদনা করুন"
+                                                        data-annual-plan-id="{{$plan['id']}}"
+                                                        data-fiscal-year-id="{{$fiscal_year_id}}"
+                                                        data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
+                                                        onclick="Annual_Plan_Container.deletePlan($(this))">
+                                                    <i class="fad fa-trash"></i> বাতিল করুন
+                                                </button>
+                                            @endif
+
                                         </div>
                                         <div>
                                             <div class="mb-2 mt-3">

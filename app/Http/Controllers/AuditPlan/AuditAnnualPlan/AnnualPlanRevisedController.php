@@ -343,9 +343,14 @@ class AnnualPlanRevisedController extends Controller
 
         $data['cdesk'] = $this->current_desk_json();
 
-        $annual_plan_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_annual_plan_info'),
+        $delete_annual_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.delete_annual_plan'),
             $data)->json();
-//        dd($request->all());
+
+        if (isSuccess($delete_annual_plan)) {
+            return response()->json(['status' => 'success', 'data' => $delete_annual_plan['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $delete_annual_plan]);
+        }
     }
 
     public function exportAnnualPlanBook(Request $request)
