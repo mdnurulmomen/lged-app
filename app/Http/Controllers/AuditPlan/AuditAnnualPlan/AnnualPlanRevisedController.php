@@ -173,13 +173,11 @@ class AnnualPlanRevisedController extends Controller
                 'office_type' => 'nullable',
                 'office_type_en' => 'nullable',
                 'office_type_id' => 'nullable',
-                'total_selected_unit_no' => 'required',
                 'subject_matter' => 'required|string',
                 'total_unit_no' => 'required|string',
                 'staff_comment' => 'sometimes',
                 'staff_info' => 'sometimes',
                 'budget' => 'nullable|string',
-                'cost_center_total_budget' => 'nullable',
             ])->validate();
 
             $data = [

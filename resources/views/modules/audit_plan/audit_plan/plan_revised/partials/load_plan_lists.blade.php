@@ -182,6 +182,10 @@
                                                     onclick="Audit_Plan_Container.showTeamDataCollectionCreateModal($(this));">
                                                 <i class="fa fa-database" aria-hidden="true"></i>
                                                 প্রাইমারি ডাটা কালেকশন
+                                                @if($annual_plan['has_dc_schedule'])
+                                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                                @endif
+
                                             </button>
 
                                             <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
