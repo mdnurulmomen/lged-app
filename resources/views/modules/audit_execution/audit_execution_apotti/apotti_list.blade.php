@@ -88,7 +88,7 @@
                         onclick="Apotti_Container.showApotti($(this))">
                     <i class="fad fa-eye"></i>বিস্তারিত
                 </button>
-                
+
                 @if($apotti['air_generate_type'] != 'preliminary')
                     <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
                             data-apotti-id="{{$apotti['id']}}"

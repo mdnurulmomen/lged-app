@@ -77,12 +77,13 @@ class AuditQACAIRReportController extends Controller
             $approved_status = $airReport['status'];
             $latest_receiver_designation_id = empty($airReport['latest_r_air_movement'])?0:$airReport['latest_r_air_movement']['receiver_employee_designation_id'];
             $current_designation_id = $this->current_designation_id();
+            $is_sent = $airReport['is_sent'];
             $qac_type = $request->qac_type;
             //dd($current_designation_id);
 
             return view('modules.audit_quality_control.qac_01.edit',
                 compact('content','air_report_id','approved_status',
-                'latest_receiver_designation_id','current_designation_id','qac_type'));
+                'latest_receiver_designation_id','current_designation_id','is_sent','qac_type'));
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];

@@ -26,10 +26,16 @@
         </div>
         <div class="col-md-6 text-right">
             @if($approved_status == 'approved')
-                <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
-                        onclick="QAC_AIR_Report_Container.airSendToRpu()">
-                    <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টিকে প্রেরণ করুন
-                </button>
+                @if($is_sent == 0)
+                    <button class="btn btn-sm btn-square btn-primary btn-hover-primary air_sent_responsible_party"
+                            onclick="QAC_AIR_Report_Container.airSendToRpu()">
+                        <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টিকে প্রেরণ করুন
+                    </button>
+                @else
+                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning">
+                        রেস্পন্সিবল পার্টিকে প্রেরণ করা হয়েছে
+                    </button>
+                @endif
             @else
                 @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
                     <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
@@ -209,7 +215,8 @@
                         if (response.status === 'error') {
                             toastr.warning(response.data)
                         } else {
-                            toastr.success(response.data)
+                            toastr.success(response.data);
+                            $('.air_sent_responsible_party').hide();
                         }
                     }
                 );
