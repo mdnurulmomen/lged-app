@@ -126,7 +126,7 @@
                                         <span class="font-size-14">
                                                 অডিট প্ল্যান {{enTobn($audit_plan['id'])}}
                                             </span>
-                                        <span title="প্রতিষ্ঠানের ইউনিটের সংখ্যা" class="label label-outline-danger label-pill label-inline">
+                                        <span class="label label-outline-danger label-pill label-inline">
                                                 {{$audit_plan['office_order'] != null? ucfirst($audit_plan['office_order']['approved_status']):'অফিস অর্ডার তৈরি হয়নি'}}
                                             </span>
                                     </div>

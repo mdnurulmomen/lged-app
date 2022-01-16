@@ -34,7 +34,7 @@
         <div class="col-md-6">
             <label for="ministry_id" class="col-form-label">মন্ত্রণালয়/বিভাগ<span class="text-danger">*</span></label>
             <select class="form-control select-select2" name="ministry_id" id="ministry_id">
-                <option value="0">বাছাই করুন</option>
+                <option value="">বাছাই করুন</option>
                 @foreach($ministries as $ministry)
                     <option value="{{$ministry['id']}}">{{$ministry['name_bng']}}</option>
                 @endforeach
@@ -48,7 +48,7 @@
         <div class="col-md-6">
             <label class="col-form-label">ক্যাটাগরি<span class="text-danger">*</span></label>
             <select class="form-control select-select2" name="category_id" id="category_id">
-                <option value="0">বাছাই করুন</option>
+                <option value="">বাছাই করুন</option>
                 @foreach($categories as $category)
                     <option value="{{$category['id']}}" data-category-title-en="{{$category['category_title_en']}}"
                             data-category-title-bn="{{$category['category_title_bn']}}">{{$category['category_title_bn']}}</option>

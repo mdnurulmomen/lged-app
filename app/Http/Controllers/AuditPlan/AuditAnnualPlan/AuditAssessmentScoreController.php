@@ -89,6 +89,21 @@ class AuditAssessmentScoreController extends Controller
 
     public function store(Request $request)
     {
+        Validator::make($request->all(), [
+            'category_id' => 'required|integer',
+            'fiscal_year_id' => 'required',
+            'ministry_id' => 'required',
+            'entity_id' => 'required',
+            'point' => 'required',
+        ],
+        [
+            'category_id.required'  => 'Category is required',
+            'fiscal_year_id.required'  => 'Fiscal year is required',
+            'ministry_id.required'  => 'Ministry is required',
+            'entity_id.required'  => 'Entity is required',
+            'point.required'  => 'Point is required',
+        ])->validate();
+
         $data['cdesk'] = $this->current_desk_json();
         $data['category_id'] = $request->category_id;
         $data['category_title_en'] = $request->category_title_en;

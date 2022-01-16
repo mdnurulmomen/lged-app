@@ -124,26 +124,27 @@
             url = '{{route('audit.plan.annual.audit-assessment.store')}}';
             data = $('#generate_form').serialize();
 
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
-                if (response.status === 'success') {
-                    toastr.success('Successfully Added!');
-                    let fiscal_year_id = $("#fiscal_year_id").val();
-                    Assessment_Score_Container.list(fiscal_year_id);
-                } else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
-                            if (v !== '') {
-                                toastr.error(v);
-                            }
-                        });
+            const isAllZeroFirstHalf = first_half_data.every(item => item === 0);
+            const isAllZeroSecondHalf = second_half_data.every(item => item === 0);
+
+            if (isAllZeroFirstHalf === false || isAllZeroSecondHalf === false){
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('#kt_content');
+                    if (response.status === 'success') {
+                        toastr.success('Successfully Added!');
+                        let fiscal_year_id = $("#fiscal_year_id").val();
+                        Assessment_Score_Container.list(fiscal_year_id);
                     } else {
                         toastr.error(response.data.message);
                     }
-                }
-            })
+                })
+            }else {
+                KTApp.unblock('#kt_content');
+                toastr.error('Please choose activity');
+            }
         },
+
+
         storeAnnualPlan: function () {
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -175,25 +176,24 @@
             url = '{{route('audit.plan.annual.audit-assessment.store_annual_plan')}}';
             data = $('#generate_form').serialize();
 
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
-                if (response.status === 'success') {
-                    toastr.success('Successfully Added!');
-                    let fiscal_year_id = $("#fiscal_year_id").val();
-                    Assessment_Score_Container.list(fiscal_year_id);
-                } else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
-                            if (v !== '') {
-                                toastr.error(v);
-                            }
-                        });
+            const isAllZeroFirstHalf = first_half_data.every(item => item === 0);
+            const isAllZeroSecondHalf = second_half_data.every(item => item === 0);
+
+            if (isAllZeroFirstHalf === false || isAllZeroSecondHalf === false){
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('#kt_content');
+                    if (response.status === 'success') {
+                        toastr.success('Successfully Added!');
+                        let fiscal_year_id = $("#fiscal_year_id").val();
+                        Assessment_Score_Container.list(fiscal_year_id);
                     } else {
                         toastr.error(response.data.message);
                     }
-                }
-            })
+                })
+            }else {
+                KTApp.unblock('#kt_content');
+                toastr.error('Please choose activity');
+            }
         }
     }
 </script>
