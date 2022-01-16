@@ -70,7 +70,7 @@
                         <tr class="criteria_row">
                             <td>
                                 <input type="hidden" name="criteria_ids[]" value="{{$item['id']}}" class="criteria_id">
-                                {{$item['criteria']['category_title_bn']}}
+                                {{$item['criteria']['name_bn']}}
                             </td>
                             <td><input type="text" value="{{$item['value']}}" name="values[]" class="form-control"></td>
                             <td><input type="number" min="0" max="5" value="{{$item['score']}}" name="scores[]" onkeyup="if(this.value > 5 || this.value < 0) this.value = null;" class="form-control score"></td>
