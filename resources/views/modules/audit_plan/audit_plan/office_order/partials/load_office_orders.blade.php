@@ -83,7 +83,7 @@
     <div>
         <ul class="list-group list-group-flush">
             @foreach($audit_plans['data'] as $audit_plan)
-                @if($audit_plan['office_order'])
+                @if($audit_plan['office_order'] != null)
                     <li class="list-group-item py-2 border-bottom">
                         <div class="d-flex justify-content-between align-items-start">
                             <div class="pr-2 flex-fill cursor-pointer position-relative">
