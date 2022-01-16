@@ -11,43 +11,47 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($event_list as $event)
-            @if(!empty($event['office']))
-            <tr>
-                <td>{{$loop->iteration}}</td>
-                <td>{{$event['office']['office_name_bn']}}
-                    <span class="badge badge-info text-uppercase m-1 p-1">{{$event['approval_status']}}</span>
-                </td>
-                <td>
-                    {{$event['activity_count']}}
-                </td>
-                <td>
-                    {{$event['milestone_count']}}
-                </td>
-                <td>
-                    <div class='btn-group btn-group-sm' role='group'>
-                        <button
-                            class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
-                            data-office-id="{{$event['office']['office_id']}}" data-office-name-bn="{{$event['office']['office_name_bn']}}"
-                            onclick="Approve_Plan_List_Container.viewDirectorateWiseAnnualPlan($(this))"
-                            title="View Plan">
-                            <i class="fad fa-eye"></i>
-                        </button>
+        @if(!empty($event_list))
+            @foreach($event_list as $event)
+                @if(!empty($event['office']))
+                    <tr>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{$event['office']['office_name_bn']}}
+                            <span class="badge badge-info text-uppercase m-1 p-1">{{$event['approval_status']}}</span>
+                        </td>
+                        <td>
+                            {{$event['activity_count']}}
+                        </td>
+                        <td>
+                            {{$event['milestone_count']}}
+                        </td>
+                        <td>
+                            <div class='btn-group btn-group-sm' role='group'>
+                                <button
+                                    class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                    data-office-id="{{$event['office']['office_id']}}" data-office-name-bn="{{$event['office']['office_name_bn']}}"
+                                    onclick="Approve_Plan_List_Container.viewDirectorateWiseAnnualPlan($(this))"
+                                    title="View Plan">
+                                    <i class="fad fa-eye"></i>
+                                </button>
 
-                        <button
-                            class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
-                            data-op-audit-calendar-event-id="{{$event['event_id']}}"
-                            data-office-id="{{$event['office']['office_id']}}"
-                            data-office-name-bn="{{$event['office']['office_name_bn']}}"
-                            onclick="Approve_Plan_List_Container.loadOpYearlyEventApprovalForm($(this))"
-                            title="View Approval Form">
-                            <i class="fad fa-check"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            @endif
-        @endforeach
+                                <button
+                                    class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                    data-op-audit-calendar-event-id="{{$event['event_id']}}"
+                                    data-office-id="{{$event['office']['office_id']}}"
+                                    data-office-name-bn="{{$event['office']['office_name_bn']}}"
+                                    onclick="Approve_Plan_List_Container.loadOpYearlyEventApprovalForm($(this))"
+                                    title="View Approval Form">
+                                    <i class="fad fa-check"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                @endif
+            @endforeach
+        @else
+            <tr><td colspan="5">No data found</td></tr>
+        @endif
         </tbody>
     </table>
 </div>

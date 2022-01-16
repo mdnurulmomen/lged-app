@@ -89,13 +89,17 @@ class OperationalPlanController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $event_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_event_lists'), $data)->json();
-        dd($event_list);
-        if (isSuccess($event_list)) {
+        //dd($event_list);
+        /*if (isSuccess($event_list)) {
             $event_list = $event_list['data'];
             return view('modules.audit_plan.operational.approve_plan.partials.load_op_yearly_event_lists',compact('event_list'));
         } else {
             return response()->json(['status' => 'error', 'data' => $event_list]);
-        }
+        }*/
+
+        $event_list = $event_list['data'];
+        return view('modules.audit_plan.operational.approve_plan.partials.load_op_yearly_event_lists',compact('event_list'));
+
     }
 
     public function loadOpYearlyEventApprovalForm(Request $request)
