@@ -27,7 +27,7 @@
 </table>
 
 <script>
-    $(".score").keyup(calculateTotal);
+    $(".score").change(calculateTotal);
 
     function calculateTotal() {
         let finalTotalScore = 0;

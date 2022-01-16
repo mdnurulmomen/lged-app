@@ -29,7 +29,7 @@
                                         </span>
                                     </div>
                                     <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">মোট পয়েন্টঃ</span>
+                                        <span class="mr-2 font-size-1-1">পয়েন্টঃ</span>
                                         <span class="description text-info text-wrap font-size-14">
                                             {{enTobn($score['point'])}}
                                         </span>
