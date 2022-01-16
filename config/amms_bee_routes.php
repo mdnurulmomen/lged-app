@@ -294,7 +294,7 @@ return [
             'get_audit_apotti' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-apotti',
             'store_air_movement' => env('API_URL_BEE', '') . '/audit-report/air/store-air-movement',
             'get_air_last_movement' => env('API_URL_BEE', '') . '/audit-report/air/get-air-last-movement',
-            'get_approve_preliminary_air' => env('API_URL_BEE', '') . '/audit-report/air/get-approve-preliminary-air',
+            'get_audit_plan_type_wise_air' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-plan-and-type-wise-air',
             'delete_air_report_wise_apotti' => env('API_URL_BEE', '') . '/audit-report/air/delete-air-report-wise-apotti',
             'air_send_to_rpu' => env('API_URL_BEE', '') . '/audit-report/air/air-send-to-rpu',
         ],

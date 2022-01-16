@@ -1,19 +1,17 @@
 @extends('layouts.master')
 @section('title')
-    Audit Execution
+    Dashboard
 @endsection
 
 @section('styles')
 @endsection
 
 @section('sideMenu')
-    @if(session('_module_menus') != null)
-        @include('layouts.partials._sidenav')
-    @endif
+    @include('modules.audit_quality_control.partials.menu_audit_qac')
 @endsection
 
 @section('content')
-
+    <h1 class="text-center">Audit QAC</h1>
 @endsection
 
 @section('scripts')

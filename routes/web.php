@@ -5,6 +5,7 @@ use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentScoreControlle
 use App\Http\Controllers\AuditReport\AuditAIRReportController;
 use App\Http\Controllers\AuditReport\AuditAIRReportMovementController;
 use App\Http\Controllers\AuditReport\AuditQACAIRReportController;
+use App\Http\Controllers\QualityControl\QACController;
 use App\Http\Controllers\Setting\XAuditAssessment\CriteriaController;
 use Illuminate\Support\Facades\Route;
 
@@ -398,7 +399,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('edit-apotti', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'editApotti'])->name('edit-apotti');
             Route::post('update-apotti', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'updateApotti'])->name('update-apotti');
             Route::post('audit-plan-wise-entity', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'auditPlanWiseEntitySelect'])->name('audit-plan-wise-entity-select');
-            Route::post('audit-plan-wise-preliminary-air', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'auditPlanWisePreliminaryAir'])->name('audit-plan-wise-preliminary-air');
+            Route::post('audit-plan-type-wise-air', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'auditPlanTypeWiseAir'])->name('audit-plan-type-wise-air');
             Route::post('apotti-item-info', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'apottiItemInfo'])->name('apotti-item-info');
         });
     });
@@ -406,10 +407,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     //Quality Control
     Route::group(['as' => 'audit.qac.', 'prefix' => 'audit-qac/'], function () {
 
-        Route::get('/', function () {
+        /*Route::get('/', function () {
             return redirect()->route('audit.qac.dashboard');
-        });
+        });*/
 
+        Route::get('/', [QACController::class, 'index'])->name('index');
         Route::get('dashboard', [\App\Http\Controllers\QualityControl\AuditQacDashboardController::class, 'index'])->name('dashboard');
         Route::get('qac/{any}', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'index'])->name('qac');
         Route::post('qac-apotti-list', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'loadApottiQacList'])->name('qac-apotti-list');

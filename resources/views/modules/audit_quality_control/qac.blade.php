@@ -112,8 +112,8 @@
             );
         },
 
-        loadPreliminaryAIRList: function (audit_plan_id) {
-            let url = '{{route('audit.execution.apotti.audit-plan-wise-preliminary-air')}}';
+        loadAuditPlanAndTypeWiseAIRList: function (audit_plan_id) {
+            let url = '{{route('audit.execution.apotti.audit-plan-type-wise-air')}}';
             let qac_type = '{{$qac_type}}';
             let data = {qac_type,audit_plan_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
@@ -318,6 +318,6 @@
     $('#audit_plan_id').change(function (){
         entity_list = $(this).find(':selected').attr('data-entity-info');
         Qac_Container.loadPlanWiseEntity(entity_list);
-        Qac_Container.loadPreliminaryAIRList($(this).val());
+        Qac_Container.loadAuditPlanAndTypeWiseAIRList($(this).val());
     });
 </script>
