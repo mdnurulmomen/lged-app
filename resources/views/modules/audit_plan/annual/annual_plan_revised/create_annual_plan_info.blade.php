@@ -32,14 +32,16 @@
                     <label for="subject_matter">ভূমিকা <span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="vumika" name="vumika">
                 </div>
-                <p>সাবজেক্ট ম্যাটার</p>
-                <div class="col-md-6">
-                    <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="main_topic" name="main_topic">
-                </div>
-                <div class="col-md-6">
-                    <label for="sub_subject_matter">সাব টপিক<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="sub_subject_matter" name="sub_subject_matter">
+                <div class="row mt-2 mb-2">
+                    <p class="col-md-12 mb-1">সাবজেক্ট ম্যাটার</p>
+                    <div class="col-md-6">
+                        <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" id="main_topic" name="main_topic">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sub_subject_matter">সাব টপিক<span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" id="sub_subject_matter" name="sub_subject_matter">
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <label for="audit_objective">অডিট অবজেকটিভ<span class="text-danger">*</span></label>
