@@ -97,7 +97,7 @@ class OperationalPlanController extends Controller
             return response()->json(['status' => 'error', 'data' => $event_list]);
         }*/
 
-        $event_list = $event_list['data'];
+        $event_list = isSuccess($event_list)?$event_list['data']:[];
         return view('modules.audit_plan.operational.approve_plan.partials.load_op_yearly_event_lists',compact('event_list'));
 
     }
