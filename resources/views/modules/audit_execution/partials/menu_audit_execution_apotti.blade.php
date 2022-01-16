@@ -9,7 +9,7 @@
             </x-menu-item>
             <hr>--}}
             <x-menu-item class="apotti_menue" href="{{route('audit.execution.apotti.index')}}"
-                         icon="fal fa-list">Apotti
+                         icon="fal fa-list"> Audit Observation
             </x-menu-item>
 
         </ul>

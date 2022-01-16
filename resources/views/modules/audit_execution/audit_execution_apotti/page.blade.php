@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <h1 class="text-center">Audit Apotti</h1>
+    <h1 class="text-center">Audit Observation</h1>
 @endsection
 
 @section('scripts')
