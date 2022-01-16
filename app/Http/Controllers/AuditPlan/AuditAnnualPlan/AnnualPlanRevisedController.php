@@ -62,13 +62,9 @@ class AnnualPlanRevisedController extends Controller
             $data)->json();
 //        dd($planListResponseData);
 
-        if (isSuccess($planListResponseData)) {
-            $plan_list = $planListResponseData['data']['annual_plan_list'];
-            $approval_status = $planListResponseData['data']['approval_status'];
-            $op_audit_calendar_event_id = $planListResponseData['data']['op_audit_calendar_event_id'];
-        }
-
-
+        $plan_list = isSuccess($planListResponseData)?$planListResponseData['data']['annual_plan_list']:[];
+        $approval_status = isSuccess($planListResponseData)?$planListResponseData['data']['approval_status']:[];
+        $op_audit_calendar_event_id = isSuccess($planListResponseData)?$planListResponseData['data']['op_audit_calendar_event_id']:[];
 
         $fiscal_year = $request->fiscal_year;
         $fiscal_year_id = $request->fiscal_year_id;
