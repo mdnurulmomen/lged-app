@@ -12,7 +12,7 @@
                     @endforeach
                 </select>
             </div>
-{{--            @php dump(session('dashboard_audit_type')) @endphp--}}
+            {{--            @php dump(session('dashboard_audit_type')) @endphp--}}
             <div class="col-md-6 @if(session('dashboard_audit_type') == 'Performance Audit') d-none @endif">
                 <input class="annual_plan_type mt-12" type="radio" name="annual_plan_type" value="thematic"> Thematic
                 <input type="radio" name="annual_plan_type" value="entity_based" checked> Entity Based
@@ -29,12 +29,25 @@
         @if(session('dashboard_audit_type') == 'Performance Audit')
             <div class="form-row mt-2">
                 <div class="col-md-12">
-                    <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="subject_matter" name="subject_matter">
+                    <label for="subject_matter">ভূমিকা <span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" id="vumika" name="vumika">
+                </div>
+                <p>সাবজেক্ট ম্যাটার</p>
+                <div class="col-md-6">
+                    <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" id="main_topic" name="main_topic">
+                </div>
+                <div class="col-md-6">
+                    <label for="sub_subject_matter">সাব টপিক<span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" id="sub_subject_matter" name="sub_subject_matter">
                 </div>
                 <div class="col-md-12">
-                    <label for="sub_subject_matter">সাব সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="sub_subject_matter" name="sub_subject_matter">
+                    <label for="audit_objective">অডিট অবজেকটিভ<span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" id="audit_objective" name="audit_objective">
+                </div>
+                <div class="col-md-12">
+                    <label for="audit_approach">অডিট অ্যাপ্রোচ<span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" id="audit_approach" name="audit_approach">
                 </div>
             </div>
         @endif
@@ -73,23 +86,23 @@
                     <h5 class="text-primary pl-3"><u>এনটিটি/সংস্থার তালিকাঃ</u></h5>
                     @if(session('dashboard_audit_type') != 'Performance Audit')
                         <div class="col-md-12">
-                        <div class="form-group mb-1">
-                            <div class="col-form-label">
-                                <div class="radio-inline">
-                                    <label for="with_assessment" class="radio radio-success">
-                                        <input id="with_assessment" type="radio" name="assessment" value="with_assessment" />
-                                        <span></span>
-                                        With Auditability Assessment
-                                    </label>
-                                    <label for="with_out_assessment" class="radio radio-success">
-                                        <input checked id="with_out_assessment" type="radio" name="assessment" value="with_out_assessment"/>
-                                        <span></span>
-                                        With Out Auditability Assessment
-                                    </label>
+                            <div class="form-group mb-1">
+                                <div class="col-form-label">
+                                    <div class="radio-inline">
+                                        <label for="with_assessment" class="radio radio-success">
+                                            <input id="with_assessment" type="radio" name="assessment" value="with_assessment"/>
+                                            <span></span>
+                                            With Auditability Assessment
+                                        </label>
+                                        <label for="with_out_assessment" class="radio radio-success">
+                                            <input checked id="with_out_assessment" type="radio" name="assessment" value="with_out_assessment"/>
+                                            <span></span>
+                                            With Out Auditability Assessment
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endif
                     <div class="col-md-12 rp_auditee_parent_office_tree"></div>
                 </div>
@@ -155,12 +168,12 @@
                 </div>
             </div>
             @if(session('dashboard_audit_type') != 'Performance Audit')
-            <div class="form-row mt-2">
-                <div class="col-md-12">
-                    <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="subject_matter" name="subject_matter">
+                <div class="form-row mt-2">
+                    <div class="col-md-12">
+                        <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" id="subject_matter" name="subject_matter">
+                    </div>
                 </div>
-            </div>
             @endif
 
             <div class="p-4 mt-4 card">
@@ -214,7 +227,7 @@
 <script>
     $(function () {
         @if(session('dashboard_audit_type') == 'Performance Audit')
-            $('#activity_id').val(9).trigger('change');
+        $('#activity_id').val(9).trigger('change');
         @endif
         // Annual_Plan_Container.loadEntityChildOffices(parent_office_id);
     });
@@ -290,20 +303,20 @@
         return false;
     }
 
-    $('input[type=radio][name=assessment]').on('change', function() {
-        if($(this).val() == 'with_assessment'){
-            parent_ministry_id =  $('#parent_ministry_id').val();
-            office_category_type =  $('#office_category_type_select').val();
-            activity_id =  $('#activity_id').val();
-            if(parent_ministry_id && activity_id){
-                Annual_Plan_Container.loadAssessmentEntity(parent_ministry_id,office_category_type,activity_id);
-            }else{
+    $('input[type=radio][name=assessment]').on('change', function () {
+        if ($(this).val() == 'with_assessment') {
+            parent_ministry_id = $('#parent_ministry_id').val();
+            office_category_type = $('#office_category_type_select').val();
+            activity_id = $('#activity_id').val();
+            if (parent_ministry_id && activity_id) {
+                Annual_Plan_Container.loadAssessmentEntity(parent_ministry_id, office_category_type, activity_id);
+            } else {
                 toastr.warning('Please select ministry and activity');
                 $('#with_assessment').prop('checked', false);
                 return;
             }
-        }else{
-            parent_ministry_id =  $('#parent_ministry_id').val();
+        } else {
+            parent_ministry_id = $('#parent_ministry_id').val();
             $('#parent_ministry_id').val(parent_ministry_id).trigger('change');
         }
     });
