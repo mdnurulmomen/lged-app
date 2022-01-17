@@ -58,7 +58,7 @@
                                 {{$entity['entity_name_bn']}}
                             </td>
                             <td>{{enTobn($entity['point'])}}</td>
-                            <td>---</td>
+                            <td>{{enTobn($entity['last_audit_year_start'])}}-{{enTobn($entity['last_audit_year_end'])}}</td>
                             <td>
                                 <input name="first_half"  value="{{$entity['id']}}" {{$entity['is_first_half'] ==1?'checked':''}} type="checkbox"  {{$entity['has_first_half_annual_plan']==1?'disabled':''}}>
                                 <input type="hidden" name="has_first_half_annual_plans[]" value="{{$entity['has_first_half_annual_plan']}}">

@@ -43,7 +43,7 @@
 <div class="row pt-6">
     <div class="col-md-12">
         <div class="form-group">
-            <label for="risk_assessment_point_{{$risk_assessment_type}}">রিস্ক স্কোর (০-৫)</label>
+            <label for="risk_assessment_point_{{$risk_assessment_type}}">রিস্ক স্কোর (০-১)</label>
             <input type="text" class="form-control detection-risk-score" id="risk_assessment_point_{{$risk_assessment_type}}"
             value="{{!empty($ap_risk_assessment_list)?$ap_risk_assessment_list['risk_rate']:''}}">
         </div>
@@ -94,7 +94,7 @@
             onclick="detectionRiskSubmit('add','')"
             @endif
             class="btn btn-success btn-square save_{{$risk_assessment_type}}">
-            <i class="fas fa-save mr-2"></i> {{!empty($ap_risk_assessment_list)?'Update':'Save'}}
+            <i class="fas fa-save mr-2"></i> {{!empty($ap_risk_assessment_list)?'হালনাগাদ করুন':'সংরক্ষণ করুন'}}
         </button>
     </div>
 </div>

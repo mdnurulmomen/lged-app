@@ -66,6 +66,8 @@
             </select>
             <input type="hidden" name="entity_name_en" class="form-control entity_name">
             <input type="hidden" name="entity_name_bn" class="form-control entity_name">
+            <input type="hidden" name="last_audit_year_start" class="form-control last_audit_year_start">
+            <input type="hidden" name="last_audit_year_end" class="form-control last_audit_year_end">
         </div>
     </div>
 
@@ -152,6 +154,11 @@
             $(".ministry_name").val(ministry_name);
             let entity_name = $( "#entity_id option:selected" ).text();
             $(".entity_name").val(entity_name);
+
+            let last_audit_year_start = $("#entity_id").find(':selected').attr('data-last-audit-year-start');
+            let last_audit_year_end = $("#entity_id").find(':selected').attr('data-last-audit-year-end');
+            $(".last_audit_year_start").val(last_audit_year_start);
+            $(".last_audit_year_end").val(last_audit_year_end);
 
             url = '{{route('audit.plan.annual.audit-assessment-score.store')}}';
             data = $('#score_create_form').serialize();

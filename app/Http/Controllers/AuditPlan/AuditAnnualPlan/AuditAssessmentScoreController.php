@@ -50,6 +50,7 @@ class AuditAssessmentScoreController extends Controller
         $data['office_type'] = $request->category_id;
         $data['office_ministry_id'] = $request->ministry_id;
         $officeResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.office-ministry-wise-entity'),$data)->json();
+        //dd($officeResponseData);
         $offices = isSuccess($officeResponseData) ? $officeResponseData['data'] : [];
         return view('modules.audit_plan.annual.audit_assessment_score.partials.load_office_entity',compact('offices'));
     }
@@ -116,6 +117,8 @@ class AuditAssessmentScoreController extends Controller
         $data['entity_name_en'] = $request->entity_name_en;
         $data['entity_name_bn'] = $request->entity_name_bn;
         $data['point'] = $request->point;
+        $data['last_audit_year_start'] = $request->last_audit_year_start;
+        $data['last_audit_year_end'] = $request->last_audit_year_end;
 
         $data['criteria_ids'] = $request->criteria_ids;
         $data['values'] = $request->values;
