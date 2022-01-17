@@ -20,8 +20,9 @@ class AuditQacController extends Controller
             $qac_type_name_bn = 'কিউএসি ১';
         }elseif ($qac_type=='qac-2'){
             $qac_type_name_bn = 'কিউএসি ২';
-        }
-        else{
+        }elseif ($qac_type=='cqat'){
+            $qac_type_name_bn = 'সিকিউএটি';
+        }else{
             $qac_type_name_bn = '';
         }
 
