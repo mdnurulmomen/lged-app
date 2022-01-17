@@ -5,11 +5,23 @@
          data-menu-dropdown-timeout="500">
         <ul class="menu-nav">
             {{--menu-item-active--}}
+
             @foreach(session('_module_menus')['menus'] as $menu)
-                <x-menu-item class="{{$menu['class']}}" href="{{url($menu['link'])}}"
-                             icon="{{$menu['icon']}}">
-                    {{$menu['title_en']}}
-                </x-menu-item>
+                @if($menu['link'])
+                    <x-menu-item class="{{$menu['class']}}" href="{{ url($menu['link'])}}"
+                                 icon="{{$menu['icon']}}">
+                        {{$menu['title_en']}}
+                    </x-menu-item>
+                @else
+                    <x-parent-menu-item icon="{{$menu['icon']}}" name="{{$menu['title_en']}}">
+                        @foreach($menu['menu_childrens'] as $menu_child)
+                            <x-menu-item class="{{$menu_child['class']}}" href="{{ url($menu_child['link'])}}"
+                                         icon="{{$menu_child['icon']}}">
+                                {{$menu_child['title_en']}}
+                            </x-menu-item>
+                        @endforeach
+                    </x-parent-menu-item>
+                @endif
             @endforeach
         </ul>
     </div>
