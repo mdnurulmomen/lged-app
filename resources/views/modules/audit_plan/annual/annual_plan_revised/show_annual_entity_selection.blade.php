@@ -51,14 +51,14 @@
 </div>
 
 @if(!empty($plan_list))
-    <div class="mb-4 text-right action-group">
-        <button class="mr-3 btn btn-sm btn-outline-primary btn-square first-btn">
-             ১ম অর্ধ বার্ষিক
-        </button>
-        <button class="mr-3 btn btn-sm btn-outline-warning btn-square second-btn" title="সম্পাদনা করুন">
-            ২য় অর্ধ বার্ষিক
-        </button>
-    </div>
+{{--    <div class="mb-4 text-right action-group">--}}
+{{--        <button class="mr-3 btn btn-sm btn-outline-primary btn-square first-btn">--}}
+{{--             ১ম অর্ধ বার্ষিক--}}
+{{--        </button>--}}
+{{--        <button class="mr-3 btn btn-sm btn-outline-warning btn-square second-btn" title="সম্পাদনা করুন">--}}
+{{--            ২য় অর্ধ বার্ষিক--}}
+{{--        </button>--}}
+{{--    </div>--}}
 
     <div class="search-all position-relative">
         <div class="row">

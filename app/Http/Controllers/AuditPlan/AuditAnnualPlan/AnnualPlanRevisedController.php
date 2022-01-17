@@ -104,8 +104,17 @@ class AnnualPlanRevisedController extends Controller
             'op_audit_calendar_event_id' => 'required|integer',
         ])->validate();
 
+        if(session('dashboard_audit_type') == 'Compliance Audit'){
+            $data['activity_type'] = 'compliance';
+        }else if(session('dashboard_audit_type') == 'Performance Audit'){
+            $data['activity_type'] = 'performance';
+            $data['activity_key'] = 'performance';
+        }
+
         $all_activity = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_all_op_activity'),
             $data)->json();
+
+//        dd($all_activity);
 
         $fiscal_year_id = $request->fiscal_year_id;
         $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
@@ -126,6 +135,15 @@ class AnnualPlanRevisedController extends Controller
         ])->validate();
 
 //        dd($data);
+
+        if(session('dashboard_audit_type') == 'Compliance Audit'){
+            $data['activity_type'] = 'compliance';
+        }else if(session('dashboard_audit_type') == 'Performance Audit'){
+            $data['activity_type'] = 'performance';
+            $data['activity_key'] = 'performance';
+        }else if(session('dashboard_audit_type')  == 'Financial Audit'){
+            $data['activity_type'] = 'financial';
+        }
 
         $all_activity = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_all_op_activity'),
             $data)->json();
@@ -174,6 +192,10 @@ class AnnualPlanRevisedController extends Controller
                 'staff_comment' => 'sometimes',
                 'staff_info' => 'sometimes',
                 'budget' => 'nullable|string',
+            ],[
+                'activity_id.required' => 'অ্যাক্টিভিটি অ্যাক্টিভিটি বাছাই করুন',
+                'subject_matter.required' => 'সাবজেক্ট ম্যাটার আবশ্যক',
+                'total_unit_no.required' => 'প্রতিষ্ঠানের মোট ইউনিট সংখ্যা আবশ্যক',
             ])->validate();
 
             $data = [
@@ -185,6 +207,9 @@ class AnnualPlanRevisedController extends Controller
                 'fiscal_year_id' => $request->fiscal_year_id,
                 'subject_matter' => $request->subject_matter,
                 'sub_subject_matter' => $request->sub_subject_matter,
+                'vumika' => $request->vumika,
+                'audit_objective' => $request->audit_objective,
+                'audit_approach' => $request->audit_approach,
                 'office_type' => $request->office_type,
                 'office_type_en' => $request->office_type_en,
                 'office_type_id' => $request->office_type_id,
@@ -266,6 +291,13 @@ class AnnualPlanRevisedController extends Controller
             $data)->json();
 
 //        dd($annual_plan_info);
+
+        if(session('dashboard_audit_type') == 'Compliance Audit'){
+            $data['activity_type'] = 'compliance';
+        }else if(session('dashboard_audit_type') == 'Performance Audit'){
+            $data['activity_type'] = 'performance';
+            $data['activity_key'] = 'performance';
+        }
 
         $all_activity = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_all_op_activity'),
             $data)->json();

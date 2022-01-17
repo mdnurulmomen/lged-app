@@ -24,12 +24,27 @@
         @if(session('dashboard_audit_type') == 'Performance Audit')
             <div class="form-row mt-2">
                 <div class="col-md-12">
-                    <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="subject_matter" name="subject_matter" value="{{$annual_plan_info['subject_matter']}}">
+                    <label for="vumika">ভূমিকা <span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" id="vumika" name="vumika" value="{{$annual_plan_info['vumika']}}">
+                </div>
+                <div class="row mt-2 mb-2">
+                    <p class="col-md-12 mb-1">সাবজেক্ট ম্যাটার</p>
+                    <div class="col-md-6">
+                        <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" id="subject_matter" name="subject_matter" value="{{$annual_plan_info['subject_matter']}}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sub_subject_matter">সাব টপিক<span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" id="sub_subject_matter" name="sub_subject_matter" value="{{$annual_plan_info['sub_subject_matter']}}">
+                    </div>
                 </div>
                 <div class="col-md-12">
-                    <label for="sub_subject_matter">সাব সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="sub_subject_matter" name="sub_subject_matter" value="{{$annual_plan_info['sub_subject_matter']}}">
+                    <label for="audit_objective">অডিট অবজেকটিভ<span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" id="audit_objective" name="audit_objective" value="{{$annual_plan_info['audit_objective']}}">
+                </div>
+                <div class="col-md-12">
+                    <label for="audit_approach">অডিট অ্যাপ্রোচ<span class="text-danger">*</span></label>
+                    <input class="form-control" type="text" id="audit_approach" name="audit_approach" value="{{$annual_plan_info['audit_approach']}}">
                 </div>
             </div>
         @endif

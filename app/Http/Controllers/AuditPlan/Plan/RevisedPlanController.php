@@ -21,6 +21,7 @@ class RevisedPlanController extends Controller
     {
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
+            'activity_id' => 'required|integer',
             'per_page' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();

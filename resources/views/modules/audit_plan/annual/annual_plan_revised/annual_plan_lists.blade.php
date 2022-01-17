@@ -37,7 +37,8 @@
 <script>
     $(function () {
         Annual_Plan_Container.loadFiscalYearWiseActivity();
-        Annual_Plan_Container.loadAnnualPlanList();
+        // Annual_Plan_Container.loadAnnualPlanList();
+
     });
 
     $('#select_fiscal_year_annual_plan').change(function () {
@@ -703,6 +704,9 @@
             data.push({name: "office_type_id", value: $('#office_category_type_select').val() ? $('#office_category_type_select').val() : null});
             data.push({name: "subject_matter", value: $('#subject_matter').val() ? $('#subject_matter').val() : null});
             data.push({name: "sub_subject_matter", value: $('#sub_subject_matter').val() ? $('#sub_subject_matter').val() : null});
+            data.push({name: "vumika", value: $('#vumika').val() ? $('#vumika').val() : null});
+            data.push({name: "audit_objective", value: $('#audit_objective').val() ? $('#audit_objective').val() : null});
+            data.push({name: "audit_approach", value: $('#audit_approach').val() ? $('#audit_approach').val() : null});
 
             elem.prop('disabled', true)
 
@@ -763,6 +767,8 @@
                         toastr.error(response.data)
                     } else {
                         $('#activity_id').html(response);
+                        $("#activity_id").val($("#activity_id option:eq(1)").val()).trigger('change');
+                        // alert(activity_id);
                         // $('#activity_id').val(7);
                         // Annual_Plan_Container.loadAnnualPlanList();
                     }

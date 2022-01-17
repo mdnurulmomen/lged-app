@@ -2,19 +2,25 @@
 
 <div class="table-search-header-wrapper pt-3 pb-3">
     <div class="col-xl-12">
-        <form>
-            <div class="m-0 form-group row">
-                <label for="select_fiscal_year_annual_plan" class="col-sm-1 col-form-label font-size-1-1">অডিট বছর</label>
-                <div class="col-sm-11">
-                    <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
-                        <option value="">--সিলেক্ট--</option>
-                        @foreach($fiscal_years as $fiscal_year)
-                            <option
-                                value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
-                        @endforeach
-                    </select>
-                </div>
+        <div class="m-0 form-group row">
+            <div class="col-sm-4">
+                <label for="select_fiscal_year_annual_plan" class="col-form-label font-size-h4">অর্থ বছর</label>
+                <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
+                    <option value="">--সিলেক্ট--</option>
+                    @foreach($fiscal_years as $fiscal_year)
+                        <option
+                            value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                    @endforeach
+                </select>
             </div>
+
+            <div class="col-sm-4">
+                <label for="activity_id" class="col-form-label font-size-h4">অ্যাক্টিভিটি</label>
+                <select class="form-control select-select2" id="activity_id">
+                    <option value="">--সিলেক্ট--</option>
+                </select>
+            </div>
+        </div>
         </form>
     </div>
 </div>
@@ -29,10 +35,18 @@
 
 @include('scripts.script_generic')
 <script>
+    $(function () {
+        Audit_Plan_Container.loadFiscalYearWiseActivity();
+    });
+    $('#activity_id').change(function () {
+        activity_id = $(this).val();
+        fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+        Audit_Plan_Container.loadAuditablePlanList(fiscal_year_id,activity_id);
+    });
     var Audit_Plan_Container = {
-        loadAuditablePlanList: function (fiscal_year_id, page = 1, per_page = 100) {
+        loadAuditablePlanList: function (fiscal_year_id,activity_id, page = 1, per_page = 100) {
             let url = '{{route('audit.plan.audit.revised.plan.load-all-lists')}}';
-            let data = {fiscal_year_id, page, per_page};
+            let data = {fiscal_year_id,activity_id, page, per_page};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)
@@ -169,16 +183,28 @@
                 }
             })
         },
+        loadFiscalYearWiseActivity: function () {
+            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
+            if (fiscal_year_id) {
+                let url = '{{route('audit.plan.annual.plan.revised.fiscal-year-wise-activity-select')}}';
+                let data = {fiscal_year_id, fiscal_year};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data)
+                    } else {
+                        $('#activity_id').html(response);
+                        $("#activity_id").val($("#activity_id option:eq(1)").val()).trigger('change');
+                        // alert(activity_id);
+                        // $('#activity_id').val(7);
+                        // Annual_Plan_Container.loadAnnualPlanList();
+                    }
+                });
+            } else {
+                $('#activity_id').html('');
+            }
+        },
     };
-
-    $(function () {
-        let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
-        if (fiscal_year_id) {
-            Audit_Plan_Container.loadAuditablePlanList(fiscal_year_id);
-        } else {
-            $('#load_auditable_plan_lists').html('');
-        }
-    });
 
     $('#select_fiscal_year_annual_plan').change(function () {
         let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();

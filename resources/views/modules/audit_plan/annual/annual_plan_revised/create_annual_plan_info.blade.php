@@ -8,7 +8,7 @@
                 <select class="form-control" name="activity_id" id="activity_id">
                     <option value="">অ্যাক্টিভিটি বাছাই করুন</option>
                     @foreach($all_activity as $activity)
-                        <option value="{{$activity['id']}}">{{$activity['title_bn']}} </option>
+                        <option data-activity-type="{{$activity['activity_type']}}" data-activity-key="{{$activity['activity_key']}}" value="{{$activity['id']}}">{{$activity['title_bn']}} </option>
                     @endforeach
                 </select>
             </div>
@@ -29,14 +29,14 @@
         @if(session('dashboard_audit_type') == 'Performance Audit')
             <div class="form-row mt-2">
                 <div class="col-md-12">
-                    <label for="subject_matter">ভূমিকা <span class="text-danger">*</span></label>
+                    <label for="vumika">ভূমিকা <span class="text-danger">*</span></label>
                     <input class="form-control" type="text" id="vumika" name="vumika">
                 </div>
                 <div class="row mt-2 mb-2">
                     <p class="col-md-12 mb-1">সাবজেক্ট ম্যাটার</p>
                     <div class="col-md-6">
                         <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" id="main_topic" name="main_topic">
+                        <input class="form-control" type="text" id="subject_matter" name="subject_matter">
                     </div>
                     <div class="col-md-6">
                         <label for="sub_subject_matter">সাব টপিক<span class="text-danger">*</span></label>
@@ -151,7 +151,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="total_selected_unit_no">নির্বাচিত ইউনিট সংখ্যা<span class="text-danger">*</span></label>
+                    <label for="total_selected_unit_no">নির্বাচিত ইউনিট সংখ্যা</label>
                     <input class="form-control bijoy-bangla text-right" type="text" name="total_selected_unit_no" id="total_selected_unit_no">
                 </div>
             </div>
