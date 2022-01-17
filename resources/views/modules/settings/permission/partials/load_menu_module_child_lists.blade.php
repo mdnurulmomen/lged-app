@@ -61,20 +61,22 @@
             @if(!empty($menu['children']))
                 @include('modules.settings.permission.partials.load_menu_module_child_lists',['menu_childrens' => $menu['children'], 'type' => 'menu'])
             @endif
-            @foreach($menu['menu_actions'] as $menu_action)
-                <label>
-                    <input name="menu_actions[]"
-                           data-type="menu_action"
-                           type="checkbox"
-                           value="{{$menu_action['id']}}"
-                           class="child_menu" id="child_{{$menu_action['id']}}"> <span
-                        class="pl-2">{{$menu_action['title_en']}}</span> <span
-                        class="badge badge-warning p-1">Action</span>
-                </label>
-                @if(!empty($menu_action['menu_action_childrens']))
-                    @include('modules.settings.permission.partials.load_menu_module_child_lists',['menu_action_childrens' => $menu_action['menu_action_childrens'], 'type' => 'action'])
-                @endif
-            @endforeach
+            @if(Arr::has($menu, 'menu_actions'))
+                @foreach($menu['menu_actions'] as $menu_action)
+                    <label>
+                        <input name="menu_actions[]"
+                               data-type="menu_action"
+                               type="checkbox"
+                               value="{{$menu_action['id']}}"
+                               class="child_menu" id="child_{{$menu_action['id']}}"> <span
+                            class="pl-2">{{$menu_action['title_en']}}</span> <span
+                            class="badge badge-warning p-1">Action</span>
+                    </label>
+                    @if(!empty($menu_action['menu_action_childrens']))
+                        @include('modules.settings.permission.partials.load_menu_module_child_lists',['menu_action_childrens' => $menu_action['menu_action_childrens'], 'type' => 'action'])
+                    @endif
+                @endforeach
+            @endif
         @endforeach
     @endif
     @if($type == 'action')
