@@ -93,9 +93,9 @@
                     </table>
                 </div>
                 <div class="col-md-12">
-{{--                    <label for="audit_approach">অডিট অ্যাপ্রোচ<span class="text-danger">*</span></label>--}}
+                    <label for="audit_approach">অডিট অ্যাপ্রোচ<span class="text-danger">*</span></label></br>
 {{--                    <input class="form-control d-none" type="text" id="audit_approach" name="audit_approach">--}}
-                    <input class="annual_plan_type" type="radio" name="audit_approach" value="" checked> Problem Oriented
+                    <input type="radio" name="audit_approach" value="" checked> Problem Oriented
                     <input type="radio" name="" value="audit_approach"> Result Oriented
                     <input type="radio" name="" value="audit_approach" > System Oriented
 
