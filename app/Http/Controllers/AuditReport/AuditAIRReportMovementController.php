@@ -42,6 +42,12 @@ class AuditAIRReportMovementController extends Controller
                 'receiver_officer_email' => 'required',
                 'status' => 'required',
                 'air_type' => 'required',
+            ],[
+                'r_air_id.required' => 'AIR id is required',
+                'receiver_officer_id.required' => 'You have to choose receiver',
+                'receiver_office_id.required' => 'You have to choose receiver',
+                'status.required' => 'Status is required',
+                'air_type.required' => 'AIR type is required',
             ])->validate();
 
             $data['comments'] = $request->comments;

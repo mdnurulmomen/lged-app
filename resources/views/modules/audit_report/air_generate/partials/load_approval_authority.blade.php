@@ -115,7 +115,14 @@
         store: function () {
             url = '{{route('audit.report.air.store-air-movement')}}';
             data = $('#approval_authority_form').serialize();
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'success') {
                     toastr.success('সফলভাবে প্রেরণ করা হয়েছে');
                     $('#kt_quick_panel_close').click();
@@ -126,17 +133,7 @@
                     }
                 }
                 else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
-                            if (v !== '') {
-                                toastr.error(v);
-                            }
-                        });
-                    }
-                    else {
-                        toastr.error(response.data.message);
-                    }
+                    toastr.error(response.data.message);
                 }
             })
         },

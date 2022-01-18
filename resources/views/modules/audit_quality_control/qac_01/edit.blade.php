@@ -31,10 +31,14 @@
                             onclick="QAC_AIR_Report_Container.airSendToRpu()">
                         <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টিকে প্রেরণ করুন
                     </button>
-                @else
-                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning">
-                        রেস্পন্সিবল পার্টিকে প্রেরণ করা হয়েছে
-                    </button>
+                @elseif($is_received == null)
+                    <span class="badge badge-primary">
+                          <i class="fal fa-info text-white"></i>  রেস্পন্সিবল পার্টিকে প্রেরণ করা হয়েছে
+                    </span>
+                @elseif($is_received == 1)
+                    <span class="badge badge-primary">
+                          Received
+                    </span>
                 @endif
             @else
                 @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
@@ -86,9 +90,13 @@
 
     <script>
         $(function () {
-            QAC_AIR_Report_Container.insertAuditApottiSummary();
-            QAC_AIR_Report_Container.insertAuditApottiDetails();
-            $(".update-qac-air-report").click();
+            let approved_status = '{{$approved_status}}';
+            if (approved_status != 'approved'){
+                $(".update-qac-air-report").click();
+                QAC_AIR_Report_Container.insertAuditApottiSummary();
+                QAC_AIR_Report_Container.insertAuditApottiDetails();
+                $(".update-qac-air-report").click();
+            }
         });
 
         var QAC_AIR_Report_Container = {

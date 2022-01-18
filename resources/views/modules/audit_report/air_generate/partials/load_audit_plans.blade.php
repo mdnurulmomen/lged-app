@@ -172,7 +172,7 @@
                                             </div>
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
-                                            <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="নতুন এআইআর করুন"
+                                            <button class="mr-3 btn btn-sm btn-primary btn-square" title="নতুন এআইআর করুন"
                                                     data-fiscal-year-id="{{$audit_plan['fiscal_year_id']}}"
                                                     data-activity-id="{{$audit_plan['activity_id']}}"
                                                     data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"

@@ -61,6 +61,23 @@ class AuditQACAIRReportController extends Controller
         }
     }
 
+    public function apottiFinalApprovalStatus(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $data = Validator::make($request->all(), [
+            'air_report_id' => 'required|integer',
+            'apotti_id' => 'required',
+        ])->validate();
+        $data['final_status'] = $request->final_status;
+        //$data['comments'] = $request->comments;
+        $data['cdesk'] = $this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.apotti_final_approval'), $data)->json();
+        if (isSuccess($responseData)) {
+            return response()->json(['status' => 'success', 'data' => $responseData['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData]);
+        }
+    }
+
     public function editQACAirReport(Request $request)
     {
         $data = Validator::make($request->all(), [
@@ -78,12 +95,14 @@ class AuditQACAIRReportController extends Controller
             $latest_receiver_designation_id = empty($airReport['latest_r_air_movement'])?0:$airReport['latest_r_air_movement']['receiver_employee_designation_id'];
             $current_designation_id = $this->current_designation_id();
             $is_sent = $airReport['is_sent'];
+            $is_received = $airReport['is_received'];
             $qac_type = $request->qac_type;
             //dd($current_designation_id);
 
             return view('modules.audit_quality_control.qac_01.edit',
                 compact('content','air_report_id','approved_status',
-                'latest_receiver_designation_id','current_designation_id','is_sent','qac_type'));
+                'latest_receiver_designation_id','current_designation_id','is_sent',
+                    'is_received','qac_type'));
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];
@@ -103,10 +122,10 @@ class AuditQACAIRReportController extends Controller
         //dd($apottis);
         $qac_type = $request->qac_type;
         if ($request->apotti_view_scope == 'summary'){
-            return view('modules.audit_report.air_generate.partials.load_audit_apottis_summary',compact('apottis','qac_type'));
+            return view('modules.audit_quality_control.qac_01.partials.load_audit_apottis_summary',compact('apottis','qac_type'));
         }
         else{
-            return view('modules.audit_report.air_generate.partials.load_audit_apottis_details',compact('apottis','qac_type'));
+            return view('modules.audit_quality_control.qac_01.partials.load_audit_apottis_details',compact('apottis','qac_type'));
         }
     }
 }

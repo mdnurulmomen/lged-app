@@ -489,6 +489,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('update-air-report', [AuditQACAIRReportController::class, 'updateQACAirReport'])->name('update-air-report');
                 Route::post('load-apotti-delete-view', [AuditQACAIRReportController::class, 'loadAirWiseApottiDeleteView'])->name('load-apotti-delete-view');
                 Route::post('delete-air-report-wise-apotti', [AuditQACAIRReportController::class, 'softDeleteAirReportWiseApotti'])->name('delete-air-report-wise-apotti');
+                Route::post('apotti-final-approval-status', [AuditQACAIRReportController::class, 'apottiFinalApprovalStatus'])->name('apotti-final-approval-status');
                 Route::post('get-air-wise-qac-apotti', [AuditQACAIRReportController::class, 'getAirWiseQACApotti'])->name('get-air-wise-qac-apotti');
             });
             Route::post('air-send-to-rpu', [\App\Http\Controllers\AuditReport\RpuAirReportController::class, 'airSendToRpu'])->name('air-send-to-rpu');

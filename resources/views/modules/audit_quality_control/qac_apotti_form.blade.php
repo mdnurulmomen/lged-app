@@ -1,34 +1,23 @@
-{{--<div class="d-flex justify-content-end mt-4">
-    <button class="mr-1 btn btn-sm {{$is_delete==1?'btn-outline-primary':'btn-outline-danger'}} btn-square" title="{{$is_delete==1?'ফেরত আনুন':'বাদ দিন'}}"
-            data-air-report-id="{{$air_report_id}}"
-            data-apotti-id="{{$apotti_id}}"
-            data-is-delete="{{$is_delete==1?0:1}}"
-            onclick="QAC_Apotti_Edit_Container.softDeleteApotti($(this))">
-        @if($is_delete==1)
-            আপত্তিটি ফেরত আনুন
-        @else
-            আপত্তিটি বাতিল করুন
-        @endif
-    </button>
-</div>--}}
-
-
 <form id="apotti_qac_form">
     <div class="form-row pt-4">
         <input type="hidden" name="apotti_id" value="{{$apotti_id}}">
-        <div class="col-md-12">
-            <label class="col-form-label">আপত্তির ধরন বাছাই করুন</label>
-            <select class="form-control select-select2" name="apotti_type">
-                <option value="">আপত্তির ধরন বাছাই করুন</option>
-                <option @if($qac_apotti_status && isset($qac_apotti_status['apotti_type']) && $qac_apotti_status['apotti_type'] == 'sfi')
-                        selected
-                        @endif value="sfi">এসএফআই</option>
-                <option @if($qac_apotti_status && isset($qac_apotti_status['apotti_type']) && $qac_apotti_status['apotti_type'] == 'non-sfi')
-                        selected
-                        @endif
-                        value="non-sfi">নন-এসএফআই</option>
-            </select>
-        </div>
+        @if($qac_type == 'qac-1')
+            <div class="col-md-12">
+                <label class="col-form-label">আপত্তির ধরন বাছাই করুন</label>
+                <select class="form-control select-select2" name="apotti_type">
+                    <option value="">আপত্তির ধরন বাছাই করুন</option>
+                    <option @if($qac_apotti_status && isset($qac_apotti_status['apotti_type']) && $qac_apotti_status['apotti_type'] == 'sfi')
+                            selected
+                            @endif value="sfi">এসএফআই</option>
+                    <option @if($qac_apotti_status && isset($qac_apotti_status['apotti_type']) && $qac_apotti_status['apotti_type'] == 'non-sfi')
+                            selected
+                            @endif
+                            value="non-sfi">নন-এসএফআই</option>
+                </select>
+            </div>
+        @else
+            <input type="hidden" name="apotti_type" value="sfi">
+        @endif
 
         @if($qac_type == 'qac-1')
         <div class="col-md-12">
@@ -125,30 +114,35 @@
 
         <div class="col-md-12 mb-2">
             <label class="col-form-label">মন্তব্য</label>
-            <textarea class="form-control mb-1" name="comment"
-                      placeholder="মন্তব্য" cols="30"
-                      rows="2">
-                @if($qac_apotti_status && isset($qac_apotti_status['comment']))
-                    {{$qac_apotti_status['comment']}}
-                @endif
-            </textarea>
+            <textarea class="form-control mb-1" name="comment" placeholder="মন্তব্য" cols="30" rows="2">@if($qac_apotti_status && isset($qac_apotti_status['comment'])){{$qac_apotti_status['comment']}}@endif</textarea>
         </div>
     </div>
     <button type="button" class="btn btn-sm btn-square btn-outline-primary mr-2"
             onclick="Qac_Container.qacApottiSubmit()"><i class="fa fa-save"></i> সংরক্ষণ
     </button>
 
-    <button class="ml-1 btn btn-sm {{$is_delete==1?'btn-outline-primary':'btn-outline-danger'}} btn-square" title="{{$is_delete==1?'ফেরত আনুন':'বাদ দিন'}}"
-            data-air-report-id="{{$air_report_id}}"
-            data-apotti-id="{{$apotti_id}}"
-            data-is-delete="{{$is_delete==1?0:1}}"
-            onclick="QAC_Apotti_Edit_Container.softDeleteApotti($(this))">
-        @if($is_delete==1)
-            আপত্তিটি ফেরত আনুন
-        @else
-            আপত্তিটি বাতিল করুন
-        @endif
-    </button>
+    @if($qac_type == 'qac-1')
+        <button type="button" class="ml-1 btn btn-sm {{$is_delete==1?'btn-outline-primary':'btn-outline-danger'}} btn-square" title="{{$is_delete==1?'ফেরত আনুন':'বাদ দিন'}}"
+                data-air-report-id="{{$air_report_id}}"
+                data-apotti-id="{{$apotti_id}}"
+                data-is-delete="{{$is_delete==1?0:1}}"
+                onclick="QAC_Apotti_Edit_Container.softDeleteApotti($(this))">
+            @if($is_delete==1)
+                আপত্তিটি ফেরত আনুন
+            @else
+                আপত্তিটি বাতিল করুন
+            @endif
+        </button>
+    @elseif($qac_type == 'qac-2')
+        <button type="button" class="ml-1 btn btn-sm btn-outline-primary btn-square"
+                title="প্রস্তাবিত খসড়া"
+                data-air-report-id="{{$air_report_id}}"
+                data-apotti-id="{{$apotti_id}}"
+                data-final-approval-status="draft"
+                onclick="QAC_Apotti_Edit_Container.apottiFinalApproval($(this))">
+            প্রস্তাবিত খসড়া
+        </button>
+    @endif
 </form>
 
 <script>
@@ -168,6 +162,23 @@
                     $('#kt_quick_panel_close').click();
                 }
             });
-        }
+        },
+
+        apottiFinalApproval: function (elem){
+            air_report_id = elem.data('air-report-id');
+            apotti_id = elem.data('apotti-id');
+            final_status = elem.data('final-approval-status');
+            data = {air_report_id,apotti_id,final_status};
+            let url = '{{route('audit.report.air.qac.apotti-final-approval-status')}}';
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    toastr.success('সফলভাবে সংরক্ষণ করা হয়েছে');
+                    $('#btn_filter').click();
+                    $('#kt_quick_panel_close').click();
+                }
+            });
+        },
     }
 </script>
