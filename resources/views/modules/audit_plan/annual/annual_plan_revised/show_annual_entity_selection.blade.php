@@ -15,7 +15,7 @@
 
                     <button data-fiscal-year-id="{{$fiscal_year_id}}"
                             onclick="Annual_Plan_Container.printAnnualPlan($(this))"
-                            class="btn btn-sm btn-light-warning btn-square mr-1">
+                            class="btn btn-sm btn-light-primary btn-square mr-1">
                         <i class="fad fa-file-download"></i>
                         ডাউনলোড
                     </button>

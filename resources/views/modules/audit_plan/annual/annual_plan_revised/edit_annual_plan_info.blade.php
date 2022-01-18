@@ -25,26 +25,75 @@
             <div class="form-row mt-2">
                 <div class="col-md-12">
                     <label for="vumika">ভূমিকা <span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="vumika" name="vumika" value="{{$annual_plan_info['vumika']}}">
+                    <input class="form-control" type="text" id="vumika" name="vumika">
                 </div>
                 <div class="row mt-2 mb-2">
-                    <p class="col-md-12 mb-1">সাবজেক্ট ম্যাটার</p>
-                    <div class="col-md-6">
+                    <p class="col-md-12 mb-1">সাবজেক্ট ম্যাটার :</p><br>
+                    <div class="col-md-12">
                         <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" id="subject_matter" name="subject_matter" value="{{$annual_plan_info['subject_matter']}}">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <label for="sub_subject_matter">সাব টপিক<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" id="sub_subject_matter" name="sub_subject_matter" value="{{$annual_plan_info['sub_subject_matter']}}">
+                        <div class="sub_subject_matter_div">
+                            <div>
+                                <div class="input-group">
+                                    <input class="form-control sub_subject_matter" type="text" id="sub_subject_matter" name="sub_subject_matter">
+                                    <button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary add_sub_topic
+                                                    list-btn-toggle"><i class="fad fa-plus-circle"></i></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <label for="audit_objective">অডিট অবজেকটিভ<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="audit_objective" name="audit_objective" value="{{$annual_plan_info['audit_objective']}}">
+                    <input class="form-control d-none" type="text" id="audit_objective" name="audit_objective">
+                    <table id="objectiveTable" class="table table-striped">
+                        <thead class="thead-light">
+                        <tr>
+                            <th width="5%">ক্রঃ নং</th>
+                            <th width="30%">Sub Objective</th>
+                            <th width="15%">Line Of Enquire</th>
+                            <th width="15%">Critaria</th>
+                            <th width="15%">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    value="">
+                            </td>
+                            <td>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    value="">
+                            </td>
+                            <td class="pl-0 pr-0">
+                                <input type="text"
+                                       class="form-control"
+                                       value="">
+                            </td>
+                            <td class="pl-0 pr-0">
+                                <button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary add_objective_row
+                                                    list-btn-toggle"><i class="fad fa-plus-circle"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col-md-12">
-                    <label for="audit_approach">অডিট অ্যাপ্রোচ<span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="audit_approach" name="audit_approach" value="{{$annual_plan_info['audit_approach']}}">
+                    {{--                    <label for="audit_approach">অডিট অ্যাপ্রোচ<span class="text-danger">*</span></label>--}}
+                    {{--                    <input class="form-control d-none" type="text" id="audit_approach" name="audit_approach">--}}
+                    <input class="annual_plan_type" type="radio" name="audit_approach" value="" checked> Problem Oriented
+                    <input type="radio" name="" value="audit_approach"> Result Oriented
+                    <input type="radio" name="" value="audit_approach" > System Oriented
+
                 </div>
             </div>
         @endif
@@ -131,7 +180,7 @@
                                 <tr>
                                     <th width="5%">ক্রঃ নং</th>
                                     <th width="30%">মাইলস্টোন</th>
-                                    <th width="15%">নির্ধারিত তারিখ</th>
+                                    <th class="@if(session('dashboard_audit_type') == 'Performance Audit') d-none @endif" width="15%">নির্ধারিত তারিখ</th>
                                     <th width="15%">শুরুর তারিখ</th>
                                     <th width="15%">শেষের তারিখ</th>
                                 </tr>
@@ -145,7 +194,7 @@
                                             <input name="milestone_id" class="milestone_id" type="hidden"
                                                    value="{{$milestone['milestone_id']}}">
                                         </td>
-                                        <td>
+                                        <td class="@if(session('dashboard_audit_type') == 'Performance Audit') d-none @endif">
                                             {{formatDate($milestone['milestone_target_date'],'bn','/')}}
                                             <input name="milestone_target_date" class="milestone_target_date"
                                                    type="hidden"

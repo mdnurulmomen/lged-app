@@ -214,10 +214,10 @@ class AnnualPlanRevisedController extends Controller
                 'office_type_en' => $request->office_type_en,
                 'office_type_id' => $request->office_type_id,
                 'total_unit_no' => $request->total_unit_no,
-                'total_selected_unit_no' => $request->total_selected_unit_no,
+                'total_selected_unit_no' => $request->total_selected_unit_no ? $request->total_selected_unit_no : 0,
                 'comment' => $request->comment,
-                'budget' => $request->budget,
-                'cost_center_total_budget' => $request->cost_center_total_budget,
+                'budget' => $request->budget ? $request->budget : 0,
+                'cost_center_total_budget' => $request->cost_center_total_budget ? $request->cost_center_total_budget : 0,
                 'milestone_list' => json_decode($request->milestone_list, true),
                 'annual_plan_type' => $request->annual_plan_type,
                 'thematic_title' => $request->thematic_title

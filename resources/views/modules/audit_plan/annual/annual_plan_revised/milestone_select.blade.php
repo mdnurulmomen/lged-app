@@ -8,7 +8,7 @@
     <tr>
         <th width="5%">ক্রঃ নং</th>
         <th width="30%">মাইলস্টোন</th>
-        <th width="15%">নির্ধারিত তারিখ</th>
+        <th class="@if(session('dashboard_audit_type') == 'Performance Audit') d-none @endif" width="15%">নির্ধারিত তারিখ</th>
         <th width="15%">শুরুর তারিখ</th>
         <th width="15%">শেষের তারিখ</th>
     </tr>
@@ -21,7 +21,7 @@
                 {{$milestone['title_bn']}}
                 <input name="milestone_id" class="milestone_id" type="hidden" value="{{$milestone['id']}}">
             </td>
-            <td>
+            <td class="@if(session('dashboard_audit_type') == 'Performance Audit') d-none @endif">
                 {{formatDate($milestone['milestone_calendar']['target_date'],'bn','/')}}
                 <input name="milestone_target_date" class="milestone_target_date" type="hidden" value="{{formatDate($milestone['milestone_calendar']['target_date'],'en','/')}}">
             </td>
@@ -38,6 +38,11 @@
 
 <script>
     $('.milestone_start_date,.milestone_end_date').change(function (){
+            activity_type = '{{session('dashboard_audit_type')}}'
+            if(activity_type == 'Performance Audit'){
+                return;
+            }
+
            target_date =  $(this).attr('data-target-date');
            target_date = formatDate(target_date);
            target_date = target_date.replaceAll('-', '/');
