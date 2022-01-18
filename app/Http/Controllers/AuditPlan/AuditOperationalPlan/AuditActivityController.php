@@ -179,11 +179,17 @@ class AuditActivityController extends Controller
             'fiscal_year_id' => 'required|integer',
         ])->validate();
 
+        if(session('dashboard_audit_type') == 'Compliance Audit'){
+            $data['activity_type'] = 'compliance';
+        }else if(session('dashboard_audit_type') == 'Performance Audit'){
+            $data['activity_type'] = 'performance';
+            $data['activity_key'] = 'performance';
+        }
+
         $all_activity = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_all_op_activity'),
             $data)->json();
 
-//        dd($all_activity);
-
+//      dd($all_activity);
         if (isSuccess($all_activity)) {
             $all_activity = $all_activity['data'];
             return view('modules.audit_plan.operational.audit_activity.activity_select', compact('all_activity'));
