@@ -389,9 +389,17 @@ class AnnualPlanRevisedController extends Controller
 
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
 
+        if ($request->office_id == 19) {
+            $directorate_address = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+        } elseif ($request->office_id == 32) {
+            $directorate_address = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+        } else {
+            $directorate_address = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+        }
+
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
-            $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos], [], ['orientation' => 'L', 'format' => 'A4']);
+            $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos,'directorate_address'=> $directorate_address], [], ['orientation' => 'L', 'format' => 'A4']);
             return $pdf->stream('annual_plan.pdf');
         } else {
             return response()->json(['status' => 'error', 'data' => $plan_infos]);
