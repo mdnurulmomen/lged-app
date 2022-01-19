@@ -46,6 +46,16 @@
                                                                         btn-outline-secondary btn-icon btn_create_activity btn-square">
                                                                                             <i class="fas fa-plus"></i>
                                                                                         </button>
+                                                                                        <button
+                                                                                            data-activity-parent-id="{{$activity['id']}}"
+                                                                                            data-activity-id="{{ $activity['id'] }}"
+                                                                                            data-outcome-id="{{$activity['outcome_id']}}"
+                                                                                            data-output-id="{{$activity['output_id'] }}"
+                                                                                            data-fiscal-year-id="{{ $activity['fiscal_year_id'] }}"
+                                                                                            type="button" class="btn
+                                                                        btn-outline-secondary btn-icon btn_edit_activity btn-square">
+                                                                                            <i class="fas fa-edit"></i>
+                                                                                        </button>
 
                                                                                         <button type="button"
                                                                             data-outcome-id="{{ $activity['outcome_id'] }}"
@@ -102,6 +112,41 @@
             $('#op_activity_modal').modal('show');
         }
     });
+
+    $('.btn_edit_activity').on('click', function () {
+        emptyModalData('op_activity_edit_modal');
+        outcome_id = $(this).data('outcome-id');
+        fiscal_year_id = $(this).data('fiscal-year-id');
+        output_id = $(this).data('output-id');
+        activity_id = $(this).data('activity-id');
+
+        if (!fiscal_year_id) {
+            toastr.error('Please Choose Fiscal Year');
+        } else if (!outcome_id) {
+            toastr.error('Please Choose Outcome');
+        } else if (!output_id) {
+            toastr.error('Please Choose Output');
+        } else {
+            $('.fiscal_year_id').val(fiscal_year_id);
+            $('.outcome_id').val(outcome_id);
+            $('.output_id').val(output_id);
+            $('.activity_parent_id').val($(this).data('activity-parent-id'));
+            $('.activity_id').val(activity_id);
+            $('#op_activity_edit_modal').modal('show');
+
+            if(activity_id){
+                url = '{{route('audit.plan.operational.activity.edit.output.load')}}';
+
+                data = {activity_id, outcome_id, fiscal_year_id, output_id}
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    $('.edit_activity_area').html(response)
+                })
+            }
+
+
+        }
+    });
+
 
     $('.btn_add_milestone').on('click', function () {
         emptyModalData('op_activity_milestone_modal');

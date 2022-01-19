@@ -51,6 +51,30 @@ class AuditActivityController extends Controller
         return view('modules.audit_plan.operational.audit_activity.partials.load_created_activities', compact('fiscal_year_id', 'output_id', 'activity_lists', 'outcome_id'));
     }
 
+    public function loadEditOutputActivity(Request $request)
+    {
+        $activity_id = $request->activity_id;
+
+        $data = [];
+
+        isset($activity_id) ? $data['activity_id'] = $activity_id : '';
+
+        $activity_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_show'), $data)->json();
+
+        $output_id = $request->output_id;
+        $outcome_id = $request->outcome_id;
+        $fiscal_year_id = $request->fiscal_year_id;
+
+        $data1 = [];
+
+        isset($output_id) ? $data1['output_id'] = $output_id : '';
+        isset($outcome_id) ? $data1['outcome_id'] = $outcome_id : '';
+        isset($fiscal_year_id) ? $data1['fiscal_year_id'] = $fiscal_year_id : '';
+        $activity_lists = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_find'), $data1)->json();
+
+        return view('modules.audit_plan.operational.audit_activity.partials.load_edit_output_activities', compact('activity_info', 'activity_lists'));
+    }
+
     public function loadEditActivityTree(Request $request)
     {
         $output_id = $request->output_id;
@@ -150,10 +174,10 @@ class AuditActivityController extends Controller
         }
     }
 
-    public function update(Request $request, $activity_id): \Illuminate\Http\JsonResponse
+    public function update(Request $request): \Illuminate\Http\JsonResponse
     {
-        $data = ['activity_id' => $activity_id, 'duration_id' => $request->duration_id, 'outcome_id' => $request->outcome_id, 'output_id' => $request->output_id, 'activity_no' => $request->activity_no, 'title_en' => $request->title_en, 'title_bn' => $request->title_bn, 'activity_parent_id' => $request->activity_parent_id ?? 0,];
-        $updateActivity = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.op_activity_update'), $data)->json();
+        $data = ['activity_id' => $request->activity_id, 'duration_id' => $request->duration_id, 'outcome_id' => $request->outcome_id, 'output_id' => $request->output_id, 'activity_no' => $request->activity_no, 'title_en' => $request->title_en, 'title_bn' => $request->title_bn, 'activity_type' => $request->activity_type, 'activity_parent_id' => $request->activity_parent_id ?? 0,];
+        $updateActivity = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_update'), $data)->json();
 
         if (isset($updateActivity['status']) && $updateActivity['status'] == 'success') {
             return response()->json(responseFormat('success', 'Updated Successfully'));

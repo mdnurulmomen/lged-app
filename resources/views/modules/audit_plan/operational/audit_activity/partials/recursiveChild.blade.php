@@ -15,6 +15,15 @@
                             <i class="fas fa-plus"></i>
                         </button>
 
+                        <button data-activity-parent-id="{{$child['id']}}"
+                                data-activity-id="{{ $child['id'] }}"
+                                data-outcome-id="{{$child['outcome_id']}}"
+                                data-output-id="{{$child['output_id'] }}"
+                                data-fiscal-year-id="{{ $child['fiscal_year_id'] }}"
+                                type="button" class="btn
+                        btn-outline-secondary btn-icon btn_edit_activity btn-square">
+                            <i class="fas fa-edit"></i>
+                        </button>
                         <button type="button"
                                 data-outcome-id="{{ $child['outcome_id'] }}"
                                 data-output-id="{{ $child['output_id'] }}"
