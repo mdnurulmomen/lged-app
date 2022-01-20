@@ -227,28 +227,43 @@ class RevisedPlanController extends Controller
     public function auditPlanBook(Request $request)
     {
         $plans = $request->plan;
-        $cover = $plans[0];
-        array_shift($plans);
+        $coverPage = $plans[0];
+        $indexPage = $plans[1];
+        $strategicFormPartOne = $plans[3];
+        $strategicFormPartTwo = $plans[4];
+        $strategicFormPartThree = $plans[5];
+        $auditRiskAssessmentPage = $plans[27];
+        $materialityCalculatePage = $plans[29];
+        $auditSchedulePage = $plans[30];
 
-        $formThree = $plans[26];
-        $porishisto = $plans[28];
-        $auditSchedule = $plans[29];
-        unset($plans[26], $plans[28], $plans[29]);
+        unset($plans[0], $plans[1], $plans[2], $plans[3], $plans[4], $plans[5],
+            $plans[27],$plans[28],$plans[29],$plans[30]);
 
         //dd($plans);
 
         if ($request->scope == 'generate') {
             $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
-                compact('plans', 'cover', 'formThree', 'porishisto', 'auditSchedule'));
-
-            /*$pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
-                ['plans' => $plans, 'cover' => $cover], [], ['orientation' => 'L', 'format' => 'A4']);*/
+                [
+                    'coverPage' => $coverPage,
+                    'indexPage' => $indexPage,
+                    'strategicFormPartOne' => $strategicFormPartOne,
+                    'strategicFormPartTwo' => $strategicFormPartTwo,
+                    'strategicFormPartThree' => $strategicFormPartThree,
+                    'auditRiskAssessmentPage' => $auditRiskAssessmentPage,
+                    'materialityCalculatePage' => $materialityCalculatePage,
+                    'auditSchedulePage' => $auditSchedulePage,
+                    'plans' => $plans,
+                ], [] , ['orientation' => 'P', 'format' => 'A4']);
 
             $fileName = 'audit_plan_' . date('D_M_j_Y') . '.pdf';
             return $pdf->stream($fileName);
+
         } elseif ($request->scope == 'preview') {
             return view('modules.audit_plan.audit_plan.plan_revised.partials.preview_audit_plan',
-                compact('plans', 'cover', 'formThree', 'porishisto', 'auditSchedule'));
+                compact('coverPage', 'indexPage', 'strategicFormPartOne',
+                    'strategicFormPartTwo','strategicFormPartThree','auditRiskAssessmentPage',
+                    'materialityCalculatePage','auditSchedulePage','plans'));
+
         } else {
             return ['status' => 'error', 'data' => 'Somethings went wrong'];
         }
