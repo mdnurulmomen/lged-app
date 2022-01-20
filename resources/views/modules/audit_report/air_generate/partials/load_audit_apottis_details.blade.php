@@ -4,19 +4,6 @@
             অনুচ্ছেদ নং-{{enTobn($apotti['onucched_no'])}}
         </div>
 
-        @if(isset($qac_type))
-            @if($apotti['apotti_type'] == 'sfi')
-                @php $apotti_type = 'এসএফআই'; @endphp
-            @elseif($apotti['apotti_type'] == 'non-sfi')
-                @php $apotti_type = 'নন-এসএফআই'; @endphp
-            @else
-                @php $apotti_type = ''; @endphp
-            @endif
-            <div style="font-weight: bold">
-                আপত্তির ধরনঃ {{$apotti_type}}
-            </div>
-        @endif
-
         <div style="font-weight: bold">
             শিরোনামঃ {{$apotti['apotti_title']}}
         </div>
