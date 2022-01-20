@@ -111,7 +111,6 @@ class AuditExecutionQueryController extends Controller
             'rpu_office_head_details' => 'required',
             'subject' => 'required',
             'audit_query_items' => 'required',
-            'description' => 'required',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
@@ -171,7 +170,6 @@ class AuditExecutionQueryController extends Controller
             'rpu_office_head_details' => 'required',
             'subject' => 'required',
             'audit_query_items' => 'required',
-            'description' => 'required',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
