@@ -52,7 +52,7 @@
                         {{$item['item_title_bn']}}
 
                         @if($item['status'] =="pending")
-                            @php $badgeStyle ='waring'; @endphp
+                            @php $badgeStyle ='warning'; @endphp
                         @elseif($item['status'] =="submitted")
                             @php $badgeStyle ='primary'; @endphp
                         @else
