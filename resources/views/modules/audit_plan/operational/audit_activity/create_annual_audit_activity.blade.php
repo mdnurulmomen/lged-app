@@ -133,6 +133,17 @@
     </form>
 </x-modal>
 
+<x-modal id="op_activity_milestone_edit_modal" title="Edit Operation Activity Milestone"
+         url="{{route('audit.plan.operational.activity.update')}}" method="post">
+    <form id="op_activity_milestone_edit_form">
+        <div class="edit_activity_milestone_area">
+
+        </div>
+        <input type="hidden" name="fiscal_year_id" class="fiscal_year_id" value="">
+        <input type="hidden" name="milestone_id" class="milestone_id" value="">
+    </form>
+</x-modal>
+
 <x-modal id="op_activity_milestone_modal" title="Create Operation Activity Milestone"
          url="{{route('audit.plan.operational.activity.milestone.store')}}" method="post" size="lg">
     <form id="op_activity_milestone_form">

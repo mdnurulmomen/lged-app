@@ -76,6 +76,18 @@ class AuditActivityController extends Controller
         return view('modules.audit_plan.operational.audit_activity.partials.load_edit_output_activities', compact('activity_info', 'activity_lists'));
     }
 
+    public function loadEditOutputActivityMilestone(Request $request)
+    {
+        $milestone_id = $request->milestone_id;
+
+        $data = [];
+
+        isset($milestone_id) ? $data['milestone_id'] = $milestone_id : '';
+
+        $milestone_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_milestone_show'), $data)->json();
+
+        return view('modules.audit_plan.operational.audit_activity.partials.load_edit_output_activities_milestone', compact('milestone_info'));
+    }
     public function loadEditActivityTree(Request $request)
     {
         $output_id = $request->output_id;

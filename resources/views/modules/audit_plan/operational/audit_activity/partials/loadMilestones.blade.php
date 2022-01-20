@@ -10,7 +10,7 @@
                                 data-output-id="{{$milestone['output_id'] }}"
                                 data-fiscal-year-id="{{ $milestone['fiscal_year_id'] }}"
                                 type="button" class="btn
-                        btn-outline-secondary btn-icon btn_edit_activity btn-square">
+                        btn-outline-secondary btn-icon btn_edit_activity_milestone btn-square">
                             <i class="fas fa-edit"></i>
                         </button>
                     </div>

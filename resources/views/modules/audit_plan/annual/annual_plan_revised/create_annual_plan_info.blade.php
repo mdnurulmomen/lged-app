@@ -26,91 +26,23 @@
                 </select>
             </div>
         </div>
-        @if(session('dashboard_audit_type') == 'Performance Audit')
-            <div class="form-row mt-2">
-                <div class="col-md-12">
-                    <label for="vumika">ভূমিকা <span class="text-danger">*</span></label>
-                    <input class="form-control" type="text" id="vumika" name="vumika">
-                </div>
-                <div class="row mt-2 mb-2">
-                    <p class="col-md-12 mb-1">সাবজেক্ট ম্যাটার :</p><br>
-                    <div class="col-md-12">
-                        <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" id="subject_matter" name="subject_matter">
-                    </div>
-                    <div class="col-md-12">
-                        <label for="sub_subject_matter">সাব টপিক<span class="text-danger">*</span></label>
-                        <div class="sub_subject_matter_div">
-                            <div>
-                                <div class="input-group">
-                                    <input class="form-control sub_subject_matter" type="text" id="sub_subject_matter" name="sub_subject_matter">
-                                    <button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary add_sub_topic
-                                                    list-btn-toggle"><i class="fad fa-plus-circle"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <label for="audit_objective">অডিট অবজেকটিভ<span class="text-danger">*</span></label>
-                    <input class="form-control d-none" type="text" id="audit_objective" name="audit_objective">
-                    <table id="objectiveTable" class="table table-striped">
-                        <thead class="thead-light">
-                        <tr>
-                            <th width="5%">ক্রঃ নং</th>
-                            <th width="30%">Sub Objective</th>
-                            <th width="15%">Line Of Enquire</th>
-                            <th width="15%">Critaria</th>
-                            <th width="15%">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <input
-                                           class="form-control"
-                                           type="text"
-                                           value="">
-                                </td>
-                                <td>
-                                    <input
-                                           class="form-control"
-                                           type="text"
-                                           value="">
-                                </td>
-                                <td class="pl-0 pr-0">
-                                    <input type="text"
-                                           class="form-control"
-                                           value="">
-                                </td>
-                                <td class="pl-0 pr-0">
-                                    <button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary add_objective_row
-                                                    list-btn-toggle"><i class="fad fa-plus-circle"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-12">
-                    <label for="audit_approach">অডিট অ্যাপ্রোচ<span class="text-danger">*</span></label></br>
-{{--                    <input class="form-control d-none" type="text" id="audit_approach" name="audit_approach">--}}
-                    <input type="radio" name="audit_approach" value="" checked> Problem Oriented
-                    <input type="radio" name="" value="audit_approach"> Result Oriented
-                    <input type="radio" name="" value="audit_approach" > System Oriented
-
-                </div>
-            </div>
-        @endif
     </div>
 </div>
 <div class="row ml-7 mr-7 pt-4">
     <div class="col-6">
         <div class="annual_entity_selection_area">
             <ul class="nav nav-tabs custom-tabs mb-0" id="myTab" role="tablist">
+                @if(session('dashboard_audit_type') == 'Performance Audit')
                 <li class="nav-item">
-                    <a class="nav-link active" id="calender" data-toggle="tab" href="#select_rp_parent_office"
+                    <a class="nav-link active" data-toggle="tab" href="#select_topic"
                        aria-controls="tree">
+                        <span class="nav-text">টপিক বাছাই করুন</span>
+                    </a>
+                </li>
+                @endif
+                <li class="nav-item">
+                    <a class="nav-link @if(session('dashboard_audit_type') != 'Performance Audit') active @endif" id="calender" data-toggle="tab"
+                       aria-controls="tree" href="#select_rp_parent_office">
                         <span class="nav-text">এনটিটি/সংস্থা</span>
                     </a>
                 </li>
@@ -128,7 +60,95 @@
                 </li>
             </ul>
             <div class="tab-content" id="rp_office_tab">
-                <div class="tab-pane fade border border-top-0 p-3 show active" id="select_rp_parent_office"
+                @if(session('dashboard_audit_type') == 'Performance Audit')
+                    <div class="tab-pane fade border border-top-0 p-3 show active" id="select_topic"
+                        role="tabpanel"
+                        aria-labelledby="activity-tab">
+                                <div class="form-row mt-2">
+                                    <div class="col-md-12">
+                                        <label for="vumika">ভূমিকা <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" id="vumika" name="vumika">
+                                    </div>
+                                    <div class="row mt-2 mb-2 mx-0">
+                                        <p class="col-md-12 mb-1 px-2">সাবজেক্ট ম্যাটার :</p><br>
+                                        <div class="col-md-12 px-2">
+                                            <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
+                                            <input class="form-control" type="text" id="subject_matter" name="subject_matter">
+                                        </div>
+                                        <div class="col-md-12 px-2 mt-2">
+                                            <label for="sub_subject_matter">সাব টপিক<span class="text-danger">*</span></label>
+                                            <div class="sub_subject_matter_div">
+                                                <div>
+                                                    <div class="input-group">
+                                                        <input class="form-control sub_subject_matter" type="text" id="sub_subject_matter" name="sub_subject_matter">
+                                                        <button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary add_sub_topic
+                                                                        list-btn-toggle"><i class="fad fa-plus-circle"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="audit_objective">অডিট অবজেকটিভ<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" id="audit_objective" name="audit_objective">
+
+
+                                        <div id="objectiveAppendSection ">
+                                            <fieldset class="scheduler-border">
+                                                <legend class="scheduler-border">
+                                                    সাব অবজেকটিভ যোগ করুন
+                                                    <span class="fa fa-plus-circle btn_objective_add"></span>
+                                                </legend>
+
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="input-label">Sub Objective<span class="text-danger">*</span></label>
+                                                            <input class="form-control" type="text" id="sub_objective" name="sub_objective">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="input-label">Line Of Enquire<span class="text-danger">*</span></label>
+                                                            <div class="input-group">
+                                                                    <input class="form-control" type="text" id="sub_objective" name="sub_objective">
+                                                                <button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary add_line_of_enquire
+                                                            list-btn-toggle"><i class="fad fa-plus-circle"></i></button>
+                                                            </div>
+                                                            <div class="line_of_enquire_div">
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </fieldset>
+
+                                            <div class="object_append_div">
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="audit_approach">অডিট অ্যাপ্রোচ<span class="text-danger">*</span></label></br>
+                    {{--                    <input class="form-control d-none" type="text" id="audit_approach" name="audit_approach">--}}
+                                        <input type="radio"  name="audit_approach" value="" checked> Problem Oriented
+                                        <input type="radio" class="ml-3" name="" value="audit_approach"> Result Oriented
+                                        <input type="radio" class="ml-3" name="" value="audit_approach" > System Oriented
+
+                                    </div>
+                                </div>
+
+                    </div>
+                @endif
+                <div class="tab-pane fade border border-top-0 p-3 @if(session('dashboard_audit_type') != 'Performance Audit') show active @endif" id="select_rp_parent_office"
                      role="tabpanel"
                      aria-labelledby="calender-tab">
                     <div class="px-3">
@@ -157,6 +177,7 @@
                     @endif
                     <div class="col-md-12 rp_auditee_parent_office_tree"></div>
                 </div>
+
                 <div class="tab-pane border border-top-0 p-3 fade" id="select_entity_by_layer"
                      role="tabpanel" aria-labelledby="activity-tab">
                     <div class="row">
@@ -381,39 +402,28 @@
         });
     });
 
-    rowCount = 1;
-    $('.add_objective_row').on('click', function (){
-        rowCount ++;
-        $('#objectiveTable > tbody').append(`<tr>
-                                <td>${rowCount}</td>
-                                <td>
-                                    <input
-                                           class="form-control"
-                                           type="text"
-                                           value="">
-                                </td>
-                                <td>
-                                    <input
-                                           class="form-control"
-                                           type="text"
-                                           value="">
-                                </td>
-                                <td class="pl-0 pr-0">
-                                    <input type="text"
-                                           class="form-control"
-                                           value="">
-                                </td>
-                                <td class="pl-0 pr-0">
-                                    <button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger remove_objective_row
-                                                    list-btn-toggle"><i class="fad fa-minus-circle"></i></button>
-                                </td>
-                            </tr>`);
+    $('.add_line_of_enquire').on('click', function (){
+        $( ".line_of_enquire_div").append( ' <div class="input-group"><input class="form-control" type="text" id="sub_objective" name="sub_objective"><button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger remove_line_of_enquire list-btn-toggle"><i class="fad fa-minus-circle"></i></button></div>' );
 
-        $('.remove_objective_row').on('click', function(e) {
+        $('.line_of_enquire_div').on('click', '.remove_line_of_enquire', function(e) {
             e.preventDefault();
             $(this).parent().parent().remove();
         });
     });
+
+    $('.btn_objective_add').on('click', function (){
+        $( ".object_append_div").append( '<fieldset class="scheduler-border"><legend class="scheduler-border">সাব অবজেকটিভ মুছে ফেলুন<span style="color: red" class="fa fa-minus-circle btn_objective_remove"></span></legend><div class="row"><div class="col-md-12"><div class="form-group"><label class="input-label">Sub Objective<span class="text-danger">*</span></label><input class="form-control" type="text" id="sub_objective" name="sub_objective"></div></div></div><div class="row"><div class="col-md-12"><div class="form-group"><label class="input-label">Line Of Enquire<span class="text-danger">*</span></label><div class="input-group"><input class="form-control" type="text" id="sub_objective" name="sub_objective"><button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary add_line_of_enquire list-btn-toggle"><i class="fad fa-plus-circle"></i></button></div><div class="line_of_enquire_div"></div></div></div></div></fieldset>' );
+
+        $('.object_append_div').on('click', '.btn_objective_remove', function(e) {
+            e.preventDefault();
+            $(this).parent().parent().remove();
+        });
+    });
+
+
+
+
+
 
 </script>
 

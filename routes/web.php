@@ -120,6 +120,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('edit-activity', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'edit'])->name('activity.edit');
 
             Route::post('load-edit-output-activity', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'loadEditOutputActivity'])->name('activity.edit.output.load');
+            Route::post('load-edit-output-activity-milestone', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'loadEditOutputActivityMilestone'])->name('activity.milestone.edit.output.load');
             Route::post('update-activity', [\App\Http\Controllers\AuditPlan\AuditOperationalPlan\AuditActivityController::class, 'update'])->name('activity.update');
 
             //calendar
