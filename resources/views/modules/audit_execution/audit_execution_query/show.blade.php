@@ -40,27 +40,44 @@
             </tr>
             <tr>
                 <th width="15%">ক্রমিক নং</th>
-                <th width="75%">কোয়েরি</th>
-                <th width="10%"></th>
+                <th width="65%">কোয়েরি</th>
+                <th width="20%"></th>
             </tr>
             </thead>
             <tbody>
             @foreach($auditQueryInfo['query_items'] as $item)
-                <tr>
+                <tr id="row_query_item_{{$item['id']}}">
                     <th class="text-center">{{enTobn($loop->iteration)}}</th>
                     <td>
                         {{$item['item_title_bn']}}
-                        <span class="query_receive_status badge badge-{{$item['status'] =="pending"?'info':'success'}} text-uppercase m-1 p-1 ">
+
+                        @if($item['status'] =="pending")
+                            @php $badgeStyle ='waring'; @endphp
+                        @elseif($item['status'] =="submitted")
+                            @php $badgeStyle ='primary'; @endphp
+                        @else
+                            @php $badgeStyle ='success'; @endphp
+                        @endif
+                        <span class="query_receive_status badge badge-{{$badgeStyle}} text-uppercase m-1 p-1 ">
                             {{$item['status']}}
                         </span>
                     </td>
                     <td>
-                        @if($scopeAuthority == 0 && $hasSentToRpu == 1 && $item['status'] == 'pending')
+                        @if($scopeAuthority == 0 && $item['status'] == 'submitted')
                             <button title="রিসিভ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                                     data-ac-query-item-id="{{$item['id']}}"
                                     data-ac-query-id="{{$item['ac_query_id']}}"
                                     onclick="Show_Query_Container.receivedQuery($(this))">
                                 <i class="fad fa-check-circle"></i>
+                            </button>
+                        @endif
+
+                        @if($scopeAuthority == 0 && $item['status'] != 'pending')
+                            <button title="কমেন্ট দেখুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                    data-ac-query-item-id="{{$item['id']}}"
+                                    data-ac-query-item-comment="{{$item['comment']}}"
+                                    onclick="Show_Query_Container.showQueryComment($(this))">
+                                <i class="fal fa-eye"></i>
                             </button>
                         @endif
                     </td>
@@ -95,6 +112,13 @@
                     toastr.success(response.data)
                 }
             })
+        },
+
+        showQueryComment: function (elem) {
+            $('.query_comment_row').remove();
+            item_id = elem.data('ac-query-item-id');
+            comment = elem.data('ac-query-item-comment');
+            $("#row_query_item_"+item_id).after(`<span class="query_comment_row">${comment}</span>`);
         },
 
         queryDownload: function (elem) {
