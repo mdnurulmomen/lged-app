@@ -65,9 +65,16 @@
                                                                             class="btn_add_milestone btn btn-outline-secondary btn-icon btn-square"><i
                                                                             class="fas fa-flag-checkered"></i></button>
                                                                 </div>
-                                                                @if(!empty($activity['children']))
-                                                                    @include('modules.audit_plan.operational.audit_activity.partials.recursiveChild',['children' => $activity['children']])
+
+
+                                                                @if(!empty($activity['milestones']))
+                                                                    @include('modules.audit_plan.operational.audit_activity.partials.loadMilestones',['milestones' => $activity['milestones']], ['children' => $activity['children']])
+                                                                @else
+                                                                    @if(!empty($activity['children']))
+                                                                        @include('modules.audit_plan.operational.audit_activity.partials.recursiveChild',['children' => $activity['children']])
+                                                                    @endif
                                                                 @endif
+
                                                             </div>
                                                         </div>
                                                     </li>

@@ -33,9 +33,15 @@
                                 class="fas fa-flag-checkered"></i>
                         </button>
                     </div>
-                    @if(count($child['children']))
-                        @include('modules.audit_plan.operational.audit_activity.partials.recursiveChild',['children' => $child['children']])
+
+                    @if(!empty($child['milestones']))
+                        @include('modules.audit_plan.operational.audit_activity.partials.loadMilestones',['milestones' => $child['milestones']], ['children' => $child['children']])
+                    @else
+                        @if(count($child['children']))
+                            @include('modules.audit_plan.operational.audit_activity.partials.recursiveChild',['children' => $child['children']])
+                        @endif
                     @endif
+
                 </div>
             </div>
         </li>
