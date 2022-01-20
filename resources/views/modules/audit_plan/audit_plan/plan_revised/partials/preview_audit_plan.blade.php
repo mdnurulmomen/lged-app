@@ -12,7 +12,23 @@
 
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $cover['content'] !!}
+        {!! $coverPage['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $indexPage['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $strategicFormPartOne['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $strategicFormPartTwo['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $strategicFormPartThree['content'] !!}
     </div>
 
     <div class="pdf-screen bangla-font" style="height: 100%">
@@ -23,19 +39,18 @@
         @endforeach
     </div>
 
-    <br>
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $formThree['content'] !!}
+        {!! $auditRiskAssessmentPage['content'] !!}
     </div>
 
-    <br>
+
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $porishisto['content'] !!}
+        {!! $materialityCalculatePage['content'] !!}
     </div>
 
-    <br>
+
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $auditSchedule['content'] !!}
+        {!! $auditSchedulePage['content'] !!}
     </div>
 </div>
 

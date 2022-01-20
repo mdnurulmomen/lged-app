@@ -784,10 +784,26 @@
 <body>
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $cover['content'] !!}
+        {!! $coverPage['content'] !!}
     </div>
 
     <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $indexPage['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $strategicFormPartOne['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $strategicFormPartTwo['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $strategicFormPartThree['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%;">
         @foreach($plans as $plan)
             <div class="plan_content bangla-font">
                 {!! $plan['content'] !!}
@@ -795,16 +811,18 @@
         @endforeach
     </div>
 
-    <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $formThree['content'] !!}
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
+        {!! $auditRiskAssessmentPage['content'] !!}
     </div>
 
-    <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $porishisto['content'] !!}
+
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
+        {!! $materialityCalculatePage['content'] !!}
     </div>
 
+
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $auditSchedule['content'] !!}
+        {!! $auditSchedulePage['content'] !!}
     </div>
 </div>
 </body>
