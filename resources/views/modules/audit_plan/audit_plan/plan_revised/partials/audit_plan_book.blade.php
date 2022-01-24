@@ -778,6 +778,13 @@
         .no-border tbody, .no-border td, .no-border tfoot, .no-border th, .no-border thead, .no-border tr {
             border: 0 !important;
         }
+
+        @page {
+            odd-header-name: odd-header;
+            even-header-name: even-header;
+            odd-footer-name: odd-footer;
+            even-footer-name: even-footer;
+        }
     </style>
 </head>
 
@@ -811,7 +818,8 @@
         @endforeach
     </div>
 
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;
+    page-break-after: always">
         {!! $auditRiskAssessmentPage['content'] !!}
     </div>
 
@@ -824,6 +832,15 @@
     <div class="pdf-screen bangla-font" style="height: 100%">
         {!! $auditSchedulePage['content'] !!}
     </div>
+
+    <htmlpagefooter name="even-footer">
+        <div style="float:right; width: 100%; text-align: right;">Page <span class="page_number">{PAGENO}</span> of {nb}</div>
+    </htmlpagefooter>
+
+    <htmlpagefooter name="odd-footer">
+        {{--@php $pageNumber = ; @endphp--}}
+        <div style="float:left; width: 100%; text-align: right;">Page {PAGENO} of {nb}</div>
+    </htmlpagefooter>
 </div>
 </body>
 </html>

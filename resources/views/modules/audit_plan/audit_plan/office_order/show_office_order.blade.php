@@ -38,14 +38,14 @@
         <!--begin::Body-->
         <div class="card-body">
             <div style="font-family:SolaimanLipi,serif !important;text-align: center">
-                গণপ্রজাতন্ত্রী বাংলাদেশ সরকার <br>
+                {{--গণপ্রজাতন্ত্রী বাংলাদেশ সরকার <br>--}}
                 <b>{{$directorateName}}</b> <br>
                 {!! $directorateAddress !!}
             </div>
 
             <div style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">
             <span style="width: 85%;float: left">
-                {{$office_order['memorandum_no']}}
+                স্মারক নং- {{$office_order['memorandum_no']}}
             </span>
                 <span style="width: 15%;float: right;text-align: right">
                 তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
@@ -190,7 +190,8 @@
                 @if($office_order['office_order_movement'] != null)
                     ({{$office_order['office_order_movement']['employee_name_bn']}}) <br>
                     {{$office_order['office_order_movement']['employee_designation_bn']}} <br>
-                    ফোন: {{enTobn($office_order['office_order_movement']['officer_phone'])}}
+                    ফোনঃ {{enTobn($office_order['office_order_movement']['officer_phone'])}} <br>
+                    ইমেইলঃ {{enTobn($office_order['office_order_movement']['officer_email'])}}
                 @endif
             </div>
 
@@ -214,10 +215,12 @@
             </div>
 
             <div style="font-family:SolaimanLipi,serif !important;text-align: center;float: right">
-                ({{$office_order['draft_officer_name_bn']}}) <br>
+                {{--({{$office_order['draft_officer_name_bn']}}) <br>
                 {{$office_order['draft_designation_name_bn']}} <br>
                 {{$office_order['draft_office_unit_bn']}} <br>
-                ফোন: {{enTobn($office_order['draft_officer_phone'])}}
+                ফোন: {{enTobn($office_order['draft_officer_phone'])}}--}}
+
+                {!! nl2br($office_order['cc_sender_details']) !!}
             </div>
         </div>
     </div>

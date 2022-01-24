@@ -783,14 +783,14 @@
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center">
-            গণপ্রজাতন্ত্রী বাংলাদেশ সরকার <br>
+            {{--গণপ্রজাতন্ত্রী বাংলাদেশ সরকার <br>--}}
             <b>{{$directorateName}}</b> <br>
             {!! $directorateAddress !!}
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">
             <div style="text-align: left;float: left;width: 70%;">
-                {{$office_order['memorandum_no']}}
+                স্মারক নং- {{$office_order['memorandum_no']}}
             </div>
             <div style="text-align: right;float:right;width: 30%">
                 তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
@@ -798,14 +798,14 @@
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;margin: 10px 0 10px 0">
-            <b><u>অফিস আদেশ</u></b>
+            <span style="font-weight: bold;border-bottom: 1px solid black">অফিস আদেশ</span>
         </div>
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: justify">
             {{$office_order['heading_details']}}
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;margin-top: 10px">
-            <b><u>নিরীক্ষা দল নং-০১</u></b>
+            <span style="font-weight: bold;border-bottom: 1px solid black">নিরীক্ষা দল নং-০১</span>
         </div>
 
         <div class="bangla-font" style="margin-top: 5px">
@@ -836,7 +836,7 @@
          @foreach($audit_team_schedules as $audit_team_schedule)
              @if($audit_team_schedule['team_schedules'] != null)
                  <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;margin-top: 10px">
-                     <b><u>{{$audit_team_schedule['team_name']}}</u></b>
+                     <span style="font-weight: bold;border-bottom: 1px solid black">{{$audit_team_schedule['team_name']}}</span>
                  </div>
 
                  <div class="bangla-font" style="margin-top: 5px">
@@ -935,7 +935,8 @@
             @if($office_order['office_order_movement'] != null)
                 ({{$office_order['office_order_movement']['employee_name_bn']}}) <br>
                 {{$office_order['office_order_movement']['employee_designation_bn']}} <br>
-                ফোন: {{enTobn($office_order['office_order_movement']['officer_phone'])}}
+                ফোন: {{enTobn($office_order['office_order_movement']['officer_phone'])}} <br>
+                ইমেইলঃ {{enTobn($office_order['office_order_movement']['officer_email'])}}
             @endif
         </div>
     </div>
@@ -960,10 +961,12 @@
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top:10px;text-align: center;float: right;width: 20%">
-            ({{$office_order['draft_officer_name_bn']}}) <br>
+            {{--({{$office_order['draft_officer_name_bn']}}) <br>
             {{$office_order['draft_designation_name_bn']}} <br>
             {{$office_order['draft_office_unit_bn']}} <br>
-            ফোন: {{enTobn($office_order['draft_officer_phone'])}}
+            ফোন: {{enTobn($office_order['draft_officer_phone'])}}--}}
+
+            {!! nl2br($office_order['cc_sender_details']) !!}
         </div>
     </div>
 </div>

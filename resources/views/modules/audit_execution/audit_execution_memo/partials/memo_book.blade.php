@@ -800,18 +800,17 @@
             <span style="font-weight: bold">বিবরণঃ</span>
             {!! $memoInfo['memo_description_bn'] !!}
         </div>
-        @if($memoInfo['response_of_rpu'])
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+
+        {{--<div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
             <span style="font-weight: bold">অনিয়মের কারণঃ</span>
-            {{$memoInfo['response_of_rpu']}}
-        </div>
-        @endif
+            {{$memoInfo['irregularity_cause']}}
+        </div>--}}
 
         @if($memoInfo['response_of_rpu'])
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">অডিট প্রতিষ্ঠানের জবাবঃ</span>
-            {{$memoInfo['response_of_rpu']}}
-        </div>
+            <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+                <span style="font-weight: bold">অডিট প্রতিষ্ঠানের জবাবঃ</span>
+                {{$memoInfo['response_of_rpu']}}
+            </div>
         @endif
 
         <br>

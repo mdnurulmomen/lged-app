@@ -37,8 +37,16 @@
                 </select>
             </div>--}}
 
+            @if($qac_type == 'qac-2')
+                @php $paritoAirName = 'কিউএসি ১'; @endphp
+            @elseif($qac_type == 'cqat')
+                @php $paritoAirName = 'কিউএসি ২'; @endphp
+            @else
+                @php $paritoAirName = 'প্রিলিমিনারি'; @endphp
+            @endif
+
             <div class="col-md-6">
-                <label for=""><b>{{$qac_type_name_bn}} এর জন্য প্রেরিত প্রিলিমিনারি এআইআর এর তালিকা</b></label>
+                <label for=""><b>{{$qac_type_name_bn}} এর জন্য প্রেরিত {{$paritoAirName}} এআইআর এর তালিকা</b></label>
                 <select class="form-select select-select2" id="preliminary_air_filter">
                     <option value="">প্রিলিমিনারি এআইআর</option>
                 </select>
