@@ -69,15 +69,15 @@ class OfficeOrderController extends Controller
         //dd($responseData);
         $directorateName = $this->current_office()['office_name_bn'];
         if ($this->current_office_id() == 14){
-            $directorateAddress = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.dgcivil-cagbd.org';
-        }
-        elseif ($this->current_office_id() == 3){
-            $directorateAddress = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateAddress = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.worksaudit.org.bd';
         }
+        elseif ($this->current_office_id() == 3){
+            $directorateAddress = 'অডিট কমপ্লেক্স (২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.dgcivil-cagbd.org';
+        }
         else{
-            $directorateAddress = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateAddress = 'অডিট কমপ্লেক্স (৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.cad.org.bd';
         }
         $data['directorateName'] = $directorateName;
@@ -105,7 +105,8 @@ class OfficeOrderController extends Controller
                 'memorandum_date' => 'required',
                 'heading_details' => 'required',
                 'advices' => 'required',
-                'order_cc_list' => 'required'
+                'order_cc_list' => 'required',
+                'cc_sender_details' => 'required'
             ])->validate();
 
             $data = [
@@ -117,7 +118,8 @@ class OfficeOrderController extends Controller
                 'heading_details' => $request->heading_details,
                 'advices' => $request->advices,
                 'approved_status' => 'draft',
-                'order_cc_list' => $request->order_cc_list
+                'order_cc_list' => $request->order_cc_list,
+                'cc_sender_details' => $request->cc_sender_details,
             ];
 
             $responseGenerateOfficeOrder = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.generate_office_order'), $data)->json();
@@ -244,15 +246,15 @@ class OfficeOrderController extends Controller
         //dd($responseData);
         $directorateName = $this->current_office()['office_name_bn'];
         if ($this->current_office_id() == 14){
-            $directorateAddress = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.dgcivil-cagbd.org';
-        }
-        elseif ($this->current_office_id() == 3){
-            $directorateAddress = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateAddress = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.worksaudit.org.bd';
         }
+        elseif ($this->current_office_id() == 3){
+            $directorateAddress = 'অডিট কমপ্লেক্স (২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.dgcivil-cagbd.org';
+        }
         else{
-            $directorateAddress = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateAddress = 'অডিট কমপ্লেক্স (৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.cad.org.bd';
         }
         $data['office_order'] = $responseData['data']['office_order'];

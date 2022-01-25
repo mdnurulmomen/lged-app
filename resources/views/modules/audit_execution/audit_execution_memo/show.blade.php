@@ -21,14 +21,14 @@
         {!! $memoInfo['memo_description_bn'] !!}
     </div>
 
-{{--    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">--}}
-{{--        <span style="font-weight: bold">অনিয়মের কারণঃ</span> {{$memoInfo['response_of_rpu']}}--}}
-{{--    </div>--}}
+    {{--<div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <span style="font-weight: bold">অনিয়মের কারণঃ</span> {{$memoInfo['irregularity_cause']}}
+    </div>--}}
 
     @if($memoInfo['response_of_rpu'])
-    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-        <span style="font-weight: bold">অডিটি প্রতিষ্ঠানের জবাবঃ</span> {{$memoInfo['response_of_rpu']}}
-    </div>
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+            <span style="font-weight: bold">অডিটি প্রতিষ্ঠানের জবাবঃ</span> {{$memoInfo['response_of_rpu']}}
+        </div>
     @endif
 
     @if($memoInfo['audit_conclusion'])

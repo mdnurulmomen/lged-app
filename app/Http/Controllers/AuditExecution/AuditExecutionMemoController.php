@@ -408,15 +408,15 @@ class AuditExecutionMemoController extends Controller
 
         $directorateName = $this->current_office()['office_name_bn'];
         if ($this->current_office_id() == 14){
-            $directorateAddress = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.dgcivil-cagbd.org';
-        }
-        elseif ($this->current_office_id() == 3){
-            $directorateAddress = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateAddress = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.worksaudit.org.bd';
         }
+        elseif ($this->current_office_id() == 3){
+            $directorateAddress = 'অডিট কমপ্লেক্স (২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.dgcivil-cagbd.org';
+        }
         else{
-            $directorateAddress = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateAddress = 'অডিট কমপ্লেক্স (৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.cad.org.bd';
         }
 

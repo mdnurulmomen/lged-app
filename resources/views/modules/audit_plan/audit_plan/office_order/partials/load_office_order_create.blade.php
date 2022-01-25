@@ -23,8 +23,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="heading_details">শিরোনাম<span class="text-danger">*</span></label>
-                <textarea class="form-control" name="heading_details" id="heading_details" placeholder="শিরোনাম" cols="30" rows="2">{{empty($office_order)?'':$office_order['heading_details']}}</textarea>
+                <label for="heading_details">বর্ণনা<span class="text-danger">*</span></label>
+                <textarea class="form-control" name="heading_details" id="heading_details" placeholder="বর্ণনা" cols="30" rows="2">{{empty($office_order)?'':$office_order['heading_details']}}</textarea>
             </div>
         </div>
     </div>
@@ -41,6 +41,15 @@
             <div class="form-group">
                 <label for="order_cc_list">অনুলিপি<span class="text-danger">*</span></label>
                 <textarea class="form-control" name="order_cc_list" id="order_cc_list" placeholder="অনুলিপি" cols="30" rows="2">{{empty($office_order)?'':$office_order['order_cc_list']}}</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="cc_sender_details">দায়িত্বপ্রাপ্ত কর্মকর্তার<span class="text-danger">*</span></label>
+                <textarea class="form-control" name="cc_sender_details" id="cc_sender_details" placeholder="দায়িত্বপ্রাপ্ত কর্মকর্তার" cols="40" rows="2">{{empty($office_order)?'':$office_order['cc_sender_details']}}</textarea>
             </div>
         </div>
     </div>
