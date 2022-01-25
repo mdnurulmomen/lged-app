@@ -34,13 +34,13 @@
                     @endif
                     @if($loop->iteration == 1)
                         <td width="5%" class="vertical-middle text-center" rowspan="{{count($annual_plan)}}">
-                            {{isset($annual_plan['total_no_of_items']) ? enTobn($annual_plan['total_no_of_items']) : 0}}
+                            {{isset($plan['total_no_of_items']) ? enTobn($plan['total_no_of_items']) : 0}}
                         </td>
                     @endif
                     @if($loop->iteration == 1)
                         <td width="5%" class="vertical-middle text-center" rowspan="{{count($annual_plan)}}">
-                            @if(isset($annual_plan['total_assigned_staff']))
-                                {{enTobn($annual_plan['total_assigned_staff'])}}
+                            @if(isset($plan['total_assigned_staff']))
+                                {{enTobn($plan['total_assigned_staff'])}}
                             @else
                                 {{isset($plan['assigned_staff']) ? enTobn($plan['assigned_staff']) : 0}}
                             @endif

@@ -37,6 +37,8 @@
                 if (response.status === 'success') {
                     toastr.success('সফলভাবে সংরক্ষন করা হয়েছে');
                     $('#kt_quick_panel_close').click();
+                    fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+                    Annual_Plan_Calender.loadAnnualPlanList(fiscal_year_id);
                 }
                 else {
                     if (response.statusCode === '422') {
