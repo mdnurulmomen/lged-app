@@ -72,7 +72,6 @@ class AuditActivityController extends Controller
         isset($outcome_id) ? $data1['outcome_id'] = $outcome_id : '';
         isset($fiscal_year_id) ? $data1['fiscal_year_id'] = $fiscal_year_id : '';
         $activity_lists = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_find'), $data1)->json();
-
         return view('modules.audit_plan.operational.audit_activity.partials.load_edit_output_activities', compact('activity_info', 'activity_lists'));
     }
 

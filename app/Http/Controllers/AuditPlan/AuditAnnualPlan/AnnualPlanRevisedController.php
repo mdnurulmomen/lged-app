@@ -206,9 +206,10 @@ class AnnualPlanRevisedController extends Controller
                 'audit_calendar_event_id' => $request->op_audit_calendar_event_id,
                 'fiscal_year_id' => $request->fiscal_year_id,
                 'subject_matter' => $request->subject_matter,
-                'sub_subject_matter' => $request->sub_subject_matter,
+                'sub_subject_list' => json_decode($request->sub_subject_list, true),
                 'vumika' => $request->vumika,
                 'audit_objective' => $request->audit_objective,
+                'sub_objective_list' => json_decode($request->sub_objective_list, true),
                 'audit_approach' => $request->audit_approach,
                 'office_type' => $request->office_type,
                 'office_type_en' => $request->office_type_en,
@@ -223,6 +224,17 @@ class AnnualPlanRevisedController extends Controller
                 'thematic_title' => $request->thematic_title
             ];
 
+
+        // $sub_objective_list = json_decode($request->sub_objective_list, true);
+        // foreach ($sub_objective_list as $key => $sub_o) {
+        //     print_r($sub_o['sub_objective']);
+        //     //print_r($sub_o['line_of_enquires']);
+        //     foreach ($sub_o['line_of_enquires'] as $val ) {
+        //         print_r($val);
+        //     }
+
+        // }
+        // exit;
             $staff_infos = $request->staff_info;
 //
             $staffs = [];
@@ -258,7 +270,7 @@ class AnnualPlanRevisedController extends Controller
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_update'), $data)->json();
             } else {
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
-//                dd($store_plan);
+                //dd($store_plan);
             }
             if (isSuccess($store_plan)) {
                 return response()->json(['status' => 'success', 'data' => 'Added!']);
@@ -616,6 +628,42 @@ class AnnualPlanRevisedController extends Controller
             return view('modules.audit_plan.annual.annual_plan_revised.partials.load_movement_histories', compact('annual_plan_movement_list'));
         } else {
             return response()->json(['status' => 'error', 'data' => $responseData]);
+        }
+    }
+
+    public function loadEditAnnualPlanMilestone(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'schedule_id' => 'required|integer'
+        ])->validate();
+
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_schedule_info'), $data)->json();
+
+        if (isSuccess($responseData)) {
+            $schedule_info = $responseData['data'];
+            return view('modules.audit_plan.annual.annual_plan_revised.partials.load_plan_list_milestone_edit', compact('schedule_info'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData]);
+        }
+    }
+
+    public function editAnnualPlanMilestone(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'schedule_id' => 'required|integer',
+            'no_of_items' => 'required|integer',
+            'staff_assigne' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $submit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.submit_milestone_value'), $data)->json();
+
+        if (isSuccess($submit_plan)) {
+            return response()->json(['status' => 'success', 'data' => 'Submission Successful!']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $submit_plan]);
         }
     }
 }

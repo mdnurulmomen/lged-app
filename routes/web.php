@@ -221,6 +221,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/calendar', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualCalendarController::class, 'index'])->name('calendar');
             Route::post('/load-assessment-entity', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'loadAssessmentEntity'])->name('load-assessment-entity');
 
+            Route::post('/load-annual-plan-edit-milestone', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'loadEditAnnualPlanMilestone'])->name('plan.list.load-edit-milestone');
+            Route::post('/annual-plan-edit-milestone', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'editAnnualPlanMilestone'])->name('plan.list.edit-milestone');
+
             //audit assessment score
             Route::group(['as' => 'audit-assessment-score.', 'prefix' => 'audit-assessment-score/'], function () {
                 Route::get('/', [AuditAssessmentScoreController::class, 'index']);

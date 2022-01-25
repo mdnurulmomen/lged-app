@@ -630,6 +630,58 @@
 
             });
 
+            $s_key = 1;
+            sub_subject_list = {};
+            $(".sub_subject_matter_div input").each(function () {
+
+                if ($(this).hasClass('sub_subject_matter')) {
+                    if (!$(this).val()) {
+                        toastr.warning('Select Sub Topic');
+                        sub_subject_list = {};
+                        return false;
+                    }else{
+                        if (typeof sub_subject_list[$s_key] === 'undefined') {
+                            sub_subject_list[$s_key] = {};
+                        }
+                        sub_subject_list[$s_key]['sub_subject_matter'] = $(this).val();
+                    }
+                }
+                $s_key++;
+            });
+
+            $o_key = 1;
+            sub_objective_list = {};
+            $(".sub_objective_row input").each(function () {
+                row_id = $(this).closest('.sub_objective_row').attr('id');
+                if ($(this).hasClass('sub_objective')) {
+                    if (!$(this).val()) {
+                        toastr.warning('Select Sub Objective');
+                        sub_objective_list = {};
+                        return false;
+                    }else{
+                        if (typeof sub_objective_list[$o_key] === 'undefined') {
+                            sub_objective_list[$o_key] = {};
+                        }
+                        sub_objective_list[$o_key]['sub_objective'] = $(this).val();
+                        sub_objective_list[$o_key]['line_of_enquires'] = {};
+
+                        $("#"+row_id+ " .line_of_enquire_row input").each(function (j) {
+                            if ($(this).hasClass('line_of_enquire')) {
+                                if (!$(this).val()) {
+                                    toastr.warning('Select Line Of Enquire');
+                                    sub_objective_list = {};
+                                    return false;
+                                }
+
+                                sub_objective_list[$o_key]['line_of_enquires'][j]= $(this).val();
+                            }
+                        });
+
+                    }
+                }
+                $o_key++;
+            });
+
             milestone_list = {};
 
             $(".milestone_row input").each(function () {
@@ -665,7 +717,8 @@
             if(Object.keys(milestone_list).length === 0){
                 return;
             }
-
+            sub_subject_list = JSON.stringify(sub_subject_list);
+            sub_objective_list = JSON.stringify(sub_objective_list);
             milestone_list = JSON.stringify(milestone_list);
             entity_list = JSON.stringify(entity_info);
             annual_plan_type = $('input[name="annual_plan_type"]:checked').val();
@@ -691,8 +744,11 @@
             //     }
             // });
             //
-            // console.log(staff_list);
+            // console.log(staff_list);sub_objective_list
 
+            data.push({name: "sub_subject_list", value: sub_subject_list});
+            data.push({name: "sub_objective_list", value: sub_objective_list});
+            data.push({name: "audit_approach", value: $("input[name='audit_approach']:checked").val()});
             data.push({name: "activity_id", value: $('#activity_id').val()});
             data.push({name: "milestone_id", value: $('#milestone_id').val()});
             data.push({name: "milestone_list", value: milestone_list});
@@ -703,10 +759,8 @@
             data.push({name: "office_type_en", value: $('#office_category_type_title_en').val() ? $('#office_category_type_title_en').val() : null});
             data.push({name: "office_type_id", value: $('#office_category_type_select').val() ? $('#office_category_type_select').val() : null});
             data.push({name: "subject_matter", value: $('#subject_matter').val() ? $('#subject_matter').val() : null});
-            data.push({name: "sub_subject_matter", value: $('#sub_subject_matter').val() ? $('#sub_subject_matter').val() : null});
             data.push({name: "vumika", value: $('#vumika').val() ? $('#vumika').val() : null});
             data.push({name: "audit_objective", value: $('#audit_objective').val() ? $('#audit_objective').val() : null});
-            data.push({name: "audit_approach", value: $('#audit_approach').val() ? $('#audit_approach').val() : null});
 
             elem.prop('disabled', true)
 

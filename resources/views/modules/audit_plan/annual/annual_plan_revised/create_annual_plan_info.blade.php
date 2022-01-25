@@ -1,3 +1,19 @@
+<style>
+    #objectiveAppendSection fieldset.scheduler-border {
+    border: 1px solid #E4E6EF !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 1em 0 1.5em 0 !important;
+    -webkit-box-shadow: 0px 0px 0px 0px #000;
+    box-shadow: 0px 0px 0px 0px #000;
+}
+
+#objectiveAppendSection legend.scheduler-border {
+    width: inherit;
+    padding: 0 10px;
+    border-bottom: none;
+    font-size: 14px;
+}
+</style>
 <x-title-wrapper>Annual Plan</x-title-wrapper>
 
 <div class="row ml-7 mr-7 pt-4">
@@ -100,28 +116,34 @@
                                                     <span class="fa fa-plus-circle btn_objective_add"></span>
                                                 </legend>
 
-
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="input-label">Sub Objective<span class="text-danger">*</span></label>
-                                                            <input class="form-control" type="text" id="sub_objective" name="sub_objective">
+                                                <div class="sub_objective_row" id="sub_objective_row_1">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="input-label">Sub Objective<span class="text-danger">*</span></label>
+                                                                <input class="form-control sub_objective" type="text" id="sub_objective" name="sub_objective">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="input-label">Line Of Enquire<span class="text-danger">*</span></label>
-                                                            <div class="input-group">
-                                                                    <input class="form-control" type="text" id="sub_objective" name="sub_objective">
-                                                                <button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary add_line_of_enquire
-                                                            list-btn-toggle"><i class="fad fa-plus-circle"></i></button>
-                                                            </div>
-                                                            <div class="line_of_enquire_div">
-                                                            </div>
+                                                    <div class="line_of_enquire_row">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="input-label">Line Of Enquire<span class="text-danger">*</span></label>
 
+                                                                    <div class="line_of_enquire_div">
+                                                                        <div>
+                                                                            <div class="input-group">
+                                                                                <input class="form-control line_of_enquire" type="text" id="line_of_enquire" name="line_of_enquire">
+                                                                                <button type="button" onclick="addLineOfEnquire($(this))" class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary
+                                                                                list-btn-toggle"><i class="fad fa-plus-circle"></i></button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -139,9 +161,9 @@
                                     <div class="col-md-12">
                                         <label for="audit_approach">অডিট অ্যাপ্রোচ<span class="text-danger">*</span></label></br>
                     {{--                    <input class="form-control d-none" type="text" id="audit_approach" name="audit_approach">--}}
-                                        <input type="radio"  name="audit_approach" value="" checked> Problem Oriented
-                                        <input type="radio" class="ml-3" name="" value="audit_approach"> Result Oriented
-                                        <input type="radio" class="ml-3" name="" value="audit_approach" > System Oriented
+                                        <input type="radio" name="audit_approach" value="Problem Oriented" checked> Problem Oriented
+                                        <input type="radio" class="ml-3" name="audit_approach" value="Result Oriented"> Result Oriented
+                                        <input type="radio" class="ml-3" name="audit_approach" value="System Oriented" > System Oriented
 
                                     </div>
                                 </div>
@@ -402,22 +424,30 @@
         });
     });
 
-    $('.add_line_of_enquire').on('click', function (){
-        $( ".line_of_enquire_div").append( ' <div class="input-group"><input class="form-control" type="text" id="sub_objective" name="sub_objective"><button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger remove_line_of_enquire list-btn-toggle"><i class="fad fa-minus-circle"></i></button></div>' );
+    function addLineOfEnquire(elem){
+        elem.parent().parent().append( ' <div><div class="input-group mt-2"><input class="form-control line_of_enquire" type="text" id="line_of_enquire" name="line_of_enquire"><button type="button" onclick="removeLineOfEnquire($(this))" class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger  list-btn-toggle"><i class="fad fa-minus-circle"></i></button></div></div>' );
+    }
+    function removeLineOfEnquire(ele){
+        ele.parent().parent().remove();
+    }
 
-        $('.line_of_enquire_div').on('click', '.remove_line_of_enquire', function(e) {
-            e.preventDefault();
-            $(this).parent().parent().remove();
-        });
-    });
+    // $('.add_line_of_enquire').on('click', function (){
+    //     $(this).parent().parent().append( ' <div><div class="input-group mt-2"><input class="form-control" type="text" id="sub_objective" name="sub_objective"><button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger remove_line_of_enquire list-btn-toggle"><i class="fad fa-minus-circle"></i></button></div></div>' );
 
+    //     $('.line_of_enquire_div').on('click', '.remove_line_of_enquire', function(e) {
+    //         e.preventDefault();
+    //         $(this).parent().parent().remove();
+    //     });
+    // });
+    ob= 2;
     $('.btn_objective_add').on('click', function (){
-        $( ".object_append_div").append( '<fieldset class="scheduler-border"><legend class="scheduler-border">সাব অবজেকটিভ মুছে ফেলুন<span style="color: red" class="fa fa-minus-circle btn_objective_remove"></span></legend><div class="row"><div class="col-md-12"><div class="form-group"><label class="input-label">Sub Objective<span class="text-danger">*</span></label><input class="form-control" type="text" id="sub_objective" name="sub_objective"></div></div></div><div class="row"><div class="col-md-12"><div class="form-group"><label class="input-label">Line Of Enquire<span class="text-danger">*</span></label><div class="input-group"><input class="form-control" type="text" id="sub_objective" name="sub_objective"><button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary add_line_of_enquire list-btn-toggle"><i class="fad fa-plus-circle"></i></button></div><div class="line_of_enquire_div"></div></div></div></div></fieldset>' );
+        $( ".object_append_div").append( '<fieldset class="scheduler-border"><legend class="scheduler-border">সাব অবজেকটিভ মুছে ফেলুন<span style="color: red" class="fa fa-minus-circle btn_objective_remove"></span></legend><div class="sub_objective_row" id="sub_objective_row_'+ob+'"><div class="row"><div class="col-md-12"><div class="form-group"><label class="input-label">Sub Objective<span class="text-danger">*</span></label><input class="form-control sub_objective" type="text" id="sub_objective" name="sub_objective"></div></div></div><div class="line_of_enquire_row"><div class="row"><div class="col-md-12"><div class="form-group"><label class="input-label">Line Of Enquire<span class="text-danger">*</span></label><div class="line_of_enquire_div"><div><div class="input-group"><input class="form-control line_of_enquire" type="text" id="line_of_enquire" name="line_of_enquire"><button type="button"  onclick="addLineOfEnquire($(this))" class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary list-btn-toggle"><i class="fad fa-plus-circle"></i></button></div></div></div></div></div></div></div></div></fieldset>' );
 
         $('.object_append_div').on('click', '.btn_objective_remove', function(e) {
             e.preventDefault();
             $(this).parent().parent().remove();
         });
+        ob++;
     });
 
 

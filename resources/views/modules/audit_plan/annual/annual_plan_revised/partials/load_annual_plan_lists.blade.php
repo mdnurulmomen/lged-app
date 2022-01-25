@@ -6,7 +6,9 @@
             <th class="font-weight-bolder" style="color: black !important;" width="20%">Milestones</th>
             <th class="font-weight-bolder" style="color: black !important;" width="10%">Target Date</th>
             <th class="font-weight-bolder" style="color: black !important;" width="5%">Budget</th>
+            <th class="font-weight-bolder" style="color: black !important;" width="5%">No of Items</th>
             <th class="font-weight-bolder" style="color: black !important;" width="5%">Assigned Staff</th>
+            <th class="font-weight-bolder" style="color: black !important;" width="5%">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -32,7 +34,28 @@
                     @endif
                     @if($loop->iteration == 1)
                         <td width="5%" class="vertical-middle text-center" rowspan="{{count($annual_plan)}}">
-                            {{isset($plan['assigned_staff']) ? enTobn($plan['assigned_staff']) : 0}}
+                            {{isset($annual_plans['total_no_of_items']) ? enTobn($annual_plans['total_no_of_items']) : 0}}
+                        </td>
+                    @endif
+                    @if($loop->iteration == 1)
+                        <td width="5%" class="vertical-middle text-center" rowspan="{{count($annual_plan)}}">
+                            @if(isset($annual_plans['total_assigned_staff']))
+                                {{enTobn($annual_plans['total_assigned_staff'])}}
+                            @else
+                                {{isset($plan['assigned_staff']) ? enTobn($plan['assigned_staff']) : 0}}
+                            @endif
+                        </td>
+                    @endif
+                    @if($plan['activity_type'] == 'financial' || $plan['activity_type'] == 'performance' || $plan['activity_type'] == 'compliance')
+                        @if($loop->iteration == 1)
+                            <td width="5%" class="vertical-middle text-center" rowspan="{{count($annual_plan)}}"></td>
+                        @endif
+                    @else
+                        <td width="5%" class="text-center">
+                            <button data-schedule-id="{{ $plan['schedule_id'] }}"
+                                    type="button" class="btn btn-outline-secondary btn-icon btn_edit_activity_milestone_value btn-square">
+                                    <i class="fas fa-edit"></i>
+                            </button>
                         </td>
                     @endif
 
@@ -48,4 +71,40 @@
         </tbody>
     </table>
 </div>
+
+<script>
+     $('.btn_edit_activity_milestone_value').on('click', function (){
+
+        url = '{{route('audit.plan.annual.plan.list.load-edit-milestone')}}';
+        schedule_id = $(this).data('schedule-id');
+
+        data = {schedule_id};
+
+        KTApp.block('#kt_content', {
+            opacity: 0.1,
+            state: 'primary' // a bootstrap color
+        });
+
+        ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+            KTApp.unblock('#kt_content');
+            if (response.status === 'error') {
+                toastr.error('No data found');
+            }
+            else {
+                $(".offcanvas-title").text('Activity Wise Value Entry');
+                quick_panel = $("#kt_quick_panel");
+                quick_panel.addClass('offcanvas-on');
+                quick_panel.css('opacity', 1);
+                quick_panel.css('width', '40%');
+                quick_panel.removeClass('d-none');
+                $("html").addClass("side-panel-overlay");
+                $(".offcanvas-wrapper").html(response);
+            }
+        });
+
+    });
+
+</script>
+
+
 

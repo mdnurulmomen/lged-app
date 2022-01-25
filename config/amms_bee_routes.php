@@ -148,6 +148,8 @@ return [
         'send_annual_plan_sender_to_receiver' => env('API_URL_BEE', '') . '/planning/annual-plan/send-annual-plan-sender-to-receiver',
         'get_movement_histories' => env('API_URL_BEE', '') . '/planning/annual-plan/get-movement-histories',
         'get_current_desk_approval_authority' => env('API_URL_BEE', '') . '/planning/annual-plan/get-current-desk-approval-authority',
+        'submit_milestone_value' => env('API_URL_BEE', '') . '/planning/annual-plan/submit-milestone-value',
+        'get_schedule_info' => env('API_URL_BEE', '') . '/planning/annual-plan/get-schedule-info',
     ],
 
     'audit_entity_plan' => [
