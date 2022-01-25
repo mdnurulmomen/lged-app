@@ -1,6 +1,6 @@
 <x-title-wrapper>Preliminary Survey Report</x-title-wrapper>
 <form>
-    <div class="form-row">
+    <div class="form-row ml-4">
         <div class="col-sm-4">
             <label for="select_fiscal_year_annual_plan" class="col-form-label font-size-h4">অর্থ বছর</label>
             <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
@@ -33,6 +33,57 @@
                     toastr.error(response.data)
                 } else {
                     $('#load_psr').html(response);
+                }
+            });
+        },
+
+        createPsr: function () {
+            url = '{{route('audit.plan.annual.psr.create-psr')}}';
+            data = {};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('Server Error');
+                } else {
+                    $(".offcanvas-title").text('Preliminary Survey Report');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '60%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+        submitPsr: function () {
+            url = '{{route('audit.plan.annual.psr.store-psr')}}';
+            data = {};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('Server Error');
+                } else {
+                    $(".offcanvas-title").text('Preliminary Survey Report');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '60%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
                 }
             });
         },

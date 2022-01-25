@@ -51,7 +51,10 @@
             url = '{{route('audit.plan.operational.plan.load-directorate-wise-annual-plan')}}';
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             office_id = element.data('office-id');
-            data = {fiscal_year_id,office_id};
+            annual_plan_main_id = element.data('annual-plan-main-id');
+            activity_type = element.data('activity-type');
+            office_id = element.data('office-id');
+            data = {fiscal_year_id,office_id,activity_type,annual_plan_main_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -79,8 +82,11 @@
             url = '{{route('audit.plan.operational.plan.load-op-yearly-event-approval-form')}}';
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             op_audit_calendar_event_id = element.data('op-audit-calendar-event-id');
+            annual_plan_main_id = element.data('annual-plan-main-id');
+            activity_type = element.data('activity-type');
+            office_id = element.data('office-id');
             office_name_bn = element.data('office-name-bn');
-            data = {fiscal_year_id,op_audit_calendar_event_id};
+            data = {fiscal_year_id,op_audit_calendar_event_id,office_id,activity_type,annual_plan_main_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

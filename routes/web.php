@@ -246,6 +246,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::group(['as' => 'psr.', 'prefix' => 'psr/'], function () {
                 Route::get('/', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\PreliminarySurveyReportController::class, 'index']);
                 Route::post('load-psr', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\PreliminarySurveyReportController::class, 'loadPsr'])->name('load-psr');
+                Route::post('create-psr', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\PreliminarySurveyReportController::class, 'create'])->name('create-psr');
+                Route::post('store-psr', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\PreliminarySurveyReportController::class, 'store'])->name('store-psr');
             });
 
         });

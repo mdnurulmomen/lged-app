@@ -100,9 +100,11 @@
         loadAnnualPlanApprovalAuthority: function (element) {
             url = '{{route('audit.plan.annual.plan.revised.load-annual-plan-approval-authority')}}';
             fiscal_year_id = element.data('fiscal-year-id');
+            annual_plan_main_id = element.data('annual-plan-main-id');
+            activity_type = element.data('activity-type');
             op_audit_calendar_event_id = element.data('op-audit-calendar-event-id');
 
-            data = {fiscal_year_id, op_audit_calendar_event_id};
+            data = {fiscal_year_id, op_audit_calendar_event_id, annual_plan_main_id, activity_type};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -178,8 +180,9 @@
 
         addPlanInfo: function (elem) {
             fiscal_year_id = elem.data('fiscal-year-id');
+            annual_plan_main_id = elem.data('annual-plan-main-id');
             op_audit_calendar_event_id = elem.data('op-audit-calendar-event-id');
-            data = {fiscal_year_id, op_audit_calendar_event_id}
+            data = {fiscal_year_id,annual_plan_main_id, op_audit_calendar_event_id}
             KTApp.block('#kt_content');
             let url = '{{route('audit.plan.annual.plan.list.show.revised.create_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -552,9 +555,10 @@
 
         submitToOCAG: function (elem) {
             url = '{{route('audit.plan.annual.plan.list.submit.revised.plan-to-ocag')}}';
+            annual_plan_main_id = elem.data('annual-plan-main-id');
             fiscal_year_id = elem.data('fiscal-year-id');
 
-            ajaxCallAsyncCallbackAPI(url, {fiscal_year_id}, 'post', function (response) {
+            ajaxCallAsyncCallbackAPI(url, {fiscal_year_id,annual_plan_main_id}, 'post', function (response) {
                 if (response.status === 'success') {
                     toastr.success(response.data);
                 } else {
@@ -700,6 +704,7 @@
                     if (!$(this).val()) {
                         toastr.warning('Select start date');
                         milestone_list = {};
+                        $('#milestone_tab').click();
                         return false;
                     }
                     milestone_list[milestone_id]['start_date'] = formatDate($(this).val());

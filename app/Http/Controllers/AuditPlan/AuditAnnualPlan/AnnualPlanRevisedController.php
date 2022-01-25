@@ -57,13 +57,21 @@ class AnnualPlanRevisedController extends Controller
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
+        if(session('dashboard_audit_type') == 'Compliance Audit'){
+            $data['activity_type'] = 'compliance';
+        }else if(session('dashboard_audit_type') == 'Performance Audit'){
+            $data['activity_type'] = 'performance';
+            $data['activity_key'] = 'performance';
+        }else if(session('dashboard_audit_type')  == 'Financial Audit'){
+            $data['activity_type'] = 'financial';
+        }
 
         $planListResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_entities_list_show'),
             $data)->json();
 //        dd($planListResponseData);
 
         $plan_list = isSuccess($planListResponseData)?$planListResponseData['data']['annual_plan_list']:[];
-        $approval_status = isSuccess($planListResponseData)?$planListResponseData['data']['approval_status']:[];
+//        $approval_status = isSuccess($planListResponseData)?$planListResponseData['data']['approval_status']:[];
         $op_audit_calendar_event_id = isSuccess($planListResponseData)?$planListResponseData['data']['op_audit_calendar_event_id']:[];
 
         $fiscal_year = $request->fiscal_year;
@@ -71,7 +79,7 @@ class AnnualPlanRevisedController extends Controller
 
         return view('modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection',
             compact('plan_list', 'fiscal_year',
-                'fiscal_year_id', 'approval_status', 'op_audit_calendar_event_id'));
+                'fiscal_year_id','op_audit_calendar_event_id'));
 
     }
 
@@ -109,6 +117,8 @@ class AnnualPlanRevisedController extends Controller
         }else if(session('dashboard_audit_type') == 'Performance Audit'){
             $data['activity_type'] = 'performance';
             $data['activity_key'] = 'performance';
+        }else if(session('dashboard_audit_type')  == 'Financial Audit'){
+            $data['activity_type'] = 'financial';
         }
 
         $all_activity = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_all_op_activity'),
@@ -118,10 +128,11 @@ class AnnualPlanRevisedController extends Controller
 
         $fiscal_year_id = $request->fiscal_year_id;
         $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
+        $annual_plan_main_id = $request->annual_plan_main_id;
 
         if (isSuccess($all_activity)) {
             $all_activity = $all_activity['data'];
-            return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info', compact('all_activity', 'fiscal_year_id', 'op_audit_calendar_event_id'));
+            return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info', compact('all_activity', 'fiscal_year_id', 'op_audit_calendar_event_id','annual_plan_main_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $all_activity]);
         }
@@ -203,6 +214,7 @@ class AnnualPlanRevisedController extends Controller
                 'cdesk' => $this->current_desk_json(),
                 'entity_list' => json_decode($request->entity_list, true),
                 'activity_id' => $request->activity_id,
+                'annual_plan_main_id' => $request->annual_plan_main_id,
                 'audit_calendar_event_id' => $request->op_audit_calendar_event_id,
                 'fiscal_year_id' => $request->fiscal_year_id,
                 'subject_matter' => $request->subject_matter,
@@ -224,17 +236,15 @@ class AnnualPlanRevisedController extends Controller
                 'thematic_title' => $request->thematic_title
             ];
 
+            if(session('dashboard_audit_type') == 'Compliance Audit'){
+                $data['activity_type'] = 'compliance';
+            }else if(session('dashboard_audit_type') == 'Performance Audit'){
+                $data['activity_type'] = 'performance';
+                $data['activity_key'] = 'performance';
+            }else if(session('dashboard_audit_type')  == 'Financial Audit'){
+                $data['activity_type'] = 'financial';
+            }
 
-        // $sub_objective_list = json_decode($request->sub_objective_list, true);
-        // foreach ($sub_objective_list as $key => $sub_o) {
-        //     print_r($sub_o['sub_objective']);
-        //     //print_r($sub_o['line_of_enquires']);
-        //     foreach ($sub_o['line_of_enquires'] as $val ) {
-        //         print_r($val);
-        //     }
-
-        // }
-        // exit;
             $staff_infos = $request->staff_info;
 //
             $staffs = [];
@@ -270,7 +280,7 @@ class AnnualPlanRevisedController extends Controller
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_update'), $data)->json();
             } else {
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_submission'), $data)->json();
-                //dd($store_plan);
+//                dd($store_plan);
             }
             if (isSuccess($store_plan)) {
                 return response()->json(['status' => 'success', 'data' => 'Added!']);
@@ -553,11 +563,15 @@ class AnnualPlanRevisedController extends Controller
     {
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
+            'annual_plan_main_id' => 'required|integer',
+            'activity_type' => 'required|string',
             'op_audit_calendar_event_id' => 'required|integer',
         ])->validate();
 
         $officeId = config('cag_amms_config.ocag_office_id');
         $fiscal_year_id = $request->fiscal_year_id;
+        $annual_plan_main_id = $request->annual_plan_main_id;
+        $activity_type = $request->activity_type;
         $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
         $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($officeId);
 
@@ -565,7 +579,7 @@ class AnnualPlanRevisedController extends Controller
         //dd($responseData);
         $current_desk_approval_authority = isSuccess($responseData) ? $responseData['data'] : [];
         return view('modules.audit_plan.annual.annual_plan_revised.partials.load_approval_authority',
-            compact('officeId', 'fiscal_year_id', 'op_audit_calendar_event_id',
+            compact('officeId', 'fiscal_year_id', 'annual_plan_main_id','activity_type', 'op_audit_calendar_event_id',
                 'officer_lists', 'current_desk_approval_authority'));
     }
 
@@ -575,6 +589,8 @@ class AnnualPlanRevisedController extends Controller
             //dd($request->all());
             $data = Validator::make($request->all(), [
                 'fiscal_year_id' => 'required|integer',
+                'annual_plan_main_id' => 'required|integer',
+                'activity_type' => 'required|string',
                 'op_audit_calendar_event_id' => 'required|integer',
                 'receiver_type' => 'required',
                 'receiver_office_id' => 'required',
@@ -637,9 +653,11 @@ class AnnualPlanRevisedController extends Controller
             'schedule_id' => 'required|integer'
         ])->validate();
 
+        $data['cdesk'] = $this->current_desk_json();
+
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_schedule_info'), $data)->json();
-
+//        dd($responseData);
         if (isSuccess($responseData)) {
             $schedule_info = $responseData['data'];
             return view('modules.audit_plan.annual.annual_plan_revised.partials.load_plan_list_milestone_edit', compact('schedule_info'));

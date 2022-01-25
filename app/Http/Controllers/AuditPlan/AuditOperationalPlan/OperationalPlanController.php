@@ -85,17 +85,19 @@ class OperationalPlanController extends Controller
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
         ])->validate();
-//        dd($data);
+
+        if(session('dashboard_audit_type') == 'Compliance Audit'){
+            $data['activity_type'] = 'compliance';
+        }else if(session('dashboard_audit_type') == 'Performance Audit'){
+            $data['activity_type'] = 'performance';
+            $data['activity_key'] = 'performance';
+        }else if(session('dashboard_audit_type')  == 'Financial Audit'){
+            $data['activity_type'] = 'financial';
+        }
+
         $data['cdesk'] = $this->current_desk_json();
 
         $event_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_event_lists'), $data)->json();
-        //dd($event_list);
-        /*if (isSuccess($event_list)) {
-            $event_list = $event_list['data'];
-            return view('modules.audit_plan.operational.approve_plan.partials.load_op_yearly_event_lists',compact('event_list'));
-        } else {
-            return response()->json(['status' => 'error', 'data' => $event_list]);
-        }*/
 
         $event_list = isSuccess($event_list)?$event_list['data']:[];
         return view('modules.audit_plan.operational.approve_plan.partials.load_op_yearly_event_lists',compact('event_list'));
@@ -105,9 +107,12 @@ class OperationalPlanController extends Controller
     public function loadOpYearlyEventApprovalForm(Request $request)
     {
         $fiscal_year_id = $request->fiscal_year_id;
+        $annual_plan_main_id = $request->annual_plan_main_id;
+        $office_id = $request->office_id;
+        $activity_type = $request->activity_type;
         $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
         return view('modules.audit_plan.operational.approve_plan.partials.load_op_yearly_event_approval_form',
-            compact('op_audit_calendar_event_id','fiscal_year_id'));
+            compact('op_audit_calendar_event_id','fiscal_year_id','office_id','activity_type','annual_plan_main_id'));
     }
 
     public function loadDirectorateWiseAnnualPlan(Request $request)
@@ -115,11 +120,13 @@ class OperationalPlanController extends Controller
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
             'office_id' => 'required|integer',
+            'annual_plan_main_id' => 'required|integer',
+            'activity_type' => 'nullable',
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
 
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
-
+//        dd($plan_infos);
         /*$directorateInfo = $this->initDoptorHttp()->post(config('cag_doptor_api.offices'), ['office_ids' => $request->office_id])->json();
         $directorateInfo = $directorateInfo['status'] == 'success'?$directorateInfo['data']:[];
         dd($directorateInfo);*/
@@ -146,7 +153,10 @@ class OperationalPlanController extends Controller
             //dd($request->all());
             $data = Validator::make($request->all(), [
                 'fiscal_year_id' => 'required|integer',
+                'annual_plan_main_id' => 'required|integer',
                 'op_audit_calendar_event_id' => 'required|integer',
+                'office_id' => 'required|integer',
+                'activity_type' => 'required|string',
                 'receiver_type' => 'required',
                 'status' => 'required',
             ])->validate();

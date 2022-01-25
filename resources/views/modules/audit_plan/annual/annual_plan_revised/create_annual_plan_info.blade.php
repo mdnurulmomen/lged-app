@@ -69,7 +69,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a id="select_cost_centers" class="nav-link rounded-0" data-toggle="tab"
+                    <a id="milestone_tab" class="nav-link rounded-0" data-toggle="tab"
                        href="#select_milestone">
                         <span class="nav-text">নিরীক্ষা কাজের পর্যায়</span>
                     </a>
@@ -240,6 +240,7 @@
                     <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা<span class="text-danger">*</span></label>
                     <input class="form-control bijoy-bangla text-right" type="text" id="total_unit_no" name="total_unit_no">
                     <input type="hidden" id="total_unit">
+                    <input type="hidden" name="annual_plan_main_id" id="annual_plan_main_id" value="{{$annual_plan_main_id}}" >
                 </div>
 
                 <div class="col-md-6">

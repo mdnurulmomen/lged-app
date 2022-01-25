@@ -22,7 +22,18 @@ class PreliminarySurveyReportController extends Controller
 
     public function loadPsr(Request $request)
     {
-        dd('1');
+        $psr_list = [];
+        return view('modules.audit_plan.annual.psr.partial.load_psr_list',compact('psr_list'));
 
+    }
+
+    public function create(Request $request)
+    {
+        return view('modules.audit_plan.annual.psr.partial.create');
+    }
+
+    public function store(Request $request)
+    {
+        return view('modules.audit_plan.annual.psr.partial.create');
     }
 }

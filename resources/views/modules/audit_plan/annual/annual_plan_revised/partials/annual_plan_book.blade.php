@@ -818,9 +818,9 @@
                         </tr>
                         <tr class="bangla-font">
                             <td class="bangla-font" style="text-align: center" rowspan="5">১।</td>
-                            <td class="bangla-font" style="text-align: center" rowspan="5">{{$plan['title_bn']}}</td>
+                            <td class="bangla-font" style="text-align: center" rowspan="5">{{$plan['activity']['title_bn']}}</td>
                         </tr>
-                        @foreach($plan['milestones'] as $milestone)
+                        @foreach($plan['activity']['milestones'] as $milestone)
                             <tr class="bangla-font">
                                 <td class="bangla-font pl-2">{{$milestone['title_bn']}}</td>
                                 <td class="bangla-font"

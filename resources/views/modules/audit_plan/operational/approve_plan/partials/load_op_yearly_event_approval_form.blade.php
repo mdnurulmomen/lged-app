@@ -1,7 +1,10 @@
 <!--begin::Table-->
 <form class="mb-10" id="approval_form">
-    <input type="hidden" name="fiscal_year_id" value="1">
+    <input type="hidden" name="fiscal_year_id" value="{{$fiscal_year_id}}">
     <input type="hidden" name="op_audit_calendar_event_id" value="{{$op_audit_calendar_event_id}}">
+    <input type="hidden" name="office_id" value="{{$office_id}}">
+    <input type="hidden" name="annual_plan_main_id" value="{{$annual_plan_main_id}}">
+    <input type="hidden" name="activity_type" value="{{$activity_type}}">
     <input type="hidden" name="receiver_type" value="sender">
 
     <div class="row">

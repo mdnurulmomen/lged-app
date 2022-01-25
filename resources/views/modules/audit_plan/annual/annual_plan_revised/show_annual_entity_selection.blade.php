@@ -2,15 +2,17 @@
     <div class="col-xl-12">
         <div class="row">
             <div class="col-md-7">
-                @if(!empty($plan_list))
-                    @if($approval_status == 'draft' || $approval_status == 'reject')
-                    <button class="btn btn-sm btn-light-primary btn-square mr-1"
-                            data-fiscal-year-id="{{$fiscal_year_id}}"
-                            data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                            onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">
-                        <i class="fad fa-paper-plane"></i>
-                        ওসিএজিতে প্রেরণ
-                    </button>
+                @if(!is_null($plan_list))
+                    @if($plan_list['approval_status'] == 'draft' || $plan_list['approval_status'] == 'reject')
+                        <button class="btn btn-sm btn-light-primary btn-square mr-1"
+                                data-annual-plan-main-id="{{$plan_list['id']}}"
+                                data-activity-type="{{$plan_list['activity_type']}}"
+                                data-fiscal-year-id="{{$fiscal_year_id}}"
+                                data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
+                                onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">
+                            <i class="fad fa-paper-plane"></i>
+                            ওসিএজিতে প্রেরণ
+                        </button>
                     @endif
 
                     <button data-fiscal-year-id="{{$fiscal_year_id}}"
@@ -21,6 +23,7 @@
                     </button>
 
                     <button class="btn btn-sm btn-light-info btn-square mr-1"
+                            data-annual-plan-main-id="{{$plan_list['id']}}"
                             data-fiscal-year-id="{{$fiscal_year_id}}"
                             data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
                             onclick="Annual_Plan_Container.movementHistory($(this))">
@@ -29,23 +32,23 @@
                     </button>
 
                     <span class="badge badge-info text-uppercase m-1 p-1 ">
-                    {{$approval_status}}
+                    {{$plan_list['approval_status']}}
                 @endif
             </div>
-
-            @if($approval_status == 'draft' || $approval_status == 'reject')
-            <div class="col-md-5">
-                <div class="d-flex justify-content-md-end">
-                    <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
-                       data-fiscal-year-id="{{$fiscal_year_id}}"
-                       data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                       class="btn btn-sm btn-light-info btn-square mr-1"
-                       href="javascript:;">
-                        <i class="fas fa-plus-circle mr-1"></i> রেস্পন্সিবল পার্টি যোগ করুন
-                    </a>
-                </div>
-            </div>
-            @endif
+{{--                @if(isset($plan_list['approval_status']) && $plan_list['approval_status'] == 'draft' || $plan_list['approval_status']  == 'reject')--}}
+                    <div class="col-md-5">
+                        <div class="d-flex justify-content-md-end">
+                            <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
+                               data-annual-plan-main-id="{{isset($plan_list['id']) ? $plan_list['id'] : 0}}"
+                               data-fiscal-year-id="{{$fiscal_year_id}}"
+                               data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
+                               class="btn btn-sm btn-light-info btn-square mr-1"
+                               href="javascript:;">
+                                <i class="fas fa-plus-circle mr-1"></i> রেস্পন্সিবল পার্টি যোগ করুন
+                            </a>
+                        </div>
+                    </div>
+{{--                @endif--}}
         </div>
     </div>
 </div>
@@ -127,8 +130,8 @@
             </div>
         </div>
         <div id="daak_pagination_panel" class="float-right d-flex align-items-center" style="vertical-align:middle;">
-                <span class="mr-2"><span id="daak_item_length_start">১</span> - <span id="daak_item_length_end">{{enTobn(count($plan_list))}}</span> সর্বমোট: <span
-                        id="daak_item_total_record">{{enTobn(count($plan_list))}}</span></span>
+                <span class="mr-2"><span id="daak_item_length_start">১</span> - <span id="daak_item_length_end">{{enTobn(count($plan_list['annual_plan_items']))}}</span> সর্বমোট: <span
+                        id="daak_item_total_record">{{enTobn(count($plan_list['annual_plan_items']))}}</span></span>
             <div class="btn-group">
                 <button class="btn-list-prev btn btn-icon btn-secondary btn-square" disabled="disabled" type="button"><i
                         class="fad fa-chevron-left" data-toggle="popover" data-content="পূর্ববর্তী"
@@ -143,8 +146,8 @@
     {{--list view--}}
     <div>
         <ul class="list-group list-group-flush">
-            @foreach($plan_list as $plan)
-                <li class="list-group-item py-2 border-bottom {{$plan['activity']['activity_key']}}">
+            @foreach($plan_list['annual_plan_items'] as $plan)
+                    <li class="list-group-item py-2 border-bottom {{$plan['activity']['activity_key']}}">
                     <div class="d-flex justify-content-between align-items-start">
                         <div class="pr-2 flex-fill cursor-pointer position-relative">
                             <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
@@ -210,18 +213,18 @@
                                                     onclick="Annual_Plan_Container.showPlanInfo($(this))">
                                                 <i class="fad fa-eye"></i> বিস্তারিত
                                             </button>
-                                            @if($approval_status == 'draft' || $approval_status == 'reject')
+                                            @if($plan_list['approval_status'] == 'draft' || $plan_list['approval_status'] == 'reject')
                                                 <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
                                                         data-annual-plan-id="{{$plan['id']}}"
                                                         data-fiscal-year-id="{{$fiscal_year_id}}"
-                                                        data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
+                                                        data-op-audit-calendar-event-id="{{$plan_list['op_audit_calendar_event_id']}}"
                                                         onclick="Annual_Plan_Container.editPlanInfo($(this))">
                                                     <i class="fad fa-edit"></i> সম্পাদনা
                                                 </button>
                                                 <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="সম্পাদনা করুন"
                                                         data-annual-plan-id="{{$plan['id']}}"
                                                         data-fiscal-year-id="{{$fiscal_year_id}}"
-                                                        data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
+                                                        data-op-audit-calendar-event-id="{{$plan_list['op_audit_calendar_event_id']}}"
                                                         onclick="Annual_Plan_Container.deletePlan($(this))">
                                                     <i class="fad fa-trash"></i> বাতিল করুন
                                                 </button>
