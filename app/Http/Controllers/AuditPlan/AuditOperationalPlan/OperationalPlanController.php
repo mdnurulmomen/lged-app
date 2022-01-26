@@ -60,7 +60,7 @@ class OperationalPlanController extends Controller
         Validator::make($request->all(), ['fiscal_year' => 'required|integer',])->validate();
 
         $ops = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.load_operational_plan_details'), ['fiscal_year_id' => $request->fiscal_year])->json();
-
+//        dd($ops);
         if ($ops['status'] = 'success') {
             $ops = $ops['data'];
             return view('modules.audit_plan.operational.operational_plan.operational_plan_staffs', compact('ops'));

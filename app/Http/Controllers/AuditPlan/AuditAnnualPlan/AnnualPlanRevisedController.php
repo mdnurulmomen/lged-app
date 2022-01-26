@@ -670,6 +670,8 @@ class AnnualPlanRevisedController extends Controller
     {
         $data = Validator::make($request->all(), [
             'schedule_id' => 'required|integer',
+            'activity_id' => 'required|integer',
+            'fiscal_year_id' => 'required|integer',
             'no_of_items' => 'required|integer',
             'staff_assigne' => 'required|integer',
         ])->validate();
@@ -677,7 +679,7 @@ class AnnualPlanRevisedController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $submit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.submit_milestone_value'), $data)->json();
-
+//        dd($submit_plan);
         if (isSuccess($submit_plan)) {
             return response()->json(['status' => 'success', 'data' => 'Submission Successful!']);
         } else {

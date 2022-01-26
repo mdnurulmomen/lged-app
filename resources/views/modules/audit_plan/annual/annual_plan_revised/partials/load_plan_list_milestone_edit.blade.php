@@ -1,6 +1,8 @@
 <form autocomplete="off" id="annual_plan_list_milestone_edit_form">
 
     <input type="hidden" name="schedule_id" value="{{$schedule_info['id']}}">
+    <input type="hidden" name="activity_id" value="{{$schedule_info['activity_id']}}">
+    <input type="hidden" name="fiscal_year_id" value="{{$schedule_info['fiscal_year_id']}}">
 
     <div class="row">
         <div class="col-md-12">
