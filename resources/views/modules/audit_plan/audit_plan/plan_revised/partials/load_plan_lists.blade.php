@@ -194,13 +194,15 @@
                                                 <i class="fad fa-eye"></i> বিস্তারিত
                                             </button>
 
-                                            <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="নতুন অডিট প্ল্যান করুন"
-                                                    data-annual-plan-id="{{$annual_plan['id']}}"
-                                                    data-activity-id="{{$annual_plan['activity_id']}}"
-                                                    data-fiscal-year-id="{{$annual_plan['fiscal_year_id']}}"
-                                                    onclick="Audit_Plan_Container.loadAuditPlanBookCreatable($(this))">
-                                                <i class="fad fa-plus-circle"></i> নতুন অডিট প্ল্যান
-                                            </button>
+                                            @if(!count($annual_plan['audit_plans']))
+                                                <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="নতুন অডিট প্ল্যান করুন"
+                                                        data-annual-plan-id="{{$annual_plan['id']}}"
+                                                        data-activity-id="{{$annual_plan['activity_id']}}"
+                                                        data-fiscal-year-id="{{$annual_plan['fiscal_year_id']}}"
+                                                        onclick="Audit_Plan_Container.loadAuditPlanBookCreatable($(this))">
+                                                    <i class="fad fa-plus-circle"></i> নতুন অডিট প্ল্যান
+                                                </button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

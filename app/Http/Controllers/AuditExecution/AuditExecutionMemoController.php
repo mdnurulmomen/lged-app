@@ -104,8 +104,8 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'audit_year_end', 'contents' => $request->audit_year_end],
             ['name' => 'memo_irregularity_type', 'contents' => $request->memo_irregularity_type],
             ['name' => 'memo_irregularity_sub_type', 'contents' => $request->memo_irregularity_sub_type],
-            ['name' => 'memo_type', 'contents' => $request->memo_type],
-            ['name' => 'memo_status', 'contents' => $request->memo_status],
+            ['name' => 'memo_type', 'contents' => 0],
+            ['name' => 'memo_status', 'contents' => 0],
             ['name' => 'rpu_acceptor_officer_name_bn', 'contents' => $request->rpu_acceptor_officer_name_bn],
             ['name' => 'rpu_acceptor_designation_name_bn', 'contents' => $request->rpu_acceptor_designation_name_bn],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
@@ -297,8 +297,8 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'audit_year_end', 'contents' => $request->audit_year_end],
             ['name' => 'memo_irregularity_type', 'contents' => $request->memo_irregularity_type],
             ['name' => 'memo_irregularity_sub_type', 'contents' => $request->memo_irregularity_sub_type],
-            ['name' => 'memo_type', 'contents' => $request->memo_type],
-            ['name' => 'memo_status', 'contents' => $request->memo_status],
+            ['name' => 'memo_type', 'contents' => 0],
+            ['name' => 'memo_status', 'contents' => 0],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
 

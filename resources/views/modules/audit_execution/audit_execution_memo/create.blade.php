@@ -118,20 +118,20 @@
                                     <option value="9">জাতীয় অন্যান্য সরকারী অর্থের ক্ষতি সংক্রান্ত আপত্তি।</option>
                                 </select>
 
-                                <select class="form-control select-select2" name="memo_type">
-                                    <option value="0">আপত্তির ধরন বাছাই করুন</option>
-                                    <option value="1">এসএফআই</option>
-                                    <option value="2">নন-এসএফআই</option>
-                                    <option value="3">ড্রাফ্ট প্যারা</option>
-                                    <option value="4">পাণ্ডুলিপি</option>
-                                </select>
+{{--                                <select class="form-control select-select2 d-none" name="memo_type">--}}
+{{--                                    <option value="0">আপত্তির ধরন বাছাই করুন</option>--}}
+{{--                                    <option value="1">এসএফআই</option>--}}
+{{--                                    <option value="2">নন-এসএফআই</option>--}}
+{{--                                    <option value="3">ড্রাফ্ট প্যারা</option>--}}
+{{--                                    <option value="4">পাণ্ডুলিপি</option>--}}
+{{--                                </select>--}}
 
-                                <select class="form-control select-select2" name="memo_status">
-                                    <option value="0">আপত্তির অবস্থা বাছাই করুন</option>
-                                    <option value="1">নিস্পন্ন</option>
-                                    <option value="2">অনিস্পন্ন</option>
-                                    <option value="3">আংশিক নিস্পন্ন</option>
-                                </select>
+{{--                                <select class="form-control select-select2 d-none" name="memo_status">--}}
+{{--                                    <option value="0">আপত্তির অবস্থা বাছাই করুন</option>--}}
+{{--                                    <option value="1">নিস্পন্ন</option>--}}
+{{--                                    <option value="2">অনিস্পন্ন</option>--}}
+{{--                                    <option value="3">আংশিক নিস্পন্ন</option>--}}
+{{--                                </select>--}}
 
                             </div>
                         </div>

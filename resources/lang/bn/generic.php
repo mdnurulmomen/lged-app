@@ -44,6 +44,7 @@ return [
                 'audit_title' => 'শিরোনাম',
                 'memo_type' => 'আপত্তির ধরন',
                 'memo_irregularity_type' => 'আপত্তি অনিয়মের ধরন',
+                'irregularity_cause' => 'অনিয়মের কারণ',
                 'jorito_ortho' => 'জড়িত অর্থ',
                 'onishponno_jorito_ortho' => 'অনিষ্পন্ন জড়িত অর্থ',
             ]
