@@ -112,7 +112,7 @@
             loadAnnualPlanUrl = '{{route('audit.plan.operational.plan.load-directorate-wise-annual-plan')}}'
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             office_id = element.data('office-id');
-            dataLoadAnnualPlan = {fiscal_year_id,office_id};
+            dataLoadAnnualPlan = {fiscal_year_id,office_id,annual_plan_main_id,activity_type};
 
             ajaxCallAsyncCallbackAPI(loadAnnualPlanUrl, dataLoadAnnualPlan, 'post', function (response) {
                 if (response.status === 'error') {
