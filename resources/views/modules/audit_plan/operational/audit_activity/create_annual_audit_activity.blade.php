@@ -134,11 +134,14 @@
 </x-modal>
 
 <x-modal id="op_activity_milestone_edit_modal" title="Edit Operation Activity Milestone"
-         url="{{route('audit.plan.operational.activity.update')}}" method="post">
+         url="{{route('audit.plan.operational.activity.milestone.update')}}" method="post">
     <form id="op_activity_milestone_edit_form">
         <div class="edit_activity_milestone_area">
 
         </div>
+        <input type="hidden" name="activity_id" class="activity_id" value="">
+        <input type="hidden" name="output_id" class="output_id" value="">
+        <input type="hidden" name="outcome_id" class="outcome_id" value="">
         <input type="hidden" name="fiscal_year_id" class="fiscal_year_id" value="">
         <input type="hidden" name="milestone_id" class="milestone_id" value="">
     </form>
@@ -184,6 +187,14 @@
         data = $('#op_activity_edit_form').serialize();
         method = $(this).data('method');
         submitModalData(url, data, method, 'op_activity_edit_modal');
+        $('.search_activities').click();
+
+    });
+    $('#btn_op_activity_milestone_edit_modal_save').click(function () {
+        url = $(this).data('url');
+        data = $('#op_activity_milestone_edit_form').serialize();
+        method = $(this).data('method');
+        submitModalData(url, data, method, 'op_activity_milestone_edit_modal');
         $('.search_activities').click();
 
     });

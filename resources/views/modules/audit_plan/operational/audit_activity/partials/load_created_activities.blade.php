@@ -169,6 +169,7 @@
 
     $('.btn_edit_activity_milestone').on('click', function () {
         emptyModalData('op_activity_milestone_edit_modal');
+        activity_id = $(this).data('activity-id');
         outcome_id = $(this).data('outcome-id');
         fiscal_year_id = $(this).data('fiscal-year-id');
         output_id = $(this).data('output-id');
@@ -183,9 +184,12 @@
         } else {
             $('.fiscal_year_id').val(fiscal_year_id);
             $('.milestone_id').val(milestone_id);
+            $('.activity_id').val(activity_id);
+            $('.outcome_id').val(outcome_id);
+            $('.output_id').val(output_id);
             $('#op_activity_milestone_edit_modal').modal('show');
 
-            if(activity_id){
+            if(milestone_id){
                 url = '{{route('audit.plan.operational.activity.milestone.edit.output.load')}}';
 
                 data = {milestone_id, outcome_id, fiscal_year_id, output_id}

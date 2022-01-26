@@ -84,7 +84,7 @@ class AuditActivityController extends Controller
         isset($milestone_id) ? $data['milestone_id'] = $milestone_id : '';
 
         $milestone_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_milestone_show'), $data)->json();
-
+        //dd($milestone_info);
         return view('modules.audit_plan.operational.audit_activity.partials.load_edit_output_activities_milestone', compact('milestone_info'));
     }
     public function loadEditActivityTree(Request $request)
@@ -197,6 +197,19 @@ class AuditActivityController extends Controller
             return response()->json(['status' => 'error', 'data' => $updateActivity]);
         }
     }
+
+    public function milestoneUpdate(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $data = ['milestone_id' => $request->milestone_id,'activity_id' => $request->activity_id, 'fiscal_year_id' => $request->fiscal_year_id, 'outcome_id' => $request->outcome_id, 'output_id' => $request->output_id, 'title_en' => $request->title_en, 'title_bn' => $request->title_bn];
+        $updateActivity = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_activity_milestone_update'), $data)->json();
+
+        if (isset($updateActivity['status']) && $updateActivity['status'] == 'success') {
+            return response()->json(responseFormat('success', 'Updated Successfully'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $updateActivity]);
+        }
+    }
+
 
     public function destroy($activity_id): \Illuminate\Http\JsonResponse
     {
