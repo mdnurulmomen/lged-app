@@ -88,7 +88,7 @@
 @section('scripts')
     @if($audit_plan['audit_type'] == 'compliance')
         @include('scripts.audit_plan.create.script_create_entity_compliance_audit_plan')
-    @elseif($audit_plan['audit_type'] == 'planning')
+    @elseif($audit_plan['audit_type'] == 'performance')
         @include('scripts.audit_plan.create.script_create_entity_compliance_audit_plan')
     @endif
 
