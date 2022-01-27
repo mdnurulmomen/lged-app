@@ -149,7 +149,7 @@
                                                onclick="AIR_Container.loadAIRShow($(this))">
                                                 <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
                                                 প্রিলিমিনারি এআইআর: {{enTobn($airReport['id'])}}
-                                                {{empty($airReport['latest_r_air_movement'])?'':'('.$airReport['latest_r_air_movement']['receiver_employee_name_bn'].' এর কাছে প্রেরণ করা হয়েছে)'}}
+                                                {{empty($airReport['latest_r_air_movement'])?'':'('.$airReport['latest_r_air_movement']['receiver_employee_designation_bn'].' এর কাছে প্রেরণ করা হয়েছে)'}}
                                             </a>
                                         @endforeach
                                     </div>

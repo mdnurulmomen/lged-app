@@ -846,7 +846,8 @@
                 </div>
 
                 <div class="bangla-font">
-                    <table class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px"
+                    @if($plan['activity']['activity_type'] == 'compliance')
+                        <table class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px"
                            border="1px">
                         <tr class="bangla-font" style="padding: 5px">
                             <td class="bangla-font" style="text-align: center" width="3%">ক্রঃনং</td>
@@ -933,6 +934,42 @@
                             </tr>
                         @endforeach
                     </table>
+                    @else
+                        <table class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px"
+                               border="1px">
+                            <tr class="bangla-font" style="padding: 5px">
+                                <td class="bangla-font" style="text-align: center" width="3%">ক্রঃনং</td>
+                                <td class="bangla-font" style="text-align: center" width="10%">পারফরম্যান্স নিরীক্ষার বিষয়</td>
+                                <td class="bangla-font" style="text-align: center" width="12%">মন্তব্য</td>
+                            </tr>
+                            @foreach($plan['annual_plans'] as $id => $annual_plans)
+                                <tr class="bangla-font" style="padding: 5px">
+                                    <td class="bangla-font" style="text-align: center"
+                                        width="3%">{{enTobn($loop->iteration)}}</td>
+                                    <td class="bangla-font" width="10%">
+                                        {{$annual_plans['subject_matter']}},
+                                        @php
+                                            $ministries = [];
+                                            foreach($annual_plans['ap_entities'] as $ap_entities){
+                                               $ministry =  $ap_entities['ministry_name_bn'];
+                                                $ministries[] = $ministry;
+                                            }
+                                        @endphp
+                                        @php
+                                            $entities = [];
+                                            foreach($annual_plans['ap_entities'] as $ap_entities){
+                                               $entity =  $ap_entities['entity_name_bn'];
+                                                $entities[] = $entity;
+                                            }
+                                        @endphp
+                                        {{implode(' , ', array_unique($entities))}},
+                                        {{implode(' , ', array_unique($ministries))}}
+                                    </td>
+                                    <td class="bangla-font" width="12%">{{$annual_plans['comment']}}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    @endif
                 </div>
             </div>
         @endforeach
