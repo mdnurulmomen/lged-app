@@ -38,19 +38,19 @@
                 @endif
             </div>
 {{--            @php dump($plan_list) @endphp--}}
-                @if($plan_list && isset($plan_list['approval_status']) && $plan_list['approval_status'] == 'draft' || $plan_list['approval_status']  == 'reject')
-                    <div class="col-md-5">
-                        <div class="d-flex justify-content-md-end">
-                            <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
-                               data-annual-plan-main-id="{{isset($plan_list['id']) ? $plan_list['id'] : 0}}"
-                               data-fiscal-year-id="{{$fiscal_year_id}}"
-                               data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                               class="btn btn-sm btn-light-info btn-square mr-1"
-                               href="javascript:;">
-                                <i class="fas fa-plus-circle mr-1"></i> রেস্পন্সিবল পার্টি যোগ করুন
-                            </a>
-                        </div>
+                @if((!$plan_list) || (isset($plan_list['approval_status']) && $plan_list['approval_status'] == 'draft' || $plan_list['approval_status']  == 'reject'))
+                <div class="col-md-5">
+                    <div class="d-flex justify-content-md-end">
+                        <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
+                           data-annual-plan-main-id="{{isset($plan_list['id']) ? $plan_list['id'] : 0}}"
+                           data-fiscal-year-id="{{$fiscal_year_id}}"
+                           data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
+                           class="btn btn-sm btn-light-info btn-square mr-1"
+                           href="javascript:;">
+                            <i class="fas fa-plus-circle mr-1"></i> রেস্পন্সিবল পার্টি যোগ করুন
+                        </a>
                     </div>
+                </div>
                 @endif
         </div>
     </div>
