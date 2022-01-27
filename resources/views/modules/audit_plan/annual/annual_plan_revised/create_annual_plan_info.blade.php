@@ -107,7 +107,7 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="form-group">
-                                                                <label class="input-label">Sub Objective<span class="text-danger">*</span></label>
+                                                                <label class="input-label">সাব অবজেকটিভ<span class="text-danger">*</span></label>
                                                                 <input class="form-control sub_objective" type="text" id="sub_objective" name="sub_objective">
                                                             </div>
                                                         </div>
@@ -117,7 +117,7 @@
                                                         <div class="row">
                                                             <div class="col-md-10">
                                                                 <div class="form-group">
-                                                                    <label class="input-label">Line of Enquire<span class="text-danger">*</span></label>
+                                                                    <label class="input-label">লাইন অফ ইনকোয়ারি<span class="text-danger">*</span></label>
 
                                                                     <div class="line_of_enquire_div">
                                                                         <div>
@@ -429,7 +429,7 @@
     // });
     ob= 2;
     $('.btn_objective_add').on('click', function (){
-        $( ".object_append_div").append( '<fieldset class="scheduler-border"><legend class="scheduler-border">সাব অবজেকটিভ </legend><div class="sub_objective_row" id="sub_objective_row_'+ob+'"><div class="row"><div class="col-md-12"><div class="form-group"><label class="input-label">Sub Objective<span class="text-danger">*</span></label><div class="input-group"><input class="form-control sub_objective" type="text" id="sub_objective" name="sub_objective"><button type="button" class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger list-btn-toggle btn_objective_remove "><i class="fad fa-minus-circle"></i></button></div></div></div></div><div class="line_of_enquire_row"><div class="row"><div class="col-md-10"><div class="form-group"><label class="input-label">Line of Enquire<span class="text-danger">*</span></label><div class="line_of_enquire_div"><div><div class="input-group"><input class="form-control line_of_enquire" type="text" id="line_of_enquire" name="line_of_enquire"><button type="button"  onclick="addLineOfEnquire($(this))" class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary list-btn-toggle"><i class="fad fa-plus-circle"></i></button></div></div></div></div></div></div></div></div></fieldset>' );
+        $( ".object_append_div").append( '<fieldset class="scheduler-border"><legend class="scheduler-border">সাব অবজেকটিভ </legend><div class="sub_objective_row" id="sub_objective_row_'+ob+'"><div class="row"><div class="col-md-12"><div class="form-group"><label class="input-label">সাব অবজেকটিভ<span class="text-danger">*</span></label><div class="input-group"><input class="form-control sub_objective" type="text" id="sub_objective" name="sub_objective"><button type="button" class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger list-btn-toggle btn_objective_remove "><i class="fad fa-minus-circle"></i></button></div></div></div></div><div class="line_of_enquire_row"><div class="row"><div class="col-md-10"><div class="form-group"><label class="input-label">লাইন অফ ইনকোয়ারি<span class="text-danger">*</span></label><div class="line_of_enquire_div"><div><div class="input-group"><input class="form-control line_of_enquire" type="text" id="line_of_enquire" name="line_of_enquire"><button type="button"  onclick="addLineOfEnquire($(this))" class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary list-btn-toggle"><i class="fad fa-plus-circle"></i></button></div></div></div></div></div></div></div></div></fieldset>' );
 
         $('.object_append_div').on('click', '.btn_objective_remove', function(e) {
             e.preventDefault();

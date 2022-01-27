@@ -202,3 +202,9 @@ input[type="text"]::placeholder {
 .objectiveAppendSection legend.scheduler-border .btn_objective_add i{
     font-size: 13px !important;
 }
+.annual-plan-table.subject-matter .annual-plan-title {
+    width: 22%;
+}
+.annual-plan-table.subject-matter table tr td {
+    background-color: unset;
+}

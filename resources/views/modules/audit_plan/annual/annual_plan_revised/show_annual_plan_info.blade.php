@@ -66,6 +66,67 @@
         <td style="width: 60%;padding-left: 2%">{{$annual_plan_info['comment']}}</td>
     </tr>
 </table>
+@if(session('dashboard_audit_type') == 'Performance Audit')
+<br>
+<h4>সাবজেক্ট ম্যাটার</h4>
+<table class="annual-plan-table subject-matter" border="1">
+    <tr>
+        <td class="annual-plan-title">মেইন টপিক</td>
+        <td style="width:90%;padding-left: 2%">
+            মেইন টপিক
+        </td>
+    </tr>
+    <tr>
+        <td class="annual-plan-title">সাব টপিক</td>
+        <td style="width:90%;">
+            <table class="table m-0">
+                <tr>
+                    <td>সাব টপিক</td>
+                </tr>
+                <tr>
+                    <td>সাব টপিক</td>
+                </tr>
+                <tr>
+                    <td>সাব টপিক</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="annual-plan-title">অডিট অবজেকটিভ</td>
+        <td style="width:90%;padding-left: 2%"></td>
+    </tr>
+    <tr>
+        <td class="annual-plan-title">সাব অবজেকটিভ</td>
+        <td style="width:90%;">
+            <table class="annual-plan-table m-0">
+                <tr>
+                    <td style="padding: 5px 0 5px 2%; border-bottom:1px solid #EBEDF3" colspan="2">সাব অবজেকটিভ</td>
+                </tr>
+                <tr>
+                    <td class="annual-plan-title" style="width:30%;padding-left: 2%;border-right:1px solid #EBEDF3">লাইন অফ ইনকোয়ারি</td>
+                    <td style="width:70%;">
+                        <table class="table m-0">
+                            <tr>
+                                <td style="border:0">ইনকোয়ারি</td>
+                            </tr>
+                            <tr>
+                                <td>ইনকোয়ারি</td>
+                            </tr>
+                            <tr>
+                                <td>ইনকোয়ারি</td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+
+            </table>
+        </td>
+
+    </tr>
+</table>
+@endif
 @if(isset($nominated_man_powers['staffs']))
     <br>
     <h4>জনবল</h4>
