@@ -28,7 +28,7 @@
                 @endif
 
                 <span class="text-warning ml-2 mt-2">
-                    {{empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement'])?'':'('.$responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_name_bn'].' এর কাছে প্রেরণ করা হয়েছে)'}}
+                    {{empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement'])?'':'('.$responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_designation_bn'].' এর কাছে প্রেরণ করা হয়েছে)'}}
                 </span>
             </div>
         </div>
