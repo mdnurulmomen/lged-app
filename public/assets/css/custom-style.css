@@ -176,10 +176,10 @@ input[type="text"]::placeholder {
 }
 
 .banner {
-    color: #50a6ff;
-    background: #c1e0ff !important;
+    color: #3080d4;
+    background: #f9fbfe !important;
     border-radius: 4px;
-    box-shadow: 0 0 30px rgb(193 224 255) inset, 0 1px 5px rgb(193 224 255);
+    box-shadow: 0 0 30px rgb(229, 239, 250) inset, 0 1px 5px rgb(193 224 255);
 }
 
 #objectiveAppendSection fieldset.scheduler-border {

@@ -47,7 +47,7 @@
                 </button>
                 <!--end::Toolbar-->
             </div>
-            <h4 class="text-center mt-0 ml-17"> {{$userOffices[0]['office_name_bn']}}</h4><!--end::Brand-->
+            <h4 class="text-center mt-0 ml-6"> {{$userOffices[0]['office_name_bn']}}</h4><!--end::Brand-->
             @yield('sideMenu')
         </div>
         <!--end::Aside-->
