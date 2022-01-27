@@ -9,6 +9,7 @@ class AuditReportDashboardController extends Controller
 {
     public function apottiPage()
     {
+        $this->userPermittedMenusByModule(request()->path());
         return view('modules.audit_execution.audit_execution_apotti.page');
     }
 
