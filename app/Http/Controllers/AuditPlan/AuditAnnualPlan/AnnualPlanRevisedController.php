@@ -405,12 +405,14 @@ class AnnualPlanRevisedController extends Controller
     {
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
+            'annual_plan_main_id' => 'required|integer',
+            'activity_type' => 'nullable',
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
         $data['office_id'] = $this->current_office_id();
 
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
-
+//        dd($plan_infos);
         if ($request->office_id == 19) {
             $directorate_address = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
         } elseif ($request->office_id == 32) {
