@@ -1,19 +1,3 @@
-<style>
-    #objectiveAppendSection fieldset.scheduler-border {
-    border: 1px solid #E4E6EF !important;
-    padding: 0 1.4em 1.4em 1.4em !important;
-    margin: 1em 0 1.5em 0 !important;
-    -webkit-box-shadow: 0px 0px 0px 0px #000;
-    box-shadow: 0px 0px 0px 0px #000;
-}
-
-#objectiveAppendSection legend.scheduler-border {
-    width: inherit;
-    padding: 0 10px;
-    border-bottom: none;
-    font-size: 14px;
-}
-</style>
 <x-title-wrapper>Annual Plan</x-title-wrapper>
 
 <div class="row ml-7 mr-7 pt-4">
@@ -109,14 +93,17 @@
                                         <input class="form-control" type="text" id="audit_objective" name="audit_objective">
 
 
-                                        <div id="objectiveAppendSection ">
+                                        <div id="objectiveAppendSection" class="objectiveAppendSection">
                                             <fieldset class="scheduler-border">
                                                 <legend class="scheduler-border">
-                                                    সাব অবজেকটিভ যোগ করুন
-                                                    <span class="fa fa-plus-circle btn_objective_add"></span>
+                                                    সাব অবজেকটিভ
+                                                    {{-- <span class="fa fa-plus-circle btn_objective_add"></span> --}}
+                                                    <button class="btn btn-sm btn-square btn-outline-primary btn_objective_add float-right"
+                                                            ><i class="fa fa-plus"></i> নতুন যোগ করুন
+                                                    </button>
                                                 </legend>
 
-                                                <div class="sub_objective_row" id="sub_objective_row_1">
+                                                <div class="sub_objective_row " id="sub_objective_row_1">
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="form-group">
@@ -128,9 +115,9 @@
 
                                                     <div class="line_of_enquire_row">
                                                         <div class="row">
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-10">
                                                                 <div class="form-group">
-                                                                    <label class="input-label">Line Of Enquire<span class="text-danger">*</span></label>
+                                                                    <label class="input-label">Line of Enquire<span class="text-danger">*</span></label>
 
                                                                     <div class="line_of_enquire_div">
                                                                         <div>
@@ -236,20 +223,20 @@
         <form id="annual_plan_form">
             <input type="hidden" value="" name="id">
             <div class="form-row">
-                <div class="col-md-6">
+                <div class="@if(session('dashboard_audit_type') == 'Performance Audit') col-md-12 @else col-md-6 @endif">
                     <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা<span class="text-danger">*</span></label>
                     <input class="form-control bijoy-bangla text-right" type="text" id="total_unit_no" name="total_unit_no">
                     <input type="hidden" id="total_unit">
                     <input type="hidden" name="annual_plan_main_id" id="annual_plan_main_id" value="{{$annual_plan_main_id}}" >
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6 @if(session('dashboard_audit_type') == 'Performance Audit') d-none @endif">
                     <label for="total_selected_unit_no">নির্বাচিত ইউনিট সংখ্যা</label>
                     <input class="form-control bijoy-bangla text-right" type="text" name="total_selected_unit_no" id="total_selected_unit_no">
                 </div>
             </div>
 
-            <div class="form-row mt-2">
+            <div class="form-row mt-2 @if(session('dashboard_audit_type') == 'Performance Audit') d-none @endif">
 
                 <div class="col-md-6">
                     <label for="budget">প্রতিষ্ঠানের মোট বাজেট</label>
@@ -442,11 +429,11 @@
     // });
     ob= 2;
     $('.btn_objective_add').on('click', function (){
-        $( ".object_append_div").append( '<fieldset class="scheduler-border"><legend class="scheduler-border">সাব অবজেকটিভ মুছে ফেলুন<span style="color: red" class="fa fa-minus-circle btn_objective_remove"></span></legend><div class="sub_objective_row" id="sub_objective_row_'+ob+'"><div class="row"><div class="col-md-12"><div class="form-group"><label class="input-label">Sub Objective<span class="text-danger">*</span></label><input class="form-control sub_objective" type="text" id="sub_objective" name="sub_objective"></div></div></div><div class="line_of_enquire_row"><div class="row"><div class="col-md-12"><div class="form-group"><label class="input-label">Line Of Enquire<span class="text-danger">*</span></label><div class="line_of_enquire_div"><div><div class="input-group"><input class="form-control line_of_enquire" type="text" id="line_of_enquire" name="line_of_enquire"><button type="button"  onclick="addLineOfEnquire($(this))" class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary list-btn-toggle"><i class="fad fa-plus-circle"></i></button></div></div></div></div></div></div></div></div></fieldset>' );
+        $( ".object_append_div").append( '<fieldset class="scheduler-border"><legend class="scheduler-border">সাব অবজেকটিভ </legend><div class="sub_objective_row" id="sub_objective_row_'+ob+'"><div class="row"><div class="col-md-12"><div class="form-group"><label class="input-label">Sub Objective<span class="text-danger">*</span></label><div class="input-group"><input class="form-control sub_objective" type="text" id="sub_objective" name="sub_objective"><button type="button" class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger list-btn-toggle btn_objective_remove "><i class="fad fa-minus-circle"></i></button></div></div></div></div><div class="line_of_enquire_row"><div class="row"><div class="col-md-10"><div class="form-group"><label class="input-label">Line of Enquire<span class="text-danger">*</span></label><div class="line_of_enquire_div"><div><div class="input-group"><input class="form-control line_of_enquire" type="text" id="line_of_enquire" name="line_of_enquire"><button type="button"  onclick="addLineOfEnquire($(this))" class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary list-btn-toggle"><i class="fad fa-plus-circle"></i></button></div></div></div></div></div></div></div></div></fieldset>' );
 
         $('.object_append_div').on('click', '.btn_objective_remove', function(e) {
             e.preventDefault();
-            $(this).parent().parent().remove();
+            $(this).closest('.scheduler-border').remove();
         });
         ob++;
     });
