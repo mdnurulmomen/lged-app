@@ -35,7 +35,8 @@
                     {{$plan_list['approval_status']}}
                 @endif
             </div>
-{{--                @if(isset($plan_list['approval_status']) && $plan_list['approval_status'] == 'draft' || $plan_list['approval_status']  == 'reject')--}}
+{{--            @php dump($plan_list) @endphp--}}
+                @if($plan_list && isset($plan_list['approval_status']) && $plan_list['approval_status'] == 'draft' || $plan_list['approval_status']  == 'reject')
                     <div class="col-md-5">
                         <div class="d-flex justify-content-md-end">
                             <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
@@ -48,7 +49,7 @@
                             </a>
                         </div>
                     </div>
-{{--                @endif--}}
+                @endif
         </div>
     </div>
 </div>
