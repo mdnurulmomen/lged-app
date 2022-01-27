@@ -47,7 +47,13 @@
                            data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
                            class="btn btn-sm btn-light-info btn-square mr-1"
                            href="javascript:;">
-                            <i class="fas fa-plus-circle mr-1"></i> রেস্পন্সিবল পার্টি যোগ করুন
+                            <i class="fas fa-plus-circle mr-1"></i>
+                            @if(session('dashboard_audit_type') != 'Performance Audit')
+                                রেস্পন্সিবল পার্টি যোগ করুন
+                            @else
+                                নতুন টপিক যোগ করুন
+                            @endif
+
                         </a>
                     </div>
                 </div>
