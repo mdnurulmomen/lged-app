@@ -649,7 +649,7 @@
                 toastr.error('Internal Serve Error');
             } else {
                 // console.log(response)
-                $('.selected_nominated_office_data_' + total_audit_schedule_row).html(response);
+                $('#branch_name_select_' + layer_id + '_' + total_audit_schedule_row).html(response);
                 $('.select-select2').select2();
             }
         });
@@ -1116,7 +1116,7 @@
                         entity_name_en = $(this).find(':selected').attr('data-entity-name-en') ? $(this).find(':selected').attr('data-entity-name-en') : '';
                     }
 
-                    if ($(this).is("select")) {
+                    if ($(this).hasClass('input-branch-name') && $(this).is("select")) {
                         cost_center_id = $(this).find(':selected').attr('data-cost-center-id');
                         cost_center_name_en = $(this).find(':selected').attr('data-cost-center-name-en');
                         cost_center_name_bn = $(this).find(':selected').attr('data-cost-center-name-bn');

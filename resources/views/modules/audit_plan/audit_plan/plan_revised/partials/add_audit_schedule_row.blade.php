@@ -1,7 +1,7 @@
 <tbody data-schedule-type='schedule' data-tbody-id='{{$layer_id}}_{{$total_audit_schedule_row}}'>
 <tr class='audit_schedule_row_{{$layer_id}}' data-layer-id='{{$layer_id}}'
     data-audit-schedule-first-row='{{$total_audit_schedule_row}}_{{$layer_id}}'>
-    <td class='selected_entity_data_{{$total_audit_schedule_row}}'>
+    <td class='selected_entity_data_{{$layer_id}}'>
         <select data-id="{{$layer_id}}_{{$total_audit_schedule_row}}" class='form-control select-select2 input-entity-name'>
             <option>--{{___('generic.choose')}}--</option>
             @foreach(json_decode($entity_list,true) as $key => $entity)
@@ -14,8 +14,8 @@
             @endforeach
         </select>
     </td>
-    <td class='selected_nominated_office_data_{{$total_audit_schedule_row}}'>
-        <select class='form-control select-select2 input-branch-name'>
+    <td class='selected_nominated_office_data_{{$layer_id}}'>
+        <select id="branch_name_select_{{$layer_id}}_{{$total_audit_schedule_row}}" data-id="{{$layer_id}}_{{$total_audit_schedule_row}}" class='form-control select-select2 input-branch-name'>
             <option>--{{___('generic.loading')}}--</option>
         </select>
     </td>

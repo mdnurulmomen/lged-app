@@ -9,6 +9,13 @@
                     <i class="far fa-book"></i> {{$qac_type == 'qac-1'?'এআইআর':'রিপোর্ট'}} বিস্তারিত
                 </a>
 
+                <a data-qac-type="{{$qac_type}}"
+                   data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                   onclick="QAC_Apotti_List_Container.createQacReport($(this))"
+                   class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
+                    <i class="far fa-book"></i>  রিপোর্ট
+                </a>
+
                 @if($responseData['rAirInfo']['r_air_child']['status']=='approved')
                     @if($responseData['rAirInfo']['r_air_child']['is_sent']== 0)
                         <button data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
@@ -255,6 +262,35 @@
                     $('#kt_quick_panel_close').click();
                 }
             });
+        },
+
+        createQacReport: function (elem) {
+            qac_type = elem.data('qac-type');
+            air_id = $('#preliminary_air_filter').val();
+
+            let url = '{{route('audit.qac.create-qac-report')}}';
+            let data = {air_id,qac_type};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $(".offcanvas-title").text('বিস্তারিত');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '70%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            })
         },
     };
 </script>

@@ -433,6 +433,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('air-wise-apotti', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'loadAirWiseApottiList'])->name('air-wise-apotti');
         Route::post('qac-apotti', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'qacApotti'])->name('qac-apotti');
         Route::post('qac-apotti-submit', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'qacApottiSubmit'])->name('qac-apotti-submit');
+        Route::post('create-qac-report', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'createQacReport'])->name('create-qac-report');
     });
 
     //Followup

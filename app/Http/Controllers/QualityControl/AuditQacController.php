@@ -65,6 +65,20 @@ class AuditQacController extends Controller
             'qac_type','current_designation_id'));
     }
 
+    public function createQacReport(Request $request){
+        $qac_type = $request->qac_type;
+        $requestData['qac_type'] = $qac_type;
+        $requestData['air_id'] = $request->air_id;
+//        dd($requestData);
+        $requestData['cdesk'] =$this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_audit_apotti_list'), $requestData)->json();
+        $responseData = isSuccess($responseData)?$responseData['data']:[];
+//        dd($responseData);
+        $current_designation_id = $this->current_designation_id();
+        return view('modules.audit_quality_control.qac_apotti_report',compact('responseData',
+            'qac_type','current_designation_id'));
+    }
+
     public function qacApotti(Request $request){
         $data = Validator::make($request->all(), [
             'apotti_id' => 'required|integer',

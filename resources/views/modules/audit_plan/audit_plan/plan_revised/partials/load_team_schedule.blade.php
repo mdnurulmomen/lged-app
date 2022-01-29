@@ -43,7 +43,7 @@
                     @endforeach
                 </select>
             </td>
-            <td class="selected_nominated_office_data_0">
+            <td class="selected_nominated_office_data_{{$team_layer_id}}">
                 <select id="branch_name_select_{{$team_layer_id}}_0" class="form-control select-select2 input-branch-name"
                         data-id="{{$team_layer_id}}_0">
                     <option value=''>--{{___('generic.select')}}--</option>
@@ -144,6 +144,8 @@
 
         layer_id = layer_row[0];
         row = layer_row[1];
+
+        // alert(layer_id);
 
         loadSelectNominatedOffices(parent_office_id, layer_id, row);
     });
