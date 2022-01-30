@@ -150,6 +150,7 @@ return [
         'get_current_desk_approval_authority' => env('API_URL_BEE', '') . '/planning/annual-plan/get-current-desk-approval-authority',
         'submit_milestone_value' => env('API_URL_BEE', '') . '/planning/annual-plan/submit-milestone-value',
         'get_schedule_info' => env('API_URL_BEE', '') . '/planning/annual-plan/get-schedule-info',
+        'get_annual_plan_subject_matter_info' => env('API_URL_BEE', '') . '/planning/annual-plan/get-annual-plan-subject-matter-info',
     ],
 
     'audit_entity_plan' => [
