@@ -20,27 +20,12 @@
                     <a href="">
                         <i title="Back To Audit Plan" class="fad fa-backward mr-3"></i>
                     </a>
-                    এআইআর
+                    অডিট রিপোর্ট
                 </h4>
             </div>
         </div>
         <div class="col-md-6 text-right">
-            @if($approved_status == 'approved')
-                @if($is_sent == 0)
-                    <button class="btn btn-sm btn-square btn-primary btn-hover-primary air_sent_responsible_party"
-                            onclick="QAC_AIR_Report_Container.airSendToRpu()">
-                        <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টিকে প্রেরণ করুন
-                    </button>
-                @elseif($is_received == null)
-                    <span class="badge badge-primary">
-                          <i class="fal fa-info text-white"></i>  রেস্পন্সিবল পার্টিকে প্রেরণ করা হয়েছে
-                    </span>
-                @elseif($is_received == 1)
-                    <span class="badge badge-primary">
-                          Received
-                    </span>
-                @endif
-            @else
+            @if($approved_status != 'approved')
                 @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
                     <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
                             title="প্রাপক বাছাই করুন"
@@ -50,11 +35,11 @@
                 @endif
             @endif
 
-                <button class="btn btn-sm btn-square btn-info btn-hover-info"
-                        data-air-id="{{$air_report_id}}"
-                        onclick="QAC_AIR_Report_Container.previewAirReport($(this))">
-                    <i class="fad fa-search"></i> Preview
-                </button>
+            <button class="btn btn-sm btn-square btn-info btn-hover-info"
+                    data-air-id="{{$air_report_id}}"
+                    onclick="QAC_AIR_Report_Container.previewAirReport($(this))">
+                <i class="fad fa-search"></i> Preview
+            </button>
 
             @if($approved_status != 'approved')
                 <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
@@ -71,14 +56,28 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="p-5">
-                        <div id="createPlanJsTree" class="mt-5"></div>
+                        <div class="input-group mb-5">
+                        </div>
+                        <div class="mt-5">
+                            {{--<h3>Audit list</h3>--}}
+                        </div>
+                        <!---JS tree start---->
+                        <div id="createPlanJsTree" class="mt-5">
+                        </div>
+                        <!---JS tree end---->
+                        <div class="form-group mt-5">
+                            {{--<input class="form-control rounded-0" type="text" name="" id="searchPlaneField"
+                                   placeholder="Search"/>--}}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div id="split-1">
             <textarea id="kt-tinymce-1" name="kt-tinymce-1" class="kt-tinymce-1"></textarea>
         </div>
+
         <div id="split-2" class="d-none">
             <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">
             </div>
@@ -86,7 +85,7 @@
     </div>
 @endsection
 @section('scripts')
-    @include('scripts.audit_inspection_report.preliminary.edit.script_edit')
+    @include('scripts.audit_inspection_report.report.create.script_create')
 
     <script>
         $(function () {
@@ -114,7 +113,7 @@
                 data = {air_id,air_description};
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'success') {
-                        toastr.success('AIR Book Saved Successfully');
+                        toastr.success('Audit Report Saved Successfully');
                     } else {
                         toastr.error('Not Saved');
                         console.log(response)
@@ -130,7 +129,7 @@
                 air_description = templateArray;
                 scope = 'preview';
                 data = {scope,air_description};
-                url = '{{route('audit.report.air.download')}}';
+                url = '{{route('audit.report.air.final-report.preview')}}';
 
                 KTApp.block('#kt_content', {
                     opacity: 0.1,
@@ -142,7 +141,7 @@
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {
-                        $(".offcanvas-title").text('এআইআর');
+                        $(".offcanvas-title").text('অডিট রিপোর্ট');
                         quick_panel = $("#kt_quick_panel");
                         quick_panel.addClass('offcanvas-on');
                         quick_panel.css('opacity', 1);
@@ -214,22 +213,6 @@
                     }
                 });
             },
-
-            airSendToRpu: function () {
-                let url = '{{route('audit.report.air.air-send-to-rpu')}}';
-                air_id = '{{$air_report_id}}';
-                let data = {air_id};
-                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                        if (response.status === 'error') {
-                            toastr.warning(response.data)
-                        } else {
-                            toastr.success(response.data);
-                            $('.air_sent_responsible_party').hide();
-                        }
-                    }
-                );
-            },
         }
-
     </script>
 @endsection

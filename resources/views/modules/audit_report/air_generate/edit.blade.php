@@ -72,8 +72,8 @@
     </div>
 @endsection
 @section('scripts')
-    @include('scripts.air_report.edit.script_edit_air_report')
-    @include('scripts.air_report.script_air_report')
+    @include('scripts.audit_inspection_report.preliminary.edit.script_edit')
+    @include('scripts.audit_inspection_report.preliminary.script_report')
 
     <script>
 

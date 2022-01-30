@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuditFollowup\AuditFollowupController;
+use App\Http\Controllers\AuditFollowup\BroadsheetReplyController;
 use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentController;
 use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentScoreController;
 use App\Http\Controllers\AuditReport\AuditAIRReportController;
@@ -438,9 +440,15 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
     //Followup
     Route::group(['as' => 'audit.followup.', 'prefix' => 'audit-followup/'], function () {
-        Route::get('/', function () {
-            return redirect()->route('audit.followup.dashboard');
+        Route::get('/', [AuditFollowupController::class, 'index'])->name('index');
+
+        Route::group(['as' => 'broadsheet.reply.', 'prefix' => 'broadsheet-reply/'], function () {
+            Route::get('/', [BroadsheetReplyController::class, 'index'])->name('index');
+            Route::post('/get-apottoi-item-list', [BroadsheetReplyController::class, 'getApottiItemList'])->name('get-apottoi-item-list');
+            Route::post('/download-single-broadsheet', [BroadsheetReplyController::class, 'downloadSingleBroadsheet'])->name('download-single-broadsheet');
+            Route::post('/edit-apottoi-item', [BroadsheetReplyController::class, 'editApottiItem'])->name('edit-apottoi-item');
         });
+
         Route::get('dashboard', [\App\Http\Controllers\AuditFollowup\AuditFollowupDashboardController::class, 'index'])->name('dashboard');
 
         Route::get('observation', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'index'])->name('observation');
@@ -508,6 +516,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('apotti-final-approval-status', [AuditQACAIRReportController::class, 'apottiFinalApprovalStatus'])->name('apotti-final-approval-status');
                 Route::post('get-air-wise-qac-apotti', [AuditQACAIRReportController::class, 'getAirWiseQACApotti'])->name('get-air-wise-qac-apotti');
             });
+
+            //final report
+            Route::group(['as' => 'final-report.', 'prefix' => 'final-report/'], function () {
+                Route::post('download', [AuditQACAIRReportController::class, 'downloadAuditReport'])->name('download');
+                Route::post('preview', [AuditQACAIRReportController::class, 'previewAuditReport'])->name('preview');
+            });
+
             Route::post('air-send-to-rpu', [\App\Http\Controllers\AuditReport\RpuAirReportController::class, 'airSendToRpu'])->name('air-send-to-rpu');
         });
     });
@@ -617,6 +632,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             });
         });
     });
+
 
 
     //Miscellaneous

@@ -97,12 +97,32 @@ class AuditQACAIRReportController extends Controller
             $is_sent = $airReport['is_sent'];
             $is_received = $airReport['is_received'];
             $qac_type = $request->qac_type;
-            //dd($current_designation_id);
 
-            return view('modules.audit_quality_control.qac_01.edit',
-                compact('content','air_report_id','approved_status',
-                'latest_receiver_designation_id','current_designation_id','is_sent',
-                    'is_received','qac_type'));
+            if ($qac_type == 'cqat'){
+                $data['template_type'] = 'air_report';
+                $data['cdesk'] = $this->current_desk_json();
+                $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $data)->json();
+                //dd($responseReportTemplateData);
+                if (isSuccess($responseReportTemplateData)) {
+                    $content = $responseReportTemplateData['data']['content'];
+
+                    $entityNames = [];
+                    foreach ($airReport['annual_plan']['ap_entities'] as $ap_entities) {
+                        $entityNames[] = $ap_entities['ministry_name_bn'];
+                    }
+                    $audit_plan_entities = count($entityNames)>1?implode(" এবং ",$entityNames):$entityNames[0];
+
+                    return view('modules.audit_quality_control.cqat.create',
+                        compact('content','audit_plan_entities','air_report_id',
+                            'approved_status','latest_receiver_designation_id','current_designation_id',
+                            'is_sent','is_received','qac_type'));
+                }
+            }else{
+                return view('modules.audit_quality_control.qac_01.edit',
+                    compact('content','air_report_id','approved_status',
+                        'latest_receiver_designation_id','current_designation_id','is_sent',
+                        'is_received','qac_type'));
+            }
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];
@@ -127,5 +147,61 @@ class AuditQACAIRReportController extends Controller
         else{
             return view('modules.audit_quality_control.qac_01.partials.load_audit_apottis_details',compact('apottis','qac_type'));
         }
+    }
+
+
+    public function downloadAuditReport(Request $request)
+    {
+        $auditReport = $request->air_description;
+        $coverPage = $auditReport[0];
+        $indexPage = $auditReport[1];
+        $partOneCoverPage = $auditReport[2];
+        $inductionPage = $auditReport[3];
+        $chapterOneCoverPage = $auditReport[4];
+        $executiveSummaryPage = $auditReport[11];
+        $abbreviationOfWordPage = $auditReport[12];
+        $chapterTwoCoverPage = $auditReport[13];
+        $auditOnnuchedSumaryPage = $auditReport[14];
+        $auditOnnuchedDetailsCoverPage = $auditReport[15];
+        $auditOnnuchedDetailsPage = $auditReport[16];
+        $partTwoCoverPage = $auditReport[17];
+        $appendicesCoverPage = $auditReport[18];
+        $appendicesDetailsPage = $auditReport[19];
+
+        unset($auditReport[0], $auditReport[1], $auditReport[2], $auditReport[3], $auditReport[4], $auditReport[11],
+            $auditReport[12],$auditReport[13],$auditReport[14],$auditReport[15],$auditReport[16],
+            $auditReport[17],$auditReport[18],$auditReport[19]);
+
+        $pdf = \PDF::loadView('modules.audit_quality_control.cqat.partials.audit_report_book',
+            [
+                'coverPage' => $coverPage,
+                'indexPage' => $indexPage,
+                'partOneCoverPage' => $partOneCoverPage,
+                'inductionPage' => $inductionPage,
+                'chapterOneCoverPage' => $chapterOneCoverPage,
+                'executiveSummaryPage' => $executiveSummaryPage,
+                'abbreviationOfWordPage' => $abbreviationOfWordPage,
+                'chapterTwoCoverPage' => $chapterTwoCoverPage,
+                'auditOnnuchedSumaryPage' => $auditOnnuchedSumaryPage,
+                'auditOnnuchedDetailsCoverPage' => $auditOnnuchedDetailsCoverPage,
+                'auditOnnuchedDetailsPage' => $auditOnnuchedDetailsPage,
+                'partTwoCoverPage' => $partTwoCoverPage,
+                'appendicesCoverPage' => $appendicesCoverPage,
+                'appendicesDetailsPage' => $appendicesDetailsPage,
+                'auditReport' => $auditReport,
+            ], [] , ['orientation' => 'P', 'format' => 'A4']);
+
+        $fileName = 'audit_report_' . date('D_M_j_Y') . '.pdf';
+        return $pdf->stream($fileName);
+    }
+
+
+    public function previewAuditReport(Request $request)
+    {
+        $airReports = $request->air_description;
+        $cover = $airReports[0];
+        array_shift($airReports);
+        return view('modules.audit_quality_control.cqat.partials.preview_audit_report',
+            compact('airReports', 'cover'));
     }
 }

@@ -1,17 +1,19 @@
 @extends('layouts.master')
 @section('title')
-    Dashboard
+    Followup
 @endsection
 
 @section('styles')
 @endsection
 
 @section('sideMenu')
-    @include('modules.audit_followup.partials.menu_followup_dashboard')
+    @if(session('_module_menus') != null)
+        @include('layouts.partials._sidenav')
+    @endif
 @endsection
 
 @section('content')
-    <h1 class="text-center">Followup Dashboard</h1>
+
 @endsection
 
 @section('scripts')

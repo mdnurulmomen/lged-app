@@ -231,6 +231,11 @@ return [
         'audit_observation_removeAttachment' => env('API_URL_BEE', '') . '/follow-up/audit-observation/remove_attachment',
         'audit_observation_communication' => env('API_URL_BEE', '') . '/follow-up/audit-observation/observation_communication',
         'audit_observation_communication_lists' => env('API_URL_BEE', '') . '/follow-up/audit-observation/observation_communication_lists',
+
+        'broadsheet_reply' => [
+            'get_apotti_item_list' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-apotti-item-list',
+            'get_apotti_item_info' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-apotti-item-info',
+        ],
     ],
 
     'mis_and_dashboard' => [
@@ -303,6 +308,7 @@ return [
             'air_send_to_rpu' => env('API_URL_BEE', '') . '/audit-report/air/air-send-to-rpu',
         ],
     ],
+
 
     'final_plan_file' => [
         'list' => env('API_URL_BEE', '') . '/final-plan-file/list',

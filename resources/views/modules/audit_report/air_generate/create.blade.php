@@ -87,8 +87,8 @@
     </div>
 @endsection
 @section('scripts')
-    @include('scripts.air_report.create.script_create_air_report')
-    @include('scripts.air_report.script_air_report')
+    @include('scripts.audit_inspection_report.preliminary.create.script_create')
+    @include('scripts.audit_inspection_report.preliminary.script_report')
 
     <script>
         $(function () {

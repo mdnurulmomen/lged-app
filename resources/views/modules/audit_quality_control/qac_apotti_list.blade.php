@@ -16,7 +16,7 @@
                     <i class="far fa-book"></i>  রিপোর্ট
                 </a>
 
-                @if($responseData['rAirInfo']['r_air_child']['status']=='approved')
+                @if($qac_type == 'qac-1' && $responseData['rAirInfo']['r_air_child']['status']=='approved')
                     @if($responseData['rAirInfo']['r_air_child']['is_sent']== 0)
                         <button data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                             class="btn btn-sm btn-square btn-primary btn-hover-primary air_sent_responsible_party"
