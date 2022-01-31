@@ -67,6 +67,7 @@ class AuditQacController extends Controller
 
     public function qacCommittee($qac_type){
         $fiscal_years = $this->allFiscalYears();
+//        dd($qac_type);
         return view('modules.audit_quality_control.qac_committee.qac_committee',compact('fiscal_years',
             'qac_type'));
     }
@@ -79,7 +80,7 @@ class AuditQacController extends Controller
         $data['qac_type'] = $qac_type;
         $data['cdesk'] =$this->current_desk_json();
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.get_qac_committee_list'), $data)->json();
-//        dd($response);
+        dd($response);
         if (isSuccess($response)) {
             $committee_list = $response['data'];
             return view('modules.audit_quality_control.qac_committee.get_qac_committee',compact('committee_list','fiscal_year_id','qac_type'));
