@@ -46,9 +46,9 @@
             @endif
 
             <div class="col-md-6">
-                <label for=""><b>{{$qac_type_name_bn}} এর জন্য প্রেরিত {{$paritoAirName}} এআইআর এর তালিকা</b></label>
+                <label for="">{{$qac_type_name_bn}} এর জন্য প্রেরিত তালিকা {{--{{$paritoAirName}} এআইআর এর--}}</label>
                 <select class="form-select select-select2" id="preliminary_air_filter">
-                    <option value="">প্রিলিমিনারি এআইআর</option>
+                    <option value="">--বাছাই করুন--</option>
                 </select>
             </div>
 
