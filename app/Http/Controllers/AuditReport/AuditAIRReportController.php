@@ -34,12 +34,13 @@ class AuditAIRReportController extends Controller
         if (isSuccess($responseData)) {
             $content = $responseData['data']['content'];
 
-            if ($this->current_office_id() == 19) {
-                $directorate_address = 'অডিট কমপ্লেক্স,১ম তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
-            } elseif ($this->current_office_id() == 32) {
-                $directorate_address = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা),সেগুনবাগিচা,ঢাকা-১০০০।';
+
+            if ($this->current_office_id() == 14) {
+                $directorate_address = 'অডিট কমপ্লেক্স,৩য় তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
+            } elseif ($this->current_office_id() == 3) {
+                $directorate_address = 'অডিট কমপ্লেক্স,২য় তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
             } else {
-                $directorate_address = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা),সেগুনবাগিচা,ঢাকা-১০০০।';
+                $directorate_address = 'অডিট কমপ্লেক্স,৮ম তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
             }
 
             $cover_info = [
@@ -88,6 +89,7 @@ class AuditAIRReportController extends Controller
         $data['audit_plan_id'] = $request->audit_plan_id;
         $data['air_description'] = makeEncryptedData(gzcompress($request->air_description));
         $data['type'] = $request->air_type;
+        $data['audit_plan_entities'] = $request->audit_plan_entities;
         $data['status'] = 'draft';
         $data['all_apottis'] = empty($request->all_apottis)?[]:explode(',',$request->all_apottis);
         $data['apottis'] = empty($request->apottis)?[]:explode(',',$request->apottis);

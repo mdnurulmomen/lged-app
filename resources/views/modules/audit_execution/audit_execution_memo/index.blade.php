@@ -19,7 +19,7 @@
                     <a class="btn btn-sm btn-light-primary btn-square mr-1"
                        onclick="Memo_List_Container.sentMemoListToRpu()"
                        title="আরপিইউতে প্রেরণ করুন" href="javascript:;">
-                        <i class="fa fa-paper-plane mr-1"></i> আরপিইউতে প্রেরণ
+                        <i class="fa fa-paper-plane mr-1"></i> আরপিইে প্রেরণ
                     </a>
 
                     <a class="btn btn-sm btn-light-success btn_back btn-square"

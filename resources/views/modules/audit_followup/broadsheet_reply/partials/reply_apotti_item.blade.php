@@ -1,4 +1,4 @@
-<h5 class="text-info text-center">শিরোনামঃ {{$apottiItemInfo['memo_title_bn']}}</h5>
+<h5>শিরোনামঃ {{$apottiItemInfo['memo_title_bn']}}</h5>
 
 <div class="card border-0 mb-0 mt-5">
     <div class="card-header border-top-0 border-bottom-0 bg-white p-0 mb-3">
@@ -35,7 +35,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <div>
                 <h5 class="mb-0 note_title font-weight-1">
-                    উৰ্দ্ধতন কর্তৃপক্ষের জবাব
+                    উর্দ্ধতন কর্তৃপক্ষের জবাব
                 </h5>
             </div>
         </div>

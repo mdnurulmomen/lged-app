@@ -194,7 +194,7 @@
                                                 </button>
 
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                        title="সিদ্ধান্ত দিন" data-scope="jobab"
+                                                        title="" data-scope="jobab"
                                                         data-apotti-item-id="{{$item['id']}}"
                                                         data-cost-center-name-en="{{$item['cost_center_name_en']}}"
                                                         data-cost-center-name-bn="{{$item['cost_center_name_bn']}}"
@@ -286,7 +286,7 @@
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".offcanvas-title").text('অডিট অবজারভেশন');
+                    $(".offcanvas-title").text('অডিট অনুচ্ছেদ');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);

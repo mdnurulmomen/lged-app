@@ -35,6 +35,7 @@
             air_id = elem.data('air-id');
             apottis = $("#auditApottis").val();
             all_apottis = $("#auditAllApottis").val();
+            audit_plan_entities = '{{$audit_plan_entities}}';
             air_type = '{{$air_type}}';
             activity_id = elem.data('activity-id');
             fiscal_year_id = elem.data('fiscal-year-id');
@@ -42,7 +43,7 @@
             audit_plan_id = elem.data('audit-plan-id');
             air_description = JSON.stringify(templateArray);
 
-            data = {air_id,apottis,all_apottis,air_type,activity_id,fiscal_year_id,annual_plan_id,audit_plan_id,air_description};
+            data = {air_id,apottis,all_apottis,audit_plan_entities,air_type,activity_id,fiscal_year_id,annual_plan_id,audit_plan_id,air_description};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
                     elem.data('air-id',response.data.air_id);

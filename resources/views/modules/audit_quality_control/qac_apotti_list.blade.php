@@ -89,9 +89,9 @@
                 @if($apotti['apotti_map_data']['is_delete'] == 1)
                     প্রত্যাহার
                 @elseif($apotti['apotti_map_data']['final_status'] == 'draft')
-                    প্রস্তাবিত খসড়া
+                    রিপোর্ট ভুক্তির জন্য প্রস্তাবকৃত এসএফআই
                 @elseif($apotti['apotti_map_data']['final_status'] == 'approved')
-                    চূড়ান্ত খসড়া
+                    রিপোর্ট ভুক্তির জন্য চূড়ান্তকৃত এসএফআই
                 @elseif($apotti['apotti_map_data']['apotti_type'] == 'sfi')
                     এসএফআই
                 @elseif($apotti['apotti_map_data']['apotti_type'] == 'non-sfi')
