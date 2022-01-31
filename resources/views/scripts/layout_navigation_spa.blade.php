@@ -1,4 +1,8 @@
 <script>
+    $(document).ready(function () {
+        $('#kt_aside_menu .menu-nav .menu-item a').first().click()
+    })
+
     $('#kt_aside_menu .menu-nav .menu-link').click(function (event) {
         event.preventDefault();
         let menuItem = $(this)
