@@ -828,9 +828,12 @@
         {!! $materialityCalculatePage['content'] !!}
     </div>
 
-
     <div class="pdf-screen bangla-font" style="height: 100%">
         {!! $auditSchedulePage['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $auditOtherDetailsPage['content'] !!}
     </div>
 
     <htmlpagefooter name="even-footer">

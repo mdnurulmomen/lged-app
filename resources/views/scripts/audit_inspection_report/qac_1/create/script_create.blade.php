@@ -61,10 +61,11 @@
 
     function setCoverInformation() {
         $('.directorate_name').html("{{$directorate_name}}");
-        $('.directorate_address_cover').html("{{$directorate_address}}");
+        $('.directorate_address_cover').html("{!! $directorate_address !!}");
         $('.entity_name').html("{{$audit_plan_entities}}");
         $('.fiscal_year').html("{{$fiscal_year}}");
         $('.audit_year').html("{{$audit_year}}");
+        $('.audit_type').html("{{$auditType}}");
     }
 
     function checkIdAndSetContentTinyMce(e) {

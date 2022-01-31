@@ -99,18 +99,18 @@ class AuditQACAIRReportController extends Controller
             $is_sent = $airReport['is_sent'];
             $is_received = $airReport['is_received'];
             $qac_type = $request->qac_type;
-            $audit_year = '২০২০-২০২১';
-            $fiscal_year = '২০২০-২০২১';
+            $audit_year = '২০১৯-২০২০';
+            $fiscal_year = '২০১৯-২০২০';
 
             $directorate_name = $this->current_office()['office_name_bn'];
             if ($this->current_office_id() == 14) {
-                $directorate_address = 'অডিট কমপ্লেক্স <br> ৩য় তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
+                $directorate_address = 'অডিট কমপ্লেক্স <br> ৩য় তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
             } elseif ($this->current_office_id() == 3) {
-                $directorate_address = 'অডিট কমপ্লেক্স <br> ২য় তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
+                $directorate_address = 'অডিট কমপ্লেক্স <br> ২য় তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
             } else {
-                $directorate_address = 'অডিট কমপ্লেক্স <br> ৮ম তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
+                $directorate_address = 'অডিট কমপ্লেক্স <br> ৮ম তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
             }
-
+            $auditType = 'কমপ্লায়েন্স অডিট';
 
             if ($qac_type == 'qac-1'){
                 $qacOneData['template_type'] = 'qac1_report';
@@ -122,12 +122,12 @@ class AuditQACAIRReportController extends Controller
 
                     $entityNames = [];
                     foreach ($airReport['annual_plan']['ap_entities'] as $ap_entities) {
-                        $entityNames[] = $ap_entities['ministry_name_bn'];
+                        $entityNames[] = $ap_entities['entity_name_bn'];
                     }
                     $audit_plan_entities = count($entityNames)>1?implode(" এবং ",$entityNames):$entityNames[0];
 
                     return view('modules.audit_quality_control.qac_01.create',
-                        compact('directorate_name','directorate_address','content','audit_plan_entities','air_report_id',
+                        compact('auditType','directorate_name','directorate_address','content','audit_plan_entities','air_report_id',
                             'approved_status','latest_receiver_designation_id','current_designation_id',
                             'is_sent','is_received','qac_type','audit_year','fiscal_year'));
                 }
@@ -142,7 +142,7 @@ class AuditQACAIRReportController extends Controller
 
                     $entityNames = [];
                     foreach ($airReport['annual_plan']['ap_entities'] as $ap_entities) {
-                        $entityNames[] = $ap_entities['ministry_name_bn'];
+                        $entityNames[] = $ap_entities['entity_name_bn'];
                     }
                     $audit_plan_entities = count($entityNames)>1?implode(" এবং ",$entityNames):$entityNames[0];
 

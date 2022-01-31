@@ -236,9 +236,10 @@ class RevisedPlanController extends Controller
         $auditRiskAssessmentPage = $plans[27];
         $materialityCalculatePage = $plans[29];
         $auditSchedulePage = $plans[30];
+        $auditOtherDetailsPage = $plans[31];
 
         unset($plans[0], $plans[1], $plans[2], $plans[3], $plans[4], $plans[5],
-            $plans[27],$plans[28],$plans[29],$plans[30]);
+            $plans[27],$plans[28],$plans[29],$plans[30],$plans[31]);
 
         //dd($plans);
 
@@ -253,6 +254,7 @@ class RevisedPlanController extends Controller
                     'auditRiskAssessmentPage' => $auditRiskAssessmentPage,
                     'materialityCalculatePage' => $materialityCalculatePage,
                     'auditSchedulePage' => $auditSchedulePage,
+                    'auditOtherDetailsPage' => $auditOtherDetailsPage,
                     'plans' => $plans,
                 ], [] , ['orientation' => 'P', 'format' => 'A4']);
 
