@@ -26,7 +26,7 @@ class AuditAIRReportController extends Controller
      */
     public function create(Request $request)
     {
-        $data['template_type'] = 'air';
+        $data['template_type'] = 'preliminary_air';
         $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $data)->json();
@@ -34,19 +34,15 @@ class AuditAIRReportController extends Controller
         if (isSuccess($responseData)) {
             $content = $responseData['data']['content'];
 
-
+            $directorate_name = $this->current_office()['office_name_bn'];
             if ($this->current_office_id() == 14) {
-                $directorate_address = 'অডিট কমপ্লেক্স,৩য় তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
+                $directorate_address = 'অডিট কমপ্লেক্স <br> ৩য় তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
             } elseif ($this->current_office_id() == 3) {
-                $directorate_address = 'অডিট কমপ্লেক্স,২য় তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
+                $directorate_address = 'অডিট কমপ্লেক্স <br> ২য় তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
             } else {
-                $directorate_address = 'অডিট কমপ্লেক্স,৮ম তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
+                $directorate_address = 'অডিট কমপ্লেক্স <br> ৮ম তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
             }
-
-            $cover_info = [
-                'directorate_name' => $this->current_office()['office_name_bn'],
-                'directorate_address' => $directorate_address,
-            ];
+            $auditType = 'কমপ্লায়েন্স অডিট';
 
             $air_type = $request->air_type;
             $fiscal_year_id = $request->fiscal_year_id;
@@ -54,11 +50,14 @@ class AuditAIRReportController extends Controller
             $annual_plan_id = $request->annual_plan_id;
             $audit_plan_id = $request->audit_plan_id;
             $audit_year = '২০১৯-২০২০';
+            $fiscal_year = '২০১৯-২০২০';
             $audit_plan_entities = $request->audit_plan_entities;
 
             return view('modules.audit_report.air_generate.create',
-                compact('air_type','content','cover_info','fiscal_year_id','activity_id',
-                    'annual_plan_id','audit_plan_id','audit_year','audit_plan_entities'));
+                compact('directorate_name','directorate_address','auditType',
+                    'air_type','content','fiscal_year_id','activity_id',
+                    'annual_plan_id','audit_plan_id','audit_year','fiscal_year',
+                    'audit_plan_entities'));
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];
@@ -213,24 +212,45 @@ class AuditAIRReportController extends Controller
         return view('modules.audit_report.air_generate.partials.load_audit_plans',$data);
     }
 
-    public function download(Request $request)
+    public function preview(Request $request)
     {
         //dd($request->air_description);
         $airReports = $request->air_description;
         $cover = $airReports[0];
         array_shift($airReports);
+        return view('modules.audit_report.air_generate.partials.preview_air_book',
+            compact('airReports', 'cover'));
+    }
 
-        if ($request->scope == 'generate') {
-            $pdf = \PDF::loadView('modules.audit_report.air_generate.partials.air_book',
-                compact('airReports', 'cover'));
-            $fileName = 'Air_Report_' . date('D_M_j_Y') . '.pdf';
-            return $pdf->stream($fileName);
-        } elseif ($request->scope == 'preview') {
-            return view('modules.audit_report.air_generate.partials.preview_air_book',
-                compact('airReports', 'cover'));
-        } else {
-            return ['status' => 'error', 'data' => 'Somethings went wrong'];
-        }
+    public function download(Request $request)
+    {
+        $auditReport = $request->air_description;
+        $coverPage = $auditReport[0];
+        $indexPage = $auditReport[1];
+        $partOneCoverPage = $auditReport[2];
+        $partTwoCoverPage = $auditReport[15];
+        $auditOnnuchedSumaryPage = $auditReport[16];
+        $auditOnnuchedDetailsPage = $auditReport[17];
+        $appendicesCoverPage = $auditReport[18];
+        $appendicesDetailsPage = $auditReport[19];
+
+        unset($auditReport[0], $auditReport[1], $auditReport[2], $auditReport[15],
+            $auditReport[16],$auditReport[17],$auditReport[18],$auditReport[19]);
+
+        $pdf = \PDF::loadView('modules.audit_report.air_generate.partials.air_book',
+            [
+                'coverPage' => $coverPage,
+                'indexPage' => $indexPage,
+                'partOneCoverPage' => $partOneCoverPage,
+                'partTwoCoverPage' => $partTwoCoverPage,
+                'auditOnnuchedSumaryPage' => $auditOnnuchedSumaryPage,
+                'auditOnnuchedDetailsPage' => $auditOnnuchedDetailsPage,
+                'appendicesCoverPage' => $appendicesCoverPage,
+                'appendicesDetailsPage' => $appendicesDetailsPage,
+                'auditReport' => $auditReport,
+            ], [] , ['orientation' => 'P', 'format' => 'A4']);
+        $fileName = 'audit_preliminary_air_report_' . date('D_M_j_Y') . '.pdf';
+        return $pdf->stream($fileName);
     }
 
 

@@ -778,22 +778,75 @@
         .no-border tbody, .no-border td, .no-border tfoot, .no-border th, .no-border thead, .no-border tr {
             border: 0 !important;
         }
+
+        .middle-page{
+            position: absolute;
+            top: 50%;
+        }
+
+        @page {
+            odd-header-name: odd-header;
+            even-header-name: even-header;
+            odd-footer-name: odd-footer;
+            even-footer-name: even-footer;
+        }
     </style>
 </head>
 
 <body>
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $cover['content'] !!}
+        {!! $coverPage['content'] !!}
     </div>
 
     <div class="pdf-screen bangla-font" style="height: 100%">
-        @foreach($airReports as $report)
+        {!! $indexPage['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%;">
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+        {!! $partOneCoverPage['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%;">
+        @foreach($auditReport as $report)
             <div class="plan_content bangla-font">
                 {!! $report['content'] !!}
             </div>
         @endforeach
     </div>
+
+
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;">
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+        {!! $partTwoCoverPage['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%;">
+        {!! $auditOnnuchedSumaryPage['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="page-break-before: always;">
+        {!! $auditOnnuchedDetailsPage['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+        {!! $appendicesCoverPage['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $appendicesDetailsPage['content'] !!}
+    </div>
+
+    <htmlpagefooter name="even-footer">
+        <div style="float:right; width: 100%; text-align: right;">Page <span class="page_number">{PAGENO}</span> of {nb}</div>
+    </htmlpagefooter>
+
+    <htmlpagefooter name="odd-footer">
+        {{--@php $pageNumber = ; @endphp--}}
+        <div style="float:left; width: 100%; text-align: right;">Page {PAGENO} of {nb}</div>
+    </htmlpagefooter>
 </div>
 </body>
 </html>

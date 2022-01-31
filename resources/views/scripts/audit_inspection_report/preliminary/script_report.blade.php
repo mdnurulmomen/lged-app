@@ -61,7 +61,7 @@
             air_description = templateArray;
             scope = 'preview';
             data = {scope,air_description};
-            url = '{{route('audit.report.air.download')}}';
+            url = '{{route('audit.report.air.preview')}}';
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

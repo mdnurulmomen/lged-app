@@ -251,7 +251,7 @@ class AuditQACAIRReportController extends Controller
                 'auditReport' => $auditReport,
             ], [] , ['orientation' => 'P', 'format' => 'A4']);
 
-        $fileName = 'audit_report_' . date('D_M_j_Y') . '.pdf';
+        $fileName = 'audit_air_report_' . date('D_M_j_Y') . '.pdf';
         return $pdf->stream($fileName);
     }
 
