@@ -20,7 +20,7 @@
                    data-air-report-id="{{$responseData['rAirInfo']['id']}}"
                    onclick="QAC_Apotti_List_Container.createQacReport($(this))"
                    class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
-                    <i class="far fa-book"></i>
+                    <i class="fa fa-file-text" aria-hidden="true"></i>
                     @if($qac_type == 'qac-1')
                         কিউএসি-১ রিপোর্ট
                     @elseif($qac_type == 'qac-2')
