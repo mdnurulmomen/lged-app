@@ -179,6 +179,12 @@
                                                 <i class="fad fa-edit"></i>
                                             </button>
 
+                                            <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                    title="{{___('generic.buttons.send_to_rpu')}}" data-memo-id="{{$memo['id']}}"
+                                                    onclick="Memo_List_Container.sendMemoForm($(this))">
+                                                <i class="fa fa-paper-plane "></i>
+                                            </button>
+
                                             <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
                                             list-btn-toggle"
                                                     title="{{___('generic.buttons.title.history')}}" data-memo-id="{{$memo['id']}}"

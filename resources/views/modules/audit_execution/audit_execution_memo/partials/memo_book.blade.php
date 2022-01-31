@@ -792,8 +792,8 @@
 
         <table class="bangla-font" width="100%">
             <tr>
-                <td >স্মারক  নং - {{enTobn('82.09.0000.09.32.147.21.43')}}</td>
-                <td style="text-align: right">তারিখ: {{enTobn('30-11-2021')}}</td>
+                <td >স্মারক  নং - {{enTobn($memoInfo['memo_sharok_no'])}}</td>
+                <td style="text-align: right">তারিখ: {{enTobn($memoInfo['memo_send_date'])}}</td>
             </tr>
         </table>
 

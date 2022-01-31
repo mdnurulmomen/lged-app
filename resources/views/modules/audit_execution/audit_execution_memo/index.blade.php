@@ -178,15 +178,53 @@
             });
         },
 
-        sentMemoListToRpu: function () {
-            memos = [];
-            $(".select-memo").each(function (i, value) {
-                if ($(this).is(':checked') && !$(this).is(':disabled')) {
-                    memos.push($(this).val());
-                }
+        sendMemoForm: function (elem) {
+            memo_id = elem.data('memo-id');
+            // air_id = $('#preliminary_air_filter').val();
+
+            let url = '{{route('audit.execution.memo.send-memo-form')}}';
+            let data = {memo_id};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
             });
 
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $(".offcanvas-title").text('আরপি-তে প্রেরণ');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            })
+        },
+
+        sentMemoListToRpu: function (elem) {
+            data = $('#send_memo_to_rpu_form').serializeArray();
+
+            memo_id = elem.data('memo-id');
+            memos = [];
+            memos.push(memo_id);
+
             console.log(memos);
+
+            data.push({name: "memos", value: memos});
+
+            // $(".select-memo").each(function (i, value) {
+            //     if ($(this).is(':checked') && !$(this).is(':disabled')) {
+            //         memos.push($(this).val());
+            //     }
+            // });
+
+            // console.log(memos);
 
             if (!memos) {
                 toastr.warning('Please Select Query');
@@ -194,7 +232,6 @@
             }
 
             url = '{{route('audit.execution.memo.sent-to-rpu')}}';
-            data = {memos};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

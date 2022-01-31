@@ -155,6 +155,8 @@
                                 <label class="col-form-label">দলনেতা</label>
                                 <input type="text" class="form-control mb-1" name="rpu_acceptor_officer_name_bn"
                                        placeholder="দলনেতা" readonly value="{{$team_leader_name.' ('.$team_leader_designation_name.')'}}">
+                                <input type="hidden" name="team_leader_name" value="{{$team_leader_name}}">
+                                <input type="hidden" name="team_leader_designation" value="{{$team_leader_designation_name}}">
 
                                 <label class="col-form-label">উপদলনেতা</label>
                                 <input type="text" class="form-control mb-1" name="rpu_acceptor_designation_name_bn"

@@ -17,12 +17,14 @@
     </div>
     <br>
 
-    <table class="bangla-font" width="100%">
-        <tr>
-            <td >স্মারক  নং - {{enTobn('82.09.0000.09.32.147.21.43')}}</td>
-            <td style="text-align: right">তারিখ: {{enTobn('30-11-2021')}}</td>
-        </tr>
-    </table>
+    @if($memoInfo['memo_sharok_no'])
+        <table class="bangla-font" width="100%">
+            <tr>
+                <td >স্মারক  নং - {{enTobn($memoInfo['memo_sharok_no'])}}</td>
+                <td style="text-align: right">তারিখ: {{enTobn($memoInfo['memo_send_date'])}}</td>
+            </tr>
+        </table>
+    @endif
 
     <table style="margin-top: 10px" class="bangla-font" width="100%" style="color: black">
         <tr>
@@ -81,46 +83,51 @@
     <table width="100%" style="color: black">
         <tr>
             <td class="bangla-font" width="50%" style="text-align: center">
-                <p>প্রকল্প পরিচালক</p>
-                <p>পূর্বাচল লিংক রোডের উভয় পাশে</p>
-                <p>রাজধানী উন্নয়ন কর্তৃপক্ষ, ঢাকা</p>
+                <p>{{$memoInfo['rpu_acceptor_designation_name_bn']}}</p>
+{{--                <p>পূর্বাচল লিংক রোডের উভয় পাশে</p>--}}
+                <p>{{$memoInfo['cost_center_name_bn']}}</p>
             </td>
             <td class="bangla-font" width="50%" style="text-align: center">
-                <p>(মোহাম্মদ সাইদুর রহমান সরকার)</p>
-                <p>পদবী ও  দলনেতা</p>
+                <p>({{$memoInfo['team_leader_name']}})</p>
+                <p>{{$memoInfo['team_leader_designation']}} ও  দলনেতা</p>
                 <p>পূর্ত অডিট অধিদপ্তর</p>
 
             </td>
         </tr>
     </table>
     <br>
-    <table class="bangla-font" width="100%" style="color: black">
-        <tr>
-            <td >স্মারক  নং - {{enTobn('82.09.0000.09.32.147.21.43')}}</td>
-            <td style="text-align: right">তারিখ: {{enTobn('30-11-2021')}}</td>
-        </tr>
-    </table>
+    @if($memoInfo['memo_sharok_no'])
+        <table class="bangla-font" width="100%" style="color: black">
+            <tr>
+                <td >স্মারক  নং - {{enTobn($memoInfo['memo_sharok_no'])}}</td>
+                <td style="text-align: right">তারিখ: {{enTobn($memoInfo['memo_send_date'])}}</td>
+            </tr>
+        </table>
+    @endif
     <br>
-    <table class="bangla-font" width="100%" style="color: black">
-        <tr>
-            <td style="padding-left: 10px;padding-bottom: 10px">সদয় অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য:-</td>
-        </tr>
-        <tr>
-            <td>
-                <p>১| প্রকল্প পরিচালক, রাজধানী উন্নয়ন কর্তৃপক্ষ, ঢাকা</p>
-                <p>২| প্রকল্প পরিচালক, রাজধানী উন্নয়ন কর্তৃপক্ষ, ঢাকা</p>
-                <p>৩| প্রকল্প পরিচালক, রাজধানী উন্নয়ন কর্তৃপক্ষ, ঢাকা</p>
-            </td>
-        </tr>
-    </table>
+    @if($memoInfo['memo_cc'])
+        <table class="bangla-font" width="100%" style="color: black">
+            <tr>
+                <td style="padding-left: 10px;padding-bottom: 10px">সদয় অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য:-</td>
+            </tr>
+            <tr>
+                <td>
+                    @if($memoInfo['memo_cc'])
+                        {{$memoInfo['memo_cc']}}
+                    @endif
+
+                </td>
+            </tr>
+        </table>
+    @endif();
     <br>
     <table class="bangla-font" width="100%" style="color: black">
         <tr>
             <td width="33%"></td>
             <td width="33%"></td>
             <td width="34%" style="text-align: center">
-                <p>(মোহাম্মদ সাইদুর রহমান সরকার)</p>
-                <p>পদবী  ও দলনেতা</p>
+                <p>({{$memoInfo['team_leader_name']}})</p>
+                <p>{{$memoInfo['team_leader_designation']}}  ও দলনেতা</p>
             </td>
         </tr>
     </table>

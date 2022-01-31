@@ -196,6 +196,7 @@ class AuditQacController extends Controller
 
         $responseData = isSuccess($responseData)?$responseData['data']:[];
         $committeeData = isSuccess($committee)?$committee['data']:[];
+
 //        dd($responseData);
 
         if($request->scope == 'pdf'){
@@ -204,6 +205,7 @@ class AuditQacController extends Controller
             $pdf = \PDF::loadView('modules.audit_quality_control.qac_apotti_report', ['responseData' => $responseData,'committeeData'=> $committeeData,'qac_type' => $qac_type,'scope' => $scope], [], ['orientation' => 'L', 'format' => 'A4']);
             return $pdf->stream('qac_report.pdf');
         }else{
+//            dd($responseData);
             return view('modules.audit_quality_control.qac_apotti_report',compact('responseData',
                 'qac_type','committeeData','air_id','scope'));
         }

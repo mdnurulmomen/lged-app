@@ -106,6 +106,8 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'memo_irregularity_sub_type', 'contents' => $request->memo_irregularity_sub_type],
             ['name' => 'memo_type', 'contents' => 0],
             ['name' => 'memo_status', 'contents' => 0],
+            ['name' => 'team_leader_name', 'contents' => $request->team_leader_name],
+            ['name' => 'team_leader_designation', 'contents' => $request->team_leader_designation],
             ['name' => 'rpu_acceptor_officer_name_bn', 'contents' => $request->rpu_acceptor_officer_name_bn],
             ['name' => 'rpu_acceptor_designation_name_bn', 'contents' => $request->rpu_acceptor_designation_name_bn],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
@@ -181,6 +183,9 @@ class AuditExecutionMemoController extends Controller
             $directorateAddress = 'অডিট কমপ্লেক্স (৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.cad.org.bd';
         }
+
+//        dd($memoInfo);
+
         if (isSuccess($memoInfo)) {
             $memoInfo = $memoInfo['data'];
             return view('modules.audit_execution.audit_execution_memo.show',
@@ -269,11 +274,16 @@ class AuditExecutionMemoController extends Controller
     {
         $data = Validator::make($request->all(), [
             'memos' => 'required',
+            'memo_sharok_no' => 'required',
+            'memo_cc' => 'nullable',
         ])->validate();
+
+        $data['memo_send_date'] = date('Y-m-d',strtotime($request->memo_send_date));
+
         $data['cdesk'] = $this->current_desk_json();
 
         $memoSendToRpu = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.send_to_rpu'), $data)->json();
-//        dd($memoSendToRpu);
+
         if (isSuccess($memoSendToRpu)) {
             return response()->json(['status' => 'success', 'data' => 'Memo has been sent to RPU successfully']);
         } else {
@@ -493,5 +503,10 @@ class AuditExecutionMemoController extends Controller
     public function auditMemoShow(Request $request){
         $memo_log_info = json_decode($request->log_info,true);
         return view('modules.audit_execution.audit_execution_memo.memo_log.show_memo_log', compact('memo_log_info'));
+    }
+
+    public function sendMemoForm(Request $request){
+        $memo_id = $request->memo_id;
+        return view('modules.audit_execution.audit_execution_memo.send_memo_form', compact('memo_id'));
     }
 }

@@ -836,11 +836,16 @@
 {{--                            <td class="bangla-font" style="text-align: center" width="5%">ক্রম</td>--}}
                             <td class="bangla-font" style="text-align: center" width="30%"> আপত্তির শিরোনাম</td>
                             <td class="bangla-font" style="text-align: center" width="10%"> জড়িত অর্থ (টাকা)</td>
+                            <td class="bangla-font" style="text-align: center" width="10%"> অনুচ্ছেদ এর ধরন</td>
+                            @if($qac_type == 'qac-1')
                             <td class="bangla-font" style="text-align: center" width="10%">আপত্তির সাথে পরিশিষ্ট মিল আছে কিনা ?</td>
                             <td class="bangla-font" style="text-align: center" width="10%"> বিধি-বিধান উল্লেখ আছে কিনা ?</td>
                             <td class="bangla-font" style="text-align: center" width="10%">   আপত্তিতে কোন অসম্পূর্ণতা আছে কিনা ?</td>
                             <td class="bangla-font" style="text-align: center" width="10%">   আপত্তি রিস্ক অ্যানালাইসিস এরমধ্যে উত্থাপন করা হয়েছে কিনা ?</td>
-                            <td class="bangla-font" style="text-align: center" width="10%">    ব্রডশিট জবাব পাওয়া গিয়েছে কিনা ?</td>
+                            @endif
+                            @if($qac_type == 'qac-2')
+                                <td class="bangla-font" style="text-align: center" width="10%">    ব্রডশিট জবাব পাওয়া গিয়েছে কিনা ?</td>
+                            @endif
                             <td class="bangla-font" style="text-align: center" width="10%">           মন্তব্য</td>
                         </tr>
 {{--                        <tr class="bangla-font">--}}
@@ -851,6 +856,7 @@
                         @php $total_amount = 0; @endphp
                         @foreach($responseData['apottiList'] as $apotti)
                             @foreach($apotti['apotti_map_data']['apotti_status'] as $apotti_status)
+                                @if($apotti_status['qac_type'] == $qac_type)
                                 <tr class="bangla-font">
                                     <td class="bangla-font text-left">
                                         <span>{{$apotti['apotti_map_data']['apotti_title']}}</span>
@@ -874,22 +880,31 @@
                                             নন-এসএফআই
                                         @endif
                                     </td>
-                                    <td class="bangla-font text-left">
-                                        {{$apotti_status['is_same_porishisto'] ? 'হ্যাঁ' : 'না'}}
-                                    </td>
-                                    <td class="bangla-font text-left">
-                                        {{$apotti_status['is_rules_and_regulation'] ? 'হ্যাঁ' : 'না'}}
-                                    </td>
-                                    <td class="bangla-font text-left">
-                                        {{$apotti_status['is_imperfection'] ? 'হ্যাঁ' : 'না'}}
-                                    </td>
-                                    <td class="bangla-font text-left">
-                                        {{$apotti_status['is_broadsheet_response'] ? 'হ্যাঁ' : 'না'}}
-                                    </td>
+                                    @if($qac_type == 'qac-1')
+                                        <td class="bangla-font text-left">
+                                            {{$apotti_status['is_same_porishisto'] ? 'হ্যাঁ' : 'না'}}
+                                        </td>
+                                        <td class="bangla-font text-left">
+                                            {{$apotti_status['is_rules_and_regulation'] ? 'হ্যাঁ' : 'না'}}
+                                        </td>
+                                        <td class="bangla-font text-left">
+                                            {{$apotti_status['is_risk_analysis'] ? 'হ্যাঁ' : 'না'}}
+                                        </td>
+                                        <td class="bangla-font text-left">
+                                            {{$apotti_status['is_imperfection'] ? 'হ্যাঁ' : 'না'}}
+                                        </td>
+                                    @endif
+
+                                    @if($qac_type == 'qac-2')
+                                        <td class="bangla-font text-left">
+                                            {{$apotti_status['is_broadsheet_response'] ? 'হ্যাঁ' : 'না'}}
+                                        </td>
+                                    @endif
                                     <td class="bangla-font text-left">
                                         {{$apotti_status['comment']}}
                                     </td>
                                 </tr>
+                                @endif()
                             @endforeach
                         @endforeach
                         <tr class="bangla-font">

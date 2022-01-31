@@ -10,14 +10,14 @@
                 </a>
 
                 <a data-qac-type="{{$qac_type}}"
-                   data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                   data-air-report-id="{{$responseData['rAirInfo']['id']}}"
                    onclick="QAC_Apotti_List_Container.selectCommittee($(this))"
                    class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
-                    <i class="far fa-book"></i>  কমিটি বাছাই করুন
+                    <i class="far fa-users"></i>  কমিটি বাছাই করুন
                 </a>
 
                 <a data-qac-type="{{$qac_type}}"
-                   data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                   data-air-report-id="{{$responseData['rAirInfo']['id']}}"
                    onclick="QAC_Apotti_List_Container.createQacReport($(this))"
                    class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
                     <i class="far fa-book"></i>  রিপোর্ট
@@ -274,6 +274,7 @@
         createQacReport: function (elem) {
             qac_type = elem.data('qac-type');
             air_id = elem.data('air-report-id');
+            alert(air_id);
             // air_id = $('#preliminary_air_filter').val();
 
             let url = '{{route('audit.qac.create-qac-report')}}';
