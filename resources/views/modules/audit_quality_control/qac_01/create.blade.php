@@ -107,6 +107,7 @@
             let approved_status = '{{$approved_status}}';
             if (approved_status != 'approved'){
                 $(".update-qac-air-report").click();
+                QAC_AIR_Report_Container.insertAuditTeam();
                 QAC_AIR_Report_Container.insertAuditApottiSummary('sfi');
                 QAC_AIR_Report_Container.insertAuditApottiSummary('non-sfi');
                 QAC_AIR_Report_Container.insertAuditApottiDetails('sfi');
@@ -136,6 +137,23 @@
                         console.log(response)
                     }
                 })
+            },
+
+            insertAuditTeam: function () {
+                url = '{{route('audit.report.air.get-audit-team')}}';
+                fiscal_year_id = '{{$fiscal_year_id}}';
+                activity_id = '{{$activity_id}}';
+                annual_plan_id = '{{$annual_plan_id}}';
+                audit_plan_id = '{{$audit_plan_id}}';
+                let data = {fiscal_year_id, activity_id, annual_plan_id, audit_plan_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data);
+                    } else {
+                        $('.audit_team').html(response);
+                        Insert_AIR_Data_Container.setJsonContentFromPlanBook();
+                    }
+                });
             },
 
             previewAirReport: function () {

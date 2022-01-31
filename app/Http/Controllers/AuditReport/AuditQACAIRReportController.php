@@ -102,6 +102,11 @@ class AuditQACAIRReportController extends Controller
             $audit_year = '২০১৯-২০২০';
             $fiscal_year = '২০১৯-২০২০';
 
+            $fiscal_year_id = $airReport['fiscal_year_id'];
+            $activity_id = $airReport['activity_id'];
+            $audit_plan_id = $airReport['audit_plan_id'];
+            $annual_plan_id = $airReport['annual_plan_id'];
+
             $directorate_name = $this->current_office()['office_name_bn'];
             if ($this->current_office_id() == 14) {
                 $directorate_address = 'অডিট কমপ্লেক্স <br> ৩য় তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
@@ -127,8 +132,10 @@ class AuditQACAIRReportController extends Controller
                     $audit_plan_entities = count($entityNames)>1?implode(" এবং ",$entityNames):$entityNames[0];
 
                     return view('modules.audit_quality_control.qac_01.create',
-                        compact('auditType','directorate_name','directorate_address','content','audit_plan_entities','air_report_id',
-                            'approved_status','latest_receiver_designation_id','current_designation_id',
+                        compact('fiscal_year_id','activity_id','audit_plan_id',
+                            'annual_plan_id','auditType','directorate_name','directorate_address',
+                            'content','audit_plan_entities','air_report_id','approved_status',
+                            'latest_receiver_designation_id','current_designation_id',
                             'is_sent','is_received','qac_type','audit_year','fiscal_year'));
                 }
             }
