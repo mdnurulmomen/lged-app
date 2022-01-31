@@ -65,18 +65,177 @@ class AuditQacController extends Controller
             'qac_type','current_designation_id'));
     }
 
+    public function qacCommittee($qac_type){
+        $fiscal_years = $this->allFiscalYears();
+        return view('modules.audit_quality_control.qac_committee.qac_committee',compact('fiscal_years',
+            'qac_type'));
+    }
+
+    public function getQacCommitteeList(Request $request){
+//        dd($request->all());
+        $fiscal_year_id = $request->fiscal_year_id;
+        $qac_type = $request->qac_type;
+        $data['fiscal_year_id'] = $fiscal_year_id;
+        $data['qac_type'] = $qac_type;
+        $data['cdesk'] =$this->current_desk_json();
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.get_qac_committee_list'), $data)->json();
+//        dd($response);
+        if (isSuccess($response)) {
+            $committee_list = $response['data'];
+            return view('modules.audit_quality_control.qac_committee.get_qac_committee',compact('committee_list','fiscal_year_id','qac_type'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response['data']]);
+        }
+    }
+
+    public function createQacCommittee(){
+        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
+        return view('modules.audit_quality_control.qac_committee.create_qac_committee',compact('officer_lists'));
+    }
+
+    public function storeQacCommittee(Request $request){
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'qac_type' => 'required',
+            'member_info' => 'required',
+            'title' => 'required',
+        ])->validate();
+
+        $data['cdesk'] =$this->current_desk_json();
+
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.store_qac_committee'), $data)->json();
+
+        if (isSuccess($response)) {
+            $response = $response['data'];
+            return response()->json(['status' => 'success', 'data' => $response]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }
+    }
+
+    public function selectQacCommitteeForm(Request $request){
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'air_report_id' => 'required|integer',
+            'qac_type' => 'required|string',
+        ])->validate();
+
+        $data['cdesk'] =$this->current_desk_json();
+
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.get_qac_committee_list'), $data)->json();
+
+//        dd($response);
+
+        if (isSuccess($response)) {
+            $committee_list = $response['data'];
+            $fiscal_year_id = $request->fiscal_year_id;
+            $air_report_id = $request->air_report_id;
+            $qac_type = $request->qac_type;
+            return view('modules.audit_quality_control.qac_committee.select_committee_form',compact('committee_list','fiscal_year_id','qac_type','air_report_id'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response['data']]);
+        }
+
+//        return view('modules.audit_quality_control.select_committee_form',compact('data',));
+
+    }
+
+    public function getQacCommitteeWiseMembers(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'qac_committee_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] =$this->current_desk_json();
+
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.get_qac_committee_wise_member'), $data)->json();
+
+//        dd($response);
+
+        if (isSuccess($response)) {
+            $member_list = $response['data'];
+            return view('modules.audit_quality_control.qac_committee.committee_wise_member_table',compact('member_list'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response['data']]);
+        }
+    }
+
+    public function submitAirWiseCommittee(Request $request){
+//        dd($request->all());
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'qac_type' => 'required',
+            'air_report_id' => 'required',
+            'qac_committee_id' => 'required',
+        ])->validate();
+
+        $data['cdesk'] =$this->current_desk_json();
+
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.store_air_wise_committee'), $data)->json();
+
+        if (isSuccess($response)) {
+            $response = $response['data'];
+            return response()->json(['status' => 'success', 'data' => $response]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }
+    }
+
     public function createQacReport(Request $request){
+//        dd($request->all());
+        $qac_type = $request->qac_type;
+        $air_id = $request->air_id;
+        $scope = $request->scope;
+        $requestData['qac_type'] = $qac_type;
+        $requestData['air_id'] = $air_id;
+
+        $requestData['cdesk'] =$this->current_desk_json();
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_audit_apotti_list'), $requestData)->json();
+        $committee = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.get_air_wise_committee'), $requestData)->json();
+
+        $responseData = isSuccess($responseData)?$responseData['data']:[];
+        $committeeData = isSuccess($committee)?$committee['data']:[];
+//        dd($responseData);
+
+        if($request->scope == 'pdf'){
+//            return view('modules.audit_quality_control.qac_apotti_report',compact('responseData',
+//                'qac_type','committeeData'));
+            $pdf = \PDF::loadView('modules.audit_quality_control.qac_apotti_report', ['responseData' => $responseData,'committeeData'=> $committeeData,'qac_type' => $qac_type,'scope' => $scope], [], ['orientation' => 'L', 'format' => 'A4']);
+            return $pdf->stream('qac_report.pdf');
+        }else{
+            return view('modules.audit_quality_control.qac_apotti_report',compact('responseData',
+                'qac_type','committeeData','air_id','scope'));
+        }
+
+
+    }
+
+    public function exportQacReport(Request $request)
+    {
         $qac_type = $request->qac_type;
         $requestData['qac_type'] = $qac_type;
         $requestData['air_id'] = $request->air_id;
-//        dd($requestData);
+
         $requestData['cdesk'] =$this->current_desk_json();
+
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_audit_apotti_list'), $requestData)->json();
+        $committee = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.get_air_wise_committee'), $requestData)->json();
+
         $responseData = isSuccess($responseData)?$responseData['data']:[];
+        $committeeData = isSuccess($committee)?$committee['data']:[];
 //        dd($responseData);
         $current_designation_id = $this->current_designation_id();
         return view('modules.audit_quality_control.qac_apotti_report',compact('responseData',
-            'qac_type','current_designation_id'));
+            'qac_type','current_designation_id','committeeData'));
+
+        if (isSuccess($plan_infos)) {
+            $plan_infos = $plan_infos['data'];
+            $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos,'directorate_address'=> $directorate_address], [], ['orientation' => 'L', 'format' => 'A4']);
+            return $pdf->stream('annual_plan.pdf');
+        } else {
+            return response()->json(['status' => 'error', 'data' => $plan_infos]);
+        }
     }
 
     public function qacApotti(Request $request){

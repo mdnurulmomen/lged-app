@@ -279,6 +279,17 @@
                 }
             });
         },
+        submitAirCommittee: function () {
+            data  = $('#air_committee_form').serializeArray();
+            let url = '{{route('audit.qac.submit-air-wise-committee')}}'
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    toastr.success(response.data);
+                }
+            });
+        },
     };
 
     $('#btn_filter').click(function () {

@@ -435,6 +435,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('air-wise-apotti', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'loadAirWiseApottiList'])->name('air-wise-apotti');
         Route::post('qac-apotti', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'qacApotti'])->name('qac-apotti');
         Route::post('qac-apotti-submit', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'qacApottiSubmit'])->name('qac-apotti-submit');
+        Route::get('qac-committee/{any}', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'qacCommittee'])->name('qac-committee');
+        Route::post('get-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'getQacCommitteeList'])->name('qac-committee-list');
+        Route::post('create-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'createQacCommittee'])->name('create-qac-committee');
+        Route::post('store-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'storeQacCommittee'])->name('store-qac-committee');
+        Route::post('select-qac-committee-form', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'selectQacCommitteeForm'])->name('select-qac-committee-form');
+        Route::post('get-qac-committee-wise-members', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'getQacCommitteeWiseMembers'])->name('get-qac-committee-wise-members');
+        Route::post('submit-air-wise-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'submitAirWiseCommittee'])->name('submit-air-wise-committee');
         Route::post('create-qac-report', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'createQacReport'])->name('create-qac-report');
     });
 

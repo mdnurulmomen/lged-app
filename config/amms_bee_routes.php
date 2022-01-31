@@ -284,6 +284,11 @@ return [
         'qac' => [
             'qac_apotti_submit' => env('API_URL_BEE', '') . '/audit-quality-control/qac-apotti',
             'get_qac_apotti_status' => env('API_URL_BEE', '') . '/audit-quality-control/get-qac-apotti-status',
+            'store_qac_committee' => env('API_URL_BEE', '') . '/audit-quality-control/store-qac-committee',
+            'get_qac_committee_list' => env('API_URL_BEE', '') . '/audit-quality-control/get-qac-committee-list',
+            'get_qac_committee_wise_member' => env('API_URL_BEE', '') . '/audit-quality-control/get-qac-committee-wise-members',
+            'store_air_wise_committee' => env('API_URL_BEE', '') . '/audit-quality-control/store-air-wise-committee',
+            'get_air_wise_committee' => env('API_URL_BEE', '') . '/audit-quality-control/get-air-wise-committee',
         ],
     ],
 

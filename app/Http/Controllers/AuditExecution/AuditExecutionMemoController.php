@@ -168,10 +168,23 @@ class AuditExecutionMemoController extends Controller
         $data['cdesk'] = $this->current_desk_json();
         $memoInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
         //dd($memoInfo);
+        $directorateName = $this->current_office()['office_name_bn'];
+        if ($this->current_office_id() == 14){
+            $directorateAddress = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.worksaudit.org.bd';
+        }
+        elseif ($this->current_office_id() == 3){
+            $directorateAddress = 'অডিট কমপ্লেক্স (২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.dgcivil-cagbd.org';
+        }
+        else{
+            $directorateAddress = 'অডিট কমপ্লেক্স (৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.cad.org.bd';
+        }
         if (isSuccess($memoInfo)) {
             $memoInfo = $memoInfo['data'];
             return view('modules.audit_execution.audit_execution_memo.show',
-                compact('memoInfo'));
+                compact('memoInfo','directorateAddress','directorateWebsite','directorateName'));
         } else {
             return response()->json(['status' => 'error', 'data' => $memoInfo]);
         }
@@ -421,7 +434,7 @@ class AuditExecutionMemoController extends Controller
         }
 
         $pdf = \PDF::loadView('modules.audit_execution.audit_execution_memo.partials.memo_book',
-            compact('memoInfo','directorateName','directorateAddress'));
+            compact('memoInfo','directorateName','directorateAddress','directorateWebsite'));
         return $pdf->stream('document.pdf');
     }
 

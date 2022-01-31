@@ -11,6 +11,13 @@
 
                 <a data-qac-type="{{$qac_type}}"
                    data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                   onclick="QAC_Apotti_List_Container.selectCommittee($(this))"
+                   class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
+                    <i class="far fa-book"></i>  কমিটি বাছাই করুন
+                </a>
+
+                <a data-qac-type="{{$qac_type}}"
+                   data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                    onclick="QAC_Apotti_List_Container.createQacReport($(this))"
                    class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
                     <i class="far fa-book"></i>  রিপোর্ট
@@ -266,7 +273,8 @@
 
         createQacReport: function (elem) {
             qac_type = elem.data('qac-type');
-            air_id = $('#preliminary_air_filter').val();
+            air_id = elem.data('air-report-id');
+            // air_id = $('#preliminary_air_filter').val();
 
             let url = '{{route('audit.qac.create-qac-report')}}';
             let data = {air_id,qac_type};
@@ -281,11 +289,71 @@
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
-                    $(".offcanvas-title").text('বিস্তারিত');
+                    $(".offcanvas-title").text('QAC-1 সভার কার্যবিবরণী');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
                     quick_panel.css('width', '70%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            })
+        },
+
+        exportQacReport: function (elem) {
+            url = '{{route('audit.qac.create-qac-report')}}';
+            qac_type = elem.data('qac-type');
+            air_id = elem.data('air-report-id');
+            scope = elem.data('scope');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {qac_type,air_id,scope},
+                xhrFields: {
+                    responseType: 'blob'
+                },
+
+                success: function (response) {
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "qac_report.pdf";
+                    link.click();
+                },
+
+                error: function (blob) {
+                    toastr.error('Failed to generate PDF.')
+                    console.log(blob);
+                }
+
+            });
+        },
+
+        selectCommittee: function (elem) {
+            url = '{{route('audit.qac.select-qac-committee-form')}}';
+
+            air_report_id = elem.data('air-report-id');
+            qac_type = elem.data('qac-type');
+            fiscal_year_id = $('#fiscal_year_id').val();
+
+            data = {air_report_id,fiscal_year_id,qac_type};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $(".offcanvas-title").text('কমিটি বাছাই');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
                     quick_panel.removeClass('d-none');
                     $("html").addClass("side-panel-overlay");
                     $(".offcanvas-wrapper").html(response);
