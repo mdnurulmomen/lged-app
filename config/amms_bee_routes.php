@@ -298,6 +298,7 @@ return [
             'get_audit_team_schedule' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-team-schedule',
             'get_audit_apotti_list' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-apotti-list',
             'get_air_wise_qac_apotti' => env('API_URL_BEE', '') . '/audit-report/air/get-air-wise-qac-apotti',
+            'get_air_and_apotti_type_wise_qac_apotti' => env('API_URL_BEE', '') . '/audit-report/air/get-air-and-apotti-type-wise-qac-apotti',
             'get_air_wise_audit_apotti_list' => env('API_URL_BEE', '') . '/audit-report/air/get-air-wise-audit-apotti-list',
             'get_audit_apotti' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-apotti',
             'store_air_movement' => env('API_URL_BEE', '') . '/audit-report/air/store-air-movement',

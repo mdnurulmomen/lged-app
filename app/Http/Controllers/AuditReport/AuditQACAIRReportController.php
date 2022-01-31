@@ -84,7 +84,9 @@ class AuditQACAIRReportController extends Controller
             'air_report_id' => 'required|integer',
         ])->validate();
 
-        $data['cdesk'] = $this->current_desk_json();
+        $cdeskData = $this->current_desk_json();
+        $data['cdesk'] = $cdeskData;
+
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.edit_air_report'), $data)->json();
         //dd($responseData);
         if (isSuccess($responseData)) {
@@ -97,11 +99,43 @@ class AuditQACAIRReportController extends Controller
             $is_sent = $airReport['is_sent'];
             $is_received = $airReport['is_received'];
             $qac_type = $request->qac_type;
+            $audit_year = '২০২০-২০২১';
+            $fiscal_year = '২০২০-২০২১';
 
-            if ($qac_type == 'cqat'){
-                $data['template_type'] = 'air_report';
-                $data['cdesk'] = $this->current_desk_json();
-                $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $data)->json();
+            $directorate_name = $this->current_office()['office_name_bn'];
+            if ($this->current_office_id() == 14) {
+                $directorate_address = 'অডিট কমপ্লেক্স <br> ৩য় তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
+            } elseif ($this->current_office_id() == 3) {
+                $directorate_address = 'অডিট কমপ্লেক্স <br> ২য় তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
+            } else {
+                $directorate_address = 'অডিট কমপ্লেক্স <br> ৮ম তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
+            }
+
+
+            if ($qac_type == 'qac-1'){
+                $qacOneData['template_type'] = 'qac1_report';
+                $qacOneData['cdesk'] = $cdeskData;
+                $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $qacOneData)->json();
+                //dd($responseReportTemplateData);
+                if (isSuccess($responseReportTemplateData)) {
+                    $content = $responseReportTemplateData['data']['content'];
+
+                    $entityNames = [];
+                    foreach ($airReport['annual_plan']['ap_entities'] as $ap_entities) {
+                        $entityNames[] = $ap_entities['ministry_name_bn'];
+                    }
+                    $audit_plan_entities = count($entityNames)>1?implode(" এবং ",$entityNames):$entityNames[0];
+
+                    return view('modules.audit_quality_control.qac_01.create',
+                        compact('directorate_name','directorate_address','content','audit_plan_entities','air_report_id',
+                            'approved_status','latest_receiver_designation_id','current_designation_id',
+                            'is_sent','is_received','qac_type','audit_year','fiscal_year'));
+                }
+            }
+            elseif ($qac_type == 'cqat'){
+                $cqatData['template_type'] = 'air_report';
+                $cqatData['cdesk'] = $cdeskData;
+                $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $cqatData)->json();
                 //dd($responseReportTemplateData);
                 if (isSuccess($responseReportTemplateData)) {
                     $content = $responseReportTemplateData['data']['content'];
@@ -146,6 +180,25 @@ class AuditQACAIRReportController extends Controller
         }
         else{
             return view('modules.audit_quality_control.qac_01.partials.load_audit_apottis_details',compact('apottis','qac_type'));
+        }
+    }
+
+
+    public function getAirAndApottiTypeWiseQACApotti(Request $request)
+    {
+        $requestData = Validator::make($request->all(), [
+            'air_id' => 'required',
+            'qac_type' => 'required',
+            'apotti_type' => 'required',
+        ])->validate();
+        $requestData['cdesk'] =$this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_and_apotti_type_wise_qac_apotti'), $requestData)->json();
+        $apottis = isSuccess($responseData)?$responseData['data']:[];
+        if ($request->apotti_view_scope == 'summary'){
+            return view('modules.audit_quality_control.partials.load_audit_apottis_summary',compact('apottis'));
+        }
+        else{
+            return view('modules.audit_quality_control.partials.load_audit_apottis_details',compact('apottis'));
         }
     }
 
