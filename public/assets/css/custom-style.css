@@ -196,15 +196,24 @@ input[type="text"]::placeholder {
     font-size: 13px;
     background: #c1e0ff;
 }
-.objectiveAppendSection legend.scheduler-border .btn_objective_add{
+
+.objectiveAppendSection legend.scheduler-border .btn_objective_add {
     padding: 2px 5px;
 }
-.objectiveAppendSection legend.scheduler-border .btn_objective_add i{
+
+.objectiveAppendSection legend.scheduler-border .btn_objective_add i {
     font-size: 13px !important;
 }
+
 .annual-plan-table.subject-matter .annual-plan-title {
     width: 22%;
 }
+
 .annual-plan-table.subject-matter table tr td {
     background-color: unset;
+}
+
+button#voice2text {
+    border: none;
+    background: transparent;
 }

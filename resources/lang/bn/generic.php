@@ -5,6 +5,8 @@ return [
     'loading' => 'লোডিং',
     'choose' => 'বাছাই করুন',
     'select' => 'সিলেক্ট',
+    'save' => 'সংরক্ষণ করুন',
+    'back' => 'ফেরত যান',
     'no_data_found' => 'কোন তথ্য পাওয়া যায়নি',
     'placeholders' => [
         'search' => 'অনুসন্ধান করুন',

@@ -4,7 +4,9 @@ return [
     'app_name' => 'Audit Monitoring & Management System',
     'loading' => 'Loading',
     'choose' => 'বাছাই করুন',
+    'save' => 'Save',
     'select' => 'সিলেক্ট',
+    'back' => 'Back',
     'no_data_found' => 'No Data To Display',
     'placeholders' => [
         'search' => 'Search',

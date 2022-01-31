@@ -1,26 +1,13 @@
 <div class="topbar">
-    <!--begin::Cart-->
     <div class="topbar-item">
         {!! $wizardData !!}
-        {{--<div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1" id="kt_quick_cart_toggle">
-            <span class="svg-icon svg-icon-xl svg-icon-primary">
-                <!--begin::Svg Icon | path:assets/media/svg/icons/Shopping/Cart3.svg-->
-                <i class="fa fa-bell text-primary"></i>
-                <!--end::Svg Icon-->
-            </span>
-        </div>--}}
+        <div class="d-none" id="stt_result"></div>
+        <button id="voice2text" type="button" role="button" class="fr-command fr-btn" data-cmd="voice2text" data-toggle="popover" data-content="স্পিচ টু টেক্সট" data-placement="bottom" data-original-title="" title=""><i class="fa startListening fa-microphone-slash" aria-hidden="true" style="color: rgb(255, 0, 0);"></i></button>
     </div>
-    <!--end::Cart-->
-
-    <!--begin::Languages-->
     <div class="dropdown">
         @include('layouts.partials.topbar._language')
     </div>
-    <!--end::Languages-->
-
-    <!--begin::User-->
     <div class="dropdown">
         @include('layouts.partials.topbar._profile')
     </div>
-    <!--end::User-->
 </div>
