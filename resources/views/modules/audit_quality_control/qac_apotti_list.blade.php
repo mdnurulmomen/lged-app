@@ -274,7 +274,7 @@
         createQacReport: function (elem) {
             qac_type = elem.data('qac-type');
             air_id = elem.data('air-report-id');
-            alert(air_id);
+
             // air_id = $('#preliminary_air_filter').val();
 
             let url = '{{route('audit.qac.create-qac-report')}}';

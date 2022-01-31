@@ -28,7 +28,7 @@
 
     <table style="margin-top: 10px" class="bangla-font" width="100%" style="color: black">
         <tr>
-            <td style="text-align: center"><u><b>অডিট মেমো ইসু শীট</b></u></td>
+            <td style="text-align: center"><u><b>অডিট মেমো ইস্যু শীট</b></u></td>
         </tr>
     </table>
 
@@ -74,7 +74,7 @@
     <table class="bangla-font table table-bordered" style="width: 100%;margin-top: 10px;padding: 5px;color: black">
         <tr>
             <td style="padding: 10px">
-                <p>অডিট প্রতিষ্ঠানের জবাবঃ</p>
+                <p>অডিটি প্রতিষ্ঠানের জবাবঃ</p>
                 <br>
                 <span>{{$memoInfo['response_of_rpu']}}</span></td>
         </tr>
