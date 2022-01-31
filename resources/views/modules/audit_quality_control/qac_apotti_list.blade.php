@@ -24,7 +24,7 @@
                     @if($qac_type == 'qac-1')
                         কিউএসি-১ রিপোর্ট
                     @elseif($qac_type == 'qac-2')
-                        কিউএসি-১ রিপোর্ট
+                        কিউএসি-২ রিপোর্ট
                     @elseif($qac_type == 'cqat')
                         সিকিউএটি রিপোর্ট
                     @endif

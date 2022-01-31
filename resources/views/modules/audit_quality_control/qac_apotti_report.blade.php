@@ -792,6 +792,15 @@
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
             <div style="margin-left: 10px" class="row">
+                <h3 class="bangla-font">
+                    @if($qac_type == 'qac-1')
+                        কিউএসি-১ সভার কার্যবিবরণী
+                    @elseif($qac_type == 'qac-2')
+                        কিউএসি-২ সভার কার্যবিবরণী
+                    @elseif($qac_type == 'cqat')
+                        সিকিউএটি সভার কার্যবিবরণী
+                    @endif
+                </h3>
                 <table class="bangla-font">
                     <tr class="bangla-font">
                         <td class="bangla-font">প্রতিষ্ঠানের নাম :</td>
