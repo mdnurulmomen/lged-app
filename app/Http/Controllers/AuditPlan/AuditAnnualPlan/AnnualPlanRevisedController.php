@@ -368,13 +368,18 @@ class AnnualPlanRevisedController extends Controller
 
         $annual_plan_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_annual_plan_info'),
             $data)->json();
-        $annual_plan_subject_matter_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_annual_plan_subject_matter_info'),
-            $data)->json();
-        //dd($annual_plan_subject_matter_info);
+
 
         if (isSuccess($annual_plan_info)) {
             $annual_plan_info = $annual_plan_info['data'];
-            $annual_plan_subject_matter_info = $annual_plan_subject_matter_info['data'];
+            if(session('dashboard_audit_type') == 'Performance Audit'){
+                $annual_plan_subject_matter_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_annual_plan_subject_matter_info'),
+                    $data)->json();
+                $annual_plan_subject_matter_info = $annual_plan_subject_matter_info['data'];
+            }else{
+                $annual_plan_subject_matter_info = [];
+            }
+
             $nominated_man_powers = json_decode($annual_plan_info['nominated_man_powers'], true);
 
             return view('modules.audit_plan.annual.annual_plan_revised.show_annual_plan_info',
