@@ -146,6 +146,17 @@ class RevisedPlanController extends Controller
             $audit_plan = $audit_plan['data'];
             $parent_office_id = 0;
             $content = json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])));
+            $content = json_decode($content,true);
+            $content[] = [
+                    "id" => 31,
+                    "content_id" => "content_6_2",
+                   "has_child" => "0",
+                   "parent" => "28",
+                   "text" => "অন্যান্য",
+                   "content" => ""
+            ];
+            $content = json_encode($content);
+//            dd($content);
             $activity_id = $audit_plan['activity_id'];
             $annual_plan_id = $audit_plan['annual_plan_id'];
             $fiscal_year_id = $request->fiscal_year_id;
@@ -228,6 +239,7 @@ class RevisedPlanController extends Controller
     public function auditPlanBook(Request $request)
     {
         $plans = $request->plan;
+//        dd($plans);
         $coverPage = $plans[0];
         $indexPage = $plans[1];
         $strategicFormPartOne = $plans[3];
@@ -241,7 +253,6 @@ class RevisedPlanController extends Controller
         unset($plans[0], $plans[1], $plans[2], $plans[3], $plans[4], $plans[5],
             $plans[27],$plans[28],$plans[29],$plans[30],$plans[31]);
 
-        //dd($plans);
 
         if ($request->scope == 'generate') {
             $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
