@@ -238,6 +238,7 @@ class RevisedPlanController extends Controller
 
     public function auditPlanBook(Request $request)
     {
+        ini_set("pcre.backtrack_limit", -1);
         $plans = $request->plan;
 //        dd($plans);
         $coverPage = $plans[0];
@@ -251,7 +252,7 @@ class RevisedPlanController extends Controller
         $auditOtherDetailsPage = $plans[31];
 
         unset($plans[0], $plans[1], $plans[2], $plans[3], $plans[4], $plans[5],
-            $plans[27],$plans[28],$plans[29],$plans[30],$plans[31]);
+            $plans[27], $plans[28], $plans[29], $plans[30], $plans[31]);
 
 
         if ($request->scope == 'generate') {
@@ -267,7 +268,7 @@ class RevisedPlanController extends Controller
                     'auditSchedulePage' => $auditSchedulePage,
                     'auditOtherDetailsPage' => $auditOtherDetailsPage,
                     'plans' => $plans,
-                ], [] , ['orientation' => 'P', 'format' => 'A4']);
+                ], [], ['orientation' => 'P', 'format' => 'A4']);
 
             $fileName = 'audit_plan_' . date('D_M_j_Y') . '.pdf';
             return $pdf->stream($fileName);
@@ -275,8 +276,8 @@ class RevisedPlanController extends Controller
         } elseif ($request->scope == 'preview') {
             return view('modules.audit_plan.audit_plan.plan_revised.partials.preview_audit_plan',
                 compact('coverPage', 'indexPage', 'strategicFormPartOne',
-                    'strategicFormPartTwo','strategicFormPartThree','auditRiskAssessmentPage',
-                    'materialityCalculatePage','auditSchedulePage','plans'));
+                    'strategicFormPartTwo', 'strategicFormPartThree', 'auditRiskAssessmentPage',
+                    'materialityCalculatePage', 'auditSchedulePage', 'plans'));
 
         } else {
             return ['status' => 'error', 'data' => 'Somethings went wrong'];
