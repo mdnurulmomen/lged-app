@@ -238,8 +238,8 @@ class RevisedPlanController extends Controller
 
     public function auditPlanBook(Request $request)
     {
-        ini_set('max_execution_time', '300');
-        ini_set("pcre.backtrack_limit", "5000000");
+        ini_set('max_execution_time', '600');
+        ini_set("pcre.backtrack_limit", "50000000");
         $plans = $request->plan;
 //        dd($plans);
         $coverPage = $plans[0];
