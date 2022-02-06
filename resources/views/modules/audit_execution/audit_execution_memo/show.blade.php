@@ -36,7 +36,7 @@
     >
         <tr class="bangla-font">
             <td style="padding: 10px" width="10%">মেমো নং</td>
-            <td style="padding: 10px" width="70%">বর্ণনা</td>
+            <td style="padding: 10px" width="70%"></td>
             <td style="padding: 10px" width="20%">জড়িত অর্থ (টাকা)</td>
         </tr>
         <tr class="bangla-font">
