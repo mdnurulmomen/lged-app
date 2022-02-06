@@ -208,9 +208,24 @@ class AuditExecutionQueryController extends Controller
         $data['ac_query_id'] = $request->ac_query_id;
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.view_audit_query'), $data)->json();
         $auditQueryInfo = isSuccess($responseData)?$responseData['data']:[];
+
         $directorateName = $this->current_office()['office_name_bn'];
+
+        if ($this->current_office_id() == 14){
+            $directorateAddress = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.worksaudit.org.bd';
+        }
+        elseif ($this->current_office_id() == 3){
+            $directorateAddress = 'অডিট কমপ্লেক্স (২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.dgcivil-cagbd.org';
+        }
+        else{
+            $directorateAddress = 'অডিট কমপ্লেক্স (৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.cad.org.bd';
+        }
+
         $pdf = \PDF::loadView('modules.audit_execution.audit_execution_query.partials.query_book',
-            compact('auditQueryInfo','directorateName'));
+            compact('auditQueryInfo','directorateName','directorateAddress','directorateWebsite'));
         return $pdf->stream('query_'.$request->ac_query_id.'.pdf');
     }
 

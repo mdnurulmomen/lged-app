@@ -783,11 +783,10 @@
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center">
-            গণপ্রজাতন্ত্রী বাংলাদেশ সরকার <br>
+{{--            গণপ্রজাতন্ত্রী বাংলাদেশ সরকার <br>--}}
             <b>{{$directorateName}}</b> <br>
-            অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
-            সেগুনবাগিচা, ঢাকা -১০০০। <br>
-            <u>https://www.cad.org.bd</u>
+            {!! $directorateAddress !!} <br>
+            <u>{{$directorateWebsite}}</u>
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">
