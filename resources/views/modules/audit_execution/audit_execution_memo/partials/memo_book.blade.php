@@ -801,7 +801,7 @@
 
         <table style="margin-top: 10px" class="bangla-font" width="100%" style="color: black">
             <tr>
-                <td style="text-align: center"><u><b>অডিট মেমো ইস্যু শীট</b></u></td>
+                <td style="text-align: center"><u><b>অডিট মেমো</b></u></td>
             </tr>
         </table>
 
@@ -809,7 +809,7 @@
                >
             <tr class="bangla-font">
                 <td style="padding: 10px" width="10%">মেমো নং</td>
-                <td style="padding: 10px" width="70%">বর্ণনা</td>
+                <td style="padding: 10px" width="70%"></td>
                 <td style="padding: 10px" width="20%">জড়িত অর্থ (টাকা)</td>
             </tr>
             <tr class="bangla-font">
@@ -823,7 +823,7 @@
                     <br>
                     {!! $memoInfo['memo_description_bn'] !!}
                 </td>
-                <td valign="top" style="padding: 10px">
+                <td valign="top" style="padding: 10px;text-align: right">
                     {{enTobn(number_format($memoInfo['jorito_ortho_poriman']))}}
                 </td>
             </tr>
