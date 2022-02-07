@@ -798,7 +798,8 @@
         {!! $indexPage['content'] !!}
     </div>
 
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;
+    page-break-after: always">
         {!! $strategicFormPartOne['content'] !!}
     </div>
 
@@ -822,7 +823,6 @@
     page-break-after: always">
         {!! $auditRiskAssessmentPage['content'] !!}
     </div>
-
 
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
         {!! $materialityCalculatePage['content'] !!}
