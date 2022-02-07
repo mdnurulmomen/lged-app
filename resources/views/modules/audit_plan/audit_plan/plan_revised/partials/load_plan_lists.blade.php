@@ -194,7 +194,7 @@
                                                 <i class="fad fa-eye"></i> বিস্তারিত
                                             </button>
 
-                                            @if(!count($annual_plan['audit_plans']))
+{{--                                            @if(!count($annual_plan['audit_plans']))--}}
                                                 <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="নতুন অডিট প্ল্যান করুন"
                                                         data-annual-plan-id="{{$annual_plan['id']}}"
                                                         data-activity-id="{{$annual_plan['activity_id']}}"
@@ -202,7 +202,7 @@
                                                         onclick="Audit_Plan_Container.loadAuditPlanBookCreatable($(this))">
                                                     <i class="fad fa-plus-circle"></i> নতুন অডিট প্ল্যান
                                                 </button>
-                                            @endif
+{{--                                            @endif--}}
                                         </div>
                                     </div>
                                 </div>
