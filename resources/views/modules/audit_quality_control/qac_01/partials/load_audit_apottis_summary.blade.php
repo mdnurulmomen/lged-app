@@ -19,7 +19,7 @@
                     <tr>
                         <td style="text-align: center">{{enTobn($apotti['onucched_no'])}}.</td>
                         <td style="text-align: left;margin-left: 5px">{{$apotti['apotti_title']}}</td>
-                        <td style="text-align: center">{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}/-</td>
+                        <td style="text-align: right">{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}/-</td>
                     </tr>
                 @endif
             @endforeach
@@ -83,13 +83,13 @@
                     <tr>
                         <td style="text-align: center">{{enTobn($apotti['onucched_no'])}}.</td>
                         <td style="text-align: left;margin-left: 5px">{{$apotti['apotti_title']}}</td>
-                        <td style="text-align: center">{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}/-</td>
+                        <td style="text-align: right">{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}/-</td>
                     </tr>
                 @endif
             @endforeach
             <tr>
                 <td colspan="2" style="text-align: right">সর্বমোটঃ</td>
-                <td style="text-align: center">{{enTobn(number_format($totalSFIJoritoOrtho,0))}}/-</td>
+                <td style="text-align: right">{{enTobn(number_format($totalSFIJoritoOrtho,0))}}/-</td>
             </tr>
             </tbody>
         </table>
@@ -113,13 +113,13 @@
                     <tr>
                         <td style="text-align: center">{{enTobn($apotti['onucched_no'])}}.</td>
                         <td style="text-align: left;margin-left: 5px">{{$apotti['apotti_title']}}</td>
-                        <td style="text-align: center">{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}/-</td>
+                        <td style="text-align: right">{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}/-</td>
                     </tr>
                 @endif
             @endforeach
             <tr>
                 <td colspan="2" style="text-align: right">সর্বমোটঃ</td>
-                <td style="text-align: center">{{enTobn(number_format($totalSFIJoritoOrtho,0))}}/-</td>
+                <td style="text-align: right">{{enTobn(number_format($totalSFIJoritoOrtho,0))}}/-</td>
             </tr>
             </tbody>
         </table>

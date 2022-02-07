@@ -139,8 +139,28 @@ class AuditQACAIRReportController extends Controller
                             'is_sent','is_received','qac_type','audit_year','fiscal_year'));
                 }
             }
+            elseif ($qac_type == 'qac-2'){
+                $qacTwoData['template_type'] = 'qac2_report';
+                $qacTwoData['cdesk'] = $cdeskData;
+                $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $qacTwoData)->json();
+                //dd($responseReportTemplateData);
+                if (isSuccess($responseReportTemplateData)) {
+                    $content = $responseReportTemplateData['data']['content'];
+
+                    $entityNames = [];
+                    foreach ($airReport['annual_plan']['ap_entities'] as $ap_entities) {
+                        $entityNames[] = $ap_entities['entity_name_bn'];
+                    }
+                    $audit_plan_entities = count($entityNames)>1?implode(" এবং ",$entityNames):$entityNames[0];
+
+                    return view('modules.audit_quality_control.qac_02.create',
+                        compact('content','audit_plan_entities','air_report_id',
+                            'approved_status','latest_receiver_designation_id','current_designation_id',
+                            'is_sent','is_received','qac_type'));
+                }
+            }
             elseif ($qac_type == 'cqat'){
-                $cqatData['template_type'] = 'air_report';
+                $cqatData['template_type'] = 'cqat_report';
                 $cqatData['cdesk'] = $cdeskData;
                 $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $cqatData)->json();
                 //dd($responseReportTemplateData);

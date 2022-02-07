@@ -126,13 +126,14 @@ class AuditAIRReportController extends Controller
             $air_type = $airReport['type'];
             $fiscal_year_id = $request->fiscal_year_id;
             $activity_id = $request->activity_id;
+            $audit_plan_entities = $request->audit_plan_entities;
             $latest_receiver_designation_id = empty($airReport['latest_r_air_movement'])?0:$airReport['latest_r_air_movement']['receiver_employee_designation_id'];
             $current_designation_id = $this->current_designation_id();
 
             return view('modules.audit_report.air_generate.partials.load_air_details',
                 compact('air_descriptions','air_report_id','annual_plan_id',
                     'audit_plan_id','air_status','fiscal_year_id','activity_id','air_type',
-                    'latest_receiver_designation_id','current_designation_id'));
+                    'latest_receiver_designation_id','current_designation_id','audit_plan_entities'));
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];
@@ -158,40 +159,16 @@ class AuditAIRReportController extends Controller
             $fiscal_year_id = $airReport['fiscal_year_id'];
             $activity_id= $airReport['activity_id'];
             $air_type = $airReport['type'];
+            $audit_plan_entities = $request->audit_plan_entities;
 
             return view('modules.audit_report.air_generate.edit',
                 compact('content','air_report_id','annual_plan_id',
-                    'audit_plan_id','fiscal_year_id','activity_id','air_type'));
+                    'audit_plan_id','fiscal_year_id','activity_id','air_type',
+                    'audit_plan_entities'));
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];
         }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    /**
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function update(Request $request)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
 

@@ -121,7 +121,8 @@
         loadAIREdit: function (elem) {
             url = '{{route('audit.report.air.edit')}}';
             air_report_id = elem.data('air-report-id');
-            data = {air_report_id};
+            audit_plan_entities = elem.data('audit-plan-entities');
+            data = {air_report_id,audit_plan_entities};
             KTApp.block('#kt_content', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color

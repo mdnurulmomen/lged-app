@@ -8,6 +8,7 @@ use App\Http\Controllers\AuditReport\AuditAIRReportController;
 use App\Http\Controllers\AuditReport\AuditAIRReportMovementController;
 use App\Http\Controllers\AuditReport\AuditQACAIRReportController;
 use App\Http\Controllers\AuditReport\AuditQACOneReportController;
+use App\Http\Controllers\AuditReport\AuditQACTwoReportController;
 use App\Http\Controllers\QualityControl\QACController;
 use App\Http\Controllers\Setting\XAuditAssessment\CriteriaController;
 use Illuminate\Support\Facades\Route;
@@ -528,10 +529,16 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('get-air-and-apotti-type-wise-qac-apotti', [AuditQACAIRReportController::class, 'getAirAndApottiTypeWiseQACApotti'])->name('get-air-and-apotti-type-wise-qac-apotti');
             });
 
-            //final report
+            //qac1
             Route::group(['as' => 'qac1.', 'prefix' => 'qac1/'], function () {
                 Route::post('download', [AuditQACOneReportController::class, 'downloadAuditReport'])->name('download');
                 Route::post('preview', [AuditQACOneReportController::class, 'previewAuditReport'])->name('preview');
+            });
+
+            //qac2
+            Route::group(['as' => 'qac2.', 'prefix' => 'qac2/'], function () {
+                Route::post('download', [AuditQACTwoReportController::class, 'downloadAuditReport'])->name('download');
+                Route::post('preview', [AuditQACTwoReportController::class, 'previewAuditReport'])->name('preview');
             });
 
             //final report
