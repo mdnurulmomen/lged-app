@@ -30,7 +30,7 @@ class AuditAIRReportController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $data)->json();
-        //dd($responseData);
+        dd($responseData);
         if (isSuccess($responseData)) {
             $content = $responseData['data']['content'];
 
