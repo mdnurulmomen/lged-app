@@ -10,12 +10,12 @@
 </div>
 
 <div class="bangla-font" style="height: 100%">
-{{--    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;color: black">--}}
-{{--        গণপ্রজাতন্ত্রী বাংলাদেশ সরকার<br>--}}
-{{--        {{$directorateName}} <br>--}}
-{{--        {!! $directorateAddress !!}--}}
-{{--    </div>--}}
-    <x-office-details-template />
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;color: black">
+        গণপ্রজাতন্ত্রী বাংলাদেশ সরকার<br>
+        {{$directorateName}} <br>
+        {!! $directorateAddress !!}
+    </div>
+{{--    <x-office-details-template />--}}
     <br>
     @if($memoInfo['memo_sharok_no'])
         <table class="bangla-font" width="100%">
