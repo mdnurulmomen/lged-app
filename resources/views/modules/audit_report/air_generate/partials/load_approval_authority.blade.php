@@ -49,7 +49,6 @@
                     <option value="draft">Draft</option>
                     <option value="pending" selected>Pending</option>
                     <option value="approved">Approved</option>
-                    <option value="reject">Reject</option>
                 </select>
             </div>
 

@@ -791,18 +791,29 @@
     @endif
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
+            <div class="bangla-font" style="font-size:18px;text-align: center;color: black">
+{{--                গণপ্রজাতন্ত্রী বাংলাদেশ সরকার<br>--}}
+                {{$directorateName}} <br>
+                {!! $directorateAddress !!}<br>
+                <u>{{$directorateWebsite}}</u>
+            </div>
+            <br>
+            <table class="bangla-font" style="width: 100%">
+            <tr class="bangla-font">
+                <td style="text-align: center">
+                    <h3 class="bangla-font" style="text-align: center">
+                        @if($qac_type == 'qac-1')
+                            কিউএসি-১ সভার কার্যবিবরণী
+                        @elseif($qac_type == 'qac-2')
+                            কিউএসি-২ সভার কার্যবিবরণী
+                        @elseif($qac_type == 'cqat')
+                            সিকিউএটি সভার কার্যবিবরণী
+                        @endif
+                    </h3>
+                </td>
+            </tr>
+        </table>
             <div style="margin-left: 10px" class="row">
-                @if($scope == 'pdf')
-                <h3 class="bangla-font">
-                    @if($qac_type == 'qac-1')
-                        কিউএসি-১ সভার কার্যবিবরণী
-                    @elseif($qac_type == 'qac-2')
-                        কিউএসি-২ সভার কার্যবিবরণী
-                    @elseif($qac_type == 'cqat')
-                        সিকিউএটি সভার কার্যবিবরণী
-                    @endif
-                </h3>
-                @endif
                 <table class="bangla-font">
                     <tr class="bangla-font">
                         <td class="bangla-font">প্রতিষ্ঠানের নাম :</td>
@@ -847,16 +858,16 @@
 {{--                            <td class="bangla-font" style="text-align: center" width="5%">ক্রম</td>--}}
                             <td class="bangla-font" style="text-align: center" width="30%"> আপত্তির শিরোনাম</td>
                             <td class="bangla-font" style="text-align: center" width="10%"> জড়িত অর্থ (টাকা)</td>
-                            <td class="bangla-font" style="text-align: center" width="10%"> অনুচ্ছেদ এর ধরন</td>
                             @if($qac_type == 'qac-1')
-                            <td class="bangla-font" style="text-align: center" width="10%">আপত্তির সাথে পরিশিষ্ট মিল আছে কিনা ?</td>
-                            <td class="bangla-font" style="text-align: center" width="10%"> বিধি-বিধান উল্লেখ আছে কিনা ?</td>
-                            <td class="bangla-font" style="text-align: center" width="10%">   আপত্তিতে কোন অসম্পূর্ণতা আছে কিনা ?</td>
-                            <td class="bangla-font" style="text-align: center" width="10%">   আপত্তি রিস্ক অ্যানালাইসিস এরমধ্যে উত্থাপন করা হয়েছে কিনা ?</td>
+                                <td class="bangla-font" style="text-align: center" width="10%">আপত্তির সাথে পরিশিষ্ট মিল আছে কিনা ?</td>
+                                <td class="bangla-font" style="text-align: center" width="10%"> বিধি-বিধান উল্লেখ আছে কিনা ?</td>
+                                <td class="bangla-font" style="text-align: center" width="10%">   আপত্তিতে কোন অসম্পূর্ণতা আছে কিনা ?</td>
+                                <td class="bangla-font" style="text-align: center" width="10%">   আপত্তি রিস্ক অ্যানালাইসিস এরমধ্যে উত্থাপন করা হয়েছে কিনা ?</td>
                             @endif
                             @if($qac_type == 'qac-2')
-                                <td class="bangla-font" style="text-align: center" width="10%">    ব্রডশিট জবাব পাওয়া গিয়েছে কিনা ?</td>
+                                <td class="bangla-font" style="text-align: center" width="10%"> জবাব পাওয়া গিয়েছে কিনা ?</td>
                             @endif
+                            <td class="bangla-font" style="text-align: center" width="10%"> অনুচ্ছেদ এর ক্যাটাগরি</td>
                             <td class="bangla-font" style="text-align: center" width="10%">           মন্তব্য</td>
                         </tr>
 {{--                        <tr class="bangla-font">--}}
@@ -878,19 +889,6 @@
                                         @endphp
                                         <span>{{enTobn(number_format($apotti['apotti_map_data']['total_jorito_ortho_poriman'],0))}}/-</span>
                                     </td>
-                                    <td class="bangla-font text-left">
-                                        @if($apotti['apotti_map_data']['is_delete'] == 1)
-                                            প্রত্যাহার
-                                        @elseif($apotti['apotti_map_data']['final_status'] == 'draft')
-                                            প্রস্তাবিত খসড়া
-                                        @elseif($apotti['apotti_map_data']['final_status'] == 'approved')
-                                            চূড়ান্ত খসড়া
-                                        @elseif($apotti['apotti_map_data']['apotti_type'] == 'sfi')
-                                            এসএফআই
-                                        @elseif($apotti['apotti_map_data']['apotti_type'] == 'non-sfi')
-                                            নন-এসএফআই
-                                        @endif
-                                    </td>
                                     @if($qac_type == 'qac-1')
                                         <td class="bangla-font text-left">
                                             {{$apotti_status['is_same_porishisto'] ? 'হ্যাঁ' : 'না'}}
@@ -911,6 +909,19 @@
                                             {{$apotti_status['is_broadsheet_response'] ? 'হ্যাঁ' : 'না'}}
                                         </td>
                                     @endif
+                                    <td class="bangla-font text-left">
+                                        @if($apotti['apotti_map_data']['is_delete'] == 1)
+                                            প্রত্যাহার
+                                        @elseif($apotti['apotti_map_data']['final_status'] == 'draft')
+                                            প্রস্তাবিত খসড়া
+                                        @elseif($apotti['apotti_map_data']['final_status'] == 'approved')
+                                            চূড়ান্ত খসড়া
+                                        @elseif($apotti['apotti_map_data']['apotti_type'] == 'sfi')
+                                            এসএফআই
+                                        @elseif($apotti['apotti_map_data']['apotti_type'] == 'non-sfi')
+                                            নন-এসএফআই
+                                        @endif
+                                    </td>
                                     <td class="bangla-font text-left">
                                         {{$apotti_status['comment']}}
                                     </td>

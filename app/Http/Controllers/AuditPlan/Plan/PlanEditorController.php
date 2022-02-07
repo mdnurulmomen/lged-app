@@ -62,10 +62,21 @@ class PlanEditorController extends Controller
 
     public function loadNominatedOfficesSelectView(Request $request)
     {
+//        dd($request->all());
+//        $data = [
+//            'parent_office_id' => $request->parent_office_id,
+//            'parent_ministry_id' => 25,
+//            'parent_office_layer_id' => '',
+//        ];
+////        dd($data);
+//        $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-ministry-parent-wise-child-office'), $data)->json();
+//        dd($rp_offices);
         $getParentWithChildOfficePassData['parent_office_id'] = $request->parent_office_id;
         $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $getParentWithChildOfficePassData)->json();
+
         $nominated_offices_list = isSuccess($nominated_offices) ? $nominated_offices['data'] : [];
         $nominated_offices_list = !empty($nominated_offices_list) ? !empty($nominated_offices_list['child_offices']) ? $nominated_offices_list['child_offices'] : [$nominated_offices_list['parent_office']] : [];
+//        dd($nominated_offices_list);
         $layer_id = $request->layer_id;
         $total_audit_schedule_row = $request->total_audit_schedule_row;
         return view('modules.audit_plan.audit_plan.plan_revised.partials.select_nominated_offices', compact('nominated_offices_list', 'layer_id', 'total_audit_schedule_row'));

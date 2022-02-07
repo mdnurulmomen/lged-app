@@ -153,7 +153,16 @@ class DcOfficeOrderController extends Controller
         $data['ap_office_order_id'] = $request->ap_office_order_id;
         $data['audit_plan_id'] = $request->audit_plan_id;
         $data['annual_plan_id'] = $request->annual_plan_id;
-        $data['officer_lists'] = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
+
+        $officer_lists = $this->initDoptorHttp()->post(config('cag_doptor_api.office_unit_designation_employee_map'),
+            [
+                'office_id' => $this->current_office_id(),
+                'designation_grade' => 6,
+            ]
+        )->json();
+
+        $data['officer_lists'] = $officer_lists['status'] == 'success'?$officer_lists['data']:[];
+//        $data['officer_lists'] = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
         return view('modules.audit_plan.audit_plan.dc_office_order.partials.load_approval_authority_dc',$data);
     }
 

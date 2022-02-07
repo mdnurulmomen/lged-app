@@ -133,6 +133,11 @@ trait UserInfoCollector
         return session('_office_id') ?: $this->getUserOffices()[0]['office_id'];
     }
 
+    public function current_office_details()
+    {
+        return $this->current_office()['office'];
+    }
+
     public function current_office_unit_id()
     {
         return session('_office_unit_id') ?: $this->getUserOffices()[0]['office_unit_id'];

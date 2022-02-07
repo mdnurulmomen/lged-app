@@ -95,10 +95,11 @@ class AuditAIRReportMovementController extends Controller
         $officer_lists = $this->initDoptorHttp()->post(config('cag_doptor_api.office_unit_designation_employee_map'),
             [
                 'office_id' => $this->current_office_id(),
-                'designation_grade' => 9,
+                'designation_grade' => 6,
             ]
         )->json();
         $officer_lists = $officer_lists['status'] == 'success'?$officer_lists['data']:[];
+//        dd($officer_lists);
         //$officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
         return view('modules.audit_report.air_generate.partials.load_approval_authority',compact('officer_lists','air_report_id','last_air_movement','air_type'));
     }

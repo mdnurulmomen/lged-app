@@ -65,6 +65,7 @@
 <script src="{{ asset('assets/js/pages/crud/file-upload/dropzonejs.js') }}"></script>
 <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }}"></script>
 <script src="{{asset('assets/plugins/custom/lightgallery/dist/js/lightgallery.min.js')}}"></script>
+{{--<script src="{{ asset('assets/js/jquery-ui.js') }}"></script>--}}
 <script src="{{asset('assets/js/jquery-sortable.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/js/stt_core.js')}}"></script>
 <script src="{{ asset('assets/js/tapp.js') }}"></script>

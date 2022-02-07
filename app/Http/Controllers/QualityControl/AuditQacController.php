@@ -198,17 +198,31 @@ class AuditQacController extends Controller
         $responseData = isSuccess($responseData)?$responseData['data']:[];
         $committeeData = isSuccess($committee)?$committee['data']:[];
 
+        $directorateName = $this->current_office()['office_name_bn'];
+        if ($this->current_office_id() == 14){
+            $directorateAddress = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.worksaudit.org.bd';
+        }
+        elseif ($this->current_office_id() == 3){
+            $directorateAddress = 'অডিট কমপ্লেক্স (২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.dgcivil-cagbd.org';
+        }
+        else{
+            $directorateAddress = 'অডিট কমপ্লেক্স (৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $directorateWebsite = 'www.cad.org.bd';
+        }
+
 //        dd($responseData);
 
         if($request->scope == 'pdf'){
 //            return view('modules.audit_quality_control.qac_apotti_report',compact('responseData',
 //                'qac_type','committeeData'));
-            $pdf = \PDF::loadView('modules.audit_quality_control.qac_apotti_report', ['responseData' => $responseData,'committeeData'=> $committeeData,'qac_type' => $qac_type,'scope' => $scope], [], ['orientation' => 'L', 'format' => 'A4']);
+            $pdf = \PDF::loadView('modules.audit_quality_control.qac_apotti_report', ['responseData' => $responseData,'committeeData'=> $committeeData,'qac_type' => $qac_type,'scope' => $scope,'directorateName' => $directorateName,'directorateAddress' => $directorateAddress,'directorateWebsite' => $directorateWebsite], [], ['orientation' => 'L', 'format' => 'A4']);
             return $pdf->stream('qac_report.pdf');
         }else{
 //            dd($responseData);
             return view('modules.audit_quality_control.qac_apotti_report',compact('responseData',
-                'qac_type','committeeData','air_id','scope'));
+                'qac_type','committeeData','air_id','scope','directorateName','directorateAddress','directorateWebsite'));
         }
 
 

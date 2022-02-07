@@ -14,27 +14,27 @@
                     plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list'],
                     themeSystem: 'bootstrap',
 
-                    customButtons: {
-                        calendarListButton: {
-                            text: 'Custom List',
-                            click: function () {
-                                directorate_id = $('#directorate_filter').val();
-                                fiscal_year_id = $('#fiscal_year_id').val();
-                                team_filter = $('#team_filter').val();
-                                cost_center_id = $('#cost_center_filter').val();
-                                Team_Calendar_Container.loadTeamCalendarScheduleList(directorate_id, fiscal_year_id, cost_center_id, team_filter);
-                                // if (directorate_id !== 'all') {
-                                //     if (team_filter || cost_center_id) {
-                                //         Team_Calendar_Container.loadTeamCalendarScheduleList(directorate_id, fiscal_year_id, cost_center_id, team_filter);
-                                //     } else {
-                                //         Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
-                                //     }
-                                // } else {
-                                //     toastr.info('Please select a directorate.')
-                                // }
-                            }
-                        }
-                    },
+                    // customButtons: {
+                    //     calendarListButton: {
+                    //         text: 'Custom List',
+                    //         click: function () {
+                    //             directorate_id = $('#directorate_filter').val();
+                    //             fiscal_year_id = $('#fiscal_year_id').val();
+                    //             team_filter = $('#team_filter').val();
+                    //             cost_center_id = $('#cost_center_filter').val();
+                    //             Team_Calendar_Container.loadTeamCalendarScheduleList(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+                    //             // if (directorate_id !== 'all') {
+                    //             //     if (team_filter || cost_center_id) {
+                    //             //         Team_Calendar_Container.loadTeamCalendarScheduleList(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+                    //             //     } else {
+                    //             //         Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
+                    //             //     }
+                    //             // } else {
+                    //             //     toastr.info('Please select a directorate.')
+                    //             // }
+                    //         }
+                    //     }
+                    // },
 
                     header: {
                         left: 'prev,next today',
@@ -97,37 +97,35 @@
                                         @endforeach
                                         @endif
                                     @endforeach
-                                @else
-                                    @if($team['team_schedules'])
-                                        @php
-                                            if(isset($cost_center_id)){
-                                                $schedules = json_decode($team['team_schedules'],true);
-                                                $schedules = array_filter($schedules, function ($var) use ($cost_center_id){
-                                                         return ($var['cost_center_id'] == $cost_center_id);
-                                                    });
-                                            }else{
-                                                $schedules = json_decode($team['team_schedules'],true);
-                                            }
-
-                                        @endphp
-                                        @foreach($schedules as $schedule)
-
-                                            {
-                                                title: '{{$team['team_name']}}  (উপদল নেতা : {{$team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
-                                                start: '{{$schedule['team_member_start_date']}}',
-                                                end: '{{$schedule['team_member_end_date']}}',
-                                                description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
-                                                team_id: '{{$team['id']}}',
-                                                team_name: '{{$team['team_name']}}',
-                                                team_members: '{{$team['team_members']}}',
-                                                team_schedules: '{{$team['team_schedules']}}',
-                                                audit_start_end_year: '{{$team['audit_year_start']}} - {{$team['audit_year_end']}}',
-                                                className: "fc-event-waring @if($team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-primary @endif"
-
-                                            },
-                                        @endforeach
-                                    @endif
                                 @endif
+                                @if($team['team_schedules'])
+                                @php
+                                    if(isset($cost_center_id)){
+                                        $schedules = json_decode($team['team_schedules'],true);
+                                        $schedules = array_filter($schedules, function ($var) use ($cost_center_id){
+                                                 return ($var['cost_center_id'] == $cost_center_id);
+                                            });
+                                    }else{
+                                        $schedules = json_decode($team['team_schedules'],true);
+                                    }
+
+                                @endphp
+                            @foreach($schedules as $schedule)
+                                {
+                                    title: '{{$team['team_name']}}  (উপদল নেতা : {{$team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
+                                    start: '{{$schedule['team_member_start_date']}}',
+                                    end: '{{$schedule['team_member_end_date']}}',
+                                    description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
+                                    team_id: '{{$team['id']}}',
+                                    team_name: '{{$team['team_name']}}',
+                                    team_members: '{{$team['team_members']}}',
+                                    team_schedules: '{{$team['team_schedules']}}',
+                                    audit_start_end_year: '{{$team['audit_year_start']}} - {{$team['audit_year_end']}}',
+                                    className: "fc-event-waring @if($team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-primary @endif"
+
+                                },
+                            @endforeach
+                        @endif
                             @endforeach
                     ],
 
