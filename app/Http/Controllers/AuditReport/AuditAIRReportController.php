@@ -30,7 +30,7 @@ class AuditAIRReportController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $data)->json();
-        dd($responseData);
+        //dd($responseData);
         if (isSuccess($responseData)) {
             $content = $responseData['data']['content'];
 
@@ -50,7 +50,7 @@ class AuditAIRReportController extends Controller
             $annual_plan_id = $request->annual_plan_id;
             $audit_plan_id = $request->audit_plan_id;
             $audit_year = '২০১৯-২০২০';
-            $fiscal_year = '২০১৯-২০২০';
+            $fiscal_year = '২০২০-২০২১';
             $audit_plan_entities = $request->audit_plan_entities;
 
             return view('modules.audit_report.air_generate.create',
