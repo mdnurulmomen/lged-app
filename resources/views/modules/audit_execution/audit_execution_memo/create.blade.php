@@ -164,7 +164,7 @@
                             </div>
                         </div>
 
-                        <div class="card mb-4">
+                        <div class="card mb-4 d-none">
                             <div class="card-body p-4">
                                 <label class="col-form-label">প্রতিষ্ঠান প্রধানের নাম</label>
                                 <input type="text" class="form-control mb-1" name="rpu_acceptor_officer_name_bn"
@@ -226,6 +226,8 @@
 
             from_data = new FormData(document.getElementById("memo_create_form"));
             from_data.append('memo_description_bn', tinymce.get("kt-tinymce-1").getContent());
+            elem = $(this);
+            elem.prop('disabled', true);
 
             $.ajax({
                 data: from_data,
@@ -240,6 +242,7 @@
                         toastr.success(responseData.data);
                         $('.btn_back').click();
                     } else {
+                        elem.prop('disabled', false);
                         if (responseData.statusCode === '422') {
                             var errors = responseData.msg;
                             $.each(errors, function (k, v) {
@@ -253,6 +256,7 @@
                     }
                 },
                 error: function (data) {
+                    elem.prop('disabled', false)
                     if (data.responseJSON.errors) {
                         $.each(data.responseJSON.errors, function (k, v) {
                             if (isArray(v)) {

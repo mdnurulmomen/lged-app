@@ -276,7 +276,10 @@ class AuditExecutionMemoController extends Controller
             'memos' => 'required',
             'memo_sharok_no' => 'required',
             'memo_cc' => 'nullable',
+            'rpu_acceptor_designation_name_bn' => 'nullable',
         ])->validate();
+
+//        dd($data);
 
         $data['memo_send_date'] = date('Y-m-d',strtotime($request->memo_send_date));
 

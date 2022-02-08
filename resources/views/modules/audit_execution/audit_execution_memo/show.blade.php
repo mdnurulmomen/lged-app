@@ -13,85 +13,65 @@
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;color: black">
         গণপ্রজাতন্ত্রী বাংলাদেশ সরকার<br>
         {{$directorateName}} <br>
-        {!! $directorateAddress !!}
+        {!! $directorateAddress !!}<br>
+        <u>{{$directorateWebsite}}</u>
     </div>
-{{--    <x-office-details-template />--}}
+{{--    <x-office-header-details />--}}
     <br>
     @if($memoInfo['memo_sharok_no'])
         <table class="bangla-font" width="100%">
             <tr>
                 <td >স্মারক  নং - {{enTobn($memoInfo['memo_sharok_no'])}}</td>
-                <td style="text-align: right">তারিখ: {{enTobn($memoInfo['memo_send_date'])}}</td>
+                <td style="text-align: right">তারিখ: {{formatDate($memoInfo['memo_send_date'],'bn','/')}}</td>
             </tr>
         </table>
     @endif
 
-    <table style="margin-top: 10px" class="bangla-font" width="100%" style="color: black">
-        <tr>
-            <td style="text-align: center"><u><b>অডিট মেমো</b></u></td>
-        </tr>
-    </table>
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;">
+        <u>অডিট মেমো</u>
+    </div>
 
-    <table class="bangla-font table table-bordered" style="width: 100%;margin-top: 10px;padding: 5px;color: black"
-    >
-        <tr class="bangla-font">
-            <td style="padding: 10px" width="10%">মেমো নং</td>
-            <td style="padding: 10px" width="70%"></td>
-            <td style="padding: 10px" width="20%">জড়িত অর্থ (টাকা)</td>
-        </tr>
-        <tr class="bangla-font">
-            <td valign="top" style="padding: 10px">{{enTobn($memoInfo['onucched_no'])}}</td>
-            <td style="padding: 10px;text-align: justify">
-                <p>শিরোনামঃ</p>
-                <br>
-                <p style="text-align: justify">{{$memoInfo['memo_title_bn']}}</p>
-                <br>
-                <p style="margin-bottom: 20px;">বিবরণঃ</p>
-                <br>
-                {!! $memoInfo['memo_description_bn'] !!}
-            </td>
-            <td valign="top" style="padding: 10px;text-align: right">
-                {{enTobn(number_format($memoInfo['jorito_ortho_poriman']))}}
-            </td>
-        </tr>
-    </table>
-
-    <table class="bangla-font table table-bordered" style="width: 100%;margin-top: 10px;padding: 5px;color: black">
-        <tr>
-            <td style="padding: 10px">
-                <p>অনিয়মের কারণঃ </p>
-                <br>
-                <span>{{$memoInfo['irregularity_cause']}}</span></td>
-        </tr>
-    </table>
-
-    <table>
-        <tr>
-            <td class="bangla-font"><b>সংযুক্তিঃ পরিশিষ্ট</b></td>
-        </tr>
-    </table>
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">অডিট মেমো নং-{{enTobn($memoInfo['onucched_no'])}}</div>
     <br>
-    <table class="bangla-font table table-bordered" style="width: 100%;margin-top: 10px;padding: 5px;color: black">
-        <tr>
-            <td style="padding: 10px">
-                <p>অডিটি প্রতিষ্ঠানের জবাবঃ</p>
-                <br>
-                <span>{{$memoInfo['response_of_rpu']}}</span></td>
-        </tr>
-    </table>
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">
+        শিরোনামঃ {{$memoInfo['memo_title_bn']}}
+    </div>
+
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+        <span style="font-weight: bold">বিবরণঃ</span>
+        {!! $memoInfo['memo_description_bn'] !!}
+    </div>
+
+    @if($memoInfo['irregularity_cause'])
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+            <span style="font-weight: bold">অডিটি প্রতিষ্ঠানের জবাবঃ</span>
+            {{$memoInfo['response_of_rpu']}}
+        </div>
+    @endif
+
+    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <b>সংযুক্তিঃ পরিশিষ্ট</b>
+    </div>
+
+    @if($memoInfo['irregularity_cause'])
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+            <span style="font-weight: bold">অনিয়মের কারণঃ</span>
+            {{$memoInfo['irregularity_cause']}}
+        </div>
+    @endif
     <br><br>
     <table width="100%" style="color: black">
         <tr>
-            <td class="bangla-font" width="50%" style="text-align: center">
-                <p>{{$memoInfo['rpu_acceptor_designation_name_bn']}}</p>
-{{--                <p>পূর্বাচল লিংক রোডের উভয় পাশে</p>--}}
+            <td class="bangla-font" width="33%" style="text-align: left">
+                <br><br>
+                <p style="margin: 0">{{$memoInfo['rpu_acceptor_designation_name_bn']}}</p>
                 <p>{{$memoInfo['cost_center_name_bn']}}</p>
             </td>
-            <td class="bangla-font" width="50%" style="text-align: center">
+            <td class="bangla-font" width="33%" style="text-align: left"></td>
+            <td class="bangla-font" width="33%" style="text-align: center">
                 <p>({{$memoInfo['team_leader_name']}})</p>
                 <p>{{$memoInfo['team_leader_designation']}} ও  দলনেতা</p>
-                <p>পূর্ত অডিট অধিদপ্তর</p>
-
+                <p>{{$directorateName}}</p>
             </td>
         </tr>
     </table>
@@ -100,7 +80,7 @@
         <table class="bangla-font" width="100%" style="color: black">
             <tr>
                 <td >স্মারক  নং - {{enTobn($memoInfo['memo_sharok_no'])}}</td>
-                <td style="text-align: right">তারিখ: {{enTobn($memoInfo['memo_send_date'])}}</td>
+                <td style="text-align: right">তারিখ: {{formatDate($memoInfo['memo_send_date'],'bn','/')}}</td>
             </tr>
         </table>
     @endif
@@ -113,13 +93,13 @@
             <tr>
                 <td>
                     @if($memoInfo['memo_cc'])
-                        {{$memoInfo['memo_cc']}}
+                    {!! nl2br($memoInfo['memo_cc']) !!}
                     @endif
 
                 </td>
             </tr>
         </table>
-    @endif();
+    @endif()
     <br>
     <table class="bangla-font" width="100%" style="color: black">
         <tr>
@@ -128,6 +108,7 @@
             <td width="34%" style="text-align: center">
                 <p>({{$memoInfo['team_leader_name']}})</p>
                 <p>{{$memoInfo['team_leader_designation']}}  ও দলনেতা</p>
+                <p>{{$directorateName}}</p>
             </td>
         </tr>
     </table>

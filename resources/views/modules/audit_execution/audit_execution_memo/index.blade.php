@@ -214,7 +214,7 @@
             memos = [];
             memos.push(memo_id);
 
-            console.log(memos);
+            // console.log(memos);
 
             data.push({name: "memos", value: memos});
 
@@ -244,7 +244,8 @@
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
-                    toastr.success(response.data)
+                    toastr.success(response.data);
+                    $('#kt_quick_panel_close').click();
                 }
             })
         },

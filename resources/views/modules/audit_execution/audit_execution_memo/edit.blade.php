@@ -167,7 +167,7 @@
                             </div>
                         </div>
 
-                        <div class="card mb-4">
+                        <div class="card mb-4 d-none">
                             <div class="card-body p-4">
                                 <label class="col-form-label">প্রতিষ্ঠান প্রধানের নাম</label>
                                 <input type="text" class="form-control mb-1" name="rpu_acceptor_officer_name_bn"

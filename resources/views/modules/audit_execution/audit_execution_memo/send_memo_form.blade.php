@@ -11,6 +11,14 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <label class="col-form-label">প্রতিষ্ঠান প্রধানের পদবী</label>
+                <input type="text" class="form-control mb-1" name="rpu_acceptor_designation_name_bn"
+                       placeholder="প্রতিষ্ঠান প্রধানের পদবী">
+            </div>
+        </div>
+
         <div class="row mt-2">
             <div class="col-md-12">
                 <label>অনুলিপি</label>
