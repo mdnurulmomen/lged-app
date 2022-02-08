@@ -31,7 +31,7 @@
     <div class="col-md-12">
         <button class="btn btn-sm btn-square btn-outline-primary mr-2 float-right"
                 data-memo-id="{{$memo_id}}"
-                onclick="Memo_List_Container.sentMemoListToRpu($(this))"><i class="fa fa-save"></i> সংরক্ষণ
+                onclick="Memo_List_Container.sentMemoListToRpu($(this))"><i class="fa fa-paper-plane"></i> প্রেরণ
         </button>
     </div>
 </div>

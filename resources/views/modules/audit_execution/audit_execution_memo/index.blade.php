@@ -195,7 +195,7 @@
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
-                    $(".offcanvas-title").text('আরপি-তে প্রেরণ');
+                    $(".offcanvas-title").text('আরপি বরাবর প্রেরণ ');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
