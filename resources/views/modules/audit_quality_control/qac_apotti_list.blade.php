@@ -156,7 +156,6 @@
 
                 @if($responseData['rAirInfo']['r_air_child']['status'] != 'approved')
                     @if($qac_type == 'cqat')
-                        @if($apotti['apotti_map_data']['final_status'] == 'draft')
                             <button type="button" class="ml-1 btn btn-sm btn-primary btn-square"
                                     title="প্রস্তাবিত খসড়া"
                                     data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
@@ -165,7 +164,6 @@
                                     onclick="QAC_Apotti_List_Container.apottiFinalApproval($(this))">
                                 চূড়ান্ত করুন
                             </button>
-                        @endif
                     @else
                         @if(empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement']) || $responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_designation_id'] == $current_designation_id)
                             <button class="btn btn-sm btn-primary btn-square mr-1" title="QAC-01"
