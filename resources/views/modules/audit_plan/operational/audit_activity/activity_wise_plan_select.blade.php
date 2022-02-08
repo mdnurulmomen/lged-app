@@ -1,4 +1,4 @@
-<option value="">Select Audit Plan</option>
+<option value="">প্ল্যান বাছাই করুন</option>
 @foreach($all_audit_plan as $audit_plan)
     @php
         $entities = [];

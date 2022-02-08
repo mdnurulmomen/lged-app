@@ -8,20 +8,20 @@
                 <select class="form-select select-select2" id="fiscal_year_id">
                     @foreach($fiscal_years as $fiscal_year)
                     <option
-                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{enTobn($fiscal_year['description'])}}</option>
                     @endforeach
                 </select>
             </div>
 
             <div class="col-md-3">
                 <select class="form-select select-select2" id="activity_id">
-                    <option value="">Select Activity</option>
+                    <option value="">অ্যাক্টিভিটি বাছাই করুন</option>
                 </select>
             </div>
 
             <div class="col-md-6">
                 <select class="form-select select-select2" id="audit_plan_id">
-                    <option value="">সিলেক্ট এনটিটি</option>
+                    <option value="">প্ল্যান বাছাই করুন</option>
                 </select>
             </div>
         </div>
@@ -229,19 +229,23 @@
         },
 
         qacApotti:function (elem){
+            air_report_id = elem.data('air-report-id');
+            is_delete = elem.data('is-delete');
+            apotti_id = elem.data('apotti-id');
+            qac_type = elem.data('qac-type');
 
-            $(".offcanvas-title").text('বিস্তারিত');
+            if(qac_type == 'qac-1'){
+                $(".offcanvas-title").text('কিউএসি ১ কন্ডাক্টিং');
+            }else{
+                $(".offcanvas-title").text('কিউএসি ২ কন্ডাক্টিং');
+            }
+
             quick_panel = $("#kt_quick_panel");
             quick_panel.addClass('offcanvas-on');
             quick_panel.css('opacity', 1);
             quick_panel.css('width', '40%');
             quick_panel.removeClass('d-none');
             $("html").addClass("side-panel-overlay");
-
-            air_report_id = elem.data('air-report-id');
-            is_delete = elem.data('is-delete');
-            apotti_id = elem.data('apotti-id');
-            qac_type = elem.data('qac-type');
 
             data = {air_report_id,is_delete,apotti_id,qac_type}
 

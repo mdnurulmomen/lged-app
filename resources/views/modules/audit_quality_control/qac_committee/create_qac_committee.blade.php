@@ -39,7 +39,7 @@
     <div class="col-md-1"></div>
     <div class="col-md-5 card">
         <form  id="qac_committee_form">
-            <input type="text" class="form-control mt-2" name="title" placeholder="Committee Title">
+            <input type="text" class="form-control mt-2" name="title" placeholder="কমিটি নাম">
             <h5 class="text-primary mt-2"><u>সদস্যের তালিকাঃ</u></h5>
             <ul class="select_member p-0"></ul>
         </form>

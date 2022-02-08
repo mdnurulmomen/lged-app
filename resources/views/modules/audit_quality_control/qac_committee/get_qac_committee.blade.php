@@ -107,9 +107,21 @@
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
                                     <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">Title : </span>
+                                        <span class="mr-2 font-size-1-1">কমিটির নাম : </span>
                                         <span class="font-size-14">
                                             {{$committee['title_bn']}}
+                                        </span>
+                                    </div>
+
+                                    <div class="font-weight-normal">
+                                        <span class="mr-2 font-size-1-1">সদস্য : </span>
+                                        <span class="font-size-14">
+                                            @foreach($committee['qac_committee_members'] as $member)
+                                                <span>
+                                                    {{enTobn($loop->iteration)}}.
+                                                    {{$member['officer_bn']}}({{$member['officer_designation_bn']}})
+                                                </span>
+                                            @endforeach
                                         </span>
                                     </div>
                                 </div>
@@ -117,28 +129,28 @@
                                 <!--begin::Info-->
                                 <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-4">
                                     <div>
-                                        <div class="action-group">
-                                            <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
-                                                    data-annual-plan-id=""
-                                                    onclick="">
-                                                <i class="fad fa-eye"></i> বিস্তারিত
-                                            </button>
-                                                <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
-                                                        data-annual-plan-id=""
-                                                        data-fiscal-year-id=""
-                                                        data-op-audit-calendar-event-id=""
-                                                        onclick="">
-                                                    <i class="fad fa-edit"></i> সম্পাদনা
-                                                </button>
-                                                <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="সম্পাদনা করুন"
-                                                        data-annual-plan-id=""
-                                                        data-fiscal-year-id=""
-                                                        data-op-audit-calendar-event-id=""
-                                                        onclick="">
-                                                    <i class="fad fa-trash"></i> বাতিল করুন
-                                                </button>
+{{--                                        <div class="action-group">--}}
+{{--                                            <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"--}}
+{{--                                                    data-annual-plan-id=""--}}
+{{--                                                    onclick="">--}}
+{{--                                                <i class="fad fa-eye"></i> বিস্তারিত--}}
+{{--                                            </button>--}}
+{{--                                                <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"--}}
+{{--                                                        data-annual-plan-id=""--}}
+{{--                                                        data-fiscal-year-id=""--}}
+{{--                                                        data-op-audit-calendar-event-id=""--}}
+{{--                                                        onclick="">--}}
+{{--                                                    <i class="fad fa-edit"></i> সম্পাদনা--}}
+{{--                                                </button>--}}
+{{--                                                <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="সম্পাদনা করুন"--}}
+{{--                                                        data-annual-plan-id=""--}}
+{{--                                                        data-fiscal-year-id=""--}}
+{{--                                                        data-op-audit-calendar-event-id=""--}}
+{{--                                                        onclick="">--}}
+{{--                                                    <i class="fad fa-trash"></i> বাতিল করুন--}}
+{{--                                                </button>--}}
 
-                                        </div>
+{{--                                        </div>--}}
                                         <div>
                                             <div class="mb-2 mt-3">
                                                 <div>

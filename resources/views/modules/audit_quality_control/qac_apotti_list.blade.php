@@ -2,6 +2,7 @@
     <div class="col-xl-12">
         <div class="row">
             <div class="col-md-12">
+
                 <a data-qac-type="{{$qac_type}}"
                    data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                    onclick="QAC_Apotti_List_Container.loadAIREdit($(this))"
@@ -9,12 +10,14 @@
                     <i class="far fa-book"></i> {{$qac_type == 'qac-1'?'এআইআর':'রিপোর্ট'}} বিস্তারিত
                 </a>
 
-                <a data-qac-type="{{$qac_type}}"
-                   data-air-report-id="{{$responseData['rAirInfo']['id']}}"
-                   onclick="QAC_Apotti_List_Container.selectCommittee($(this))"
-                   class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
-                    <i class="far fa-users"></i>  কমিটি বাছাই করুন
-                </a>
+                @if(!$responseData['rAirInfo']['qac_committee'])
+                    <a data-qac-type="{{$qac_type}}"
+                       data-air-report-id="{{$responseData['rAirInfo']['id']}}"
+                       onclick="QAC_Apotti_List_Container.selectCommittee($(this))"
+                       class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
+                        <i class="far fa-users"></i>  কমিটি বাছাই করুন
+                    </a>
+                @endif
 
                 <a data-qac-type="{{$qac_type}}"
                    data-air-report-id="{{$responseData['rAirInfo']['id']}}"
@@ -65,7 +68,7 @@
         </th>
 
         <th width="37%" class="text-left">
-            আপত্তির শিরোনাম
+            শিরোনাম
         </th>
 
         <th width="15%" class="text-right">
@@ -73,8 +76,14 @@
         </th>
 
         <th width="12%" class="text-left">
-            আপত্তির ধরন
+            {{$qac_type == 'qac-1' ? 'ক্যাটাগরি' : 'কিউএসি ১ এর সিদ্ধান্ত'}}
         </th>
+
+        @if($qac_type == 'qac-2' || $qac_type == 'cqat')
+            <th width="12%" class="text-left">
+                কিউএসি ২ এর সিদ্ধান্ত
+            </th>
+        @endif
 
         <th width="33%" class="text-left">
             কার্যক্রম
@@ -101,18 +110,43 @@
                 <span>{{enTobn(number_format($apotti['apotti_map_data']['total_jorito_ortho_poriman'],0))}}/-</span>
             </td>
             <td class="text-left">
-                @if($apotti['apotti_map_data']['is_delete'] == 1)
-                    প্রত্যাহার
-                @elseif($apotti['apotti_map_data']['final_status'] == 'draft')
-                    রিপোর্ট ভুক্তির জন্য প্রস্তাবকৃত এসএফআই
-                @elseif($apotti['apotti_map_data']['final_status'] == 'approved')
-                    রিপোর্ট ভুক্তির জন্য চূড়ান্তকৃত এসএফআই
-                @elseif($apotti['apotti_map_data']['apotti_type'] == 'sfi')
-                    এসএফআই
-                @elseif($apotti['apotti_map_data']['apotti_type'] == 'non-sfi')
-                    নন-এসএফআই
-                @endif
+
+                    @foreach($apotti['apotti_map_data']['apotti_status'] as $apotti_status)
+                        @if($apotti_status['qac_type'] == 'qac-1')
+                            @if($apotti_status['apotti_type'] == 'draft')
+                                রিপোর্ট ভুক্তির জন্য প্রস্তাবকৃত এসএফআই
+                            @elseif($apotti_status['apotti_type'] == 'approved')
+                                রিপোর্ট ভুক্তির জন্য চূড়ান্তকৃত এসএফআই
+                            @elseif($apotti_status['apotti_type'] == 'sfi')
+                                এসএফআই
+                            @elseif($apotti_status['apotti_type'] == 'non-sfi')
+                                নন-এসএফআই
+                            @elseif($apotti_status['apotti_type'] == 'reject')
+                                প্রত্যাহার
+                            @endif
+                        @endif
+                    @endforeach
             </td>
+            @if($qac_type == 'qac-2' || $qac_type == 'cqat')
+                <td class="text-left">
+                    @foreach($apotti['apotti_map_data']['apotti_status'] as $apotti_status)
+                        @if($apotti_status['qac_type'] == 'qac-2')
+                            @if($apotti_status['apotti_type'] == 'draft')
+                                রিপোর্ট ভুক্তির জন্য প্রস্তাবকৃত এসএফআই
+                            @elseif($apotti_status['apotti_type'] == 'approved')
+                                রিপোর্ট ভুক্তির জন্য চূড়ান্তকৃত এসএফআই
+                            @elseif($apotti_status['apotti_type'] == 'sfi')
+                                এসএফআই
+                            @elseif($apotti_status['apotti_type'] == 'non-sfi')
+                                নন-এসএফআই
+                            @elseif($apotti_status['apotti_type'] == 'reject')
+                                প্রত্যাহার
+                            @endif
+                        @endif
+                    @endforeach
+                </td>
+            @endif
+
             <td class="text-left">
                 <button class="mr-1 btn btn-sm btn-primary btn-square" title="বিস্তারিত দেখুন"
                         data-apotti-id="{{$apotti['apotti_map_data']['id']}}"

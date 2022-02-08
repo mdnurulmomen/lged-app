@@ -1,4 +1,4 @@
-<x-title-wrapper>{{$qac_type == 'qac-1' ? 'QAC-1' : 'QAC-2'}} Committee</x-title-wrapper>
+<x-title-wrapper>{{$qac_type == 'qac-1' ? 'কিউএসি ১' : 'কিউএসি ২'}} কমিটি তালিকা</x-title-wrapper>
 <input type="hidden" id="qac_type" value="{{$qac_type}}">
 <div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
     <div class="col-xl-12">
@@ -57,7 +57,7 @@
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".offcanvas-title").text('বিস্তারিত');
+                    $(".offcanvas-title").text('কমিটি গঠন করুন');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);

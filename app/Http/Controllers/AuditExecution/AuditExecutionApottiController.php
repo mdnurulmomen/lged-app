@@ -22,7 +22,12 @@ class AuditExecutionApottiController extends Controller
     public function loadApottiList(Request $request){
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
+            'audit_plan_id' => 'required|integer',
+            'entity_id' => 'required|integer',
         ])->validate();
+
+//        dd($data);
+
 
         $data['cdesk'] = $this->current_desk_json();
         $apotti_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.list'), $data)->json();
@@ -196,6 +201,7 @@ class AuditExecutionApottiController extends Controller
 
     public function auditPlanWiseEntitySelect(Request $request){
         $entity_list = json_decode($request->entity_list,true);
+//        dd($entity_list);
         return view('modules.audit_execution.audit_execution_apotti.plan_wise_enitity_select',
             compact('entity_list'));
     }

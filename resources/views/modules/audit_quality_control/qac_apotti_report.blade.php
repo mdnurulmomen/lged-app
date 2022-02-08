@@ -841,10 +841,10 @@
                         <td class="bangla-font"></td>
                     </tr>
                     <tr>
-                        <td class="bangla-font">সম্পন্নকারী দল: </td>
+                        <td valign="top" class="bangla-font">সম্পন্নকারী দল: </td>
                         <td class="bangla-font">
                             @foreach($committeeData['committee']['qac_committee_members'] as $member)
-                                    <p><b>{{$loop->iteration}}.</b>{{$member['officer_bn']}}({{$member['officer_designation_bn']}},{{$member['officer_unit_bn']}})</p>
+                                    <p>{{enTobn($loop->iteration)}}) {{$member['officer_bn']}}({{$member['officer_designation_bn']}},{{$member['officer_unit_bn']}})</p>
                             @endforeach
                         </td>
                     </tr>
@@ -856,18 +856,18 @@
                             border="1px">
                         <tr class="bangla-font">
 {{--                            <td class="bangla-font" style="text-align: center" width="5%">ক্রম</td>--}}
-                            <td class="bangla-font" style="text-align: center" width="30%"> আপত্তির শিরোনাম</td>
+                            <td class="bangla-font" style="text-align: center" width="30%"> অনুচ্ছেদের শিরোনাম</td>
                             <td class="bangla-font" style="text-align: center" width="10%"> জড়িত অর্থ (টাকা)</td>
                             @if($qac_type == 'qac-1')
                                 <td class="bangla-font" style="text-align: center" width="10%">আপত্তির সাথে পরিশিষ্ট মিল আছে কিনা ?</td>
-                                <td class="bangla-font" style="text-align: center" width="10%"> বিধি-বিধান উল্লেখ আছে কিনা ?</td>
-                                <td class="bangla-font" style="text-align: center" width="10%">   আপত্তিতে কোন অসম্পূর্ণতা আছে কিনা ?</td>
-                                <td class="bangla-font" style="text-align: center" width="10%">   আপত্তি রিস্ক অ্যানালাইসিস এরমধ্যে উত্থাপন করা হয়েছে কিনা ?</td>
+                                <td class="bangla-font" style="text-align: center" width="10%">বিধি-বিধান উল্লেখ আছে কিনা ?</td>
+                                <td class="bangla-font" style="text-align: center" width="10%">আপত্তিতে কোন অসম্পূর্ণতা আছে কিনা ?</td>
+                                <td class="bangla-font" style="text-align: center" width="10%">আপত্তি রিস্ক অ্যানালাইসিস এরমধ্যে উত্থাপন করা হয়েছে কিনা ?</td>
                             @endif
                             @if($qac_type == 'qac-2')
                                 <td class="bangla-font" style="text-align: center" width="10%"> জবাব পাওয়া গিয়েছে কিনা ?</td>
                             @endif
-                            <td class="bangla-font" style="text-align: center" width="10%"> অনুচ্ছেদ এর ক্যাটাগরি</td>
+                            <td class="bangla-font" style="text-align: center" width="10%"> অনুচ্ছেদের ক্যাটাগরি</td>
                             <td class="bangla-font" style="text-align: center" width="10%">           মন্তব্য</td>
                         </tr>
 {{--                        <tr class="bangla-font">--}}
@@ -890,26 +890,26 @@
                                         <span>{{enTobn(number_format($apotti['apotti_map_data']['total_jorito_ortho_poriman'],0))}}/-</span>
                                     </td>
                                     @if($qac_type == 'qac-1')
-                                        <td class="bangla-font text-left">
+                                        <td class="bangla-font text-center">
                                             {{$apotti_status['is_same_porishisto'] ? 'হ্যাঁ' : 'না'}}
                                         </td>
-                                        <td class="bangla-font text-left">
+                                        <td class="bangla-font text-center">
                                             {{$apotti_status['is_rules_and_regulation'] ? 'হ্যাঁ' : 'না'}}
                                         </td>
-                                        <td class="bangla-font text-left">
+                                        <td class="bangla-font text-center">
                                             {{$apotti_status['is_risk_analysis'] ? 'হ্যাঁ' : 'না'}}
                                         </td>
-                                        <td class="bangla-font text-left">
+                                        <td class="bangla-font text-center">
                                             {{$apotti_status['is_imperfection'] ? 'হ্যাঁ' : 'না'}}
                                         </td>
                                     @endif
 
                                     @if($qac_type == 'qac-2')
-                                        <td class="bangla-font text-left">
+                                        <td class="bangla-font text-center">
                                             {{$apotti_status['is_broadsheet_response'] ? 'হ্যাঁ' : 'না'}}
                                         </td>
                                     @endif
-                                    <td class="bangla-font text-left">
+                                    <td class="bangla-font text-center">
                                         @if($apotti['apotti_map_data']['is_delete'] == 1)
                                             প্রত্যাহার
                                         @elseif($apotti['apotti_map_data']['final_status'] == 'draft')
@@ -920,6 +920,8 @@
                                             এসএফআই
                                         @elseif($apotti['apotti_map_data']['apotti_type'] == 'non-sfi')
                                             নন-এসএফআই
+                                        @elseif($apotti['apotti_map_data']['apotti_type'] == 'reject')
+                                            প্রত্যাহার
                                         @endif
                                     </td>
                                     <td class="bangla-font text-left">
