@@ -840,9 +840,15 @@
                 </td>
                 <td class="bangla-font" width="33%" style="text-align: left"></td>
                 <td class="bangla-font" width="33%" style="text-align: center">
-                    <p>({{$memoInfo['team_leader_name']}})</p>
-                    <p>{{$memoInfo['team_leader_designation']}} ও  দলনেতা</p>
-                    <p>{{$directorateName}}</p>
+                    @if($memoInfo['issued_by'] == 'sub_team_leader')
+                        <p>({{$memoInfo['sub_team_leader_name']}})</p>
+                        <p>{{$memoInfo['sub_team_leader_designation']}} ও উপদলনেতা</p>
+                        <p>{{$directorateName}}</p>
+                    @else
+                        <p>({{$memoInfo['team_leader_name']}})</p>
+                        <p>{{$memoInfo['team_leader_designation']}} ও দলনেতা</p>
+                        <p>{{$directorateName}}</p>
+                    @endif
                 </td>
             </tr>
         </table>
@@ -876,9 +882,15 @@
                 <td width="33%"></td>
                 <td width="33%"></td>
                 <td width="34%" style="text-align: center">
-                    <p>({{$memoInfo['team_leader_name']}})</p>
-                    <p>{{$memoInfo['team_leader_designation']}}  ও দলনেতা</p>
-                    <p>{{$directorateName}}</p>
+                    @if($memoInfo['issued_by'] == 'sub_team_leader')
+                        <p>({{$memoInfo['sub_team_leader_name']}})</p>
+                        <p>{{$memoInfo['sub_team_leader_designation']}} ও উপদলনেতা</p>
+                        <p>{{$directorateName}}</p>
+                    @else
+                        <p>({{$memoInfo['team_leader_name']}})</p>
+                        <p>{{$memoInfo['team_leader_designation']}} ও দলনেতা</p>
+                        <p>{{$directorateName}}</p>
+                    @endif
                 </td>
             </tr>
         </table>

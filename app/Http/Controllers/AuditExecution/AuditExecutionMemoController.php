@@ -108,6 +108,9 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'memo_status', 'contents' => 0],
             ['name' => 'team_leader_name', 'contents' => $request->team_leader_name],
             ['name' => 'team_leader_designation', 'contents' => $request->team_leader_designation],
+            ['name' => 'sub_team_leader_name', 'contents' => $request->sub_team_leader_name],
+            ['name' => 'sub_team_leader_designation', 'contents' => $request->sub_team_leader_designation],
+            ['name' => 'issued_by', 'contents' => $request->issued_by],
             ['name' => 'rpu_acceptor_officer_name_bn', 'contents' => $request->rpu_acceptor_officer_name_bn],
             ['name' => 'rpu_acceptor_designation_name_bn', 'contents' => $request->rpu_acceptor_designation_name_bn],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
@@ -276,13 +279,14 @@ class AuditExecutionMemoController extends Controller
             'memos' => 'required',
             'memo_sharok_no' => 'required',
             'memo_cc' => 'nullable',
+            'issued_by' => 'required',
+            'memo_send_date' => 'required',
             'rpu_acceptor_designation_name_bn' => 'nullable',
         ])->validate();
 
 //        dd($data);
 
-        $data['memo_send_date'] = date('Y-m-d',strtotime($request->memo_send_date));
-
+        //$data['memo_send_date'] = date('Y-m-d',strtotime($request->memo_send_date));
         $data['cdesk'] = $this->current_desk_json();
 
         $memoSendToRpu = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.send_to_rpu'), $data)->json();
@@ -510,6 +514,13 @@ class AuditExecutionMemoController extends Controller
 
     public function sendMemoForm(Request $request){
         $memo_id = $request->memo_id;
-        return view('modules.audit_execution.audit_execution_memo.send_memo_form', compact('memo_id'));
+        $data = Validator::make($request->all(), [
+            'memo_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = $this->current_desk_json();
+        $memoInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
+        $memoInfo = isSuccess($memoInfo)?$memoInfo['data']:[];
+        return view('modules.audit_execution.audit_execution_memo.send_memo_form',
+            compact('memoInfo'));
     }
 }
