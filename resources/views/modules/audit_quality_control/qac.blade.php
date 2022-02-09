@@ -7,7 +7,7 @@
             <div class="col-md-3">
                 <select class="form-select select-select2" id="directorate_filter">
                     @if(count($directorates) > 1)
-                        <option value="all">Select Directorate</option>
+                        <option value="all"> অধিদপ্তর বাছাই করুন</option>
                     @endif
                     @foreach($directorates as $directorate)
                         <option value="{{$directorate['office_id']}}">{{$directorate['office_name_bn']}}</option>
@@ -202,9 +202,10 @@
 
 
         showApotti: function (element) {
+            office_id = $('#directorate_filter').val();
             url = '{{route('audit.execution.apotti.onucched-show')}}'
             apotti_id = element.data('apotti-id');
-            data = {apotti_id};
+            data = {apotti_id,office_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

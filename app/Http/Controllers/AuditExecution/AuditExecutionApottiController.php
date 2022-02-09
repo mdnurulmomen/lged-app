@@ -136,6 +136,7 @@ class AuditExecutionApottiController extends Controller
         $data = [
             'cdesk' => $this->current_desk_json(),
             'apotti_id' => $request->apotti_id,
+            'office_id' => $request->office_id,
         ];
 
         $apotti_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.get_apotti_info'), $data)->json();
