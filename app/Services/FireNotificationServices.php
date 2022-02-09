@@ -25,11 +25,20 @@ class FireNotificationServices
                 'meta_data' => json_encode($meta_data),
             ];
             if (!empty($meta_data)) {
-                $mail_data = [
-                    'subject' => 'You Have Received Audit Query',
-                ];
-                $content = view('email.query_email_template', compact('mail_data'))->render();
-                $data['mail_subject'] = 'You Have Received Audit Query';
+                $content = '';
+                $mail_data['subject'] = '';
+                if ($data['notifiable_type'] == 'query') {
+                    $mail_data['subject'] = 'You Have Received Audit Query';
+                    $content = view('email.query_email_template', compact('mail_data'))->render();
+                } elseif ($data['notifiable_type'] == 'memo') {
+                    $mail_data['subject'] = 'You Have Received Audit Memo';
+                    $content = view('email.memo_email_template', compact('mail_data'))->render();
+                } elseif ($data['notifiable_type'] == 'air') {
+                    $mail_data['subject'] = 'You Have Received Audit Memo';
+                    $content = view('email.memo_email_template', compact('mail_data'))->render();
+                }
+
+                $data['mail_subject'] = $mail_data['subject'];
                 $data['mail_body'] = $content;
                 $send_mail = $this->initHttpWithToken()->post(config('amms_bee_routes.notification.send-mail'), $data)->json();
                 if (isSuccess($send_mail, 'status', 'error')) {

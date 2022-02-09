@@ -16,11 +16,11 @@
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>
 
-{{--                    <a class="btn btn-sm btn-light-primary btn-square mr-1"--}}
-{{--                       onclick="Memo_List_Container.sentMemoListToRpu()"--}}
-{{--                       title="আরপিইউতে প্রেরণ করুন" href="javascript:;">--}}
-{{--                        <i class="fa fa-paper-plane mr-1"></i> আরপিইে প্রেরণ--}}
-{{--                    </a>--}}
+                    {{--                    <a class="btn btn-sm btn-light-primary btn-square mr-1"--}}
+                    {{--                       onclick="Memo_List_Container.sentMemoListToRpu()"--}}
+                    {{--                       title="আরপিইউতে প্রেরণ করুন" href="javascript:;">--}}
+                    {{--                        <i class="fa fa-paper-plane mr-1"></i> আরপিইে প্রেরণ--}}
+                    {{--                    </a>--}}
 
                     <a class="btn btn-sm btn-light-success btn_back btn-square"
                        data-schedule-id="{{$schedule_id}}"
@@ -52,14 +52,13 @@
 </div>
 
 
-
 <script>
     var Memo_List_Container = {
         loadMemoList: function (page = 1, per_page = 10) {
             audit_plan_id = '{{$audit_plan_id}}';
             cost_center_id = '{{$cost_center_id}}';
             let url = '{{route('audit.execution.memo.list')}}';
-            let data = {audit_plan_id,cost_center_id,page, per_page};
+            let data = {audit_plan_id, cost_center_id, page, per_page};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)
@@ -82,9 +81,11 @@
             scope_sub_team_leader = elem.data('scope-sub-team-leader');
             sub_team_leader_name = elem.data('sub-team-leader-name-bn');
             sub_team_leader_designation_name = elem.data('sub-team-leader-designation-name-bn');
-            data = {schedule_id,audit_plan_id,cost_center_id,cost_center_name_bn,audit_year_start,audit_year_end,
-                team_leader_name,team_leader_designation_name,scope_sub_team_leader,
-                sub_team_leader_name,sub_team_leader_designation_name};
+            data = {
+                schedule_id, audit_plan_id, cost_center_id, cost_center_name_bn, audit_year_start, audit_year_end,
+                team_leader_name, team_leader_designation_name, scope_sub_team_leader,
+                sub_team_leader_name, sub_team_leader_designation_name
+            };
             let url = '{{route('audit.execution.memo.create')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
@@ -127,7 +128,7 @@
             url = '{{route('audit.execution.memo.show-attachment')}}'
             memo_id = element.data('memo-id');
             memo_title_bn = element.data('memo-title-bn');
-            data = {memo_id,memo_title_bn};
+            data = {memo_id, memo_title_bn};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -165,9 +166,11 @@
             scope_sub_team_leader = '{{$scope_sub_team_leader}}';
             sub_team_leader_name = '{{$sub_team_leader_name}}';
             sub_team_leader_designation_name = '{{$sub_team_leader_designation_name}}';
-            data = {memo_id,schedule_id,audit_plan_id,cost_center_id,cost_center_name_bn,audit_year_start,audit_year_end,
-                team_leader_name,team_leader_designation_name,scope_sub_team_leader,
-                sub_team_leader_name,sub_team_leader_designation_name};
+            data = {
+                memo_id, schedule_id, audit_plan_id, cost_center_id, cost_center_name_bn, audit_year_start, audit_year_end,
+                team_leader_name, team_leader_designation_name, scope_sub_team_leader,
+                sub_team_leader_name, sub_team_leader_designation_name
+            };
             let url = '{{route('audit.execution.memo.edit')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
@@ -213,6 +216,8 @@
             memo_id = elem.data('memo-id');
             memos = [];
             memos.push(memo_id);
+            cost_center_id = '{{$cost_center_id}}';
+            memos.push(cost_center_id);
 
             // console.log(memos);
 
