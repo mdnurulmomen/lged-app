@@ -105,7 +105,7 @@
     <script>
         $(function () {
             let approved_status = '{{$approved_status}}';
-            /*if (approved_status != 'approved'){
+            if (approved_status != 'approved'){
                 $(".update-qac-air-report").click();
                 QAC_AIR_Report_Container.insertAuditTeam();
                 QAC_AIR_Report_Container.insertAuditApottiSummary('sfi');
@@ -113,15 +113,7 @@
                 QAC_AIR_Report_Container.insertAuditApottiDetails('sfi');
                 QAC_AIR_Report_Container.insertAuditApottiDetails('non-sfi');
                 $(".update-qac-air-report").click();
-            }*/
-
-            $(".update-qac-air-report").click();
-            QAC_AIR_Report_Container.insertAuditTeam();
-            QAC_AIR_Report_Container.insertAuditApottiSummary('sfi');
-            QAC_AIR_Report_Container.insertAuditApottiSummary('non-sfi');
-            QAC_AIR_Report_Container.insertAuditApottiDetails('sfi');
-            QAC_AIR_Report_Container.insertAuditApottiDetails('non-sfi');
-            $(".update-qac-air-report").click();
+            }
         });
 
         var QAC_AIR_Report_Container = {
