@@ -207,6 +207,7 @@ class AuditExecutionApottiController extends Controller
     }
 
     public function auditPlanTypeWiseAir(Request $request){
+        $data['office_id'] = $request->office_id;
         $data['qac_type'] = $request->qac_type;
         $data['audit_plan_id'] = $request->audit_plan_id;
         $data['cdesk'] = $this->current_desk_json();

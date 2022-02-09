@@ -251,6 +251,7 @@ class AuditActivityController extends Controller
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
             'activity_id' => 'required|integer',
+            'office_id' => 'required|integer',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();

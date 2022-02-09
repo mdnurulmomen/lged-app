@@ -5,6 +5,17 @@
         <div class="row mt-2 mb-2">
 
             <div class="col-md-3">
+                <select class="form-select select-select2" id="directorate_filter">
+                    @if(count($directorates) > 1)
+                        <option value="all">Select Directorate</option>
+                    @endif
+                    @foreach($directorates as $directorate)
+                        <option value="{{$directorate['office_id']}}">{{$directorate['office_name_bn']}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-md-3">
                 <select class="form-select select-select2" id="fiscal_year_id">
                     @foreach($fiscal_years as $fiscal_year)
                     <option
@@ -19,7 +30,7 @@
                 </select>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <select class="form-select select-select2" id="audit_plan_id">
                     <option value="">প্ল্যান বাছাই করুন</option>
                 </select>
@@ -95,8 +106,9 @@
         },
 
         loadActivityWiseAuditPlan: function (fiscal_year_id,activity_id) {
+            office_id = $('#directorate_filter').val();
             let url = '{{route('audit.plan.operational.activity.audit-plan')}}';
-            let data = {fiscal_year_id,activity_id};
+            let data = {fiscal_year_id,activity_id,office_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
@@ -121,9 +133,10 @@
         },
 
         loadAuditPlanAndTypeWiseAIRList: function (audit_plan_id) {
+            office_id = $('#directorate_filter').val();
             let url = '{{route('audit.execution.apotti.audit-plan-type-wise-air')}}';
             let qac_type = '{{$qac_type}}';
-            let data = {qac_type,audit_plan_id};
+            let data = {qac_type,audit_plan_id,office_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
@@ -299,8 +312,9 @@
     $('#btn_filter').click(function () {
         qac_type = $('#qac_type').val();
         air_id = $('#preliminary_air_filter').val();
+        office_id = $('#directorate_filter').val();
         let url = '{{route('audit.qac.air-wise-apotti')}}';
-        let data = {air_id,qac_type};
+        let data = {air_id,qac_type,office_id};
 
         KTApp.block('#kt_content', {
             opacity: 0.1,

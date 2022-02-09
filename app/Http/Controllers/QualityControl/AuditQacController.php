@@ -26,9 +26,18 @@ class AuditQacController extends Controller
             $qac_type_name_bn = '';
         }
 
+        $all_directorates = $this->allAuditDirectorates();
+
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
+
         $fiscal_years = $this->allFiscalYears();
+
         return view('modules.audit_quality_control.qac',compact('fiscal_years',
-            'qac_type','qac_type_name_bn'));
+            'qac_type','qac_type_name_bn','directorates'));
     }
 
     public function loadApottiQacList(Request $request){
@@ -54,6 +63,7 @@ class AuditQacController extends Controller
 
     public function loadAirWiseApottiList(Request $request){
         $qac_type = $request->qac_type;
+        $requestData['office_id'] = $request->office_id;
         $requestData['qac_type'] = $qac_type;
         $requestData['air_id'] = $request->air_id;
         $requestData['cdesk'] =$this->current_desk_json();
