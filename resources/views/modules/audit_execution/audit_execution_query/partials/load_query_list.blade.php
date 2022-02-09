@@ -171,7 +171,7 @@
             editQuery: function (elem) {
                 ac_query_id = elem.data('ac-query-id');
                 schedule_id = elem.data('schedule-id');
-                data = {ac_query_id,schedule_id};
+                data = {ac_query_id, schedule_id};
                 url = '{{route('audit.execution.query.edit')}}';
 
                 KTApp.block('#kt_content', {
@@ -194,7 +194,7 @@
                 ac_query_id = elem.data('ac-query-id');
                 has_sent_to_rpu = elem.data('has-sent-to-rpu');
 
-                data = {scope_authority,ac_query_id,has_sent_to_rpu};
+                data = {scope_authority, ac_query_id, has_sent_to_rpu};
                 url = '{{route('audit.execution.query.view')}}';
 
                 KTApp.block('#kt_content', {
@@ -221,7 +221,8 @@
 
             sendQueryToRpu: function (elem) {
                 ac_query_id = elem.data('ac-query-id');
-                data = {ac_query_id};
+                cost_center_id = elem.attr('data-cost-center-id')
+                data = {ac_query_id, cost_center_id};
                 url = '{{route('audit.execution.query.send-to-rpu')}}';
 
                 KTApp.block('#kt_content', {
@@ -242,7 +243,7 @@
                         });
                         cost_center_id = elem.data('cost-center-id');
                         url = '{{route('audit.execution.query.load-list')}}';
-                        data = { cost_center_id};
+                        data = {cost_center_id};
                         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                             KTApp.unblock('#kt_content');
                             if (response.status === 'error') {

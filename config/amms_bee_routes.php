@@ -335,6 +335,10 @@ return [
 
     'document_is_exist' => env('API_URL_BEE', '') . '/document-is-exist',
 
+    'notification' => [
+        'send-mail' => env('API_URL_BEE', '') . '/notify/send/mail',
+    ],
+
     'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',
 
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',
