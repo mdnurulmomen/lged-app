@@ -217,11 +217,10 @@
             memos = [];
             memos.push(memo_id);
             cost_center_id = '{{$cost_center_id}}';
-            memos.push(cost_center_id);
-
             // console.log(memos);
 
             data.push({name: "memos", value: memos});
+            data.push({name: "cost_center_id", value: cost_center_id});
 
             // $(".select-memo").each(function (i, value) {
             //     if ($(this).is(':checked') && !$(this).is(':disabled')) {
