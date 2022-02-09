@@ -163,6 +163,7 @@ class AuditQACAIRReportController extends Controller
             elseif ($qac_type == 'cqat'){
                 $cqatData['template_type'] = 'cqat_report';
                 $cqatData['cdesk'] = $cdeskData;
+                $office_id = $request->office_id;
                 $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $cqatData)->json();
                 //dd($responseReportTemplateData);
                 if (isSuccess($responseReportTemplateData)) {
@@ -177,7 +178,7 @@ class AuditQACAIRReportController extends Controller
                     return view('modules.audit_quality_control.cqat.create',
                         compact('content','audit_plan_entities','air_report_id',
                             'approved_status','latest_receiver_designation_id','current_designation_id',
-                            'is_sent','is_received','qac_type'));
+                            'is_sent','is_received','qac_type','office_id'));
                 }
             }else{
                 return view('modules.audit_quality_control.qac_01.edit',

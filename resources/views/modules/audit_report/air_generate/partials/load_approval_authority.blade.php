@@ -113,7 +113,10 @@
     var Air_Movement_Container = {
         store: function () {
             url = '{{route('audit.report.air.store-air-movement')}}';
-            data = $('#approval_authority_form').serialize();
+            office_id = '{{$office_id}}'
+            // alert(office_id);
+            data = $('#approval_authority_form').serializeArray();
+            data.push({name: "office_id", value: office_id});
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

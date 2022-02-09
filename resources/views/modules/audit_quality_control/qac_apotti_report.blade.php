@@ -855,7 +855,7 @@
                     <table  class="bangla-font table table-bordered table-striped" style="width: 100%;margin-top: 10px;padding: 5px"
                             border="1px">
                         <tr class="bangla-font">
-{{--                            <td class="bangla-font" style="text-align: center" width="5%">ক্রম</td>--}}
+                            <td class="bangla-font" style="text-align: center" width="5%">অনুচ্ছেদ নং </td>
                             <td class="bangla-font" style="text-align: center" width="30%"> অনুচ্ছেদের শিরোনাম</td>
                             <td class="bangla-font" style="text-align: center" width="10%"> জড়িত অর্থ (টাকা)</td>
                             @if($qac_type == 'qac-1')
@@ -880,6 +880,9 @@
                             @foreach($apotti['apotti_map_data']['apotti_status'] as $apotti_status)
                                 @if($apotti_status['qac_type'] == $qac_type)
                                 <tr class="bangla-font">
+                                    <td class="bangla-font text-center">
+                                        {{enTobn($apotti['apotti_map_data']['onucched_no'])}}
+                                    </td>
                                     <td class="bangla-font text-left">
                                         <span>{{$apotti['apotti_map_data']['apotti_title']}}</span>
                                     </td>

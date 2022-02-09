@@ -29,11 +29,21 @@
                 @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
                     <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
                             title="প্রাপক বাছাই করুন"
-                            onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
+                            onclick="QAC_AIR_Report_Container.loadCagAuthority()">
                         <i class="fad fa-paper-plane"></i> প্রেরণ করুন
                     </button>
                 @endif
             @endif
+
+                @if($approved_status == 'approved')
+                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
+                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
+                                title=" অধিদপ্তর প্রেরণ করুন"
+                                onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
+                            <i class="fad fa-paper-plane"></i> অধিদপ্তর প্রেরণ করুন
+                        </button>
+                    @endif
+                @endif
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
                     data-air-id="{{$air_report_id}}"
@@ -190,7 +200,9 @@
                 url = '{{route('audit.report.air.get-approval-authority')}}';
                 air_report_id = '{{$air_report_id}}';
                 air_type = '{{$qac_type}}';
-                data = {air_report_id,air_type};
+                office_id = '{{$office_id}}';
+                // alert(office_id);
+                data = {air_report_id,air_type,office_id};
 
                 KTApp.block('.content', {
                     opacity: 0.1,

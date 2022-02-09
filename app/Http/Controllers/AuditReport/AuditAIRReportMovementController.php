@@ -51,6 +51,7 @@ class AuditAIRReportMovementController extends Controller
             ])->validate();
 
             $data['comments'] = $request->comments;
+            $data['office_id'] = $request->office_id;
             $data['cdesk'] = $this->current_desk_json();
             $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.store_air_movement'), $data)->json();
             if (isSuccess($responseData)) {
@@ -85,6 +86,7 @@ class AuditAIRReportMovementController extends Controller
 
     public function loadApprovalAuthority(Request $request)
     {
+        $office_id = $request->office_id;
         $air_report_id = $request->air_report_id;
         $air_type= $request->air_type;
         $data['r_air_id'] = $air_report_id;
@@ -94,14 +96,14 @@ class AuditAIRReportMovementController extends Controller
         //dd($last_air_movement);
         $officer_lists = $this->initDoptorHttp()->post(config('cag_doptor_api.office_unit_designation_employee_map'),
             [
-                'office_id' => $this->current_office_id(),
+                'office_id' => $office_id,
                 'designation_grade' => 6,
             ]
         )->json();
         $officer_lists = $officer_lists['status'] == 'success'?$officer_lists['data']:[];
 //        dd($officer_lists);
         //$officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
-        return view('modules.audit_report.air_generate.partials.load_approval_authority',compact('officer_lists','air_report_id','last_air_movement','air_type'));
+        return view('modules.audit_report.air_generate.partials.load_approval_authority',compact('officer_lists','air_report_id','last_air_movement','air_type','office_id'));
     }
 
     public function loadCagAuthority(Request $request)

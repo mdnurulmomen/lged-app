@@ -158,7 +158,7 @@
                 @if($responseData['rAirInfo']['r_air_child']['status'] != 'approved')
                     @if($qac_type == 'cqat')
                             <button type="button" class="ml-1 btn btn-sm btn-primary btn-square"
-                                    title="প্রস্তাবিত খসড়া"
+                                    title="চূড়ান্ত করুন"
                                     data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                                     data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
                                     data-final-approval-status="approved"
