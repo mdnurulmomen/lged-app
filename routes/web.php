@@ -516,6 +516,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('get-audit-apotti', [AuditAIRReportController::class, 'getAuditApotti'])->name('get-audit-apotti');
 
             Route::post('get-approval-authority', [AuditAIRReportMovementController::class, 'loadApprovalAuthority'])->name('get-approval-authority');
+            Route::post('get-cag-authority', [AuditAIRReportMovementController::class, 'loadCagAuthority'])->name('get-cag-authority');
             Route::post('store-air-movement', [AuditAIRReportMovementController::class, 'store'])->name('store-air-movement');
 
             //for qac01

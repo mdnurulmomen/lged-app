@@ -29,16 +29,16 @@
             </div>
         </div>
         <div class="row mt-2 mb-2">
-            <div class="col-md-3">
-                <select class="form-select select-select2" id="cost_center_filter">
-                    <option value="">কস্ট সেন্টার/ইউনিট বাছাই করুন</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <select class="form-select select-select2" id="team_filter">
-                    <option value="">দল বাছাই করুন</option>
-                </select>
-            </div>
+{{--            <div class="col-md-3">--}}
+{{--                <select class="form-select select-select2" id="cost_center_filter">--}}
+{{--                    <option value="">কস্ট সেন্টার/ইউনিট বাছাই করুন</option>--}}
+{{--                </select>--}}
+{{--            </div>--}}
+{{--            <div class="col-md-3">--}}
+{{--                <select class="form-select select-select2" id="team_filter">--}}
+{{--                    <option value="">দল বাছাই করুন</option>--}}
+{{--                </select>--}}
+{{--            </div>--}}
             <div class="col-md-3">
                 <button id="btn_filter" onclick="Apotti_Container.loadApottiList()" class="btn btn-sm btn-outline-primary btn-square" type="button">
                     <i class="fad fa-search"></i> অনুসন্ধান
@@ -58,6 +58,7 @@
 
 <script>
     $(function () {
+        office_id = '{{$office_id}}';
         fiscal_year_id = $('#fiscal_year_id').val();
         team_filter = $('#team_filter').val();
         cost_center_id = $('#cost_center_filter').val();
@@ -80,7 +81,7 @@
         },
         loadActivityWiseAuditPlan: function (fiscal_year_id,activity_id) {
             let url = '{{route('audit.plan.operational.activity.audit-plan')}}';
-            let data = {fiscal_year_id,activity_id};
+            let data = {fiscal_year_id,activity_id,office_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)

@@ -15,8 +15,10 @@ class AuditExecutionApottiController extends Controller
      */
     public function index()
     {
+
+        $office_id = $this->current_office_id();
         $fiscal_years = $this->allFiscalYears();
-        return view('modules.audit_execution.audit_execution_apotti.index',compact('fiscal_years'));
+        return view('modules.audit_execution.audit_execution_apotti.index',compact('fiscal_years','office_id'));
     }
 
     public function loadApottiList(Request $request){

@@ -225,10 +225,11 @@
 
     var QAC_Apotti_List_Container = {
         loadAIREdit: function (elem) {
+            office_id = $('#directorate_filter').val();
             url = '{{route('audit.report.air.qac.edit-air-report')}}';
             qac_type = elem.data('qac-type');
             air_report_id = elem.data('air-report-id');
-            data = {qac_type,air_report_id};
+            data = {qac_type,air_report_id,office_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

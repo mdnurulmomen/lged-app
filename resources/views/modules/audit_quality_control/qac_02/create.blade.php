@@ -35,6 +35,16 @@
                 @endif
             @endif
 
+                @if($approved_status == 'approved')
+                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
+                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
+                                    title="প্রাপক বাছাই করুন"
+                                    onclick="QAC_AIR_Report_Container.loadCagAuthority()">
+                                <i class="fad fa-paper-plane"></i> সিকিউএটি এর জন্য প্রেরণ করুন
+                        </button>
+                    @endif
+                @endif
+
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
                     data-air-id="{{$air_report_id}}"
                     onclick="QAC_AIR_Report_Container.previewAirReport($(this))">
@@ -42,11 +52,13 @@
             </button>
 
             @if($approved_status != 'approved')
-                <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
-                        data-air-id="{{$air_report_id}}"
-                        onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
-                    <i class="fas fa-save"></i> Update
-                </button>
+                @if( $latest_receiver_designation_id == $current_designation_id)
+                    <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
+                            data-air-id="{{$air_report_id}}"
+                            onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
+                        <i class="fas fa-save"></i> Update
+                    </button>
+                @endif
             @endif
         </div>
     </div>
@@ -188,6 +200,34 @@
 
             loadApprovalAuthority: function () {
                 url = '{{route('audit.report.air.get-approval-authority')}}';
+                air_report_id = '{{$air_report_id}}';
+                air_type = '{{$qac_type}}';
+                data = {air_report_id,air_type};
+
+                KTApp.block('.content', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
+
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('.content');
+                    if (response.status === 'error') {
+                        toastr.error('No data found');
+                    } else {
+                        $(".offcanvas-title").text('');
+                        quick_panel = $("#kt_quick_panel");
+                        quick_panel.addClass('offcanvas-on');
+                        quick_panel.css('opacity', 1);
+                        quick_panel.css('width', '40%');
+                        quick_panel.removeClass('d-none');
+                        $("html").addClass("side-panel-overlay");
+                        $(".offcanvas-wrapper").html(response);
+                    }
+                });
+            },
+
+            loadCagAuthority: function () {
+                url = '{{route('audit.report.air.get-cag-authority')}}';
                 air_report_id = '{{$air_report_id}}';
                 air_type = '{{$qac_type}}';
                 data = {air_report_id,air_type};

@@ -82,6 +82,7 @@ class AuditQACAIRReportController extends Controller
     {
         $data = Validator::make($request->all(), [
             'air_report_id' => 'required|integer',
+            'office_id' => 'required|integer',
         ])->validate();
 
         $cdeskData = $this->current_desk_json();
