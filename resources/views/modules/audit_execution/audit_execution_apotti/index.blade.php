@@ -1,7 +1,6 @@
 <div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
-
             <div class="col-md-3">
                 <select class="form-select select-select2" id="fiscal_year_id">
                     @foreach($fiscal_years as $fiscal_year)

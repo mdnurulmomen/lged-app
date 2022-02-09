@@ -200,7 +200,7 @@ class AuditQACAIRReportController extends Controller
         $requestData['cdesk'] =$this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_qac_apotti'), $requestData)->json();
         $apottis = isSuccess($responseData)?$responseData['data']:[];
-        //dd($apottis);
+//        print_r($apottis);
         $qac_type = $request->qac_type;
         if ($request->apotti_view_scope == 'summary'){
             return view('modules.audit_quality_control.qac_01.partials.load_audit_apottis_summary',compact('apottis','qac_type'));

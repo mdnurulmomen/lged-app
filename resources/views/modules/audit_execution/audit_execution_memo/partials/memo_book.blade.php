@@ -5,6 +5,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     {{--    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>--}}
     <style>
+        @page  {
+            margin-top: 2.54cm;
+            margin-right: 2cm;
+            margin-bottom: 2cm;
+            margin-left: 2.80cm;
+        }
+
         html {
             -ms-text-size-adjust: 100%;
             -webkit-text-size-adjust: 100%;
@@ -805,18 +812,19 @@
         <br>
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">অডিট মেমো নং-{{enTobn($memoInfo['onucched_no'])}}</div>
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">
-            শিরোনামঃ {{$memoInfo['memo_title_bn']}}
+            <p style="font-weight: bold;margin-bottom: 1px">শিরোনামঃ</p>
+            {{$memoInfo['memo_title_bn']}}
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
-            <span style="font-weight: bold">বিবরণঃ</span>
+            <p style="font-weight: bold;margin-bottom: 1px">বিবরণঃ</p>
             {!! $memoInfo['memo_description_bn'] !!}
         </div>
 
         @if($memoInfo['irregularity_cause'])
             <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-                <span style="font-weight: bold">অডিটি প্রতিষ্ঠানের জবাবঃ</span>
-                {{$memoInfo['response_of_rpu']}}
+                <span style="font-weight: bold">অনিয়মের কারণঃ</span>
+                {{$memoInfo['irregularity_cause']}}
             </div>
         @endif
 
@@ -826,18 +834,14 @@
 
         @if($memoInfo['irregularity_cause'])
             <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
-                <span style="font-weight: bold">অনিয়মের কারণঃ</span>
-                {{$memoInfo['irregularity_cause']}}
+                <span style="font-weight: bold">অডিটি প্রতিষ্ঠানের জবাবঃ</span>
+                {{$memoInfo['response_of_rpu']}}
             </div>
         @endif
         <br><br>
         <table width="100%" style="color: black">
             <tr>
-                <td class="bangla-font" width="33%" style="text-align: left">
-                    <br><br>
-                    <p style="margin: 0">{{$memoInfo['rpu_acceptor_designation_name_bn']}}</p>
-                    <p>{{$memoInfo['cost_center_name_bn']}}</p>
-                </td>
+                <td class="bangla-font" width="33%" style="text-align: left"></td>
                 <td class="bangla-font" width="33%" style="text-align: left"></td>
                 <td class="bangla-font" width="33%" style="text-align: center">
                     @if($memoInfo['issued_by'] == 'sub_team_leader')
@@ -850,6 +854,17 @@
                         <p>{{$directorateName}}</p>
                     @endif
                 </td>
+            </tr>
+        </table>
+        <table width="100%" style="color: black">
+            <tr>
+                <td class="bangla-font" width="33%" style="text-align: left">
+                    <br><br>
+                    <p style="margin: 0">{{$memoInfo['rpu_acceptor_designation_name_bn']}}</p>
+                    <p>{{$memoInfo['cost_center_name_bn']}}</p>
+                </td>
+                <td class="bangla-font" width="33%" style="text-align: left"></td>
+                <td class="bangla-font" width="33%" style="text-align: center"></td>
             </tr>
         </table>
         <br>
@@ -865,7 +880,7 @@
         @if($memoInfo['memo_cc'])
             <table class="bangla-font" width="100%" style="color: black">
                 <tr>
-                    <td style="padding-left: 10px;padding-bottom: 10px">সদয় অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য:-</td>
+                    <td style="padding-bottom: 10px;">সদয় অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য:-</td>
                 </tr>
                 <tr>
                     <td>

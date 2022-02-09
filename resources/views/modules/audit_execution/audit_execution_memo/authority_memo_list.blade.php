@@ -7,7 +7,7 @@
                         <option value="all">Select Directorate</option>
                     @endif
                     @foreach($directorates as $directorate)
-                        <option value="{{$directorate['office_id']}}">{{$directorate['office_name_en']}}</option>
+                        <option value="{{$directorate['office_id']}}">{{$directorate['office_name_bn']}}</option>
                     @endforeach
                 </select>
             </div>

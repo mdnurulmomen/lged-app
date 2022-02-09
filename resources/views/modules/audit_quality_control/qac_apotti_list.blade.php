@@ -19,20 +19,21 @@
                     </a>
                 @endif
 
-                <a data-qac-type="{{$qac_type}}"
-                   data-air-report-id="{{$responseData['rAirInfo']['id']}}"
-                   onclick="QAC_Apotti_List_Container.createQacReport($(this))"
-                   class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
-                    <i class="fa fa-file-text" aria-hidden="true"></i>
-                    @if($qac_type == 'qac-1')
-                        কিউএসি-১ রিপোর্ট
-                    @elseif($qac_type == 'qac-2')
-                        কিউএসি-২ রিপোর্ট
-                    @elseif($qac_type == 'cqat')
-                        সিকিউএটি রিপোর্ট
-                    @endif
-
-                </a>
+                @if($responseData['rAirInfo']['qac_committee'])
+                    <a data-qac-type="{{$qac_type}}"
+                       data-air-report-id="{{$responseData['rAirInfo']['id']}}"
+                       onclick="QAC_Apotti_List_Container.createQacReport($(this))"
+                       class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
+                        <i class="fa fa-file-text" aria-hidden="true"></i>
+                        @if($qac_type == 'qac-1')
+                            কিউএসি-১ রিপোর্ট
+                        @elseif($qac_type == 'qac-2')
+                            কিউএসি-২ রিপোর্ট
+                        @elseif($qac_type == 'cqat')
+                            সিকিউএটি রিপোর্ট
+                        @endif
+                    </a>
+                @endif
 
                 @if($qac_type == 'qac-1' && $responseData['rAirInfo']['r_air_child']['status']=='approved')
                     @if($responseData['rAirInfo']['r_air_child']['is_sent']== 0)
@@ -166,18 +167,20 @@
                             </button>
                     @else
                         @if(empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement']) || $responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_designation_id'] == $current_designation_id)
-                            <button class="btn btn-sm btn-primary btn-square mr-1" title="QAC-01"
-                                    data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
-                                    data-is-delete="{{$apotti['apotti_map_data']['is_delete']}}"
-                                    data-final-status="{{$apotti['apotti_map_data']['final_status']}}"
-                                    data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
-                                    data-qac-type="{{$qac_type}}"
-                                    onclick="Qac_Container.qacApotti($(this))">
-                                @if(!empty($apotti['apotti_map_data']['apotti_status']))
-                                    <i class="fa fa-check"></i>
-                                @endif
-                                {{strtoupper($qac_type)}}
-                            </button>
+                            @if($responseData['rAirInfo']['qac_committee'])
+                                <button class="btn btn-sm btn-primary btn-square mr-1" title="QAC-01"
+                                        data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                                        data-is-delete="{{$apotti['apotti_map_data']['is_delete']}}"
+                                        data-final-status="{{$apotti['apotti_map_data']['final_status']}}"
+                                        data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
+                                        data-qac-type="{{$qac_type}}"
+                                        onclick="Qac_Container.qacApotti($(this))">
+                                    @if(!empty($apotti['apotti_map_data']['apotti_status']))
+                                        <i class="fa fa-check"></i>
+                                    @endif
+                                    {{strtoupper($qac_type)}}
+                                </button>
+                            @endif
 
                             <button class="mr-1 btn btn-sm btn-primary btn-square" title="সম্পাদন করুন"
                                     data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
