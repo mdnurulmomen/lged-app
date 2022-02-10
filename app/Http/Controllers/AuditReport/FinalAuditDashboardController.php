@@ -5,32 +5,18 @@ namespace App\Http\Controllers\AuditReport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AuditFinalReportController extends Controller
+class FinalAuditDashboardController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-
     public function index()
     {
-        $qac_type = 'cqat';
-        $qac_type_name_bn = 'সিকিউএটি';
-
-        $scope = 'final';
-
-        $all_directorates = $this->allAuditDirectorates();
-
-        $self_directorate = current(array_filter($all_directorates, function ($item) {
-            return $this->current_office_id() == $item['office_id'];
-        }));
-
-        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
-
-        $fiscal_years = $this->allFiscalYears();
-
-        return view('modules.audit_quality_control.qac',compact('fiscal_years','directorates','qac_type','qac_type_name_bn','scope'));
+        $this->userPermittedMenusByModule(request()->path());
+        return view('modules.audit_report.audit_final_report.page');
     }
 
     /**

@@ -57,11 +57,13 @@
             </button>
 
             @if($approved_status != 'approved')
-                <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
-                        data-air-id="{{$air_report_id}}"
-                        onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
-                    <i class="fas fa-save"></i> Update
-                </button>
+                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
+                    <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
+                            data-air-id="{{$air_report_id}}"
+                            onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
+                        <i class="fas fa-save"></i> Update
+                    </button>
+                @endif
             @endif
         </div>
     </div>
@@ -105,7 +107,7 @@
     <script>
         $(function () {
             let approved_status = '{{$approved_status}}';
-            if (approved_status != 'approved'){
+            if (approved_status != 'approved') {
                 $(".update-qac-air-report").click();
                 QAC_AIR_Report_Container.insertAuditTeam();
                 QAC_AIR_Report_Container.insertAuditApottiSummary('sfi');
@@ -117,7 +119,7 @@
         });
 
         var QAC_AIR_Report_Container = {
-            setJsonContentFromPlanBook:function () {
+            setJsonContentFromPlanBook: function () {
                 templateArray.map(function (value, index) {
                     cover = $("#pdfContent_" + value.content_id).html();
                     value.content = cover;
@@ -128,7 +130,7 @@
                 url = '{{route('audit.report.air.qac.update-air-report')}}';
                 air_id = elem.data('air-id');
                 air_description = JSON.stringify(templateArray);
-                data = {air_id,air_description};
+                data = {air_id, air_description};
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'success') {
                         toastr.success('AIR Book Saved Successfully');
@@ -158,7 +160,7 @@
 
             previewAirReport: function () {
                 let approved_status = '{{$approved_status}}';
-                if (approved_status != 'approved'){
+                if (approved_status != 'approved') {
                     $('.update-qac-air-report').click();
                 }
                 air_description = templateArray;
@@ -191,15 +193,14 @@
                 qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'summary';
                 air_id = '{{$air_report_id}}';
-                let data = {qac_type,apotti_view_scope,air_id,apotti_type};
+                let data = {qac_type, apotti_view_scope, air_id, apotti_type};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.error(response.data);
                     } else {
-                        if (apotti_type == 'sfi'){
+                        if (apotti_type == 'sfi') {
                             $('.audit_sfi_apotti_summary').html(response);
-                        }
-                        else if(apotti_type == 'non-sfi'){
+                        } else if (apotti_type == 'non-sfi') {
                             $('.audit_non_sfi_apotti_summary').html(response);
                         }
                         QAC_AIR_Report_Container.setJsonContentFromPlanBook();
@@ -213,15 +214,14 @@
                 qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'details';
                 air_id = '{{$air_report_id}}';
-                let data = {qac_type,apotti_view_scope,air_id,apotti_type};
+                let data = {qac_type, apotti_view_scope, air_id, apotti_type};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.error(response.data);
                     } else {
-                        if (apotti_type == 'sfi'){
+                        if (apotti_type == 'sfi') {
                             $('.audit_sfi_apotti_details').html(response);
-                        }
-                        else if(apotti_type == 'non-sfi'){
+                        } else if (apotti_type == 'non-sfi') {
                             $('.audit_non_sfi_apotti_details').html(response);
                         }
                         QAC_AIR_Report_Container.setJsonContentFromPlanBook();
@@ -233,7 +233,7 @@
                 url = '{{route('audit.report.air.get-approval-authority')}}';
                 air_report_id = '{{$air_report_id}}';
                 air_type = '{{$qac_type}}';
-                data = {air_report_id,air_type};
+                data = {air_report_id, air_type};
 
                 KTApp.block('.content', {
                     opacity: 0.1,

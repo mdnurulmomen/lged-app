@@ -15,7 +15,6 @@ class AuditQacController extends Controller
      */
     public function index($qac_type)
     {
-        //dd($qac_type);
         if($qac_type=='qac-1'){
             $qac_type_name_bn = 'কিউএসি ১';
         }elseif ($qac_type=='qac-2'){
@@ -25,6 +24,8 @@ class AuditQacController extends Controller
         }else{
             $qac_type_name_bn = '';
         }
+
+        $scope = '';
 
         $all_directorates = $this->allAuditDirectorates();
 
@@ -37,7 +38,7 @@ class AuditQacController extends Controller
         $fiscal_years = $this->allFiscalYears();
 
         return view('modules.audit_quality_control.qac',compact('fiscal_years',
-            'qac_type','qac_type_name_bn','directorates'));
+            'qac_type','qac_type_name_bn','directorates','scope'));
     }
 
     public function loadApottiQacList(Request $request){
@@ -63,6 +64,7 @@ class AuditQacController extends Controller
 
     public function loadAirWiseApottiList(Request $request){
         $qac_type = $request->qac_type;
+        $scope = $request->scope;
         $requestData['office_id'] = $request->office_id;
         $requestData['qac_type'] = $qac_type;
         $requestData['air_id'] = $request->air_id;
@@ -71,7 +73,7 @@ class AuditQacController extends Controller
         $responseData = isSuccess($responseData)?$responseData['data']:[];
         $current_designation_id = $this->current_designation_id();
         return view('modules.audit_quality_control.qac_apotti_list',compact('responseData',
-            'qac_type','current_designation_id'));
+            'qac_type','current_designation_id','scope'));
     }
 
     public function qacCommittee($qac_type){

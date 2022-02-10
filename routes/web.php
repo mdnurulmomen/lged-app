@@ -488,6 +488,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('settlement-review', [\App\Http\Controllers\AuditFollowup\AuditFollowupSettlementReviewController::class, 'index'])->name('settlement_review');
     });
 
+    Route::group(['as' => 'audit.final-report.', 'prefix' => 'final-audit-report/'], function () {
+        Route::get('/', function () {
+            return redirect()->route('audit.final-report.dashboard');
+        });
+        Route::get('dashboard', [\App\Http\Controllers\AuditReport\FinalAuditDashboardController::class, 'index'])->name('dashboard');
+        Route::get('index', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'index'])->name('index');
+    });
     //Report
     Route::group(['as' => 'audit.report.', 'prefix' => 'audit-report/'], function () {
         Route::get('/', function () {

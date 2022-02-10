@@ -66,10 +66,13 @@ class AuditQACAIRReportController extends Controller
         $data = Validator::make($request->all(), [
             'air_report_id' => 'required|integer',
             'apotti_id' => 'required',
+            'office_id' => 'required',
         ])->validate();
         $data['final_status'] = $request->final_status;
+        $data['qac_type'] = 'cqat';
         //$data['comments'] = $request->comments;
         $data['cdesk'] = $this->current_desk_json();
+//        dd($data);
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.apotti_final_approval'), $data)->json();
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
@@ -163,7 +166,11 @@ class AuditQACAIRReportController extends Controller
             elseif ($qac_type == 'cqat'){
                 $cqatData['template_type'] = 'cqat_report';
                 $cqatData['cdesk'] = $cdeskData;
+                $desk_office_id = json_decode($cdeskData,true);
+                $desk_office_id = $desk_office_id['office_id'];
+//                dd($desk_office_id);
                 $office_id = $request->office_id;
+                $scope = $request->scope;
                 $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $cqatData)->json();
                 //dd($responseReportTemplateData);
                 if (isSuccess($responseReportTemplateData)) {
@@ -178,7 +185,7 @@ class AuditQACAIRReportController extends Controller
                     return view('modules.audit_quality_control.cqat.create',
                         compact('content','audit_plan_entities','air_report_id',
                             'approved_status','latest_receiver_designation_id','current_designation_id',
-                            'is_sent','is_received','qac_type','office_id'));
+                            'is_sent','is_received','qac_type','office_id','scope','desk_office_id'));
                 }
             }else{
                 return view('modules.audit_quality_control.qac_01.edit',

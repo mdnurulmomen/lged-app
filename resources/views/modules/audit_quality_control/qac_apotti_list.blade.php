@@ -4,10 +4,17 @@
             <div class="col-md-12">
 
                 <a data-qac-type="{{$qac_type}}"
+                   data-scope="{{$scope}}"
                    data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                    onclick="QAC_Apotti_List_Container.loadAIREdit($(this))"
-                   class="mr-1 btn btn-sm {{$responseData['rAirInfo']['r_air_child']['status']=='approved'?'btn-outline-primary':'btn-outline-danger'}} btn-square" href="javascript:;">
+                   class="mr-1 btn btn-sm {{$responseData['rAirInfo']['r_air_child']['status']=='approved'?'btn-outline-primary':'btn-outline-danger'}} btn-square"
+                   href="javascript:;">
                     <i class="far fa-book"></i> {{$qac_type == 'qac-1'?'এআইআর':'রিপোর্ট'}} বিস্তারিত
+                    @if($responseData['rAirInfo']['r_air_child']['status']=='approved')
+                        <span class="text-success">(অনুমোদিত)</span>
+                    @else
+                        <span class="text-danger">(অননুমোদিত)</span>
+                    @endif
                 </a>
 
                 @if(!$responseData['rAirInfo']['qac_committee'])
@@ -15,7 +22,7 @@
                        data-air-report-id="{{$responseData['rAirInfo']['id']}}"
                        onclick="QAC_Apotti_List_Container.selectCommittee($(this))"
                        class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
-                        <i class="far fa-users"></i>  কমিটি বাছাই করুন
+                        <i class="far fa-users"></i> কমিটি বাছাই করুন
                     </a>
                 @endif
 
@@ -38,7 +45,7 @@
                 @if($qac_type == 'qac-1' && $responseData['rAirInfo']['r_air_child']['status']=='approved')
                     @if($responseData['rAirInfo']['r_air_child']['is_sent']== 0)
                         <button data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
-                            class="btn btn-sm btn-square btn-primary btn-hover-primary air_sent_responsible_party"
+                                class="btn btn-sm btn-square btn-primary btn-hover-primary air_sent_responsible_party"
                                 onclick="QAC_Apotti_List_Container.airSendToRpu($(this))">
                             <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টিকে প্রেরণ করুন
                         </button>
@@ -53,9 +60,11 @@
                     @endif
                 @endif
 
-                <span class="text-warning ml-2 mt-2">
-                    {{empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement'])?'':'('.$responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_designation_bn'].' এর কাছে প্রেরণ করা হয়েছে)'}}
-                </span>
+                @if($responseData['rAirInfo']['r_air_child']['status']!='approved')
+                    <span class="text-warning ml-2 mt-2">
+                        {{empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement'])?'':'('.$responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_designation_bn'].' এর কাছে প্রেরণ করা হয়েছে)'}}
+                    </span>
+                @endif
             </div>
         </div>
     </div>
@@ -112,21 +121,21 @@
             </td>
             <td class="text-left">
 
-                    @foreach($apotti['apotti_map_data']['apotti_status'] as $apotti_status)
-                        @if($apotti_status['qac_type'] == 'qac-1')
-                            @if($apotti_status['apotti_type'] == 'draft')
-                                রিপোর্ট ভুক্তির জন্য প্রস্তাবকৃত এসএফআই
-                            @elseif($apotti_status['apotti_type'] == 'approved')
-                                রিপোর্ট ভুক্তির জন্য চূড়ান্তকৃত এসএফআই
-                            @elseif($apotti_status['apotti_type'] == 'sfi')
-                                এসএফআই
-                            @elseif($apotti_status['apotti_type'] == 'non-sfi')
-                                নন-এসএফআই
-                            @elseif($apotti_status['apotti_type'] == 'reject')
-                                প্রত্যাহার
-                            @endif
+                @foreach($apotti['apotti_map_data']['apotti_status'] as $apotti_status)
+                    @if($apotti_status['qac_type'] == 'qac-1')
+                        @if($apotti_status['apotti_type'] == 'draft')
+                            রিপোর্ট ভুক্তির জন্য প্রস্তাবকৃত এসএফআই
+                        @elseif($apotti_status['apotti_type'] == 'approved')
+                            রিপোর্ট ভুক্তির জন্য চূড়ান্তকৃত এসএফআই
+                        @elseif($apotti_status['apotti_type'] == 'sfi')
+                            এসএফআই
+                        @elseif($apotti_status['apotti_type'] == 'non-sfi')
+                            নন-এসএফআই
+                        @elseif($apotti_status['apotti_type'] == 'reject')
+                            প্রত্যাহার
                         @endif
-                    @endforeach
+                    @endif
+                @endforeach
             </td>
             @if($qac_type == 'qac-2' || $qac_type == 'cqat')
                 <td class="text-left">
@@ -157,14 +166,14 @@
 
                 @if($responseData['rAirInfo']['r_air_child']['status'] != 'approved')
                     @if($qac_type == 'cqat')
-                            <button type="button" class="ml-1 btn btn-sm btn-primary btn-square"
-                                    title="চূড়ান্ত করুন"
-                                    data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
-                                    data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
-                                    data-final-approval-status="approved"
-                                    onclick="QAC_Apotti_List_Container.apottiFinalApproval($(this))">
-                                চূড়ান্ত করুন
-                            </button>
+                        <button type="button" class="ml-1 btn btn-sm btn-primary btn-square"
+                                title="চূড়ান্ত করুন"
+                                data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                                data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
+                                data-final-approval-status="approved"
+                                onclick="QAC_Apotti_List_Container.apottiFinalApproval($(this))">
+                            চূড়ান্ত করুন
+                        </button>
                     @else
                         @if(empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement']) || $responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_designation_id'] == $current_designation_id)
                             @if($responseData['rAirInfo']['qac_committee'])
@@ -181,15 +190,15 @@
                                     {{strtoupper($qac_type)}}
                                 </button>
                             @endif
-
-                            <button class="mr-1 btn btn-sm btn-primary btn-square" title="সম্পাদন করুন"
-                                    data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
-                                    onclick="Qac_Container.editApotti($(this))">
-                                <i class="fad fa-pencil"></i> সম্পাদন
-                            </button>
                         @endif
                     @endif
                 @endif
+
+                <button class="mr-1 btn btn-sm btn-primary btn-square" title="সম্পাদন করুন"
+                        data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
+                        onclick="Qac_Container.editApotti($(this))">
+                    <i class="fad fa-pencil"></i> সম্পাদন
+                </button>
             </td>
         </tr>
     @empty
@@ -202,21 +211,21 @@
 <script>
 
     //select all checkboxes
-    $("#selectAll").change(function(){
+    $("#selectAll").change(function () {
         var status = this.checked;
-        $('.select-apotti').each(function(){
+        $('.select-apotti').each(function () {
             if (!$(this).is(':disabled')) {
                 this.checked = status;
             }
         });
     });
 
-    $('.select-apotti').change(function(){
-        if(this.checked == false){
+    $('.select-apotti').change(function () {
+        if (this.checked == false) {
             $("#selectAll")[0].checked = false;
         }
 
-        if ($('.select-apotti:checked').length == $('.select-apotti').length ){
+        if ($('.select-apotti:checked').length == $('.select-apotti').length) {
             $("#selectAll")[0].checked = true;
             $("#selectAll")[0].addClass('checkbox-disabled');
         }
@@ -229,7 +238,8 @@
             url = '{{route('audit.report.air.qac.edit-air-report')}}';
             qac_type = elem.data('qac-type');
             air_report_id = elem.data('air-report-id');
-            data = {qac_type,air_report_id,office_id};
+            scope = elem.data('scope');
+            data = {qac_type, air_report_id, office_id, scope};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -252,7 +262,7 @@
             url = '{{route('audit.report.air.qac.load-apotti-delete-view')}}';
             air_report_id = elem.data('air-report-id');
             apotti_id = elem.data('apotti-id');
-            data = {air_report_id,apotti_id};
+            data = {air_report_id, apotti_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -287,22 +297,24 @@
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_content');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
                         toastr.success(response.data);
+                        $('#btn_filter').click();
                         $('.air_sent_responsible_party').hide();
                     }
                 }
             );
         },
 
-        apottiFinalApproval: function (elem){
+        apottiFinalApproval: function (elem) {
             air_report_id = elem.data('air-report-id');
             apotti_id = elem.data('apotti-id');
             final_status = elem.data('final-approval-status');
-            data = {air_report_id,apotti_id,final_status};
+            office_id = $('#directorate_filter').val();
+            data = {air_report_id, apotti_id, final_status,office_id};
             let url = '{{route('audit.report.air.qac.apotti-final-approval-status')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
@@ -322,7 +334,7 @@
             // air_id = $('#preliminary_air_filter').val();
 
             let url = '{{route('audit.qac.create-qac-report')}}';
-            let data = {air_id,qac_type};
+            let data = {air_id, qac_type};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -354,7 +366,7 @@
             $.ajax({
                 type: 'POST',
                 url: url,
-                data: {qac_type,air_id,scope},
+                data: {qac_type, air_id, scope},
                 xhrFields: {
                     responseType: 'blob'
                 },
@@ -382,7 +394,7 @@
             qac_type = elem.data('qac-type');
             fiscal_year_id = $('#fiscal_year_id').val();
 
-            data = {air_report_id,fiscal_year_id,qac_type};
+            data = {air_report_id, fiscal_year_id, qac_type};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

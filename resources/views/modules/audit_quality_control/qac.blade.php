@@ -1,5 +1,5 @@
-
 <input type="hidden" id="qac_type" value="{{$qac_type}}">
+<input type="hidden" id="scope" value="{{$scope}}">
 <div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
@@ -305,6 +305,9 @@
                     toastr.error(response.data)
                 } else {
                     toastr.success(response.data);
+                    $("#kt_quick_panel_close").click();
+                    $("#btn_filter").click();
+
                 }
             });
         },
@@ -314,8 +317,9 @@
         qac_type = $('#qac_type').val();
         air_id = $('#preliminary_air_filter').val();
         office_id = $('#directorate_filter').val();
+        scope = $('#scope').val();
         let url = '{{route('audit.qac.air-wise-apotti')}}';
-        let data = {air_id,qac_type,office_id};
+        let data = {air_id,qac_type,office_id,scope};
 
         KTApp.block('#kt_content', {
             opacity: 0.1,

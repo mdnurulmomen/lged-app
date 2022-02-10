@@ -155,9 +155,9 @@
             );
         },
 
-        loadMemoList: function (directorate_id, fiscal_year_id, cost_center_id, team_id ,memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end) {
+        loadMemoList: function (directorate_id, fiscal_year_id,entity_id, cost_center_id, team_id ,memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end) {
             let url = '{{route('audit.execution.memo.load-authority-memo-list')}}';
-            let data = {directorate_id, fiscal_year_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end};
+            let data = {directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
@@ -253,9 +253,10 @@
         fiscal_year_id = $('#fiscal_year_id').val();
         team_filter = $('#team_filter').val();
         cost_center_id = $('#cost_center_filter').val();
+        entity_id = $('#entity_filter').val();
 
         if (directorate_id !== 'all') {
-            Authority_Memo_Container.loadMemoList(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+            Authority_Memo_Container.loadMemoList(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
             Authority_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
         } else {
             toastr.info('Please select directorate.')

@@ -25,25 +25,47 @@
             </div>
         </div>
         <div class="col-md-6 text-right">
-            @if($approved_status != 'approved')
+
+
+            @if($scope == 'final')
                 @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
                     <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
                             title="প্রাপক বাছাই করুন"
                             onclick="QAC_AIR_Report_Container.loadCagAuthority()">
-                        <i class="fad fa-paper-plane"></i> প্রেরণ করুন
+                        <i class="fad fa-paper-plane"></i> {{$desk_office_id == 1 ? 'নিজ অফিসে প্রেরণ করুন' : 'সিএজিতে প্রেরণ করুন' }}
                     </button>
                 @endif
-            @endif
+
+                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
+                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
+                            title=" অধিদপ্তর প্রেরণ করুন"
+                            onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
+                        <i class="fad fa-paper-plane"></i> {{$desk_office_id == 1 ? 'অধিদপ্তর প্রেরণ' : 'নিজ অফিসে প্রেরণ করুন' }}
+                    </button>
+                @endif
+            @else
+                @if($approved_status != 'approved')
+                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
+                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
+                                title="প্রাপক বাছাই করুন"
+                                onclick="QAC_AIR_Report_Container.loadCagAuthority()">
+                            <i class="fad fa-paper-plane"></i> প্রেরণ করুন
+                        </button>
+                    @endif
+                @endif
 
                 @if($approved_status == 'approved')
                     @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
                         <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
                                 title=" অধিদপ্তর প্রেরণ করুন"
                                 onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
-                            <i class="fad fa-paper-plane"></i> অধিদপ্তর প্রেরণ করুন
+                            <i class="fad fa-paper-plane"></i> @if($scope == 'final') প্রেরণ করুন  @else  অধিদপ্তর প্রেরণ
+                            করুন @endif
                         </button>
                     @endif
                 @endif
+            @endif
+
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
                     data-air-id="{{$air_report_id}}"
@@ -52,11 +74,13 @@
             </button>
 
             @if($approved_status != 'approved')
-                <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
-                        data-air-id="{{$air_report_id}}"
-                        onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
-                    <i class="fas fa-save"></i> Update
-                </button>
+                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
+                    <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
+                            data-air-id="{{$air_report_id}}"
+                            onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
+                        <i class="fas fa-save"></i> Update
+                    </button>
+                @endif
             @endif
         </div>
     </div>
@@ -100,7 +124,7 @@
     <script>
         $(function () {
             let approved_status = '{{$approved_status}}';
-            if (approved_status != 'approved'){
+            if (approved_status != 'approved') {
                 $(".update-qac-air-report").click();
                 QAC_AIR_Report_Container.insertAuditApottiSummary();
                 QAC_AIR_Report_Container.insertAuditApottiDetails();
@@ -109,7 +133,7 @@
         });
 
         var QAC_AIR_Report_Container = {
-            setJsonContentFromPlanBook:function () {
+            setJsonContentFromPlanBook: function () {
                 templateArray.map(function (value, index) {
                     cover = $("#pdfContent_" + value.content_id).html();
                     value.content = cover;
@@ -120,7 +144,7 @@
                 url = '{{route('audit.report.air.qac.update-air-report')}}';
                 air_id = elem.data('air-id');
                 air_description = JSON.stringify(templateArray);
-                data = {air_id,air_description};
+                data = {air_id, air_description};
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'success') {
                         toastr.success('Audit Report Saved Successfully');
@@ -133,12 +157,12 @@
 
             previewAirReport: function () {
                 let approved_status = '{{$approved_status}}';
-                if (approved_status != 'approved'){
+                if (approved_status != 'approved') {
                     $('.update-qac-air-report').click();
                 }
                 air_description = templateArray;
                 scope = 'preview';
-                data = {scope,air_description};
+                data = {scope, air_description};
                 url = '{{route('audit.report.air.final-report.preview')}}';
 
                 KTApp.block('#kt_content', {
@@ -168,7 +192,7 @@
                 qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'summary';
                 air_id = '{{$air_report_id}}';
-                let data = {qac_type,apotti_view_scope,air_id};
+                let data = {qac_type, apotti_view_scope, air_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.error(response.data);
@@ -185,7 +209,7 @@
                 qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'details';
                 air_id = '{{$air_report_id}}';
-                let data = {qac_type,apotti_view_scope,air_id};
+                let data = {qac_type, apotti_view_scope, air_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.error(response.data);
@@ -202,7 +226,7 @@
                 air_type = '{{$qac_type}}';
                 office_id = '{{$office_id}}';
                 // alert(office_id);
-                data = {air_report_id,air_type,office_id};
+                data = {air_report_id, air_type, office_id};
 
                 KTApp.block('.content', {
                     opacity: 0.1,
