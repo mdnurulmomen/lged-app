@@ -767,7 +767,7 @@
 <body>
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
-        <x-office-header-details/>
+{{--        <x-office-header-details/>--}}
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
             <span style="font-weight: bold; color: black;">{!! str_repeat('&nbsp;',1) !!} {{$mail_data['subject']}}</span>
         </div>
