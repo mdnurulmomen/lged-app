@@ -44,6 +44,8 @@ class FireNotificationServices
                 if (isSuccess($send_mail, 'status', 'error')) {
                     throw new \Exception($send_mail['message']);
                 }
+
+                \Log::info('MAIL SENT SUCCESSFUL: ' . $data['notifiable_type']);
                 return response()->json(responseFormat('success', 'Successfully Sent Mail'));
             }
         } catch (\Exception $exception) {
