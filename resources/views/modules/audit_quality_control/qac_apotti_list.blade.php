@@ -45,6 +45,7 @@
                 @if($qac_type == 'qac-1' && $responseData['rAirInfo']['r_air_child']['status']=='approved')
                     @if($responseData['rAirInfo']['r_air_child']['is_sent']== 0)
                         <button data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                                data-entity-ids="{{is_array($entity_ids) ? implode(',',$entity_ids) : $entity_ids}}"
                                 class="btn btn-sm btn-square btn-primary btn-hover-primary air_sent_responsible_party"
                                 onclick="QAC_Apotti_List_Container.airSendToRpu($(this))">
                             <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টিকে প্রেরণ করুন
@@ -289,7 +290,8 @@
         airSendToRpu: function (elem) {
             let url = '{{route('audit.report.air.air-send-to-rpu')}}';
             air_id = elem.data('air-report-id');
-            let data = {air_id};
+            entity_ids = elem.data('entity-ids')
+            let data = {air_id, entity_ids};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -314,7 +316,7 @@
             apotti_id = elem.data('apotti-id');
             final_status = elem.data('final-approval-status');
             office_id = $('#directorate_filter').val();
-            data = {air_report_id, apotti_id, final_status,office_id};
+            data = {air_report_id, apotti_id, final_status, office_id};
             let url = '{{route('audit.report.air.qac.apotti-final-approval-status')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {

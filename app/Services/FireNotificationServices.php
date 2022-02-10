@@ -34,8 +34,8 @@ class FireNotificationServices
                     $mail_data['subject'] = 'You Have Received Audit Memo';
                     $content = view('email.memo_email_template', compact('mail_data'))->render();
                 } elseif ($data['notifiable_type'] == 'air') {
-                    $mail_data['subject'] = 'You Have Received Audit Memo';
-                    $content = view('email.memo_email_template', compact('mail_data'))->render();
+                    $mail_data['subject'] = 'You Have Received AIR';
+                    $content = view('email.air_email_template', compact('mail_data'))->render();
                 }
 
                 $data['mail_subject'] = $mail_data['subject'];
