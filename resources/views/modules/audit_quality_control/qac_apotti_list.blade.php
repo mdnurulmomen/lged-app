@@ -221,7 +221,11 @@
                                         data-qac-type="{{$qac_type}}"
                                         onclick="Qac_Container.qacApotti($(this))">
                                     @if(!empty($apotti['apotti_map_data']['apotti_status']))
-                                        <i class="fa fa-check"></i>
+                                        @foreach($apotti['apotti_map_data']['apotti_status'] as $apotti_status)
+                                            @if($apotti_status['qac_type'] == $qac_type)
+                                                <i class="fa fa-check"></i>
+                                            @endif
+                                        @endforeach
                                     @endif
                                     {{strtoupper($qac_type)}}
                                 </button>

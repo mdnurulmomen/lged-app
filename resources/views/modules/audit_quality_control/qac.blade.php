@@ -288,12 +288,6 @@
                     toastr.success(response.data);
                     $('#kt_quick_panel_close').click();
                     $('#btn_filter').click();
-                    /*if(qac_type == 'qac-1'){
-                        $('.qac_1_menu a').trigger('click');
-                    }else{
-                        $('.qac_2_menu a').trigger('click');
-                    }*/
-
                 }
             });
         },

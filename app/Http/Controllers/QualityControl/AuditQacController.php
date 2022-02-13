@@ -273,7 +273,6 @@ class AuditQacController extends Controller
 
     public function createQacReport(Request $request)
     {
-//        dd($request->all());
         $qac_type = $request->qac_type;
         $air_id = $request->air_id;
         $scope = $request->scope;
@@ -300,11 +299,7 @@ class AuditQacController extends Controller
             $directorateWebsite = 'www.cad.org.bd';
         }
 
-//        dd($responseData);
-
         if ($request->scope == 'pdf') {
-//            return view('modules.audit_quality_control.qac_apotti_report',compact('responseData',
-//                'qac_type','committeeData'));
             $pdf = \PDF::loadView('modules.audit_quality_control.qac_apotti_report', ['responseData' => $responseData, 'committeeData' => $committeeData, 'qac_type' => $qac_type, 'scope' => $scope, 'directorateName' => $directorateName, 'directorateAddress' => $directorateAddress, 'directorateWebsite' => $directorateWebsite], [], ['orientation' => 'L', 'format' => 'A4']);
             return $pdf->stream('qac_report.pdf');
         } else {
@@ -316,32 +311,32 @@ class AuditQacController extends Controller
 
     }
 
-    public function exportQacReport(Request $request)
-    {
-        $qac_type = $request->qac_type;
-        $requestData['qac_type'] = $qac_type;
-        $requestData['air_id'] = $request->air_id;
-
-        $requestData['cdesk'] = $this->current_desk_json();
-
-        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_audit_apotti_list'), $requestData)->json();
-        $committee = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.get_air_wise_committee'), $requestData)->json();
-
-        $responseData = isSuccess($responseData) ? $responseData['data'] : [];
-        $committeeData = isSuccess($committee) ? $committee['data'] : [];
-//        dd($responseData);
-        $current_designation_id = $this->current_designation_id();
-        return view('modules.audit_quality_control.qac_apotti_report', compact('responseData',
-            'qac_type', 'current_designation_id', 'committeeData'));
-
-        if (isSuccess($plan_infos)) {
-            $plan_infos = $plan_infos['data'];
-            $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos, 'directorate_address' => $directorate_address], [], ['orientation' => 'L', 'format' => 'A4']);
-            return $pdf->stream('annual_plan.pdf');
-        } else {
-            return response()->json(['status' => 'error', 'data' => $plan_infos]);
-        }
-    }
+//    public function exportQacReport(Request $request)
+//    {
+//        $qac_type = $request->qac_type;
+//        $requestData['qac_type'] = $qac_type;
+//        $requestData['air_id'] = $request->air_id;
+//
+//        $requestData['cdesk'] = $this->current_desk_json();
+//
+//        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_audit_apotti_list'), $requestData)->json();
+//        $committee = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.get_air_wise_committee'), $requestData)->json();
+//
+//        $responseData = isSuccess($responseData) ? $responseData['data'] : [];
+//        $committeeData = isSuccess($committee) ? $committee['data'] : [];
+////        dd($responseData);
+//        $current_designation_id = $this->current_designation_id();
+//        return view('modules.audit_quality_control.qac_apotti_report', compact('responseData',
+//            'qac_type', 'current_designation_id', 'committeeData'));
+//
+//        if (isSuccess($plan_infos)) {
+//            $plan_infos = $plan_infos['data'];
+//            $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos, 'directorate_address' => $directorate_address], [], ['orientation' => 'L', 'format' => 'A4']);
+//            return $pdf->stream('annual_plan.pdf');
+//        } else {
+//            return response()->json(['status' => 'error', 'data' => $plan_infos]);
+//        }
+//    }
 
     public function qacApotti(Request $request)
     {
@@ -380,8 +375,12 @@ class AuditQacController extends Controller
             'cdesk' => $this->current_desk_json(),
             'apotti_type' => $request->apotti_type,
             'qac_type' => $request->qac_type,
+            'is_audit_criteria' => $request->is_audit_criteria ?? 0,
+            'is_5w_pera_model' => $request->is_5w_pera_model ?? 0,
+            'is_apotti_evidence' => $request->is_apotti_evidence ?? 0,
             'is_same_porishisto' => $request->is_same_porishisto ?? 0,
             'is_rules_and_regulation' => $request->is_rules_and_regulation ?? 0,
+            'is_criteria_same_as_irregularity' => $request->is_criteria_same_as_irregularity ?? 0,
             'is_imperfection' => $request->is_imperfection ?? 0,
             'is_risk_analysis' => $request->is_risk_analysis ?? 0,
             'is_broadsheet_response' => empty($request->is_broadsheet_response) ? 0 : $request->is_broadsheet_response,
