@@ -297,7 +297,7 @@ class AuditExecutionMemoController extends Controller
             ];
             $send_mail_to_rpu = (new FireNotificationServices())->sendMailToRpu($mail_data);
 
-            return response()->json(['status' => 'success', 'data' => 'Memo has been sent to RPU successfully']);
+            return response()->json(['status' => 'success', 'data' => 'রেসপন্সিবল পার্টি বরাবর মেমো সফলভাবে পাঠানো হয়েছে']);
         } else {
             return response()->json(['status' => 'error', 'data' => $memoSendToRpu]);
         }
