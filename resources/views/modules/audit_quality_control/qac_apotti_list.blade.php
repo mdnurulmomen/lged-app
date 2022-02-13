@@ -66,6 +66,15 @@
                         {{empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement'])?'':'('.$responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_designation_bn'].' এর কাছে প্রেরণ করা হয়েছে)'}}
                     </span>
                 @endif
+
+                @if($qac_type == 'cqat')
+                    <a data-qac-type="{{$qac_type}}"
+                       data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                       onclick="QAC_Apotti_List_Container.ApprovedCqatForm($(this))"
+                       class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
+                         সিকিউএটি সম্পন্ন করুন
+                    </a>
+                @endif
             </div>
         </div>
     </div>
@@ -78,7 +87,7 @@
             অনুচ্ছেদ নং
         </th>
 
-        <th width="37%" class="text-left">
+        <th width="20%" class="text-left">
             শিরোনাম
         </th>
 
@@ -86,13 +95,19 @@
             জড়িত অর্থ (টাকা)
         </th>
 
-        <th width="12%" class="text-left">
+        <th width="10%" class="text-left">
             {{$qac_type == 'qac-1' ? 'ক্যাটাগরি' : 'কিউএসি ১ এর সিদ্ধান্ত'}}
         </th>
 
         @if($qac_type == 'qac-2' || $qac_type == 'cqat')
-            <th width="12%" class="text-left">
+            <th width="10%" class="text-left">
                 কিউএসি ২ এর সিদ্ধান্ত
+            </th>
+        @endif
+
+        @if($qac_type == 'cqat')
+            <th width="10%" class="text-left">
+                সিকিউএটি এর সিদ্ধান্ত
             </th>
         @endif
 
@@ -158,6 +173,26 @@
                 </td>
             @endif
 
+            @if($qac_type == 'cqat')
+                <td class="text-left">
+                    @foreach($apotti['apotti_map_data']['apotti_status'] as $apotti_status)
+                        @if($apotti_status['qac_type'] == 'cqat')
+                            @if($apotti_status['apotti_type'] == 'draft')
+                                রিপোর্ট ভুক্তির জন্য প্রস্তাবকৃত এসএফআই
+                            @elseif($apotti_status['apotti_type'] == 'approved')
+                                রিপোর্ট ভুক্তির জন্য গৃহীত এসএফআই
+                            @elseif($apotti_status['apotti_type'] == 'sfi')
+                                এসএফআই
+                            @elseif($apotti_status['apotti_type'] == 'non-sfi')
+                                নন-এসএফআই
+                            @elseif($apotti_status['apotti_type'] == 'reject')
+                                প্রত্যাহার
+                            @endif
+                        @endif
+                    @endforeach
+                </td>
+            @endif
+
             <td class="text-left">
                 <button class="mr-1 btn btn-sm btn-primary btn-square" title="বিস্তারিত দেখুন"
                         data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
@@ -168,12 +203,12 @@
                 @if($responseData['rAirInfo']['r_air_child']['status'] != 'approved')
                     @if($qac_type == 'cqat')
                         <button type="button" class="ml-1 btn btn-sm btn-primary btn-square"
-                                title="চূড়ান্ত করুন"
+                                title="গৃহীত"
                                 data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                                 data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
                                 data-final-approval-status="approved"
                                 onclick="QAC_Apotti_List_Container.apottiFinalApproval($(this))">
-                            চূড়ান্ত করুন
+                            <i class="fa fa-arrow-down-to-square"></i> গৃহীত করুন
                         </button>
                     @else
                         @if(empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement']) || $responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_designation_id'] == $current_designation_id)
@@ -418,6 +453,53 @@
                     $(".offcanvas-wrapper").html(response);
                 }
             })
+        },
+
+        ApprovedCqatForm:function (elem){
+
+            air_report_id = elem.data('air-report-id');
+            qac_type = elem.data('qac-type');
+
+            $(".offcanvas-title").text('সিকিউএটি সম্পন্ন করুন');
+
+            quick_panel = $("#kt_quick_panel");
+            quick_panel.addClass('offcanvas-on');
+            quick_panel.css('opacity', 1);
+            quick_panel.css('width', '40%');
+            quick_panel.removeClass('d-none');
+            $("html").addClass("side-panel-overlay");
+
+            data = {air_report_id,qac_type}
+
+            let url = '{{route('audit.qac.cqat-done-form')}}';
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
+        ApprovedCqat:function (elem){
+
+            data = $('#cqat_done_form').serializeArray();
+
+            office_id = $('#directorate_filter').val();
+
+            data.push({name: "office_id", value: office_id});
+            let url = '{{route('audit.qac.cqat-done-submit')}}';
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    toastr.success(response.data);
+                    $('#kt_quick_panel_close').click();
+                    $('#btn_filter').click();
+                }
+            });
         },
     };
 </script>

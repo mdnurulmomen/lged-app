@@ -134,6 +134,72 @@ class AuditQacController extends Controller
         }
     }
 
+    public function editQacCommittee(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'qac_committee_id' => 'required|integer',
+            'title_bn' => 'required',
+        ])->validate();
+
+//        dd($data);
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.get_qac_committee_wise_member'), $data)->json();
+
+//        dd($response);
+
+        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
+
+        if (isSuccess($response)) {
+            $member_list = $response['data'];
+            $qac_committee_id = $request->qac_committee_id;
+            $title_bn = $request->title_bn;
+            return view('modules.audit_quality_control.qac_committee.edit_qac_committee', compact('member_list','qac_committee_id','title_bn','officer_lists'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response['data']]);
+        }
+    }
+
+    public function updateQacCommittee(Request $request){
+        $data = Validator::make($request->all(), [
+            'committee_id' => 'required',
+            'member_info' => 'required',
+            'title' => 'required',
+        ])->validate();
+
+//        dd($data);
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.update_qac_committee'), $data)->json();
+
+        if (isSuccess($response)) {
+            $response = $response['data'];
+            return response()->json(['status' => 'success', 'data' => $response]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }
+    }
+
+
+    public function deleteQacCommittee(Request $request){
+        $data = Validator::make($request->all(), [
+            'committee_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = $this->current_desk_json();
+        $data['office_id'] = $this->current_office_id();
+
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.delete_qac_committee'), $data)->json();
+
+        if (isSuccess($response)) {
+            $response = $response['data'];
+            return response()->json(['status' => 'success', 'data' => $response]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }
+    }
+
     public function selectQacCommitteeForm(Request $request)
     {
         $data = Validator::make($request->all(), [
@@ -334,6 +400,40 @@ class AuditQacController extends Controller
             return response()->json(['status' => 'success', 'data' => $apotti_submit]);
         } else {
             return response()->json(['status' => 'error', 'data' => $apotti_submit]);
+        }
+    }
+
+    public function cqatDoneForm(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'air_report_id' => 'required|integer',
+            'qac_type' => 'required',
+        ])->validate();
+
+        return view('modules.audit_quality_control.cqat_done_form', $data);
+
+    }
+
+    public function cqatDoneSubmit(Request $request){
+        $data = Validator::make($request->all(), [
+            'office_id' => 'required|integer',
+            'air_id' => 'required|integer',
+            'qac_type' => 'required',
+            'approved_date' => 'required',
+            'comment' => 'string',
+        ])->validate();
+
+//        dd($data);
+
+        $data['status'] = 'approved';
+        $data['cdesk'] = $this->current_desk_json();
+
+        $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.update_qac_air_report'), $data)->json();
+
+        if (isSuccess($saveAirReport)) {
+            return response()->json(['status' => 'success', 'data' => 'সিকিউএটি সফলভাবে সম্পন্ন হয়েছে']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $saveAirReport]);
         }
     }
 

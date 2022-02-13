@@ -129,28 +129,25 @@
                                 <!--begin::Info-->
                                 <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-4">
                                     <div>
-{{--                                        <div class="action-group">--}}
+                                        <div class="action-group">
 {{--                                            <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"--}}
 {{--                                                    data-annual-plan-id=""--}}
 {{--                                                    onclick="">--}}
 {{--                                                <i class="fad fa-eye"></i> বিস্তারিত--}}
 {{--                                            </button>--}}
-{{--                                                <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"--}}
-{{--                                                        data-annual-plan-id=""--}}
-{{--                                                        data-fiscal-year-id=""--}}
-{{--                                                        data-op-audit-calendar-event-id=""--}}
-{{--                                                        onclick="">--}}
-{{--                                                    <i class="fad fa-edit"></i> সম্পাদনা--}}
-{{--                                                </button>--}}
-{{--                                                <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="সম্পাদনা করুন"--}}
-{{--                                                        data-annual-plan-id=""--}}
-{{--                                                        data-fiscal-year-id=""--}}
-{{--                                                        data-op-audit-calendar-event-id=""--}}
-{{--                                                        onclick="">--}}
-{{--                                                    <i class="fad fa-trash"></i> বাতিল করুন--}}
-{{--                                                </button>--}}
+                                                <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
+                                                        data-committee-id="{{$committee['id']}}"
+                                                        data-committee-title-bn="{{$committee['title_bn']}}"
+                                                        onclick="Qac_Committee_Container.editQacCommittee($(this))">
+                                                    <i class="fad fa-edit"></i> সম্পাদনা
+                                                </button>
+                                                <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="সম্পাদনা করুন"
+                                                        data-committee-id="{{$committee['id']}}"
+                                                        onclick="Qac_Committee_Container.deleteQacCommittee($(this))">
+                                                    <i class="fad fa-trash"></i> বাতিল করুন
+                                                </button>
 
-{{--                                        </div>--}}
+                                        </div>
                                         <div>
                                             <div class="mb-2 mt-3">
                                                 <div>
