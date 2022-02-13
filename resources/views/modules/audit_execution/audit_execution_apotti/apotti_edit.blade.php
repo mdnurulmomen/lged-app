@@ -113,7 +113,7 @@
 
     $('#selected_onucched').change(function (){
         apotti_item_id = $(this).val();
-        Apotti_Container.loadApottiItemInfo(apotti_item_id);
+        Qac_Container.loadApottiItemInfo(apotti_item_id);
     });
 </script>
 
