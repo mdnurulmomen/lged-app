@@ -36,8 +36,14 @@
                 @endif
 
                 @if($report['is_printing_done'])
-                    <span class="label label-outline-warning label-pill label-inline">
+                    <span class="label label-outline-success label-pill label-inline">
                       মুদ্রণ সম্পন্ন হয়েছে
+                    </span>
+                @endif
+
+                @if($report['latest_r_air_movement'])
+                    <span class="label label-outline-warning label-pill label-inline">
+                      {{$report['latest_r_air_movement']['receiver_employee_designation_bn']}} এর কাছে প্রেরণ করা হয়েছে
                     </span>
                 @endif
 

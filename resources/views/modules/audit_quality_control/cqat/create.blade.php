@@ -27,44 +27,44 @@
         <div class="col-md-6 text-right">
 
 
-            @if($scope == 'final')
-                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
-                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
-                            title="প্রাপক বাছাই করুন"
-                            onclick="QAC_AIR_Report_Container.loadCagAuthority()">
-                        <i class="fad fa-paper-plane"></i> {{$desk_office_id == 1 ? 'নিজ অফিসে প্রেরণ করুন' : 'সিএজিতে প্রেরণ করুন' }}
-                    </button>
-                @endif
+{{--            @if($scope == 'final')--}}
+{{--                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)--}}
+{{--                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"--}}
+{{--                            title="প্রাপক বাছাই করুন"--}}
+{{--                            onclick="QAC_AIR_Report_Container.loadCagAuthority()">--}}
+{{--                        <i class="fad fa-paper-plane"></i> {{$desk_office_id == 1 ? 'নিজ অফিসে প্রেরণ করুন' : 'সিএজিতে প্রেরণ করুন' }}--}}
+{{--                    </button>--}}
+{{--                @endif--}}
 
-                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
-                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
-                            title=" অধিদপ্তর প্রেরণ করুন"
-                            onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
-                        <i class="fad fa-paper-plane"></i> {{$desk_office_id == 1 ? 'অধিদপ্তর প্রেরণ' : 'নিজ অফিসে প্রেরণ করুন' }}
-                    </button>
-                @endif
-            @else
-                @if($approved_status != 'approved')
-                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
-                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
-                                title="প্রাপক বাছাই করুন"
-                                onclick="QAC_AIR_Report_Container.loadCagAuthority()">
-                            <i class="fad fa-paper-plane"></i> প্রেরণ করুন
-                        </button>
-                    @endif
-                @endif
+{{--                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)--}}
+{{--                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"--}}
+{{--                            title=" অধিদপ্তর প্রেরণ করুন"--}}
+{{--                            onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">--}}
+{{--                        <i class="fad fa-paper-plane"></i> {{$desk_office_id == 1 ? 'অধিদপ্তর প্রেরণ' : 'নিজ অফিসে প্রেরণ করুন' }}--}}
+{{--                    </button>--}}
+{{--                @endif--}}
+{{--            @else--}}
+{{--                @if($approved_status != 'approved')--}}
+{{--                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)--}}
+{{--                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"--}}
+{{--                                title="প্রাপক বাছাই করুন"--}}
+{{--                                onclick="QAC_AIR_Report_Container.loadCagAuthority()">--}}
+{{--                            <i class="fad fa-paper-plane"></i> প্রেরণ করুন--}}
+{{--                        </button>--}}
+{{--                    @endif--}}
+{{--                @endif--}}
 
-                @if($approved_status == 'approved')
-                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
-                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
-                                title=" অধিদপ্তর প্রেরণ করুন"
-                                onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
-                            <i class="fad fa-paper-plane"></i> @if($scope == 'final') প্রেরণ করুন  @else  অধিদপ্তর প্রেরণ
-                            করুন @endif
-                        </button>
-                    @endif
-                @endif
-            @endif
+{{--                @if($approved_status == 'approved')--}}
+{{--                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)--}}
+{{--                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"--}}
+{{--                                title=" অধিদপ্তর প্রেরণ করুন"--}}
+{{--                                onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">--}}
+{{--                            <i class="fad fa-paper-plane"></i> @if($scope == 'final') প্রেরণ করুন  @else  অধিদপ্তর প্রেরণ--}}
+{{--                            করুন @endif--}}
+{{--                        </button>--}}
+{{--                    @endif--}}
+{{--                @endif--}}
+{{--            @endif--}}
 
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info"

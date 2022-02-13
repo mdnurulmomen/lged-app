@@ -185,8 +185,6 @@
             qac_committee_id = element.data('committee-id');
             title_bn = element.data('committee-title-bn');
 
-            alert(title_bn);
-
             let url = '{{route('audit.qac.edit-qac-committee')}}'
 
             data = {qac_committee_id,title_bn};
@@ -214,22 +212,34 @@
         },
 
         deleteQacCommittee: function (element){
-            committee_id = element.data('committee-id');
-            data = {committee_id};
-            let url = '{{route('audit.qac.delete-qac-committee')}}'
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'error') {
-                    toastr.error(response.data);
-                } else {
-                    if(response.data == 'exist'){
-                        toastr.warning('এই কমিটির এ আই আর রয়েছে');
-                    }else{
-                        toastr.success(response.data);
-                        Qac_Committee_Container.loadCommittee();
-                    }
+            swal.fire({
+                title: 'আপনি কি তথ্যটি মুছে ফেলতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    committee_id = element.data('committee-id');
+                    data = {committee_id};
+                    let url = '{{route('audit.qac.delete-qac-committee')}}'
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        if (response.status === 'error') {
+                            toastr.error(response.data);
+                        } else {
+                            if(response.data == 'exist'){
+                                toastr.warning('এই কমিটির এ আই আর রয়েছে');
+                            }else{
+                                toastr.success(response.data);
+                                Qac_Committee_Container.loadCommittee();
+                            }
 
+                        }
+                    });
                 }
             });
+
         },
     };
 
