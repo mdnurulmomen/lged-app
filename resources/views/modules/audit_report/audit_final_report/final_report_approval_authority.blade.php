@@ -40,12 +40,14 @@
         <form id="approval_authority_form">
             <input type="hidden" name="r_air_id" value="{{$air_report_id}}">
             <input type="hidden" name="air_type" value="{{$air_type}}">
+            <input type="hidden" name="office_id" value="{{$office_id}}">
+            <input type="hidden" name="approval_type" value="directorate">
 
             <ul class="d-none select_approval_authority"></ul>
 
             <div class="form-group mt-4">
-                <label class="col-form-label" for="status">স্ট্যাটাস</label>
-                <select name="status" class="form-control select-select2" id="status">
+                <label class="col-form-label" for="approval_status">স্ট্যাটাস</label>
+                <select name="approval_status" class="form-control select-select2" id="status">
                     <option value="draft">Draft</option>
                     <option value="pending" selected>Pending</option>
                     <option value="approved">Approved</option>
@@ -112,12 +114,8 @@
 
     var Air_Movement_Container = {
         store: function () {
-            url = '{{route('audit.report.air.store-air-movement')}}';
-            office_id = '{{$office_id}}'
-            // alert(office_id);
-            data = $('#approval_authority_form').serializeArray();
-            data.push({name: "office_id", value: office_id});
-
+            url = '{{route('audit.final-report.submit-final-approval')}}';
+            data = $('#approval_authority_form').serialize();
             KTApp.block('#kt_content', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
@@ -130,10 +128,6 @@
                     $('#kt_quick_panel_close').click();
                     $(".load_approval_authority").hide();
                     $(".update-qac-air-report").hide();
-                    let air_type = '{{$air_type}}'
-                    if(air_type === 'preliminary'){
-                        AIR_Container.loadAuditPlanList();
-                    }
                 }
                 else {
                     toastr.error(response.data.message);

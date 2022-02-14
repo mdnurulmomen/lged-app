@@ -123,11 +123,73 @@
             })
         },
 
+        updateQacCommittee: function (elem) {
 
-        showApotti: function (element) {
-            url = '{{route('audit.execution.apotti.onucched-show')}}'
-            apotti_id = element.data('apotti-id');
-            data = {apotti_id};
+            url = '{{route('audit.qac.update-qac-committee')}}';
+
+            data = $('#qac_committee_form').serializeArray();
+
+            member_info = {}
+
+            $(".selected_member").each(function () {
+                member_data = JSON.parse($(this).val());
+
+                member_info[member_data.officer_id] = {
+                    officer_id: member_data.officer_id,
+                    officer_bn: member_data.officer_bn,
+                    officer_en: member_data.officer_en,
+                    officer_unit_id: member_data.officer_unit_id,
+                    officer_unit_bn: member_data.officer_unit_bn,
+                    officer_unit_en: member_data.officer_unit_en,
+                    officer_designation_grade: member_data.officer_designation_grade,
+                    officer_designation_id: member_data.officer_designation_id,
+                    officer_designation_bn: member_data.officer_designation_bn,
+                    officer_designation_en: member_data.officer_designation_en,
+                }
+            });
+
+            member_info = JSON.stringify(member_info);
+            data.push({name: "member_info", value: member_info});
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'success') {
+                    toastr.success(response.data);
+                    $('#kt_quick_panel_close').click();
+                    Qac_Committee_Container.loadCommittee();
+                } else {
+                    if (response.statusCode === '422') {
+                        var errors = response.msg;
+                        $.each(errors, function (k, v) {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        });
+                    } else {
+                        toastr.error(response.data.message);
+                    }
+                }
+            })
+        },
+
+        removeMember: function (member_id, node_id) {
+            $('#selected_member_li_' + member_id).remove();
+            // $('.entity_' + entity_id).remove();
+            // $("#selected_entity").find('option[value="' + entity_id + '"]').remove();
+            //
+            // if ($('#rp_auditee_parent_offices').jstree(true)) {
+            //     $("#rp_auditee_parent_offices").jstree("uncheck_node", node_id);
+            // }
+        },
+
+        editQacCommittee: function (element){
+            qac_committee_id = element.data('committee-id');
+            title_bn = element.data('committee-title-bn');
+
+            alert(title_bn);
+
+            let url = '{{route('audit.qac.edit-qac-committee')}}'
+
+            data = {qac_committee_id,title_bn};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -139,11 +201,11 @@
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".offcanvas-title").text('বিস্তারিত');
+                    $(".offcanvas-title").text('কমিটি গঠন করুন');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
-                    quick_panel.css('width', '60%');
+                    quick_panel.css('width', '80%');
                     quick_panel.removeClass('d-none');
                     $("html").addClass("side-panel-overlay");
                     $(".offcanvas-wrapper").html(response);
@@ -151,15 +213,21 @@
             });
         },
 
-        editApotti: function (element){
-            apotti_id = element.data('apotti-id');
-            data = {apotti_id};
-            let url = '{{route('audit.execution.apotti.edit-apotti')}}'
+        deleteQacCommittee: function (element){
+            committee_id = element.data('committee-id');
+            data = {committee_id};
+            let url = '{{route('audit.qac.delete-qac-committee')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
-                    toastr.error(response.data)
+                    toastr.error(response.data);
                 } else {
-                    $("#kt_content").html(response);
+                    if(response.data == 'exist'){
+                        toastr.warning('এই কমিটির এ আই আর রয়েছে');
+                    }else{
+                        toastr.success(response.data);
+                        Qac_Committee_Container.loadCommittee();
+                    }
+
                 }
             });
         },

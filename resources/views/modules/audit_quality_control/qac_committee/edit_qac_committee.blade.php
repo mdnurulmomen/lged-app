@@ -39,16 +39,39 @@
     <div class="col-md-1"></div>
     <div class="col-md-5 card">
         <form  id="qac_committee_form">
-            <input type="text" class="form-control mt-2" name="title" placeholder="কমিটি নাম">
+            <input type="hidden" name="committee_id" value="{{$qac_committee_id}}">
+            <input type="text" class="form-control mt-2" name="title" value="{{$title_bn}}" placeholder="কমিটি নাম">
             <h5 class="text-primary mt-2"><u>সদস্যের তালিকাঃ</u></h5>
-            <ul class="select_member p-0"></ul>
+            <ul class="select_member p-0">
+                @foreach($member_list as $member)
+                    <li id="selected_member_li_{{$member['id']}}"
+                        style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;"
+                        draggable="true" ondragend="dragEnd()" ondragover="dragOver(event)"
+                        ondragstart="dragStart(event)">
+
+                        <span id="remove_member_{{$member['id']}}"
+                              data-member-id="{{$member['id']}}"
+                              onclick="Qac_Committee_Container.removeMember({{$member['id']}},0)"
+                              style="cursor:pointer;color:red;">
+                            <i class="fas fa-trash-alt text-danger pr-2"></i>
+                        </span>
+
+                        <span>{{$member['officer_bn']}}<span>
+
+                        </span>
+                            <input class="selected_member" id="selected_member_{{$member['id']}}" type="hidden" value="{{json_encode($member)}}">
+                        </span>
+                    </li>
+                @endforeach
+            </ul>
         </form>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
         <button class="btn btn-sm btn-square btn-outline-primary float-right mt-2 mr-20"
-                onclick="Qac_Committee_Container.submitQacCommittee($(this))"><i class="fa fa-save"></i> সংরক্ষণ
+                data-committee-id="{{$qac_committee_id}}"
+                onclick="Qac_Committee_Container.updateQacCommittee($(this))"><i class="fa fa-save"></i> সংরক্ষণ
         </button>
     </div>
 </div>
@@ -85,7 +108,7 @@
 
 
         var newRow = '<li id="selected_member_li_' + officer_info.officer_id + '"  style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +
-            '<span id="remove_member_'+officer_info.officer_id + '" data-member-id="'+ officer_info.officer_id + '" onclick="Qac_Committee_Container.removeMember('+ officer_info.officer_id + ',0)" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
+            // '<span  onclick="" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
             '<span>'+ officer_info.officer_name_bn +'<span/>' +
             '<input class="selected_member" id="selected_member_'+ officer_info.officer_id + '"  type="hidden"/>' +
             '</li>';

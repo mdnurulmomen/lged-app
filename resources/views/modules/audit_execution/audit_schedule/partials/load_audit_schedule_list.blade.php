@@ -96,7 +96,9 @@
                                         <span class="mr-2 font-size-1-1">এনটিটি/প্রতিষ্ঠানঃ</span>
                                         <span class="font-size-14">
                                             {{$schedule['entity_name_bn']}}
-                                        </span>
+                                            <span  class="label label-outline-warning label-pill label-inline">
+                                                প্ল্যান - {{$schedule['audit_plan_id']}}</span>
+
                                     </div>
 
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">

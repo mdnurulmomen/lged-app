@@ -40,12 +40,14 @@
         <form id="approval_authority_form">
             <input type="hidden" name="r_air_id" value="{{$air_report_id}}">
             <input type="hidden" name="air_type" value="{{$air_type}}">
+            <input type="hidden" name="office_id" value="{{$office_id}}">
+            <input type="hidden" name="approval_type" value="cag">
 
             <ul class="d-none select_approval_authority"></ul>
 
             <div class="form-group mt-4">
-                <label class="col-form-label" for="status">স্ট্যাটাস</label>
-                <select name="status" class="form-control select-select2" id="status">
+                <label class="col-form-label" for="final_approval_status">স্ট্যাটাস</label>
+                <select name="final_approval_status" class="form-control select-select2" id="status">
                     <option value="draft">Draft</option>
                     <option value="pending" selected>Pending</option>
                     <option value="approved">Approved</option>
@@ -112,7 +114,7 @@
 
     var Air_Movement_Container = {
         store: function () {
-            url = '{{route('audit.report.air.store-air-movement')}}';
+            url = '{{route('audit.final-report.submit-final-approval')}}';
             data = $('#approval_authority_form').serialize();
 
             KTApp.block('#kt_content', {
@@ -125,11 +127,8 @@
                 if (response.status === 'success') {
                     toastr.success('সফলভাবে প্রেরণ করা হয়েছে');
                     $('#kt_quick_panel_close').click();
-                    $(".load_approval_authority").hide();
-                    let air_type = '{{$air_type}}'
-                    if(air_type === 'preliminary'){
-                        AIR_Container.loadAuditPlanList();
-                    }
+                    $(".load_cag_approval_authority").hide();
+                    $(".update-qac-air-report").hide();
                 }
                 else {
                     toastr.error(response.data.message);

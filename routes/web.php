@@ -442,10 +442,15 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('get-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'getQacCommitteeList'])->name('qac-committee-list');
         Route::post('create-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'createQacCommittee'])->name('create-qac-committee');
         Route::post('store-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'storeQacCommittee'])->name('store-qac-committee');
+        Route::post('edit-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'editQacCommittee'])->name('edit-qac-committee');
+        Route::post('update-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'updateQacCommittee'])->name('update-qac-committee');
+        Route::post('delete-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'deleteQacCommittee'])->name('delete-qac-committee');
         Route::post('select-qac-committee-form', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'selectQacCommitteeForm'])->name('select-qac-committee-form');
         Route::post('get-qac-committee-wise-members', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'getQacCommitteeWiseMembers'])->name('get-qac-committee-wise-members');
         Route::post('submit-air-wise-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'submitAirWiseCommittee'])->name('submit-air-wise-committee');
         Route::post('create-qac-report', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'createQacReport'])->name('create-qac-report');
+        Route::post('cqat-done-form', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'cqatDoneForm'])->name('cqat-done-form');
+        Route::post('cqat-done-submit', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'cqatDoneSubmit'])->name('cqat-done-submit');
     });
 
     //Followup
@@ -494,6 +499,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         });
         Route::get('dashboard', [\App\Http\Controllers\AuditReport\FinalAuditDashboardController::class, 'index'])->name('dashboard');
         Route::get('index', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'index'])->name('index');
+        Route::post('get-audit-final-report', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'getAuditFinalReport'])->name('get-audit-final-report');
+        Route::post('create-audit-final-report', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'editAuditFinalReport'])->name('edit-audit-final-report');
+        Route::post('get-final-approval-authority', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'loadFinalApprovalAuthority'])->name('get-final-approval-authority');
+        Route::post('submit-final-apporval', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'submitFinalApproval'])->name('submit-final-approval');
+        Route::post('final-report-status-update', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportStatusUpdate'])->name('final-report-status-update');
     });
     //Report
     Route::group(['as' => 'audit.report.', 'prefix' => 'audit-report/'], function () {

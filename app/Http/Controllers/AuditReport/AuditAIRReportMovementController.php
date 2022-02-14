@@ -108,6 +108,7 @@ class AuditAIRReportMovementController extends Controller
 
     public function loadCagAuthority(Request $request)
     {
+        $office_id = $request->office_id;
         $air_report_id = $request->air_report_id;
         $air_type= $request->air_type;
         $data['r_air_id'] = $air_report_id;
@@ -124,6 +125,6 @@ class AuditAIRReportMovementController extends Controller
         $officer_lists = $officer_lists['status'] == 'success'?$officer_lists['data']:[];
 //        dd($officer_lists);
         //$officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
-        return view('modules.audit_report.air_generate.partials.load_cag_authority',compact('officer_lists','air_report_id','last_air_movement','air_type'));
+        return view('modules.audit_report.air_generate.partials.load_cag_authority',compact('officer_lists','air_report_id','last_air_movement','air_type','office_id'));
     }
 }

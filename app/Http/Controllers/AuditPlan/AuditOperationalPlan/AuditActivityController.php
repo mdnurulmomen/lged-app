@@ -252,6 +252,9 @@ class AuditActivityController extends Controller
             'fiscal_year_id' => 'required|integer',
             'activity_id' => 'required|integer',
             'office_id' => 'required|integer',
+        ],[
+            'office_id.integer' => 'অধিদপ্তর বাছাই করুন',
+            'activity_id.required' => 'অ্যাক্টিভিটি বাছাই করুন'
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
