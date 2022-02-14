@@ -255,6 +255,8 @@
             // Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
             Team_Calendar_Container.loadEntityList(directorate_id, fiscal_year_id);
             // Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id);
+            Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+            Team_Calendar_Container.getTotalWeeklyQueryAndMemo(directorate_id, fiscal_year_id, cost_center_id, team_filter);
         } else {
             toastr.info('Please select directorate.')
             $('#load_team_calendar').html('');
