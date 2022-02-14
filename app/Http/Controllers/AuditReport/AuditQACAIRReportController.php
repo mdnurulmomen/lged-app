@@ -17,6 +17,7 @@ class AuditQACAIRReportController extends Controller
             'air_description' => 'required',
         ])->validate();
         $data['air_id'] = $request->air_id;
+        $data['office_id'] = $request->office_id;
         $data['air_description'] = makeEncryptedData(gzcompress($request->air_description));
         $data['cdesk'] = $this->current_desk_json();
         $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.update_qac_air_report'), $data)->json();

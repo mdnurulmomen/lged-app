@@ -129,7 +129,8 @@
                 url = '{{route('audit.report.air.qac.update-air-report')}}';
                 air_id = elem.data('air-id');
                 air_description = JSON.stringify(templateArray);
-                data = {air_id, air_description};
+                office_id = '{{$office_id}}';
+                data = {air_id, air_description,office_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'success') {
                         toastr.success('Audit Report Saved Successfully');
