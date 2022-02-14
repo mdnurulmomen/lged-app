@@ -26,11 +26,13 @@
         </div>
         <div class="col-md-6 text-right">
                 @if($desk_office_id == 1 && $current_designation_grade == 1)
-                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_cag_approval_authority"
-                            title="অনুমোদন করুন"
-                            onclick="QAC_AIR_Report_Container.loadCagFinalApproval()">
-                        <i class="fad fa-paper-plane"></i> অনুমোদন করুন
-                    </button>
+                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
+                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_cag_approval_authority"
+                                    title="অনুমোদন করুন"
+                                    onclick="QAC_AIR_Report_Container.loadCagFinalApproval()">
+                                <i class="fad fa-paper-plane"></i> অনুমোদন করুন
+                        </button>
+                    @endif
                 @else
                     @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
                         <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_cag_approval_authority"
