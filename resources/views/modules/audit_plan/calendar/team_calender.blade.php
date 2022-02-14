@@ -53,7 +53,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-xl-12">
+    <div class="col-xl-3">
         <!--begin::Tiles Widget 2-->
         <div class="card card-custom bg-info gutter-b" style="height: 130px">
             <!--begin::Body-->
@@ -65,7 +65,8 @@
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="col-xl-3">
         <div class="card card-custom bg-info gutter-b" style="height: 130px">
             <!--begin::Body-->
             <div class="card-body d-flex flex-column p-0" style="position: relative;">
@@ -76,6 +77,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-xl-3">
         <!--begin::Tiles Widget 2-->
         <div class="card card-custom bg-info gutter-b" style="height: 130px">
             <!--begin::Body-->
@@ -87,7 +90,8 @@
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="col-xl-3">
         <div class="card card-custom bg-info gutter-b" style="height: 130px">
             <!--begin::Body-->
             <div class="card-body d-flex flex-column p-0" style="position: relative;">
