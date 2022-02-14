@@ -58,7 +58,7 @@
                 <i class="fad fa-search"></i> Preview
             </button>
 
-            @if(($printing_done))
+            @if(!$printing_done)
                 @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
                     <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
                             data-air-id="{{$air_report_id}}"
