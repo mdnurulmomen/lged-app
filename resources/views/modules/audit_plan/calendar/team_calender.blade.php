@@ -53,7 +53,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-xl-6">
+    <div class="col-xl-12">
         <!--begin::Tiles Widget 2-->
         <div class="card card-custom bg-info gutter-b" style="height: 130px">
             <!--begin::Body-->
@@ -217,6 +217,7 @@
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
+                    console.log(response.data)
                     $('#dailyTotalQuery').html(response.data.total_query);
                     $('#dailyTotalMemo').html(response.data.total_memo);
                 }
