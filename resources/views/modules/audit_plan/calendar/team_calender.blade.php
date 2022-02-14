@@ -1,36 +1,3 @@
-<div class="row mt-4 mb-4">
-    <div class="col-md-6">
-        <table border="1" width="100%">
-            <tr>
-                <th class="text-center" colspan="2">Today</th>
-            </tr>
-            <tr>
-                <th width="80%">Audit Memo</th>
-                <td class="text-right" width="10%" id="dailyTotalMemo"></td>
-            </tr>
-            <tr>
-                <th width="80%">Audit Queries</th>
-                <td class="text-right" width="10%" id="dailyTotalQuery"></td>
-            </tr>
-        </table>
-    </div>
-    <div class="col-md-6">
-        <table border="1" width="100%">
-            <tr>
-                <th class="text-center" colspan="2">This Week</th>
-            </tr>
-            <tr>
-                <th width="80%">Audit Memo</th>
-                <td class="text-right" width="10%" id="weeklyTotalMemo"></td>
-            </tr>
-            <tr>
-                <th width="80%">Audit Queries</th>
-                <td class="text-right" width="10%" id="weeklyTotalQuery"></td>
-            </tr>
-        </table>
-    </div>
-</div>
-
 <div class="row mt-2 mb-2">
     <div class="col-md-3">
         <select class="form-select select-select2" id="directorate_filter">
@@ -64,7 +31,56 @@
         </select>
     </div>
 </div>
+<div class="row">
+    <div class="col-xl-6">
+        <!--begin::Tiles Widget 2-->
+        <div class="card card-custom bg-info gutter-b" style="height: 130px">
+            <!--begin::Body-->
+            <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                <!--begin::Stats-->
+                <div class="flex-grow-1 card-spacer-x pt-6">
+                    <div class="text-inverse-info font-weight-bold">Daily Total Audit Memo</div>
+                    <div class="text-inverse-info font-weight-bolder font-size-h3" id="dailyTotalMemo"></div>
+                </div>
+            </div>
+        </div>
 
+        <div class="card card-custom bg-info gutter-b" style="height: 130px">
+            <!--begin::Body-->
+            <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                <!--begin::Stats-->
+                <div class="flex-grow-1 card-spacer-x pt-6">
+                    <div class="text-inverse-info font-weight-bold">Weekly Total Audit Memo</div>
+                    <div class="text-inverse-info font-weight-bolder font-size-h3" id="weeklyTotalMemo"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <!--begin::Tiles Widget 2-->
+        <div class="card card-custom bg-info gutter-b" style="height: 130px">
+            <!--begin::Body-->
+            <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                <!--begin::Stats-->
+                <div class="flex-grow-1 card-spacer-x pt-6">
+                    <div class="text-inverse-info font-weight-bold">Daily Total Audit Query</div>
+                    <div class="text-inverse-info font-weight-bolder font-size-h3" id="dailyTotalQuery"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-custom bg-info gutter-b" style="height: 130px">
+            <!--begin::Body-->
+            <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                <!--begin::Stats-->
+                <div class="flex-grow-1 card-spacer-x pt-6">
+                    <div class="text-inverse-info font-weight-bold">Weekly Total Audit Query</div>
+                    <div class="text-inverse-info font-weight-bolder font-size-h3" id="weeklyTotalQuery"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row mt-2 mb-2">
     <div class="col-md-3">
         <select class="form-select select-select2" id="team_filter">
