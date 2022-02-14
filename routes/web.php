@@ -502,6 +502,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('get-audit-final-report', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'getAuditFinalReport'])->name('get-audit-final-report');
         Route::post('create-audit-final-report', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'editAuditFinalReport'])->name('edit-audit-final-report');
         Route::post('get-final-approval-authority', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'loadFinalApprovalAuthority'])->name('get-final-approval-authority');
+        Route::post('get-final-approval-authority', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'loadFinalApprovalAuthority'])->name('get-final-approval-authority');
         Route::post('submit-final-apporval', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'submitFinalApproval'])->name('submit-final-approval');
         Route::post('final-report-status-update', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportStatusUpdate'])->name('final-report-status-update');
     });
@@ -534,6 +535,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::post('get-approval-authority', [AuditAIRReportMovementController::class, 'loadApprovalAuthority'])->name('get-approval-authority');
             Route::post('get-cag-authority', [AuditAIRReportMovementController::class, 'loadCagAuthority'])->name('get-cag-authority');
+            Route::post('get-cag-final-approval-form', [AuditAIRReportMovementController::class, 'getCagFinalApprovalForm'])->name('get-cag-final-approval-form');
             Route::post('store-air-movement', [AuditAIRReportMovementController::class, 'store'])->name('store-air-movement');
 
             //for qac01

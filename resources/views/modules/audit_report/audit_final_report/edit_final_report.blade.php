@@ -25,23 +25,29 @@
             </div>
         </div>
         <div class="col-md-6 text-right">
-            @if(!$is_bg_press)
-                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
+                @if($desk_office_id == 1 && $current_designation_grade == 1)
                     <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_cag_approval_authority"
-                            title="প্রাপক বাছাই করুন"
-                            onclick="QAC_AIR_Report_Container.loadCagAuthority()">
-                        <i class="fad fa-paper-plane"></i> {{$desk_office_id == 1 ? 'নিজ অফিসে প্রেরণ করুন' : 'সিএজিতে প্রেরণ করুন' }}
+                            title="অনুমোদন করুন"
+                            onclick="QAC_AIR_Report_Container.loadCagFinalApproval()">
+                        <i class="fad fa-paper-plane"></i> অনুমোদন করুন
                     </button>
-                @endif
+                @else
+                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
+                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_cag_approval_authority"
+                                title="প্রাপক বাছাই করুন"
+                                onclick="QAC_AIR_Report_Container.loadCagAuthority()">
+                            <i class="fad fa-paper-plane"></i> {{$desk_office_id == 1 ? 'নিজ অফিসে প্রেরণ করুন' : 'সিএজিতে প্রেরণ করুন' }}
+                        </button>
+                    @endif
 
-                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
-                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
-                            title=" অধিদপ্তর প্রেরণ করুন"
-                            onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
-                        <i class="fad fa-paper-plane"></i> {{$desk_office_id == 1 ? 'অধিদপ্তর প্রেরণ' : 'নিজ অফিসে প্রেরণ করুন' }}
-                    </button>
+                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
+                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
+                                title=" অধিদপ্তর প্রেরণ করুন"
+                                onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
+                            <i class="fad fa-paper-plane"></i> {{$desk_office_id == 1 ? 'অধিদপ্তর প্রেরণ' : 'নিজ অফিসে প্রেরণ করুন' }}
+                        </button>
+                    @endif
                 @endif
-            @endif
 
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
@@ -50,7 +56,7 @@
                 <i class="fad fa-search"></i> Preview
             </button>
 
-            @if(($desk_office_id != 1 && $approved_status != 'approved') || ($desk_office_id == 1 && $final_approval_status != 'approved'))
+            @if(($printing_done))
                 @if($desk_office_id != 1 && $latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
                     <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
                             data-air-id="{{$air_report_id}}"
@@ -228,6 +234,35 @@
 
             loadCagAuthority: function () {
                 url = '{{route('audit.report.air.get-cag-authority')}}';
+                air_report_id = '{{$air_report_id}}';
+                air_type = '{{$qac_type}}';
+                office_id = '{{$office_id}}';
+                data = {air_report_id,air_type,office_id};
+
+                KTApp.block('.content', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
+
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('.content');
+                    if (response.status === 'error') {
+                        toastr.error('No data found');
+                    } else {
+                        $(".offcanvas-title").text('');
+                        quick_panel = $("#kt_quick_panel");
+                        quick_panel.addClass('offcanvas-on');
+                        quick_panel.css('opacity', 1);
+                        quick_panel.css('width', '40%');
+                        quick_panel.removeClass('d-none');
+                        $("html").addClass("side-panel-overlay");
+                        $(".offcanvas-wrapper").html(response);
+                    }
+                });
+            },
+
+            loadCagFinalApproval: function () {
+                url = '{{route('audit.report.air.get-cag-final-approval-form')}}';
                 air_report_id = '{{$air_report_id}}';
                 air_type = '{{$qac_type}}';
                 office_id = '{{$office_id}}';

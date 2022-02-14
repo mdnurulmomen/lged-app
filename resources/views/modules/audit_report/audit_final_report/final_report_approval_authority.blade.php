@@ -45,14 +45,14 @@
 
             <ul class="d-none select_approval_authority"></ul>
 
-            <div class="form-group mt-4">
-                <label class="col-form-label" for="approval_status">স্ট্যাটাস</label>
-                <select name="approval_status" class="form-control select-select2" id="status">
-                    <option value="draft">Draft</option>
-                    <option value="pending" selected>Pending</option>
-                    <option value="approved">Approved</option>
-                </select>
-            </div>
+{{--            <div class="form-group mt-4">--}}
+{{--                <label class="col-form-label" for="approval_status">স্ট্যাটাস</label>--}}
+{{--                <select name="approval_status" class="form-control select-select2" id="status">--}}
+{{--                    <option value="draft">Draft</option>--}}
+{{--                    <option value="pending" selected>Pending</option>--}}
+{{--                    <option value="approved">Approved</option>--}}
+{{--                </select>--}}
+{{--            </div>--}}
 
             <div class="form-group">
                 <label class="col-form-label" for="comments">মন্তব্য</label>
@@ -127,6 +127,7 @@
                     toastr.success('সফলভাবে প্রেরণ করা হয়েছে');
                     $('#kt_quick_panel_close').click();
                     $(".load_approval_authority").hide();
+                    $(".load_cag_approval_authority").hide();
                     $(".update-qac-air-report").hide();
                 }
                 else {

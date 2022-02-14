@@ -990,7 +990,7 @@
                         <tr class="bangla-font">
                             <td class="bangla-font" style="text-align: right" colspan="2">সর্বমোট=</td>
                             <td class="bangla-font" style="text-align: right" >{{enTobn(number_format($total_amount))}}/-</td>
-                            <td colspan="7" style="text-align: left">(কথায়: {{numberConvertToBnWord($total_amount)}})</td>
+                            <td colspan="7" style="text-align: left">(কথায়: {{numberConvertToBnWord($total_amount)}} টাকা মাত্র)</td>
                         </tr>
                     </table>
                 </div>

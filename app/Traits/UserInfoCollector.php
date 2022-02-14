@@ -95,11 +95,13 @@ trait UserInfoCollector
 
     public function current_desk_json()
     {
+//        dd($this->getEmployeeInfo());
         return json_encode($this->current_desk(), JSON_UNESCAPED_UNICODE);
     }
 
     function current_desk(): array
     {
+//        dd($this->current_office());
         return [
             'office_id' => $this->current_office_id(),
             'office_unit_id' => $this->current_office_unit_id(),
@@ -122,7 +124,7 @@ trait UserInfoCollector
             'officer_bn' => $this->getEmployeeInfo()['name_bng'],
             'designation_level' => $this->current_office()['designation_level'],
             'designation_sequence' => $this->current_office()['designation_sequence'],
-            'officer_grade' => $this->getEmployeeInfo()['employee_grade'],
+            'officer_grade' => $this->current_office()['office_unit_organogram']['ref_designation_grade'],
             'email' => $this->getEmployeeInfo()['personal_email'],
             'phone' => $this->getEmployeeInfo()['personal_mobile'],
         ];
@@ -131,6 +133,11 @@ trait UserInfoCollector
     public function current_office_id()
     {
         return session('_office_id') ?: $this->getUserOffices()[0]['office_id'];
+    }
+
+    public function current_officer_grade()
+    {
+        return $this->current_office()['office_unit_organogram']['ref_designation_grade'];
     }
 
     public function current_office_details()

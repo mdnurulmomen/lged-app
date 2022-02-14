@@ -127,4 +127,18 @@ class AuditAIRReportMovementController extends Controller
         //$officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($this->current_office_id());
         return view('modules.audit_report.air_generate.partials.load_cag_authority',compact('officer_lists','air_report_id','last_air_movement','air_type','office_id'));
     }
+
+    public function getCagFinalApprovalForm(Request $request){
+//        dd($request->all());
+        $data['r_air_id'] =$request->air_report_id;
+        $data['office_id'] =$request->office_id;
+        $data['cdesk'] = $this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_last_movement'), $data)->json();
+        $last_air_movement = isSuccess($responseData)?$responseData['data']:[];
+        $air_report_id = $request->air_report_id;
+        $air_type = $request->air_type;
+        $office_id = $request->office_id;
+
+        return view('modules.audit_report.audit_final_report.get_cag_final_approval_form',compact('last_air_movement','air_report_id','air_type','office_id'));
+    }
 }

@@ -58,8 +58,11 @@ class AuditFinalReportController extends Controller
             'office_id' => 'required|integer',
         ])->validate();
 
+
         $cdeskData = $this->current_desk_json();
         $data['cdesk'] = $cdeskData;
+
+//        dd($cdeskData);
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.edit_air_report'), $data)->json();
         //dd($responseData);
@@ -68,6 +71,8 @@ class AuditFinalReportController extends Controller
             $air_report_id = $airReport['id'];
             $latest_receiver_designation_id = empty($airReport['latest_r_air_movement'])?0:$airReport['latest_r_air_movement']['receiver_employee_designation_id'];
             $current_designation_id = $this->current_designation_id();
+            $current_designation_grade = $this->current_officer_grade();
+//            dd($current_designation_grade);
             $qac_type = $request->qac_type;
             $cqatData['template_type'] = 'cqat_report';
             $cqatData['cdesk'] = $cdeskData;
@@ -76,6 +81,7 @@ class AuditFinalReportController extends Controller
             $final_approval_status = $airReport['final_approval_status'];
             $approved_status =  $airReport['approval_status'];
             $is_bg_press =  $airReport['is_bg_press'];
+            $printing_done =  $airReport['is_printing_done'];
             $office_id = $request->office_id;
 
             $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $cqatData)->json();
@@ -91,7 +97,7 @@ class AuditFinalReportController extends Controller
 
                 return view('modules.audit_report.audit_final_report.edit_final_report',
                     compact('content','audit_plan_entities','air_report_id',
-                        'approved_status','final_approval_status','latest_receiver_designation_id','current_designation_id','qac_type','office_id','desk_office_id','is_bg_press'));
+                        'approved_status','final_approval_status','latest_receiver_designation_id','current_designation_id','qac_type','office_id','desk_office_id','is_bg_press','printing_done','current_designation_grade'));
             }
         }
         else {
@@ -146,27 +152,28 @@ class AuditFinalReportController extends Controller
 
             $data['comments'] = $request->comments;
             $data['office_id'] = $request->office_id;
-            $data['approval_status'] = $request->approval_status ?: $request->approval_status;
-            $data['final_approval_status'] = $request->final_approval_status ?: $request->final_approval_status;
-//            dd($data);
             $data['cdesk'] = $this->current_desk_json();
             $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.final_report_movement'), $data)->json();
+
             if (isSuccess($responseData)) {
 
-                $report_data['air_id'] = $request->r_air_id;
-                $report_data['cdesk'] = $this->current_desk_json();
-                $report_data['office_id'] = $request->office_id;
-                $report_data['approval_status'] = $request->approval_status ?: $request->approval_status;
-                $report_data['final_approval_status'] = $request->final_approval_status ?: $request->final_approval_status;
+                if( $request->final_approval_status ){
+                    $report_data['air_id'] = $request->r_air_id;
+                    $report_data['cdesk'] = $this->current_desk_json();
+                    $report_data['office_id'] = $request->office_id;
 
-                $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.update_qac_air_report'), $report_data)->json();
+                    $report_data['final_approval_status'] = $request->final_approval_status ?: $request->final_approval_status;
 
-                if (isSuccess($saveAirReport)) {
-//                    dd($saveAirReport['data']);
-                    return response()->json(['status' => 'success', 'data' => 'সফলভাবে প্রেরণ করা হয়েছে']);
-                } else {
-                    return response()->json(['status' => 'error', 'data' => $saveAirReport]);
+                    $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.update_qac_air_report'), $report_data)->json();
+
+                    if (isSuccess($saveAirReport)) {
+                        return response()->json(['status' => 'success', 'data' => 'সফলভাবে প্রেরণ করা হয়েছে']);
+                    } else {
+                        return response()->json(['status' => 'error', 'data' => $saveAirReport]);
+                    }
                 }
+
+
             } else {
                 return response()->json(['status' => 'error', 'data' => $responseData]);
             }
