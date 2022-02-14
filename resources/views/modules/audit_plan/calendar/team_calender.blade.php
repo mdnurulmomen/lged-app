@@ -31,6 +31,27 @@
         </select>
     </div>
 </div>
+<div class="row mt-2 mb-2">
+    <div class="col-md-3">
+        <select class="form-select select-select2" id="team_filter">
+            <option value="">All Teams</option>
+        </select>
+    </div>
+
+    <div class="col-md-1">
+        <button id="btn_filter" class="btn btn-icon btn-light-success btn-square mr-2" type="button"><i
+                class="fad fa-search"></i></button>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="btn-group">
+            <button class="btn btn-icon bg-success btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
+            <span class="mr-4">Data Collection Schedule</span>
+            <button class="btn btn-icon bg-primary btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
+            <span>Individual Audit schedule</span>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-xl-6">
         <!--begin::Tiles Widget 2-->
@@ -55,8 +76,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-xl-6">
         <!--begin::Tiles Widget 2-->
         <div class="card card-custom bg-info gutter-b" style="height: 130px">
             <!--begin::Body-->
@@ -78,27 +97,6 @@
                     <div class="text-inverse-info font-weight-bolder font-size-h3" id="weeklyTotalQuery"></div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="row mt-2 mb-2">
-    <div class="col-md-3">
-        <select class="form-select select-select2" id="team_filter">
-            <option value="">All Teams</option>
-        </select>
-    </div>
-
-    <div class="col-md-1">
-        <button id="btn_filter" class="btn btn-icon btn-light-success btn-square mr-2" type="button"><i
-                class="fad fa-search"></i></button>
-    </div>
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-        <div class="btn-group">
-            <button class="btn btn-icon bg-success btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
-            <span class="mr-4">Data Collection Schedule</span>
-            <button class="btn btn-icon bg-primary btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
-            <span>Individual Audit schedule</span>
         </div>
     </div>
 </div>
