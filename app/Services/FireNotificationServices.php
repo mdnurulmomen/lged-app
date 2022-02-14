@@ -13,11 +13,11 @@ class FireNotificationServices
     {
         try {
             $meta_data = [];
-            if (\Arr::has($required_data, 'cost_center_id')) {
-                $meta_data['cost_center_id'] = $required_data['cost_center_id'];
+            if (\Arr::has($required_data, 'cost_center_ids')) {
+                $meta_data['cost_center_ids'] = $required_data['cost_center_ids'];
             }
-            if (\Arr::has($required_data, 'entity_id')) {
-                $meta_data['entity_id'] = $required_data['entity_id'];
+            if (\Arr::has($required_data, 'entity_ids')) {
+                $meta_data['entity_ids'] = $required_data['entity_ids'];
             }
             $data = [
                 'notifiable_application' => 'rpu',

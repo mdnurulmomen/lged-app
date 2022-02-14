@@ -62,7 +62,7 @@ class AuditExecutionQueryController extends Controller
         $send_audit_queries = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.send_audit_query'), $data)->json();
         if ($send_audit_queries['status'] == 'success') {
             $mail_data = [
-                'cost_center_id' => $request->cost_center_id,
+                'cost_center_ids' => $request->cost_center_id,
                 'notifiable_type' => 'query',
             ];
             $send_mail_to_rpu = (new FireNotificationServices())->sendMailToRpu($mail_data);
