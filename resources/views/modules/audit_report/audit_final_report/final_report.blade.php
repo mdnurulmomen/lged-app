@@ -27,11 +27,11 @@
                 </select>
             </div>
 
-            <div class="col-md-3">
-                <select class="form-select select-select2" id="audit_plan_id">
-                    <option value="">প্ল্যান বাছাই করুন</option>
-                </select>
-            </div>
+{{--            <div class="col-md-3">--}}
+{{--                <select class="form-select select-select2" id="audit_plan_id">--}}
+{{--                    <option value="">প্ল্যান বাছাই করুন</option>--}}
+{{--                </select>--}}
+{{--            </div>--}}
         </div>
     </div>
 </div>
@@ -147,13 +147,14 @@
         },
     };
 
-    $('#audit_plan_id').change(function () {
+    $('#activity_id').change(function () {
 
         office_id = $('#directorate_filter').val();
-        audit_plan_id = $('#audit_plan_id').val();
+        // audit_plan_id = $('#audit_plan_id').val();
+        activity_id = $(this).val();
         let url = '{{route('audit.final-report.get-audit-final-report')}}';
         let qac_type = 'cqat';
-        let data = {qac_type,audit_plan_id,office_id};
+        let data = {qac_type,activity_id,office_id};
 
         KTApp.block('#kt_content', {
             opacity: 0.1,

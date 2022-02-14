@@ -55,25 +55,27 @@
                     <i class="fad fa-eye"></i> বিস্তারিত
                 </button>
 
-                @if($report['final_approval_status'] == 'approved')
-                    @if(!$report['is_bg_press'])
-                        <button class="mr-1 btn btn-sm btn-primary btn-square" title="বিজি প্রেসে প্রেরণ"
-                                data-air-report-id="{{$report['id']}}"
-                                data-bg-press="1"
-                                onclick="Final_report_Container.loadFinalReportStatusUpdate($(this))">
-                            <i class="fa fa-paper-plane"></i> বিজি প্রেসে প্রেরণ করুন
-                        </button>
+                @if($report['latest_r_air_movement'] &&  $current_designation_id == $report['latest_r_air_movement']['receiver_officer_id'])
+                    @if($report['final_approval_status'] == 'approved')
+                        @if(!$report['is_bg_press'])
+                            <button class="mr-1 btn btn-sm btn-primary btn-square" title="বিজি প্রেসে প্রেরণ"
+                                    data-air-report-id="{{$report['id']}}"
+                                    data-bg-press="1"
+                                    onclick="Final_report_Container.loadFinalReportStatusUpdate($(this))">
+                                <i class="fa fa-paper-plane"></i> বিজি প্রেসে প্রেরণ করুন
+                            </button>
+                        @endif
                     @endif
-                @endif
 
-                @if($report['is_bg_press'])
-                    @if(!$report['is_printing_done'])
-                        <button class="mr-1 btn btn-sm btn-primary btn-square" title="মুদ্রণ সম্পন্ন"
-                                data-air-report-id="{{$report['id']}}"
-                                data-printing-done="1"
-                                onclick="Final_report_Container.loadFinalReportStatusUpdate($(this))">
-                            <i class="fad fa-book-dead"></i> মুদ্রণ সম্পন্ন করুন
-                        </button>
+                    @if($report['is_bg_press'])
+                        @if(!$report['is_printing_done'])
+                            <button class="mr-1 btn btn-sm btn-primary btn-square" title="মুদ্রণ সম্পন্ন"
+                                    data-air-report-id="{{$report['id']}}"
+                                    data-printing-done="1"
+                                    onclick="Final_report_Container.loadFinalReportStatusUpdate($(this))">
+                                <i class="fad fa-book-dead"></i> মুদ্রণ সম্পন্ন করুন
+                            </button>
+                        @endif
                     @endif
                 @endif
             </td>
