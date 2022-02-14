@@ -330,6 +330,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('update-visit-calender-status', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'updateVisitCalenderStatus'])->name('calendar.update-visit-calender-status');
         Route::post('load-sub-team-select', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'loadSubTeamSelect'])->name('calendar.load-sub-teams-select');
         Route::post('load-team-calendar-schedule-list', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'loadTeamCalendarScheduleList'])->name('calendar.load-team-calendar-schedule-list');
+        Route::post('get-total-daily-query-and-memo', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'getTotalDailyQueryAndMemo'])->name('calendar.get-total-daily-query-and-memo');
+        Route::post('get-total-weekly-query-and-memo', [\App\Http\Controllers\AuditPlan\Calendar\TeamCalendarController::class, 'getTotalWeeklyQueryAndMemo'])->name('calendar.get-total-weekly-query-and-memo');
+
     });
 
     //Prepare

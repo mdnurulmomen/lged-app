@@ -1,3 +1,36 @@
+<div class="row mt-4 mb-4">
+    <div class="col-md-6">
+        <table border="1" width="100%">
+            <tr>
+                <th class="text-center" colspan="2">Today</th>
+            </tr>
+            <tr>
+                <th width="80%">Audit Memo</th>
+                <td class="text-right" width="10%" id="dailyTotalMemo"></td>
+            </tr>
+            <tr>
+                <th width="80%">Audit Queries</th>
+                <td class="text-right" width="10%" id="dailyTotalQuery"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table border="1" width="100%">
+            <tr>
+                <th class="text-center" colspan="2">This Week</th>
+            </tr>
+            <tr>
+                <th width="80%">Audit Memo</th>
+                <td class="text-right" width="10%" id="weeklyTotalMemo"></td>
+            </tr>
+            <tr>
+                <th width="80%">Audit Queries</th>
+                <td class="text-right" width="10%" id="weeklyTotalQuery"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
 <div class="row mt-2 mb-2">
     <div class="col-md-3">
         <select class="form-select select-select2" id="directorate_filter">
@@ -46,10 +79,10 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <div class="btn-group">
-            <button id="btn_filter" class="btn btn-icon bg-success btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
+            <button class="btn btn-icon bg-success btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
             <span class="mr-4">Data Collection Schedule</span>
-            <button id="btn_filter" class="btn btn-icon bg-primary btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
-            <span>Individul Audit schedule</span>
+            <button class="btn btn-icon bg-primary btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
+            <span>Individual Audit schedule</span>
         </div>
     </div>
 </div>
@@ -162,6 +195,32 @@
                 }
             );
         },
+
+        getTotalDailyQueryAndMemo: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
+            let url = '{{route('calendar.get-total-daily-query-and-memo')}}';
+            let data = {directorate_id, fiscal_year_id, cost_center_id, team_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    $('#dailyTotalQuery').html(response.data.total_query);
+                    $('#dailyTotalMemo').html(response.data.total_memo);
+                }
+            });
+        },
+
+        getTotalWeeklyQueryAndMemo: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
+            let url = '{{route('calendar.get-total-weekly-query-and-memo')}}';
+            let data = {directorate_id, fiscal_year_id, cost_center_id, team_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    $('#weeklyTotalQuery').html(response.data.total_query);
+                    $('#weeklyTotalMemo').html(response.data.total_memo);
+                }
+            });
+        },
     };
     @if(!isset($team_id))
     $(function () {
@@ -223,6 +282,8 @@
                 Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id, cost_center_id, team_filter);
                 // Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
             }
+            Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+            Team_Calendar_Container.getTotalWeeklyQueryAndMemo(directorate_id, fiscal_year_id, cost_center_id, team_filter);
         } else {
             toastr.info('Please select a directorate.')
         }

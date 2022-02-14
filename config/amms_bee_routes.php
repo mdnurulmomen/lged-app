@@ -218,6 +218,8 @@ return [
         'get_schedule_entity_fiscal_year_wise' => env('API_URL_BEE', '') . '/planning/calendar/load-schedule-entity-fiscal-year-wise',
         'get_cost_center_directorate_fiscal_year_wise' => env('API_URL_BEE', '') . '/planning/calendar/load-cost-center-directorate-fiscal-year-wise',
         'team_calender_schedule_list' => env('API_URL_BEE', '') . '/planning/calendar/team-calender-schedule-list',
+        'get_total_daily_query_and_memo' => env('API_URL_BEE', '') . '/get-total-daily-query-and-memo',
+        'get_total_weekly_query_and_memo' => env('API_URL_BEE', '') . '/get-total-weekly-query-and-memo',
     ],
 
     'follow_up' => [
