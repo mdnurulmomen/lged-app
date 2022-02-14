@@ -60,7 +60,7 @@
                 <div class="bg-light-danger card-rounded flex-grow-1">
                     <div class="row m-0">
                         <div class="col-xl-6">
-                            <div class="card card-custom bg-light-success gutter-b" style="height: 80px">
+                            <div class="card card-custom bg-light-success" style="height: 80px">
                                 <div class="card-body d-flex flex-column p-0" style="position: relative;">
                                     <div class="flex-grow-1 card-spacer-x pt-6">
                                         <div class="text-success font-weight-bold h3">Total Memo</div>
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <div class="col-xl-6">
-                            <div class="card card-custom bg-light-success gutter-b" style="height: 80px">
+                            <div class="card card-custom bg-light-success" style="height: 80px">
                                 <div class="card-body d-flex flex-column p-0" style="position: relative;">
                                     <div class="flex-grow-1 card-spacer-x pt-6">
                                         <div class="text-success font-weight-bold h3">Total Query</div>
@@ -93,7 +93,7 @@
                 <div class="bg-light-danger card-rounded flex-grow-1">
                     <div class="row m-0">
                         <div class="col-xl-6">
-                            <div class="card card-custom bg-light-success gutter-b" style="height: 80px">
+                            <div class="card card-custom bg-light-success" style="height: 80px">
                                 <!--begin::Body-->
                                 <div class="card-body d-flex flex-column p-0" style="position: relative;">
                                     <!--begin::Stats-->
@@ -105,7 +105,7 @@
                             </div>
                         </div>
                         <div class="col-xl-6">
-                            <div class="card card-custom bg-light-success gutter-b" style="height: 80px">
+                            <div class="card card-custom bg-light-success" style="height: 80px">
                                 <!--begin::Body-->
                                 <div class="card-body d-flex flex-column p-0" style="position: relative;">
                                     <!--begin::Stats-->
