@@ -790,50 +790,116 @@
 
 <body>
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
+    {{--cover page--}}
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $coverPage['content'] !!}
+        {!! $plans[0]['content'] !!}
     </div>
 
+    {{--index page--}}
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $indexPage['content'] !!}
+        {!! $plans[1]['content'] !!}
     </div>
 
+    {{--strategic form part 01--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;
     page-break-after: always">
-        {!! $strategicFormPartOne['content'] !!}
+        {!! $plans[3]['content'] !!}
     </div>
 
+    {{--strategic form part 02--}}
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $strategicFormPartTwo['content'] !!}
+        {!! $plans[4]['content'] !!}
     </div>
 
+    {{--strategic form part 03--}}
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $strategicFormPartThree['content'] !!}
+        {!! $plans[5]['content'] !!}
     </div>
 
-    <div class="pdf-screen bangla-font" style="height: 100%;">
-        @foreach($plans as $plan)
-            <div class="plan_content bangla-font">
-                {!! $plan['content'] !!}
-            </div>
-        @endforeach
+    {{--audit plan form 1 (part-01)--}}
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $plans[6]['content'] !!}
+        {!! $plans[7]['content'] !!}
+        {!! $plans[8]['content'] !!}
+        {!! $plans[9]['content'] !!}
+        {!! $plans[10]['content'] !!}
     </div>
 
+    {{--audit plan form 1 (part-02)--}}
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $plans[11]['content'] !!}
+    </div>
+
+    {{--audit plan form 1 (part-03)--}}
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $plans[12]['content'] !!}
+        {!! $plans[13]['content'] !!}
+    </div>
+
+    {{--audit plan form 2 (part-01)--}}
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $plans[14]['content'] !!}
+        {!! $plans[15]['content'] !!}
+    </div>
+
+    {{--audit plan form 2 (part-01)--}}
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $plans[16]['content'] !!}
+        {!! $plans[17]['content'] !!}
+    </div>
+
+    {{--audit plan form 2 (part-02)--}}
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $plans[18]['content'] !!}
+        {!! $plans[19]['content'] !!}
+        {!! $plans[20]['content'] !!}
+    </div>
+
+    {{--audit plan form 2 (part-02)--}}
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $plans[21]['content'] !!}
+        {!! $plans[22]['content'] !!}
+    </div>
+
+    {{--audit plan form 2 (part-03)--}}
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $plans[23]['content'] !!}
+    </div>
+
+    {{--audit plan form 2 (part-04)--}}
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $plans[24]['content'] !!}
+    </div>
+
+    {{--audit plan form 2 (part-05)--}}
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $plans[25]['content'] !!}
+    </div>
+
+    {{--audit plan form 2 (part-06)--}}
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $plans[26]['content'] !!}
+    </div>
+
+    {{--audit risk assessment page--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;
     page-break-after: always">
-        {!! $auditRiskAssessmentPage['content'] !!}
+        {!! $plans[27]['content'] !!}
     </div>
 
+    {{--materiality calculate page--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
-        {!! $materialityCalculatePage['content'] !!}
+        {!! $plans[29]['content'] !!}
     </div>
 
+    {{--audit schedule page--}}
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $auditSchedulePage['content'] !!}
+        {!! $plans[30]['content'] !!}
     </div>
 
+    {{--audit other details page--}}
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $auditOtherDetailsPage['content'] !!}
+        {!! $plans[31]['content'] !!}
     </div>
 
     <htmlpagefooter name="even-footer">
