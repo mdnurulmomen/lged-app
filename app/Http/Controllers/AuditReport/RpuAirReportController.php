@@ -18,7 +18,8 @@ class RpuAirReportController extends Controller
     {
         $data = Validator::make($request->all(), [
             'air_id' => 'required',
-            'entity_ids' => 'required'
+            'entity_ids' => 'required',
+            'report_name' => 'required'
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
@@ -28,6 +29,8 @@ class RpuAirReportController extends Controller
 
             $mail_data = [
                 'entity_ids' => $request->entity_ids,
+                'report_name' => $request->report_name,
+                'directorate_name_en' => $this->current_office()['office_name_en'],
                 'notifiable_type' => 'air',
             ];
             $send_mail_to_rpu = (new FireNotificationServices())->sendMailToRpu($mail_data);

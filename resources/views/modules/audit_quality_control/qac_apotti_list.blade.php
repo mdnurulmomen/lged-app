@@ -43,9 +43,10 @@
                 @endif
 
                 @if($qac_type == 'qac-1' && $responseData['rAirInfo']['r_air_child']['status']=='approved')
-                    @if($responseData['rAirInfo']['r_air_child']['is_sent']== 0)
+                    @if($responseData['rAirInfo']['r_air_child']['is_sent']== 1)
                         <button data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                                 data-entity-ids="{{is_array($entity_ids) ? implode(',',$entity_ids) : $entity_ids}}"
+                                data-air-report-name="{{$responseData['rAirInfo']['report_name']}}"
                                 class="btn btn-sm btn-square btn-primary btn-hover-primary air_sent_responsible_party"
                                 onclick="QAC_Apotti_List_Container.airSendToRpu($(this))">
                             <i class="fad fa-paper-plane"></i> রেস্পন্সিবল বরাবর প্রেরণ করুন
@@ -72,7 +73,7 @@
                        data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                        onclick="QAC_Apotti_List_Container.ApprovedCqatForm($(this))"
                        class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
-                         সিকিউএটি সম্পন্ন করুন
+                        সিকিউএটি সম্পন্ন করুন
                     </a>
                 @endif
             </div>
@@ -330,7 +331,8 @@
             let url = '{{route('audit.report.air.air-send-to-rpu')}}';
             air_id = elem.data('air-report-id');
             entity_ids = elem.data('entity-ids')
-            let data = {air_id, entity_ids};
+            report_name = elem.data('air-report-name');
+            let data = {air_id, entity_ids, report_name};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -459,7 +461,7 @@
             })
         },
 
-        ApprovedCqatForm:function (elem){
+        ApprovedCqatForm: function (elem) {
 
             air_report_id = elem.data('air-report-id');
             qac_type = elem.data('qac-type');
@@ -473,7 +475,7 @@
             quick_panel.removeClass('d-none');
             $("html").addClass("side-panel-overlay");
 
-            data = {air_report_id,qac_type}
+            data = {air_report_id, qac_type}
 
             let url = '{{route('audit.qac.cqat-done-form')}}';
 
@@ -486,7 +488,7 @@
             });
         },
 
-        ApprovedCqat:function (elem){
+        ApprovedCqat: function (elem) {
 
             data = $('#cqat_done_form').serializeArray();
 

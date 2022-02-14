@@ -763,15 +763,12 @@
         }
     </style>
 </head>
-
 <body>
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {{--        <x-office-header-details/>--}}
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
-            <span style="font-weight: bold; color: black;">{!! str_repeat('&nbsp;',1) !!} {{$mail_data['subject']}}</span>
+            <span style="font-weight: bold; color: black;">{!! str_repeat('&nbsp;',1) !!} Dear Sir, An Audit Inspection report titled "{{$mail_data['report_name']}}" has been issued by {{$mail_data['directorate_name_en']}}.</span>
         </div>
-
         <div class="pdf-screen bangla-font" style="height: 100%"></div>
     </div>
 </body>
