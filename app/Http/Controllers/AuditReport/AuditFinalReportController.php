@@ -171,6 +171,8 @@ class AuditFinalReportController extends Controller
                     } else {
                         return response()->json(['status' => 'error', 'data' => $saveAirReport]);
                     }
+                }else{
+                    return response()->json(['status' => 'success', 'data' => 'সফলভাবে প্রেরণ করা হয়েছে']);
                 }
 
 
