@@ -60,20 +60,8 @@
             <div class="card-body d-flex flex-column p-0" style="position: relative;">
                 <!--begin::Stats-->
                 <div class="flex-grow-1 card-spacer-x pt-6">
-                    <div class="text-inverse-info font-weight-bold">Daily Total Audit Memo</div>
+                    <div class="text-inverse-info font-weight-bold h2">Daily Total Audit Memo</div>
                     <div class="text-inverse-info font-weight-bolder font-size-h3" id="dailyTotalMemo"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3">
-        <div class="card card-custom bg-info gutter-b" style="height: 130px">
-            <!--begin::Body-->
-            <div class="card-body d-flex flex-column p-0" style="position: relative;">
-                <!--begin::Stats-->
-                <div class="flex-grow-1 card-spacer-x pt-6">
-                    <div class="text-inverse-info font-weight-bold">Weekly Total Audit Memo</div>
-                    <div class="text-inverse-info font-weight-bolder font-size-h3" id="weeklyTotalMemo"></div>
                 </div>
             </div>
         </div>
@@ -85,8 +73,21 @@
             <div class="card-body d-flex flex-column p-0" style="position: relative;">
                 <!--begin::Stats-->
                 <div class="flex-grow-1 card-spacer-x pt-6">
-                    <div class="text-inverse-info font-weight-bold">Daily Total Audit Query</div>
+                    <div class="text-inverse-info font-weight-bold h2">Daily Total Audit Query</div>
                     <div class="text-inverse-info font-weight-bolder font-size-h3" id="dailyTotalQuery"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3">
+        <div class="card card-custom bg-info gutter-b" style="height: 130px">
+            <!--begin::Body-->
+            <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                <!--begin::Stats-->
+                <div class="flex-grow-1 card-spacer-x pt-6">
+                    <div class="text-inverse-info font-weight-bold h2">Weekly Total Audit Memo</div>
+                    <div class="text-inverse-info font-weight-bolder font-size-h3" id="weeklyTotalMemo"></div>
                 </div>
             </div>
         </div>
@@ -97,7 +98,7 @@
             <div class="card-body d-flex flex-column p-0" style="position: relative;">
                 <!--begin::Stats-->
                 <div class="flex-grow-1 card-spacer-x pt-6">
-                    <div class="text-inverse-info font-weight-bold">Weekly Total Audit Query</div>
+                    <div class="text-inverse-info font-weight-bold h2">Weekly Total Audit Query</div>
                     <div class="text-inverse-info font-weight-bolder font-size-h3" id="weeklyTotalQuery"></div>
                 </div>
             </div>
