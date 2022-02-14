@@ -35,18 +35,19 @@ class AuditFinalReportController extends Controller
         $data = Validator::make($request->all(), [
             'office_id' => 'required',
             'qac_type' => 'required',
-            'audit_plan_id' => 'required',
+            'activity_id' => 'required',
         ],[
             'office_id.required' => 'অধিদপ্তর বাছাই করুন',
-            'audit_plan_id.required' => 'প্ল্যান বাছাই করুন',
+            'activity_id.required' => 'অ্যাক্টিভিটি বাছাই করুন',
         ])->validate();
 //        dd($data);
         $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_audit_final_report'), $data)->json();
 //        dd($responseData);
+        $current_designation_id = $this->current_designation_id();
         $final_report = isSuccess($responseData)?$responseData['data']:[];
         return view('modules.audit_report.audit_final_report.load_final_report_list',
-            compact('final_report'));
+            compact('final_report','current_designation_id'));
     }
 
 
