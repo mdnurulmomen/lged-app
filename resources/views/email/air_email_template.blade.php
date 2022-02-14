@@ -769,6 +769,7 @@
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
             <span style="font-weight: bold; color: black;">{!! str_repeat('&nbsp;',1) !!} Dear Sir, An Audit Inspection report titled "{{$mail_data['report_name']}}" has been issued by {{$mail_data['directorate_name_en']}}.</span>
         </div>
+        <p>You can view your report in the following link : <a href="https://cag-rpu-app.tappware.com" target="_blank">RPU APP</a></p>
         <div class="pdf-screen bangla-font" style="height: 100%"></div>
     </div>
 </body>
