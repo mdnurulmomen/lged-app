@@ -43,7 +43,7 @@
                 @endif
 
                 @if($qac_type == 'qac-1' && $responseData['rAirInfo']['r_air_child']['status']=='approved')
-                    @if($responseData['rAirInfo']['r_air_child']['is_sent']== 1)
+                    @if($responseData['rAirInfo']['r_air_child']['is_sent']== 0)
                         <button data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                                 data-entity-ids="{{is_array($entity_ids) ? implode(',',$entity_ids) : $entity_ids}}"
                                 data-air-report-name="{{$responseData['rAirInfo']['report_name']}}"
