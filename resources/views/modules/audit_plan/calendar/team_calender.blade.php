@@ -232,9 +232,10 @@
             );
         },
 
-        getTotalDailyQueryAndMemo: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
-            let url = '{{route('calendar.get-total-daily-query-and-memo')}}';
-            let data = {directorate_id, fiscal_year_id, cost_center_id, team_id};
+        getTotalDailyQueryAndMemo: function (directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id) {
+            let url = '{{route('calendar.get-total-query-and-memo-report')}}';
+            scope_report_type = 'daily';
+            let data = {directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id,scope_report_type};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
                     toastr.warning(response.data)
@@ -246,9 +247,10 @@
             });
         },
 
-        getTotalWeeklyQueryAndMemo: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
-            let url = '{{route('calendar.get-total-weekly-query-and-memo')}}';
-            let data = {directorate_id, fiscal_year_id, cost_center_id, team_id};
+        getTotalWeeklyQueryAndMemo: function (directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id) {
+            let url = '{{route('calendar.get-total-query-and-memo-report')}}';
+            scope_report_type = 'weekly';
+            let data = {directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id,scope_report_type};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
                     toastr.warning(response.data)
@@ -264,7 +266,10 @@
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
         team_filter = $('#team_filter').val();
+        entity_id = $('#entity_filter').val();
         cost_center_id = $('#cost_center_filter').val();
+        console.log({entity_id})
+        console.log({cost_center_id})
 
         if (directorate_id !== 'all') {
             //Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
@@ -272,8 +277,8 @@
             // Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
             Team_Calendar_Container.loadEntityList(directorate_id, fiscal_year_id);
             // Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id);
-            Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, cost_center_id, team_filter);
-            Team_Calendar_Container.getTotalWeeklyQueryAndMemo(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+            Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
+            Team_Calendar_Container.getTotalWeeklyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
         } else {
             toastr.info('Please select directorate.')
             $('#load_team_calendar').html('');
@@ -313,6 +318,7 @@
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
         team_filter = $('#team_filter').val();
+        entity_id = $('#entity_filter').val()
         cost_center_id = $('#cost_center_filter').val();
         if (directorate_id !== 'all') {
             if (team_filter || cost_center_id) {
@@ -321,8 +327,8 @@
                 Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id, cost_center_id, team_filter);
                 // Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
             }
-            Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, cost_center_id, team_filter);
-            Team_Calendar_Container.getTotalWeeklyQueryAndMemo(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+            Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
+            Team_Calendar_Container.getTotalWeeklyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
         } else {
             toastr.info('Please select a directorate.')
         }

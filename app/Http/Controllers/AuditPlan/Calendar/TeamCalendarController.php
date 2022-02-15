@@ -162,30 +162,15 @@ class TeamCalendarController extends Controller
         }
     }
 
-    public function getTotalDailyQueryAndMemo(Request $request)
+    public function getTotalQueryAndMemoReport(Request $request)
     {
-        $data['cdesk'] = $this->current_desk_json();
         $data['office_id'] = $request->directorate_id;
         $data['team_id'] = $request->team_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['entity_id'] = $request->entity_id;
         $data['cost_center_id'] = $request->cost_center_id;
-        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_total_daily_query_and_memo'), $data)->json();
-        if (isSuccess($responseData)) {
-            return response()->json(['status' => 'success', 'data' => $responseData['data']]);
-        } else {
-            return response()->json(['status' => 'error', 'data' => $responseData]);
-        }
-    }
-
-    public function getTotalWeeklyQueryAndMemo(Request $request)
-    {
-        $data['cdesk'] = $this->current_desk_json();
-        $data['office_id'] = $request->directorate_id;
-        $data['team_id'] = $request->team_id;
-        $data['fiscal_year_id'] = $request->fiscal_year_id;
-        $data['cost_center_id'] = $request->cost_center_id;
-        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_total_weekly_query_and_memo'), $data)->json();
-        //dd($responseData);
+        $data['scope_report_type'] = $request->scope_report_type;
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_total_query_and_memo_report'), $data)->json();
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
         } else {
