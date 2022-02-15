@@ -184,9 +184,9 @@
         @endif
 
         <div class="col-md-12">
-            <label class="col-form-label">আপত্তির ধরন বাছাই করুন</label>
+            <label class="col-form-label">আপত্তির ক্যাটাগরি বাছাই করুন</label>
             <select class="form-control select-select2" name="apotti_type">
-                <option value="">আপত্তির ধরন বাছাই করুন</option>
+                <option value="">আপত্তির ক্যাটাগরি বাছাই করুন</option>
 
                 <option @if($qac_apotti_status && isset($qac_apotti_status['apotti_type']) && $qac_apotti_status['apotti_type'] == 'sfi')
                         selected
