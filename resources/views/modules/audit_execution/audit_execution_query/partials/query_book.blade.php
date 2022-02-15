@@ -832,8 +832,9 @@
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top:40px;text-align: center;float: right;width: 35%">
             ({{$auditQueryInfo['querier_officer_name_bn']}}) <br>
-            {{$auditQueryInfo['querier_designation_bn']}} ও
+            {{$auditQueryInfo['querier_designation_bn']}}
             @if($auditQueryInfo['plan_team'] != null)
+                ও
                 {{$auditQueryInfo['plan_team']['team_parent_id']==0?'দলনেতা':'উপ দলনেতা'}}
                 <br>
                 {{--{{$auditQueryInfo['querier_unit_name_bn']}} <br>--}}
@@ -857,9 +858,12 @@
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top:50px;text-align: center;float: right;width: 35%">
             ({{$auditQueryInfo['querier_officer_name_bn']}}) <br>
-            {{$auditQueryInfo['querier_designation_bn']}} ও {{$auditQueryInfo['plan_team']['team_parent_id'] ==0?'দলনেতা':'উপ দলনেতা'}}<br>
-{{--            {{$auditQueryInfo['querier_unit_name_bn']}} <br>--}}
-            অডিট এনগেজমেন্ট {{$auditQueryInfo['plan_team']['team_name']}}
+            {{$auditQueryInfo['querier_designation_bn']}}
+            @if($auditQueryInfo['plan_team'])
+                ও {{$auditQueryInfo['plan_team']['team_parent_id'] ==0?'দলনেতা':'উপ দলনেতা'}}<br>
+                {{--            {{$auditQueryInfo['querier_unit_name_bn']}} <br>--}}
+                অডিট এনগেজমেন্ট {{$auditQueryInfo['plan_team']['team_name']}}
+            @endif
         </div>
     </div>
 
