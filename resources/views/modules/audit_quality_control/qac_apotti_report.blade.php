@@ -857,7 +857,7 @@
                     </tr>
                     <tr>
                         <td class="bangla-font">নিরীক্ষার সময়কাল:</td>
-                        <td class="bangla-font">{{enTobn($responseData['rAirInfo']['qac_report_date'])}}</td>
+                        <td class="bangla-font">{{enTobn(formatDate($responseData['rAirInfo']['qac_report_date'],'bn'))}}</td>
                     </tr>
                     <tr>
                         <td valign="top" class="bangla-font">সম্পন্নকারী দল: </td>
