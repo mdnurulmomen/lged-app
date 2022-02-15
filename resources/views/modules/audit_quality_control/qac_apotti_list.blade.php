@@ -49,11 +49,11 @@
                                 data-air-report-name="{{$responseData['rAirInfo']['report_name']}}"
                                 class="btn btn-sm btn-square btn-primary btn-hover-primary air_sent_responsible_party"
                                 onclick="QAC_Apotti_List_Container.airSendToRpu($(this))">
-                            <i class="fad fa-paper-plane"></i> রেস্পন্সিবল বরাবর প্রেরণ করুন
+                            <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টি বরাবর প্রেরণ করুন
                         </button>
                     @elseif($responseData['rAirInfo']['r_air_child']['is_received']== null)
                         <span class="badge badge-primary">
-                          <i class="fal fa-info text-white"></i>  রেস্পন্সিবল বরাবর প্রেরণ করা হয়েছে
+                          <i class="fal fa-info text-white"></i>  রেস্পন্সিবল পার্টি বরাবর প্রেরণ করা হয়েছে
                         </span>
                     @elseif($responseData['rAirInfo']['r_air_child']['is_received']== 1)
                         <span class="badge badge-primary">
