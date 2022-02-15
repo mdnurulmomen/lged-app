@@ -835,10 +835,10 @@
             {{$auditQueryInfo['querier_designation_bn']}} ও
             @if($auditQueryInfo['plan_team'] != null)
                 {{$auditQueryInfo['plan_team']['team_parent_id']==0?'দলনেতা':'উপ দলনেতা'}}
-            @endif
                 <br>
-{{--            {{$auditQueryInfo['querier_unit_name_bn']}} <br>--}}
-            অডিট এনগেজমেন্ট {{$auditQueryInfo['plan_team']['team_name']}}
+                {{--{{$auditQueryInfo['querier_unit_name_bn']}} <br>--}}
+                অডিট এনগেজমেন্ট {{$auditQueryInfo['plan_team']['team_name']}}
+            @endif
         </div>
 
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">
