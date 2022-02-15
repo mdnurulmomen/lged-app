@@ -64,10 +64,13 @@
                     data-sequence="{{$apotti['apotti_sequence']}}"
                     value="{{$apotti['id']}}"
                     class="select-apotti">
+
                 <input class="apotti_sequence" data-apotti-id="{{$apotti['id']}}" type="hidden" value="{{$apotti['apotti_sequence']}}">
             </td>
             <td class="text-left">
                 {{enTobn($apotti['onucched_no'])}}
+
+{{--                <input type="text" >--}}
 
                 @if(count($apotti['apotti_items']) > 1)
                     <span class="badge badge-info text-uppercase m-1 p-1 ">

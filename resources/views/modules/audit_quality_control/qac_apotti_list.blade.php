@@ -401,6 +401,24 @@
             })
         },
 
+        qacReportDate: function (elem) {
+            air_id = elem.data('air-report-id');
+            qac_type = elem.data('qac-type');
+            office_id = $('#directorate_filter').val();
+            qac_report_date = $('#report_date').val();
+            data = {air_id, office_id, qac_report_date, qac_type};
+            let url = '{{route('audit.report.air.qac.qac-report-date')}}';
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    toastr.success('সফলভাবে সংরক্ষণ করা হয়েছে');
+                    $('#btn_filter').click();
+                    $('#kt_quick_panel_close').click();
+                }
+            });
+        },
+
         exportQacReport: function (elem) {
             url = '{{route('audit.qac.create-qac-report')}}';
             qac_type = elem.data('qac-type');

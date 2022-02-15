@@ -786,6 +786,20 @@
 
 <body>
     @if($scope != 'pdf')
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <input id="report_date" type="text" class="form-control date">
+            </div>
+            <div class="col-md-6">
+                <a data-qac-type="{{$qac_type}}"
+                   data-air-report-id="{{$air_id}}"
+                   onclick="QAC_Apotti_List_Container.qacReportDate($(this))"
+                   class="text-right mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
+                    <i class="far fa-save"></i>  সভা সম্পন্ন করুন
+                </a>
+            </div>
+        </div>
+        <br>
         <a data-qac-type="{{$qac_type}}"
            data-scope="pdf"
            data-air-report-id="{{$air_id}}"
@@ -834,7 +848,7 @@
                         </td>
                     </tr>
                     <tr class="bangla-font">
-                        <td class="bangla-font">নিরীক্ষা বছর  :</td>
+                        <td class="bangla-font">নিরীক্ষা বছর :</td>
                         <td class="bangla-font"></td>
                     </tr>
                     <tr>
@@ -843,7 +857,7 @@
                     </tr>
                     <tr>
                         <td class="bangla-font">নিরীক্ষার সময়কাল:</td>
-                        <td class="bangla-font"></td>
+                        <td class="bangla-font">{{enTobn($responseData['rAirInfo']['qac_report_date'])}}</td>
                     </tr>
                     <tr>
                         <td valign="top" class="bangla-font">সম্পন্নকারী দল: </td>
@@ -865,7 +879,7 @@
                             <td class="bangla-font" style="text-align: center" width="10%"> জড়িত অর্থ (টাকা)</td>
                             @if($qac_type == 'qac-1')
                                 <td class="bangla-font" style="text-align: center" width="10%">Audit Criteria ঠিক আছে কিনা ?</td>
-                                <td class="bangla-font" style="text-align: center" width="10%">আপত্তিটি 5W 1H মডেল প্যারা অনুসারে করা হয়েছে কিনা ?</td>
+                                <td class="bangla-font" style="text-align: center" width="10%">আপত্তিটি 5W  ও  1H মডেল প্যারা অনুসারে করা হয়েছে কিনা ?</td>
                                 <td class="bangla-font" style="text-align: center" width="10%">বিধি-বিধান সঠিকভাবে উল্লেখ আছে কিনা ?</td>
                                 <td class="bangla-font" style="text-align: center" width="10%">আপত্তির সাথে পরিশিষ্ট মিল আছে কিনা ?</td>
                                 <td class="bangla-font" style="text-align: center" width="10%">আপত্তিটি  উপযুক্ত প্রমাণক দ্বারা সমর্থিত কিনা ?</td>

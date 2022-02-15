@@ -1,5 +1,5 @@
 
-<table class="table table-hover" width="100%">
+<table class="table table-bordered" width="100%">
     <thead class="thead-light">
     <tr class="bg-hover-warning">
         <th width="7%" class="text-center">
@@ -55,7 +55,7 @@
                     <i class="fad fa-eye"></i> বিস্তারিত
                 </button>
 
-                @if($report['latest_r_air_movement'] &&  $current_designation_id == $report['latest_r_air_movement']['receiver_officer_id'])
+{{--                @if($report['latest_r_air_movement'] &&  $current_designation_id == $report['latest_r_air_movement']['receiver_officer_id'])--}}
                     @if($report['final_approval_status'] == 'approved')
                         @if(!$report['is_bg_press'])
                             <button class="mr-1 btn btn-sm btn-primary btn-square" title="বিজি প্রেসে প্রেরণ"
@@ -77,7 +77,7 @@
                             </button>
                         @endif
                     @endif
-                @endif
+{{--                @endif--}}
             </td>
         </tr>
     @empty

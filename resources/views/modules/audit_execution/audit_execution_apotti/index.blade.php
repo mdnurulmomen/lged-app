@@ -62,7 +62,7 @@
         fiscal_year_id = $('#fiscal_year_id').val();
         team_filter = $('#team_filter').val();
         cost_center_id = $('#cost_center_filter').val();
-        Apotti_Container.loadApottiList(fiscal_year_id);
+        // Apotti_Container.loadApottiList(fiscal_year_id);
         Apotti_Container.loadActivity(fiscal_year_id);
 
     });
@@ -134,10 +134,10 @@
             audit_plan_id = $('#audit_plan_id').val();
             entity_id = $('#entity_id').val();
 
-            if(!entity_id){
-               toastr.warning('Please Select Entity');
-               return;
-            }
+            // if(!entity_id){
+            //    toastr.warning('Please Select Entity');
+            //    return;
+            // }
 
             let url = '{{route('audit.execution.apotti.load-apotti-list')}}';
             let data = {fiscal_year_id,audit_plan_id,entity_id};

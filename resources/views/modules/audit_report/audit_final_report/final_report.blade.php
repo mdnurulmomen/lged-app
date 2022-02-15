@@ -1,3 +1,4 @@
+<x-title-wrapper>ফাইনাল রিপোর্ট তালিকা</x-title-wrapper>
 <div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">

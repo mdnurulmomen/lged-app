@@ -84,6 +84,31 @@ class AuditQACAIRReportController extends Controller
         }
     }
 
+    public function qacReportDate(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $data = Validator::make($request->all(), [
+            'air_id' => 'required|integer',
+            'office_id' => 'required',
+            'qac_type' => 'required',
+        ])->validate();
+
+//        dd($data);
+
+        $data['qac_report_date'] = date('Y-m-d',strtotime($request->qac_report_date));
+        $data['cdesk'] = $this->current_desk_json();
+
+//        dd($data);
+
+        $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.update_qac_air_report'), $data)->json();
+//       dd($saveAirReport);
+        if (isSuccess($saveAirReport)) {
+            return response()->json(['status' => 'success', 'data' => $saveAirReport['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $saveAirReport]);
+        }
+
+    }
+
     public function editQACAirReport(Request $request)
     {
         $data = Validator::make($request->all(), [
