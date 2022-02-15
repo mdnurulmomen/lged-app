@@ -820,7 +820,7 @@
 <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">
     <div class="pdf-screen" style="height: 100%;font-family:SolaimanLipi,serif !important; page-break-after:always">
         <div style="font-family:SolaimanLipi,serif !important;text-align: center">
-            গণপ্রজাতন্ত্রী বাংলাদেশ সরকার <br>
+            মহাপরিচালকের কার্যালয় <br>
             {{$directorateName}} <br>
             {!! $directorateAddress !!}
         </div>

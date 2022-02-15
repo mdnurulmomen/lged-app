@@ -38,7 +38,7 @@
         <!--begin::Body-->
         <div class="card-body">
             <div style="font-family:SolaimanLipi,serif !important;text-align: center">
-                {{--গণপ্রজাতন্ত্রী বাংলাদেশ সরকার <br>--}}
+                {{--মহাপরিচালকের কার্যালয় <br>--}}
                 <b>{{$directorateName}}</b> <br>
                 {!! $directorateAddress !!}
             </div>

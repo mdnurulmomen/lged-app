@@ -11,7 +11,7 @@
 
 <div class="bangla-font" style="height: 100%">
     <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;color: black">
-        গণপ্রজাতন্ত্রী বাংলাদেশ সরকার<br>
+        মহাপরিচালকের কার্যালয়<br>
         {{$directorateName}} <br>
         {!! $directorateAddress !!}<br>
         <u>{{$directorateWebsite}}</u>
