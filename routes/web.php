@@ -509,6 +509,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('submit-final-apporval', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'submitFinalApproval'])->name('submit-final-approval');
         Route::post('final-report-status-update', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportStatusUpdate'])->name('final-report-status-update');
     });
+
+    
     //Report
     Route::group(['as' => 'audit.report.', 'prefix' => 'audit-report/'], function () {
         Route::get('/', function () {
