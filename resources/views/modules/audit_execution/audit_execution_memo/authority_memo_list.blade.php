@@ -22,18 +22,23 @@
             </div>
 
             <div class="col-md-3">
+                <select class="form-control select-select2" id="activity_id">
+                    <option value="">--সিলেক্ট--</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
                 <select class="form-select select-select2" id="entity_filter">
                     <option value="">All Entity</option>
                 </select>
             </div>
-
+        </div>
+        <div class="row mt-2 mb-2">
             <div class="col-md-3">
                 <select class="form-select select-select2" id="cost_center_filter">
                     <option value="">All Cost Center</option>
                 </select>
             </div>
-        </div>
-        <div class="row mt-2 mb-2">
             <div class="col-md-3">
                 <select class="form-select select-select2" id="team_filter">
                     <option value="">All Teams</option>
@@ -63,26 +68,25 @@
                     <option value="9">জাতীয় অন্যান্য সরকারী অর্থের ক্ষতি সংক্রান্ত আপত্তি।</option>
                 </select>
             </div>
-
-            <div class="col-md-3">
-                <select class="form-control select-select2" id="memo_type">
-                    <option value="">আপত্তির ধরন</option>
-                    <option value="1">এসএফআই</option>
-                    <option value="2">নন-এসএফআই</option>
-                    <option value="3">ড্রাফ্ট প্যারা</option>
-                    <option value="4">পাণ্ডুলিপি</option>
-                </select>
-            </div>
         </div>
         <div class="row mt-2 mb-2">
-            <div class="col-md-3">
-                <select class="form-control select-select2" id="memo_status">
-                    <option value="">আপত্তির অবস্থা</option>
-                    <option value="1">নিস্পন্ন</option>
-                    <option value="2">অনিস্পন্ন</option>
-                    <option value="3">আংশিক নিস্পন্ন</option>
-                </select>
-            </div>
+{{--            <div class="col-md-3">--}}
+{{--                <select class="form-control select-select2" id="memo_type">--}}
+{{--                    <option value="">আপত্তির ধরন</option>--}}
+{{--                    <option value="1">এসএফআই</option>--}}
+{{--                    <option value="2">নন-এসএফআই</option>--}}
+{{--                    <option value="3">ড্রাফ্ট প্যারা</option>--}}
+{{--                    <option value="4">পাণ্ডুলিপি</option>--}}
+{{--                </select>--}}
+{{--            </div>--}}
+{{--            <div class="col-md-3">--}}
+{{--                <select class="form-control select-select2" id="memo_status">--}}
+{{--                    <option value="">আপত্তির অবস্থা</option>--}}
+{{--                    <option value="1">নিস্পন্ন</option>--}}
+{{--                    <option value="2">অনিস্পন্ন</option>--}}
+{{--                    <option value="3">আংশিক নিস্পন্ন</option>--}}
+{{--                </select>--}}
+{{--            </div>--}}
             <div class="col-md-3">
                 <input class="form-control mb-1" pattern="[0-9\.]*" id="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
             </div>
@@ -115,10 +119,45 @@
 
 
 <script>
+    $(function () {
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
+        Authority_Memo_Container.loadFiscalYearWiseActivity();
+
+        if (directorate_id !== 'all') {
+            Authority_Memo_Container.loadMemoList();
+            Authority_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
+        } else {
+            toastr.info('Please select directorate.')
+            $('#load_team_calendar').html('');
+        }
+    });
     var Authority_Memo_Container = {
+        loadFiscalYearWiseActivity: function () {
+            fiscal_year_id = $('#fiscal_year_id').val();
+            fiscal_year = $('#fiscal_year_id').select2('data')[0].text;
+            if (fiscal_year_id) {
+                let url = '{{route('audit.plan.annual.plan.revised.fiscal-year-wise-activity-select')}}';
+                let data = {fiscal_year_id, fiscal_year};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data)
+                    } else {
+                        $('#activity_id').html(response);
+                        $("#activity_id").val($("#activity_id option:eq(1)").val()).trigger('change');
+                        // alert(activity_id);
+                        // $('#activity_id').val(7);
+                        // Annual_Plan_Container.loadAnnualPlanList();
+                    }
+                });
+            } else {
+                $('#activity_id').html('');
+            }
+        },
         loadEntityList: function (directorate_id, fiscal_year_id) {
+            activity_id = $('#activity_id').val();
             let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
-            let data = {directorate_id, fiscal_year_id};
+            let data = {directorate_id, fiscal_year_id,activity_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 console.log(response)
                     if (response.status === 'error') {
@@ -155,10 +194,31 @@
             );
         },
 
-        loadMemoList: function (directorate_id, fiscal_year_id,entity_id, cost_center_id, team_id ,memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end) {
+        loadMemoList: function () {
+
+            directorate_id = $('#directorate_filter').val();
+            fiscal_year_id = $('#fiscal_year_id').val();
+            activity_id = $('#activity_id').val();
+            entity_id = $('#entity_filter').val();
+            team_id = $('#team_filter').val();
+            cost_center_id = $('#cost_center_filter').val();
+            memo_irregularity_type = $('#memo_irregularity_type').val();
+            memo_irregularity_sub_type = $('#memo_irregularity_sub_type').val();
+            memo_type = $('#memo_type').val();
+            memo_status = $('#memo_status').val();
+            jorito_ortho_poriman = $('#jorito_ortho_poriman').val();
+            audit_year_start = $('#audit_year_start').val();
+            audit_year_end = $('#audit_year_end').val();
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             let url = '{{route('audit.execution.memo.load-authority-memo-list')}}';
-            let data = {directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end};
+            let data = {directorate_id, fiscal_year_id, activity_id, entity_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_content');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -247,37 +307,9 @@
         },
     };
 
-
-    $(function () {
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        team_filter = $('#team_filter').val();
-        cost_center_id = $('#cost_center_filter').val();
-        entity_id = $('#entity_filter').val();
-
-        if (directorate_id !== 'all') {
-            Authority_Memo_Container.loadMemoList(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
-            Authority_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
-        } else {
-            toastr.info('Please select directorate.')
-            $('#load_team_calendar').html('');
-        }
-    });
-
     $('#btn_filter').click(function () {
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        team_filter = $('#team_filter').val();
-        cost_center_id = $('#cost_center_filter').val();
-        memo_irregularity_type = $('#memo_irregularity_type').val();
-        memo_irregularity_sub_type = $('#memo_irregularity_sub_type').val();
-        memo_type = $('#memo_type').val();
-        memo_status = $('#memo_status').val();
-        jorito_ortho_poriman = $('#jorito_ortho_poriman').val();
-        audit_year_start = $('#audit_year_start').val();
-        audit_year_end = $('#audit_year_end').val();
         if (directorate_id !== 'all') {
-            Authority_Memo_Container.loadMemoList(directorate_id, fiscal_year_id, cost_center_id, team_filter, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end);
+            Authority_Memo_Container.loadMemoList();
         } else {
             toastr.info('Please select a directorate.')
         }
