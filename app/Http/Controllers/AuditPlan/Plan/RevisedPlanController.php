@@ -141,7 +141,7 @@ class RevisedPlanController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
-
+        //dd($audit_plan);
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
             $parent_office_id = 0;

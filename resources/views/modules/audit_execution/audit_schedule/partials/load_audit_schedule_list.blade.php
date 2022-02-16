@@ -144,6 +144,8 @@
                                                         title="কোয়েরি"
                                                         onclick="Audit_Query_Schedule_Container.query($(this))"
                                                         data-schedule-id="{{$schedule['id']}}"
+                                                        data-audit-plan-id="{{$schedule['audit_plan_id']}}"
+                                                        data-entity-id="{{$schedule['entity_id']}}"
                                                         data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                         data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
                                                         data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}">
@@ -154,6 +156,7 @@
                                                         title="মেমো"
                                                         data-schedule-id="{{$schedule['id']}}"
                                                         data-audit-plan-id="{{$schedule['audit_plan_id']}}"
+                                                        data-entity-id="{{$schedule['entity_id']}}"
                                                         data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                         data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
                                                         data-audit-year-start="{{$schedule['plan_team']['audit_year_start']}}"

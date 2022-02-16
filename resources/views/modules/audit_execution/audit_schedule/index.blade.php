@@ -31,11 +31,12 @@
             url = '{{route('audit.execution.query.index')}}';
 
             schedule_id = elem.attr('data-schedule-id');
+            entity_id = elem.attr('data-entity-id');
             cost_center_id = elem.attr('data-cost-center-id');
             cost_center_name_en = elem.attr('data-cost-center-name-en');
             cost_center_name_bn = elem.attr('data-cost-center-name-bn');
 
-            data = {schedule_id,cost_center_id, cost_center_name_en,
+            data = {schedule_id,entity_id,cost_center_id, cost_center_name_en,
                 cost_center_name_bn};
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -50,6 +51,7 @@
         memo: function (elem) {
             schedule_id = elem.data('schedule-id');
             audit_plan_id = elem.data('audit-plan-id');
+            entity_id = elem.attr('data-entity-id');
             cost_center_id = elem.data('cost-center-id');
             cost_center_name_bn = elem.data('cost-center-name-bn');
             audit_year_start = elem.data('audit-year-start');
@@ -60,7 +62,7 @@
             sub_team_leader_name = elem.data('sub-team-leader-name-bn');
             sub_team_leader_designation_name = elem.data('sub-team-leader-designation-name-bn');
 
-            data = {schedule_id, audit_plan_id, cost_center_id,cost_center_name_bn,audit_year_start,
+            data = {schedule_id, audit_plan_id, entity_id, cost_center_id,cost_center_name_bn,audit_year_start,
                 audit_year_end,team_leader_name,team_leader_designation_name,scope_sub_team_leader,
                 sub_team_leader_name,sub_team_leader_designation_name};
             let url = '{{route('audit.execution.memo.index')}}'
