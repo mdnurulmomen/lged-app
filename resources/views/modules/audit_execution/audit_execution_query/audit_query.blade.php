@@ -42,11 +42,12 @@
             opacity: 0.1,
             state: 'primary' // a bootstrap color
         });
+        audit_plan_id = '{{$audit_plan_id}}';
         schedule_id = '{{$schedule_id}}';
         entity_id ='{{$entity_id}}';
         cost_center_id ='{{$cost_center_id}}';
         url = '{{route('audit.execution.query.load-list')}}';
-        data = {entity_id,cost_center_id,schedule_id};
+        data = {audit_plan_id,schedule_id,entity_id,cost_center_id};
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             KTApp.unblock('#kt_content');
             if (response.status === 'error') {

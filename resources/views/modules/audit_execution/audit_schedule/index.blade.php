@@ -31,12 +31,13 @@
             url = '{{route('audit.execution.query.index')}}';
 
             schedule_id = elem.attr('data-schedule-id');
+            audit_plan_id = elem.attr('data-audit-plan-id');
             entity_id = elem.attr('data-entity-id');
             cost_center_id = elem.attr('data-cost-center-id');
             cost_center_name_en = elem.attr('data-cost-center-name-en');
             cost_center_name_bn = elem.attr('data-cost-center-name-bn');
 
-            data = {schedule_id,entity_id,cost_center_id, cost_center_name_en,
+            data = {schedule_id,audit_plan_id,entity_id,cost_center_id, cost_center_name_en,
                 cost_center_name_bn};
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {

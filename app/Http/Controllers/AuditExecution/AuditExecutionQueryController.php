@@ -22,19 +22,21 @@ class AuditExecutionQueryController extends Controller
 
     public function auditQuery(Request $request)
     {
+        $audit_plan_id = $request->audit_plan_id;
         $schedule_id = $request->schedule_id;
         $entity_id = $request->entity_id;
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
         $cost_center_name_en = $request->cost_center_name_en;
         return view('modules.audit_execution.audit_execution_query.audit_query',
-            compact('schedule_id', 'entity_id','cost_center_id', 'cost_center_name_bn',
+            compact('audit_plan_id','schedule_id', 'entity_id','cost_center_id', 'cost_center_name_bn',
                 'cost_center_name_en'));
     }
 
     public function loadAuditQuery(Request $request)
     {
         $schedule_id = $request->schedule_id;
+        $data['audit_plan_id'] = $request->audit_plan_id;
         $data['entity_id'] = $request->entity_id;
         $data['cost_center_id'] = $request->cost_center_id;
         $data['cdesk'] = $this->current_desk_json();
