@@ -149,6 +149,8 @@
                                             @if($query['has_sent_to_rpu'] == 0)
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
                                                 list-btn-toggle" title="প্রেরণ করুন" data-ac-query-id="{{$query['id']}}"
+                                                        data-audit-plan-id="{{$query['audit_plan_id']}}"
+                                                        data-entity-id="{{$query['entity_office_id']}}"
                                                         data-cost-center-id="{{$query['cost_center_id']}}"
                                                         onclick="Audit_Query_List_Container.sendQueryToRpu($(this))">
                                                     <i class="fad fa-paper-plane"></i>
@@ -241,9 +243,12 @@
                             opacity: 0.1,
                             state: 'primary' // a bootstrap color
                         });
+                        schedule_id = '{{$schedule_id}}';
+                        audit_plan_id = elem.data('audit-plan-id');
+                        entity_id = elem.data('entity-id');
                         cost_center_id = elem.data('cost-center-id');
                         url = '{{route('audit.execution.query.load-list')}}';
-                        data = {cost_center_id};
+                        data = {audit_plan_id,schedule_id,entity_id,cost_center_id};
                         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                             KTApp.unblock('#kt_content');
                             if (response.status === 'error') {

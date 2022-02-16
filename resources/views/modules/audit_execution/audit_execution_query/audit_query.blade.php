@@ -61,10 +61,12 @@
     var Audit_Query_Container = {
         addQuery: function (elem) {
             schedule_id = '{{$schedule_id}}';
+            audit_plan_id = '{{$audit_plan_id}}';
+            entity_id = '{{$entity_id}}';
             cost_center_id = '{{$cost_center_id}}';
             cost_center_name_bn = '{{$cost_center_name_bn}}';
             cost_center_name_en = '{{$cost_center_name_bn}}';
-            data = {schedule_id,cost_center_id,cost_center_name_bn,cost_center_name_en};
+            data = {schedule_id,audit_plan_id,entity_id,cost_center_id,cost_center_name_bn,cost_center_name_en};
             url = '{{route('audit.execution.query.create')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {

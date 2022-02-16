@@ -95,12 +95,15 @@ class AuditExecutionQueryController extends Controller
     public function auditQueryCreate(Request $request)
     {
         $cost_center_types = $this->allCostCenterType();
+        $audit_plan_id= $request->audit_plan_id;
         $schedule_id = $request->schedule_id;
+        $entity_id = $request->entity_id;
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
         $cost_center_name_en = $request->cost_center_name_en;
         return view('modules.audit_execution.audit_execution_query.create',
-            compact('cost_center_types', 'schedule_id', 'cost_center_id', 'cost_center_name_bn', 'cost_center_name_en'));
+            compact('cost_center_types', 'audit_plan_id','schedule_id',
+                'entity_id','cost_center_id', 'cost_center_name_bn', 'cost_center_name_en'));
     }
 
     public function loadRejectAuditQuery(Request $request)
