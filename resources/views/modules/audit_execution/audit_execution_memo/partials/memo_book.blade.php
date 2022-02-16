@@ -449,6 +449,7 @@
             cursor: pointer;
         }
 
+
         table {
             background-color: transparent;
         }
@@ -782,6 +783,10 @@
 
         .no-border tbody, .no-border td, .no-border tfoot, .no-border th, .no-border thead, .no-border tr {
             border: 0 !important;
+        }
+
+        table tbody tr td{
+            font-family: solaimanlipipdf !important;
         }
     </style>
 </head>
