@@ -323,17 +323,28 @@
 
     var Audit_Memo_Edit_Container = {
         deleteMemoAttachment: function (elem) {
-            url = '{{route('audit.execution.memo.delete-memo-attachment')}}';
-            memo_attachment_id = elem.attr('data-memo-attachment-id');
-            data = {memo_attachment_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'error') {
-                    toastr.error(response.data)
-                } else {
-                    $("#attachment"+memo_attachment_id).hide();
-                    toastr.success(response.data);
+            swal.fire({
+                title: 'আপনি কি মুছে ফেলতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    url = '{{route('audit.execution.memo.delete-memo-attachment')}}';
+                    memo_attachment_id = elem.attr('data-memo-attachment-id');
+                    data = {memo_attachment_id};
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        if (response.status === 'error') {
+                            toastr.error(response.data)
+                        } else {
+                            $("#attachment"+memo_attachment_id).hide();
+                            toastr.success(response.data);
+                        }
+                    })
                 }
-            })
+            });
         },
     }
 
