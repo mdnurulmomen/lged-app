@@ -157,7 +157,7 @@
 
                         <div class="card mb-4">
                             <div class="card-body p-4">
-                                <input type="hidden" name="issued_by" value="{{$scope_sub_team_leader == 1?'sub_team_leader':'team_leader'}}">
+                                <input type="hidden" name="issued_by" value="{{$scope_sub_team_leader > 0?'sub_team_leader':'team_leader'}}">
 
                                 <label class="col-form-label">দলনেতা</label>
                                 <input type="text" class="form-control mb-1" placeholder="দলনেতা" readonly
@@ -167,9 +167,9 @@
 
                                 <label class="col-form-label">উপদলনেতা</label>
                                 <input type="text" class="form-control mb-1" placeholder="উপদলনেতা" readonly
-                                       value="{{$scope_sub_team_leader == 1?$sub_team_leader_name.' ('.$sub_team_leader_designation_name.')':''}}">
-                                <input type="hidden" name="sub_team_leader_name" value="{{$scope_sub_team_leader == 1?$sub_team_leader_name:''}}">
-                                <input type="hidden" name="sub_team_leader_designation" value="{{$scope_sub_team_leader == 1?$sub_team_leader_designation_name:''}}">
+                                       value="{{$scope_sub_team_leader > 0?$sub_team_leader_name.' ('.$sub_team_leader_designation_name.')':''}}">
+                                <input type="hidden" name="sub_team_leader_name" value="{{$scope_sub_team_leader > 0?$sub_team_leader_name:''}}">
+                                <input type="hidden" name="sub_team_leader_designation" value="{{$scope_sub_team_leader > 0?$sub_team_leader_designation_name:''}}">
                             </div>
                         </div>
 
