@@ -403,6 +403,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('audit-memo-log', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'auditMemoLog'])->name('audit-memo-log');
             Route::post('audit-memo-log-show', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'auditMemoShow'])->name('audit-memo-log-show');
             Route::post('send-memo-form', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'sendMemoForm'])->name('send-memo-form');
+            Route::post('delete-memo-attachment', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'deleteMemoAttachment'])->name('delete-memo-attachment');
         });
 
         Route::group(['as' => 'apotti.', 'prefix' => 'apotti/'], function () {

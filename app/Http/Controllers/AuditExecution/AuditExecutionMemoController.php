@@ -245,7 +245,7 @@ class AuditExecutionMemoController extends Controller
             'memo_id' => 'required|integer',
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
-        $memo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
+        $memo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.info'), $data)->json();
 
         $schedule_id = $request->schedule_id;
         $audit_plan_id = $request->audit_plan_id;
@@ -259,12 +259,10 @@ class AuditExecutionMemoController extends Controller
         $sub_team_leader_name = $request->sub_team_leader_name;
         $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
 
-        //dd($team_leader_name);
-
         if (isSuccess($memo)) {
-            $memo = $memo['data'];
+            $memoInfo = $memo['data'];
             return view('modules.audit_execution.audit_execution_memo.edit',
-                compact('memo', 'schedule_id', 'audit_plan_id', 'cost_center_id', 'cost_center_name_bn',
+                compact('memoInfo', 'schedule_id', 'audit_plan_id', 'cost_center_id', 'cost_center_name_bn',
                     'audit_year_start', 'audit_year_end', 'team_leader_name', 'team_leader_designation_name',
                     'scope_sub_team_leader', 'sub_team_leader_name', 'sub_team_leader_designation_name'));
         } else {
@@ -534,5 +532,21 @@ class AuditExecutionMemoController extends Controller
         $memoInfo = isSuccess($memoInfo) ? $memoInfo['data'] : [];
         return view('modules.audit_execution.audit_execution_memo.send_memo_form',
             compact('memoInfo'));
+    }
+
+    public function deleteMemoAttachment(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'memo_attachment_id' => 'required',
+        ])->validate();
+
+        $data['memo_attachment_id'] = $request->memo_attachment_id;
+        $data['cdesk'] = $this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.audit_memo_attachment_delete'), $data)->json();
+        if (isSuccess($responseData)) {
+            return response()->json(['status' => 'success', 'data' => 'Delete Successfully']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData]);
+        }
     }
 }

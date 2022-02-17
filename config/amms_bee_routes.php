@@ -260,6 +260,7 @@ return [
             'store' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-store',
             'list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-list',
             'edit' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-edit',
+            'info' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-info',
             'update' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-update',
             'attachment_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/attachment-list',
             'send_to_rpu' => env('API_URL_BEE', '') . '/audit-conduct-memo/send-audit-memo-to-rpu',
@@ -267,6 +268,7 @@ return [
             'audit_memo_recommendation_store' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-recommendation-store',
             'audit_memo_recommendation_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-recommendation-list',
             'audit_memo_log_list' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-log-list',
+            'audit_memo_attachment_delete' => env('API_URL_BEE', '') . '/audit-conduct-memo/audit-memo-attachment-delete',
         ],
 
         'apotti' => [
