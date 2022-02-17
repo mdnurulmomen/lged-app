@@ -442,7 +442,7 @@ if (!function_exists('numberConvertToBnWord')) {
     }
 }
 
-if (!function_exists(readableFileSize)) {
+if (!function_exists('readableFileSize')) {
     function readableFileSize($bytes): string
     {
         $units = ['B', 'KiB', 'MB', 'GB', 'TB', 'PB'];
