@@ -435,9 +435,20 @@ if (!function_exists('getDecryptedData')) {
 }
 
 if (!function_exists('numberConvertToBnWord')) {
-    function numberConvertToBnWord($number)
+    function numberConvertToBnWord($number): string
     {
         $number_convert = new \App\Helpers\NumberConversionToBn();
         return $number_convert->numToWord($number);
+    }
+}
+
+if (!function_exists(readableFileSize)) {
+    function readableFileSize($bytes): string
+    {
+        $units = ['B', 'KiB', 'MB', 'GB', 'TB', 'PB'];
+        for ($i = 0; $bytes > 1024; $i++) {
+            $bytes /= 1024;
+        }
+        return round($bytes, 2) . ' ' . $units[$i];
     }
 }
