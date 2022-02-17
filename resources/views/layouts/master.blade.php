@@ -62,7 +62,7 @@
             </div>
             <!--end::Header-->
             <!--begin::Content-->
-            <div class="content pt-0" id="kt_content">
+            <div class="content p-5" id="kt_content">
                 @yield('content')
             </div>
             <!--end::Content-->

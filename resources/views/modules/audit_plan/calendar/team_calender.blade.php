@@ -43,7 +43,97 @@
                 class="fad fa-search"></i></button>
     </div>
     <div class="col-md-4"></div>
-    <div class="col-md-4">
+
+</div>
+<style>
+    .sna-card-custom{
+        background:#e2f0ff;
+    }
+    .sna-card-custom h3{
+        color:#3599fe;
+        padding:15px;
+        font-weight:bold;
+
+    }
+    .sna-card-custom .total-headline{
+        font-size:15px;
+    }
+</style>
+<div class="row text-center py-5 sna-today-tomorrow-box">
+    <div class="col-xl-6">
+        <div class="card sna-card-custom">
+            <h3 class="">Today</h3>
+            <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                <div class=" card-rounded flex-grow-1">
+                    <div class="row m-0">
+                        <div class="col-xl-6 p-0 m-0">
+                            <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
+                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                                    <div class="flex-grow-1 card-spacer-x pt-6">
+                                        <div class="text-grey total-headline">Total Memo</div>
+                                        <div class="text-grey font-weight-bolder font-size-h3" id="dailyTotalMemo"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 p-0 m-0">
+                            <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
+                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                                    <div class="flex-grow-1 card-spacer-x pt-6">
+                                        <div class="text-grey total-headline">Total Query</div>
+                                        <div class="text-grey font-weight-bolder font-size-h3" id="dailyTotalQuery"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card sna-card-custom">
+            <h3 >This Week</h3>
+
+            <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                <div class="card-rounded flex-grow-1">
+                    <div class="row m-0">
+
+                    <div class="col-xl-6 p-0 m-0">
+                            <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
+                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                                    <div class="flex-grow-1 card-spacer-x pt-6">
+                                        <div class="text-grey total-headline">Total Memo</div>
+                                        <div class="text-grey font-weight-bolder font-size-h3" id="weeklyTotalMemo"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="col-xl-6 p-0 m-0">
+                            <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
+                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                                    <div class="flex-grow-1 card-spacer-x pt-6">
+                                        <div class="text-grey total-headline">Total Query</div>
+                                        <div class="text-grey font-weight-bolder font-size-h3" id="weeklyTotalQuery"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 py-5">
         <div class="btn-group">
             <button class="btn btn-icon bg-success btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
             <span class="mr-4">Data Collection Schedule</span>
@@ -51,77 +141,7 @@
             <span>Individual Audit schedule</span>
         </div>
     </div>
-</div>
-<div class="row text-center">
-    <div class="col-xl-6">
-        <div class="card card-custom bg-light-danger">
-            <h3 class="card-title font-weight-bolder text-warning h3" style="line-height: 0;margin: 20px;">Today</h3>
-            <div class="card-body d-flex flex-column p-0" style="position: relative;">
-                <div class="bg-light-danger card-rounded flex-grow-1">
-                    <div class="row m-0">
-                        <div class="col-xl-6 p-0 m-0">
-                            <div class="card card-custom bg-light-success mb-2 ml-2 mr-2" style="height: 80px">
-                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
-                                    <div class="flex-grow-1 card-spacer-x pt-6">
-                                        <div class="text-success font-weight-bold h3">Total Memo</div>
-                                        <div class="text-success font-weight-bolder font-size-h3" id="dailyTotalMemo"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 p-0 m-0">
-                            <div class="card card-custom bg-light-success mb-2 ml-2 mr-2" style="height: 80px">
-                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
-                                    <div class="flex-grow-1 card-spacer-x pt-6">
-                                        <div class="text-success font-weight-bold h3">Total Query</div>
-                                        <div class="text-success font-weight-bolder font-size-h3" id="dailyTotalQuery"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="col-xl-6">
-        <div class="card card-custom bg-light-danger">
-            <h3 class="card-title font-weight-bolder text-warning h3" style="line-height: 0;margin: 20px;">This Week</h3>
-
-            <div class="card-body d-flex flex-column p-0" style="position: relative;">
-                <div class="bg-light-danger card-rounded flex-grow-1">
-                    <div class="row m-0">
-                        <div class="col-xl-6 p-0 m-0">
-                            <div class="card card-custom bg-light-success mb-2 ml-2 mr-2" style="height: 80px">
-                                <!--begin::Body-->
-                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
-                                    <!--begin::Stats-->
-                                    <div class="flex-grow-1 card-spacer-x pt-6">
-                                        <div class="text-success font-weight-bold h3">Total Memo</div>
-                                        <div class="text-success font-weight-bolder font-size-h3" id="weeklyTotalMemo"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 p-0 m-0">
-                            <div class="card card-custom bg-light-success mb-2 ml-2 mr-2" style="height: 80px">
-                                <!--begin::Body-->
-                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
-                                    <!--begin::Stats-->
-                                    <div class="flex-grow-1 card-spacer-x pt-6">
-                                        <div class="text-success font-weight-bold h3">Total Query</div>
-                                        <div class="text-success font-weight-bolder font-size-h3" id="weeklyTotalQuery"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="row">
     <div class="col-md-12" id="load_team_calendar">
