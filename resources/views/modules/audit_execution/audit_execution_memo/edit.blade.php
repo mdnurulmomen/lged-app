@@ -186,7 +186,9 @@
                                                                     {{$porisishto['file_user_define_name']}}
                                                                 </a>
                                                                 <div class="jFiler-item-others">
-                                                                   <span>size: {{readableFileSize($porisishto['file_size'])}}</span>
+                                                                    @if($porisishto['file_size'])
+                                                                        <span>size: {{readableFileSize($porisishto['file_size'])}}</span>
+                                                                    @endif
                                                                     <span>type: {{$porisishto['file_extension']}}</span>
                                                                     <span class="jFiler-item-status"></span>
                                                                 </div>
@@ -229,7 +231,9 @@
                                                                     {{$pramanok['file_user_define_name']}}
                                                                 </a>
                                                                 <div class="jFiler-item-others">
-                                                                    <span>size: {{readableFileSize($pramanok['file_size'])}}</span>
+                                                                    @if($porisishto['file_size'])
+                                                                        <span>size: {{readableFileSize($pramanok['file_size'])}}</span>
+                                                                    @endif
                                                                     <span>type: {{$pramanok['file_extension']}}</span>
                                                                     <span class="jFiler-item-status"></span>
                                                                 </div>
