@@ -131,8 +131,8 @@ class AuditQACAIRReportController extends Controller
             $is_sent = $airReport['is_sent'];
             $is_received = $airReport['is_received'];
             $qac_type = $request->qac_type;
-            $audit_year = '২০১৯-২০২০';
-            $fiscal_year = '২০১৯-২০২০';
+            $audit_year = '২০২১-২০২২';
+            $fiscal_year = '২০২১-২০২২';
 
             $fiscal_year_id = $airReport['fiscal_year_id'];
             $activity_id = $airReport['activity_id'];
