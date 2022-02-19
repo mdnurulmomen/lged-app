@@ -1,4 +1,4 @@
-@foreach($apottis['apotti'] as $apotti)
+@foreach($apottis as $apotti['apotti'])
     <div class="pdf-screen bangla-font" style="height: 100%">
         <div style="font-weight: bold">
             অনুচ্ছেদ নং-{{enTobn($apotti['onucched_no'])}}

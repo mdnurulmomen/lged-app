@@ -9,7 +9,7 @@
         </thead>
         <tbody>
         @php $totalSFIJoritoOrtho = 0; @endphp
-        @foreach($apottis['apotti'] as $apotti)
+        @foreach($apottis as $apotti['apotti'])
             @php $totalSFIJoritoOrtho = $totalSFIJoritoOrtho+$apotti['total_jorito_ortho_poriman']; @endphp
             <tr>
                 <td style="text-align: center">{{enTobn($apotti['onucched_no'])}}.</td>
