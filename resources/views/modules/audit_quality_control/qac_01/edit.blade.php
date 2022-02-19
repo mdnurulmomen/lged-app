@@ -91,14 +91,12 @@
     <script>
         $(function () {
             let approved_status = '{{$approved_status}}';
-            /*if (approved_status != 'approved'){
+            if (approved_status != 'approved'){
                 $(".update-qac-air-report").click();
                 QAC_AIR_Report_Container.insertAuditApottiSummary();
                 QAC_AIR_Report_Container.insertAuditApottiDetails();
                 $(".update-qac-air-report").click();
-            }*/
-            QAC_AIR_Report_Container.insertAuditApottiSummary();
-            QAC_AIR_Report_Container.insertAuditApottiDetails();
+            }
         });
 
         var QAC_AIR_Report_Container = {
