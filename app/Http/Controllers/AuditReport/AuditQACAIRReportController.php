@@ -236,14 +236,14 @@ class AuditQACAIRReportController extends Controller
         ])->validate();
         $requestData['cdesk'] =$this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_qac_apotti'), $requestData)->json();
-        $apottis = isSuccess($responseData)?$responseData['data']:[];
+        $apottiStatusList = isSuccess($responseData)?$responseData['data']:[];
 //        dd($apottis);
         $qac_type = $request->qac_type;
         if ($request->apotti_view_scope == 'summary'){
-            return view('modules.audit_quality_control.qac_01.partials.load_audit_apottis_summary',compact('apottis','qac_type'));
+            return view('modules.audit_quality_control.qac_01.partials.load_audit_apottis_summary',compact('apottiStatusList','qac_type'));
         }
         else{
-            return view('modules.audit_quality_control.qac_01.partials.load_audit_apottis_details',compact('apottis','qac_type'));
+            return view('modules.audit_quality_control.qac_01.partials.load_audit_apottis_details',compact('apottiStatusList','qac_type'));
         }
     }
 
