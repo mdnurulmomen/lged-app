@@ -9,12 +9,12 @@
         </thead>
         <tbody>
         @php $totalSFIJoritoOrtho = 0; @endphp
-        @foreach($apottis as $apotti['apotti'])
-            @php $totalSFIJoritoOrtho = $totalSFIJoritoOrtho+$apotti['total_jorito_ortho_poriman']; @endphp
+        @foreach($apottiStatusList as $apottiStatus)
+            @php $totalSFIJoritoOrtho = $totalSFIJoritoOrtho+$apottiStatus['apotti']['total_jorito_ortho_poriman']; @endphp
             <tr>
-                <td style="text-align: center">{{enTobn($apotti['onucched_no'])}}.</td>
-                <td style="text-align: left;margin-left: 5px">{{$apotti['apotti_title']}}</td>
-                <td style="text-align: right">{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}/-</td>
+                <td style="text-align: center">{{enTobn($apottiStatus['apotti']['onucched_no'])}}.</td>
+                <td style="text-align: left;margin-left: 5px">{{$apottiStatus['apotti']['apotti_title']}}</td>
+                <td style="text-align: right">{{enTobn(number_format($apottiStatus['apotti']['total_jorito_ortho_poriman'],0))}}/-</td>
             </tr>
         @endforeach
         <tr>
