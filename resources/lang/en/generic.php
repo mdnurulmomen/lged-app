@@ -8,6 +8,7 @@ return [
     'select' => 'সিলেক্ট',
     'back' => 'Back',
     'no_data_found' => 'No Data To Display',
+    'sent_successfully' => 'Successfully Sent.',
     'placeholders' => [
         'search' => 'Search',
     ],

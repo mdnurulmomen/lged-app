@@ -45,14 +45,14 @@
 
             <ul class="d-none select_approval_authority"></ul>
 
-{{--            <div class="form-group mt-4">--}}
-{{--                <label class="col-form-label" for="approval_status">স্ট্যাটাস</label>--}}
-{{--                <select name="approval_status" class="form-control select-select2" id="status">--}}
-{{--                    <option value="draft">Draft</option>--}}
-{{--                    <option value="pending" selected>Pending</option>--}}
-{{--                    <option value="approved">Approved</option>--}}
-{{--                </select>--}}
-{{--            </div>--}}
+            {{--            <div class="form-group mt-4">--}}
+            {{--                <label class="col-form-label" for="approval_status">স্ট্যাটাস</label>--}}
+            {{--                <select name="approval_status" class="form-control select-select2" id="status">--}}
+            {{--                    <option value="draft">Draft</option>--}}
+            {{--                    <option value="pending" selected>Pending</option>--}}
+            {{--                    <option value="approved">Approved</option>--}}
+            {{--                </select>--}}
+            {{--            </div>--}}
 
             <div class="form-group">
                 <label class="col-form-label" for="comments">মন্তব্য</label>
@@ -88,22 +88,22 @@
         //console.log(officer_info);
 
         var newRow = '<li id="approval_authority_' + officer_info.officer_id + '">' +
-            '<input name="receiver_officer_id" type="hidden" value="' + officer_info.officer_id + '"/>'+
+            '<input name="receiver_officer_id" type="hidden" value="' + officer_info.officer_id + '"/>' +
             '<input name="receiver_office_id" type="hidden" value="' + officer_info.office_id + '"/>' +
             '<input name="receiver_unit_id" type="hidden" value="' + officer_info.unit_id + '"/>' +
             '<input name="receiver_unit_name_en" type="hidden" value="' + officer_info.unit_name_en + '"/>' +
-            '<input name="receiver_unit_name_bn" type="hidden" value="' + officer_info.unit_name_bn + '"/>'+
-            '<input name="receiver_employee_id" type="hidden" value="' + officer_info.officer_id + '"/>'+
-            '<input name="receiver_employee_name_en" type="hidden" value="' + officer_info.officer_name_en + '"/>'+
-            '<input name="receiver_employee_name_bn" type="hidden" value="' + officer_info.officer_name_bn + '"/>'+
-            '<input name="receiver_employee_designation_id" type="hidden" value="' + officer_info.designation_id + '"/>'+
-            '<input name="receiver_employee_designation_en" type="hidden" value="' + officer_info.designation_en + '"/>'+
-            '<input name="receiver_employee_designation_bn" type="hidden" value="' + officer_info.designation_bn + '"/>'+
-            '<input name="receiver_officer_phone" type="hidden" value="' + officer_info.officer_mobile + '"/>'+
-            '<input name="receiver_officer_email" type="hidden" value="' + officer_info.officer_email + '"/>'+
+            '<input name="receiver_unit_name_bn" type="hidden" value="' + officer_info.unit_name_bn + '"/>' +
+            '<input name="receiver_employee_id" type="hidden" value="' + officer_info.officer_id + '"/>' +
+            '<input name="receiver_employee_name_en" type="hidden" value="' + officer_info.officer_name_en + '"/>' +
+            '<input name="receiver_employee_name_bn" type="hidden" value="' + officer_info.officer_name_bn + '"/>' +
+            '<input name="receiver_employee_designation_id" type="hidden" value="' + officer_info.designation_id + '"/>' +
+            '<input name="receiver_employee_designation_en" type="hidden" value="' + officer_info.designation_en + '"/>' +
+            '<input name="receiver_employee_designation_bn" type="hidden" value="' + officer_info.designation_bn + '"/>' +
+            '<input name="receiver_officer_phone" type="hidden" value="' + officer_info.officer_mobile + '"/>' +
+            '<input name="receiver_officer_email" type="hidden" value="' + officer_info.officer_email + '"/>' +
             '</li>';
 
-        let select_approval_authority =  $(".select_approval_authority");
+        let select_approval_authority = $(".select_approval_authority");
         select_approval_authority.append(newRow);
 
     }).on('deselect_node.jstree', function (e, data) {
@@ -124,13 +124,12 @@
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_content');
                 if (response.status === 'success') {
-                    toastr.success('সফলভাবে প্রেরণ করা হয়েছে');
+                    toastr.success('{{___('generic.sent_successfully')}}');
                     $('#kt_quick_panel_close').click();
                     $(".load_approval_authority").hide();
                     $(".load_cag_approval_authority").hide();
                     $(".update-qac-air-report").hide();
-                }
-                else {
+                } else {
                     toastr.error(response.data.message);
                 }
             })

@@ -8,6 +8,7 @@ return [
     'save' => 'সংরক্ষণ করুন',
     'back' => 'ফেরত যান',
     'no_data_found' => 'কোন তথ্য পাওয়া যায়নি',
+    'sent_successfully' => 'সফলভাবে প্রেরণ করা হয়েছে',
     'placeholders' => [
         'search' => 'অনুসন্ধান করুন',
     ],

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\AuditReport;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class AuditFinalReportController extends Controller
@@ -27,16 +27,17 @@ class AuditFinalReportController extends Controller
 
         $fiscal_years = $this->allFiscalYears();
 
-        return view('modules.audit_report.audit_final_report.final_report',compact('fiscal_years','directorates'));
+        return view('modules.audit_report.audit_final_report.final_report', compact('fiscal_years', 'directorates'));
     }
 
-    public function getAuditFinalReport(Request $request){
+    public function getAuditFinalReport(Request $request)
+    {
 
         $data = Validator::make($request->all(), [
             'office_id' => 'required',
             'qac_type' => 'required',
             'activity_id' => 'required',
-        ],[
+        ], [
             'office_id.required' => 'অধিদপ্তর বাছাই করুন',
             'activity_id.required' => 'অ্যাক্টিভিটি বাছাই করুন',
         ])->validate();
@@ -45,9 +46,9 @@ class AuditFinalReportController extends Controller
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_audit_final_report'), $data)->json();
 //        dd($responseData);
         $current_designation_id = $this->current_designation_id();
-        $final_report = isSuccess($responseData)?$responseData['data']:[];
+        $final_report = isSuccess($responseData) ? $responseData['data'] : [];
         return view('modules.audit_report.audit_final_report.load_final_report_list',
-            compact('final_report','current_designation_id'));
+            compact('final_report', 'current_designation_id'));
     }
 
 
@@ -70,19 +71,19 @@ class AuditFinalReportController extends Controller
         if (isSuccess($responseData)) {
             $airReport = $responseData['data'];
             $air_report_id = $airReport['id'];
-            $latest_receiver_designation_id = empty($airReport['latest_r_air_movement'])?0:$airReport['latest_r_air_movement']['receiver_employee_designation_id'];
+            $latest_receiver_designation_id = empty($airReport['latest_r_air_movement']) ? 0 : $airReport['latest_r_air_movement']['receiver_employee_designation_id'];
             $current_designation_id = $this->current_designation_id();
             $current_designation_grade = $this->current_officer_grade();
 //            dd($current_designation_grade);
             $qac_type = $request->qac_type;
             $cqatData['template_type'] = 'cqat_report';
             $cqatData['cdesk'] = $cdeskData;
-            $desk_office_id = json_decode($cdeskData,true);
+            $desk_office_id = json_decode($cdeskData, true);
             $desk_office_id = $desk_office_id['office_id'];
             $final_approval_status = $airReport['final_approval_status'];
-            $approved_status =  $airReport['approval_status'];
-            $is_bg_press =  $airReport['is_bg_press'];
-            $printing_done =  $airReport['is_printing_done'];
+            $approved_status = $airReport['approval_status'];
+            $is_bg_press = $airReport['is_bg_press'];
+            $printing_done = $airReport['is_printing_done'];
             $office_id = $request->office_id;
 
             $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $cqatData)->json();
@@ -94,26 +95,26 @@ class AuditFinalReportController extends Controller
                 foreach ($airReport['annual_plan']['ap_entities'] as $ap_entities) {
                     $entityNames[] = $ap_entities['entity_name_bn'];
                 }
-                $audit_plan_entities = count($entityNames)>1?implode(" এবং ",$entityNames):$entityNames[0];
+                $audit_plan_entities = count($entityNames) > 1 ? implode(" এবং ", $entityNames) : $entityNames[0];
 
                 return view('modules.audit_report.audit_final_report.edit_final_report',
-                    compact('content','audit_plan_entities','air_report_id',
-                        'approved_status','final_approval_status','latest_receiver_designation_id','current_designation_id','qac_type','office_id','desk_office_id','is_bg_press','printing_done','current_designation_grade'));
+                    compact('content', 'audit_plan_entities', 'air_report_id',
+                        'approved_status', 'final_approval_status', 'latest_receiver_designation_id', 'current_designation_id', 'qac_type', 'office_id', 'desk_office_id', 'is_bg_press', 'printing_done', 'current_designation_grade'));
             }
-        }
-        else {
+        } else {
             return ['status' => 'error', 'data' => $responseData['data']];
         }
     }
 
-    public function loadFinalApprovalAuthority(Request $request){
+    public function loadFinalApprovalAuthority(Request $request)
+    {
         $office_id = $request->office_id;
         $air_report_id = $request->air_report_id;
-        $air_type= $request->air_type;
+        $air_type = $request->air_type;
         $data['r_air_id'] = $air_report_id;
         $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_last_movement'), $data)->json();
-        $last_air_movement = isSuccess($responseData)?$responseData['data']:[];
+        $last_air_movement = isSuccess($responseData) ? $responseData['data'] : [];
         //dd($last_air_movement);
         $officer_lists = $this->initDoptorHttp()->post(config('cag_doptor_api.office_unit_designation_employee_map'),
             [
@@ -121,11 +122,12 @@ class AuditFinalReportController extends Controller
                 'designation_grade' => 6,
             ]
         )->json();
-        $officer_lists = $officer_lists['status'] == 'success'?$officer_lists['data']:[];
-        return view('modules.audit_report.audit_final_report.final_report_approval_authority',compact('officer_lists','air_report_id','last_air_movement','air_type','office_id'));
+        $officer_lists = $officer_lists['status'] == 'success' ? $officer_lists['data'] : [];
+        return view('modules.audit_report.audit_final_report.final_report_approval_authority', compact('officer_lists', 'air_report_id', 'last_air_movement', 'air_type', 'office_id'));
     }
 
-    public function submitFinalApproval(Request $request){
+    public function submitFinalApproval(Request $request)
+    {
 
         try {
             $data = Validator::make($request->all(), [
@@ -144,7 +146,7 @@ class AuditFinalReportController extends Controller
                 'receiver_officer_phone' => 'required',
                 'receiver_officer_email' => 'required',
                 'air_type' => 'required',
-            ],[
+            ], [
                 'r_air_id.required' => 'AIR id is required',
                 'receiver_officer_id.required' => 'You have to choose receiver',
                 'receiver_office_id.required' => 'You have to choose receiver',
@@ -158,7 +160,7 @@ class AuditFinalReportController extends Controller
 
             if (isSuccess($responseData)) {
 
-                if( $request->final_approval_status ){
+                if ($request->final_approval_status) {
                     $report_data['air_id'] = $request->r_air_id;
                     $report_data['cdesk'] = $this->current_desk_json();
                     $report_data['office_id'] = $request->office_id;
@@ -172,7 +174,7 @@ class AuditFinalReportController extends Controller
                     } else {
                         return response()->json(['status' => 'error', 'data' => $saveAirReport]);
                     }
-                }else{
+                } else {
                     return response()->json(['status' => 'success', 'data' => 'সফলভাবে প্রেরণ করা হয়েছে']);
                 }
 
@@ -191,7 +193,8 @@ class AuditFinalReportController extends Controller
         }
     }
 
-    public function finalReportStatusUpdate(Request $request){
+    public function finalReportStatusUpdate(Request $request)
+    {
         $report_data = Validator::make($request->all(), [
             'air_id' => 'required|integer',
             'office_id' => 'required|integer',
@@ -226,7 +229,7 @@ class AuditFinalReportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -237,7 +240,7 @@ class AuditFinalReportController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -248,7 +251,7 @@ class AuditFinalReportController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -259,8 +262,8 @@ class AuditFinalReportController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -271,7 +274,7 @@ class AuditFinalReportController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

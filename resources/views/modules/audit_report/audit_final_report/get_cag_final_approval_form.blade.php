@@ -59,7 +59,7 @@
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_content');
                 if (response.status === 'success') {
-                    toastr.success('সফলভাবে প্রেরণ করা হয়েছে');
+                    toastr.success('{{___('generic.sent_successfully')}}');
                     $('#kt_quick_panel_close').click();
                     $(".load_approval_authority").hide();
                     $(".load_cag_approval_authority").hide();
