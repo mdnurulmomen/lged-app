@@ -107,15 +107,18 @@
     @include('scripts.audit_inspection_report.report.create.script_create')
 
     <script>
-        {{--$(function () {--}}
-        {{--    let approved_status = '{{$approved_status}}';--}}
-        {{--    if (approved_status != 'approved') {--}}
-        {{--        $(".update-qac-air-report").click();--}}
-        {{--        QAC_AIR_Report_Container.insertAuditApottiSummary();--}}
-        {{--        QAC_AIR_Report_Container.insertAuditApottiDetails();--}}
-        {{--        $(".update-qac-air-report").click();--}}
-        {{--    }--}}
-        {{--});--}}
+        $(function () {
+            /*let approved_status = '{{$approved_status}}';
+            if (approved_status != 'approved') {
+                $(".update-qac-air-report").click();
+                QAC_AIR_Report_Container.insertAuditApottiSummary();
+                QAC_AIR_Report_Container.insertAuditApottiDetails();
+                $(".update-qac-air-report").click();
+            }*/
+
+            QAC_AIR_Report_Container.insertAuditApottiSummary();
+            QAC_AIR_Report_Container.insertAuditApottiDetails();
+        });
 
         var QAC_AIR_Report_Container = {
             setJsonContentFromPlanBook: function () {
