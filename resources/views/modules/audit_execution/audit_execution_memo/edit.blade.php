@@ -264,12 +264,12 @@
                                 <label class="col-form-label">দলনেতা</label>
                                 <input type="text" class="form-control mb-1" name="rpu_acceptor_officer_name_bn"
                                        placeholder="দলনেতা" readonly
-                                       value="{{$team_leader_name.' ('.$team_leader_designation_name.')'}}">
+                                       value="{{$memoInfo['memo']['team_leader_name'].' ('.$memoInfo['memo']['team_leader_designation'].')'}}">
 
                                 <label class="col-form-label">উপদলনেতা</label>
                                 <input type="text" class="form-control mb-1" name="rpu_acceptor_designation_name_bn"
                                        placeholder="উপদলনেতা" readonly
-                                       value="{{$scope_sub_team_leader == 1?$sub_team_leader_name.' ('.$sub_team_leader_designation_name.')':''}}">
+                                       value="{{$memoInfo['memo']['sub_team_leader_name'].' ('.$memoInfo['memo']['sub_team_leader_name'].')'}}">
                             </div>
                         </div>
 
