@@ -68,17 +68,26 @@
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
-                                        <span class="mr-1 ">{{___('generic.list_views.conducting.memo.memo_no')}}: </span>
+                                        <span class="mr-1 ">মেমো নংঃ</span>
                                         <a href="javascript:void(0)" class="text-dark text-hover-primary font-size-h5">
                                             {{enTobn($memo['onucched_no'])}}
                                         </a>
                                     </div>
+                                    <div class="font-weight-normal">
+                                        <span class="mr-2 font-size-1-1">কস্ট সেন্টারঃ</span>
+                                        <span class="font-size-14">
+                                            {{$memo['cost_center_name_bn']}}
+                                        </span>
+                                        <span title="এনটিটি" class="label label-outline-primary label-pill label-inline">
+                                            {{$memo['parent_office_name_bn']}}
+                                        </span>
+                                    </div>
                                     <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.audit_title')}}:</span>
+                                        <span class="mr-2 font-size-1-1">শিরোনামঃ</span>
                                         <span class="description text-info text-wrap font-size-14">{{$memo['memo_title_bn']}}</span>
                                     </div>
                                     <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.memo_irregularity_type')}}:</span>
+                                        <span class="mr-2 font-size-1-1">আপত্তি অনিয়মের ধরনঃ</span>
                                         <span class="font-size-14">
                                             {{$memo['memo_irregularity_type_name']}}
                                         </span>
@@ -87,17 +96,11 @@
                                         </span>
                                     </div>
                                     <div class=" subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.jorito_ortho')}}:</span>
+                                        <span class="mr-2 font-size-1-1">জড়িত অর্থঃ</span>
                                         <span class="text-info font-size-14">
                                             {{enTobn(number_format($memo['jorito_ortho_poriman'],0))}}
                                         </span>
                                     </div>
-                                    {{--<div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.onishponno_jorito_ortho')}}:</span>
-                                        <span class="text-danger font-size-14">
-                                           {{enTobn(number_format($memo['onishponno_jorito_ortho_poriman'],0))}}
-                                        </span>
-                                    </div>--}}
                                     <div class="font-weight-normal d-none predict-wrapper">
                                         <span class="predict-label text-success "></span>
                                     </div>

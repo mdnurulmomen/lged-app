@@ -173,11 +173,13 @@
                                                 <i class="fad fa-eye"></i>
                                             </button>
 
-                                            <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                    title="{{___('generic.buttons.title.edit')}}" data-memo-id="{{$memo['id']}}"
-                                                    onclick="Memo_List_Container.editMemo($(this))">
-                                                <i class="fad fa-edit"></i>
-                                            </button>
+                                            @if(!$memo['has_sent_to_rpu'])
+                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                        title="{{___('generic.buttons.title.edit')}}" data-memo-id="{{$memo['id']}}"
+                                                        onclick="Memo_List_Container.editMemo($(this))">
+                                                    <i class="fad fa-edit"></i>
+                                                </button>
+                                            @endif
 
                                             @if(!$memo['has_sent_to_rpu'])
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"

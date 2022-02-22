@@ -1,6 +1,11 @@
 <script>
     $(document).ready(function () {
-        $('#kt_aside_menu .menu-nav .menu-item a').first().click()
+        getCurrentLocation = window.location.href;
+        page = getCurrentLocation.split("=");
+
+        if (!page[1]) {
+            $('#kt_aside_menu .menu-nav .menu-item a').first().click()
+        }
     })
 
     $('#kt_aside_menu .menu-nav .menu-link').click(function (event) {

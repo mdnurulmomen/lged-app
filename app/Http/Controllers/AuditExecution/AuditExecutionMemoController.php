@@ -273,18 +273,25 @@ class AuditExecutionMemoController extends Controller
     public function sentToRpu(Request $request)
     {
         $data = Validator::make($request->all(), [
-            'memos' => 'required',
+            'memo_id' => 'required',
             'memo_sharok_no' => 'required',
             'memo_cc' => 'nullable',
             'issued_by' => 'required',
             'memo_send_date' => 'required',
             'rpu_acceptor_designation_name_bn' => 'nullable',
         ])->validate();
-
-//        dd($data);
-
-        //$data['memo_send_date'] = date('Y-m-d',strtotime($request->memo_send_date));
         $data['cdesk'] = $this->current_desk_json();
+
+        if ($this->current_office_id() == 14) {
+            $data['directorate_address'] = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $data['directorate_website'] = 'www.worksaudit.org.bd';
+        } elseif ($this->current_office_id() == 3) {
+            $data['directorate_address'] = 'অডিট কমপ্লেক্স (২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $data['directorate_website'] = 'www.dgcivil-cagbd.org';
+        } else {
+            $data['directorate_address'] = 'অডিট কমপ্লেক্স (৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
+            $data['directorate_website'] = 'www.cad.org.bd';
+        }
 
         $memoSendToRpu = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.send_to_rpu'), $data)->json();
 

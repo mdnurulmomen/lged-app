@@ -17,4 +17,16 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $(function () {
+            getCurrentLocation = window.location.href;
+            page = getCurrentLocation.split("=");
+            console.log(page[1])
+            if (page[1] == 'memo'){
+                $(".audit-memo a").click();
+            }else if(page[1] == 'query'){
+                $(".audit-query a").click();
+            }
+        })
+    </script>
 @endsection

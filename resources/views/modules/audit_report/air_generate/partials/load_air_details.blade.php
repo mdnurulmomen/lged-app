@@ -10,16 +10,14 @@
                         <i class="fad fa-share-square"></i> প্রেরণ করুন
                     </button>
 
-
+                    <button data-air-report-id="{{$air_report_id}}"
+                            data-audit-plan-entities="{{$audit_plan_entities}}"
+                            onclick="AIR_Container.loadAIREdit($(this))" title="সম্পাদন করুন"
+                            class="ml-2 btn btn-warning btn-sm btn-bold btn-square">
+                        <i class="fad fa-edit"></i> সম্পাদনা করুন
+                    </button>
                 @endif
             @endif
-
-                <button data-air-report-id="{{$air_report_id}}"
-                        data-audit-plan-entities="{{$audit_plan_entities}}"
-                        onclick="AIR_Container.loadAIREdit($(this))" title="সম্পাদন করুন"
-                        class="ml-2 btn btn-warning btn-sm btn-bold btn-square">
-                    <i class="fad fa-edit"></i> সম্পাদনা করুন
-                </button>
 
             {{--<button onclick="Report_AIR_Details_Container.generatePDF()" title="ডাউনলোড করুন"
                     class="ml-2 btn btn-danger btn-sm btn-bold btn-square">

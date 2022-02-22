@@ -67,27 +67,31 @@
                 <div class=" card-rounded flex-grow-1">
                     <div class="row m-0">
                         <div class="col-xl-6 p-0 m-0">
-                            <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
-                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
-                                    <div class="flex-grow-1 card-spacer-x pt-6">
-                                        <div class="text-grey total-headline">Total Memo</div>
-                                        <div class="text-grey font-weight-bolder font-size-h3" id="dailyTotalMemo"></div>
+                            <a href="{{url('audit-conducting?page=memo')}}">
+                                <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
+                                    <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                                        <div class="flex-grow-1 card-spacer-x pt-6">
+                                            <div class="text-grey total-headline">Total Memo</div>
+                                            <div class="text-grey font-weight-bolder font-size-h3" id="dailyTotalMemo"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
 
                         <div class="col-xl-6 p-0 m-0">
-                            <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
-                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
-                                    <div class="flex-grow-1 card-spacer-x pt-6">
-                                        <div class="text-grey total-headline">Total Query</div>
-                                        <div class="text-grey font-weight-bolder font-size-h3" id="dailyTotalQuery"></div>
+                            <a href="{{url('audit-conducting?page=query')}}">
+                                <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
+                                    <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                                        <div class="flex-grow-1 card-spacer-x pt-6">
+                                            <div class="text-grey total-headline">Total Query</div>
+                                            <div class="text-grey font-weight-bolder font-size-h3" id="dailyTotalQuery"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -103,6 +107,7 @@
                     <div class="row m-0">
 
                     <div class="col-xl-6 p-0 m-0">
+                        <a href="{{url('audit-conducting?page=memo')}}">
                             <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
                                 <div class="card-body d-flex flex-column p-0" style="position: relative;">
                                     <div class="flex-grow-1 card-spacer-x pt-6">
@@ -111,9 +116,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
+                    </div>
 
                     <div class="col-xl-6 p-0 m-0">
+                        <a href="{{url('audit-conducting?page=query')}}">
                             <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
                                 <div class="card-body d-flex flex-column p-0" style="position: relative;">
                                     <div class="flex-grow-1 card-spacer-x pt-6">
@@ -122,10 +129,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                       
-
-                      
+                        </a>
                     </div>
                 </div>
             </div>

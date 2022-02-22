@@ -837,7 +837,7 @@
             <b>সংযুক্তিঃ পরিশিষ্ট</b>
         </div>
 
-        @if($memoInfo['irregularity_cause'])
+        @if($memoInfo['response_of_rpu'])
             <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
                 <span style="font-weight: bold">অডিটি প্রতিষ্ঠানের জবাবঃ</span>
                 {{$memoInfo['response_of_rpu']}}
@@ -895,7 +895,7 @@
                     </td>
                 </tr>
             </table>
-        @endif()
+        @endif
         <br>
         <table class="bangla-font" width="100%" style="color: black">
             <tr>
