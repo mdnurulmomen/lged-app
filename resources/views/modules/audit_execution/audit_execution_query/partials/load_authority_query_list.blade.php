@@ -89,6 +89,15 @@
                             <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
+                                    <div class="font-weight-normal">
+                                        <span class="mr-2 font-size-1-1">কস্ট সেন্টারঃ</span>
+                                        <span class="font-size-14">
+                                            {{$query['cost_center_name_bn']}}
+                                        </span>
+                                        <span title="এনটিটি" class="label label-outline-primary label-pill label-inline">
+                                            {{$query['entity_office_name_bn']}}
+                                        </span>
+                                    </div>
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                         <span class="mr-1 ">স্মারক নংঃ</span>
                                         <a href="javascript:void(0)" class="text-dark text-hover-primary font-size-h5">
