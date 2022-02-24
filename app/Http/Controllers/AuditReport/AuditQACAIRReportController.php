@@ -92,15 +92,11 @@ class AuditQACAIRReportController extends Controller
             'qac_type' => 'required',
         ])->validate();
 
-//        dd($data);
-
         $data['qac_report_date'] = date('Y-m-d',strtotime($request->qac_report_date));
         $data['cdesk'] = $this->current_desk_json();
 
-//        dd($data);
-
         $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.update_qac_air_report'), $data)->json();
-//       dd($saveAirReport);
+
         if (isSuccess($saveAirReport)) {
             return response()->json(['status' => 'success', 'data' => $saveAirReport['data']]);
         } else {
@@ -120,7 +116,7 @@ class AuditQACAIRReportController extends Controller
         $data['cdesk'] = $cdeskData;
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.edit_air_report'), $data)->json();
-        //dd($responseData);
+//        dd($responseData);
         if (isSuccess($responseData)) {
             $airReport = $responseData['data'];
             $content = gzuncompress(getDecryptedData($airReport['air_description']));
@@ -131,10 +127,17 @@ class AuditQACAIRReportController extends Controller
             $is_sent = $airReport['is_sent'];
             $is_received = $airReport['is_received'];
             $qac_type = $request->qac_type;
-            $audit_year = '২০২১-২০২২';
-            $fiscal_year = '২০২১-২০২২';
-
             $fiscal_year_id = $airReport['fiscal_year_id'];
+
+            $fiscal_year_data['fiscal_year_id'] = $fiscal_year_id;
+            $fiscal_year_response = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_show'), $fiscal_year_data)->json();
+
+            if (isSuccess($fiscal_year_response)) {
+                $fiscal_year_start = $fiscal_year_response['data']['start'];
+                $fiscal_year_end = $fiscal_year_response['data']['end'];
+            }
+            $audit_year = '২০১৯-২০২০';
+            $fiscal_year = enTobn($fiscal_year_start).'-'.enTobn($fiscal_year_end);
             $activity_id = $airReport['activity_id'];
             $audit_plan_id = $airReport['audit_plan_id'];
             $annual_plan_id = $airReport['annual_plan_id'];

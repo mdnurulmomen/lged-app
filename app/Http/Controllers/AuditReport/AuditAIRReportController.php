@@ -30,7 +30,6 @@ class AuditAIRReportController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $data)->json();
-        //dd($responseData);
         if (isSuccess($responseData)) {
             $content = $responseData['data']['content'];
 
@@ -49,15 +48,24 @@ class AuditAIRReportController extends Controller
             $activity_id = $request->activity_id;
             $annual_plan_id = $request->annual_plan_id;
             $audit_plan_id = $request->audit_plan_id;
+
+            $fiscal_year_data['fiscal_year_id'] = $fiscal_year_id;
+            $fiscal_year_response = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_show'), $fiscal_year_data)->json();
+
+            if (isSuccess($fiscal_year_response)) {
+                $fiscal_year_start = $fiscal_year_response['data']['start'];
+                $fiscal_year_end = $fiscal_year_response['data']['end'];
+            }
             $audit_year = '২০১৯-২০২০';
-            $fiscal_year = '২০২০-২০২১';
+            $fiscal_year = enTobn($fiscal_year_start).'-'.enTobn($fiscal_year_end);
             $audit_plan_entities = $request->audit_plan_entities;
+            $audit_plan_entity_info = $request->audit_plan_entity_info;
 
             return view('modules.audit_report.air_generate.create',
                 compact('directorate_name','directorate_address','auditType',
                     'air_type','content','fiscal_year_id','activity_id',
                     'annual_plan_id','audit_plan_id','audit_year','fiscal_year',
-                    'audit_plan_entities'));
+                    'audit_plan_entities','audit_plan_entity_info'));
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];
@@ -72,20 +80,21 @@ class AuditAIRReportController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->fiscal_year_id);
-        Validator::make($request->all(), [
+        $data =  Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
             'annual_plan_id' => 'required|integer',
             'audit_plan_id' => 'required|integer',
             'activity_id' => 'required|integer',
             'air_description' => 'required',
+            'ministry_id' => 'required',
+            'ministry_name_en' => 'required',
+            'ministry_name_bn' => 'required',
+            'entity_id' => 'required',
+            'entity_name_en' => 'required',
+            'entity_name_bn' => 'required',
         ])->validate();
 
         $data['air_id'] = $request->air_id;
-        $data['fiscal_year_id'] = $request->fiscal_year_id;
-        $data['activity_id'] = $request->activity_id;
-        $data['annual_plan_id'] = $request->annual_plan_id;
-        $data['audit_plan_id'] = $request->audit_plan_id;
         $data['air_description'] = makeEncryptedData(gzcompress($request->air_description));
         $data['type'] = $request->air_type;
         $data['audit_plan_entities'] = $request->audit_plan_entities;
@@ -93,14 +102,52 @@ class AuditAIRReportController extends Controller
         $data['all_apottis'] = empty($request->all_apottis)?[]:explode(',',$request->all_apottis);
         $data['apottis'] = empty($request->apottis)?[]:explode(',',$request->apottis);
         $data['cdesk'] = $this->current_desk_json();
-        $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.store_air_report'), $data)->json();
-        if (isSuccess($saveAirReport)) {
-            return response()->json(['status' => 'success', 'data' => $saveAirReport['data']]);
-        } else {
-            return response()->json(['status' => 'error', 'data' => $saveAirReport]);
+
+        $data_rearrange_apotti['onucched_list'] =  $this->apotti_onucced_genarate($data['all_apottis'],$data['apottis']);
+        $data_rearrange_apotti['cdesk'] = $this->current_desk_json();
+
+        $rearrange_apotti = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.onucched_rearrange'), $data_rearrange_apotti)->json();
+
+        if(isSuccess($rearrange_apotti)){
+            $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.store_air_report'), $data)->json();
+//            dd($saveAirReport);
+            if (isSuccess($saveAirReport)) {
+                return response()->json(['status' => 'success', 'data' => $saveAirReport['data']]);
+            } else {
+                return response()->json(['status' => 'error', 'data' => $saveAirReport]);
+            }
         }
+
     }
 
+    public function apotti_onucced_genarate($all_apottis,$selected_apottis){
+
+        $unselect_sort_apottis = [];
+        $select_sort_apottis = [];
+
+        $unselected_apottis = array_diff($all_apottis, $selected_apottis);
+        $selected_apotti_count = count($selected_apottis);
+
+        foreach ($unselected_apottis as  $unselected_apotti){
+            $selected_apotti_count ++;
+            $sort_apottis_temp = [
+                'apotti_id' => $unselected_apotti,
+                'onucched_no' => $selected_apotti_count,
+            ];
+            $unselect_sort_apottis[] = $sort_apottis_temp;
+        }
+
+        foreach ($selected_apottis as  $key => $selected_apotti){
+            $sort_apottis_temp = [
+                'apotti_id' => $selected_apotti,
+                'onucched_no' => $key+1,
+            ];
+            $select_sort_apottis[] = $sort_apottis_temp;
+        }
+
+       return array_merge($select_sort_apottis,$unselect_sort_apottis);
+
+    }
 
     public function show(Request $request)
     {
@@ -149,7 +196,7 @@ class AuditAIRReportController extends Controller
 
         $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.edit_air_report'), $data)->json();
-        //dd($responseData);
+//        dd($responseData);
         if (isSuccess($responseData)) {
             $airReport = $responseData['data'];
             $content = gzuncompress(getDecryptedData($airReport['air_description']));
@@ -160,11 +207,12 @@ class AuditAIRReportController extends Controller
             $activity_id= $airReport['activity_id'];
             $air_type = $airReport['type'];
             $audit_plan_entities = $request->audit_plan_entities;
+            $audit_plan_entity_info = $airReport['annual_plan']['ap_entities'];
 
             return view('modules.audit_report.air_generate.edit',
                 compact('content','air_report_id','annual_plan_id',
                     'audit_plan_id','fiscal_year_id','activity_id','air_type',
-                    'audit_plan_entities'));
+                    'audit_plan_entities','audit_plan_entity_info'));
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];
@@ -183,7 +231,7 @@ class AuditAIRReportController extends Controller
 
         $requestData['cdesk'] =$this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.load_approve_plan_list'), $requestData)->json();
-        //dd($responseData);
+//        dd($responseData);
         $data['audit_plans'] = isSuccess($responseData)?$responseData['data']:[];
         $data['current_designation_id'] = $this->current_designation_id();
         return view('modules.audit_report.air_generate.partials.load_audit_plans',$data);
@@ -262,20 +310,38 @@ class AuditAIRReportController extends Controller
     }
 
 
-    public function getAuditApottiList(Request $request)
+    public function getPlanEntity(Request $request)
     {
         $requestData = Validator::make($request->all(), [
+            'entity_info' => 'required',
             'fiscal_year_id' => 'required|integer',
             'audit_plan_id' => 'required|integer',
             'air_type' => 'required',
         ])->validate();
 
+//        dd($requestData);
+
+        return view('modules.audit_report.air_generate.partials.load_entity_list',$requestData);
+    }
+
+
+    public function getAuditApottiList(Request $request)
+    {
+        $requestData = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'audit_plan_id' => 'required|integer',
+            'entity_id' => 'required|integer',
+            'air_type' => 'required',
+        ])->validate();
+
         $requestData['air_id'] = $request->air_id;
         $requestData['cdesk'] =$this->current_desk_json();
+        $entity_info = $request->entity_info;
+//        dd($entity_info);
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_audit_apotti_list'), $requestData)->json();
         $apottiData = isSuccess($responseData)?$responseData['data']:[];
-        //dd($apottiData);
-        return view('modules.audit_report.air_generate.partials.load_audit_apottis',compact('apottiData'));
+//        dd($apottiData);
+        return view('modules.audit_report.air_generate.partials.load_audit_apottis',compact('apottiData','entity_info'));
     }
 
     public function getAuditApotti(Request $request)
@@ -283,6 +349,8 @@ class AuditAIRReportController extends Controller
         $requestData = Validator::make($request->all(), [
             'apottis' => 'required',
         ])->validate();
+
+//        dd($requestData);
 
         $requestData['cdesk'] =$this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_audit_apotti'), $requestData)->json();

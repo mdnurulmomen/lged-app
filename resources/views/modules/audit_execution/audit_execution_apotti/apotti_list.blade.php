@@ -68,9 +68,8 @@
                 <input class="apotti_sequence" data-apotti-id="{{$apotti['id']}}" type="hidden" value="{{$apotti['apotti_sequence']}}">
             </td>
             <td class="text-left">
-                {{enTobn($apotti['onucched_no'])}}
 
-{{--                <input type="text" >--}}
+                <input data-id="{{$apotti['id']}}" data-real-val="{{$apotti['onucched_no']}}" id="apptti_{{$apotti['id']}}" class="bijoy-bangla onucched_no" type="text" style="width: 25px;" value="{{$apotti['onucched_no']}}">
 
                 @if(count($apotti['apotti_items']) > 1)
                     <span class="badge badge-info text-uppercase m-1 p-1 ">
@@ -151,5 +150,23 @@
             $("#selectAll")[0].checked = true;
             $("#selectAll")[0].addClass('checkbox-disabled');
         }
+    });
+
+    $(".onucched_no").on('keyup',function(){
+
+        onucched_no = $(this).val();
+        change_id = $(this).attr('data-id');
+        real_val = $(this).attr('data-real-val');
+
+        $('.onucched_no').each(function(){
+            id = $(this).attr('data-id');
+
+            if(onucched_no == $(this).val()){
+                if(change_id != id){
+                    $('#apptti_'+id).val(real_val);
+                    $('#apptti_'+id).attr('data-real-val', real_val);
+                }
+            }
+        });
     });
 </script>

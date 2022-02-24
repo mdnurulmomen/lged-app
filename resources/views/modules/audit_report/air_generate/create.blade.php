@@ -15,7 +15,12 @@
     <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
     <input type="hidden" id="auditAllApottis">
     <input type="hidden" id="auditApottis">
-    <input type="hidden" id="airId">
+    <input type="hidden" id="ministry_id">
+    <input type="hidden" id="ministry_name_en">
+    <input type="hidden" id="ministry_name_bn">
+    <input type="hidden" id="air_entity_id">
+    <input type="hidden" id="entity_name_en">
+    <input type="hidden" id="entity_name_bn">
 
     <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
         <div class="col-md-6">
@@ -32,7 +37,7 @@
             <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
                     data-fiscal-year-id="{{$fiscal_year_id}}"
                     data-audit-plan-id="{{$audit_plan_id}}"
-                    onclick="AIR_Report_Create_Container.loadApottiList($(this))">
+                    onclick="AIR_Report_Create_Container.loadPlanEntity($(this))">
                 <i class="fad fa-search"></i> অনুচ্ছেদ
             </button>
 

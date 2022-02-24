@@ -130,6 +130,12 @@
         },
 
         loadApottiList: function () {
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             fiscal_year_id = $('#fiscal_year_id').val();
             audit_plan_id = $('#audit_plan_id').val();
             entity_id = $('#entity_id').val();
@@ -142,6 +148,7 @@
             let url = '{{route('audit.execution.apotti.load-apotti-list')}}';
             let data = {fiscal_year_id,audit_plan_id,entity_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_content');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -320,11 +327,11 @@
         },
 
         reArrangeOnucched:function (elem){
-            is_rearranged = elem.data('is-rearranged');
-            if(!is_rearranged){
-                toastr.warning('পুনঃবিন্যাস করে নিন');
-                return;
-            }
+            // is_rearranged = elem.data('is-rearranged');
+            // if(!is_rearranged){
+            //     toastr.warning('পুনঃবিন্যাস করে নিন');
+            //     return;
+            // }
             swal.fire({
                 title: 'আপনি কি পুনর্বিন্যাস করতে চান?',
                 text: "",
@@ -334,15 +341,27 @@
                 cancelButtonText: 'না'
             }).then(function(result) {
                 if (result.value) {
-                    apotti_sequence = {};
-                    $('.apotti_sequence').each(function (){
-                        apotti_sequence[$(this).attr('data-apotti-id')] = {
-                            apotti_id: $(this).attr('data-apotti-id'),
-                            apotti_sequence: $(this).val(),
+
+                    // apotti_sequence = {};
+                    // $('.apotti_sequence').each(function (){
+                    //     apotti_sequence[$(this).attr('data-apotti-id')] = {
+                    //         apotti_id: $(this).attr('data-apotti-id'),
+                    //         apotti_sequence: $(this).val(),
+                    //     }
+                    // });
+
+                    onucched_list = {}
+
+
+                    $('.onucched_no').each(function (){
+                        onucched_list[$(this).attr('data-id')] = {
+                            apotti_id: $(this).attr('data-id'),
+                            onucched_no: $(this).val(),
                         }
                     });
 
-                    data  = {apotti_sequence}
+                    // data  = {apotti_sequence}
+                    data  = {onucched_list}
 
                     let url = '{{route('audit.execution.apotti.onucched-rearrange')}}'
                     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -351,7 +370,7 @@
                         } else {
                             toastr.success(response.data);
                             $('#kt_quick_panel_close').click();
-                            $('.apotti_menue a').trigger('click');
+                            Apotti_Container.loadApottiList()
                         }
                     });
                 }

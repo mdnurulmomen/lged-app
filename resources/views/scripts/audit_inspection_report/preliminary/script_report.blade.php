@@ -1,12 +1,14 @@
 <script>
     var AIR_Report_Create_Container = {
-        loadApottiList: function (elem) {
+        loadPlanEntity: function (elem) {
             air_id = $("#airId").val();
             air_type = '{{$air_type}}';
             fiscal_year_id = elem.data('fiscal-year-id');
             audit_plan_id = elem.data('audit-plan-id');
-            data = {air_id,air_type,fiscal_year_id,audit_plan_id};
-            url = '{{route('audit.report.air.get-audit-apotti-list')}}';
+            entity_info = '{{json_encode($audit_plan_entity_info)}}';
+            entity_info = JSON.parse(entity_info.replace(/&quot;/g, '"'));
+            data = {fiscal_year_id,audit_plan_id,entity_info,air_id,air_type};
+            url = '{{route('audit.report.air.get-plan-entity')}}';
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -30,11 +32,41 @@
             });
         },
 
+        loadApottiList: function (fiscal_year_id,audit_plan_id,entity_id) {
+            air_id = $("#airId").val();
+            air_type = '{{$air_type}}';
+            data = {air_id,air_type,fiscal_year_id,audit_plan_id,entity_id};
+            url = '{{route('audit.report.air.get-audit-apotti-list')}}';
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $('.load_apotti_list').html(response.data);
+                }
+            });
+        },
+
         storeAIRReportPlan: function (elem) {
             url = '{{route('audit.report.air.store')}}';
             air_id = elem.data('air-id');
             apottis = $("#auditApottis").val();
             all_apottis = $("#auditAllApottis").val();
+
+            ministry_id = $("#ministry_id").val();
+            ministry_name_en = $("#ministry_name_en").val();
+            ministry_name_bn = $("#ministry_name_bn").val();
+
+            entity_id = $("#air_entity_id").val();
+            entity_name_en = $("#entity_name_en").val();
+            entity_name_bn = $("#entity_name_bn").val();
+
             audit_plan_entities = '{{$audit_plan_entities}}';
             air_type = '{{$air_type}}';
             activity_id = elem.data('activity-id');
@@ -43,7 +75,12 @@
             audit_plan_id = elem.data('audit-plan-id');
             air_description = JSON.stringify(templateArray);
 
-            data = {air_id,apottis,all_apottis,audit_plan_entities,air_type,activity_id,fiscal_year_id,annual_plan_id,audit_plan_id,air_description};
+            data = {air_id,apottis,all_apottis,audit_plan_entities,air_type,
+                activity_id,fiscal_year_id,annual_plan_id,
+                audit_plan_id,air_description,
+                ministry_id,ministry_name_en,ministry_name_bn,
+                entity_id,entity_name_en,entity_name_bn};
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'success') {
                     elem.data('air-id',response.data.air_id);

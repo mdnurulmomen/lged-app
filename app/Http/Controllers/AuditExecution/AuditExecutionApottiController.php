@@ -120,8 +120,11 @@ class AuditExecutionApottiController extends Controller
     {
         $data = [
             'cdesk' => $this->current_desk_json(),
-            'apotti_sequence' => $request->apotti_sequence,
+//            'apotti_sequence' => $request->apotti_sequence,
+            'onucched_list' => $request->onucched_list,
         ];
+
+//        dd($data);
 
         $rearrange_apotti = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.onucched_rearrange'), $data)->json();
 
