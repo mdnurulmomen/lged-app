@@ -7,7 +7,7 @@ return [
     'save' => 'Save',
     'select' => 'সিলেক্ট',
     'back' => 'Back',
-    'sr_no' => 'Sr. No',
+    'sr_no' => 'Sr. No:',
     'no_data_found' => 'No Data To Display',
     'sent_successfully' => 'Successfully Sent.',
     'placeholders' => [
