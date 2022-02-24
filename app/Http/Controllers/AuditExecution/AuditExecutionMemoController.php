@@ -172,8 +172,11 @@ class AuditExecutionMemoController extends Controller
             'memo_id' => 'required|integer',
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
+        if ($request->directorate_id) {
+            $data['directorate_id'] = $request->directorate_id;
+        }
         $memoInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
-        //dd($memoInfo);
+        dd($memoInfo);
         $directorateName = $this->current_office()['office_name_bn'];
         if ($this->current_office_id() == 14) {
             $directorateAddress = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
@@ -186,7 +189,7 @@ class AuditExecutionMemoController extends Controller
             $directorateWebsite = 'www.cad.org.bd';
         }
 
-       //dd($memoInfo);
+        //dd($memoInfo);
 
         if (isSuccess($memoInfo)) {
             $memoInfo = $memoInfo['data'];

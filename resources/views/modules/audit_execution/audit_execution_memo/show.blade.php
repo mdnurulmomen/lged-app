@@ -1,4 +1,3 @@
-
 <div class="col-md-12">
     <div class="d-flex justify-content-end mt-4">
         <button title="ডাউনলোড করুন" data-memo-id="{{$memoInfo['id']}}"

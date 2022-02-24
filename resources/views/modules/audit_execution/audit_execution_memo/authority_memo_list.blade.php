@@ -70,23 +70,23 @@
             </div>
         </div>
         <div class="row mt-2 mb-2">
-{{--            <div class="col-md-3">--}}
-{{--                <select class="form-control select-select2" id="memo_type">--}}
-{{--                    <option value="">আপত্তির ধরন</option>--}}
-{{--                    <option value="1">এসএফআই</option>--}}
-{{--                    <option value="2">নন-এসএফআই</option>--}}
-{{--                    <option value="3">ড্রাফ্ট প্যারা</option>--}}
-{{--                    <option value="4">পাণ্ডুলিপি</option>--}}
-{{--                </select>--}}
-{{--            </div>--}}
-{{--            <div class="col-md-3">--}}
-{{--                <select class="form-control select-select2" id="memo_status">--}}
-{{--                    <option value="">আপত্তির অবস্থা</option>--}}
-{{--                    <option value="1">নিস্পন্ন</option>--}}
-{{--                    <option value="2">অনিস্পন্ন</option>--}}
-{{--                    <option value="3">আংশিক নিস্পন্ন</option>--}}
-{{--                </select>--}}
-{{--            </div>--}}
+            {{--            <div class="col-md-3">--}}
+            {{--                <select class="form-control select-select2" id="memo_type">--}}
+            {{--                    <option value="">আপত্তির ধরন</option>--}}
+            {{--                    <option value="1">এসএফআই</option>--}}
+            {{--                    <option value="2">নন-এসএফআই</option>--}}
+            {{--                    <option value="3">ড্রাফ্ট প্যারা</option>--}}
+            {{--                    <option value="4">পাণ্ডুলিপি</option>--}}
+            {{--                </select>--}}
+            {{--            </div>--}}
+            {{--            <div class="col-md-3">--}}
+            {{--                <select class="form-control select-select2" id="memo_status">--}}
+            {{--                    <option value="">আপত্তির অবস্থা</option>--}}
+            {{--                    <option value="1">নিস্পন্ন</option>--}}
+            {{--                    <option value="2">অনিস্পন্ন</option>--}}
+            {{--                    <option value="3">আংশিক নিস্পন্ন</option>--}}
+            {{--                </select>--}}
+            {{--            </div>--}}
             <div class="col-md-3">
                 <input class="form-control mb-1" pattern="[0-9\.]*" id="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
             </div>
@@ -128,7 +128,7 @@
             Authority_Memo_Container.loadMemoList();
             Authority_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
         } else {
-            toastr.info('Please select directorate.')
+            // toastr.info('Please select directorate.')
             $('#load_team_calendar').html('');
         }
     });
@@ -157,9 +157,9 @@
         loadEntityList: function (directorate_id, fiscal_year_id) {
             activity_id = $('#activity_id').val();
             let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
-            let data = {directorate_id, fiscal_year_id,activity_id};
+            let data = {directorate_id, fiscal_year_id, activity_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                console.log(response)
+                    console.log(response)
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -216,7 +216,7 @@
             });
 
             let url = '{{route('audit.execution.memo.load-authority-memo-list')}}';
-            let data = {directorate_id, fiscal_year_id, activity_id, entity_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end};
+            let data = {directorate_id, fiscal_year_id, activity_id, entity_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start, audit_year_end};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     KTApp.unblock('#kt_content');
                     if (response.status === 'error') {
@@ -233,6 +233,10 @@
             url = '{{route('audit.execution.memo.show')}}'
             memo_id = element.data('memo-id');
             data = {memo_id};
+            directorate_id = $('#directorate_filter').val();
+            if (directorate_id) {
+                data['directorate_id'] = directorate_id;
+            }
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -260,7 +264,12 @@
             url = '{{route('audit.execution.memo.show-attachment')}}'
             memo_id = element.data('memo-id');
             memo_title_bn = element.data('memo-title-bn');
-            data = {memo_id,memo_title_bn};
+            directorate_id = $('#directorate_filter').val();
+            data = {memo_id, memo_title_bn};
+
+            if (directorate_id) {
+                data['directorate_id'] = directorate_id;
+            }
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -308,6 +317,7 @@
     };
 
     $('#btn_filter').click(function () {
+        directorate_id = $('#directorate_filter').val();
         if (directorate_id !== 'all') {
             Authority_Memo_Container.loadMemoList();
         } else {
