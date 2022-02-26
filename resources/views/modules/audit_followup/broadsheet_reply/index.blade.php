@@ -11,7 +11,7 @@
 <script>
     var Broadsheet_Container = {
         loadApottiItemList: function (page = 1, per_page = 10) {
-            let url = '{{route('audit.followup.broadsheet.reply.get-apottoi-item-list')}}';
+            let url = '{{route('audit.followup.broadsheet.reply.get-broad-sheet-list')}}';
             let data = {page, per_page};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {

@@ -43,6 +43,36 @@ class AuditExecutionApottiController extends Controller
         }
     }
 
+    public function apottiRegister($apotti_type)
+    {
+        $office_id = $this->current_office_id();
+        $fiscal_years = $this->allFiscalYears();
+        return view('modules.audit_execution.audit_execution_apotti.apotti_register',compact('fiscal_years','office_id','apotti_type'));
+    }
+
+    public function loadApottiRegisterList(Request $request){
+        $data = Validator::make($request->all(), [
+            'fiscal_year_id' => 'required|integer',
+            'audit_plan_id' => 'nullable',
+            'entity_id' => 'nullable',
+            'apotti_type' => 'required',
+        ])->validate();
+
+//        dd($data);
+
+
+        $data['cdesk'] = $this->current_desk_json();
+        $apotti_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.apotti_register_list'), $data)->json();
+//        dd($apotti_list);
+        if (isSuccess($apotti_list)) {
+            $apotti_list = $apotti_list['data'];
+            return view('modules.audit_execution.audit_execution_apotti.load_apotti_register_list',
+                compact('apotti_list'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $apotti_list]);
+        }
+    }
+
     public function onucchedMergeForm(Request $request)
     {
         $data = Validator::make($request->all(), [

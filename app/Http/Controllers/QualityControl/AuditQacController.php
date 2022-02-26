@@ -396,6 +396,15 @@ class AuditQacController extends Controller
 
 //        dd($apotti_submit);
 
+//        $data_apotti_list['office_id'] = $request->office_id;
+//        $data_apotti_list['audit_plan_id'] = $request->audit_plan_id;
+//        $data_apotti_list['entity_id'] = $request->entity_id;
+//        $data_apotti_list['qac_type'] = $request->qac_type;
+//
+//        $apotti_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.get-apotti-onucched-no'), $data_apotti_list)->json();
+//
+//        dd($apotti_list);
+
         if (isSuccess($apotti_submit)) {
             $apotti_submit = $apotti_submit['data'];
             return response()->json(['status' => 'success', 'data' => $apotti_submit]);

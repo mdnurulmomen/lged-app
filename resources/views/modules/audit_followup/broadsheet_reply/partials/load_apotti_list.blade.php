@@ -79,7 +79,6 @@
         </div>
     </div>
 
-    {{--list view--}}
     <div>
         <ul class="list-group list-group-flush">
             @foreach($apottiItemList['data'] as $item)
@@ -90,71 +89,22 @@
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
-                                        <span class="mr-1 ">অনুচ্ছেদ নংঃ</span>
-                                        <a href="javascript:void(0)" class="text-dark text-hover-primary font-size-h5">
-                                            {{enTobn($item['onucched_no'])}}
+                                        <span class="mr-1 ">স্মারক নংঃ</span>
+                                        <a data-broad-sheet-id="{{$item['id']}}"  onclick="Broadsheet_Reply_List_Container.loadBroadSheetItem($(this))" class="text-dark text-hover-primary font-size-h5">
+                                            {{enTobn($item['memorandum_no'])}}
+                                            <span class="label label-outline-danger label-pill label-inline">
+                                                {{enTobn($item['broad_sheet_items_count'])}} টি আপত্তি
+                                            </span>
                                         </a>
                                     </div>
                                     <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">কস্ট সেন্টারঃ</span>
-                                        <span class="description text-info text-wrap font-size-14">{{$item['cost_center_name_bn']}}</span>
+                                        <span class="mr-2 font-size-1-1">এন্টিটিঃ</span>
+                                        <span class="description text-info text-wrap font-size-14">{{$item['sender_office_name_bn']}}</span>
                                     </div>
                                     <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">শিরোনামঃ</span>
-                                        <span class="description text-info text-wrap font-size-14">{{$item['memo_title_bn']}}</span>
+                                        <span class="mr-2 font-size-1-1">তারিখঃ</span>
+                                        <span class="description text-info text-wrap font-size-14">{{formatDateTime($item['memorandum_date'],'bn')}}</span>
                                     </div>
-                                    <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">আপত্তির ধরনঃ</span>
-                                        <span class="label label-outline-warning label-pill label-inline">
-                                            @if($item['memo_type'] == 'sfi')
-                                                @php $itemType = 'এসএফআই'; @endphp
-                                            @elseif($item['memo_type'] == 'non-sfi')
-                                                @php $itemType = 'নন-এসএফআই'; @endphp
-                                            @else
-                                                @php $itemType = ''; @endphp
-                                            @endif
-                                            {{$itemType}}
-                                        </span>
-
-                                        <span class="label label-outline-danger label-pill label-inline">
-                                            {{$item['memo_status_name']}}
-                                        </span>
-                                    </div>
-                                    <div class=" subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">জড়িত অর্থঃ</span>
-                                        <span class="text-info font-size-14">
-                                            {{enTobn(number_format($item['jorito_ortho_poriman'],0))}}
-                                        </span>
-                                    </div>
-                                    <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">অনিষ্পন্ন জড়িত অর্থঃ</span>
-                                        <span class="text-danger font-size-14">
-                                           {{enTobn(number_format($item['onishponno_jorito_ortho_poriman'],0))}}
-                                        </span>
-                                    </div>
-
-                                    {{--<div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">স্থানীয় অফিসের জবাবঃ</span>
-                                        <span class="font-size-14">
-                                           {{$item['unit_response']}}
-                                        </span>
-                                    </div>
-
-                                    <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">উৰ্দ্ধতন কর্তৃপক্ষের জবাবঃ</span>
-                                        <span class="font-size-14">
-                                           {{$item['entity_response']}}
-                                        </span>
-                                    </div>
-
-                                    @if($item['memo_type'] == 'sfi')
-                                        <div class="font-weight-normal">
-                                            <span class="mr-2 font-size-1-1">মন্ত্রণালয়ের সিদ্ধান্তঃ</span>
-                                            <span class="font-size-14">
-                                               {{$item['ministry_response']}}
-                                            </span>
-                                        </div>
-                                    @endif--}}
 
                                     <div class="font-weight-normal d-none predict-wrapper">
                                         <span class="predict-label text-success"></span>
@@ -179,16 +129,24 @@
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
                                             <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                    title="{{___('generic.buttons.title.details')}}" data-apotti-item-id="{{$item['id']}}"
-                                                    onclick="">
+                                                    title="{{___('generic.buttons.title.details')}}"
+                                                    data-broad-sheet-id="{{$item['id']}}"
+                                                    data-memorandum-no="{{enTobn($item['memorandum_no'])}}"
+                                                    data-memorandum-date="{{enTobn($item['memorandum_date'])}}"
+                                                    onclick="Broadsheet_Reply_List_Container.showBroadSheet($(this))">
                                                 <i class="fad fa-eye"></i>
                                             </button>
 
-                                            @if($item['unit_response'] != null)
+                                            <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                    title="{{___('generic.buttons.title.details')}}"
+                                                    data-broad-sheet-id="{{$item['id']}}"
+                                                    onclick="Broadsheet_Reply_List_Container.loadBraodSheetApprovalAuthority($(this))">
+                                                <i class="fa fa-paper-plane"></i>
+                                            </button>
+
+{{--                                            @if($item['unit_response'] != null)--}}
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                         title="ডাউনলোড করুন" data-apotti-item-id="{{$item['id']}}"
-                                                        data-cost-center-name-en="{{$item['cost_center_name_en']}}"
-                                                        data-cost-center-name-bn="{{$item['cost_center_name_bn']}}"
                                                         onclick="Broadsheet_Reply_List_Container.downloadBroadSheet($(this))">
                                                     <i class="fad fa-download"></i>
                                                 </button>
@@ -196,20 +154,16 @@
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                         title="" data-scope="jobab"
                                                         data-apotti-item-id="{{$item['id']}}"
-                                                        data-cost-center-name-en="{{$item['cost_center_name_en']}}"
-                                                        data-cost-center-name-bn="{{$item['cost_center_name_bn']}}"
                                                         onclick="Broadsheet_Reply_List_Container.editApottiItem($(this))">
                                                     <i class="fad fa-comments-alt"></i>
                                                 </button>
 
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                         title="জবাব দেখুন" data-scope="response" data-apotti-item-id="{{$item['id']}}"
-                                                        data-cost-center-name-en="{{$item['cost_center_name_en']}}"
-                                                        data-cost-center-name-bn="{{$item['cost_center_name_bn']}}"
                                                         onclick="Broadsheet_Reply_List_Container.editApottiItem($(this))">
                                                     <i class="fas fa-plus-octagon"></i>
                                                 </button>
-                                            @endif
+{{--                                            @endif--}}
 
                                             {{--<button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
                                             list-btn-toggle"
@@ -239,6 +193,97 @@
 
 <script>
     var Broadsheet_Reply_List_Container = {
+
+        showBroadSheet : function (elem) {
+
+            broad_sheet_id = elem.data('broad-sheet-id');
+            memorandum_no = elem.data('memorandum-no');
+            memorandum_date = elem.data('memorandum-date');
+
+            data = {broad_sheet_id,memorandum_no,memorandum_date};
+
+            let url = '{{route('audit.followup.broadsheet.reply.show-braod-sheet')}}';
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('অডিট অনুচ্ছেদ');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '60%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
+        loadBroadSheetItem : function (elem) {
+            broad_sheet_id = elem.data('broad-sheet-id');
+            data = {broad_sheet_id};
+
+            let url = '{{route('audit.followup.broadsheet.reply.laod-broad-sheet-sheet-item')}}';
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('অডিট অনুচ্ছেদ');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '70%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
+        loadBraodSheetApprovalAuthority: function (elem) {
+
+            broad_sheet_id = elem.data('broad-sheet-id');
+
+            data = {broad_sheet_id};
+
+            url = '{{route('audit.followup.broadsheet.reply.get-broad-sheet-approval-authority')}}';
+
+            KTApp.block('.content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('.content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
         downloadBroadSheet : function (elem) {
             apotti_item_id = elem.data('apotti-item-id');
             cost_center_name_bn = elem.data('cost-center-name-bn');
@@ -266,6 +311,7 @@
                 }
             });
         },
+
 
         editApottiItem: function (elem) {
             scope = elem.data('scope');

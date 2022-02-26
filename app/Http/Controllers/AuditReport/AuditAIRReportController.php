@@ -106,6 +106,8 @@ class AuditAIRReportController extends Controller
         $data_rearrange_apotti['onucched_list'] =  $this->apotti_onucced_genarate($data['all_apottis'],$data['apottis']);
         $data_rearrange_apotti['cdesk'] = $this->current_desk_json();
 
+//        dd($data_rearrange_apotti['onucched_list']);
+
         $rearrange_apotti = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.onucched_rearrange'), $data_rearrange_apotti)->json();
 
         if(isSuccess($rearrange_apotti)){

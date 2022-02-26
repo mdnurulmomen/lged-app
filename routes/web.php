@@ -423,6 +423,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('audit-plan-wise-entity', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'auditPlanWiseEntitySelect'])->name('audit-plan-wise-entity-select');
             Route::post('audit-plan-type-wise-air', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'auditPlanTypeWiseAir'])->name('audit-plan-type-wise-air');
             Route::post('apotti-item-info', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'apottiItemInfo'])->name('apotti-item-info');
+            Route::get('apotti-register/{any}', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'apottiRegister'])->name('apotti-register');
+            Route::post('load-apotti-register-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadApottiRegisterList'])->name('load-apotti-register-list');
         });
     });
 
@@ -461,9 +463,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::group(['as' => 'broadsheet.reply.', 'prefix' => 'broadsheet-reply/'], function () {
             Route::get('/', [BroadsheetReplyController::class, 'index'])->name('index');
-            Route::post('/get-apottoi-item-list', [BroadsheetReplyController::class, 'getApottiItemList'])->name('get-apottoi-item-list');
+            Route::post('/get-broad-sheet-list', [BroadsheetReplyController::class, 'getBroadSheetList'])->name('get-broad-sheet-list');
+            Route::post('/show_broad_sheet', [BroadsheetReplyController::class, 'showBroadSheet'])->name('show-braod-sheet');
             Route::post('/download-single-broadsheet', [BroadsheetReplyController::class, 'downloadSingleBroadsheet'])->name('download-single-broadsheet');
             Route::post('/edit-apottoi-item', [BroadsheetReplyController::class, 'editApottiItem'])->name('edit-apottoi-item');
+            Route::post('/get-broad-sheet-approval-authority', [BroadsheetReplyController::class, 'getBroadSheetApprovalAuthority'])->name('get-broad-sheet-approval-authority');
+            Route::post('/broad-sheet-movement', [BroadsheetReplyController::class, 'broadSheetMovement'])->name('broad-sheet-movement');
+            Route::post('/laod-broad-sheet-sheet-item', [BroadsheetReplyController::class, 'getBroadSheetItem'])->name('laod-broad-sheet-sheet-item');
         });
 
         Route::get('dashboard', [\App\Http\Controllers\AuditFollowup\AuditFollowupDashboardController::class, 'index'])->name('dashboard');
