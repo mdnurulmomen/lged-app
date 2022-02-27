@@ -52,7 +52,7 @@
             </button>
 
             @if($approved_status != 'approved')
-                @if( $latest_receiver_designation_id == $current_designation_id)
+                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
                     <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
                             data-air-id="{{$air_report_id}}"
                             onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
@@ -102,14 +102,12 @@
     <script>
         $(function () {
             let approved_status = '{{$approved_status}}';
-            /*if (approved_status != 'approved'){
+            if (approved_status != 'approved'){
                 $(".update-qac-air-report").click();
                 QAC_AIR_Report_Container.insertAuditApottiSummary();
                 QAC_AIR_Report_Container.insertAuditApottiDetails();
                 $(".update-qac-air-report").click();
-            }*/
-            QAC_AIR_Report_Container.insertAuditApottiSummary();
-            QAC_AIR_Report_Container.insertAuditApottiDetails();
+            }
         });
 
         var QAC_AIR_Report_Container = {

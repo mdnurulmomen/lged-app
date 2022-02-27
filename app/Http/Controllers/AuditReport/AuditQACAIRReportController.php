@@ -122,6 +122,7 @@ class AuditQACAIRReportController extends Controller
             $content = gzuncompress(getDecryptedData($airReport['air_description']));
             $air_report_id = $airReport['id'];
             $approved_status = $airReport['status'];
+            $report_type = $airReport['report_type'];
             $latest_receiver_designation_id = empty($airReport['latest_r_air_movement'])?0:$airReport['latest_r_air_movement']['receiver_employee_designation_id'];
             $current_designation_id = $this->current_designation_id();
             $is_sent = $airReport['is_sent'];
@@ -152,20 +153,16 @@ class AuditQACAIRReportController extends Controller
             }
             $auditType = 'কমপ্লায়েন্স অডিট';
 
+            //for entity info
+            $entityNames = [];
+            foreach ($airReport['annual_plan']['ap_entities'] as $ap_entities) {
+                $entityNames[] = $ap_entities['entity_name_bn'];
+            }
+            $audit_plan_entities = count($entityNames)>1?implode(" এবং ",$entityNames):$entityNames[0];
+
+
             if ($qac_type == 'qac-1'){
-                $qacOneData['template_type'] = 'qac1_report';
-                $qacOneData['cdesk'] = $cdeskData;
-                $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $qacOneData)->json();
-                //dd($responseReportTemplateData);
-                if (isSuccess($responseReportTemplateData)) {
-                    $content = $responseReportTemplateData['data']['content'];
-
-                    $entityNames = [];
-                    foreach ($airReport['annual_plan']['ap_entities'] as $ap_entities) {
-                        $entityNames[] = $ap_entities['entity_name_bn'];
-                    }
-                    $audit_plan_entities = count($entityNames)>1?implode(" এবং ",$entityNames):$entityNames[0];
-
+                if ($report_type != 'cloned'){
                     return view('modules.audit_quality_control.qac_01.create',
                         compact('fiscal_year_id','activity_id','audit_plan_id',
                             'annual_plan_id','auditType','directorate_name','directorate_address',
@@ -173,56 +170,73 @@ class AuditQACAIRReportController extends Controller
                             'latest_receiver_designation_id','current_designation_id',
                             'is_sent','is_received','qac_type','audit_year','fiscal_year'));
                 }
+                else{
+                    $qacOneData['template_type'] = 'qac1_report';
+                    $qacOneData['cdesk'] = $cdeskData;
+                    $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $qacOneData)->json();
+                    //dd($responseReportTemplateData);
+                    if (isSuccess($responseReportTemplateData)) {
+                        $content = $responseReportTemplateData['data']['content'];
+                        return view('modules.audit_quality_control.qac_01.create',
+                            compact('fiscal_year_id','activity_id','audit_plan_id',
+                                'annual_plan_id','auditType','directorate_name','directorate_address',
+                                'content','audit_plan_entities','air_report_id','approved_status',
+                                'latest_receiver_designation_id','current_designation_id',
+                                'is_sent','is_received','qac_type','audit_year','fiscal_year'));
+                    }
+                }
             }
             elseif ($qac_type == 'qac-2'){
-                $qacTwoData['template_type'] = 'qac2_report';
-                $qacTwoData['cdesk'] = $cdeskData;
-                $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $qacTwoData)->json();
-                //dd($responseReportTemplateData);
-                if (isSuccess($responseReportTemplateData)) {
-                    $content = $responseReportTemplateData['data']['content'];
-
-                    $entityNames = [];
-                    foreach ($airReport['annual_plan']['ap_entities'] as $ap_entities) {
-                        $entityNames[] = $ap_entities['entity_name_bn'];
-                    }
-                    $audit_plan_entities = count($entityNames)>1?implode(" এবং ",$entityNames):$entityNames[0];
-
+                if ($report_type != 'cloned'){
                     return view('modules.audit_quality_control.qac_02.create',
                         compact('content','audit_plan_entities','air_report_id',
                             'approved_status','latest_receiver_designation_id','current_designation_id',
                             'is_sent','is_received','qac_type'));
                 }
+                else{
+                    $qacTwoData['template_type'] = 'qac2_report';
+                    $qacTwoData['cdesk'] = $cdeskData;
+                    $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $qacTwoData)->json();
+                    //dd($responseReportTemplateData);
+                    if (isSuccess($responseReportTemplateData)) {
+                        $content = $responseReportTemplateData['data']['content'];
+                        return view('modules.audit_quality_control.qac_02.create',
+                            compact('content','audit_plan_entities','air_report_id',
+                                'approved_status','latest_receiver_designation_id','current_designation_id',
+                                'is_sent','is_received','qac_type'));
+                    }
+                }
             }
             elseif ($qac_type == 'cqat'){
-                $cqatData['template_type'] = 'cqat_report';
-                $cqatData['cdesk'] = $cdeskData;
                 $desk_office_id = json_decode($cdeskData,true);
                 $desk_office_id = $desk_office_id['office_id'];
-//                dd($desk_office_id);
                 $office_id = $request->office_id;
                 $scope = $request->scope;
-                $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $cqatData)->json();
-                //dd($responseReportTemplateData);
-                if (isSuccess($responseReportTemplateData)) {
-                    $content = $responseReportTemplateData['data']['content'];
 
-                    $entityNames = [];
-                    foreach ($airReport['annual_plan']['ap_entities'] as $ap_entities) {
-                        $entityNames[] = $ap_entities['entity_name_bn'];
-                    }
-                    $audit_plan_entities = count($entityNames)>1?implode(" এবং ",$entityNames):$entityNames[0];
-
+                if ($report_type != 'cloned'){
                     return view('modules.audit_quality_control.cqat.create',
                         compact('content','audit_plan_entities','air_report_id',
                             'approved_status','latest_receiver_designation_id','current_designation_id',
                             'is_sent','is_received','qac_type','office_id','scope','desk_office_id'));
+                }else{
+                    $cqatData['template_type'] = 'cqat_report';
+                    $cqatData['cdesk'] = $cdeskData;
+                    $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $cqatData)->json();
+                    //dd($responseReportTemplateData);
+                    if (isSuccess($responseReportTemplateData)) {
+                        $content = $responseReportTemplateData['data']['content'];
+                        return view('modules.audit_quality_control.cqat.create',
+                            compact('content','audit_plan_entities','air_report_id',
+                                'approved_status','latest_receiver_designation_id','current_designation_id',
+                                'is_sent','is_received','qac_type','office_id','scope','desk_office_id'));
+                    }
                 }
+
             }else{
                 return view('modules.audit_quality_control.qac_01.edit',
-                    compact('content','air_report_id','approved_status',
-                        'latest_receiver_designation_id','current_designation_id','is_sent',
-                        'is_received','qac_type'));
+                    compact('content','audit_plan_entities','air_report_id',
+                        'approved_status', 'latest_receiver_designation_id','current_designation_id',
+                        'is_sent', 'is_received','qac_type'));
             }
         }
         else {

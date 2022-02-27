@@ -879,14 +879,14 @@
                             <td class="bangla-font" style="text-align: center" width="10%"> জড়িত অর্থ (টাকা)</td>
                             @if($qac_type == 'qac-1')
                                 <td class="bangla-font" style="text-align: center" width="10%">Audit Criteria ঠিক আছে কিনা ?</td>
-                                <td class="bangla-font" style="text-align: center" width="10%">আপত্তিটি 5W  ও  1H মডেল প্যারা অনুসারে করা হয়েছে কিনা ?</td>
+                                <td class="bangla-font" style="text-align: center" width="10%">আপত্তিটি 5W 1H মডেল প্যারা অনুসারে করা হয়েছে কিনা ?</td>
                                 <td class="bangla-font" style="text-align: center" width="10%">বিধি-বিধান সঠিকভাবে উল্লেখ আছে কিনা ?</td>
                                 <td class="bangla-font" style="text-align: center" width="10%">আপত্তির সাথে পরিশিষ্ট মিল আছে কিনা ?</td>
                                 <td class="bangla-font" style="text-align: center" width="10%">আপত্তিটি  উপযুক্ত প্রমাণক দ্বারা সমর্থিত কিনা ?</td>
                             @endif
                             @if($qac_type == 'qac-2')
                                 <td class="bangla-font" style="text-align: center" width="10%">অডিট Criteria -এর  আলোকে প্রযোজ্য বিধি বিধান Quote করা হয়েছে কিনা ?</td>
-                                <td class="bangla-font" style="text-align: center" width="10%">5W ও 1H সকল এর সকল ধাপ পরিপালন করে আপত্তি গঠন করা হয়েছে কিনা ?</td>
+                                <td class="bangla-font" style="text-align: center" width="10%">5W 1H এর সকল ধাপ পরিপালন করে আপত্তি গঠন করা হয়েছে কিনা ?</td>
                                 <td class="bangla-font" style="text-align: center" width="10%">আপত্তির সমর্থনে উপযুক্ত প্রমাণকের সঠিকতা যাচাই করা হয়েছে কিনা ?</td>
                                 <td class="bangla-font" style="text-align: center" width="10%">আপত্তির বিবরণে উল্লিখিত Criteria-এর সাথে অনিয়মের কারণ অংশের মিল আছে কিনা ?</td>
                                 <td class="bangla-font" style="text-align: center" width="10%">নিরীক্ষা মন্তব্য অংশে অডিটি প্রতিষ্ঠানের জবাবের আলোকে মন্তব্য প্রদান করা হয়েছে কিনা ?</td>
