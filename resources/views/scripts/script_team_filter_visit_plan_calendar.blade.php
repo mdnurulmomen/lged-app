@@ -39,7 +39,7 @@
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,dayGridDay,listWeek,calendarListButton'
+                        right: 'dayGridMonth,dayGridWeek,dayGridDay,listWeek,calendarListButton'
                     },
 
                     height: 800,
@@ -54,7 +54,7 @@
                             eventLimit: false,
                             displayEventTime: false,
                         },
-                        timeGridWeek: {buttonText: 'Week'},
+                        dayGridWeek: {buttonText: 'Week'},
                         dayGridMonth: {buttonText: 'Month'},
                         listWeek: {
                             buttonText: 'List',
