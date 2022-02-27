@@ -36,7 +36,7 @@
     });
 
     var AIR_Container = {
-        loadAuditPlanList: function (page = 1, per_page = 200) {
+        loadAuditPlanList: function (page = 1, per_page = 500) {
             let air_type = '{{$air_type}}';
             let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             if (fiscal_year_id) {
