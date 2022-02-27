@@ -94,10 +94,7 @@
         },
 
         previewAirReport: function () {
-            air_status = '{{$air_status}}';
-            if (air_status != 'approved'){
-                $('.air_report_save').click();
-            }
+            $('.air_report_save').click();
             air_description = templateArray;
             scope = 'preview';
             data = {scope,air_description};
