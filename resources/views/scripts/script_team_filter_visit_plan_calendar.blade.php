@@ -55,11 +55,15 @@
                         },
                         timeGridWeek: {buttonText: 'Week'},
                         dayGridMonth: {buttonText: 'Month'},
-                        listWeek: {buttonText: 'List'}
+                        listWeek: {
+                            buttonText: 'List',
+                            eventLimit: false,
+                            displayEventTime: false,
+                        }
                     },
 
                     hiddenDays: [5, 6],
-                    defaultView: 'timeGridDay',
+                    defaultView: 'listWeek',
                     defaultDate: TODAY,
 
                     editable: true,
