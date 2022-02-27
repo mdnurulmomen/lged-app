@@ -15,6 +15,14 @@
     <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
     <input type="hidden" id="auditAllApottis">
     <input type="hidden" id="auditApottis">
+
+    <input type="hidden" id="ministry_id" value="{{$ministry_id}}">
+    <input type="hidden" id="ministry_name_en" value="{{$ministry_name_en}}">
+    <input type="hidden" id="ministry_name_bn" value="{{$ministry_name_bn}}">
+    <input type="hidden" id="air_entity_id" value="{{$entity_id}}">
+    <input type="hidden" id="entity_name_en" value="{{$entity_name_en}}">
+    <input type="hidden" id="entity_name_bn" value="{{$ministry_id}}">
+
     <input type="hidden" id="airId" value="{{$air_report_id}}">
     <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
         <div class="col-md-6">

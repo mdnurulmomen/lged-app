@@ -209,13 +209,23 @@ class AuditAIRReportController extends Controller
             $activity_id= $airReport['activity_id'];
             $air_type = $airReport['type'];
             $air_status = $airReport['status'];
+
+            $ministry_id = $airReport['ministry_id'];
+            $ministry_name_en= $airReport['ministry_name_en'];
+            $ministry_name_bn= $airReport['ministry_name_bn'];
+            $entity_id= $airReport['entity_id'];
+            $entity_name_en= $airReport['entity_name_en'];
+            $entity_name_bn= $airReport['entity_name_bn'];
+
             $audit_plan_entities = $request->audit_plan_entities;
             $audit_plan_entity_info = $airReport['annual_plan']['ap_entities'];
 
             return view('modules.audit_report.air_generate.edit',
                 compact('content','air_report_id','annual_plan_id',
                     'audit_plan_id','fiscal_year_id','activity_id','air_type','air_status',
-                    'audit_plan_entities','audit_plan_entity_info'));
+                    'audit_plan_entities','audit_plan_entity_info',
+                    'ministry_id','ministry_name_en','ministry_name_bn',
+                    'entity_id','entity_name_en','entity_name_bn'));
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];
