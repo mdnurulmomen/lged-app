@@ -52,6 +52,7 @@
                         timeGridDay: {
                             buttonText: 'Day',
                             eventLimit: false,
+                            displayEventTime: false,
                         },
                         timeGridWeek: {buttonText: 'Week'},
                         dayGridMonth: {buttonText: 'Month'},
