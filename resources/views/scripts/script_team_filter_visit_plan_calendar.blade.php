@@ -39,7 +39,7 @@
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek,calendarListButton'
+                        right: 'dayGridMonth,timeGridWeek,dayGridDay,listWeek,calendarListButton'
                     },
 
                     height: 800,
@@ -49,7 +49,7 @@
                     now: TODAY + 'T09:25:00', // just for demo
                     displayEventTime: false,
                     views: {
-                        timeGridDay: {
+                        dayGridDay: {
                             buttonText: 'Day',
                             eventLimit: false,
                             displayEventTime: false,
