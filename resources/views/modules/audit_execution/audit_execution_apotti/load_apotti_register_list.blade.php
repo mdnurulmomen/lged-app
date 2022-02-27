@@ -9,11 +9,19 @@
 <table class="table table-hover" id="tblLocations">
     <thead class="thead-light">
     <tr class="bg-hover-warning">
-        <th width="10%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="5%" class="datatable-cell datatable-cell-sort text-left">
             অনুচ্ছেদ নং
         </th>
 
-        <th width="55%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="15%" class="datatable-cell datatable-cell-sort text-left">
+            মন্ত্রণালয়
+        </th>
+
+        <th width="15%" class="datatable-cell datatable-cell-sort text-left">
+            এনটিটি/সংস্থা
+        </th>
+
+        <th width="45%" class="datatable-cell datatable-cell-sort text-left">
             শিরোনাম
         </th>
 
@@ -21,7 +29,7 @@
             জড়িত অর্থ (টাকা)
         </th>
 
-        <th width="20%" class="datatable-cell datatable-cell-sort text-center">
+        <th width="25%" class="datatable-cell datatable-cell-sort text-center">
             কার্যক্রম
         </th>
     </tr>
@@ -37,6 +45,12 @@
                      {{enTobn(count($apotti['apotti_items'])) }} টি
                         আপত্তি একীভূত</span>
                 @endif
+            </td>
+            <td class="text-left">
+                {{$apotti['ministry_name_bn']}}
+            </td>
+            <td class="text-left">
+                {{$apotti['parent_office_name_bn']}}
             </td>
             <td class="text-left">
                 {{$apotti['apotti_title']}}
