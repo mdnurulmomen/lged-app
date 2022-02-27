@@ -273,7 +273,7 @@
                 });
             },
 
-            getTotalWeeklyQueryAndMemo: function (directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id) {
+            getTotalYearlyQueryAndMemo: function (directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id) {
                 let url = '{{route('calendar.get-total-query-and-memo-report')}}';
                 scope_report_type = 'yearly';
                 let data = {directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id, scope_report_type};
@@ -304,7 +304,7 @@
                 Team_Calendar_Container.loadEntityList(directorate_id, fiscal_year_id);
                 // Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id);
                 Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
-                Team_Calendar_Container.getTotalWeeklyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
+                Team_Calendar_Container.getTotalYearlyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
             } else {
                 toastr.info('Please select directorate.')
                 $('#load_team_calendar').html('');
@@ -354,7 +354,7 @@
                     // Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
                 }
                 Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
-                Team_Calendar_Container.getTotalWeeklyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
+                Team_Calendar_Container.getTotalYearlyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
             } else {
                 toastr.info('Please select a directorate.')
             }
