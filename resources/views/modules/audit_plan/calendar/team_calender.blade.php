@@ -155,9 +155,11 @@
     <script>
         var Team_Calendar_Container = {
             loadTeamCalendar: function (directorate_id, fiscal_year_id) {
+                KTApp.block('#load_team_calendar')
                 let url = '{{route('calendar.load-teams-calender')}}';
                 let data = {directorate_id, fiscal_year_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                        KTApp.unblock('#load_team_calendar')
                         if (response.status === 'error') {
                             $('#load_team_calendar').html('<option value="">Select Team</option>');
                             toastr.error(response.data)
@@ -216,9 +218,11 @@
                 );
             },
             loadTeamFilter: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
+                KTApp.block('#load_team_calendar')
                 let url = '{{route('calendar.load-teams-calender-filter')}}';
                 let data = {directorate_id, fiscal_year_id, cost_center_id, team_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#load_team_calendar')
                         if (response.status === 'error') {
                             toastr.warning(response.data)
                         } else {

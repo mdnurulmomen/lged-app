@@ -64,7 +64,7 @@
                     },
 
                     hiddenDays: [5, 6],
-                    defaultView: 'listWeek',
+                    defaultView: 'dayGridDay',
                     defaultDate: TODAY,
 
                     editable: true,
@@ -100,7 +100,7 @@
                             team_members: '{{$sub_team['team_members']}}',
                             team_schedules: '{{$sub_team['team_schedules']}}',
                             audit_start_end_year: '{{$sub_team['audit_year_start']}} - {{$sub_team['audit_year_end']}}',
-                            className: "fc-event-waring @if($sub_team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-warning @endif"
+                            className: "fc-event-waring @if($sub_team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-primary @endif"
 
                         },
                             @endforeach
@@ -130,7 +130,7 @@
                             team_members: '{{$team['team_members']}}',
                             team_schedules: '{{$team['team_schedules']}}',
                             audit_start_end_year: '{{$team['audit_year_start']}} - {{$team['audit_year_end']}}',
-                            className: "fc-event-waring @if($team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-warning @endif"
+                            className: "fc-event-waring @if($team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-primary @endif"
 
                         },
                         @endforeach
