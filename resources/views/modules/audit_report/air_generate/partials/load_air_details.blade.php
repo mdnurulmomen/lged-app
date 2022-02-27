@@ -17,6 +17,13 @@
                         <i class="fad fa-edit"></i> সম্পাদনা করুন
                     </button>
                 @endif
+            @else
+                <button data-air-report-id="{{$air_report_id}}"
+                        data-audit-plan-entities="{{$audit_plan_entities}}"
+                        onclick="AIR_Container.loadAIREdit($(this))" title="বিস্তারিত দেখুন"
+                        class="ml-2 btn btn-primary btn-sm btn-bold btn-square">
+                    <i class="fad fa-eye"></i> বিস্তারিত দেখুন
+                </button>
             @endif
 
             {{--<button onclick="Report_AIR_Details_Container.generatePDF()" title="ডাউনলোড করুন"

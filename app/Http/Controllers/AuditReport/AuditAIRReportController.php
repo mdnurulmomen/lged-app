@@ -208,12 +208,13 @@ class AuditAIRReportController extends Controller
             $fiscal_year_id = $airReport['fiscal_year_id'];
             $activity_id= $airReport['activity_id'];
             $air_type = $airReport['type'];
+            $air_status = $airReport['status'];
             $audit_plan_entities = $request->audit_plan_entities;
             $audit_plan_entity_info = $airReport['annual_plan']['ap_entities'];
 
             return view('modules.audit_report.air_generate.edit',
                 compact('content','air_report_id','annual_plan_id',
-                    'audit_plan_id','fiscal_year_id','activity_id','air_type',
+                    'audit_plan_id','fiscal_year_id','activity_id','air_type','air_status',
                     'audit_plan_entities','audit_plan_entity_info'));
         }
         else {
