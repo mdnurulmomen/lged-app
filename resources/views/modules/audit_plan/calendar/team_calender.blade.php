@@ -148,11 +148,8 @@
         </div>
     </div>
 
+    <div class="col-md-12" id="load_team_calendar">
 
-    <div class="row">
-        <div class="col-md-12" id="load_team_calendar">
-
-        </div>
     </div>
 
     <script>
