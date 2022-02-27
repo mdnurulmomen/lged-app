@@ -243,14 +243,37 @@ class AuditExecutionQueryController extends Controller
     //authority
     public function authorityQueryList()
     {
-        return view('modules.audit_execution.audit_execution_query.authority_query_list');
+        $all_directorates = $this->allAuditDirectorates();
+
+        $fiscal_years = $this->allFiscalYears();
+
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
+
+        return view('modules.audit_execution.audit_execution_query.authority_query_list',compact('directorates','fiscal_years'));
     }
 
     public function loadAuthorityQueryList(Request $request)
     {
+
         $data['cdesk'] = $this->current_desk_json();
+        $data['office_id'] = $request->directorate_id;
+        $data['team_id'] = $request->team_id;
+        $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['entity_id'] = $request->entity_id;
+        $data['activity_id'] = $request->activity_id;
+        $data['cost_center_id'] = $request->cost_center_id;
+
+//        dd($data);
+
         $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.authority_query_list'), $data)->json();
-        $audit_query_list = isSuccess($audit_query_list) ? $audit_query_list['data'] : [];
+//        dd($audit_query_list);
+        $audit_query_list = isSuccess($audit_query_list) ? $audit_query_list['data'] : $audit_query_list['data'];
+
+
         return view('modules.audit_execution.audit_execution_query.partials.load_authority_query_list',
             compact('audit_query_list'));
     }

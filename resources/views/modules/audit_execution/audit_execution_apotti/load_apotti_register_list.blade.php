@@ -21,12 +21,20 @@
             এনটিটি/সংস্থা
         </th>
 
-        <th width="45%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="25%" class="datatable-cell datatable-cell-sort text-left">
             শিরোনাম
         </th>
 
         <th width="10%" class="datatable-cell datatable-cell-sort text-right">
             জড়িত অর্থ (টাকা)
+        </th>
+
+        <th width="15%" class="datatable-cell datatable-cell-sort text-right">
+            এআইআর ইস্যুর তারিখ
+        </th>
+
+        <th width="15%" class="datatable-cell datatable-cell-sort text-right">
+            স্ট্যাটাস রিভিউ তারিখ
         </th>
 
         <th width="25%" class="datatable-cell datatable-cell-sort text-center">
@@ -57,6 +65,14 @@
             </td>
             <td class="text-right">
                 <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
+            </td>
+
+            <td class="text-left">
+
+            </td>
+
+            <td class="text-left">
+
             </td>
 
             <td>
