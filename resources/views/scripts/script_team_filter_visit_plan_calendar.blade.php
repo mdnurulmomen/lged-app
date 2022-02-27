@@ -55,7 +55,7 @@
                         listWeek: {buttonText: 'List'}
                     },
                     hiddenDays: [5, 6],
-                    defaultView: 'dayGridMonth',
+                    defaultView: 'timeGridDay',
                     defaultDate: TODAY,
 
                     editable: true,
