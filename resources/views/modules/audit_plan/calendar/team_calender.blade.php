@@ -46,17 +46,19 @@
 
 </div>
 <style>
-    .sna-card-custom{
-        background:#e2f0ff;
+    .sna-card-custom {
+        background: #e2f0ff;
     }
-    .sna-card-custom h3{
-        color:#3599fe;
-        padding:15px;
-        font-weight:bold;
+
+    .sna-card-custom h3 {
+        color: #3599fe;
+        padding: 15px;
+        font-weight: bold;
 
     }
-    .sna-card-custom .total-headline{
-        font-size:15px;
+
+    .sna-card-custom .total-headline {
+        font-size: 15px;
     }
 </style>
 <div class="row text-center py-5 sna-today-tomorrow-box">
@@ -100,44 +102,44 @@
 
     <div class="col-xl-6">
         <div class="card sna-card-custom">
-            <h3 >This Week</h3>
+            <h3>Till Today</h3>
 
             <div class="card-body d-flex flex-column p-0" style="position: relative;">
                 <div class="card-rounded flex-grow-1">
                     <div class="row m-0">
 
-                    <div class="col-xl-6 p-0 m-0">
-                        <a href="{{url('audit-conducting?page=memo')}}">
-                            <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
-                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
-                                    <div class="flex-grow-1 card-spacer-x pt-6">
-                                        <div class="text-grey total-headline">Total Memo</div>
-                                        <div class="text-grey font-weight-bolder font-size-h3" id="weeklyTotalMemo"></div>
+                        <div class="col-xl-6 p-0 m-0">
+                            <a href="{{url('audit-conducting?page=memo')}}">
+                                <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
+                                    <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                                        <div class="flex-grow-1 card-spacer-x pt-6">
+                                            <div class="text-grey total-headline">Total Memo</div>
+                                            <div class="text-grey font-weight-bolder font-size-h3" id="yearlyTotalMemo"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
 
-                    <div class="col-xl-6 p-0 m-0">
-                        <a href="{{url('audit-conducting?page=query')}}">
-                            <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
-                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
-                                    <div class="flex-grow-1 card-spacer-x pt-6">
-                                        <div class="text-grey total-headline">Total Query</div>
-                                        <div class="text-grey font-weight-bolder font-size-h3" id="weeklyTotalQuery"></div>
+                        <div class="col-xl-6 p-0 m-0">
+                            <a href="{{url('audit-conducting?page=query')}}">
+                                <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
+                                    <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                                        <div class="flex-grow-1 card-spacer-x pt-6">
+                                            <div class="text-grey total-headline">Total Query</div>
+                                            <div class="text-grey font-weight-bolder font-size-h3" id="yearlyTotalQuery"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="col-md-12 py-5">
+    <div class="col-md-12 py-5">
         <div class="btn-group">
             <button class="btn btn-icon bg-success btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
             <span class="mr-4">Data Collection Schedule</span>
@@ -147,228 +149,228 @@
     </div>
 
 
-<div class="row">
-    <div class="col-md-12" id="load_team_calendar">
+    <div class="row">
+        <div class="col-md-12" id="load_team_calendar">
 
+        </div>
     </div>
-</div>
 
-<script>
-    var Team_Calendar_Container = {
-        loadTeamCalendar: function (directorate_id, fiscal_year_id) {
-            let url = '{{route('calendar.load-teams-calender')}}';
-            let data = {directorate_id, fiscal_year_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        $('#load_team_calendar').html('<option value="">Select Team</option>');
-                        toastr.error(response.data)
-                    } else {
-                        $('#load_team_calendar').html(response);
+    <script>
+        var Team_Calendar_Container = {
+            loadTeamCalendar: function (directorate_id, fiscal_year_id) {
+                let url = '{{route('calendar.load-teams-calender')}}';
+                let data = {directorate_id, fiscal_year_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                        if (response.status === 'error') {
+                            $('#load_team_calendar').html('<option value="">Select Team</option>');
+                            toastr.error(response.data)
+                        } else {
+                            $('#load_team_calendar').html(response);
+                        }
                     }
-                }
-            );
-        },
-        loadEntityList: function (directorate_id, fiscal_year_id) {
-            let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
-            let data = {directorate_id, fiscal_year_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                );
+            },
+            loadEntityList: function (directorate_id, fiscal_year_id) {
+                let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
+                let data = {directorate_id, fiscal_year_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                        if (response.status === 'error') {
+                            toastr.warning(response.data)
+                        } else {
+                            $('#entity_filter').html(response);
+                        }
+                    }
+                );
+            },
+            loadCostCenterList: function (directorate_id, fiscal_year_id, entity_id) {
+                let url = '{{route('calendar.load-cost-center-directorate-fiscal-year-wise-select')}}';
+                let data = {directorate_id, fiscal_year_id, entity_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                        if (response.status === 'error') {
+                            toastr.warning(response.data)
+                        } else {
+                            $('#cost_center_filter').html(response);
+                        }
+                    }
+                );
+            },
+            loadTeamList: function (directorate_id, fiscal_year_id, cost_center_id) {
+                let url = '{{route('calendar.load-teams-select')}}';
+                let data = {directorate_id, fiscal_year_id, cost_center_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                        if (response.status === 'error') {
+                            toastr.warning(response.data)
+                        } else {
+                            $('#team_filter').html(response);
+                        }
+                    }
+                );
+            },
+            loadSubTeamList: function (directorate_id, fiscal_year_id, team_id) {
+                let url = '{{route('calendar.load-sub-teams-select')}}';
+                let data = {directorate_id, fiscal_year_id, team_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                        if (response.status === 'error') {
+                            toastr.warning(response.data)
+                        } else {
+                            $('#sub_team_filter').html(response);
+                        }
+                    }
+                );
+            },
+            loadTeamFilter: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
+                let url = '{{route('calendar.load-teams-calender-filter')}}';
+                let data = {directorate_id, fiscal_year_id, cost_center_id, team_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                        if (response.status === 'error') {
+                            toastr.warning(response.data)
+                        } else {
+                            $('#load_team_calendar').html(response);
+                        }
+                    }
+                );
+            },
+            loadTeamCalendarScheduleList: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
+                let url = '{{route('calendar.load-team-calendar-schedule-list')}}';
+                let data = {directorate_id, fiscal_year_id, cost_center_id, team_id};
+
+                quick_panel = $("#kt_quick_panel");
+                quick_panel.addClass('offcanvas-on');
+                quick_panel.css('opacity', 1);
+                quick_panel.css('width', '1200px');
+                $('.offcanvas-footer').hide();
+                quick_panel.removeClass('d-none');
+                $("html").addClass("side-panel-overlay");
+                $('.offcanvas-title').html('List');
+                KTApp.block('#kt_content', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                        KTApp.unblock('#kt_content');
+                        if (response.status === 'error') {
+                            toastr.warning(response.data)
+                        } else {
+
+                            $('.offcanvas-wrapper').html(response);
+                        }
+                    }
+                );
+            },
+
+            getTotalDailyQueryAndMemo: function (directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id) {
+                let url = '{{route('calendar.get-total-query-and-memo-report')}}';
+                scope_report_type = 'daily';
+                let data = {directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id, scope_report_type};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
-                        $('#entity_filter').html(response);
+                        console.log(response.data)
+                        $('#dailyTotalQuery').html(response.data.total_query);
+                        $('#dailyTotalMemo').html(response.data.total_memo);
                     }
-                }
-            );
-        },
-        loadCostCenterList: function (directorate_id, fiscal_year_id, entity_id) {
-            let url = '{{route('calendar.load-cost-center-directorate-fiscal-year-wise-select')}}';
-            let data = {directorate_id, fiscal_year_id, entity_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                });
+            },
+
+            getTotalWeeklyQueryAndMemo: function (directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id) {
+                let url = '{{route('calendar.get-total-query-and-memo-report')}}';
+                scope_report_type = 'yearly';
+                let data = {directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id, scope_report_type};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
-                        $('#cost_center_filter').html(response);
+                        $('#yearlyTotalQuery').html(response.data.total_query);
+                        $('#yearlyTotalMemo').html(response.data.total_memo);
                     }
-                }
-            );
-        },
-        loadTeamList: function (directorate_id, fiscal_year_id, cost_center_id) {
-            let url = '{{route('calendar.load-teams-select')}}';
-            let data = {directorate_id, fiscal_year_id, cost_center_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#team_filter').html(response);
-                    }
-                }
-            );
-        },
-        loadSubTeamList: function (directorate_id, fiscal_year_id, team_id) {
-            let url = '{{route('calendar.load-sub-teams-select')}}';
-            let data = {directorate_id, fiscal_year_id, team_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#sub_team_filter').html(response);
-                    }
-                }
-            );
-        },
-        loadTeamFilter: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
-            let url = '{{route('calendar.load-teams-calender-filter')}}';
-            let data = {directorate_id, fiscal_year_id, cost_center_id, team_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#load_team_calendar').html(response);
-                    }
-                }
-            );
-        },
-        loadTeamCalendarScheduleList: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
-            let url = '{{route('calendar.load-team-calendar-schedule-list')}}';
-            let data = {directorate_id, fiscal_year_id, cost_center_id, team_id};
-
-            quick_panel = $("#kt_quick_panel");
-            quick_panel.addClass('offcanvas-on');
-            quick_panel.css('opacity', 1);
-            quick_panel.css('width', '1200px');
-            $('.offcanvas-footer').hide();
-            quick_panel.removeClass('d-none');
-            $("html").addClass("side-panel-overlay");
-            $('.offcanvas-title').html('List');
-            KTApp.block('#kt_content', {
-                opacity: 0.1,
-                state: 'primary' // a bootstrap color
-            });
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    KTApp.unblock('#kt_content');
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-
-                        $('.offcanvas-wrapper').html(response);
-                    }
-                }
-            );
-        },
-
-        getTotalDailyQueryAndMemo: function (directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id) {
-            let url = '{{route('calendar.get-total-query-and-memo-report')}}';
-            scope_report_type = 'daily';
-            let data = {directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id,scope_report_type};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                if (response.status === 'error') {
-                    toastr.warning(response.data)
-                } else {
-                    console.log(response.data)
-                    $('#dailyTotalQuery').html(response.data.total_query);
-                    $('#dailyTotalMemo').html(response.data.total_memo);
-                }
-            });
-        },
-
-        getTotalWeeklyQueryAndMemo: function (directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id) {
-            let url = '{{route('calendar.get-total-query-and-memo-report')}}';
-            scope_report_type = 'weekly';
-            let data = {directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id,scope_report_type};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                if (response.status === 'error') {
-                    toastr.warning(response.data)
-                } else {
-                    $('#weeklyTotalQuery').html(response.data.total_query);
-                    $('#weeklyTotalMemo').html(response.data.total_memo);
-                }
-            });
-        },
-    };
-    @if(!isset($team_id))
-    $(function () {
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        team_filter = $('#team_filter').val();
-        entity_id = $('#entity_filter').val();
-        cost_center_id = $('#cost_center_filter').val();
-        console.log({entity_id})
-        console.log({cost_center_id})
-
-        if (directorate_id !== 'all') {
-            //Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
-            Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id, cost_center_id, team_filter);
-            // Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
-            Team_Calendar_Container.loadEntityList(directorate_id, fiscal_year_id);
-            // Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id);
-            Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
-            Team_Calendar_Container.getTotalWeeklyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
-        } else {
-            toastr.info('Please select directorate.')
-            $('#load_team_calendar').html('');
-        }
-    });
-    @else
-    $(function () {
+                });
+            },
+        };
+        @if(!isset($team_id))
+        $(function () {
             directorate_id = $('#directorate_filter').val();
             fiscal_year_id = $('#fiscal_year_id').val();
-            team_id = '{{$team_id}}';
-            Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
-            $('#team_filter').val(team_id);
-        }
-    );
-    @endif
+            team_filter = $('#team_filter').val();
+            entity_id = $('#entity_filter').val();
+            cost_center_id = $('#cost_center_filter').val();
+            console.log({entity_id})
+            console.log({cost_center_id})
 
-    $('#directorate_filter').change(function () {
-        directorate_id = $('#directorate_filter').val();
-        if (directorate_id) {
-            // Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
-            Team_Calendar_Container.loadEntityList(directorate_id, fiscal_year_id);
-            // Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
-        } else {
-            $('#load_team_calendar').html('');
-        }
-    });
-
-    $('#team_filter').change(function () {
-        team_id = $('#team_filter').val();
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        Team_Calendar_Container.loadSubTeamList(directorate_id, fiscal_year_id, team_id);
-    });
-
-    $('#btn_filter').click(function () {
-        $('#load_team_calendar').html('');
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        team_filter = $('#team_filter').val();
-        entity_id = $('#entity_filter').val()
-        cost_center_id = $('#cost_center_filter').val();
-        if (directorate_id !== 'all') {
-            if (team_filter || cost_center_id) {
+            if (directorate_id !== 'all') {
+                //Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
                 Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+                // Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
+                Team_Calendar_Container.loadEntityList(directorate_id, fiscal_year_id);
+                // Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id);
+                Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
+                Team_Calendar_Container.getTotalWeeklyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
             } else {
-                Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id, cost_center_id, team_filter);
-                // Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
+                toastr.info('Please select directorate.')
+                $('#load_team_calendar').html('');
             }
-            Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
-            Team_Calendar_Container.getTotalWeeklyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
-        } else {
-            toastr.info('Please select a directorate.')
-        }
-    });
+        });
+        @else
+        $(function () {
+                directorate_id = $('#directorate_filter').val();
+                fiscal_year_id = $('#fiscal_year_id').val();
+                team_id = '{{$team_id}}';
+                Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
+                $('#team_filter').val(team_id);
+            }
+        );
+        @endif
 
-    $('#entity_filter').change(function () {
-        entity_id = $('#entity_filter').val();
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id, entity_id);
-    });
+        $('#directorate_filter').change(function () {
+            directorate_id = $('#directorate_filter').val();
+            if (directorate_id) {
+                // Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
+                Team_Calendar_Container.loadEntityList(directorate_id, fiscal_year_id);
+                // Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
+            } else {
+                $('#load_team_calendar').html('');
+            }
+        });
 
-    $('#cost_center_filter').change(function () {
-        cost_center_id = $('#cost_center_filter').val();
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
-    });
-</script>
+        $('#team_filter').change(function () {
+            team_id = $('#team_filter').val();
+            directorate_id = $('#directorate_filter').val();
+            fiscal_year_id = $('#fiscal_year_id').val();
+            Team_Calendar_Container.loadSubTeamList(directorate_id, fiscal_year_id, team_id);
+        });
+
+        $('#btn_filter').click(function () {
+            $('#load_team_calendar').html('');
+            directorate_id = $('#directorate_filter').val();
+            fiscal_year_id = $('#fiscal_year_id').val();
+            team_filter = $('#team_filter').val();
+            entity_id = $('#entity_filter').val()
+            cost_center_id = $('#cost_center_filter').val();
+            if (directorate_id !== 'all') {
+                if (team_filter || cost_center_id) {
+                    Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+                } else {
+                    Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id, cost_center_id, team_filter);
+                    // Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
+                }
+                Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
+                Team_Calendar_Container.getTotalWeeklyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
+            } else {
+                toastr.info('Please select a directorate.')
+            }
+        });
+
+        $('#entity_filter').change(function () {
+            entity_id = $('#entity_filter').val();
+            directorate_id = $('#directorate_filter').val();
+            fiscal_year_id = $('#fiscal_year_id').val();
+            Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id, entity_id);
+        });
+
+        $('#cost_center_filter').change(function () {
+            cost_center_id = $('#cost_center_filter').val();
+            directorate_id = $('#directorate_filter').val();
+            fiscal_year_id = $('#fiscal_year_id').val();
+            Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
+        });
+    </script>
