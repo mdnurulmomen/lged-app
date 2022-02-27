@@ -833,17 +833,17 @@
                         </tr>--}}
                     </table>
                 </div>
-                <div class="bangla-font" style="text-align: center;font-size: 12px;margin-top: 5px">
-                    {{$plan_infos['office_info']['office_name_bn']}} <br>
-                    অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>
-                    সেগুন বাগিচা, ঢাকা-১০০০।
-                </div>
+{{--                <div class="bangla-font" style="text-align: center;font-size: 12px;margin-top: 5px">--}}
+{{--                    {{$plan_infos['office_info']['office_name_bn']}} <br>--}}
+{{--                    অডিট কমপ্লেক্স (৮ম ও ৯ম তলা) <br>--}}
+{{--                    সেগুন বাগিচা, ঢাকা-১০০০।--}}
+{{--                </div>--}}
 
-                <div class="bangla-font" style="text-align: center;font-size: 15px;margin-top: 5px">
-                    বার্ষিক অডিট পরিকল্পনা{{--(সেক্টর-০২)--}}- অর্থ-বছরঃ{{enTobn($plan_infos['fiscal_year']['start'])}}
-                    -{{enTobn($plan_infos['fiscal_year']['end'])}}ঃ
-                    {{enTobn($loop->iteration)}} | {{$plan['ministries']['ministry_name_bn']}}
-                </div>
+{{--                <div class="bangla-font" style="text-align: center;font-size: 15px;margin-top: 5px">--}}
+{{--                    বার্ষিক অডিট পরিকল্পনা--}}{{--(সেক্টর-০২)--}}{{--- অর্থ-বছরঃ{{enTobn($plan_infos['fiscal_year']['start'])}}--}}
+{{--                    -{{enTobn($plan_infos['fiscal_year']['end'])}}ঃ--}}
+{{--                    {{enTobn($loop->iteration)}} | {{$plan['ministries']['ministry_name_bn']}}--}}
+{{--                </div>--}}
 
                 <div class="bangla-font">
                     @if($plan['activity']['activity_type'] == 'compliance')

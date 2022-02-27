@@ -45,7 +45,7 @@
         </div>
         <div id="daak_pagination_panel" class="float-right d-flex align-items-center" style="vertical-align:middle;">
                 <span class="mr-2"><span id="daak_item_length_start">১</span> - <span id="daak_item_length_end">{{enTobn(count($memo_list['data']))}}</span> সর্বমোট: <span
-                        id="daak_item_total_record">{{enTobn($total_memo)}}</span></span>
+                        id="daak_item_total_record">{{enTobn(count($memo_list['data']))}}</span></span>
             <div class="btn-group">
                 <button class="btn-list-prev btn btn-icon btn-secondary btn-square" disabled="disabled" type="button"><i
                         class="fad fa-chevron-left" data-toggle="popover"
