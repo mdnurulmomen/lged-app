@@ -851,7 +851,7 @@
     </div>
 
     {{--apotti summary details page--}}
-    <div class="pdf-screen bangla-font" style="page-break-before: always;">
+    <div class="pdf-screen bangla-font" style="page-break-before: always;page-break-after: always;">
         {!! $auditReport[25]['content'] !!}
     </div>
 
