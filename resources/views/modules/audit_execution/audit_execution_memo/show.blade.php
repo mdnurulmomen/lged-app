@@ -1,6 +1,6 @@
 <div class="col-md-12">
     <div class="d-flex justify-content-end mt-4">
-        <button title="ডাউনলোড করুন" data-memo-id="{{$memoInfo['id']}}"
+        <button title="ডাউনলোড করুন" data-memo-id="{{$memoInfo['id']}}" data-directorate-id="{{$directorate_id}}"
                 onclick="Show_Memo_Container.memoPDFDownload($(this))"
                 class="btn btn-info btn-sm btn-bold btn-square">
             <i class="far fa-download"></i> ডাউনলোড
@@ -15,12 +15,12 @@
         {!! $directorateAddress !!}<br>
         <u>{{$directorateWebsite}}</u>
     </div>
-{{--    <x-office-header-details />--}}
+    {{--    <x-office-header-details />--}}
     <br>
     @if($memoInfo['memo_sharok_no'])
         <table class="bangla-font" width="100%">
             <tr>
-                <td >স্মারক  নং - {{enTobn($memoInfo['memo_sharok_no'])}}</td>
+                <td>স্মারক নং - {{enTobn($memoInfo['memo_sharok_no'])}}</td>
                 <td style="text-align: right">তারিখ: {{formatDate($memoInfo['memo_send_date'],'bn','/')}}</td>
             </tr>
         </table>
@@ -92,7 +92,7 @@
     @if($memoInfo['memo_sharok_no'])
         <table class="bangla-font" width="100%" style="color: black">
             <tr>
-                <td >স্মারক  নং - {{enTobn($memoInfo['memo_sharok_no'])}}</td>
+                <td>স্মারক নং - {{enTobn($memoInfo['memo_sharok_no'])}}</td>
                 <td style="text-align: right">তারিখ: {{formatDate($memoInfo['memo_send_date'],'bn','/')}}</td>
             </tr>
         </table>
@@ -106,7 +106,7 @@
             <tr>
                 <td>
                     @if($memoInfo['memo_cc'])
-                    {!! nl2br($memoInfo['memo_cc']) !!}
+                        {!! nl2br($memoInfo['memo_cc']) !!}
                     @endif
 
                 </td>
@@ -135,11 +135,12 @@
 
 
 <script>
-    var Show_Memo_Container={
+    var Show_Memo_Container = {
         memoPDFDownload: function (elem) {
             url = '{{route('audit.execution.memo.download.pdf')}}';
             memo_id = elem.data('memo-id');
-            data = {memo_id};
+            directorate_id = elem.data('directorate-id');
+            data = {memo_id, directorate_id};
 
             $.ajax({
                 type: 'POST',

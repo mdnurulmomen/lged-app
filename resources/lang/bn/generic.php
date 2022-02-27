@@ -9,7 +9,7 @@ return [
     'back' => 'ফেরত যান',
     'no_data_found' => 'কোন তথ্য পাওয়া যায়নি',
     'sent_successfully' => 'সফলভাবে প্রেরণ করা হয়েছে',
-    'sr_no' => 'ক্রম নং',
+    'sr_no' => 'ক্রম নংঃ',
     'placeholders' => [
         'search' => 'অনুসন্ধান করুন',
     ],
