@@ -67,12 +67,12 @@
                             <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
-                                    <div class="d-flex align-items-center flex-wrap  font-size-1-2">
-                                        <span class="mr-1 ">{{___('generic.sr_no')}}</span>
-                                        <a href="javascript:void(0)" class="text-dark text-hover-primary font-size-h5">
-                                            {{enTobn($loop->iteration)}}
-                                        </a>
-                                    </div>
+{{--                                    <div class="d-flex align-items-center flex-wrap  font-size-1-2">--}}
+{{--                                        <span class="mr-1 ">{{___('generic.sr_no')}}</span>--}}
+{{--                                        <a href="javascript:void(0)" class="text-dark text-hover-primary font-size-h5">--}}
+{{--                                            {{enTobn($loop->iteration)}}--}}
+{{--                                        </a>--}}
+{{--                                    </div>--}}
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                         <span class="mr-1 ">মেমো নংঃ</span>
                                         <a href="javascript:void(0)" class="text-dark text-hover-primary font-size-h5">
