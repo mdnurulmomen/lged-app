@@ -252,30 +252,9 @@ class AuditAIRReportController extends Controller
     public function download(Request $request)
     {
         $auditReport = $request->air_description;
-        $coverPage = $auditReport[0];
-        $indexPage = $auditReport[1];
-        $partOneCoverPage = $auditReport[2];
-        $partTwoCoverPage = $auditReport[15];
-        $auditOnnuchedSumaryPage = $auditReport[16];
-        $auditOnnuchedDetailsPage = $auditReport[17];
-        $appendicesCoverPage = $auditReport[18];
-        $appendicesDetailsPage = $auditReport[19];
-
-        unset($auditReport[0], $auditReport[1], $auditReport[2], $auditReport[15],
-            $auditReport[16],$auditReport[17],$auditReport[18],$auditReport[19]);
 
         $pdf = \PDF::loadView('modules.audit_report.air_generate.partials.air_book',
-            [
-                'coverPage' => $coverPage,
-                'indexPage' => $indexPage,
-                'partOneCoverPage' => $partOneCoverPage,
-                'partTwoCoverPage' => $partTwoCoverPage,
-                'auditOnnuchedSumaryPage' => $auditOnnuchedSumaryPage,
-                'auditOnnuchedDetailsPage' => $auditOnnuchedDetailsPage,
-                'appendicesCoverPage' => $appendicesCoverPage,
-                'appendicesDetailsPage' => $appendicesDetailsPage,
-                'auditReport' => $auditReport,
-            ], [] , ['orientation' => 'P', 'format' => 'A4']);
+            ['auditReport' => $auditReport], [] , ['orientation' => 'P', 'format' => 'A4']);
         $fileName = 'audit_preliminary_air_report_' . date('D_M_j_Y') . '.pdf';
         return $pdf->stream($fileName);
     }
