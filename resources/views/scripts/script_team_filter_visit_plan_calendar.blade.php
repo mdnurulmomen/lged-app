@@ -49,11 +49,15 @@
                     now: TODAY + 'T09:25:00', // just for demo
 
                     views: {
-                        dayGridMonth: {buttonText: 'Month'},
+                        timeGridDay: {
+                            buttonText: 'Day',
+                            eventLimit: false,
+                        },
                         timeGridWeek: {buttonText: 'Week'},
-                        timeGridDay: {buttonText: 'Day'},
+                        dayGridMonth: {buttonText: 'Month'},
                         listWeek: {buttonText: 'List'}
                     },
+
                     hiddenDays: [5, 6],
                     defaultView: 'timeGridDay',
                     defaultDate: TODAY,
@@ -63,70 +67,70 @@
                     navLinks: true,
                     events: [
                             @foreach($calendar_data as $team)
-                                @if($team['child'])
-                                    @foreach($team['child'] as $sub_team)
-                                        @if($sub_team['team_schedules'])
-                                        @php
-                                            if(isset($cost_center_id)){
-                                                $schedules = json_decode($sub_team['team_schedules'],true);
+                            @if($team['child'])
+                            @foreach($team['child'] as $sub_team)
+                            @if($sub_team['team_schedules'])
+                            @php
+                                if(isset($cost_center_id)){
+                                    $schedules = json_decode($sub_team['team_schedules'],true);
 
-                                                $schedules = array_filter($schedules, function ($var) use ($cost_center_id) {
-                                                         return ($var['cost_center_id'] == $cost_center_id);
-                                                    });
+                                    $schedules = array_filter($schedules, function ($var) use ($cost_center_id) {
+                                             return ($var['cost_center_id'] == $cost_center_id);
+                                        });
 
-                                            }else{
-                                                $schedules = json_decode($sub_team['team_schedules'],true);
-                                            }
-                                        @endphp
+                                }else{
+                                    $schedules = json_decode($sub_team['team_schedules'],true);
+                                }
+                            @endphp
 
-                                        @foreach($schedules as $schedule)
-
-                                            {
-                                                title: '{{$sub_team['team_name']}}  (উপদল নেতা : {{$sub_team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
-                                                start: '{{$schedule['team_member_start_date']}}',
-                                                end: '{{$schedule['team_member_end_date']}}',
-                                                description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
-                                                team_id: '{{$sub_team['id']}}',
-                                                team_name: '{{$sub_team['team_name']}}',
-                                                team_members: '{{$sub_team['team_members']}}',
-                                                team_schedules: '{{$sub_team['team_schedules']}}',
-                                                audit_start_end_year: '{{$sub_team['audit_year_start']}} - {{$sub_team['audit_year_end']}}',
-                                                className: "fc-event-waring @if($sub_team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-primary @endif"
-
-                                            },
-                                        @endforeach
-                                        @endif
-                                    @endforeach
-                                @endif
-                                @if($team['team_schedules'])
-                                @php
-                                    if(isset($cost_center_id)){
-                                        $schedules = json_decode($team['team_schedules'],true);
-                                        $schedules = array_filter($schedules, function ($var) use ($cost_center_id){
-                                                 return ($var['cost_center_id'] == $cost_center_id);
-                                            });
-                                    }else{
-                                        $schedules = json_decode($team['team_schedules'],true);
-                                    }
-
-                                @endphp
                             @foreach($schedules as $schedule)
-                                {
-                                    title: '{{$team['team_name']}}  (উপদল নেতা : {{$team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
-                                    start: '{{$schedule['team_member_start_date']}}',
-                                    end: '{{$schedule['team_member_end_date']}}',
-                                    description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
-                                    team_id: '{{$team['id']}}',
-                                    team_name: '{{$team['team_name']}}',
-                                    team_members: '{{$team['team_members']}}',
-                                    team_schedules: '{{$team['team_schedules']}}',
-                                    audit_start_end_year: '{{$team['audit_year_start']}} - {{$team['audit_year_end']}}',
-                                    className: "fc-event-waring @if($team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-primary @endif"
 
-                                },
+                        {
+                            title: '{{$sub_team['team_name']}}  (উপদল নেতা : {{$sub_team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
+                            start: '{{$schedule['team_member_start_date']}}',
+                            end: '{{$schedule['team_member_end_date']}}',
+                            description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
+                            team_id: '{{$sub_team['id']}}',
+                            team_name: '{{$sub_team['team_name']}}',
+                            team_members: '{{$sub_team['team_members']}}',
+                            team_schedules: '{{$sub_team['team_schedules']}}',
+                            audit_start_end_year: '{{$sub_team['audit_year_start']}} - {{$sub_team['audit_year_end']}}',
+                            className: "fc-event-waring @if($sub_team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-primary @endif"
+
+                        },
                             @endforeach
+                            @endif
+                            @endforeach
+                            @endif
+                            @if($team['team_schedules'])
+                            @php
+                                if(isset($cost_center_id)){
+                                    $schedules = json_decode($team['team_schedules'],true);
+                                    $schedules = array_filter($schedules, function ($var) use ($cost_center_id){
+                                             return ($var['cost_center_id'] == $cost_center_id);
+                                        });
+                                }else{
+                                    $schedules = json_decode($team['team_schedules'],true);
+                                }
+
+                            @endphp
+                            @foreach($schedules as $schedule)
+                        {
+                            title: '{{$team['team_name']}}  (উপদল নেতা : {{$team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
+                            start: '{{$schedule['team_member_start_date']}}',
+                            end: '{{$schedule['team_member_end_date']}}',
+                            description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
+                            team_id: '{{$team['id']}}',
+                            team_name: '{{$team['team_name']}}',
+                            team_members: '{{$team['team_members']}}',
+                            team_schedules: '{{$team['team_schedules']}}',
+                            audit_start_end_year: '{{$team['audit_year_start']}} - {{$team['audit_year_end']}}',
+                            className: "fc-event-waring @if($team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-primary @endif"
+
+                        },
+                        @endforeach
                         @endif
-                            @endforeach
+                        @endforeach
                     ],
 
                     eventRender: function (info) {
@@ -225,21 +229,20 @@
                                 </tr>`;
 
                         $.each(team_schedules, function (key, data) {
-                            if (data.schedule_type === 'schedule'){
+                            if (data.schedule_type === 'schedule') {
                                 html += '<tr>';
                                 html += '<td>' + data.cost_center_name_bn + '</td>';
 
                                 html += '<td>' + enTobn(event.event.extendedProps.audit_start_end_year) + '</td>';
 
-                                html += '<td>' + enTobn(DmyFormat(data.team_member_start_date,'/')) + '-<br>'  +  enTobn(DmyFormat(data.team_member_end_date,'/')) +'</td>';
+                                html += '<td>' + enTobn(DmyFormat(data.team_member_start_date, '/')) + '-<br>' + enTobn(DmyFormat(data.team_member_end_date, '/')) + '</td>';
 
                                 html += '<td>' + enTobn(data.activity_man_days) + '</td>';
 
                                 html += '</tr>';
-                            }
-                            else if(data.schedule_type === 'visit'){
+                            } else if (data.schedule_type === 'visit') {
                                 html += '<tr>';
-                                html += '<td class="text-center" colspan="4">' + enTobn(DmyFormat(data.team_member_start_date,'/'))+' খ্রি. '+data.activity_details + '</td>';
+                                html += '<td class="text-center" colspan="4">' + enTobn(DmyFormat(data.team_member_start_date, '/')) + ' খ্রি. ' + data.activity_details + '</td>';
                                 html += '</tr>';
                             }
                         });
