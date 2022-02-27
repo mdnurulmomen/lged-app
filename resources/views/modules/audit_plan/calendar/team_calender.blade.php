@@ -139,7 +139,7 @@
         </div>
     </div>
 
-    <div class="col-md-12 py-5">
+    <div class="col-md-12 py-5 text-right">
         <div class="btn-group">
             <button class="btn btn-icon bg-success btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
             <span class="mr-4">Data Collection Schedule</span>
