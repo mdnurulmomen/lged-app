@@ -1,4 +1,4 @@
-<x-title-wrapper>ব্রডশীট জবাব</x-title-wrapper>
+<x-title-wrapper>জবাব</x-title-wrapper>
 
 <div class="card card-custom card-stretch">
     <div class="card-body p-0">
