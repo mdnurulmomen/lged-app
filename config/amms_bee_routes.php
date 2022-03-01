@@ -236,6 +236,7 @@ return [
         'broadsheet_reply' => [
             'get_broad_sheet_list' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-broad-sheet-list',
             'get_broad_sheet_item' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-broad-sheet-item',
+            'update_broad_sheet_item' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/update-broad-sheet-item',
             'get_apotti_item_info' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-apotti-item-info',
             'broad_sheet_movement' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/broad-sheet-movement',
             'broad_sheet_last_movement' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/broad-sheet-last-movement',

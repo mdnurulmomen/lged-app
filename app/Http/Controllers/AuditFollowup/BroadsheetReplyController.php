@@ -114,14 +114,57 @@ class BroadsheetReplyController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_item'), $data)->json();
-
+//        dd($broadSheetItem);
         if (isSuccess($broadSheetItem)) {
             $broadSheetItem = $broadSheetItem['data'];
+            $memorandum_no = $request->memorandum_no;
+            $memorandum_date = $request->memorandum_date;
+            $entity_name = $request->entity_name;
             return view('modules.audit_followup.broadsheet_reply.partials.broad_sheet_item',
-                compact('broadSheetItem',));
+                compact('broadSheetItem','memorandum_no','memorandum_date','entity_name'));
         } else {
             return response()->json(['status' => 'error', 'data' => $broadSheetItem]);
         }
+    }
+
+    public function getApottiDecisionForm(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'broad_sheet_id' => 'required|integer',
+            'apotti_item_id' => 'required|integer',
+            'memo_id' => 'required|integer',
+            'jorito_ortho' => 'nullable',
+        ])->validate();
+
+        return view('modules.audit_followup.broadsheet_reply.partials.apotti_decision_form',$data);
+    }
+
+    public function getApottiDecisionSubmit(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'broad_sheet_id' => 'required|integer',
+            'apotti_item_id' => 'required|integer',
+            'memo_id' => 'required|integer',
+            'jorito_ortho' => 'nullable',
+            'collected_amount' => 'nullable',
+            'adjusted_amount' => 'nullable',
+            'apotti_status' => 'nullable',
+            'apotti_comment' => 'nullable',
+        ])->validate();
+
+//        dd($data);
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $broadSheetItemUpdate = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.update_broad_sheet_item'), $data)->json();
+
+        //        dd($apottiItemList);
+        if (isSuccess($broadSheetItemUpdate)) {
+            return response()->json(['status' => 'success', 'data' => $broadSheetItemUpdate]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $broadSheetItemUpdate]);
+        }
+
     }
 
     public function showBroadSheet(Request $request){

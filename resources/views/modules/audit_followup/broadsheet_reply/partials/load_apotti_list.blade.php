@@ -90,7 +90,12 @@
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                         <span class="mr-1 ">স্মারক নংঃ</span>
-                                        <a data-broad-sheet-id="{{$item['id']}}"  onclick="Broadsheet_Reply_List_Container.loadBroadSheetItem($(this))" class="text-dark text-hover-primary font-size-h5">
+                                        <a  data-entity-name="{{$item['sender_office_name_bn']}}"
+                                            data-broad-sheet-id="{{$item['id']}}"
+                                            data-memorandum-no="{{enTobn($item['memorandum_no'])}}"
+                                            data-memorandum-date="{{enTobn($item['memorandum_date'])}}"
+                                            onclick="Broadsheet_Reply_List_Container.loadBroadSheetItem($(this))"
+                                           class="text-dark text-hover-primary font-size-h5">
                                             {{enTobn($item['memorandum_no'])}}
                                             <span class="label label-outline-danger label-pill label-inline">
                                                 {{enTobn($item['broad_sheet_items_count'])}} টি আপত্তি
@@ -228,7 +233,10 @@
 
         loadBroadSheetItem : function (elem) {
             broad_sheet_id = elem.data('broad-sheet-id');
-            data = {broad_sheet_id};
+            memorandum_no = elem.data('memorandum-no');
+            memorandum_date = elem.data('memorandum-date');
+            entity_name = elem.data('entity-name');
+            data = {broad_sheet_id,memorandum_no,memorandum_date,entity_name};
 
             let url = '{{route('audit.followup.broadsheet.reply.laod-broad-sheet-sheet-item')}}';
 
@@ -242,14 +250,7 @@
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".offcanvas-title").text('অডিট অনুচ্ছেদ');
-                    quick_panel = $("#kt_quick_panel");
-                    quick_panel.addClass('offcanvas-on');
-                    quick_panel.css('opacity', 1);
-                    quick_panel.css('width', '70%');
-                    quick_panel.removeClass('d-none');
-                    $("html").addClass("side-panel-overlay");
-                    $(".offcanvas-wrapper").html(response);
+                    $("#kt_content").html(response);
                 }
             });
         },
