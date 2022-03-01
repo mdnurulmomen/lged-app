@@ -6,41 +6,22 @@
         color: #fff;
     }</style>
 
-<div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
-    <div class="col-xl-12">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="float-right">
-                    <a class="btn btn-sm btn-light-primary btn-square mr-1"
-                       onclick="Apotti_Container.mergeOnucched()"
-                       title="একীভূত করুন" href="javascript:;">
-                        <i class="fa fa-link mr-1"></i> একীভূত করুন
-                    </a>
-                </div>
-                <div class="float-right">
-                    <a id="re-arrange-btn" class="btn btn-sm btn-light-primary btn-square mr-1"
-                       onclick="Apotti_Container.reArrangeOnucched($(this))"
-                       title="পুনর্বিন্যাস করুন" href="javascript:;">
-                        <i class="fa fa-repeat mr-1"></i> পুনর্বিন্যাস করুন
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <table class="table table-hover" id="tblLocations">
     <thead class="thead-light">
     <tr class="bg-hover-warning">
-        <th width="5%" class="datatable-cell datatable-cell-sort text-center">
-            <input type="checkbox" id="selectAll">
-        </th>
-
-        <th width="10%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="5%" class="datatable-cell datatable-cell-sort text-left">
             অনুচ্ছেদ নং
         </th>
 
-        <th width="55%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="15%" class="datatable-cell datatable-cell-sort text-left">
+            মন্ত্রণালয়
+        </th>
+
+        <th width="15%" class="datatable-cell datatable-cell-sort text-left">
+            এনটিটি/সংস্থা
+        </th>
+
+        <th width="25%" class="datatable-cell datatable-cell-sort text-left">
             শিরোনাম
         </th>
 
@@ -48,7 +29,15 @@
             জড়িত অর্থ (টাকা)
         </th>
 
-        <th width="20%" class="datatable-cell datatable-cell-sort text-center">
+        <th width="15%" class="datatable-cell datatable-cell-sort text-right">
+            এআইআর ইস্যুর তারিখ
+        </th>
+
+        <th width="15%" class="datatable-cell datatable-cell-sort text-right">
+            স্ট্যাটাস রিভিউ তারিখ
+        </th>
+
+        <th width="25%" class="datatable-cell datatable-cell-sort text-center">
             কার্যক্রম
         </th>
     </tr>
@@ -57,20 +46,8 @@
     <tbody>
     @forelse($apotti_list['data'] as $apotti)
         <tr class="text-center">
-            <td>
-                <input
-                    type="checkbox"
-                    {{$apotti['air_generate_type'] == 'preliminary'?'disabled':''}}
-                    data-sequence="{{$apotti['apotti_sequence']}}"
-                    value="{{$apotti['id']}}"
-                    class="select-apotti">
-
-                <input class="apotti_sequence" data-apotti-id="{{$apotti['id']}}" type="hidden" value="{{$apotti['apotti_sequence']}}">
-            </td>
             <td class="text-left">
-
-                <input data-id="{{$apotti['id']}}" data-real-val="{{$apotti['onucched_no']}}" id="apptti_{{$apotti['id']}}" class="bijoy-bangla onucched_no" type="text" style="width: 25px;" value="{{$apotti['onucched_no']}}">
-
+                {{enTobn($apotti['onucched_no'])}}
                 @if(count($apotti['apotti_items']) > 1)
                     <span class="badge badge-info text-uppercase m-1 p-1 ">
                      {{enTobn(count($apotti['apotti_items'])) }} টি
@@ -78,10 +55,24 @@
                 @endif
             </td>
             <td class="text-left">
+                {{$apotti['ministry_name_bn']}}
+            </td>
+            <td class="text-left">
+                {{$apotti['parent_office_name_bn']}}
+            </td>
+            <td class="text-left">
                 {{$apotti['apotti_title']}}
             </td>
             <td class="text-right">
                 <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
+            </td>
+
+            <td class="text-left">
+
+            </td>
+
+            <td class="text-left">
+
             </td>
 
             <td>
@@ -107,28 +98,6 @@
     @endforelse
     </tbody>
 </table>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="{{asset('assets/js/jquery-sortable.js')}}" type="text/javascript"></script>
-<script type="text/javascript">
-    $(function () {
-        $("#tblLocations").sortable({
-            items: 'tbody tr',
-            cursor: 'pointer',
-            dropOnEmpty: false,
-            start: function (e, ui) {
-                ui.item.addClass("selected");
-            },
-            stop: function (e, ui) {
-                ui.item.removeClass("selected");
-                $('#re-arrange-btn').attr('data-is-rearranged','1');
-                $('.apotti_sequence').each(function (i, v) {
-                    i = ++i;
-                    $(this).val(i)
-                });
-            }
-        });
-    });
-</script>
 <script>
 
     //select all checkboxes

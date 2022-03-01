@@ -1,5 +1,5 @@
 @foreach($apottis as $apotti)
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         <div style="font-weight: bold">
             অনুচ্ছেদ নং-{{enTobn($apotti['onucched_no'])}}
         </div>

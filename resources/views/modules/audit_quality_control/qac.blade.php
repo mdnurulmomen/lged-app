@@ -276,11 +276,17 @@
 
         qacApottiSubmit: function () {
             data  = $('#apotti_qac_form').serializeArray();
-
+            office_id = $('#directorate_filter').val();
+            audit_plan_id = $('#audit_plan_id').val();
+            entity_id = $('#entity_id').val();
             qac_type = $('#qac_type').val();
             data.push({name: "qac_type", value: qac_type});
+            data.push({name: "audit_plan_id", value: audit_plan_id});
+            data.push({name: "entity_id", value: entity_id});
+            data.push({name: "office_id", value: office_id});
 
             let url = '{{route('audit.qac.qac-apotti-submit')}}'
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)

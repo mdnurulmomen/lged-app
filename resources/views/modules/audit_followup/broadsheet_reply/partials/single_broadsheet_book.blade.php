@@ -784,56 +784,63 @@
 <body>
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font">
-        @if($apottiItemInfo['memo_type'] == 'sfi')
-            @php $apottiType = 'এসএফআই'; @endphp
-        @else
-            @php $apottiType = 'নন-এসএফআই'; @endphp
-        @endif
-
-        <span style="text-align: center;">
-            {{$apottiItemInfo['cost_center_name_bn']}} - এর
-            {{enTobn($apottiItemInfo['fiscal_year']['start'])}}-{{enTobn($apottiItemInfo['fiscal_year']['end'])}} অর্থ বছরে {{$currentOfficeName}} কর্তৃক উত্থাপিত {{$apottiType}} অনুচ্ছেদ নং-{{enTobn($apottiItemInfo['onucched_no'])}} এর জবাব।
-        </span>
-
+        <table class="bangla-font" width="100%">
+            <tr>
+                <td >স্মারক  নং - {{enTobn($memorandum_no)}}</td>
+                <td style="text-align: right">তারিখ: {{formatDate($memorandum_date,'bn','/')}}</td>
+            </tr>
+        </table>
         <div style="margin-top: 5px">
             <table class="bangla-font" width="100%" border="1">
                 <tbody>
                 <tr class="bangla-font">
+                    <td class="bangla-font" style="text-align: center" width="8%">কস্ট সেন্টার/ইউনিট</td>
                     <td class="bangla-font" style="text-align: center" width="8%">অর্থ বছর</td>
                     <td class="bangla-font" style="text-align: center" width="8%">নিরীক্ষা বছর</td>
                     <td class="bangla-font" style="text-align: center" width="5%">অনুচ্ছেদ নং</td>
+                    <td class="bangla-font" style="text-align: center" width="5%">আপত্তি ক্যাটাগরি</td>
                     <td class="bangla-font" style="text-align: center" width="25%">শিরোনাম ও বিবরণ</td>
                     <td class="bangla-font" style="text-align: center" width="9%">জড়িত টাকার পরিমাণ</td>
                     <td class="bangla-font" style="text-align: center" width="25%">স্থানীয় অফিসের জবাব</td>
                     <td class="bangla-font" style="text-align: center" width="10%">উর্দ্ধতন কর্তৃপক্ষের সুপারিশ</td>
                     <td class="bangla-font" style="text-align: center" width="10%">মন্ত্রণালয়/বিভাগ/অন্যান্য এর সুপারিশ</td>
                 </tr>
-                <tr>
-                    <td class="bangla-font" style="text-align: center">১</td>
-                    <td class="bangla-font" style="text-align: center">২</td>
-                    <td class="bangla-font" style="text-align: center">৩</td>
-                    <td class="bangla-font" style="text-align: center">৪</td>
-                    <td class="bangla-font" style="text-align: center">৫</td>
-                    <td class="bangla-font" style="text-align: center">৬</td>
-                    <td class="bangla-font" style="text-align: center">৭</td>
-                    <td class="bangla-font" style="text-align: center">৮</td>
-                </tr>
-
-                <tr>
-                    <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($apottiItemInfo['fiscal_year']['start']).'-'.enTobn($apottiItemInfo['fiscal_year']['end'])}}</td>
-                    <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($apottiItemInfo['audit_year_start']).'-'.enTobn($apottiItemInfo['audit_year_end'])}}</td>
-                    <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($apottiItemInfo['onucched_no'])}}</td>
-                    <td class="bangla-font" style="text-align: justify;">
-                        <span style="padding:5px; margin-bottom: 5px"><b>শিরোনামঃ</b> <br> {{$apottiItemInfo['memo_title_bn']}}</span>
-                        <br>
-                        <br>
-                        <span style="padding:5px;"><b>বিবরণঃ</b> {!! $apottiItemInfo['memo_description_bn'] !!}</span>
-                    </td>
-                    <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn(number_format($apottiItemInfo['jorito_ortho_poriman'],0))}}/-</td>
-                    <td class="bangla-font" style="text-align: left;vertical-align: top;padding:5px;">{{$apottiItemInfo['unit_response']}}</td>
-                    <td class="bangla-font" style="text-align: left;vertical-align: top;padding:5px;">{{$apottiItemInfo['entity_response']}}</td>
-                    <td class="bangla-font" style="text-align: left;vertical-align: top;padding:5px;">{{$apottiItemInfo['ministry_response']}}</td>
-                </tr>
+{{--                <tr>--}}
+{{--                    <td class="bangla-font" style="text-align: center">১</td>--}}
+{{--                    <td class="bangla-font" style="text-align: center">২</td>--}}
+{{--                    <td class="bangla-font" style="text-align: center">৩</td>--}}
+{{--                    <td class="bangla-font" style="text-align: center">৪</td>--}}
+{{--                    <td class="bangla-font" style="text-align: center">৫</td>--}}
+{{--                    <td class="bangla-font" style="text-align: center">৬</td>--}}
+{{--                    <td class="bangla-font" style="text-align: center">৭</td>--}}
+{{--                    <td class="bangla-font" style="text-align: center">৮</td>--}}
+{{--                </tr>--}}
+               @foreach($broadSheetItem as $broadSheet)
+                    <tr>
+                        <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['cost_center_name_bn'])}}</td>
+                        <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</td>
+                        <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['audit_year_start']).'-'.enTobn($broadSheet['apotti']['audit_year_end'])}}</td>
+                        <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['onucched_no'])}}</td>
+                        <td class="bangla-font" style="text-align: center;vertical-align: top;">
+                            @if($broadSheet['apotti']['memo_type'] == 'sfi')
+                                @php $apottiType = 'এসএফআই'; @endphp
+                            @else
+                                @php $apottiType = 'নন-এসএফআই'; @endphp
+                            @endif
+                            {{$apottiType}}
+                        </td>
+                        <td class="bangla-font" style="text-align: justify;">
+                            <span style="padding:5px; margin-bottom: 5px"><b>শিরোনামঃ</b> <br> {{$broadSheet['apotti']['memo_title_bn']}}</span>
+                            <br>
+                            <br>
+                            <span style="padding:5px;"><b>বিবরণঃ</b> {!! $broadSheet['apotti']['memo_description_bn'] !!}</span>
+                        </td>
+                        <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn(number_format($broadSheet['apotti']['jorito_ortho_poriman'],0))}}/-</td>
+                        <td class="bangla-font" style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['unit_response']}}</td>
+                        <td class="bangla-font" style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['entity_response']}}</td>
+                        <td class="bangla-font" style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['ministry_response']}}</td>
+                    </tr>
+               @endforeach
                 </tbody>
             </table>
         </div>

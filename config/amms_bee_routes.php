@@ -234,8 +234,11 @@ return [
         'audit_observation_communication_lists' => env('API_URL_BEE', '') . '/follow-up/audit-observation/observation_communication_lists',
 
         'broadsheet_reply' => [
-            'get_apotti_item_list' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-apotti-item-list',
+            'get_broad_sheet_list' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-broad-sheet-list',
+            'get_broad_sheet_item' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-broad-sheet-item',
             'get_apotti_item_info' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-apotti-item-info',
+            'broad_sheet_movement' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/broad-sheet-movement',
+            'broad_sheet_last_movement' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/broad-sheet-last-movement',
         ],
     ],
 
@@ -280,6 +283,8 @@ return [
             'apotti_wise_all_tiem' => env('API_URL_BEE', '') . '/audit-conduct-apotti/apotti-wise-all-tiem',
             'get_apotti_item_info' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-item-info',
             'update_apotti' => env('API_URL_BEE', '') . '/audit-conduct-apotti/update-apotti',
+            'get-apotti-onucched-no' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-onucched-no',
+            'apotti_register_list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-register-list',
         ],
     ],
 

@@ -29,16 +29,16 @@
             </div>
         </div>
         <div class="row mt-2 mb-2">
-{{--            <div class="col-md-3">--}}
-{{--                <select class="form-select select-select2" id="cost_center_filter">--}}
-{{--                    <option value="">কস্ট সেন্টার/ইউনিট বাছাই করুন</option>--}}
-{{--                </select>--}}
-{{--            </div>--}}
-{{--            <div class="col-md-3">--}}
-{{--                <select class="form-select select-select2" id="team_filter">--}}
-{{--                    <option value="">দল বাছাই করুন</option>--}}
-{{--                </select>--}}
-{{--            </div>--}}
+            {{--            <div class="col-md-3">--}}
+            {{--                <select class="form-select select-select2" id="cost_center_filter">--}}
+            {{--                    <option value="">কস্ট সেন্টার/ইউনিট বাছাই করুন</option>--}}
+            {{--                </select>--}}
+            {{--            </div>--}}
+            {{--            <div class="col-md-3">--}}
+            {{--                <select class="form-select select-select2" id="team_filter">--}}
+            {{--                    <option value="">দল বাছাই করুন</option>--}}
+            {{--                </select>--}}
+            {{--            </div>--}}
             <div class="col-md-3">
                 <button id="btn_filter" onclick="Apotti_Container.loadApottiList()" class="btn btn-sm btn-outline-primary btn-square" type="button">
                     <i class="fad fa-search"></i> অনুসন্ধান
@@ -62,7 +62,7 @@
         fiscal_year_id = $('#fiscal_year_id').val();
         team_filter = $('#team_filter').val();
         cost_center_id = $('#cost_center_filter').val();
-        // Apotti_Container.loadApottiList(fiscal_year_id);
+        Apotti_Container.loadApottiList(fiscal_year_id);
         Apotti_Container.loadActivity(fiscal_year_id);
 
     });
@@ -139,14 +139,15 @@
             fiscal_year_id = $('#fiscal_year_id').val();
             audit_plan_id = $('#audit_plan_id').val();
             entity_id = $('#entity_id').val();
+            apotti_type = '{{$apotti_type}}';
 
             // if(!entity_id){
             //    toastr.warning('Please Select Entity');
             //    return;
             // }
 
-            let url = '{{route('audit.execution.apotti.load-apotti-list')}}';
-            let data = {fiscal_year_id,audit_plan_id,entity_id};
+            let url = '{{route('audit.execution.apotti.load-apotti-register-list')}}';
+            let data = {fiscal_year_id,audit_plan_id,entity_id,apotti_type};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     KTApp.unblock('#kt_content');
                     if (response.status === 'error') {
@@ -248,8 +249,8 @@
                 if (result.value) {
                     apottiId = {};
                     sequence = []
-                     apotti = document.getElementsByClassName('select-apotti');
-                     // sequence = $(apotti[0]).attr('data-sequence');
+                    apotti = document.getElementsByClassName('select-apotti');
+                    // sequence = $(apotti[0]).attr('data-sequence');
 
 
                     $('.select-apotti').each(function(i){

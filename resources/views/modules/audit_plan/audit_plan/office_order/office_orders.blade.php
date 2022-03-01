@@ -36,7 +36,7 @@
     });
 
     var Office_Order_Container = {
-        loadOfficeOrderList: function (page = 1, per_page = 200) {
+        loadOfficeOrderList: function (page = 1, per_page = 500) {
             let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             if (fiscal_year_id) {
                 let url = '{{route('audit.plan.audit.office-orders.load-office-order-list')}}';

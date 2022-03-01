@@ -36,7 +36,7 @@
     });
 
     var AIR_Container = {
-        loadAuditPlanList: function (page = 1, per_page = 200) {
+        loadAuditPlanList: function (page = 1, per_page = 500) {
             let air_type = '{{$air_type}}';
             let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             if (fiscal_year_id) {
@@ -63,8 +63,9 @@
             annual_plan_id = elem.data('annual-plan-id');
             audit_plan_id = elem.data('audit-plan-id');
             audit_plan_entities = elem.data('audit-plan-entities');
+            audit_plan_entity_info = elem.data('audit-plan-entity-info');
 
-            data = {air_type,fiscal_year_id,activity_id,annual_plan_id, audit_plan_id,audit_plan_entities};
+            data = {air_type,fiscal_year_id,activity_id,annual_plan_id, audit_plan_id,audit_plan_entities,audit_plan_entity_info};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

@@ -12,6 +12,10 @@
 
 <div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $forwardingLetter['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
         {!! $cover['content'] !!}
     </div>
 

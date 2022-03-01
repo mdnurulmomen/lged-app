@@ -34,7 +34,6 @@
     <button class="btn btn-primary" onclick="Audit_Apotti_Container.setAuditApotti()">সংরক্ষণ করুন</button>
 </div>
 
-
 <script>
     $("#checkAllApottis").click(function(){
         $("input[name='apotti']").not(this).prop('checked', this.checked);

@@ -94,9 +94,13 @@
                                         <span class="font-size-14">
                                             @php
                                                 $ministries = [];
+                                                $ministry_ids = [];
                                                 foreach($audit_plan['annual_plan']['ap_entities'] as $ap_entities){
                                                     $ministry =  $ap_entities['ministry_name_bn'];
                                                     $ministries[] = $ministry;
+
+                                                    $ministry_id =  $ap_entities['ministry_id'];
+                                                    $ministry_ids[] = $ministry_id;
                                                 }
                                             @endphp
                                             {{implode(' , ', array_unique($ministries))}}
@@ -107,9 +111,13 @@
                                         <a href="javascript:void(0)" class="text-info font-size-h5">
                                             @php
                                                 $entities = [];
+                                                $entitie_ids = [];
                                                 foreach($audit_plan['annual_plan']['ap_entities'] as $ap_entities){
                                                     $entity =  $ap_entities['entity_name_bn'];
                                                     $entities[] = $entity;
+
+                                                    $entitie_id =  $ap_entities['entity_id'];
+                                                    $entitie_ids[] = $entitie_id;
                                                 }
                                             @endphp
                                             {{implode(' , ', array_unique($entities))}}
@@ -144,6 +152,7 @@
                                                data-activity-id="{{$audit_plan['activity_id']}}"
                                                data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
                                                data-audit-plan-id="{{$audit_plan['id']}}"
+                                               data-audit-entity-info="{{json_encode($audit_plan['annual_plan']['ap_entities'])}}"
                                                data-audit-plan-entities="{{implode(' , ', array_unique($entities))}}"
                                                data-air-report-id="{{$airReport['id']}}"
                                                onclick="AIR_Container.loadAIRShow($(this))">
@@ -177,6 +186,7 @@
                                                     data-activity-id="{{$audit_plan['activity_id']}}"
                                                     data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
                                                     data-audit-plan-id="{{$audit_plan['id']}}"
+                                                    data-audit-plan-entity-info="{{json_encode($audit_plan['annual_plan']['ap_entities'])}}"
                                                     data-audit-plan-entities="{{implode(' , ', array_unique($entities))}}"
                                                     onclick="AIR_Container.loadAIRCreate($(this))">
                                                 <i class="fad fa-plus-circle"></i> নতুন এআইআর
