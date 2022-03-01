@@ -18,12 +18,13 @@
             <thead class="thead-light">
             <tr class="bg-light">
                 <td style="text-align: center" width="8%">কস্ট সেন্টার/ইউনিট</td>
-                <td style="text-align: center" width="8%">অর্থ বছর</td>
                 <td style="text-align: center" width="8%">নিরীক্ষা বছর</td>
                 <td style="text-align: center" width="5%">অনুচ্ছেদ নং</td>
                 <td style="text-align: center" width="5%">আপত্তি ক্যাটাগরি</td>
                 <td style="text-align: center" width="25%">শিরোনাম ও বিবরণ</td>
                 <td style="text-align: center" width="9%">জড়িত টাকার পরিমাণ</td>
+                <td style="text-align: center" width="9%">অনিষ্পন্ন জড়িত টাকার পরিমাণ</td>
+                <td style="text-align: center" width="5%">আপত্তি অবস্থা</td>
                 <td style="text-align: center" width="25%">স্থানীয় অফিসের জবাব</td>
                 <td style="text-align: center" width="10%">উর্দ্ধতন কর্তৃপক্ষের সুপারিশ</td>
                 <td style="text-align: center" width="10%">মন্ত্রণালয়/বিভাগ/অন্যান্য এর সুপারিশ</td>
@@ -37,7 +38,6 @@
                 <tr>
                     <td style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['cost_center_name_bn'])}}</td>
                     <td style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</td>
-                    <td style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['audit_year_start']).'-'.enTobn($broadSheet['apotti']['audit_year_end'])}}</td>
                     <td style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['onucched_no'])}}</td>
                     <td style="text-align: center;vertical-align: top;">
                         @if($broadSheet['apotti']['memo_type'] == 'sfi')
@@ -54,8 +54,19 @@
                         <span
                             style="padding:5px;"><b>বিবরণঃ</b> {!! $broadSheet['apotti']['memo_description_bn'] !!}</span>
                     </td>
-                    <td style="text-align: center;vertical-align: top;">{{enTobn(number_format($broadSheet['apotti']['jorito_ortho_poriman'],0))}}
-                        /-
+                    <td style="text-align: right;vertical-align: top;">{{enTobn(number_format($broadSheet['jorito_ortho_poriman'],0))}}
+                    </td>
+
+                    <td style="text-align: right;vertical-align: top;">{{enTobn(number_format($broadSheet['onishponno_jorito_ortho_poriman'],0))}}
+                    </td>
+                    <td style="text-align: left;vertical-align: top;padding:5px;">
+                        @if($broadSheet['status'] == 'resolved')
+                            নিষ্পন্ন
+                        @elseif($broadSheet['status'] == 'partially_resolved')
+                            আংশিক নিষ্পন্ন
+                        @elseif($broadSheet['status'] == 'unresolved')
+                            অনিষ্পন্ন
+                        @endif
                     </td>
                     <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['unit_response']}}</td>
                     <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['entity_response']}}</td>
@@ -68,6 +79,14 @@
                                 data-jorito-ortho="{{$broadSheet['apotti']['jorito_ortho_poriman']}}"
                                 onclick="ApottiDecision_Container.getApottiDecisionForm($(this))">
                             সিদ্ধান্ত
+                        </button>
+
+                        <button class="mr-1 btn btn-sm btn-primary btn-square" title="সিদ্ধান্ত"
+                                data-broad-sheet-id="{{$broadSheet['broad_sheet_reply_id']}}"
+                                data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
+                                data-memo-id="{{$broadSheet['apotti']['memo_id']}}"
+                                onclick="ApottiDecision_Container.approveBraodSheetApotti($(this))">
+                            অনুমোদন করুন
                         </button>
                     </td>
                 </tr>
@@ -127,11 +146,47 @@
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
-                    toastr.error('No data found');
+                    toastr.error(response.data);
                 } else {
-                    $("#kt_content").html(response);
+                    toastr.success(response.data);
                 }
             });
+        },
+
+        approveBraodSheetApotti : function (elem) {
+            swal.fire({
+                title: 'আপনি কি অনুমোদন করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    KTApp.block('#kt_content', {
+                        opacity: 0.1,
+                        state: 'primary'
+                    });
+
+                    broad_sheet_id = elem.data('broad-sheet-id');
+                    apotti_item_id = elem.data('apotti-item-id');
+                    memo_id = elem.data('memo-id');
+
+                    let url = '{{route('audit.followup.broadsheet.reply.approve-broad-sheet-apotti')}}';
+
+                    var data = {apotti_item_id,broad_sheet_id,memo_id};
+
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        KTApp.unblock('#kt_content');
+                        if (response.status === 'error') {
+                            toastr.error(response.data);
+                        } else {
+                            toastr.success(response.data);
+                        }
+                    });
+                }
+            });
+
         },
     }
 </script>
