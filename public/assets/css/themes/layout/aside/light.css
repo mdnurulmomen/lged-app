@@ -1,5 +1,5 @@
 .aside {
-  background-color: #ffffff;
+  background-color: var(--sprimary);
   -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.08);
   box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.08); }
   .aside .aside-menu.ps > .ps__rail-x {
@@ -30,13 +30,15 @@
         background: #e0e2f0; }
 
 .aside-menu {
-  background-color: #ffffff ; }
+   }
   .aside-menu .menu-nav > .menu-item > .menu-heading .menu-text,
   .aside-menu .menu-nav > .menu-item > .menu-link .menu-text {
-    color: #000 ; }
+    font-weight: 600;
+    color: white;
+    }
   .aside-menu .menu-nav > .menu-item > .menu-heading .menu-icon,
   .aside-menu .menu-nav > .menu-item > .menu-link .menu-icon {
-    color: #B5B5C3 ; }
+    color: #ffffff ; }
     .aside-menu .menu-nav > .menu-item > .menu-heading .menu-icon.svg-icon svg g [fill],
     .aside-menu .menu-nav > .menu-item > .menu-link .menu-icon.svg-icon svg g [fill] {
       -webkit-transition: fill 0.3s ease;
@@ -116,6 +118,7 @@
       .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link .menu-arrow {
         color: #3699FF ; }
   .aside-menu .menu-nav > .menu-item.menu-item-active {
+    border-bottom: none !important;
     -webkit-transition: background-color 0.3s;
     transition: background-color 0.3s; }
     .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading,
@@ -123,10 +126,13 @@
       background-color: #F3F6F9 ; }
       .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-text,
       .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-text {
-        color: #3699FF ; }
+        font-weight: 600;
+        color: var(--sactivecolor);
+         }
       .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-icon,
       .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-icon {
-        color: #3699FF ; }
+        color: var(--sactivecolor);
+         }
         .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-icon.svg-icon svg g [fill],
         .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-icon.svg-icon svg g [fill] {
           -webkit-transition: fill 0.3s ease;

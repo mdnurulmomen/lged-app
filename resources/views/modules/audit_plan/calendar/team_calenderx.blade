@@ -40,82 +40,122 @@
     </div>
 
     <div class="w-25 pr-2 ">
-        <button id="btn_filter" class="btn icon-btn-primary" type="button">
-            <i class="fa fa-search mr-2"></i> Search
-        </button>
+        <button id="btn_filter" class="btn btn-icon btn-light-success btn-square mr-2" type="button"><i
+                class="fad fa-search"></i></button>
     </div>
     <div class="w-25  "></div>
 
 
 </div>
 
+
 <style>
+    .sna-card-custom{
+        background:#e2f0ff;
+    }
+    .sna-card-custom h3{
+        color:#3599fe;
+        padding:15px;
+        font-weight:bold;
 
-
+    }
+    .sna-card-custom .total-headline{
+        font-size:15px;
+    }
 </style>
+<div class="row text-center py-5 sna-today-tomorrow-box">
+    <div class="col-xl-6">
+        <div class="card sna-card-custom">
+            <h3 class="">Today</h3>
+            <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                <div class=" card-rounded flex-grow-1">
+                    <div class="row m-0">
+                        <div class="col-xl-6 p-0 m-0">
+                            <a href="{{url('audit-conducting?page=memo')}}">
+                                <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
+                                    <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                                        <div class="flex-grow-1 card-spacer-x pt-6">
+                                            <div class="text-grey total-headline">Total Memo</div>
+                                            <div class="text-grey font-weight-bolder font-size-h3" id="dailyTotalMemo"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
 
+                        <div class="col-xl-6 p-0 m-0">
+                            <a href="{{url('audit-conducting?page=query')}}">
+                                <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
+                                    <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                                        <div class="flex-grow-1 card-spacer-x pt-6">
+                                            <div class="text-grey total-headline">Total Query</div>
+                                            <div class="text-grey font-weight-bolder font-size-h3" id="dailyTotalQuery"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
 
-<div class="card sna-today-tomorrow-card sna-card-border d-flex justify-content-between flex-wrap flex-row mt-3">
-    <div class="d-flex flex-wrap text-center w-50 justify-content-center pr-1">
-        <h4 class="w-100 py-3 m-0">Today</h4>
-        <a href="#" class="w-50 pt-3">
-        <h6 class="font-weight-bold">Memo</h6>
-            <p class="font-weight-bold">80</p>
-        </a>
-        <a href="#" class="w-50 pt-3">
-        <h6 class="font-weight-bold">Memo</h6>
-            <p class="font-weight-bold">80</p>
-        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="d-flex flex-wrap text-center w-50 justify-content-center pl-1">
-    <h4 class="w-100 py-3 m-0">Tomorrow</h4>
-        <a href="#" class="w-50 pt-3">
-        <h6 class="font-weight-bold">Memo</h6>
-            <p class="font-weight-bold">80</p>
-        </a>
-        <a href="#" class="w-50 pt-3">
-        <h6 class="font-weight-bold">Memo</h6>
-            <p class="font-weight-bold">80</p>
-        </a>
+
+    <div class="col-xl-6">
+        <div class="card sna-card-custom">
+            <h3 >This Week</h3>
+
+            <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                <div class="card-rounded flex-grow-1">
+                    <div class="row m-0">
+
+                    <div class="col-xl-6 p-0 m-0">
+                        <a href="{{url('audit-conducting?page=memo')}}">
+                            <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
+                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                                    <div class="flex-grow-1 card-spacer-x pt-6">
+                                        <div class="text-grey total-headline">Total Memo</div>
+                                        <div class="text-grey font-weight-bolder font-size-h3" id="weeklyTotalMemo"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-xl-6 p-0 m-0">
+                        <a href="{{url('audit-conducting?page=query')}}">
+                            <div class="card card-custom bg-light mb-2 ml-2 mr-2" style="height: 80px">
+                                <div class="card-body d-flex flex-column p-0" style="position: relative;">
+                                    <div class="flex-grow-1 card-spacer-x pt-6">
+                                        <div class="text-grey total-headline">Total Query</div>
+                                        <div class="text-grey font-weight-bolder font-size-h3" id="weeklyTotalQuery"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="card sna-card-border d-flex flex-wrap flex-row mt-3" style="margin-bottom:30px;">
-
-    <div class="w-100 py-5">
-            <div class="btn-group">
-                <button class="btn btn-icon bg-success btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
-                <span class="mr-4">Data Collection Schedule</span>
-                <button class="btn btn-icon btn-square mr-2" style="width: 20px;height: 20px;background:#377a9d" type="button"></button>
-                <span>Individual Audit schedule</span>
-            </div>
+<div class="col-md-12 py-5">
+        <div class="btn-group">
+            <button class="btn btn-icon bg-success btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
+            <span class="mr-4">Data Collection Schedule</span>
+            <button class="btn btn-icon bg-primary btn-square mr-2" style="width: 20px;height: 20px;" type="button"></button>
+            <span>Individual Audit schedule</span>
         </div>
-
-      
-    <div class="w-100 pt-2 pb-4" id="load_team_calendar">
-        <div class="d-flex align-items-center">
-            <div class="spinner-grow text-warning mr-3" role="status">
-                <span class="sr-only"></span>
-            </div>
-            <div>
-                loading.....
-            </div>
-        </div>
-            
     </div>
 
 
+<div class="row">
+    <div class="col-md-12" id="load_team_calendar">
 
-
-
+    </div>
 </div>
-
-
-
-
-
-
-
 
 <script>
     var Team_Calendar_Container = {

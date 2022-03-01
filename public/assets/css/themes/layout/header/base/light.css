@@ -2,8 +2,7 @@
   .header {
     background-color: #ffffff; }
     .header-fixed .header {
-      -webkit-box-shadow: 0px 0px 40px 0px rgba(82, 63, 105, 0.1);
-      box-shadow: 0px 0px 40px 0px rgba(82, 63, 105, 0.1); }
+      border-bottom: 1px solid #d3c499; }
     .header .header-menu .menu-nav > .menu-item > .menu-link {
       border-radius: 4px; }
       .header .header-menu .menu-nav > .menu-item > .menu-link .menu-text {
