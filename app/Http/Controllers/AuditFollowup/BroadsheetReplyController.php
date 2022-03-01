@@ -209,7 +209,7 @@ class BroadsheetReplyController extends Controller
 
             $broadSheetItemApproved = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.approve_broad_sheet_item'), $data)->json();
 
-             dd($broadSheetItemApproved);
+//             dd($broadSheetItemApproved);
 
             if (isSuccess($broadSheetItemApproved)) {
                 return response()->json(['status' => 'success', 'data' => $broadSheetItemApproved['data']]);

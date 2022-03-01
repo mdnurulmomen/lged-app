@@ -225,7 +225,7 @@
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".offcanvas-title").text('অডিট অনুচ্ছেদ');
+                    $(".offcanvas-title").text('জবাব');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
