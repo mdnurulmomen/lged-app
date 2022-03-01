@@ -92,14 +92,22 @@ class BroadsheetReplyController extends Controller
             'per_page' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();
+
         $data['cdesk'] = $this->current_desk_json();
+
         $apottiItemList = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_list'), $data)->json();
+
 //        dd($apottiItemList);
+
+        $desk_officer_id = $this->current_desk()['officer_id'];
+
+        $desk_officer_grade = $this->current_desk()['officer_grade'];
+
         if (isSuccess($apottiItemList)) {
             $apottiItemList = $apottiItemList['data'];
 //            dd($apottiItemList);
             return view('modules.audit_followup.broadsheet_reply.partials.load_apotti_list',
-                compact('apottiItemList'));
+                compact('apottiItemList','desk_officer_id','desk_officer_grade'));
         } else {
             return response()->json(['status' => 'error', 'data' => $apottiItemList]);
         }
@@ -201,6 +209,7 @@ class BroadsheetReplyController extends Controller
 
             $broadSheetItemApproved = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.approve_broad_sheet_item'), $data)->json();
 
+//             dd($broadSheetItemApproved);
 
             if (isSuccess($broadSheetItemApproved)) {
                 return response()->json(['status' => 'success', 'data' => $broadSheetItemApproved['data']]);
@@ -222,7 +231,7 @@ class BroadsheetReplyController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_items'), $data)->json();
-//        dd($apottiItemList);
+//        dd($broadSheetItem);
         if (isSuccess($broadSheetItem)) {
             $broadSheetItem = $broadSheetItem['data'];
             $memorandum_no = $request->memorandum_no;
