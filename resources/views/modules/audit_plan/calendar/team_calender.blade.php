@@ -87,7 +87,7 @@
             </div>
         </div>
 
-      
+
     <div class="w-100 pt-2 pb-4" id="load_team_calendar">
         <div class="d-flex align-items-center">
             <div class="spinner-grow text-warning mr-3" role="status">
@@ -97,7 +97,7 @@
                 loading.....
             </div>
         </div>
-            
+
     </div>
 
 
@@ -119,14 +119,15 @@
             let url = '{{route('calendar.load-teams-calender')}}';
             let data = {directorate_id, fiscal_year_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        $('#load_team_calendar').html('<option value="">Select Team</option>');
-                        toastr.error(response.data)
-                    } else {
-                        $('#load_team_calendar').html(response);
-                    }
-                );
-            },
+                if (response.status === 'error') {
+                    $('#load_team_calendar').html('<option value="">Select Team</option>');
+                    toastr.error(response.data)
+                } else {
+                    $('#load_team_calendar').html(response);
+                }
+            })
+        },
+
             loadEntityList: function (directorate_id, fiscal_year_id) {
                 let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
                 let data = {directorate_id, fiscal_year_id};
