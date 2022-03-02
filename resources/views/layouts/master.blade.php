@@ -49,8 +49,8 @@
             </div>
             <div class="under-logo-text">
 
-                 {{$userOffices[0]['office_name_bn']}}
-                </div><!--end::Brand-->
+                {{$userOffices[0]['office_name_bn']}}
+            </div><!--end::Brand-->
             @yield('sideMenu')
         </div>
         <!--end::Aside-->
@@ -62,19 +62,17 @@
                     @include('layouts.partials.topbar_left')
                     @include('layouts.partials.topbar_right')
                 </div>
-                
+
             </div>
             <!--end::Header-->
             <!--begin::Content-->
             <ul class="sna-breadcrumb">
-                <li><a href="#">Compliance Audit</a></li>
-                <li><a href="#">Audit</a></li>
-                <li>Final Menu</li>
-                </ul>
+                <li><a href="javascrip:;">{{session('dashboard_audit_type')}}</a></li>
+            </ul>
             <div class="content p-4" id="kt_content">
-               
-               @yield('content')
-           </div>
+
+                @yield('content')
+            </div>
             <!--end::Content-->
             <!--begin::Footer-->
         @include('layouts.partials.footer')
@@ -103,11 +101,6 @@
 @include('layouts.partials.footer_script')
 @yield('scripts')
 @include('scripts.layout_navigation_spa')
-
-
-
-
-
 
 
 </body>

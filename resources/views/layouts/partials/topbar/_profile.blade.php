@@ -1,17 +1,35 @@
 <!--begin::User-->
 <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
     <div class="btn btn-dropdown w-auto btn-clean d-flex align-items-center btn-square px-2 h-100">
-        <div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-2">
-            <img src="{{ asset('assets/media/users/blank.png') }}" class="img-responsive" alt="">
-        </div>
-        <span class="font-weight-normal font-size-base d-none d-md-inline mr-3 text-violate" style="color: black">
-            @if(isset($userDetails['user_role_id']) && $userDetails['user_role_id'] == 1)
-                {{__('Superman')}}
-            @elseif(isset($userDetails['user_role_id']) && $userDetails['user_role_id'] == 3)
-                {{ $employeeInfo['name_bng'] ?? 'User Name' }} {{isset($userOffices) ? ', ' . $userOffices[0]['designation'] : ''}}
-            @endif
-        </span>
-        <span><i class="fa fa-chevron-down"></i></span>
+        @if(isset($userDetails['user_role_id']) && $userDetails['user_role_id'] == 3)
+            <div class="top-right-username">
+                <div class="profile-name">{{ $employeeInfo['name_bng'] ?? 'User Name' }}</div>
+                <div class="profile-designation">{{isset($userOffices) ? $userOffices[0]['designation'] : ''}}</div>
+            </div>
+            <span class="symbol symbol-lg-35 symbol-25">
+                <img src="{{ asset('assets/media/users/blank.png') }}" alt="">
+            </span>
+        @endif
+        @if(isset($userDetails['user_role_id']) && $userDetails['user_role_id'] == 1)
+            <div class="top-right-username">
+                <div class="profile-name">Superman</div>
+            </div>
+            <span class="symbol symbol-lg-35 symbol-25">
+                <img src="{{ asset('assets/media/users/blank.png') }}" alt="">
+            </span>
+        @endif
+
+        {{--        <div class="symbol symbol-20 symbol-lg-30 symbol-circle mr-2">--}}
+        {{--            <img src="{{ asset('assets/media/users/blank.png') }}" class="img-responsive" alt="">--}}
+        {{--        </div>--}}
+        {{--        <span class="font-weight-normal font-size-base d-none d-md-inline mr-3 text-violate profile-name">--}}
+        {{--            @if(isset($userDetails['user_role_id']) && $userDetails['user_role_id'] == 1)--}}
+        {{--                {{__('Superman')}}--}}
+        {{--            @elseif(isset($userDetails['user_role_id']) && $userDetails['user_role_id'] == 3)--}}
+        {{--                {{ $employeeInfo['name_bng'] ?? 'User Name' }} {{isset($userOffices) ? ', ' . $userOffices[0]['designation'] : ''}}--}}
+        {{--            @endif--}}
+        {{--        </span>--}}
+        <span><i class="ml-2 fa fa-chevron-down"></i></span>
     </div>
 </div>
 <div

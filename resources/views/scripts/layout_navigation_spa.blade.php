@@ -1,3 +1,8 @@
+<style>
+    #ndoptor-links-button .svg-inline--fa.fa-th.fa-w-16 {
+        color: white !important;
+    }
+</style>
 <script>
     $(document).ready(function () {
         getCurrentLocation = window.location.href;
