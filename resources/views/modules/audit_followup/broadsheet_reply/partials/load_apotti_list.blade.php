@@ -111,6 +111,15 @@
                                         <span class="description text-info text-wrap font-size-14">{{formatDateTime($item['memorandum_date'],'bn')}}</span>
                                     </div>
 
+                                    <div class="subject-wrapper font-weight-normal mt-2">
+                                        <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="আরপি বরাবর প্রেরণ"
+                                                data-broad-sheet-id="{{$item['id']}}"
+                                                data-memorandum-no="{{$item['memorandum_no']}}"
+                                                onclick="Broadsheet_Reply_List_Container.sendToRpuForm($(this))">
+                                            <i class="fa fa-paper-plane"></i> আরপি বরাবর প্রেরণ
+                                        </button>
+                                    </div>
+
                                     <div class="font-weight-normal d-none predict-wrapper">
                                         <span class="predict-label text-success"></span>
                                     </div>
@@ -229,7 +238,7 @@
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
-                    quick_panel.css('width', '60%');
+                    quick_panel.css('width', '80%');
                     quick_panel.removeClass('d-none');
                     $("html").addClass("side-panel-overlay");
                     $(".offcanvas-wrapper").html(response);
@@ -291,6 +300,37 @@
             });
         },
 
+        sendToRpuForm: function (elem) {
+
+            broad_sheet_id = elem.data('broad-sheet-id');
+            memorandum_no = elem.data('memorandum-no');
+
+            data = {broad_sheet_id,memorandum_no};
+
+            url = '{{route('audit.followup.broadsheet.reply.send-broad-sheet-reply-form')}}';
+
+            KTApp.block('.content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('.content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '50%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
         downloadBroadSheet : function (elem) {
             apotti_item_id = elem.data('apotti-item-id');
             cost_center_name_bn = elem.data('cost-center-name-bn');
@@ -315,6 +355,27 @@
                 error: function (blob) {
                     toastr.error('Failed to generate PDF.')
                     console.log(blob);
+                }
+            });
+        },
+
+        sentBroadSheetReplyToRpu : function (elem) {
+
+            data  = $('#send_broad_sheet_to_rpu').serializeArray();
+
+            let url = '{{route('audit.followup.broadsheet.reply.send-broad-sheet-reply-to-rpu')}}';
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    toastr.success(response.data);
                 }
             });
         },

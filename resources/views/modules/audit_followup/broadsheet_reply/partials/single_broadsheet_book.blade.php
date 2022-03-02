@@ -794,16 +794,15 @@
             <table class="bangla-font" width="100%" border="1">
                 <tbody>
                 <tr class="bangla-font">
-                    <td class="bangla-font" style="text-align: center" width="8%">কস্ট সেন্টার/ইউনিট</td>
-                    <td class="bangla-font" style="text-align: center" width="8%">অর্থ বছর</td>
-                    <td class="bangla-font" style="text-align: center" width="8%">নিরীক্ষা বছর</td>
+                    <td class="bangla-font" style="text-align: center" width="10%">কস্ট সেন্টার/ইউনিট</td>
+                    <td class="bangla-font" style="text-align: center" width="5%">নিরীক্ষা বছর</td>
                     <td class="bangla-font" style="text-align: center" width="5%">অনুচ্ছেদ নং</td>
                     <td class="bangla-font" style="text-align: center" width="5%">আপত্তি ক্যাটাগরি</td>
-                    <td class="bangla-font" style="text-align: center" width="25%">শিরোনাম ও বিবরণ</td>
-                    <td class="bangla-font" style="text-align: center" width="9%">জড়িত টাকার পরিমাণ</td>
-                    <td class="bangla-font" style="text-align: center" width="25%">স্থানীয় অফিসের জবাব</td>
-                    <td class="bangla-font" style="text-align: center" width="10%">উর্দ্ধতন কর্তৃপক্ষের সুপারিশ</td>
-                    <td class="bangla-font" style="text-align: center" width="10%">মন্ত্রণালয়/বিভাগ/অন্যান্য এর সুপারিশ</td>
+                    <td class="bangla-font" style="text-align: center" width="20%">শিরোনাম ও বিবরণ</td>
+                    <td class="bangla-font" style="text-align: right" width="10%">জড়িত টাকার পরিমাণ</td>
+                    <td class="bangla-font" style="text-align: center" width="15%">নিরীক্ষিত প্রতিষ্ঠানের জবাব</td>
+                    <td class="bangla-font" style="text-align: center" width="15%">সংস্থার নির্বাহী প্রধানের জবাব</td>
+                    <td class="bangla-font" style="text-align: center" width="15%">মন্ত্রণালয়/বিভাগ/অন্যান্য এর জবাব</td>
                 </tr>
 {{--                <tr>--}}
 {{--                    <td class="bangla-font" style="text-align: center">১</td>--}}
@@ -819,7 +818,6 @@
                     <tr>
                         <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['cost_center_name_bn'])}}</td>
                         <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</td>
-                        <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['audit_year_start']).'-'.enTobn($broadSheet['apotti']['audit_year_end'])}}</td>
                         <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['onucched_no'])}}</td>
                         <td class="bangla-font" style="text-align: center;vertical-align: top;">
                             @if($broadSheet['apotti']['memo_type'] == 'sfi')
@@ -835,7 +833,7 @@
                             <br>
                             <span style="padding:5px;"><b>বিবরণঃ</b> {!! $broadSheet['apotti']['memo_description_bn'] !!}</span>
                         </td>
-                        <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn(number_format($broadSheet['apotti']['jorito_ortho_poriman'],0))}}/-</td>
+                        <td class="bangla-font" style="text-align: right;vertical-align: top;">{{enTobn(number_format($broadSheet['apotti']['jorito_ortho_poriman'],0))}}/-</td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['unit_response']}}</td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['entity_response']}}</td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['ministry_response']}}</td>

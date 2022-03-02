@@ -17,18 +17,18 @@
         <table class="table table-bordered" width="100%">
             <thead class="thead-light">
             <tr class="bg-light">
-                <td style="text-align: center" width="8%">কস্ট সেন্টার/ইউনিট</td>
-                <td style="text-align: center" width="8%">নিরীক্ষা বছর</td>
                 <td style="text-align: center" width="5%">অনুচ্ছেদ নং</td>
+                <td style="text-align: center" width="10%">কস্ট সেন্টার/ইউনিট</td>
+                <td style="text-align: center" width="5%">নিরীক্ষা বছর</td>
                 <td style="text-align: center" width="5%">আপত্তি ক্যাটাগরি</td>
                 <td style="text-align: center" width="25%">শিরোনাম ও বিবরণ</td>
-                <td style="text-align: center" width="9%">জড়িত টাকার পরিমাণ</td>
-                <td style="text-align: center" width="9%">অনিষ্পন্ন জড়িত টাকার পরিমাণ</td>
+                <td style="text-align: right" width="10%">জড়িত টাকার পরিমাণ</td>
+                <td style="text-align: right" width="10%">অনিষ্পন্ন জড়িত টাকার পরিমাণ</td>
                 <td style="text-align: center" width="5%">আপত্তি অবস্থা</td>
-                <td style="text-align: center" width="25%">স্থানীয় অফিসের জবাব</td>
-                <td style="text-align: center" width="10%">উর্দ্ধতন কর্তৃপক্ষের সুপারিশ</td>
-                <td style="text-align: center" width="10%">মন্ত্রণালয়/বিভাগ/অন্যান্য এর সুপারিশ</td>
-                <td style="text-align: center" width="10%">
+                <td style="text-align: left" width="15%">নিরীক্ষিত প্রতিষ্ঠানের জবাব</td>
+                <td style="text-align: left" width="15%">সংস্থার নির্বাহী প্রধানের জবাব</td>
+                <td style="text-align: left" width="15%">মন্ত্রণালয়/বিভাগ/অন্যান্য এর জবাব</td>
+                <td style="text-align: center" width="20%">
                     কার্যক্রম
                 </td>
             </tr>
@@ -36,9 +36,9 @@
             <tbody>
             @foreach($broadSheetItem as $broadSheet)
                 <tr>
+                    <td style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['onucched_no'])}}</td>
                     <td style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['cost_center_name_bn'])}}</td>
                     <td style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</td>
-                    <td style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['onucched_no'])}}</td>
                     <td style="text-align: center;vertical-align: top;">
                         @if($broadSheet['apotti']['memo_type'] == 'sfi')
                             @php $apottiType = 'এসএফআই'; @endphp
@@ -81,13 +81,15 @@
                             সিদ্ধান্ত
                         </button>
 
-                        <button class="mr-1 btn btn-sm btn-primary btn-square" title="সিদ্ধান্ত"
-                                data-broad-sheet-id="{{$broadSheet['broad_sheet_reply_id']}}"
-                                data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
-                                data-memo-id="{{$broadSheet['apotti']['memo_id']}}"
-                                onclick="ApottiDecision_Container.approveBraodSheetApotti($(this))">
-                            অনুমোদন করুন
-                        </button>
+                        @if($desk_officer_grade == 3)
+                            <button class="mr-1 btn btn-sm btn-primary btn-square" title="সিদ্ধান্ত"
+                                    data-broad-sheet-id="{{$broadSheet['broad_sheet_reply_id']}}"
+                                    data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
+                                    data-memo-id="{{$broadSheet['apotti']['memo_id']}}"
+                                    onclick="ApottiDecision_Container.approveBraodSheetApotti($(this))">
+                                অনুমোদন করুন
+                            </button>
+                        @endif
                     </td>
                 </tr>
             @endforeach
