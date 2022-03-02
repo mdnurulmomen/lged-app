@@ -72,14 +72,24 @@
                     <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['entity_response']}}</td>
                     <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['ministry_response']}}</td>
                     <td>
-                        <button class="mr-1 btn btn-sm btn-primary btn-square btn_apotti_decision" title="সিদ্ধান্ত"
-                                data-broad-sheet-id="{{$broadSheet['broad_sheet_reply_id']}}"
-                                data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
-                                data-memo-id="{{$broadSheet['apotti']['memo_id']}}"
-                                data-jorito-ortho="{{$broadSheet['apotti']['jorito_ortho_poriman']}}"
-                                onclick="ApottiDecision_Container.getApottiDecisionForm($(this))">
-                            সিদ্ধান্ত
-                        </button>
+                        @if(!$broadSheet['approval_status'])
+                            <button class="mr-1 btn btn-sm btn-primary btn-square btn_apotti_decision" title="সিদ্ধান্ত"
+                                    data-broad-sheet-id="{{$broadSheet['broad_sheet_reply_id']}}"
+                                    data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
+                                    data-memo-id="{{$broadSheet['apotti']['memo_id']}}"
+                                    data-jorito-ortho="{{$broadSheet['apotti']['jorito_ortho_poriman']}}"
+                                    onclick="ApottiDecision_Container.getApottiDecisionForm($(this))">
+                                সিদ্ধান্ত
+                            </button>
+                        @endif
+
+                        @if($broadSheet['approval_status'])
+                            <a href="javascript:;"
+                               class="badge-square rounded-0 badge d-flex align-items-center alert-success
+                                       font-weight-normal mr-1 border decision">
+                                অনুমোদিত
+                            </a>
+                        @endif
 
                         @if($desk_officer_grade == 3)
                             <button class="mr-1 btn btn-sm btn-primary btn-square" title="সিদ্ধান্ত"
@@ -151,6 +161,7 @@
                     toastr.error(response.data);
                 } else {
                     toastr.success(response.data);
+                    $('#kt_quick_panel_close').click();
                 }
             });
         },

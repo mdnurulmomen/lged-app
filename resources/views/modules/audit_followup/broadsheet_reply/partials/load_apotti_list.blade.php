@@ -111,14 +111,28 @@
                                         <span class="description text-info text-wrap font-size-14">{{formatDateTime($item['memorandum_date'],'bn')}}</span>
                                     </div>
 
-                                    <div class="subject-wrapper font-weight-normal mt-2">
-                                        <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="আরপি বরাবর প্রেরণ"
-                                                data-broad-sheet-id="{{$item['id']}}"
-                                                data-memorandum-no="{{$item['memorandum_no']}}"
-                                                onclick="Broadsheet_Reply_List_Container.sendToRpuForm($(this))">
-                                            <i class="fa fa-paper-plane"></i> আরপি বরাবর প্রেরণ
-                                        </button>
-                                    </div>
+                                    @if(!$item['broad_sheet_reply'])
+
+                                        <div class="subject-wrapper font-weight-normal mt-2">
+                                            <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
+                                                    title="আরপি বরাবর প্রেরণ"
+                                                    data-broad-sheet-id="{{$item['id']}}"
+                                                    data-memorandum-no="{{$item['memorandum_no']}}"
+                                                    onclick="Broadsheet_Reply_List_Container.sendToRpuForm($(this))">
+                                                <i class="fa fa-paper-plane"></i> আরপি বরাবর প্রেরণ
+                                            </button>
+                                        </div>
+
+                                    @else
+                                        <div class="subject-wrapper font-weight-normal mt-2">
+                                            <button href="javascript:;"
+                                               class="badge-square rounded-0 badge d-flex align-items-center alert-success
+                                           font-weight-normal mr-1 border decision">
+                                                আরপি বরাবর প্রেরণ করা হয়েছে
+                                            </button>
+                                        </div>
+                                    @endif
+
 
                                     <div class="font-weight-normal d-none predict-wrapper">
                                         <span class="predict-label text-success"></span>
@@ -376,6 +390,7 @@
                     toastr.error(response.data);
                 } else {
                     toastr.success(response.data);
+                    $('#kt_quick_panel_close').click();
                 }
             });
         },
