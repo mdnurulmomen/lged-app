@@ -530,3 +530,7 @@ ul.sna-breadcrumb li a:hover {
 .fc-unthemed .fc-event.fc-start .fc-content:before, .fc-unthemed .fc-event-dot.fc-start .fc-content:before {
     background: #040c2c;
 }
+
+.border-bottom {
+    border-color: #1061a5 !important
+}
