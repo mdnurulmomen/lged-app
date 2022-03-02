@@ -428,14 +428,15 @@ ul.sna-breadcrumb {
 }
 .sna-today-tomorrow-card a{
     background: var(--sbreadcrumbbg);
-    border-right:1px solid var(--sheaderbg);
+    border: 1px solid var(--sheaderbg);
     color: var(--sprimary);
+    box-sizing: border-box;
 }
 .sna-today-tomorrow-card a:hover{
     background: var(--sbreadcrumbhover);
 }
 .sna-today-tomorrow-card a:last-child{
-    border-right:none;
+    border-left:none;
 }
 
 #kt_quick_user .header{
