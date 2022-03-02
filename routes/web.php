@@ -473,6 +473,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/get-apotti-decision-form', [BroadsheetReplyController::class, 'getApottiDecisionForm'])->name('get-apotti-decision-form');
             Route::post('/get-apotti-decision-submit', [BroadsheetReplyController::class, 'getApottiDecisionSubmit'])->name('get-apotti-decision-submit');
             Route::post('/approve-broad-sheet-apotti', [BroadsheetReplyController::class, 'approveBroadSheetApotti'])->name('approve-broad-sheet-apotti');
+            Route::post('/send-broad-sheet-reply-form', [BroadsheetReplyController::class, 'sendBroadSheetReplyFrom'])->name('send-broad-sheet-reply-form');
+            Route::post('/send-broad-sheet-reply-to-rpu', [BroadsheetReplyController::class, 'sendBroadSheetReplyToRpu'])->name('send-broad-sheet-reply-to-rpu');
         });
 
         Route::get('dashboard', [\App\Http\Controllers\AuditFollowup\AuditFollowupDashboardController::class, 'index'])->name('dashboard');

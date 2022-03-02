@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AuditFollowup;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -121,6 +122,8 @@ class BroadsheetReplyController extends Controller
 
         $data['cdesk'] = $this->current_desk_json();
 
+        $desk_officer_grade = $this->current_desk()['officer_grade'];
+
         $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_items'), $data)->json();
 //        dd($broadSheetItem);
         if (isSuccess($broadSheetItem)) {
@@ -129,7 +132,7 @@ class BroadsheetReplyController extends Controller
             $memorandum_date = $request->memorandum_date;
             $entity_name = $request->entity_name;
             return view('modules.audit_followup.broadsheet_reply.partials.broad_sheet_item',
-                compact('broadSheetItem','memorandum_no','memorandum_date','entity_name'));
+                compact('broadSheetItem','memorandum_no','memorandum_date','entity_name','desk_officer_grade'));
         } else {
             return response()->json(['status' => 'error', 'data' => $broadSheetItem]);
         }
@@ -309,6 +312,43 @@ class BroadsheetReplyController extends Controller
             return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
         }
 
+    }
+
+    public function sendBroadSheetReplyFrom(Request $request){
+        $data = Validator::make($request->all(), [
+            'broad_sheet_id' => 'required|integer',
+            'memorandum_no' => 'required',
+        ])->validate();
+
+        return view('modules.audit_followup.broadsheet_reply.partials.rpu_braod_sheet_reply_form', $data);
+    }
+
+    public function sendBroadSheetReplyToRpu(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'broad_sheet_id' => 'required|integer',
+            'ref_memorandum_no' => 'required',
+            'memorandum_no' => 'required',
+            'memorandum_date' => 'required',
+            'rpu_office_head_details' => 'required',
+            'subject' => 'required',
+            'description' => 'required',
+            'braod_sheet_cc' => 'nullable',
+        ])->validate();
+
+        $data['memorandum_date'] = Carbon::parse($request->memorandum_date)->format('Y-m-d');
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.send_broad_sheet_reply_to_rpu'), $data)->json();
+
+//        dd($responseData);
+
+        if (isSuccess($responseData)) {
+            return response()->json(['status' => 'success', 'data' => $responseData['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData['data']]);
+        }
     }
 
 
