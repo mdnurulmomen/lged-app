@@ -92,14 +92,22 @@ class BroadsheetReplyController extends Controller
             'per_page' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();
+
         $data['cdesk'] = $this->current_desk_json();
+
         $apottiItemList = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_list'), $data)->json();
+
 //        dd($apottiItemList);
+
+        $desk_officer_id = $this->current_desk()['officer_id'];
+
+        $desk_officer_grade = $this->current_desk()['officer_grade'];
+
         if (isSuccess($apottiItemList)) {
             $apottiItemList = $apottiItemList['data'];
 //            dd($apottiItemList);
             return view('modules.audit_followup.broadsheet_reply.partials.load_apotti_list',
-                compact('apottiItemList'));
+                compact('apottiItemList','desk_officer_id','desk_officer_grade'));
         } else {
             return response()->json(['status' => 'error', 'data' => $apottiItemList]);
         }
@@ -113,14 +121,104 @@ class BroadsheetReplyController extends Controller
 
         $data['cdesk'] = $this->current_desk_json();
 
-        $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_item'), $data)->json();
-
+        $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_items'), $data)->json();
+//        dd($broadSheetItem);
         if (isSuccess($broadSheetItem)) {
             $broadSheetItem = $broadSheetItem['data'];
+            $memorandum_no = $request->memorandum_no;
+            $memorandum_date = $request->memorandum_date;
+            $entity_name = $request->entity_name;
             return view('modules.audit_followup.broadsheet_reply.partials.broad_sheet_item',
-                compact('broadSheetItem',));
+                compact('broadSheetItem','memorandum_no','memorandum_date','entity_name'));
         } else {
             return response()->json(['status' => 'error', 'data' => $broadSheetItem]);
+        }
+    }
+
+    public function getApottiDecisionForm(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'broad_sheet_id' => 'required|integer',
+            'apotti_item_id' => 'required|integer',
+            'memo_id' => 'required|integer',
+            'jorito_ortho' => 'nullable',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_item_info'), $data)->json();
+
+        $apotti_item_info = isSuccess($responseData) ? $responseData['data'] : [];
+
+        $data['apotti_item_info'] = $apotti_item_info;
+
+//        dd($data);
+
+
+        return view('modules.audit_followup.broadsheet_reply.partials.apotti_decision_form', $data);
+    }
+
+    public function getApottiDecisionSubmit(Request $request){
+        try {
+            $data = Validator::make($request->all(), [
+                'broad_sheet_id' => 'required|integer',
+                'apotti_item_id' => 'required|integer',
+                'memo_id' => 'required|integer',
+                'jorito_ortho' => 'nullable',
+                'collected_amount' => 'nullable',
+                'adjusted_amount' => 'nullable',
+                'apotti_status' => 'nullable',
+                'comment' => 'nullable',
+            ])->validate();
+
+//        dd($data);
+
+            $data['cdesk'] = $this->current_desk_json();
+
+            $broadSheetItemUpdate = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.update_broad_sheet_item'), $data)->json();
+
+//            dd($broadSheetItemUpdate);
+
+            if (isSuccess($broadSheetItemUpdate)) {
+                return response()->json(['status' => 'success', 'data' => $broadSheetItemUpdate['data']]);
+            } else {
+                return response()->json(['status' => 'error', 'data' => $broadSheetItemUpdate['data']]);
+            }
+
+        } catch (\Exception $exception) {
+            return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
+        }
+
+    }
+
+    public function approveBroadSheetApotti(Request $request){
+        try {
+            $data = Validator::make($request->all(), [
+                'broad_sheet_id' => 'required|integer',
+                'apotti_item_id' => 'required|integer',
+                'memo_id' => 'required|integer',
+            ])->validate();
+
+//            dd($data);
+
+            $data['cdesk'] = $this->current_desk_json();
+
+            $broadSheetItemUpdate = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.update_broad_sheet_item'), $data)->json();
+
+            $data['approval_status'] = 'approved';
+
+            $broadSheetItemApproved = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.approve_broad_sheet_item'), $data)->json();
+
+//             dd($broadSheetItemApproved);
+
+            if (isSuccess($broadSheetItemApproved)) {
+                return response()->json(['status' => 'success', 'data' => $broadSheetItemApproved['data']]);
+            } else {
+                return response()->json(['status' => 'error', 'data' => $broadSheetItemApproved['data']]);
+            }
+
+        } catch (\Exception $exception) {
+            return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
         }
     }
 
@@ -132,8 +230,8 @@ class BroadsheetReplyController extends Controller
 
         $data['cdesk'] = $this->current_desk_json();
 
-        $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_item'), $data)->json();
-//        dd($apottiItemList);
+        $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_items'), $data)->json();
+//        dd($broadSheetItem);
         if (isSuccess($broadSheetItem)) {
             $broadSheetItem = $broadSheetItem['data'];
             $memorandum_no = $request->memorandum_no;

@@ -40,10 +40,10 @@
                 <td width="50%"><b>আপত্তি অনিয়মের সাব ধরন</b></td>
                 <td width="50%">{{$memo_info['memo_irregularity_sub_type_name']}}</td>
             </tr>
-            <tr>
-                <td width="50%"><b>আপত্তির অবস্থা</b></td>
-                <td width="50%">{{$memo_info['memo_status_name']}}</td>
-            </tr>
+{{--            <tr>--}}
+{{--                <td width="50%"><b>আপত্তির অবস্থা</b></td>--}}
+{{--                <td width="50%">{{$memo_info['memo_status_name']}}</td>--}}
+{{--            </tr>--}}
         </table>
     </div>
 
