@@ -111,6 +111,7 @@ body,
 }
 
 .select2-selection, .select2-dropdown {
+    border: 1px solid var(--sheaderbg);
     border-radius: 0 !important;
 }
 
@@ -232,7 +233,7 @@ ul.sna-breadcrumb {
     -webkit-box-shadow: 0px 0px 40px 0px rgb(82 63 105 / 10%);
     box-shadow: 0px 0px 40px 0px rgb(82 63 105 / 10%);
     margin-bottom: 0;
-    margin-top: 10;
+    margin-top: 10px;
 }
 
 ul.sna-breadcrumb li {
