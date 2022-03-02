@@ -1,4 +1,4 @@
-<div class="footer bg-white d-flex flex-lg-column shadow-sm {{$class ?? ''}}" id="kt_footer">
+<div class="footer bg-white d-flex flex-lg-column shadow-sm {{$class ?? ''}} pl-2 pr-2" id="kt_footer">
     <!--begin::Container-->
     <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-4">
         <!--begin::Copyright-->

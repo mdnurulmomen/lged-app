@@ -53,24 +53,24 @@
 <div class="card sna-today-tomorrow-card sna-card-border d-flex justify-content-between flex-wrap flex-row mt-3">
     <div class="d-flex flex-wrap text-center w-50 justify-content-center pr-1">
         <h4 class="w-100 py-3 m-0">Today</h4>
-        <a href="#" class="w-50 pt-3">
+        <a href="{{url('audit-conducting?page=memo')}}" class="w-50 pt-3">
             <h6 class="font-weight-bold">Memo</h6>
-            <p class="font-weight-bold">80</p>
+            <p class="font-weight-bold" id="dailyTotalMemo"></p>
         </a>
-        <a href="#" class="w-50 pt-3">
-            <h6 class="font-weight-bold">Memo</h6>
-            <p class="font-weight-bold">80</p>
+        <a href="{{url('audit-conducting?page=query')}}" class="w-50 pt-3">
+            <h6 class="font-weight-bold">Query</h6>
+            <p class="font-weight-bold" id="dailyTotalQuery"></p>
         </a>
     </div>
     <div class="d-flex flex-wrap text-center w-50 justify-content-center pl-1">
-        <h4 class="w-100 py-3 m-0">Tomorrow</h4>
-        <a href="#" class="w-50 pt-3">
+        <h4 class="w-100 py-3 m-0">Till Today</h4>
+        <a href="{{url('audit-conducting?page=memo')}}" class="w-50 pt-3">
             <h6 class="font-weight-bold">Memo</h6>
-            <p class="font-weight-bold">80</p>
+            <p class="font-weight-bold" id="yearlyTotalMemo"></p>
         </a>
-        <a href="#" class="w-50 pt-3">
-            <h6 class="font-weight-bold">Memo</h6>
-            <p class="font-weight-bold">80</p>
+        <a href="{{url('audit-conducting?page=query')}}" class="w-50 pt-3">
+            <h6 class="font-weight-bold">Query</h6>
+            <p class="font-weight-bold" id="yearlyTotalQuery"></p>
         </a>
     </div>
 </div>
