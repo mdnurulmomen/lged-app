@@ -66,8 +66,8 @@
             </div>
         </div>
         <div id="daak_pagination_panel" class="float-right d-flex align-items-center" style="vertical-align:middle;">
-                <span class="mr-2"><span id="daak_item_length_start">১</span> - <span id="daak_item_length_end">৫</span> সর্বমোট: <span
-                        id="daak_item_total_record">৫</span></span>
+                <span class="mr-2"><span id="daak_item_length_start">১</span> - <span id="daak_item_length_end">{{enTobn(count($apottiItemList['data']))}}</span> সর্বমোট: <span
+                        id="daak_item_total_record">{{enTobn(count($apottiItemList['data']))}}</span></span>
             <div class="btn-group">
                 <button class="btn-list-prev btn btn-icon btn-secondary btn-square" disabled="disabled" type="button"><i
                         class="fad fa-chevron-left" data-toggle="popover"
@@ -142,12 +142,14 @@
                                                 <i class="fad fa-eye"></i>
                                             </button>
 
-                                            <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                    title="{{___('generic.buttons.title.details')}}"
-                                                    data-broad-sheet-id="{{$item['id']}}"
-                                                    onclick="Broadsheet_Reply_List_Container.loadBraodSheetApprovalAuthority($(this))">
-                                                <i class="fa fa-paper-plane"></i>
-                                            </button>
+{{--                                            @if($item['latest_broad_sheet_movement'] && $item['latest_broad_sheet_movement']['receiver_officer_id'] == $desk_officer_id)--}}
+                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                        title="{{___('generic.buttons.title.details')}}"
+                                                        data-broad-sheet-id="{{$item['id']}}"
+                                                        onclick="Broadsheet_Reply_List_Container.loadBraodSheetApprovalAuthority($(this))">
+                                                    <i class="fa fa-paper-plane"></i>
+                                                </button>
+{{--                                            @endif--}}
 
 {{--                                            @if($item['unit_response'] != null)--}}
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
@@ -156,16 +158,20 @@
                                                     <i class="fad fa-download"></i>
                                                 </button>
 
-                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                        title="" data-scope="jobab"
-                                                        data-apotti-item-id="{{$item['id']}}"
-                                                        onclick="Broadsheet_Reply_List_Container.editApottiItem($(this))">
-                                                    <i class="fad fa-comments-alt"></i>
-                                                </button>
+{{--                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"--}}
+{{--                                                        title="" data-scope="jobab"--}}
+{{--                                                        data-apotti-item-id="{{$item['id']}}"--}}
+{{--                                                        onclick="Broadsheet_Reply_List_Container.editApottiItem($(this))">--}}
+{{--                                                    <i class="fad fa-comments-alt"></i>--}}
+{{--                                                </button>--}}
 
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                        title="জবাব দেখুন" data-scope="response" data-apotti-item-id="{{$item['id']}}"
-                                                        onclick="Broadsheet_Reply_List_Container.editApottiItem($(this))">
+                                                        title="জবাব দেখুন" data-scope="response"
+                                                        data-entity-name="{{$item['sender_office_name_bn']}}"
+                                                        data-broad-sheet-id="{{$item['id']}}"
+                                                        data-memorandum-no="{{enTobn($item['memorandum_no'])}}"
+                                                        data-memorandum-date="{{enTobn($item['memorandum_date'])}}"
+                                                        onclick="Broadsheet_Reply_List_Container.loadBroadSheetItem($(this))">
                                                     <i class="fas fa-plus-octagon"></i>
                                                 </button>
 {{--                                            @endif--}}
@@ -219,7 +225,7 @@
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".offcanvas-title").text('অডিট অনুচ্ছেদ');
+                    $(".offcanvas-title").text('জবাব');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);

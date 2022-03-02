@@ -6,18 +6,18 @@
         <div class="row mb-1">
             <div class="col-md-12">
                 <label>জড়িত টাকার পরিমাণ</label>
-                <input class="form-control bijoy-bangla font-size-h3" name="jorito_ortho"  value="{{$jorito_ortho}}" readonly>
+                <input class="form-control bijoy-bangla" name="jorito_ortho"  value="{{$jorito_ortho}}" readonly>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
                 <label>আদায়কৃত অর্থ</label>
-                <input class="form-control bijoy-bangla font-size-h3" name="collected_amount" value="{{isset($apotti_item_info['collected_amount']) ? $apotti_item_info['collected_amount'] : ''}}" placeholder="আদায়কৃত অর্থ">
+                <input class="form-control bijoy-bangla" name="collected_amount" value="{{isset($apotti_item_info['collected_amount']) ? $apotti_item_info['collected_amount'] : ''}}" placeholder="আদায়কৃত অর্থ">
             </div>
             <div class="col-md-6">
                 <label>সমন্বয় কৃত অর্থ</label>
-                <input class="form-control bijoy-bangla font-size-h3" name="adjusted_amount" value="{{isset($apotti_item_info['adjusted_amount']) ? $apotti_item_info['adjusted_amount'] : ''}}" placeholder="সমন্বয় কৃত অর্থ">
+                <input class="form-control bijoy-bangla" name="adjusted_amount" value="{{isset($apotti_item_info['adjusted_amount']) ? $apotti_item_info['adjusted_amount'] : ''}}" placeholder="সমন্বয় কৃত অর্থ">
             </div>
         </div>
 
@@ -25,10 +25,10 @@
             <div class="col-md-12">
                 <label class="col-form-label">আপত্তির অবস্থা</label>
                 <select name="apotti_status" class="form-control">
-                    <option value="">আপত্তির অবস্থা বাছাই করুন</option>
-                    <option @if(isset($apotti_item_info['status']) && $apotti_item_info['status'] == 'resolved') selected  @endif value="resolved">নিষ্পন্ন</option>
-                    <option @if(isset($apotti_item_info['status']) && $apotti_item_info['status'] == 'partially_resolved') selected  @endif  value="partially_resolved">আংশিক নিষ্পন্ন</option>
-                    <option @if(isset($apotti_item_info['status']) && $apotti_item_info['status'] == 'unresolved') selected  @endif value="unresolved">অনিষ্পন্ন</option>
+                    <option value="0">আপত্তির অবস্থা বাছাই করুন</option>
+                    <option @if(isset($apotti_item_info['status']) && $apotti_item_info['status'] == '1') selected  @endif value="1">নিষ্পন্ন</option>
+                    <option @if(isset($apotti_item_info['status']) && $apotti_item_info['status'] == '2') selected  @endif  value="2"> অনিষ্পন্ন </option>
+                    <option @if(isset($apotti_item_info['status']) && $apotti_item_info['status'] == '3') selected  @endif value="3"> আংশিক নিষ্পন্ন </option>
                 </select>
             </div>
         </div>

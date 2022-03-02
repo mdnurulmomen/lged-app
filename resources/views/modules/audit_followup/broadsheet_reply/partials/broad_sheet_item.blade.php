@@ -60,12 +60,12 @@
                     <td style="text-align: right;vertical-align: top;">{{enTobn(number_format($broadSheet['onishponno_jorito_ortho_poriman'],0))}}
                     </td>
                     <td style="text-align: left;vertical-align: top;padding:5px;">
-                        @if($broadSheet['status'] == 'resolved')
+                        @if($broadSheet['status'] == '1')
                             নিষ্পন্ন
-                        @elseif($broadSheet['status'] == 'partially_resolved')
-                            আংশিক নিষ্পন্ন
-                        @elseif($broadSheet['status'] == 'unresolved')
+                        @elseif($broadSheet['status'] == '2')
                             অনিষ্পন্ন
+                        @elseif($broadSheet['status'] == '3')
+                            আংশিক নিষ্পন্ন
                         @endif
                     </td>
                     <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['unit_response']}}</td>
