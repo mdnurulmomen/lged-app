@@ -1435,6 +1435,7 @@ table {
     background: rgba(137, 207, 240, 0.47) !important;
 }
 
-.fc-event-solid-primary{
-    background: #00bfff !important;
+.fc-event-solid-primary {
+    background: #ffffff !important;
+    box-shadow: 1px 2px #aaaaaa !important;
 }
