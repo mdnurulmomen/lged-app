@@ -299,7 +299,7 @@ ul.sna-breadcrumb li a:hover {
 #kt_header_menu .menu-item .btn {
     padding: 12px;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 1.2em;
     color: var(--sheadertxtcolor);
     border-radius: 0;
 }
@@ -524,6 +524,9 @@ ul.sna-breadcrumb li a:hover {
 }
 
 .side-profile {
-
     padding-top: 0;
+}
+
+.fc-unthemed .fc-event.fc-start .fc-content:before, .fc-unthemed .fc-event-dot.fc-start .fc-content:before {
+    background: #040c2c;
 }

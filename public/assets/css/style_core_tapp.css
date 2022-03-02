@@ -1448,3 +1448,11 @@ table {
 .fc-unthemed .fc-list-item-title > a {
     font-size: 1.2rem;
 }
+
+.table-bordered th, .table-bordered td {
+    border-color: #0c0e1a !important;
+}
+
+.table.table-bordered > tbody {
+    font-size: 1.1em;
+}
