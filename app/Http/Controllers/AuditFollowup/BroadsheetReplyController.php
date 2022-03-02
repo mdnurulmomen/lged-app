@@ -233,15 +233,31 @@ class BroadsheetReplyController extends Controller
 
         $data['cdesk'] = $this->current_desk_json();
 
+        $broadSheetinfo = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_info'), $data)->json();
+
         $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_items'), $data)->json();
-//        dd($broadSheetItem);
+
+//        dd($broadSheetinfo);
+
         if (isSuccess($broadSheetItem)) {
             $broadSheetItem = $broadSheetItem['data'];
+            $broadSheetinfo = $broadSheetinfo['data'];
             $memorandum_no = $request->memorandum_no;
             $memorandum_date = $request->memorandum_date;
 //            dd($apottiItemList);
-            return view('modules.audit_followup.broadsheet_reply.partials.single_broadsheet_book',
-                compact('broadSheetItem','memorandum_no','memorandum_date'));
+
+
+            if($request->scope == 'pdf'){
+                $pdf = \PDF::loadView('modules.audit_followup.broadsheet_reply.partials.single_broadsheet_book',
+                    ['broadSheetItem'=> $broadSheetItem, 'broadSheetinfo' => $broadSheetinfo], [] , ['orientation' => 'L', 'format' => 'A4']);
+
+                $fileName = 'broadsheet_'.$broadSheetinfo['sender_office_name_bn'].'_'. date('D_M_j_Y') . '.pdf';
+                return $pdf->stream($fileName);
+            }else{
+                return view('modules.audit_followup.broadsheet_reply.partials.single_broadsheet_book',
+                    compact('broadSheetItem','broadSheetinfo'));
+            }
+
         } else {
             return response()->json(['status' => 'error', 'data' => $broadSheetItem]);
         }

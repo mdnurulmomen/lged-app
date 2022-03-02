@@ -161,13 +161,14 @@
                                                     data-broad-sheet-id="{{$item['id']}}"
                                                     data-memorandum-no="{{enTobn($item['memorandum_no'])}}"
                                                     data-memorandum-date="{{enTobn($item['memorandum_date'])}}"
+                                                    data-scope=""
                                                     onclick="Broadsheet_Reply_List_Container.showBroadSheet($(this))">
                                                 <i class="fad fa-eye"></i>
                                             </button>
 
 {{--                                            @if($item['latest_broad_sheet_movement'] && $item['latest_broad_sheet_movement']['receiver_officer_id'] == $desk_officer_id)--}}
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                        title="{{___('generic.buttons.title.details')}}"
+                                                        title=""
                                                         data-broad-sheet-id="{{$item['id']}}"
                                                         onclick="Broadsheet_Reply_List_Container.loadBraodSheetApprovalAuthority($(this))">
                                                     <i class="fa fa-paper-plane"></i>
@@ -175,11 +176,16 @@
 {{--                                            @endif--}}
 
 {{--                                            @if($item['unit_response'] != null)--}}
-                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                        title="ডাউনলোড করুন" data-apotti-item-id="{{$item['id']}}"
-                                                        onclick="Broadsheet_Reply_List_Container.downloadBroadSheet($(this))">
-                                                    <i class="fad fa-download"></i>
-                                                </button>
+                                            <button
+                                                class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                title="ডাউনলোড করুন"
+                                                data-broad-sheet-id="{{$item['id']}}"
+                                                data-memorandum-no="{{enTobn($item['memorandum_no'])}}"
+                                                data-memorandum-date="{{enTobn($item['memorandum_date'])}}"
+                                                data-scope="pdf"
+                                                onclick="Broadsheet_Reply_List_Container.downloadBroadSheet($(this))">
+                                                <i class="fad fa-download"></i>
+                                            </button>
 
 {{--                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"--}}
 {{--                                                        title="" data-scope="jobab"--}}
@@ -233,8 +239,9 @@
             broad_sheet_id = elem.data('broad-sheet-id');
             memorandum_no = elem.data('memorandum-no');
             memorandum_date = elem.data('memorandum-date');
+            scope = elem.data('scope');
 
-            data = {broad_sheet_id,memorandum_no,memorandum_date};
+            data = {broad_sheet_id,memorandum_no,memorandum_date,scope};
 
             let url = '{{route('audit.followup.broadsheet.reply.show-braod-sheet')}}';
 
@@ -252,7 +259,7 @@
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
-                    quick_panel.css('width', '80%');
+                    quick_panel.css('width', '60%');
                     quick_panel.removeClass('d-none');
                     $("html").addClass("side-panel-overlay");
                     $(".offcanvas-wrapper").html(response);
@@ -346,12 +353,16 @@
         },
 
         downloadBroadSheet : function (elem) {
-            apotti_item_id = elem.data('apotti-item-id');
-            cost_center_name_bn = elem.data('cost-center-name-bn');
-            cost_center_name_en = elem.data('cost-center-name-en');
 
-            data = {apotti_item_id,cost_center_name_bn,cost_center_name_en};
-            let url = '{{route('audit.followup.broadsheet.reply.download-single-broadsheet')}}';
+            broad_sheet_id = elem.data('broad-sheet-id');
+            memorandum_no = elem.data('memorandum-no');
+            memorandum_date = elem.data('memorandum-date');
+            scope = elem.data('scope');
+
+            data = {broad_sheet_id,memorandum_no,memorandum_date,scope};
+
+            let url = '{{route('audit.followup.broadsheet.reply.show-braod-sheet')}}';
+
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -363,7 +374,7 @@
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "broadsheet_"+cost_center_name_en+'_'+new Date().toDateString().replace(/ /g,"_")+".pdf";
+                    link.download = "broadsheet_"+new Date().toDateString().replace(/ /g,"_")+".pdf";
                     link.click();
                 },
                 error: function (blob) {

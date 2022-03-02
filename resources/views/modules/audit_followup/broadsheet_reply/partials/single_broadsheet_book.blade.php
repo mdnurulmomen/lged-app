@@ -786,10 +786,63 @@
     <div class="pdf-screen bangla-font">
         <table class="bangla-font" width="100%">
             <tr>
-                <td >স্মারক  নং - {{enTobn($memorandum_no)}}</td>
-                <td style="text-align: right">তারিখ: {{formatDate($memorandum_date,'bn','/')}}</td>
+                <td >স্মারক  নং - {{enTobn($broadSheetinfo['memorandum_no'])}}</td>
+                <td style="text-align: right">তারিখ: {{formatDate($broadSheetinfo['memorandum_date'],'bn','/')}}</td>
             </tr>
         </table>
+
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 20px">
+            <span>বরাবর,</span>
+        </div>
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-left: 40px">
+            {!! nl2br($broadSheetinfo['receiver_details']) !!}
+        </div>
+
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+            <span style="font-weight: bold">বিষয়ঃ {!! str_repeat('&nbsp;',1) !!} {{$broadSheetinfo['subject']}}</span>
+        </div>
+
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+            {!! str_repeat('&nbsp;',10) !!} {!! $broadSheetinfo['details'] !!}
+        </div>
+
+        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+            <b>সংযুক্তিঃ পরিশিষ্ট</b>
+        </div>
+
+        <table width="100%" style="color: black">
+            <tr>
+                <td class="bangla-font" width="33%" style="text-align: left"></td>
+                <td class="bangla-font" width="33%" style="text-align: left"></td>
+                <td class="bangla-font" width="33%" style="text-align: center">
+                        <p>আপনার বিশ্বস্ত</p>
+                        <p>({{$broadSheetinfo['sender_name_bn']}})</p>
+                        <p>{{$broadSheetinfo['sender_designation_bn']}}</p>
+                </td>
+            </tr>
+        </table>
+
+
+        @if($broadSheetinfo['cc_list'])
+            <table class="bangla-font" width="100%" style="color: black">
+                <tr>
+                    <td style="padding-bottom: 10px;">অনুলিপি:-</td>
+                </tr>
+                <tr>
+                    <td>
+                        @if($broadSheetinfo['cc_list'])
+                            {!! nl2br($broadSheetinfo['cc_list']) !!}
+                        @endif
+                    </td>
+                </tr>
+            </table>
+        @endif
+
+        <div class="bangla-font" style="text-align:center;font-family:SolaimanLipi,serif !important;margin-top: 10px">
+            <b>{{$broadSheetinfo['sender_office_name_bn']}}</b>
+        </div>
+        <br><br>
+
         <div style="margin-top: 5px">
             <table class="bangla-font" width="100%" border="1">
                 <tbody>
