@@ -1435,7 +1435,16 @@ table {
     background: rgba(137, 207, 240, 0.47) !important;
 }
 
+.fc-title {
+    color: #000000 !important;
+    font-size: 1.2rem !important;
+}
+
 .fc-event-solid-primary {
     background: #ffffff !important;
     box-shadow: 1px 2px #aaaaaa !important;
+}
+
+.fc-unthemed .fc-list-item-title > a {
+    font-size: 1.2rem;
 }
