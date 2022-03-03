@@ -24,7 +24,9 @@
                 <td style="text-align: center" width="25%">শিরোনাম ও বিবরণ</td>
                 <td style="text-align: right" width="10%">জড়িত টাকার পরিমাণ</td>
                 <td style="text-align: right" width="10%">অনিষ্পন্ন জড়িত টাকার পরিমাণ</td>
-                <td style="text-align: center" width="5%">আপত্তি অবস্থা</td>
+                <td style="text-align: center" width="5%">
+                    ডিরেক্টরেট এর সিদ্ধান্ত
+                </td>
                 <td style="text-align: left" width="15%">নিরীক্ষিত প্রতিষ্ঠানের জবাব</td>
                 <td style="text-align: left" width="15%">সংস্থার নির্বাহী প্রধানের জবাব</td>
                 <td style="text-align: left" width="15%">মন্ত্রণালয়/বিভাগ/অন্যান্য এর জবাব</td>
@@ -60,13 +62,24 @@
                     <td style="text-align: right;vertical-align: top;">{{enTobn(number_format($broadSheet['onishponno_jorito_ortho_poriman'],0))}}
                     </td>
                     <td style="text-align: left;vertical-align: top;padding:5px;">
-                        @if($broadSheet['status'] == '1')
-                            নিষ্পন্ন
-                        @elseif($broadSheet['status'] == '2')
-                            অনিষ্পন্ন
-                        @elseif($broadSheet['status'] == '3')
-                            আংশিক নিষ্পন্ন
-                        @endif
+                        <p>
+
+                            @if($broadSheet['status'] == '1')
+                                <b>আপত্তি অবস্থা :</b>  নিষ্পন্ন
+                            @elseif($broadSheet['status'] == '2')
+                                <b>আপত্তি অবস্থা :</b> অনিষ্পন্ন
+                            @elseif($broadSheet['status'] == '3')
+                                <b>আপত্তি অবস্থা :</b> আংশিক নিষ্পন্ন
+                            @endif
+
+                        </p>
+
+                        <br>
+
+                        <p>
+                           <b>মন্তব্য :</b> {{$broadSheet['comment']}}
+                        </p>
+
                     </td>
                     <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['unit_response']}}</td>
                     <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['entity_response']}}</td>
