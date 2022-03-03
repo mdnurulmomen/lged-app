@@ -249,7 +249,7 @@ class BroadsheetReplyController extends Controller
 
             if($request->scope == 'pdf'){
                 $pdf = \PDF::loadView('modules.audit_followup.broadsheet_reply.partials.single_broadsheet_book',
-                    ['broadSheetItem'=> $broadSheetItem, 'broadSheetinfo' => $broadSheetinfo], [] , ['orientation' => 'L', 'format' => 'A4']);
+                    ['broadSheetItem'=> $broadSheetItem, 'broadSheetinfo' => $broadSheetinfo], [] , ['orientation' => 'P', 'format' => 'A4']);
 
                 $fileName = 'broadsheet_'.$broadSheetinfo['sender_office_name_bn'].'_'. date('D_M_j_Y') . '.pdf';
                 return $pdf->stream($fileName);
