@@ -786,7 +786,7 @@
     <div class="pdf-screen bangla-font">
         <table class="bangla-font" width="100%">
             <tr>
-                <td style="text-align: center;font-size: 40px;font-weight: bold">
+                <td style="text-align: center;font-size: 35px;font-weight: bold">
                     {{$broadSheetinfo['sender_office_name_bn']}}
                 </td>
             </tr>
