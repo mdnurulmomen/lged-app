@@ -24,12 +24,12 @@
                 <td style="text-align: center" width="25%">শিরোনাম ও বিবরণ</td>
                 <td style="text-align: right" width="10%">জড়িত টাকার পরিমাণ</td>
                 <td style="text-align: right" width="10%">অনিষ্পন্ন জড়িত টাকার পরিমাণ</td>
-                <td style="text-align: center" width="5%">
-                    ডিরেক্টরেট এর সিদ্ধান্ত
-                </td>
                 <td style="text-align: left" width="15%">নিরীক্ষিত প্রতিষ্ঠানের জবাব</td>
                 <td style="text-align: left" width="15%">সংস্থার নির্বাহী প্রধানের জবাব</td>
                 <td style="text-align: left" width="15%">মন্ত্রণালয়/বিভাগ/অন্যান্য এর জবাব</td>
+                <td style="text-align: center" width="5%">
+                    ডিরেক্টরেট এর সিদ্ধান্ত
+                </td>
                 <td style="text-align: center" width="20%">
                     কার্যক্রম
                 </td>
@@ -61,6 +61,9 @@
 
                     <td style="text-align: right;vertical-align: top;">{{enTobn(number_format($broadSheet['onishponno_jorito_ortho_poriman'],0))}}
                     </td>
+                    <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['unit_response']}}</td>
+                    <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['entity_response']}}</td>
+                    <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['ministry_response']}}</td>
                     <td style="text-align: left;vertical-align: top;padding:5px;">
                         <p>
 
@@ -77,13 +80,10 @@
                         <br>
 
                         <p>
-                           <b>মন্তব্য :</b> {{$broadSheet['comment']}}
+                            <b>মন্তব্য :</b> {{$broadSheet['comment']}}
                         </p>
 
                     </td>
-                    <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['unit_response']}}</td>
-                    <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['entity_response']}}</td>
-                    <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['ministry_response']}}</td>
                     <td>
                         @if(!$broadSheet['approval_status'])
                             <button class="mr-1 btn btn-sm btn-primary btn-square btn_apotti_decision" title="সিদ্ধান্ত"
@@ -96,23 +96,26 @@
                             </button>
                         @endif
 
-                        @if($broadSheet['approval_status'])
-                            <a href="javascript:;"
-                               class="badge-square rounded-0 badge d-flex align-items-center alert-success
+                            @if($broadSheet['approval_status'])
+                                <a href="javascript:;"
+                                   class="badge-square rounded-0 badge d-flex align-items-center alert-success
                                        font-weight-normal mr-1 border decision">
-                                অনুমোদিত
-                            </a>
-                        @endif
+                                    অনুমোদিত
+                                </a>
 
-                        @if($desk_officer_grade == 3)
-                            <button class="mr-1 btn btn-sm btn-primary btn-square" title="সিদ্ধান্ত"
-                                    data-broad-sheet-id="{{$broadSheet['broad_sheet_reply_id']}}"
-                                    data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
-                                    data-memo-id="{{$broadSheet['apotti']['memo_id']}}"
-                                    onclick="ApottiDecision_Container.approveBraodSheetApotti($(this))">
-                                অনুমোদন করুন
-                            </button>
-                        @endif
+                            @else
+                                @if($desk_officer_grade == 3)
+                                    <button class="mr-1 btn btn-sm btn-primary btn-square" title="সিদ্ধান্ত"
+                                            data-broad-sheet-id="{{$broadSheet['broad_sheet_reply_id']}}"
+                                            data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
+                                            data-memo-id="{{$broadSheet['apotti']['memo_id']}}"
+                                            onclick="ApottiDecision_Container.approveBraodSheetApotti($(this))">
+                                        অনুমোদন করুন
+                                    </button>
+                                @endif
+                            @endif
+
+
                     </td>
                 </tr>
             @endforeach
