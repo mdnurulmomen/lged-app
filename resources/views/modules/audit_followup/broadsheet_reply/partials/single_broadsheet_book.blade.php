@@ -786,6 +786,12 @@
     <div class="pdf-screen bangla-font">
         <table class="bangla-font" width="100%">
             <tr>
+                <td style="text-align: center">{{$broadSheetinfo['sender_office_name_bn']}}</td>
+            </tr>
+        </table>
+
+        <table style="margin-top: 50px" class="bangla-font" width="100%">
+            <tr>
                 <td >স্মারক  নং - {{enTobn($broadSheetinfo['memorandum_no'])}}</td>
                 <td style="text-align: right">তারিখ: {{formatDate($broadSheetinfo['memorandum_date'],'bn','/')}}</td>
             </tr>
