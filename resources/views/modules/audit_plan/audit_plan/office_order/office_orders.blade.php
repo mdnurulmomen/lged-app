@@ -1,47 +1,55 @@
 <x-title-wrapper>Office Order List</x-title-wrapper>
+<div class="card sna-card-border d-flex flex-wrap flex-row">
+    <div class="w-25 pr-2 pb-2">
+        <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
+            <option value="">--সিলেক্ট--</option>
+            @foreach($fiscal_years as $fiscal_year)
+                <option
+                    value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+            @endforeach
+        </select>
+    </div>
 
-<div class="table-search-header-wrapper pt-3 pb-3">
-    <div class="col-xl-12">
-        <form>
-            <div class="m-0 form-group row">
-                <label for="select_fiscal_year_annual_plan" class="col-sm-1 col-form-label font-size-1-1">অর্থ বছর</label>
-                <div class="col-sm-11">
-                    <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
-                        <option value="">--সিলেক্ট--</option>
-                        @foreach($fiscal_years as $fiscal_year)
-                            <option
-                                value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        </form>
+    <div class="w-25 pr-2 pb-2">
+        <select class="form-control select-select2" id="activity_id">
+            <option value="">--সিলেক্ট--</option>
+        </select>
     </div>
 </div>
 
-<div class="card card-custom card-stretch">
-    <div class="card-body p-0">
-        <div class="load-office-orders"></div>
-    </div>
+<div class="card sna-card-border mt-2">
+    <div class="load-office-orders"></div>
 </div>
-
 
 <script>
     $(function () {
-        Office_Order_Container.loadOfficeOrderList();
+        // Office_Order_Container.loadOfficeOrderList();
+        Office_Order_Container.loadFiscalYearWiseActivity();
     });
 
     $('#select_fiscal_year_annual_plan').change(function () {
         Office_Order_Container.loadOfficeOrderList();
     });
 
+    $('#activity_id').change(function () {
+        Office_Order_Container.loadOfficeOrderList();
+    });
+
     var Office_Order_Container = {
         loadOfficeOrderList: function (page = 1, per_page = 500) {
             let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            let activity_id = $('#activity_id').val();
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             if (fiscal_year_id) {
                 let url = '{{route('audit.plan.audit.office-orders.load-office-order-list')}}';
-                let data = {fiscal_year_id, page, per_page};
+                let data = {fiscal_year_id,activity_id, page, per_page};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_content');
                     if (response.status === 'error') {
                         toastr.error(response.data);
                     } else {
@@ -51,6 +59,28 @@
             }
             else {
                 $('.load-office-orders').html('');
+            }
+        },
+
+        loadFiscalYearWiseActivity: function () {
+            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
+            if (fiscal_year_id) {
+                let url = '{{route('audit.plan.annual.plan.revised.fiscal-year-wise-activity-select')}}';
+                let data = {fiscal_year_id, fiscal_year};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data)
+                    } else {
+                        $('#activity_id').html(response);
+                        $("#activity_id").val($("#activity_id option:eq(1)").val()).trigger('change');
+                        // alert(activity_id);
+                        // $('#activity_id').val(7);
+                        // Annual_Plan_Container.loadAnnualPlanList();
+                    }
+                });
+            } else {
+                $('#activity_id').html('');
             }
         },
 

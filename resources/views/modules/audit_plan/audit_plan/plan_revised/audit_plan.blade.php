@@ -1,35 +1,24 @@
 <x-title-wrapper>Audit Plan Lists</x-title-wrapper>
 
-<div class="table-search-header-wrapper pt-3 pb-3">
-    <div class="col-xl-12">
-        <div class="m-0 form-group row">
-            <div class="col-sm-4">
-                <label for="select_fiscal_year_annual_plan" class="col-form-label font-size-h4">অর্থ বছর</label>
-                <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
-                    <option value="">--সিলেক্ট--</option>
-                    @foreach($fiscal_years as $fiscal_year)
-                        <option
-                            value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
-                    @endforeach
-                </select>
-            </div>
+<div class="card sna-card-border d-flex flex-wrap flex-row">
+    <div class="w-25 pr-2 pb-2">
+        <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
+            <option value="">--সিলেক্ট--</option>
+            @foreach($fiscal_years as $fiscal_year)
+                <option
+                    value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+            @endforeach
+        </select>
+    </div>
 
-            <div class="col-sm-4">
-                <label for="activity_id" class="col-form-label font-size-h4">অ্যাক্টিভিটি</label>
-                <select class="form-control select-select2" id="activity_id">
-                    <option value="">--সিলেক্ট--</option>
-                </select>
-            </div>
-        </div>
-        </form>
+    <div class="w-25 pr-2 pb-2">
+        <select class="form-control select-select2" id="activity_id">
+            <option value="">--সিলেক্ট--</option>
+        </select>
     </div>
 </div>
-
-
-<div class="card card-custom card-stretch">
-    <div class="card-body p-0">
-        <div id="load_auditable_plan_lists"></div>
-    </div>
+<div class="card sna-card-border mt-2">
+    <div id="load_auditable_plan_lists"></div>
 </div>
 <div class="load-office-wise-employee"></div>
 

@@ -19,9 +19,12 @@ class DcOfficeOrderController extends Controller
     {
         $requestData = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
+            'activity_id' => 'nullable',
             'per_page' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();
+
+//        dd($requestData);
 
         $requestData['cdesk'] =$this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order_dc.annual_plan_list'), $requestData)->json();
