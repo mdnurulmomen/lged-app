@@ -1,6 +1,6 @@
 <x-title-wrapper>অডিট মেমোসমূহ</x-title-wrapper>
 
-<div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
+<div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
         <div class="row">
             <div class="col-md-7">
@@ -12,7 +12,7 @@
                 <div class="d-flex justify-content-md-end">
                     <a href="javascript:;" title="ফেরত যান"
                        onclick="Audit_Query_Container.backToQuerySchedule($(this))"
-                       class="btn btn-sm btn-light-warning btn_back btn-square mr-1">
+                       class="btn btn-sm btn-warning btn_back btn-square mr-1">
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>
 
@@ -22,7 +22,7 @@
                     {{--                        <i class="fa fa-paper-plane mr-1"></i> আরপিইে প্রেরণ--}}
                     {{--                    </a>--}}
 
-                    <a class="btn btn-sm btn-light-success btn_back btn-square"
+                    <a class="btn btn-sm btn-success btn_back btn-square"
                        data-schedule-id="{{$schedule_id}}"
                        data-audit-plan-id="{{$audit_plan_id}}"
                        data-cost-center-id="{{$cost_center_id}}"
@@ -45,10 +45,8 @@
     </div>
 </div>
 
-<div class="card card-custom card-stretch">
-    <div class="card-body p-0">
-        <div id="load_memo_lists"></div>
-    </div>
+<div class="card sna-card-border mt-2">
+    <div id="load_memo_lists"></div>
 </div>
 
 

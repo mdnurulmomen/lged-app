@@ -1,4 +1,6 @@
-<div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
+<x-title-wrapper>Authority Query List</x-title-wrapper>
+
+<div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
             <div class="col-md-3">
@@ -44,22 +46,18 @@
                     <option value="">All Teams</option>
                 </select>
             </div>
-            <div class="col-md-1">
-                <div class="mt-2 action-group d-flex justify-content-end position-absolute action-group-wrapper">
-                    <button id="btn_filter" class="btn btn-sm btn-outline-primary btn-square" type="button">
-                        <i class="fad fa-search"></i> অনুসন্ধান
-                    </button>
-                </div>
+            <div class="col-md-3">
+                <button id="btn_filter" class="btn icon-btn-primary" type="button">
+                    <i class="fad fa-search"></i> অনুসন্ধান
+                </button>
             </div>
         </div>
     </div>
 </div>
 
 
-<div class="card card-custom card-stretch">
-    <div class="card-body p-0">
-        <div id="load_query_list"></div>
-    </div>
+<div class="card sna-card-border mt-2">
+    <div id="load_query_list"></div>
 </div>
 
 {{--<script>--}}

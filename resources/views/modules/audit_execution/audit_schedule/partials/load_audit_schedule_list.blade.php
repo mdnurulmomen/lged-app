@@ -140,7 +140,7 @@
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
                                             @if($schedule['office_order'] != null && $schedule['office_order']['approved_status'] == 'approved')
-                                                <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
+                                                <button class="mr-3 btn btn-sm btn-primary btn-square"
                                                         title="কোয়েরি"
                                                         onclick="Audit_Query_Schedule_Container.query($(this))"
                                                         data-schedule-id="{{$schedule['id']}}"
@@ -152,7 +152,7 @@
                                                     <i class="fad fa-clipboard-list"></i> কোয়েরি
                                                 </button>
 
-                                                <button class="mr-3 btn btn-sm btn-outline-warning btn-square"
+                                                <button class="mr-3 btn btn-sm btn-warning btn-square"
                                                         title="মেমো"
                                                         data-schedule-id="{{$schedule['id']}}"
                                                         data-audit-plan-id="{{$schedule['audit_plan_id']}}"
