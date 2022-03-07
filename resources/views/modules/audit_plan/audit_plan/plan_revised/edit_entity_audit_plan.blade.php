@@ -13,7 +13,7 @@
 @endsection
 @section('content')
     <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
-    <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
+    <div style="background-color: var(--sbodycontentbg);" class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
         <div class="col-md-6">
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">

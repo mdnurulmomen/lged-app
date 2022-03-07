@@ -1041,13 +1041,21 @@ table {
     background: transparent !important;
 }
 
-.page-title-wrapper {
+/*.page-title-wrapper {
     background: #ECF6FF;
     border-color: #d2eaff;
     color: #0A4675;
     position: sticky;
     top: 0;
     z-index: 1;
+}*/
+
+.page-title-wrapper {
+    background: #ffffff;
+    border-color: #0a4675;
+    color: #0A4675;
+    top: 0;
+    padding: 5px 0 5px 0;
 }
 
 .custom-border {

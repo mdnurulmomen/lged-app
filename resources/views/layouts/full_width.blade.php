@@ -44,10 +44,10 @@
             </div>
             <!--end::Header-->
             <!--begin::Content-->
-            <div class="content d-flex flex-column flex-column-fluid pt-0">
+            <div class="content d-flex flex-column flex-column-fluid pt-md-7 pt-lg-7 pt-xl-7 pt-sm-7">
                 <!-- Start Content-->
-            @yield('content')
-            <!-- End Content-->
+                @yield('content')
+                <!-- End Content-->
             </div>
             <!--end::Content-->
             <!--begin::Footer-->
