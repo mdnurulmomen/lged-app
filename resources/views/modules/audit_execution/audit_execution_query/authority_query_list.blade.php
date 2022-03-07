@@ -57,7 +57,16 @@
 
 
 <div class="card sna-card-border mt-2">
-    <div id="load_query_list"></div>
+    <div id="load_query_list">
+        <div class="d-flex align-items-center">
+            <div class="spinner-grow text-warning mr-3" role="status">
+                <span class="sr-only"></span>
+            </div>
+            <div>
+                loading.....
+            </div>
+        </div>
+    </div>
 </div>
 
 {{--<script>--}}

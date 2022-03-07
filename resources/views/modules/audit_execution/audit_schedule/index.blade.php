@@ -1,7 +1,16 @@
 <x-title-wrapper>Audit Schedules</x-title-wrapper>
 
 <div class="card sna-card-border mt-2">
-    <div class="load-table-data" data-href="{{route('audit.execution.load-audit-schedule-list')}}"></div>
+    <div class="load-table-data" data-href="{{route('audit.execution.load-audit-schedule-list')}}">
+        <div class="d-flex align-items-center">
+            <div class="spinner-grow text-warning mr-3" role="status">
+                <span class="sr-only"></span>
+            </div>
+            <div>
+                loading.....
+            </div>
+        </div>
+    </div>
 </div>
 
 
