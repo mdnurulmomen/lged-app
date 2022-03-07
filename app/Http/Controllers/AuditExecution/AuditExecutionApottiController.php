@@ -46,8 +46,16 @@ class AuditExecutionApottiController extends Controller
     public function apottiRegister($apotti_type)
     {
         $office_id = $this->current_office_id();
+
+        $responseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-ministry-list'), [
+            'directorate_id' => $office_id
+        ])->json();
+
+        $ministries = isSuccess($responseData) ? $responseData['data']: [];
+
         $fiscal_years = $this->allFiscalYears();
-        return view('modules.audit_execution.audit_execution_apotti.apotti_register',compact('fiscal_years','office_id','apotti_type'));
+
+        return view('modules.audit_execution.audit_execution_apotti.apotti_register',compact('fiscal_years','office_id','apotti_type','ministries'));
     }
 
     public function loadApottiRegisterList(Request $request){

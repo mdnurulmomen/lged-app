@@ -98,15 +98,12 @@ class BroadsheetReplyController extends Controller
 
         $apottiItemList = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_list'), $data)->json();
 
-//        dd($apottiItemList);
-
         $desk_officer_id = $this->current_desk()['officer_id'];
 
         $desk_officer_grade = $this->current_desk()['officer_grade'];
 
         if (isSuccess($apottiItemList)) {
             $apottiItemList = $apottiItemList['data'];
-//            dd($apottiItemList);
             return view('modules.audit_followup.broadsheet_reply.partials.load_apotti_list',
                 compact('apottiItemList','desk_officer_id','desk_officer_grade'));
         } else {
@@ -125,7 +122,6 @@ class BroadsheetReplyController extends Controller
         $desk_officer_grade = $this->current_desk()['officer_grade'];
 
         $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_items'), $data)->json();
-//        dd($broadSheetItem);
         if (isSuccess($broadSheetItem)) {
             $broadSheetItem = $broadSheetItem['data'];
             $memorandum_no = $request->memorandum_no;
@@ -155,9 +151,6 @@ class BroadsheetReplyController extends Controller
 
         $data['apotti_item_info'] = $apotti_item_info;
 
-//        dd($data);
-
-
         return view('modules.audit_followup.broadsheet_reply.partials.apotti_decision_form', $data);
     }
 
@@ -174,13 +167,9 @@ class BroadsheetReplyController extends Controller
                 'comment' => 'nullable',
             ])->validate();
 
-//        dd($data);
-
             $data['cdesk'] = $this->current_desk_json();
 
             $broadSheetItemUpdate = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.update_broad_sheet_item'), $data)->json();
-
-//            dd($broadSheetItemUpdate);
 
             if (isSuccess($broadSheetItemUpdate)) {
                 return response()->json(['status' => 'success', 'data' => $broadSheetItemUpdate['data']]);
@@ -202,8 +191,6 @@ class BroadsheetReplyController extends Controller
                 'memo_id' => 'required|integer',
             ])->validate();
 
-//            dd($data);
-
             $data['cdesk'] = $this->current_desk_json();
 
             $broadSheetItemUpdate = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.update_broad_sheet_item'), $data)->json();
@@ -211,8 +198,6 @@ class BroadsheetReplyController extends Controller
             $data['approval_status'] = 'approved';
 
             $broadSheetItemApproved = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.approve_broad_sheet_item'), $data)->json();
-
-//             dd($broadSheetItemApproved);
 
             if (isSuccess($broadSheetItemApproved)) {
                 return response()->json(['status' => 'success', 'data' => $broadSheetItemApproved['data']]);
@@ -237,15 +222,9 @@ class BroadsheetReplyController extends Controller
 
         $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_items'), $data)->json();
 
-//        dd($broadSheetinfo);
-
         if (isSuccess($broadSheetItem)) {
             $broadSheetItem = $broadSheetItem['data'];
             $broadSheetinfo = $broadSheetinfo['data'];
-            $memorandum_no = $request->memorandum_no;
-            $memorandum_date = $request->memorandum_date;
-//            dd($apottiItemList);
-
 
             if($request->scope == 'pdf'){
                 $pdf = \PDF::loadView('modules.audit_followup.broadsheet_reply.partials.single_broadsheet_book',
@@ -270,7 +249,7 @@ class BroadsheetReplyController extends Controller
         $office_id = $this->current_office_id();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.broad_sheet_last_movement'), $data)->json();
         $last_air_movement = isSuccess($responseData) ? $responseData['data'] : [];
-//        dd($last_air_movement);
+
         $officer_lists = $this->initDoptorHttp()->post(config('cag_doptor_api.office_unit_designation_employee_map'),
             [
                 'office_id' => $office_id,
@@ -285,7 +264,6 @@ class BroadsheetReplyController extends Controller
 
     public function broadSheetMovement(Request $request)
     {
-//        dd($request->all());
         try {
             $data = Validator::make($request->all(), [
                 'broad_sheet_id' => 'required|integer',
@@ -358,8 +336,6 @@ class BroadsheetReplyController extends Controller
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.send_broad_sheet_reply_to_rpu'), $data)->json();
 
-//        dd($responseData);
-
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
         } else {
@@ -377,7 +353,7 @@ class BroadsheetReplyController extends Controller
         $currentOfficeName = $this->current_office()['office_name_bn'];
         $apottiItemInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_apotti_item_info'), $requestData)->json();
         $apottiItemInfo = isSuccess($apottiItemInfo)?$apottiItemInfo['data']:[];
-        //dd($apottiItemInfo);
+
         $pdf = \PDF::loadView('modules.audit_followup.broadsheet_reply.partials.single_broadsheet_book',
             ['currentOfficeName'=> $currentOfficeName, 'apottiItemInfo' => $apottiItemInfo], [] , ['orientation' => 'L', 'format' => 'A4']);
 
@@ -400,4 +376,41 @@ class BroadsheetReplyController extends Controller
         }
         return view('modules.audit_followup.broadsheet_reply.partials.reply_apotti_item',compact('apottiItemInfo'));
     }
+
+    public function showSentBroadSheetReply(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'broad_sheet_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $office_name_bn =  $this->current_office()['office_name_bn'];
+
+        $broadSheetinfo = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_sent_broad_sheet_info'), $data)->json();
+
+        $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_items'), $data)->json();
+
+//        dd($broadSheetItem);
+
+        if (isSuccess($broadSheetItem)) {
+            $broadSheetItem = $broadSheetItem['data'];
+            $broadSheetinfo = $broadSheetinfo['data'];
+
+            if($request->scope == 'pdf'){
+                $pdf = \PDF::loadView('modules.audit_followup.broadsheet_reply.partials.sent_broadsheet_book',
+                    ['broadSheetItem'=> $broadSheetItem, 'broadSheetinfo' => $broadSheetinfo], [] , ['orientation' => 'P', 'format' => 'A4']);
+
+                $fileName = 'broadsheet_'.$office_name_bn.'_'. date('D_M_j_Y') . '.pdf';
+                return $pdf->stream($fileName);
+            }else{
+                return view('modules.audit_followup.broadsheet_reply.partials.sent_broadsheet_book',
+                    compact('broadSheetItem','broadSheetinfo','office_name_bn'));
+            }
+
+        } else {
+            return response()->json(['status' => 'error', 'data' => $broadSheetItem]);
+        }
+    }
+
 }

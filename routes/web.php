@@ -475,6 +475,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/approve-broad-sheet-apotti', [BroadsheetReplyController::class, 'approveBroadSheetApotti'])->name('approve-broad-sheet-apotti');
             Route::post('/send-broad-sheet-reply-form', [BroadsheetReplyController::class, 'sendBroadSheetReplyFrom'])->name('send-broad-sheet-reply-form');
             Route::post('/send-broad-sheet-reply-to-rpu', [BroadsheetReplyController::class, 'sendBroadSheetReplyToRpu'])->name('send-broad-sheet-reply-to-rpu');
+            Route::post('/show-sent-broad-sheet-reply', [BroadsheetReplyController::class, 'showSentBroadSheetReply'])->name('show-sent-broad-sheet-reply');
         });
 
         Route::get('dashboard', [\App\Http\Controllers\AuditFollowup\AuditFollowupDashboardController::class, 'index'])->name('dashboard');

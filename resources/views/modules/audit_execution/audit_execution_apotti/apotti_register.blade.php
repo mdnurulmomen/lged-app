@@ -11,8 +11,16 @@
             </div>
 
             <div class="col-md-3">
-                <select class="form-select select-select2" id="activity_id">
-                    <option value="">অ্যাক্টিভিটি বাছাই করুন</option>
+{{--                <select class="form-select select-select2" id="activity_id">--}}
+{{--                    <option value="">অ্যাক্টিভিটি বাছাই করুন</option>--}}
+{{--                </select>--}}
+                <select id="ministry_id" class="form-control rounded-0 select-select2"
+                        name="ministry_id">
+                    <option value="" selected="selected">--বাছাই করুন--</option>
+                    @foreach($ministries as $ministry)
+                        <option data-ministry-en="{{$ministry['name_eng']}}" data-ministry-bn="{{$ministry['name_bng']}}"
+                                value="{{$ministry['id']}}">{{$ministry['name_bng']}}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -419,6 +427,11 @@
     });
 
     $('#audit_plan_id').change(function (){
+        entity_list = $(this).find(':selected').attr('data-entity-info');
+        Apotti_Container.loadPlanWiseEntity(entity_list);
+    });
+
+    $('#ministry_id').change(function (){
         entity_list = $(this).find(':selected').attr('data-entity-info');
         Apotti_Container.loadPlanWiseEntity(entity_list);
     });

@@ -1,9 +1,7 @@
 <x-title-wrapper>জবাব</x-title-wrapper>
 
-<div class="card card-custom card-stretch">
-    <div class="card-body p-0">
-        <div id="load_apotti_item_list"></div>
-    </div>
+<div class="card sna-card-border">
+    <div id="load_apotti_item_list"></div>
 </div>
 
 

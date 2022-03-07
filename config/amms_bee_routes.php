@@ -244,6 +244,7 @@ return [
             'broad_sheet_last_movement' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/broad-sheet-last-movement',
             'send_broad_sheet_reply_to_rpu' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/send-broad-sheet-reply-to-rpu',
             'get_broad_sheet_info' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-broad-sheet-info',
+            'get_sent_broad_sheet_info' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-sent-broad-sheet-info',
         ],
     ],
 

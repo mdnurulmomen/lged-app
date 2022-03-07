@@ -1,6 +1,6 @@
 <input type="hidden" id="qac_type" value="{{$qac_type}}">
 <input type="hidden" id="scope" value="{{$scope}}">
-<div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
+<div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
 
@@ -74,10 +74,8 @@
     </div>
 </div>
 
-<div class="card card-custom card-stretch">
-    <div class="card-body p-0">
-        <div id="load_apotti_list"></div>
-    </div>
+<div class="card sna-card-border mt-2">
+    <div id="load_apotti_list"></div>
 </div>
 
 

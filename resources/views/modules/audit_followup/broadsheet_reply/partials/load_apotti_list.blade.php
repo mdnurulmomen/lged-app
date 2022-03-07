@@ -125,7 +125,8 @@
 
                                     @else
                                         <div class="subject-wrapper font-weight-normal mt-2">
-                                            <button href="javascript:;"
+                                            <button data-broad-sheet-id="{{$item['id']}}"
+                                                    onclick="Broadsheet_Reply_List_Container.showSentBroadSheetReply($(this))"
                                                class="badge-square rounded-0 badge d-flex align-items-center alert-success
                                            font-weight-normal mr-1 border decision">
                                                 আরপি বরাবর প্রেরণ করা হয়েছে
@@ -329,6 +330,36 @@
             data = {broad_sheet_id,memorandum_no};
 
             url = '{{route('audit.followup.broadsheet.reply.send-broad-sheet-reply-form')}}';
+
+            KTApp.block('.content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('.content');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '50%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
+        showSentBroadSheetReply: function (elem) {
+
+            broad_sheet_id = elem.data('broad-sheet-id');
+
+            data = {broad_sheet_id};
+
+            url = '{{route('audit.followup.broadsheet.reply.show-sent-broad-sheet-reply')}}';
 
             KTApp.block('.content', {
                 opacity: 0.1,
