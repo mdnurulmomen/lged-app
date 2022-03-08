@@ -63,7 +63,7 @@
             @endforeach
         @empty
             <tr>
-                <td class="vertical-middle" colspan="5">
+                <td class="vertical-middle" colspan="7">
                     No Data Found
                 </td>
             </tr>

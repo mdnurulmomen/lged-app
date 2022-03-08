@@ -1,31 +1,28 @@
 <x-title-wrapper>Auditability Assessment Score</x-title-wrapper>
 
-<div class="row mt-3 p-2 page-title-wrapper d-md-flex align-items-md-center">
-    <div class="col-md-12">
-        <div class="d-flex justify-content-end">
-            <a class="btn btn-primary btn-sm btn-bold btn-square"
-               href="javascript:;" onclick="Assessment_Score_Container.create()">
-                <i class="far fa-plus mr-1"></i> এনটিটি/সংস্থা যোগ করুন
-            </a>
-        </div>
+<div class="card sna-card-border mt-3" style="margin-bottom:15px;">
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-primary btn-sm btn-bold btn-square"
+           href="javascript:;" onclick="Assessment_Score_Container.create()">
+            <i class="far fa-plus mr-1"></i> এনটিটি/সংস্থা যোগ করুন
+        </a>
     </div>
 </div>
 
-<div class="row p-2">
-    <div class="col-md-12">
-        <select class="form-control select-select2" id="fiscal_year_id">
-            <option value="">--সিলেক্ট--</option>
-            @foreach($fiscal_years as $fiscal_year)
-                <option value="{{$fiscal_year['id']}}" {{$fiscal_year['id'] == 1?'selected':''}}>
-                    {{$fiscal_year['description']}}
-                </option>
-            @endforeach
-        </select>
-    </div>
+<div class="card sna-card-border mt-3" style="margin-bottom:15px;">
+    <select class="form-control select-select2" id="fiscal_year_id">
+        <option value="">--সিলেক্ট--</option>
+        @foreach($fiscal_years as $fiscal_year)
+            <option value="{{$fiscal_year['id']}}" {{$fiscal_year['id'] == 1?'selected':''}}>
+                {{$fiscal_year['description']}}
+            </option>
+        @endforeach
+    </select>
 </div>
 
-
-<div class="px-3" id="load_assessment_score_list"></div>
+<div class="card sna-card-border mt-3" style="margin-bottom:30px;">
+    <div id="load_assessment_score_list"></div>
+</div>
 
 
 <script>

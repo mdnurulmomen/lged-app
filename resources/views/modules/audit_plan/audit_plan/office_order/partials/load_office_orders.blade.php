@@ -153,22 +153,21 @@
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
                                             @if($audit_plan['has_office_order'] == 0)
-                                                <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="অফিস অর্ডার করুন"
+                                                <button class="mr-3 btn btn-sm btn-create" title="অফিস অর্ডার তৈরি করুন"
                                                         data-audit-plan-id="{{$audit_plan['id']}}"
                                                         data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
                                                         onclick="Office_Order_Container.loadOfficeOrderCreateForm($(this))">
-                                                    <i class="fad fa-plus-circle"></i>অফিস অর্ডার তৈরি করুন
+                                                    <i style="color:#ffffff;" class="fad fa-plus-circle"></i> অফিস অর্ডার তৈরি করুন
                                                 </button>
                                             @endif
 
                                             @if($audit_plan['has_office_order'] == 1)
                                                 @if($audit_plan['office_order']['approved_status'] == 'draft')
-                                                    <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
-                                                list-btn-toggle" title="অফিস অর্ডার করুন"
+                                                    <button class="mr-1 btn btn-sm btn-details" title="হালনাগাদ করুন"
                                                             data-audit-plan-id="{{$audit_plan['id']}}"
                                                             data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
                                                             onclick="Office_Order_Container.loadOfficeOrderCreateForm($(this))">
-                                                        <i class="fad fa-edit"></i>
+                                                        <i style="color: white" class="fad fa-edit"></i>
                                                     </button>
                                                 @endif
                                             @endif
@@ -176,40 +175,37 @@
 
                                             @if($audit_plan['has_office_order'] == 1)
                                                 <button
-                                                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
-                                                list-btn-toggle"
+                                                    class="mr-1 btn btn-sm btn-details" title="বিস্তারিত দেখুন"
                                                     data-audit-plan-id="{{$audit_plan['id']}}"
                                                     data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
                                                     onclick="Office_Order_Container.showOfficeOrder($(this))" type="button">
-                                                    <i class="fad fa-eye"></i>
+                                                    <i style="color: white" class="fad fa-eye"></i>
                                                 </button>
                                             @endif
 
                                             @if($audit_plan['has_office_order'] == 1)
                                                 @if($audit_plan['office_order']['approved_status'] == 'draft')
                                                     <button
-                                                        class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
-                                                list-btn-toggle"
+                                                        class="mr-1 btn btn-sm btn-sent" title="প্রেরণ করুন"
                                                         data-ap-office-order-id="{{$audit_plan['office_order']['id']}}"
                                                         data-audit-plan-id="{{$audit_plan['id']}}"
                                                         data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
                                                         onclick="Office_Order_Container.loadOfficeOrderApprovalAuthority($(this))"
                                                         type="button">
-                                                        <i class="fad fa-share-square"></i>
+                                                        <i style="color: white" class="fad fa-share-square"></i>
                                                     </button>
                                                 @endif
 
                                                 @if($audit_plan['office_order']['approved_status'] == 'draft' && $audit_plan['office_order']['office_order_movement'] != null
                                                 && $audit_plan['office_order']['office_order_movement']['employee_designation_id'] == $current_designation_id)
                                                     <button
-                                                        class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
-                                                list-btn-toggle"
+                                                        class="mr-1 btn btn-approval" title="অনুমোদন করুন"
                                                         data-ap-office-order-id="{{$audit_plan['office_order']['id']}}"
                                                         data-audit-plan-id="{{$audit_plan['id']}}"
                                                         data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
                                                         onclick="Office_Order_Container.approveOfficeOrder($(this))"
                                                         type="button">
-                                                        <i class="fad fa-check"></i>
+                                                        <i style="color: white" class="fad fa-check"></i>
                                                     </button>
                                                 @endif
                                             @endif

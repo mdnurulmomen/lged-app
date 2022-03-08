@@ -1,4 +1,4 @@
-<x-title-wrapper>Office Order List</x-title-wrapper>
+<x-title-wrapper>অফিস আদেশ</x-title-wrapper>
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="w-25 pr-2 pb-2">
         <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
