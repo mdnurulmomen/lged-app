@@ -1,6 +1,6 @@
 <x-title-wrapper>{{$qac_type == 'qac-1' ? 'কিউএসি ১' : 'কিউএসি ২'}} কমিটি তালিকা</x-title-wrapper>
 <input type="hidden" id="qac_type" value="{{$qac_type}}">
-<div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
+<div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
             <div class="col-md-3">
@@ -15,9 +15,16 @@
     </div>
 </div>
 
-<div class="card card-custom card-stretch">
-    <div class="card-body p-0">
-        <div id="load_committee_list"></div>
+<div class="card sna-card-border mt-2">
+    <div id="load_committee_list">
+        <div class="d-flex align-items-center">
+            <div class="spinner-grow text-warning mr-3" role="status">
+                <span class="sr-only"></span>
+            </div>
+            <div>
+                loading.....
+            </div>
+        </div>
     </div>
 </div>
 

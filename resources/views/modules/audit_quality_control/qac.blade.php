@@ -75,7 +75,14 @@
 </div>
 
 <div class="card sna-card-border mt-2">
-    <div id="load_apotti_list"></div>
+    <div id="load_apotti_list">
+        <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">
+            <div class="alert-icon">
+                <i class="flaticon-warning"></i>
+            </div>
+            <div class="alert-text">অনুসন্ধান করুন</div>
+        </div>
+    </div>
 </div>
 
 

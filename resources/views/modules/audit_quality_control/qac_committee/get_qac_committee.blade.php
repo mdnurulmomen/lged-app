@@ -6,7 +6,7 @@
                     <div class="d-flex justify-content-md-end">
                         <a onclick="Qac_Committee_Container.createCommittee()"
                            data-fiscal-year-id="{{$fiscal_year_id}}"
-                           class="btn btn-sm btn-light-info btn-square mr-1"
+                           class="btn btn-sm btn-info btn-square mr-1"
                            href="javascript:;">
                             <i class="fas fa-plus-circle mr-1"></i>
                             নতুন যোগ করুন
@@ -135,13 +135,13 @@
 {{--                                                    onclick="">--}}
 {{--                                                <i class="fad fa-eye"></i> বিস্তারিত--}}
 {{--                                            </button>--}}
-                                                <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
+                                                <button class="mr-3 btn btn-sm btn-warning btn-square" title="সম্পাদনা করুন"
                                                         data-committee-id="{{$committee['id']}}"
                                                         data-committee-title-bn="{{$committee['title_bn']}}"
                                                         onclick="Qac_Committee_Container.editQacCommittee($(this))">
                                                     <i class="fad fa-edit"></i> সম্পাদনা
                                                 </button>
-                                                <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="সম্পাদনা করুন"
+                                                <button class="mr-3 btn btn-sm btn-danger btn-square" title="সম্পাদনা করুন"
                                                         data-committee-id="{{$committee['id']}}"
                                                         onclick="Qac_Committee_Container.deleteQacCommittee($(this))">
                                                     <i class="fad fa-trash"></i> বাতিল করুন

@@ -1,7 +1,16 @@
 <x-title-wrapper>জবাব</x-title-wrapper>
 
 <div class="card sna-card-border">
-    <div id="load_apotti_item_list"></div>
+    <div id="load_apotti_item_list">
+        <div class="d-flex align-items-center">
+            <div class="spinner-grow text-warning mr-3" role="status">
+                <span class="sr-only"></span>
+            </div>
+            <div>
+                loading.....
+            </div>
+        </div>
+    </div>
 </div>
 
 
