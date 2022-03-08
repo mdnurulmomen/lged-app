@@ -1,18 +1,18 @@
-<div class="table-search-header-wrapper mb-4 p-4 shadow-sm">
-    <div class="row">
-        <div class="col-xl-4 text-left">
-            <h3>স্মারক নংঃ {{$memorandum_no}}</h3>
+<div class="card sna-card-border">
+        <div class="row">
+            <div class="col-xl-4 text-left">
+                <h3>স্মারক নংঃ {{$memorandum_no}}</h3>
+            </div>
+            <div class="col-xl-4 text-center">
+                <h3>এন্টিটিঃ {{$entity_name}}</h3>
+            </div>
+            <div class="col-xl-4 text-right">
+                <h3>তারিখঃ {{$memorandum_date}}</h3>
+            </div>
         </div>
-        <div class="col-xl-4 text-center">
-            <h3>এন্টিটিঃ {{$entity_name}}</h3>
-        </div>
-        <div class="col-xl-4 text-right">
-            <h3>তারিখঃ {{$memorandum_date}}</h3>
-        </div>
-    </div>
 </div>
 
-<div class="card card-custom card-stretch">
+<div class="card sna-card-border mt-2">
     <div class="card-body">
         <table class="table table-bordered" width="100%">
             <thead class="thead-light">
