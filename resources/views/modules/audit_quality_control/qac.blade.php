@@ -63,7 +63,7 @@
                 </select>
             </div>
 
-            <div class="col-md-2">F
+            <div class="col-md-2">
                     <button id="btn_filter" class="btn btn-sm btn-outline-primary btn-square mt-8" type="button">
                         <i class="fad fa-search"></i> অনুসন্ধান
                     </button>
