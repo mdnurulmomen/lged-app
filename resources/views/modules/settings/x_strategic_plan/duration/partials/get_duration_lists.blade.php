@@ -1,25 +1,25 @@
-<table class="table table-striped">
+<table class="table table-bordered" width="100%">
     <thead class="thead-light">
-    <tr class="datatable-row" style="left: 0px;">
-        <th class="datatable-cell datatable-cell-sort">
+    <tr class="bg-hover-warning">
+        <th>
             Start Year
         </th>
-        <th class="datatable-cell datatable-cell-sort">
+        <th>
             End Year
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center" colspan="2">
+        <th>
             Action
         </th>
 
     </tr>
     </thead>
-    <tbody style="" class="datatable-body">
+    <tbody>
     @forelse($plan_durations as $plan_duration)
-        <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
-            <td class="datatable-cell"><span>{{$plan_duration['start_year']}}</span></td>
-            <td class="datatable-cell"><span>{{$plan_duration['end_year']}}</span></td>
-            <td class="datatable-cell text-right" width="5%">
+        <tr data-row="{{$loop->iteration}}" >
+            <td>{{$plan_duration['start_year']}}</td>
+            <td>{{$plan_duration['end_year']}}</td>
+            <td>
                 <a href="javascript:;"
                    data-duration-id="{{$plan_duration['id']}}"
                    data-duration-start="{{$plan_duration['start_year']}}"
@@ -30,8 +30,6 @@
                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_plan_duration">
                     <i class="fas fa-edit"></i>
                 </a>
-            </td>
-            <td class="datatable-cell text-left" width="5%">
                 <a href="javascript:;"
                    data-duration-id="{{$plan_duration['id']}}"
                    data-url="{{route('settings.strategic-plan.duration.destroy', ['duration' => $plan_duration['id']])}}"
