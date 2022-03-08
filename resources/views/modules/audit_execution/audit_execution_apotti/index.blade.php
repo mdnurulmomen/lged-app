@@ -1,4 +1,5 @@
-<div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
+<x-title-wrapper>Audit Observation List</x-title-wrapper>
+<div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
             <div class="col-md-3">
@@ -49,9 +50,14 @@
 </div>
 
 
-<div class="card card-custom card-stretch">
-    <div class="card-body p-0">
-        <div id="load_apotti_list"></div>
+<div class="card sna-card-border mt-2">
+    <div id="load_apotti_list">
+        <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">
+            <div class="alert-icon">
+                <i class="flaticon-warning"></i>
+            </div>
+            <div class="alert-text">অনুসন্ধান করুন</div>
+        </div>
     </div>
 </div>
 

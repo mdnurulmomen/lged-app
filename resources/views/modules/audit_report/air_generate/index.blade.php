@@ -1,27 +1,27 @@
 <x-title-wrapper>Audit Plan List</x-title-wrapper>
 
-<div class="table-search-header-wrapper pt-3 pb-3">
+<div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
-        <form>
-            <div class="m-0 form-group row">
-                <label for="select_fiscal_year_annual_plan" class="col-sm-1 col-form-label font-size-1-1">অর্থ বছর</label>
-                <div class="col-sm-11">
-                    <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
-                        <option value="">--সিলেক্ট--</option>
-                        @foreach($fiscal_years as $fiscal_year)
-                            <option
-                                value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        </form>
+        <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
+            <option value="">--সিলেক্ট--</option>
+            @foreach($fiscal_years as $fiscal_year)
+                <option
+                    value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+            @endforeach
+        </select>
     </div>
 </div>
 
-<div class="card card-custom card-stretch">
-    <div class="card-body p-0">
-        <div class="load-office-orders"></div>
+<div class="card sna-card-border mt-2">
+    <div class="load-plan-list">
+        <div class="d-flex align-items-center">
+            <div class="spinner-grow text-warning mr-3" role="status">
+                <span class="sr-only"></span>
+            </div>
+            <div>
+                loading.....
+            </div>
+        </div>
     </div>
 </div>
 
@@ -46,12 +46,12 @@
                     if (response.status === 'error') {
                         toastr.error(response.data);
                     } else {
-                        $('.load-office-orders').html(response);
+                        $('.load-plan-list').html(response);
                     }
                 });
             }
             else {
-                $('.load-office-orders').html('');
+                $('.load-plan-list').html('');
             }
         },
 

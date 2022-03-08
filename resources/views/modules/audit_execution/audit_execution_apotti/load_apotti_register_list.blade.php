@@ -1,43 +1,35 @@
-
-<style type="text/css">
-    .selected
-    {
-        background-color: #666;
-        color: #fff;
-    }</style>
-
-<table class="table table-hover" id="tblLocations">
+<table class="table table-bordered" width="100%">
     <thead class="thead-light">
     <tr class="bg-hover-warning">
-        <th width="5%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="5%">
             অনুচ্ছেদ নং
         </th>
 
-        <th width="15%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="15%">
             মন্ত্রণালয়
         </th>
 
-        <th width="15%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="15%">
             এনটিটি/সংস্থা
         </th>
 
-        <th width="25%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="25%">
             শিরোনাম
         </th>
 
-        <th width="10%" class="datatable-cell datatable-cell-sort text-right">
+        <th width="10%">
             জড়িত অর্থ (টাকা)
         </th>
 
-        <th width="15%" class="datatable-cell datatable-cell-sort text-right">
+        <th width="10%">
             এআইআর ইস্যুর তারিখ
         </th>
 
-        <th width="15%" class="datatable-cell datatable-cell-sort text-right">
+        <th width="10%">
             স্ট্যাটাস রিভিউ তারিখ
         </th>
 
-        <th width="25%" class="datatable-cell datatable-cell-sort text-center">
+        <th width="25%">
             কার্যক্রম
         </th>
     </tr>
@@ -76,10 +68,12 @@
             </td>
 
             <td>
-                <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"
+                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
+                                                list-btn-toggle"
+                        title="বিস্তারিত দেখুন"
                         data-apotti-id="{{$apotti['id']}}"
                         onclick="Apotti_Container.showApotti($(this))">
-                    <i class="fad fa-eye"></i>বিস্তারিত
+                    <i class="fad fa-eye"></i>
                 </button>
 
                 @if($apotti['air_generate_type'] != 'preliminary')

@@ -1,5 +1,5 @@
 <x-title-wrapper>ফাইনাল রিপোর্ট তালিকা</x-title-wrapper>
-<div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
+<div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
             <div class="col-md-3">
@@ -37,9 +37,16 @@
     </div>
 </div>
 
-<div class="card card-custom card-stretch">
-    <div class="card-body p-0">
-        <div id="load_final_report"></div>
+<div class="card sna-card-border mt-2">
+    <div id="load_final_report">
+        <div class="d-flex align-items-center">
+            <div class="spinner-grow text-warning mr-3" role="status">
+                <span class="sr-only"></span>
+            </div>
+            <div>
+                loading.....
+            </div>
+        </div>
     </div>
 </div>
 
@@ -63,6 +70,8 @@
                         toastr.warning(response.data)
                     } else {
                         $('#activity_id').html(response);
+                        $("#activity_id").val($("#activity_id option:eq(1)").val()).trigger('change');
+
                     }
                 }
             );
