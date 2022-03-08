@@ -1,9 +1,17 @@
 <x-title-wrapper>Role Menu Map</x-title-wrapper>
-
-<div class="px-3 py-3" id="load_role_list"></div>
-
-<div class="px-3" id="load_menu_module_list"></div>
-<button class="btn btn-primary mb-5" onclick="PermissionAssignContainer.assignMenusToRole()"> Assign</button>
+<div class="card sna-card-border mt-2">
+    <div class="px-3 py-3" id="load_role_list"></div>
+</div>
+<div class="card sna-card-border mt-2">
+    <div class="px-3" id="load_menu_module_list"></div>
+    <div>
+        <button
+            class="btn btn-primary mb-5"
+            onclick="PermissionAssignContainer.assignMenusToRole()">
+            Assign
+        </button>
+    </div>
+</div>
 <script>
     var PermissionAssignContainer = {
         loadMenuModuleLists: function (page = 1, per_page = 100) {

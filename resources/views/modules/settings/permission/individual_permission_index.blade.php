@@ -1,16 +1,17 @@
 <x-title-wrapper>Employee Permission Map</x-title-wrapper>
-<div class="row mt-3">
-    <div class="col-md-6" style="overflow-y: scroll; height: 65vh">
-        <div class="tree-demo rounded-0 office_organogram_tree jstree-init jstree-1 jstree-default">
-            <ul>
-                @foreach($officer_lists as $key => $officer_list)
-                    @foreach($officer_list['units'] as $unit)
-                        <li data-jstree='{ "opened" : true }'>
-                            {{$unit['unit_name_eng']}}
-                            <ul>
-                                @foreach($unit['designations'] as $designation)
-                                    @if(!empty($designation['employee_info']))
-                                        <li data-officer-info="{{json_encode(
+<div class="card sna-card-border mt-2">
+    <div class="row mt-3">
+        <div class="col-md-6" style="overflow-y: scroll; height: 65vh">
+            <div class="tree-demo rounded-0 office_organogram_tree jstree-init jstree-1 jstree-default">
+                <ul>
+                    @foreach($officer_lists as $key => $officer_list)
+                        @foreach($officer_list['units'] as $unit)
+                            <li data-jstree='{ "opened" : true }'>
+                                {{$unit['unit_name_eng']}}
+                                <ul>
+                                    @foreach($unit['designations'] as $designation)
+                                        @if(!empty($designation['employee_info']))
+                                            <li data-officer-info="{{json_encode(
     [
         'designation_id' => $designation['designation_id'],
         'designation_en' => htmlspecialchars($designation['designation_eng']),
@@ -23,24 +24,32 @@
         'office_id' => $officer_list['office_id'],
         'master_designation_id' => $designation['ref_designation_master_info_id'],
         ], JSON_UNESCAPED_UNICODE)}}"
-                                            data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
-                                            {{$designation['employee_info']['name_eng'].','}} {{$designation['designation_eng']}}
-                                        </li>
-                                    @endif
-                                @endforeach
-                            </ul>
-                        </li>
+                                                data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
+                                                {{$designation['employee_info']['name_eng'].','}} {{$designation['designation_eng']}}
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endforeach
                     @endforeach
-                @endforeach
-            </ul>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6" style="overflow-y: scroll; height: 65vh">
+            <div class="px-3 py-1" id="load_role_list"></div>
+            <div id="load_menu_module_list"></div>
         </div>
     </div>
-    <div class="col-md-6" style="overflow-y: scroll; height: 65vh">
-        <div class="px-3 py-1" id="load_role_list"></div>
-        <div id="load_menu_module_list"></div>
+    <div>
+        <button
+            class="btn btn-primary mb-5"
+            onclick="IndividualPermissionAssignContainer.assignMenusToRole()">
+            Assign
+        </button>
     </div>
+
 </div>
-<button class="btn btn-primary mb-5" onclick="IndividualPermissionAssignContainer.assignMenusToRole()"> Assign</button>
 <script>
     var officer_info = '';
     $(`.jstree-init`).jstree({

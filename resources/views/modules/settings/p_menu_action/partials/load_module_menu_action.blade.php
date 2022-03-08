@@ -1,8 +1,7 @@
 <!--begin::Table-->
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead class="thead-light">
-        <tr>
+<table class="table table-bordered" width="100%">
+    <thead class="thead-light">
+        <tr class="bg-hover-warning">
             <th class="text-left">Name En</th>
             <th class="text-left">Name Bn</th>
 
@@ -61,6 +60,5 @@
         @endforeach
         </tbody>
     </table>
-</div>
 <!--end::Table-->
 

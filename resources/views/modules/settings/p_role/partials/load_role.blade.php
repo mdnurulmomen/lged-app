@@ -1,8 +1,7 @@
 <!--begin::Table-->
-<div class="table-responsive">
-    <table class="table table-striped" width="100%">
-        <thead class="thead-light">
-        <tr>
+<table class="table table-bordered" width="100%">
+    <thead class="thead-light">
+        <tr class="bg-hover-warning">
             <th width="20%" class="text-left">Role Name</th>
             <th width="50%" class="text-left">Role Description</th>
             <th width="10%" class="text-left">User Level</th>
@@ -41,6 +40,5 @@
         @endforeach
         </tbody>
     </table>
-</div>
 <!--end::Table-->
 
