@@ -1,21 +1,23 @@
 <x-title-wrapper>Annual Plan Calender</x-title-wrapper>
-<form class="pl-4 pt-4">
-    <div class="form-row">
-        <div class="col-md-4 ">
-            <label>Select Fiscal Year</label>
-            <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
-                <option value="">Choose Fiscal Year</option>
-                @foreach($fiscal_years as $fiscal_year)
-                    <option
-                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
-                @endforeach
-            </select>
+
+<div class="card sna-card-border" style="margin-bottom:30px;">
+    <form>
+        <div class="form-row">
+            <div class="col-md-4 ">
+                <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
+                    <option value="">Choose Fiscal Year</option>
+                    @foreach($fiscal_years as $fiscal_year)
+                        <option
+                            value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 
-<div class="px-3 py-3" id="load_annual_plan_lists">
-
+<div class="card sna-card-border" style="margin-bottom:30px;">
+    <div id="load_annual_plan_lists"></div>
 </div>
 
 @include('scripts.script_generic')

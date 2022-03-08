@@ -191,10 +191,10 @@
     border-bottom: 1px solid #EBEDF3 ; }
   .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-text,
   .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-text {
-    color: #000 ; }
+    color: var(--sactivecolor); }
   .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-icon,
   .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-icon {
-    color: #B5B5C3 ; }
+    color: var(--sactivecolor); }
     .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-icon.svg-icon svg g [fill],
     .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-icon.svg-icon svg g [fill] {
       -webkit-transition: fill 0.3s ease;

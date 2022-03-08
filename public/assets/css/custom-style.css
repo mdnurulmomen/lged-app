@@ -534,3 +534,38 @@ ul.sna-breadcrumb li a:hover {
 .border-bottom {
     border-color: #1061a5 !important
 }
+
+
+/*buttons*/
+.btn-create,.btn-approval,.btn-download,.btn-sent{
+    color: #FFFFFF;
+}
+
+.btn.btn-create{
+    background-color: #5a5ad5;
+    border-color: #5a5ad5;
+}
+.btn.btn-create:hover{
+    color: #FFFFFF;
+}
+
+.btn.btn-details{
+    color: #ffffff;
+    background-color: #7D3C98;
+    border-color: #7D3C98;
+}
+
+.btn.btn-approval{
+    background-color: #067618;
+    border-color: #067618;
+}
+
+.btn.btn-download{
+    background-color: #6c1004;
+    border-color: #6c1004;
+}
+
+.btn.btn-sent{
+    background-color: #1f60a3;
+    border-color: #1f60a3;
+}
