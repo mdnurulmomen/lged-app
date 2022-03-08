@@ -14,7 +14,7 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($annual_plans as $activity_id => $annual_plan)
+            @foreach($annual_plans as $activity_id => $annual_plan)
                 @foreach($annual_plan as $plan)
                     <tr>
                         @if($loop->iteration == 1)
@@ -60,10 +60,10 @@
                                 </button>
                             </td>
                         @endif
-
                     </tr>
                 @endforeach
-            @endforelse
+            @endforeach
+
             </tbody>
         </table>
     </div>

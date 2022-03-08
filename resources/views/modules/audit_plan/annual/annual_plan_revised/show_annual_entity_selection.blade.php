@@ -7,7 +7,7 @@
                     <div class="col-md-7">
                         @if(!is_null($plan_list))
                             @if($plan_list['approval_status'] == 'draft' || $plan_list['approval_status'] == 'reject')
-                                <button class="btn btn-sm btn-light-primary btn-square mr-1"
+                                <button class="btn btn-sm btn-primary btn-square mr-1"
                                         data-annual-plan-main-id="{{$plan_list['id']}}"
                                         data-activity-type="{{$plan_list['activity_type']}}"
                                         data-fiscal-year-id="{{$fiscal_year_id}}"
@@ -22,12 +22,12 @@
                                     data-annual-plan-main-id="{{$plan_list['id']}}"
                                     data-activity-type="{{$plan_list['activity_type']}}"
                                     onclick="Annual_Plan_Container.printAnnualPlan($(this))"
-                                    class="btn btn-sm btn-light-primary btn-square mr-1">
+                                    class="btn btn-sm btn-primary btn-square mr-1">
                                 <i class="fad fa-file-download"></i>
                                 ডাউনলোড
                             </button>
 
-                            <button class="btn btn-sm btn-light-info btn-square mr-1"
+                            <button class="btn btn-sm btn-info btn-square mr-1"
                                     data-annual-plan-main-id="{{$plan_list['id']}}"
                                     data-fiscal-year-id="{{$fiscal_year_id}}"
                                     data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
@@ -48,7 +48,7 @@
                                    data-annual-plan-main-id="{{isset($plan_list['id']) ? $plan_list['id'] : 0}}"
                                    data-fiscal-year-id="{{$fiscal_year_id}}"
                                    data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                                   class="btn btn-sm btn-light-info btn-square mr-1"
+                                   class="btn btn-sm btn-info btn-square mr-1"
                                    href="javascript:;">
                                     <i class="fas fa-plus-circle mr-1"></i>
                                     @if(session('dashboard_audit_type') != 'Performance Audit')
