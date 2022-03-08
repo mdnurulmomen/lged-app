@@ -1,27 +1,24 @@
-<table class="table table-striped">
+<table class="table table-bordered" width="100%">
     <thead class="thead-light">
-    <tr class="datatable-row" style="left: 0px; ">
-        <th class="datatable-cell datatable-cell-sort text-center">
+    <tr>
+        <th>
             Start Year
         </th>
-        <th class="datatable-cell datatable-cell-sort text-center">
+        <th>
             End Year
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
-            <i class="fas fa-edit"></i></th>
-
-        <th class="datatable-cell datatable-cell-sort text-center">
-            <i class="fas fa-trash-alt"></i>
+        <th>
+            Action
         </th>
     </tr>
     </thead>
-    <tbody style="" class="datatable-body">
+    <tbody>
     @forelse($fiscal_years as $fiscal_year)
-        <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
-            <td class="datatable-cell text-center"><span>{{$fiscal_year['start']}}</span></td>
-            <td class="datatable-cell text-center"><span>{{$fiscal_year['end']}}</span></td>
-            <td class="datatable-cell text-center">
+        <tr data-row="{{$loop->iteration}}">
+            <td><span>{{$fiscal_year['start']}}</span></td>
+            <td><span>{{$fiscal_year['end']}}</span></td>
+            <td>
                 <a href="javascript:;"
                    data-fiscal-year-id="{{$fiscal_year['id']}}"
                    data-fiscal-year-duration="{{$fiscal_year['duration_id']}}"
@@ -33,8 +30,6 @@
                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_fiscal_year">
                     <i class="fas fa-edit"></i>
                 </a>
-            </td>
-            <td class="datatable-cell text-center">
                 <a href="javascript:;"
                    data-fiscal-year-id="{{$fiscal_year['id']}}"
                    data-url="{{route('settings.fiscal-years.destroy', ['fiscal_year' => $fiscal_year['id']])}}"
@@ -67,6 +62,18 @@
 
     $('.delete_fiscal_year').click(function () {
         url = $(this).data('url');
-        submitModalData(url, {}, 'delete', 'fiscal_year_modal');
+        swal.fire({
+            title: 'আপনি কি তথ্যটি মুছে ফেলতে চান?',
+            text: "",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'হ্যাঁ',
+            cancelButtonText: 'না'
+        }).then(function(result) {
+            if (result.value) {
+                submitModalData(url, {}, 'delete', 'fiscal_year_modal');
+                loadData();
+            }
+        });
     });
 </script>

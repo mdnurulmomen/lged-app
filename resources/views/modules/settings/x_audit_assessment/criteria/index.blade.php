@@ -1,7 +1,6 @@
 <x-title-wrapper>Criteria List</x-title-wrapper>
-
-<div class="col-md-12">
-    <div class="d-flex justify-content-end">
+<div class="card sna-card-border d-flex flex-wrap flex-row">
+    <div class="col-xl-12 text-right">
         <a class="btn btn-primary btn-sm btn-bold btn-square"
            href="javascript:;" onclick="Criteria_Container.create()">
             <i class="far fa-plus mr-1"></i> Add Criteria
@@ -9,7 +8,9 @@
     </div>
 </div>
 
-<div class="px-3" id="load_criteria_list"></div>
+<div class="card sna-card-border mt-2">
+    <div class="px-3" id="load_criteria_list"></div>
+</div>
 
 <script>
     var Criteria_Container = {

@@ -1,34 +1,32 @@
-<table class="table table-striped">
+<table class="table table-bordered" width="100%">
     <thead class="thead-light">
-    <tr class="datatable-row" style="left: 0px; ">
-        <th class="datatable-cell datatable-cell-sort text-center">
+    <tr>
+        <th width="15%">
             Risk Assessment Type
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
+        <th width="15%">
             Company Type
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
+        <th width="30%">
             Risk Assessment  Title Bn
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
+        <th width="30%">
             Risk Assessment  Title En
         </th>
 
-        <th class="datatable-cell datatable-cell-sort text-center">
-            <i class="fas fa-edit"></i></th>
-
-        <th class="datatable-cell datatable-cell-sort text-center">
-            <i class="fas fa-trash-alt"></i>
+        <th width="15%">
+            Action
         </th>
+
     </tr>
     </thead>
-    <tbody style="" class="datatable-body">
+    <tbody>
     @forelse($risk_assessment_list as $risk_assessment)
-        <tr id="row_{{$risk_assessment['id']}}" data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
-            <td class="datatable-cell text-left"><span>
+        <tr id="row_{{$risk_assessment['id']}}" data-row="{{$loop->iteration}}">
+            <td><span>
                     @if($risk_assessment['risk_assessment_type'] == 'inherent')
                         Inherent Risk
                     @elseif($risk_assessment['risk_assessment_type'] == 'control')
@@ -38,7 +36,7 @@
                     @endif
                 </span>
             </td>
-            <td class="datatable-cell text-left">
+            <td>
                 <span>
                     @if($risk_assessment['company_type'] == 'non_company')
                         For Non Companies
@@ -50,9 +48,9 @@
                     @endif
                 </span>
             </td>
-            <td class="datatable-cell text-left"><span>{{$risk_assessment['risk_assessment_title_en']}}</span></td>
-            <td class="datatable-cell text-left"><span>{{$risk_assessment['risk_assessment_title_bn']}}</span></td>
-            <td class="datatable-cell text-center">
+            <td><span>{{$risk_assessment['risk_assessment_title_en']}}</span></td>
+            <td><span>{{$risk_assessment['risk_assessment_title_bn']}}</span></td>
+            <td>
                 <a href="javascript:;"
                    data-risk-assessment-id="{{$risk_assessment['id']}}"
                    data-risk-assessment-type="{{$risk_assessment['risk_assessment_type']}}"
@@ -62,8 +60,6 @@
                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_risk_assessment">
                     <i class="fas fa-edit"></i>
                 </a>
-            </td>
-            <td class="datatable-cell text-center">
                 <a href="javascript:;"
                    data-risk-assessment-id="{{$risk_assessment['id']}}"
                    data-url="{{route('settings.risk-assessment.destroy', ['risk_assessment' => $risk_assessment['id']])}}"

@@ -63,12 +63,10 @@
                 </select>
             </div>
 
-            <div class="col-md-1">
-                <div class="mt-8 action-group d-flex justify-content-end position-absolute action-group-wrapper">
-                    <button id="btn_filter" class="btn btn-sm btn-outline-primary btn-square" type="button">
+            <div class="col-md-2">F
+                    <button id="btn_filter" class="btn btn-sm btn-outline-primary btn-square mt-8" type="button">
                         <i class="fad fa-search"></i> অনুসন্ধান
                     </button>
-                </div>
             </div>
         </div>
     </div>

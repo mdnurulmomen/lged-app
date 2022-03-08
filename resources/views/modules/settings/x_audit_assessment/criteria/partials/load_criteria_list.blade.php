@@ -1,6 +1,5 @@
 <!--begin::Table-->
-<div class="table-responsive">
-    <table class="table table-striped" width="100%">
+<table class="table table-bordered" width="100%">
         <thead class="thead-light">
         <tr>
             <th width="20%" class="text-left">Category</th>
@@ -29,6 +28,5 @@
         @endforeach
         </tbody>
     </table>
-</div>
 <!--end::Table-->
 

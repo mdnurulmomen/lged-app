@@ -1,39 +1,36 @@
-<table class="table table-striped">
+<table class="table table-bordered" width="100%">
     <thead class="thead-light">
-    <tr class="datatable-row" style="left: 0px;">
-        <th class="datatable-cell datatable-cell-sort">
+    <tr class="bg-hover-warning">
+        <th>
             Duration
         </th>
-        <th class="datatable-cell datatable-cell-sort">
+        <th>
             Outcome No
         </th>
 
-        <th class="datatable-cell datatable-cell-sort">
+        <th>
             Title English
         </th>
 
-        <th class="datatable-cell datatable-cell-sort">
+        <th>
             Title Bangla
         </th>
 
-        <th class="datatable-cell datatable-cell-sort">
-            <i class="fas fa-edit"></i></th>
-
-        <th class="datatable-cell datatable-cell-sort">
-            <i class="fas fa-trash-alt"></i>
+        <th>
+            Action
         </th>
     </tr>
     </thead>
-    <tbody style="" class="datatable-body">
+    <tbody>
     @forelse($plan_outcomes as $plan_outcome)
-        <tr data-row="{{$loop->iteration}}" class="datatable-row">
-            <td class="datatable-cell">
+        <tr data-row="{{$loop->iteration}}">
+            <td>
                 <span>{{$plan_outcome['plan_duration']['start_year']}} - {{$plan_outcome['plan_duration']['end_year']}}</span>
             </td>
-            <td class="datatable-cell"><span>{{$plan_outcome['outcome_no']}}</span></td>
-            <td class="datatable-cell"><span>{{$plan_outcome['outcome_title_en']}}</span></td>
-            <td class="datatable-cell"><span>{{$plan_outcome['outcome_title_bn']}}</span></td>
-            <td class="datatable-cell text-center">
+            <td><span>{{$plan_outcome['outcome_no']}}</span></td>
+            <td><span>{{$plan_outcome['outcome_title_en']}}</span></td>
+            <td><span>{{$plan_outcome['outcome_title_bn']}}</span></td>
+            <td>
                 <a href="javascript:;"
                    data-id="{{$plan_outcome['id']}}"
                    data-duration-id="{{$plan_outcome['duration_id']}}"
@@ -46,8 +43,6 @@
                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_plan_outcome">
                     <i class="fas fa-edit"></i>
                 </a>
-            </td>
-            <td class="datatable-cell text-center">
                 <a href="javascript:;"
                    data-url="{{route('settings.strategic-plan.outcome.destroy', ['outcome' => $plan_outcome['id']])}}"
                    class="btn btn-icon btn-outline-danger btn-xs border-0 mr-2 delete_plan_outcome">
