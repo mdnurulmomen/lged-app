@@ -1,11 +1,8 @@
 <x-title-wrapper>Operational Plans</x-title-wrapper>
-<div class="mt-4 px-4">
+<div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <form>
         <div class="form-row">
-            <div class="col-md-2 d-md-flex align-items-md-center">
-                <p class="mb-0">Fiscal Year</p>
-            </div>
-            <div class="col-md-4 ">
+            <div class="col-md-3">
                 <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year">
                     <option value="">Choose Fiscal Year</option>
                     @foreach($fiscal_years as $fiscal_year)
@@ -15,7 +12,7 @@
                 </select>
             </div>
 
-            <div class="col-md-6 text-right">
+            <div class="offset-6 col-md-3 text-right">
                 <div class="btn-group mr-2">
                     <a tabindex="0" href="javascript:;" role="button"
                        onclick="summeryView()"
@@ -28,11 +25,9 @@
             </div>
         </div>
     </form>
-
-    <div class="px-3" id="load_operational_plan_lists">
-
-    </div>
 </div>
+
+<div id="load_operational_plan_lists"></div>
 <script>
 
     $(function (){

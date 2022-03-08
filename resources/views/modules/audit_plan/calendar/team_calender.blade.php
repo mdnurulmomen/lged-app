@@ -44,7 +44,7 @@
             <i class="fa fa-search mr-2"></i> Search
         </button>
     </div>
-    <div class="w-25  "></div>
+    <div class="w-25 "></div>
 
 
 </div>
@@ -186,7 +186,7 @@
             quick_panel = $("#kt_quick_panel");
             quick_panel.addClass('offcanvas-on');
             quick_panel.css('opacity', 1);
-            quick_panel.css('width', '1200px');
+            quick_panel.css('width', '50%');
             $('.offcanvas-footer').hide();
             quick_panel.removeClass('d-none');
             $("html").addClass("side-panel-overlay");

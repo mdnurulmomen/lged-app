@@ -1,9 +1,9 @@
-<x-title-wrapper-return area="#kt_content" title="Back To Lists"
+<x-title-wrapper area="#kt_content" title="Back To Lists"
                         url="{{route('audit.plan.operational.activity.all')}}">
     View Annual Audit Activities
-</x-title-wrapper-return>
+</x-title-wrapper>
 
-
+<div class="card sna-card-border mt-3" style="margin-bottom:30px;">
 <ul id="tree2" class="tree mt-4">
     <li>
         <div class="d-flex align-item-center">
@@ -82,7 +82,7 @@
         </ul>
     </li>
 </ul>
-<div id="show_activity_milestone_area">
-
 </div>
+
+<div id="show_activity_milestone_area"></div>
 @include('scripts.script_audit_plan_operational_activity')

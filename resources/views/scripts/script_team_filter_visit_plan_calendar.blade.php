@@ -225,12 +225,12 @@
 
                         html += '</br>';
 
-                        html += `<table class="table table-bordered" id='table'>
+                        html += `<table width='100%' class="table table-bordered" id='table'>
                                 <tr>
-                                    <th>শাখার নাম</th>
-                                    <th>নিরীক্ষা বছর</th>
-                                    <th>নিরীক্ষা সময়কাল</th>
-                                    <th>মোট কর্ম দিবস</th>
+                                    <th width='30%'>শাখার নাম</th>
+                                    <th width='25%'>নিরীক্ষা বছর</th>
+                                    <th width='35%'>নিরীক্ষা সময়কাল</th>
+                                    <th width='10%'>মোট কর্ম দিবস</th>
                                 </tr>`;
 
                         $.each(team_schedules, function (key, data) {
@@ -240,7 +240,7 @@
 
                                 html += '<td>' + enTobn(event.event.extendedProps.audit_start_end_year) + '</td>';
 
-                                html += '<td>' + enTobn(DmyFormat(data.team_member_start_date, '/')) + '-<br>' + enTobn(DmyFormat(data.team_member_end_date, '/')) + '</td>';
+                                html += '<td>' + enTobn(DmyFormat(data.team_member_start_date, '/')) + ' থেকে ' + enTobn(DmyFormat(data.team_member_end_date, '/')) + '</td>';
 
                                 html += '<td>' + enTobn(data.activity_man_days) + '</td>';
 
@@ -257,7 +257,7 @@
                         quick_panel = $("#kt_quick_panel");
                         quick_panel.addClass('offcanvas-on');
                         quick_panel.css('opacity', 1);
-                        quick_panel.css('width', '500px');
+                        quick_panel.css('width', '50%');
                         $('.offcanvas-footer').hide();
                         quick_panel.removeClass('d-none');
                         $("html").addClass("side-panel-overlay");

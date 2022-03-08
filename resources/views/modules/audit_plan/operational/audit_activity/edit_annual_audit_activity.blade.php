@@ -1,61 +1,54 @@
-<x-title-wrapper-return area="#kt_content" title="Back To Lists"
+<x-title-wrapper area="#kt_content" title="Back To Lists"
                         url="{{route('audit.plan.operational.activity.all')}}">
     Edit Annual Audit Activities
-</x-title-wrapper-return>
-<div class="mt-4 px-4">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card card-custom gutter-b">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label for="select_strategic_outcome" class="col-form-label">Strategic Outcome
-                                    :</label>
-                                <select class="form-control rounded-0 select-select2" id="select_strategic_outcome"
-                                        name="strategic_outcome">
-                                    <option value="">Choose Outcome</option>
-                                    @foreach($strategic_outcomes as $strategic_outcome)
-                                        <option
-                                            value="{{$strategic_outcome['id']}}">{{$strategic_outcome['outcome_no']}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="mt-3">
-                                    <p id="outcome_remarks_area"></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-5" id="strategic_output_area">
-                            <div class="form-group" id="strategic_output_area">
-                                <label for="select_strategic_output" class="col-form-label">Strategic Output</label>
-                                <select name="strategic_output" id="select_strategic_output"
-                                        class="form-control rounded-0 select-select2">
-                                    <option value="">Select Output</option>
-                                </select>
-                            </div>
-                            <div class="mt-3">
-                                <p id="output_remarks_area" class="d-none"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-2 mt-md-12">
-                            <button class="btn btn-icon btn-light-success btn-square mr-2 search_activities"
-                                    data-fiscal-year-id="{{$fiscal_year_id}}"
-                                    onclick="Audit_Activities_Container.editAnnualActivityAreaData($(this))"
-                                    type="button"><i class="fad fa-search"></i></button>
-                            <button class="btn btn-icon btn-light-danger btn-square mr-2 reset_strategic_area"
-                                    onclick="Audit_Activities_Container.resetStrategicSearchFields()"
-                                    type="reset"><i class="fad fa-recycle"></i></button>
-                        </div>
-                    </div>
-                    <div class="row" id="">
-                        <div class="col-md-12">
-                            <hr>
-                            <div class="edit_activity_area">
+</x-title-wrapper>
 
-                            </div>
-                        </div>
-                    </div>
+<div class="card sna-card-border mt-3" style="margin-bottom:30px;">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="select_strategic_outcome" class="col-form-label">Strategic Outcome
+                    :</label>
+                <select class="form-control rounded-0 select-select2" id="select_strategic_outcome"
+                        name="strategic_outcome">
+                    <option value="">Choose Outcome</option>
+                    @foreach($strategic_outcomes as $strategic_outcome)
+                        <option
+                            value="{{$strategic_outcome['id']}}">{{$strategic_outcome['outcome_no']}}</option>
+                    @endforeach
+                </select>
+                <div class="mt-3">
+                    <p id="outcome_remarks_area"></p>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-5" id="strategic_output_area">
+            <div class="form-group" id="strategic_output_area">
+                <label for="select_strategic_output" class="col-form-label">Strategic Output</label>
+                <select name="strategic_output" id="select_strategic_output"
+                        class="form-control rounded-0 select-select2">
+                    <option value="">Select Output</option>
+                </select>
+            </div>
+            <div class="mt-3">
+                <p id="output_remarks_area" class="d-none"></p>
+            </div>
+        </div>
+        <div class="col-md-2 mt-md-12">
+            <button class="btn btn-icon btn-light-success btn-square mr-2 search_activities"
+                    data-fiscal-year-id="{{$fiscal_year_id}}"
+                    onclick="Audit_Activities_Container.editAnnualActivityAreaData($(this))"
+                    type="button"><i class="fad fa-search"></i></button>
+            <button class="btn btn-icon btn-light-danger btn-square mr-2 reset_strategic_area"
+                    onclick="Audit_Activities_Container.resetStrategicSearchFields()"
+                    type="reset"><i class="fad fa-recycle"></i></button>
+        </div>
+    </div>
+    <div class="row" id="">
+        <div class="col-md-12">
+            <hr>
+            <div class="edit_activity_area">
+
             </div>
         </div>
     </div>

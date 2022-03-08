@@ -1,50 +1,44 @@
 <x-title-wrapper>Please upload the copy of Final Strategic Plan</x-title-wrapper>
-<div class="col-lg-12">
-    <!--begin::Advance Table Widget 4-->
-    <div class="card card-custom card-stretch gutter-b">
-        <!--begin::Body-->
-        <div class="card-body">
-            <form id="sp_file_form" enctype="multipart/form-data">
-                <input type="hidden" id="opDocumentId" name="id">
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="col-form-label">
-                                Plan For <span class="text-danger">(*)</span>
-                            </label>
-                            <select class="form-control" name="fiscal_year" id="fiscal_year">
-                                <option value="">--{{___('generic.select')}}--</option>
-                                @foreach($plan_durations as $plan_duration)
-                                    <option value="{{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}">
-                                        {{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+<div class="card sna-card-border mt-3" style="margin-bottom:30px;">
+    <form id="sp_file_form" enctype="multipart/form-data">
+        <input type="hidden" id="opDocumentId" name="id">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-form-label">
+                        Plan For <span class="text-danger">(*)</span>
+                    </label>
+                    <select class="form-control" name="fiscal_year" id="fiscal_year">
+                        <option value="">--{{___('generic.select')}}--</option>
+                        @foreach($plan_durations as $plan_duration)
+                            <option value="{{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}">
+                                {{'FY '.$plan_duration['start_year'].' - '.'FY '.$plan_duration['end_year']}}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
-                <div style="display: none" id="opFileName" class="mt-3"></div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="col-form-label">
-                                Please select the file <span class="text-danger">(*)</span>
-                            </label>
-                            <input name="file" type="file" class="form-control rounded-0"
-                                   accept="application/pdf" />
-                        </div>
-                    </div>
-                </div>
-                <a id="submit_form" class="btn btn-success btn-sm btn-bold btn-square">
-                    <i class="fal fa-save"></i> Upload
-                </a>
-            </form>
+            </div>
         </div>
-        <!--end::Body-->
-    </div>
-    <!--end::Advance Table Widget 4-->
+        <div style="display: none" id="opFileName" class="mt-3"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-form-label">
+                        Please select the file <span class="text-danger">(*)</span>
+                    </label>
+                    <input name="file" type="file" class="form-control rounded-0"
+                           accept="application/pdf" />
+                </div>
+            </div>
+        </div>
+        <a id="submit_form" class="btn btn-success btn-sm btn-bold btn-square">
+            <i class="fal fa-save"></i> Upload
+        </a>
+    </form>
 </div>
+
 <script type="text/javascript">
 
     //for exist check

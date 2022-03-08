@@ -17,9 +17,7 @@
     </div>
 </div>
 
-<div class="card sna-card-border mt-2">
-    <div id="load_annual_plan_lists"></div>
-</div>
+<div id="load_annual_plan_lists"></div>
 
 
 @include('scripts.script_generic')

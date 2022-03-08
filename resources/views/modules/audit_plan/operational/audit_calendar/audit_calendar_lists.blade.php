@@ -1,171 +1,160 @@
 <x-title-wrapper>Annual Audit Calender</x-title-wrapper>
-<div class="col-lg-12">
-    <!--begin::Advance Table Widget 4-->
-    <div class="card card-custom card-stretch gutter-b">
-        <!--begin::Header-->
-        <div class="card-header border-0 py-5">
-            <h3 class="card-title align-items-start flex-column">
-                <span class="card-label font-weight-bolder text-dark"></span>
-            </h3>
-            <div class="card-toolbar">
-                <a href="javascript:;"
-                   onclick="OP_Audit_Calendar_Container.createAnnualCalendar($(this))"
-                   class="font-weight-bolder font-size-sm mr-3 btn btn-success btn-sm btn-bold btn-square btn_create_audit_activity"
-                   data-url="{{route('audit.plan.operational.calendars.create')}}">
-                    <i class="far fa-plus mr-1"></i> Create Annual Audit Calendar
-                </a>
-            </div>
-        </div>
-        <!--end::Header-->
-        <!--begin::Body-->
-        <div class="card-body pt-0 pb-3">
-            <!--begin::Table-->
-            <div class="table-responsive datatable datatable-default datatable-bordered datatable-loaded">
+<div class="card sna-card-border mt-3" style="margin-bottom:15px;">
+    <div class="d-flex justify-content-end">
+        <a href="javascript:;"
+           onclick="OP_Audit_Calendar_Container.createAnnualCalendar($(this))"
+           class="font-weight-bolder font-size-sm mr-3 btn btn-success btn-sm btn-bold btn-square btn_create_audit_activity"
+           data-url="{{route('audit.plan.operational.calendars.create')}}">
+            <i class="far fa-plus mr-1"></i> Create Annual Audit Calendar
+        </a>
+    </div>
+</div>
 
-                <table class="table" id="kt_datatable" style="display: block;">
+<div class="card sna-card-border mt-3" style="margin-bottom:30px;">
+    <div class="table-responsive datatable datatable-default datatable-bordered datatable-loaded">
 
-                    <thead class="datatable-head">
-                    <tr class="datatable-row" style="left: 0px;">
-                        <th class="datatable-cell datatable-cell-sort" style="width: 10%">
-                            Fiscal Year
-                        </th>
+        <table class="table" id="kt_datatable" style="display: block;">
 
-                        <th class="datatable-cell datatable-cell-sort" style="width: 25%">
-                            Initiator
-                        </th>
+            <thead class="datatable-head">
+            <tr class="datatable-row" style="left: 0px;">
+                <th class="datatable-cell datatable-cell-sort" style="width: 10%">
+                    Fiscal Year
+                </th>
 
-                        <th class="datatable-cell datatable-cell-sort" style="width: 25%">
-                            Current Desk
-                        </th>
+                <th class="datatable-cell datatable-cell-sort" style="width: 25%">
+                    Initiator
+                </th>
 
-                        <th class="datatable-cell datatable-cell-sort" style="width: 10%">
-                            Status
-                        </th>
+                <th class="datatable-cell datatable-cell-sort" style="width: 25%">
+                    Current Desk
+                </th>
 
-                        <th class="datatable-cell datatable-cell-sort" colspan="5" style="width: 30%">
-                            Action
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody style="" class="">
-                    @foreach($yearly_calendars as $yearly_calendar)
-                        <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
-                            <td class="datatable-cell" style="width: 10%">
-                                <span>{{$yearly_calendar['fiscal_year']}}</span>
-                            </td>
-                            <td class="datatable-cell" style="width: 25%">
-                                <span>{{$yearly_calendar['initiator_name_en']}}</span>
-                                <span><small>{{$yearly_calendar['initiator_unit_name_en']}}</small></span>
-                            </td>
-                            <td class="datatable-cell" style="width: 25%">
-                                <span>{{$yearly_calendar['initiator_name_en']}}</span>
-                                <span><small>{{$yearly_calendar['initiator_unit_name_en']}}</small></span>
-                            </td>
-                            <td class="datatable-cell" style=" width: 10% ">
-                                <span>{{ucfirst($yearly_calendar['status'])}}</span>
-                            </td>
-                            @php
-                                $viewer = [];
-                                $editor = [];
-                                $approver = [];
-                                foreach ($yearly_calendar['viewers'] as $value) {
-                                    $viewer[] = $value['employee_id'];
-                                }
-                                foreach ($yearly_calendar['editors'] as $value) {
-                                    $editor[] = $value['employee_id'];
-                                }
-                                foreach ($yearly_calendar['approvers'] as $value) {
-                                    $approver[] = $value['employee_id'];
-                                }
-                            @endphp
+                <th class="datatable-cell datatable-cell-sort" style="width: 10%">
+                    Status
+                </th>
 
-{{--                            @if (in_array(@$emp['id'], $viewer) || in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor))--}}
-                                <td class="datatable-cell" style="width: 5%">
-                                    <a href="javascript:;"
-                                       data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
-                                       data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
-                                       data-url="{{route('audit.plan.operational.calendars.show')}}"
-                                       class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_operational_calendar">
-                                        <i class="fad fa-eye"></i>
-                                    </a>
-                                </td>
-{{--                            @endif--}}
+                <th class="datatable-cell datatable-cell-sort" colspan="5" style="width: 30%">
+                    Action
+                </th>
+            </tr>
+            </thead>
+            <tbody style="" class="">
+            @foreach($yearly_calendars as $yearly_calendar)
+                <tr data-row="{{$loop->iteration}}" class="datatable-row" style="left: 0px;">
+                    <td class="datatable-cell" style="width: 10%">
+                        <span>{{$yearly_calendar['fiscal_year']}}</span>
+                    </td>
+                    <td class="datatable-cell" style="width: 25%">
+                        <span>{{$yearly_calendar['initiator_name_en']}}</span>
+                        <span><small>{{$yearly_calendar['initiator_unit_name_en']}}</small></span>
+                    </td>
+                    <td class="datatable-cell" style="width: 25%">
+                        <span>{{$yearly_calendar['initiator_name_en']}}</span>
+                        <span><small>{{$yearly_calendar['initiator_unit_name_en']}}</small></span>
+                    </td>
+                    <td class="datatable-cell" style=" width: 10% ">
+                        <span>{{ucfirst($yearly_calendar['status'])}}</span>
+                    </td>
+                    @php
+                        $viewer = [];
+                        $editor = [];
+                        $approver = [];
+                        foreach ($yearly_calendar['viewers'] as $value) {
+                            $viewer[] = $value['employee_id'];
+                        }
+                        foreach ($yearly_calendar['editors'] as $value) {
+                            $editor[] = $value['employee_id'];
+                        }
+                        foreach ($yearly_calendar['approvers'] as $value) {
+                            $approver[] = $value['employee_id'];
+                        }
+                    @endphp
 
-{{--                            @if ($yearly_calendar['status'] == 'draft' && (in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor)))--}}
-                                <td class="datatable-cell" style="width: 5%">
-                                    <a href="javascript:;"
-                                       data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
-                                       data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
-                                       data-url="{{route('audit.plan.operational.calendars.edit')}}"
-                                       class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_operational_calendar">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                </td>
-{{--                            @endif--}}
+                    {{--                            @if (in_array(@$emp['id'], $viewer) || in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor))--}}
+                    <td class="datatable-cell" style="width: 5%">
+                        <a href="javascript:;"
+                           data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
+                           data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
+                           data-url="{{route('audit.plan.operational.calendars.show')}}"
+                           class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_view_operational_calendar">
+                            <i class="fad fa-eye"></i>
+                        </a>
+                    </td>
+                    {{--                            @endif--}}
 
-                            @if (in_array(@$emp['id'], $approver) && $yearly_calendar['status'] == 'draft')
-                                <td class="datatable-cell" style="width: 5%">
-                                    <button
-                                        data-calendar-id="{{$yearly_calendar['id']}}"
-                                        class="btn_audit_calendar_approve btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                        type="button">
-                                        <i class="fad fa-check" data-toggle="popover" data-content="Approve"></i>
-                                    </button>
-                                </td>
-                            @endif
+                    {{--                            @if ($yearly_calendar['status'] == 'draft' && (in_array(@$emp['id'], $approver) || in_array(@$emp['id'], $editor)))--}}
+                    <td class="datatable-cell" style="width: 5%">
+                        <a href="javascript:;"
+                           data-fiscal-year-id="{{$yearly_calendar['fiscal_year_id']}}"
+                           data-yearly-audit-calendar-id="{{$yearly_calendar['id']}}"
+                           data-url="{{route('audit.plan.operational.calendars.edit')}}"
+                           class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_operational_calendar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                    {{--                            @endif--}}
 
-                            @if (in_array(@$emp['id'], $approver) && $yearly_calendar['status'] == 'approved')
-                                <td class="datatable-cell" style="width: 5%">
-                                    <button
-                                        title="disapprove"
-                                        data-calendar-id="{{$yearly_calendar['id']}}"
-                                        class="btn_audit_calendar_disapprove btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                        type="button">
-                                        <i class="fad fa-times" data-toggle="popover" data-content="Disapprove"></i>
-                                    </button>
-                                </td>
-                            @endif
+                    @if (in_array(@$emp['id'], $approver) && $yearly_calendar['status'] == 'draft')
+                        <td class="datatable-cell" style="width: 5%">
+                            <button
+                                data-calendar-id="{{$yearly_calendar['id']}}"
+                                class="btn_audit_calendar_approve btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                type="button">
+                                <i class="fad fa-check" data-toggle="popover" data-content="Approve"></i>
+                            </button>
+                        </td>
+                    @endif
 
-                            @if ($yearly_calendar['status'] == 'approved')
-                                <td class="datatable-cell" style="width: 5%">
-                                    <button
-                                        title="Publish"
-                                        data-calendar-id="{{$yearly_calendar['id']}}"
-                                        class="btn_audit_calendar_publish btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                        type="button">
-                                        <i class="fad fa-paper-plane" data-toggle="popover" data-content="Publish"></i>
-                                    </button>
-                                </td>
-                            @endif
+                    @if (in_array(@$emp['id'], $approver) && $yearly_calendar['status'] == 'approved')
+                        <td class="datatable-cell" style="width: 5%">
+                            <button
+                                title="disapprove"
+                                data-calendar-id="{{$yearly_calendar['id']}}"
+                                class="btn_audit_calendar_disapprove btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                type="button">
+                                <i class="fad fa-times" data-toggle="popover" data-content="Disapprove"></i>
+                            </button>
+                        </td>
+                    @endif
 
-                            @if((count($approver) > 0 ) || (count($editor) > 0) || (count($viewer) > 0))
-                                <td class="datatable-cell" style="width: 5%">
-                                    <button
-                                        title="Movement history"
-                                        data-calendar-id="{{$yearly_calendar['id']}}"
-                                        class="btn_audit_calendar_movement btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                        type="button">
-                                        <i class="fad fa-history" data-toggle="popover"
-                                           data-content="Movement history"></i>
-                                    </button>
-                                </td>
-                            @endif
-                            <td class="datatable-cell" style="width: 5%">
-                                <button
-                                    title="Forward"
-                                    data-calendar-id="{{$yearly_calendar['id']}}"
-                                    class="btn_audit_calendar_forward btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                    type="button">
-                                    <i class="fad fa-share" data-toggle="popover" data-content="Forward"></i>
-                                </button>
-                            </td>
+                    @if ($yearly_calendar['status'] == 'approved')
+                        <td class="datatable-cell" style="width: 5%">
+                            <button
+                                title="Publish"
+                                data-calendar-id="{{$yearly_calendar['id']}}"
+                                class="btn_audit_calendar_publish btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                type="button">
+                                <i class="fad fa-paper-plane" data-toggle="popover" data-content="Publish"></i>
+                            </button>
+                        </td>
+                    @endif
 
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                    @if((count($approver) > 0 ) || (count($editor) > 0) || (count($viewer) > 0))
+                        <td class="datatable-cell" style="width: 5%">
+                            <button
+                                title="Movement history"
+                                data-calendar-id="{{$yearly_calendar['id']}}"
+                                class="btn_audit_calendar_movement btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                type="button">
+                                <i class="fad fa-history" data-toggle="popover"
+                                   data-content="Movement history"></i>
+                            </button>
+                        </td>
+                    @endif
+                    <td class="datatable-cell" style="width: 5%">
+                        <button
+                            title="Forward"
+                            data-calendar-id="{{$yearly_calendar['id']}}"
+                            class="btn_audit_calendar_forward btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                            type="button">
+                            <i class="fad fa-share" data-toggle="popover" data-content="Forward"></i>
+                        </button>
+                    </td>
+
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
 
