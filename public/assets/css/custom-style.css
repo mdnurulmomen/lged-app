@@ -5,9 +5,16 @@
     font-style: normal
 }
 
+@font-face {
+    font-family: 'Nikosh';
+    src: url('../font/Nikosh.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal
+}
+
 body,
 .popover {
-    font-family: Poppins, SolaimanLipi, sans-serif;
+    font-family: Poppins, Nikosh, sans-serif;
     color: #000;
 }
 
@@ -547,6 +554,12 @@ ul.sna-breadcrumb li a:hover {
 }
 .btn.btn-create:hover{
     color: #FFFFFF;
+}
+
+.btn.btn-edit{
+    color: #ffffff;
+    background-color: #de8f00;
+    border-color: #de8f00;
 }
 
 .btn.btn-details{

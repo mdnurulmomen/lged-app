@@ -1,25 +1,24 @@
 <x-title-wrapper>অফিস আদেশ</x-title-wrapper>
-<div class="card sna-card-border d-flex flex-wrap flex-row">
-    <div class="w-25 pr-2 pb-2">
-        <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
-            <option value="">--সিলেক্ট--</option>
-            @foreach($fiscal_years as $fiscal_year)
-                <option
-                    value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
-            @endforeach
-        </select>
-    </div>
-
-    <div class="w-25 pr-2 pb-2">
-        <select class="form-control select-select2" id="activity_id">
-            <option value="">--সিলেক্ট--</option>
-        </select>
+<div class="card sna-card-border mt-3" style="margin-bottom:15px;">
+    <div class="row">
+        <div class="col-md-3">
+            <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
+                <option value="">--সিলেক্ট--</option>
+                @foreach($fiscal_years as $fiscal_year)
+                    <option
+                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control select-select2" id="activity_id">
+                <option value="">--সিলেক্ট--</option>
+            </select>
+        </div>
     </div>
 </div>
 
-<div class="card sna-card-border mt-2">
-    <div class="load-office-orders"></div>
-</div>
+<div class="load-office-orders"></div>
 
 <script>
     $(function () {

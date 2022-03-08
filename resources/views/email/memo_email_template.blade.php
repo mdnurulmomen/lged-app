@@ -10,11 +10,11 @@
 
         body {
             margin: 0;
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         .bangla-font {
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         article,
@@ -765,7 +765,7 @@
 </head>
 
 <body>
-<div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
+<div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
 {{--        <x-office-header-details/>--}}
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">

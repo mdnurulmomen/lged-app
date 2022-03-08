@@ -8,27 +8,27 @@
             শিরোনামঃ {{$apottiStatus['apotti']['apotti_title']}}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 10px">
             <span style="font-weight: bold">বিবরণঃ</span>
             {!! $apottiStatus['apotti']['apotti_description'] !!}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
             <span style="font-weight: bold">অনিয়মের কারণঃ</span>
             {{$apottiStatus['apotti']['irregularity_cause']}}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
             <span style="font-weight: bold">অডিটি প্রতিষ্ঠানের জবাবঃ</span>
             {{$apottiStatus['apotti']['response_of_rpu']}}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
             <span style="font-weight: bold">নিরীক্ষা মন্তব্যঃ</span>
             {{$apottiStatus['apotti']['audit_conclusion']}}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
             <span style="font-weight: bold">নিরীক্ষার সুপারিশঃ</span>
             {{$apottiStatus['apotti']['audit_recommendation']}}
         </div>

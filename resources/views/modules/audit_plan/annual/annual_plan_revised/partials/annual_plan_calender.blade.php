@@ -1,6 +1,6 @@
 <x-title-wrapper>Annual Plan Calender</x-title-wrapper>
 
-<div class="card sna-card-border" style="margin-bottom:30px;">
+<div class="card sna-card-border" style="margin-bottom:15px;">
     <form>
         <div class="form-row">
             <div class="col-md-4 ">
@@ -16,9 +16,7 @@
     </form>
 </div>
 
-<div class="card sna-card-border" style="margin-bottom:30px;">
-    <div id="load_annual_plan_lists"></div>
-</div>
+<div id="load_annual_plan_lists"></div>
 
 @include('scripts.script_generic')
 <script>

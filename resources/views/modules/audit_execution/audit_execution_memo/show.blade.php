@@ -9,7 +9,7 @@
 </div>
 
 <div class="bangla-font" style="height: 100%">
-    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;color: black">
+    <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;color: black">
         মহাপরিচালকের কার্যালয়<br>
         {{$directorateName}} <br>
         {!! $directorateAddress !!}<br>
@@ -26,18 +26,18 @@
         </table>
     @endif
 
-    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;">
+    <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;">
         <u>অডিট মেমো</u>
     </div>
 
-    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">অডিট মেমো নং-{{enTobn($memoInfo['onucched_no'])}}</div>
+    <div class="bangla-font" style="font-family:Nikosh,serif !important;font-weight: bold">অডিট মেমো নং-{{enTobn($memoInfo['onucched_no'])}}</div>
     <br>
-    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">
+    <div class="bangla-font" style="font-family:Nikosh,serif !important;font-weight: bold">
         <p style="font-weight: bold">শিরোনামঃ </p>
         {{$memoInfo['memo_title_bn']}}
     </div>
 
-    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+    <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 10px">
         <span style="font-weight: bold">বিবরণঃ</span>
         {!! $memoInfo['memo_description_bn'] !!}
     </div>

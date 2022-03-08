@@ -17,9 +17,8 @@
         </select>
     </div>
 </div>
-<div class="card sna-card-border mt-2">
-    <div id="load_auditable_plan_lists"></div>
-</div>
+
+<div id="load_auditable_plan_lists"></div>
 <div class="load-office-wise-employee"></div>
 
 @include('scripts.script_generic')

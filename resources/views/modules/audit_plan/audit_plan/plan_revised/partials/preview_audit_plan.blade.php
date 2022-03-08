@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
+<div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
    {{--cover page--}}
     <div class="pdf-screen bangla-font" style="height: 100%">
         {!! $plans[0]['content'] !!}

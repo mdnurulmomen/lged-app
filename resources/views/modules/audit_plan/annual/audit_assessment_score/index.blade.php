@@ -20,9 +20,7 @@
     </select>
 </div>
 
-<div class="card sna-card-border mt-3" style="margin-bottom:30px;">
-    <div id="load_assessment_score_list"></div>
-</div>
+<div id="load_assessment_score_list"></div>
 
 
 <script>

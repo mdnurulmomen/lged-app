@@ -12,11 +12,11 @@
 
         body {
             margin: 0;
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         .bangla-font {
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         article,
@@ -808,7 +808,7 @@
             <i class="far fa-download"></i>  Download
         </a>
     @endif
-<div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
+<div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
             <div class="bangla-font" style="font-size:18px;text-align: center;color: black">
 {{--                মহাপরিচালকের কার্যালয়<br>--}}

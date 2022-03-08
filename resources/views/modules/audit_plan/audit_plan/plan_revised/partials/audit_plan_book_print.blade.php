@@ -817,18 +817,18 @@
     </style>
 </head>
 <body style="margin-top: 15px" onLoad="window.print();" onclick="window.close();">
-<div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">
-    <div class="pdf-screen" style="height: 100%;font-family:SolaimanLipi,serif !important; page-break-after:always">
+<div id="writing-screen-wrapper" style="font-family:Nikosh,serif !important;">
+    <div class="pdf-screen" style="height: 100%;font-family:Nikosh,serif !important; page-break-after:always">
         {!! $cover['content'] !!}
     </div>
-    <div class="pdf-screen" style="height: 100%;font-family:SolaimanLipi,serif !important; page-break-after:always">
-        <div class="plan_content" style="font-family:SolaimanLipi,serif !important;">
+    <div class="pdf-screen" style="height: 100%;font-family:Nikosh,serif !important; page-break-after:always">
+        <div class="plan_content" style="font-family:Nikosh,serif !important;">
             {!! $index['content'] !!}
         </div>
     </div>
-    <div class="pdf-screen" style="height: 100%;font-family:SolaimanLipi,serif !important;">
+    <div class="pdf-screen" style="height: 100%;font-family:Nikosh,serif !important;">
         @foreach($plans as $plan)
-            <div class="plan_content" style="font-family:SolaimanLipi,serif !important;">
+            <div class="plan_content" style="font-family:Nikosh,serif !important;">
                 {!! $plan['content'] !!}
             </div>
         @endforeach

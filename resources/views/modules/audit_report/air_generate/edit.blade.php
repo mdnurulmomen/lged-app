@@ -79,7 +79,7 @@
             <textarea id="kt-tinymce-1" name="kt-tinymce-1" class="kt-tinymce-1"></textarea>
         </div>
         <div id="split-2" class="d-none">
-            <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">
+            <div id="writing-screen-wrapper" style="font-family:Nikosh,serif !important;">
             </div>
         </div>
     </div>

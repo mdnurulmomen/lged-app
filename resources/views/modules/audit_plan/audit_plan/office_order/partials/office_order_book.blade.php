@@ -12,11 +12,11 @@
 
         body {
             margin: 0;
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         .bangla-font {
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         article,
@@ -780,15 +780,15 @@
 </head>
 
 <body>
-<div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
+<div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center">
             {{--মহাপরিচালকের কার্যালয় <br>--}}
             <b>{{$directorateName}}</b> <br>
             {!! $directorateAddress !!}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;width: 100%;margin-top: 10px">
             <div style="text-align: left;float: left;width: 70%;">
                 স্মারক নং- {{$office_order['memorandum_no']}}
             </div>
@@ -797,14 +797,14 @@
             </div>
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;margin: 10px 0 10px 0">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;margin: 10px 0 10px 0">
             <span style="font-weight: bold;border-bottom: 1px solid black">অফিস আদেশ</span>
         </div>
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: justify">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: justify">
             {{$office_order['heading_details']}}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;margin-top: 10px">
             <span style="font-weight: bold;border-bottom: 1px solid black">নিরীক্ষা দল নং-০১</span>
         </div>
 
@@ -835,7 +835,7 @@
 
          @foreach($audit_team_schedules as $audit_team_schedule)
              @if($audit_team_schedule['team_schedules'] != null)
-                 <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;margin-top: 10px">
+                 <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;margin-top: 10px">
                      <span style="font-weight: bold;border-bottom: 1px solid black">{{$audit_team_schedule['team_name']}}</span>
                  </div>
 
@@ -923,15 +923,15 @@
 
 
         {{--for audit advice--}}
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
             <u>নিরীক্ষা দলের প্রতি নির্দেশনা:</u>
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: justify">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: justify">
             {!! nl2br($office_order['advices']) !!}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin:60px 0 40px 0;text-align: center;float: right;width: 20%">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin:60px 0 40px 0;text-align: center;float: right;width: 20%">
             @if($office_order['office_order_movement'] != null)
                 ({{$office_order['office_order_movement']['employee_name_bn']}}) <br>
                 {{$office_order['office_order_movement']['employee_designation_bn']}} <br>
@@ -942,7 +942,7 @@
     </div>
 
     <div class="pdf-screen bangla-font" style="height: 100%">
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;width: 100%;margin-top: 10px">
             <div style="text-align: left;float:left;width: 70%;">
                 {{$office_order['memorandum_no']}}
             </div>
@@ -952,15 +952,15 @@
         </div>
 
         {{--for audit advice--}}
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
             <u>সদয় অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য অনুলিপি প্রেরণ করা হলো :(জ্যেষ্ঠতার ক্রমানুসারে নয় )</u>
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: justify">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: justify">
             {!! nl2br($office_order['order_cc_list']) !!}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top:10px;text-align: center;float: right;width: 20%">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top:10px;text-align: center;float: right;width: 20%">
             {{--({{$office_order['draft_officer_name_bn']}}) <br>
             {{$office_order['draft_designation_name_bn']}} <br>
             {{$office_order['draft_office_unit_bn']}} <br>

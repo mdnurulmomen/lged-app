@@ -91,7 +91,7 @@
         </div>
 
         <div id="split-2" class="d-none">
-            <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">
+            <div id="writing-screen-wrapper" style="font-family:Nikosh,serif !important;">
             </div>
         </div>
     </div>

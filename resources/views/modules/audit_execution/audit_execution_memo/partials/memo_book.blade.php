@@ -19,11 +19,11 @@
 
         body {
             margin: 0;
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         .bangla-font {
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         article,
@@ -786,15 +786,15 @@
         }
 
         table tbody tr td{
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
     </style>
 </head>
 
 <body>
-<div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
+<div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;color: black">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;color: black">
             মহাপরিচালকের কার্যালয়<br>
             {{$directorateName}} <br>
             {!! $directorateAddress !!}<br>
@@ -811,34 +811,34 @@
             </table>
         @endif
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;">
             <u>অডিট মেমো</u>
         </div>
         <br>
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">অডিট মেমো নং-{{enTobn($memoInfo['onucched_no'])}}</div>
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;font-weight: bold">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;font-weight: bold">অডিট মেমো নং-{{enTobn($memoInfo['onucched_no'])}}</div>
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;font-weight: bold">
             <p style="font-weight: bold;margin-bottom: 1px">শিরোনামঃ</p>
             {{$memoInfo['memo_title_bn']}}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 10px">
             <p style="font-weight: bold;margin-bottom: 1px">বিবরণঃ</p>
             {!! $memoInfo['memo_description_bn'] !!}
         </div>
 
         @if($memoInfo['irregularity_cause'])
-            <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+            <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
                 <span style="font-weight: bold">অনিয়মের কারণঃ</span>
                 {{$memoInfo['irregularity_cause']}}
             </div>
         @endif
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
             <b>সংযুক্তিঃ পরিশিষ্ট</b>
         </div>
 
         @if($memoInfo['response_of_rpu'])
-            <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+            <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
                 <span style="font-weight: bold">অডিটি প্রতিষ্ঠানের জবাবঃ</span>
                 {{$memoInfo['response_of_rpu']}}
             </div>

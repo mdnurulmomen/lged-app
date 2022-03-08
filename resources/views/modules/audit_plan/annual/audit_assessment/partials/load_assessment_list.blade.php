@@ -17,78 +17,92 @@
     }
 </style>
 
-<form id="generate_form" autocomplete="off">
-    <input type="hidden" name="fiscal_year_id" value="{{$fiscal_year_id}}">
-    <div class="row">
-        <div class="col-md-12">
-            <fieldset class="scheduler-border">
-                <legend class="scheduler-border">
-                    ডাটাসমূহ
-                </legend>
-                <table width="100%" class="table table-bordered table-hover table-condensed table-sm"
-                       id="tblAuditAssessmentScore">
-                    <thead>
-                    <tr>
-                        <th width="25%">মন্ত্রণালয়/বিভাগ</th>
-                        <th width="25%">এনটিটি/সংস্থা</th>
-                        <th width="10%">পয়েন্ট</th>
-                        <th width="15%">সর্বশেষ অডিট বছর</th>
-                        <th width="10%">১ম অর্ধ বার্ষিক</th>
-                        <th width="10%">২য় অর্ধ বার্ষিক</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($entities as $entity)
-                        <input type="hidden" name="audit_assessment_score_ids[]" value="{{$entity['id']}}">
-                        <input type="hidden" name="category_ids[]" value="{{$entity['category_id']}}">
-                        <input type="hidden" name="en_category_titles[]" value="{{$entity['category_title_en']}}">
-                        <input type="hidden" name="bn_category_titles[]" value="{{$entity['category_title_bn']}}">
+@if(!empty($entities))
+    <div class="card sna-card-border mt-3" style="margin-bottom:30px;">
+        <form id="generate_form" autocomplete="off">
+            <input type="hidden" name="fiscal_year_id" value="{{$fiscal_year_id}}">
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            ডাটাসমূহ
+                        </legend>
+                        <table width="100%" class="table table-bordered table-hover table-condensed table-sm"
+                               id="tblAuditAssessmentScore">
+                            <thead>
+                            <tr>
+                                <th width="25%">মন্ত্রণালয়/বিভাগ</th>
+                                <th width="25%">এনটিটি/সংস্থা</th>
+                                <th width="10%">পয়েন্ট</th>
+                                <th width="15%">সর্বশেষ অডিট বছর</th>
+                                <th width="10%">১ম অর্ধ বার্ষিক</th>
+                                <th width="10%">২য় অর্ধ বার্ষিক</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($entities as $entity)
+                                <input type="hidden" name="audit_assessment_score_ids[]" value="{{$entity['id']}}">
+                                <input type="hidden" name="category_ids[]" value="{{$entity['category_id']}}">
+                                <input type="hidden" name="en_category_titles[]" value="{{$entity['category_title_en']}}">
+                                <input type="hidden" name="bn_category_titles[]" value="{{$entity['category_title_bn']}}">
 
-                        <tr class="assessment_score_row">
-                            <td>
-                                <input type="hidden" name="ministry_ids[]" value="{{$entity['ministry_id']}}">
-                                <input type="hidden" name="bn_ministry_names[]" value="{{$entity['ministry_name_bn']}}">
-                                <input type="hidden" name="en_ministry_names[]" value="{{$entity['ministry_name_en']}}">
-                                {{$entity['ministry_name_bn']}}
-                            </td>
-                            <td>
-                                <input type="hidden" name="entity_ids[]" value="{{$entity['entity_id']}}">
-                                <input type="hidden" name="bn_entity_names[]" value="{{$entity['entity_name_bn']}}">
-                                <input type="hidden" name="en_entity_names[]" value="{{$entity['entity_name_en']}}">
-                                {{$entity['entity_name_bn']}}
-                            </td>
-                            <td>{{enTobn($entity['point'])}}</td>
-                            <td>{{enTobn($entity['last_audit_year_start'])}}-{{enTobn($entity['last_audit_year_end'])}}</td>
-                            <td>
-                                <input name="first_half"  value="{{$entity['id']}}" {{$entity['is_first_half'] ==1?'checked':''}} type="checkbox"  {{$entity['has_first_half_annual_plan']==1?'disabled':''}}>
-                                <input type="hidden" name="has_first_half_annual_plans[]" value="{{$entity['has_first_half_annual_plan']}}">
-                            </td>
-                            <td>
-                                <input name="second_half" value="{{$entity['id']}}" {{$entity['is_second_half'] ==1?'checked':''}} type="checkbox" {{$entity['has_second_half_annual_plan']==1?'disabled':''}}>
-                                <input type="hidden" name="has_second_half_annual_plans[]" value="{{$entity['has_second_half_annual_plan']}}">
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                                <tr class="assessment_score_row">
+                                    <td>
+                                        <input type="hidden" name="ministry_ids[]" value="{{$entity['ministry_id']}}">
+                                        <input type="hidden" name="bn_ministry_names[]" value="{{$entity['ministry_name_bn']}}">
+                                        <input type="hidden" name="en_ministry_names[]" value="{{$entity['ministry_name_en']}}">
+                                        {{$entity['ministry_name_bn']}}
+                                    </td>
+                                    <td>
+                                        <input type="hidden" name="entity_ids[]" value="{{$entity['entity_id']}}">
+                                        <input type="hidden" name="bn_entity_names[]" value="{{$entity['entity_name_bn']}}">
+                                        <input type="hidden" name="en_entity_names[]" value="{{$entity['entity_name_en']}}">
+                                        {{$entity['entity_name_bn']}}
+                                    </td>
+                                    <td>{{enTobn($entity['point'])}}</td>
+                                    <td>{{enTobn($entity['last_audit_year_start'])}}-{{enTobn($entity['last_audit_year_end'])}}</td>
+                                    <td>
+                                        <input name="first_half"  value="{{$entity['id']}}" {{$entity['is_first_half'] ==1?'checked':''}} type="checkbox"  {{$entity['has_first_half_annual_plan']==1?'disabled':''}}>
+                                        <input type="hidden" name="has_first_half_annual_plans[]" value="{{$entity['has_first_half_annual_plan']}}">
+                                    </td>
+                                    <td>
+                                        <input name="second_half" value="{{$entity['id']}}" {{$entity['is_second_half'] ==1?'checked':''}} type="checkbox" {{$entity['has_second_half_annual_plan']==1?'disabled':''}}>
+                                        <input type="hidden" name="has_second_half_annual_plans[]" value="{{$entity['has_second_half_annual_plan']}}">
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
 
-                <input type="hidden" name="first_half_data" id="first_half_data">
-                <input type="hidden" name="second_half_data" id="second_half_data">
-            </fieldset>
+                        <input type="hidden" name="first_half_data" id="first_half_data">
+                        <input type="hidden" name="second_half_data" id="second_half_data">
+                    </fieldset>
+                </div>
+            </div>
+
+            @if(!empty($entities))
+                <button type="button" class="btn btn-success btn-sm btn-bold btn-square"
+                        onclick="Assessment_Container.store()">
+                    <i class="far fa-save mr-1"></i> সংরক্ষণ করুন
+                </button>
+                <button type="button" class="btn btn-primary btn-sm btn-bold btn-square"
+                        onclick="Assessment_Container.storeAnnualPlan()">
+                    <i class="far fa-save mr-1"></i> বার্ষিক পরিকল্পনা তৈরি করুন
+                </button>
+            @endif
+        </form>
+    </div>
+@else
+    <div class="alert alert-custom alert-white alert-shadow fade show gutter-b" role="alert">
+        <div class="alert-icon">
+            <i class="text-danger flaticon-warning"></i>
+        </div>
+        <div class="alert-text">
+            {{___('generic.no_data_found')}}
         </div>
     </div>
+@endif
 
-    @if(!empty($entities))
-        <button type="button" class="btn btn-success btn-sm btn-bold btn-square"
-                onclick="Assessment_Container.store()">
-            <i class="far fa-save mr-1"></i> সংরক্ষণ করুন
-        </button>
-        <button type="button" class="btn btn-primary btn-sm btn-bold btn-square"
-                onclick="Assessment_Container.storeAnnualPlan()">
-            <i class="far fa-save mr-1"></i> বার্ষিক পরিকল্পনা তৈরি করুন
-        </button>
-    @endif
-</form>
 
 <script>
     var Assessment_Container = {

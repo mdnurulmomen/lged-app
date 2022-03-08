@@ -36,7 +36,6 @@ class AuditAssessmentScoreController extends Controller
         $data['cdesk'] = $this->current_desk_json();
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $scores = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.audit_assessment.score.list'), $data)->json();
-        //dd($scores);
         if (isSuccess($scores)) {
             $scores = $scores['data'];
             return view('modules.audit_plan.annual.audit_assessment_score.partials.load_score_list', compact('scores'));

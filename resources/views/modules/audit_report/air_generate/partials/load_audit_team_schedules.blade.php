@@ -1,6 +1,6 @@
 @foreach($audit_team_schedules as $audit_team_schedule)
     @if($audit_team_schedule['team_schedules'] != null)
-        <div style="font-family:SolaimanLipi,serif !important;text-align: center;margin-top: 10px">
+        <div style="font-family:Nikosh,serif !important;text-align: center;margin-top: 10px">
             <b><u>{{$audit_team_schedule['team_name']}}</u></b>
         </div>
 

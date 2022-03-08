@@ -12,11 +12,11 @@
 
         body {
             margin: 0;
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         .bangla-font {
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         article,
@@ -227,13 +227,13 @@
         table {
             border-collapse: collapse;
             border-spacing: 0;
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         td,
         th {
             padding: 3px;
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
@@ -782,7 +782,7 @@
 </head>
 
 <body>
-<div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
+<div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     <div class="pdf-screen bangla-font">
         <table class="bangla-font" width="100%">
             <tr>
@@ -799,22 +799,22 @@
             </tr>
         </table>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 20px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 20px">
             <span>বরাবর,</span>
         </div>
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-left: 40px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-left: 40px">
             {!! nl2br($broadSheetinfo['receiver_details']) !!}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 10px">
             <span style="font-weight: bold">বিষয়ঃ {!! str_repeat('&nbsp;',1) !!} {{$broadSheetinfo['subject']}}</span>
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 10px">
             {!! str_repeat('&nbsp;',10) !!} {!! $broadSheetinfo['details'] !!}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
             <b>সংযুক্তিঃ পরিশিষ্ট</b>
         </div>
 
@@ -846,7 +846,7 @@
             </table>
         @endif
 
-        <div class="bangla-font" style="text-align:center;font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <div class="bangla-font" style="text-align:center;font-family:Nikosh,serif !important;margin-top: 10px">
             <b>{{$broadSheetinfo['sender_office_name_bn']}}</b>
         </div>
         <br><br>

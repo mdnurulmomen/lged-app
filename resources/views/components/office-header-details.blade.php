@@ -1,4 +1,4 @@
-<div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center">
+<div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center">
     {{--মহাপরিচালকের কার্যালয় <br>--}}
     <b>{{$office_name_bn}}</b> <br>
     {!! $office_details['office_address'] !!}<br>

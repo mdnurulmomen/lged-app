@@ -12,11 +12,11 @@
 
         body {
             margin: 0;
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         .bangla-font {
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         article,
@@ -227,13 +227,13 @@
         table {
             border-collapse: collapse;
             border-spacing: 0;
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         td,
         th {
             padding: 3px;
-            font-family: solaimanlipipdf !important;
+            font-family: nikoshpdf !important;
         }
 
         /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
@@ -794,7 +794,7 @@
 </head>
 
 <body>
-<div id="writing-screen-wrapper" style="font-family:solaimanlipipdf,serif !important;">
+<div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
 
     {{--cover page--}}
     <div class="pdf-screen bangla-font" style="height: 100%">

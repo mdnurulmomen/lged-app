@@ -1,3 +1,5 @@
+@if(empty($annual_plans))
+<div class="card sna-card-border mt-3" style="margin-bottom:30px;">
 <div class="table-responsive mb-4">
     <table class="table table-bordered table-head-custom">
         <thead class="bg-primary">
@@ -61,16 +63,21 @@
 
                 </tr>
             @endforeach
-        @empty
-            <tr>
-                <td class="vertical-middle" colspan="7">
-                    No Data Found
-                </td>
-            </tr>
         @endforelse
         </tbody>
     </table>
 </div>
+</div>
+@else
+    <div class="alert alert-custom alert-white alert-shadow fade show gutter-b" role="alert">
+        <div class="alert-icon">
+            <i class="text-danger flaticon-warning"></i>
+        </div>
+        <div class="alert-text">
+            {{___('generic.no_data_found')}}
+        </div>
+    </div>
+@endif
 
 <script>
      $('.btn_edit_activity_milestone_value').on('click', function (){
