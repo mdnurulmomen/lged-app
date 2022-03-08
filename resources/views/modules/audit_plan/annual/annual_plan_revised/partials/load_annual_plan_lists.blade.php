@@ -1,4 +1,4 @@
-@if(empty($annual_plans))
+@if(!empty($annual_plans))
 <div class="card sna-card-border mt-3" style="margin-bottom:30px;">
     <div class="table-responsive mb-4">
         <table class="table table-bordered table-head-custom">
