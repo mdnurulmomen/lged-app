@@ -1,4 +1,4 @@
-<x-title-wrapper>Authority Memo List</x-title-wrapper>
+<x-title-wrapper>Audit Memo List</x-title-wrapper>
 
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">

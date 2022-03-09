@@ -1,4 +1,4 @@
-<x-title-wrapper>Authority Query List</x-title-wrapper>
+<x-title-wrapper>Audit Query List</x-title-wrapper>
 
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
