@@ -222,43 +222,55 @@
             },
 
             sendQueryToRpu: function (elem) {
-                ac_query_id = elem.data('ac-query-id');
-                cost_center_id = elem.attr('data-cost-center-id')
-                data = {ac_query_id, cost_center_id};
-                url = '{{route('audit.execution.query.send-to-rpu')}}';
 
-                KTApp.block('#kt_content', {
-                    opacity: 0.1,
-                    state: 'primary' // a bootstrap color
-                });
-
-                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('#kt_content');
-                    if (response.status === 'error') {
-                        toastr.error(response.data)
-                    } else {
-                        toastr.success(response.data)
+                swal.fire({
+                    title: 'আপনি কি প্রেরণ করতে চান?',
+                    text: "",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'হ্যাঁ',
+                    cancelButtonText: 'না'
+                }).then(function(result) {
+                    if (result.value) {
+                        ac_query_id = elem.data('ac-query-id');
+                        cost_center_id = elem.attr('data-cost-center-id')
+                        data = {ac_query_id, cost_center_id};
+                        url = '{{route('audit.execution.query.send-to-rpu')}}';
 
                         KTApp.block('#kt_content', {
                             opacity: 0.1,
                             state: 'primary' // a bootstrap color
                         });
-                        schedule_id = '{{$schedule_id}}';
-                        audit_plan_id = elem.data('audit-plan-id');
-                        entity_id = elem.data('entity-id');
-                        cost_center_id = elem.data('cost-center-id');
-                        url = '{{route('audit.execution.query.load-list')}}';
-                        data = {audit_plan_id,schedule_id,entity_id,cost_center_id};
+
                         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                             KTApp.unblock('#kt_content');
                             if (response.status === 'error') {
-                                toastr.warning(response.data)
+                                toastr.error(response.data)
                             } else {
-                                $('#load_query_list').html(response);
+                                toastr.success(response.data)
+
+                                KTApp.block('#kt_content', {
+                                    opacity: 0.1,
+                                    state: 'primary' // a bootstrap color
+                                });
+                                schedule_id = '{{$schedule_id}}';
+                                audit_plan_id = elem.data('audit-plan-id');
+                                entity_id = elem.data('entity-id');
+                                cost_center_id = elem.data('cost-center-id');
+                                url = '{{route('audit.execution.query.load-list')}}';
+                                data = {audit_plan_id,schedule_id,entity_id,cost_center_id};
+                                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                                    KTApp.unblock('#kt_content');
+                                    if (response.status === 'error') {
+                                        toastr.warning(response.data)
+                                    } else {
+                                        $('#load_query_list').html(response);
+                                    }
+                                })
                             }
                         })
                     }
-                })
+                });
             },
         }
     </script>
