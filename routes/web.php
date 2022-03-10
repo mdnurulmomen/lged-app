@@ -619,6 +619,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/', [\App\Http\Controllers\PacController::class, 'index'])->name('index');
         Route::get('pac-meeting', [\App\Http\Controllers\PacController::class, 'pacMeeting'])->name('pac-meeting');
         Route::post('pac-meeting-list', [\App\Http\Controllers\PacController::class, 'pacMeetingList'])->name('pac-meeting-list');
+        Route::post('pac-meeting-report-create', [\App\Http\Controllers\PacController::class, 'pacMeetingReportCreate'])->name('pac-meeting-report-create');
         Route::post('pac-meeting-create', [\App\Http\Controllers\PacController::class, 'pacMeetingCreate'])->name('pac-meeting-create');
         Route::post('pac-meeting-store', [\App\Http\Controllers\PacController::class, 'pacMeetingStore'])->name('pac-meeting-store');
         Route::post('load-pac-member-list', [\App\Http\Controllers\PacController::class, 'loadPacMemberList'])->name('load-pac-member-list');

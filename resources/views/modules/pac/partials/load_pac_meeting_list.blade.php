@@ -101,7 +101,7 @@
                                         <span class="description text-info text-wrap font-size-14">{{$meeting['parliament_no']}}</span>
                                     </div>
                                     <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">তারিখঃ</span>
+                                        <span class="mr-2 font-size-1-1">স্থানঃ</span>
                                         <span class="description text-info text-wrap font-size-14">{{$meeting['meeting_place']}}</span>
                                     </div>
                                     <div class="subject-wrapper font-weight-normal">
@@ -136,19 +136,29 @@
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
                                             <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                    title="রিপোর্ট তৈরি করুন"
+                                                    data-broad-sheet-id=""
+                                                    data-memorandum-no=""
+                                                    data-memorandum-date=""
+                                                    data-scope=""
+                                                    onclick="PAC_Meeting_Create_Container.createReport($(this))">
+                                                <i class="fad fa-plus"></i>
+                                            </button>
+
+                                            <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                     title="{{___('generic.buttons.title.details')}}"
                                                     data-broad-sheet-id=""
                                                     data-memorandum-no=""
                                                     data-memorandum-date=""
                                                     data-scope=""
-                                                    onclick="Broadsheet_Reply_List_Container.showBroadSheet($(this))">
+                                                    onclick="">
                                                 <i class="fad fa-eye"></i>
                                             </button>
 
                                             <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                     title=""
                                                     data-broad-sheet-id=""
-                                                    onclick="Broadsheet_Reply_List_Container.loadBraodSheetApprovalAuthority($(this))">
+                                                    onclick="">
                                                 <i class="fa fa-paper-plane"></i>
                                             </button>
                                         </div>
@@ -162,6 +172,31 @@
             @endforeach
         </ul>
     </div>
+
+    <script>
+        PAC_Meeting_Create_Container = {
+            createReport: function (elem) {
+                url = '{{route('pac.pac-meeting-report-create')}}';
+                data = {};
+
+                KTApp.block('#kt_content', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
+
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('#kt_content');
+                    if (response.status === 'error') {
+                        toastr.error(response.data);
+                    } else {
+                        var newDoc = document.open("text/html", "replace");
+                        newDoc.write(response);
+                        newDoc.close();
+                    }
+                })
+            },
+        }
+    </script>
 @else
     <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">
         <div class="alert-icon">

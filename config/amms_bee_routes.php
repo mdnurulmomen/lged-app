@@ -362,6 +362,7 @@ return [
         'pac-meeting-store' => env('API_URL_BEE', '') . '/pac/pac-meeting-store',
         'pac-meeting-update' => env('API_URL_BEE', '') . '/pac/pac-meeting-update',
         'get-meeting-info' => env('API_URL_BEE', '') . '/pac/get-meeting-info',
+        'create-pac-report' => env('API_URL_BEE', '') . '/pac/create-pac-report',
     ],
 
     'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',

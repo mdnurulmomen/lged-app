@@ -214,4 +214,19 @@ class PacController extends Controller
     {
         //
     }
+
+
+    public function pacMeetingReportCreate(Request $request)
+    {
+        $data['template_type'] = 'pac_report';
+        $data['cdesk'] = $this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.pac.create-pac-report'), $data)->json();
+        if (isSuccess($responseData)) {
+            $content = $responseData['data']['content'];
+            return view('modules.pac.partials.load_pac_report_create',compact('content'));
+        }
+        else {
+            return ['status' => 'error', 'data' => $responseData['data']];
+        }
+    }
 }
