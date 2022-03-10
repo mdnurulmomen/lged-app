@@ -615,7 +615,19 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
     Route::get('/legacy-data-management', [\App\Http\Controllers\LegacyDataManagementController::class, 'index'])->name('legacy_data_management');
 
-    Route::get('/pac', [\App\Http\Controllers\PacController::class, 'index'])->name('pac');
+    Route::group(['as' => 'pac.', 'prefix' => 'pac/'], function () {
+        Route::get('/', [\App\Http\Controllers\PacController::class, 'index'])->name('index');
+        Route::get('pac-meeting', [\App\Http\Controllers\PacController::class, 'pacMeeting'])->name('pac-meeting');
+        Route::post('pac-meeting-list', [\App\Http\Controllers\PacController::class, 'pacMeetingList'])->name('pac-meeting-list');
+        Route::post('pac-meeting-create', [\App\Http\Controllers\PacController::class, 'pacMeetingCreate'])->name('pac-meeting-create');
+        Route::post('pac-meeting-store', [\App\Http\Controllers\PacController::class, 'pacMeetingStore'])->name('pac-meeting-store');
+        Route::post('load-pac-member-list', [\App\Http\Controllers\PacController::class, 'loadPacMemberList'])->name('load-pac-member-list');
+        Route::post('load-office-member-list', [\App\Http\Controllers\PacController::class, 'loadOfficeMemberList'])->name('load-office-member-list');
+        Route::post('load-pac-final-report', [\App\Http\Controllers\PacController::class, 'loadPacFinalReport'])->name('load-pac-final-report');
+        Route::post('load-air-wise-apotti', [\App\Http\Controllers\PacController::class, 'airWiseApotti'])->name('load-air-wise-apotti');
+    });
+
+
 
     Route::group(['as' => 'settings.', 'prefix' => 'settings/'], function () {
         Route::get('/', [\App\Http\Controllers\SettingController::class, 'index'])->name('index');

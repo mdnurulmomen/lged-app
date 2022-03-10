@@ -159,7 +159,7 @@
                                         <select class="form-control select-select2" id="other_office">
                                             @foreach($other_offices as $other_office)
                                                 <option
-                                                    value="{{$other_office['id']}}">{{$other_office['office_name_eng']}}</option>
+                                                    value="{{$other_office['id']}}">{{$other_office['office_name_bng']}}</option>
                                             @endforeach
                                         </select>
                                     </div>

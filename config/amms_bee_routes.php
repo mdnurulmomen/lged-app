@@ -357,6 +357,13 @@ return [
         'send-mail' => env('API_URL_BEE', '') . '/notify/send/mail',
     ],
 
+    'pac' => [
+        'get-pac-meeting-list' => env('API_URL_BEE', '') . '/pac/get-pac-meeting-list',
+        'pac-meeting-store' => env('API_URL_BEE', '') . '/pac/pac-meeting-store',
+        'pac-meeting-update' => env('API_URL_BEE', '') . '/pac/pac-meeting-update',
+        'get-meeting-info' => env('API_URL_BEE', '') . '/pac/get-meeting-info',
+    ],
+
     'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',
 
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',
