@@ -96,11 +96,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td><input class="form-control" style="height: 35px !important;" type="text"  /></td>
-                                    <td><input type="text" class="form-control" style="height: 35px !important;"></td>
-                                    <td><input type="text" class="form-control" style="height: 35px !important;"></td>
-                                    <td><input type="text"  class="form-control" style="height: 35px !important;"></td>
+                                <tr class="ministry_member_row">
+                                    <td><input type="hidden" class="ministry_member_sl" value="1"><input class="form-control ministry_member_name" style="height: 35px !important;" type="text"  /></td>
+                                    <td><input type="text" class="form-control ministry_member_designation" style="height: 35px !important;"></td>
+                                    <td><input type="text" class="form-control ministry_member_email" style="height: 35px !important;"></td>
+                                    <td><input type="text"  class="form-control ministry_member_mobile" style="height: 35px !important;"></td>
                                     <td><span id="add_member" style="font-size: 25px;color: #82ae46" class="nav-icon far fa-plus-square"></span></td>
                                 </tr>
                                 </tbody>
@@ -112,7 +112,7 @@
                          role="tabpanel" aria-labelledby="activity-tab">
                         <div class="row">
                             <div class="col-md-6">
-                                <select class="form-control select-select2" id="directorate_id">
+                                <select class="form-control select-select2" name="directorate_id" id="directorate_id">
                                     <option value="">--অধিদপ্তর বাছাই করুন--</option>
                                     @foreach($offices as $office)
                                         <option
@@ -185,7 +185,7 @@
 
             <div class="card sna-card-border mt-2">
                 <div class="card-body p-4">
-                    <div class="pl-4 selected_rp_offices">
+                    <div class="pl-4">
                         <h5 class="text-primary"><u>সিএজি সদস্য তালিকাঃ</u></h5>
                         <ul class="select_member p-0"></ul>
                     </div>
@@ -194,7 +194,7 @@
 
             <div class="card sna-card-border mt-2">
                 <div class="card-body p-4">
-                    <div class="pl-4 selected_rp_offices">
+                    <div class="pl-4">
                         <h5 class="text-primary"><u>পি এ সি সদস্য তালিকাঃ</u></h5>
                         <ul class="select_pac_member p-0"></ul>
                     </div>
@@ -211,11 +211,11 @@
     $('#add_member').click(function () {
         row_count++
         $('#ministry_member_table > tbody:last').append(`
-        <tr>
-        <td><input class="form-control" style="height: 35px !important;" type="text"  /></td>
-        <td><input class="form-control" style="height: 35px !important;" type="text" /></td>
-        <td><input type="text" value="" id="description"  class="form-control" style="height: 35px !important;"></td>
-        <td><input class="form-control" style="height: 35px !important;" type="text"  /></td>
+        <tr class="ministry_member_row">
+        <td><input type="hidden" class="ministry_member_sl" value="${row_count}"><input class="form-control ministry_member_name" style="height: 35px !important;" type="text"  /></td>
+        <td><input class="form-control ministry_member_designation" style="height: 35px !important;" type="text" /></td>
+        <td><input type="text" value="" id="description"  class="form-control ministry_member_email" style="height: 35px !important;"></td>
+        <td><input class="form-control ministry_member_mobile" style="height: 35px !important;" type="text"  /></td>
         <td><span style="font-size: 25px;color:red" class="nav-icon far fa-minus-square delete_row"></span></td>
         </tr>`
         );
@@ -325,6 +325,7 @@
                 member_data = JSON.parse($(this).val());
 
                 member_info[member_data.officer_id] = {
+                    office_id: member_data.office_id,
                     officer_id: member_data.officer_id,
                     officer_bn: member_data.officer_bn,
                     officer_en: member_data.officer_en,
@@ -335,18 +336,96 @@
                     officer_designation_id: member_data.officer_designation_id,
                     officer_designation_bn: member_data.officer_designation_bn,
                     officer_designation_en: member_data.officer_designation_en,
+                    officer_email: member_data.officer_email,
+                    officer_mobile: member_data.officer_mobile,
+                    officer_type: member_data.office_id == 1 ? 'cag' : 'directorate',
                 }
             });
 
             member_info = JSON.stringify(member_info);
+
+            pac_member_info = {}
+
+            $(".selected_pac_member").each(function () {
+
+                pac_member_data = JSON.parse($(this).val());
+
+                pac_member_info[pac_member_data.pac_member_id] = {
+                    office_id: 0,
+                    officer_id: pac_member_data.pac_member_id,
+                    officer_bn: pac_member_data.pac_member_name,
+                    officer_en: pac_member_data.pac_member_name,
+                    officer_unit_id: '',
+                    officer_unit_bn: pac_member_data.pac_member_unit_name,
+                    officer_unit_en: pac_member_data.pac_member_unit_name,
+                    officer_designation_grade: 0,
+                    officer_designation_id: '',
+                    officer_designation_bn: pac_member_data.pac_member_designation,
+                    officer_designation_en: pac_member_data.pac_member_designation,
+                    officer_email: pac_member_data.pac_member_email,
+                    officer_mobile: pac_member_data.pac_member_phone,
+                    officer_type: 'pac',
+
+                }
+            });
+
+            pac_member_info = JSON.stringify(pac_member_info);
+
+
+            ministry_member_info = {};
+
+            $(".ministry_member_row input").each(function () {
+
+                if ($(this).hasClass('ministry_member_sl')) {
+                    member_sl = $(this).val();
+                }
+
+                if ($(this).hasClass('ministry_member_name')) {
+                    ministry_member_info[member_sl] = {
+                        office_id: 0,
+                        officer_id: 0,
+                        officer_bn: $(this).val(),
+                        officer_en: $(this).val(),
+                        officer_designation_grade: 0,
+                        officer_unit_id: 0,
+                        officer_unit_bn: '',
+                        officer_unit_en: '',
+                        officer_type: 'ministry',
+                    }
+                }
+                if ($(this).hasClass('ministry_member_designation')) {
+                    ministry_member_info[member_sl]['officer_designation_id'] = 0;
+                    ministry_member_info[member_sl]['officer_designation_bn'] = $(this).val();
+                    ministry_member_info[member_sl]['officer_designation_en'] = $(this).val();
+                }
+                if ($(this).hasClass('ministry_member_email')) {
+                    ministry_member_info[member_sl]['officer_email'] = $(this).val();
+                }
+                if ($(this).hasClass('ministry_member_mobile')) {
+                    ministry_member_info[member_sl]['officer_mobile'] = $(this).val();
+                }
+            });
+
+            ministry_member_info = JSON.stringify(ministry_member_info);
+
+             apottis = [];
+            $.each($("input[name='apotti']:checked"), function(){
+                apottis.push($(this).val());
+            });
+
+            apottis = JSON.stringify(apottis);
+
             data.push({name: "office_member_info", value: member_info});
+            data.push({name: "pac_member_info", value: pac_member_info});
+            data.push({name: "ministry_member_info", value: ministry_member_info});
+            data.push({name: "apottis", value: apottis});
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-
                 if (response.status === 'error') {
                     toastr.error('Internal Serve Error');
                 } else {
                     toastr.success(response.data);
+                    $('.pac-meeting-link a').click();
                 }
             })
         },

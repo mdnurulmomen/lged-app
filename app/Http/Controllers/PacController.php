@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,20 +31,11 @@ class PacController extends Controller
             'page' => 'required|integer',
         ])->validate();
 
-//        dd($data);
-
         $data['cdesk'] = $this->current_desk_json();
 
         $pacMeetingList = $this->initHttpWithToken()->post(config('amms_bee_routes.pac.get-pac-meeting-list'), $data)->json();
 
-//        dd($pacMeetingList);
-
-        $desk_officer_id = $this->current_desk()['officer_id'];
-
-        $desk_officer_grade = $this->current_desk()['officer_grade'];
-
         if (isSuccess($pacMeetingList)) {
-            $apottiItemList = $pacMeetingList['data'];
             return view('modules.pac.partials.load_pac_meeting_list',compact('pacMeetingList'));
         } else {
             return response()->json(['status' => 'error', 'data' => $pacMeetingList]);
@@ -57,7 +49,35 @@ class PacController extends Controller
     }
 
     public function pacMeetingStore(Request $request){
-        dd($request->all());
+        $data = Validator::make($request->all(), [
+            'meeting_no' => 'required',
+            'parliament_no' => 'required',
+            'meeting_subject' => 'required',
+            'meeting_place' => 'required',
+            'meeting_date' => 'required',
+            'final_report' => 'required',
+            'directorate_id' => 'required',
+        ])->validate();
+
+        $office_member_info = json_decode($request->office_member_info,true);
+        $pac_member_info = json_decode($request->pac_member_info,true);
+        $ministry_member_info = json_decode($request->ministry_member_info,true);
+        $apottis = json_decode($request->apottis,true);
+        $meeting_members = array_merge($office_member_info,$pac_member_info,$ministry_member_info);
+
+        $data['apottis'] = $apottis;
+        $data['meeting_members'] = $meeting_members;
+        $data['meeting_date'] = Carbon::parse($request->meeting_date)->format('Y-m-d');
+        $data['cdesk'] = $this->current_desk_json();
+
+
+        $storeMeeting = $this->initHttpWithToken()->post(config('amms_bee_routes.pac.pac-meeting-store'), $data)->json();
+
+        if (isSuccess($storeMeeting)) {
+            return response()->json(['status' => 'success', 'data' => $storeMeeting['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $storeMeeting]);
+        }
     }
 
     public function loadPacMemberList(Request $request){
@@ -68,7 +88,6 @@ class PacController extends Controller
 
         if (isSuccess($pac_users)) {
             $pac_users = $pac_users['data'];
-//            dd($pac_users);
             return view('modules.pac.partials.laod_pac_member_tree',compact('pac_users'));
         } else {
             return response()->json(['status' => 'error', 'data' => $pac_users]);
@@ -99,8 +118,6 @@ class PacController extends Controller
 
         $report_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_audit_final_report'), $data)->json();
 
-//        dd($report_list);
-
         if (isSuccess($report_list)) {
             $report_list = $report_list['data'];
             return view('modules.pac.partials.final_report_select',compact('report_list'));
@@ -121,10 +138,8 @@ class PacController extends Controller
         $data['apotti_type'] = 'approved';
         $data['qac_type'] = 'cqat';
 
-//        dd($data);
-
         $apotti_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_and_apotti_type_wise_qac_apotti'), $data)->json();
-//        dd($apotti_list);
+
         if (isSuccess($apotti_list)) {
             $apotti_list = $apotti_list['data'];
             return view('modules.pac.partials.apotti_list',compact('apotti_list'));

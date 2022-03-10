@@ -49,6 +49,7 @@
         var officer_info = $('#' + data.node.id).data('officer-info');
 
         selected_member = {
+            'office_id': officer_info.office_id,
             'officer_id': officer_info.officer_id,
             'officer_bn': officer_info.officer_name_bn,
             'officer_en': officer_info.officer_name_en,
@@ -59,6 +60,8 @@
             'officer_designation_id': officer_info.designation_id,
             'officer_designation_en': officer_info.designation_en,
             'officer_designation_bn': officer_info.designation_bn,
+            'officer_mobile': officer_info.officer_mobile,
+            'officer_email': officer_info.officer_email,
         };
 
 

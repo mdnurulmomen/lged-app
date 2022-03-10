@@ -52,10 +52,10 @@
 
         let select_member =  $(".select_pac_member");
         select_member.append(newRow);
-        select_member.find('#selected_member_' + officer_info.officer_id).val(JSON.stringify(selected_member));
+        select_member.find('#selected_pac_member_' + officer_info.pac_member_id).val(JSON.stringify(selected_member));
 
     }).on('deselect_node.jstree', function (e, data) {
         var officer_info = $('#' + data.node.id).data('officer-info');
-        $('#selected_pac_member_li_' + officer_info.officer_id).remove();
+        $('#selected_pac_member_li_' + officer_info.pac_member_id).remove();
     });
 </script>
