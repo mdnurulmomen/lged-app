@@ -71,7 +71,7 @@
 @endsection
 @section('scripts')
     @include('scripts.pac_report.create.script_create')
-    {{--@include('scripts.pac_report.script_report')--}}
+    @include('scripts.pac_report.script_report')
 
     <script>
         $(function () {

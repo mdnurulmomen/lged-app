@@ -1,7 +1,7 @@
 <script>
-    var PAC_Report_Container = {
-        storePacReport: function (elem) {
-            url = '{{route('audit.report.air.store')}}';
+    var PAC_Worksheet_Report_Container = {
+        storePacWorksheetReport: function (elem) {
+            url = '{{route('pac.meeting-worksheet-report.store')}}';
             pac_meeting_id = '{{$pac_meeting_id}}';
             pac_meeting_worksheet_id = elem.data('pac-meeting-worksheet-id');
             worksheet_description = JSON.stringify(templateArray);
@@ -14,17 +14,17 @@
                     toastr.success('বৈঠকের কার্যপত্র সফলভাবে সংরক্ষণ করা হয়েছে');
                 } else {
                     toastr.error('Not Saved');
-                    console.log(response)
+                    console.log(response);
                 }
             })
         },
 
-        previewPacReport: function () {
+        previewPacWorksheetReport: function () {
             $('.pac_worksheet_save').click();
             worksheet_description = templateArray;
             scope = 'preview';
             data = {scope,worksheet_description};
-            url = '{{route('audit.report.air.preview')}}';
+            url = '{{route('pac.meeting-worksheet-report.preview')}}';
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

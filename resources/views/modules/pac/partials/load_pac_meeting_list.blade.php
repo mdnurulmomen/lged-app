@@ -147,11 +147,13 @@
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
                                             <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                     title="রিপোর্ট তৈরি করুন"
-                                                    data-broad-sheet-id=""
-                                                    data-memorandum-no=""
-                                                    data-memorandum-date=""
-                                                    data-scope=""
-                                                    onclick="PAC_Meeting_Create_Container.createReport($(this))">
+                                                    data-pac-meeting-id="{{$meeting['id']}}"
+                                                    data-directorate-id="{{$meeting['directorate_id']}}"
+                                                    data-meeting-no="{{$meeting['meeting_no']}}"
+                                                    data-parliament-no="{{$meeting['parliament_no']}}"
+                                                    data-meeting-date="{{$meeting['meeting_date']}}"
+                                                    data-meeting-place="{{$meeting['meeting_place']}}"
+                                                    onclick="Pac_Container.createPacWorksheetReport($(this))">
                                                 <i class="fad fa-plus"></i>
                                             </button>
 

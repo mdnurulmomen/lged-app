@@ -305,17 +305,60 @@ class PacController extends Controller
     }
 
 
-    public function pacMeetingReportCreate(Request $request)
+    public function pacMeetingWorksheetReportCreate(Request $request)
     {
         $data['template_type'] = 'pac_report';
         $data['cdesk'] = $this->current_desk_json();
-        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.pac.create-pac-report'), $data)->json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.pac.create-pac-worksheet-report'), $data)->json();
         if (isSuccess($responseData)) {
+            $pac_meeting_id = $request->pac_meeting_id;
+            $directorate_id = $request->directorate_id;
+            $meeting_no = $request->meeting_no;
+            $parliament_no = $request->parliament_no;
+            $meeting_date = $request->meeting_date;
+            $meeting_place = $request->meeting_place;
             $content = $responseData['data']['content'];
-            return view('modules.pac.partials.load_pac_report_create',compact('content'));
+            return view('modules.pac.partials.load_pac_report_worksheet_create',
+                compact('content','pac_meeting_id'));
         }
         else {
             return ['status' => 'error', 'data' => $responseData['data']];
         }
+    }
+
+    public function pacMeetingWorksheetReportStore(Request $request){
+        $data =  Validator::make($request->all(), [
+            'pac_meeting_id' => 'required|integer',
+            'worksheet_description' => 'required',
+        ])->validate();
+
+        $data['pac_meeting_worksheet_id'] = $request->pac_meeting_worksheet_id;
+        $data['pac_meeting_id'] = $request->pac_meeting_id;
+        $data['worksheet_description'] = makeEncryptedData(gzcompress($request->worksheet_description));
+        $data['cdesk'] = $this->current_desk_json();
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.pac.store-pac-worksheet-report'), $data)->json();
+        if (isSuccess($responseData)) {
+            return response()->json(['status' => 'success', 'data' => $responseData['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData]);
+        }
+    }
+
+    public function pacMeetingWorksheetReportPreview(Request $request)
+    {
+        $worksheet_description = $request->worksheet_description;
+        return view('modules.pac.partials.load_preview_pac_worksheet',
+            compact('worksheet_description'));
+    }
+
+    public function pacMeetingWorksheetReportDownload(Request $request)
+    {
+        $worksheet_description = $request->worksheet_description;
+        $pdf = \PDF::loadView('modules.pac.partials.pac_worksheet_book',
+            ['worksheet_description' => $worksheet_description], [] ,
+            ['orientation' => 'P', 'format' => 'A4']);
+        $fileName = 'pac_worksheet_report_' . date('D_M_j_Y') . '.pdf';
+        return $pdf->stream($fileName);
     }
 }

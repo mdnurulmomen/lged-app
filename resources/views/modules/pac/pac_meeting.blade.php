@@ -57,6 +57,34 @@
             });
         },
 
+
+        createPacWorksheetReport: function (elem) {
+            url = '{{route('pac.meeting-worksheet-report.create')}}';
+            pac_meeting_id = elem.data('pac-meeting-id');
+            directorate_id = elem.data('directorate-id');
+            meeting_no = elem.data('meeting-no');
+            parliament_no = elem.data('parliament-no');
+            meeting_date = elem.data('meeting-date');
+            meeting_place = elem.data('meeting-place');
+            data = {pac_meeting_id,directorate_id,meeting_no,parliament_no,meeting_date,meeting_place};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(response);
+                    newDoc.close();
+                }
+            })
+        },
+
         showPacMeeting: function (elem) {
             pac_meeting_id =  elem.data('pac-meeting-id');
             let url = '{{route('pac.pac-meeting-show')}}';

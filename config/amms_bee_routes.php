@@ -365,6 +365,8 @@ return [
         'create-pac-report' => env('API_URL_BEE', '') . '/pac/create-pac-report',
         'pac-meeting-decision-store' => env('API_URL_BEE', '') . '/pac/pac-meeting-decision-store',
         'sent-to-pac' => env('API_URL_BEE', '') . '/pac/sent-to-pac',
+        'create-pac-worksheet-report' => env('API_URL_BEE', '') . '/pac/create-pac-worksheet-report',
+        'store-pac-worksheet-report' => env('API_URL_BEE', '') . '/pac/store-pac-worksheet-report',
     ],
 
     'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',
