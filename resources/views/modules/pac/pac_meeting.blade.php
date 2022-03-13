@@ -4,7 +4,7 @@
         <button type="button"
                 onclick="Pac_Container.createPacMeeting()"
                 class="font-weight-bolder font-size-sm mr-3 btn btn-primary btn-sm btn-bold btn-square">
-            <i class="far fa-plus mr-1"></i> Create New Meeting
+            <i class="far fa-plus mr-1"></i> নতুন বৈঠক আহ্বান
         </button>
     </div>
 </div>

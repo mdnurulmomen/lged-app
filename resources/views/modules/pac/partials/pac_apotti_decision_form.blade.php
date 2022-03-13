@@ -22,6 +22,17 @@
         </div>
 
         <div class="row mt-2">
+            <div class="col-md-6">
+                <label>সিদ্ধান্ত বাস্তবায়নের শেষ তারিখ</label>
+                <input type="text" class="form-control date" name="decision_last_date">
+            </div>
+            <div class="col-md-6">
+                <label>অনুশাসন অনুসরণকারী অফিস</label>
+                <input type="text" class="form-control" name="follower_office">
+            </div>
+        </div>
+
+        <div class="row mt-2">
             <div class="col-md-12">
                 <label>সংস্থা/প্রতিষ্ঠান ও মন্ত্রণালয়/বিভাগের প্রতিবেদন</label>
                 <textarea class="form-control float-left" name="rp_report"
@@ -47,24 +58,13 @@
                     <option value="3">আংশিক নিস্পন্ন</option>
                 </select>
             </div>
-            <div class="col-md-6">
-                <label>সিদ্ধান্ত বাস্তবায়নের শেষ তারিখ</label>
-                <input type="text" class="form-control date" name="decision_last_date">
-            </div>
-        </div>
-
-        <div class="row mt-2">
-            <div class="col-md-12">
-                <label>অনুশাসন অনুসরণকারী অফিস</label>
-                <input type="text" class="form-control" name="follower_office">
-            </div>
         </div>
     </div>
 </form>
 
 <div class="row mt-2">
     <div class="col-md-12">
-        <button class="btn btn-sm btn-square btn-outline-primary float-right"
+        <button class="btn btn-sm btn-square btn-primary float-right"
                 onclick="Pac_MeetingMinutes_Container.submitPacMeetingDecision($(this))">
             <i class="fa fa-save"></i> সিদ্ধান্ত দিন
         </button>

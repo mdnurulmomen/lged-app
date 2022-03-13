@@ -24,7 +24,7 @@
             <thead class="thead-light">
             <tr class="bg-light">
                 <td style="text-align: center" width="30%">আলোচ্য বিষয়/অডিট আপত্তির অনুচ্ছেদ ও আপত্তির শিরোনাম</td>
-                <td style="text-align: center" width="20%">কমিটির সিদ্ধান্ত</td>
+                <td style="text-align: center" width="20%">পিএ কমিটির সিদ্ধান্ত</td>
                 <td style="text-align: left" width="20%">সংস্থা/প্রতিষ্ঠান ও মন্ত্রণালয়/বিভাগের প্রতিবেদন</td>
                 <td style="text-align: left" width="20%">সিএজি মন্তব্য</td>
                 <td style="text-align: left" width="20%">সিদ্ধান্ত বাস্তবায়নের শেষ তারিখ</td>
