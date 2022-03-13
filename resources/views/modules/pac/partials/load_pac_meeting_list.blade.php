@@ -191,31 +191,6 @@
             @endforeach
         </ul>
     </div>
-
-    <script>
-        PAC_Meeting_Create_Container = {
-            createReport: function (elem) {
-                url = '{{route('pac.pac-meeting-report-create')}}';
-                data = {};
-
-                KTApp.block('#kt_content', {
-                    opacity: 0.1,
-                    state: 'primary' // a bootstrap color
-                });
-
-                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('#kt_content');
-                    if (response.status === 'error') {
-                        toastr.error(response.data);
-                    } else {
-                        var newDoc = document.open("text/html", "replace");
-                        newDoc.write(response);
-                        newDoc.close();
-                    }
-                })
-            },
-        }
-    </script>
 @else
     <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">
         <div class="alert-icon">
