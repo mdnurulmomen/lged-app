@@ -40,17 +40,94 @@
             });
         },
 
-
         createPacMeeting: function () {
             let url = '{{route('pac.pac-meeting-create')}}';
             let data = {};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
                     $('#kt_content').html(response);
                 }
             });
+        },
+
+        showPacMeeting: function (elem) {
+            pac_meeting_id =  elem.data('pac-meeting-id');
+            let url = '{{route('pac.pac-meeting-show')}}';
+            let data = {pac_meeting_id};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $(".offcanvas-title").text('বৈঠক আহ্বান');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '60%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
+        showPacMeetingMinutes: function (elem) {
+            pac_meeting_id =  elem.data('pac-meeting-id');
+            let url = '{{route('pac.pac-meeting-minutes')}}';
+            let data = {pac_meeting_id};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('#kt_content').html(response);
+                }
+            });
+        },
+        sentToPac: function (elem) {
+            pac_meeting_id =  elem.data('pac-meeting-id');
+            swal.fire({
+                title: 'আপনি কি প্রেরণ করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    let url = '{{route('pac.sent-to-pac')}}';
+                    let data = {pac_meeting_id};
+                    KTApp.block('#kt_content', {
+                        opacity: 0.1,
+                        state: 'primary' // a bootstrap color
+                    });
+                    ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                        KTApp.unblock('#kt_content');
+                        if (response.status === 'error') {
+                            toastr.error(response.data)
+                        } else {
+                            toastr.success(response)
+                        }
+                    });
+                }
+            });
+
+
         },
     };
 </script>

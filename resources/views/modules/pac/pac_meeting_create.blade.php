@@ -115,8 +115,11 @@
                                 <select class="form-control select-select2" name="directorate_id" id="directorate_id">
                                     <option value="">--অধিদপ্তর বাছাই করুন--</option>
                                     @foreach($offices as $office)
-                                        <option
-                                            value="{{$office['id']}}">{{$office['office_name_bng']}}</option>
+                                        <option data-directorate-bn="{{$office['office_name_bng']}}"
+                                                data-directorate-en="{{$office['office_name_eng']}}"
+                                                value="{{$office['id']}}">
+                                                {{$office['office_name_bng']}}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -146,15 +149,15 @@
                             <input class="form-control mb-1" name="meeting_no" placeholder="বৈঠক নং">
                         </div>
                         <div class="col-md-6">
-                            <label class="col-form-label">সংসদ নং</label>
-                            <input class="form-control mb-1" name="parliament_no" placeholder="সংসদ নং">
+                            <label class="col-form-label">বৈঠক তারিখ<span class="text-danger">*</span></label>
+                            <input class="form-control mb-1 date" name="meeting_date" placeholder="বৈঠক তারিখ">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="col-form-label">বৈঠক তারিখ<span class="text-danger">*</span></label>
-                            <input class="form-control mb-1 date" name="meeting_date" placeholder="বৈঠক নং">
+                            <label class="col-form-label">সংসদ নং</label>
+                            <input class="form-control mb-1" name="parliament_no" placeholder="সংসদ নং">
                         </div>
                     </div>
 
@@ -415,6 +418,11 @@
 
             apottis = JSON.stringify(apottis);
 
+            directorate_bn =  $('#directorate_id').find(':selected').attr('data-directorate-bn')
+            directorate_en =  $('#directorate_id').find(':selected').attr('data-directorate-en')
+
+            data.push({name: "directorate_bn", value: directorate_bn});
+            data.push({name: "directorate_en", value: directorate_en});
             data.push({name: "office_member_info", value: member_info});
             data.push({name: "pac_member_info", value: pac_member_info});
             data.push({name: "ministry_member_info", value: ministry_member_info});
@@ -425,7 +433,7 @@
                     toastr.error('Internal Serve Error');
                 } else {
                     toastr.success(response.data);
-                    $('.pac-meeting-link a').click();
+                    // $('.pac-meeting-link a').click();
                 }
             })
         },

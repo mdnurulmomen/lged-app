@@ -361,8 +361,10 @@ return [
         'get-pac-meeting-list' => env('API_URL_BEE', '') . '/pac/get-pac-meeting-list',
         'pac-meeting-store' => env('API_URL_BEE', '') . '/pac/pac-meeting-store',
         'pac-meeting-update' => env('API_URL_BEE', '') . '/pac/pac-meeting-update',
-        'get-meeting-info' => env('API_URL_BEE', '') . '/pac/get-meeting-info',
+        'get-meeting-info' => env('API_URL_BEE', '') . '/pac/get-pac-meeting-info',
         'create-pac-report' => env('API_URL_BEE', '') . '/pac/create-pac-report',
+        'pac-meeting-decision-store' => env('API_URL_BEE', '') . '/pac/pac-meeting-decision-store',
+        'sent-to-pac' => env('API_URL_BEE', '') . '/pac/sent-to-pac',
     ],
 
     'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',

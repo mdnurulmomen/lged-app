@@ -622,10 +622,15 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('pac-meeting-report-create', [\App\Http\Controllers\PacController::class, 'pacMeetingReportCreate'])->name('pac-meeting-report-create');
         Route::post('pac-meeting-create', [\App\Http\Controllers\PacController::class, 'pacMeetingCreate'])->name('pac-meeting-create');
         Route::post('pac-meeting-store', [\App\Http\Controllers\PacController::class, 'pacMeetingStore'])->name('pac-meeting-store');
+        Route::post('pac-meeting-show', [\App\Http\Controllers\PacController::class, 'pacMeetingShow'])->name('pac-meeting-show');
+        Route::post('sent-to-pac', [\App\Http\Controllers\PacController::class, 'sentToPac'])->name('sent-to-pac');
+        Route::post('pac-meeting-minutes', [\App\Http\Controllers\PacController::class, 'pacMeetingMinutes'])->name('pac-meeting-minutes');
         Route::post('load-pac-member-list', [\App\Http\Controllers\PacController::class, 'loadPacMemberList'])->name('load-pac-member-list');
         Route::post('load-office-member-list', [\App\Http\Controllers\PacController::class, 'loadOfficeMemberList'])->name('load-office-member-list');
         Route::post('load-pac-final-report', [\App\Http\Controllers\PacController::class, 'loadPacFinalReport'])->name('load-pac-final-report');
         Route::post('load-air-wise-apotti', [\App\Http\Controllers\PacController::class, 'airWiseApotti'])->name('load-air-wise-apotti');
+        Route::post('pac-apotti-decision-form', [\App\Http\Controllers\PacController::class, 'pacApottiDecisionForm'])->name('pac-apotti-decision-form');
+        Route::post('pac-apotti-decision-store', [\App\Http\Controllers\PacController::class, 'pacApottiDecisionStore'])->name('pac-meeting-decision-store');
     });
 
 

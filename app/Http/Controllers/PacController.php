@@ -57,6 +57,8 @@ class PacController extends Controller
             'meeting_date' => 'required',
             'final_report' => 'required',
             'directorate_id' => 'required',
+            'directorate_bn' => 'required',
+            'directorate_en' => 'required',
         ])->validate();
 
         $office_member_info = json_decode($request->office_member_info,true);
@@ -70,13 +72,47 @@ class PacController extends Controller
         $data['meeting_date'] = Carbon::parse($request->meeting_date)->format('Y-m-d');
         $data['cdesk'] = $this->current_desk_json();
 
-
         $storeMeeting = $this->initHttpWithToken()->post(config('amms_bee_routes.pac.pac-meeting-store'), $data)->json();
 
         if (isSuccess($storeMeeting)) {
             return response()->json(['status' => 'success', 'data' => $storeMeeting['data']]);
         } else {
             return response()->json(['status' => 'error', 'data' => $storeMeeting]);
+        }
+    }
+
+    public function pacMeetingShow(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'pac_meeting_id' => 'required',
+        ])->validate();
+
+        $meetingInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.pac.get-meeting-info'), $data)->json();
+
+//        dd($meetingInfo);
+
+        if (isSuccess($meetingInfo)) {
+            return view('modules.pac.partials.show_pac_meeting',compact('meetingInfo'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $meetingInfo]);
+        }
+    }
+
+    public function pacMeetingMinutes(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'pac_meeting_id' => 'required',
+        ])->validate();
+
+        $meetingInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.pac.get-meeting-info'), $data)->json();
+
+//        dd($meetingInfo);
+
+        if (isSuccess($meetingInfo)) {
+            $meetingInfo = $meetingInfo['data'];
+            return view('modules.pac.partials.pac_meeting_apotti_list',compact('meetingInfo'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $meetingInfo]);
         }
     }
 
@@ -145,6 +181,59 @@ class PacController extends Controller
             return view('modules.pac.partials.apotti_list',compact('apotti_list'));
         } else {
             return response()->json(['status' => 'error', 'data' => $apotti_list]);
+        }
+    }
+
+    public function pacApottiDecisionForm(Request $request){
+        $data = Validator::make($request->all(), [
+            'apotti_id' => 'required|integer',
+        ])->validate();
+
+        return view('modules.pac.partials.pac_apotti_decision_form',$data);
+    }
+
+    public function pacApottiDecisionStore(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'apotti_id' => 'required|integer',
+            'pac_meeting_id' => 'required|integer',
+            'apotti_status' => 'nullable',
+            'final_report_id' => 'required|integer',
+            'rp_report' => 'nullable',
+            'cag_comment' => 'nullable',
+            'decision_last_date' => 'nullable',
+            'follower_office' => 'nullable',
+        ])->validate();
+
+        $data['decision_last_date'] = Carbon::parse($request->decision_last_date)->format('Y-m-d');
+        $data['pac_decision'] = $request->pac_decision;
+        $data['cdesk'] = $this->current_desk_json();
+
+//        dd($data);
+
+        $apotti_decision_store = $this->initHttpWithToken()->post(config('amms_bee_routes.pac.pac-meeting-decision-store'), $data)->json();
+
+        if (isSuccess($apotti_decision_store)) {
+            return response()->json(['status' => 'success', 'data' => $apotti_decision_store['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $apotti_decision_store]);
+        }
+    }
+
+    public function sentToPac(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'pac_meeting_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $sent_to_pac = $this->initHttpWithToken()->post(config('amms_bee_routes.pac.sent-to-pac'), $data)->json();
+//        dd($apotti_decision_store);
+        if (isSuccess($sent_to_pac)) {
+            return response()->json(['status' => 'success', 'data' => $sent_to_pac['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $sent_to_pac]);
         }
     }
 

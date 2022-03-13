@@ -114,6 +114,16 @@
                                         <span class="predict-label text-success"></span>
                                     </div>
 
+                                    @if($meeting['is_sent_pac'])
+                                        <div class="subject-wrapper font-weight-normal mt-2">
+                                            <button
+                                                    class="badge-square rounded-0 badge d-flex align-items-center alert-success
+                                           font-weight-normal mr-1 border decision">
+                                                প্রেরণ করা হয়েছে
+                                            </button>
+                                        </div>
+                                    @endif
+
                                 </div>
                                 <!--end::Title-->
                                 <!--begin::Info-->
@@ -147,20 +157,27 @@
 
                                             <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                     title="{{___('generic.buttons.title.details')}}"
-                                                    data-broad-sheet-id=""
-                                                    data-memorandum-no=""
-                                                    data-memorandum-date=""
-                                                    data-scope=""
-                                                    onclick="">
+                                                    data-pac-meeting-id="{{$meeting['id']}}"
+                                                    onclick="Pac_Container.showPacMeeting($(this))">
                                                 <i class="fad fa-eye"></i>
                                             </button>
 
                                             <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                    title=""
-                                                    data-broad-sheet-id=""
-                                                    onclick="">
-                                                <i class="fa fa-paper-plane"></i>
+                                                    title="{{___('generic.buttons.title.details')}}"
+                                                    data-pac-meeting-id="{{$meeting['id']}}"
+                                                    onclick="Pac_Container.showPacMeetingMinutes($(this))">
+                                                <i class="fa fa-books"></i>
                                             </button>
+
+                                            @if(!$meeting['is_sent_pac'])
+                                                <button
+                                                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                    title="প্রেরণ করুন"
+                                                    data-pac-meeting-id="{{$meeting['id']}}"
+                                                    onclick="Pac_Container.sentToPac($(this))">
+                                                    <i class="fa fa-paper-plane"></i>
+                                                </button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
