@@ -1,10 +1,10 @@
 <!--begin::User-->
 <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
-    <div class="btn btn-dropdown w-auto btn-clean d-flex align-items-center btn-square px-2 h-100">
+    <div class="btn btn-dropdown w-auto btn-clean d-flex align-items-center btn-square px-2 py-0 h-100">
         @if(isset($userDetails['user_role_id']) && $userDetails['user_role_id'] == 3)
             <div class="top-right-username">
                 <div class="profile-name">{{ $employeeInfo['name_bng'] ?? 'User Name' }}</div>
-                <div class="profile-designation mt-5">{{isset($userOffices) ? $userOffices[0]['designation'] : ''}}</div>
+                <div class="profile-designation mt-4">{{isset($userOffices) ? $userOffices[0]['designation'] : ''}}</div>
             </div>
             <span class="symbol symbol-lg-35 symbol-25">
                 <img src="{{ asset('assets/media/users/blank.png') }}" alt="">
@@ -29,7 +29,7 @@
         {{--                {{ $employeeInfo['name_bng'] ?? 'User Name' }} {{isset($userOffices) ? ', ' . $userOffices[0]['designation'] : ''}}--}}
         {{--            @endif--}}
         {{--        </span>--}}
-        <span><i class="ml-2 fa fa-chevron-down"></i></span>
+        <span><i style="font-size:11px;" class="ml-2 fa fa-chevron-down"></i></span>
     </div>
 </div>
 <div

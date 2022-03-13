@@ -59,12 +59,12 @@
                     </div>
                 </div>
                 <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg">
-                    <div class="row row-paddingless">
+                    <div class="row row-paddingless sna-top-left-toggle-menu">
                         <!--begin:Item-->
                         <div class="col-4">
                             <a href="{{route('grievance_management')}}"
-                               class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
-                                <span class="svg-icon svg-icon-3x svg-icon-success">
+                               class=" text-center ">
+                                <span class="svg-icon svg-icon-3x svg-icon-primary">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Shopping/Euro.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" version="1.1">
@@ -87,8 +87,8 @@
                         <!--begin:Item-->
                         <div class="col-4">
                             <a href="{{route('communication_management')}}"
-                               class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
-                                <span class="svg-icon svg-icon-3x svg-icon-success">
+                               class=" text-center ">
+                                <span class="svg-icon svg-icon-3x svg-icon-primary">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Mail-attachment.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" version="1.1">
@@ -111,8 +111,8 @@
                         <!--begin:Item-->
                         <div class="col-4">
                             <a href="{{route('document_management')}}"
-                               class="d-block py-10 px-5 text-center bg-hover-light border-bottom">
-                                <span class="svg-icon svg-icon-3x svg-icon-success">
+                               class=" text-center ">
+                                <span class="svg-icon svg-icon-3x svg-icon-primary">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Shopping/Box2.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" version="1.1">
@@ -135,8 +135,8 @@
                         <!--begin:Item-->
                         <div class="col-4">
                             <a href="{{route('mis_and_dashboard.index')}}"
-                               class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
-                                <span class="svg-icon svg-icon-3x svg-icon-success">
+                               class=" text-center ">
+                                <span class="svg-icon svg-icon-3x svg-icon-primary">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" version="1.1">
@@ -159,8 +159,8 @@
                         <!--begin:Item-->
                         <div class="col-4">
                             <a href="{{route('knowledge_management')}}"
-                               class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
-                                <span class="svg-icon svg-icon-3x svg-icon-success">
+                               class=" text-center ">
+                                <span class="svg-icon svg-icon-3x svg-icon-primary">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" version="1.1">
@@ -183,8 +183,8 @@
                         <!--begin:Item-->
                         <div class="col-4">
                             <a href="{{route('application_administration')}}"
-                               class="d-block py-10 px-5 text-center bg-hover-light border-bottom">
-                                <span class="svg-icon svg-icon-3x svg-icon-success">
+                               class=" text-center ">
+                                <span class="svg-icon svg-icon-3x svg-icon-primary">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" version="1.1">
@@ -207,8 +207,8 @@
                         <!--begin:Item-->
                         <div class="col-4">
                             <a href="{{route('legacy_data_management')}}"
-                               class=" d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
-                            <span class="svg-icon svg-icon-3x svg-icon-success">
+                               class="  text-center ">
+                            <span class="svg-icon svg-icon-3x svg-icon-primary">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" version="1.1">
@@ -231,8 +231,8 @@
                         <!--begin:Item-->
                         <div class="col-4">
                             <a href="{{route('auditee_employee_database')}}"
-                               class="d-block py-10 px-5 text-center bg-hover-light border-right border-bottom">
-                                <span class="svg-icon svg-icon-3x svg-icon-success">
+                               class=" text-center ">
+                                <span class="svg-icon svg-icon-3x svg-icon-primary">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" version="1.1">
@@ -255,8 +255,8 @@
                         <!--begin:Item-->
                         <div class="col-4">
                             <a href="{{route('pac.index')}}"
-                               class="d-block py-10 px-5 text-center bg-hover-light border-bottom">
-                                <span class="svg-icon svg-icon-3x svg-icon-success">
+                               class=" text-center  ">
+                                <span class="svg-icon svg-icon-3x svg-icon-primary">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" version="1.1">
@@ -279,8 +279,8 @@
                         <!--begin:Item-->
                         <div class="col-4">
                             <a href="{{route('settings.index')}}"
-                               class="d-block py-10 px-5 text-center bg-hover-light border-bottom">
-                                <span class="svg-icon svg-icon-3x svg-icon-success">
+                               class=" text-center ">
+                                <span class="svg-icon svg-icon-3x svg-icon-primary">
                                     <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <g id="Stockholm-icons-/-Shopping-/-Settings" stroke="none" stroke-width="1"
