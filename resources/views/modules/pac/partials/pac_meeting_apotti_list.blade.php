@@ -118,7 +118,7 @@
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
-                    $(".offcanvas-title").text('বৈঠক আহ্বান');
+                    $(".offcanvas-title").text('সিদ্ধান্ত দিন');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);

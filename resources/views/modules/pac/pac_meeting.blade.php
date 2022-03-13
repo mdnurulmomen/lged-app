@@ -1,10 +1,10 @@
-<x-title-wrapper>Pac Meeting List</x-title-wrapper>
+<x-title-wrapper>PAC Meeting List</x-title-wrapper>
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12 text-right">
         <button type="button"
                 onclick="Pac_Container.createPacMeeting()"
-                class="font-weight-bolder font-size-sm mr-3 btn btn-success btn-sm btn-bold btn-square">
-            <i class="far fa-plus mr-1"></i> Create New
+                class="font-weight-bolder font-size-sm mr-3 btn btn-primary btn-sm btn-bold btn-square">
+            <i class="far fa-plus mr-1"></i> Create New Meeting
         </button>
     </div>
 </div>

@@ -26,7 +26,7 @@
                     <li class="nav-item">
                         <a class="nav-link" id="calender" data-toggle="tab"
                            aria-controls="tree" href="#office_member_tab">
-                            <span class="nav-text">সিএজি/অধিদপ্তর সদস্য</span>
+                            <span class="nav-text">সিএজি/অধিদপ্তর এর সদস্য</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -55,7 +55,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <select class="form-control select-select2" id="office">
-                                    <option value="">--অফিস বাছাই করুন--</option>
+                                    <option value="">--বাছাই করুন--</option>
                                     @foreach($offices as $office)
                                         <option
                                             value="{{$office['id']}}">{{$office['office_name_bng']}}</option>
@@ -113,7 +113,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <select class="form-control select-select2" name="directorate_id" id="directorate_id">
-                                    <option value="">--অধিদপ্তর বাছাই করুন--</option>
+                                    <option value="">--বাছাই করুন--</option>
                                     @foreach($offices as $office)
                                         <option data-directorate-bn="{{$office['office_name_bng']}}"
                                                 data-directorate-en="{{$office['office_name_eng']}}"
@@ -149,7 +149,7 @@
                             <input class="form-control mb-1" name="meeting_no" placeholder="বৈঠক নং">
                         </div>
                         <div class="col-md-6">
-                            <label class="col-form-label">বৈঠক তারিখ<span class="text-danger">*</span></label>
+                            <label class="col-form-label">বৈঠকের তারিখ<span class="text-danger">*</span></label>
                             <input class="form-control mb-1 date" name="meeting_date" placeholder="বৈঠক তারিখ">
                         </div>
                     </div>
@@ -171,7 +171,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="col-form-label">বৈঠক স্থান<span class="text-danger">*</span></label>
+                            <label class="col-form-label">বৈঠকের স্থান<span class="text-danger">*</span></label>
                             <textarea class="form-control mb-1" name="meeting_place" placeholder="বৈঠক স্থান" cols="30"
                                       rows="2"></textarea>
                         </div>

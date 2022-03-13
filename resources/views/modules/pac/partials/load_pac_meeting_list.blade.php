@@ -97,18 +97,18 @@
                                         {{$meeting['meeting_no']}}
                                     </div>
                                     <div class="subject-wrapper font-weight-normal">
+                                        <span class="mr-2 font-size-1-1">তারিখঃ</span>
+                                        <span class="description text-info text-wrap font-size-14">
+                                             {{formatDate($meeting['meeting_date'],'bn')}}
+                                        </span>
+                                    </div>
+                                    <div class="subject-wrapper font-weight-normal">
                                         <span class="mr-2 font-size-1-1">সংসদ নংঃ</span>
                                         <span class="description text-info text-wrap font-size-14">{{$meeting['parliament_no']}}</span>
                                     </div>
                                     <div class="subject-wrapper font-weight-normal">
                                         <span class="mr-2 font-size-1-1">স্থানঃ</span>
                                         <span class="description text-info text-wrap font-size-14">{{$meeting['meeting_place']}}</span>
-                                    </div>
-                                    <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">তারিখঃ</span>
-                                        <span class="description text-info text-wrap font-size-14">
-                                             {{formatDateTime($meeting['meeting_date'],'bn')}}
-                                        </span>
                                     </div>
                                     <div class="font-weight-normal d-none predict-wrapper">
                                         <span class="predict-label text-success"></span>
@@ -145,7 +145,14 @@
                                             </div>
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
-                                            <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                            <button class="mr-1 btn btn-sm btn-primary btn-square"
+                                                    title="{{___('generic.buttons.title.details')}}"
+                                                    data-pac-meeting-id="{{$meeting['id']}}"
+                                                    onclick="Pac_Container.showPacMeeting($(this))">
+                                                বিস্তারিত
+                                            </button>
+
+                                            <button class="mr-1 btn btn-sm btn-primary btn-square"
                                                     title="রিপোর্ট তৈরি করুন"
                                                     data-pac-meeting-id="{{$meeting['id']}}"
                                                     data-directorate-id="{{$meeting['directorate_id']}}"
@@ -154,21 +161,15 @@
                                                     data-meeting-date="{{$meeting['meeting_date']}}"
                                                     data-meeting-place="{{$meeting['meeting_place']}}"
                                                     onclick="Pac_Container.createPacWorksheetReport($(this))">
-                                                <i class="fad fa-plus"></i>
+                                                কার্যপত্র
                                             </button>
 
-                                            <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                    title="{{___('generic.buttons.title.details')}}"
-                                                    data-pac-meeting-id="{{$meeting['id']}}"
-                                                    onclick="Pac_Container.showPacMeeting($(this))">
-                                                <i class="fad fa-eye"></i>
-                                            </button>
 
-                                            <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                            <button class="mr-1 btn btn-sm btn-primary btn-square"
                                                     title="{{___('generic.buttons.title.details')}}"
                                                     data-pac-meeting-id="{{$meeting['id']}}"
                                                     onclick="Pac_Container.showPacMeetingMinutes($(this))">
-                                                <i class="fa fa-books"></i>
+                                                কার্যবিবরণী
                                             </button>
 
                                             @if(!$meeting['is_sent_pac'])
