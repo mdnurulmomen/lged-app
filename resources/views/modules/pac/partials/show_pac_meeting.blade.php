@@ -910,7 +910,7 @@
                     @foreach($meeting['meeting_apottis'] as $apotti)
                         <tr class="bangla-font">
                             <td class="bangla-font text-center">
-                                {{$apotti['onucched_no']}}
+                                {{enTobn($apotti['onucched_no'])}}
                             </td>
                             <td class="bangla-font text-left">
                                 {{$apotti['apotti_title']}}

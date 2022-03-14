@@ -35,7 +35,10 @@ class PacController extends Controller
 
         $pacMeetingList = $this->initHttpWithToken()->post(config('amms_bee_routes.pac.get-pac-meeting-list'), $data)->json();
 
+//        dd($pacMeetingList);
+
         if (isSuccess($pacMeetingList)) {
+            $pacMeetingList = $pacMeetingList['data'];
             return view('modules.pac.partials.load_pac_meeting_list',compact('pacMeetingList'));
         } else {
             return response()->json(['status' => 'error', 'data' => $pacMeetingList]);
