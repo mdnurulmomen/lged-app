@@ -103,7 +103,7 @@
                                         </a>
                                     </div>
                                     <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">এন্টিটিঃ</span>
+                                        <span class="mr-2 font-size-1-1">এনটিটিঃ</span>
                                         <span class="description text-info text-wrap font-size-14">{{$item['sender_office_name_bn']}}</span>
                                     </div>
                                     <div class="subject-wrapper font-weight-normal">
