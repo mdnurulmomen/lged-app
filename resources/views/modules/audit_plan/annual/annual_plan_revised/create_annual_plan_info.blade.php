@@ -178,7 +178,7 @@
                                             <label for="with_out_assessment" class="radio radio-success">
                                                 <input checked id="with_out_assessment" type="radio" name="assessment" value="with_out_assessment"/>
                                                 <span></span>
-                                                With Out Auditability Assessment
+                                                Without Auditability Assessment
                                             </label>
                                         </div>
                                     </div>
