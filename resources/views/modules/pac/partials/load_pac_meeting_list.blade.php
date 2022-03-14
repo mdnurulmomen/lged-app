@@ -24,34 +24,34 @@
         <div class="d-flex">
             <div id="daak_group_action_panel">
                 <div class="d-flex flex-wrap">
-                    <div class="btn-group">
-                        <div class="dropdown bootstrap-select form-control">
-                            <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light border-0"
-                                    data-toggle="dropdown" role="combobox" aria-owns="bs-select-1"
-                                    aria-haspopup="listbox" aria-expanded="false" data-id="daak_status_selectpicker"
-                                    title="সকল">
-                                <div class="filter-option">
-                                    <div class="filter-option-inner">
-                                        <div class="filter-option-inner-inner">সকল</div>
-                                    </div>
-                                </div>
-                            </button>
-                            <div class="dropdown-menu " style="max-height: 406px; overflow: hidden; min-height: 118px;">
-                                <div class="inner show" role="listbox" id="bs-select-1" tabindex="-1"
-                                     aria-activedescendant="bs-select-1-0"
-                                     style="max-height: 406px; overflow-y: auto; min-height: 118px;">
-                                    <ul class="dropdown-menu inner show" role="presentation"
-                                        style="margin-top: 0px; margin-bottom: 0px;">
-                                        <li class="selected active"><a role="option"
-                                                                       class="dropdown-item active selected"
-                                                                       id="bs-select-1-0" tabindex="0" aria-setsize="5"
-                                                                       aria-posinset="1" aria-selected="true"><span
-                                                    class="text">সকল</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="btn-group">--}}
+{{--                        <div class="dropdown bootstrap-select form-control">--}}
+{{--                            <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light border-0"--}}
+{{--                                    data-toggle="dropdown" role="combobox" aria-owns="bs-select-1"--}}
+{{--                                    aria-haspopup="listbox" aria-expanded="false" data-id="daak_status_selectpicker"--}}
+{{--                                    title="সকল">--}}
+{{--                                <div class="filter-option">--}}
+{{--                                    <div class="filter-option-inner">--}}
+{{--                                        <div class="filter-option-inner-inner">সকল</div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </button>--}}
+{{--                            <div class="dropdown-menu " style="max-height: 406px; overflow: hidden; min-height: 118px;">--}}
+{{--                                <div class="inner show" role="listbox" id="bs-select-1" tabindex="-1"--}}
+{{--                                     aria-activedescendant="bs-select-1-0"--}}
+{{--                                     style="max-height: 406px; overflow-y: auto; min-height: 118px;">--}}
+{{--                                    <ul class="dropdown-menu inner show" role="presentation"--}}
+{{--                                        style="margin-top: 0px; margin-bottom: 0px;">--}}
+{{--                                        <li class="selected active"><a role="option"--}}
+{{--                                                                       class="dropdown-item active selected"--}}
+{{--                                                                       id="bs-select-1-0" tabindex="0" aria-setsize="5"--}}
+{{--                                                                       aria-posinset="1" aria-selected="true"><span--}}
+{{--                                                    class="text">সকল</span></a></li>--}}
+{{--                                    </ul>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     <button id="btn-daak-toolbar-reset" class="btn btn-icon mx-1" type="button" data-toggle="tooltip"
                             title="{{___('generic.buttons.title.reset')}}">
                         <span class="fas fa-recycle text-warning"></span>

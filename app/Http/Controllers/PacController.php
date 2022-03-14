@@ -89,12 +89,13 @@ class PacController extends Controller
 
         $meetingInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.pac.get-meeting-info'), $data)->json();
 
-//        dd($meetingInfo);
+//        dd($meetingInfo['data']);
 
         if (isSuccess($meetingInfo)) {
-            return view('modules.pac.partials.show_pac_meeting',compact('meetingInfo'));
+            $meeting = $meetingInfo['data'];
+            return view('modules.pac.partials.show_pac_meeting',compact('meeting'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $meetingInfo]);
+            return response()->json(['status' => 'error', 'data' => $meeting]);
         }
     }
 
@@ -175,7 +176,7 @@ class PacController extends Controller
         $data['qac_type'] = 'cqat';
 
         $apotti_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_and_apotti_type_wise_qac_apotti'), $data)->json();
-
+//        dd($apotti_list);
         if (isSuccess($apotti_list)) {
             $apotti_list = $apotti_list['data'];
             return view('modules.pac.partials.apotti_list',compact('apotti_list'));
