@@ -62,7 +62,7 @@
     transition: background-color 0.3s; }
     .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading,
     .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link {
-      background-color: #F3F6F9 ; }
+      background-color: #d4ebff ; }
       .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-text,
       .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-text {
         color: #3699FF ; }
@@ -125,9 +125,11 @@
     .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link {
       background-color: #F3F6F9 ; }
       .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-text,
-      .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-text {
+      .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-text,
+       .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-text
+      {
         font-weight: 600;
-        color: var(--sactivecolor);
+        color: var(--sactivecolor) !important;
          }
       .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-icon,
       .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-icon {
@@ -194,7 +196,7 @@
     color: var(--sactivecolor); }
   .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-icon,
   .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-icon {
-    color: var(--sactivecolor); }
+    color: var(--sactivecolor) !important; }
     .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-icon.svg-icon svg g [fill],
     .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-icon.svg-icon svg g [fill] {
       -webkit-transition: fill 0.3s ease;

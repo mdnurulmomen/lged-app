@@ -1,9 +1,9 @@
 <!--begin::Table-->
-<div class="row">
-    <div class="col-md-5 officers_list_area card ml-5">
+<div class="d-flex body-wrapper">
+    <div class="col-md-6 officers_list_area card">
         <h5 class="mt-2 mb-4"></h5>
         <div class="rounded-0" id="qacMemberTree"
-             style="overflow-y: scroll; height: 60vh">
+             style="overflow-y: scroll; height: 65vh">
             <ul>
                 @foreach($officer_lists as $key => $officer_list)
                     @foreach($officer_list['units'] as $unit)
@@ -36,18 +36,18 @@
             </ul>
         </div>
     </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-5 card">
-        <form  id="qac_committee_form">
-            <input type="text" class="form-control mt-2" name="title" placeholder="কমিটি নাম">
-            <h5 class="text-primary mt-2"><u>সদস্যের তালিকাঃ</u></h5>
-            <ul class="select_member p-0"></ul>
+    
+    <div class="col-md-6 card">
+        <form  id="qac_committee_form" >
+            <input type="text" class="form-control my-3 ml-3" name="title" placeholder="কমিটি নাম">
+            <h5 class="text-primary mt-3 mb-4 pl-3"><u>সদস্যের তালিকাঃ</u></h5>
+            <ul class="select_member p-0" style="overflow-y: scroll; height: 50vh"></ul>
         </form>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <button class="btn btn-sm btn-square btn-outline-primary float-right mt-2 mr-20"
+        <button class="btn btn-sm btn-square btn-outline-primary float-right mt-2 mr-4"
                 onclick="Qac_Committee_Container.submitQacCommittee($(this))"><i class="fa fa-save"></i> সংরক্ষণ
         </button>
     </div>
