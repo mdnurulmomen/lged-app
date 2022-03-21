@@ -206,6 +206,7 @@ class AuditExecutionMemoController extends Controller
             'memo_id' => 'required|integer',
             'memo_title_bn' => 'required',
         ])->validate();
+        $data['directorate_id'] = $request->directorate_id;
         $data['cdesk'] = $this->current_desk_json();
         $attachments = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.attachment_list'), $data)->json();
         //dd($attachments);

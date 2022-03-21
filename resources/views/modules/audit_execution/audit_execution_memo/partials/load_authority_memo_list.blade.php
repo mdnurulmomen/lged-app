@@ -92,15 +92,19 @@
                                         <span class="mr-2 font-size-1-1">শিরোনামঃ</span>
                                         <span class="description text-info text-wrap font-size-14">{{$memo['memo_title_bn']}}</span>
                                     </div>
-                                    <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">আপত্তি অনিয়মের ধরনঃ</span>
-                                        <span class="font-size-14">
-                                            {{$memo['memo_irregularity_type_name']}}
-                                        </span>
-                                        <span class="label label-outline-danger label-pill label-inline">
-                                            {{$memo['memo_type_name']}}
-                                        </span>
-                                    </div>
+
+                                    @if($memo['memo_irregularity_type_name'] != 'N/A')
+                                        <div class="font-weight-normal">
+                                            <span class="mr-2 font-size-1-1">আপত্তি অনিয়মের ধরনঃ</span>
+                                            <span class="font-size-14">
+                                                {{$memo['memo_irregularity_type_name']}}
+                                            </span>
+                                            {{--<span class="label label-outline-danger label-pill label-inline">
+                                                {{$memo['memo_type_name']}}
+                                            </span>--}}
+                                        </div>
+                                    @endif
+
                                     <div class=" subject-wrapper font-weight-normal">
                                         <span class="mr-2 font-size-1-1">জড়িত অর্থঃ</span>
                                         <span class="text-info font-size-14">
