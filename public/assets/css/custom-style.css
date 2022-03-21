@@ -585,6 +585,12 @@ ul.sna-breadcrumb li a:hover {
     border-color: #1f60a3;
 }
 
+.btn.btn-quick-panel-close{
+    color: #ffffff;
+    background-color: #b74753;
+    border-color: #b74753;
+}
+
 .topbar .widget_container svg{
     height: 24px !important;
     width: 24px !important;
@@ -613,7 +619,7 @@ ul.sna-breadcrumb li a:hover {
     line-height: 20px;
 }
 .qac-modal{
-    
+
 }
 .qac-modal .body-wrapper{
     border-bottom:1px solid var(--sheaderbg); ;
@@ -622,6 +628,48 @@ ul.sna-breadcrumb li a:hover {
     padding: 12px;
     border-bottom: 1px solid var(--sheaderbg);
     background: #d1eaff;
+}
+.qac-modal .officers_list_area{
+    border-right: 1px solid var(--sheaderbg);
+}
+
+.topbar .widget_container svg{
+    height: 24px !important;
+    width: 24px !important;
+}
+.topbar-item .symbol img{
+    max-width: 27px;
+    height: auto;
+}
+
+#kt_header_menu .menu-item .btn.dropdown-toggle {
+    padding: 14px 10px 10px 10px;
+}
+
+.sna-top-left-toggle-menu > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0 10px 0;
+    border: 1px solid #c5e5ff;
+}
+.sna-top-left-toggle-menu > div:hover {
+    background: #f3f9ff;
+}
+
+.toolbar .bootstrap-select .dropdown-toggle .filter-option-inner-inner{
+    line-height: 20px;
+}
+.qac-modal{
+
+}
+.qac-modal .body-wrapper{
+    border-bottom:1px solid var(--sheaderbg); ;
+}
+.qac-modal .offcanvas-header{
+    padding: 15px;
+    border-bottom: 1px solid var(--sheaderbg);
+    background: #ffffff;
 }
 .qac-modal .officers_list_area{
     border-right: 1px solid var(--sheaderbg);

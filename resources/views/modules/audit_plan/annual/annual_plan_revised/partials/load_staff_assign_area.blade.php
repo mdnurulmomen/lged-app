@@ -1,6 +1,6 @@
-<div class="form-row pt-4 staff_row" id="team_section_{{$count}}">
-    <div class="col-md-4">
-        <label for="designation">পদবি</label>
+<tr class="form-row pt-4 staff_row" id="team_section_{{$count}}">
+    <td width="35%">
+        <input type="hidden" name="staff_info[]" class="staff_info_{{$count}}" value="">
         <select class="form-control select-select2 staff_designation designation_{{$count}}" name="designation[]">
             <option value="">--বাছাই করুন--</option>
             @foreach($designations as $designation)
@@ -9,31 +9,27 @@
                 </option>
             @endforeach
         </select>
-    </div>
-    <div class="col-md-3">
-        <label for="responsibility">দায়িত্ব</label>
+    </td>
+    <td width="35%">
         <select class="form-control select-select2 staff_responsibility responsibility_{{$count}}" name="responsibility">
             <option value="">--বাছাই করুন--</option>
             <option data-responsibility-en="Team Leader" value="Team Leader|দলনেতা">দলনেতা</option>
             <option data-responsibility-en="Sub Team Leader" value="Sub Team Leader|উপদলনেতা">উপদলনেতা</option>
             <option data-responsibility-en="Member" value="Member|সদস্য">সদস্য</option>
         </select>
-    </div>
-    <div class="col-md-3">
-        <label for="staff">জন</label>
+    </td>
+    <td width="20%">
         <input class="form-control staff_number staff_{{$count}}" type="number" name="staff">
-    </div>
-    <div class="col-md-2 mt-9">
-        <span title="যোগ করুন" onclick="Annual_Plan_Container.addTeamSection($(this))" class="btn btn-outline-primary btn-sm btn-square">
-            <i class="fal fa-plus"></i>
-        </span>
-        <button title="মুছে ফেলুন" onclick="Annual_Plan_Container.removeTeamSection($(this))"
-                class="btn btn-outline-danger btn-sm btn-danger btn-square">
-            <i class="fal fa-minus"></i>
+    </td>
+    <td width="10%">
+        <button title="মুছে ফেলুন" type='button'
+                class='btn btn-outline-danger btn-sm btn-square'
+                onclick="Annual_Plan_Container.removeTeamSection($(this))">
+            <span class='fa fa-trash'></span>
         </button>
-    </div>
-    <input type="hidden" name="staff_info[]" class="staff_info_{{$count}}" value="">
-</div>
+    </td>
+</tr>
+
 
 <script>
 

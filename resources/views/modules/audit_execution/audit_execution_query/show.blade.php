@@ -1,11 +1,13 @@
-<div class="col-md-12">
-    <div class="d-flex justify-content-end mt-4">
-        <button onclick="Show_Query_Container.queryDownload()"
-                class="btn btn-danger btn-sm btn-bold btn-square">
-            <i class="far fa-file-pdf"></i>
-        </button>
+@if($scopeAuthority == 0)
+    <div class="col-md-12">
+        <div class="d-flex justify-content-end mt-4">
+            <button onclick="Show_Query_Container.queryDownload()"
+                    class="btn btn-danger btn-sm btn-bold btn-square">
+                <i class="far fa-file-pdf"></i>
+            </button>
+        </div>
     </div>
-</div>
+@endif
 
 <div class="col-lg-12 p-0 mt-3">
     {{--    {{dd($auditQueryInfo)}}--}}
@@ -41,7 +43,7 @@
             <tr>
                 <th width="15%">ক্রমিক নং</th>
                 <th width="65%">কোয়েরি</th>
-                <th width="20%"></th>
+                @if($scopeAuthority == 0) <th width="20%"></th> @endif
             </tr>
             </thead>
             <tbody>
@@ -62,25 +64,28 @@
                             {{$item['status']}}
                         </span>
                     </td>
-                    <td>
-                        @if($scopeAuthority == 0 && $item['status'] == 'submitted')
-                            <button title="রিসিভ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
-                                    data-ac-query-item-id="{{$item['id']}}"
-                                    data-ac-query-id="{{$item['ac_query_id']}}"
-                                    onclick="Show_Query_Container.receivedQuery($(this))">
-                                <i class="fad fa-check-circle"></i>
-                            </button>
-                        @endif
 
-                        @if($scopeAuthority == 0 && $item['status'] != 'pending')
-                            <button title="কমেন্ট দেখুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
-                                    data-ac-query-item-id="{{$item['id']}}"
-                                    data-ac-query-item-comment="{{$item['comment']}}"
-                                    onclick="Show_Query_Container.showQueryComment($(this))">
-                                <i class="fal fa-eye"></i>
-                            </button>
-                        @endif
-                    </td>
+                    @if($scopeAuthority == 0)
+                        <td>
+                            @if($item['status'] == 'submitted')
+                                <button title="রিসিভ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                        data-ac-query-item-id="{{$item['id']}}"
+                                        data-ac-query-id="{{$item['ac_query_id']}}"
+                                        onclick="Show_Query_Container.receivedQuery($(this))">
+                                    <i class="fad fa-check-circle"></i>
+                                </button>
+                            @endif
+
+                            @if($item['status'] != 'pending')
+                                <button title="কমেন্ট দেখুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                        data-ac-query-item-id="{{$item['id']}}"
+                                        data-ac-query-item-comment="{{$item['comment']}}"
+                                        onclick="Show_Query_Container.showQueryComment($(this))">
+                                    <i class="fal fa-eye"></i>
+                                </button>
+                            @endif
+                        </td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>

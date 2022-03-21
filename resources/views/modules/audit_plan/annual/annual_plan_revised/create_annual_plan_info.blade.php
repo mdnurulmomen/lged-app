@@ -1,45 +1,87 @@
-<x-title-wrapper>Annual Plan</x-title-wrapper>
+<style>
+    fieldset.scheduler-border {
+        border: 1px groove #ddd !important;
+        padding: 0 1.4em 1.4em 1.4em !important;
+        margin: 0 0 1.5em 0 !important;
+        -webkit-box-shadow:  0px 0px 0px 0px #000;
+        box-shadow:  0px 0px 0px 0px #000;
+    }
 
-<div class="card sna-card-border mt-3" style="margin-bottom:30px;">
-    <div class="row">
-        <div class="col-6">
-            <div class="form-row">
-                <div class="col-md-6">
-                    <label for="activity_id">অ্যাক্টিভিটি<span class="text-danger">*</span></label>
-                    <select class="form-control" name="activity_id" id="activity_id">
-                        <option value="">অ্যাক্টিভিটি বাছাই করুন</option>
-                        @foreach($all_activity as $activity)
-                            <option data-activity-type="{{$activity['activity_type']}}" data-activity-key="{{$activity['activity_key']}}" value="{{$activity['id']}}">{{$activity['title_bn']}} </option>
-                        @endforeach
-                    </select>
-                </div>
-                {{--            @php dump(session('dashboard_audit_type')) @endphp--}}
-                <div class="col-md-6 @if(session('dashboard_audit_type') == 'Performance Audit') d-none @endif">
-                    <input class="annual_plan_type mt-12" type="radio" name="annual_plan_type" value="thematic"> Thematic
-                    <input type="radio" name="annual_plan_type" value="entity_based" checked> Entity Based
-                    <input style="display: none" class="form-control thematic_title mt-2" name="thematic_title" value="" placeholder="Thematic Title">
-                </div>
+    legend.scheduler-border {
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        width:auto;
+        padding:0 10px;
+        border-bottom:none;
+    }
+</style>
 
-                <div class="col-md-6" style="display: none">
-                    <label for="activity_id">মাইলস্টোন<span class="text-danger">*</span></label>
-                    <select class="form-control" name="milestone_id" id="milestone_id">
-                        <option value="">মাইলস্টোন বাছাই করুন</option>
-                    </select>
-                </div>
-            </div>
+<div class="row m-0 mb-2 page-title-wrapper d-md-flex align-items-md-center">
+    <div class="col-md-6">
+        <div class="title py-2">
+            <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Annual Plan</h4>
         </div>
     </div>
-    <div class="row pt-4">
-        <div class="col-6">
-            <div class="annual_entity_selection_area">
+    <div class="col-md-6 text-right">
+        <a
+            onclick="Annual_Plan_Container.backToAnnualPlanList()"
+            class="btn btn-sm btn-warning btn_back btn-square mr-3">
+            <i class="fad fa-arrow-alt-left"></i> ফেরত যান
+        </a>
+        <button class="btn btn-sm btn-square btn-primary mr-2"
+                onclick="Annual_Plan_Container.submitAnnualPlan($(this))">
+            <i class="fa fa-save"></i> সংরক্ষণ করুন
+        </button>
+    </div>
+</div>
+
+<div class="row" style="margin-bottom:15px;">
+    <div class="col-6">
+        <div class="card sna-card-border">
+            <select class="form-control" name="activity_id" id="activity_id">
+                <option value="">অ্যাক্টিভিটি বাছাই করুন</option>
+                @foreach($all_activity as $activity)
+                    <option data-activity-type="{{$activity['activity_type']}}" data-activity-key="{{$activity['activity_key']}}" value="{{$activity['id']}}">
+                        {{$activity['title_bn']}}
+                    </option>
+                @endforeach
+            </select>
+
+
+            <div class="row mt-4">
+                <div class="col-md-12 @if(session('dashboard_audit_type') == 'Performance Audit') d-none @endif">
+                    <div class="form-group mb-1">
+                        <div class="col-form-label">
+                            <div class="radio-inline">
+                                <label for="thematic" class="radio radio-success">
+                                    <input id="thematic" class="annual_plan_type" type="radio" name="annual_plan_type" value="thematic"/>
+                                    <span></span>
+                                    Thematic
+                                </label>
+                                <label for="entity_based" class="radio radio-success">
+                                    <input id="entity_based" type="radio" name="annual_plan_type" value="entity_based" checked/>
+                                    <span></span>
+                                    Entity Based
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <input style="display: none" class="form-control thematic_title" name="thematic_title" value="" placeholder="Thematic Title">
+                 </div>
+            </div>
+        </div>
+
+        <div class="card sna-card-border mt-3">
+            <div class="annual_entity_selection_area mt-4">
                 <ul class="nav nav-tabs custom-tabs mb-0" id="myTab" role="tablist">
                     @if(session('dashboard_audit_type') == 'Performance Audit')
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#select_topic"
-                           aria-controls="tree">
-                            <span class="nav-text">টপিক বাছাই করুন</span>
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#select_topic"
+                               aria-controls="tree">
+                                <span class="nav-text">টপিক বাছাই করুন</span>
+                            </a>
+                        </li>
                     @endif
                     <li class="nav-item">
                         <a class="nav-link @if(session('dashboard_audit_type') != 'Performance Audit') active @endif" id="calender" data-toggle="tab"
@@ -63,98 +105,98 @@
                 <div class="tab-content" id="rp_office_tab">
                     @if(session('dashboard_audit_type') == 'Performance Audit')
                         <div class="tab-pane fade border border-top-0 p-3 show active" id="select_topic"
-                            role="tabpanel"
-                            aria-labelledby="activity-tab">
-                                    <div class="form-row mt-2">
-                                        <div class="col-md-12">
-                                            <label for="vumika">ভূমিকা <span class="text-danger">*</span></label>
-                                            <input class="form-control" type="text" id="vumika" name="vumika">
-                                        </div>
-                                        <div class="row mt-2 mb-2 mx-0">
-                                            <p class="col-md-12 mb-1 px-2">সাবজেক্ট ম্যাটার :</p><br>
-                                            <div class="col-md-12 px-2">
-                                                <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
-                                                <input class="form-control" type="text" id="subject_matter" name="subject_matter">
-                                            </div>
-                                            <div class="col-md-12 px-2 mt-2">
-                                                <label for="sub_subject_matter">সাব টপিক<span class="text-danger">*</span></label>
-                                                <div class="sub_subject_matter_div">
-                                                    <div>
-                                                        <div class="input-group">
-                                                            <input class="form-control sub_subject_matter" type="text" id="sub_subject_matter" name="sub_subject_matter">
-                                                            <button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary add_sub_topic
+                             role="tabpanel"
+                             aria-labelledby="activity-tab">
+                            <div class="form-row mt-2">
+                                <div class="col-md-12">
+                                    <label for="vumika">ভূমিকা <span class="text-danger">*</span></label>
+                                    <input class="form-control" type="text" id="vumika" name="vumika">
+                                </div>
+                                <div class="row mt-2 mb-2 mx-0">
+                                    <p class="col-md-12 mb-1 px-2">সাবজেক্ট ম্যাটার :</p><br>
+                                    <div class="col-md-12 px-2">
+                                        <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" id="subject_matter" name="subject_matter">
+                                    </div>
+                                    <div class="col-md-12 px-2 mt-2">
+                                        <label for="sub_subject_matter">সাব টপিক<span class="text-danger">*</span></label>
+                                        <div class="sub_subject_matter_div">
+                                            <div>
+                                                <div class="input-group">
+                                                    <input class="form-control sub_subject_matter" type="text" id="sub_subject_matter" name="sub_subject_matter">
+                                                    <button type="button"  class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary add_sub_topic
                                                                             list-btn-toggle"><i class="fad fa-plus-circle"></i></button>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label for="audit_objective">অডিট অবজেকটিভ<span class="text-danger">*</span></label>
-                                            <input class="form-control" type="text" id="audit_objective" name="audit_objective">
-
-
-                                            <div id="objectiveAppendSection" class="objectiveAppendSection">
-                                                <fieldset class="scheduler-border">
-                                                    <legend class="scheduler-border">
-                                                        সাব অবজেকটিভ
-                                                        {{-- <span class="fa fa-plus-circle btn_objective_add"></span> --}}
-                                                        <button class="btn btn-sm btn-square btn-outline-primary btn_objective_add float-right"
-                                                                ><i class="fa fa-plus"></i> নতুন যোগ করুন
-                                                        </button>
-                                                    </legend>
-
-                                                    <div class="sub_objective_row " id="sub_objective_row_1">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label class="input-label">সাব অবজেকটিভ<span class="text-danger">*</span></label>
-                                                                    <input class="form-control sub_objective" type="text" id="sub_objective" name="sub_objective">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="line_of_enquire_row">
-                                                            <div class="row">
-                                                                <div class="col-md-10">
-                                                                    <div class="form-group">
-                                                                        <label class="input-label">লাইন অফ ইনকোয়ারি<span class="text-danger">*</span></label>
-
-                                                                        <div class="line_of_enquire_div">
-                                                                            <div>
-                                                                                <div class="input-group">
-                                                                                    <input class="form-control line_of_enquire" type="text" id="line_of_enquire" name="line_of_enquire">
-                                                                                    <button type="button" onclick="addLineOfEnquire($(this))" class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary
-                                                                                    list-btn-toggle"><i class="fad fa-plus-circle"></i></button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </fieldset>
-
-                                                <div class="object_append_div">
-
-                                                </div>
-
-
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label for="audit_approach">অডিট অ্যাপ্রোচ<span class="text-danger">*</span></label></br>
-                        {{--                    <input class="form-control d-none" type="text" id="audit_approach" name="audit_approach">--}}
-                                            <input type="radio" name="audit_approach" value="Problem Oriented" checked> Problem Oriented
-                                            <input type="radio" class="ml-3" name="audit_approach" value="Result Oriented"> Result Oriented
-                                            <input type="radio" class="ml-3" name="audit_approach" value="System Oriented" > System Oriented
-
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="audit_objective">অডিট অবজেকটিভ<span class="text-danger">*</span></label>
+                                    <input class="form-control" type="text" id="audit_objective" name="audit_objective">
+
+
+                                    <div id="objectiveAppendSection" class="objectiveAppendSection">
+                                        <fieldset class="scheduler-border">
+                                            <legend class="scheduler-border">
+                                                সাব অবজেকটিভ
+                                                {{-- <span class="fa fa-plus-circle btn_objective_add"></span> --}}
+                                                <button class="btn btn-sm btn-square btn-outline-primary btn_objective_add float-right"
+                                                ><i class="fa fa-plus"></i> নতুন যোগ করুন
+                                                </button>
+                                            </legend>
+
+                                            <div class="sub_objective_row " id="sub_objective_row_1">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="input-label">সাব অবজেকটিভ<span class="text-danger">*</span></label>
+                                                            <input class="form-control sub_objective" type="text" id="sub_objective" name="sub_objective">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="line_of_enquire_row">
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <div class="form-group">
+                                                                <label class="input-label">লাইন অফ ইনকোয়ারি<span class="text-danger">*</span></label>
+
+                                                                <div class="line_of_enquire_div">
+                                                                    <div>
+                                                                        <div class="input-group">
+                                                                            <input class="form-control line_of_enquire" type="text" id="line_of_enquire" name="line_of_enquire">
+                                                                            <button type="button" onclick="addLineOfEnquire($(this))" class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary
+                                                                                    list-btn-toggle"><i class="fad fa-plus-circle"></i></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+
+                                        <div class="object_append_div">
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="audit_approach">অডিট অ্যাপ্রোচ<span class="text-danger">*</span></label></br>
+                                    {{--                    <input class="form-control d-none" type="text" id="audit_approach" name="audit_approach">--}}
+                                    <input type="radio" name="audit_approach" value="Problem Oriented" checked> Problem Oriented
+                                    <input type="radio" class="ml-3" name="audit_approach" value="Result Oriented"> Result Oriented
+                                    <input type="radio" class="ml-3" name="audit_approach" value="System Oriented" > System Oriented
+
+                                </div>
+                            </div>
 
                         </div>
                     @endif
@@ -191,13 +233,15 @@
                     <div class="tab-pane border border-top-0 p-3 fade" id="select_entity_by_layer"
                          role="tabpanel" aria-labelledby="activity-tab">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <select class="form-control select-select2" id="selected_entity">
                                     <option value=""> --এনটিটি/সংস্থা বাছাই করুন--</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-12 rp_auditee_office_tree"></div>
+                        <div class="row mt-3">
+                            <div class="col-md-12 rp_auditee_office_tree"></div>
+                        </div>
                     </div>
                     <div class="tab-pane border border-top-0 p-3 fade" id="select_milestone"
                          role="tabpanel" aria-labelledby="activity-tab">
@@ -206,22 +250,10 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-6">
-            <div class="row">
-                <div class="offset-6 col-md-6 text-right p-2">
-                    <a
-                        onclick="Annual_Plan_Container.backToAnnualPlanList()"
-                        class="btn btn-sm btn-outline-warning btn_back btn-square mr-3">
-                        <i class="fad fa-arrow-alt-left"></i> ফেরত যান
-                    </a>
-                    <button class="btn btn-sm btn-square btn-outline-primary mr-2"
-                            onclick="Annual_Plan_Container.submitAnnualPlan($(this))"><i class="fa fa-save"></i> সংরক্ষণ
-                    </button>
-                </div>
-            </div>
-
-            <form id="annual_plan_form">
+    </div>
+    <div class="col-6">
+        <form id="annual_plan_form">
+            <div class="card sna-card-border">
                 <input type="hidden" value="" name="id">
                 <div class="form-row">
                     <div class="@if(session('dashboard_audit_type') == 'Performance Audit') col-md-12 @else col-md-6 @endif">
@@ -258,54 +290,64 @@
                         </div>
                     </div>
                 @endif
+            </div>
 
-                <div class="p-4 mt-4 card">
-                    <div class="form-row">
-                        <div class="col-md-12">
-                            <div class="pl-4 selected_rp_offices">
-                                <h5 class="text-primary"><u>অডিটের জন্য প্রস্তাবিত ইউনিটের তালিকাঃ</u></h5>
-                            </div>
-                        </div>
-                    </div>
+            {{--auditable unit list--}}
+            <div class="card sna-card-border mt-3">
+                <div class="selected_rp_offices">
+                    <h5 class="text-primary"><u>অডিটের জন্য প্রস্তাবিত ইউনিটের তালিকাঃ</u></h5>
                 </div>
+            </div>
 
-                <div class="p-4 mt-4 card">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <span onclick="Annual_Plan_Container.addTeamSection($(this))"
-                                  class="btn btn-outline-primary btn-square mr-2">
+            {{--team create--}}
+            <div class="card sna-card-border mt-3">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">
+                        জনবল <button title="যোগ করুন" type='button'
+                                     style="margin: 5px;padding: 5px;"
+                                     class='btn btn-primary'
+                                     onclick="Annual_Plan_Container.addTeamSection($(this))">
+                            <span class='fa fa-plus'></span>
+                        </button>
+                    </legend>
+                    <table width="100%"
+                           class="table table-bordered table-striped table-hover table-condensed table-sm"
+                           id="tblTeamMemberList">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </fieldset>
+
+                {{--<span onclick="Annual_Plan_Container.addTeamSection($(this))"
+                      class="btn btn-outline-primary btn-square mr-2">
                                 <i class="fa fa-plus"></i> জনবল
-                            </span>
-                        </div>
-                    </div>
+                </span>
 
-                    <div class="team-section">
+                <div class="team-section"></div>--}}
 
-                    </div>
-                    <div class="form-row pt-4">
-                        <div class="col-md-12">
-                            <label for="staff_comment">টিমের বর্ণনা</label>
-                            <textarea rows="1" class="form-control" name="staff_comment" id="staff_comment"></textarea>
-                        </div>
+                <div class="form-row pt-2">
+                    <div class="col-md-12">
+                        <label for="staff_comment">টিমের বর্ণনা</label>
+                        <textarea rows="1" class="form-control" name="staff_comment" id="staff_comment"></textarea>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-row pt-4">
+            {{--details--}}
+            <div class="card sna-card-border mt-3">
+                <div class="form-row">
                     <div class="col-md-12">
                         <label for="comment">মন্তব্য</label>
                         <textarea class="form-control" id="comment" name="comment"></textarea>
                     </div>
                 </div>
-                {{--            <input type="hidden" name="schedule_id" value="{{$schedule_id}}">--}}
-                <input type="hidden" name="op_audit_calendar_event_id" value="{{$op_audit_calendar_event_id}}">
-                {{--            <input type="hidden" name="activity_id" value="{{$activity_id}}">--}}
-                {{--            <input type="hidden" name="milestone_id" value="{{$milestone_id}}">--}}
+               <input type="hidden" name="op_audit_calendar_event_id" value="{{$op_audit_calendar_event_id}}">
                 <input type="hidden" id="fiscal_year_id" name="fiscal_year_id" value="{{$fiscal_year_id}}">
-
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
+
 
 @include('scripts.script_generic')
 <script>

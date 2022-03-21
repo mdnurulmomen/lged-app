@@ -90,18 +90,18 @@
             {{--                </select>--}}
             {{--            </div>--}}
             <div class="col-md-3">
-                <input class="form-control mb-1" pattern="[0-9\.]*" id="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
-            </div>
-
-            <div class="col-md-2">
-                <input class="form-control mb-1 mt-1 year-picker" id="audit_year_start" placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text">
-            </div>
-
-            <div class="col-md-2">
-                <input class="form-control mb-1 mt-1 year-picker" id="audit_year_end" placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">
+                <input class="form-control mb-1 mt-1" pattern="[0-9\.]*" id="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
             </div>
 
             <div class="col-md-3">
+                <input class="form-control mb-1 mt-1 year-picker" id="audit_year_start" placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text">
+            </div>
+
+            <div class="col-md-3">
+                <input class="form-control mb-1 mt-1 year-picker" id="audit_year_end" placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">
+            </div>
+
+            <div class="col-md-3 mt-1">
                 <button id="btn_filter" class="btn icon-btn-primary" type="button">
                     <i class="fad fa-search"></i> অনুসন্ধান
                 </button>
@@ -111,7 +111,7 @@
 </div>
 
 
-<div class="card sna-card-border mt-2">
+<div class="card sna-card-border mt-2 mb-5">
     <div id="load_memo_list">
         <div class="d-flex align-items-center">
             <div class="spinner-grow text-warning mr-3" role="status">

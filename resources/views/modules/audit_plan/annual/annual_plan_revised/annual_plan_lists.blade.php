@@ -1,19 +1,21 @@
 <x-title-wrapper>Annual Plan List</x-title-wrapper>
 
-<div class="card sna-card-border d-flex flex-wrap flex-row">
-    <div class="w-25 pr-2 pb-2">
-        <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
-            <option value="">--সিলেক্ট--</option>
-            @foreach($fiscal_years as $fiscal_year)
-                <option
-                    value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
-            @endforeach
-        </select>
-    </div>
-    <div class="w-25 pr-2 pb-2">
-        <select class="form-control select-select2" id="activity_id">
-            <option value="">--সিলেক্ট--</option>
-        </select>
+<div class="card sna-card-border mt-3" style="margin-bottom:15px;">
+    <div class="row">
+        <div class="col-md-3">
+            <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
+                <option value="">--সিলেক্ট--</option>
+                @foreach($fiscal_years as $fiscal_year)
+                    <option
+                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control select-select2" id="activity_id">
+                <option value="">--সিলেক্ট--</option>
+            </select>
+        </div>
     </div>
 </div>
 
@@ -564,11 +566,16 @@
                 sec_count = 0;
             }
             count = parseInt(sec_count) + 1;
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, {count}, 'post', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
-                    $('.team-section').append(response);
+                    $('#tblTeamMemberList').append(response);
                 }
             })
         },

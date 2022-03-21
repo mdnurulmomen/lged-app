@@ -336,6 +336,7 @@ body {
 
 .offcanvas-content {
     position: relative;
+    padding: 30px;
 }
 
 /* .offcanvas-content::before {
@@ -999,7 +1000,7 @@ table {
 }
 
 .form-control {
-    border: 1px solid #D2EAFF;
+    border: 1px solid #1061a5;
 }
 
 .custom-table-layout .table thead th {
@@ -1462,5 +1463,5 @@ table {
 }
 
 .table.table-bordered > tbody {
-    font-size: 1.3em;
+    font-size: 1.0em;
 }

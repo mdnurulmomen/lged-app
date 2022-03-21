@@ -56,7 +56,7 @@
 </div>
 
 
-<div class="card sna-card-border mt-2">
+<div class="card sna-card-border mt-2 mb-5">
     <div id="load_query_list">
         <div class="d-flex align-items-center">
             <div class="spinner-grow text-warning mr-3" role="status">

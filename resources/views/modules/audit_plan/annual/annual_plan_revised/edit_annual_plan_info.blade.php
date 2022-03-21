@@ -117,7 +117,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a id="select_cost_centers" class="nav-link rounded-0" data-toggle="tab"
+                        <a id="select_milestones" class="nav-link rounded-0" data-toggle="tab"
                            href="#select_milestone">
                             <span class="nav-text">নিরীক্ষা কাজের পর্যায়</span>
                         </a>
@@ -156,7 +156,7 @@
                     <div class="tab-pane border border-top-0 p-3 fade" id="select_entity_by_layer"
                          role="tabpanel" aria-labelledby="activity-tab">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <select class="form-control" id="selected_entity">
                                     <option value=""> --এনটিটি বাছাই করুন--</option>
                                     @foreach($annual_plan_info['ap_entities'] as $entity)
@@ -170,7 +170,9 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-12 rp_auditee_office_tree"></div>
+                        <div class="row">
+                            <div class="col-md-12 rp_auditee_office_tree"></div>
+                        </div>
                     </div>
                     <div class="tab-pane border border-top-0 p-3 fade" id="select_milestone"
                          role="tabpanel" aria-labelledby="activity-tab">
