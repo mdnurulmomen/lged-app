@@ -1,4 +1,4 @@
-<x-title-wrapper>Audit Plan Lists</x-title-wrapper>
+<x-title-wrapper>Audit Plan List</x-title-wrapper>
 
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="w-25 pr-2 pb-2">

@@ -80,14 +80,15 @@ body,
     border-bottom: 1px solid #68673a;
 }
 
-.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link {
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link,
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link {
     background-color: var(--sactive) !important;
 
 
 }
 
 .aside-menu .menu-link:hover {
-    background-color: #F3F6F9 !important;
+    background-color: #344373 !important;
 
 }
 
@@ -135,7 +136,7 @@ body,
 
 .fixed-width-dropdown::after {
     float: right;
-    top: 6px;
+    top: 0px;
 }
 
 @media (min-width: 640px) {
@@ -235,7 +236,7 @@ button#voice2text {
 /* sna css */
 
 ul.sna-breadcrumb {
-    padding: 10px 16px;
+    padding: 7px 16px;
     list-style: none;
     background-color: var(--sbreadcrumbbg);
     -webkit-box-shadow: 0px 0px 40px 0px rgb(82 63 105 / 10%);
@@ -305,9 +306,9 @@ ul.sna-breadcrumb li a:hover {
 }
 
 #kt_header_menu .menu-item .btn {
-    padding: 12px;
+    padding: 14px 10px 14px 10px;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 12px;
     color: var(--sheadertxtcolor);
     border-radius: 0;
 }
@@ -327,7 +328,7 @@ ul.sna-breadcrumb li a:hover {
 }
 
 #kt_wrapper, .header-fixed .wrapper {
-    padding-top: 45px;
+    padding-top: 27px;
 }
 
 .header-menu .menu-nav > .menu-item {
@@ -414,7 +415,7 @@ ul.sna-breadcrumb li a:hover {
 
 .top-right-username {
     color: var(--sheadertxtcolor);
-    margin-right: 15px;
+    margin-right: 7px;
     display: flex;
     flex-wrap: wrap;
     width: 150px;
@@ -582,4 +583,46 @@ ul.sna-breadcrumb li a:hover {
 .btn.btn-sent{
     background-color: #1f60a3;
     border-color: #1f60a3;
+}
+
+.topbar .widget_container svg{
+    height: 24px !important;
+    width: 24px !important;
+}
+.topbar-item .symbol img{
+    max-width: 27px;
+    height: auto;
+}
+
+#kt_header_menu .menu-item .btn.dropdown-toggle {
+    padding: 14px 10px 10px 10px;
+}
+
+.sna-top-left-toggle-menu > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0 10px 0;
+    border: 1px solid #c5e5ff;
+}
+.sna-top-left-toggle-menu > div:hover {
+    background: #f3f9ff;
+}
+
+.toolbar .bootstrap-select .dropdown-toggle .filter-option-inner-inner{
+    line-height: 20px;
+}
+.qac-modal{
+    
+}
+.qac-modal .body-wrapper{
+    border-bottom:1px solid var(--sheaderbg); ;
+}
+.qac-modal .offcanvas-header{
+    padding: 12px;
+    border-bottom: 1px solid var(--sheaderbg);
+    background: #d1eaff;
+}
+.qac-modal .officers_list_area{
+    border-right: 1px solid var(--sheaderbg);
 }

@@ -615,7 +615,32 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
     Route::get('/legacy-data-management', [\App\Http\Controllers\LegacyDataManagementController::class, 'index'])->name('legacy_data_management');
 
-    Route::get('/pac', [\App\Http\Controllers\PacController::class, 'index'])->name('pac');
+    Route::group(['as' => 'pac.', 'prefix' => 'pac/'], function () {
+        Route::get('/', [\App\Http\Controllers\PacController::class, 'index'])->name('index');
+        Route::get('pac-meeting', [\App\Http\Controllers\PacController::class, 'pacMeeting'])->name('pac-meeting');
+        Route::post('pac-meeting-list', [\App\Http\Controllers\PacController::class, 'pacMeetingList'])->name('pac-meeting-list');
+
+        Route::group(['as' => 'meeting-worksheet-report.', 'prefix' => 'meeting-worksheet-report/'], function () {
+            Route::post('create', [\App\Http\Controllers\PacController::class, 'pacMeetingWorksheetReportCreate'])->name('create');
+            Route::post('store', [\App\Http\Controllers\PacController::class, 'pacMeetingWorksheetReportStore'])->name('store');
+            Route::post('preview', [\App\Http\Controllers\PacController::class, 'pacMeetingWorksheetReportPreview'])->name('preview');
+            Route::post('download', [\App\Http\Controllers\PacController::class, 'pacMeetingWorksheetReportDownload'])->name('download');
+        });
+
+        Route::post('pac-meeting-create', [\App\Http\Controllers\PacController::class, 'pacMeetingCreate'])->name('pac-meeting-create');
+        Route::post('pac-meeting-store', [\App\Http\Controllers\PacController::class, 'pacMeetingStore'])->name('pac-meeting-store');
+        Route::post('pac-meeting-show', [\App\Http\Controllers\PacController::class, 'pacMeetingShow'])->name('pac-meeting-show');
+        Route::post('sent-to-pac', [\App\Http\Controllers\PacController::class, 'sentToPac'])->name('sent-to-pac');
+        Route::post('pac-meeting-minutes', [\App\Http\Controllers\PacController::class, 'pacMeetingMinutes'])->name('pac-meeting-minutes');
+        Route::post('load-pac-member-list', [\App\Http\Controllers\PacController::class, 'loadPacMemberList'])->name('load-pac-member-list');
+        Route::post('load-office-member-list', [\App\Http\Controllers\PacController::class, 'loadOfficeMemberList'])->name('load-office-member-list');
+        Route::post('load-pac-final-report', [\App\Http\Controllers\PacController::class, 'loadPacFinalReport'])->name('load-pac-final-report');
+        Route::post('load-air-wise-apotti', [\App\Http\Controllers\PacController::class, 'airWiseApotti'])->name('load-air-wise-apotti');
+        Route::post('pac-apotti-decision-form', [\App\Http\Controllers\PacController::class, 'pacApottiDecisionForm'])->name('pac-apotti-decision-form');
+        Route::post('pac-apotti-decision-store', [\App\Http\Controllers\PacController::class, 'pacApottiDecisionStore'])->name('pac-meeting-decision-store');
+    });
+
+
 
     Route::group(['as' => 'settings.', 'prefix' => 'settings/'], function () {
         Route::get('/', [\App\Http\Controllers\SettingController::class, 'index'])->name('index');

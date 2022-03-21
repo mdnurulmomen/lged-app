@@ -357,6 +357,18 @@ return [
         'send-mail' => env('API_URL_BEE', '') . '/notify/send/mail',
     ],
 
+    'pac' => [
+        'get-pac-meeting-list' => env('API_URL_BEE', '') . '/pac/get-pac-meeting-list',
+        'pac-meeting-store' => env('API_URL_BEE', '') . '/pac/pac-meeting-store',
+        'pac-meeting-update' => env('API_URL_BEE', '') . '/pac/pac-meeting-update',
+        'get-meeting-info' => env('API_URL_BEE', '') . '/pac/get-pac-meeting-info',
+        'create-pac-report' => env('API_URL_BEE', '') . '/pac/create-pac-report',
+        'pac-meeting-decision-store' => env('API_URL_BEE', '') . '/pac/pac-meeting-decision-store',
+        'sent-to-pac' => env('API_URL_BEE', '') . '/pac/sent-to-pac',
+        'create-pac-worksheet-report' => env('API_URL_BEE', '') . '/pac/create-pac-worksheet-report',
+        'store-pac-worksheet-report' => env('API_URL_BEE', '') . '/pac/store-pac-worksheet-report',
+    ],
+
     'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',
 
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',

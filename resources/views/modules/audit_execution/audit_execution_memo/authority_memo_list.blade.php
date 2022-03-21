@@ -268,7 +268,7 @@
         },
 
         showMemoAttachment: function (element) {
-            url = '{{route('audit.execution.memo.show-attachment')}}'
+            url = '{{route('audit.execution.memo.show-attachment')}}';
             memo_id = element.data('memo-id');
             memo_title_bn = element.data('memo-title-bn');
             directorate_id = $('#directorate_filter').val();

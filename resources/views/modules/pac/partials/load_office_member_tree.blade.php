@@ -1,15 +1,11 @@
-<!--begin::Table-->
-<div class="d-flex body-wrapper">
-    <div class="col-md-6 officers_list_area card">
-        <h5 class="mt-2 mb-4"></h5>
-        <div class="rounded-0" id="qacMemberTree"
-             style="overflow-y: scroll; height: 65vh">
-            <ul>
-                @foreach($officer_lists as $key => $officer_list)
-                    @foreach($officer_list['units'] as $unit)
-                        @foreach($unit['designations'] as $designation)
-                            @if(!empty($designation['employee_info']))
-                                <li data-officer-info="{{json_encode(
+<div class="rounded-0" id="officeMemberTree"
+     style="overflow-y: scroll; height: 60vh">
+    <ul>
+        @foreach($officer_lists as $key => $officer_list)
+            @foreach($officer_list['units'] as $unit)
+                @foreach($unit['designations'] as $designation)
+                    @if(!empty($designation['employee_info']))
+                        <li data-officer-info="{{json_encode(
     [
         'designation_id' =>  htmlspecialchars($designation['designation_id']),
         'designation_en' =>  htmlspecialchars($designation['designation_eng']),
@@ -25,37 +21,19 @@
         'unit_name_bn' => htmlspecialchars($unit['unit_name_bng']),
         'office_id' => $officer_list['office_id'],
         ], JSON_UNESCAPED_UNICODE)}}"
-                                    data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
-                                    {{!empty($designation['employee_info']) ? $designation['employee_info']['name_bng'] : ''}}
-                                    <small>{{$designation['designation_bng']}}</small>
-                                </li>
-                            @endif
-                        @endforeach
-                    @endforeach
+                            data-jstree='{ "icon" : "{{!empty($designation['employee_info']) ? "fas": "fal"}} fa-user text-warning" }'>
+                            {{!empty($designation['employee_info']) ? $designation['employee_info']['name_bng'] : ''}}
+                            <small>{{$designation['designation_bng']}}</small>
+                        </li>
+                    @endif
                 @endforeach
-            </ul>
-        </div>
-    </div>
-    
-    <div class="col-md-6 card">
-        <form  id="qac_committee_form" >
-            <input type="text" class="form-control my-3 ml-3" name="title" placeholder="কমিটি নাম">
-            <h5 class="text-primary mt-3 mb-4 pl-3"><u>সদস্যের তালিকাঃ</u></h5>
-            <ul class="select_member p-0" style="overflow-y: scroll; height: 50vh"></ul>
-        </form>
-    </div>
+            @endforeach
+        @endforeach
+    </ul>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <button class="btn btn-sm btn-square btn-outline-primary float-right mt-2 mr-4"
-                onclick="Qac_Committee_Container.submitQacCommittee($(this))"><i class="fa fa-save"></i> সংরক্ষণ
-        </button>
-    </div>
-</div>
-<!--end::Table-->
 
 <script>
-    $('#qacMemberTree').jstree({
+    $('#officeMemberTree').jstree({
         "core": {
             "check_callback": true,
         },
@@ -67,10 +45,11 @@
         "plugins": ["types", "checkbox", "search"]
     });
 
-    $('#qacMemberTree').on('select_node.jstree', function (e, data) {
+    $('#officeMemberTree').on('select_node.jstree', function (e, data) {
         var officer_info = $('#' + data.node.id).data('officer-info');
 
         selected_member = {
+            'office_id': officer_info.office_id,
             'officer_id': officer_info.officer_id,
             'officer_bn': officer_info.officer_name_bn,
             'officer_en': officer_info.officer_name_en,
@@ -81,6 +60,8 @@
             'officer_designation_id': officer_info.designation_id,
             'officer_designation_en': officer_info.designation_en,
             'officer_designation_bn': officer_info.designation_bn,
+            'officer_mobile': officer_info.officer_mobile,
+            'officer_email': officer_info.officer_email,
         };
 
 
@@ -98,38 +79,4 @@
         var officer_info = $('#' + data.node.id).data('officer-info');
         $('#selected_member_li_' + officer_info.officer_id).remove();
     });
-
-    selected = null
-
-    function dragOver(e) {
-        if (isBefore(selected, e.target)) {
-            e.target.parentNode.insertBefore(selected, e.target)
-        } else {
-            e.target.parentNode.insertBefore(selected, e.target.nextSibling)
-        }
-    }
-
-    function dragEnd() {
-        selected = null
-        $('.selected_entity_sr').each(function (i, v) {
-            i = ++i;
-            $(this).html(enTobn(i) + '|')
-        })
-    }
-
-    function dragStart(e) {
-        e.dataTransfer.effectAllowed = 'move'
-        e.dataTransfer.setData('text/plain', null)
-        selected = e.target
-    }
-
-    function isBefore(el1, el2) {
-        let cur
-        if (el2.parentNode === el1.parentNode) {
-            for (cur = el1.previousSibling; cur; cur = cur.previousSibling) {
-                if (cur === el2) return true
-            }
-        }
-        return false;
-    }
 </script>

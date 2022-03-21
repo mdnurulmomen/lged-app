@@ -110,9 +110,11 @@
                                             <span class="font-size-14">
                                                 {{$annual_plan['office_type']}}
                                             </span>
-                                            <span title="প্রতিষ্ঠানের ইউনিটের সংখ্যা" class="label label-outline-danger label-pill label-inline">
-                                                {{enTobn($annual_plan['total_unit_no'])}}
-                                            </span>
+                                            @if(!empty($annual_plan['total_unit_no']))
+                                                <span title="প্রতিষ্ঠানের ইউনিটের সংখ্যা" class="label label-outline-danger label-pill label-inline">
+                                                    {{enTobn($annual_plan['total_unit_no'])}}
+                                                </span>
+                                            @endif
                                         </div>
                                         <div class="font-weight-normal">
                                             <span class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.subject_matter')}}</span>
