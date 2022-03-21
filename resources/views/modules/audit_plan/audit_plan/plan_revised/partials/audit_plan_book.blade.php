@@ -888,12 +888,12 @@
     </div>
 
     {{--materiality calculate page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
+    <div class="pdf-screen bangla-font" style="height: 100%;">
         {!! $plans[29]['content'] !!}
     </div>
 
     {{--audit schedule page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always">
         {!! $plans[30]['content'] !!}
     </div>
 
