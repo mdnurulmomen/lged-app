@@ -49,10 +49,8 @@ class Controller extends BaseController
     public function wizard()
     {
         if (!session('_wizard')) {
-            $http = new \GuzzleHttp\Client(['verify' => false]);
-            $response = $http->get(config('cag_doptor_api.widget'));
-            $data = json_decode($response->getBody()->getContents(), true);
-            session()->put(['_wizard' => $data['data']]);
+            $http = $this->initHttp()->get(config('cag_doptor_api.widget'))->json();
+            session()->put(['_wizard' => $http['data']]);
             session()->save();
         }
         return session('_wizard');
