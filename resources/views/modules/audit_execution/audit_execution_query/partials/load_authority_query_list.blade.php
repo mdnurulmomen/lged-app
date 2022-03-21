@@ -142,7 +142,7 @@
                                             <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                     title="{{___('generic.buttons.title.details')}}" data-ac-query-id="{{$query['id']}}"
                                                     data-has-sent-to-rpu="{{$query['has_sent_to_rpu']}}"
-                                                    onclick="Audit_Authority_Query_List_Container.viewQuery($(this))">
+                                                    onclick="Authority_Query_Container.viewQuery($(this))">
                                                 <i class="fad fa-eye"></i>
                                             </button>
                                         </div>
@@ -159,35 +159,7 @@
 
     <script>
         var Audit_Authority_Query_List_Container = {
-            viewQuery: function (elem) {
-                scope_authority = 1;
-                ac_query_id = elem.data('ac-query-id');
-                has_sent_to_rpu = elem.data('has-sent-to-rpu');
 
-                data = {scope_authority,ac_query_id,has_sent_to_rpu};
-                url = '{{route('audit.execution.query.view')}}';
-
-                KTApp.block('#kt_content', {
-                    opacity: 0.1,
-                    state: 'primary' // a bootstrap color
-                });
-
-                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('#kt_content');
-                    if (response.status === 'error') {
-                        toastr.error('No data found');
-                    } else {
-                        $(".offcanvas-title").text('কোয়েরি শিটের বিস্তারিত');
-                        quick_panel = $("#kt_quick_panel");
-                        quick_panel.addClass('offcanvas-on');
-                        quick_panel.css('opacity', 1);
-                        quick_panel.css('width', '40%');
-                        quick_panel.removeClass('d-none');
-                        $("html").addClass("side-panel-overlay");
-                        $(".offcanvas-wrapper").html(response);
-                    }
-                });
-            },
         }
     </script>
 

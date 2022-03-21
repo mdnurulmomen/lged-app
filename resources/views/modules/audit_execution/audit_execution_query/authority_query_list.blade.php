@@ -93,17 +93,17 @@
     $(function () {
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
-        Authority_Memo_Container.loadFiscalYearWiseActivity();
+        Authority_Query_Container.loadFiscalYearWiseActivity();
 
         if (directorate_id !== 'all') {
-            Authority_Memo_Container.loadMemoList();
-            Authority_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
+            Authority_Query_Container.loadQueryList();
+            Authority_Query_Container.loadEntityList(directorate_id, fiscal_year_id);
         } else {
             // toastr.info('Please select directorate.')
             $('#load_team_calendar').html('');
         }
     });
-    var Authority_Memo_Container = {
+    var Authority_Query_Container = {
         loadFiscalYearWiseActivity: function () {
             fiscal_year_id = $('#fiscal_year_id').val();
             fiscal_year = $('#fiscal_year_id').select2('data')[0].text;
@@ -162,8 +162,7 @@
             );
         },
 
-        loadMemoList: function () {
-
+        loadQueryList: function () {
             directorate_id = $('#directorate_filter').val();
             fiscal_year_id = $('#fiscal_year_id').val();
             activity_id = $('#activity_id').val();
@@ -196,15 +195,17 @@
             );
         },
 
+        viewQuery: function (elem) {
+            scope_authority = 1;
+            ac_query_id = elem.data('ac-query-id');
+            has_sent_to_rpu = elem.data('has-sent-to-rpu');
 
-        showMemo: function (element) {
-            url = '{{route('audit.execution.memo.show')}}'
-            memo_id = element.data('memo-id');
-            data = {memo_id};
+            data = {scope_authority,ac_query_id,has_sent_to_rpu};
             directorate_id = $('#directorate_filter').val();
             if (directorate_id) {
                 data['directorate_id'] = directorate_id;
             }
+            url = '{{route('audit.execution.query.view')}}';
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -216,68 +217,13 @@
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".offcanvas-title").text('মেমো');
+                    $(".offcanvas-title").text('কোয়েরি শিটের বিস্তারিত');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
                     quick_panel.css('width', '40%');
                     quick_panel.removeClass('d-none');
                     $("html").addClass("side-panel-overlay");
-                    $(".offcanvas-wrapper").html(response);
-                }
-            });
-        },
-
-        showMemoAttachment: function (element) {
-            url = '{{route('audit.execution.memo.show-attachment')}}'
-            memo_id = element.data('memo-id');
-            memo_title_bn = element.data('memo-title-bn');
-            directorate_id = $('#directorate_filter').val();
-            data = {memo_id, memo_title_bn};
-
-            if (directorate_id) {
-                data['directorate_id'] = directorate_id;
-            }
-
-            KTApp.block('#kt_content', {
-                opacity: 0.1,
-                state: 'primary' // a bootstrap color
-            });
-
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
-                if (response.status === 'error') {
-                    toastr.error('No data found');
-                } else {
-                    $(".offcanvas-title").text('সংযুক্তি সমূহ');
-                    quick_panel = $("#kt_quick_panel");
-                    quick_panel.addClass('offcanvas-on');
-                    quick_panel.css('opacity', 1);
-                    quick_panel.css('width', '40%');
-                    quick_panel.removeClass('d-none');
-                    $("html").addClass("side-panel-overlay");
-                    $(".offcanvas-wrapper").html(response);
-                }
-            });
-        },
-
-        memoLog: function (elem) {
-
-            quick_panel = $("#kt_quick_panel");
-            $(".offcanvas-title").text('Memo Log');
-            quick_panel.addClass('offcanvas-on');
-            quick_panel.css('opacity', 1);
-            quick_panel.css('width', '40%');
-            quick_panel.removeClass('d-none');
-            $("html").addClass("side-panel-overlay");
-
-            memo_id = elem.data('memo-id');
-            data = {memo_id};
-            let url = '{{route('audit.execution.memo.audit-memo-log')}}'
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'error') {
-                    toastr.error(response.data)
-                } else {
                     $(".offcanvas-wrapper").html(response);
                 }
             });
@@ -287,7 +233,7 @@
     $('#btn_filter').click(function () {
         directorate_id = $('#directorate_filter').val();
         if (directorate_id !== 'all') {
-            Authority_Memo_Container.loadMemoList();
+            Authority_Query_Container.loadQueryList();
         } else {
             toastr.info('Please select a directorate.')
         }
@@ -297,13 +243,13 @@
         entity_id = $('#entity_filter').val();
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
-        Authority_Memo_Container.loadCostCenterList(directorate_id, fiscal_year_id, entity_id);
+        Authority_Query_Container.loadCostCenterList(directorate_id, fiscal_year_id, entity_id);
     });
 
     $('#cost_center_filter').change(function () {
         cost_center_id = $('#cost_center_filter').val();
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
-        Authority_Memo_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
+        Authority_Query_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
     });
 </script>
