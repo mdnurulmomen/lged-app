@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Traits\ApiHeart;
-use App\Traits\GenericData;
 
 class AmmsPonjikaServices
 {
