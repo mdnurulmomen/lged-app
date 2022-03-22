@@ -67,7 +67,7 @@
             <!--end::Header-->
             <!--begin::Content-->
             <ul class="sna-breadcrumb">
-                <li><a href="javascrip:;">{{session('dashboard_audit_type')}}</a></li>
+                <li><a href="javascript:;">{{session('dashboard_audit_type')}}</a></li>
             </ul>
             <div class="content p-4" id="kt_content">
 
@@ -99,6 +99,7 @@
 @include('layouts.partials.all_modals')
 
 @include('layouts.partials.footer_script')
+@include('scripts.script_master')
 @yield('scripts')
 @include('scripts.layout_navigation_spa')
 
