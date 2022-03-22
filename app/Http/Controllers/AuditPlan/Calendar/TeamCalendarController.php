@@ -169,6 +169,7 @@ class TeamCalendarController extends Controller
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['entity_id'] = $request->entity_id;
         $data['cost_center_id'] = $request->cost_center_id;
+        $data['activity_id'] = $request->activity_id;
         $data['scope_report_type'] = $request->scope_report_type;
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_total_query_and_memo_report'), $data)->json();
         if (isSuccess($responseData)) {

@@ -39,6 +39,12 @@
         </select>
     </div>
 
+    <div class="w-25 pr-2">
+        <select class="form-control select-select2" id="activity_id">
+            <option value="">Activity</option>
+        </select>
+    </div>
+
     <div class="w-25 pr-2 ">
         <button id="btn_filter" class="btn icon-btn-primary" type="button">
             <i class="fa fa-search mr-2"></i> Search
@@ -53,22 +59,26 @@
 <div class="card sna-today-tomorrow-card sna-card-border d-flex justify-content-between flex-wrap flex-row mt-3">
     <div class="d-flex flex-wrap text-center w-50 justify-content-center pr-1">
         <h4 class="w-100 py-3 m-0">Today</h4>
-        <a href="{{url('audit-conducting?page=memo')}}" class="w-50 pt-3">
+        <a href="javascript:;" data-page="memo" data-status="daily"
+           onclick="Team_Calendar_Container.pageRedirect($(this))" class="w-50 pt-3">
             <h6 class="font-weight-bold">Memo</h6>
             <p class="font-weight-bold" id="dailyTotalMemo"></p>
         </a>
-        <a href="{{url('audit-conducting?page=query')}}" class="w-50 pt-3">
+        <a href="javascript:;" data-page="query" data-status="daily"
+           onclick="Team_Calendar_Container.pageRedirect($(this))" class="w-50 pt-3">
             <h6 class="font-weight-bold">Query</h6>
             <p class="font-weight-bold" id="dailyTotalQuery"></p>
         </a>
     </div>
     <div class="d-flex flex-wrap text-center w-50 justify-content-center pl-1">
         <h4 class="w-100 py-3 m-0">As of Today</h4>
-        <a href="{{url('audit-conducting?page=memo')}}" class="w-50 pt-3">
+        <a href="javascript:;" data-page="memo" data-status="yearly"
+           onclick="Team_Calendar_Container.pageRedirect($(this))" class="w-50 pt-3">
             <h6 class="font-weight-bold">Memo</h6>
             <p class="font-weight-bold" id="yearlyTotalMemo"></p>
         </a>
-        <a href="{{url('audit-conducting?page=query')}}" class="w-50 pt-3">
+        <a href="javascript:;" data-page="query" data-status="yearly"
+           onclick="Team_Calendar_Container.pageRedirect($(this))" class="w-50 pt-3">
             <h6 class="font-weight-bold">Query</h6>
             <p class="font-weight-bold" id="yearlyTotalQuery"></p>
         </a>
@@ -104,6 +114,30 @@
 
 <script>
     var Team_Calendar_Container = {
+        pageRedirect: function (elem) {
+            directorate_id = $('#directorate_filter').val();
+            fiscal_year_id = $('#fiscal_year_id').val();
+            team_filter = $('#team_filter').val();
+            entity_id = $('#entity_filter').val();
+            cost_center_id = $('#cost_center_filter').val();
+            activity_id = $('#activity_id').val();
+            page = elem.data('page');
+            status = elem.data('status');
+
+            filter_data = {};
+            filter_data['from'] = 'dashboard';
+            filter_data['directorate_id'] = directorate_id;
+            filter_data['fiscal_year_id'] = fiscal_year_id;
+            filter_data['entity_id'] = entity_id;
+            filter_data['cost_center_id'] = cost_center_id;
+            filter_data['team_filter'] = team_filter;
+            filter_data['activity_id'] = activity_id;
+            filter_data['status'] = status;
+
+            filter_data = encryptStringToB64(JSON.stringify(filter_data));
+            window.location.href = "{{url('audit-conducting')}}?page=" + page + "&filter_data=" + filter_data;
+        },
+
         loadTeamCalendar: function (directorate_id, fiscal_year_id) {
             let url = '{{route('calendar.load-teams-calender')}}';
             let data = {directorate_id, fiscal_year_id};
@@ -179,6 +213,27 @@
                 }
             );
         },
+
+        loadFiscalYearWiseActivity: function () {
+            fiscal_year_id = $('#fiscal_year_id').val();
+            fiscal_year = $('#fiscal_year_id').select2('data')[0].text;
+            if (fiscal_year_id) {
+                let url = '{{route('audit.plan.annual.plan.revised.fiscal-year-wise-activity-select')}}';
+                let data = {fiscal_year_id, fiscal_year};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data)
+                    } else {
+                        $('#activity_id').html(response);
+                        $("#activity_id").val($("#activity_id option:eq(1)").val()).trigger('change');
+                    }
+                });
+            } else {
+                $('#activity_id').html('');
+            }
+        },
+
+
         loadTeamCalendarScheduleList: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
             let url = '{{route('calendar.load-team-calendar-schedule-list')}}';
             let data = {directorate_id, fiscal_year_id, cost_center_id, team_id};
@@ -207,25 +262,40 @@
             );
         },
 
-        getTotalDailyQueryAndMemo: function (directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id) {
+        getTotalDailyQueryAndMemo: function (directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id, activity_id) {
             let url = '{{route('calendar.get-total-query-and-memo-report')}}';
             scope_report_type = 'daily';
-            let data = {directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id, scope_report_type};
+            let data = {
+                directorate_id,
+                fiscal_year_id,
+                entity_id,
+                cost_center_id,
+                team_id,
+                activity_id,
+                scope_report_type
+            };
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
-                    console.log(response.data)
                     $('#dailyTotalQuery').html(response.data.total_query);
                     $('#dailyTotalMemo').html(response.data.total_memo);
                 }
             });
         },
 
-        getTotalYearlyQueryAndMemo: function (directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id) {
+        getTotalYearlyQueryAndMemo: function (directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id, activity_id) {
             let url = '{{route('calendar.get-total-query-and-memo-report')}}';
             scope_report_type = 'yearly';
-            let data = {directorate_id, fiscal_year_id, entity_id, cost_center_id, team_id, scope_report_type};
+            let data = {
+                directorate_id,
+                fiscal_year_id,
+                entity_id,
+                cost_center_id,
+                team_id,
+                activity_id,
+                scope_report_type
+            };
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
                     toastr.warning(response.data)
@@ -240,11 +310,12 @@
     $(function () {
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
+        Team_Calendar_Container.loadFiscalYearWiseActivity();
+
         team_filter = $('#team_filter').val();
         entity_id = $('#entity_filter').val();
         cost_center_id = $('#cost_center_filter').val();
-        console.log({entity_id})
-        console.log({cost_center_id})
+        activity_id = $('#activity_id').val();
 
         if (directorate_id !== 'all') {
             //Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
@@ -252,8 +323,8 @@
             // Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
             Team_Calendar_Container.loadEntityList(directorate_id, fiscal_year_id);
             // Team_Calendar_Container.loadCostCenterList(directorate_id, fiscal_year_id);
-            Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
-            Team_Calendar_Container.getTotalYearlyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
+            Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter, activity_id);
+            Team_Calendar_Container.getTotalYearlyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter, activity_id);
         } else {
             toastr.info('Please select directorate.')
             $('#load_team_calendar').html('');
@@ -263,6 +334,7 @@
     $(function () {
             directorate_id = $('#directorate_filter').val();
             fiscal_year_id = $('#fiscal_year_id').val();
+            Team_Calendar_Container.loadFiscalYearWiseActivity();
             team_id = '{{$team_id}}';
             Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id);
             $('#team_filter').val(team_id);
@@ -295,6 +367,7 @@
         team_filter = $('#team_filter').val();
         entity_id = $('#entity_filter').val()
         cost_center_id = $('#cost_center_filter').val();
+        activity_id = $('#activity_id').val();
         if (directorate_id !== 'all') {
             if (team_filter || cost_center_id) {
                 Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id, cost_center_id, team_filter);
@@ -302,8 +375,8 @@
                 Team_Calendar_Container.loadTeamFilter(directorate_id, fiscal_year_id, cost_center_id, team_filter);
                 // Team_Calendar_Container.loadTeamCalendar(directorate_id, fiscal_year_id);
             }
-            Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
-            Team_Calendar_Container.getTotalYearlyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter);
+            Team_Calendar_Container.getTotalDailyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter, activity_id);
+            Team_Calendar_Container.getTotalYearlyQueryAndMemo(directorate_id, fiscal_year_id, entity_id, cost_center_id, team_filter, activity_id);
         } else {
             toastr.info('Please select a directorate.')
         }

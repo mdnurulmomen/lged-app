@@ -268,13 +268,13 @@ class AuditExecutionQueryController extends Controller
         $data['entity_id'] = $request->entity_id;
         $data['activity_id'] = $request->activity_id;
         $data['cost_center_id'] = $request->cost_center_id;
+        $data['status'] = $request->status;
 
 //        dd($data);
 
         $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.authority_query_list'), $data)->json();
 //        dd($audit_query_list);
         $audit_query_list = isSuccess($audit_query_list) ? $audit_query_list['data'] : $audit_query_list['data'];
-
 
         return view('modules.audit_execution.audit_execution_query.partials.load_authority_query_list',
             compact('audit_query_list'));

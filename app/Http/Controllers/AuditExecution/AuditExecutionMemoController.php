@@ -382,17 +382,15 @@ class AuditExecutionMemoController extends Controller
     public function authorityMemoList()
     {
         $all_directorates = $this->allAuditDirectorates();
-
         $fiscal_years = $this->allFiscalYears();
-
         $self_directorate = current(array_filter($all_directorates, function ($item) {
             return $this->current_office_id() == $item['office_id'];
         }));
-
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
 
         if (!empty($directorates)) {
-            return view('modules.audit_execution.audit_execution_memo.authority_memo_list', compact('directorates', 'fiscal_years'));
+            return view('modules.audit_execution.audit_execution_memo.authority_memo_list',
+                compact('directorates', 'fiscal_years'));
         } else {
             return response()->json(['status' => 'error', 'data' => $directorates]);
         }
@@ -417,12 +415,13 @@ class AuditExecutionMemoController extends Controller
         $data['jorito_ortho_poriman'] = $request->jorito_ortho_poriman;
         $data['audit_year_start'] = $request->audit_year_start;
         $data['audit_year_end'] = $request->audit_year_end;
+        $data['status'] = $request->status;
 
         $get_memo_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.authority_memo_list'), $data)->json();
-//        dd($get_memo_list);
-        //        dd($memo_list['data']['total_memo']);
+        //dd($get_memo_list);
+        //dd($memo_list['data']['total_memo']);
         if (isSuccess($get_memo_list)) {
-            $memo_list = $get_memo_list['data']['memo_list'];
+            $memo_list = $get_memo_list['data']['memo_list']['data'];
             $total_memo = $get_memo_list['data']['total_memo'];
             $team_id = $request->team_id;
             $cost_center_id = $request->cost_center_id;
