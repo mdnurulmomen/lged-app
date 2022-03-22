@@ -227,12 +227,6 @@ input[type="text"]::placeholder {
     background-color: unset;
 }
 
-button#voice2text {
-    border: none;
-    background: transparent;
-}
-
-
 /* sna css */
 
 ul.sna-breadcrumb {

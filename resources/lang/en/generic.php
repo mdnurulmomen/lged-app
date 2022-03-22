@@ -10,6 +10,7 @@ return [
     'sr_no' => 'Sr. No:',
     'no_data_found' => 'No Data To Display',
     'sent_successfully' => 'Successfully Sent.',
+    'task_manager' => 'Task Manager',
     'placeholders' => [
         'search' => 'Search',
     ],

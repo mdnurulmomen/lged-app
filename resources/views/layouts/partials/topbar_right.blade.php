@@ -7,10 +7,16 @@
         {!! $wizardData !!}
     </div>
     <div class="topbar-item">
-        <button id="voice2text" type="button" role="button" class="py-2 fr-command fr-btn" data-cmd="voice2text"
+        <button id="voice2text" type="button" role="button" class="py-2 fr-command fr-btn bg-transparent border-0" data-cmd="voice2text"
                 data-toggle="popover" data-content="স্পিচ টু টেক্সট" data-placement="bottom" data-original-title=""
                 title=""><i class="fa startListening fa-microphone-slash" aria-hidden="true" style=""></i></button>
     </div>
+    <div class="topbar-item">
+        <button id="task_manager_btn" type="button" role="button" class="py-2 bg-transparent border-0" data-toggle="popover" data-content="{{___('generic.task_manager')}}" data-placement="bottom" data-original-title="" title="">
+            <i class="fa fa-tasks" aria-hidden="true" style=""></i>
+        </button>
+    </div>
+
     {{--    <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" aria-expanded="true">--}}
     {{--        <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">--}}
     {{--            <img class="h-20px w-20px" src="{{ asset('assets/images/bd_flag.png') }}" alt="">--}}
