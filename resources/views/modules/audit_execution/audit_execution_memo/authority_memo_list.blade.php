@@ -1,6 +1,7 @@
 <x-title-wrapper>Audit Memo List</x-title-wrapper>
 
 <div class="card sna-card-border d-flex flex-wrap flex-row">
+    <input type="hidden" name="status" id="status">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
             <div class="col-md-3">
@@ -126,7 +127,33 @@
 
 
 <script>
+    var dashboard_filter_data = '{!! session('dashboard_filter_data')!!}';
     $(function () {
+        if (dashboard_filter_data != ""){
+            filter_data = JSON.parse(dashboard_filter_data);
+            if (filter_data.directorate_id != null){
+                $("#directorate_filter").val(filter_data.directorate_id).trigger('change');
+            }
+            if (filter_data.fiscal_year_id != null){
+                $("#fiscal_year_id").val(filter_data.fiscal_year_id).trigger('change');
+            }
+            if (filter_data.entity_filter != null){
+                $("#entity_filter").val(filter_data.entity_id).trigger('change');
+            }
+            if (filter_data.cost_center_filter != null){
+                $("#cost_center_filter").val(filter_data.cost_center_id).trigger('change');
+            }
+            if (filter_data.team_filter != null){
+                $("#team_filter").val(filter_data.team_filter).trigger('change');
+            }
+            if (filter_data.activity_id != null){
+                $("#activity_id").val(filter_data.activity_id).trigger('change');
+            }
+            if (filter_data.status != null){
+                $("#status").val(filter_data.status);
+            }
+        }
+
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
         Authority_Memo_Container.loadFiscalYearWiseActivity();
@@ -135,10 +162,10 @@
             Authority_Memo_Container.loadMemoList();
             Authority_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
         } else {
-            // toastr.info('Please select directorate.')
             $('#load_team_calendar').html('');
         }
     });
+
     var Authority_Memo_Container = {
         loadFiscalYearWiseActivity: function () {
             fiscal_year_id = $('#fiscal_year_id').val();
@@ -152,9 +179,9 @@
                     } else {
                         $('#activity_id').html(response);
                         $("#activity_id").val($("#activity_id option:eq(1)").val()).trigger('change');
-                        // alert(activity_id);
-                        // $('#activity_id').val(7);
-                        // Annual_Plan_Container.loadAnnualPlanList();
+                        if (dashboard_filter_data.activity_id != null) {
+                            $("#activity_id").val(dashboard_filter_data.activity_id).trigger('change');
+                        }
                     }
                 });
             } else {
@@ -163,6 +190,10 @@
         },
         loadEntityList: function (directorate_id, fiscal_year_id) {
             activity_id = $('#activity_id').val();
+            if (dashboard_filter_data && activity_id == null) {
+                dashboard_filter_data = JSON.parse(dashboard_filter_data);
+                activity_id = dashboard_filter_data.activity_id;
+            }
             let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
             let data = {directorate_id, fiscal_year_id, activity_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
@@ -202,10 +233,13 @@
         },
 
         loadMemoList: function () {
-
             directorate_id = $('#directorate_filter').val();
             fiscal_year_id = $('#fiscal_year_id').val();
             activity_id = $('#activity_id').val();
+            if (dashboard_filter_data && activity_id == null) {
+                dashboard_filter_data = JSON.parse(dashboard_filter_data);
+                activity_id = dashboard_filter_data.activity_id;
+            }
             entity_id = $('#entity_filter').val();
             team_id = $('#team_filter').val();
             cost_center_id = $('#cost_center_filter').val();
@@ -216,6 +250,7 @@
             jorito_ortho_poriman = $('#jorito_ortho_poriman').val();
             audit_year_start = $('#audit_year_start').val();
             audit_year_end = $('#audit_year_end').val();
+            status = $('#status').val();
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -223,7 +258,7 @@
             });
 
             let url = '{{route('audit.execution.memo.load-authority-memo-list')}}';
-            let data = {directorate_id, fiscal_year_id, activity_id, entity_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start, audit_year_end};
+            let data = {directorate_id, fiscal_year_id, activity_id, entity_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start, audit_year_end, status};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     KTApp.unblock('#kt_content');
                     if (response.status === 'error') {

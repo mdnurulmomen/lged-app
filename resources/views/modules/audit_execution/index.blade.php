@@ -20,12 +20,14 @@
     <script>
         $(function () {
             getCurrentLocation = window.location.href;
-            page = getCurrentLocation.split("=");
-            console.log(page[1])
-            if (page[1] == 'memo'){
-                $(".audit-memo a").click();
-            }else if(page[1] == 'query'){
-                $(".audit-query a").click();
+            getData = getCurrentLocation.split("?");
+            if (getData[1]){
+                getUrlData = getData[1].split("&");
+                if (getUrlData[0].split("=")[1] === 'memo'){
+                    $(".audit-memo a").click();
+                }else if(getUrlData[0].split("=")[1] === 'query'){
+                    $(".audit-query a").click();
+                }
             }
         })
     </script>
