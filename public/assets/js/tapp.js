@@ -328,7 +328,7 @@ $(document).off('input').on("input", ".integer_type_positive", function (event) 
 
 
 $(document).off('input').on("input", ".amount_number_format", function (event) {
-    nStr = this.value.replace(/[^0-9]/g, '')+'';
+    nStr = this.value.replace(/[^0-9]/g, '') + '';
     x = nStr.split('.');
     x1 = x[0];
     x2 = x.length > 1 ? '.' + x[1] : '';
@@ -371,4 +371,12 @@ function mFilerDrag(elem) {
         //     appendWrap += appendHtml;
         // }
     }
+}
+
+function encryptStringToB64(str) {
+    return btoa(encodeURIComponent(str));
+}
+
+function decryptStringFromB64(str) {
+    return decodeURIComponent(atob(str));
 }
