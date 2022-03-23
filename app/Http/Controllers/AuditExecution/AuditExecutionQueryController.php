@@ -201,7 +201,9 @@ class AuditExecutionQueryController extends Controller
     public function viewAuditQuery(Request $request)
     {
         $data['cdesk'] = $this->current_desk_json();
-        $data['directorate_id'] = $request->directorate_id;
+        if ($request->has('directorate_id')) {
+            $data['directorate_id'] = $request->directorate_id;
+        }
         $data['ac_query_id'] = $request->ac_query_id;
         $audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.view_audit_query'), $data)->json();
 
