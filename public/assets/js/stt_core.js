@@ -71,7 +71,6 @@ window.addEventListener("DOMContentLoaded", () => {
                 result.innerHTML = "";
                 final_text = final_text_input.value;
             }
-            ;
         }
         recognition.onnomatch = function () {
             console.log('Speech not recognized');
