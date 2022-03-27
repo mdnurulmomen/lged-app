@@ -203,11 +203,9 @@ class AuditFinalReportController extends Controller
         $report_data['is_bg_press'] = $request->is_bg_press ?: $request->is_bg_press;
         $report_data['is_printing_done'] = $request->is_printing_done ?: $request->is_printing_done;
 
-
         $report_data['cdesk'] = $this->current_desk_json();
 
         $updateFinalReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.update_qac_air_report'), $report_data)->json();
-
 
         if (isSuccess($updateFinalReport)) {
             return response()->json(['status' => 'success', 'data' => 'সফলভাবে প্রেরণ করা হয়েছে']);

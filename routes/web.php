@@ -617,7 +617,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
     Route::group(['as' => 'pac.', 'prefix' => 'pac/'], function () {
         Route::get('/', [\App\Http\Controllers\PacController::class, 'index'])->name('index');
-        Route::get('pac-meeting', [\App\Http\Controllers\PacController::class, 'pacMeeting'])->name('pac-meeting');
+        Route::get('pac-meeting/{any}', [\App\Http\Controllers\PacController::class, 'pacMeeting'])->name('pac-meeting');
         Route::post('pac-meeting-list', [\App\Http\Controllers\PacController::class, 'pacMeetingList'])->name('pac-meeting-list');
 
         Route::group(['as' => 'meeting-worksheet-report.', 'prefix' => 'meeting-worksheet-report/'], function () {
@@ -638,6 +638,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('load-air-wise-apotti', [\App\Http\Controllers\PacController::class, 'airWiseApotti'])->name('load-air-wise-apotti');
         Route::post('pac-apotti-decision-form', [\App\Http\Controllers\PacController::class, 'pacApottiDecisionForm'])->name('pac-apotti-decision-form');
         Route::post('pac-apotti-decision-store', [\App\Http\Controllers\PacController::class, 'pacApottiDecisionStore'])->name('pac-meeting-decision-store');
+        Route::post('cag-and-directorate-decision', [\App\Http\Controllers\PacController::class, 'cagAndDirectorateDecision'])->name('cag-and-directorate-decision');
+        Route::post('cag-and-directorate-decision-form', [\App\Http\Controllers\PacController::class, 'cagAndDirectorateDecisionForm'])->name('cag-and-directorate-decision-form');
+        Route::post('get-apotti-item', [\App\Http\Controllers\PacController::class, 'getApottiItem'])->name('get-apotti-item');
     });
 
 

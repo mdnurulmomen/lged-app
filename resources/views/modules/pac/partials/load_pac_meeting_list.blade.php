@@ -145,40 +145,51 @@
                                             </div>
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
-                                            <button class="mr-1 btn btn-sm btn-primary btn-square"
-                                                    title="{{___('generic.buttons.title.details')}}"
-                                                    data-pac-meeting-id="{{$meeting['id']}}"
-                                                    onclick="Pac_Container.showPacMeeting($(this))">
-                                                বিস্তারিত
-                                            </button>
 
-                                            <button class="mr-1 btn btn-sm btn-primary btn-square"
-                                                    title="রিপোর্ট তৈরি করুন"
-                                                    data-pac-meeting-id="{{$meeting['id']}}"
-                                                    data-directorate-id="{{$meeting['directorate_id']}}"
-                                                    data-meeting-no="{{$meeting['meeting_no']}}"
-                                                    data-parliament-no="{{$meeting['parliament_no']}}"
-                                                    data-meeting-date="{{$meeting['meeting_date']}}"
-                                                    data-meeting-place="{{$meeting['meeting_place']}}"
-                                                    onclick="Pac_Container.createPacWorksheetReport($(this))">
-                                                কার্যপত্র
-                                            </button>
+                                            @if($type == 'meeting')
+                                                <button class="mr-1 btn btn-sm btn-primary btn-square"
+                                                        title="{{___('generic.buttons.title.details')}}"
+                                                        data-pac-meeting-id="{{$meeting['id']}}"
+                                                        onclick="Pac_Container.showPacMeeting($(this))">
+                                                    বিস্তারিত
+                                                </button>
+                                                <button class="mr-1 btn btn-sm btn-primary btn-square"
+                                                        title="{{___('generic.buttons.title.details')}}"
+                                                        data-pac-meeting-id="{{$meeting['id']}}"
+                                                        onclick="Pac_Container.cagAndDirectorateDecision($(this))">
+                                                    সিদ্ধান্ত
+                                                </button>
+                                                @if(!$meeting['is_sent_pac'])
+                                                    <button
+                                                        class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                        title="প্রেরণ করুন"
+                                                        data-pac-meeting-id="{{$meeting['id']}}"
+                                                        onclick="Pac_Container.sentToPac($(this))">
+                                                        <i class="fa fa-paper-plane"></i>
+                                                    </button>
+                                                @endif
+                                            @endif
 
+                                            @if($type == 'worksheet')
+                                                <button class="mr-1 btn btn-sm btn-primary btn-square"
+                                                        title="রিপোর্ট তৈরি করুন"
+                                                        data-pac-meeting-id="{{$meeting['id']}}"
+                                                        data-directorate-id="{{$meeting['directorate_id']}}"
+                                                        data-meeting-no="{{$meeting['meeting_no']}}"
+                                                        data-parliament-no="{{$meeting['parliament_no']}}"
+                                                        data-meeting-date="{{$meeting['meeting_date']}}"
+                                                        data-meeting-place="{{$meeting['meeting_place']}}"
+                                                        onclick="Pac_Container.createPacWorksheetReport($(this))">
+                                                    কার্যপত্র
+                                                </button>
+                                            @endif
 
-                                            <button class="mr-1 btn btn-sm btn-primary btn-square"
-                                                    title="{{___('generic.buttons.title.details')}}"
-                                                    data-pac-meeting-id="{{$meeting['id']}}"
-                                                    onclick="Pac_Container.showPacMeetingMinutes($(this))">
-                                                কার্যবিবরণী
-                                            </button>
-
-                                            @if(!$meeting['is_sent_pac'])
-                                                <button
-                                                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                    title="প্রেরণ করুন"
-                                                    data-pac-meeting-id="{{$meeting['id']}}"
-                                                    onclick="Pac_Container.sentToPac($(this))">
-                                                    <i class="fa fa-paper-plane"></i>
+                                            @if($type == 'minutes')
+                                                <button class="mr-1 btn btn-sm btn-primary btn-square"
+                                                        title="{{___('generic.buttons.title.details')}}"
+                                                        data-pac-meeting-id="{{$meeting['id']}}"
+                                                        onclick="Pac_Container.showPacMeetingMinutes($(this))">
+                                                    কার্যবিবরণী
                                                 </button>
                                             @endif
                                         </div>

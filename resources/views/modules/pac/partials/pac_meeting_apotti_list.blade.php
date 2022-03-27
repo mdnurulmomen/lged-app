@@ -93,7 +93,6 @@
                                 onclick="Pac_MeetingMinutes_Container.pacApottiDecisionForm($(this))">
                             সিদ্ধান্ত
                         </button>
-
                     </td>
                 </tr>
             @endforeach

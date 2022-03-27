@@ -36,9 +36,7 @@
         <div class="row mt-2">
             <div class="col-md-12">
                 <label>মন্তব্য</label>
-                <textarea class="form-control" name="comment">
-                    {{isset($apotti_item_info['comment']) ? $apotti_item_info['comment'] : ''}}
-                </textarea>
+                <textarea class="form-control" name="comment">{{isset($apotti_item_info['comment']) ? $apotti_item_info['comment'] : ''}}</textarea>
             </div>
         </div>
     </div>

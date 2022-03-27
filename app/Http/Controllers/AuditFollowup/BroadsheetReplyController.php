@@ -335,7 +335,7 @@ class BroadsheetReplyController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.send_broad_sheet_reply_to_rpu'), $data)->json();
-
+//        dd($responseData);
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
         } else {

@@ -102,10 +102,9 @@
                                        font-weight-normal mr-1 border decision">
                                     অনুমোদিত
                                 </a>
-
                             @else
                                 @if($desk_officer_grade == 3)
-                                    <button class="mr-1 btn btn-sm btn-primary btn-square" title="সিদ্ধান্ত"
+                                    <button class="mr-1 btn btn-sm btn-primary btn-square" title="অনুমোদন করুন"
                                             data-broad-sheet-id="{{$broadSheet['broad_sheet_reply_id']}}"
                                             data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
                                             data-memo-id="{{$broadSheet['apotti']['memo_id']}}"
@@ -114,8 +113,6 @@
                                     </button>
                                 @endif
                             @endif
-
-
                     </td>
                 </tr>
             @endforeach

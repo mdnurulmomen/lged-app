@@ -1,4 +1,6 @@
 <x-title-wrapper>PAC Meeting List</x-title-wrapper>
+
+@if($type == 'meeting')
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12 text-right">
         <button type="button"
@@ -8,6 +10,7 @@
         </button>
     </div>
 </div>
+@endif
 <div class="card sna-card-border mt-2">
     <div id="load_pac_meeting_list">
         <div class="d-flex align-items-center">
@@ -30,7 +33,8 @@
     var Pac_Container = {
         loadPacList: function (page = 1, per_page = 10) {
             let url = '{{route('pac.pac-meeting-list')}}';
-            let data = {page, per_page};
+            type = '{{$type}}'
+            let data = {type,page, per_page};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)
@@ -127,6 +131,7 @@
                 }
             });
         },
+
         sentToPac: function (elem) {
             pac_meeting_id =  elem.data('pac-meeting-id');
             swal.fire({
@@ -154,8 +159,24 @@
                     });
                 }
             });
+        },
 
-
+        cagAndDirectorateDecision: function (elem) {
+            pac_meeting_id =  elem.data('pac-meeting-id');
+            let url = '{{route('pac.cag-and-directorate-decision')}}';
+            let data = {pac_meeting_id};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('#kt_content').html(response);
+                }
+            });
         },
     };
 </script>
