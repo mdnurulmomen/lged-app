@@ -188,6 +188,7 @@
                 $('#activity_id').html('');
             }
         },
+
         loadEntityList: function (directorate_id, fiscal_year_id) {
             activity_id = $('#activity_id').val();
             if (dashboard_filter_data && activity_id == null) {
@@ -206,6 +207,7 @@
                 }
             );
         },
+
         loadCostCenterList: function (directorate_id, fiscal_year_id, entity_id) {
             let url = '{{route('calendar.load-cost-center-directorate-fiscal-year-wise-select')}}';
             let data = {directorate_id, fiscal_year_id, entity_id};
@@ -269,7 +271,6 @@
                 }
             );
         },
-
 
         showMemo: function (element) {
             url = '{{route('audit.execution.memo.show')}}'
@@ -365,6 +366,12 @@
         } else {
             toastr.info('Please select a directorate.')
         }
+    });
+
+    $('#directorate_filter').change(function () {
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
+        Authority_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
     });
 
     $('#entity_filter').change(function () {

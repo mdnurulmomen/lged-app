@@ -274,6 +274,12 @@
         }
     });
 
+    $('#directorate_filter').change(function () {
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
+        Authority_Query_Container.loadEntityList(directorate_id, fiscal_year_id);
+    });
+
     $('#entity_filter').change(function () {
         entity_id = $('#entity_filter').val();
         directorate_id = $('#directorate_filter').val();
