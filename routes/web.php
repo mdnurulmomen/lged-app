@@ -425,6 +425,14 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('apotti-item-info', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'apottiItemInfo'])->name('apotti-item-info');
             Route::get('apotti-register/{any}', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'apottiRegister'])->name('apotti-register');
             Route::post('load-apotti-register-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadApottiRegisterList'])->name('load-apotti-register-list');
+            Route::post('edit-register', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadApottiRegisterEdit'])->name('edit-register');
+
+            Route::group(['as' => 'register.', 'prefix' => 'register/'], function () {
+                Route::post('get-approval-authority', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadRegisterApprovalAuthority'])->name('get-approval-authority');
+                Route::post('store-approval-authority', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'storeRegisterApprovalAuthority'])->name('store-approval-authority');
+                Route::post('update', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'updateRegisterApotti'])->name('update');
+            });
+
         });
     });
 
@@ -719,6 +727,10 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('/edit', [CriteriaController::class, 'edit'])->name('edit');
                 Route::post('/update', [CriteriaController::class, 'update'])->name('update');
             });
+        });
+
+        Route::group(['as' => 'movement.', 'prefix' => 'movement/'], function () {
+            Route::post('store', [\App\Http\Controllers\Setting\XMovementController::class, 'store'])->name('store');
         });
     });
 

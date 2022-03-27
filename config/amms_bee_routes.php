@@ -69,8 +69,11 @@ return [
                 'delete' => env('API_URL_BEE', '') . '/audit-assessment-criteria/delete',
                 'list-category-wise' => env('API_URL_BEE', '') . '/audit-assessment-criteria/list-category-wise',
             ]
-        ]
+        ],
 
+        'movement' => [
+            'store' => env('API_URL_BEE', '') . '/movement/store',
+        ],
     ],
 
     'audit_operational_plan' => [
@@ -291,6 +294,8 @@ return [
             'update_apotti' => env('API_URL_BEE', '') . '/audit-conduct-apotti/update-apotti',
             'get-apotti-onucched-no' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-onucched-no',
             'apotti_register_list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-register-list',
+            'update_apotti_register' => env('API_URL_BEE', '') . '/audit-conduct-apotti/update-apotti-register',
+            'store_apotti_register_movement' => env('API_URL_BEE', '') . '/audit-conduct-apotti/store-apotti-register-movement',
         ],
     ],
 

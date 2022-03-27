@@ -5,15 +5,15 @@
             অনুচ্ছেদ নং
         </th>
 
-        <th width="15%">
+        <th width="10%">
             মন্ত্রণালয়
         </th>
 
-        <th width="15%">
+        <th width="10%">
             এনটিটি/সংস্থা
         </th>
 
-        <th width="25%">
+        <th width="30%">
             শিরোনাম
         </th>
 
@@ -29,7 +29,7 @@
             স্ট্যাটাস রিভিউ তারিখ
         </th>
 
-        <th width="25%">
+        <th width="20%">
             কার্যক্রম
         </th>
     </tr>
@@ -37,7 +37,7 @@
 
     <tbody>
     @forelse($apotti_list['data'] as $apotti)
-        <tr class="text-center">
+        <tr>
             <td class="text-left">
                 {{enTobn($apotti['onucched_no'])}}
                 @if(count($apotti['apotti_items']) > 1)
@@ -60,27 +60,39 @@
             </td>
 
             <td class="text-left">
-
+                {{formatDate($apotti['air_issue_date'],'bn')}}
             </td>
 
             <td class="text-left">
+                <span class="{{$apotti['status_review_date'] == date('Y-m-d')?'badge badge-primary':''}}">
+                    {{formatDate($apotti['status_review_date'],'bn')}}
+                </span>
 
+                {{$apotti['latest_movement'] == null?'': $apotti['latest_movement']['receiver_employee_name_bn'].' কাছে প্রেরণ করা হয়েছে ('.$apotti['latest_movement']['status'].')'}}
             </td>
 
             <td>
-                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
-                                                list-btn-toggle"
+                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-icon-primary list-btn-toggle"
                         title="বিস্তারিত দেখুন"
                         data-apotti-id="{{$apotti['id']}}"
-                        onclick="Apotti_Container.showApotti($(this))">
+                        onclick="Apotti_Register_Container.showApotti($(this))">
                     <i class="fad fa-eye"></i>
                 </button>
 
-                @if($apotti['air_generate_type'] != 'preliminary')
-                    <button class="mr-3 btn btn-sm btn-outline-warning btn-square" title="সম্পাদনা করুন"
+                @if($apotti['latest_movement'] ==  null)
+                    <button class="mr-1 btn btn-icon btn-square btn-sm btn-light  btn-icon-primary list-btn-toggle"
+                            title="সম্পাদনা করুন"
                             data-apotti-id="{{$apotti['id']}}"
-                            onclick="Apotti_Container.editApotti($(this))">
-                        <i class="fad fa-pencil"></i>সম্পাদনা
+                            onclick="Apotti_Register_Container.loadApotiEdit($(this))">
+                        <i class="fad fa-pencil"></i>
+                    </button>
+                @endif
+
+                @if($apotti['latest_movement'] ==  null || $apotti['latest_movement']['status'] != 'approved')
+                    <button data-apotti-id="{{$apotti['id']}}"
+                            onclick="Apotti_Register_Container.loadApprovalAuthority($(this))" title="প্রাপক বাছাই করুন"
+                            class="mr-1 btn btn-icon btn-square btn-sm btn-light  btn-icon-primary list-btn-toggle">
+                        <i class="fad fa-share-square"></i>
                     </button>
                 @endif
             </td>
@@ -92,44 +104,3 @@
     @endforelse
     </tbody>
 </table>
-<script>
-
-    //select all checkboxes
-    $("#selectAll").change(function(){
-        var status = this.checked;
-        $('.select-apotti').each(function(){
-            if (!$(this).is(':disabled')) {
-                this.checked = status;
-            }
-        });
-    });
-
-    $('.select-apotti').change(function(){
-        if(this.checked == false){
-            $("#selectAll")[0].checked = false;
-        }
-
-        if ($('.select-apotti:checked').length == $('.select-apotti').length ){
-            $("#selectAll")[0].checked = true;
-            $("#selectAll")[0].addClass('checkbox-disabled');
-        }
-    });
-
-    $(".onucched_no").on('keyup',function(){
-
-        onucched_no = $(this).val();
-        change_id = $(this).attr('data-id');
-        real_val = $(this).attr('data-real-val');
-
-        $('.onucched_no').each(function(){
-            id = $(this).attr('data-id');
-
-            if(onucched_no == $(this).val()){
-                if(change_id != id){
-                    $('#apptti_'+id).val(real_val);
-                    $('#apptti_'+id).attr('data-real-val', real_val);
-                }
-            }
-        });
-    });
-</script>
