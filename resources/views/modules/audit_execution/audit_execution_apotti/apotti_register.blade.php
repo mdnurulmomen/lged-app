@@ -144,10 +144,11 @@
 
         updateApotti: function (elem) {
             url = '{{route('audit.execution.apotti.register.update')}}';
+            directorate_id = $("#directorate_id").val();
             apotti_id = elem.data('apotti-id');
             apotti_type = $("#apotti_type").val();
             comments = $("#comments").val();
-            data = {apotti_id,apotti_type,comments};
+            data = {directorate_id,apotti_id,apotti_type,comments};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -159,6 +160,7 @@
                 if (response.status === 'success') {
                     toastr.success('{{___('generic.sent_successfully')}}');
                     $('#kt_quick_panel_close').click();
+                    Apotti_Register_Container.loadApottiList();
                 }
                 else {
                     toastr.error(response.data.message);
@@ -196,7 +198,8 @@
         storeApprovalAuthority: function () {
             url = '{{route('audit.execution.apotti.register.store-approval-authority')}}';
             data = $('#approval_authority_form').serializeArray();
-            //data.push({name: "office_id", value: office_id});
+            office_id = $("#directorate_id").val();
+            data.push({name: "office_id", value: office_id});
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

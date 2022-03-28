@@ -48,6 +48,16 @@
                 </select>
             </div>
             <div class="col-md-3">
+                <input autocomplete="off" type="text" id="start_date" class="date form-control" placeholder="শুরুর তারিখ">
+            </div>
+
+            <div class="col-md-3">
+                <input autocomplete="off" type="text" id="end_date" class="date form-control" placeholder="শেষের তারিখ">
+            </div>
+        </div>
+
+        <div class="row mt-2 mb-2">
+            <div class="col-md-3">
                 <button id="btn_filter" class="btn icon-btn-primary" type="button">
                     <i class="fad fa-search"></i> অনুসন্ধান
                 </button>
@@ -194,6 +204,8 @@
             jorito_ortho_poriman = $('#jorito_ortho_poriman').val();
             audit_year_start = $('#audit_year_start').val();
             audit_year_end = $('#audit_year_end').val();
+            start_date = $('#start_date').val();
+            end_date = $('#end_date').val();
             status = $('#status').val();
 
             KTApp.block('#kt_content', {
@@ -216,6 +228,8 @@
                 jorito_ortho_poriman,
                 audit_year_start,
                 audit_year_end,
+                start_date,
+                end_date,
                 status
             };
             console.log(data);

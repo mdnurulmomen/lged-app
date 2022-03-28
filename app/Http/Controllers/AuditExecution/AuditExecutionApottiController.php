@@ -336,6 +336,7 @@ class AuditExecutionApottiController extends Controller
         try {
             //dd($request->all());
             $data = Validator::make($request->all(), [
+                'office_id' => 'required|integer',
                 'apotti_id' => 'required|integer',
                 'receiver_officer_id' => 'required|integer',
                 'receiver_office_id' => 'required|integer',
@@ -352,7 +353,7 @@ class AuditExecutionApottiController extends Controller
                 'receiver_officer_email' => 'required',
                 'status' => 'required',
             ],[
-                'apotti_id.required' => 'AIR id is required',
+                'office_id.required' => 'Office is required',
                 'receiver_officer_id.required' => 'You have to choose receiver',
                 'receiver_office_id.required' => 'You have to choose receiver',
                 'status.required' => 'Status is required',

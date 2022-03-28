@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AuditExecution;
 
 use App\Http\Controllers\Controller;
 use App\Services\FireNotificationServices;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -399,8 +400,6 @@ class AuditExecutionMemoController extends Controller
 
     public function loadAuthorityMemoList(Request $request)
     {
-//        dd($request->all());
-
         $data['cdesk'] = $this->current_desk_json();
         $data['office_id'] = $request->directorate_id;
         $data['team_id'] = $request->team_id;
@@ -416,6 +415,14 @@ class AuditExecutionMemoController extends Controller
         $data['audit_year_start'] = $request->audit_year_start;
         $data['audit_year_end'] = $request->audit_year_end;
         $data['status'] = $request->status;
+
+        if ($request->start_date && $request->end_date){
+            $start_date = str_replace('/', '-', $request->start_date);
+            $data['start_date'] = Carbon::parse($start_date)->format('Y-m-d');
+            $end_date = str_replace('/', '-', $request->end_date);
+            $data['end_date'] = Carbon::parse($end_date)->format('Y-m-d');
+        }
+
 
         $get_memo_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.authority_memo_list'), $data)->json();
         //dd($get_memo_list);

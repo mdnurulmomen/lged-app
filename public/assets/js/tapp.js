@@ -245,10 +245,15 @@ $(document).off('focus').on('focus', '.year-picker', function () {
         minViewMode: "years",
         autoclose: true
     });
-})
-// $('.date').datepicker({
-//     format:'d/m/yyyy'
-// });
+});
+
+$(document).off('focus').on('focus', '.date-range-picker', function () {
+    $(this).daterangepicker({
+        format: 'dd/mm/yyyy',
+        orientation: "bottom"
+    });
+});
+
 
 function calcWorkingDays(fromDate, toDate) { // input given as Date objects
     dDate1 = new Date(fromDate);

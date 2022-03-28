@@ -54,6 +54,12 @@
             </td>
             <td class="text-left">
                 {{$apotti['apotti_title']}}
+                <br>
+                @if(!empty($apotti['apotti_status']))
+                    <span class="text-primary">
+                        (আপত্তিটি {{strtoupper($apotti['apotti_status'][0]['apotti_type'])}} করার জন্য অনুরোধ করা হল)
+                    </span>
+                @endif
             </td>
             <td class="text-right">
                 <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>

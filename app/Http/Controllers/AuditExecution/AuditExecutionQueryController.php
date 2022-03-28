@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AuditExecution;
 
 use App\Http\Controllers\Controller;
 use App\Services\FireNotificationServices;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -272,7 +273,12 @@ class AuditExecutionQueryController extends Controller
         $data['cost_center_id'] = $request->cost_center_id;
         $data['status'] = $request->status;
 
-//        dd($data);
+        if ($request->start_date && $request->end_date){
+            $start_date = str_replace('/', '-', $request->start_date);
+            $data['start_date'] = Carbon::parse($start_date)->format('Y-m-d');
+            $end_date = str_replace('/', '-', $request->end_date);
+            $data['end_date'] = Carbon::parse($end_date)->format('Y-m-d');
+        }
 
         $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.authority_query_list'), $data)->json();
 //        dd($audit_query_list);

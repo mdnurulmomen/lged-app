@@ -73,33 +73,26 @@
             </div>
         </div>
         <div class="row mt-2 mb-2">
-            {{--            <div class="col-md-3">--}}
-            {{--                <select class="form-control select-select2" id="memo_type">--}}
-            {{--                    <option value="">আপত্তির ধরন</option>--}}
-            {{--                    <option value="1">এসএফআই</option>--}}
-            {{--                    <option value="2">নন-এসএফআই</option>--}}
-            {{--                    <option value="3">ড্রাফ্ট প্যারা</option>--}}
-            {{--                    <option value="4">পাণ্ডুলিপি</option>--}}
-            {{--                </select>--}}
-            {{--            </div>--}}
-            {{--            <div class="col-md-3">--}}
-            {{--                <select class="form-control select-select2" id="memo_status">--}}
-            {{--                    <option value="">আপত্তির অবস্থা</option>--}}
-            {{--                    <option value="1">নিস্পন্ন</option>--}}
-            {{--                    <option value="2">অনিস্পন্ন</option>--}}
-            {{--                    <option value="3">আংশিক নিস্পন্ন</option>--}}
-            {{--                </select>--}}
-            {{--            </div>--}}
-            <div class="col-md-3">
-                <input class="form-control mb-1 mt-1" pattern="[0-9\.]*" id="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
-            </div>
-
             <div class="col-md-3">
                 <input class="form-control mb-1 mt-1 year-picker" id="audit_year_start" placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text">
             </div>
 
             <div class="col-md-3">
                 <input class="form-control mb-1 mt-1 year-picker" id="audit_year_end" placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">
+            </div>
+
+            <div class="col-md-3">
+                <input autocomplete="off" type="text" id="start_date" class="date form-control" placeholder="শুরুর তারিখ">
+            </div>
+
+            <div class="col-md-3">
+                <input autocomplete="off" type="text" id="end_date" class="date form-control" placeholder="শেষের তারিখ">
+            </div>
+        </div>
+
+        <div class="row mt-2 mb-2">
+            <div class="col-md-3">
+                <input class="form-control mb-1 mt-1" pattern="[0-9\.]*" id="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
             </div>
 
             <div class="col-md-3 mt-1">
@@ -252,6 +245,8 @@
             jorito_ortho_poriman = $('#jorito_ortho_poriman').val();
             audit_year_start = $('#audit_year_start').val();
             audit_year_end = $('#audit_year_end').val();
+            start_date = $('#start_date').val();
+            end_date = $('#end_date').val();
             status = $('#status').val();
 
             KTApp.block('#kt_content', {
@@ -260,7 +255,7 @@
             });
 
             let url = '{{route('audit.execution.memo.load-authority-memo-list')}}';
-            let data = {directorate_id, fiscal_year_id, activity_id, entity_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start, audit_year_end, status};
+            let data = {directorate_id, fiscal_year_id, activity_id, entity_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start, audit_year_end, start_date, end_date, status};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     KTApp.unblock('#kt_content');
                     if (response.status === 'error') {

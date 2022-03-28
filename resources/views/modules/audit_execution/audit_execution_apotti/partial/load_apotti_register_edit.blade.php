@@ -8,7 +8,6 @@
         <option value="">--বাছাই করুন--</option>
         <option value="sfi">এসএফআই</option>
         <option value="non-sfi">নন-এসএফআই</option>
-        <option value="approved">রিপোর্ট ভুক্ত</option>
     </select>
 </div>
 
