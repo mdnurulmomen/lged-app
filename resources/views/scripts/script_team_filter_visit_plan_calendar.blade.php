@@ -91,7 +91,7 @@
                             @foreach($schedules as $schedule)
 
                         {
-                            title: '{{$sub_team['team_name']}}  (উপদল নেতা : {{$sub_team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
+                            title: '{{$sub_team['team_name']}}  (দলনেতা : {{$sub_team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
                             start: '{{$schedule['team_member_start_date']}}',
                             end: '{{$schedule['team_member_end_date']}}',
                             description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
@@ -121,7 +121,7 @@
                             @endphp
                             @foreach($schedules as $schedule)
                         {
-                            title: '{{$team['team_name']}}  (উপদল নেতা : {{$team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
+                            title: '{{$team['team_name']}}  (দলনেতা : {{$team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
                             start: '{{$schedule['team_member_start_date']}}',
                             end: '{{$schedule['team_member_end_date']}}',
                             description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
