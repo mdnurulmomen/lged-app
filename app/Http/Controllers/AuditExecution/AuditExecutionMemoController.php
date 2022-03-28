@@ -414,7 +414,6 @@ class AuditExecutionMemoController extends Controller
         $data['jorito_ortho_poriman'] = $request->jorito_ortho_poriman;
         $data['audit_year_start'] = $request->audit_year_start;
         $data['audit_year_end'] = $request->audit_year_end;
-        $data['status'] = $request->status;
 
         if ($request->start_date && $request->end_date){
             $start_date = str_replace('/', '-', $request->start_date);

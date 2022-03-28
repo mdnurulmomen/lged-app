@@ -271,7 +271,6 @@ class AuditExecutionQueryController extends Controller
         $data['entity_id'] = $request->entity_id;
         $data['activity_id'] = $request->activity_id;
         $data['cost_center_id'] = $request->cost_center_id;
-        $data['status'] = $request->status;
 
         if ($request->start_date && $request->end_date){
             $start_date = str_replace('/', '-', $request->start_date);

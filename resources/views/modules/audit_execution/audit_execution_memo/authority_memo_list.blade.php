@@ -1,7 +1,6 @@
 <x-title-wrapper>Audit Memo List</x-title-wrapper>
 
 <div class="card sna-card-border d-flex flex-wrap flex-row">
-    <input type="hidden" name="status" id="status">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
             <div class="col-md-3">
@@ -142,8 +141,13 @@
             if (filter_data.activity_id != null){
                 $("#activity_id").val(filter_data.activity_id).trigger('change');
             }
+
             if (filter_data.status != null){
-                $("#status").val(filter_data.status);
+                if (filter_data.status == 'daily'){
+                    let today = '{{now()->format('d/m/Y')}}';
+                    $("#start_date").val(today);
+                    $("#end_date").val(today);
+                }
             }
         }
 
@@ -184,8 +188,9 @@
 
         loadEntityList: function (directorate_id, fiscal_year_id) {
             activity_id = $('#activity_id').val();
+            console.log(dashboard_filter_data)
             if (dashboard_filter_data && activity_id == null) {
-                dashboard_filter_data = JSON.parse(dashboard_filter_data);
+                // dashboard_filter_data = JSON.parse(dashboard_filter_data);
                 activity_id = dashboard_filter_data.activity_id;
             }
             let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
@@ -247,7 +252,6 @@
             audit_year_end = $('#audit_year_end').val();
             start_date = $('#start_date').val();
             end_date = $('#end_date').val();
-            status = $('#status').val();
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -255,7 +259,7 @@
             });
 
             let url = '{{route('audit.execution.memo.load-authority-memo-list')}}';
-            let data = {directorate_id, fiscal_year_id, activity_id, entity_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start, audit_year_end, start_date, end_date, status};
+            let data = {directorate_id, fiscal_year_id, activity_id, entity_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start, audit_year_end, start_date, end_date};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     KTApp.unblock('#kt_content');
                     if (response.status === 'error') {

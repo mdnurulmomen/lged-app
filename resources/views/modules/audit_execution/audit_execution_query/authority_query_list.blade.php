@@ -105,8 +105,12 @@
             if (filter_data.activity_id != null) {
                 $("#activity_id").val(filter_data.activity_id).trigger('change');
             }
-            if (filter_data.status != null) {
-                $("#status").val(filter_data.status);
+            if (filter_data.status != null){
+                if (filter_data.status == 'daily'){
+                    let today = '{{now()->format('d/m/Y')}}';
+                    $("#start_date").val(today);
+                    $("#end_date").val(today);
+                }
             }
         }
 
@@ -206,7 +210,6 @@
             audit_year_end = $('#audit_year_end').val();
             start_date = $('#start_date').val();
             end_date = $('#end_date').val();
-            status = $('#status').val();
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -229,8 +232,7 @@
                 audit_year_start,
                 audit_year_end,
                 start_date,
-                end_date,
-                status
+                end_date
             };
             console.log(data);
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
