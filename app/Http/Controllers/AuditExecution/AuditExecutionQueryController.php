@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\FireNotificationServices;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class AuditExecutionQueryController extends Controller
@@ -263,6 +264,7 @@ class AuditExecutionQueryController extends Controller
 
     public function loadAuthorityQueryList(Request $request)
     {
+        Session::forget('dashboard_filter_data');
 
         $data['cdesk'] = $this->current_desk_json();
         $data['office_id'] = $request->directorate_id;
