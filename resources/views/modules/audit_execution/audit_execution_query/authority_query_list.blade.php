@@ -67,18 +67,8 @@
 </div>
 
 
-<div class="card sna-card-border mt-2 mb-5">
-    <div id="load_query_list">
-        <div class="d-flex align-items-center">
-            <div class="spinner-grow text-warning mr-3" role="status">
-                <span class="sr-only"></span>
-            </div>
-            <div>
-                loading.....
-            </div>
-        </div>
-    </div>
-</div>
+<div class="query-list-container"></div>
+
 
 
 <script>
@@ -121,8 +111,8 @@
             Authority_Query_Container.loadQueryList();
             Authority_Query_Container.loadEntityList(directorate_id, fiscal_year_id);
         } else {
-            // toastr.info('Please select directorate.')
-            $('#load_team_calendar').html('');
+            toastr.warning('Please select directorate');
+            $('.query-list-container').html('');
         }
     });
     var Authority_Query_Container = {
@@ -240,7 +230,7 @@
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
-                        $('#load_query_list').html(response);
+                        $('.query-list-container').html(response);
                     }
                 }
             );

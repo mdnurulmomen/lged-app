@@ -224,6 +224,9 @@ class AuditExecutionQueryController extends Controller
     public function downloadAuditQuery(Request $request)
     {
         $data['cdesk'] = $this->current_desk_json();
+        if ($request->has('directorate_id')) {
+            $data['directorate_id'] = $request->directorate_id;
+        }
         $data['ac_query_id'] = $request->ac_query_id;
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.view_audit_query'), $data)->json();
         $auditQueryInfo = isSuccess($responseData) ? $responseData['data'] : [];
@@ -264,7 +267,9 @@ class AuditExecutionQueryController extends Controller
 
     public function loadAuthorityQueryList(Request $request)
     {
-        Session::forget('dashboard_filter_data');
+        if (session::has('dashboard_filter_data')){
+            Session::forget('dashboard_filter_data');
+        }
 
         $data['cdesk'] = $this->current_desk_json();
         $data['office_id'] = $request->directorate_id;

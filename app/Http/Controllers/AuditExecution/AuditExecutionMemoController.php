@@ -401,7 +401,9 @@ class AuditExecutionMemoController extends Controller
 
     public function loadAuthorityMemoList(Request $request)
     {
-        Session::forget('dashboard_filter_data');
+        if (session::has('dashboard_filter_data')){
+            Session::forget('dashboard_filter_data');
+        }
 
         $data['cdesk'] = $this->current_desk_json();
         $data['office_id'] = $request->directorate_id;

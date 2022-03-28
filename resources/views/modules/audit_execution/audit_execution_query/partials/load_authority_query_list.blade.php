@@ -1,3 +1,4 @@
+<div class="card sna-card-border mt-2 mb-5">
 @if(!empty($audit_query_list))
     <div class="search-all position-relative">
         <div class="row">
@@ -156,13 +157,6 @@
             @endforeach
         </ul>
     </div>
-
-    <script>
-        var Audit_Authority_Query_List_Container = {
-
-        }
-    </script>
-
 @else
     <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">
         <div class="alert-icon">
@@ -171,6 +165,7 @@
         <div class="alert-text">{{___('generic.no_data_found')}}</div>
     </div>
 @endif
+</div>
 
 
 

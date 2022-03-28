@@ -1,16 +1,13 @@
-@if($scopeAuthority == 0)
-    <div class="col-md-12">
-        <div class="d-flex justify-content-end mt-4">
-            <button onclick="Show_Query_Container.queryDownload()"
-                    class="btn btn-danger btn-sm btn-bold btn-square">
-                <i class="far fa-file-pdf"></i>
-            </button>
-        </div>
+<div class="col-md-12">
+    <div class="d-flex justify-content-end mt-4">
+        <button onclick="Show_Query_Container.queryDownload()"
+                class="btn btn-danger btn-sm btn-bold btn-square">
+            <i class="far fa-file-pdf"></i>
+        </button>
     </div>
-@endif
+</div>
 
 <div class="col-lg-12 p-0 mt-3">
-    {{--    {{dd($auditQueryInfo)}}--}}
     <div class="table-responsive">
         <table class="table" width="100%">
             <tbody>
@@ -42,7 +39,7 @@
             </tr>
             <tr>
                 <th width="15%">ক্রমিক নং</th>
-                <th width="65%">কোয়েরি</th>
+                <th width="{{$scopeAuthority == 0?'65%':'85%'}}">কোয়েরি</th>
                 @if($scopeAuthority == 0) <th width="20%"></th> @endif
             </tr>
             </thead>
@@ -58,7 +55,7 @@
                         @elseif($item['status'] =="submitted")
                             @php $badgeStyle ='primary'; @endphp
                         @else
-                            @php $badgeStyle ='success'; @endphp
+                            @php $badgeStyle ='info'; @endphp
                         @endif
                         <span class="query_receive_status badge badge-{{$badgeStyle}} text-uppercase m-1 p-1 ">
                             {{$item['status']}}
@@ -128,7 +125,8 @@
 
         queryDownload: function (elem) {
             ac_query_id = '{{$auditQueryInfo['id']}}';
-            data = {ac_query_id};
+            directorate_id = $('#directorate_filter').val();
+            data = {ac_query_id,directorate_id};
             url = '{{route('audit.execution.query.download')}}';
 
             $.ajax({

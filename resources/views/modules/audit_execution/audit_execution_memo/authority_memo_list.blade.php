@@ -104,18 +104,8 @@
 </div>
 
 
-<div class="card sna-card-border mt-2 mb-5">
-    <div id="load_memo_list">
-        <div class="d-flex align-items-center">
-            <div class="spinner-grow text-warning mr-3" role="status">
-                <span class="sr-only"></span>
-            </div>
-            <div>
-                loading.....
-            </div>
-        </div>
-    </div>
-</div>
+<div class="memo-list-container"></div>
+
 
 
 <script>
@@ -159,7 +149,8 @@
             Authority_Memo_Container.loadMemoList();
             Authority_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
         } else {
-            $('#load_team_calendar').html('');
+            toastr.warning('Please select directorate');
+            $('.memo-list-container').html('');
         }
     });
 
@@ -265,7 +256,7 @@
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
-                        $('#load_memo_list').html(response);
+                        $('.memo-list-container').html(response);
                     }
                 }
             );
