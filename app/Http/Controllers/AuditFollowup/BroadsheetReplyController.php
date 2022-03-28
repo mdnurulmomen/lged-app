@@ -17,7 +17,16 @@ class BroadsheetReplyController extends Controller
      */
     public function index()
     {
-        return view('modules.audit_followup.broadsheet_reply.index');
+        $all_directorates = $this->allAuditDirectorates();
+
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
+
+//        dd($directorates);
+        return view('modules.audit_followup.broadsheet_reply.index',compact('directorates'));
     }
 
     /**
@@ -91,6 +100,7 @@ class BroadsheetReplyController extends Controller
     public function getBroadSheetList(Request $request){
         $data = Validator::make($request->all(), [
             'per_page' => 'required|integer',
+            'office_id' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();
 
@@ -104,8 +114,9 @@ class BroadsheetReplyController extends Controller
 
         if (isSuccess($apottiItemList)) {
             $apottiItemList = $apottiItemList['data'];
+            $office_id = $request->office_id;
             return view('modules.audit_followup.broadsheet_reply.partials.load_apotti_list',
-                compact('apottiItemList','desk_officer_id','desk_officer_grade'));
+                compact('apottiItemList','desk_officer_id','desk_officer_grade','office_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $apottiItemList]);
         }
@@ -115,20 +126,24 @@ class BroadsheetReplyController extends Controller
 
         $data = Validator::make($request->all(), [
             'broad_sheet_id' => 'required|integer',
+            'office_id' => 'required|integer',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
 
         $desk_officer_grade = $this->current_desk()['officer_grade'];
 
+        $broadSheetInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_info'), $data)->json();
         $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_items'), $data)->json();
+
+        // dd($broadSheetInfo);
+
         if (isSuccess($broadSheetItem)) {
+            $broadSheetInfo = $broadSheetInfo['data'];
             $broadSheetItem = $broadSheetItem['data'];
-            $memorandum_no = $request->memorandum_no;
-            $memorandum_date = $request->memorandum_date;
-            $entity_name = $request->entity_name;
+            $office_id = $request->office_id;
             return view('modules.audit_followup.broadsheet_reply.partials.broad_sheet_item',
-                compact('broadSheetItem','memorandum_no','memorandum_date','entity_name','desk_officer_grade'));
+                compact('broadSheetItem','broadSheetInfo','desk_officer_grade','office_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $broadSheetItem]);
         }
@@ -138,9 +153,11 @@ class BroadsheetReplyController extends Controller
 
         $data = Validator::make($request->all(), [
             'broad_sheet_id' => 'required|integer',
+            'broad_sheet_type' => 'required',
             'apotti_item_id' => 'required|integer',
             'memo_id' => 'required|integer',
             'jorito_ortho' => 'nullable',
+            'office_id' => 'nullable',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();

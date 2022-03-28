@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <input type="hidden" id="entity_id" value="{{$responseData['rAirInfo']['r_air_child']['entity_id']}}">
+                <input type="hidden" id="entity_id" value="">
 
                 <a data-qac-type="{{$qac_type}}"
                    data-scope="{{$scope}}"

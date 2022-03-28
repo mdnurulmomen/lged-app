@@ -197,10 +197,7 @@
 
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                         title="জবাব দেখুন" data-scope="response"
-                                                        data-entity-name="{{$item['sender_office_name_bn']}}"
                                                         data-broad-sheet-id="{{$item['id']}}"
-                                                        data-memorandum-no="{{enTobn($item['memorandum_no'])}}"
-                                                        data-memorandum-date="{{enTobn($item['memorandum_date'])}}"
                                                         onclick="Broadsheet_Reply_List_Container.loadBroadSheetItem($(this))">
                                                     <i class="fas fa-plus-octagon"></i>
                                                 </button>
@@ -270,12 +267,10 @@
 
         loadBroadSheetItem : function (elem) {
             broad_sheet_id = elem.data('broad-sheet-id');
-            memorandum_no = elem.data('memorandum-no');
-            memorandum_date = elem.data('memorandum-date');
-            entity_name = elem.data('entity-name');
-            data = {broad_sheet_id,memorandum_no,memorandum_date,entity_name};
+            office_id = '{{$office_id}}'
+            data = {broad_sheet_id,office_id};
 
-            let url = '{{route('audit.followup.broadsheet.reply.laod-broad-sheet-sheet-item')}}';
+            let url = '{{route('audit.followup.broadsheet.reply.laod-broad-sheet-item')}}';
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

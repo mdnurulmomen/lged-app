@@ -477,7 +477,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/edit-apottoi-item', [BroadsheetReplyController::class, 'editApottiItem'])->name('edit-apottoi-item');
             Route::post('/get-broad-sheet-approval-authority', [BroadsheetReplyController::class, 'getBroadSheetApprovalAuthority'])->name('get-broad-sheet-approval-authority');
             Route::post('/broad-sheet-movement', [BroadsheetReplyController::class, 'broadSheetMovement'])->name('broad-sheet-movement');
-            Route::post('/laod-broad-sheet-sheet-item', [BroadsheetReplyController::class, 'getBroadSheetItem'])->name('laod-broad-sheet-sheet-item');
+            Route::post('/laod-broad-sheet-item', [BroadsheetReplyController::class, 'getBroadSheetItem'])->name('laod-broad-sheet-item');
             Route::post('/get-apotti-decision-form', [BroadsheetReplyController::class, 'getApottiDecisionForm'])->name('get-apotti-decision-form');
             Route::post('/get-apotti-decision-submit', [BroadsheetReplyController::class, 'getApottiDecisionSubmit'])->name('get-apotti-decision-submit');
             Route::post('/approve-broad-sheet-apotti', [BroadsheetReplyController::class, 'approveBroadSheetApotti'])->name('approve-broad-sheet-apotti');

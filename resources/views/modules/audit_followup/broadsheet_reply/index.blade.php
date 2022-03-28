@@ -1,32 +1,61 @@
 <x-title-wrapper>জবাব</x-title-wrapper>
 
-<div class="card sna-card-border">
-    <div id="load_apotti_item_list">
-        <div class="d-flex align-items-center">
-            <div class="spinner-grow text-warning mr-3" role="status">
-                <span class="sr-only"></span>
-            </div>
-            <div>
-                loading.....
+<div class="card sna-card-border d-flex flex-wrap flex-row">
+    <div class="col-xl-12">
+        <div class="row mt-2 mb-2">
+            <div class="col-md-3">
+                <select class="form-select select-select2" id="directorate_filter">
+                    @if(count($directorates) > 1)
+                        <option value="all"> অধিদপ্তর বাছাই করুন</option>
+                    @endif
+                    @foreach($directorates as $directorate)
+                        <option value="{{$directorate['office_id']}}">{{$directorate['office_name_bn']}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
     </div>
 </div>
 
-
+<div class="card sna-card-border mt-2">
+    <div id="load_apotti_item_list"></div>
+</div>
 
 <script>
+
+    $('#directorate_filter').change(function () {
+        Broadsheet_Container.loadApottiItemList();
+    });
+
+    $(function (){
+        office_id = $('#directorate_filter').val();
+        if(office_id == 'all'){
+            toastr.warning('অধিদপ্তর বাছাই করুন');
+        }else{
+            Broadsheet_Container.loadApottiItemList();
+        }
+
+    });
+
     var Broadsheet_Container = {
         loadApottiItemList: function (page = 1, per_page = 10) {
+            office_id = $('#directorate_filter').val();
             let url = '{{route('audit.followup.broadsheet.reply.get-broad-sheet-list')}}';
-            let data = {page, per_page};
+            let data = {page, per_page, office_id};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
                     $('#load_apotti_item_list').html(response);
                 }
             });
+
         },
 
 
@@ -86,8 +115,4 @@
             });
         },
     };
-
-    $(function () {
-        Broadsheet_Container.loadApottiItemList();
-    });
 </script>

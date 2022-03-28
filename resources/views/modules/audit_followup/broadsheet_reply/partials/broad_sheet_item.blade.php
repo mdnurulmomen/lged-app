@@ -1,13 +1,13 @@
 <div class="card sna-card-border">
         <div class="row">
             <div class="col-xl-4 text-left">
-                <h3>স্মারক নংঃ {{$memorandum_no}}</h3>
+                <h3>স্মারক নংঃ {{$broadSheetInfo['memorandum_no']}}</h3>
             </div>
             <div class="col-xl-4 text-center">
-                <h3>এন্টিটিঃ {{$entity_name}}</h3>
+                <h3>এন্টিটিঃ {{$broadSheetInfo['sender_office_name_bn']}}</h3>
             </div>
             <div class="col-xl-4 text-right">
-                <h3>তারিখঃ {{$memorandum_date}}</h3>
+                <h3>তারিখঃ {{$broadSheetInfo['memorandum_date']}}</h3>
             </div>
         </div>
 </div>
@@ -91,6 +91,7 @@
                                     data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
                                     data-memo-id="{{$broadSheet['apotti']['memo_id']}}"
                                     data-jorito-ortho="{{$broadSheet['apotti']['jorito_ortho_poriman']}}"
+                                    data-broad-sheet-type="{{$broadSheetInfo['broad_sheet_type']}}"
                                     onclick="ApottiDecision_Container.getApottiDecisionForm($(this))">
                                 সিদ্ধান্ত
                             </button>
@@ -133,13 +134,15 @@
             });
 
             broad_sheet_id = elem.data('broad-sheet-id');
+            broad_sheet_type = elem.data('broad-sheet-type');
             apotti_item_id = elem.data('apotti-item-id');
             jorito_ortho = elem.data('jorito-ortho');
             memo_id = elem.data('memo-id');
+            office_id = '{{$office_id}}'
 
             url = '{{route('audit.followup.broadsheet.reply.get-apotti-decision-form')}}';
 
-            var data = {apotti_item_id,jorito_ortho,broad_sheet_id,memo_id};
+            var data = {apotti_item_id,jorito_ortho,broad_sheet_id,memo_id,broad_sheet_type,office_id};
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
                     KTApp.unblock('#kt_content');

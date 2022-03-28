@@ -72,11 +72,13 @@ class AuditQacController extends Controller
         $requestData['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_audit_apotti_list'), $requestData)->json();
         $responseData = isSuccess($responseData) ? $responseData['data'] : [];
+//        dd($responseData);
         $current_designation_id = $this->current_designation_id();
         $entity_ids = [];
         foreach ($responseData['rAirInfo']['ap_entities'] as $ap_entity) {
             $entity_ids[] = $ap_entity['entity_id'];
         }
+//        dd($entity_ids);
 
         return view('modules.audit_quality_control.qac_apotti_list', compact('responseData', 'qac_type', 'current_designation_id', 'scope', 'entity_ids'));
     }

@@ -83,7 +83,6 @@
     </div>
 </div>
 
-
 <script>
     $(function () {
         fiscal_year_id = $('#fiscal_year_id').val();
