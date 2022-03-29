@@ -402,10 +402,12 @@ class AnnualPlanRevisedController extends Controller
         $delete_annual_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.delete_annual_plan'),
             $data)->json();
 
+//        dd($delete_annual_plan);
+
         if (isSuccess($delete_annual_plan)) {
             return response()->json(['status' => 'success', 'data' => $delete_annual_plan['data']]);
         } else {
-            return response()->json(['status' => 'error', 'data' => $delete_annual_plan]);
+            return response()->json(['status' => 'error', 'data' => $delete_annual_plan['message']]);
         }
     }
 
