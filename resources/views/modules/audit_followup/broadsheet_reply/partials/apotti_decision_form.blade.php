@@ -2,8 +2,8 @@
     <input type="hidden" name="broad_sheet_id" value="{{$broad_sheet_id}}">
     <input type="hidden" name="apotti_item_id" value="{{$apotti_item_id}}">
     <input type="hidden" name="memo_id" value="{{$memo_id}}">
+    <input type="hidden" name="office_id" value="{{$office_id}}">
     <div class="m-5">
-
         @if($broad_sheet_type != 'final_report')
             <div class="row mb-1">
                 <div class="col-md-12">
@@ -46,7 +46,7 @@
             </div>
         @endif
 
-        @if($office_id == 1)
+        @if($office_id != 1)
             <div class="row mt-2">
                 <div class="col-md-12">
                     <label>সিএজি মন্তব্য</label>
@@ -54,14 +54,16 @@
                               name="cag_comment">{{isset($apotti_item_info['comment']) ? $apotti_item_info['comment'] : ''}}</textarea>
                 </div>
             </div>
-        @endif
-        <div class="row mt-2">
-            <div class="col-md-12">
-                <label>অধিদপ্তরের মন্তব্য</label>
-                <textarea class="form-control"
-                          name="comment">{{isset($apotti_item_info['comment']) ? $apotti_item_info['comment'] : ''}}</textarea>
+        @else
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <label>অধিদপ্তরের মন্তব্য</label>
+                    <textarea class="form-control"
+                              name="comment">{{isset($apotti_item_info['comment']) ? $apotti_item_info['comment'] : ''}}</textarea>
+                </div>
             </div>
-        </div>
+        @endif
+
 
     </div>
 </form>

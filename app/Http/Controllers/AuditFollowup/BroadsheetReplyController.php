@@ -175,6 +175,7 @@ class BroadsheetReplyController extends Controller
         try {
             $data = Validator::make($request->all(), [
                 'broad_sheet_id' => 'required|integer',
+                'office_id' => 'required|integer',
                 'apotti_item_id' => 'required|integer',
                 'memo_id' => 'required|integer',
                 'jorito_ortho' => 'nullable',
@@ -182,11 +183,14 @@ class BroadsheetReplyController extends Controller
                 'adjusted_amount' => 'nullable',
                 'apotti_status' => 'nullable',
                 'comment' => 'nullable',
+                'cag_comment' => 'nullable',
             ])->validate();
 
             $data['cdesk'] = $this->current_desk_json();
 
             $broadSheetItemUpdate = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.update_broad_sheet_item'), $data)->json();
+
+//            dd($broadSheetItemUpdate);
 
             if (isSuccess($broadSheetItemUpdate)) {
                 return response()->json(['status' => 'success', 'data' => $broadSheetItemUpdate['data']]);
