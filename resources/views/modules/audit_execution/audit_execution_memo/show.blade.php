@@ -1,6 +1,6 @@
 <div class="col-md-12">
     <div class="d-flex justify-content-end mt-4">
-        <button title="ডাউনলোড করুন" data-memo-id="{{$memoInfo['id']}}" data-directorate-id="{{$directorate_id}}"
+        <button title="ডাউনলোড করুন" data-memo-id="{{$memoInfoDetails['memo']['id']}}" data-directorate-id="{{$directorate_id}}"
                 onclick="Show_Memo_Container.memoPDFDownload($(this))"
                 class="btn btn-info btn-sm btn-bold btn-square">
             <i class="far fa-download"></i> ডাউনলোড
@@ -17,11 +17,11 @@
     </div>
     {{--    <x-office-header-details />--}}
     <br>
-    @if($memoInfo['memo_sharok_no'])
+    @if($memoInfoDetails['memo']['memo_sharok_no'])
         <table width="100%">
             <tr>
-                <td>স্মারক নং - {{enTobn($memoInfo['memo_sharok_no'])}}</td>
-                <td style="text-align: right">তারিখ: {{formatDate($memoInfo['memo_send_date'],'bn','/')}}</td>
+                <td>স্মারক নং - {{enTobn($memoInfoDetails['memo']['memo_sharok_no'])}}</td>
+                <td style="text-align: right">তারিখ: {{formatDate($memoInfoDetails['memo']['memo_send_date'],'bn','/')}}</td>
             </tr>
         </table>
     @endif
@@ -30,33 +30,59 @@
         <u>অডিট মেমো</u>
     </div>
 
-    <div style="font-weight: bold">অডিট মেমো নং-{{enTobn($memoInfo['onucched_no'])}}</div>
+    <div style="font-weight: bold">অডিট মেমো নং-{{enTobn($memoInfoDetails['memo']['onucched_no'])}}</div>
     <br>
     <div  style="font-weight: bold">
         <p style="font-weight: bold">শিরোনামঃ </p>
-        {{$memoInfo['memo_title_bn']}}
+        {{$memoInfoDetails['memo']['memo_title_bn']}}
     </div>
 
     <div style="text-align:justify;margin-top: 10px">
         <span style="font-weight: bold">বিবরণঃ</span>
-        {!! $memoInfo['memo_description_bn'] !!}
+        {!! $memoInfoDetails['memo']['memo_description_bn'] !!}
     </div>
 
-    @if($memoInfo['irregularity_cause'])
+    @if($memoInfoDetails['memo']['irregularity_cause'])
         <div style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
             <span style="font-weight: bold">অনিয়মের কারণঃ</span>
-            {{$memoInfo['irregularity_cause']}}
+            {{$memoInfoDetails['memo']['irregularity_cause']}}
         </div>
     @endif
 
     <div style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
         <b>সংযুক্তিঃ পরিশিষ্ট</b>
+        <div class="attachment_list_items pb-7">
+            <ul class="list-group">
+                @foreach($memoInfoDetails['porisishto_list'] as $attachment)
+                    @if($attachment['file_extension'] == 'pdf')
+                        @php $fileIcon = 'fa-file-pdf'; @endphp
+                    @elseif($attachment['file_extension']  == 'excel')
+                        @php $fileIcon = 'fa-file-excel'; @endphp
+                    @elseif($attachment['file_extension']  == 'docx')
+                        @php $fileIcon = 'fa-file-word'; @endphp
+                    @else
+                        @php $fileIcon = 'fa-file-image'; @endphp
+                    @endif
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2 rounded-0 border-left-0 border-right-0">
+                        <div class="position-relative w-100 d-flex align-items-start">
+                            <a title="" href="{{$attachment['file_path']}}" download class="d-inline-block text-dark‌‌">
+                                <span class="viewer_trigger d-flex align-items-start">
+                                    <i class="text-warning fas {{$fileIcon}} fa-lg px-3"></i>
+                                    <span class="ml-2 d-flex align-items-start">{{$attachment['file_user_define_name']}}</span>
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
     </div>
 
-    @if($memoInfo['irregularity_cause'])
+    @if($memoInfoDetails['memo']['irregularity_cause'])
         <div  style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
             <span style="font-weight: bold">অডিটি প্রতিষ্ঠানের জবাবঃ</span>
-            {{$memoInfo['response_of_rpu']}}
+            {{$memoInfoDetails['memo']['response_of_rpu']}}
         </div>
     @endif
     <br><br>
@@ -65,13 +91,13 @@
             <td  width="33%" style="text-align: left"></td>
             <td  width="33%" style="text-align: left"></td>
             <td  width="33%" style="text-align: center">
-                @if($memoInfo['issued_by'] == 'sub_team_leader')
-                    <p>({{$memoInfo['sub_team_leader_name']}})</p>
-                    <p>{{$memoInfo['sub_team_leader_designation']}} ও উপদলনেতা</p>
+                @if($memoInfoDetails['memo']['issued_by'] == 'sub_team_leader')
+                    <p>({{$memoInfoDetails['memo']['sub_team_leader_name']}})</p>
+                    <p>{{$memoInfoDetails['memo']['sub_team_leader_designation']}} ও উপদলনেতা</p>
                     <p>{{$directorateName}}</p>
                 @else
-                    <p>({{$memoInfo['team_leader_name']}})</p>
-                    <p>{{$memoInfo['team_leader_designation']}} ও দলনেতা</p>
+                    <p>({{$memoInfoDetails['memo']['team_leader_name']}})</p>
+                    <p>{{$memoInfoDetails['memo']['team_leader_designation']}} ও দলনেতা</p>
                     <p>{{$directorateName}}</p>
                 @endif
             </td>
@@ -81,32 +107,32 @@
         <tr>
             <td  width="33%" style="text-align: left">
                 <br><br>
-                <p style="margin: 0">{{$memoInfo['rpu_acceptor_designation_name_bn']}}</p>
-                <p>{{$memoInfo['cost_center_name_bn']}}</p>
+                <p style="margin: 0">{{$memoInfoDetails['memo']['rpu_acceptor_designation_name_bn']}}</p>
+                <p>{{$memoInfoDetails['memo']['cost_center_name_bn']}}</p>
             </td>
             <td  width="33%" style="text-align: left"></td>
             <td  width="33%" style="text-align: center"></td>
         </tr>
     </table>
     <br>
-    @if($memoInfo['memo_sharok_no'])
+    @if($memoInfoDetails['memo']['memo_sharok_no'])
         <table  width="100%" style="color: black">
             <tr>
-                <td>স্মারক নং - {{enTobn($memoInfo['memo_sharok_no'])}}</td>
-                <td style="text-align: right">তারিখ: {{formatDate($memoInfo['memo_send_date'],'bn','/')}}</td>
+                <td>স্মারক নং - {{enTobn($memoInfoDetails['memo']['memo_sharok_no'])}}</td>
+                <td style="text-align: right">তারিখ: {{formatDate($memoInfoDetails['memo']['memo_send_date'],'bn','/')}}</td>
             </tr>
         </table>
     @endif
     <br>
-    @if($memoInfo['memo_cc'])
+    @if($memoInfoDetails['memo']['memo_cc'])
         <table  width="100%" style="color: black">
             <tr>
                 <td style="padding-bottom: 10px">সদয় অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য:-</td>
             </tr>
             <tr>
                 <td>
-                    @if($memoInfo['memo_cc'])
-                        {!! nl2br($memoInfo['memo_cc']) !!}
+                    @if($memoInfoDetails['memo']['memo_cc'])
+                        {!! nl2br($memoInfoDetails['memo']['memo_cc']) !!}
                     @endif
 
                 </td>
@@ -119,13 +145,13 @@
             <td width="33%"></td>
             <td width="33%"></td>
             <td width="34%" style="text-align: center">
-                @if($memoInfo['issued_by'] == 'sub_team_leader')
-                    <p>({{$memoInfo['sub_team_leader_name']}})</p>
-                    <p>{{$memoInfo['sub_team_leader_designation']}} ও উপদলনেতা</p>
+                @if($memoInfoDetails['memo']['issued_by'] == 'sub_team_leader')
+                    <p>({{$memoInfoDetails['memo']['sub_team_leader_name']}})</p>
+                    <p>{{$memoInfoDetails['memo']['sub_team_leader_designation']}} ও উপদলনেতা</p>
                     <p>{{$directorateName}}</p>
                 @else
-                    <p>({{$memoInfo['team_leader_name']}})</p>
-                    <p>{{$memoInfo['team_leader_designation']}} ও দলনেতা</p>
+                    <p>({{$memoInfoDetails['memo']['team_leader_name']}})</p>
+                    <p>{{$memoInfoDetails['memo']['team_leader_designation']}} ও দলনেতা</p>
                     <p>{{$directorateName}}</p>
                 @endif
             </td>

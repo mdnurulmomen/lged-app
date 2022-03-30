@@ -28,12 +28,12 @@
         </div>
         <div class="col-md-6 text-right">
             <button class="btn btn-sm btn-square btn-warning btn-hover-warning"
-                onclick="PAC_Report_Container.previewPacReport()">
+                onclick="PAC_Worksheet_Report_Container.previewPacWorksheetReport()">
                 <i class="fad fa-search"></i> Preview
             </button>
 
             <button class="btn btn-sm btn-square btn-success btn-hover-success pac_worksheet_save"
-                data-pac-meeting-id="" onclick="PAC_Report_Container.storePacReport($(this))">
+                data-pac-meeting-id="" onclick="PAC_Worksheet_Report_Container.storePacWorksheetReport($(this))">
                 <i class="fas fa-save"></i> সংরক্ষণ করুন
             </button>
         </div>
@@ -75,7 +75,7 @@
 
     <script>
         $(function () {
-            //Insert_AIR_Data_Container.insertAuditTeam();
+            PAC_Report_Create_Container.addAuditApotti();
         });
 
         var PAC_Report_Create_Container = {
@@ -87,13 +87,13 @@
             },
 
             addAuditApotti: function () {
-                url = '{{route('audit.report.air.get-audit-team')}}';
+                url = '{{route('pac.meeting-worksheet-report.get-audit-apotti')}}';
                 let data = {};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.error(response.data);
                     } else {
-                        //$('.audit_team').html(response);
+                        $('.apotti_details').html(response);
                         PAC_Report_Create_Container.setJsonContentFromPlanBook();
                     }
                 });

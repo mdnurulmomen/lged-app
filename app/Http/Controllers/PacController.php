@@ -420,4 +420,9 @@ class PacController extends Controller
         $fileName = 'pac_worksheet_report_' . date('D_M_j_Y') . '.pdf';
         return $pdf->stream($fileName);
     }
+
+
+    public function getAuditApotti(Request $request){
+        return view('modules.pac.partials.load_pac_apotti_list');
+    }
 }

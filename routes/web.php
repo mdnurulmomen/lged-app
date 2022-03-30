@@ -630,6 +630,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::group(['as' => 'meeting-worksheet-report.', 'prefix' => 'meeting-worksheet-report/'], function () {
             Route::post('create', [\App\Http\Controllers\PacController::class, 'pacMeetingWorksheetReportCreate'])->name('create');
+            Route::post('get-audit-apotti', [\App\Http\Controllers\PacController::class, 'getAuditApotti'])->name('get-audit-apotti');
             Route::post('store', [\App\Http\Controllers\PacController::class, 'pacMeetingWorksheetReportStore'])->name('store');
             Route::post('preview', [\App\Http\Controllers\PacController::class, 'pacMeetingWorksheetReportPreview'])->name('preview');
             Route::post('download', [\App\Http\Controllers\PacController::class, 'pacMeetingWorksheetReportDownload'])->name('download');

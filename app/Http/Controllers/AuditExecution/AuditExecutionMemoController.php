@@ -178,25 +178,23 @@ class AuditExecutionMemoController extends Controller
             $data['directorate_id'] = $request->directorate_id;
         }
         $directorate_id = $request->directorate_id ?: $this->current_office_id();
-        $memoInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
+        $memoInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.info'), $data)->json();
         $directorateName = $this->current_office()['office_name_bn'];
-        if ($this->current_office_id() == 14) {
+        if ($directorate_id == 14) {
             $directorateAddress = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.worksaudit.org.bd';
-        } elseif ($this->current_office_id() == 3) {
+        } elseif ($directorate_id == 3) {
             $directorateAddress = 'অডিট কমপ্লেক্স (২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.dgcivil-cagbd.org';
         } else {
             $directorateAddress = 'অডিট কমপ্লেক্স (৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.cad.org.bd';
         }
-
-        //dd($memoInfo);
-
         if (isSuccess($memoInfo)) {
-            $memoInfo = $memoInfo['data'];
+            $memoInfoDetails = $memoInfo['data'];
             return view('modules.audit_execution.audit_execution_memo.show',
-                compact('memoInfo', 'directorateAddress', 'directorateWebsite', 'directorateName', 'directorate_id'));
+                compact('memoInfoDetails', 'directorateAddress', 'directorateWebsite',
+                    'directorateName', 'directorate_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $memoInfo]);
         }
@@ -460,16 +458,19 @@ class AuditExecutionMemoController extends Controller
             'memo_id' => 'required|integer',
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
-        $data['directorate_id'] = $request->directorate_id;
+        if ($request->directorate_id) {
+            $data['directorate_id'] = $request->directorate_id;
+        }
+        $directorate_id = $request->directorate_id ?: $this->current_office_id();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
         //dd($responseData);
         $memoInfo = isSuccess($responseData) ? $responseData['data'] : [];
 
         $directorateName = $this->current_office()['office_name_bn'];
-        if ($this->current_office_id() == 14) {
+        if ($directorate_id == 14) {
             $directorateAddress = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.worksaudit.org.bd';
-        } elseif ($this->current_office_id() == 3) {
+        } elseif ($directorate_id == 3) {
             $directorateAddress = 'অডিট কমপ্লেক্স (২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.dgcivil-cagbd.org';
         } else {
