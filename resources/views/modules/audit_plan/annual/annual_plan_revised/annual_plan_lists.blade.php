@@ -458,7 +458,7 @@
                     newRow = '<li class="entity_' + entity_info.entity_id + '" id="selected_rp_auditee_' + entity_info.office_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +
                         '<span class="selected_entity_sr badge badge-white pl-1" >' + enTobn(count + 1) + '| </span>' +
                         '<span id="btn_remove_auditee_' + entity_info.office_id + '" data-auditee-id="' + entity_info.office_id + '"  onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.office_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
-                        '<i class="fa fa-home pr-2"></i>' + entity_info.office_name_en +
+                        '<i class="fa fa-home pr-2"></i>' + entity_info.office_name_bn +
                         '<input name="selected_entity[]" class="selected_auditee" id="selected_entity_' + entity_info.office_id + '" type="hidden" value=""/>' +
                         '</li>';
                     $('#selected_rp_parent_auditee_' + entity_info.entity_id).after(newRow);
