@@ -1,5 +1,6 @@
 <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-    <table style="margin-bottom: 10px; margin-left: 35%; margin-right: 35%; background-color: #ced4d9;" border="0" width="30%" cellspacing="0" cellpadding="0">
+    <table style="margin-bottom: 10px; background-color: #ced4d9;" border="0" width="100%" cellspacing="0"
+           cellpadding="0">
         <tbody>
         <tr>
             <td style="width: 100%; text-align: center;">অডিট আপত্তির অনুচ্ছেদ নং - ০১</td>

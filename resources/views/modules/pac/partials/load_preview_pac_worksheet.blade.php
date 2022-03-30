@@ -18,18 +18,22 @@
     <div class="pdf-screen bangla-font" style="height: 100%">
         {!! $worksheet_description[1]['content'] !!}
         {!! $worksheet_description[2]['content'] !!}
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%">
         {!! $worksheet_description[3]['content'] !!}
     </div>
+
 </div>
 
 <script>
     var Preview_AIR_Container = {
         generatePDF: function () {
-            air_description = templateArray;
+            worksheet_description = templateArray;
             scope = 'generate';
-            data = {scope,air_description};
+            data = {scope,worksheet_description};
 
-            url = '{{route('audit.report.air.download')}}';
+            url =  '{{route('pac.meeting-worksheet-report.download')}}';
 
             $.ajax({
                 type: 'POST',

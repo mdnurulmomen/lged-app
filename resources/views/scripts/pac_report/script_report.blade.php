@@ -20,7 +20,7 @@
         },
 
         previewPacWorksheetReport: function () {
-            $('.pac_worksheet_save').click();
+            //$('.pac_worksheet_save').click();
             worksheet_description = templateArray;
             scope = 'preview';
             data = {scope,worksheet_description};
