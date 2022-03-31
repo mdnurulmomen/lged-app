@@ -25,6 +25,12 @@
             <div id="daak_group_action_panel">
                 <div class="d-flex flex-wrap">
                     <div class="btn-group">
+                   <span class="input-group-text bg-transparent border-0 inbox_checkbox" data-toggle="popover">
+                       <label id="selectAllLabel" class="checkbox" for="selectAll">
+                       <input type="checkbox" id="selectAll">
+                       <span></span>
+                   </label>
+                   </span>
                         <div class="dropdown bootstrap-select form-control">
                             <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light border-0"
                                     data-toggle="dropdown" role="combobox" aria-owns="bs-select-1"
@@ -85,6 +91,14 @@
             @foreach($memo_list['data'] as $memo)
                 <li class="list-group-item pl-0 py-2 border-bottom">
                     <div class="d-flex justify-content-between align-items-start">
+                       <span class="input-group-text bg-transparent border-0">
+                          <label class="checkbox {{$memo['has_sent_to_rpu'] == 1?'checkbox-disabled':''}}">
+                              <input type="checkbox"  data-cost-center-id="{{$memo['cost_center_id']}}"
+                                     {{$memo['has_sent_to_rpu'] == 1?'checked disabled':''}}
+                                     value="{{$memo['id']}}" class="select-memo">
+                                <span></span>
+                          </label>
+                       </span>
                         <div class="pr-2 flex-fill cursor-pointer position-relative">
                             <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                 <!--begin::Title-->
@@ -192,6 +206,42 @@
             @endforeach
         </ul>
     </div>
+
+    <script>
+        $(function (){
+            $('.select-memo').each(function(){
+                if(this.checked == false){
+                    $("#selectAll")[0].checked = false;
+                }
+                if ($('.select-memo:checked').length == $('.select-memo').length ){
+                    $("#selectAll")[0].checked = true;
+                    $("#selectAll")[0].disabled = true;
+                    $("#selectAll")[0].addClass('checkbox-disabled');
+                }
+            });
+        })
+
+        //select all checkboxes
+        $("#selectAll").change(function(){
+            var status = this.checked;
+            $('.select-memo').each(function(){
+                if (!$(this).is(':disabled')) {
+                    this.checked = status;
+                }
+            });
+        });
+
+        $('.select-memo').change(function(){
+            if(this.checked == false){
+                $("#selectAll")[0].checked = false;
+            }
+
+            if ($('.select-memo:checked').length == $('.select-memo').length ){
+                $("#selectAll")[0].checked = true;
+                $("#selectAll")[0].addClass('checkbox-disabled');
+            }
+        });
+    </script>
 
 @else
     <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">
