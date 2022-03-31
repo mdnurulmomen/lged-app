@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AuditReport;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -92,7 +93,7 @@ class AuditQACAIRReportController extends Controller
             'qac_type' => 'required',
         ])->validate();
 
-        $data['qac_report_date'] = date('Y-m-d',strtotime($request->qac_report_date));
+        $data['qac_report_date'] = Carbon::parse($request->qac_report_date)->format('Y-m-d');
         $data['cdesk'] = $this->current_desk_json();
 
         $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.update_qac_air_report'), $data)->json();
