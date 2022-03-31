@@ -46,7 +46,7 @@
             </div>
         @endif
 
-        @if($office_id != 1)
+        @if($broad_sheet_type == 'final_report' && $office_id != 1)
             <div class="row mt-2">
                 <div class="col-md-12">
                     <label>সিএজি মন্তব্য</label>
