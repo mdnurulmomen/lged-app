@@ -225,9 +225,7 @@
                         toastr.error(response.data)
                     } else {
                         $('#activity_id').html(response);
-                        preset_activity_id = getUserIndividualEvent('activity_id');
-                        activity_id = preset_activity_id ? preset_activity_id : $("#activity_id option:eq(1)").val();
-                        $("#activity_id").val(activity_id).trigger('change');
+                        setActivityAnonymously();
                     }
                 });
             } else {

@@ -117,3 +117,9 @@ function destroyUserIndividualEvents() {
 $(document).off('change').on("change", "select#activity_id", function (event) {
     setUserIndividualEvent('activity_id', this.value)
 });
+
+function setActivityAnonymously() {
+    preset_activity_id = getUserIndividualEvent('activity_id');
+    activity_id = preset_activity_id ? preset_activity_id : $("select#activity_id option:eq(1)").val();
+    $("select#activity_id").val(activity_id).trigger('change');
+}

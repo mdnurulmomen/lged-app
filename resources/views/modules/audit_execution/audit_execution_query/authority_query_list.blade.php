@@ -70,7 +70,6 @@
 <div class="query-list-container"></div>
 
 
-
 <script>
     var dashboard_filter_data = '{!! session('dashboard_filter_data')!!}';
     $(function () {
@@ -95,8 +94,8 @@
             if (filter_data.activity_id != null) {
                 $("#activity_id").val(filter_data.activity_id).trigger('change');
             }
-            if (filter_data.status != null){
-                if (filter_data.status == 'daily'){
+            if (filter_data.status != null) {
+                if (filter_data.status == 'daily') {
                     let today = '{{now()->format('d/m/Y')}}';
                     $("#start_date").val(today);
                     $("#end_date").val(today);
@@ -127,7 +126,7 @@
                         toastr.error(response.data)
                     } else {
                         $('#activity_id').html(response);
-                        $("#activity_id").val($("#activity_id option:eq(1)").val()).trigger('change');
+                        setActivityAnonymously();
                         if (dashboard_filter_data.activity_id != null) {
                             $("#activity_id").val(dashboard_filter_data.activity_id).trigger('change');
                         }
@@ -290,7 +289,7 @@
         entity_id = $('#entity_filter').val();
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
-        if (entity_id){
+        if (entity_id) {
             Authority_Query_Container.loadCostCenterList(directorate_id, fiscal_year_id, entity_id);
         }
     });
@@ -299,7 +298,7 @@
         cost_center_id = $('#cost_center_filter').val();
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
-        if (cost_center_id){
+        if (cost_center_id) {
             Authority_Query_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
         }
     });
