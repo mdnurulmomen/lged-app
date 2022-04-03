@@ -117,9 +117,11 @@
     </div>
 
     {{--audit other details page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $plans[31]['content'] !!}
-    </div>
+    @if(array_key_exists(31, $plans))
+        <div class="pdf-screen bangla-font" style="height: 100%">
+            {!! $plans[31]['content'] !!}
+        </div>
+    @endif
 </div>
 
 <script>
