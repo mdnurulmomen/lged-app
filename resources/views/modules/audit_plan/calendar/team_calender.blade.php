@@ -225,7 +225,7 @@
                         toastr.error(response.data)
                     } else {
                         $('#activity_id').html(response);
-                        $("#activity_id").val($("#activity_id option:eq(1)").val()).trigger('change');
+                        setActivityAnonymously();
                     }
                 });
             } else {
