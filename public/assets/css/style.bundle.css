@@ -57416,7 +57416,7 @@ button {
 .btn.btn-outline-primary {
     color: #3699FF;
     background-color: transparent;
-    border-color: #3699FF;
+    border-color: #1061a5;
 }
 
 .btn.btn-outline-primary i {
@@ -88424,6 +88424,7 @@ code {
     position: relative;
     padding: 0.65rem 3rem 0.65rem 1rem;
     line-height: 1.5;
+    font-size: 16px;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered .select2-selection__clear {

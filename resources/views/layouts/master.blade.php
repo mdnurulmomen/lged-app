@@ -48,8 +48,7 @@
                 <!--end::Toolbar-->
             </div>
             <div class="under-logo-text">
-
-                {{$userOffices[0]['office_name_bn']}}
+                {{session('dashboard_audit_type')}}
             </div><!--end::Brand-->
             @yield('sideMenu')
         </div>
@@ -66,11 +65,14 @@
             </div>
             <!--end::Header-->
             <!--begin::Content-->
-            <ul class="sna-breadcrumb">
+            {{--<ul class="sna-breadcrumb">
                 <li><a href="javascript:;">{{session('dashboard_audit_type')}}</a></li>
-            </ul>
-            <div class="content p-4" id="kt_content">
+            </ul>--}}
+            <p class="tapp-sub-topbar">
+                {{$userOffices[0]['office_name_bn']}}
+            </p>
 
+            <div class="content p-4" id="kt_content">
                 @yield('content')
             </div>
             <!--end::Content-->

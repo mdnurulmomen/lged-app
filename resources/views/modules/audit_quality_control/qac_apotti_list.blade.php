@@ -1,3 +1,11 @@
+<style>
+    .tap-button:hover {
+        background-color: #d3d3d3!important;
+        color: black!important;
+        border: 1px solid black!important;
+    }
+</style>
+
 <div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
     <div class="col-xl-12">
         <div class="row">
@@ -6,34 +14,35 @@
                 <input type="hidden" id="entity_id" value="">
 
                 <a data-qac-type="{{$qac_type}}"
+                   style="color: black"
                    data-scope="{{$scope}}"
                    data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                    onclick="QAC_Apotti_List_Container.loadAIREdit($(this))"
-                   class="mr-1 btn btn-sm {{$responseData['rAirInfo']['r_air_child']['status']=='approved'?'btn-outline-primary':'btn-outline-danger'}} btn-square"
+                   class="tap-button mr-1 btn btn-sm {{$responseData['rAirInfo']['r_air_child']['status']=='approved'?'btn-outline-primary':'btn-outline-danger'}} btn-square"
                    href="javascript:;">
-                    <i class="far fa-book"></i> {{$qac_type == 'qac-1'?'এআইআর':'রিপোর্ট'}} বিস্তারিত
+                    <i style="color: black" class="far fa-book"></i> {{$qac_type == 'qac-1'?'এআইআর':'রিপোর্ট'}} বিস্তারিত
                     @if($responseData['rAirInfo']['r_air_child']['status']=='approved')
-                        <span class="text-success">(অনুমোদিত)</span>
+                        <span style="color: black">(অনুমোদিত)</span>
                     @else
-                        <span class="text-danger">(অননুমোদিত)</span>
+                        <span style="color: black">(অননুমোদিত)</span>
                     @endif
                 </a>
 
                 @if(!$responseData['rAirInfo']['qac_committee'])
-                    <a data-qac-type="{{$qac_type}}"
+                    <a style="color: black" data-qac-type="{{$qac_type}}"
                        data-air-report-id="{{$responseData['rAirInfo']['id']}}"
                        onclick="QAC_Apotti_List_Container.selectCommittee($(this))"
-                       class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
-                        <i class="far fa-users"></i> কমিটি বাছাই করুন
+                       class="tap-button mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
+                        <i style="color: black" class="far fa-users"></i> কমিটি বাছাই করুন
                     </a>
                 @endif
 
                 @if($responseData['rAirInfo']['qac_committee'])
-                    <a data-qac-type="{{$qac_type}}"
+                    <a style="color: black" data-qac-type="{{$qac_type}}"
                        data-air-report-id="{{$responseData['rAirInfo']['id']}}"
                        onclick="QAC_Apotti_List_Container.createQacReport($(this))"
-                       class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
-                        <i class="fa fa-file-text" aria-hidden="true"></i>
+                       class="tap-button mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
+                        <i style="color: black" class="fad fa-file" aria-hidden="true"></i>
                         @if($qac_type == 'qac-1')
                             কিউএসি-১ রিপোর্ট
                         @elseif($qac_type == 'qac-2')
@@ -46,16 +55,16 @@
 
                 @if($qac_type == 'qac-1' && $responseData['rAirInfo']['r_air_child']['status']=='approved')
                     @if($responseData['rAirInfo']['r_air_child']['is_sent']== 0)
-                        <button data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                        <button style="color: black" data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                                 data-entity-ids="{{is_array($entity_ids) ? implode(',',$entity_ids) : $entity_ids}}"
                                 data-air-report-name="{{$responseData['rAirInfo']['report_name']}}"
-                                class="btn btn-sm btn-square btn-primary btn-hover-primary air_sent_responsible_party"
+                                class="tap-button btn btn-sm btn-square btn-outline-primary btn-hover-primary air_sent_responsible_party"
                                 onclick="QAC_Apotti_List_Container.airSendToRpu($(this))">
-                            <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টি বরাবর প্রেরণ করুন
+                            <i style="color: black" class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টি বরাবর প্রেরণ করুন
                         </button>
                     @elseif($responseData['rAirInfo']['r_air_child']['is_received']== null)
                         <span class="badge badge-primary">
-                          <i class="fal fa-info text-white"></i>  রেস্পন্সিবল পার্টি বরাবর প্রেরণ করা হয়েছে
+                          <i style="color: black" class="fal fa-info"></i>  রেস্পন্সিবল পার্টি বরাবর প্রেরণ করা হয়েছে
                         </span>
                     @elseif($responseData['rAirInfo']['r_air_child']['is_received']== 1)
                         <span class="badge badge-primary">
