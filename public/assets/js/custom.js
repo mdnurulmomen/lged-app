@@ -92,3 +92,34 @@ function jsTreeInit(jstree_class = 'jstree-init') {
     });
 }
 
+function setUserIndividualEvent(local_storage_key, value) {
+    local_storage_key = 'cag_amms_web_' + local_storage_key;
+    localStorage.setItem(local_storage_key, value)
+}
+
+function getUserIndividualEvent(local_storage_key) {
+    local_storage_key = 'cag_amms_web_' + local_storage_key;
+    return localStorage.getItem(local_storage_key)
+}
+
+function destroyUserIndividualEvents() {
+    i = 0;
+    sKey;
+
+    for (; sKey = window.localStorage.key(i); i++) {
+        is_amms_local_storage_key = sKey.includes('cag_amms_web_')
+        if (is_amms_local_storage_key) {
+            localStorage.removeItem(sKey);
+        }
+    }
+}
+
+$(document).off('change').on("change", "select#activity_id", function (event) {
+    setUserIndividualEvent('activity_id', this.value)
+});
+
+function setActivityAnonymously() {
+    preset_activity_id = getUserIndividualEvent('activity_id');
+    activity_id = preset_activity_id ? preset_activity_id : $("select#activity_id option:eq(1)").val();
+    $("select#activity_id").val(activity_id).trigger('change');
+}

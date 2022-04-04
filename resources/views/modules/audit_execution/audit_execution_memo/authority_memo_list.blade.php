@@ -107,33 +107,32 @@
 <div class="memo-list-container"></div>
 
 
-
 <script>
     var dashboard_filter_data = '{!! session('dashboard_filter_data')!!}';
     $(function () {
-        if (dashboard_filter_data != ""){
+        if (dashboard_filter_data != "") {
             filter_data = JSON.parse(dashboard_filter_data);
-            if (filter_data.directorate_id != null){
+            if (filter_data.directorate_id != null) {
                 $("#directorate_filter").val(filter_data.directorate_id).trigger('change');
             }
-            if (filter_data.fiscal_year_id != null){
+            if (filter_data.fiscal_year_id != null) {
                 $("#fiscal_year_id").val(filter_data.fiscal_year_id).trigger('change');
             }
-            if (filter_data.entity_filter != null){
+            if (filter_data.entity_filter != null) {
                 $("#entity_filter").val(filter_data.entity_id).trigger('change');
             }
-            if (filter_data.cost_center_filter != null){
+            if (filter_data.cost_center_filter != null) {
                 $("#cost_center_filter").val(filter_data.cost_center_id).trigger('change');
             }
-            if (filter_data.team_filter != null){
+            if (filter_data.team_filter != null) {
                 $("#team_filter").val(filter_data.team_filter).trigger('change');
             }
-            if (filter_data.activity_id != null){
+            if (filter_data.activity_id != null) {
                 $("#activity_id").val(filter_data.activity_id).trigger('change');
             }
 
-            if (filter_data.status != null){
-                if (filter_data.status == 'daily'){
+            if (filter_data.status != null) {
+                if (filter_data.status == 'daily') {
                     let today = '{{now()->format('d/m/Y')}}';
                     $("#start_date").val(today);
                     $("#end_date").val(today);
@@ -166,7 +165,7 @@
                         toastr.error(response.data)
                     } else {
                         $('#activity_id').html(response);
-                        $("#activity_id").val($("#activity_id option:eq(1)").val()).trigger('change');
+                        setActivityAnonymously();
                         if (dashboard_filter_data.activity_id != null) {
                             $("#activity_id").val(dashboard_filter_data.activity_id).trigger('change');
                         }
@@ -187,7 +186,6 @@
             let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
             let data = {directorate_id, fiscal_year_id, activity_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    console.log(response)
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {

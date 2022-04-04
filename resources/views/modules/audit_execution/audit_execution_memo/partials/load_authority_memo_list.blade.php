@@ -91,7 +91,7 @@
                                         </div>
                                         <div class="subject-wrapper font-weight-normal">
                                             <span class="mr-2 font-size-1-1">শিরোনামঃ</span>
-                                            <span class="description text-info text-wrap font-size-14">{{$memo['memo_title_bn']}}</span>
+                                            <span class="description text-wrap font-size-14">{{$memo['memo_title_bn']}}</span>
                                         </div>
 
                                         @if($memo['memo_irregularity_type_name'] != 'N/A')
@@ -129,20 +129,20 @@
                                             <div class="d-flex align-items-center justify-content-md-end">
                                                 <div class="mb-2 mt-3 soongukto-wrapper">
                                                     <div class="d-flex justify-content-end align-items-center">
-                                                        @if(count($memo['ac_memo_attachments'])>0)
-                                                            <button class="btn-attachment btn btn-outline-warning btn-sm" type="button"
-                                                                    data-memo-id="{{$memo['id']}}"
-                                                                    data-memo-title-bn="{{$memo['memo_title_bn']}}"
-                                                                    onclick="Authority_Memo_Container.showMemoAttachment($(this))">
-                                                                <i class="fal fa-link" style="font-size:11px"></i>
-                                                                <span class="text-danger">{{enTobn(count($memo['ac_memo_attachments']))}}</span>
-                                                            </button>
-                                                        @endif
-                                                        <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($memo['created_at'],'bn')}}</div>
+                                                        <div class="text-dark-75 ml-3 rdate" cspas="date">মেমো তারিখ : {{formatDate($memo['memo_date'],'bn')}}</div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
+                                                @if(count($memo['ac_memo_attachments'])>0)
+                                                    <button  title="সংযুক্তি" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle" style="width: 45px" type="button"
+                                                            data-memo-id="{{$memo['id']}}"
+                                                            data-memo-title-bn="{{$memo['memo_title_bn']}}"
+                                                            onclick="Authority_Memo_Container.showMemoAttachment($(this))">
+                                                        <i class="fal fa-paperclip" style="font-size:1.2rem"></i>
+                                                        <span class="ml-1" style="color: #000"> {{enTobn(count($memo['ac_memo_attachments']))}}</span>
+                                                    </button>
+                                                @endif
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                         title="{{___('generic.buttons.title.details')}}" data-memo-id="{{$memo['id']}}"
                                                         onclick="Authority_Memo_Container.showMemo($(this))">

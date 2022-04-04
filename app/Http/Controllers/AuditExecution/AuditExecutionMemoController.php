@@ -87,6 +87,7 @@ class AuditExecutionMemoController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->porisisto_details);
         Validator::make($request->all(), [
             'schedule_id' => 'required',
             'memo_title_bn' => 'required',
@@ -107,6 +108,7 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'audit_year_end', 'contents' => $request->audit_year_end],
             ['name' => 'memo_irregularity_type', 'contents' => $request->memo_irregularity_type],
             ['name' => 'memo_irregularity_sub_type', 'contents' => $request->memo_irregularity_sub_type],
+            ['name' => 'porisisto_details', 'contents' => $request->porisisto_details],
             ['name' => 'memo_type', 'contents' => 0],
             ['name' => 'memo_status', 'contents' => 0],
             ['name' => 'team_leader_name', 'contents' => $request->team_leader_name],

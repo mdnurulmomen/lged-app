@@ -46,7 +46,7 @@
     </div>
 
     <div class="w-25 pr-2 ">
-        <button id="btn_filter" class="btn icon-btn-primary" type="button">
+        <button id="btn_filter" style="padding-bottom:14px" class="btn icon-btn-primary" type="button">
             <i class="fa fa-search mr-2"></i> Search
         </button>
     </div>
@@ -225,7 +225,7 @@
                         toastr.error(response.data)
                     } else {
                         $('#activity_id').html(response);
-                        $("#activity_id").val($("#activity_id option:eq(1)").val()).trigger('change');
+                        setActivityAnonymously();
                     }
                 });
             } else {
