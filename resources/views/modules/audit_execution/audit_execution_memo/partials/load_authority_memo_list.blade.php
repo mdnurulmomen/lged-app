@@ -135,12 +135,12 @@
                                             </div>
                                             <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
                                                 @if(count($memo['ac_memo_attachments'])>0)
-                                                    <button title="সংযুক্তি" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle" type="button"
+                                                    <button  title="সংযুক্তি" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle" style="width: 45px" type="button"
                                                             data-memo-id="{{$memo['id']}}"
                                                             data-memo-title-bn="{{$memo['memo_title_bn']}}"
                                                             onclick="Authority_Memo_Container.showMemoAttachment($(this))">
-                                                        <i class="fal fa-paperclip" style="font-size:11px"></i>
-                                                        <span class="ml-1"> {{enTobn(count($memo['ac_memo_attachments']))}}</span>
+                                                        <i class="fal fa-paperclip" style="font-size:1.2rem"></i>
+                                                        <span class="ml-1" style="color: #000"> {{enTobn(count($memo['ac_memo_attachments']))}}</span>
                                                     </button>
                                                 @endif
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
