@@ -138,7 +138,7 @@
                                                                 <span class="text-danger">{{enTobn(count($memo['ac_memo_attachments']))}}</span>
                                                             </button>
                                                         @endif
-                                                        <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($memo['created_at'],'bn')}}</div>
+                                                        <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDate($memo['memo_date'],'bn')}}</div>
                                                     </div>
                                                 </div>
                                             </div>
