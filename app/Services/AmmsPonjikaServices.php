@@ -10,7 +10,7 @@ class AmmsPonjikaServices
 
     public function loadPendingTasks()
     {
-
+        $pending_tasks = $this->initPonjikaHttp()->post(config('cag_ponjika_api.tasks.pending'))->json();
     }
 
     public function loadAllTasks()

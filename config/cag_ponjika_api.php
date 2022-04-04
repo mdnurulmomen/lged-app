@@ -7,7 +7,10 @@ return [
     ],
 
     'tasks' => [
-        'pending_task' => env('API_URL_PONJIKA') . '',
+        'list' => [
+            'pending' => env('API_URL_PONJIKA', '') . '/tasks/pending',
+            'all' => env('API_URL_PONJIKA', '') . '/tasks',
+        ],
         'store' => env('API_URL_PONJIKA', '') . '/tasks/store',
         'update' => env('API_URL_PONJIKA', '') . '/tasks/update',
         'update_status' => env('API_URL_PONJIKA', '') . '/tasks/update/status',
