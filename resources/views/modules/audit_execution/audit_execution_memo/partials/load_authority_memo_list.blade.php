@@ -130,11 +130,11 @@
                                                 <div class="mb-2 mt-3 soongukto-wrapper">
                                                     <div class="d-flex justify-content-end align-items-center">
                                                         @if(count($memo['ac_memo_attachments'])>0)
-                                                            <button class="btn-attachment btn btn-outline-warning btn-sm" type="button"
+                                                            <button title="সংযুক্তি" class="btn-attachment btn btn-outline-warning btn-sm" type="button"
                                                                     data-memo-id="{{$memo['id']}}"
                                                                     data-memo-title-bn="{{$memo['memo_title_bn']}}"
                                                                     onclick="Authority_Memo_Container.showMemoAttachment($(this))">
-                                                                <i class="fal fa-link" style="font-size:11px"></i>
+                                                                <i class="fal fa-paperclip" style="font-size:11px"></i>
                                                                 <span class="text-danger">{{enTobn(count($memo['ac_memo_attachments']))}}</span>
                                                             </button>
                                                         @endif
