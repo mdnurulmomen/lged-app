@@ -1,6 +1,6 @@
 <style>
     .fc-unthemed .fc-event .fc-content, .fc-unthemed .fc-event-dot .fc-content {
-        padding-left: 0.55rem;
+        padding-left: 0.55rem !important;
     }
 </style>
 <div id="kt_calendar"></div>
