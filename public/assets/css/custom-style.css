@@ -703,3 +703,14 @@ ul.sna-breadcrumb li a:hover {
 .fc-unthemed .fc-event .fc-content, .fc-unthemed .fc-event-dot .fc-content {
     padding-left: 0.55rem !important;
 }
+
+.fc-unthemed .fc-event .fc-content:before, .fc-unthemed .fc-event-dot .fc-content:before {
+    display: none !important;
+    content: " ";
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    top: 0.7rem;
+    left: 0.75rem;
+}
