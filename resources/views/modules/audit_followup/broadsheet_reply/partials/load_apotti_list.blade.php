@@ -196,7 +196,7 @@
 {{--                                                </button>--}}
 
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                        title="জবাব দেখুন" data-scope="response"
+                                                        title="সিদ্ধান্ত দিন" data-scope="response"
                                                         data-broad-sheet-id="{{$item['id']}}"
                                                         onclick="Broadsheet_Reply_List_Container.loadBroadSheetItem($(this))">
                                                     <i class="fas fa-plus-octagon"></i>
