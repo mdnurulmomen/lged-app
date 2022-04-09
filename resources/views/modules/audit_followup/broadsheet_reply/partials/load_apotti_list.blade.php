@@ -115,11 +115,11 @@
 
                                         <div class="subject-wrapper font-weight-normal mt-2">
                                             <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
-                                                    title="আরপি বরাবর প্রেরণ"
+                                                    title="জারিপত্র"
                                                     data-broad-sheet-id="{{$item['id']}}"
                                                     data-memorandum-no="{{$item['memorandum_no']}}"
                                                     onclick="Broadsheet_Reply_List_Container.sendToRpuForm($(this))">
-                                                <i class="fa fa-paper-plane"></i> আরপি বরাবর প্রেরণ
+                                                <i class="fa fa-paper-plane"></i> জারিপত্র
                                             </button>
                                         </div>
 
