@@ -296,13 +296,14 @@ class RevisedPlanController extends Controller
             'modal_type' => 'nullable',
         ])->validate();
 
-        //dd($data);
         $teams = json_encode_unicode($request->teams);
         $data['teams'] = json_encode(['teams' => json_decode($teams)], JSON_UNESCAPED_UNICODE);
         $data['approve_status'] = 'approved';
         $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.update_audit_team'), $data)->json();
+
+        dd($responseData);
 
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
@@ -334,6 +335,8 @@ class RevisedPlanController extends Controller
             'team_schedules' => 'required|json',
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
+
+        dd($data);
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.update_audit_team_schedule'), $data)->json();
         if (isSuccess($responseData)) {

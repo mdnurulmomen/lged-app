@@ -47,6 +47,8 @@ class PlanEditorController extends Controller
 
         $all_teams = isSuccess($teamResponseData) ? $teamResponseData['data'] : [];
 
+//        dd($all_teams);
+
         return view('modules.modal.load_team_modal', compact(
             'activity_id',
             'annual_plan_id',
