@@ -213,41 +213,24 @@
                                                                 class="px-3 pt-2 pb-0 mb-0 d-flex align-items-center justify-content-between">
                                                                 <div>
                                                                     <span class="text-primary fal fa-edit"></span>
-                                                                    <input type="hidden" class="team_id" value="{{$value['id']}}">
-                                                                    <input type="hidden" class="team_parent_id" value="{{$value['team_parent_id']}}">
                                                                     <input type="text" value="{{$value['team_name']}}"
                                                                            class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2">
                                                                 </div>
-
-
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-end">
                                                                     <div
-                                                                        class="d-flex align-items-center justify-content-end">
-                                                                        <div
-                                                                            class="d-flex align-items-center justify-content-between mb-0 mt-0">
-                                                                            <div class="mr-2">
-                                                                                @if(!$value['team_schedules'])
-                                                                                    <button title="Add Team Schedule"
-                                                                                            type="button"
-                                                                                            id="team_schedule_layer_btn_{{$loop->iteration}}"
-                                                                                            onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$loop->iteration}}','{{$loop->iteration}}')"
-                                                                                            class="pulse pulse-primary justify-self-end text-danger btn btn-icon btn-md">
-                                                                                        <i class="text-primary far fa-calendar-alt"></i>
-                                                                                        <span class="pulse-ring"></span>
-                                                                                    </button>
-                                                                                @endif
-
-                                                                                    @if($value['team_parent_id'])
-                                                                                        <button type="button"
-                                                                                                onclick="Load_Team_Container.deleteNode('layer','right_{{$loop->iteration}}', 0)"
-                                                                                                class="justify-self-end text-danger btn btn-icon btn-md del_layer">
-                                                                                            <i class="text-danger far fa-trash-alt"></i>
-                                                                                        </button>
-                                                                                    @endif
-                                                                            </div>
+                                                                        class="d-flex align-items-center justify-content-between mb-0 mt-0">
+                                                                        <div class="mr-2">
+                                                                            <button title="Add Team Schedule" type="button"
+                                                                                    id="team_schedule_layer_btn_{{$loop->iteration}}"
+                                                                                    onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$loop->iteration}}','{{$loop->iteration}}')"
+                                                                                    class="pulse pulse-primary justify-self-end text-danger btn btn-icon btn-md">
+                                                                                <i class="text-primary far fa-calendar-alt"></i>
+                                                                                <span class="pulse-ring"></span>
+                                                                            </button>
                                                                         </div>
                                                                     </div>
-
-
+                                                                </div>
                                                             </div>
                                                             <div class="dragged_data_area px-2 pt-0"
                                                                  id="right_drop_zone_{{$loop->iteration}}">
@@ -1030,8 +1013,6 @@
                     }
 
                     team_name = $('#permitted_level_' + layer_id).find('.layer_text').val();
-                    team_id = $('#permitted_level_' + layer_id).find('.team_id').val();
-                    team_parent_id = $('#permitted_level_' + layer_id).find('.team_parent_id').val();
                     if (layer_id == $('[id^=permitted_level_]').first().attr('data-layer_index')) {
                         team_type = 'parent';
                         if (role == 'teamLeader') {
@@ -1068,8 +1049,6 @@
                     all_teams['team_start_date'] = formatDate($('#team_start_date').val());
                     all_teams['team_end_date'] = formatDate($('#team_end_date').val());
                     all_teams['leader'] = team_leader;
-                    all_teams['all_teams'][layer_id]['id'] = team_id;
-                    all_teams['all_teams'][layer_id]['team_parent_id'] = team_parent_id;
                     all_teams['all_teams'][layer_id]['team_name'] = team_name;
                     all_teams['all_teams'][layer_id]['team_type'] = team_type;
                     all_teams['all_teams'][layer_id]['leader_designation_id'] = leader_info[layer_id]['designation_id'];
@@ -1296,7 +1275,7 @@
         addLayer: function () {
             var innerDivLength = $("#permitted_designations").children('.timeline-item');
             var number = innerDivLength.length + 1;
-            // console.log(number)
+            console.log(number)
             if (number === 1) {
                 team_name = 'দল ' + enTobn(number);
             } else {
