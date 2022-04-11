@@ -112,15 +112,17 @@
                                     </div>
 
                                     @if(!$item['broad_sheet_reply'])
-                                        <div class="subject-wrapper font-weight-normal mt-2">
-                                            <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
-                                                    title="জারিপত্র"
-                                                    data-broad-sheet-id="{{$item['id']}}"
-                                                    data-memorandum-no="{{$item['memorandum_no']}}"
-                                                    onclick="Broadsheet_Reply_List_Container.sendToRpuForm($(this))">
-                                                <i class="fa fa-paper-plane"></i> জারিপত্র
-                                            </button>
-                                        </div>
+                                        @if($item['broad_sheet_items_count'] == $item['broad_sheet_item_decision'])
+                                            <div class="subject-wrapper font-weight-normal mt-2">
+                                                <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
+                                                        title="জারিপত্র"
+                                                        data-broad-sheet-id="{{$item['id']}}"
+                                                        data-memorandum-no="{{$item['memorandum_no']}}"
+                                                        onclick="Broadsheet_Reply_List_Container.sendToRpuForm($(this))">
+                                                    <i class="fa fa-paper-plane"></i> জারিপত্র
+                                                </button>
+                                            </div>
+                                        @endif
                                     @else
                                         <div class="d-flex mt-3">
                                             <button data-broad-sheet-id="{{$item['id']}}"
