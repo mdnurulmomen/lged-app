@@ -112,7 +112,6 @@
                                     </div>
 
                                     @if(!$item['broad_sheet_reply'])
-
                                         <div class="subject-wrapper font-weight-normal mt-2">
                                             <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
                                                     title="জারিপত্র"
@@ -122,14 +121,21 @@
                                                 <i class="fa fa-paper-plane"></i> জারিপত্র
                                             </button>
                                         </div>
-
                                     @else
-                                        <div class="subject-wrapper font-weight-normal mt-2">
+                                        <div class="d-flex mt-3">
                                             <button data-broad-sheet-id="{{$item['id']}}"
                                                     onclick="Broadsheet_Reply_List_Container.showSentBroadSheetReply($(this))"
                                                class="badge-square rounded-0 badge d-flex align-items-center alert-success
                                            font-weight-normal mr-1 border decision">
-                                                আরপি বরাবর প্রেরণ করা হয়েছে
+                                                জারিপত্র প্রেরণ করা হয়েছে
+                                            </button>
+
+                                            <button class="badge-square rounded-0 badge d-flex align-items-center alert-success
+                                           font-weight-normal mr-1 border decision"
+                                                    title="দেখুন"
+                                                    data-broad-sheet-id="{{$item['id']}}"
+                                                    onclick="Broadsheet_Reply_List_Container.showSentBroadSheetReply($(this))">
+                                                     জারিপত্র দেখুন
                                             </button>
                                         </div>
                                     @endif
