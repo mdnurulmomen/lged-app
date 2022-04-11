@@ -782,6 +782,13 @@
 </head>
 
 <body>
+@if($scope == 'preview')
+    <button data-scope="download" data-broad-sheet-id="{{$broadSheetinfo['id']}}"
+            type="button" class="mr-3 btn btn-sm btn-primary btn-square"
+            onclick="Broadsheet_Reply_List_Container.downloadSentBroadSheet($(this))">
+        Download
+    </button>
+@endif
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     <div class="pdf-screen bangla-font">
         <table class="bangla-font" width="100%">

@@ -357,8 +357,8 @@
         showSentBroadSheetReply: function (elem) {
 
             broad_sheet_id = elem.data('broad-sheet-id');
-
-            data = {broad_sheet_id};
+            scope = 'preview';
+            data = {broad_sheet_id,scope};
 
             url = '{{route('audit.followup.broadsheet.reply.show-sent-broad-sheet-reply')}}';
 
@@ -380,6 +380,35 @@
                     quick_panel.removeClass('d-none');
                     $("html").addClass("side-panel-overlay");
                     $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
+        downloadSentBroadSheet: function (elem) {
+
+            broad_sheet_id = elem.data('broad-sheet-id');
+            scope = 'download';
+            data = {broad_sheet_id,scope};
+
+            url = '{{route('audit.followup.broadsheet.reply.show-sent-broad-sheet-reply')}}';
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (response) {
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "jaripotro_"+new Date().toDateString().replace(/ /g,"_")+".pdf";
+                    link.click();
+                },
+                error: function (blob) {
+                    toastr.error('Failed to generate PDF.')
+                    console.log(blob);
                 }
             });
         },

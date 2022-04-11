@@ -232,7 +232,7 @@ class BroadsheetReplyController extends Controller
     }
 
     public function showBroadSheet(Request $request){
-
+        $scope = $request->scope;
         $data = Validator::make($request->all(), [
             'broad_sheet_id' => 'required|integer',
         ])->validate();
@@ -249,13 +249,13 @@ class BroadsheetReplyController extends Controller
 
             if($request->scope == 'pdf'){
                 $pdf = \PDF::loadView('modules.audit_followup.broadsheet_reply.partials.single_broadsheet_book',
-                    ['broadSheetItem'=> $broadSheetItem, 'broadSheetinfo' => $broadSheetinfo], [] , ['orientation' => 'P', 'format' => 'A4']);
+                    ['scope' => $scope, 'broadSheetItem'=> $broadSheetItem, 'broadSheetinfo' => $broadSheetinfo], [] , ['orientation' => 'P', 'format' => 'A4']);
 
                 $fileName = 'broadsheet_'.$broadSheetinfo['sender_office_name_bn'].'_'. date('D_M_j_Y') . '.pdf';
                 return $pdf->stream($fileName);
             }else{
                 return view('modules.audit_followup.broadsheet_reply.partials.single_broadsheet_book',
-                    compact('broadSheetItem','broadSheetinfo'));
+                    compact('broadSheetItem','broadSheetinfo','scope'));
             }
 
         } else {
@@ -404,6 +404,8 @@ class BroadsheetReplyController extends Controller
             'broad_sheet_id' => 'required|integer',
         ])->validate();
 
+        $scope = $request->scope;
+
         $data['cdesk'] = $this->current_desk_json();
 
         $office_name_bn =  $this->current_office()['office_name_bn'];
@@ -418,15 +420,15 @@ class BroadsheetReplyController extends Controller
             $broadSheetItem = $broadSheetItem['data'];
             $broadSheetinfo = $broadSheetinfo['data'];
 
-            if($request->scope == 'pdf'){
+            if($request->scope == 'download'){
                 $pdf = \PDF::loadView('modules.audit_followup.broadsheet_reply.partials.sent_broadsheet_book',
-                    ['broadSheetItem'=> $broadSheetItem, 'broadSheetinfo' => $broadSheetinfo], [] , ['orientation' => 'P', 'format' => 'A4']);
+                    ['scope' => $scope,'broadSheetItem'=> $broadSheetItem, 'broadSheetinfo' => $broadSheetinfo], [] , ['orientation' => 'P', 'format' => 'A4']);
 
                 $fileName = 'broadsheet_'.$office_name_bn.'_'. date('D_M_j_Y') . '.pdf';
                 return $pdf->stream($fileName);
             }else{
                 return view('modules.audit_followup.broadsheet_reply.partials.sent_broadsheet_book',
-                    compact('broadSheetItem','broadSheetinfo','office_name_bn'));
+                    compact('broadSheetItem','broadSheetinfo','office_name_bn','scope'));
             }
 
         } else {
