@@ -7,7 +7,7 @@
         @if($broad_sheet_type != 'final_report')
             <div class="row mb-1">
                 <div class="col-md-12">
-                    <label>জড়িত টাকার পরিমাণ</label>
+                    <label>জড়িত টাকার</label>
                     <input class="form-control bijoy-bangla" name="jorito_ortho" value="{{$jorito_ortho}}" readonly>
                 </div>
             </div>
@@ -57,7 +57,7 @@
         @else
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <label>অধিদপ্তরের মন্তব্য</label>
+                    <label>নিরীক্ষা মন্তব্য</label>
                     <textarea class="form-control"
                               name="comment">{{isset($apotti_item_info['comment']) ? $apotti_item_info['comment'] : ''}}</textarea>
                 </div>
@@ -72,7 +72,7 @@
     <div class="col-md-12">
         <button class="btn btn-sm btn-square btn-outline-primary float-right"
                 onclick="ApottiDecision_Container.apottiDecision($(this))">
-            <i class="fa fa-save"></i> সিদ্ধান্ত দিন
+            <i class="fa fa-save"></i> সংরক্ষণ
         </button>
     </div>
 </div>

@@ -155,7 +155,7 @@
                     $('.offcanvas-footer').hide();
                     quick_panel.removeClass('d-none');
                     $("html").addClass("side-panel-overlay");
-                    $('.offcanvas-title').html('সিদ্ধান্ত দিন');
+                    $('.offcanvas-title').html('কার্যক্রম');
 
                     $('.offcanvas-wrapper').html(resp);
             });
