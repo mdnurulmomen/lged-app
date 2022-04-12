@@ -8,7 +8,7 @@
             </x-menu-item>
             <hr>--}}
             <x-menu-item class="audit_query_schedule_menu" href="{{url('audit-report/air/preliminary')}}"
-                         icon="fal fa-tanakh"> Preliminary Audit Inspection Report (AIR)
+                         icon="fal fa-tanakh"> Draft AIR
             </x-menu-item>
         </ul>
     </div>
