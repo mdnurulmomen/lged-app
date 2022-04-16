@@ -46,8 +46,8 @@
 <div class="row mt-2">
     <div class="col-md-12">
         <button class="btn btn-sm btn-square btn-outline-primary float-right"
-                onclick="Broadsheet_Reply_List_Container.sentBroadSheetReplyToRpu($(this))">
-            <i class="fa fa-paper-plane"></i> প্রেরণ করুন
+                onclick="Broadsheet_Reply_List_Container.storeBroadSheetReply($(this))">
+            <i class="fa fa-paper-plane"></i> সংরক্ষণ করুন
         </button>
     </div>
 </div>

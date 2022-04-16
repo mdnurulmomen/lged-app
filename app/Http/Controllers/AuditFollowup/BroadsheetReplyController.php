@@ -338,7 +338,7 @@ class BroadsheetReplyController extends Controller
         return view('modules.audit_followup.broadsheet_reply.partials.rpu_braod_sheet_reply_form', $data);
     }
 
-    public function sendBroadSheetReplyToRpu(Request $request){
+    public function storeBroadSheetReply(Request $request){
 
         $data = Validator::make($request->all(), [
             'broad_sheet_id' => 'required|integer',
@@ -352,6 +352,23 @@ class BroadsheetReplyController extends Controller
         ])->validate();
 
         $data['memorandum_date'] = Carbon::parse($request->memorandum_date)->format('Y-m-d');
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.store_broad_sheet_reply'), $data)->json();
+
+        if (isSuccess($responseData)) {
+            return response()->json(['status' => 'success', 'data' => $responseData['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData['data']]);
+        }
+    }
+
+    public function sendBroadSheetReplyToRpu(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'broad_sheet_id' => 'required|integer',
+        ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
 

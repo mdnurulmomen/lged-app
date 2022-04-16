@@ -119,25 +119,30 @@
                                                         data-broad-sheet-id="{{$item['id']}}"
                                                         data-memorandum-no="{{$item['memorandum_no']}}"
                                                         onclick="Broadsheet_Reply_List_Container.sendToRpuForm($(this))">
-                                                    <i class="fa fa-paper-plane"></i> জারিপত্র
+                                                    <i class="fa fa-plus"></i> জারিপত্র তৈরি করুন
                                                 </button>
                                             </div>
                                         @endif
                                     @else
                                         <div class="d-flex mt-3">
-                                            <button data-broad-sheet-id="{{$item['id']}}"
-                                                    onclick="Broadsheet_Reply_List_Container.showSentBroadSheetReply($(this))"
-                                               class="badge-square rounded-0 badge d-flex align-items-center alert-success
-                                           font-weight-normal mr-1 border decision">
-                                                জারিপত্র প্রেরণ করা হয়েছে
-                                            </button>
 
-                                            <button class="badge-square rounded-0 badge d-flex align-items-center alert-success
-                                           font-weight-normal mr-1 border decision"
+                                            @if($item['broad_sheet_reply']['is_sent_rpu'])
+                                                <button class="mr-3 btn btn-sm btn-info btn-square">
+                                                    জারিপত্র প্রেরণ করা হয়েছে
+                                                </button>
+                                            @else
+                                                <button data-broad-sheet-id="{{$item['id']}}"
+                                                        onclick="Broadsheet_Reply_List_Container.sentBroadSheetReplyToRpu($(this))"
+                                                        class="mr-3 btn btn-sm btn-primary btn-square">
+                                                    <i class="fa fa-paper-plane"></i>জারিপত্র প্রেরণ করুন
+                                                </button>
+                                            @endif
+
+                                            <button class="mr-3 btn btn-sm btn-primary btn-square"
                                                     title="দেখুন"
                                                     data-broad-sheet-id="{{$item['id']}}"
                                                     onclick="Broadsheet_Reply_List_Container.showSentBroadSheetReply($(this))">
-                                                     জারিপত্র দেখুন
+                                                <i class="fa fa-eye"></i>  জারিপত্র দেখুন
                                             </button>
                                         </div>
                                     @endif
@@ -447,11 +452,11 @@
             });
         },
 
-        sentBroadSheetReplyToRpu : function (elem) {
+        storeBroadSheetReply : function (elem) {
 
             data  = $('#send_broad_sheet_to_rpu').serializeArray();
 
-            let url = '{{route('audit.followup.broadsheet.reply.send-broad-sheet-reply-to-rpu')}}';
+            let url = '{{route('audit.followup.broadsheet.reply.store-broad-sheet-reply')}}';
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -467,6 +472,42 @@
                     $('#kt_quick_panel_close').click();
                 }
             });
+        },
+
+        sentBroadSheetReplyToRpu : function (elem) {
+            broad_sheet_id = elem.data('broad-sheet-id');
+
+            swal.fire({
+                title: 'আপনি কি প্রেরণ করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+
+                    data  = {broad_sheet_id};
+
+                    let url = '{{route('audit.followup.broadsheet.reply.send-broad-sheet-reply-to-rpu')}}';
+
+                    KTApp.block('#kt_content', {
+                        opacity: 0.1,
+                        state: 'primary' // a bootstrap color
+                    });
+
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        KTApp.unblock('#kt_content');
+                        if (response.status === 'error') {
+                            toastr.error(response.data);
+                        } else {
+                            toastr.success(response.data);
+                            $('#kt_quick_panel_close').click();
+                        }
+                    });
+                }
+            });
+
         },
 
 
