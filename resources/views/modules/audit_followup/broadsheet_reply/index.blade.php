@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<div class="card sna-card-border mt-2">
+<div class="card sna-card-border mt-2 mb-15">
     <div id="load_apotti_item_list"></div>
 </div>
 
