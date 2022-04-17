@@ -783,7 +783,7 @@
 
 <body>
 @if($scope == 'preview')
-    <button data-scope="download" data-broad-sheet-id="{{$broadSheetinfo['id']}}"
+    <button data-scope="download" data-broad-sheet-id="{{$broadSheetinfo['broad_sheet_reply_id']}}"
             type="button" class="mr-3 btn btn-sm btn-primary btn-square"
             onclick="Broadsheet_Reply_List_Container.downloadSentBroadSheet($(this))">
         Download
