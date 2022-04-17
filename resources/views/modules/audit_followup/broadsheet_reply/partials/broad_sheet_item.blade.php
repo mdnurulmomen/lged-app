@@ -22,11 +22,8 @@
                 <td style="text-align: center" width="5%">নিরীক্ষা বছর</td>
                 <td style="text-align: center" width="5%">আপত্তি ক্যাটাগরি</td>
                 <td style="text-align: center" width="25%">শিরোনাম ও বিবরণ</td>
-                <td style="text-align: right" width="10%">জড়িত টাকার পরিমাণ</td>
-                <td style="text-align: right" width="10%">অনিষ্পন্ন জড়িত টাকার পরিমাণ</td>
-                <td style="text-align: left" width="15%">নিরীক্ষিত প্রতিষ্ঠানের জবাব</td>
-                <td style="text-align: left" width="15%">সংস্থার নির্বাহী প্রধানের জবাব</td>
-                <td style="text-align: left" width="15%">মন্ত্রণালয়/বিভাগ/অন্যান্য এর জবাব</td>
+                <td style="text-align: right" width="25%"> অর্থ </td>
+                <td style="text-align: left" width="25%">জবাব</td>
                 <td style="text-align: center" width="5%">
                     ডিরেক্টরেট এর সিদ্ধান্ত
                 </td>
@@ -56,14 +53,16 @@
                         <span
                             style="padding:5px;"><b>বিবরণঃ</b> {!! $broadSheet['apotti']['memo_description_bn'] !!}</span>
                     </td>
-                    <td style="text-align: right;vertical-align: top;">{{enTobn(number_format($broadSheet['jorito_ortho_poriman'],0))}}
+                    <td style="text-align: left;vertical-align: top;">
+                        <p class="pb-2"><b>জড়িত টাকার পরিমাণ : </b> {{enTobn(number_format($broadSheet['jorito_ortho_poriman'],0))}} /-</p>
+                        <p class="pb-2"><b>অনিষ্পন্ন জড়িত টাকার পরিমাণ : </b> {{enTobn(number_format($broadSheet['onishponno_jorito_ortho_poriman'],0))}}/-</p>
                     </td>
 
-                    <td style="text-align: right;vertical-align: top;">{{enTobn(number_format($broadSheet['onishponno_jorito_ortho_poriman'],0))}}
+                    <td style="text-align: left;vertical-align: top;padding:5px;">
+                        <p class="pb-2"><b>নিরীক্ষিত প্রতিষ্ঠানের জবাব : </b> {{$broadSheet['apotti']['unit_response']}}</p>
+                        <p class="pb-2"><b>সংস্থার নির্বাহী প্রধানের জবাব : </b> {{$broadSheet['apotti']['entity_response']}}</p>
+                        <p class="pb-2"><b>মন্ত্রণালয়/বিভাগ/অন্যান্য এর জবাব : </b> {{$broadSheet['apotti']['ministry_response']}}</p>
                     </td>
-                    <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['unit_response']}}</td>
-                    <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['entity_response']}}</td>
-                    <td style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['ministry_response']}}</td>
                     <td style="text-align: left;vertical-align: top;padding:5px;">
                         <p>
 

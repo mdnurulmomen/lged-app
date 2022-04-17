@@ -57,7 +57,7 @@
         </div>
 
         <div style="font-family:Nikosh,serif !important;text-align: center">
-            <b><u>নিরীক্ষা দল নং-০১</u></b>
+            <b><u>জনবল</u></b>
         </div>
 
         <div style="margin-top: 5px">

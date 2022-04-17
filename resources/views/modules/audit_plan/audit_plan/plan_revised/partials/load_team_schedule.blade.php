@@ -52,12 +52,12 @@
             <td>
                 <div class="row">
                     <div class="col pr-0">
-                        <input type="text" data-id="{{$team_layer_id}}_0"
+                        <input style="padding: 5px" type="text" data-id="{{$team_layer_id}}_0"
                                class="date form-control input-start-duration"
                                placeholder="শুরু"/>
                     </div>
                     <div class="col pl-0">
-                        <input type="text" data-id="{{$team_layer_id}}_0"
+                        <input style="padding: 5px" type="text" data-id="{{$team_layer_id}}_0"
                                class="date form-control input-end-duration"
                                placeholder="শেষ"/>
                     </div>
@@ -65,7 +65,7 @@
             </td>
 
             <td>
-                <input type="number" data-id="{{$team_layer_id}}_0" value="0"
+                <input style="padding: 5px" type="number" data-id="{{$team_layer_id}}_0" value="0"
                        class="form-control input-total-working-day"
                        min="0"
                        id="input_total_working_day_{{$team_layer_id}}_0"/>

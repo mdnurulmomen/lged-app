@@ -196,14 +196,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card card-custom gutter-b w-100">
+                            <div class="gutter-b w-100">
                                 <div class="card-body p-0">
                                     <!--begin::Timeline-->
-                                    <div class="timeline timeline-3 custom-timeline" id="customTimeline">
+                                    <div class="timeline timeline-3">
                                         <form id="team_form">
                                             <div class="timeline-items " id="permitted_designations">
                                                 @foreach($all_teams as $key => $value)
-                                                    <div
+                                                    <div id="right_{{$loop->iteration}}"
                                                         class="custom-timeline-item timeline-item border-left-0 d-flex align-items-start"
                                                         style="padding-left: 5px;">
                                                         <div class="timeline-content rounded-0 p-0 w-100"
@@ -211,26 +211,43 @@
                                                              id="permitted_level_{{$loop->iteration}}">
                                                             <div
                                                                 class="px-3 pt-2 pb-0 mb-0 d-flex align-items-center justify-content-between">
-                                                                <div>
+                                                                <div class="pb-2">
                                                                     <span class="text-primary fal fa-edit"></span>
+                                                                    <input type="hidden" class="team_id" value="{{$value['id']}}">
+                                                                    <input type="hidden" class="team_parent_id" value="{{$value['team_parent_id']}}">
                                                                     <input type="text" value="{{$value['team_name']}}"
                                                                            class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2">
                                                                 </div>
+
+
                                                                 <div
                                                                     class="d-flex align-items-center justify-content-end">
                                                                     <div
                                                                         class="d-flex align-items-center justify-content-between mb-0 mt-0">
                                                                         <div class="mr-2">
-                                                                            <button title="Add Team Schedule" type="button"
-                                                                                    id="team_schedule_layer_btn_{{$loop->iteration}}"
-                                                                                    onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$loop->iteration}}','{{$loop->iteration}}')"
-                                                                                    class="pulse pulse-primary justify-self-end text-danger btn btn-icon btn-md">
-                                                                                <i class="text-primary far fa-calendar-alt"></i>
-                                                                                <span class="pulse-ring"></span>
-                                                                            </button>
+                                                                            @if(!$value['team_schedules'])
+                                                                                <button title="Add Team Schedule"
+                                                                                        type="button"
+                                                                                        id="team_schedule_layer_btn_{{$loop->iteration}}"
+                                                                                        onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$loop->iteration}}','{{$loop->iteration}}')"
+                                                                                        class="pulse pulse-primary justify-self-end text-danger btn btn-icon btn-md">
+                                                                                    <i class="text-primary far fa-calendar-alt"></i>
+                                                                                    <span class="pulse-ring"></span>
+                                                                                </button>
+                                                                            @endif
+
+                                                                            @if($value['team_parent_id'])
+                                                                                <button type="button"
+                                                                                        onclick="Load_Team_Container.deleteNode('layer','right_{{$loop->iteration}}', 0, '{{$value['id']}}')"
+                                                                                        class="justify-self-end text-danger btn btn-icon btn-md del_layer">
+                                                                                    <i class="text-danger far fa-trash-alt"></i>
+                                                                                </button>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+
                                                             </div>
                                                             <div class="dragged_data_area px-2 pt-0"
                                                                  id="right_drop_zone_{{$loop->iteration}}">
@@ -403,14 +420,14 @@
                                                                                         <td>
                                                                                             <div class="row">
                                                                                                 <div class="col pr-0">
-                                                                                                    <input type="text"
+                                                                                                    <input type="text" style="padding: 5px"
                                                                                                            data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
                                                                                                            class="date form-control input-start-duration"
                                                                                                            value="{{date('d/m/Y',strtotime($schedule['team_member_start_date']))}}"
                                                                                                            placeholder="শুরু"/>
                                                                                                 </div>
                                                                                                 <div class="col pl-0">
-                                                                                                    <input type="text"
+                                                                                                    <input type="text" style="padding: 5px"
                                                                                                            data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
                                                                                                            class="date form-control input-end-duration"
                                                                                                            value="{{date('d/m/Y',strtotime($schedule['team_member_end_date']))}}"
@@ -420,10 +437,10 @@
                                                                                         </td>
 
                                                                                         <td>
-                                                                                            <input type="number"
+                                                                                            <input type="number" style="padding: 5px"
                                                                                                    min="0"
                                                                                                    data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
-                                                                                                   class="form-control input-total-working-day"
+                                                                                                   class="form-control input-total-working-day bijoy-bangla"
                                                                                                    value="{{$schedule['activity_man_days']}}"
                                                                                                    id="input_total_working_day_{{$loop->parent->iteration}}_{{$loop->iteration}}"/>
                                                                                         </td>
@@ -764,6 +781,7 @@
     var team = {};
     var subTeam = [];
     team_info = [];
+    deleted_team = [];
 
     var Load_Team_Container = {
         editor_leader_info: '',
@@ -897,23 +915,14 @@
             })
         },
 
-        deleteNode: function (type, node_id, from_tree) {
-
+        deleteNode: function (type, node_id, from_tree, team_id) {
             var parent_timeline_content = $('#' + node_id).closest('.timeline-content');
             var layer_index = parent_timeline_content.data('layer_index');
 
             if (type === 'layer') {
-                $('#' + node_id + ' .permitted_designation').each(function (i, v) {
-                    // $('.office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
-                    // $('.office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
-                    if ($("#nothi_permission_office_organogram_tree").length !== 0) {
-                        // $('#nothi_permission_office_organogram_tree').jstree(true).enable_node("#ofc_org_designation_" + $(this).data('id'));
-                        // $('#nothi_permission_office_organogram_tree').jstree(true).uncheck_node("#ofc_org_designation_" + $(this).data('id'));
-                    }
-                    delete Load_Team_Container.selected_designation_ids[$(this).data('id')];
-                })
                 $('#' + node_id).remove();
-                Load_Team_Container.reorderLayer();
+                deleted_team.push(team_id);
+                // Load_Team_Container.reorderLayer();
             } else {
                 if (parent_timeline_content.find('.permitted_designation').length >= 1) {
                     var parentId = $('#' + node_id).parent('li').parent('ul').parent('.dragged_data_area').attr('id');
@@ -1013,6 +1022,8 @@
                     }
 
                     team_name = $('#permitted_level_' + layer_id).find('.layer_text').val();
+                    team_id = $('#permitted_level_' + layer_id).find('.team_id').val();
+                    team_parent_id = $('#permitted_level_' + layer_id).find('.team_parent_id').val();
                     if (layer_id == $('[id^=permitted_level_]').first().attr('data-layer_index')) {
                         team_type = 'parent';
                         if (role == 'teamLeader') {
@@ -1049,6 +1060,8 @@
                     all_teams['team_start_date'] = formatDate($('#team_start_date').val());
                     all_teams['team_end_date'] = formatDate($('#team_end_date').val());
                     all_teams['leader'] = team_leader;
+                    all_teams['all_teams'][layer_id]['id'] = team_id;
+                    all_teams['all_teams'][layer_id]['team_parent_id'] = team_parent_id;
                     all_teams['all_teams'][layer_id]['team_name'] = team_name;
                     all_teams['all_teams'][layer_id]['team_type'] = team_type;
                     all_teams['all_teams'][layer_id]['leader_designation_id'] = leader_info[layer_id]['designation_id'];
@@ -1191,7 +1204,8 @@
                 audit_year_end,
                 audit_plan_id,
                 modal_type,
-                teams
+                teams,
+                deleted_team,
             };
             KTApp.block('#saveAuditTeam');
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -1275,13 +1289,13 @@
         addLayer: function () {
             var innerDivLength = $("#permitted_designations").children('.timeline-item');
             var number = innerDivLength.length + 1;
-            console.log(number)
+            // console.log(number)
             if (number === 1) {
                 team_name = 'দল ' + enTobn(number);
             } else {
                 subteamNumber = number - 1;
                 team_name = 'উপদল ' + enTobn(subteamNumber);
-                $("#team_schedule_layer_btn_" + 1).hide();
+                // $("#team_schedule_layer_btn_" + 1).hide();
             }
             var level_html = `
                 <div class="custom-timeline-item timeline-item border-left-0 d-flex align-items-start"
@@ -1316,9 +1330,7 @@ style="padding-left: 5px;">
         </div>
         </div>
             <div class="dragged_data_area px-2 pt-0" id="right_drop_zone_${number}">
-                <ul class="listed_items rounded-0 list-group" id="list_group_${number}">
-                    <li class="list-group-item overflow-hidden p-1 dummy_li"></li>
-                </ul>
+                <ul class="listed_items rounded-0 list-group" id="list_group_${number}"></ul>
             </div>
             <input type="hidden" name="teams[]" id="team_information_${number}" value=""/>
             <div class="px-2 pt-0" id="team_schedule_list_${number}"></div>

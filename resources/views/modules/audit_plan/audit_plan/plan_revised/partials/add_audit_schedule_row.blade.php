@@ -23,18 +23,18 @@
     <td>
         <div class='row'>
             <div class='col pr-0'>
-                <input
+                <input style="padding: 5px"
                     type='text'
                     class='date form-control input-start-duration'
                     data-id='{{$layer_id}}_{{$total_audit_schedule_row}}' placeholder='শুরু'/>
             </div>
             <div class='col pl-0'>
-                <input type='text' class='date form-control input-end-duration'
+                <input  style="padding: 5px" type='text' class='date form-control input-end-duration'
                        data-id='{{$layer_id}}_{{$total_audit_schedule_row}}' placeholder='শেষ'/>
             </div>
         </div>
     </td>
-    <td><input type='number' min='0' value='0' class='form-control input-total-working-day'
+    <td><input style="padding: 5px" type='number' min='0' value='0' class='form-control input-total-working-day bijoy-bangla'
                id='input_total_working_day_{{$layer_id}}_{{$total_audit_schedule_row}}'
                data-id='{{$layer_id}}_{{$total_audit_schedule_row}}'/></td>
     <td>
