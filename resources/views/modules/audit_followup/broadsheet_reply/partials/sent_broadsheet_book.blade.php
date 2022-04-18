@@ -800,7 +800,7 @@
         <table class="bangla-font" width="100%">
             <tr>
                 <td style="text-align: center;">
-                    মহাপরিচালকের কার্যালয়<br>
+                    <p style="font-size: 16px;margin-bottom: 5px">মহাপরিচালকের কার্যালয়</p>
                     <x-office-header-details />
                 </td>
             </tr>
@@ -844,7 +844,7 @@
                     <tr>
                         <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($loop->iteration)}}</td>
                         <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['cost_center_name_bn'])}}</td>
-                        <td class="bangla-font" style="text-align: center;vertical-align: top;">
+                        <td class="bangla-font" style="text-align: left;vertical-align: top;">
                            <p><b>নিরীক্ষা বছর : </b>{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</p>
                            <p><b>অনুচ্ছেদ নং : </b>{{enTobn($broadSheet['apotti']['onucched_no'])}}</p>
                         </td>
