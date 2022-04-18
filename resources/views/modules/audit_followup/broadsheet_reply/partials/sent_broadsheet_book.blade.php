@@ -5,6 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     {{--    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>--}}
     <style>
+        @page  {
+            margin-top: 2.54cm;
+            margin-right: 2cm;
+            margin-bottom: 2cm;
+            margin-left: 2.80cm;
+        }
         html {
             -ms-text-size-adjust: 100%;
             -webkit-text-size-adjust: 100%;
@@ -793,8 +799,9 @@
     <div class="pdf-screen bangla-font">
         <table class="bangla-font" width="100%">
             <tr>
-                <td style="text-align: center;font-size: 35px;font-weight: bold">
-{{--                    {{$broadSheetinfo['sender_office_name_bn']}}--}}
+                <td style="text-align: center;">
+                    মহাপরিচালকের কার্যালয়<br>
+                    <x-office-header-details />
                 </td>
             </tr>
         </table>
@@ -806,13 +813,9 @@
             </tr>
         </table>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 20px">
-            <span>বরাবর,</span>
-        </div>
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-left: 40px">
-            {!! nl2br($broadSheetinfo['rpu_office_head_details']) !!}
-        </div>
-
+{{--        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 20px">--}}
+{{--            <span>বরাবর,</span>--}}
+{{--        </div>--}}
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
             <span style="font-weight: bold">বিষয়ঃ {!! str_repeat('&nbsp;',1) !!} {{$broadSheetinfo['subject']}}</span>
         </div>
@@ -830,45 +833,26 @@
             <table class="bangla-font" width="100%" border="1">
                 <tbody>
                 <tr class="bangla-font">
-                    <td class="bangla-font" style="text-align: center" width="5%">অনুচ্ছেদ নং</td>
-                    <td class="bangla-font" style="text-align: center" width="10%">কস্ট সেন্টার/ইউনিট</td>
-                    <td class="bangla-font" style="text-align: center" width="5%">নিরীক্ষা বছর</td>
-{{--                    <td class="bangla-font" style="text-align: center" width="5%">আপত্তি ক্যাটাগরি</td>--}}
-                    <td class="bangla-font" style="text-align: center" width="20%">শিরোনাম</td>
-                    <td class="bangla-font" style="text-align: right" width="10%">জড়িত টাকার পরিমাণ</td>
+                    <td class="bangla-font" style="text-align: center" width="5%">ক্রমিক নং</td>
+                    <td class="bangla-font" style="text-align: center" width="10%">নিরীক্ষিত প্রতিষ্ঠান</td>
+                    <td class="bangla-font" style="text-align: center" width="20%">নিরীক্ষা বছর ও অনুচ্ছেদ নং</td>
+                    <td class="bangla-font" style="text-align: center" width="25%">শিরোনাম</td>
+                    <td class="bangla-font" style="text-align: center" width="20%">জড়িত টাকার পরিমাণ</td>
                     <td class="bangla-font" style="text-align: center" width="30%">অধিদপ্তরের মন্তব্য</td>
                 </tr>
-                {{--                <tr>--}}
-                {{--                    <td class="bangla-font" style="text-align: center">১</td>--}}
-                {{--                    <td class="bangla-font" style="text-align: center">২</td>--}}
-                {{--                    <td class="bangla-font" style="text-align: center">৩</td>--}}
-                {{--                    <td class="bangla-font" style="text-align: center">৪</td>--}}
-                {{--                    <td class="bangla-font" style="text-align: center">৫</td>--}}
-                {{--                    <td class="bangla-font" style="text-align: center">৬</td>--}}
-                {{--                    <td class="bangla-font" style="text-align: center">৭</td>--}}
-                {{--                    <td class="bangla-font" style="text-align: center">৮</td>--}}
-                {{--                </tr>--}}
                 @foreach($broadSheetItem as $broadSheet)
                     <tr>
-                        <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['onucched_no'])}}</td>
+                        <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($loop->iteration)}}</td>
                         <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['cost_center_name_bn'])}}</td>
-                        <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</td>
-{{--                        <td class="bangla-font" style="text-align: center;vertical-align: top;">--}}
-{{--                            @if($broadSheet['apotti']['memo_type'] == 'sfi')--}}
-{{--                                @php $apottiType = 'এসএফআই'; @endphp--}}
-{{--                            @else--}}
-{{--                                @php $apottiType = 'নন-এসএফআই'; @endphp--}}
-{{--                            @endif--}}
-{{--                            {{$apottiType}}--}}
-{{--                        </td>--}}
+                        <td class="bangla-font" style="text-align: center;vertical-align: top;">
+                           <p><b>নিরীক্ষা বছর : </b>{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</p>
+                           <p><b>অনুচ্ছেদ নং : </b>{{enTobn($broadSheet['apotti']['onucched_no'])}}</p>
+                        </td>
                         <td class="bangla-font" style="text-align: justify;">
-                            <span style="padding:5px; margin-bottom: 5px"><b>শিরোনামঃ</b> <br> {{$broadSheet['apotti']['memo_title_bn']}}</span>
-{{--                            <br>--}}
-{{--                            <br>--}}
-{{--                            <span style="padding:5px;"><b>বিবরণঃ</b> {!! $broadSheet['apotti']['memo_description_bn'] !!}</span>--}}
+                            <span style="padding:5px; margin-bottom: 5px">{{$broadSheet['apotti']['memo_title_bn']}}</span>
                         </td>
                         <td class="bangla-font" style="text-align: right;vertical-align: top;">{{enTobn(number_format($broadSheet['apotti']['jorito_ortho_poriman'],0))}}/-</td>
-                        <td class="bangla-font" style="text-align: right;vertical-align: top;">{{$broadSheet['comment']}}/-</td>
+                        <td class="bangla-font" style="text-align: left;vertical-align: top;">{{$broadSheet['comment']}}/-</td>
                     </tr>
 
                 @endforeach
@@ -881,7 +865,11 @@
 
         <table width="100%" style="color: black">
             <tr>
-                <td class="bangla-font" width="33%" style="text-align: left"></td>
+                <td class="bangla-font" width="33%" style="text-align: left">
+                    <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-left: 40px">
+                        {!! nl2br($broadSheetinfo['rpu_office_head_details']) !!}
+                    </div>
+                </td>
                 <td class="bangla-font" width="33%" style="text-align: left"></td>
                 <td class="bangla-font" width="33%" style="text-align: center">
                         <p>স্বাক্ষরিত</p>
@@ -890,7 +878,7 @@
                 </td>
             </tr>
         </table>
-
+        <br>
         <table class="bangla-font" width="100%" style="color: black">
             <tr>
                 <td>স্মারক নং - {{enTobn($broadSheetinfo['memorandum_no'])}}</td>
