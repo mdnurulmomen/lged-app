@@ -25,14 +25,14 @@
             </div>
         </div>
         <div class="col-md-6 text-right">
-            @if($audit_plan['office_order'] == null || $audit_plan['office_order']['approved_status'] != 'approved')
+{{--            @if($audit_plan['office_order'] == null || $audit_plan['office_order']['approved_status'] != 'approved')--}}
                 <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
                         data-audit-plan-id="{{$audit_plan['id']}}"
                         data-parent-office-id="{{$entity_list}}"
                         onclick="Entity_Plan_Container.showTeamCreateModal($(this));">
                         <i class="fas fa-users"></i> Team
                 </button>
-            @endif
+{{--            @endif--}}
 
             <button class="btn btn-sm btn-square btn-warning btn-hover-warning"
                     onclick="Entity_Plan_Container.riskAssessment($(this));">
