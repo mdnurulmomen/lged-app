@@ -351,7 +351,10 @@ class BroadsheetReplyController extends Controller
             'braod_sheet_cc' => 'nullable',
         ])->validate();
 
-        $data['memorandum_date'] = Carbon::parse($request->memorandum_date)->format('Y-m-d');
+//        $data['memorandum_date'] = Carbon::parse($request->memorandum_date)->format('Y-m-d');
+        $data['memorandum_date'] = date('Y-m-d',strtotime($request->memorandum_date));
+
+//        dd($data);
 
         $data['cdesk'] = $this->current_desk_json();
 

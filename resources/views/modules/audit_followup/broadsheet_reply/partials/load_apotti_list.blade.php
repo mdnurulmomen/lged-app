@@ -474,6 +474,7 @@
                 } else {
                     toastr.success(response.data);
                     $('#kt_quick_panel_close').click();
+                    Broadsheet_Container.loadApottiItemList();
                 }
             });
         },
@@ -507,6 +508,7 @@
                         } else {
                             toastr.success(response.data);
                             $('#kt_quick_panel_close').click();
+                            Broadsheet_Container.loadApottiItemList();
                         }
                     });
                 }
