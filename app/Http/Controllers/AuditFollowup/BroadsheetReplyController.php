@@ -179,7 +179,7 @@ class BroadsheetReplyController extends Controller
         $broadSheetInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_info'), $data)->json();
         $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_items'), $data)->json();
 
-        // dd($broadSheetInfo);
+//         dd($broadSheetItem);
 
         if (isSuccess($broadSheetItem)) {
             $broadSheetInfo = $broadSheetInfo['data'];
@@ -285,7 +285,7 @@ class BroadsheetReplyController extends Controller
         $broadSheetinfo = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_info'), $data)->json();
 
         $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_items'), $data)->json();
-
+//        dd($broadSheetItem);
         if (isSuccess($broadSheetItem)) {
             $broadSheetItem = $broadSheetItem['data'];
             $broadSheetinfo = $broadSheetinfo['data'];
