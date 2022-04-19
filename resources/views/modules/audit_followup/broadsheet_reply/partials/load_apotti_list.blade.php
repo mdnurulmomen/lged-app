@@ -89,11 +89,11 @@
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
                                     <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">ক্রমিক নংঃ</span>
+                                        <span class="mr-2 font-size-1-1">ক্রমিক নং :</span>
                                         <span class="description text-wrap font-size-14">{{enTobn($loop->iteration)}}</span>
                                     </div>
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
-                                        <span class="mr-1 ">স্মারক নংঃ</span>
+                                        <span class="mr-1 ">স্মারক নং :</span>
                                         <a  data-entity-name="{{$item['sender_office_name_bn']}}"
                                             data-broad-sheet-id="{{$item['id']}}"
                                             data-memorandum-no="{{enTobn($item['memorandum_no'])}}"
