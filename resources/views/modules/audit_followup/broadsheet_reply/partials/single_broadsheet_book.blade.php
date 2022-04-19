@@ -796,8 +796,8 @@
     <div class="pdf-screen bangla-font">
         <table class="bangla-font" width="100%">
             <tr>
-                <td style="text-align: center;font-size: 35px;font-weight: bold">
-                    {{$broadSheetinfo['sender_office_name_bn']}}
+                <td style="text-align: center;font-size: 25px;font-weight: bold">
+                    {{$broadSheetinfo['sender_type'] == 'entity' ? $broadSheetinfo['sender_office_name_bn'] : $broadSheetinfo['ministry_name_bn']}}
                 </td>
             </tr>
         </table>
@@ -856,8 +856,8 @@
         @endif
 
         <div class="page-break"></div>
-        <div class="bangla-font" style="text-align:center;font-family:Nikosh,serif !important;margin-top: 10px">
-            <b>{{$broadSheetinfo['sender_office_name_bn']}}</b>
+        <div class="bangla-font" style="text-align:center;font-family:Nikosh,serif !important;margin-top: 10px;font-size: 25px">
+            <b>{{$broadSheetinfo['sender_type'] == 'entity' ? $broadSheetinfo['sender_office_name_bn'] : $broadSheetinfo['ministry_name_bn']}}</b>
         </div>
         <br><br>
 

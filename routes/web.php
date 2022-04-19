@@ -472,6 +472,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::group(['as' => 'broadsheet.reply.', 'prefix' => 'broadsheet-reply/'], function () {
             Route::get('/', [BroadsheetReplyController::class, 'index'])->name('index');
             Route::post('/get-broad-sheet-list', [BroadsheetReplyController::class, 'getBroadSheetList'])->name('get-broad-sheet-list');
+            Route::post('/load-broad-sheet-ministry-select', [BroadsheetReplyController::class, 'loadBroadSheeMinistrySelect'])->name('load-broad-sheet-ministry-select');
+            Route::post('/load-broad-sheet-entity-select', [BroadsheetReplyController::class, 'loadBroadSheetEntitySelect'])->name('load-broad-sheet-entity-select');
             Route::post('/show_broad_sheet', [BroadsheetReplyController::class, 'showBroadSheet'])->name('show-braod-sheet');
             Route::post('/download-single-broadsheet', [BroadsheetReplyController::class, 'downloadSingleBroadsheet'])->name('download-single-broadsheet');
             Route::post('/edit-apottoi-item', [BroadsheetReplyController::class, 'editApottiItem'])->name('edit-apottoi-item');

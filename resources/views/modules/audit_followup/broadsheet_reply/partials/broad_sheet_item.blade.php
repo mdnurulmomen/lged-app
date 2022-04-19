@@ -4,7 +4,7 @@
                 <h3>স্মারক নং : {{$broadSheetInfo['memorandum_no']}}</h3>
             </div>
             <div class="col-xl-4 text-center">
-                <h3>{{$broadSheetInfo['sender_type'] == 'entity' ? 'এনটিটি/সংস্থা' : 'মন্ত্রণালয়' }} : {{$broadSheetInfo['sender_office_name_bn']}}</h3>
+                <h3>{{$broadSheetInfo['sender_type'] == 'entity' ? 'এনটিটি/সংস্থা' : 'মন্ত্রণালয়' }} : {{$broadSheetInfo['sender_type'] == 'entity' ? $broadSheetInfo['sender_office_name_bn'] : $broadSheetInfo['ministry_name_bn']}}</h3>
             </div>
             <div class="col-xl-4 text-right">
                 <button class="d-none reload"

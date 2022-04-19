@@ -238,6 +238,8 @@ return [
 
         'broadsheet_reply' => [
             'get_broad_sheet_list' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-broad-sheet-list',
+            'get_broad_sheet_ministry_list' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-all-broad-sheet-ministry-list',
+            'get_broad_sheet_entity_list' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-all-broad-sheet-ministry-wise-entity',
             'get_broad_sheet_items' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-broad-sheet-items',
             'get_broad_sheet_item_info' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/get-broad-sheet-item-info',
             'update_broad_sheet_item' => env('API_URL_BEE', '') . '/follow-up/broadsheet-reply/update-broad-sheet-item',
