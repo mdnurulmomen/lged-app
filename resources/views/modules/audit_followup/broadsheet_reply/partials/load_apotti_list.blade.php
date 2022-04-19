@@ -110,10 +110,10 @@
                                         <span class="mr-2 font-size-1-1"> {{$item['sender_office_name_bn'] == 'entity' ? 'এনটিটি/সংস্থা' : 'মন্ত্রণালয়' }} :</span>
                                         <span class="description text-info text-wrap font-size-14">{{$item['sender_office_name_bn']}}</span>
                                     </div>
-                                    <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">তারিখঃ</span>
-                                        <span class="description text-info text-wrap font-size-14">{{formatDateTime($item['memorandum_date'],'bn')}}</span>
-                                    </div>
+{{--                                    <div class="subject-wrapper font-weight-normal">--}}
+{{--                                        <span class="mr-2 font-size-1-1">তারিখঃ</span>--}}
+{{--                                        <span class="description text-info text-wrap font-size-14">{{formatDateTime($item['memorandum_date'],'bn')}}</span>--}}
+{{--                                    </div>--}}
 
                                     @if(!$item['broad_sheet_reply'])
                                         @if($item['broad_sheet_items_count'] == $item['broad_sheet_item_decision'])
@@ -169,7 +169,7 @@
                                         <div class="d-flex align-items-center justify-content-md-end">
                                             <div class="mb-2 mt-3 soongukto-wrapper">
                                                 <div class="d-flex justify-content-end align-items-center">
-                                                    <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($item['created_at'],'bn')}}</div>
+                                                    <div class="text-dark-75 ml-3 rdate" cspas="date"> তারিখঃ {{formatDate($item['created_at'],'bn')}}</div>
                                                 </div>
                                             </div>
                                         </div>

@@ -19,6 +19,7 @@
         body {
             margin: 0;
             font-family: nikoshpdf !important;
+            font-size: 16px;
         }
 
         .bangla-font {
@@ -349,13 +350,13 @@
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
-        body {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.42857143;
-            color: #333333;
-            background-color: #ffffff;
-        }
+        /*body {*/
+        /*    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+        /*    font-size: 14px;*/
+        /*    line-height: 1.42857143;*/
+        /*    color: #333333;*/
+        /*    background-color: #ffffff;*/
+        /*}*/
 
         input,
         button,
@@ -833,12 +834,12 @@
             <table class="bangla-font" width="100%" border="1">
                 <tbody>
                 <tr class="bangla-font">
-                    <td class="bangla-font" style="text-align: center" width="5%">ক্রমিক</td>
+                    <td class="bangla-font" style="text-align: center" width="8%">ক্রমিক</td>
                     <td class="bangla-font" style="text-align: center" width="10%">কস্ট সেন্টার/ইউনিট</td>
                     <td class="bangla-font" style="text-align: center" width="20%">নিরীক্ষা বছর ও অনুচ্ছেদ নং</td>
                     <td class="bangla-font" style="text-align: center" width="25%">শিরোনাম</td>
                     <td class="bangla-font" style="text-align: center" width="20%">জড়িত টাকার পরিমাণ</td>
-                    <td class="bangla-font" style="text-align: center" width="30%">অডিট অধিদপ্তরের মন্তব্য</td>
+                    <td class="bangla-font" style="text-align: center" width="25%">অডিট অধিদপ্তরের মন্তব্য</td>
                 </tr>
                 @foreach($broadSheetItem as $broadSheet)
                     <tr>
@@ -848,8 +849,8 @@
                            <p><b>নিরীক্ষা বছর : </b>{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</p>
                            <p><b>অনুচ্ছেদ নং : </b>{{enTobn($broadSheet['apotti']['onucched_no'])}}</p>
                         </td>
-                        <td class="bangla-font" style="text-align: justify;">
-                            <span style="padding:5px; margin-bottom: 5px">{{$broadSheet['apotti']['memo_title_bn']}}</span>
+                        <td class="bangla-font" style="text-align: justify;vertical-align: top;">
+                            <span style="padding:5px; margin-bottom: 5px;">{{$broadSheet['apotti']['memo_title_bn']}}</span>
                         </td>
                         <td class="bangla-font" style="text-align: right;vertical-align: top;">{{enTobn(number_format($broadSheet['apotti']['jorito_ortho_poriman'],0))}}/-</td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;">{{$broadSheet['comment']}}/-</td>
