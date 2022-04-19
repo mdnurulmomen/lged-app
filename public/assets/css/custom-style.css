@@ -308,12 +308,61 @@ ul.sna-breadcrumb li a:hover {
 #kt_wrapper, #kt_header {
     transition: all .5s;
 }
-
-
-.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
-    padding: 0;
+@import url('https://fonts.maateen.me/solaiman-lipi/font.css');
+#apotti_upload_container{
+    padding-bottom: 1.5cm;
+    font-family: 'SolaimanLipi', Arial, sans-serif !important;
 }
 
+#search-criteria .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--multiple {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    border: 1px solid var(--sactive);
+    outline: none !important;
+    border-radius: 0;
+    line-height: 0;
+    height: 32px;
+}
+#search-criteria .form-control {
+    border: 1px solid #1061a5;
+    height: 1cm;
+}
+.btn.btn-primary {
+    color: #FFFFFF;
+    background-color: #3699FF;
+    border-color: #3699FF;
+    margin-top: .5cm;
+    height: 1cm;
+}
+#search-criteria .btn.btn-info {
+    color: #ffffff;
+    background-color: #8950FC;
+    border-color: #8950FC;
+    margin-top: .5cm;
+    height: 1cm;
+}
+.btn.btn-success {
+    color: #ffffff;
+    background-color: #1BC5BD;
+    border-color: #1BC5BD;
+    padding: 15px 10px;
+}
+
+#search-criteria .btn.btn-danger {
+    color: #ffffff;
+    background-color: #F64E60;
+    border-color: #F64E60;
+    margin-top: .5cm;
+    margin-left: -1.5cm;
+    height: 1cm;
+}
 #kt_header_menu .menu-item .btn {
     padding: 14px 10px 14px 10px;
     font-weight: bold;

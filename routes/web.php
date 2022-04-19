@@ -427,6 +427,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('load-apotti-register-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadApottiRegisterList'])->name('load-apotti-register-list');
             Route::post('edit-register', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadApottiRegisterEdit'])->name('edit-register');
 
+            Route::get('apotti-uplaod', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'uploadedApottiView'])->name('apotti-uplaod');
+            Route::get('uploaded-apotti', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'apottiUpload'])->name('uploaded-apotti');
+
             Route::group(['as' => 'register.', 'prefix' => 'register/'], function () {
                 Route::post('get-approval-authority', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadRegisterApprovalAuthority'])->name('get-approval-authority');
                 Route::post('store-approval-authority', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'storeRegisterApprovalAuthority'])->name('store-approval-authority');
