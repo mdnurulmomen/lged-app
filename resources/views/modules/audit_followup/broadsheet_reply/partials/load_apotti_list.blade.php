@@ -179,7 +179,7 @@
                                                     data-broad-sheet-id="{{$item['id']}}"
                                                     data-memorandum-no="{{enTobn($item['memorandum_no'])}}"
                                                     data-memorandum-date="{{enTobn($item['memorandum_date'])}}"
-                                                    data-scope=""
+                                                    data-scope="preview"
                                                     onclick="Broadsheet_Reply_List_Container.showBroadSheet($(this))">
                                                 <i class="fad fa-eye"></i>
                                             </button>
@@ -429,7 +429,7 @@
             broad_sheet_id = elem.data('broad-sheet-id');
             memorandum_no = elem.data('memorandum-no');
             memorandum_date = elem.data('memorandum-date');
-            scope = elem.data('scope');
+            scope = 'pdf';
 
             data = {broad_sheet_id,memorandum_no,memorandum_date,scope};
 

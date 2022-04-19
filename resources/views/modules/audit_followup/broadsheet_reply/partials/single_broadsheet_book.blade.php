@@ -5,6 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     {{--    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>--}}
     <style>
+        .page-break {
+            page-break-after: always;
+        }
         html {
             -ms-text-size-adjust: 100%;
             -webkit-text-size-adjust: 100%;
@@ -782,6 +785,13 @@
 </head>
 
 <body>
+@if($scope == 'preview')
+    <button data-scope="download" data-broad-sheet-id="{{$broadSheetinfo['id']}}"
+            type="button" class="mr-3 btn btn-sm btn-primary btn-square"
+            onclick="Broadsheet_Reply_List_Container.downloadBroadSheet($(this))">
+        Download
+    </button>
+@endif
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     <div class="pdf-screen bangla-font">
         <table class="bangla-font" width="100%">
@@ -846,6 +856,7 @@
             </table>
         @endif
 
+        <div class="page-break"></div>
         <div class="bangla-font" style="text-align:center;font-family:Nikosh,serif !important;margin-top: 10px">
             <b>{{$broadSheetinfo['sender_office_name_bn']}}</b>
         </div>
