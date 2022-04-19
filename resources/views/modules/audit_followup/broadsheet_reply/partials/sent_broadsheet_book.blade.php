@@ -9,7 +9,7 @@
             margin-top: 2.54cm;
             margin-right: 2cm;
             margin-bottom: 2cm;
-            margin-left: 2.80cm;
+            margin-left: 2.70cm;
         }
         html {
             -ms-text-size-adjust: 100%;
@@ -833,12 +833,12 @@
             <table class="bangla-font" width="100%" border="1">
                 <tbody>
                 <tr class="bangla-font">
-                    <td class="bangla-font" style="text-align: center" width="5%">ক্রমিক নং</td>
-                    <td class="bangla-font" style="text-align: center" width="10%">নিরীক্ষিত প্রতিষ্ঠান</td>
+                    <td class="bangla-font" style="text-align: center" width="5%">ক্রমিক</td>
+                    <td class="bangla-font" style="text-align: center" width="10%">কস্ট সেন্টার/ইউনিট</td>
                     <td class="bangla-font" style="text-align: center" width="20%">নিরীক্ষা বছর ও অনুচ্ছেদ নং</td>
                     <td class="bangla-font" style="text-align: center" width="25%">শিরোনাম</td>
                     <td class="bangla-font" style="text-align: center" width="20%">জড়িত টাকার পরিমাণ</td>
-                    <td class="bangla-font" style="text-align: center" width="30%">অধিদপ্তরের মন্তব্য</td>
+                    <td class="bangla-font" style="text-align: center" width="30%">অডিট অধিদপ্তরের মন্তব্য</td>
                 </tr>
                 @foreach($broadSheetItem as $broadSheet)
                     <tr>
