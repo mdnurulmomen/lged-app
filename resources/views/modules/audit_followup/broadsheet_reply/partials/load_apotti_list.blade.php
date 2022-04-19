@@ -107,7 +107,7 @@
                                         </a>
                                     </div>
                                     <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1"> {{$item['sender_office_name_bn'] == 'entity' ? 'এনটিটি/সংস্থা' : 'মন্ত্রণালয়' }} :</span>
+                                        <span class="mr-2 font-size-1-1"> {{$item['sender_type'] == 'entity' ? 'এনটিটি/সংস্থা' : 'মন্ত্রণালয়' }} :</span>
                                         <span class="description text-info text-wrap font-size-14">{{$item['sender_office_name_bn']}}</span>
                                     </div>
 {{--                                    <div class="subject-wrapper font-weight-normal">--}}
