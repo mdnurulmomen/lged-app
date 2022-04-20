@@ -813,19 +813,19 @@
 {{--            <span>বরাবর,</span>--}}
 {{--        </div>--}}
 
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 30px">
             <span style="font-weight: bold">বিষয়ঃ {!! str_repeat('&nbsp;',1) !!} {{$broadSheetinfo['subject']}}</span>
         </div>
 
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 20px">
             {!! str_repeat('&nbsp;',10) !!} {!! $broadSheetinfo['details'] !!}
         </div>
 
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 20px">
             <b>সংযুক্তিঃ পরিশিষ্ট</b>
         </div>
 
-        <table width="100%" style="color: black">
+        <table width="100%" style="color: black;margin-top: 30px">
             <tr>
                 <td class="bangla-font" width="33%" style="text-align: left">
                     {!! nl2br($broadSheetinfo['receiver_details']) !!}
@@ -833,15 +833,15 @@
                 <td class="bangla-font" width="33%" style="text-align: left"></td>
                 <td class="bangla-font" width="33%" style="text-align: center">
                         <p>আপনার বিশ্বস্ত</p>
-                        <p>({{$broadSheetinfo['sender_name_bn']}})</p>
                         <p>{{$broadSheetinfo['sender_designation_bn']}}</p>
+                        <p>({{$broadSheetinfo['sender_unit_bn']}})</p>
                 </td>
             </tr>
         </table>
 
 
         @if($broadSheetinfo['cc_list'])
-            <table class="bangla-font" width="100%" style="color: black">
+            <table class="bangla-font" width="100%" style="color: black;margin-top: 30px">
                 <tr>
                     <td style="padding-bottom: 10px;">অনুলিপি:-</td>
                 </tr>
