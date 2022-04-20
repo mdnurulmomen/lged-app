@@ -1,13 +1,17 @@
 <div class="card sna-card-border">
         <div class="row">
             <div class="col-xl-4 text-left">
-                <h3>স্মারক নংঃ {{$broadSheetInfo['memorandum_no']}}</h3>
+                <h3>স্মারক নং : {{$broadSheetInfo['memorandum_no']}}</h3>
             </div>
             <div class="col-xl-4 text-center">
-                <h3>এন্টিটিঃ {{$broadSheetInfo['sender_office_name_bn']}}</h3>
+                <h3>{{$broadSheetInfo['sender_type'] == 'entity' ? 'এনটিটি/সংস্থা' : 'মন্ত্রণালয়' }} : {{$broadSheetInfo['sender_type'] == 'entity' ? $broadSheetInfo['sender_office_name_bn'] : $broadSheetInfo['ministry_name_bn']}}</h3>
             </div>
             <div class="col-xl-4 text-right">
-                <h3>তারিখঃ {{$broadSheetInfo['memorandum_date']}}</h3>
+                <button class="d-none reload"
+                        data-broad-sheet-id="{{$broadSheetInfo['id']}}"
+                        onclick="Broadsheet_Reply_List_Container.loadBroadSheetItem($(this))">
+                </button>
+                <h3>তারিখ : {{formatDate($broadSheetInfo['memorandum_date'],'bn')}}</h3>
             </div>
         </div>
 </div>
@@ -17,15 +21,18 @@
         <table class="table table-bordered" width="100%">
             <thead class="thead-light">
             <tr class="bg-light">
-                <td style="text-align: center" width="5%">অনুচ্ছেদ নং</td>
+                <td style="text-align: center" width="5%">ক্রমিক</td>
                 <td style="text-align: center" width="10%">কস্ট সেন্টার/ইউনিট</td>
-                <td style="text-align: center" width="5%">নিরীক্ষা বছর</td>
+                <td style="text-align: center" width="5%">নিরীক্ষা বছর ও অনুচ্ছেদ নং</td>
                 <td style="text-align: center" width="5%">আপত্তি ক্যাটাগরি</td>
                 <td style="text-align: center" width="25%">শিরোনাম ও বিবরণ</td>
-                <td style="text-align: right" width="25%"> অর্থ </td>
-                <td style="text-align: left" width="25%">জবাব</td>
+                <td style="text-align: center" width="25%"> অর্থ </td>
+                <td style="text-align: center" width="25%">জবাব</td>
                 <td style="text-align: center" width="5%">
                     ডিরেক্টরেট এর সিদ্ধান্ত
+                </td>
+                <td style="text-align: center" width="10%">
+                    সংযুক্তি
                 </td>
                 <td style="text-align: center" width="20%">
                     কার্যক্রম
@@ -35,9 +42,12 @@
             <tbody>
             @foreach($broadSheetItem as $broadSheet)
                 <tr>
-                    <td style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['onucched_no'])}}</td>
+                    <td style="text-align: center;vertical-align: top;">{{enTobn($loop->iteration)}}</td>
                     <td style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['cost_center_name_bn'])}}</td>
-                    <td style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</td>
+                    <td style="text-align: left;vertical-align: top;">
+                        <p><b>নিরীক্ষা বছর : </b>{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</p>
+                        <p><b>অনুচ্ছেদ নং : </b>{{enTobn($broadSheet['apotti']['onucched_no'])}}</p>
+                    </td>
                     <td style="text-align: center;vertical-align: top;">
                         @if($broadSheet['apotti']['memo_type'] == 'sfi')
                             @php $apottiType = 'এসএফআই'; @endphp
@@ -82,6 +92,36 @@
                             <b>মন্তব্য :</b> {{$broadSheet['comment']}}
                         </p>
 
+                    </td>
+                    <td>
+                        @if($broadSheet['apotti']['apotti_attachment'])
+                            <div class="attachment_list_items pb-7">
+                            <ul class="list-group">
+                                @foreach($broadSheet['apotti']['apotti_attachment'] as $attachment)
+                                    @if($attachment['file_extension'] == 'pdf')
+                                        @php $fileIcon = 'fa-file-pdf'; @endphp
+                                    @elseif($attachment['file_extension']  == 'excel')
+                                        @php $fileIcon = 'fa-file-excel'; @endphp
+                                    @elseif($attachment['file_extension']  == 'docx')
+                                        @php $fileIcon = 'fa-file-word'; @endphp
+                                    @else
+                                        @php $fileIcon = 'fa-file-image'; @endphp
+                                    @endif
+
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2 rounded-0 border-left-0 border-right-0">
+                                        <div class="position-relative w-100 d-flex align-items-start">
+                                            <a title="" href="{{$attachment['file_path']}}" download class="d-inline-block text-dark‌‌">
+                                <span class="viewer_trigger d-flex align-items-start">
+                                    <i class="text-warning fas {{$fileIcon}} fa-lg px-3"></i>
+                                    <span class="ml-2 d-flex align-items-start">{{$attachment['file_user_define_name']}}</span>
+                                </span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                     </td>
                     <td>
                         @if(!$broadSheet['approval_status'])
@@ -177,6 +217,7 @@
                 } else {
                     toastr.success(response.data);
                     $('#kt_quick_panel_close').click();
+                    $('.reload').click();
                 }
             });
         },
@@ -210,6 +251,7 @@
                             toastr.error(response.data);
                         } else {
                             toastr.success(response.data);
+                            $('.reload').click();
                         }
                     });
                 }

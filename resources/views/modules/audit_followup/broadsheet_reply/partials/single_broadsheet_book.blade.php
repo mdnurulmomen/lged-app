@@ -5,6 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     {{--    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>--}}
     <style>
+        .page-break {
+            page-break-after: always;
+        }
         html {
             -ms-text-size-adjust: 100%;
             -webkit-text-size-adjust: 100%;
@@ -782,12 +785,19 @@
 </head>
 
 <body>
+@if($scope == 'preview')
+    <button data-scope="download" data-broad-sheet-id="{{$broadSheetinfo['id']}}"
+            type="button" class="mr-3 btn btn-sm btn-primary btn-square"
+            onclick="Broadsheet_Reply_List_Container.downloadBroadSheet($(this))">
+        Download
+    </button>
+@endif
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     <div class="pdf-screen bangla-font">
         <table class="bangla-font" width="100%">
             <tr>
-                <td style="text-align: center;font-size: 35px;font-weight: bold">
-                    {{$broadSheetinfo['sender_office_name_bn']}}
+                <td style="text-align: center;font-size: 25px;font-weight: bold">
+                    {{$broadSheetinfo['sender_type'] == 'entity' ? $broadSheetinfo['sender_office_name_bn'] : $broadSheetinfo['ministry_name_bn']}}
                 </td>
             </tr>
         </table>
@@ -799,12 +809,9 @@
             </tr>
         </table>
 
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 20px">
-            <span>বরাবর,</span>
-        </div>
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-left: 40px">
-            {!! nl2br($broadSheetinfo['receiver_details']) !!}
-        </div>
+{{--        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 20px">--}}
+{{--            <span>বরাবর,</span>--}}
+{{--        </div>--}}
 
         <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 10px">
             <span style="font-weight: bold">বিষয়ঃ {!! str_repeat('&nbsp;',1) !!} {{$broadSheetinfo['subject']}}</span>
@@ -820,7 +827,9 @@
 
         <table width="100%" style="color: black">
             <tr>
-                <td class="bangla-font" width="33%" style="text-align: left"></td>
+                <td class="bangla-font" width="33%" style="text-align: left">
+                    {!! nl2br($broadSheetinfo['receiver_details']) !!}
+                </td>
                 <td class="bangla-font" width="33%" style="text-align: left"></td>
                 <td class="bangla-font" width="33%" style="text-align: center">
                         <p>আপনার বিশ্বস্ত</p>
@@ -846,8 +855,9 @@
             </table>
         @endif
 
-        <div class="bangla-font" style="text-align:center;font-family:Nikosh,serif !important;margin-top: 10px">
-            <b>{{$broadSheetinfo['sender_office_name_bn']}}</b>
+        <div class="page-break"></div>
+        <div class="bangla-font" style="text-align:center;font-family:Nikosh,serif !important;margin-top: 10px;font-size: 25px">
+            <b>{{$broadSheetinfo['sender_type'] == 'entity' ? $broadSheetinfo['sender_office_name_bn'] : $broadSheetinfo['ministry_name_bn']}}</b>
         </div>
         <br><br>
 
@@ -865,16 +875,6 @@
                     <td class="bangla-font" style="text-align: center" width="15%">সংস্থার নির্বাহী প্রধানের জবাব</td>
                     <td class="bangla-font" style="text-align: center" width="15%">মন্ত্রণালয়/বিভাগ/অন্যান্য এর জবাব</td>
                 </tr>
-{{--                <tr>--}}
-{{--                    <td class="bangla-font" style="text-align: center">১</td>--}}
-{{--                    <td class="bangla-font" style="text-align: center">২</td>--}}
-{{--                    <td class="bangla-font" style="text-align: center">৩</td>--}}
-{{--                    <td class="bangla-font" style="text-align: center">৪</td>--}}
-{{--                    <td class="bangla-font" style="text-align: center">৫</td>--}}
-{{--                    <td class="bangla-font" style="text-align: center">৬</td>--}}
-{{--                    <td class="bangla-font" style="text-align: center">৭</td>--}}
-{{--                    <td class="bangla-font" style="text-align: center">৮</td>--}}
-{{--                </tr>--}}
                @foreach($broadSheetItem as $broadSheet)
                     <tr>
                         <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['cost_center_name_bn'])}}</td>

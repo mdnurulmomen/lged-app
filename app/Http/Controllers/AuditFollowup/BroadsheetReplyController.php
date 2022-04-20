@@ -101,6 +101,8 @@ class BroadsheetReplyController extends Controller
         $data = Validator::make($request->all(), [
             'per_page' => 'required|integer',
             'office_id' => 'required|integer',
+            'ministry_id' => 'nullable',
+            'entity_id' => 'nullable',
             'page' => 'required|integer',
         ])->validate();
 
@@ -122,6 +124,47 @@ class BroadsheetReplyController extends Controller
         }
     }
 
+    public function loadBroadSheeMinistrySelect(Request $request){
+        $data = Validator::make($request->all(), [
+            'office_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $ministryList = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_ministry_list'), $data)->json();
+
+//        dd($ministryList);
+
+        if (isSuccess($ministryList)) {
+            $ministryList = $ministryList['data'];
+            return view('modules.audit_followup.broadsheet_reply.partials.load_broadsheet_ministry_select',
+                compact('ministryList'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $ministryList]);
+        }
+    }
+
+    public function loadBroadSheetEntitySelect(Request $request){
+        $data = Validator::make($request->all(), [
+            'office_id' => 'required|integer',
+            'ministry_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $entityList = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_entity_list'), $data)->json();
+
+//        dd($entityList);
+
+        if (isSuccess($entityList)) {
+            $entityList = $entityList['data'];
+            return view('modules.audit_followup.broadsheet_reply.partials.load_broadsheet_entity_select',
+                compact('entityList'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $entityList]);
+        }
+    }
+
     public function getBroadSheetItem(Request $request){
 
         $data = Validator::make($request->all(), [
@@ -136,7 +179,7 @@ class BroadsheetReplyController extends Controller
         $broadSheetInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_info'), $data)->json();
         $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_items'), $data)->json();
 
-        // dd($broadSheetInfo);
+//         dd($broadSheetItem);
 
         if (isSuccess($broadSheetItem)) {
             $broadSheetInfo = $broadSheetInfo['data'];
@@ -242,7 +285,7 @@ class BroadsheetReplyController extends Controller
         $broadSheetinfo = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_info'), $data)->json();
 
         $broadSheetItem = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_broad_sheet_items'), $data)->json();
-
+//        dd($broadSheetItem);
         if (isSuccess($broadSheetItem)) {
             $broadSheetItem = $broadSheetItem['data'];
             $broadSheetinfo = $broadSheetinfo['data'];
@@ -351,7 +394,10 @@ class BroadsheetReplyController extends Controller
             'braod_sheet_cc' => 'nullable',
         ])->validate();
 
-        $data['memorandum_date'] = Carbon::parse($request->memorandum_date)->format('Y-m-d');
+//        $data['memorandum_date'] = Carbon::parse($request->memorandum_date)->format('Y-m-d');
+        $data['memorandum_date'] = date('Y-m-d',strtotime($request->memorandum_date));
+
+//        dd($data);
 
         $data['cdesk'] = $this->current_desk_json();
 

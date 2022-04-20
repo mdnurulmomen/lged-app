@@ -89,11 +89,11 @@
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
                                     <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">ক্রমিক নংঃ</span>
+                                        <span class="mr-2 font-size-1-1">ক্রমিক নং :</span>
                                         <span class="description text-wrap font-size-14">{{enTobn($loop->iteration)}}</span>
                                     </div>
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
-                                        <span class="mr-1 ">স্মারক নংঃ</span>
+                                        <span class="mr-1 ">স্মারক নং :</span>
                                         <a  data-entity-name="{{$item['sender_office_name_bn']}}"
                                             data-broad-sheet-id="{{$item['id']}}"
                                             data-memorandum-no="{{enTobn($item['memorandum_no'])}}"
@@ -107,13 +107,13 @@
                                         </a>
                                     </div>
                                     <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1"> {{$item['sender_office_name_bn'] == 'entity' ? 'এনটিটি/সংস্থা' : 'মন্ত্রণালয়' }} :</span>
-                                        <span class="description text-info text-wrap font-size-14">{{$item['sender_office_name_bn']}}</span>
+                                        <span class="mr-2 font-size-1-1"> {{$item['sender_type'] == 'entity' ? 'এনটিটি/সংস্থা' : 'মন্ত্রণালয়' }} :</span>
+                                        <span class="description text-info text-wrap font-size-14">{{$item['sender_type'] == 'entity' ?  $item['sender_office_name_bn'] : $item['ministry_name_bn'] }}</span>
                                     </div>
-                                    <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">তারিখঃ</span>
-                                        <span class="description text-info text-wrap font-size-14">{{formatDateTime($item['memorandum_date'],'bn')}}</span>
-                                    </div>
+{{--                                    <div class="subject-wrapper font-weight-normal">--}}
+{{--                                        <span class="mr-2 font-size-1-1">তারিখঃ</span>--}}
+{{--                                        <span class="description text-info text-wrap font-size-14">{{formatDateTime($item['memorandum_date'],'bn')}}</span>--}}
+{{--                                    </div>--}}
 
                                     @if(!$item['broad_sheet_reply'])
                                         @if($item['broad_sheet_items_count'] == $item['broad_sheet_item_decision'])
@@ -169,7 +169,7 @@
                                         <div class="d-flex align-items-center justify-content-md-end">
                                             <div class="mb-2 mt-3 soongukto-wrapper">
                                                 <div class="d-flex justify-content-end align-items-center">
-                                                    <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($item['created_at'],'bn')}}</div>
+                                                    <div class="text-dark-75 ml-3 rdate" cspas="date">আগত তারিখ : {{formatDate($item['created_at'],'bn')}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -179,7 +179,7 @@
                                                     data-broad-sheet-id="{{$item['id']}}"
                                                     data-memorandum-no="{{enTobn($item['memorandum_no'])}}"
                                                     data-memorandum-date="{{enTobn($item['memorandum_date'])}}"
-                                                    data-scope=""
+                                                    data-scope="preview"
                                                     onclick="Broadsheet_Reply_List_Container.showBroadSheet($(this))">
                                                 <i class="fad fa-eye"></i>
                                             </button>
@@ -429,7 +429,7 @@
             broad_sheet_id = elem.data('broad-sheet-id');
             memorandum_no = elem.data('memorandum-no');
             memorandum_date = elem.data('memorandum-date');
-            scope = elem.data('scope');
+            scope = 'pdf';
 
             data = {broad_sheet_id,memorandum_no,memorandum_date,scope};
 
@@ -474,6 +474,7 @@
                 } else {
                     toastr.success(response.data);
                     $('#kt_quick_panel_close').click();
+                    Broadsheet_Container.loadBroadSheetList();
                 }
             });
         },
@@ -507,6 +508,7 @@
                         } else {
                             toastr.success(response.data);
                             $('#kt_quick_panel_close').click();
+                            Broadsheet_Container.loadBroadSheetList();
                         }
                     });
                 }
