@@ -334,7 +334,7 @@ ul.sna-breadcrumb li a:hover {
     border: 1px solid #1061a5;
     height: 1cm;
 }
-.btn.btn-primary {
+#search-criteria .btn.btn-primary {
     color: #FFFFFF;
     background-color: #3699FF;
     border-color: #3699FF;
