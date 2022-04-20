@@ -143,7 +143,7 @@
                                     অনুমোদিত
                                 </a>
                             @else
-                                @if($desk_officer_grade == 3)
+                                @if($desk_officer_grade == 6)
                                     <button class="mr-1 btn btn-sm btn-info btn-square" title="অনুমোদন করুন"
                                             data-broad-sheet-id="{{$broadSheet['broad_sheet_reply_id']}}"
                                             data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
