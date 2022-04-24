@@ -52,7 +52,7 @@
                     </a>
                 </li>
             </ul>
-            <div class="tab-content" id="rp_office_tab">
+            <div class="tab-content" id="memo_create_tab">
                 <div class="tab-pane fade border border-top-0 p-3 show active" id="memo_details"
                      role="tabpanel" aria-labelledby="memo-details-tab">
 
@@ -65,7 +65,7 @@
                                           rows="2"></textarea>
 
                                 <label class="col-form-label">বিবরণ<span class="text-danger">*</span></label>
-                                <textarea id="kt-tinymce-memo-details" name="memo_description_bn" class="kt-tinymce-1"></textarea>
+                                <textarea id="kt-tinymce-memo-details" class="kt-tinymce-1"></textarea>
 
                                 <label class="col-form-label">অনিয়মের কারণ</label>
                                 <textarea class="form-control mb-1" name="irregularity_cause" placeholder="অনিয়মের কারণ"
@@ -175,8 +175,7 @@
                 </div>
 
                 <div class="tab-pane fade border border-top-0 p-3" id="porisisto_tab"
-                     role="tabpanel"
-                     aria-labelledby="porisisto-tab">
+                     role="tabpanel" aria-labelledby="porisisto-tab">
 
                     <label class="col-form-label">পরিশিষ্ট</label>
                     <textarea id="kt-tinymce-porisisto" class="kt-tinymce-1"></textarea>
@@ -209,8 +208,8 @@
         content_style: "body {font-family: solaimanlipi;font-size: 13pt;}",
         fontsize_formats: "8pt 10pt 12pt 13pt 14pt 18pt 24pt 36pt",
         font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Verdana=verdana,geneva; Solaimanlipi=solaimanlipi",
-        toolbar: ['styleselect fontselect fontsizeselect | blockquote subscript superscript','undo redo | cut copy paste | bold italic | link image | alignleft aligncenter alignright alignjustify | table',
-            'bullist numlist | outdent indent | advlist | autolink | lists charmap | print preview |  code'],
+        toolbar: ['styleselect fontselect fontsizeselect | blockquote subscript superscript | undo redo | cut copy paste | bold italic | link image | alignleft aligncenter alignright alignjustify',
+            'table | bullist numlist | outdent indent | advlist | autolink | lists charmap | print preview |  code'],
         plugins: 'advlist paste autolink link image lists charmap print preview code table',
         context_menu: 'link image table',
         setup: function (editor) {

@@ -125,14 +125,14 @@
                     </td>
                     <td>
                         @if(!$broadSheet['approval_status'])
-                            <button class="mr-1 btn btn-sm btn-primary btn-square btn_apotti_decision" title="সিদ্ধান্ত"
+                            <button class="mr-1 mr-1 btn btn-sm btn-primary btn-square btn_apotti_decision" title="সিদ্ধান্ত"
                                     data-broad-sheet-id="{{$broadSheet['broad_sheet_reply_id']}}"
                                     data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
                                     data-memo-id="{{$broadSheet['apotti']['memo_id']}}"
                                     data-jorito-ortho="{{$broadSheet['apotti']['jorito_ortho_poriman']}}"
                                     data-broad-sheet-type="{{$broadSheetInfo['broad_sheet_type']}}"
                                     onclick="ApottiDecision_Container.getApottiDecisionForm($(this))">
-                                সিদ্ধান্ত
+                               @if($broadSheet['status']) <i class="fa fa-check"></i> @endif সিদ্ধান্ত
                             </button>
                         @endif
 
@@ -143,8 +143,8 @@
                                     অনুমোদিত
                                 </a>
                             @else
-                                @if($desk_officer_grade == 3)
-                                    <button class="mr-1 btn btn-sm btn-primary btn-square" title="অনুমোদন করুন"
+                                @if($desk_officer_grade == 6)
+                                    <button class="mr-1 btn btn-sm btn-info btn-square" title="অনুমোদন করুন"
                                             data-broad-sheet-id="{{$broadSheet['broad_sheet_reply_id']}}"
                                             data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
                                             data-memo-id="{{$broadSheet['apotti']['memo_id']}}"

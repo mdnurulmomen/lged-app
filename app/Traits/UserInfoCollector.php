@@ -127,6 +127,7 @@ trait UserInfoCollector
             'officer_grade' => $this->current_office()['office_unit_organogram']['ref_designation_grade'],
             'email' => $this->getEmployeeInfo()['personal_email'],
             'phone' => $this->getEmployeeInfo()['personal_mobile'],
+            'address' => $this->current_office()['office']['office_address'],
         ];
     }
 
