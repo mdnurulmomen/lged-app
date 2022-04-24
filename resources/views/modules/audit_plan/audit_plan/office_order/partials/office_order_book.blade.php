@@ -804,7 +804,7 @@
         </div>
 
         <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;margin-top: 10px">
-            <span style="font-weight: bold;border-bottom: 1px solid black">নিরীক্ষা দল নং-০১</span>
+            <span style="font-weight: bold;border-bottom: 1px solid black">জনবল</span>
         </div>
 
         <div class="bangla-font" style="margin-top: 5px">
