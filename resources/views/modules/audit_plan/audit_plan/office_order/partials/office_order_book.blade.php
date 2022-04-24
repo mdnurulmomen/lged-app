@@ -784,8 +784,7 @@
     <div class="pdf-screen bangla-font" style="height: 100%">
         <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center">
             {{--মহাপরিচালকের কার্যালয় <br>--}}
-            <b>{{$directorateName}}</b> <br>
-            {!! $directorateAddress !!}
+            <x-office-header-details />
         </div>
 
         <div class="bangla-font" style="font-family:Nikosh,serif !important;width: 100%;margin-top: 10px">
