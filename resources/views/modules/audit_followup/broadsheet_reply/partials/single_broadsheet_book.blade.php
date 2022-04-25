@@ -888,7 +888,7 @@
                             @endif
                             {{$apottiType}}
                         </td>
-                        <td class="bangla-font" style="text-align: justify;">
+                        <td class="bangla-font" style="text-align: justify;vertical-align: top;">
                             <span style="padding:5px; margin-bottom: 5px"><b>শিরোনামঃ</b> <br> {{$broadSheet['apotti']['memo_title_bn']}}</span>
                             <br>
                             <br>
