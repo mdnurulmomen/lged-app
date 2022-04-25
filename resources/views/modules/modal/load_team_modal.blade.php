@@ -360,6 +360,7 @@
 
                                                                                 @if($schedule_type == 'schedule')
                                                                                     <tbody
+                                                                                        id="schedule_tbody_{{$loop->parent->iteration}}_{{$loop->iteration}}"
                                                                                         data-tbody-id="{{$loop->parent->iteration}}_{{$loop->iteration}}"
                                                                                         data-schedule-type="{{$schedule_type}}">
                                                                                     <tr class='audit_schedule_row_{{$loop->parent->iteration}}'
@@ -447,14 +448,14 @@
                                                                                         <td>
                                                                                             <div style="display: flex;">
                                                                                                 <button type="button" title="schedule"
-                                                                                                        onclick="addAuditScheduleTblRow({{$loop->parent->iteration}})"
+                                                                                                        onclick="addAuditScheduleTblRow({{$loop->parent->iteration}},{{$loop->iteration}})"
                                                                                                         class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-calendar-day"></span>
                                                                                                 </button>
 
                                                                                                 <button type="button" title="Transit"
-                                                                                                        onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
+                                                                                                        onclick="addDetailsTblRow({{ $loop->parent->iteration }},{{$loop->iteration}})"
                                                                                                         class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-plus"></span>
@@ -473,6 +474,7 @@
 
                                                                                 @elseif($schedule_type == 'visit')
                                                                                     <tbody
+                                                                                        id="schedule_tbody_{{$loop->parent->iteration}}_{{$loop->iteration}}"
                                                                                         data-tbody-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
                                                                                         data-schedule-type="{{$schedule_type}}">
                                                                                     <tr class="audit_schedule_row_{{ $loop->parent->iteration }}"
@@ -496,14 +498,14 @@
                                                                                         <td>
                                                                                             <div style="display: flex">
                                                                                                 <button type="button" title="schedule"
-                                                                                                        onclick="addAuditScheduleTblRow({{ $loop->parent->iteration }})"
+                                                                                                        onclick="addAuditScheduleTblRow({{ $loop->parent->iteration }},{{$loop->iteration}})"
                                                                                                         class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-calendar-day"></span>
                                                                                                 </button>
 
                                                                                                 <button type="button" title="Transit"
-                                                                                                        onclick="addDetailsTblRow({{ $loop->parent->iteration }})"
+                                                                                                        onclick="addDetailsTblRow({{ $loop->parent->iteration }},{{$loop->iteration}})"
                                                                                                         class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-plus"></span>
@@ -599,7 +601,7 @@
         }
     }
 
-    function addAuditScheduleTblRow(layer_id) {
+    function addAuditScheduleTblRow(layer_id,layer_row) {
         total_audit_schedule_row = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
         entity_list = '{{$parent_office_id}}';
         entity_list = entity_list.replace(/&quot;/g, '"');
@@ -613,46 +615,12 @@
                 toastr.error('Internal Serve Error');
                 console.log(response)
             } else {
-                $('#audit_schedule_table_' + layer_id).append(response);
-                // $('.audit_schedule_table_' + layer_id).html(response);
+                // $('#audit_schedule_table_' + layer_id).append(response);
+                $('#schedule_tbody_' + layer_id + '_' + layer_row).after(response);
+
                 // $('.select-select2').select2();
             }
         });
-        {{--var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;--}}
-        {{--var teamScheduleHtml = "<tbody data-schedule-type='schedule' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +--}}
-        {{--    "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";--}}
-        {{--teamScheduleHtml += "<td class='selected_entity_data_" + totalAuditScheduleRow + "'>" +--}}
-        {{--    "<select class='form-control select-select2 input-entity-name'><option>--Loading--</option>"+--}}
-        {{--    @foreach(json_decode($parent_office_id,true) as $key => $entity)--}}
-        {{--    "<option @if($entity['entity_id'] == $schedule['cost_center_id']) selected @endif value="{{$entity['id']}}">"+--}}
-        {{--{{$entity['entity_name_bn']}}</option>@endforeach</select>" +--}}
-        {{--    "</td>";--}}
-        {{--teamScheduleHtml += "<td class='selected_nominated_office_data_" + totalAuditScheduleRow + "'>" +--}}
-        {{--    "<select class='form-control select-select2 input-branch-name'><option>--Loading--</option></select>" +--}}
-        {{--    "</td>";--}}
-
-        {{--teamScheduleHtml += "<td><div class='row'><div class='col pr-0'><input type='text' " +--}}
-        {{--    "class='date form-control input-start-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শুরু'/></div><div class='col pl-0'>" +--}}
-        {{--    "<input type='text' class='date form-control input-end-duration' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' placeholder='শেষ'/>" +--}}
-        {{--    "</div></div></td>"--}}
-        {{--teamScheduleHtml += "<td><input type='number' min='0' value='0' class='form-control input-total-working-day' id='input_total_working_day_" + layer_id + "_" + totalAuditScheduleRow + "' data-id='" + layer_id + "_" + totalAuditScheduleRow + "'/></td>";--}}
-        {{--teamScheduleHtml += "<td style='display: inline-flex'>" +--}}
-        {{--    "<button title='Add Schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='pulse pulse-primary btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +--}}
-        {{--    "<span class='fad fa-calendar-day'></span>" +--}}
-        {{--    "</button>" +--}}
-        {{--    "<button title='Add Visit' type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +--}}
-        {{--    "<span class='fad fa-plus'></span>" +--}}
-        {{--    "</button>" +--}}
-        {{--    "<button title='Remove' onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +--}}
-        {{--    "data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>" +--}}
-        {{--    "<span class='fal fa-trash-alt'></span>" +--}}
-        {{--    "</button>" +--}}
-        {{--    "</td>";--}}
-        {{--teamScheduleHtml += "</tr></tbody>";--}}
-
-        // $('#audit_schedule_table_' + layer_id).append(teamScheduleHtml);
-        {{--parent_office_id = '{{$parent_office_id}}';--}}
-        {{--loadSelectNominatedOffices(parent_office_id, layer_id, totalAuditScheduleRow);--}}
     }
 
     function loadSelectNominatedOffices(parent_office_id, layer_id, total_audit_schedule_row) {
@@ -692,17 +660,17 @@
 
     }
 
-    function addDetailsTblRow(layer_id) {
+    function addDetailsTblRow(layer_id,layer_row) {
         var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
-        var teamScheduleHtml = "<tbody data-schedule-type='visit' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
+        var teamScheduleHtml = "<tbody id='schedule_tbody_" + layer_id + "_" + totalAuditScheduleRow + "'  data-schedule-type='visit' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
         teamScheduleHtml += "<td colspan='2'><input placeholder='ট্রানজিট' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
         teamScheduleHtml += "<td colspan='2'><div><input placeholder='ট্রানজিটের তারিখ' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/><span class='fal fa-calendar field-icon'></span></div></td>";
         teamScheduleHtml += "<td><div style='display: flex'>" +
-            "<button title='schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
+            "<button title='schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ","+totalAuditScheduleRow+")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
             "<span class='fad fa-calendar-day'></span>" +
             "</button>" +
-            "<button title='Transit' type='button' onclick='addDetailsTblRow(" + layer_id + ")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
+            "<button title='Transit' type='button' onclick='addDetailsTblRow(" + layer_id + ","+totalAuditScheduleRow+")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
             "<span class='fad fa-plus'></span>" +
             "</button>" +
             "<button title='remove' onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
@@ -712,7 +680,8 @@
             "</div></td>";
         teamScheduleHtml += "</tr></tbody>";
 
-        $('#audit_schedule_table_' + layer_id).append(teamScheduleHtml);
+        // $('#audit_schedule_table_' + layer_id).append(teamScheduleHtml);
+        $('#schedule_tbody_' + layer_id + '_' + layer_row).after(teamScheduleHtml);
     }
 
     $(document).off('click', '.layer_text').on('click', '.layer_text', function () {

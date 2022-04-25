@@ -39,11 +39,11 @@
                data-id='{{$layer_id}}_{{$total_audit_schedule_row}}'/></td>
     <td>
         <div style="display:flex;">
-            <button title='Add Schedule' type='button' onclick='addAuditScheduleTblRow({{$layer_id}})'
+            <button title='Add Schedule' type='button' onclick='addAuditScheduleTblRow({{$layer_id}},{{$total_audit_schedule_row}})'
                     class='pulse pulse-primary btn btn-icon btn-outline-success border-0 btn-xs mr-2'>
                 <span class='fad fa-calendar-day'></span>
             </button>
-            <button title='Add Transit' type='button' onclick='addDetailsTblRow({{$layer_id}})'
+            <button title='Add Transit' type='button' onclick='addDetailsTblRow({{$layer_id}},{{$total_audit_schedule_row}})'
                     class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>
                 <span class='fad fa-plus'></span>
             </button>

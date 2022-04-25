@@ -452,3 +452,17 @@ if (!function_exists('readableFileSize')) {
         return round($bytes, 2) . ' ' . $units[$i];
     }
 }
+
+if (!function_exists('arryAortAsc')) {
+    function arryAortAsc($a,$b)
+    {
+        return ($a['employee_grade'] > $b['employee_grade']);
+    }
+}
+
+if (!function_exists('arryAortDesc')) {
+    function arryAortDesc($a,$b)
+    {
+        return ($a['employee_grade'] < $b['employee_grade']);
+    }
+}

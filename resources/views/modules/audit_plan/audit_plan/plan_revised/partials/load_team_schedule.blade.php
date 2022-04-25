@@ -72,13 +72,13 @@
             </td>
             <td>
                 <div style="display: flex">
-                    <button type="button" title="schedule" onclick="addAuditScheduleTblRow({{$team_layer_id}})"
+                    <button type="button" title="schedule" onclick="addAuditScheduleTblRow({{$team_layer_id}},1)"
                             class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                         <span class="fad fa-calendar-day"></span>
                     </button>
 
                     <button type="button" title="visit"
-                            onclick="addDetailsTblRow({{$team_layer_id}})"
+                            onclick="addDetailsTblRow({{$team_layer_id}},1)"
                             class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                         <span class="fad fa-plus"></span>
                     </button>
@@ -94,7 +94,7 @@
         </tr>
         </tbody>
 
-        <tbody id="visit_tbody_{{$team_layer_id}}_1" data-tbody-id="{{$team_layer_id}}_2" data-schedule-type="visit">
+        <tbody id="schedule_tbody_{{$team_layer_id}}_2" data-tbody-id="{{$team_layer_id}}_2" data-schedule-type="visit">
         <tr class="audit_schedule_row_{{$team_layer_id}}" data-layer-id="{{$team_layer_id}}"
             data-schedule-second-row='1_{{$team_layer_id}}'>
             <td colspan="2">
@@ -107,13 +107,13 @@
             <td>
                 <div style="display: flex">
                     <button type="button" title="schedule"
-                            onclick="addAuditScheduleTblRow({{$team_layer_id}})"
+                            onclick="addAuditScheduleTblRow({{$team_layer_id}},2)"
                             class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                         <span class="fad fa-calendar-day"></span>
                     </button>
 
                     <button type="button" title="visit"
-                            onclick="addDetailsTblRow({{$team_layer_id}})"
+                            onclick="addDetailsTblRow({{$team_layer_id}},2)"
                             class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                         <span class="fad fa-plus"></span>
                     </button>

@@ -37,8 +37,7 @@
 <div class="card sna-card-border mt-3" style="margin-bottom:30px;">
     <div style="font-family:Nikosh,serif !important;text-align: center">
         {{--মহাপরিচালকের কার্যালয় <br>--}}
-        <b>{{$directorateName}}</b> <br>
-        {!! $directorateAddress !!}
+        <x-office-header-details />
 
         <div style="font-family:Nikosh,serif !important;width: 100%;margin-top: 10px">
             <span style="width: 85%;float: left;text-align: left">
@@ -84,7 +83,6 @@
                 </tbody>
             </table>
         </div>
-
         @foreach($audit_team_schedules as $audit_team_schedule)
             @if($audit_team_schedule['team_schedules'] != null)
                 <div style="font-family:Nikosh,serif !important;text-align: center;margin-top: 10px">
@@ -103,10 +101,14 @@
                         </tr>
                         </thead>
                         <tbody>
+
                         @php $teamMemberSL = 1; @endphp
                         @foreach(json_decode($audit_team_schedule['team_members'],true) as $role => $team_members)
                             @if($role != 'teamLeader')
-                                @foreach($team_members as $key => $sub_team_leader)
+                                @php
+                                    usort($team_members, "arryAortAsc");
+                                @endphp
+                                @foreach($team_members as $member_key => $sub_team_leader)
                                     <tr>
                                         <td style="text-align: center">{{enTobn($teamMemberSL)}}</td>
                                         <td style="text-align: left;margin-left: 5px">জনাব {{$sub_team_leader['officer_name_bn']}}</td>
