@@ -1,6 +1,6 @@
 <x-title-wrapper>Audit Schedules</x-title-wrapper>
 
-<div class="card sna-card-border mt-2">
+<div class="card sna-card-border mt-2 mb-15">
     <div class="load-table-data" data-href="{{route('audit.execution.load-audit-schedule-list')}}">
         <div class="d-flex align-items-center">
             <div class="spinner-grow text-warning mr-3" role="status">
