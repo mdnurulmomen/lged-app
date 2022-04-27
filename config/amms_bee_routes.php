@@ -169,6 +169,10 @@ return [
         'previously_assigned_designations' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/audit-team/previously-assigned-designations',
         'get_team_info' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-team-info',
         'get_audit_plan_wise_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team',
+
+        'get_audit_plan_wise_team_members' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team-members',
+        'get_audit_plan_wise_team_schedules' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team-schedules',
+
         'ap_risk_assessment_store' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/store',
         'ap_risk_assessment_update' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/update',
         'ap_risk_assessment_list' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/ap-risk-assessment-list',

@@ -1211,11 +1211,16 @@
                     if (response.status === 'success') {
                         toastr.success(response.data);
                         //$(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
-                        Load_Team_Container.insertAuditScheduleListInBook();
+                        if (audit_plan_id == 0){
+                            Load_Team_Container.insertAuditScheduleListInBook();
+                        }else{
+                            Load_Team_Container.teamMemberInsertIntoBook(audit_plan_id);
+                            Load_Team_Container.teamMemberScheduleInsertIntoBook(audit_plan_id);
+                        }
                         Load_Team_Container.setJsonContentFromPlanBook();
                     } else {
                         toastr.error(response.data);
-                        console.log(response)
+                        console.log(response);
                     }
                 })
             } else {
@@ -1353,6 +1358,30 @@ style="padding-left: 5px;">
             $(".audit_team_names").html(allTeamNameInfo);
             $(".audit_team_leader").html(auditTeamLeaderInfo);
 
+        },
+
+        teamMemberInsertIntoBook: function (audit_plan_id) {
+            data = {audit_plan_id};
+            let url = '{{route('audit.plan.audit.revised.plan.get-audit-plan-wise-team-members')}}';
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('.team_list').html(response);
+                }
+            });
+        },
+
+        teamMemberScheduleInsertIntoBook: function (audit_plan_id) {
+            data = {audit_plan_id};
+            let url = '{{route('audit.plan.audit.revised.plan.get-audit-plan-wise-team-schedules')}}';
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('.audit_schedule_details').html(response);
+                }
+            });
         },
 
         insertAuditScheduleListInBook: function () {
