@@ -204,13 +204,13 @@
                                                        value="{{formatDate($milestone['milestone_target_date'],'en','/')}}">
                                             </td>
                                             <td class="pl-0 pr-0">
-                                                <input type="text" name="start_date"
+                                                <input style="padding: 2px" type="text" name="start_date"
                                                        class="form-control milestone_start_date date"
                                                        data-target-date="{{formatDate($milestone['milestone_target_date'],'en','/')}}"
                                                        value="{{formatDate($milestone['start_date'],'en','/')}}">
                                             </td>
                                             <td class="pl-0 pr-0">
-                                                <input type="text" name="end_date"
+                                                <input style="padding: 2px" type="text" name="end_date"
                                                        class="form-control milestone_end_date date"
                                                        data-target-date="{{formatDate($milestone['milestone_target_date'],'en','/')}}"
                                                        value="{{formatDate($milestone['end_date'],'en','/')}}">
