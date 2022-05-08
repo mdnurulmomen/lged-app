@@ -20,7 +20,7 @@
 </div>
 
 <div id="load_auditable_plan_lists"></div>
-<div class="load-office-wise-employee"></div>
+<div class="load-office-wise-employee mb-15"></div>
 
 @include('scripts.script_generic')
 <script>

@@ -367,4 +367,39 @@ class RevisedPlanController extends Controller
         }
     }
 
+
+    public function getPlanWiseTeamMembers(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'audit_plan_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+        $team_members = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_wise_team_members'), $data)->json();
+        //dd($team_members);
+        if (isSuccess($team_members)) {
+            $team_members = $team_members['data'];
+            return view('modules.audit_plan.audit_plan.plan_revised.partials.load_plan_wise_team_members', compact('team_members'));
+        } else {
+            return view('modules.audit_plan.audit_plan.plan_revised.partials.load_plan_wise_team_members', compact('team_members'));
+        }
+    }
+
+    public function getPlanWiseTeamSchedules(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'audit_plan_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+        $team_schedules = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_wise_team_schedules'), $data)->json();
+        //dd($team_schedules);
+        if (isSuccess($team_schedules)) {
+            $team_schedules = $team_schedules['data'];
+            return view('modules.audit_plan.audit_plan.plan_revised.partials.load_plan_wise_team_schedules', compact('team_schedules'));
+        } else {
+            return view('modules.audit_plan.audit_plan.plan_revised.partials.load_plan_wise_team_schedules', compact('team_schedules'));
+        }
+    }
+
 }
