@@ -29,7 +29,7 @@
                 <td style="text-align: center" width="25%"> অর্থ </td>
                 <td style="text-align: center" width="25%">জবাব</td>
                 <td style="text-align: center" width="5%">
-                    ডিরেক্টরেট এর সিদ্ধান্ত
+                    অডিট অধিদপ্তরের সিদ্ধান্ত
                 </td>
                 <td style="text-align: center" width="10%">
                     সংযুক্তি
@@ -84,6 +84,12 @@
                                 <b>আপত্তি অবস্থা :</b> আংশিক নিষ্পন্ন
                             @endif
 
+                        </p>
+
+                        <br>
+
+                        <p>
+                            <b>নিষ্পন্ন/অনিষ্পন্নের কারণ :</b> {{$broadSheet['status_reason']}}
                         </p>
 
                         <br>

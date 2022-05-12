@@ -227,6 +227,7 @@ class BroadsheetReplyController extends Controller
                 'apotti_status' => 'nullable',
                 'comment' => 'nullable',
                 'cag_comment' => 'nullable',
+                'status_reason' => 'nullable',
             ])->validate();
 
             $data['cdesk'] = $this->current_desk_json();
