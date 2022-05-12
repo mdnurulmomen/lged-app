@@ -58,6 +58,7 @@
             if (apottis.length > 0) {
                 Audit_Apotti_Container.setAuditApottiSummary(apottis);
                 Audit_Apotti_Container.setAuditApottiDetails(apottis);
+                Audit_Apotti_Container.setAuditApottiWisePrisistos(apottis);
                 toastr.success('সফলভাবে আপত্তিসমূহ সংরক্ষণ করা হয়েছে');
             }
         },
@@ -85,6 +86,19 @@
                     toastr.error(response.data);
                 } else {
                     $('.audit_apotti_details').html(response);
+                    Insert_AIR_Data_Container.setJsonContentFromPlanBook();
+                }
+            });
+        },
+
+        setAuditApottiWisePrisistos: function (apottis) {
+            url = '{{route('audit.report.air.get-audit-apotti-wise-porisistos')}}';
+            let data = {apottis};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $('.audit_apotti_porisistos').html(response);
                     Insert_AIR_Data_Container.setJsonContentFromPlanBook();
                 }
             });

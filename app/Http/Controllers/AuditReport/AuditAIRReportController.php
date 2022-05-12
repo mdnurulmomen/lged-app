@@ -36,10 +36,12 @@ class AuditAIRReportController extends Controller
             $directorate_name = $this->current_office()['office_name_bn'];
             if ($this->current_office_id() == 14) {
                 $directorate_address = 'অডিট কমপ্লেক্স <br> ৩য় তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
+            } elseif ($this->current_office_id() == 2) {
+                $directorate_address = 'অডিট কমপ্লেক্স <br> ৮ম তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
             } elseif ($this->current_office_id() == 3) {
                 $directorate_address = 'অডিট কমপ্লেক্স <br> ২য় তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
             } else {
-                $directorate_address = 'অডিট কমপ্লেক্স <br> ৮ম তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
+                $directorate_address = '';
             }
             $auditType = 'কমপ্লায়েন্স অডিট';
 
@@ -354,5 +356,17 @@ class AuditAIRReportController extends Controller
         else{
             return view('modules.audit_report.air_generate.partials.load_audit_apottis_details',compact('apottis'));
         }
+    }
+
+    public function getAuditApottiWisePrisistos(Request $request)
+    {
+        $requestData = Validator::make($request->all(), [
+            'apottis' => 'required',
+        ])->validate();
+
+        $requestData['cdesk'] =$this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_audit_apotti_wise_porisistos'), $requestData)->json();
+        $porisishtos = isSuccess($responseData)?$responseData['data']:[];
+        return view('modules.audit_report.air_generate.partials.load_audit_apottis_wise_porisistos',compact('porisishtos'));
     }
 }

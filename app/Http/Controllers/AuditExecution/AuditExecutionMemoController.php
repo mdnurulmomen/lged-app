@@ -108,7 +108,6 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'audit_year_end', 'contents' => $request->audit_year_end],
             ['name' => 'memo_irregularity_type', 'contents' => $request->memo_irregularity_type],
             ['name' => 'memo_irregularity_sub_type', 'contents' => $request->memo_irregularity_sub_type],
-            ['name' => 'porisisto_details', 'contents' => $request->porisisto_details],
             ['name' => 'memo_type', 'contents' => 0],
             ['name' => 'memo_status', 'contents' => 0],
             ['name' => 'team_leader_name', 'contents' => $request->team_leader_name],
@@ -120,6 +119,16 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'rpu_acceptor_designation_name_bn', 'contents' => $request->rpu_acceptor_designation_name_bn],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
+
+        /*['name' => 'porisisto_details', 'contents' => $request->porisisto_details],*/
+
+        foreach ($request->porisisto_details as $porisisto) {
+            $data[] = [
+                'name' => 'porisisto_details[]',
+                'contents' => $porisisto,
+            ];
+        }
+
 
         //for porisishtos
         if ($request->hasfile('porisishtos')) {
@@ -350,6 +359,13 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'memo_status', 'contents' => 0],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
+
+        foreach ($request->porisisto_details as $porisisto) {
+            $data[] = [
+                'name' => 'porisisto_details[]',
+                'contents' => $porisisto,
+            ];
+        }
 
         //for porisishtos
         if ($request->hasfile('porisishtos')) {

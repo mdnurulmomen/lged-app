@@ -304,6 +304,15 @@ return [
             'update_apotti_register' => env('API_URL_BEE', '') . '/audit-conduct-apotti/update-apotti-register',
             'store_apotti_register_movement' => env('API_URL_BEE', '') . '/audit-conduct-apotti/store-apotti-register-movement',
         ],
+
+        'archive_apotti' => [
+            'get_oniyomer_category_list' => env('API_URL_BEE', '') . '/audit-archive-apotti/get-oniyomer-category-list',
+            'get_parent_wise_oniyomer_category_list' => env('API_URL_BEE', '') . '/audit-archive-apotti/get-parent-wise-oniyomer-category-list',
+            'store' => env('API_URL_BEE', '') . '/audit-archive-apotti/store',
+            'update' => env('API_URL_BEE', '') . '/audit-archive-apotti/update',
+            'list' => env('API_URL_BEE', '') . '/audit-archive-apotti/list',
+            'edit' => env('API_URL_BEE', '') . '/audit-archive-apotti/edit',
+        ]
     ],
 
     'audit_quality_control' => [
@@ -334,6 +343,7 @@ return [
             'get_air_and_apotti_type_wise_qac_apotti' => env('API_URL_BEE', '') . '/audit-report/air/get-air-and-apotti-type-wise-qac-apotti',
             'get_air_wise_audit_apotti_list' => env('API_URL_BEE', '') . '/audit-report/air/get-air-wise-audit-apotti-list',
             'get_audit_apotti' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-apotti',
+            'get_audit_apotti_wise_porisistos' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-apotti-wise-porisistos',
             'store_air_movement' => env('API_URL_BEE', '') . '/audit-report/air/store-air-movement',
             'get_air_last_movement' => env('API_URL_BEE', '') . '/audit-report/air/get-air-last-movement',
             'get_audit_plan_type_wise_air' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-plan-and-type-wise-air',

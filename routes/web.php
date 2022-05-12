@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuditExecution\AuditExecutionArchiveApottiController;
 use App\Http\Controllers\AuditFollowup\AuditFollowupController;
 use App\Http\Controllers\AuditFollowup\BroadsheetReplyController;
 use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentController;
@@ -437,6 +438,25 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             });
 
         });
+
+        //archive apotti
+        Route::group(['as' => 'archive-apotti.', 'prefix' => 'archive-apotti/'], function () {
+            Route::get('index', [AuditExecutionArchiveApottiController::class, 'index'])->name('index');
+            Route::post('create', [AuditExecutionArchiveApottiController::class, 'create'])->name('create');
+            Route::post('edit', [AuditExecutionArchiveApottiController::class, 'edit'])->name('edit');
+            Route::post('view', [AuditExecutionArchiveApottiController::class, 'view'])->name('view');
+            Route::post('store', [AuditExecutionArchiveApottiController::class, 'store'])->name('store');
+            Route::post('update', [AuditExecutionArchiveApottiController::class, 'update'])->name('update');
+            Route::post('list', [AuditExecutionArchiveApottiController::class, 'list'])->name('list');
+
+            Route::post('load-directorate-wise-ministry', [AuditExecutionArchiveApottiController::class, 'loadDirectorateWiseMinistry'])->name('load-directorate-wise-ministry');
+            Route::post('load-ministry-wise-entity', [AuditExecutionArchiveApottiController::class, 'loadMinistryWiseEntity'])->name('load-ministry-wise-entity');
+            Route::post('load-entity-wise-unit-group-office', [AuditExecutionArchiveApottiController::class, 'loadEntityWiseUnitGroupOffice'])->name('load-entity-wise-unit-group-office');
+            Route::post('load-entity-or-unit-group-wise-cost-center', [AuditExecutionArchiveApottiController::class, 'loadEntityOrUnitGroupWiseCostCenter'])->name('load-entity-or-unit-group-wise-cost-center');
+
+            Route::post('load-oniyomer-category-list', [AuditExecutionArchiveApottiController::class, 'loadOniyomerCategoryList'])->name('load-oniyomer-category-list');
+            Route::post('load-oniyomer-sub-category-list', [AuditExecutionArchiveApottiController::class, 'loadOniyomerSubCategoryList'])->name('load-oniyomer-sub-category-list');
+        });
     });
 
     //Quality Control
@@ -562,6 +582,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('get-plan-entity', [AuditAIRReportController::class, 'getPlanEntity'])->name('get-plan-entity');
             Route::post('get-audit-apotti-list', [AuditAIRReportController::class, 'getAuditApottiList'])->name('get-audit-apotti-list');
             Route::post('get-audit-apotti', [AuditAIRReportController::class, 'getAuditApotti'])->name('get-audit-apotti');
+            Route::post('get-audit-apotti-wise-porisistos', [AuditAIRReportController::class, 'getAuditApottiWisePrisistos'])->name('get-audit-apotti-wise-porisistos');
 
             Route::post('get-approval-authority', [AuditAIRReportMovementController::class, 'loadApprovalAuthority'])->name('get-approval-authority');
             Route::post('get-cag-authority', [AuditAIRReportMovementController::class, 'loadCagAuthority'])->name('get-cag-authority');
