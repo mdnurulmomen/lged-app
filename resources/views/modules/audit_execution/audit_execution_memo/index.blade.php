@@ -16,7 +16,7 @@
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>
 
-                    <a class="btn btn-sm btn-success btn_back btn-square"
+                    <a class="btn btn-sm btn-primary btn_back btn-square"
                        data-schedule-id="{{$schedule_id}}"
                        data-audit-plan-id="{{$audit_plan_id}}"
                        data-cost-center-id="{{$cost_center_id}}"
@@ -39,7 +39,7 @@
     </div>
 </div>
 
-<div class="card sna-card-border mt-2">
+<div class="card sna-card-border mt-2 mb-15">
     <div id="load_memo_lists"></div>
 </div>
 
@@ -81,9 +81,9 @@
             let url = '{{route('audit.execution.memo.create')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
-                    toastr.error(response.data)
+                    toastr.error(response.data);
                 } else {
-                    $('#kt_content').html(response)
+                    $('#kt_content').html(response);
                 }
             });
         },

@@ -1,3 +1,22 @@
+<style>
+    fieldset.scheduler-border {
+        border: 1px groove #ddd !important;
+        padding: 0 1.4em 1.4em 1.4em !important;
+        margin: 0 0 1.5em 0 !important;
+        -webkit-box-shadow:  0px 0px 0px 0px #000;
+        box-shadow:  0px 0px 0px 0px #000;
+    }
+
+    legend.scheduler-border {
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        width:auto;
+        padding:0 10px;
+        border-bottom:none;
+    }
+</style>
+
 <link rel="stylesheet" href="{{asset('assets/css/mFiler-font.css')}}" referrerpolicy="origin">
 <link rel="stylesheet" href="{{asset('assets/css/mFiler.css')}}" referrerpolicy="origin">
 
@@ -6,7 +25,7 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="d-flex justify-content-start">
-                    <h5 class="mt-5">{{$cost_center_name_bn}} (অর্থবছর : ২০২১-২০২২)</h5>
+                    <h5 class="mt-5">{{$cost_center_name_bn}} ({{enTobn($audit_year_start)}}-{{enTobn($audit_year_end)}})</h5>
                 </div>
             </div>
             <div class="col-md-4">
@@ -94,7 +113,7 @@
                                                     class="input-group-text">নিরীক্ষা বছর শুরু</span>
                                             </div>
                                             <input class="form-control" name="audit_year_start"
-                                                   value="{{$audit_year_start}}"
+                                                   value="{{enTobn($audit_year_start)}}"
                                                    placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text" readonly>
                                         </div>
                                     </div>
@@ -104,7 +123,7 @@
                                                     class="input-group-text">নিরীক্ষা বছর শেষ</span>
                                             </div>
                                             <input class="form-control" name="audit_year_end"
-                                                   value="{{$audit_year_end}}"
+                                                   value="{{enTobn($audit_year_end)}}"
                                                    placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text" readonly>
                                         </div>
                                     </div>
@@ -177,9 +196,31 @@
                 <div class="tab-pane fade border border-top-0 p-3" id="porisisto_tab"
                      role="tabpanel" aria-labelledby="porisisto-tab">
 
-                    <label class="col-form-label">পরিশিষ্ট</label>
-                    <textarea id="kt-tinymce-porisisto" class="kt-tinymce-1"></textarea>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            পরিশিষ্টসমূহ
+                            <button style="border-radius: 13px" title="যোগ করুন" type='button'
+                                    class='btn btn-primary btn-sm btn-square'
+                                    onclick="addPorisisto()">
+                                <span class='fa fa-plus'></span>
+                            </button>
+                        </legend>
 
+                        <table width="100%" style="border: none"
+                               class="table table-bordered table-sm"
+                               id="tblPorisistoList">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label style="font-size: 1.5em" class="col-form-label">পরিশিষ্ট ১</label>
+                                        <textarea id="kt-tinymce-porisisto-1" class="porisisto_details kt-tinymce-1"></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
                 </div>
             </div>
         </div>
@@ -215,7 +256,8 @@
         setup: function (editor) {
         },
     });
-    setContentType('.kt-tinymce-1')
+    setContentType('.kt-tinymce-1');
+
 
 
     //for submit form
@@ -231,7 +273,15 @@
 
             from_data = new FormData(document.getElementById("memo_create_form"));
             from_data.append('memo_description_bn', tinymce.get("kt-tinymce-memo-details").getContent());
-            from_data.append('porisisto_details', tinymce.get("kt-tinymce-porisisto").getContent());
+
+            //$(".porisisto_details").length
+            //from_data.append('porisisto_details', tinymce.get("kt-tinymce-porisisto").getContent());
+
+            total_porisito = $(".porisisto_details").length;
+            for (start=1;start<=total_porisito;start++){
+                porisisto = tinymce.get("kt-tinymce-porisisto-"+start+"").getContent();
+                from_data.append('porisisto_details[]', porisisto);
+            }
 
             elem = $(this);
             elem.prop('disabled', true);
@@ -289,4 +339,44 @@
             });
         });
     });
+
+    function addPorisisto(){
+        total_porisito = $(".porisisto_details").length+1;
+        porisito_html = '<tr><td>' +
+            '<div class="form-group">' +
+            '<label style="font-size: 1.5em"  class="col-form-label">' +
+            'পরিশিষ্ট '+enTobn(total_porisito)+'' +
+            '<button style="border-radius: 13px" title="মুছে ফেলুন" type="button" class="ml-1 btn btn-danger btn-sm btn-square" ' +
+            'onclick="removePorisisto($(this))">' +
+            '<span class="fa fa-trash"></span></button>' +
+            '</label>' +
+            '<textarea id="kt-tinymce-porisisto-'+total_porisito+'" class="porisisto_details kt-tinymce-1"></textarea>' +
+            '</div>' +
+        '</td></tr>';
+        $('#tblPorisistoList').prepend(porisito_html);
+
+        //todo mahmud vai
+        tinymce.init({
+            selector: '.kt-tinymce-1',
+            menubar: false,
+            min_height: 400,
+            height: 400,
+            max_height: 400,
+            branding: false,
+            content_style: "body {font-family: solaimanlipi;font-size: 13pt;}",
+            fontsize_formats: "8pt 10pt 12pt 13pt 14pt 18pt 24pt 36pt",
+            font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Verdana=verdana,geneva; Solaimanlipi=solaimanlipi",
+            toolbar: ['styleselect fontselect fontsizeselect | blockquote subscript superscript | undo redo | cut copy paste | bold italic | link image | alignleft aligncenter alignright alignjustify | table | bullist numlist | outdent indent | advlist | autolink | lists charmap | print preview |  code'],
+            plugins: 'advlist paste autolink link image lists charmap print preview code table',
+            context_menu: 'link image table',
+            setup: function (editor) {
+            },
+        });
+        setContentType('.kt-tinymce-1');
+        toastr.success('Added');
+    }
+
+    function removePorisisto(elem){
+        elem.closest("tr").remove();
+    }
 </script>

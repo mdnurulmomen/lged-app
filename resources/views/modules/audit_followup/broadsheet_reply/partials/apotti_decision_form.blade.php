@@ -45,7 +45,13 @@
                 </div>
             </div>
         @endif
-
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <label>নিষ্পন্ন/অনিষ্পন্নের কারণ</label>
+                    <textarea class="form-control"
+                              name="status_reason">{{isset($apotti_item_info['status_reason']) ? $apotti_item_info['status_reason'] : ''}}</textarea>
+                </div>
+            </div>
         @if($broad_sheet_type == 'final_report' && $office_id != 1)
             <div class="row mt-2">
                 <div class="col-md-12">
@@ -63,8 +69,6 @@
                 </div>
             </div>
         @endif
-
-
     </div>
 </form>
 

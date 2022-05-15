@@ -19,4 +19,7 @@ return [
     'get-rpu-list-mis' => env('API_URL_RPU', '') . '/get-rpu-list-mis',
     'office-ministry-wise-entity' => env('API_URL_RPU', '') . '/office-ministry-wise-entity',
     'get-user-list' => env('API_URL_RPU', '') . '/get-user-list',
+
+    'get-entity-wise-unit-group-office' => env('API_URL_RPU', '') . '/get-entity-wise-unit-group-office',
+    'get-entity-or-unit-group-wise-cost-center' => env('API_URL_RPU', '') . '/get-entity-or-unit-group-wise-cost-center',
 ];
