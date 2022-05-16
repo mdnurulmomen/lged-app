@@ -819,6 +819,9 @@
                 </tr>
                 </thead>
                 <tbody>
+                @php
+                    usort($audit_team_members, "arryAortAsc");
+                @endphp
                 @foreach($audit_team_members as $audit_team_member)
                     <tr class="bangla-font">
                         <td class="bangla-font" style="text-align: center">{{enTobn($loop->iteration)}}</td>
@@ -852,18 +855,19 @@
                          <tbody>
                          @php $teamMemberSL = 1; @endphp
                          @foreach(json_decode($audit_team_schedule['team_members'],true) as $role => $team_members)
-                             @if($role != 'teamLeader')
-                                 @foreach($team_members as $key => $sub_team_leader)
-                                     <tr class="bangla-font">
-                                         <td class="bangla-font" style="text-align: center">{{enTobn($teamMemberSL)}}</td>
-                                         <td class="bangla-font" style="text-align: left;">&nbsp;জনাব {{$sub_team_leader['officer_name_bn']}}</td>
-                                         <td class="bangla-font" style="text-align: center">{{$sub_team_leader['designation_bn'].' ও '.$sub_team_leader['team_member_role_bn']}}</td>
-                                         <td class="bangla-font" style="text-align: center">{{enTobn($sub_team_leader['officer_mobile'])}}</td>
-                                         <td class="bangla-font" style="text-align: center"></td>
-                                     </tr>
-                                     @php $teamMemberSL++; @endphp
-                                 @endforeach
-                             @endif
+                             @php
+                                 usort($team_members, "arryAortAsc");
+                             @endphp
+                             @foreach($team_members as $key => $sub_team_leader)
+                                 <tr class="bangla-font">
+                                     <td class="bangla-font" style="text-align: center">{{enTobn($teamMemberSL)}}</td>
+                                     <td class="bangla-font" style="text-align: left;">&nbsp;জনাব {{$sub_team_leader['officer_name_bn']}}</td>
+                                     <td class="bangla-font" style="text-align: center">{{$sub_team_leader['designation_bn'].' ও '.$sub_team_leader['team_member_role_bn']}}</td>
+                                     <td class="bangla-font" style="text-align: center">{{enTobn($sub_team_leader['officer_mobile'])}}</td>
+                                     <td class="bangla-font" style="text-align: center"></td>
+                                 </tr>
+                                 @php $teamMemberSL++; @endphp
+                             @endforeach
                          @endforeach
                          </tbody>
                      </table>

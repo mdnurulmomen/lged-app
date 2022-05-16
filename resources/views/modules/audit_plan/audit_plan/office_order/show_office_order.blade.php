@@ -108,21 +108,19 @@
 
                         @php $teamMemberSL = 1; @endphp
                         @foreach(json_decode($audit_team_schedule['team_members'],true) as $role => $team_members)
-                            @if($role != 'teamLeader')
-                                @php
-                                    usort($team_members, "arryAortAsc");
-                                @endphp
-                                @foreach($team_members as $member_key => $sub_team_leader)
-                                    <tr>
-                                        <td style="text-align: center">{{enTobn($teamMemberSL)}}</td>
-                                        <td style="text-align: left;margin-left: 5px">জনাব {{$sub_team_leader['officer_name_bn']}}</td>
-                                        <td style="text-align: center">{{$sub_team_leader['designation_bn'].' ও '.$sub_team_leader['team_member_role_bn']}}</td>
-                                        <td style="text-align: center">{{enTobn($sub_team_leader['officer_mobile'])}}</td>
-                                        <td style="text-align: center"></td>
-                                    </tr>
-                                    @php $teamMemberSL++; @endphp
-                                @endforeach
-                            @endif
+                            @php
+                                usort($team_members, "arryAortAsc");
+                            @endphp
+                            @foreach($team_members as $member_key => $sub_team_leader)
+                                <tr>
+                                    <td style="text-align: center">{{enTobn($teamMemberSL)}}</td>
+                                    <td style="text-align: left;margin-left: 5px">জনাব {{$sub_team_leader['officer_name_bn']}}</td>
+                                    <td style="text-align: center">{{$sub_team_leader['designation_bn'].' ও '.$sub_team_leader['team_member_role_bn']}}</td>
+                                    <td style="text-align: center">{{enTobn($sub_team_leader['officer_mobile'])}}</td>
+                                    <td style="text-align: center"></td>
+                                </tr>
+                                @php $teamMemberSL++; @endphp
+                            @endforeach
                         @endforeach
                         </tbody>
                     </table>
