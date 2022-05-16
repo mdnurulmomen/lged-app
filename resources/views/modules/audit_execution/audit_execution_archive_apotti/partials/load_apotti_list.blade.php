@@ -51,6 +51,13 @@
                         onclick="Archive_Apotti_Container.loadApottiEditForm($(this))">
                     <i class="fad fa-edit"></i>
                 </button>
+
+                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-icon-primary list-btn-toggle"
+                        title="Sync"
+                        data-apotti-id="{{$apotti['id']}}"
+                        onclick="Archive_Apotti_Container.loadApottiEditForm($(this))">
+                    <i class="fa fa-paper-plane"></i>
+                </button>
             </td>
         </tr>
     @empty
