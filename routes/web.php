@@ -442,6 +442,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         //archive apotti
         Route::group(['as' => 'archive-apotti.', 'prefix' => 'archive-apotti/'], function () {
+            Route::get('/', [AuditExecutionArchiveApottiController::class, 'archivePage']);
             Route::get('index', [AuditExecutionArchiveApottiController::class, 'index'])->name('index');
             Route::post('create', [AuditExecutionArchiveApottiController::class, 'create'])->name('create');
             Route::post('edit', [AuditExecutionArchiveApottiController::class, 'edit'])->name('edit');

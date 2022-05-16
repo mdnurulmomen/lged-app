@@ -4,10 +4,17 @@ namespace App\Http\Controllers\AuditExecution;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class AuditExecutionArchiveApottiController extends Controller
 {
+    public function archivePage()
+    {
+        $this->userPermittedMenusByModule(request()->path());
+        return view('modules.audit_execution.audit_execution_archive_apotti.archive');
+    }
+
     /**
      * Display a listing of the resource.
      *
