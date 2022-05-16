@@ -916,7 +916,10 @@
         </table>
     </div>
 
-    <div class="pdf-screen bangla-font" style="height: 100%"></div>
+    {{--porisishto--}}
+    @foreach($memoInfoDetails['memo']['ac_memo_porisishtos'] as $porisishto)
+        <div class="pdf-screen bangla-font" style="height: 100%">{!! $porisishto['details'] !!}</div>
+    @endforeach
 </div>
 </body>
 </html>
