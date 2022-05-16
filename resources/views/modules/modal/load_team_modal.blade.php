@@ -187,11 +187,21 @@
                                     <div
                                         class="form-group custom-form-group p-0 mb-2 d-md-flex align-items-md-center justify-content-md-between">
                                         <div class="d-flex flex-wrarp mt-3 align-items-center">
-                                            <button type="button" class="btn btn-sm btn-primary btn-square"
-                                                    title="নতুন দল গঠন করুন"
-                                                    id="createNewLayer" onclick="Load_Team_Container.addLayer()"><i
-                                                    class="fad fa-plus"></i>নতুন দল গঠন
-                                            </button>
+                                            @if(!$all_teams)
+                                                <button type="button" class="btn btn-sm btn-primary btn-square"
+                                                        title="নতুন দল গঠন করুন"
+                                                        id="createNewLayer" onclick="Load_Team_Container.addLayer()"><i
+                                                        class="fad fa-plus"></i>নতুন দল গঠন
+                                                </button>
+                                            @endif
+
+                                            @if($has_update_office_order == 2)
+                                                    <button type="button" class="btn btn-sm btn-danger btn-square"
+                                                            title="নতুন দল গঠন করুন"
+                                                            onclick="Load_Team_Container.teamLogDiscard()"><i
+                                                            class="fad fa-minus"></i> Discard Log
+                                                    </button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -1522,7 +1532,21 @@ style="padding-left: 5px;">
             unitVisitHtmlTable += ` </tbody>
             </table>`;
             return unitVisitHtmlTable;
-        }
+        },
+
+        teamLogDiscard: function () {
+            audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id') ? $('.draft_entity_audit_plan').data('audit-plan-id') : 0;
+            data =  {audit_plan_id}
+            let url = '{{route('audit.plan.audit.revised.plan.team-log-discard')}}';
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    toastr.success(response.data)
+                    $('#dismissTeamModal').click()
+                }
+            });
+        },
     };
 
     $(function () {
@@ -1556,6 +1580,8 @@ style="padding-left: 5px;">
         // $('#branch_name_select_' + layer_id + '_'+ row).select2().trigger("select2:close");
         loadSelectNominatedOfficeOption(parent_office_id, layer_id, row);
     });
+
+
 
     $('.select-select2').select2({width: '100%'});
 

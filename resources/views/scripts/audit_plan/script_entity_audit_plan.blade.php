@@ -7,7 +7,8 @@
             fiscal_year_id = '{{$fiscal_year_id}}';
             audit_plan_id = elem.data('audit-plan-id');
             parent_office_id = elem.data('parent-office-id');
-            data = {annual_plan_id, activity_id, fiscal_year_id, audit_plan_id, parent_office_id};
+            has_update_office_order = elem.data('has-update-office-order');
+            data = {annual_plan_id, activity_id, fiscal_year_id, audit_plan_id, parent_office_id, has_update_office_order};
             KTApp.block('.content', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color

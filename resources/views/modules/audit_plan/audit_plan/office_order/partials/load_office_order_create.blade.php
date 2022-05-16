@@ -1,6 +1,7 @@
 <form autocomplete="off" id="office_order_generate_form">
     <input type="hidden" name="audit_plan_id" value="{{$audit_plan_id}}">
     <input type="hidden" name="annual_plan_id" value="{{$annual_plan_id}}">
+    <input type="hidden" name="id" value="{{empty($office_order)?'':$office_order['id']}}">
 
     <div class="row">
         <div class="col-md-6">

@@ -85,10 +85,12 @@
 
         loadOfficeOrderCreateForm: function (element) {
             url = '{{route('audit.plan.audit.office-orders.load-office-order-create')}}';
+            office_order_id = element.data('office-order-id');
             audit_plan_id = element.data('audit-plan-id');
             annual_plan_id = element.data('annual-plan-id');
+            update_request = element.data('has-update-request');
 
-            data = {audit_plan_id,annual_plan_id};
+            data = {audit_plan_id,annual_plan_id,update_request,office_order_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -115,9 +117,25 @@
 
         showOfficeOrder: function (elem) {
             url = '{{route('audit.plan.audit.office-orders.show-office-order')}}';
+            office_order_id = elem.data('office-order-id');
             audit_plan_id = elem.data('audit-plan-id');
             annual_plan_id = elem.data('annual-plan-id');
-            data = {audit_plan_id,annual_plan_id}
+            data = {audit_plan_id,annual_plan_id,office_order_id}
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('#kt_content').html(response)
+                }
+            });
+        },
+
+        showUpdateOfficeOrder: function (elem) {
+            url = '{{route('audit.plan.audit.office-orders.show-update-office-order')}}';
+            office_order_id = elem.data('office-order-id');
+            audit_plan_id = elem.data('audit-plan-id');
+            annual_plan_id = elem.data('annual-plan-id');
+            data = {office_order_id,audit_plan_id,annual_plan_id}
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)
@@ -182,31 +200,47 @@
         },
 
         approveOfficeOrder: function (element) {
-            url = '{{route('audit.plan.audit.office-orders.approve-office-order')}}';
-            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
-            ap_office_order_id = element.data('ap-office-order-id');
-            audit_plan_id = element.data('audit-plan-id');
-            annual_plan_id = element.data('annual-plan-id');
-            approved_status = 'approved';
-            data = {ap_office_order_id,audit_plan_id,annual_plan_id,approved_status,fiscal_year_id};
-
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                if (response.status === 'success') {
-                    toastr.success('Successfully Approved!');
-                    Office_Order_Container.loadOfficeOrderList();
-                }
-                else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
-                            if (v !== '') {
-                                toastr.error(v);
+            swal.fire({
+                title: 'আপনি কি অনুমোদন করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    url = '{{route('audit.plan.audit.office-orders.approve-office-order')}}';
+                    fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+                    ap_office_order_id = element.data('ap-office-order-id');
+                    audit_plan_id = element.data('audit-plan-id');
+                    annual_plan_id = element.data('annual-plan-id');
+                    has_office_order_update = element.data('has-office-order-update');
+                    approved_status = 'approved';
+                    data = {ap_office_order_id,audit_plan_id,annual_plan_id,approved_status,fiscal_year_id,has_office_order_update};
+                    KTApp.block('#kt_content', {
+                        opacity: 0.1,
+                        state: 'primary' // a bootstrap color
+                    });
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        KTApp.unblock('#kt_content');
+                        if (response.status === 'success') {
+                            toastr.success('Successfully Approved!');
+                            Office_Order_Container.loadOfficeOrderList();
+                        }
+                        else {
+                            if (response.statusCode === '422') {
+                                var errors = response.msg;
+                                $.each(errors, function (k, v) {
+                                    if (v !== '') {
+                                        toastr.error(v);
+                                    }
+                                });
                             }
-                        });
-                    }
-                    else {
-                        toastr.error(response.data.message);
-                    }
+                            else {
+                                toastr.error(response.data.message);
+                            }
+                        }
+                    });
                 }
             });
         },

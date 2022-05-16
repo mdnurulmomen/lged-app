@@ -24,7 +24,8 @@
             </button>
             @endif
 
-            <button data-audit-plan-id="{{$office_order['audit_plan_id']}}"
+            <button data-ap-office-order-id="{{$office_order['id']}}"
+                    data-audit-plan-id="{{$office_order['audit_plan_id']}}"
                     data-annual-plan-id="{{$office_order['annual_plan_id']}}"
                     onclick="Show_Office_Order_Container.generateOfficeOrderPDF($(this))"
                     class="btn btn-download btn-sm btn-bold btn-square">
@@ -71,6 +72,9 @@
                 </tr>
                 </thead>
                 <tbody>
+                @php
+                    usort($audit_team_members, "arryAortAsc");
+                @endphp
                 @foreach($audit_team_members as $audit_team_member)
                     <tr>
                         <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
@@ -186,7 +190,7 @@
         </div>
 
         <div style="font-family:Nikosh,serif !important;text-align: center;float: right">
-            @if($office_order['office_order_movement'] != null)
+            @if(isset($office_order['office_order_movement']) && $office_order['office_order_movement'] != null)
                 ({{$office_order['office_order_movement']['employee_name_bn']}}) <br>
                 {{$office_order['office_order_movement']['employee_designation_bn']}} <br>
                 ফোনঃ {{enTobn($office_order['office_order_movement']['officer_phone'])}} <br>
@@ -264,8 +268,12 @@
             annual_plan_id = element.data('annual-plan-id');
             approved_status = 'approved';
             data = {ap_office_order_id,audit_plan_id,annual_plan_id,approved_status,fiscal_year_id};
-
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'success') {
                     toastr.success('Successfully Approved!');
                 }
@@ -287,9 +295,10 @@
 
         generateOfficeOrderPDF: function (elem) {
             url = '{{route('audit.plan.audit.office-orders.download-pdf')}}';
+            office_order_id = elem.data('ap-office-order-id');
             audit_plan_id = elem.data('audit-plan-id');
             annual_plan_id = elem.data('annual-plan-id');
-            data = {audit_plan_id,annual_plan_id};
+            data = {audit_plan_id,annual_plan_id,office_order_id};
 
             $.ajax({
                 type: 'POST',

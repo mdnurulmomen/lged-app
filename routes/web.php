@@ -283,9 +283,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/update-audit-team', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'updateAuditTeam'])->name('revised.plan.update-audit-team');
             Route::post('/store-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'storeAuditTeamSchedule'])->name('revised.plan.store-audit-team-schedule');
             Route::post('/update-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'updateAuditTeamSchedule'])->name('revised.plan.update-audit-team-schedule');
-            Route::post('/update-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'updateAuditTeamSchedule'])->name('revised.plan.update-audit-team-schedule');
             Route::post('/get-audit-plan-wise-team-members', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'getPlanWiseTeamMembers'])->name('revised.plan.get-audit-plan-wise-team-members');
             Route::post('/get-audit-plan-wise-team-schedules', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'getPlanWiseTeamSchedules'])->name('revised.plan.get-audit-plan-wise-team-schedules');
+            Route::post('/team-log-discard', [\App\Http\Controllers\AuditPlan\Plan\RevisedPlanController::class, 'teamLogDiscard'])->name('revised.plan.team-log-discard');
 
             Route::post('editor/load-audit-team-modal', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamModal'])->name('editor.load-audit-team-modal');
             Route::post('editor/load-audit-team-schedule', [\App\Http\Controllers\AuditPlan\Plan\PlanEditorController::class, 'loadAuditTeamSchedule'])->name('editor.load-audit-team-schedule');
@@ -308,6 +308,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/approve-office-order', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'approveOfficeOrder'])->name('office-orders.approve-office-order');
             Route::post('/generate-office-order', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'generateOfficeOrder'])->name('office-orders.generate-office-order');
             Route::post('/show-office-order', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'showOfficeOrder'])->name('office-orders.show-office-order');
+            Route::post('/show-update-office-order', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'showUpdateOfficeOrder'])->name('office-orders.show-update-office-order');
             Route::post('/download-pdf', [\App\Http\Controllers\AuditPlan\Plan\OfficeOrderController::class, 'generateOfficeOrderPDF'])->name('office-orders.download-pdf');
 
             //data collection office order

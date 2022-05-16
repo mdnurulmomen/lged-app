@@ -224,10 +224,13 @@ class BroadsheetReplyController extends Controller
                 'jorito_ortho' => 'nullable',
                 'collected_amount' => 'nullable',
                 'adjusted_amount' => 'nullable',
-                'apotti_status' => 'nullable',
+                'apotti_status' => 'required|integer',
                 'comment' => 'nullable',
                 'cag_comment' => 'nullable',
                 'status_reason' => 'required',
+            ],[
+              'apotti_status.required'  => 'আপত্তির অবস্থা বাছাই করুন',
+              'status_reason.required'  => 'নিষ্পন্ন/অনিষ্পন্নের কারণ',
             ])->validate();
 
             $data['cdesk'] = $this->current_desk_json();

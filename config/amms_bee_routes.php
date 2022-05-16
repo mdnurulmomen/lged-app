@@ -172,6 +172,7 @@ return [
 
         'get_audit_plan_wise_team_members' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team-members',
         'get_audit_plan_wise_team_schedules' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team-schedules',
+        'team_log_discard' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/team-log-discard',
 
         'ap_risk_assessment_store' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/store',
         'ap_risk_assessment_update' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/update',
@@ -181,8 +182,10 @@ return [
             'audit_plan_list' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/audit-plan-list',
             'generate_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/generate',
             'show_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/show',
+            'show_update_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/show-update',
             'store_approval_authority' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/store-approval-authority',
             'approve_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/approve',
+            'store_office_order_log' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/store-office-order-log',
         ],
 
         'ap_office_order_dc' => [

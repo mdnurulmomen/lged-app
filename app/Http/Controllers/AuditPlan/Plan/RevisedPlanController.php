@@ -141,7 +141,7 @@ class RevisedPlanController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
-        //dd($audit_plan);
+//        dd($audit_plan);
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
             $parent_office_id = 0;
@@ -340,8 +340,6 @@ class RevisedPlanController extends Controller
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.update_audit_team_schedule'), $data)->json();
 
-//        dd($responseData);
-
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
         } else {
@@ -361,7 +359,7 @@ class RevisedPlanController extends Controller
         $team_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_team_info'), $data)->json();
         //dd($team_info);
         if (isSuccess($team_info)) {
-            return response()->json(['status' => 'error', 'data' => $team_info['data']]);
+            return response()->json(['status' => 'success', 'data' => $team_info['data']]);
         } else {
             return response()->json(['status' => 'error', 'data' => $team_info]);
         }
@@ -400,6 +398,23 @@ class RevisedPlanController extends Controller
         } else {
             return view('modules.audit_plan.audit_plan.plan_revised.partials.load_plan_wise_team_schedules', compact('team_schedules'));
         }
+    }
+
+    public function teamLogDiscard(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'audit_plan_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+        $team_log_discard = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.team_log_discard'), $data)->json();
+
+        if (isSuccess($team_log_discard)) {
+            return response()->json(['status' => 'success', 'data' => $team_log_discard['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $team_log_discard]);
+        }
+
     }
 
 }
