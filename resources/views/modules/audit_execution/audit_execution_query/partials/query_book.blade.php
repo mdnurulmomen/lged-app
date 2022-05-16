@@ -783,8 +783,7 @@
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
         <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center">
-{{--            মহাপরিচালকের কার্যালয় <br>--}}
-            <b>{{$directorateName}}</b> <br>
+            <span style="font-size: 20px"><strong>{{$directorateName}}</strong></span> <br>
             {!! $directorateAddress !!} <br>
             <u>{{$directorateWebsite}}</u>
         </div>

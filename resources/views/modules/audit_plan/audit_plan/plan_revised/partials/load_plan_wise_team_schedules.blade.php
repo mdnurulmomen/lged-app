@@ -12,7 +12,7 @@
                         <td style="text-align: center" width="30%">নিরীক্ষা প্রতিষ্ঠানের নাম</td>
                         <td style="text-align: center" width="15%">নিরীক্ষার বৎসর (অর্থ বছর)</td>
                         <td style="text-align: center" width="15%">নিরীক্ষার শুরুর তারিখ</td>
-                        <td style="text-align: center" width="15%">নিরীক্ষার শেষ</td>
+                        <td style="text-align: center" width="15%">নিরীক্ষার শেষের তারিখ</td>
                         <td style="text-align: center" width="15%">কর্ম দিবস</td>
                         <td style="text-align: center" width="15%">মন্তব্য</td>
                     </tr>
@@ -26,10 +26,14 @@
                                 <td style="text-align: center">{{enTobn($loop->iteration)}}.</td>
                                 <td style="text-align: left;margin-left: 5px">{{$team_schedule['cost_center_name_bn']}}</td>
                                 <td style="text-align: center">{{enTobn($audit_team_schedule['audit_year_start'])}}-{{enTobn($audit_team_schedule['audit_year_end'])}}</td>
-                                <td style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি.
-                                    হতে {{formatDate($team_schedule['team_member_end_date'],'bn')}} খ্রি.
+                                <td style="text-align: center">
+                                    {{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি.
+                                </td>
+                                <td style="text-align: center">
+                                    {{formatDate($team_schedule['team_member_end_date'],'bn')}} খ্রি.
                                 </td>
                                 <td style="text-align: center">{{enTobn($team_schedule['activity_man_days'])}} কর্ম দিবস</td>
+                                <td></td>
                             </tr>
                         @else
                             <tr>
@@ -41,7 +45,7 @@
                     <tr>
                         <th colspan="5" style="text-align: right">সর্বমোট</th>
                         <th style="text-align: center">{{enTobn($totalActivityManDays)}} কর্ম দিবস</th>
-                        <th style="text-align: center"></th>
+                        <td></td>
                     </tr>
                     </tbody>
                 </table>

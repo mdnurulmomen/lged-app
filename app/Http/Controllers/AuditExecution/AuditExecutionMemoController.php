@@ -95,6 +95,14 @@ class AuditExecutionMemoController extends Controller
             'jorito_ortho_poriman' => 'required',
             'audit_year_start' => 'required',
             'audit_year_end' => 'required',
+        ],
+        [
+            'schedule_id.required'=> 'Audit schedule is required',
+            'memo_title_bn.required'=> 'Memo title is required',
+            'memo_description_bn.required'=> 'Memo description is required',
+            'jorito_ortho_poriman.required'=> 'Jorito ortho is required',
+            'audit_year_start.required'=> 'Audit year start is required',
+            'audit_year_end.required'=> 'Audit year end is required',
         ])->validate();
 
         $data = [
@@ -342,6 +350,14 @@ class AuditExecutionMemoController extends Controller
             'jorito_ortho_poriman' => 'required',
             'audit_year_start' => 'required',
             'audit_year_end' => 'required',
+        ],
+        [
+            'memo_id.required'=> 'Memo id is required',
+            'memo_title_bn.required'=> 'Memo title is required',
+            'memo_description_bn.required'=> 'Memo description is required',
+            'jorito_ortho_poriman.required'=> 'Jorito ortho is required',
+            'audit_year_start.required'=> 'Audit year start is required',
+            'audit_year_end.required'=> 'Audit year end is required',
         ])->validate();
 
         $data = [

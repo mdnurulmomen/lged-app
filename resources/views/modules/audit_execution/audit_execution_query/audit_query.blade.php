@@ -16,7 +16,7 @@
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>
 
-                    <a class="btn btn-sm btn-success btn-square"
+                    <a class="btn btn-sm btn-primary btn-square"
                        onclick="Audit_Query_Container.addQuery($(this))"
                        title="মেমো তৈরি করুন"
                        href="javascript:;">

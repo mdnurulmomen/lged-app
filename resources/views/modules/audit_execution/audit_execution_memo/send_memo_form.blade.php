@@ -51,7 +51,7 @@
 </form>
 <div class="row mt-2">
     <div class="col-md-12">
-        <button class="btn btn-sm btn-square btn-outline-primary float-right"
+        <button id="sentMemoToRpu" class="btn btn-sm btn-square btn-outline-primary float-right"
                 data-memo-id="{{$memoInfo['id']}}"
                 onclick="Memo_List_Container.sentMemoToRpu($(this))">
             <i class="fa fa-paper-plane"></i> প্রেরণ করুন

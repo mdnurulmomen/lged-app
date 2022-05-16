@@ -36,11 +36,11 @@
 </div>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:30px;">
-    <div style="font-family:Nikosh,serif !important;text-align: center">
+    <div style="text-align: center">
         {{--মহাপরিচালকের কার্যালয় <br>--}}
         <x-office-header-details />
 
-        <div style="font-family:Nikosh,serif !important;width: 100%;margin-top: 10px">
+        <div style="width: 100%;margin-top: 10px">
             <span style="width: 85%;float: left;text-align: left">
                 স্মারক নং- {{$office_order['memorandum_no']}}
             </span>
@@ -49,14 +49,14 @@
             </span>
         </div>
 
-        <div style="font-family:Nikosh,serif !important;text-align: center">
+        <div style="text-align: center">
             <b><u>অফিস আদেশ</u></b>
         </div>
-        <div style="font-family:Nikosh,serif !important;text-align: justify">
+        <div style="text-align: justify">
             {{$office_order['heading_details']}}
         </div>
 
-        <div style="font-family:Nikosh,serif !important;text-align: center">
+        <div style="text-align: center">
             <b><u>জনবল</u></b>
         </div>
 
@@ -89,7 +89,7 @@
         </div>
         @foreach($audit_team_schedules as $audit_team_schedule)
             @if($audit_team_schedule['team_schedules'] != null)
-                <div style="font-family:Nikosh,serif !important;text-align: center;margin-top: 10px">
+                <div style="text-align: center;margin-top: 10px">
                     <b><u>{{$audit_team_schedule['team_name']}}</u></b>
                 </div>
 
@@ -181,15 +181,15 @@
 
 
         {{--for audit advice--}}
-        <div style="font-family:Nikosh,serif !important;margin-top: 10px;text-align: left">
+        <div style="margin-top: 10px;text-align: left">
             <u>নিরীক্ষা দলের প্রতি নির্দেশনা:</u>
         </div>
 
-        <div style="font-family:Nikosh,serif !important;text-align: justify">
+        <div style="text-align: justify">
             {!! nl2br($office_order['advices']) !!}
         </div>
 
-        <div style="font-family:Nikosh,serif !important;text-align: center;float: right">
+        <div style="text-align: center;float: right">
             @if(isset($office_order['office_order_movement']) && $office_order['office_order_movement'] != null)
                 ({{$office_order['office_order_movement']['employee_name_bn']}}) <br>
                 {{$office_order['office_order_movement']['employee_designation_bn']}} <br>
@@ -198,7 +198,7 @@
             @endif
         </div>
 
-        <div style="font-family:Nikosh,serif !important;width: 100%;margin-top: 100px">
+        <div style="width: 100%;margin-top: 100px">
                 <span style="width: 85%;float: left;text-align: left">
                     {{$office_order['memorandum_no']}}
                 </span>
@@ -209,20 +209,15 @@
         <br>
 
         {{--for audit advice--}}
-        <div style="font-family:Nikosh,serif !important;margin-top: 20px;text-align: left">
+        <div style="margin-top: 20px;text-align: left">
             <u>সদয় অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য অনুলিপি প্রেরণ করা হলো :(জ্যেষ্ঠতার ক্রমানুসারে নয় )</u>
         </div>
 
-        <div style="font-family:Nikosh,serif !important;text-align: justify">
+        <div style="text-align: justify">
             {!! nl2br($office_order['order_cc_list']) !!}
         </div>
 
-        <div style="font-family:Nikosh,serif !important;text-align: center;float: right">
-            {{--({{$office_order['draft_officer_name_bn']}}) <br>
-            {{$office_order['draft_designation_name_bn']}} <br>
-            {{$office_order['draft_office_unit_bn']}} <br>
-            ফোন: {{enTobn($office_order['draft_officer_phone'])}}--}}
-
+        <div style="text-align: center;float: right">
             {!! nl2br($office_order['cc_sender_details']) !!}
         </div>
     </div>

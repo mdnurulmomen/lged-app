@@ -247,6 +247,8 @@
         },
 
         sentMemoToRpu: function (elem) {
+            $("#sentMemoToRpu").hide();
+
             data = $('#send_memo_to_rpu_form').serializeArray();
             memo_id = elem.data('memo-id');
             cost_center_id = '{{$cost_center_id}}';
@@ -256,19 +258,19 @@
             data.push({name: "cost_center_id", value: cost_center_id});
             url = '{{route('audit.execution.memo.sent-to-rpu')}}';
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_quick_panel', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_quick_panel');
+                $('#kt_quick_panel_close').click();
                 Memo_List_Container.loadMemoList();
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
                     toastr.success(response.data);
-                    $('#kt_quick_panel_close').click();
                 }
             })
         },
