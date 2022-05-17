@@ -169,7 +169,7 @@
                                             <div
                                                 class="d-md-flex flex-wrap mb-2 align-items-center justify-content-md-end text-nowrap">
                                                 <div class="ml-3  d-flex align-items-center text-primary">
-                                                    <i class="flaticon2-copy mr-2 text-primary d-none"></i>
+                                                    <i class="flaticon2-copy mr-2 text-primary"></i>
                                                 </div>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-md-end">

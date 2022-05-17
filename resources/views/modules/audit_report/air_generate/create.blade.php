@@ -126,7 +126,7 @@
                 });
             },
 
-            /*insertAuditTeamSchedule: function () {
+            insertAuditTeamSchedule: function () {
                 url = '{{route('audit.report.air.get-audit-team-schedule')}}';
                 fiscal_year_id = '{{$fiscal_year_id}}';
                 activity_id = '{{$activity_id}}';
@@ -141,7 +141,7 @@
                         Insert_AIR_Data_Container.setJsonContentFromPlanBook();
                     }
                 });
-            },*/
+            },
         }
     </script>
 @endsection

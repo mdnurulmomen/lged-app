@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
 {
-    public function index_referer($type = '')
+    public function index_referer($type = '',$type_bn='')
     {
         Session::put('dashboard_audit_type', $type);
+        Session::put('dashboard_audit_type_bn', $type_bn);
         return redirect()->route('dashboard.index');
     }
 

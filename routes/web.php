@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
-    Route::get('/dashboard/referer/{type?}', [\App\Http\Controllers\DashboardController::class, 'index_referer'])->name('dashboard.index_referer');
+    Route::get('/dashboard/referer/{type?}/{type_bn?}', [\App\Http\Controllers\DashboardController::class, 'index_referer'])->name('dashboard.index_referer');
     Route::get('/dashboard/index', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
     Route::post('/profile', [\App\Http\Controllers\DashboardController::class, 'getUserProfile'])->name('user_profile');
 

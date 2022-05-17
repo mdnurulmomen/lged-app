@@ -11,15 +11,15 @@
                             @if(!empty($designation['employee_info']))
                                 <li data-officer-info="{{json_encode(
     [
-        'designation_id' =>  htmlspecialchars($designation['designation_id']),
+        'designation_id' => $designation['designation_id'],
         'designation_en' =>  htmlspecialchars($designation['designation_eng']),
         'designation_bn' => htmlspecialchars($designation['designation_bng']),
         'officer_name_en' =>  htmlspecialchars($designation['employee_info']['name_eng']),
         'officer_name_bn' =>  htmlspecialchars($designation['employee_info']['name_bng']),
         'officer_mobile' =>  htmlspecialchars($designation['employee_info']['personal_mobile']),
         'officer_email' =>  htmlspecialchars($designation['employee_info']['personal_email']),
-        'employee_grade' => !empty($designation['employee_info']['employee_grade']) ? $designation['employee_info']['employee_grade'] : '1',
-        'officer_id' =>  htmlspecialchars($designation['employee_info']['id']),
+        'employee_grade' => $designation['ref_designation_grade'],
+        'officer_id' =>  $designation['employee_info']['id'],
         'unit_id' => $unit['office_unit_id'],
         'unit_name_en' => htmlspecialchars($unit['unit_name_eng']),
         'unit_name_bn' => htmlspecialchars($unit['unit_name_bng']),
@@ -36,7 +36,7 @@
             </ul>
         </div>
     </div>
-    
+
     <div class="col-md-6 card">
         <form  id="qac_committee_form" >
             <input type="text" class="form-control my-3 ml-3" name="title" placeholder="কমিটি নাম">
@@ -77,7 +77,7 @@
             'officer_unit_id': officer_info.unit_id,
             'officer_unit_bn': officer_info.unit_name_bn,
             'officer_unit_en': officer_info.unit_name_en,
-            'officer_designation_grade': 0,
+            'officer_designation_grade': officer_info.employee_grade,
             'officer_designation_id': officer_info.designation_id,
             'officer_designation_en': officer_info.designation_en,
             'officer_designation_bn': officer_info.designation_bn,

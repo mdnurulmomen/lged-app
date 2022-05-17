@@ -11,7 +11,7 @@
         <h3 class="h1 text-center text-danger">{{___('generic.app_name')}}</h3>
     </div>
     <div class="row mb-15">
-        <a href="{{route('dashboard.index_referer',['type' => 'Compliance Audit'])}}" class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7 text-center h-250px ">
+        <a href="{{route('dashboard.index_referer',['type' => 'Compliance Audit','type_bn' => 'কমপ্লায়েন্স অডিট'])}}" class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7 text-center h-250px ">
 															<span class="svg-icon svg-icon-3x svg-icon-warning d-block my-8">
 																<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Media/Equalizer.svg-->
 <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -35,7 +35,7 @@
 															</span>
             <p class="text-warning font-weight-bold font-size-h1 mt-5">Compliance Audit</p>
         </a>
-        <a href="{{route('dashboard.index_referer',['type' => 'Performance Audit'])}}" class="col bg-light-danger px-6 py-8 rounded-xl mb-7 mr-7 text-center h-250px">
+        <a href="{{route('dashboard.index_referer',['type' => 'Performance Audit','type_bn' => 'পারফরমেন্স অডিট'])}}" class="col bg-light-danger px-6 py-8 rounded-xl mb-7 mr-7 text-center h-250px">
 															<span class="svg-icon svg-icon-3x svg-icon-danger d-block my-8">
 																<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Communication/Add-user.svg-->
 																<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -52,7 +52,7 @@
             <p class="text-danger font-weight-bold font-size-h1 mt-5">Performance Audit</p>
 
         </a>
-        <a href="{{route('dashboard.index_referer',['type' => 'Financial Audit'])}}" class="col bg-light-success px-6 py-8 rounded-xl mb-7  text-center h-250px">
+        <a href="{{route('dashboard.index_referer',['type' => 'Financial Audit','type_bn' => 'ফিনান্সিয়াল অডিট'])}}" class="col bg-light-success px-6 py-8 rounded-xl mb-7  text-center h-250px">
 															<span class="svg-icon svg-icon-3x svg-icon-success d-block my-8">
 																<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Communication/Add-user.svg-->
                                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">

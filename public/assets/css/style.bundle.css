@@ -91954,7 +91954,7 @@ body {
     .header-menu .menu-nav {
         display: -webkit-box;
         display: -ms-flexbox;
-        display: flex;
+        /*display: flex;*/
         -webkit-box-align: stretch;
         -ms-flex-align: stretch;
         align-items: stretch;

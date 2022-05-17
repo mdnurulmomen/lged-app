@@ -40,7 +40,7 @@
                 <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
                         data-fiscal-year-id="{{$fiscal_year_id}}"
                         data-audit-plan-id="{{$audit_plan_id}}"
-                        onclick="AIR_Report_Create_Container.loadApottiList($(this))">
+                        onclick="AIR_Report_Create_Container.loadPlanEntity($(this))">
                     <i class="fad fa-search"></i> অনুচ্ছেদ
                 </button>
             @endif

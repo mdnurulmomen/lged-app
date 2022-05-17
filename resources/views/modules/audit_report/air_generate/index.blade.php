@@ -13,6 +13,7 @@
 </div>
 
 <div class="card sna-card-border mt-2 mb-15">
+<div class="card sna-card-border mt-2 mb-14">
     <div class="load-plan-list">
         <div class="d-flex align-items-center">
             <div class="spinner-grow text-warning mr-3" role="status">
@@ -59,13 +60,15 @@
             url = '{{route('audit.report.air.create')}}';
             air_type = '{{$air_type}}';
             fiscal_year_id = elem.data('fiscal-year-id');
+            fiscal_year_start = elem.data('fiscal-year-start');
+            fiscal_year_end = elem.data('fiscal-year-end');
             activity_id = elem.data('activity-id');
             annual_plan_id = elem.data('annual-plan-id');
             audit_plan_id = elem.data('audit-plan-id');
             audit_plan_entities = elem.data('audit-plan-entities');
             audit_plan_entity_info = elem.data('audit-plan-entity-info');
 
-            data = {air_type,fiscal_year_id,activity_id,annual_plan_id, audit_plan_id,audit_plan_entities,audit_plan_entity_info};
+            data = {air_type,fiscal_year_id,fiscal_year_start,fiscal_year_end,activity_id,annual_plan_id, audit_plan_id,audit_plan_entities,audit_plan_entity_info};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

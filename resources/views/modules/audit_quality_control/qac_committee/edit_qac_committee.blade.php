@@ -56,7 +56,7 @@
                             <i class="fas fa-trash-alt text-danger pr-2"></i>
                         </span>
 
-                        <span>{{$member['officer_bn']}}<span>
+                        <span>{{$member['officer_bn']}} <small>{{$member['officer_designation_bn']}}</small><span>
 
                         </span>
                             <input class="selected_member" id="selected_member_{{$member['id']}}" type="hidden" value="{{json_encode($member)}}">

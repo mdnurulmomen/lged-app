@@ -305,6 +305,14 @@ class AuditExecutionMemoController extends Controller
             'issued_by' => 'required',
             'memo_send_date' => 'required',
             'rpu_acceptor_designation_name_bn' => 'nullable',
+        ],
+        [
+            'memo_id.required'=> 'Memo is required',
+            'memo_sharok_no.required'=> 'Memorandum no is required',
+            'memo_cc.required'=> 'Memo cc is required',
+            'issued_by.required'=> 'Issued by is required',
+            'memo_send_date.required'=> 'Memo send date is required',
+            'rpu_acceptor_designation_name_bn.required'=> 'RP acceptor designation is required',
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
 

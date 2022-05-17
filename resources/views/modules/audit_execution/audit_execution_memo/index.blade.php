@@ -264,6 +264,8 @@
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                console.log(response)
+                $("#sentMemoToRpu").show();
                 KTApp.unblock('#kt_quick_panel');
                 $('#kt_quick_panel_close').click();
                 Memo_List_Container.loadMemoList();
@@ -271,6 +273,22 @@
                     toastr.warning(response.data)
                 } else {
                     toastr.success(response.data);
+                }
+            },function (response) {
+                $("#sentMemoToRpu").show();
+                KTApp.unblock('#kt_quick_panel');
+                if (response.responseJSON.errors) {
+                    $.each(response.responseJSON.errors, function (k, v) {
+                        if (isArray(v)) {
+                            $.each(v, function (n, m) {
+                                toastr.error(m);
+                            })
+                        } else {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        }
+                    });
                 }
             })
         },

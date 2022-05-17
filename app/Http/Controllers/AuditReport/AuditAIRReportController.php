@@ -32,18 +32,11 @@ class AuditAIRReportController extends Controller
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $data)->json();
         if (isSuccess($responseData)) {
             $content = $responseData['data']['content'];
-
             $directorate_name = $this->current_office()['office_name_bn'];
-            if ($this->current_office_id() == 14) {
-                $directorate_address = 'অডিট কমপ্লেক্স <br> ৩য় তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
-            } elseif ($this->current_office_id() == 2) {
-                $directorate_address = 'অডিট কমপ্লেক্স <br> ৮ম তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
-            } elseif ($this->current_office_id() == 3) {
-                $directorate_address = 'অডিট কমপ্লেক্স <br> ২য় তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
-            } else {
-                $directorate_address = '';
-            }
-            $auditType = 'কমপ্লায়েন্স অডিট';
+            //$directorate_address = $this->current_office_details()['office_address']; //todo
+            $directorate_address = '';
+            //dd($directorate_address);
+            $auditType = $request->session()->get('dashboard_audit_type_bn');
 
             $air_type = $request->air_type;
             $fiscal_year_id = $request->fiscal_year_id;
@@ -51,17 +44,12 @@ class AuditAIRReportController extends Controller
             $annual_plan_id = $request->annual_plan_id;
             $audit_plan_id = $request->audit_plan_id;
 
-            $fiscal_year_data['fiscal_year_id'] = $fiscal_year_id;
-            $fiscal_year_response = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_show'), $fiscal_year_data)->json();
+            $audit_year = enTobn($request->fiscal_year_start).'-'.enTobn($request->fiscal_year_end);
+            $fiscal_year = enTobn($request->fiscal_year_start).'-'.enTobn($request->fiscal_year_end);
 
-            if (isSuccess($fiscal_year_response)) {
-                $fiscal_year_start = $fiscal_year_response['data']['start'];
-                $fiscal_year_end = $fiscal_year_response['data']['end'];
-            }
-            $audit_year = '২০১৯-২০২০';
-            $fiscal_year = enTobn($fiscal_year_start).'-'.enTobn($fiscal_year_end);
             $audit_plan_entities = $request->audit_plan_entities;
             $audit_plan_entity_info = $request->audit_plan_entity_info;
+            //dd($audit_plan_entity_info);
 
             return view('modules.audit_report.air_generate.create',
                 compact('directorate_name','directorate_address','auditType',
@@ -221,6 +209,7 @@ class AuditAIRReportController extends Controller
 
             $audit_plan_entities = $request->audit_plan_entities;
             $audit_plan_entity_info = $airReport['annual_plan']['ap_entities'];
+            //dd($audit_plan_entity_info);
 
             return view('modules.audit_report.air_generate.edit',
                 compact('content','air_report_id','annual_plan_id',
@@ -246,7 +235,6 @@ class AuditAIRReportController extends Controller
 
         $requestData['cdesk'] =$this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.load_approve_plan_list'), $requestData)->json();
-//        dd($responseData);
         $data['audit_plans'] = isSuccess($responseData)?$responseData['data']:[];
         $data['current_designation_id'] = $this->current_designation_id();
         return view('modules.audit_report.air_generate.partials.load_audit_plans',$data);
@@ -313,7 +301,7 @@ class AuditAIRReportController extends Controller
             'air_type' => 'required',
         ])->validate();
 
-//        dd($requestData);
+//       dd($requestData);
 
         return view('modules.audit_report.air_generate.partials.load_entity_list',$requestData);
     }

@@ -51,7 +51,24 @@ function ajaxCallAsyncCallback(url, data, datatype, method, callback) {
     });
 }
 
-function ajaxCallAsyncCallbackAPI(url, data, method, callback) {
+function errorCallbackFunc(data){
+    KTApp.unblock('#kt_content');
+    if (data.responseJSON.errors) {
+        $.each(data.responseJSON.errors, function (k, v) {
+            if (isArray(v)) {
+                $.each(v, function (n, m) {
+                    toastr.error(m)
+                })
+            } else {
+                if (v !== '') {
+                    toastr.error(v);
+                }
+            }
+        });
+    }
+}
+
+function ajaxCallAsyncCallbackAPI(url, data, method, callback,errorCallback) {
     $.ajax({
         async: true,
         type: method,
@@ -62,21 +79,12 @@ function ajaxCallAsyncCallbackAPI(url, data, method, callback) {
             callback(data);
         },
         error: function (data) {
-            KTApp.unblock('#kt_content');
-            if (data.responseJSON.errors) {
-                $.each(data.responseJSON.errors, function (k, v) {
-                    if (isArray(v)) {
-                        $.each(v, function (n, m) {
-                            toastr.error(m)
-                        })
-                    } else {
-                        if (v !== '') {
-                            toastr.error(v);
-                        }
-                    }
-                });
-            }
-            // ajax_stop();
+           if (errorCallback){
+               errorCallback(data);
+           }
+           else {
+               errorCallbackFunc(data);
+           }
         },
     });
 }
