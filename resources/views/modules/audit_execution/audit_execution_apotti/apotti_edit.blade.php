@@ -6,7 +6,7 @@
                     <div class="form-row pt-4">
                         <div class="col-md-12">
                             <label class="col-form-label">অনুচ্ছেদ নং</label>
-                            <input class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নং" value="{{$apotti_info['onucched_no']}}">
+                            <input readonly class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নং" value="{{$apotti_info['onucched_no']}}">
                         </div>
 
                         <div class="col-md-12">
@@ -113,7 +113,7 @@
 
     $('#selected_onucched').change(function (){
         apotti_item_id = $(this).val();
-        Qac_Container.loadApottiItemInfo(apotti_item_id);
+        Apotti_Container.loadApottiItemInfo(apotti_item_id);
     });
 </script>
 

@@ -98,11 +98,12 @@ class AuditExecutionApottiController extends Controller
     {
         $data = Validator::make($request->all(), [
             'apottiId' => 'required',
+            'minOnucchedNo' => 'required',
         ])->validate();
+
         $data['cdesk'] = $this->current_desk_json();
 
         $apotti_item_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.apotti_wise_all_tiem'), $data)->json();
-
 
         if (isSuccess($apotti_item_list)) {
             $apotti_item_list = $apotti_item_list['data'];
@@ -112,7 +113,9 @@ class AuditExecutionApottiController extends Controller
             }
             $apotti_ids = json_encode($request->apottiId);
             $sequence = $request->sequence;
-            return view('modules.audit_execution.audit_execution_apotti.partial.onucched_form',compact('apotti_item_list','apotti_ids','jorito_ourtho','sequence'));
+            $minOnucchedNo = $request->minOnucchedNo;
+            return view('modules.audit_execution.audit_execution_apotti.partial.onucched_form',
+                compact('apotti_item_list','apotti_ids','jorito_ourtho','sequence','minOnucchedNo'));
         } else {
             return response()->json(['status' => 'error', 'data' => $apotti_item_list]);
         }

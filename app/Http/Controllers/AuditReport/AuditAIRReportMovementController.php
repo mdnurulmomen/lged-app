@@ -54,6 +54,9 @@ class AuditAIRReportMovementController extends Controller
             $data['office_id'] = $request->office_id;
             $data['cdesk'] = $this->current_desk_json();
             $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.store_air_movement'), $data)->json();
+
+//            dd($responseData);
+
             if (isSuccess($responseData)) {
                 return response()->json(['status' => 'success', 'data' => 'Added!']);
             } else {

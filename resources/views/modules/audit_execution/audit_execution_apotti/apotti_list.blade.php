@@ -62,6 +62,7 @@
                     type="checkbox"
                     {{$apotti['air_generate_type'] == 'preliminary'?'disabled':''}}
                     data-sequence="{{$apotti['apotti_sequence']}}"
+                    data-onucched-no="{{$apotti['onucched_no']}}"
                     value="{{$apotti['id']}}"
                     class="select-apotti">
 

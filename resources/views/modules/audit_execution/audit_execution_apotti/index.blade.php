@@ -253,6 +253,7 @@
             }).then(function(result) {
                 if (result.value) {
                     apottiId = {};
+                    onucchedNo = [];
                     sequence = []
                      apotti = document.getElementsByClassName('select-apotti');
                      // sequence = $(apotti[0]).attr('data-sequence');
@@ -262,11 +263,15 @@
                         if(this.checked){
                             apottiId[i] = $(this).val();
                             // sequence = $(this).attr('data-sequence');
+                            onucchedNo.push($(this).attr('data-onucched-no'));
                             sequence.push($(this).attr('data-sequence'));
                         }
                     });
+
                     sequence = Math.min(...sequence);
-                    data = {apottiId,sequence}
+                    minOnucchedNo = Math.min(...onucchedNo);
+                    data = {apottiId,sequence,minOnucchedNo}
+
                     let url = '{{route('audit.execution.apotti.onucched-merge-form')}}'
                     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                         if (response.status === 'error') {
@@ -376,7 +381,7 @@
                         } else {
                             toastr.success(response.data);
                             $('#kt_quick_panel_close').click();
-                            Apotti_Container.loadApottiList()
+                            Apotti_Container.loadApottiList();
                         }
                     });
                 }

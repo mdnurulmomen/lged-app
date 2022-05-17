@@ -1,5 +1,5 @@
-
-<div class="row ml-1 mt-2">
+<x-title-wrapper>অনুচ্ছেদ একীভূত করুন</x-title-wrapper>
+<div class="row mt-2 mb-15">
     <div class="col-7">
         <div class="card">
             <div class="card-body p-4">
@@ -7,7 +7,7 @@
                     <div class="form-row pt-4">
                         <div class="col-md-6">
                             <label class="col-form-label"> অনুচ্ছেদ নং</label>
-                            <input class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নং" value="">
+                            <input readonly class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নং" value="{{$minOnucchedNo}}">
                         </div>
 
                         <div class="col-md-6">
@@ -68,7 +68,7 @@
             <div class="card-body p-4">
                 <div class="form-row pt-4">
                     <div class="col-md-12">
-                        <label class="col-form-label"> অনুচ্ছেদ</label>
+                        <label class="col-form-label">বাছাইকৃত অনুচ্ছেদ সমূহ</label>
                         <select id="selected_onucched" class="form-control select-selct2">
                             <option value="">অনুচ্ছেদ বাছাই করুন</option>
                             @foreach($apotti_item_list as $apotti_item)
