@@ -3,7 +3,6 @@
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
-
             <div class="col-md-3">
                 <select class="form-select select-select2" id="directorate_filter">
                     @if(count($directorates) > 1)
@@ -72,7 +71,7 @@
     </div>
 </div>
 
-<div class="card sna-card-border mt-2">
+<div class="card sna-card-border mt-2 mb-14">
     <div id="load_apotti_list">
         <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">
             <div class="alert-icon">

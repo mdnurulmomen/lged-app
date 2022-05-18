@@ -355,6 +355,7 @@ return [
             'apotti_final_approval' => env('API_URL_BEE', '') . '/audit-report/air/apotti-final-approval',
             'air_send_to_rpu' => env('API_URL_BEE', '') . '/audit-report/air/air-send-to-rpu',
             'final_report_movement' => env('API_URL_BEE', '') . '/audit-report/air/final-report-movement',
+            'get-air-wise-porisistos' => env('API_URL_BEE', '') . '/audit-report/air/get-air-wise-porisistos',
         ],
     ],
 

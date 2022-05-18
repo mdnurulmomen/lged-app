@@ -129,30 +129,20 @@ class AuditQACAIRReportController extends Controller
             $is_sent = $airReport['is_sent'];
             $is_received = $airReport['is_received'];
             $qac_type = $request->qac_type;
+
             $fiscal_year_id = $airReport['fiscal_year_id'];
+            $audit_year = enTobn($airReport['fiscal_year']['start']).'-'.enTobn($airReport['fiscal_year']['end']);
+            $fiscal_year = enTobn($airReport['fiscal_year']['start']).'-'.enTobn($airReport['fiscal_year']['end']);
 
-            $fiscal_year_data['fiscal_year_id'] = $fiscal_year_id;
-            $fiscal_year_response = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_show'), $fiscal_year_data)->json();
-
-            if (isSuccess($fiscal_year_response)) {
-                $fiscal_year_start = $fiscal_year_response['data']['start'];
-                $fiscal_year_end = $fiscal_year_response['data']['end'];
-            }
-            $audit_year = '২০১৯-২০২০';
-            $fiscal_year = enTobn($fiscal_year_start).'-'.enTobn($fiscal_year_end);
             $activity_id = $airReport['activity_id'];
             $audit_plan_id = $airReport['audit_plan_id'];
             $annual_plan_id = $airReport['annual_plan_id'];
 
             $directorate_name = $this->current_office()['office_name_bn'];
-            if ($this->current_office_id() == 14) {
-                $directorate_address = 'অডিট কমপ্লেক্স <br> ৩য় তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
-            } elseif ($this->current_office_id() == 3) {
-                $directorate_address = 'অডিট কমপ্লেক্স <br> ২য় তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
-            } else {
-                $directorate_address = 'অডিট কমপ্লেক্স <br> ৮ম তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
-            }
-            $auditType = 'কমপ্লায়েন্স অডিট';
+            //$directorate_address = $this->current_office_details()['office_address']; //todo
+            $directorate_address = '';
+
+            $auditType = $request->session()->get('dashboard_audit_type_bn');
 
             //for entity info
             $entityNames = [];
@@ -282,6 +272,17 @@ class AuditQACAIRReportController extends Controller
         else{
             return view('modules.audit_quality_control.partials.load_audit_apottis_details',compact('apottiStatusList'));
         }
+    }
+
+    public function getAirWisePorisisto(Request $request)
+    {
+        $requestData = Validator::make($request->all(), [
+            'air_id' => 'required',
+        ])->validate();
+        $requestData['cdesk'] =$this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), $requestData)->json();
+        $porisishtos = isSuccess($responseData)?$responseData['data']:[];
+        return view('modules.audit_report.air_generate.partials.load_audit_apottis_wise_porisistos',compact('porisishtos'));
     }
 
 

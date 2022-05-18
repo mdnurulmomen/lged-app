@@ -109,19 +109,20 @@
             let approved_status = '{{$approved_status}}';
             if (approved_status != 'approved') {
                 $(".update-qac-air-report").click();
-                QAC_AIR_Report_Container.insertAuditTeam();
-                QAC_AIR_Report_Container.insertAuditApottiSummary('sfi');
-                QAC_AIR_Report_Container.insertAuditApottiSummary('non-sfi');
-                QAC_AIR_Report_Container.insertAuditApottiDetails('sfi');
-                QAC_AIR_Report_Container.insertAuditApottiDetails('non-sfi');
+                QAC_AIR_Report_Container.setAuditTeam();
+                QAC_AIR_Report_Container.setAuditApottiSummary('sfi');
+                QAC_AIR_Report_Container.setAuditApottiSummary('non-sfi');
+                QAC_AIR_Report_Container.setAuditApottiDetails('sfi');
+                QAC_AIR_Report_Container.setAuditApottiDetails('non-sfi');
+                QAC_AIR_Report_Container.setAuditApottiWisePrisistos();
                 $(".update-qac-air-report").click();
             }
 
-            /*QAC_AIR_Report_Container.insertAuditTeam();
-            QAC_AIR_Report_Container.insertAuditApottiSummary('sfi');
-            QAC_AIR_Report_Container.insertAuditApottiSummary('non-sfi');
-            QAC_AIR_Report_Container.insertAuditApottiDetails('sfi');
-            QAC_AIR_Report_Container.insertAuditApottiDetails('non-sfi');*/
+            /*QAC_AIR_Report_Container.setAuditTeam();
+            QAC_AIR_Report_Container.setAuditApottiSummary('sfi');
+            QAC_AIR_Report_Container.setAuditApottiSummary('non-sfi');
+            QAC_AIR_Report_Container.setAuditApottiDetails('sfi');
+            QAC_AIR_Report_Container.setAuditApottiDetails('non-sfi');*/
         });
 
         var QAC_AIR_Report_Container = {
@@ -147,7 +148,7 @@
                 })
             },
 
-            insertAuditTeam: function () {
+            setAuditTeam: function () {
                 url = '{{route('audit.report.air.get-audit-team')}}';
                 fiscal_year_id = '{{$fiscal_year_id}}';
                 activity_id = '{{$activity_id}}';
@@ -159,7 +160,7 @@
                         toastr.error(response.data);
                     } else {
                         $('.audit_team').html(response);
-                        Insert_AIR_Data_Container.setJsonContentFromPlanBook();
+                        QAC_AIR_Report_Container.setJsonContentFromPlanBook();
                     }
                 });
             },
@@ -194,7 +195,7 @@
                 });
             },
 
-            insertAuditApottiSummary: function (apotti_type) {
+            setAuditApottiSummary: function (apotti_type) {
                 url = '{{route('audit.report.air.qac.get-air-and-apotti-type-wise-qac-apotti')}}';
                 qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'summary';
@@ -215,7 +216,7 @@
             },
 
 
-            insertAuditApottiDetails: function (apotti_type) {
+            setAuditApottiDetails: function (apotti_type) {
                 url = '{{route('audit.report.air.qac.get-air-and-apotti-type-wise-qac-apotti')}}';
                 qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'details';
@@ -234,6 +235,21 @@
                     }
                 });
             },
+
+            setAuditApottiWisePrisistos: function () {
+                url = '{{route('audit.report.air.qac.get-air-wise-porisistos')}}';
+                air_id = '{{$air_report_id}}';
+                let data = {air_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data);
+                    } else {
+                        $('.audit_apotti_porisistos').html(response);
+                        QAC_AIR_Report_Container.setJsonContentFromPlanBook();
+                    }
+                });
+            },
+
 
             loadApprovalAuthority: function () {
                 url = '{{route('audit.report.air.get-approval-authority')}}';

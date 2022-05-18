@@ -115,7 +115,6 @@ class AuditQacController extends Controller
 
     public function storeQacCommittee(Request $request)
     {
-        dd($request->all());
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
             'qac_type' => 'required',

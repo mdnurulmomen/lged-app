@@ -601,6 +601,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('qac-report-date', [AuditQACAIRReportController::class, 'qacReportDate'])->name('qac-report-date');
                 Route::post('get-air-wise-qac-apotti', [AuditQACAIRReportController::class, 'getAirWiseQACApotti'])->name('get-air-wise-qac-apotti');
                 Route::post('get-air-and-apotti-type-wise-qac-apotti', [AuditQACAIRReportController::class, 'getAirAndApottiTypeWiseQACApotti'])->name('get-air-and-apotti-type-wise-qac-apotti');
+                Route::post('get-air-wise-porisistos', [AuditQACAIRReportController::class, 'getAirWisePorisisto'])->name('get-air-wise-porisistos');
             });
 
             //qac1

@@ -1,4 +1,4 @@
-<form id="apotti_qac_form">
+<form class="mb-4" id="apotti_qac_form">
     <div class="form-row pt-4">
         <input type="hidden" name="apotti_id" value="{{$apotti_id}}">
 

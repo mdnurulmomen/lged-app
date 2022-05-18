@@ -124,8 +124,9 @@
     <script>
         $(function () {
             //$(".update-qac-air-report").click();
-            QAC_AIR_Report_Container.insertAuditApottiSummary();
-            QAC_AIR_Report_Container.insertAuditApottiDetails();
+            QAC_AIR_Report_Container.setAuditApottiSummary();
+            QAC_AIR_Report_Container.setAuditApottiDetails();
+            QAC_AIR_Report_Container.setAuditApottiWisePrisistos();
             //$(".update-qac-air-report").click();
         });
 
@@ -184,7 +185,7 @@
                 });
             },
 
-            insertAuditApottiSummary: function () {
+            setAuditApottiSummary: function () {
                 url = '{{route('audit.report.air.qac.get-air-wise-qac-apotti')}}';
                 qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'summary';
@@ -201,7 +202,7 @@
             },
 
 
-            insertAuditApottiDetails: function () {
+            setAuditApottiDetails: function () {
                 url = '{{route('audit.report.air.qac.get-air-wise-qac-apotti')}}';
                 qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'details';
@@ -212,6 +213,20 @@
                         toastr.error(response.data);
                     } else {
                         $('.audit_apotti_details').html(response);
+                        QAC_AIR_Report_Container.setJsonContentFromPlanBook();
+                    }
+                });
+            },
+
+            setAuditApottiWisePrisistos: function () {
+                url = '{{route('audit.report.air.qac.get-air-wise-porisistos')}}';
+                air_id = '{{$air_report_id}}';
+                let data = {air_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data);
+                    } else {
+                        $('.audit_apotti_porisistos').html(response);
                         QAC_AIR_Report_Container.setJsonContentFromPlanBook();
                     }
                 });

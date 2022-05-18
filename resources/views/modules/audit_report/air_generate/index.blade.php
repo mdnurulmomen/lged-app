@@ -12,7 +12,6 @@
     </div>
 </div>
 
-<div class="card sna-card-border mt-2 mb-15">
 <div class="card sna-card-border mt-2 mb-14">
     <div class="load-plan-list">
         <div class="d-flex align-items-center">
