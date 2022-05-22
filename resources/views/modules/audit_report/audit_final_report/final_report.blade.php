@@ -57,11 +57,15 @@
         team_filter = $('#team_filter').val();
         cost_center_id = $('#cost_center_filter').val();
         //Qac_Container.loadApottiList(fiscal_year_id);
-        Final_report_Container.loadActivity(fiscal_year_id);
+        Final_Report_Container.loadActivity(fiscal_year_id);
 
     });
 
-    var Final_report_Container = {
+    $('#activity_id').change(function (){
+        Final_Report_Container.loadFinalReportList();
+    });
+
+    var Final_Report_Container = {
         loadActivity: function (fiscal_year_id) {
             let url = '{{route('audit.plan.operational.activity.select')}}';
             let data = {fiscal_year_id};
@@ -71,7 +75,6 @@
                     } else {
                         $('#activity_id').html(response);
                         $("#activity_id").val($("#activity_id option:eq(1)").val()).trigger('change');
-
                     }
                 }
             );
@@ -86,6 +89,29 @@
                         toastr.warning(response.data)
                     } else {
                         $('#audit_plan_id').html(response);
+                    }
+                }
+            );
+        },
+
+        loadFinalReportList: function (){
+            office_id = $('#directorate_filter').val();
+            activity_id = $('#activity_id').val();
+            qac_type = 'cqat';
+            let url = '{{route('audit.final-report.get-audit-final-report')}}';
+            let data = {qac_type,activity_id,office_id};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_content');
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        $('#load_final_report').html(response);
                     }
                 }
             );
@@ -148,43 +174,11 @@
                                 toastr.error(response.data);
                             } else {
                                 toastr.success(response.data);
-                                audit_plan_id = $('#audit_plan_id').val();
-                                $('#audit_plan_id').val(audit_plan_id).trigger('change');
+                                Final_Report_Container.loadFinalReportList();
                             }
                         })
                     }
                 });
         },
     };
-
-    $('#activity_id').change(function () {
-
-        office_id = $('#directorate_filter').val();
-        // audit_plan_id = $('#audit_plan_id').val();
-        activity_id = $(this).val();
-        let url = '{{route('audit.final-report.get-audit-final-report')}}';
-        let qac_type = 'cqat';
-        let data = {qac_type,activity_id,office_id};
-
-        KTApp.block('#kt_content', {
-            opacity: 0.1,
-            state: 'primary' // a bootstrap color
-        });
-
-        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
-                if (response.status === 'error') {
-                    toastr.warning(response.data)
-                } else {
-                    $('#load_final_report').html(response);
-                }
-            }
-        );
-    });
-
-    $('#activity_id').change(function (){
-        activity_id = $('#activity_id').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        Final_report_Container.loadActivityWiseAuditPlan(fiscal_year_id,activity_id);
-    });
 </script>
