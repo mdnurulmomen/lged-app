@@ -389,39 +389,6 @@
         },
     };
 
-    $('#btn_filter').click(function () {
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        team_filter = $('#team_filter').val();
-        cost_center_id = $('#cost_center_filter').val();
-        memo_irregularity_type = $('#memo_irregularity_type').val();
-        memo_irregularity_sub_type = $('#memo_irregularity_sub_type').val();
-        memo_type = $('#memo_type').val();
-        memo_status = $('#memo_status').val();
-        jorito_ortho_poriman = $('#jorito_ortho_poriman').val();
-        audit_year_start = $('#audit_year_start').val();
-        audit_year_end = $('#audit_year_end').val();
-        if (directorate_id !== 'all') {
-            Authority_Memo_Container.loadMemoList(directorate_id, fiscal_year_id, cost_center_id, team_filter, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end);
-        } else {
-            toastr.info('Please select a directorate.')
-        }
-    });
-
-    $('#entity_filter').change(function () {
-        entity_id = $('#entity_filter').val();
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        Authority_Memo_Container.loadCostCenterList(directorate_id, fiscal_year_id, entity_id);
-    });
-
-    $('#cost_center_filter').change(function () {
-        cost_center_id = $('#cost_center_filter').val();
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        Authority_Memo_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
-    });
-
     $('#activity_id').change(function (){
         activity_id = $('#activity_id').val();
         fiscal_year_id = $('#fiscal_year_id').val();

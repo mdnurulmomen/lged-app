@@ -1,7 +1,6 @@
 <form class="mb-4" id="apotti_qac_form">
     <div class="form-row pt-4">
         <input type="hidden" name="apotti_id" value="{{$apotti_id}}">
-
         @if($qac_type == 'qac-1')
             <div class="col-md-12">
                     <label class="col-form-label">Audit Criteria ঠিক আছে কিনা ?</label>

@@ -153,15 +153,27 @@
         }
     });
 
-    $(".onucched_no").on('keyup',function(){
+    $(".onucched_no").on('blur',function(){
 
         onucched_no = $(this).val();
         change_id = $(this).attr('data-id');
         real_val = $(this).attr('data-real-val');
 
+        var maximum = 0;
+        $('.onucched_no').each(function() {
+            var value = $(this).val();
+            maximum = (value > maximum) ? value : maximum;
+        });
+
+        if(onucched_no > maximum){
+            toastr.warning(onucched_no + 'No is not exist');
+            $(this).val(real_val)
+            return;
+        }
+
+
         $('.onucched_no').each(function(){
             id = $(this).attr('data-id');
-
             if(onucched_no == $(this).val()){
                 if(change_id != id){
                     $('#apptti_'+id).val(real_val);

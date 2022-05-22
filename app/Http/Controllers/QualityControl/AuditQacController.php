@@ -346,15 +346,16 @@ class AuditQacController extends Controller
 
     public function qacApottiSubmit(Request $request)
     {
-//        dd($request->all());
-
         Validator::make($request->all(), [
             'apotti_id' => 'required|integer',
             'apotti_type' => 'required',
+        ],[
+            'apotti_type.required' => 'আপত্তির ক্যাটাগরি বাছাই করুন',
         ])->validate();
 
         $data = [
             'cdesk' => $this->current_desk_json(),
+            'audit_plan_id' => $request->audit_plan_id,
             'apotti_type' => $request->apotti_type,
             'qac_type' => $request->qac_type,
             'is_audit_criteria' => $request->is_audit_criteria ?? 0,
@@ -369,9 +370,6 @@ class AuditQacController extends Controller
             'apotti_id' => $request->apotti_id,
             'comment' => $request->comment,
         ];
-
-//        dd($data);
-
         $apotti_submit = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_quality_control.qac.qac_apotti_submit'), $data)->json();
 
 //        dd($apotti_submit);
