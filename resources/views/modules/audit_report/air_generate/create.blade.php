@@ -97,8 +97,14 @@
 
     <script>
         $(function () {
-            Insert_AIR_Data_Container.insertAuditTeam();
-            //Insert_AIR_Data_Container.insertAuditTeamSchedule();
+            KTApp.block('#kt_full_width_page', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            Insert_AIR_Data_Container.setAuditTeam();
+            //Insert_AIR_Data_Container.setAuditTeamSchedule();
+            KTApp.unblock('#kt_full_width_page');
         });
 
         var Insert_AIR_Data_Container = {
@@ -109,7 +115,7 @@
                 });
             },
 
-            insertAuditTeam: function () {
+            setAuditTeam: function () {
                 url = '{{route('audit.report.air.get-audit-team')}}';
                 fiscal_year_id = '{{$fiscal_year_id}}';
                 activity_id = '{{$activity_id}}';
@@ -126,7 +132,7 @@
                 });
             },
 
-            insertAuditTeamSchedule: function () {
+            setAuditTeamSchedule: function () {
                 url = '{{route('audit.report.air.get-audit-team-schedule')}}';
                 fiscal_year_id = '{{$fiscal_year_id}}';
                 activity_id = '{{$activity_id}}';

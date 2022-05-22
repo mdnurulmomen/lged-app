@@ -212,7 +212,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/load-staff-assign-list', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'showStaffAssignList'])->name('plan.revised.list.staff');
             Route::post('/fiscal-year-wise-activity-select', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'fiscalYearWiseActivitySelect'])->name('plan.revised.fiscal-year-wise-activity-select');
             Route::post('/load-annual-entity-show', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'showAnnualPlanEntities'])->name('plan.revised.annual-entities-show');
-            Route::post('/crate-plan-info', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'addAnnualPlanInfo'])->name('plan.list.show.revised.create_plan_info');
+            Route::post('/create-plan-info', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'addAnnualPlanInfo'])->name('plan.list.show.revised.create_plan_info');
             Route::post('/activity-wise-milestone-select', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'activityWiseMilestoneSelect'])->name('plan.list.show.revised.activity-wise-milestone-select');
             Route::post('/store-annual-plan', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'storeAnnualPlanInfo'])->name('plan.revised.store');
             Route::post('/edit-plan-info', [\App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanRevisedController::class, 'editAnnualPlanInfo'])->name('plan.revised.edit_plan_info');
@@ -601,7 +601,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('qac-report-date', [AuditQACAIRReportController::class, 'qacReportDate'])->name('qac-report-date');
                 Route::post('get-air-wise-qac-apotti', [AuditQACAIRReportController::class, 'getAirWiseQACApotti'])->name('get-air-wise-qac-apotti');
                 Route::post('get-air-and-apotti-type-wise-qac-apotti', [AuditQACAIRReportController::class, 'getAirAndApottiTypeWiseQACApotti'])->name('get-air-and-apotti-type-wise-qac-apotti');
-                Route::post('get-air-wise-porisistos', [AuditQACAIRReportController::class, 'getAirWisePorisisto'])->name('get-air-wise-porisistos');
+                Route::post('get-air-wise-porisistos', [AuditQACAIRReportController::class, 'getAirWisePorisistos'])->name('get-air-wise-porisistos');
             });
 
             //qac1

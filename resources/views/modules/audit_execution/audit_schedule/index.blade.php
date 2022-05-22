@@ -25,7 +25,6 @@
         ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
             if (resp.status === 'error') {
                 toastr.error('no');
-                console.log(resp.data)
             } else {
                 $(".load-table-data").html(resp);
             }

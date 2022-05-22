@@ -354,7 +354,7 @@ class AuditAIRReportController extends Controller
 
         $requestData['cdesk'] =$this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_audit_apotti_wise_porisistos'), $requestData)->json();
-        $porisishtos = isSuccess($responseData)?$responseData['data']:[];
-        return view('modules.audit_report.air_generate.partials.load_audit_apottis_wise_porisistos',compact('porisishtos'));
+        $apotti_items = isSuccess($responseData)?$responseData['data']:[];
+        return view('modules.audit_report.air_generate.partials.load_audit_apottis_wise_porisistos',compact('apotti_items'));
     }
 }

@@ -40,11 +40,24 @@
 </div>
 
 <div class="card sna-card-border mt-2 mb-15">
-    <div id="load_memo_lists"></div>
+    <div class="load_memo_lists">
+        <div class="d-flex align-items-center">
+            <div class="spinner-grow text-warning mr-3" role="status">
+                <span class="sr-only"></span>
+            </div>
+            <div>
+                loading.....
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <script>
+    $(function () {
+        Memo_List_Container.loadMemoList();
+    });
+
     var Memo_List_Container = {
         loadMemoList: function (page = 1, per_page = 10) {
             audit_plan_id = '{{$audit_plan_id}}';
@@ -55,7 +68,7 @@
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
-                    $('#load_memo_lists').html(response);
+                    $('.load_memo_lists').html(response);
                 }
             });
         },
@@ -264,7 +277,6 @@
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                console.log(response)
                 $("#sentMemoToRpu").show();
                 KTApp.unblock('#kt_quick_panel');
                 $('#kt_quick_panel_close').click();
@@ -327,8 +339,15 @@
 
             memo_id = elem.data('memo-id');
             data = {memo_id};
-            let url = '{{route('audit.execution.memo.audit-memo-log')}}'
+            let url = '{{route('audit.execution.memo.audit-memo-log')}}';
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock("#kt_content");
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -337,8 +356,4 @@
             });
         },
     };
-
-    $(function () {
-        Memo_List_Container.loadMemoList();
-    });
 </script>

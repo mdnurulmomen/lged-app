@@ -274,15 +274,15 @@ class AuditQACAIRReportController extends Controller
         }
     }
 
-    public function getAirWisePorisisto(Request $request)
+    public function getAirWisePorisistos(Request $request)
     {
         $requestData = Validator::make($request->all(), [
             'air_id' => 'required',
         ])->validate();
         $requestData['cdesk'] =$this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), $requestData)->json();
-        $porisishtos = isSuccess($responseData)?$responseData['data']:[];
-        return view('modules.audit_report.air_generate.partials.load_audit_apottis_wise_porisistos',compact('porisishtos'));
+        $apotti_items = isSuccess($responseData)?$responseData['data']:[];
+        return view('modules.audit_report.air_generate.partials.load_audit_apottis_wise_porisistos',compact('apotti_items'));
     }
 
 

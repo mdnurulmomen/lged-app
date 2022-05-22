@@ -90,6 +90,7 @@
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
+                    $('.audit_apotti_details').html('');
                     $('.audit_apotti_details').html(response);
                     Insert_AIR_Data_Container.setJsonContentFromPlanBook();
                 }

@@ -154,7 +154,7 @@
                             <div class="pr-2 flex-fill cursor-pointer position-relative">
                                 <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                     <!--begin::Title-->
-                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
+                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-7">
                                         <div class="font-weight-normal">
                                             <span
                                                 class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.ministry_or_bivag')}}</span>
@@ -212,7 +212,7 @@
                                     </div>
                                     <!--end::Title-->
                                     <!--begin::Info-->
-                                    <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-4">
+                                    <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-5">
                                         <div>
                                             <div class="action-group">
                                                 <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
@@ -230,8 +230,8 @@
                                                             onclick="Annual_Plan_Container.editPlanInfo($(this))">
                                                         <i class="fad fa-edit"></i> সম্পাদনা
                                                     </button>
-                                                    <button class="mr-3 btn btn-sm btn-outline-danger btn-square"
-                                                            title="সম্পাদনা করুন"
+                                                    <button class="btn btn-sm btn-outline-danger btn-square"
+                                                            title="বাতিল করুন"
                                                             data-annual-plan-id="{{$plan['id']}}"
                                                             data-fiscal-year-id="{{$fiscal_year_id}}"
                                                             data-op-audit-calendar-event-id="{{$plan_list['op_audit_calendar_event_id']}}"

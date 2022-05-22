@@ -106,6 +106,10 @@
 
     <script>
         $(function () {
+            KTApp.block('#kt_full_width_page', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             let approved_status = '{{$approved_status}}';
             if (approved_status != 'approved') {
                 $(".update-qac-air-report").click();
@@ -117,12 +121,7 @@
                 QAC_AIR_Report_Container.setAuditApottiWisePrisistos();
                 $(".update-qac-air-report").click();
             }
-
-            /*QAC_AIR_Report_Container.setAuditTeam();
-            QAC_AIR_Report_Container.setAuditApottiSummary('sfi');
-            QAC_AIR_Report_Container.setAuditApottiSummary('non-sfi');
-            QAC_AIR_Report_Container.setAuditApottiDetails('sfi');
-            QAC_AIR_Report_Container.setAuditApottiDetails('non-sfi');*/
+            KTApp.unblock('#kt_full_width_page');
         });
 
         var QAC_AIR_Report_Container = {
@@ -138,7 +137,14 @@
                 air_id = elem.data('air-id');
                 air_description = JSON.stringify(templateArray);
                 data = {air_id, air_description};
+
+                KTApp.block('#kt_full_width_page', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
+
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'success') {
                         toastr.success('AIR Book Saved Successfully');
                     } else {
@@ -173,13 +179,14 @@
                 air_description = templateArray;
                 data = {air_description};
                 url = '{{route('audit.report.air.qac1.preview')}}';
-                KTApp.block('#kt_content', {
+
+                KTApp.block('#kt_full_width_page', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {
@@ -257,13 +264,13 @@
                 air_type = '{{$qac_type}}';
                 data = {air_report_id, air_type};
 
-                KTApp.block('.content', {
+                KTApp.block('#kt_full_width_page', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('.content');
+                    KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {
@@ -283,15 +290,21 @@
                 let url = '{{route('audit.report.air.air-send-to-rpu')}}';
                 air_id = '{{$air_report_id}}';
                 let data = {air_id};
+
+                KTApp.block('#kt_full_width_page', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
+
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                        if (response.status === 'error') {
-                            toastr.warning(response.data)
-                        } else {
-                            toastr.success(response.data);
-                            $('.air_sent_responsible_party').hide();
-                        }
+                    KTApp.unblock('#kt_full_width_page');
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        toastr.success(response.data);
+                        $('.air_sent_responsible_party').hide();
                     }
-                );
+                });
             },
         }
     </script>

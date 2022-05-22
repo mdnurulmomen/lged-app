@@ -10,13 +10,13 @@
             data = {fiscal_year_id,audit_plan_id,entity_info,air_id,air_type};
             url = '{{route('audit.report.air.get-plan-entity')}}';
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_full_width_page', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_full_width_page');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -38,13 +38,13 @@
             data = {air_id,air_type,fiscal_year_id,audit_plan_id,entity_id};
             url = '{{route('audit.report.air.get-audit-apotti-list')}}';
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_full_width_page', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_full_width_page');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -81,14 +81,19 @@
                 ministry_id,ministry_name_en,ministry_name_bn,
                 entity_id,entity_name_en,entity_name_bn};
 
+            KTApp.block('#kt_full_width_page', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_full_width_page');
                 if (response.status === 'success') {
                     elem.data('air-id',response.data.air_id);
                     $("#airId").val(response.data.air_id);
                     toastr.success('AIR Book Saved Successfully');
                 } else {
-                    toastr.error('Not Saved');
-                    console.log(response)
+                    toastr.error('AIR Book Not Saved');
                 }
             })
         },
@@ -100,13 +105,13 @@
             data = {scope,air_description};
             url = '{{route('audit.report.air.preview')}}';
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_full_width_page', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_full_width_page');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {

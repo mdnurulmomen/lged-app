@@ -123,11 +123,16 @@
 
     <script>
         $(function () {
+            KTApp.block('#kt_full_width_page', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             //$(".update-qac-air-report").click();
             QAC_AIR_Report_Container.setAuditApottiSummary();
             QAC_AIR_Report_Container.setAuditApottiDetails();
             QAC_AIR_Report_Container.setAuditApottiWisePrisistos();
             //$(".update-qac-air-report").click();
+            KTApp.unblock('#kt_full_width_page');
         });
 
         var QAC_AIR_Report_Container = {
@@ -143,7 +148,14 @@
                 air_id = elem.data('air-id');
                 air_description = JSON.stringify(templateArray);
                 data = {air_id, air_description};
+
+                KTApp.block('#kt_full_width_page', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
+
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'success') {
                         toastr.success('Audit Report Saved Successfully');
                     } else {
@@ -163,13 +175,13 @@
                 data = {scope, air_description};
                 url = '{{route('audit.report.air.final-report.preview')}}';
 
-                KTApp.block('#kt_content', {
+                KTApp.block('#kt_full_width_page', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {
@@ -240,13 +252,13 @@
                 // alert(office_id);
                 data = {air_report_id, air_type, office_id};
 
-                KTApp.block('.content', {
+                KTApp.block('#kt_full_width_page', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('.content');
+                    KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {

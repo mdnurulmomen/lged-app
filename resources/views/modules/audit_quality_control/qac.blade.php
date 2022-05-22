@@ -96,13 +96,20 @@
         loadActivity: function (fiscal_year_id) {
             let url = '{{route('audit.plan.operational.activity.select')}}';
             let data = {fiscal_year_id};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#activity_id').html(response);
-                    }
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    $('#activity_id').html(response);
                 }
+            }
             );
         },
 
@@ -110,27 +117,35 @@
             office_id = $('#directorate_filter').val();
             let url = '{{route('audit.plan.operational.activity.audit-plan')}}';
             let data = {fiscal_year_id,activity_id,office_id};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#audit_plan_id').html(response);
-                    }
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    $('#audit_plan_id').html(response);
                 }
-            );
+            });
         },
 
         loadPlanWiseEntity: function (entity_list) {
             let url = '{{route('audit.execution.apotti.audit-plan-wise-entity-select')}}';
             let data = {entity_list};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#entity_id').html(response);
-                    }
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    $('#entity_id').html(response);
                 }
-            );
+            });
         },
 
         loadAuditPlanAndTypeWiseAIRList: function (audit_plan_id) {
@@ -138,67 +153,87 @@
             let url = '{{route('audit.execution.apotti.audit-plan-type-wise-air')}}';
             let qac_type = '{{$qac_type}}';
             let data = {qac_type,audit_plan_id,office_id};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#preliminary_air_filter').html(response);
-                    }
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    $('#preliminary_air_filter').html(response);
                 }
-            );
+            });
         },
 
         loadCostCenterList: function (directorate_id, fiscal_year_id, entity_id) {
             let url = '{{route('calendar.load-cost-center-directorate-fiscal-year-wise-select')}}';
             let data = {directorate_id, fiscal_year_id, entity_id};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#cost_center_filter').html(response);
-                    }
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    $('#cost_center_filter').html(response);
                 }
-            );
+            });
         },
 
         loadTeamList: function (directorate_id, fiscal_year_id, cost_center_id) {
             let url = '{{route('calendar.load-teams-select')}}';
             let data = {directorate_id, fiscal_year_id, cost_center_id};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#team_filter').html(response);
-                    }
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    $('#team_filter').html(response);
                 }
-            );
+            });
         },
 
         loadApottiList: function (fiscal_year_id) {
             qac_type = $('#qac_type').val();
             let url = '{{route('audit.qac.qac-apotti-list')}}';
             let data = {fiscal_year_id,qac_type};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#load_apotti_list').html(response);
-                    }
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    $('#load_apotti_list').html(response);
                 }
-            );
+            });
         },
 
         loadApottiItemInfo: function (apotti_item_id) {
             let url = '{{route('audit.execution.apotti.apotti-item-info')}}';
             let data = {apotti_item_id};
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#apotti_item_info').html(response);
-                    }
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    $('#apotti_item_info').html(response);
                 }
-            );
+            });
         },
 
 
@@ -266,7 +301,13 @@
 
             let url = '{{route('audit.qac.qac-apotti')}}';
 
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -285,10 +326,15 @@
             data.push({name: "audit_plan_id", value: audit_plan_id});
             data.push({name: "entity_id", value: entity_id});
             data.push({name: "office_id", value: office_id});
-
             let url = '{{route('audit.qac.qac-apotti-submit')}}'
 
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -298,10 +344,19 @@
                 }
             });
         },
+
+
         submitAirCommittee: function () {
             data  = $('#air_committee_form').serializeArray();
-            let url = '{{route('audit.qac.submit-air-wise-committee')}}'
+            let url = '{{route('audit.qac.submit-air-wise-committee')}}';
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {

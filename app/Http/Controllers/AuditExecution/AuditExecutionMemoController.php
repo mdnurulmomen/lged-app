@@ -334,8 +334,7 @@ class AuditExecutionMemoController extends Controller
                 'cost_center_ids' => $request->cost_center_id,
                 'notifiable_type' => 'memo',
             ];
-            $send_mail_to_rpu = (new FireNotificationServices())->sendMailToRpu($mail_data);
-
+            (new FireNotificationServices())->sendMailToRpu($mail_data); //for sent email
             return response()->json(['status' => 'success', 'data' => 'রেসপন্সিবল পার্টি বরাবর মেমো সফলভাবে পাঠানো হয়েছে']);
         } else {
             return response()->json(['status' => 'error', 'data' => $memoSendToRpu]);
