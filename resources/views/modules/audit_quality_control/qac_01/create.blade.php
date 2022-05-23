@@ -13,7 +13,8 @@
 @endsection
 @section('content')
     <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
-    <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
+
+    <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
         <div class="col-md-6">
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">
@@ -27,7 +28,7 @@
         <div class="col-md-6 text-right">
             @if($approved_status == 'approved')
                 @if($is_sent == 0)
-                    <button class="btn btn-sm btn-square btn-primary btn-hover-primary air_sent_responsible_party"
+                    <button class="tap-button mr-1 btn btn-sm btn-outline-primary air_sent_responsible_party"
                             onclick="QAC_AIR_Report_Container.airSendToRpu()">
                         <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টিকে প্রেরণ করুন
                     </button>
@@ -50,18 +51,18 @@
                 @endif
             @endif
 
-            <button class="btn btn-sm btn-square btn-info btn-hover-info"
+            <button class="tap-button mr-1 btn btn-sm btn-outline-warning"
                     data-air-id="{{$air_report_id}}"
                     onclick="QAC_AIR_Report_Container.previewAirReport($(this))">
-                <i class="fad fa-search"></i> Preview
+                <i class="fad fa-eye"></i> Preview
             </button>
 
             @if($approved_status != 'approved')
                 @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
-                    <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
+                    <button class="tap-button mr-1 btn btn-sm btn-outline-primary update-qac-air-report"
                             data-air-id="{{$air_report_id}}"
                             onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
-                        <i class="fas fa-save"></i> Update
+                        <i class="fas fa-save"></i> সংরক্ষণ করুন
                     </button>
                 @endif
             @endif

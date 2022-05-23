@@ -1,11 +1,3 @@
-<style>
-    .tap-button:hover {
-        background-color: #d3d3d3!important;
-        color: black!important;
-        border: 1px solid black!important;
-    }
-</style>
-
 <div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
     <div class="col-xl-12">
         <div class="row">
@@ -63,11 +55,11 @@
                             <i style="color: black" class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টি বরাবর প্রেরণ করুন
                         </button>
                     @elseif($responseData['rAirInfo']['r_air_child']['is_received']== null)
-                        <span class="badge badge-primary">
-                          <i style="color: black" class="fal fa-info"></i>  রেস্পন্সিবল পার্টি বরাবর প্রেরণ করা হয়েছে
+                        <span class="badge tap-badge-warning">
+                          রেস্পন্সিবল পার্টি বরাবর প্রেরণ করা হয়েছে
                         </span>
                     @elseif($responseData['rAirInfo']['r_air_child']['is_received']== 1)
-                        <span class="badge badge-primary">
+                        <span class="badge tap-badge-success">
                           Received
                         </span>
                     @endif
@@ -99,11 +91,11 @@
             অনুচ্ছেদ নং
         </th>
 
-        <th width="20%" class="text-left">
+        <th width="33%" class="text-left">
             শিরোনাম
         </th>
 
-        <th width="15%" class="text-right">
+        <th width="10%" class="text-right">
             জড়িত অর্থ (টাকা)
         </th>
 
@@ -123,7 +115,7 @@
             </th>
         @endif
 
-        <th width="33%" class="text-left">
+        <th width="25%" class="text-left">
             কার্যক্রম
         </th>
     </tr>
@@ -255,7 +247,7 @@
         </tr>
     @empty
         <tr data-row="0" class="datatable-row" style="left: 0px;">
-            <td colspan="4" class="datatable-cell text-center"><span>Nothing Found</span></td>
+            <td colspan="7" class="datatable-cell text-center"><span>Nothing Found</span></td>
         </tr>
     @endforelse
     </tbody>

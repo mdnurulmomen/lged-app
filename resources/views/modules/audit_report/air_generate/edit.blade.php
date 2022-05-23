@@ -24,7 +24,8 @@
     <input type="hidden" id="entity_name_bn" value="{{$entity_name_bn}}">
 
     <input type="hidden" id="airId" value="{{$air_report_id}}">
-    <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
+
+    <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
         <div class="col-md-6">
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">
@@ -37,7 +38,7 @@
         </div>
         <div class="col-md-6 text-right">
             @if($air_status != 'approved')
-                <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
+                <button class="tap-button mr-1 btn btn-sm btn-outline-primary"
                         data-fiscal-year-id="{{$fiscal_year_id}}"
                         data-audit-plan-id="{{$audit_plan_id}}"
                         onclick="AIR_Report_Create_Container.loadPlanEntity($(this))">
@@ -45,21 +46,20 @@
                 </button>
             @endif
 
-
-            <button class="btn btn-sm btn-square btn-info btn-hover-info"
+            <button class="tap-button mr-1 btn btn-sm btn-outline-warning"
                     onclick="AIR_Report_Create_Container.previewAirReport($(this))">
-                <i class="fad fa-search"></i> Preview
+                <i class="fad fa-eye"></i> Preview
             </button>
 
             @if($air_status != 'approved')
-                <button class="btn btn-sm btn-square btn-success btn-hover-success air_report_save"
+                <button class="tap-button mr-1 btn btn-sm btn-outline-primary air_report_save"
                         data-air-id="{{$air_report_id}}"
                         data-activity-id="{{$activity_id}}"
                         data-fiscal-year-id="{{$fiscal_year_id}}"
                         data-annual-plan-id="{{$annual_plan_id}}"
                         data-audit-plan-id="{{$audit_plan_id}}"
                         onclick="AIR_Report_Create_Container.storeAIRReportPlan($(this))">
-                    <i class="fas fa-save"></i> Update
+                    <i class="fad fa-save"></i> হালনাগাদ করুন
                 </button>
             @endif
         </div>

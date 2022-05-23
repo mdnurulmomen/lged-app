@@ -192,7 +192,7 @@
 <script>
     $(function () {
         directorate_id = $('#directorate_id').val();
-        Archive_Apotti_Container.loadDirectorateWiseMinistry(directorate_id);
+        Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
     });
 
     $(document).ready(function () {
@@ -285,5 +285,37 @@
                 }
             });
         });
+    });
+
+    //ministry
+    $('#directorate_id').change(function () {
+        directorate_id = $('#directorate_id').val();
+        Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
+    });
+
+    //entity
+    $('#ministry_id').change(function () {
+        ministry_id = $('#ministry_id').val();
+        Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id);
+    });
+
+    //unit group & cost center
+    $('#entity_id').change(function () {
+        entity_id = $('#entity_id').val();
+        Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id);
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(entity_id);
+    });
+
+    //cost center
+    $('#unit_group_office_id').change(function () {
+        unit_group_office_id = $('#unit_group_office_id').val();
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(unit_group_office_id);
+    });
+
+    //sub category
+    $('#apotti_oniyomer_category_id').change(function () {
+        directorate_id = $('#directorate_id').val();
+        apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
+        Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id,apotti_oniyomer_category_id);
     });
 </script>
