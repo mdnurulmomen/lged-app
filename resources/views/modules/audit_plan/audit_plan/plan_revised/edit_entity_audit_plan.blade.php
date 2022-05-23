@@ -28,6 +28,7 @@
 {{--            @if($audit_plan['office_order'] == null || $audit_plan['office_order']['approved_status'] != 'approved')--}}
                 <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
                         data-audit-plan-id="{{$audit_plan['id']}}"
+                        data-office-order-approval-status="{{$audit_plan['office_order'] ? $audit_plan['office_order']['approved_status'] : ''}}"
                         data-has-update-office-order="{{$audit_plan['has_update_office_order']}}"
                         data-parent-office-id="{{$entity_list}}"
                         onclick="Entity_Plan_Container.showTeamCreateModal($(this));">

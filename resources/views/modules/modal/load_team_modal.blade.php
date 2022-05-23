@@ -187,7 +187,7 @@
                                     <div
                                         class="form-group custom-form-group p-0 mb-2 d-md-flex align-items-md-center justify-content-md-between">
                                         <div class="d-flex flex-wrarp mt-3 align-items-center">
-                                            @if(!$all_teams)
+                                            @if($office_order_approval_status != 'approved')
                                                 <button type="button" class="btn btn-sm btn-primary btn-square"
                                                         title="নতুন দল গঠন করুন"
                                                         id="createNewLayer" onclick="Load_Team_Container.addLayer()"><i

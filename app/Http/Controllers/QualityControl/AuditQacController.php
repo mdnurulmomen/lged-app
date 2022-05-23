@@ -76,6 +76,8 @@ class AuditQacController extends Controller
         foreach ($responseData['rAirInfo']['ap_entities'] as $ap_entity) {
             $entity_ids[] = $ap_entity['entity_id'];
         }
+
+//        dd($responseData);
         return view('modules.audit_quality_control.qac_apotti_list', compact('responseData', 'qac_type', 'current_designation_id', 'scope', 'entity_ids'));
     }
 

@@ -36,11 +36,15 @@
             <input type="checkbox" id="selectAll">
         </th>
 
-        <th width="10%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="15%" class="datatable-cell datatable-cell-sort text-left">
             অনুচ্ছেদ নং
         </th>
 
-        <th width="55%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="20%" class="datatable-cell datatable-cell-sort text-left">
+            কস্ট সেন্টার/ইউনিট
+        </th>
+
+        <th width="35%" class="datatable-cell datatable-cell-sort text-left">
             শিরোনাম
         </th>
 
@@ -77,6 +81,9 @@
                      {{enTobn(count($apotti['apotti_items'])) }} টি
                         আপত্তি একীভূত</span>
                 @endif
+            </td>
+            <td class="text-left">
+                {{$apotti['is_combined'] == 0 ? $apotti['apotti_items'][0]['cost_center_name_bn'] : ''}}
             </td>
             <td class="text-left">
                 {{$apotti['apotti_title']}}

@@ -28,6 +28,7 @@ class PlanEditorController extends Controller
         $fiscal_year_id = $request->fiscal_year_id;
         $audit_plan_id = $request->audit_plan_id;
         $has_update_office_order = $request->has_update_office_order;
+        $office_order_approval_status = $request->office_order_approval_status;
         $parent_office_id = json_encode($request->parent_office_id);
 
         $own_office = ['name' => $this->current_office()['office_name_bn'], 'id' => $this->current_office()['id']];
@@ -37,7 +38,7 @@ class PlanEditorController extends Controller
         $cdesk = $this->current_desk_json();
         $data['cdesk'] = $cdesk;
         $teamResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_wise_team'), $data)->json();
-//        dd($has_update_office_order);
+//        dd($office_order_approval_status);
         //for office list
         $nominated_offices_list = [];
 //        $getParentWithChildOfficePassData['parent_office_id'] = $parent_office_id;
@@ -59,6 +60,7 @@ class PlanEditorController extends Controller
             'parent_office_id',
             'modal_type',
             'has_update_office_order',
+            'office_order_approval_status',
         ));
     }
 

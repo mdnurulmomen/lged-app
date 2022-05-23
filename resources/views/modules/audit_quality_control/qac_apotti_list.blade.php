@@ -20,13 +20,15 @@
                     @endif
                 </a>
 
-                @if(!$responseData['rAirInfo']['qac_committee'])
-                    <a style="color: black" data-qac-type="{{$qac_type}}"
-                       data-air-report-id="{{$responseData['rAirInfo']['id']}}"
-                       onclick="QAC_Apotti_List_Container.selectCommittee($(this))"
-                       class="tap-button mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
-                        <i style="color: black" class="far fa-users"></i> কমিটি বাছাই করুন
-                    </a>
+                @if($qac_type != 'cqat')
+                    @if(!$responseData['rAirInfo']['qac_committee'])
+                        <a style="color: black" data-qac-type="{{$qac_type}}"
+                           data-air-report-id="{{$responseData['rAirInfo']['id']}}"
+                           onclick="QAC_Apotti_List_Container.selectCommittee($(this))"
+                           class="tap-button mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
+                            <i style="color: black" class="far fa-users"></i> কমিটি বাছাই করুন
+                        </a>
+                    @endif
                 @endif
 
                 @if($responseData['rAirInfo']['qac_committee'])
@@ -72,12 +74,14 @@
                 @endif
 
                 @if($qac_type == 'cqat')
-                    <a data-qac-type="{{$qac_type}}"
-                       data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
-                       onclick="QAC_Apotti_List_Container.ApprovedCqatForm($(this))"
-                       class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
-                        সিকিউএটি সম্পন্ন করুন
-                    </a>
+                    @if($responseData['rAirInfo']['r_air_child']['status'] != 'approved')
+                        <a data-qac-type="{{$qac_type}}"
+                           data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                           onclick="QAC_Apotti_List_Container.ApprovedCqatForm($(this))"
+                           class="mr-1 btn btn-sm btn-outline-primary btn-square" href="javascript:;">
+                            সিকিউএটি সম্পন্ন করুন
+                        </a>
+                    @endif
                 @endif
             </div>
         </div>
@@ -206,14 +210,16 @@
 
                 @if($responseData['rAirInfo']['r_air_child']['status'] != 'approved')
                     @if($qac_type == 'cqat')
-                        <button type="button" class="ml-1 btn btn-sm btn-primary btn-square"
-                                title="গৃহীত"
-                                data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
-                                data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
-                                data-final-approval-status="approved"
-                                onclick="QAC_Apotti_List_Container.apottiFinalApproval($(this))">
-                            <i class="fa fa-arrow-down-to-square"></i> গৃহীত করুন
-                        </button>
+                        @if($apotti['apotti_map_data']['apotti_type'] != 'approved')
+                            <button type="button" class="ml-1 btn btn-sm btn-primary btn-square"
+                                    title="গৃহীত"
+                                    data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
+                                    data-apotti-id="{{$apotti['apotti_map_data']['id']}}"
+                                    data-final-approval-status="approved"
+                                    onclick="QAC_Apotti_List_Container.apottiFinalApproval($(this))">
+                                <i class="fa fa-arrow-down-to-square"></i> গৃহীত করুন
+                            </button>
+                        @endif
                     @else
                         @if(empty($responseData['rAirInfo']['r_air_child']['latest_r_air_movement']) || $responseData['rAirInfo']['r_air_child']['latest_r_air_movement']['receiver_employee_designation_id'] == $current_designation_id)
                             @if($responseData['rAirInfo']['qac_committee'])
