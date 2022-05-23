@@ -131,11 +131,12 @@
     <div id="load_apotti_list"></div>
 </div>
 
+@include('modules.audit_execution.audit_execution_archive_apotti.scripts.archive_scripts');
 
 <script>
     $(function () {
         directorate_id = $('#directorate_id').val();
-        Archive_Apotti_Container.loadDirectorateWiseMinistry(directorate_id);
+        Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
         Archive_Apotti_Container.loadApottiList();
     });
 
@@ -187,86 +188,6 @@
             );
         },
 
-        loadDirectorateWiseMinistry: function (directorate_id,ministry_id='') {
-            let url = '{{route('audit.execution.archive-apotti.load-directorate-wise-ministry')}}';
-            let data = {directorate_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data);
-                    } else {
-                        $('#ministry_id').html(response);
-                        if (ministry_id != ""){
-                            $("#ministry_id").val(ministry_id).trigger('change');
-                        }
-                    }
-                }
-            );
-        },
-
-        loadMinistryWiseEntity: function (ministry_id,entity_id='') {
-            let url = '{{route('audit.execution.archive-apotti.load-ministry-wise-entity')}}';
-            let data = {ministry_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data);
-                    } else {
-                        $('#entity_id').html(response);
-                        if (entity_id != ""){
-                            $("#entity_id").val(entity_id).trigger('change');
-                        }
-                    }
-                }
-            );
-        },
-
-        loadEntityWiseUnitGroupOffice: function (entity_id,parent_office_id='') {
-            let url = '{{route('audit.execution.archive-apotti.load-entity-wise-unit-group-office')}}';
-            let data = {entity_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data);
-                    } else {
-                        $('#unit_group_office_id').html(response);
-                        if (parent_office_id != ""){
-                            $("#unit_group_office_id").val(parent_office_id).trigger('change');
-                        }
-                    }
-                }
-            );
-        },
-
-        loadEntityOrUnitGroupWiseCostCenter: function (parent_office_id,cost_center_id='') {
-            let url = '{{route('audit.execution.archive-apotti.load-entity-or-unit-group-wise-cost-center')}}';
-            let data = {parent_office_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data);
-                    } else {
-                        $('#cost_center_id').html(response);
-                        if (cost_center_id != ""){
-                            $("#cost_center_id").val(cost_center_id).trigger('change');
-                        }
-                    }
-                }
-            );
-        },
-
-        loadOniyomerSubCategory: function (directorate_id,apotti_oniyomer_category_id,apotti_oniyomer_category_child_id="") {
-            let url = '{{route('audit.execution.archive-apotti.load-oniyomer-sub-category-list')}}';
-            let data = {directorate_id,apotti_oniyomer_category_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data);
-                    } else {
-                        $('#apotti_oniyomer_category_child_id').html(response);
-                        if (apotti_oniyomer_category_child_id != ""){
-                            $("#apotti_oniyomer_category_child_id").val(apotti_oniyomer_category_child_id).trigger('change');
-                        }
-                    }
-                }
-            );
-        },
-
         loadApottiEditForm: function (elem){
             apotti_id = elem.data('apotti-id');
             let url = '{{route('audit.execution.archive-apotti.edit')}}';
@@ -300,32 +221,32 @@
     //ministry
     $('#directorate_id').change(function () {
         directorate_id = $('#directorate_id').val();
-        Archive_Apotti_Container.loadDirectorateWiseMinistry(directorate_id);
+        Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
     });
 
     //entity
     $('#ministry_id').change(function () {
         ministry_id = $('#ministry_id').val();
-        Archive_Apotti_Container.loadMinistryWiseEntity(ministry_id);
+        Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id);
     });
 
     //unit group & cost center
     $('#entity_id').change(function () {
         entity_id = $('#entity_id').val();
-        Archive_Apotti_Container.loadEntityWiseUnitGroupOffice(entity_id);
-        Archive_Apotti_Container.loadEntityOrUnitGroupWiseCostCenter(entity_id);
+        Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id);
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(entity_id);
     });
 
     //cost center
     $('#unit_group_office_id').change(function () {
         unit_group_office_id = $('#unit_group_office_id').val();
-        Archive_Apotti_Container.loadEntityOrUnitGroupWiseCostCenter(unit_group_office_id);
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(unit_group_office_id);
     });
 
     //sub category
     $('#apotti_oniyomer_category_id').change(function () {
         directorate_id = $('#directorate_id').val();
         apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
-        Archive_Apotti_Container.loadOniyomerSubCategory(directorate_id,apotti_oniyomer_category_id);
+        Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id,apotti_oniyomer_category_id);
     });
 </script>

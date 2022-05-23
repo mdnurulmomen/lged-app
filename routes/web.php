@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuditExecution\AuditExecutionArchiveApottiController;
+use App\Http\Controllers\AuditExecution\AuditExecutionArchiveApottiReportController;
 use App\Http\Controllers\AuditFollowup\AuditFollowupController;
 use App\Http\Controllers\AuditFollowup\BroadsheetReplyController;
 use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentController;
@@ -458,6 +459,15 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::post('load-oniyomer-category-list', [AuditExecutionArchiveApottiController::class, 'loadOniyomerCategoryList'])->name('load-oniyomer-category-list');
             Route::post('load-oniyomer-sub-category-list', [AuditExecutionArchiveApottiController::class, 'loadOniyomerSubCategoryList'])->name('load-oniyomer-sub-category-list');
+        });
+
+        //archive apotti report
+        Route::group(['as' => 'archive-apotti-report.', 'prefix' => 'archive-apotti-report/'], function () {
+            Route::get('index', [AuditExecutionArchiveApottiReportController::class, 'index'])->name('index');
+            Route::post('create', [AuditExecutionArchiveApottiReportController::class, 'create'])->name('create');
+            Route::post('view', [AuditExecutionArchiveApottiReportController::class, 'view'])->name('view');
+            Route::post('store', [AuditExecutionArchiveApottiReportController::class, 'store'])->name('store');
+            Route::post('list', [AuditExecutionArchiveApottiReportController::class, 'list'])->name('list');
         });
     });
 

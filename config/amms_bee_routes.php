@@ -315,7 +315,13 @@ return [
             'update' => env('API_URL_BEE', '') . '/audit-archive-apotti/update',
             'list' => env('API_URL_BEE', '') . '/audit-archive-apotti/list',
             'edit' => env('API_URL_BEE', '') . '/audit-archive-apotti/edit',
-        ]
+        ],
+
+        'archive_apotti_report' => [
+            'store' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/store',
+            'list' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/list',
+            'view' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/view',
+        ],
     ],
 
     'audit_quality_control' => [

@@ -27,7 +27,7 @@
         <div class="col-md-6 text-right">
             @if($approved_status == 'approved')
                 @if($is_sent == 0)
-                    <button class="btn btn-sm btn-square btn-primary btn-hover-primary air_sent_responsible_party"
+                    <button class="tap-button mr-1 btn btn-sm btn-outline-primary air_sent_responsible_party"
                             onclick="QAC_AIR_Report_Container.airSendToRpu()">
                         <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টিকে প্রেরণ করুন
                     </button>
@@ -42,7 +42,7 @@
                 @endif
             @else
                 @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
-                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
+                    <button class="tap-button mr-1 btn btn-sm btn-outline-primary load_approval_authority"
                             title="প্রাপক বাছাই করুন"
                             onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
                         <i class="fad fa-paper-plane"></i> প্রেরণ করুন
@@ -50,17 +50,17 @@
                 @endif
             @endif
 
-                <button class="btn btn-sm btn-square btn-info btn-hover-info"
+                <button class="tap-button mr-1 btn btn-sm btn-outline-warning"
                         data-air-id="{{$air_report_id}}"
                         onclick="QAC_AIR_Report_Container.previewAirReport($(this))">
-                    <i class="fad fa-search"></i> Preview
+                    <i class="fad fa-eye"></i> Preview
                 </button>
 
             @if($approved_status != 'approved')
-                <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
+                <button class="tap-button mr-1 btn btn-sm btn-outline-primary update-qac-air-report"
                         data-air-id="{{$air_report_id}}"
                         onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
-                    <i class="fas fa-save"></i> Update
+                    <i class="fad fa-save"></i> হালনাগাদ করুন
                 </button>
             @endif
         </div>

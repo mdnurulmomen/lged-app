@@ -600,8 +600,8 @@ ul.sna-breadcrumb li a:hover {
 
 .btn.btn-quick-panel-close {
     color: #ffffff;
-    background-color: #b74753;
-    border-color: #b74753;
+    background-color: #f26d3e;
+    border-color: #f26d3e;
 }
 
 .topbar .widget_container svg {
@@ -713,4 +713,43 @@ ul.sna-breadcrumb li a:hover {
     border-radius: 50%;
     top: 0.7rem;
     left: 0.75rem;
+}
+
+
+/*tap button */
+.tap-button {
+    color: black!important;
+}
+
+.tap-button > i{
+    color: black!important;
+}
+
+.tap-button:hover {
+    background-color: #d3d3d3!important;
+    color: black!important;
+    border: 1px solid black!important;
+}
+
+
+/*tap alert button*/
+.tap-alert-success {
+    color: black!important;
+    background: #72d9d8!important;
+}
+
+.tap-alert-danger {
+    color: black!important;
+    background: #ffb4bb!important;
+}
+
+/*tap badge*/
+.tap-badge-warning{
+    color: #ffffff!important;
+    background-color: #f26d3e!important;
+}
+
+.tap-badge-success{
+    color: #ffffff!important;
+    background-color: #358323!important;
 }

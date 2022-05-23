@@ -66,7 +66,7 @@
                                         @foreach($audit_plan['air_reports'] as $airReport)
                                             <a href="javascript:;"
                                                title="এআইআর-{{enTobn($airReport['id'])}} বিস্তারিত দেখুন"
-                                               class="badge-square rounded-0 badge d-flex align-items-center {{$airReport['status'] == 'approved'?'alert-success':'alert-danger'}}
+                                               class="badge-square rounded-0 badge d-flex align-items-center {{$airReport['status'] == 'approved'?'tap-alert-success':'tap-alert-danger'}}
                                                    font-weight-normal mr-1 border decision"
                                                data-fiscal-year-id="{{$audit_plan['fiscal_year_id']}}"
                                                data-activity-id="{{$audit_plan['activity_id']}}"
@@ -78,7 +78,9 @@
                                                onclick="AIR_Container.loadAIRShow($(this))">
                                                 <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
                                                 প্রিলিমিনারি এআইআর: {{enTobn($airReport['id'])}}
-                                                {{empty($airReport['latest_r_air_movement'])?'':'('.$airReport['latest_r_air_movement']['receiver_employee_designation_bn'].' এর কাছে প্রেরণ করা হয়েছে)'}}
+                                                @if($airReport['status'] == 'draft')
+                                                    {{empty($airReport['latest_r_air_movement'])?'':'('.$airReport['latest_r_air_movement']['receiver_employee_designation_bn'].' এর কাছে প্রেরণ করা হয়েছে)'}}
+                                                @endif
                                             </a>
                                         @endforeach
                                     </div>
