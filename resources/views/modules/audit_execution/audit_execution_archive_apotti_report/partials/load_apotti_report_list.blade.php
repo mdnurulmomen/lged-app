@@ -10,13 +10,25 @@
     <div class="col-md-3">
         <div class="card sna-card-border">
             <a href="https://audit-archive.tappware.com/report-view/1560">
-                <img class="card-img-top " style="height: 350px" src="https://audit-archive.tappware.com/storage/reports/DICFIA/110/Page0001.jpg">
+                <img class="card-img-top" style="height: 350px" src="{{$apotti_report['cover_page_path'].'/'.$apotti_report['cover_page']}}">
             </a>
             <h5>{{$apotti_report['audit_report_name']}}</h5>
-            <a href="javascript:;" data-apotti-id="{{$apotti_report['id']}}"
-               onclick="Archive_Apotti_Report_Container.loadApottiDetails($(this))" class="btn btn-primary">
-                <i class="fa fa-eye"></i>
-            </a>
+            <div class="row">
+                <div class="col-md-1 mr-5">
+                    <a href="javascript:;" data-report-id="{{$apotti_report['id']}}"
+                       onclick="Archive_Apotti_Report_Container.loadApottiDetails($(this))" class="btn btn-sm btn-primary">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </div>
+
+                <div class="col-md-1">
+                    <a href="javascript:;" data-report-id="{{$apotti_report['id']}}"
+                       onclick="Archive_Apotti_Report_Container.loadApottiUpload($(this))" class="btn btn-sm btn-primary">
+                        <i class="fa fa-plus-circle"></i>
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
     @empty

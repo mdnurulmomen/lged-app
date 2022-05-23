@@ -166,54 +166,31 @@ class AuditExecutionArchiveApottiReportController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
+            'audit_report_name' => 'required',
+            'ortho_bochor' => 'required',
+            'year_from' => 'required',
+            'year_to' => 'required',
             'directorate_id' => 'required',
             'ministry_id' => 'required',
-            'entity_id' => 'required',
-            'apotti_oniyomer_category_id' => 'required',
-            'apotti_oniyomer_category_child_id' => 'required',
-            'onucched_no' => 'required',
-            'audit_year_start' => 'required',
-            'audit_year_end' => 'required',
-            'nirikkha_dhoron' => 'required',
-            'apottir_dhoron' => 'required',
-            'jorito_ortho_poriman' => 'required',
-            'file_no' => 'required',
-            'apotti_title' => 'required',
         ],
         [
+            'audit_report_name.required' => 'Audit report name field is required.',
+            'ortho_bochor.required' => 'Ortho bochor field is required.',
+            'year_from.required' => 'From year field is required.',
+            'year_to.required' => 'To year field is required.',
             'directorate_id.required' => 'Directorate field is required.',
             'ministry_id.required' => 'Ministry field is required.',
-            'entity_id.required' => 'Entity field is required.',
-            'apotti_oniyomer_category_id.required' => 'Category field is required.',
-            'apotti_oniyomer_category_child_id.required' => 'Sub Category field is required.',
-            'onucched_no.required' => 'Onucched no field is required.',
-            'audit_year_start.required' => 'Audit start year field is required.',
-            'audit_year_end.required' => 'Audit end year field is required.',
-            'nirikkha_dhoron.required' => 'Nirikkha dhoron field is required.',
-            'apottir_dhoron.required' => 'Apottir dhoron field is required.',
-            'jorito_ortho_poriman.required' => 'Jorito Ortho Poriman dhoron field is required.',
-            'file_no.required' => 'File no field is required.',
-            'apotti_title.required' => 'Title field is required.',
         ])->validate();
 
         $data = [
+            ['name' => 'audit_report_name', 'contents' => $request->audit_report_name],
+            ['name' => 'ortho_bochor', 'contents' => $request->ortho_bochor],
+            ['name' => 'year_from', 'contents' => $request->year_from],
+            ['name' => 'year_to', 'contents' => $request->year_to],
             ['name' => 'directorate_id', 'contents' => $request->directorate_id],
+            ['name' => 'directorate_name', 'contents' => $request->directorate_name],
             ['name' => 'ministry_id', 'contents' => $request->ministry_id],
             ['name' => 'ministry_name', 'contents' => $request->ministry_name],
-            ['name' => 'entity_id', 'contents' => $request->entity_id],
-            ['name' => 'unit_group_office_id', 'contents' => $request->unit_group_office_id],
-            ['name' => 'cost_center_id', 'contents' => $request->cost_center_id],
-            ['name' => 'cost_center_name_bn', 'contents' => $request->cost_center_name_bn],
-            ['name' => 'apotti_oniyomer_category_id', 'contents' => $request->apotti_oniyomer_category_id],
-            ['name' => 'apotti_oniyomer_category_child_id', 'contents' => $request->apotti_oniyomer_category_child_id],
-            ['name' => 'onucched_no', 'contents' => $request->onucched_no],
-            ['name' => 'audit_year_start', 'contents' => $request->audit_year_start],
-            ['name' => 'audit_year_end', 'contents' => $request->audit_year_end],
-            ['name' => 'nirikkha_dhoron', 'contents' => $request->nirikkha_dhoron],
-            ['name' => 'apottir_dhoron', 'contents' => $request->apottir_dhoron],
-            ['name' => 'jorito_ortho_poriman', 'contents' => $request->jorito_ortho_poriman],
-            ['name' => 'file_no', 'contents' => $request->file_no],
-            ['name' => 'apotti_title', 'contents' => $request->apotti_title],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
 
@@ -229,66 +206,20 @@ class AuditExecutionArchiveApottiReportController extends Controller
             }
         }
 
-        //top_page
-        if ($request->hasfile('top_page')) {
-            foreach ($request->file('top_page') as $file) {
+
+        //apottis
+        if ($request->hasfile('apottis')) {
+            foreach ($request->file('apottis') as $file) {
                 $data[] = [
-                    'name' => 'top_page[]',
+                    'name' => 'apottis[]',
                     'contents' => file_get_contents($file->getRealPath()),
                     'filename' => $file->getClientOriginalName(),
                 ];
             }
         }
-
-        //main_apottis
-        if ($request->hasfile('main_apottis')) {
-            foreach ($request->file('main_apottis') as $file) {
-                $data[] = [
-                    'name' => 'main_apottis[]',
-                    'contents' => file_get_contents($file->getRealPath()),
-                    'filename' => $file->getClientOriginalName(),
-                ];
-            }
-        }
-
-
-        //porisishtos
-        if ($request->hasfile('porisishtos')) {
-            foreach ($request->file('porisishtos') as $file) {
-                $data[] = [
-                    'name' => 'porisishtos[]',
-                    'contents' => file_get_contents($file->getRealPath()),
-                    'filename' => $file->getClientOriginalName(),
-                ];
-            }
-        }
-
-
-        //promanoks
-        if ($request->hasfile('promanoks')) {
-            foreach ($request->file('promanoks') as $file) {
-                $data[] = [
-                    'name' => 'promanoks[]',
-                    'contents' => file_get_contents($file->getRealPath()),
-                    'filename' => $file->getClientOriginalName(),
-                ];
-            }
-        }
-
-        //others
-        if ($request->hasfile('others')) {
-            foreach ($request->file('others') as $file) {
-                $data[] = [
-                    'name' => 'others[]',
-                    'contents' => file_get_contents($file->getRealPath()),
-                    'filename' => $file->getClientOriginalName(),
-                ];
-            }
-        }
-
 
         $response = $this->fileUPloadWithData(
-            config('amms_bee_routes.audit_conduct_query.archive_apotti.store'),
+            config('amms_bee_routes.audit_conduct_query.archive_apotti_report.store'),
             $data
         );
 

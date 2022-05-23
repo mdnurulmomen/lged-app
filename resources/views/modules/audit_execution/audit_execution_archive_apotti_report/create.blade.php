@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{{asset('assets/css/mFiler.css')}}" referrerpolicy="origin">
 
 
-<form class="mb-4" id="apotti_create_form" enctype="multipart/form-data" autocomplete="off">
+<form class="mb-4" id="report_create_form" enctype="multipart/form-data" autocomplete="off">
     <div class="card sna-card-border">
         <div class="row">
             <div class="col-md-8">
@@ -22,17 +22,13 @@
                         class="btn btn-sm btn-warning btn_back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> {{___('generic.back')}}
                     </a>
-                    <a id="archive_apotti_submit" class="btn btn-primary btn-sm btn-bold btn-square"
-                       href="javascript:;">
-                        <i class="far fa-save mr-1"></i> {{___('generic.save')}}
-                    </a>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="card sna-card-border mt-3 mb-15">
-        <div class="form-group row">
+        <div class="mr-3 form-group row">
             <div class="col-md-2">
                 <label for="audit_report_name" class="col-form-label">অডিট রিপোর্টের নাম:</label>
             </div>
@@ -41,7 +37,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mr-3 form-group row">
             <div class="col-md-2">
                 <label for="ortho_bochor" class="col-form-label">অর্থ-বছর:</label>
             </div>
@@ -50,7 +46,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mr-3 form-group row">
             <div class="col-md-2">
                 <label for="year_from" class="col-form-label">বছরের থেকে:</label>
             </div>
@@ -59,7 +55,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mr-3 form-group row">
             <div class="col-md-2">
                 <label for="year_to" class="col-form-label">বছরের পর্যন্ত:</label>
             </div>
@@ -68,7 +64,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mr-3 form-group row">
             <div class="col-md-2">
                 <label for="directorate_id" class="col-form-label">অডিট ডিরেক্টরেট সমূহ:</label>
             </div>
@@ -81,7 +77,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mr-3 form-group row">
             <div class="col-md-2">
                 <label for="ministry_id" class="col-form-label">মন্ত্রণালয়/বিভাগ:</label>
             </div>
@@ -92,20 +88,31 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mr-3 form-group row">
             <div class="col-md-2">
                 <label class="col-form-label">কভার-পেজ:</label>
             </div>
-            <div class="col-md-4">
-                <input type="file" name="cover_page">
+            <div class="col-md-10">
+                <input name="cover_page[]" type="file" class="mFilerInit form-control rounded-0">
             </div>
         </div>
 
-        <div class="form-group row">
-            <div class="col-md-2"></div>
-            <div class="col-md-10"></div>
-            <label class="col-sm-2 col-form-label">আপত্তি সমূহ:</label>
-            <input name="promanoks[]" type="file" class="mFilerInit form-control rounded-0" multiple>
+        <div class="mr-3 form-group row">
+            <div class="col-md-2">
+                <label class="col-form-label">আপত্তি সমূহ:</label>
+            </div>
+            <div class="col-md-10">
+                <input name="apottis[]" type="file" class="mFilerInit form-control rounded-0" multiple>
+            </div>
+        </div>
+
+        <div class="mr-3 row">
+            <div class="col-md-2">
+                <a id="archive_report_submit" class="btn btn-primary btn-sm btn-bold btn-square"
+                   href="javascript:;">
+                    <i class="far fa-save mr-1"></i> {{___('generic.save')}}
+                </a>
+            </div>
         </div>
     </div>
 </form>
@@ -135,22 +142,16 @@
             }
         });
 
-        $('#archive_apotti_submit').on('click', function (e) {
+        $('#archive_report_submit').on('click', function (e) {
             e.preventDefault();
 
-            from_data = new FormData(document.getElementById("apotti_create_form"));
+            from_data = new FormData(document.getElementById("report_create_form"));
+
+            directorate_name = $("#directorate_id option:selected").text();
+            from_data.append('directorate_name', directorate_name);
 
             ministry_name = $("#ministry_id option:selected").text();
             from_data.append('ministry_name', ministry_name);
-
-            entity_name = $("#entity_id option:selected").text();
-            from_data.append('entity_name', entity_name);
-
-            parent_office_name_bn = $("#unit_group_office_id option:selected").text();
-            from_data.append('parent_office_name_bn', parent_office_name_bn);
-
-            cost_center_name_bn = $("#cost_center_id option:selected").text();
-            from_data.append('cost_center_name_bn', cost_center_name_bn);
 
             elem = $(this);
             elem.prop('disabled', true);
@@ -162,7 +163,7 @@
 
             $.ajax({
                 data: from_data,
-                url: '{{route('audit.execution.archive-apotti.store')}}',
+                url: '{{route('audit.execution.archive-apotti-report.store')}}',
                 type: "POST",
                 dataType: 'json',
                 contentType: false,
