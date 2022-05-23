@@ -69,6 +69,7 @@
 @include('layouts.partials.scroll_top')
 <!--end::Scrolltop-->
 @include('layouts.partials.footer_script')
+@include('scripts.script_master')
 @yield('scripts')
 @include('scripts.layout_navigation_spa')
 </html>
