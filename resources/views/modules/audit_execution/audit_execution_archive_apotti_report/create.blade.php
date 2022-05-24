@@ -90,6 +90,18 @@
 
         <div class="mr-3 form-group row">
             <div class="col-md-2">
+                <label for="is_alochito" class="col-form-label">আলোচিত কি না?:</label>
+            </div>
+            <div class="col-md-4">
+                <select class="form-select select-select2" id="is_alochito" name="is_alochito">
+                    <option value="0">না</option>
+                    <option value="1">হা</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mr-3 form-group row">
+            <div class="col-md-2">
                 <label class="col-form-label">কভার-পেজ:</label>
             </div>
             <div class="col-md-10">

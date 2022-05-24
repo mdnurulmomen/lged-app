@@ -14,21 +14,21 @@
             </a>
             <h5>{{$apotti_report['audit_report_name']}}</h5>
             <div class="row">
-                <div class="col-md-1 mr-5">
+                {{--<div class="col-md-1 mr-5">
                     <a href="javascript:;" data-report-id="{{$apotti_report['id']}}"
                        onclick="Archive_Apotti_Report_Container.loadApottiDetails($(this))" class="btn btn-sm btn-primary">
                         <i class="fa fa-eye"></i>
                     </a>
-                </div>
+                </div>--}}
 
                 <div class="col-md-1">
                     <a href="javascript:;" data-report-id="{{$apotti_report['id']}}"
-                       onclick="Archive_Apotti_Report_Container.loadApottiUpload($(this))" class="btn btn-sm btn-primary">
+                       onclick="Archive_Apotti_Report_Container.load_apotti_upload($(this))"
+                       class="btn btn-sm btn-primary">
                         <i class="fa fa-plus-circle"></i>
                     </a>
                 </div>
             </div>
-
         </div>
     </div>
     @empty

@@ -96,6 +96,71 @@
             );
         },
 
+        load_apotti_upload: function (elem){
+            report_id = elem.data('report-id');
+            let url = '{{route('audit.execution.archive-apotti-report.apotti-upload-page')}}';
+            let data = {report_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.warning(response.data);
+                    } else {
+                        $('#kt_content').html(response);
+                    }
+                }
+            );
+        },
+
+        store_report_apotti: function (){
+            let url = '{{route('audit.execution.archive-apotti-report.apotti-store')}}';
+            data = $('#apotti_create_form').serializeArray();
+            //data = new FormData(document.getElementById("apotti_create_form"));
+
+            directorate_name = $("#directorate_id option:selected").text();
+            data.push({name: "directorate_name", value: directorate_name});
+
+            ministry_name = $("#ministry_id option:selected").text();
+            data.push({name: "ministry_name", value: ministry_name});
+
+            entity_name = $("#entity_id option:selected").text();
+            data.push({name: "entity_name", value: entity_name});
+
+            parent_office_name = $("#unit_group_office_id option:selected").text();
+            data.push({name: "parent_office_name", value: parent_office_name});
+
+            cost_center_name = $("#cost_center_id option:selected").text();
+            data.push({name: "cost_center_name", value: cost_center_name});
+
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'success') {
+                    toastr.success(response.data);
+                } else {
+                    toastr.error(response.data);
+                }
+            },function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.responseJSON.errors) {
+                    $.each(response.responseJSON.errors, function (k, v) {
+                        if (isArray(v)) {
+                            $.each(v, function (n, m) {
+                                toastr.error(m);
+                            })
+                        } else {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        }
+                    });
+                }
+            });
+        },
+
         loadDirectorateWiseMinistry: function (directorate_id,ministry_id='') {
             let url = '{{route('audit.execution.archive-apotti.load-directorate-wise-ministry')}}';
             let data = {directorate_id};
