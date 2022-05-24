@@ -158,12 +158,15 @@
             </td>
         </tr>
     </table>
+    <br>
+
+
+    {{--porisishto--}}
+    @foreach($memoInfoDetails['memo']['ac_memo_porisishtos'] as $porisishto)
+        <div style="height: 100%">{!! $porisishto['details'] !!}</div>
+    @endforeach
 </div>
 
-{{--porisishto--}}
-@foreach($memoInfoDetails['memo']['ac_memo_porisishtos'] as $porisishto)
-    <div style="height: 100%">{!! $porisishto['details'] !!}</div>
-@endforeach
 
 
 

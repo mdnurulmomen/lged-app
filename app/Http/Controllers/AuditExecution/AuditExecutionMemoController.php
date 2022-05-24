@@ -511,16 +511,8 @@ class AuditExecutionMemoController extends Controller
         $memoInfo = isSuccess($responseData) ? $responseData['data'] : [];
 
         $directorateName = $this->current_office()['office_name_bn'];
-        if ($directorate_id == 14) {
-            $directorateAddress = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.worksaudit.org.bd';
-        } elseif ($directorate_id == 3) {
-            $directorateAddress = 'অডিট কমপ্লেক্স (২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.dgcivil-cagbd.org';
-        } else {
-            $directorateAddress = 'অডিট কমপ্লেক্স (৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.cad.org.bd';
-        }
+        $directorateAddress = '';
+        $directorateWebsite = '';
 
         $pdf = \PDF::loadView('modules.audit_execution.audit_execution_memo.partials.memo_book',
             compact('memoInfo', 'directorateName', 'directorateAddress', 'directorateWebsite'));
