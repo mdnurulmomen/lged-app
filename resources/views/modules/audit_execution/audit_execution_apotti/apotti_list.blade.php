@@ -74,7 +74,7 @@
             </td>
             <td class="text-left">
 
-                <input data-id="{{$apotti['id']}}" data-real-val="{{$apotti['onucched_no']}}" id="apptti_{{$apotti['id']}}" class="bijoy-bangla onucched_no" type="text" style="width: 25px;" value="{{$apotti['onucched_no']}}">
+                <input data-id="{{$apotti['id']}}" data-real-val="{{$apotti['onucched_no']}}" id="apptti_{{$apotti['id']}}" class="bijoy-bangla onucched_no" type="text" style="width: 40px;" value="{{$apotti['onucched_no']}}">
 
                 @if(count($apotti['apotti_items']) > 1)
                     <span class="badge badge-info text-uppercase m-1 p-1 ">
