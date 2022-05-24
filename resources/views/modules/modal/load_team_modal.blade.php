@@ -1581,7 +1581,24 @@ style="padding-left: 5px;">
         loadSelectNominatedOfficeOption(parent_office_id, layer_id, row);
     });
 
+    $('.input-end-duration').change(function (){
 
+        target_date =  $('#team_end_date').val();
+        target_date = formatDate(target_date);
+        target_date = target_date.replaceAll('-', '/');
+
+        date =  $(this).val();
+        date = formatDate(date);
+        date = date.replaceAll('-', '/');
+
+        target_date = new Date(target_date);
+        date = new Date(date);
+
+        if (target_date < date) {
+            toastr.warning('নির্ধারিত তারিখ '+ enTobn($('#team_end_date').val()));
+            $(this).val('');
+        }
+    });
 
     $('.select-select2').select2({width: '100%'});
 
