@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuditExecution\AuditExecutionArchiveApottiController;
 use App\Http\Controllers\AuditExecution\AuditExecutionArchiveApottiReportController;
+use App\Http\Controllers\AuditExecution\AuditExecutionAreaController;
 use App\Http\Controllers\AuditFollowup\AuditFollowupController;
 use App\Http\Controllers\AuditFollowup\BroadsheetReplyController;
 use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentController;
@@ -459,6 +460,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::post('load-oniyomer-category-list', [AuditExecutionArchiveApottiController::class, 'loadOniyomerCategoryList'])->name('load-oniyomer-category-list');
             Route::post('load-oniyomer-sub-category-list', [AuditExecutionArchiveApottiController::class, 'loadOniyomerSubCategoryList'])->name('load-oniyomer-sub-category-list');
+
+            Route::post('migrate-archive-apotti-to-amms', [AuditExecutionArchiveApottiController::class, 'migrateArchiveApottiToAmms'])->name('migrate-archive-apotti-to-amms');
         });
 
         //archive apotti report

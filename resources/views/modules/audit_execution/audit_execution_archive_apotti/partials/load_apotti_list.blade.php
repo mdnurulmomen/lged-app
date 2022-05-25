@@ -55,7 +55,7 @@
                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-icon-primary list-btn-toggle"
                         title="Sync"
                         data-apotti-id="{{$apotti['id']}}"
-                        onclick="Archive_Apotti_Container.loadApottiEditForm($(this))">
+                        onclick="Archive_Apotti_Container.syncArchiveApottiToAmms($(this))">
                     <i class="fa fa-paper-plane"></i>
                 </button>
             </td>

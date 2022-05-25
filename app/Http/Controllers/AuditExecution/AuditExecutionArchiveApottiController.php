@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Svg\Tag\Rect;
 
 class AuditExecutionArchiveApottiController extends Controller
 {
@@ -30,11 +31,11 @@ class AuditExecutionArchiveApottiController extends Controller
 
         $categoryResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.get_oniyomer_category_list'), [])->json();
         $categories = isSuccess($categoryResponseData) ? $categoryResponseData['data'] : [];
-        return view('modules.audit_execution.audit_execution_archive_apotti.index',
-            compact('directorates','categories'));
+        return view('modules.audit_execution.audit_execution_archive_apotti.index',compact('directorates', 'categories'));
     }
 
-    public function create(){
+    public function create()
+    {
         $all_directorates = $this->allAuditDirectorates();
         $self_directorate = current(array_filter($all_directorates, function ($item) {
             return $this->current_office_id() == $item['office_id'];
@@ -42,8 +43,10 @@ class AuditExecutionArchiveApottiController extends Controller
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
         $categoryResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.get_oniyomer_category_list'), [])->json();
         $categories = isSuccess($categoryResponseData) ? $categoryResponseData['data'] : [];
-        return view('modules.audit_execution.audit_execution_archive_apotti.create',
-            compact('directorates','categories'));
+        return view(
+            'modules.audit_execution.audit_execution_archive_apotti.create',
+            compact('directorates', 'categories')
+        );
     }
 
     public function list(Request $request)
@@ -87,31 +90,37 @@ class AuditExecutionArchiveApottiController extends Controller
     public function loadMinistryWiseEntity(Request $request)
     {
         $data['office_ministry_id'] = $request->ministry_id;
-        $officeResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.office-ministry-wise-entity'),$data)->json();
+        $officeResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.office-ministry-wise-entity'), $data)->json();
         //dd($officeResponseData);
         $offices = isSuccess($officeResponseData) ? $officeResponseData['data'] : [];
-        return view('modules.audit_execution.audit_execution_archive_apotti.partials.load_ministry_wise_entity',
-            compact('offices'));
+        return view(
+            'modules.audit_execution.audit_execution_archive_apotti.partials.load_ministry_wise_entity',
+            compact('offices')
+        );
     }
 
     public function loadEntityWiseUnitGroupOffice(Request $request)
     {
         $data['parent_office_id'] = $request->entity_id;
-        $officeResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-entity-wise-unit-group-office'),$data)->json();
+        $officeResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-entity-wise-unit-group-office'), $data)->json();
         //dd($officeResponseData);
         $offices = isSuccess($officeResponseData) ? $officeResponseData['data'] : [];
-        return view('modules.audit_execution.audit_execution_archive_apotti.partials.load_entity_wise_unit_group_office',
-            compact('offices'));
+        return view(
+            'modules.audit_execution.audit_execution_archive_apotti.partials.load_entity_wise_unit_group_office',
+            compact('offices')
+        );
     }
 
     public function loadEntityOrUnitGroupWiseCostCenter(Request $request)
     {
         $data['parent_office_id'] = $request->parent_office_id;
-        $officeResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-entity-or-unit-group-wise-cost-center'),$data)->json();
+        $officeResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-entity-or-unit-group-wise-cost-center'), $data)->json();
         //dd($officeResponseData);
         $offices = isSuccess($officeResponseData) ? $officeResponseData['data'] : [];
-        return view('modules.audit_execution.audit_execution_archive_apotti.partials.load_entity_or_unit_group_wise_cost_center',
-            compact('offices'));
+        return view(
+            'modules.audit_execution.audit_execution_archive_apotti.partials.load_entity_or_unit_group_wise_cost_center',
+            compact('offices')
+        );
     }
 
 
@@ -119,8 +128,10 @@ class AuditExecutionArchiveApottiController extends Controller
     {
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.get_oniyomer_category_list'), [])->json();
         $categories = isSuccess($responseData) ? $responseData['data'] : [];
-        return view('modules.audit_execution.audit_execution_archive_apotti.partials.load_oniyomer_category',
-            compact('categories'));
+        return view(
+            'modules.audit_execution.audit_execution_archive_apotti.partials.load_oniyomer_category',
+            compact('categories')
+        );
     }
 
     public function loadOniyomerSubCategoryList(Request $request)
@@ -129,27 +140,32 @@ class AuditExecutionArchiveApottiController extends Controller
         $data['apotti_oniyomer_category_id'] = $request->apotti_oniyomer_category_id;
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.get_parent_wise_oniyomer_category_list'), $data)->json();
         $categories = isSuccess($responseData) ? $responseData['data'] : [];
-        return view('modules.audit_execution.audit_execution_archive_apotti.partials.load_oniyomer_sub_category',
-            compact('categories'));
+        return view(
+            'modules.audit_execution.audit_execution_archive_apotti.partials.load_oniyomer_sub_category',
+            compact('categories')
+        );
     }
 
 
-    public function loadApottiList(Request $request){
+    public function loadApottiList(Request $request)
+    {
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
             'audit_plan_id' => 'required|integer',
             'entity_id' => 'required|integer',
         ])->validate();
 
-//        dd($data);
+        //        dd($data);
 
         $data['cdesk'] = $this->current_desk_json();
         $apotti_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.list'), $data)->json();
-//        dd($apotti_list);
+        //        dd($apotti_list);
         if (isSuccess($apotti_list)) {
             $apotti_list = $apotti_list['data'];
-            return view('modules.audit_execution.audit_execution_apotti.apotti_list',
-                compact('apotti_list'));
+            return view(
+                'modules.audit_execution.audit_execution_apotti.apotti_list',
+                compact('apotti_list')
+            );
         } else {
             return response()->json(['status' => 'error', 'data' => $apotti_list]);
         }
@@ -166,11 +182,13 @@ class AuditExecutionArchiveApottiController extends Controller
 
 
         $apotti_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.get_apotti_info'), $data)->json();
-//        dd($apotti_info);
+        //        dd($apotti_info);
         if (isSuccess($apotti_info)) {
             $apotti_info = $apotti_info['data'];
-            return view('modules.audit_execution.audit_execution_apotti.apotti_edit',
-                compact('apotti_info'));
+            return view(
+                'modules.audit_execution.audit_execution_apotti.apotti_edit',
+                compact('apotti_info')
+            );
         } else {
             return response()->json(['status' => 'error', 'data' => $apotti_info]);
         }
@@ -184,36 +202,39 @@ class AuditExecutionArchiveApottiController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make($request->all(), [
-            'directorate_id' => 'required',
-            'ministry_id' => 'required',
-            'entity_id' => 'required',
-            'apotti_oniyomer_category_id' => 'required',
-            'apotti_oniyomer_category_child_id' => 'required',
-            'onucched_no' => 'required',
-            'audit_year_start' => 'required',
-            'audit_year_end' => 'required',
-            'nirikkha_dhoron' => 'required',
-            'apottir_dhoron' => 'required',
-            'jorito_ortho_poriman' => 'required',
-            'file_no' => 'required',
-            'apotti_title' => 'required',
-        ],
-        [
-            'directorate_id.required' => 'Directorate field is required.',
-            'ministry_id.required' => 'Ministry field is required.',
-            'entity_id.required' => 'Entity field is required.',
-            'apotti_oniyomer_category_id.required' => 'Category field is required.',
-            'apotti_oniyomer_category_child_id.required' => 'Sub Category field is required.',
-            'onucched_no.required' => 'Onucched no field is required.',
-            'audit_year_start.required' => 'Audit start year field is required.',
-            'audit_year_end.required' => 'Audit end year field is required.',
-            'nirikkha_dhoron.required' => 'Nirikkha dhoron field is required.',
-            'apottir_dhoron.required' => 'Apottir dhoron field is required.',
-            'jorito_ortho_poriman.required' => 'Jorito Ortho Poriman dhoron field is required.',
-            'file_no.required' => 'File no field is required.',
-            'apotti_title.required' => 'Title field is required.',
-        ])->validate();
+        Validator::make(
+            $request->all(),
+            [
+                'directorate_id' => 'required',
+                'ministry_id' => 'required',
+                'entity_id' => 'required',
+                'apotti_oniyomer_category_id' => 'required',
+                'apotti_oniyomer_category_child_id' => 'required',
+                'onucched_no' => 'required',
+                'audit_year_start' => 'required',
+                'audit_year_end' => 'required',
+                'nirikkha_dhoron' => 'required',
+                'apottir_dhoron' => 'required',
+                'jorito_ortho_poriman' => 'required',
+                'file_no' => 'required',
+                'apotti_title' => 'required',
+            ],
+            [
+                'directorate_id.required' => 'Directorate field is required.',
+                'ministry_id.required' => 'Ministry field is required.',
+                'entity_id.required' => 'Entity field is required.',
+                'apotti_oniyomer_category_id.required' => 'Category field is required.',
+                'apotti_oniyomer_category_child_id.required' => 'Sub Category field is required.',
+                'onucched_no.required' => 'Onucched no field is required.',
+                'audit_year_start.required' => 'Audit start year field is required.',
+                'audit_year_end.required' => 'Audit end year field is required.',
+                'nirikkha_dhoron.required' => 'Nirikkha dhoron field is required.',
+                'apottir_dhoron.required' => 'Apottir dhoron field is required.',
+                'jorito_ortho_poriman.required' => 'Jorito Ortho Poriman dhoron field is required.',
+                'file_no.required' => 'File no field is required.',
+                'apotti_title.required' => 'Title field is required.',
+            ]
+        )->validate();
 
         $data = [
             ['name' => 'directorate_id', 'contents' => $request->directorate_id],
@@ -325,36 +346,39 @@ class AuditExecutionArchiveApottiController extends Controller
      */
     public function update(Request $request)
     {
-        Validator::make($request->all(), [
-            'directorate_id' => 'required',
-            'ministry_id' => 'required',
-            'entity_id' => 'required',
-            'apotti_oniyomer_category_id' => 'required',
-            'apotti_oniyomer_category_child_id' => 'required',
-            'onucched_no' => 'required',
-            'audit_year_start' => 'required',
-            'audit_year_end' => 'required',
-            'nirikkha_dhoron' => 'required',
-            'apottir_dhoron' => 'required',
-            'jorito_ortho_poriman' => 'required',
-            'file_no' => 'required',
-            'apotti_title' => 'required',
-        ],
-        [
-            'directorate_id.required' => 'Directorate field is required.',
-            'ministry_id.required' => 'Ministry field is required.',
-            'entity_id.required' => 'Entity field is required.',
-            'apotti_oniyomer_category_id.required' => 'Category field is required.',
-            'apotti_oniyomer_category_child_id.required' => 'Sub Category field is required.',
-            'onucched_no.required' => 'Onucched no field is required.',
-            'audit_year_start.required' => 'Audit start year field is required.',
-            'audit_year_end.required' => 'Audit end year field is required.',
-            'nirikkha_dhoron.required' => 'Nirikkha dhoron field is required.',
-            'apottir_dhoron.required' => 'Apottir dhoron field is required.',
-            'jorito_ortho_poriman.required' => 'Jorito Ortho Poriman dhoron field is required.',
-            'file_no.required' => 'File no field is required.',
-            'apotti_title.required' => 'Title field is required.',
-        ])->validate();
+        Validator::make(
+            $request->all(),
+            [
+                'directorate_id' => 'required',
+                'ministry_id' => 'required',
+                'entity_id' => 'required',
+                'apotti_oniyomer_category_id' => 'required',
+                'apotti_oniyomer_category_child_id' => 'required',
+                'onucched_no' => 'required',
+                'audit_year_start' => 'required',
+                'audit_year_end' => 'required',
+                'nirikkha_dhoron' => 'required',
+                'apottir_dhoron' => 'required',
+                'jorito_ortho_poriman' => 'required',
+                'file_no' => 'required',
+                'apotti_title' => 'required',
+            ],
+            [
+                'directorate_id.required' => 'Directorate field is required.',
+                'ministry_id.required' => 'Ministry field is required.',
+                'entity_id.required' => 'Entity field is required.',
+                'apotti_oniyomer_category_id.required' => 'Category field is required.',
+                'apotti_oniyomer_category_child_id.required' => 'Sub Category field is required.',
+                'onucched_no.required' => 'Onucched no field is required.',
+                'audit_year_start.required' => 'Audit start year field is required.',
+                'audit_year_end.required' => 'Audit end year field is required.',
+                'nirikkha_dhoron.required' => 'Nirikkha dhoron field is required.',
+                'apottir_dhoron.required' => 'Apottir dhoron field is required.',
+                'jorito_ortho_poriman.required' => 'Jorito Ortho Poriman dhoron field is required.',
+                'file_no.required' => 'File no field is required.',
+                'apotti_title.required' => 'Title field is required.',
+            ]
+        )->validate();
 
         $data = [
             ['name' => 'directorate_id', 'contents' => $request->directorate_id],
@@ -456,7 +480,8 @@ class AuditExecutionArchiveApottiController extends Controller
     }
 
 
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
         $all_directorates = $this->allAuditDirectorates();
         $self_directorate = current(array_filter($all_directorates, function ($item) {
             return $this->current_office_id() == $item['office_id'];
@@ -470,11 +495,14 @@ class AuditExecutionArchiveApottiController extends Controller
         $apottiResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.edit'), $apotti_data)->json();
         $apotti = isSuccess($apottiResponseData) ? $apottiResponseData['data'] : [];
         //dd($apotti);
-        return view('modules.audit_execution.audit_execution_archive_apotti.edit',
-            compact('directorates','categories','apotti'));
+        return view(
+            'modules.audit_execution.audit_execution_archive_apotti.edit',
+            compact('directorates', 'categories', 'apotti')
+        );
     }
 
-    public function view(Request $request){
+    public function view(Request $request)
+    {
         //apotii edit
         $apotti_data['apotti_id'] = $request->apotti_id;
         $apottiResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.edit'), $apotti_data)->json();
@@ -483,4 +511,13 @@ class AuditExecutionArchiveApottiController extends Controller
         return view('modules.audit_execution.audit_execution_archive_apotti.view', compact('apotti'));
     }
 
+    public function migrateArchiveApottiToAmms(Request $request)
+    {
+        $data = [
+            'apotti_id' => $request->apotti_id,
+            'cdesk' => $this->current_desk_json(),
+        ];
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.migrate'), $data)->json();
+        return $response;
+    }
 }

@@ -315,6 +315,7 @@ return [
             'update' => env('API_URL_BEE', '') . '/audit-archive-apotti/update',
             'list' => env('API_URL_BEE', '') . '/audit-archive-apotti/list',
             'edit' => env('API_URL_BEE', '') . '/audit-archive-apotti/edit',
+            'migrate' => env('API_URL_BEE', '') . '/audit-archive-apotti/migrate-to-amms',
         ],
 
         'archive_apotti_report' => [
