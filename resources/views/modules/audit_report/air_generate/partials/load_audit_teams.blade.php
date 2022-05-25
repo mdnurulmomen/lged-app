@@ -2,8 +2,8 @@
     <table width="100%" border="1">
         <thead>
         <tr>
-            <th style="text-align: center" width="5%">ক্রমিক নং</th>
-            <th style="text-align: center" width="45%">নাম</th>
+            <th style="text-align: center" width="10%">ক্রমিক নং</th>
+            <th style="text-align: center" width="40%">নাম</th>
             <th style="text-align: center" width="20%">পদবী</th>
             <th style="text-align: center" width="15%">নিরীক্ষা দলে অবস্থান</th>
             <th style="text-align: center" width="15%">মোবাইল নং</th>

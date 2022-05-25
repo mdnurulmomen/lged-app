@@ -339,13 +339,13 @@
         }
 
         html {
-            font-size: 10px;
+            font-size: 14px;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
+            font-size: 18px;
             line-height: 1.42857143;
             color: #333333;
             background-color: #ffffff;
@@ -789,6 +789,9 @@
             even-header-name: even-header;
             odd-footer-name: odd-footer;
             even-footer-name: even-footer;
+
+            margin-left: 2.5cm;
+            margin-right: 2cm;
         }
     </style>
 </head>

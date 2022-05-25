@@ -182,7 +182,7 @@ class AuditExecutionArchiveApottiReportController extends Controller
         $data['ministry_name']            = $request->ministry_name;
         $data['entity_id']                = $request->entity_id;
         $data['entity_name']              = $request->entity_name;
-        $data['unit_group_office_id']     = $request->unit_group_office_id;
+        $data['parent_office_id']     = $request->unit_group_office_id;
         $data['parent_office_name']       = $request->parent_office_name;
         $data['cost_center_id']           = $request->cost_center_id;
         $data['cost_center_name']         = $request->cost_center_name;

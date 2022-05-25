@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-12">
         <select class="form-control" name="entity_id" id="entity_id">
-            <option>--এন্টিটি বাছাই করুন--</option>
+            <option>--এনটিটি বাছাই করুন--</option>
             @foreach($entity_info as $entity)
                 <option
                     data-ministry-id="{{$entity['ministry_id']}}"
