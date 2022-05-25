@@ -21,11 +21,18 @@
                     </a>
                 </div>--}}
 
-                <div class="col-md-1">
+                <div class="col-md-6">
                     <a href="javascript:;" data-report-id="{{$apotti_report['id']}}"
                        onclick="Archive_Apotti_Report_Container.load_apotti_upload($(this))"
                        class="btn btn-sm btn-primary">
                         <i class="fa fa-plus-circle"></i>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="javascript:;" data-report-id="{{$apotti_report['id']}}"
+                       onclick="Archive_Apotti_Report_Container.apotti_sync($(this))"
+                       class="btn btn-sm btn-primary float-right">
+                        <i class="fa fa-sync"></i>
                     </a>
                 </div>
             </div>

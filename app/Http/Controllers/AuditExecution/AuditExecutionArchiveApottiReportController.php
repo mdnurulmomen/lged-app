@@ -203,4 +203,12 @@ class AuditExecutionArchiveApottiReportController extends Controller
         }
     }
 
+    public function reportSync(Request $request){
+//        dd($request->all());
+        $data['report_id'] = $request->report_id;
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti_report.report_sync'), $data)->json();
+        dd($response);
+        $report = isSuccess($response) ? $response['data'] : [];
+    }
+
 }

@@ -323,6 +323,7 @@ return [
             'list' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/list',
             'view' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/view',
             'store_report_apotti' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/store-report-apotti',
+            'report_sync' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/report-sync',
         ],
     ],
 

@@ -176,6 +176,26 @@
                 }
             );
         },
+
+        apotti_sync: function (elem) {
+            report_id =  elem.data('report-id');
+            let url = '{{route('audit.execution.archive-apotti-report.report-sync')}}';
+            let data = {report_id};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $('#load_apotti_list').html(response);
+                }
+            });
+        },
     };
 
 
