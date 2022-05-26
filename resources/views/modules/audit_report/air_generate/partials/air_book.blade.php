@@ -292,11 +292,6 @@
                 widows: 3;
             }
 
-            h2,
-            h3 {
-                page-break-after: avoid;
-            }
-
             .navbar {
                 display: none;
             }
@@ -849,12 +844,12 @@
     </div>
 
     {{--apotti summary page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
         {!! $auditReport[24]['content'] !!}
     </div>
 
     {{--apotti summary details page--}}
-    <div class="pdf-screen bangla-font" style="page-break-before: always;">
+    <div class="pdf-screen bangla-font">
         {!! $auditReport[25]['content'] !!}
     </div>
 

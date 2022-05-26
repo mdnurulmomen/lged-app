@@ -10,13 +10,13 @@
             data = {fiscal_year_id,audit_plan_id,entity_info,air_id,air_type};
             url = '{{route('audit.report.air.get-plan-entity')}}';
 
-            KTApp.block('#kt_full_width_page', {
+            KTApp.block('#kt_quick_panel', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_full_width_page');
+                KTApp.unblock('#kt_quick_panel');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
