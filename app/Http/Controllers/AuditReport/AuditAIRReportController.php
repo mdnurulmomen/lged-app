@@ -33,7 +33,7 @@ class AuditAIRReportController extends Controller
         if (isSuccess($responseData)) {
             $content = $responseData['data']['content'];
             $directorate_name = $this->current_office()['office_name_bn'];
-            //$directorate_address = $this->current_office_details()['office_address']; //todo
+            //$directorate_address = $this->current_office_details()['office_address']; //todo mahmud vai
             $directorate_address = '';
             //dd($directorate_address);
             $auditType = $request->session()->get('dashboard_audit_type_bn');
@@ -243,6 +243,10 @@ class AuditAIRReportController extends Controller
     public function preview(Request $request)
     {
         //dd($request->air_description);
+
+        ini_set('max_execution_time', '-1');
+        ini_set("pcre.backtrack_limit", "5000000000");
+
         $airReports = $request->air_description;
         $cover = $airReports[0];
         array_shift($airReports);
@@ -252,8 +256,8 @@ class AuditAIRReportController extends Controller
 
     public function download(Request $request)
     {
-        ini_set('max_execution_time', '600');
-        ini_set("pcre.backtrack_limit", "50000000");
+        ini_set('max_execution_time', '-1');
+        ini_set("pcre.backtrack_limit", "5000000000");
 
         $auditReport = $request->air_description;
         $pdf = \PDF::loadView('modules.audit_report.air_generate.partials.air_book',

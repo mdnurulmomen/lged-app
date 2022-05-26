@@ -1,4 +1,4 @@
-<div class="mt-5 table-responsive">
+<div class="mt-5 mb-12 table-responsive">
     <table class="table table-bordered" width="100%">
         <thead>
         <tr>
