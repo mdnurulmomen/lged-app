@@ -59,10 +59,14 @@ class RevisedPlanController extends Controller
             $directorate_address_footer = 'অডিট কমপ্লেক্স,২য় তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorate_address_top = 'অডিট কমপ্লেক্স (২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorate_website = 'www.dgcivil-cagbd.org';
-        } else {
+        } elseif ($this->current_office_id() == 2) {
             $directorate_address_footer = 'অডিট কমপ্লেক্স,৮ম তলা,সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorate_address_top = 'অডিট কমপ্লেক্স (৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorate_website = 'www.cad.org.bd';
+        } else {
+            $directorate_address_footer = '';
+            $directorate_address_top = '';
+            $directorate_website = '';
         }
 
 

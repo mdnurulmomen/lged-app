@@ -252,8 +252,10 @@ class AuditAIRReportController extends Controller
 
     public function download(Request $request)
     {
-        $auditReport = $request->air_description;
+        ini_set('max_execution_time', '600');
+        ini_set("pcre.backtrack_limit", "50000000");
 
+        $auditReport = $request->air_description;
         $pdf = \PDF::loadView('modules.audit_report.air_generate.partials.air_book',
             ['auditReport' => $auditReport], [] , ['orientation' => 'P', 'format' => 'A4']);
         $fileName = 'audit_preliminary_air_report_' . date('D_M_j_Y') . '.pdf';

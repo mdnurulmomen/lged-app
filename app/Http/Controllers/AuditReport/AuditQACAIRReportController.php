@@ -223,7 +223,8 @@ class AuditQACAIRReportController extends Controller
                     }
                 }
 
-            }else{
+            }
+            else{
                 return view('modules.audit_quality_control.qac_01.edit',
                     compact('content','audit_plan_entities','air_report_id',
                         'approved_status', 'latest_receiver_designation_id','current_designation_id',
