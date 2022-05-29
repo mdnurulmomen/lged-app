@@ -795,23 +795,23 @@
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
 
     {{--cover page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $auditReport[0]['content'] !!}
     </div>
 
     {{--index page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $auditReport[1]['content'] !!}
     </div>
 
     {{--part one cover page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $auditReport[2]['content'] !!}
     </div>
 
     {{--part one details page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         <div>{!! $auditReport[3]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[4]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[5]['content'] !!}</div>
@@ -821,7 +821,7 @@
         <div style="margin-top: 10px">{!! $auditReport[9]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[10]['content'] !!}</div>
     </div>
-    <div class="pdf-screen bangla-font" style="height: 100%;">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         <div>{!! $auditReport[11]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[12]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[13]['content'] !!}</div>
@@ -839,7 +839,7 @@
 
     {{--part two page--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $auditReport[23]['content'] !!}
     </div>
 
@@ -855,12 +855,12 @@
 
     {{--porishitoh cover page--}}
     <div class="pdf-screen bangla-font" style="height: 100%">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $auditReport[26]['content'] !!}
     </div>
 
     {{--porishitoh details page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
         {!! $auditReport[27]['content'] !!}
     </div>
 

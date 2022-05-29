@@ -272,6 +272,8 @@ class AuditQacController extends Controller
         $responseData = isSuccess($responseData) ? $responseData['data'] : [];
         $committeeData = isSuccess($committee) ? $committee['data'] : [];
         $directorateName = $this->current_office()['office_name_bn'];
+        //$directorateAddress = ''; //todo mahmud vai
+        //$directorateWebsite = ''; //todo mahmud vai
         if ($this->current_office_id() == 14) {
             $directorateAddress = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
             $directorateWebsite = 'www.worksaudit.org.bd';

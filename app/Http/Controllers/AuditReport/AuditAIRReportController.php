@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AuditReport;
 
 use App\Http\Controllers\Controller;
+use App\Services\PDFServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -243,10 +244,6 @@ class AuditAIRReportController extends Controller
     public function preview(Request $request)
     {
         //dd($request->air_description);
-
-        ini_set('max_execution_time', '-1');
-        ini_set("pcre.backtrack_limit", "5000000000");
-
         $airReports = $request->air_description;
         $cover = $airReports[0];
         array_shift($airReports);
@@ -256,10 +253,19 @@ class AuditAIRReportController extends Controller
 
     public function download(Request $request)
     {
-        ini_set('max_execution_time', '-1');
-        ini_set("pcre.backtrack_limit", "5000000000");
-
         $auditReport = $request->air_description;
+        /*$pdf_view = view('modules.audit_report.air_generate.partials.air_book', compact('auditReport'))->render();
+        $params = [
+            'data' => json_encode(['html' => $pdf_view]),
+            'options' => json_encode(['name' => 'air', 'fp'=>'65'])
+        ];
+        $pdf_gen = (new PDFServices())->generatePDF($params);
+        if (isSuccess($pdf_gen)){
+            dd($pdf_gen['file_path']);
+            $pdf_gen['file_path'];
+        }*/
+        //todo mahmud vai
+
         $pdf = \PDF::loadView('modules.audit_report.air_generate.partials.air_book',
             ['auditReport' => $auditReport], [] , ['orientation' => 'P', 'format' => 'A4']);
         $fileName = 'audit_preliminary_air_report_' . date('D_M_j_Y') . '.pdf';

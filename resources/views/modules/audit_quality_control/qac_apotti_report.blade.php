@@ -862,7 +862,7 @@
                     <tr>
                         <td valign="top" class="bangla-font">সম্পন্নকারী দল: </td>
                         <td class="bangla-font">
-                            @foreach(array_reverse($committeeData['committee']['qac_committee_members']) as $member)
+                            @foreach($committeeData['committee']['qac_committee_members'] as $member)
                                     <p>{{enTobn($loop->iteration)}}) {{$member['officer_bn']}}({{$member['officer_designation_bn']}},{{$member['officer_unit_bn']}})</p>
                             @endforeach
                         </td>

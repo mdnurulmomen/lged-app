@@ -53,6 +53,29 @@
                 }
             });
         },
+
+
+        generatePDFUsingAPI: function () {
+            air_description = templateArray;
+            scope = 'generate';
+            data = {scope,air_description};
+            url = '{{route('audit.report.air.download')}}';
+
+            KTApp.block('#kt_full_width_page', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_full_width_page');
+                console.log(response)
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+
+                }
+            });
+        },
     }
 </script>
 
