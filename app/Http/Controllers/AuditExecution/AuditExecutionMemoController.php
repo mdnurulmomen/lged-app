@@ -29,10 +29,22 @@ class AuditExecutionMemoController extends Controller
         $scope_sub_team_leader = $request->scope_sub_team_leader;
         $sub_team_leader_name = $request->sub_team_leader_name;
         $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
-        return view('modules.audit_execution.audit_execution_memo.index',
-            compact('schedule_id', 'audit_plan_id', 'cost_center_id', 'cost_center_name_bn',
-                'audit_year_start', 'audit_year_end', 'team_leader_name', 'team_leader_designation_name',
-                'scope_sub_team_leader', 'sub_team_leader_name', 'sub_team_leader_designation_name'));
+        return view(
+            'modules.audit_execution.audit_execution_memo.index',
+            compact(
+                'schedule_id',
+                'audit_plan_id',
+                'cost_center_id',
+                'cost_center_name_bn',
+                'audit_year_start',
+                'audit_year_end',
+                'team_leader_name',
+                'team_leader_designation_name',
+                'scope_sub_team_leader',
+                'sub_team_leader_name',
+                'sub_team_leader_designation_name'
+            )
+        );
     }
 
     public function list(Request $request)
@@ -47,8 +59,10 @@ class AuditExecutionMemoController extends Controller
         $memo_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.list'), $data)->json();
         if (isSuccess($memo_list)) {
             $memo_list = $memo_list['data'];
-            return view('modules.audit_execution.audit_execution_memo.partials.load_memo_list',
-                compact('memo_list'));
+            return view(
+                'modules.audit_execution.audit_execution_memo.partials.load_memo_list',
+                compact('memo_list')
+            );
         } else {
             return response()->json(['status' => 'error', 'data' => $memo_list]);
         }
@@ -73,10 +87,22 @@ class AuditExecutionMemoController extends Controller
         $sub_team_leader_name = $request->sub_team_leader_name;
         $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
 
-        return view('modules.audit_execution.audit_execution_memo.create',
-            compact('schedule_id', 'audit_plan_id', 'cost_center_id', 'cost_center_name_bn',
-                'audit_year_start', 'audit_year_end', 'team_leader_name', 'team_leader_designation_name',
-                'scope_sub_team_leader', 'sub_team_leader_name', 'sub_team_leader_designation_name'));
+        return view(
+            'modules.audit_execution.audit_execution_memo.create',
+            compact(
+                'schedule_id',
+                'audit_plan_id',
+                'cost_center_id',
+                'cost_center_name_bn',
+                'audit_year_start',
+                'audit_year_end',
+                'team_leader_name',
+                'team_leader_designation_name',
+                'scope_sub_team_leader',
+                'sub_team_leader_name',
+                'sub_team_leader_designation_name'
+            )
+        );
     }
 
     /**
@@ -88,22 +114,25 @@ class AuditExecutionMemoController extends Controller
     public function store(Request $request)
     {
         //dd($request->porisisto_details);
-        Validator::make($request->all(), [
-            'schedule_id' => 'required',
-            'memo_title_bn' => 'required',
-            'memo_description_bn' => 'required',
-            'jorito_ortho_poriman' => 'required',
-            'audit_year_start' => 'required',
-            'audit_year_end' => 'required',
-        ],
-        [
-            'schedule_id.required'=> 'Audit schedule is required',
-            'memo_title_bn.required'=> 'Memo title is required',
-            'memo_description_bn.required'=> 'Memo description is required',
-            'jorito_ortho_poriman.required'=> 'Jorito ortho is required',
-            'audit_year_start.required'=> 'Audit year start is required',
-            'audit_year_end.required'=> 'Audit year end is required',
-        ])->validate();
+        Validator::make(
+            $request->all(),
+            [
+                'schedule_id' => 'required',
+                'memo_title_bn' => 'required',
+                'memo_description_bn' => 'required',
+                'jorito_ortho_poriman' => 'required',
+                'audit_year_start' => 'required',
+                'audit_year_end' => 'required',
+            ],
+            [
+                'schedule_id.required' => 'Audit schedule is required',
+                'memo_title_bn.required' => 'Memo title is required',
+                'memo_description_bn.required' => 'Memo description is required',
+                'jorito_ortho_poriman.required' => 'Jorito ortho is required',
+                'audit_year_start.required' => 'Audit year start is required',
+                'audit_year_end.required' => 'Audit year end is required',
+            ]
+        )->validate();
 
         $data = [
             ['name' => 'team_member_schedule_id', 'contents' => $request->schedule_id],
@@ -211,9 +240,16 @@ class AuditExecutionMemoController extends Controller
         }
         if (isSuccess($memoInfo)) {
             $memoInfoDetails = $memoInfo['data'];
-            return view('modules.audit_execution.audit_execution_memo.show',
-                compact('memoInfoDetails', 'directorateAddress', 'directorateWebsite',
-                    'directorateName', 'directorate_id'));
+            return view(
+                'modules.audit_execution.audit_execution_memo.show',
+                compact(
+                    'memoInfoDetails',
+                    'directorateAddress',
+                    'directorateWebsite',
+                    'directorateName',
+                    'directorate_id'
+                )
+            );
         } else {
             return response()->json(['status' => 'error', 'data' => $memoInfo]);
         }
@@ -235,8 +271,10 @@ class AuditExecutionMemoController extends Controller
         if (isSuccess($attachments)) {
             $attachments = $attachments['data'];
             $memoTitleBn = $request->memo_title_bn;
-            return view('modules.audit_execution.audit_execution_memo.partials.load_memo_attachment',
-                compact('attachments', 'memoTitleBn'));
+            return view(
+                'modules.audit_execution.audit_execution_memo.partials.load_memo_attachment',
+                compact('attachments', 'memoTitleBn')
+            );
         } else {
             return response()->json(['status' => 'error', 'data' => $attachments]);
         }
@@ -249,11 +287,13 @@ class AuditExecutionMemoController extends Controller
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
         $memo_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
-//        dd($memo_info);
+        //        dd($memo_info);
         if (isSuccess($memo_info)) {
             $memo_info = $memo_info['data'];
-            return view('modules.audit_execution.audit_execution_memo.show_details',
-                compact('memo_info'));
+            return view(
+                'modules.audit_execution.audit_execution_memo.show_details',
+                compact('memo_info')
+            );
         } else {
             return response()->json(['status' => 'error', 'data' => $memo_info]);
         }
@@ -287,10 +327,23 @@ class AuditExecutionMemoController extends Controller
 
         if (isSuccess($memo)) {
             $memoInfo = $memo['data'];
-            return view('modules.audit_execution.audit_execution_memo.edit',
-                compact('memoInfo', 'schedule_id', 'audit_plan_id', 'cost_center_id', 'cost_center_name_bn',
-                    'audit_year_start', 'audit_year_end', 'team_leader_name', 'team_leader_designation_name',
-                    'scope_sub_team_leader', 'sub_team_leader_name', 'sub_team_leader_designation_name'));
+            return view(
+                'modules.audit_execution.audit_execution_memo.edit',
+                compact(
+                    'memoInfo',
+                    'schedule_id',
+                    'audit_plan_id',
+                    'cost_center_id',
+                    'cost_center_name_bn',
+                    'audit_year_start',
+                    'audit_year_end',
+                    'team_leader_name',
+                    'team_leader_designation_name',
+                    'scope_sub_team_leader',
+                    'sub_team_leader_name',
+                    'sub_team_leader_designation_name'
+                )
+            );
         } else {
             return response()->json(['status' => 'error', 'data' => $memo]);
         }
@@ -298,22 +351,25 @@ class AuditExecutionMemoController extends Controller
 
     public function sentToRpu(Request $request)
     {
-        $data = Validator::make($request->all(), [
-            'memo_id' => 'required',
-            'memo_sharok_no' => 'required',
-            'memo_cc' => 'nullable',
-            'issued_by' => 'required',
-            'memo_send_date' => 'required',
-            'rpu_acceptor_designation_name_bn' => 'nullable',
-        ],
-        [
-            'memo_id.required'=> 'Memo is required',
-            'memo_sharok_no.required'=> 'Memorandum no is required',
-            'memo_cc.required'=> 'Memo cc is required',
-            'issued_by.required'=> 'Issued by is required',
-            'memo_send_date.required'=> 'Memo send date is required',
-            'rpu_acceptor_designation_name_bn.required'=> 'RP acceptor designation is required',
-        ])->validate();
+        $data = Validator::make(
+            $request->all(),
+            [
+                'memo_id' => 'required',
+                'memo_sharok_no' => 'required',
+                'memo_cc' => 'nullable',
+                'issued_by' => 'required',
+                'memo_send_date' => 'required',
+                'rpu_acceptor_designation_name_bn' => 'nullable',
+            ],
+            [
+                'memo_id.required' => 'Memo is required',
+                'memo_sharok_no.required' => 'Memorandum no is required',
+                'memo_cc.required' => 'Memo cc is required',
+                'issued_by.required' => 'Issued by is required',
+                'memo_send_date.required' => 'Memo send date is required',
+                'rpu_acceptor_designation_name_bn.required' => 'RP acceptor designation is required',
+            ]
+        )->validate();
         $data['cdesk'] = $this->current_desk_json();
 
         if ($this->current_office_id() == 14) {
@@ -350,22 +406,25 @@ class AuditExecutionMemoController extends Controller
      */
     public function update(Request $request)
     {
-        Validator::make($request->all(), [
-            'memo_id' => 'required',
-            'memo_title_bn' => 'required',
-            'memo_description_bn' => 'required',
-            'jorito_ortho_poriman' => 'required',
-            'audit_year_start' => 'required',
-            'audit_year_end' => 'required',
-        ],
-        [
-            'memo_id.required'=> 'Memo id is required',
-            'memo_title_bn.required'=> 'Memo title is required',
-            'memo_description_bn.required'=> 'Memo description is required',
-            'jorito_ortho_poriman.required'=> 'Jorito ortho is required',
-            'audit_year_start.required'=> 'Audit year start is required',
-            'audit_year_end.required'=> 'Audit year end is required',
-        ])->validate();
+        Validator::make(
+            $request->all(),
+            [
+                'memo_id' => 'required',
+                'memo_title_bn' => 'required',
+                'memo_description_bn' => 'required',
+                'jorito_ortho_poriman' => 'required',
+                'audit_year_start' => 'required',
+                'audit_year_end' => 'required',
+            ],
+            [
+                'memo_id.required' => 'Memo id is required',
+                'memo_title_bn.required' => 'Memo title is required',
+                'memo_description_bn.required' => 'Memo description is required',
+                'jorito_ortho_poriman.required' => 'Jorito ortho is required',
+                'audit_year_start.required' => 'Audit year start is required',
+                'audit_year_end.required' => 'Audit year end is required',
+            ]
+        )->validate();
 
         $data = [
             ['name' => 'memo_id', 'contents' => $request->memo_id],
@@ -433,17 +492,16 @@ class AuditExecutionMemoController extends Controller
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
 
         if (!empty($directorates)) {
-            return view('modules.audit_execution.audit_execution_memo.authority_memo_list',
-                compact('directorates', 'fiscal_years'));
+            return view('modules.audit_execution.audit_execution_memo.authority_memo_list',compact('directorates', 'fiscal_years')
+            );
         } else {
             return response()->json(['status' => 'error', 'data' => $directorates]);
         }
-
     }
 
     public function loadAuthorityMemoList(Request $request)
     {
-        if (session::has('dashboard_filter_data')){
+        if (session::has('dashboard_filter_data')) {
             Session::forget('dashboard_filter_data');
         }
 
@@ -461,8 +519,10 @@ class AuditExecutionMemoController extends Controller
         $data['jorito_ortho_poriman'] = $request->jorito_ortho_poriman;
         $data['audit_year_start'] = $request->audit_year_start;
         $data['audit_year_end'] = $request->audit_year_end;
+        $data['page'] = $request->page;
+        $data['per_page'] = $request->per_page;
 
-        if ($request->start_date && $request->end_date){
+        if ($request->start_date && $request->end_date) {
             $start_date = str_replace('/', '-', $request->start_date);
             $data['start_date'] = Carbon::parse($start_date)->format('Y-m-d');
             $end_date = str_replace('/', '-', $request->end_date);
@@ -474,11 +534,13 @@ class AuditExecutionMemoController extends Controller
         //dd($get_memo_list);
         //dd($memo_list['data']['total_memo']);
         if (isSuccess($get_memo_list)) {
+            $memos = $get_memo_list['data']['memo_list'];
+            // dd($memos);
             $memo_list = $get_memo_list['data']['memo_list']['data'];
             $total_memo = $get_memo_list['data']['total_memo'];
             $team_id = $request->team_id;
             $cost_center_id = $request->cost_center_id;
-            return view('modules.audit_execution.audit_execution_memo.partials.load_authority_memo_list', compact('memo_list', 'team_id', 'cost_center_id', 'total_memo'));
+            return view('modules.audit_execution.audit_execution_memo.partials.load_authority_memo_list', compact('memo_list', 'team_id', 'cost_center_id', 'total_memo', 'memos'));
         } else {
             return response()->json(['status' => 'error', 'data' => $get_memo_list]);
         }
@@ -514,8 +576,10 @@ class AuditExecutionMemoController extends Controller
         $directorateAddress = '';
         $directorateWebsite = '';
 
-        $pdf = \PDF::loadView('modules.audit_execution.audit_execution_memo.partials.memo_book',
-            compact('memoInfo', 'directorateName', 'directorateAddress', 'directorateWebsite'));
+        $pdf = \PDF::loadView(
+            'modules.audit_execution.audit_execution_memo.partials.memo_book',
+            compact('memoInfo', 'directorateName', 'directorateAddress', 'directorateWebsite')
+        );
         return $pdf->stream('document.pdf');
     }
 
@@ -528,7 +592,7 @@ class AuditExecutionMemoController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $recommendation_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.audit_memo_recommendation_list'), $data)->json();
-//        dd($recommendation_list);
+        //        dd($recommendation_list);
         if (isSuccess($recommendation_list)) {
             $memo_id = $request->memo_id;
             $recommendation_list = $recommendation_list['data'];
@@ -546,7 +610,7 @@ class AuditExecutionMemoController extends Controller
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
-//        dd($data);
+        //        dd($data);
         $auditMemoRecommendation = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.audit_memo_recommendation_store'), $data)->json();
         if (isSuccess($auditMemoRecommendation)) {
             return response()->json(['status' => 'success', 'data' => 'Saved Successfully']);
@@ -564,7 +628,7 @@ class AuditExecutionMemoController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $log_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.audit_memo_log_list'), $data)->json();
-//        dd($log_list);
+        //        dd($log_list);
         if (isSuccess($log_list)) {
             $memo_id = $request->memo_id;
             $log_list = $log_list['data'];
@@ -589,8 +653,10 @@ class AuditExecutionMemoController extends Controller
         $data['cdesk'] = $this->current_desk_json();
         $memoInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.edit'), $data)->json();
         $memoInfo = isSuccess($memoInfo) ? $memoInfo['data'] : [];
-        return view('modules.audit_execution.audit_execution_memo.send_memo_form',
-            compact('memoInfo'));
+        return view(
+            'modules.audit_execution.audit_execution_memo.send_memo_form',
+            compact('memoInfo')
+        );
     }
 
     public function deleteMemoAttachment(Request $request)
