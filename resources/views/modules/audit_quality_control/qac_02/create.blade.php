@@ -13,7 +13,8 @@
 @endsection
 @section('content')
     <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
-    <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
+
+    <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
         <div class="col-md-6">
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">
@@ -56,7 +57,7 @@
                     <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
                             data-air-id="{{$air_report_id}}"
                             onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
-                        <i class="fas fa-save"></i> Update
+                        <i class="fas fa-save"></i> সংরক্ষণ করুন
                     </button>
                 @endif
             @endif

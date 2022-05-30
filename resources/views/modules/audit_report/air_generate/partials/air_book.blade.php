@@ -838,7 +838,7 @@
 
 
     {{--part two page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;">
+    <div class="pdf-screen bangla-font" style="height: 100%;">
         <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $auditReport[23]['content'] !!}
     </div>

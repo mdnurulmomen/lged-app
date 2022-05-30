@@ -95,7 +95,7 @@
             অনুচ্ছেদ নং
         </th>
 
-        <th width="33%" class="text-left">
+        <th width="25%" class="text-left">
             শিরোনাম
         </th>
 

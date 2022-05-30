@@ -1,5 +1,5 @@
 @foreach($apottiStatusList as $apottiStatus)
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div style="height:100%;page-break-after: always">
         <div style="font-weight: bold">
             অনুচ্ছেদ নং-{{enTobn($apottiStatus['apotti']['onucched_no'])}}
         </div>
