@@ -847,12 +847,12 @@
     </div>
 
     {{--sfi apotti summary page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
         {!! $auditReport[25]['content'] !!}
     </div>
 
     {{--sfi apotti details page--}}
-    <div class="pdf-screen bangla-font" style="page-break-before: always;">
+    <div class="pdf-screen bangla-font">
         {!! $auditReport[26]['content'] !!}
     </div>
 
@@ -863,12 +863,12 @@
     </div>
 
     {{--non sfi apotti summary page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
         {!! $auditReport[28]['content'] !!}
     </div>
 
     {{--non sfi apotti details page--}}
-    <div class="pdf-screen bangla-font" style="page-break-before: always;">
+    <div class="pdf-screen bangla-font">
         {!! $auditReport[29]['content'] !!}
     </div>
 
