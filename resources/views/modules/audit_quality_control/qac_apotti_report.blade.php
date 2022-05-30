@@ -913,7 +913,7 @@
                             @foreach($apotti['apotti_map_data']['apotti_status'] as $apotti_status)
                                 @if($apotti_status['qac_type'] == $qac_type)
                                 <tr class="bangla-font">
-                                    <td class="bangla-font text-center">
+                                    <td class="bangla-font" style="text-align: center">
                                         {{enTobn($apotti['apotti_map_data']['onucched_no'])}}
                                     </td>
                                     <td class="bangla-font text-left">
