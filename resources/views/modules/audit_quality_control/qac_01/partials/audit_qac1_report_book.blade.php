@@ -879,7 +879,7 @@
     </div>
 
     {{--porishitoh details page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font">
         {!! $auditReport[31]['content'] !!}
     </div>
 

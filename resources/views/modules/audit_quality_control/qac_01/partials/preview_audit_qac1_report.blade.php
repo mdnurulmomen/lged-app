@@ -46,7 +46,7 @@
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "Air_Report_"+new Date().toDateString().replace(/ /g,"_")+".pdf";
+                    link.download = "qac1_report_"+new Date().toDateString().replace(/ /g,"_")+".pdf";
                     link.click();
                 },
                 error: function (blob) {
