@@ -59,7 +59,7 @@
     </thead>
 
     <tbody>
-    @forelse($apotti_list['data'] as $apotti)
+    @forelse($apotti_list as $apotti)
         <tr class="text-center">
             <td>
                 <input
