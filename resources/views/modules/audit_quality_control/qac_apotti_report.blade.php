@@ -849,12 +849,12 @@
                     </tr>
                     <tr class="bangla-font">
                         <td class="bangla-font">নিরীক্ষা বছর :</td>
-                        <td class="bangla-font"></td>
+                        <td class="bangla-font">{{enTobn($responseData['rAirInfo']['fiscal_year']['start'])}}-{{enTobn($responseData['rAirInfo']['fiscal_year']['end'])}}</td>
                     </tr>
-                    <tr>
+                    {{--<tr>
                         <td class="bangla-font">নিরীক্ষার ধরন :</td>
                         <td class="bangla-font"></td>
-                    </tr>
+                    </tr>--}}
                     <tr>
                         <td class="bangla-font">সভার তারিখ:</td>
                         <td class="bangla-font">{{enTobn(formatDate($responseData['rAirInfo']['qac_report_date'],'bn'))}}</td>
