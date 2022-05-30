@@ -44,6 +44,7 @@ class AuditExecutionArchiveApottiReportController extends Controller
     {
         $data['directorate_id'] = $request->directorate_id;
         $data['ministry_id'] = $request->ministry_id;
+        $data['entity_id'] = $request->entity_id;
         $data['year_from'] = $request->year_from;
         $data['year_to'] = $request->year_to;
 
@@ -94,6 +95,8 @@ class AuditExecutionArchiveApottiReportController extends Controller
             ['name' => 'directorate_name', 'contents' => $request->directorate_name],
             ['name' => 'ministry_id', 'contents' => $request->ministry_id],
             ['name' => 'ministry_name', 'contents' => $request->ministry_name],
+            ['name' => 'entity_id', 'contents' => $request->entity_id],
+            ['name' => 'entity_name', 'contents' => $request->entity_name],
             ['name' => 'is_alochito', 'contents' => $request->is_alochito],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];

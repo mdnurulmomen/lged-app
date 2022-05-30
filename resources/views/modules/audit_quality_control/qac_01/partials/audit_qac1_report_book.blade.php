@@ -292,11 +292,6 @@
                 widows: 3;
             }
 
-            h2,
-            h3 {
-                page-break-after: avoid;
-            }
-
             .navbar {
                 display: none;
             }
@@ -339,13 +334,13 @@
         }
 
         html {
-            font-size: 10px;
+            font-size: 14px;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
+            font-size: 18px;
             line-height: 1.42857143;
             color: #333333;
             background-color: #ffffff;
@@ -789,6 +784,9 @@
             even-header-name: even-header;
             odd-footer-name: odd-footer;
             even-footer-name: even-footer;
+
+            margin-left: 2.5cm;
+            margin-right: 2cm;
         }
     </style>
 </head>
@@ -812,7 +810,7 @@
 
     {{--part one cover page--}}
     <div class="pdf-screen bangla-font" style="height: 100%;">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $auditReport[3]['content'] !!}
     </div>
 
@@ -844,7 +842,7 @@
 
     {{--part two (one) cover page--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $auditReport[24]['content'] !!}
     </div>
 
@@ -860,7 +858,7 @@
 
     {{--part two (two) cover page--}}
     <div class="pdf-screen bangla-font" style="height: 100%">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $auditReport[27]['content'] !!}
     </div>
 
@@ -876,7 +874,7 @@
 
     {{--porishitoh cover page--}}
     <div class="pdf-screen bangla-font" style="height: 100%">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $auditReport[30]['content'] !!}
     </div>
 

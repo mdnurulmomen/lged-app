@@ -90,6 +90,17 @@
 
         <div class="mr-3 form-group row">
             <div class="col-md-2">
+                <label for="entity_id" class="col-form-label">এনটিটি:</label>
+            </div>
+            <div class="col-md-4">
+                <select class="form-select select-select2" id="entity_id" name="entity_id">
+                    <option value="">সবগুলো</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mr-3 form-group row">
+            <div class="col-md-2">
                 <label for="is_alochito" class="col-form-label">আলোচিত কি না?:</label>
             </div>
             <div class="col-md-4">
@@ -133,7 +144,13 @@
 <script>
     $(function () {
         directorate_id = $('#directorate_id').val();
-        Archive_Apotti_Container.loadDirectorateWiseMinistry(directorate_id);
+        Archive_Apotti_Create_Container.loadDirectorateWiseMinistry(directorate_id);
+    });
+
+    //entity
+    $('#ministry_id').change(function() {
+        ministry_id = $('#ministry_id').val();
+        Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id);
     });
 
     $(document).ready(function () {
@@ -144,6 +161,37 @@
         });
 
     });
+
+    Archive_Apotti_Create_Container = {
+        loadDirectorateWiseMinistry: function (directorate_id,ministry_id='') {
+            let url = '{{route('audit.execution.archive-apotti.load-directorate-wise-ministry')}}';
+            let data = {directorate_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.warning(response.data);
+                    } else {
+                        $('#ministry_id').html(response);
+                        if (ministry_id != ""){
+                            $("#ministry_id").val(ministry_id).trigger('change');
+                        }
+                    }
+                }
+            );
+        },
+
+        loadMinistryWiseEntity: function (ministry_id) {
+            let url = '{{route('audit.execution.archive-apotti.load-ministry-wise-entity')}}';
+            let data = {ministry_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.warning(response.data);
+                    } else {
+                        $('#entity_id').html(response);
+                    }
+                }
+            );
+        },
+    }
 
 
     //for submit form
@@ -164,6 +212,9 @@
 
             ministry_name = $("#ministry_id option:selected").text();
             from_data.append('ministry_name', ministry_name);
+
+            entity_name = $("#entity_id option:selected").text();
+            from_data.append('entity_name', entity_name);
 
             elem = $(this);
             elem.prop('disabled', true);
