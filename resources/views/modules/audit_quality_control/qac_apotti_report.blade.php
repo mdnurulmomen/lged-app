@@ -227,11 +227,13 @@
         table {
             border-collapse: collapse;
             border-spacing: 0;
+            font-family: nikoshpdf !important;
         }
 
         td,
         th {
-            padding: 0;
+            padding: 3px;
+            font-family: nikoshpdf !important;
         }
 
         /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
@@ -337,13 +339,13 @@
         }
 
         html {
-            font-size: 10px;
+            font-size: 12px;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
+            font-size: 18px;
             line-height: 1.42857143;
             color: #333333;
             background-color: #ffffff;
@@ -856,11 +858,11 @@
                         <td class="bangla-font"></td>
                     </tr>--}}
                     <tr>
-                        <td class="bangla-font">সভার তারিখ:</td>
+                        <td class="bangla-font">সভার তারিখ :</td>
                         <td class="bangla-font">{{enTobn(formatDate($responseData['rAirInfo']['qac_report_date'],'bn'))}}</td>
                     </tr>
                     <tr>
-                        <td valign="top" class="bangla-font">সম্পন্নকারী দল: </td>
+                        <td valign="top" class="bangla-font">সম্পন্নকারী দল :</td>
                         <td class="bangla-font">
                             @foreach($committeeData['committee']['qac_committee_members'] as $member)
                                     <p>{{enTobn($loop->iteration)}}) {{$member['officer_bn']}}({{$member['officer_designation_bn']}},{{$member['officer_unit_bn']}})</p>
