@@ -1011,7 +1011,7 @@
                 <div class="row">
                     <table width="100%" style="margin-top: 20px">
                         <tr>
-                            @foreach($committeeData['committee']['qac_committee_members'] as $member)
+                            @foreach(array_reverse($committeeData['committee']['qac_committee_members']) as $member)
                                 <td class="bangla-font" style="text-align: center" width="30%">
                                     <b>({{$member['officer_bn']}})</b>
                                     <p>{{$member['officer_designation_bn']}}</p>
