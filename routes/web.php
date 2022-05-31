@@ -363,7 +363,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         //audit schedule
         Route::get('audit-schedule', [\App\Http\Controllers\AuditExecution\AuditExecutionScheduleController::class, 'auditSchedule'])->name('audit-schedule');
-        Route::get('load-audit-schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionScheduleController::class, 'loadAuditScheduleList'])->name('load-audit-schedule-list');
+        Route::post('load-audit-schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionScheduleController::class, 'loadAuditScheduleList'])->name('load-audit-schedule-list');
 
         //authority query list
         Route::get('authority-query-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'authorityQueryList'])->name('authority-query-list');

@@ -13,7 +13,7 @@
                                         <span class="mr-2 font-size-1-1">এনটিটি/প্রতিষ্ঠানঃ</span>
                                         <span class="font-size-14">
                                             {{$schedule['entity_name_bn']}}
-                                            <span  class="label label-outline-warning label-pill label-inline">
+                                            <span class="label label-outline-warning label-pill label-inline">
                                                 প্ল্যান - {{$schedule['audit_plan_id']}}</span>
 
                                     </div>
@@ -66,7 +66,7 @@
                                                         data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                         data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
                                                         data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}">
-                                                    <i class="fad fa-clipboard-list"></i> কোয়েরি
+                                                    <i class="fad fa-clipboard-list"></i> কোয়েরি ({{enTobn($schedule['queries_count'])}})
                                                 </button>
 
                                                 <button class="mr-3 btn btn-sm btn-warning btn-square"
@@ -84,7 +84,7 @@
                                                         data-sub-team-leader-name-bn="{{$schedule['plan_team']['leader_name_bn']}}"
                                                         data-sub-team-leader-designation-name-bn="{{$schedule['plan_team']['leader_designation_name_bn']}}"
                                                         onclick="Audit_Query_Schedule_Container.memo($(this))">
-                                                    <i class="fad fa-clipboard-list"></i> মেমো
+                                                    <i class="fad fa-clipboard-list"></i> মেমো ({{enTobn($schedule['memos_count'])}})
                                                 </button>
                                             @else
                                                 <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="অননুমোদিত অফিস আদেশ">

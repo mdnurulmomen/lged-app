@@ -26,7 +26,6 @@ class AuditExecutionScheduleController extends Controller
     public function loadAuditScheduleList(Request $request)
     {
         $data['cdesk'] = $this->current_desk_json();
-        $data['fiscal_year_id'] = 1;
         $audit_query_schedule_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.get_query_schedule_list'), $data)->json();
         //dd($audit_query_schedule_list);
         if ($audit_query_schedule_list['status'] == 'success') {

@@ -22,7 +22,7 @@
     function loadData() {
         url = $(".load-table-data").data('href');
         var data = {};
-        ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
             if (resp.status === 'error') {
                 toastr.error('no');
             } else {
