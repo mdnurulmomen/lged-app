@@ -572,6 +572,15 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('final-report-status-update', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportStatusUpdate'])->name('final-report-status-update');
     });
 
+    Route::group(['as' => 'audit.air-report.', 'prefix' => 'audit-air-report/'], function () {
+        Route::get('/', function () {
+            return redirect()->route('audit.air-report.dashboard');
+        });
+        Route::get('dashboard', [\App\Http\Controllers\AuditReport\AuditAirDashboardController::class, 'index'])->name('dashboard');
+        Route::get('authority-air-report', [\App\Http\Controllers\AuditReport\AuditAIRReportController::class, 'authorityAirReport'])->name('authority-air-report');
+        Route::post('get-authority-air-report', [\App\Http\Controllers\AuditReport\AuditAIRReportController::class, 'getAuthorityAuditAirReport'])->name('get-authority-audit-air-report');
+    });
+
 
     //Report
     Route::group(['as' => 'audit.report.', 'prefix' => 'audit-report/'], function () {

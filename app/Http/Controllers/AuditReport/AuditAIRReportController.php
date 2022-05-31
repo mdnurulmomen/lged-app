@@ -369,4 +369,39 @@ class AuditAIRReportController extends Controller
         $apotti_items = isSuccess($responseData)?$responseData['data']:[];
         return view('modules.audit_report.air_generate.partials.load_audit_apottis_wise_porisistos',compact('apotti_items'));
     }
+
+    public function authorityAirReport(Request $request){
+        $all_directorates = $this->allAuditDirectorates();
+
+//        dd($all_directorates);
+
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
+
+        $fiscal_years = $this->allFiscalYears();
+
+        return view('modules.audit_report.audit_air_report.index', compact('fiscal_years', 'directorates'));
+    }
+
+    public function getAuthorityAuditAirReport(Request $request){
+        $data = Validator::make($request->all(), [
+            'office_id' => 'required',
+            'qac_type' => 'required',
+            'activity_id' => 'required',
+        ], [
+            'office_id.required' => 'অধিদপ্তর বাছাই করুন',
+            'activity_id.required' => 'অ্যাক্টিভিটি বাছাই করুন',
+        ])->validate();
+//        dd($data);
+        $data['cdesk'] = $this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-authority-air-report'), $data)->json();
+//        dd($responseData);
+        $current_designation_id = $this->current_designation_id();
+        $final_report = isSuccess($responseData) ? $responseData['data'] : [];
+        return view('modules.audit_report.audit_air_report.air_report_list',
+            compact('final_report', 'current_designation_id'));
+    }
 }
