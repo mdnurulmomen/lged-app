@@ -124,7 +124,12 @@ class AnnualPlanRevisedController extends Controller
         $all_activity = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_all_op_activity'),
             $data)->json();
 
-//        dd($all_activity);
+        $office_id = $this->current_office_id();
+
+        $all_project = $office_id == 18 ?  $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), $data)->json() : [];
+        $all_project = $all_project ? $all_project['data'] : [];
+
+//        dd($all_project);
 
         $fiscal_year_id = $request->fiscal_year_id;
         $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
@@ -132,7 +137,7 @@ class AnnualPlanRevisedController extends Controller
 
         if (isSuccess($all_activity)) {
             $all_activity = $all_activity['data'];
-            return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info', compact('all_activity', 'fiscal_year_id', 'op_audit_calendar_event_id','annual_plan_main_id'));
+            return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info', compact('all_activity', 'fiscal_year_id', 'op_audit_calendar_event_id','annual_plan_main_id','all_project','office_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $all_activity]);
         }
@@ -233,8 +238,13 @@ class AnnualPlanRevisedController extends Controller
                 'cost_center_total_budget' => $request->cost_center_total_budget ? $request->cost_center_total_budget : 0,
                 'milestone_list' => json_decode($request->milestone_list, true),
                 'annual_plan_type' => $request->annual_plan_type,
-                'thematic_title' => $request->thematic_title
+                'thematic_title' => $request->thematic_title,
+                'project_id' => $request->project_id,
+                'project_name_bn' => $request->project_name_bn,
+                'project_name_en' => $request->project_name_en,
             ];
+
+//            dd($data);
 
             if(session('dashboard_audit_type') == 'Compliance Audit'){
                 $data['activity_type'] = 'compliance';
@@ -476,11 +486,22 @@ class AnnualPlanRevisedController extends Controller
             'name_en' => $request->ministry_name_en,
             'name_bn' => $request->ministry_name_bn,
         ];
+
         $data = [
             'office_ministry_id' => $ministry_id,
             'office_category_type' => $office_category_type,
+            'project_id' => $request->project_id,
         ];
-        $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-rp-office-ministry-wise'), $data)->json();
+
+        //office id 18 fapad
+        if($request->project_id && $this->current_office_id() == 18){
+            $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-project-wise-entity'), $data)->json();
+        }else{
+            $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-rp-office-ministry-wise'), $data)->json();
+        }
+
+//        dd($rp_offices);
+
         if (isSuccess($rp_offices)) {
             $rp_offices = $rp_offices['data'];
             if ($request->has('scope') && $request->scope == 'parent_office') {
@@ -536,9 +557,20 @@ class AnnualPlanRevisedController extends Controller
             'parent_office_id' => $request->parent_office_id,
             'parent_ministry_id' => $request->parent_ministry_id,
             'parent_office_layer_id' => $request->parent_office_layer_id,
+            'project_id' => $request->project_id,
         ];
 //        dd($data);
-        $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-ministry-parent-wise-child-office'), $data)->json();
+        $office_id = $this->current_office_id();
+
+        //office id 18 fapad
+        if($request->project_id && $office_id == 18){
+            $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-project-wise-cost-center'), $data)->json();
+        }else{
+            $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-ministry-parent-wise-child-office'), $data)->json();
+        }
+
+//        dd($rp_offices);
+
         if (isSuccess($rp_offices)) {
             $rp_offices = $rp_offices['data'];
             $entity_id = $request->parent_office_id;

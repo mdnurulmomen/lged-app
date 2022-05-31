@@ -312,7 +312,7 @@
             });
         },
 
-        loadEntityChildOffices: function (ministry_id, entity_id, entity_name_en, entity_name_bn) {
+        loadEntityChildOffices: function (ministry_id, entity_id, entity_name_en, entity_name_bn, project_id=0) {
             parent_ministry_id = ministry_id;
             // parent_office_layer_id = layer_id;
 
@@ -322,7 +322,7 @@
             parent_office_en = entity_name_en;
             parent_office_bn = entity_name_bn;
             data = {
-                parent_office_id, parent_office_en, parent_office_bn, parent_ministry_id
+                parent_office_id, parent_office_en, parent_office_bn, parent_ministry_id, project_id
             };
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
@@ -404,11 +404,11 @@
             });
         },
 
-        loadRPParentAuditeeOfficesMinistryWise: function (ministry_id, office_category_type) {
+        loadRPParentAuditeeOfficesMinistryWise: function (ministry_id, office_category_type, project_id=0) {
             let url = '{{route('audit.plan.annual.plan.list.show.rp-auditee-offices-ministry-wise')}}'
             ministry_name_en = $('#parent_ministry_name_en').val()
             ministry_name_bn = $('#parent_ministry_name_bn').val()
-            data = {ministry_id, ministry_name_en, ministry_name_bn, office_category_type, scope: 'parent_office'};
+            data = {ministry_id, ministry_name_en, ministry_name_bn, office_category_type,project_id, scope: 'parent_office'};
             KTApp.block('#kt_content', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
@@ -760,6 +760,9 @@
             data.push({name: "subject_matter", value: $('#subject_matter').val() ? $('#subject_matter').val() : null});
             data.push({name: "vumika", value: $('#vumika').val() ? $('#vumika').val() : null});
             data.push({name: "audit_objective", value: $('#audit_objective').val() ? $('#audit_objective').val() : null});
+            data.push({name: "project_id", value: $('#project_id').val()});
+            data.push({name: "project_name_bn", value: $('#project_id').find(':selected').text()});
+            data.push({name: "project_name_en", value: $('#project_id').find(':selected').attr('data-name-en')});
 
             elem.prop('disabled', true)
 

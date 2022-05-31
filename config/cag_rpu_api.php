@@ -22,4 +22,8 @@ return [
 
     'get-entity-wise-unit-group-office' => env('API_URL_RPU', '') . '/get-entity-wise-unit-group-office',
     'get-entity-or-unit-group-wise-cost-center' => env('API_URL_RPU', '') . '/get-entity-or-unit-group-wise-cost-center',
+    'get-all-project' => env('API_URL_RPU', '') . '/project/list',
+    'get-project-wise-entity' => env('API_URL_RPU', '') . '/cost_center_project_map/project-wise-entity-list',
+    'get-project-wise-cost-center' => env('API_URL_RPU', '') . '/cost_center_project_map/project-wise-cost-center-list',
+    'get-project-wise-nominated-cost-center-list' => env('API_URL_RPU', '') . '/cost_center_project_map/project-map-nominated-cost-center-list',
 ];

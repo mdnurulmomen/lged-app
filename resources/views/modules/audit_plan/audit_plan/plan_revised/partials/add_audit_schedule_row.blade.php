@@ -60,6 +60,7 @@
 <script>
     $(".input-entity-name").change(function () {
         parent_office_id = $(this).val();
+        ministry_id = $(this).children('option:selected').data('ministry-id');
 
         layer_row = $(this).attr('data-id');
         layer_row = layer_row.split("_");
@@ -67,6 +68,6 @@
         layer_id = layer_row[0];
         row = layer_row[1];
 
-        loadSelectNominatedOffices(parent_office_id, layer_id, row);
+        loadSelectNominatedOffices(parent_office_id, layer_id, row, ministry_id);
     });
 </script>

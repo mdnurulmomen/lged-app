@@ -633,9 +633,9 @@
         });
     }
 
-    function loadSelectNominatedOffices(parent_office_id, layer_id, total_audit_schedule_row) {
+    function loadSelectNominatedOffices(parent_office_id, layer_id, total_audit_schedule_row, ministry_id) {
         url = '{{route('audit.plan.audit.editor.load-select-nominated-offices')}}';
-        data = {parent_office_id, layer_id, total_audit_schedule_row};
+        data = {parent_office_id, layer_id, total_audit_schedule_row, ministry_id};
 
         KTApp.block('.kt-portlet')
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
@@ -1560,14 +1560,14 @@ style="padding-left: 5px;">
 
     $(".input-entity-name").change(function () {
         parent_office_id = $(this).val();
-
+        ministry_id = $(this).children('option:selected').data('ministry-id');
         layer_row = $(this).attr('data-id');
         layer_row = layer_row.split("_");
 
         layer_id = layer_row[0];
         row = layer_row[1];
 
-        loadSelectNominatedOffices(parent_office_id, layer_id, row);
+        loadSelectNominatedOffices(parent_office_id, layer_id, row, ministry_id);
     });
 
     $('.input-branch-name').on('select2:opening', function (e) {

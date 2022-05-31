@@ -205,6 +205,20 @@
                          aria-labelledby="calender-tab">
                         <div class="px-3">
                             <x-rp-parent-office-select grid="6" unit="true"/>
+                            @if($office_id == 18)
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>প্রজেক্ট</label>
+                                        <select id="project_id" class="form-control select-select2">
+                                            <option value="">--বাছাই করুন--</option>
+                                            @foreach($all_project as $project)
+                                                <option data-name-en="{{$project['name_en']}}" value="{{$project['id']}}">{{$project['name_bn']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <br>
+                            @endif
                         </div>
                         <h5 class="text-primary pl-3"><u>এনটিটি/সংস্থার তালিকাঃ</u></h5>
                         @if(session('dashboard_audit_type') != 'Performance Audit')
@@ -363,7 +377,8 @@
         entity_id = $(this).val();
         entity_name_bn = $(this).text();
         entity_name_en = $(this).find(':selected').attr('data-entity-name-en');
-        Annual_Plan_Container.loadEntityChildOffices(ministry_id, entity_id, entity_name_en, entity_name_bn);
+        project_id = $('#project_id').val();
+        Annual_Plan_Container.loadEntityChildOffices(ministry_id, entity_id, entity_name_en, entity_name_bn,project_id);
     });
 
     $("select#parent_ministry_id").change(function () {
@@ -381,6 +396,13 @@
     $("#activity_id").change(function () {
         activity_id = $(this).val();
         Annual_Plan_Container.loadActivityWiseMilestone(activity_id);
+    });
+
+    $("#project_id").change(function () {
+        project_id = $(this).val();
+        ministry_id = $('#parent_ministry_id').val();
+        office_category_type = $('#office_category_type_select').val();
+        Annual_Plan_Container.loadRPParentAuditeeOfficesMinistryWise(ministry_id, office_category_type, project_id);
     });
 
     $("input[name$='annual_plan_type']").click(function () {

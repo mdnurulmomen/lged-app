@@ -76,7 +76,18 @@ class PlanEditorController extends Controller
 //        $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-ministry-parent-wise-child-office'), $data)->json();
 //        dd($rp_offices);
         $getParentWithChildOfficePassData['parent_office_id'] = $request->parent_office_id;
-        $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $getParentWithChildOfficePassData)->json();
+        $getParentWithChildOfficePassData['ministry_id'] = $request->ministry_id;
+        $office_id = $this->current_office_id();
+
+
+        //office id 18 fapad
+        if($office_id == 18){
+            $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-project-wise-nominated-cost-center-list'), $getParentWithChildOfficePassData)->json();
+        }else{
+            $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $getParentWithChildOfficePassData)->json();
+        }
+
+//        dd($nominated_offices);
 
         $nominated_offices_list = isSuccess($nominated_offices) ? $nominated_offices['data'] : [];
         $nominated_offices_list = !empty($nominated_offices_list) ? !empty($nominated_offices_list['child_offices']) ? $nominated_offices_list['child_offices'] : [$nominated_offices_list['parent_office']] : [];
