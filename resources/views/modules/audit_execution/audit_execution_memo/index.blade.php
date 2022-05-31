@@ -11,7 +11,7 @@
             <div class="col-md-5">
                 <div class="d-flex justify-content-md-end">
                     <a href="javascript:;" title="ফেরত যান"
-                       onclick="Audit_Query_Container.backToQuerySchedule($(this))"
+                       onclick="Memo_List_Container.backToQuerySchedule($(this))"
                        class="btn btn-sm btn-warning btn_back btn-square mr-1">
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>
@@ -355,5 +355,9 @@
                 }
             });
         },
+
+        backToQuerySchedule:function (){
+            $('.audit_query_schedule_menu a').click();
+        }
     };
 </script>

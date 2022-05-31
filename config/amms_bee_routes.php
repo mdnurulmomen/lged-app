@@ -306,6 +306,7 @@ return [
             'apotti_register_list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-register-list',
             'update_apotti_register' => env('API_URL_BEE', '') . '/audit-conduct-apotti/update-apotti-register',
             'store_apotti_register_movement' => env('API_URL_BEE', '') . '/audit-conduct-apotti/store-apotti-register-movement',
+            'search-list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/search-list',
         ],
 
         'archive_apotti' => [

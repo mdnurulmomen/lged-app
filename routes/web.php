@@ -413,10 +413,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('delete-memo-attachment', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'deleteMemoAttachment'])->name('delete-memo-attachment');
         });
 
+
         Route::group(['as' => 'apotti.', 'prefix' => 'apotti/'], function () {
-//            Route::get('/', function () {
-//                return redirect()->route('audit.execution.apotti.dashboard');
-//            });
             Route::get('/', [\App\Http\Controllers\AuditReport\AuditReportDashboardController::class, 'apottiPage'])->name('dashboard');
             Route::get('index', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'index'])->name('index');
             Route::post('load-apotti-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadApottiList'])->name('load-apotti-list');
@@ -439,6 +437,10 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('store-approval-authority', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'storeRegisterApprovalAuthority'])->name('store-approval-authority');
                 Route::post('update', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'updateRegisterApotti'])->name('update');
             });
+
+
+            Route::get('search-page', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiSearchController::class, 'index'])->name('search-page');
+            Route::post('search-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiSearchController::class, 'list'])->name('search-list');
 
         });
 
