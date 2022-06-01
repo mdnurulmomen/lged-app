@@ -83,7 +83,7 @@
                 @endif
             </td>
             <td class="text-left">
-                {{$apotti['is_combined'] == 0 ? $apotti['apotti_items'][0]['cost_center_name_bn'] : ''}}
+                {{$apotti['is_combined'] == 0 ? $apotti['apotti_items'][0]['cost_center_name_bn'] : $apotti['parent_office_name_bn']}}
             </td>
             <td class="text-left">
                 {{$apotti['apotti_title']}}

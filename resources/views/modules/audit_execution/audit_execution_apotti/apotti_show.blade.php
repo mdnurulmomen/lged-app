@@ -73,7 +73,7 @@
         @foreach($apotti_info['apotti_items'] as $apotti_item)
             <tr class="milestone_row">
                 <td>
-                    {{$apotti_item['onucched_no']}}
+                    {{enTobn($apotti_item['onucched_no'])}}
                 </td>
                 <td>
                     {{$apotti_item['cost_center_name_en']}}
@@ -88,7 +88,7 @@
                     {{enTobn($apotti_item['onishponno_jorito_ortho_poriman'])}}
                 </td>
                 <td>
-                    <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="বিস্তারিত দেখুন"
+                    <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="বিচ্ছিন্ন করুন"
                             data-apotti-item-id="{{$apotti_item['id']}}"
                             data-is-combined="{{$apotti_info['is_combined']}}"
                             onclick="Apotti_Container.unMergeOnucched($(this))">

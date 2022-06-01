@@ -1,18 +1,17 @@
 <div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
     <div class="col-xl-12">
         <div class="row">
-            <div class="col-md-7"></div>
-                <div class="col-md-5">
-                    <div class="d-flex justify-content-md-end">
-                        <a onclick="Qac_Committee_Container.createCommittee()"
-                           data-fiscal-year-id="{{$fiscal_year_id}}"
-                           class="btn btn-sm btn-info btn-square mr-1"
-                           href="javascript:;">
-                            <i class="fas fa-plus-circle mr-1"></i>
-                            নতুন যোগ করুন
-                        </a>
-                    </div>
+            <div class="col-md-12">
+                <div class="d-flex justify-content-md-end mr-5">
+                    <a onclick="Qac_Committee_Container.createCommittee()"
+                       data-fiscal-year-id="{{$fiscal_year_id}}"
+                       class="btn btn-sm btn-info btn-square mr-1"
+                       href="javascript:;">
+                        <i class="fas fa-plus-circle mr-1"></i>
+                        নতুন কমিটি গঠন করুন
+                    </a>
                 </div>
+            </div>
         </div>
     </div>
 </div>
