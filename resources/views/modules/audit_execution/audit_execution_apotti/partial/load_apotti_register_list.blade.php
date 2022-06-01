@@ -1,43 +1,39 @@
+<h2>সেক্টর এর নাম</h2>
 <table class="table table-bordered" width="100%">
     <thead class="thead-light">
     <tr class="bg-hover-warning">
-        <th width="5%">
-            অনুচ্ছেদ নং
-        </th>
-
-        <th width="10%">
-            মন্ত্রণালয়
-        </th>
-
-        <th width="10%">
-            এনটিটি/সংস্থা
-        </th>
-
-        <th width="30%">
-            শিরোনাম
-        </th>
-
-        <th width="10%">
-            জড়িত অর্থ (টাকা)
-        </th>
-
-        <th width="10%">
-            এআইআর ইস্যুর তারিখ
-        </th>
-
-        <th width="10%">
-            স্ট্যাটাস রিভিউ তারিখ
-        </th>
-
-        <th width="20%">
-            কার্যক্রম
-        </th>
+        <th width="5%">ক্রম</th>
+        <th width="5%">মন্ত্রণালয়</th>
+        <th width="5%">এনটিটি/সংস্থা</th>
+        <th width="5%">অর্থ বছর</th>
+        <th width="5%">নিরীক্ষা বছর</th>
+        <th width="5%">এআইআর এর নাম</th>
+        <th width="5%">অনুচ্ছেদ নম্বর</th>
+        <th width="10%">আপত্তির শিরোনাম</th>
+        <th width="5%">জড়িত টাকা (টাকা)</th>
+        <th width="5%">নিরীক্ষা ধরন</th>
+        <th width="5%">এআইআর ইস্যুর তারিখ</th>
+        <th width="5%">তাগিদ পত্র ইস্যুর তারিখ</th>
+        <th width="5%">ডিও লেটার ইস্যুর তারিখ</th>
+        <th width="5%">সর্বশেষ জবাব প্রার্থীর তারিখ</th>
+        <th width="5%">স্ট্যাটাস রিভিউ তারিখ</th>
+        <th width="10%">কার্যক্রম</th>
     </tr>
     </thead>
 
     <tbody>
     @forelse($apotti_list['data'] as $apotti)
         <tr>
+            <td>{{$loop->iteration}}</td>
+            <td class="text-left">
+                {{$apotti['ministry_name_bn']}}
+            </td>
+            <td class="text-left">
+                {{$apotti['parent_office_name_bn']}}
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td class="text-left">
                 {{enTobn($apotti['onucched_no'])}}
                 @if(count($apotti['apotti_items']) > 1)
@@ -46,12 +42,7 @@
                         আপত্তি একীভূত</span>
                 @endif
             </td>
-            <td class="text-left">
-                {{$apotti['ministry_name_bn']}}
-            </td>
-            <td class="text-left">
-                {{$apotti['parent_office_name_bn']}}
-            </td>
+
             <td class="text-left">
                 {{$apotti['apotti_title']}}
                 <br>
@@ -64,10 +55,11 @@
             <td class="text-right">
                 <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
             </td>
-
-            <td class="text-left">
-                {{formatDate($apotti['air_issue_date'],'bn')}}
-            </td>
+            <td></td>
+            <td class="text-left">{{formatDate($apotti['air_issue_date'],'bn')}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
 
             <td class="text-left">
                 <span class="{{$apotti['status_review_date'] == date('Y-m-d')?'badge badge-primary':''}}">
@@ -105,7 +97,7 @@
         </tr>
     @empty
         <tr data-row="0" class="datatable-row" style="left: 0px;">
-            <td colspan="4" class="datatable-cell text-center"><span>Nothing Found</span></td>
+            <td colspan="16" class="datatable-cell text-center"><span>Nothing Found</span></td>
         </tr>
     @endforelse
     </tbody>
