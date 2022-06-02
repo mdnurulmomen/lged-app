@@ -491,6 +491,7 @@ class AnnualPlanRevisedController extends Controller
             'office_ministry_id' => $ministry_id,
             'office_category_type' => $office_category_type,
             'project_id' => $request->project_id,
+            'directorate_id' => $this->current_office_id(),
         ];
 
         //office id 18 fapad
