@@ -232,7 +232,6 @@ class AuditExecutionApottiController extends Controller
     }
 
     public function updateApotti(Request $request){
-
         Validator::make($request->all(), [
             'apotti_id' => 'required',
         ])->validate();
@@ -248,6 +247,8 @@ class AuditExecutionApottiController extends Controller
             'response_of_rpu' => $request->response_of_rpu,
             'audit_conclusion' => $request->audit_conclusion,
             'audit_recommendation' => $request->audit_recommendation,
+            'apotti_items' => isset($request->apotti_items)?$request->apotti_items:[],
+            'jorito_ortho_porimans' => isset($request->jorito_ortho_porimans)?$request->jorito_ortho_porimans:[],
         ];
 
         $apotti_update = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.update_apotti'), $data)->json();

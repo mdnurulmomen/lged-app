@@ -1,89 +1,110 @@
-<div class="row ml-1 mt-2">
-    <div class="col-7">
-        <div class="card">
-            <div class="card-body p-4">
-                <form id="onucched_marge_form">
-                    <div class="form-row pt-4">
-                        <div class="col-md-12">
-                            <label class="col-form-label">অনুচ্ছেদ নং</label>
-                            <input readonly class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নং" value="{{$apotti_info['onucched_no']}}">
+<div class="mb-12">
+    <form id="onucched_marge_form">
+        <div class="row ml-1 mt-2">
+            <div class="col-7">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="form-row pt-4">
+                            <div class="col-md-3">
+                                <label class="col-form-label">অনুচ্ছেদ নং</label>
+                                <input readonly class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নং" value="{{$apotti_info['onucched_no']}}">
+                            </div>
+                            <div class="col-md-9">
+                                <label class="col-form-label">জড়িত অর্থ (টাকা)</label>
+                                <input type="text" readonly class="form-control integer_type_positive total_jorito_ortho_poriman" name="total_jorito_ortho_poriman" placeholder="জড়িত অর্থ" value="{{$apotti_info['total_jorito_ortho_poriman']}}">
+                            </div>
                         </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label class="col-form-label">শিরোনাম</label>
+                                <input class="form-control" name="apotti_title" placeholder="আপত্তির শিরোনাম লিখুন"
+                                       value="{{$apotti_info['apotti_title']}}">
+                            </div>
 
-                        <div class="col-md-12">
-                            <label class="col-form-label">শিরোনাম</label>
-                            <input class="form-control" name="apotti_title" placeholder="আপত্তির শিরোনাম লিখুন"
-                                   value="{{$apotti_info['apotti_title']}}">
-                        </div>
+                            <div class="col-md-12 mb-2">
+                                <label class="col-form-label">বিবরণ</label>
+                                <textarea id="kt-tinymce-1" name="apotti_description" class="kt-tinymce-1">{!! $apotti_info['apotti_description'] !!}</textarea>
+                            </div>
 
-                        <div class="col-md-12 mb-2">
-                            <label class="col-form-label">বিবরণ</label>
-                            <textarea id="kt-tinymce-1" name="apotti_description" class="kt-tinymce-1">{!! $apotti_info['apotti_description'] !!}</textarea>
-                        </div>
+                            <div class="col-md-12 mb-2">
+                                <label class="col-form-label">অনিয়মের কারণ</label>
+                                <textarea class="form-control mb-1" name="irregularity_cause" placeholder="অনিয়মের কারণ"
+                                          cols="30"
+                                          rows="2">{{$apotti_info['irregularity_cause']}}</textarea>
+                            </div>
 
-                        <div class="col-md-12 mb-2">
-                            <label class="col-form-label">জড়িত অর্থ (টাকা)</label>
-                            <input type="text" class="form-control number-input" name="total_jorito_ortho_poriman" placeholder="জড়িত অর্থ" value="{{$apotti_info['total_jorito_ortho_poriman']}}">
-                        </div>
-                        <div class="col-md-12 mb-2">
-                            <label class="col-form-label">অনিয়মের কারণ</label>
-                            <textarea class="form-control mb-1" name="irregularity_cause" placeholder="অনিয়মের কারণ"
-                                      cols="30"
-                                      rows="2">{{$apotti_info['irregularity_cause']}}</textarea>
-                        </div>
+                            <div class="col-md-12 mb-2">
+                                <label class="col-form-label">অডিটি প্রতিষ্ঠানের জবাব</label>
+                                <textarea class="form-control mb-1" name="response_of_rpu"
+                                          placeholder="অডিটি প্রতিষ্ঠানের জবাব"
+                                          cols="30"
+                                          rows="2">{{$apotti_info['response_of_rpu']}}</textarea>
+                            </div>
 
-                        <div class="col-md-12 mb-2">
-                            <label class="col-form-label">অডিটি প্রতিষ্ঠানের জবাব</label>
-                            <textarea class="form-control mb-1" name="response_of_rpu"
-                                      placeholder="অডিটি প্রতিষ্ঠানের জবাব"
-                                      cols="30"
-                                      rows="2">{{$apotti_info['response_of_rpu']}}</textarea>
-                        </div>
+                            <div class="col-md-12 mb-2">
+                                <label class="col-form-label">নিরীক্ষা মন্তব্য</label>
+                                <textarea class="form-control mb-1" name="audit_conclusion" placeholder="নিরীক্ষা মন্তব্য"
+                                          cols="30"
+                                          rows="2">{{$apotti_info['audit_conclusion']}}</textarea>
+                            </div>
 
-                        <div class="col-md-12 mb-2">
-                            <label class="col-form-label">নিরীক্ষা মন্তব্য</label>
-                            <textarea class="form-control mb-1" name="audit_conclusion" placeholder="নিরীক্ষা মন্তব্য"
-                                      cols="30"
-                                      rows="2">{{$apotti_info['audit_conclusion']}}</textarea>
+                            <div class="col-md-12 mb-2">
+                                <label class="col-form-label">নিরীক্ষার সুপারিশ</label>
+                                <textarea class="form-control mb-1" name="audit_recommendation"
+                                          placeholder="নিরীক্ষার সুপারিশ" cols="30"
+                                          rows="2">{{$apotti_info['audit_recommendation']}}</textarea>
+                            </div>
                         </div>
-
-                        <div class="col-md-12 mb-2">
-                            <label class="col-form-label">নিরীক্ষার সুপারিশ</label>
-                            <textarea class="form-control mb-1" name="audit_recommendation"
-                                      placeholder="নিরীক্ষার সুপারিশ" cols="30"
-                                      rows="2">{{$apotti_info['audit_recommendation']}}</textarea>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-sm btn-square btn-outline-primary mr-2"
-                            data-apotti-id = "{{$apotti_info['id']}}"
-                            onclick="Apotti_Container.updateApotti($(this))"><i class="fa fa-save"></i> সংরক্ষণ
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-5">
-        <div class="card">
-            <div class="card-body p-4">
-                <div class="form-row pt-4">
-                    <div class="col-md-12">
-                        <label class="col-form-label"> অনুচ্ছেদ</label>
-                        <select id="selected_onucched" class="form-control select-selct2">
-                            <option value="">বাছাই করুন</option>
-                            @foreach($apotti_info['apotti_items'] as $apotti_item)
-                                <option value="{{$apotti_item['id']}}">{{$apotti_item['memo_title_bn']}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row pt-4">
-                    <div class="col-md-12">
-                        <div id="apotti_item_info"></div>
+                        <button type="button" class="btn btn-sm btn-square btn-outline-primary mr-2"
+                                data-apotti-id = "{{$apotti_info['id']}}"
+                                onclick="Apotti_Container.updateApotti($(this))">
+                            <i class="fa fa-save"></i> সংরক্ষণ করুন
+                        </button>
                     </div>
                 </div>
             </div>
+
+            <div class="col-5">
+                <div class="card">
+                    <div class="card-body p-4">
+                        @foreach($apotti_info['apotti_items'] as $apotti_item)
+                            <input type="hidden" name="apotti_items[]" value="{{$apotti_item['id']}}">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <label class="col-form-label">অনুচ্ছেদ নম্বর-{{enTobn($apotti_item['onucched_no'])}}</label><br>
+                                    <span>শিরোনামঃ {{$apotti_item['memo_title_bn']}}</span>
+                                    <input type="text" class="form-control jorito_ortho_poriman integer_type_positive" name="jorito_ortho_porimans[]" placeholder="জড়িত অর্থ"
+                                           value="{{$apotti_item['jorito_ortho_poriman']}}">
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="form-row pt-4">
+                            <div class="col-md-12">
+                                <label class="col-form-label">অনুচ্ছেদ</label>
+                                <select id="selected_onucched" class="form-control select-selct2">
+                                    <option value="">বাছাই করুন</option>
+                                    @foreach($apotti_info['apotti_items'] as $apotti_item)
+                                        <option value="{{$apotti_item['id']}}">{{$apotti_item['memo_title_bn']}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row pt-4">
+                            <div class="col-md-12">
+                                <div id="apotti_item_info"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 <script src="{{asset('assets/js/mFiler.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
@@ -118,6 +139,14 @@
     $('#selected_onucched').change(function (){
         apotti_item_id = $(this).val();
         Apotti_Container.loadApottiItemInfo(apotti_item_id);
+    });
+
+    $(".jorito_ortho_poriman").keyup(function(){
+        var jorito_orthos = $('.jorito_ortho_poriman').map((_,el) => el.value).get();
+        var total_jorito_ortho_poriman = jorito_orthos.reduce(function(a, b){
+            return a + parseFloat(b);
+        }, 0);
+        $(".total_jorito_ortho_poriman").val(total_jorito_ortho_poriman);
     });
 </script>
 

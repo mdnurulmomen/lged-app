@@ -223,8 +223,8 @@
             data.push({name: "apotti_description", value: tinymce.get("kt-tinymce-1").getContent()});
 
             apotti_id = elem.data('apotti-id');
-
             data.push({name: "apotti_id", value: apotti_id});
+            console.log(data)
 
             let url = '{{route('audit.execution.apotti.update-apotti')}}';
 
