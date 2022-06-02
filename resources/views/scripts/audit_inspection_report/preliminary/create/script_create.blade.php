@@ -1,10 +1,8 @@
-
-
 <script>
     var auditPaperList = [];
     var activePdf = '';
     var templateArray = {!! $content !!};
-var directorate_address = '{!! $directorate_address !!}';
+    var directorate_address = '{!! $directorate_address !!}';
     setCoverInformation();
 
     $('#createPlanJsTree').jstree({

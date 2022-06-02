@@ -85,8 +85,12 @@ class AuditAIRReportController extends Controller
             'entity_name_bn' => 'required',
         ])->validate();
 
+        $air_description = json_decode($request->air_description);
+        unset($air_description['27']);
+        //dd(json_encode($air_description));
+
         $data['air_id'] = $request->air_id;
-        $data['air_description'] = makeEncryptedData(gzcompress($request->air_description));
+        $data['air_description'] = makeEncryptedData(gzcompress(json_encode($air_description)));
         $data['type'] = $request->air_type;
         $data['audit_plan_entities'] = $request->audit_plan_entities;
         $data['status'] = 'draft';
@@ -254,21 +258,9 @@ class AuditAIRReportController extends Controller
     public function download(Request $request)
     {
         $auditReport = $request->air_description;
-        /*$pdf_view = view('modules.audit_report.air_generate.partials.air_book', compact('auditReport'))->render();
-        $params = [
-            'data' => json_encode(['html' => $pdf_view]),
-            'options' => json_encode(['name' => 'air', 'fp'=>'65'])
-        ];
-        $pdf_gen = (new PDFServices())->generatePDF($params);
-        if (isSuccess($pdf_gen)){
-            dd($pdf_gen['file_path']);
-            $pdf_gen['file_path'];
-        }*/
-        //todo mahmud vai
-
         $pdf = \PDF::loadView('modules.audit_report.air_generate.partials.air_book',
             ['auditReport' => $auditReport], [] , ['orientation' => 'P', 'format' => 'A4']);
-        $fileName = 'audit_preliminary_air_report_' . date('D_M_j_Y') . '.pdf';
+        $fileName = 'draft_air_report_' . date('D_M_j_Y') . '.pdf';
         return $pdf->stream($fileName);
     }
 

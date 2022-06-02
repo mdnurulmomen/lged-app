@@ -24,7 +24,7 @@
     <tbody>
     @forelse($apotti_list['data'] as $apotti)
         <tr>
-            <td>{{$loop->iteration}}</td>
+            <td>{{enTobn($loop->iteration)}}</td>
             <td class="text-left">
                 {{$apotti['ministry_name_bn']}}
             </td>

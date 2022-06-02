@@ -864,13 +864,16 @@
         {!! $auditReport[27]['content'] !!}
     </div>
 
+    @php
+        $start_page = '{PAGENO}'; //todo mahmud vai
+    @endphp
+
     <htmlpagefooter name="even-footer">
-        <div style="float:right; width: 100%; text-align: right;">Page <span class="page_number">{PAGENO}</span> of {nb}</div>
+        <div class="bangla-font" style="float:right; width: 100%; text-align: right;">Page {{$start_page}} of {nb}</div>
     </htmlpagefooter>
 
     <htmlpagefooter name="odd-footer">
-        {{--@php $pageNumber = ; @endphp--}}
-        <div style="float:left; width: 100%; text-align: right;">Page {PAGENO} of {nb}</div>
+        <div class="bangla-font" style="float:left; width: 100%; text-align: right;">Page {{$start_page}} of {nb}</div>
     </htmlpagefooter>
 </div>
 </body>
