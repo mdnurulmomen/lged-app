@@ -242,6 +242,7 @@ class AuditExecutionApottiController extends Controller
             'apotti_id' => $request->apotti_id,
             'onucched_no' => $request->onucched_no,
             'apotti_title' => $request->apotti_title,
+            'total_jorito_ortho_poriman' => $request->total_jorito_ortho_poriman,
             'apotti_description' => $request->apotti_description,
             'irregularity_cause' => $request->irregularity_cause,
             'response_of_rpu' => $request->response_of_rpu,

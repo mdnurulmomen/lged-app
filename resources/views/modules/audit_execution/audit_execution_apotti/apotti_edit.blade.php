@@ -21,6 +21,10 @@
                         </div>
 
                         <div class="col-md-12 mb-2">
+                            <label class="col-form-label">জড়িত অর্থ (টাকা)</label>
+                            <input type="text" class="form-control number-input" name="total_jorito_ortho_poriman" placeholder="জড়িত অর্থ" value="{{$apotti_info['total_jorito_ortho_poriman']}}">
+                        </div>
+                        <div class="col-md-12 mb-2">
                             <label class="col-form-label">অনিয়মের কারণ</label>
                             <textarea class="form-control mb-1" name="irregularity_cause" placeholder="অনিয়মের কারণ"
                                       cols="30"
