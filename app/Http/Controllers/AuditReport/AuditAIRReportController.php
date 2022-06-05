@@ -101,20 +101,21 @@ class AuditAIRReportController extends Controller
         $data_rearrange_apotti['onucched_list'] =  $this->apotti_onucced_genarate($data['all_apottis'],$data['apottis']);
         $data_rearrange_apotti['cdesk'] = $this->current_desk_json();
 
-//        dd($data_rearrange_apotti['onucched_list']);
+        //dd($data_rearrange_apotti['onucched_list']);
 
         $rearrange_apotti = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.onucched_rearrange'), $data_rearrange_apotti)->json();
 
         if(isSuccess($rearrange_apotti)){
             $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.store_air_report'), $data)->json();
-//            dd($saveAirReport);
+            //dd($saveAirReport);
             if (isSuccess($saveAirReport)) {
                 return response()->json(['status' => 'success', 'data' => $saveAirReport['data']]);
             } else {
                 return response()->json(['status' => 'error', 'data' => $saveAirReport]);
             }
+        }else{
+            return response()->json(['status' => 'error', 'data' => 'Apotti rearrange issue']);
         }
-
     }
 
     public function apotti_onucced_genarate($all_apottis,$selected_apottis){
@@ -240,6 +241,7 @@ class AuditAIRReportController extends Controller
 
         $requestData['cdesk'] =$this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.load_approve_plan_list'), $requestData)->json();
+        //dd($responseData);
         $data['audit_plans'] = isSuccess($responseData)?$responseData['data']:[];
         $data['current_designation_id'] = $this->current_designation_id();
         return view('modules.audit_report.air_generate.partials.load_audit_plans',$data);
@@ -248,11 +250,9 @@ class AuditAIRReportController extends Controller
     public function preview(Request $request)
     {
         //dd($request->air_description);
-        $airReports = $request->air_description;
-        $cover = $airReports[0];
-        array_shift($airReports);
+        $auditReport = $request->air_description;
         return view('modules.audit_report.air_generate.partials.preview_air_book',
-            compact('airReports', 'cover'));
+            compact('auditReport'));
     }
 
     public function download(Request $request)

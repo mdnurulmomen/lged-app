@@ -50,13 +50,7 @@ class DcOfficeOrderController extends Controller
         return view('modules.audit_plan.audit_plan.dc_office_order.partials.load_office_order_create_dc',$data);
     }
 
-    public function loadOfficeOrderCCCreate(Request $request){
-        $requestData = [
-            'cdesk' => $this->current_desk_json(),
-            'audit_plan_id' => $request->audit_plan_id,
-            'annual_plan_id' => $request->annual_plan_id,
-        ];
-
+    public function loadOfficeOrderCCCreate(){
         return view('modules.modal.load_office_order_cc_modal');
     }
 

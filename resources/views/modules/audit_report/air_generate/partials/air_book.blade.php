@@ -821,6 +821,7 @@
         <div style="margin-top: 10px">{!! $auditReport[9]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[10]['content'] !!}</div>
     </div>
+
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         <div>{!! $auditReport[11]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[12]['content'] !!}</div>
@@ -860,20 +861,20 @@
     </div>
 
     {{--porishitoh details page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;">
+    {{--<div class="pdf-screen bangla-font" style="height: 100%;">
         {!! $auditReport[27]['content'] !!}
-    </div>
+    </div>--}}
 
     @php
-        $start_page = '{PAGENO}'; //todo mahmud vai
+        $start_page = strip_tags('{PAGENO}'); //todo mahmud vai
     @endphp
 
     <htmlpagefooter name="even-footer">
-        <div class="bangla-font" style="float:right; width: 100%; text-align: right;">Page {{$start_page}} of {nb}</div>
+        <div class="bangla-font" style="float:right; width: 100%; text-align: right;">Page {{enTobn($start_page)}} of {nb}</div>
     </htmlpagefooter>
 
     <htmlpagefooter name="odd-footer">
-        <div class="bangla-font" style="float:left; width: 100%; text-align: right;">Page {{$start_page}} of {nb}</div>
+        <div class="bangla-font" style="float:left; width: 100%; text-align: right;">Page {{enTobn($start_page)}} of {nb}</div>
     </htmlpagefooter>
 </div>
 </body>

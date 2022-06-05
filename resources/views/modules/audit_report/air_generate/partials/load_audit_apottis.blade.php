@@ -57,7 +57,7 @@
             if (apottis.length > 0) {
                 Audit_Apotti_Container.setAuditApottiSummary(apottis);
                 Audit_Apotti_Container.setAuditApottiDetails(apottis);
-                Audit_Apotti_Container.setAuditApottiWisePrisistos(apottis);
+                Audit_Apotti_Container.setAuditApottiWisePrisistos(JSON.stringify(apottis));
                 toastr.success('সফলভাবে আপত্তিসমূহ সংরক্ষণ করা হয়েছে');
                 $('#kt_quick_panel_close').click();
                 $('.air_report_save').click();
