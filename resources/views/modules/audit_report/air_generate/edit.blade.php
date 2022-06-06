@@ -9,21 +9,22 @@
         .tox-notification.tox-notification--in.tox-notification--warning {
             display: none !important;
         }
+
     </style>
 @endsection
 @section('content')
-    <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
+    <script src="{{ asset('assets/plugins/global/tinymce.min.js') }}" referrerpolicy="origin"></script>
     <input type="hidden" id="auditAllApottis">
     <input type="hidden" id="auditApottis">
 
-    <input type="hidden" id="ministry_id" value="{{$ministry_id}}">
-    <input type="hidden" id="ministry_name_en" value="{{$ministry_name_en}}">
-    <input type="hidden" id="ministry_name_bn" value="{{$ministry_name_bn}}">
-    <input type="hidden" id="air_entity_id" value="{{$entity_id}}">
-    <input type="hidden" id="entity_name_en" value="{{$entity_name_en}}">
-    <input type="hidden" id="entity_name_bn" value="{{$entity_name_bn}}">
+    <input type="hidden" id="ministry_id" value="{{ $ministry_id }}">
+    <input type="hidden" id="ministry_name_en" value="{{ $ministry_name_en }}">
+    <input type="hidden" id="ministry_name_bn" value="{{ $ministry_name_bn }}">
+    <input type="hidden" id="air_entity_id" value="{{ $entity_id }}">
+    <input type="hidden" id="entity_name_en" value="{{ $entity_name_en }}">
+    <input type="hidden" id="entity_name_bn" value="{{ $entity_name_bn }}">
 
-    <input type="hidden" id="airId" value="{{$air_report_id}}">
+    <input type="hidden" id="airId" value="{{ $air_report_id }}">
 
     <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
         <div class="col-md-6">
@@ -37,28 +38,60 @@
             </div>
         </div>
         <div class="col-md-6 text-right">
-            @if($air_status != 'approved')
-                <button class="tap-button mr-1 btn btn-sm btn-outline-primary"
-                        data-fiscal-year-id="{{$fiscal_year_id}}"
-                        data-audit-plan-id="{{$audit_plan_id}}"
-                        onclick="AIR_Report_Create_Container.loadPlanEntity($(this))">
+
+            <div class="dropdown dropdown-inline btn-outline-primary tap-button">
+                <a href="#" class="btn btn-sm font-weight-bolder dropdown-toggle px-5 tap-button btn-outline-primary"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Export</a>
+                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="">
+                    <!--begin::Navigation-->
+                    <ul class="navi navi-hover">
+                        <li class="navi-item">
+                            <a href="javascript:;" class="navi-link">
+                                <span class="navi-icon">
+                                    <i class="flaticon2-shopping-cart-1"></i>
+                                </span>
+                                <span class="navi-text">Apotti AIR</span>
+                            </a>
+                        </li>
+                        <li class="navi-item">
+                            <a href="javascript:;" class="navi-link">
+                                <span class="navi-icon">
+                                    <i class="flaticon2-calendar-8"></i>
+                                </span>
+                                <span class="navi-text">Porisisto Air</span>
+                            </a>
+                        </li>
+                        <li class="navi-item">
+                            <a href="javascript:;" class="navi-link">
+                                <span class="navi-icon">
+                                    <i class="flaticon2-graph-1"></i>
+                                </span>
+                                <span class="navi-text">Full AIR</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--end::Navigation-->
+                </div>
+            </div>
+            @if ($air_status != 'approved')
+                <button class="tap-button mr-1 btn btn-sm btn-outline-primary" data-fiscal-year-id="{{ $fiscal_year_id }}"
+                    data-audit-plan-id="{{ $audit_plan_id }}"
+                    onclick="AIR_Report_Create_Container.loadPlanEntity($(this))">
                     <i class="fad fa-search"></i> অনুচ্ছেদ
                 </button>
             @endif
 
             <button class="tap-button mr-1 btn btn-sm btn-outline-warning"
-                    onclick="AIR_Report_Create_Container.previewAirReport($(this))">
+                onclick="AIR_Report_Create_Container.previewAirReport($(this))">
                 <i class="fad fa-eye"></i> Preview
             </button>
 
-            @if($air_status != 'approved')
+            @if ($air_status != 'approved')
                 <button class="tap-button mr-1 btn btn-sm btn-outline-primary air_report_save"
-                        data-air-id="{{$air_report_id}}"
-                        data-activity-id="{{$activity_id}}"
-                        data-fiscal-year-id="{{$fiscal_year_id}}"
-                        data-annual-plan-id="{{$annual_plan_id}}"
-                        data-audit-plan-id="{{$audit_plan_id}}"
-                        onclick="AIR_Report_Create_Container.storeAIRReportPlan($(this))">
+                    data-air-id="{{ $air_report_id }}" data-activity-id="{{ $activity_id }}"
+                    data-fiscal-year-id="{{ $fiscal_year_id }}" data-annual-plan-id="{{ $annual_plan_id }}"
+                    data-audit-plan-id="{{ $audit_plan_id }}"
+                    onclick="AIR_Report_Create_Container.storeAIRReportPlan($(this))">
                     <i class="fad fa-save"></i> হালনাগাদ করুন
                 </button>
             @endif
@@ -85,14 +118,17 @@
     </div>
 @endsection
 @section('scripts')
-    @include('scripts.audit_inspection_report.preliminary.edit.script_edit')
-    @include('scripts.audit_inspection_report.preliminary.script_report')
+    @include(
+        'scripts.audit_inspection_report.preliminary.edit.script_edit'
+    )
+    @include(
+        'scripts.audit_inspection_report.preliminary.script_report'
+    )
 
     <script>
-
         var Insert_AIR_Data_Container = {
-            setJsonContentFromPlanBook: function () {
-                templateArray.map(function (value, index) {
+            setJsonContentFromPlanBook: function() {
+                templateArray.map(function(value, index) {
                     cover = $("#pdfContent_" + value.content_id).html();
                     value.content = cover;
                 });

@@ -9,10 +9,11 @@
         .tox-notification.tox-notification--in.tox-notification--warning {
             display: none !important;
         }
+
     </style>
 @endsection
 @section('content')
-    <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
+    <script src="{{ asset('assets/plugins/global/tinymce.min.js') }}" referrerpolicy="origin"></script>
     <input type="hidden" id="auditAllApottis">
     <input type="hidden" id="auditApottis">
     <input type="hidden" id="ministry_id">
@@ -34,26 +35,55 @@
             </div>
         </div>
         <div class="col-md-6 text-right">
-            <button  class="tap-button mr-1 btn btn-sm btn-outline-primary"
-                    data-fiscal-year-id="{{$fiscal_year_id}}"
-                    data-audit-plan-id="{{$audit_plan_id}}"
-                    onclick="AIR_Report_Create_Container.loadPlanEntity($(this))">
+            <div class="dropdown dropdown-inline btn-outline-primary tap-button">
+                <a href="#" class="btn btn-sm font-weight-bolder dropdown-toggle px-5 tap-button btn-outline-primary"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Export</a>
+                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="">
+                    <!--begin::Navigation-->
+                    <ul class="navi navi-hover">
+                        <li class="navi-item">
+                            <a href="javascript:;" class="navi-link">
+                                <span class="navi-icon">
+                                    <i class="flaticon2-shopping-cart-1"></i>
+                                </span>
+                                <span class="navi-text">Apotti AIR</span>
+                            </a>
+                        </li>
+                        <li class="navi-item">
+                            <a href="javascript:;" class="navi-link">
+                                <span class="navi-icon">
+                                    <i class="flaticon2-calendar-8"></i>
+                                </span>
+                                <span class="navi-text">Porisisto Air</span>
+                            </a>
+                        </li>
+                        <li class="navi-item">
+                            <a href="javascript:;" class="navi-link">
+                                <span class="navi-icon">
+                                    <i class="flaticon2-graph-1"></i>
+                                </span>
+                                <span class="navi-text">Full AIR</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--end::Navigation-->
+                </div>
+            </div>
+            <button class="tap-button mr-1 btn btn-sm btn-outline-primary" data-fiscal-year-id="{{ $fiscal_year_id }}"
+                data-audit-plan-id="{{ $audit_plan_id }}" onclick="AIR_Report_Create_Container.loadPlanEntity($(this))">
                 <i class="fad fa-search"></i> অনুচ্ছেদ
             </button>
 
             <button class="tap-button mr-1 btn btn-sm btn-outline-warning"
-                    onclick="AIR_Report_Create_Container.previewAirReport()">
+                onclick="AIR_Report_Create_Container.previewAirReport()">
                 <i class="fad fa-eye"></i> Preview
             </button>
 
-            <button  class="tap-button mr-1 btn btn-sm btn-outline-primary btn-square air_report_save"
-                    data-air-id=""
-                    data-activity-id="{{$activity_id}}"
-                    data-fiscal-year-id="{{$fiscal_year_id}}"
-                    data-annual-plan-id="{{$annual_plan_id}}"
-                    data-audit-plan-id="{{$audit_plan_id}}"
-                    onclick="AIR_Report_Create_Container.storeAIRReportPlan($(this))">
-                <i  class="fad fa-save"></i> সংরক্ষণ করুন
+            <button class="tap-button mr-1 btn btn-sm btn-outline-primary btn-square air_report_save" data-air-id=""
+                data-activity-id="{{ $activity_id }}" data-fiscal-year-id="{{ $fiscal_year_id }}"
+                data-annual-plan-id="{{ $annual_plan_id }}" data-audit-plan-id="{{ $audit_plan_id }}"
+                onclick="AIR_Report_Create_Container.storeAIRReportPlan($(this))">
+                <i class="fad fa-save"></i> সংরক্ষণ করুন
             </button>
         </div>
     </div>
@@ -66,15 +96,15 @@
                         <div class="input-group mb-5">
                         </div>
                         <div class="mt-5">
-                            {{--<h3>Audit list</h3>--}}
+                            {{-- <h3>Audit list</h3> --}}
                         </div>
                         <!---JS tree start---->
                         <div id="createPlanJsTree" class="mt-5">
                         </div>
                         <!---JS tree end---->
                         <div class="form-group mt-5">
-                            {{--<input class="form-control rounded-0" type="text" name="" id="searchPlaneField"
-                                   placeholder="Search"/>--}}
+                            {{-- <input class="form-control rounded-0" type="text" name="" id="searchPlaneField"
+                                   placeholder="Search"/> --}}
                         </div>
                     </div>
                 </div>
@@ -92,11 +122,15 @@
     </div>
 @endsection
 @section('scripts')
-    @include('scripts.audit_inspection_report.preliminary.create.script_create');
-    @include('scripts.audit_inspection_report.preliminary.script_report');
+    @include(
+        'scripts.audit_inspection_report.preliminary.create.script_create'
+    );
+    @include(
+        'scripts.audit_inspection_report.preliminary.script_report'
+    );
 
     <script>
-        $(function () {
+        $(function() {
             KTApp.block('#kt_full_width_page', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
@@ -108,21 +142,26 @@
         });
 
         var Insert_AIR_Data_Container = {
-            setJsonContentFromPlanBook:function () {
-                templateArray.map(function (value, index) {
+            setJsonContentFromPlanBook: function() {
+                templateArray.map(function(value, index) {
                     cover = $("#pdfContent_" + value.content_id).html();
                     value.content = cover;
                 });
             },
 
-            setAuditTeam: function () {
-                url = '{{route('audit.report.air.get-audit-team')}}';
-                fiscal_year_id = '{{$fiscal_year_id}}';
-                activity_id = '{{$activity_id}}';
-                annual_plan_id = '{{$annual_plan_id}}';
-                audit_plan_id = '{{$audit_plan_id}}';
-                let data = {fiscal_year_id, activity_id, annual_plan_id, audit_plan_id};
-                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+            setAuditTeam: function() {
+                url = '{{ route('audit.report.air.get-audit-team') }}';
+                fiscal_year_id = '{{ $fiscal_year_id }}';
+                activity_id = '{{ $activity_id }}';
+                annual_plan_id = '{{ $annual_plan_id }}';
+                audit_plan_id = '{{ $audit_plan_id }}';
+                let data = {
+                    fiscal_year_id,
+                    activity_id,
+                    annual_plan_id,
+                    audit_plan_id
+                };
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
                     if (response.status === 'error') {
                         toastr.error(response.data);
                     } else {
@@ -132,14 +171,19 @@
                 });
             },
 
-            setAuditTeamSchedule: function () {
-                url = '{{route('audit.report.air.get-audit-team-schedule')}}';
-                fiscal_year_id = '{{$fiscal_year_id}}';
-                activity_id = '{{$activity_id}}';
-                annual_plan_id = '{{$annual_plan_id}}';
-                audit_plan_id = '{{$audit_plan_id}}';
-                let data = {fiscal_year_id, activity_id, annual_plan_id, audit_plan_id};
-                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+            setAuditTeamSchedule: function() {
+                url = '{{ route('audit.report.air.get-audit-team-schedule') }}';
+                fiscal_year_id = '{{ $fiscal_year_id }}';
+                activity_id = '{{ $activity_id }}';
+                annual_plan_id = '{{ $annual_plan_id }}';
+                audit_plan_id = '{{ $audit_plan_id }}';
+                let data = {
+                    fiscal_year_id,
+                    activity_id,
+                    annual_plan_id,
+                    audit_plan_id
+                };
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
                     if (response.status === 'error') {
                         toastr.error(response.data);
                     } else {

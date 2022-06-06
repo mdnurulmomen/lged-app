@@ -54,8 +54,7 @@ class AuditAIRReportController extends Controller
             $audit_plan_entity_info = $request->audit_plan_entity_info;
             //dd($audit_plan_entity_info);
 
-            return view(
-                'modules.audit_report.air_generate.create',
+            return view('modules.audit_report.air_generate.create',
                 compact(
                     'directorate_name',
                     'directorate_address',
