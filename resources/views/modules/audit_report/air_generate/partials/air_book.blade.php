@@ -785,7 +785,7 @@
             top: 50%;
         }
 
-        /* @page {
+        @page {
             odd-header-name: odd-header;
             even-header-name: even-header;
             odd-footer-name: odd-footer;
@@ -793,7 +793,7 @@
 
             margin-left: 2.5cm;
             margin-right: 2cm;
-        } */
+        }
 
     </style>
 </head>
@@ -906,13 +906,20 @@
         </div>
 
         {{-- porishitoh details page --}}
-        <div class="pdf-screen bangla-font" style="height: 100%;">
-            {!! $auditReport[27]['content'] !!}
+        <div class="pdf-screen bangla-font">
+            @foreach ($porisistos as $porishisto)
+                {!! $porishisto !!}
+            @endforeach
         </div>
+        {{-- <htmlpagefooter name="even-footer">
+            <div class="bangla-font" style="float:right; width: 100%; text-align: right;">Page
+                {PAGENO} of {nb}</div>
+        </htmlpagefooter>
 
-        @php
-            $start_page = '{PAGENO}'; //todo mahmud vai
-        @endphp
+        <htmlpagefooter name="odd-footer">
+            <div class="bangla-font" style="float:left; width: 100%; text-align: right;">Page
+                {PAGENO} of {nb}</div>
+        </htmlpagefooter> --}}
     </div>
 </body>
 
