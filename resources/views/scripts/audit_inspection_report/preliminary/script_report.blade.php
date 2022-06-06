@@ -126,6 +126,9 @@
                 }
             });
         },
+
+        downloadAIRReport: function () {
+            $('.air_report_save').click();
     }
 
 </script>

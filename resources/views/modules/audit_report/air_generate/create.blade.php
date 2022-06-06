@@ -37,7 +37,7 @@
         <div class="col-md-6 text-right">
             <div class="dropdown dropdown-inline btn-outline-primary tap-button">
                 <a href="#" class="btn btn-sm font-weight-bolder dropdown-toggle px-5 tap-button btn-outline-primary"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Export</a>
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download</a>
                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="">
                     <!--begin::Navigation-->
                     <ul class="navi navi-hover">
@@ -122,12 +122,8 @@
     </div>
 @endsection
 @section('scripts')
-    @include(
-        'scripts.audit_inspection_report.preliminary.create.script_create'
-    );
-    @include(
-        'scripts.audit_inspection_report.preliminary.script_report'
-    );
+    @include('scripts.audit_inspection_report.preliminary.create.script_create');
+    @include('scripts.audit_inspection_report.preliminary.script_report');
 
     <script>
         $(function() {
