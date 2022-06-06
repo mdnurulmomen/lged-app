@@ -442,12 +442,15 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
 
-        foreach ($request->porisisto_details as $porisisto) {
-            $data[] = [
-                'name' => 'porisisto_details[]',
-                'contents' => $porisisto,
-            ];
+        if (isset($request->porisisto_details)){
+            foreach ($request->porisisto_details as $porisisto) {
+                $data[] = [
+                    'name' => 'porisisto_details[]',
+                    'contents' => $porisisto,
+                ];
+            }
         }
+
 
         //for porisishtos
         if ($request->hasfile('porisishtos')) {

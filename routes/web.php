@@ -415,6 +415,15 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::group(['as' => 'apotti.', 'prefix' => 'apotti/'], function () {
             Route::get('/', [\App\Http\Controllers\AuditReport\AuditReportDashboardController::class, 'apottiPage'])->name('dashboard');
+
+            Route::group(['as' => 'memo.', 'prefix' => 'memo/'], function () {
+                Route::get('/', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiMemoController::class, 'apottiMemoPage'])->name('dashboard');
+                Route::get('index', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiMemoController::class, 'index'])->name('index');
+                Route::post('memo-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiMemoController::class, 'loadMemoList'])->name('memo-list');
+                Route::post('edit', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiMemoController::class, 'edit'])->name('edit');
+                Route::post('convert-memo-to-apotti', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiMemoController::class, 'convertMemoToApotti'])->name('convert-memo-to-apotti');
+            });
+
             Route::get('index', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'index'])->name('index');
             Route::post('load-apotti-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadApottiList'])->name('load-apotti-list');
             Route::post('onucched-merge', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedMerge'])->name('onucched-merge');
