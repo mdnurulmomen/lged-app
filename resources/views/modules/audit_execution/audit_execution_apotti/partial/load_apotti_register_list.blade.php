@@ -1,30 +1,29 @@
-<h2>সেক্টর এর নাম</h2>
-<table class="table table-bordered" width="100%">
+<table class="mb-14" width="100%" border="1">
     <thead class="thead-light">
-    <tr class="bg-hover-warning">
-        <th width="5%">ক্রম</th>
+    <tr class="bg-light-primary">
+        <th width="3%">ক্রম</th>
         <th width="5%">মন্ত্রণালয়</th>
         <th width="5%">এনটিটি/সংস্থা</th>
         <th width="5%">অর্থ বছর</th>
         <th width="5%">নিরীক্ষা বছর</th>
         <th width="5%">এআইআর এর নাম</th>
         <th width="5%">অনুচ্ছেদ নম্বর</th>
-        <th width="10%">আপত্তির শিরোনাম</th>
+        <th width="17%">আপত্তির শিরোনাম</th>
         <th width="5%">জড়িত টাকা (টাকা)</th>
-        <th width="5%">নিরীক্ষা ধরন</th>
+        <th width="5%">নিরীক্ষার ধরন</th>
         <th width="5%">এআইআর ইস্যুর তারিখ</th>
         <th width="5%">তাগিদ পত্র ইস্যুর তারিখ</th>
         <th width="5%">ডিও লেটার ইস্যুর তারিখ</th>
         <th width="5%">সর্বশেষ জবাব প্রার্থীর তারিখ</th>
         <th width="5%">স্ট্যাটাস রিভিউ তারিখ</th>
-        <th width="10%">কার্যক্রম</th>
+        <th width="5%">কার্যক্রম</th>
     </tr>
     </thead>
 
     <tbody>
     @forelse($apotti_list['data'] as $apotti)
         <tr>
-            <td>{{enTobn($loop->iteration)}}</td>
+            <td class="text-center">{{enTobn($loop->iteration)}}</td>
             <td class="text-left">
                 {{$apotti['ministry_name_bn']}}
             </td>
@@ -62,10 +61,7 @@
             <td></td>
 
             <td class="text-left">
-                <span class="{{$apotti['status_review_date'] == date('Y-m-d')?'badge badge-primary':''}}">
-                    {{formatDate($apotti['status_review_date'],'bn')}}
-                </span>
-
+                {{formatDate($apotti['status_review_date'],'bn')}} <br>
                 {{$apotti['latest_movement'] == null?'': $apotti['latest_movement']['receiver_employee_name_bn'].' কাছে প্রেরণ করা হয়েছে ('.$apotti['latest_movement']['status'].')'}}
             </td>
 
