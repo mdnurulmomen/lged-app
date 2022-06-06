@@ -1,4 +1,4 @@
-<x-title-wrapper>ফাইনাল রিপোর্ট তালিকা</x-title-wrapper>
+<x-title-wrapper>এআইআর তালিকা</x-title-wrapper>
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
