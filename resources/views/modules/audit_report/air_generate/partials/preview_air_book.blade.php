@@ -867,18 +867,18 @@
     </div>
 
     {{--porishitoh details page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;">
+    {{--<div class="pdf-screen bangla-font" style="height: 100%;">
         <div class="audit_apotti_porisistos"></div>
-    </div>
+    </div>--}}
 </div>
 
 <script>
 
-    $(function () {
+    /*$(function () {
         apottis = $("#auditApottis").val();
         apottis = apottis.split(",");
         Preview_AIR_Container.setAuditApottiWisePrisistos(JSON.stringify(apottis));
-    });
+    });*/
 
     var Preview_AIR_Container = {
         generatePDF: function () {
@@ -888,6 +888,11 @@
 
             url = '{{route('audit.report.air.download')}}';
 
+            KTApp.block('#kt_quick_panel', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -896,6 +901,7 @@
                     responseType: 'blob'
                 },
                 success: function (response) {
+                    KTApp.unblock("#kt_quick_panel");
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
@@ -903,6 +909,7 @@
                     link.click();
                 },
                 error: function (blob) {
+                    KTApp.unblock("#kt_quick_panel");
                     toastr.error('Failed to generate PDF.')
                     console.log(blob);
                 }

@@ -27,9 +27,10 @@
 <script>
     var Preview_AIR_Container = {
         generatePDF: function () {
+            air_id = $("#airId").val();
             air_description = templateArray;
             scope = 'generate';
-            data = {scope,air_description};
+            data = {scope,air_id,air_description};
 
             url = '{{route('audit.report.air.download')}}';
 

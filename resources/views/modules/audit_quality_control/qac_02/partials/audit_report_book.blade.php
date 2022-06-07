@@ -861,9 +861,9 @@
         {!! $appendicesCoverPage['content'] !!}
     </div>
 
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    {{--<div class="pdf-screen bangla-font" style="height: 100%">
         {!! $appendicesDetailsPage['content'] !!}
-    </div>
+    </div>--}}
 
     <htmlpagefooter name="even-footer">
         <div style="float:right; width: 100%; text-align: right;">Page <span class="page_number">{PAGENO}</span> of {nb}</div>

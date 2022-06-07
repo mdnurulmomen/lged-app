@@ -130,7 +130,7 @@
             //$(".update-qac-air-report").click();
             QAC_AIR_Report_Container.setAuditApottiSummary();
             QAC_AIR_Report_Container.setAuditApottiDetails();
-            QAC_AIR_Report_Container.setAuditApottiWisePrisistos();
+            //QAC_AIR_Report_Container.setAuditApottiWisePrisistos();
             //$(".update-qac-air-report").click();
             KTApp.unblock('#kt_full_width_page');
         });

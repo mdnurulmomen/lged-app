@@ -907,10 +907,21 @@
 
         {{-- porishitoh details page --}}
         <div class="pdf-screen bangla-font">
+            @foreach($porisistos as $porishisto)
+                <div style="height: 100%;page-break-after: always;">
+                    <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 5px">
+                        {!! $porishisto !!}
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        {{--<div class="pdf-screen bangla-font">
             @foreach ($porisistos as $porishisto)
                 {!! $porishisto !!}
             @endforeach
-        </div>
+        </div>--}}
+
         {{-- <htmlpagefooter name="even-footer">
             <div class="bangla-font" style="float:right; width: 100%; text-align: right;">Page
                 {PAGENO} of {nb}</div>

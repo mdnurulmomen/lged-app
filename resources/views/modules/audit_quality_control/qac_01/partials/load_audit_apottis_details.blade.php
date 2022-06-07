@@ -9,8 +9,10 @@
         </div>
 
         <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 10px">
-            <span style="font-weight: bold">বিবরণঃ</span>
-            {!! $apottiStatus['apotti']['apotti_description'] !!}
+            <strong>বিবরণঃ</strong>
+            <div style="margin-top: -1em;">
+                {!! $apottiStatus['apotti']['apotti_description'] !!}
+            </div>
         </div>
 
         <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">

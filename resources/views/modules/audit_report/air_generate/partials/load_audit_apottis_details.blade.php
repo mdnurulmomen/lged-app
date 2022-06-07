@@ -12,7 +12,9 @@
         <br>
         <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;">
             <strong>বিবরণঃ</strong>
+            <div style="margin-top: -1em;">
             {!! $apotti['apotti_description'] !!}
+            </div>
         </div>
         <span class="bangla-font" style="font-family:Nikosh,serif !important;text-align: justify;">
             <strong>অনিয়মের কারণঃ</strong>

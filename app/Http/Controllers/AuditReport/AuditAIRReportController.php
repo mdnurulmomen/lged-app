@@ -302,6 +302,7 @@ class AuditAIRReportController extends Controller
         ini_set('max_execution_time', 0);
 
         $apotti_items = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), ['air_id' => $request->air_id, 'all' => '1', 'cdesk' => $this->current_desk_json()])->json();
+        dd($apotti_items);
         $porisistos_html = [];
         if (isSuccess($apotti_items)) {
             $apotti_items = $apotti_items['data'];

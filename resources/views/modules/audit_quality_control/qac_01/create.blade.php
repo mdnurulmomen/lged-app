@@ -119,7 +119,7 @@
                 QAC_AIR_Report_Container.setAuditApottiSummary('non-sfi');
                 QAC_AIR_Report_Container.setAuditApottiDetails('sfi');
                 QAC_AIR_Report_Container.setAuditApottiDetails('non-sfi');
-                QAC_AIR_Report_Container.setAuditApottiWisePrisistos();
+                //QAC_AIR_Report_Container.setAuditApottiWisePrisistos();
                 $(".update-qac-air-report").click();
             }
             KTApp.unblock('#kt_full_width_page');

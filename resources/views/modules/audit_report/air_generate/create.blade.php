@@ -22,6 +22,7 @@
     <input type="hidden" id="air_entity_id">
     <input type="hidden" id="entity_name_en">
     <input type="hidden" id="entity_name_bn">
+    <input type="hidden" id="airId">
 
     <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
         <div class="col-md-6">
