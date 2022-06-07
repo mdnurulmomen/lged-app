@@ -216,6 +216,8 @@
             entity_name = $("#entity_id option:selected").text();
             from_data.append('entity_name', entity_name);
 
+            $("#archive_report_submit").text('Loading....');
+
             elem = $(this);
             elem.prop('disabled', true);
 
@@ -234,6 +236,7 @@
                 processData: false,
                 success: function (responseData) {
                     KTApp.unblock('#kt_content');
+                    $("#archive_report_submit").hide();
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
                         $('.btn_back').click();

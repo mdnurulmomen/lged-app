@@ -63,7 +63,7 @@
                 <div class="col-md-3">
                     <label for="nirikkha_dhoron" class="col-form-label">নিরীক্ষার ধরন</label>
                     <select class="form-control select-select2" id="nirikkha_dhoron" name="nirikkha_dhoron">
-                        <option value="">নিরিক্ষার ধরন</option>
+                        <option value="">নিরীক্ষার ধরন</option>
                         <option value="কমপ্লায়েন্স অডিট">কমপ্লায়েন্স অডিট</option>
                         <option value="পারফরমেন্স অডিট">পারফরমেন্স অডিট</option>
                         <option value="ফাইন্যান্সিয়াল অডিট">ফাইন্যান্সিয়াল অডিট</option>
@@ -134,7 +134,7 @@
                     <label for="apotti_status" class="col-form-label">আপত্তির বর্তমান অবস্থা</label>
                     <select class="form-select select-select2" id="apotti_status" name="apotti_status">
                         <option value="নিস্পন্ন">নিস্পন্ন</option>
-                        <option value="অনিস্পন্ন">অনিস্পন্ন</option>
+                        <option value="অনিস্পন্ন" selected>অনিস্পন্ন</option>
                     </select>
                 </div>
             </div>
@@ -179,7 +179,7 @@
             </div>
 
             <br>
-            <a class="btn btn-primary btn-sm btn-bold btn-square" href="javascript:;"
+            <a class="btn btn-primary btn-sm btn-bold btn-square store-apotti-report" href="javascript:;"
                onclick="Archive_Apotti_Report_Container.store_report_apotti()">
                 <i class="far fa-save"></i> {{___('generic.save')}}
             </a>

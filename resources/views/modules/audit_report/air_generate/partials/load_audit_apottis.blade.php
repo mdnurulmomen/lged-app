@@ -110,7 +110,7 @@
                 }
             });*/
 
-            $('.audit_apotti_porisistos').html('<h1 class="text-center">পরিশিষ্টসুমূহ ডাউলোড এর পর দেখতে পারবেন।</h1>');
+            $('.audit_apotti_porisistos').html('<h1 class="text-center">পরিশিষ্টসমূহ ডাউলোড এর পর দেখতে পারবেন।</h1>');
             Insert_AIR_Data_Container.setJsonContentFromPlanBook();
         },
     }

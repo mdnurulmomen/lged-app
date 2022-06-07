@@ -62,7 +62,7 @@
         </tr>
     @empty
         <tr data-row="0" class="datatable-row" style="left: 0px;">
-            <td colspan="4" class="datatable-cell text-center"><span>Nothing Found</span></td>
+            <td colspan="12" class="datatable-cell text-center"><span>Nothing Found</span></td>
         </tr>
     @endforelse
     </tbody>

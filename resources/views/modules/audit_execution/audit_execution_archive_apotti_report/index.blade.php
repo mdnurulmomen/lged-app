@@ -119,6 +119,10 @@
             );
         },
 
+        load_report_details: function () {
+
+        },
+
         store_report_apotti: function (){
             let url = '{{route('audit.execution.archive-apotti-report.apotti-store')}}';
             data = $('#apotti_create_form').serializeArray();
@@ -139,6 +143,7 @@
             cost_center_name = $("#cost_center_id option:selected").text();
             data.push({name: "cost_center_name", value: cost_center_name});
 
+            $(".store-apotti-report").text('Loading....');
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
@@ -147,6 +152,7 @@
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 KTApp.unblock('#kt_content');
+                $(".store-apotti-report").hide();
                 if (response.status === 'success') {
                     toastr.success(response.data);
                 } else {
