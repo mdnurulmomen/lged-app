@@ -787,7 +787,7 @@
 @endsection
 
 <div class="row">
-    <div class="col-md-12">
+    {{-- <div class="col-md-12">
         <div class="d-flex justify-content-end mt-4">
             <button onclick="Preview_AIR_Container.generatePDF()"
                     title="Download"
@@ -795,7 +795,7 @@
                 <i class="far fa-file-pdf"></i> Download
             </button>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">

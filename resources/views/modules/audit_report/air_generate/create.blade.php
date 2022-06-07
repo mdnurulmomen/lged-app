@@ -43,7 +43,7 @@
                     <!--begin::Navigation-->
                     <ul class="navi navi-hover">
                         <li class="navi-item">
-                            <a href="javascript:;" class="navi-link">
+                            <a href="javascript:;" onclick="AIR_Report_Create_Container.downloadAIRReport('apotti_air')" class="navi-link">
                                 <span class="navi-icon">
                                     <i class="flaticon2-shopping-cart-1"></i>
                                 </span>
@@ -51,7 +51,7 @@
                             </a>
                         </li>
                         <li class="navi-item">
-                            <a href="javascript:;" class="navi-link">
+                            <a href="javascript:;" onclick="AIR_Report_Create_Container.downloadAIRReport('porishisto_air')" class="navi-link">
                                 <span class="navi-icon">
                                     <i class="flaticon2-calendar-8"></i>
                                 </span>
@@ -59,7 +59,7 @@
                             </a>
                         </li>
                         <li class="navi-item">
-                            <a href="javascript:;" class="navi-link">
+                            <a href="javascript:;" onclick="AIR_Report_Create_Container.downloadAIRReport('full_air')" class="navi-link">
                                 <span class="navi-icon">
                                     <i class="flaticon2-graph-1"></i>
                                 </span>

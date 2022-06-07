@@ -54,7 +54,8 @@ class AuditAIRReportController extends Controller
             $audit_plan_entity_info = $request->audit_plan_entity_info;
             //dd($audit_plan_entity_info);
 
-            return view('modules.audit_report.air_generate.create',
+            return view(
+                'modules.audit_report.air_generate.create',
                 compact(
                     'directorate_name',
                     'directorate_address',
@@ -301,29 +302,53 @@ class AuditAIRReportController extends Controller
         ini_set('memory_limit', '-1');
         ini_set('max_execution_time', 0);
 
-        $apotti_items = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), ['air_id' => $request->air_id, 'all' => '1', 'cdesk' => $this->current_desk_json()])->json();
-        dd($apotti_items);
+        $scope = $request->scope ?: 'apotti_air';
         $porisistos_html = [];
-        if (isSuccess($apotti_items)) {
-            $apotti_items = $apotti_items['data'];
-            foreach ($apotti_items as $apotti_item) {
-                foreach ($apotti_item['porisishtos'] as $porisishto) {
-                    $porisistos_html[] = $porisishto['details'];
-                }
-            }
-        } else {
-            $porisistos_html = [];
-        }
 
+        if ($scope != 'apotti_air') {
+            $apotti_items = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), ['air_id' => $request->air_id, 'all' => '1', 'cdesk' => $this->current_desk_json()])->json();
+
+            if (isSuccess($apotti_items)) {
+                $apotti_items = $apotti_items['data'];
+                foreach ($apotti_items as $apotti_item) {
+                    foreach ($apotti_item['porisishtos'] as $porisishto) {
+                        $porisistos_html[] = $porisishto['details'];
+                    }
+                }
+            } else {
+                $porisistos_html = [];
+            }
+        }
         $auditReport = $request->air_description;
-        $pdf = \PDF::loadView(
-            'modules.audit_report.air_generate.partials.air_book',
-            ['auditReport' => $auditReport, 'porisistos' => $porisistos_html],
-            [],
-            ['orientation' => 'P', 'format' => 'A4']
-        );
-        $fileName = 'draft_air_report_' . date('D_M_j_Y') . '.pdf';
-        return $pdf->stream($fileName);
+
+        if ($scope == 'apotti_air') {
+            $pdf = \PDF::loadView(
+                'modules.audit_report.air_generate.partials.apotti_air_book',
+                ['auditReport' => $auditReport],
+                [],
+                ['orientation' => 'P', 'format' => 'A4']
+            );
+            $fileName = 'draft_air_report_' . date('D_M_j_Y') . '.pdf';
+            return $pdf->stream($fileName);
+        } elseif ($scope == 'porishisto_air') {
+            $pdf = \PDF::loadView(
+                'modules.audit_report.air_generate.partials.porishisto_air_book',
+                ['porisistos' => $porisistos_html, 'auditReport' => $auditReport],
+                [],
+                ['orientation' => 'P', 'format' => 'A4']
+            );
+            $fileName = 'draft_air_report_' . date('D_M_j_Y') . '.pdf';
+            return $pdf->stream($fileName);
+        } elseif ($scope == 'full_air') {
+            $pdf = \PDF::loadView(
+                'modules.audit_report.air_generate.partials.air_book',
+                ['porisistos' => $porisistos_html, 'auditReport' => $auditReport],
+                [],
+                ['orientation' => 'P', 'format' => 'A4']
+            );
+            $fileName = 'draft_air_report_' . date('D_M_j_Y') . '.pdf';
+            return $pdf->stream($fileName);
+        }
     }
 
 
