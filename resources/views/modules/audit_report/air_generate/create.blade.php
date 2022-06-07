@@ -37,33 +37,29 @@
         </div>
         <div class="col-md-6 text-right">
             <div class="dropdown dropdown-inline btn-outline-primary tap-button">
-                <a href="#" class="btn btn-sm font-weight-bolder dropdown-toggle px-5 tap-button btn-outline-primary"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download</a>
+                <a href="#" class="btn btn-sm dropdown-toggle px-5 tap-button btn-outline-primary"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fad fa-download"></i> ডাউনলোড
+                </a>
                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="">
                     <!--begin::Navigation-->
                     <ul class="navi navi-hover">
                         <li class="navi-item">
                             <a href="javascript:;" onclick="AIR_Report_Create_Container.downloadAIRReport('apotti_air')" class="navi-link">
-                                <span class="navi-icon">
-                                    <i class="flaticon2-shopping-cart-1"></i>
-                                </span>
-                                <span class="navi-text">Apotti AIR</span>
+                                <i class="fad fa-archive mr-3"></i>
+                                <span class="navi-text">এআইআর আপত্তি সমূহ</span>
                             </a>
                         </li>
                         <li class="navi-item">
                             <a href="javascript:;" onclick="AIR_Report_Create_Container.downloadAIRReport('porishisto_air')" class="navi-link">
-                                <span class="navi-icon">
-                                    <i class="flaticon2-calendar-8"></i>
-                                </span>
-                                <span class="navi-text">Porisisto Air</span>
+                                <i class="fab fa-palfed mr-3"></i>
+                                <span class="navi-text">এআইআর পরিশিষ্ট সমূহ</span>
                             </a>
                         </li>
                         <li class="navi-item">
                             <a href="javascript:;" onclick="AIR_Report_Create_Container.downloadAIRReport('full_air')" class="navi-link">
-                                <span class="navi-icon">
-                                    <i class="flaticon2-graph-1"></i>
-                                </span>
-                                <span class="navi-text">Full AIR</span>
+                                <i class="fad fa-box-full mr-3"></i>
+                                <span class="navi-text">সম্পূর্ণ এআইআর</span>
                             </a>
                         </li>
                     </ul>

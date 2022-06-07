@@ -156,47 +156,50 @@
         },
 
         downloadAIRReport: function(scope = 'only_apotti') {
-            $('.air_report_save').click();
             air_description = templateArray;
             air_id = $("#airId").val();
-            data = {
-                scope,
-                air_id,
-                air_description
-            };
+
+            if (air_id){
+                data = {
+                    scope,
+                    air_id,
+                    air_description
+                };
+
+                KTApp.block('#kt_full_width_page', {
+                    opacity: 0.1,
+                    message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                    state: 'primary' // a bootstrap color
+                });
 
 
-            KTApp.block('#kt_full_width_page', {
-                opacity: 0.1,
-                state: 'primary' // a bootstrap color
-            });
+                url = '{{ route('audit.report.air.download') }}';
 
-
-            url = '{{ route('audit.report.air.download') }}';
-
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: data,
-                xhrFields: {
-                    responseType: 'blob'
-                },
-                success: function(response) {
-                    KTApp.unblock("#kt_full_width_page");
-                    var blob = new Blob([response]);
-                    var link = document.createElement('a');
-                    link.href = window.URL.createObjectURL(blob);
-                    link.download = "draft_air_report_" + new Date().toDateString().replace(/ /g,
-                        "_") + ".pdf";
-                    link.click();
-                },
-                error: function(blob) {
-                    KTApp.unblock("#kt_quick_panel");
-                    toastr.error('Failed to generate PDF.')
-                    console.log(blob);
-                }
-            });
-
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: data,
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function(response) {
+                        KTApp.unblock("#kt_full_width_page");
+                        var blob = new Blob([response]);
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = "draft_air_report_" + new Date().toDateString().replace(/ /g,
+                            "_") + ".pdf";
+                        link.click();
+                    },
+                    error: function(blob) {
+                        KTApp.unblock("#kt_quick_panel");
+                        toastr.error('Failed to generate PDF.')
+                        console.log(blob);
+                    }
+                });
+            }else {
+                toastr.error('এআইআর সংরক্ষন করুন');
+            }
         }
     }
 </script>
