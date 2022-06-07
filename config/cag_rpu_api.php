@@ -26,4 +26,10 @@ return [
     'get-project-wise-entity' => env('API_URL_RPU', '') . '/cost_center_project_map/project-wise-entity-list',
     'get-project-wise-cost-center' => env('API_URL_RPU', '') . '/cost_center_project_map/project-wise-cost-center-list',
     'get-project-wise-nominated-cost-center-list' => env('API_URL_RPU', '') . '/cost_center_project_map/project-map-nominated-cost-center-list',
+
+    //rpu apotti
+    'get-rpu-apotti-item' => env('API_URL_RPU', '') . '/apotti/get-apotti-item',
+    'apotti-response-submit' => env('API_URL_RPU', '') . '/apotti/apotti-response-submit',
+    'store-rpu-broad-sheet' => env('API_URL_RPU', '') . '/apotti/store-rpu-broad-sheet',
+    'get-ministry-wise-apotti-entity' => env('API_URL_RPU', '') . '/apotti/get-ministry-wise-apotti-entity',
 ];

@@ -820,6 +820,16 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('get-ministry-wise-rp-entities', [\App\Http\Controllers\GenericRPUController::class, 'getMinistryWiseEntities'])->name('rp-offices.all');
     });
 
+    Route::group(['as' => 'rpu-apotti.', 'prefix' => 'rpu-apotti/'], function () {
+        Route::get('index', [\App\Http\Controllers\AuditFollowup\RpuApottiController::class, 'index']);
+        Route::post('get-rpu-apotti-item', [\App\Http\Controllers\AuditFollowup\RpuApottiController::class, 'getRpuApottiItem'])->name('get-rpu-apotti-item');
+        Route::post('get-ministry-wise-entity-select', [\App\Http\Controllers\AuditFollowup\RpuApottiController::class, 'getMinistryWiseApottiEntitySelect'])->name('get-ministry-wise-entity-select');
+        Route::post('get-rpu-apotti-response-form', [\App\Http\Controllers\AuditFollowup\RpuApottiController::class, 'getRpuApottiResponseForm'])->name('get-rpu-apotti-response-form');
+        Route::post('rpu-response-submit', [\App\Http\Controllers\AuditFollowup\RpuApottiController::class, 'rpuResponseSubmit'])->name('rpu-response-submit');
+        Route::post('rpu-broad-sheet-form', [\App\Http\Controllers\AuditFollowup\RpuApottiController::class, 'rpuBroadSheetForm'])->name('rpu-broad-sheet-form');
+        Route::post('rpu-broad-sheet-submit', [\App\Http\Controllers\AuditFollowup\RpuApottiController::class, 'rpuBroadSheetSubmit'])->name('rpu-broad-sheet-submit');
+    });
+
     /*
     Plan Route Start
     */

@@ -408,6 +408,10 @@ return [
         'store-pac-worksheet-report' => env('API_URL_BEE', '') . '/pac/store-pac-worksheet-report',
     ],
 
+    'rpu-apotti' => [
+        'send-apotti-reply' => env('API_URL_BEE', '') . '/audit-report/air/audit-apotti-item-response-by-rpu',
+    ],
+
     'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',
 
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',
