@@ -308,12 +308,16 @@ class AuditAIRReportController extends Controller
         if ($scope != 'apotti_air') {
             $apotti_items = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), ['air_id' => $request->air_id, 'all' => '1', 'cdesk' => $this->current_desk_json()])->json();
 
+            $serial_number = 1;
             if (isSuccess($apotti_items)) {
                 $apotti_items = $apotti_items['data'];
                 foreach ($apotti_items as $apotti_item) {
+                    $porishisto_no = count($apotti_item['porisishtos'])>1?enTobn($serial_number).'.'.enTobn($apotti_item['onucched_no']):enTobn($apotti_item['onucched_no']);
                     foreach ($apotti_item['porisishtos'] as $porisishto) {
-                        $porisistos_html[] = $porisishto['details'];
+                        $porisistos_html[] = '<span>পরিশিষ্ট নম্বর-'.$porishisto_no.'</span><br><span>অনুচ্ছেদ নম্বর-'.enTobn($apotti_item['onucched_no']).'</span>'.$porisishto['details'];
+                        $serial_number++;
                     }
+                    $serial_number = 1;
                 }
             } else {
                 $porisistos_html = [];

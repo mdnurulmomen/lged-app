@@ -803,16 +803,18 @@
 
 <body>
     <htmlpagefooter name="firstpage"></htmlpagefooter>
-    <htmlpagefooter name="otherpages">পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span> of <span class="bangla-bijoy">{nb}</span></htmlpagefooter>
+    <htmlpagefooter name="otherpages">পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span></htmlpagefooter>
 
     <htmlpagefooter name="even-footer">
-        <div class="bangla-font" style="float:right; width: 100%; text-align: right;">Page <span
-                class="bangla-bijoy">{PAGENO}</span> of <span class="bangla-bijoy">{nb}</span></div>
+        <div class="bangla-font" style="float:right; width: 100%; text-align: right;">
+            পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span>
+        </div>
     </htmlpagefooter>
 
     <htmlpagefooter name="odd-footer">
-        <div class="bangla-font" style="float:left; width: 100%; text-align: right;">Page <span
-                class="bangla-bijoy">{PAGENO}</span> of <span class="bangla-bijoy">{nb}</span></div>
+        <div class="bangla-font" style="float:left; width: 100%; text-align: right;">
+            পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span>
+        </div>
     </htmlpagefooter>
 
     <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
