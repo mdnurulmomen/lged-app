@@ -49,11 +49,11 @@
                        placeholder="জড়িত অর্থ (টাকা)" type="text">
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <select class="form-select select-select2" id="has_convert_to_apotti">
-                    <option value="">--Select--</option>
-                    <option value="yes">Converted</option>
-                    <option value="no">Not Converted</option>
+                    <option value="">--বাছাই করুন--</option>
+                    <option value="yes">মেমো থেকে অডিট অবজারভেশনে রুপান্তরিত হয়েছে</option>
+                    <option value="no">মেমো থেকে অডিট অবজারভেশনে রুপান্তর হয়নি</option>
                 </select>
             </div>
         </div>

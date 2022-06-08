@@ -52,7 +52,7 @@
             @elseif($qac_type == 'cqat')
                 @php $paritoAirName = 'কিউএসি ২'; @endphp
             @else
-                @php $paritoAirName = 'প্রিলিমিনারি'; @endphp
+                @php $paritoAirName = 'ড্রাফ্ট'; @endphp
             @endif
 
             <div class="col-md-6">
