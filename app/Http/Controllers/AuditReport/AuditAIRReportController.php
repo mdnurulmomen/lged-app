@@ -311,8 +311,8 @@ class AuditAIRReportController extends Controller
             $serial_number = 1;
             if (isSuccess($apotti_items)) {
                 $apotti_items = $apotti_items['data'];
-                $onucched_no = $apotti_items['data']['apotti']['onucched_no'];
                 foreach ($apotti_items as $apotti_item) {
+                    $onucched_no = $apotti_item['apotti']['onucched_no'];
                     $porishisto_no = count($apotti_item['porisishtos'])>1?enTobn($onucched_no).'.'.enTobn($serial_number):enTobn($onucched_no);
                     foreach ($apotti_item['porisishtos'] as $porisishto) {
                         $porisistos_html[] = '<span>পরিশিষ্ট নম্বর-'.$porishisto_no.'</span><br><span>অনুচ্ছেদ নম্বর-'.enTobn($onucched_no).'</span>'.$porisishto['details'];
