@@ -160,8 +160,6 @@ class AuditExecutionApottiController extends Controller
 
         $unmerged_apotti = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.onucched_unmerge'), $data)->json();
 
-//        dd($unmerged_apotti);
-
         if (isSuccess($unmerged_apotti)) {
             $unmerged_apotti = $unmerged_apotti['data'];
             return response()->json(['status' => 'success', 'data' => $unmerged_apotti]);

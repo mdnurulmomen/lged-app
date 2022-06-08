@@ -1,5 +1,7 @@
 <?php
 return [
+    'file_url' => env('FILE_URL', ''),
+
     'settings' => [
         'fiscal_year_lists' => env('API_URL_BEE', '') . '/fiscal-year',
         'fiscal_year_create' => env('API_URL_BEE', '') . '/fiscal-year/create',
@@ -411,7 +413,6 @@ return [
     'rpu-apotti' => [
         'send-apotti-reply' => env('API_URL_BEE', '') . '/audit-report/air/audit-apotti-item-response-by-rpu',
     ],
-
     'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',
 
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',

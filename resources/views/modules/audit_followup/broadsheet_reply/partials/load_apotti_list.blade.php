@@ -174,15 +174,25 @@
                                             </div>
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
-                                            <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+
+                                            @if($item['broad_sheet_hard_copy'])
+                                                <a href="{{ config('amms_bee_routes.file_url').$item['broad_sheet_hard_copy'] }}"
+                                                   title="{{___('generic.buttons.title.details')}}"
+                                                   class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            @else
+                                                <button
+                                                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                     title="{{___('generic.buttons.title.details')}}"
                                                     data-broad-sheet-id="{{$item['id']}}"
                                                     data-memorandum-no="{{enTobn($item['memorandum_no'])}}"
                                                     data-memorandum-date="{{enTobn($item['memorandum_date'])}}"
                                                     data-scope="preview"
                                                     onclick="Broadsheet_Reply_List_Container.showBroadSheet($(this))">
-                                                <i class="fad fa-eye"></i>
-                                            </button>
+                                                    <i class="fad fa-eye"></i>
+                                                </button>
+                                            @endif
 
 {{--                                            @if($item['latest_broad_sheet_movement'] && $item['latest_broad_sheet_movement']['receiver_officer_id'] == $desk_officer_id)--}}
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
@@ -194,16 +204,25 @@
 {{--                                            @endif--}}
 
 {{--                                            @if($item['unit_response'] != null)--}}
-                                            <button
-                                                class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                title="ডাউনলোড করুন"
-                                                data-broad-sheet-id="{{$item['id']}}"
-                                                data-memorandum-no="{{enTobn($item['memorandum_no'])}}"
-                                                data-memorandum-date="{{enTobn($item['memorandum_date'])}}"
-                                                data-scope="pdf"
-                                                onclick="Broadsheet_Reply_List_Container.downloadBroadSheet($(this))">
-                                                <i class="fad fa-download"></i>
-                                            </button>
+
+                                                @if($item['broad_sheet_hard_copy'])
+                                                    <a href="{{ config('amms_bee_routes.file_url').$item['broad_sheet_hard_copy'] }}"
+                                                       title="{{___('generic.buttons.title.details')}}"
+                                                       class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle">
+                                                        <i class="fa fa-download"></i>
+                                                    </a>
+                                                @else
+                                                    <button
+                                                        class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                        title="ডাউনলোড করুন"
+                                                        data-broad-sheet-id="{{$item['id']}}"
+                                                        data-memorandum-no="{{enTobn($item['memorandum_no'])}}"
+                                                        data-memorandum-date="{{enTobn($item['memorandum_date'])}}"
+                                                        data-scope="pdf"
+                                                        onclick="Broadsheet_Reply_List_Container.downloadBroadSheet($(this))">
+                                                        <i class="fad fa-download"></i>
+                                                    </button>
+                                                @endif
 
 {{--                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"--}}
 {{--                                                        title="" data-scope="jobab"--}}

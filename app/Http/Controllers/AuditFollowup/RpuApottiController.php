@@ -106,8 +106,8 @@ class RpuApottiController extends Controller
         return view('modules.audit_followup.rpu_apotti.rpu_broad_sheet_form',$request);
     }
 
-    public function rpuBroadSheetSubmit(Request $request){
-
+    public function rpuBroadSheetSubmit(Request $request)
+    {
         $data = Validator::make($request->all(), [
             'directorate_id' => 'required',
             'directorate_bn' => 'required',
@@ -115,9 +115,9 @@ class RpuApottiController extends Controller
             'ministry_id' => 'required',
             'ministry_en' => 'required',
             'ministry_bn' => 'required',
-            'entity_id' => 'nullable',
-            'entity_bn' => 'nullable',
-            'entity_en' => 'nullable',
+            'entity_id' => 'required',
+            'entity_bn' => 'required',
+            'entity_en' => 'required',
             'memorandum_no' => 'required',
             'memorandum_date' => 'required',
             'receiver_details' => 'nullable',
@@ -126,6 +126,7 @@ class RpuApottiController extends Controller
             'cc_list' => 'nullable',
             'memo_type' => 'required',
             'sender_type' => 'required',
+            'broad_sheet_type' => 'required',
         ],[
             'memorandum_no.required' => 'স্মারক নং অবশ্যক',
             'memorandum_date.required' => 'স্মারক তারিখ অবশ্যক',
@@ -139,14 +140,48 @@ class RpuApottiController extends Controller
 
         if(isSuccess($store_broad_sheet)){
             $response_data = $store_broad_sheet['data'];
-            $send_to_directorate = $this->initHttpWithToken()->post(config('amms_bee_routes.rpu-apotti.send-apotti-reply'), $response_data)->json();
-//            dd($send_to_directorate);
-        }
+            $send_data = [
+                ['name' => 'broadsheet_reply_id', 'contents' => $response_data["broadsheet_reply_id"]],
+                ['name' => 'apottiItems', 'contents' => json_encode($response_data["apottiItems"])],
+                ['name' => 'directorate_id', 'contents' => $response_data["directorate_id"]],
+                ['name' => 'directorate_bn', 'contents' => $response_data["directorate_bn"]],
+                ['name' => 'directorate_en', 'contents' => $response_data["directorate_en"]],
+                ['name' => 'ministry_id', 'contents' => $response_data["ministry_id"]],
+                ['name' => 'ministry_name_en', 'contents' => $response_data["ministry_name_en"]],
+                ['name' => 'ministry_name_bn', 'contents' => $response_data["ministry_name_bn"]],
+                ['name' => 'memorandum_no', 'contents' => $response_data["memorandum_no"]],
+                ['name' => 'memorandum_date', 'contents' => $response_data["memorandum_date"]],
+                ['name' => 'sender_office_id', 'contents' => $response_data["sender_office_id"]],
+                ['name' => 'sender_office_name_bn', 'contents' => $response_data["sender_office_name_bn"]],
+                ['name' => 'sender_office_name_en', 'contents' => $response_data["sender_office_name_en"]],
+                ['name' => 'sender_name_bn', 'contents' => $response_data["sender_name_bn"]],
+                ['name' => 'sender_name_en', 'contents' => $response_data["sender_name_en"]],
+                ['name' => 'sender_designation_bn', 'contents' => $response_data["sender_designation_bn"]],
+                ['name' => 'sender_designation_en', 'contents' => $response_data["sender_designation_en"]],
+                ['name' => 'sender_type', 'contents' => $response_data["sender_type"]],
+                ['name' => 'receiver_details', 'contents' => $response_data["receiver_details"]],
+                ['name' => 'subject', 'contents' => $response_data["subject"]],
+                ['name' => 'details', 'contents' => $response_data["details"]],
+                ['name' => 'cc_list', 'contents' => $response_data["cc_list"]],
+                ['name' => 'broad_sheet_type', 'contents' => $response_data["broad_sheet_type"]],
+            ];
 
-        if (isSuccess($send_to_directorate)) {
-            return response()->json(['status' => 'success', 'data' => $send_to_directorate['data']]);
-        } else {
-            return response()->json(['status' => 'error', 'data' => $send_to_directorate]);
+            //braod sheet hard copy
+            if ($request->hasfile('broad_sheet_hard_copy')) {
+                $file =  $request->file('broad_sheet_hard_copy');
+                $send_data[] = [
+                    'name' => 'broad_sheet_hard_copy',
+                    'contents' => file_get_contents($file->getRealPath()),
+                    'filename' => $file->getClientOriginalName(),
+                ];
+            }
+
+            $response = $this->fileUPloadWithData(
+                config('amms_bee_routes.rpu-apotti.send-apotti-reply'),
+                $send_data
+            );
+
+            return json_decode($response->getBody(), true);
         }
 
     }

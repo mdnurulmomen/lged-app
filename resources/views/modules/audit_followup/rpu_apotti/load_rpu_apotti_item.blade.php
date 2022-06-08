@@ -1,6 +1,6 @@
 <button class="mr-1 btn btn-sm btn-primary btn-square mb-5 float-right"
         onclick="Rpu_Apotti_Container.sendToDirectorateForm($(this))">
-    <i class="fa fa-paper-plane">জবাব প্রেরণ করুন</i>
+    <i class="fa fa-save"></i> অডিটি প্রতিষ্ঠানের জবাব সংরক্ষণ করুন
 </button>
 
 <table class="table table-bordered" width="100%">
@@ -37,7 +37,7 @@
     @forelse($apotti_item_list as $apotti_item)
         <tr class="text-center">
             <td class="text-center">
-               <input {{$apotti_item['is_sent_amms'] == 1 ?: 'checked disabled'}} class="select-apotti" value="{{$apotti_item['apotti_item_id']}}" type="checkbox">
+               <input {{$apotti_item['is_sent_amms'] == 1 ? 'checked disabled' : ''}} class="select-apotti" value="{{$apotti_item['apotti_item_id']}}" type="checkbox">
             </td>
             <td class="text-center">
                 {{$loop->iteration}}
