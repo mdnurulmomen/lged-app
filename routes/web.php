@@ -612,6 +612,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('download', [AuditAIRReportController::class, 'download'])->name('download');
             Route::post('preview', [AuditAIRReportController::class, 'preview'])->name('preview');
 
+            Route::post('get-air-wise-content-key', [AuditAIRReportController::class, 'getAirWiseContentKey'])->name('get-air-wise-content-key');
             Route::post('get-audit-team', [AuditAIRReportController::class, 'getAuditTeam'])->name('get-audit-team');
             Route::post('get-audit-team-schedule', [AuditAIRReportController::class, 'getAuditTeamSchedule'])->name('get-audit-team-schedule');
 

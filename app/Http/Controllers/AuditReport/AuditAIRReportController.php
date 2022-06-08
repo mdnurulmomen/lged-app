@@ -356,6 +356,21 @@ class AuditAIRReportController extends Controller
         }
     }
 
+    public function getAirWiseContentKey(Request $request)
+    {
+        $requestData = Validator::make($request->all(), [
+            'relational_id' => 'required|integer',
+            'template_type' => 'required',
+        ])->validate();
+        $requestData['cdesk'] = $this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_content_key'), $requestData)->json();
+        if (isSuccess($responseData)) {
+            return response()->json(['status' => 'success', 'data' => $responseData['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData]);
+        }
+    }
+
 
     public function getAuditTeam(Request $request)
     {

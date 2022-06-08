@@ -51,6 +51,43 @@
                 @endif
             @endif
 
+                <div class="dropdown dropdown-inline btn-outline-primary tap-button">
+                    <a href="#" class="btn btn-sm dropdown-toggle px-5 tap-button btn-outline-primary"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fad fa-download"></i> ডাউনলোড
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="">
+                        <!--begin::Navigation-->
+                        <ul class="navi navi-hover">
+                            <li class="navi-item">
+                                <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('forwarding_letter')" class="navi-link">
+                                    <i class="fad fa-archive mr-3"></i>
+                                    <span class="navi-text">ফরোয়ার্ডিং লেটার</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('apotti_air')" class="navi-link">
+                                    <i class="fad fa-archive mr-3"></i>
+                                    <span class="navi-text">এআইআর আপত্তি সমূহ</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('porishisto_air')" class="navi-link">
+                                    <i class="fab fa-palfed mr-3"></i>
+                                    <span class="navi-text">এআইআর পরিশিষ্ট সমূহ</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('full_air')" class="navi-link">
+                                    <i class="fad fa-box-full mr-3"></i>
+                                    <span class="navi-text">সম্পূর্ণ এআইআর</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!--end::Navigation-->
+                    </div>
+                </div>
+
             <button class="tap-button mr-1 btn btn-sm btn-outline-warning"
                     data-air-id="{{$air_report_id}}"
                     onclick="QAC_AIR_Report_Container.previewAirReport($(this))">
@@ -114,6 +151,7 @@
             let approved_status = '{{$approved_status}}';
             if (approved_status != 'approved') {
                 $(".update-qac-air-report").click();
+                QAC_AIR_Report_Container.setAIRContentWiseData();
                 QAC_AIR_Report_Container.setAuditTeam();
                 QAC_AIR_Report_Container.setAuditApottiSummary('sfi');
                 QAC_AIR_Report_Container.setAuditApottiSummary('non-sfi');
@@ -307,6 +345,92 @@
                     }
                 });
             },
+
+            setAIRContentWiseData: function () {
+                url = '{{route('audit.report.air.get-air-wise-content-key')}}';
+                relational_id = '{{$parent_air_id}}';
+                template_type = 'draft_air';
+                let data = {relational_id, template_type};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data);
+                    } else {
+
+                        KTApp.block('#kt_full_width_page', {
+                            opacity: 0.1,
+                            message: 'ডাটা লোড হচ্ছে অপেক্ষা করুন...',
+                            state: 'primary' // a bootstrap color
+                        });
+
+                        $('.div_entity_short_description').html(response.data.entity_short_description);
+                        $('.div_audit_coverage').html(response.data.audit_coverage);
+                        $('.div_critical').html(response.data.critical);
+                        $('.div_standards').html(response.data.standards);
+                        $('.div_audit_team_visit_unit').html(response.data.audit_team_visit_unit);
+                        $('.div_idea_about_entity').html(response.data.idea_about_entity);
+                        $('.div_list_of_recrods').html(response.data.list_of_recrods);
+                        $('.div_information_provide_by_entity').html(response.data.information_provide_by_entity);
+                        $('.div_information_not_provide_by_entity').html(response.data.information_not_provide_by_entity);
+                        $('.div_number_of_meeting_and_date').html(response.data.number_of_meeting_and_date);
+                        $('.div_during_audit_total_number_of_audit_queries_issued').html(response.data.during_audit_total_number_of_audit_queries_issued);
+                        $('.div_number_of_answered_query').html(response.data.number_of_answered_query);
+                        $('.div_jarikrito_number_of_audit_observation').html(response.data.jarikrito_number_of_audit_observation);
+                        $('.div_answered_number_of_audit_observation').html(response.data.answered_number_of_audit_observation);
+                        $('.div_number_of_draft_observation').html(response.data.number_of_draft_observation);
+                        $('.div_observation_not_raised_during_audit').html(response.data.observation_not_raised_during_audit);
+                        $('.audit_apotti_porisistos').html('<h1 class="text-center">পরিশিষ্টসমূহ ডাউলোড এর পর দেখতে পারবেন।</h1>');
+                        QAC_AIR_Report_Container.setJsonContentFromPlanBook();
+                        KTApp.unblock("#kt_full_width_page");
+                    }
+                });
+            },
+
+            downloadAIRReport: function(scope = 'only_apotti') {
+                air_description = templateArray;
+                air_id = '{{$air_report_id}}';
+
+                if (air_id){
+                    data = {
+                        scope,
+                        air_id,
+                        air_description
+                    };
+
+                    KTApp.block('#kt_full_width_page', {
+                        opacity: 0.1,
+                        message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                        state: 'primary' // a bootstrap color
+                    });
+
+
+                    url = '{{route('audit.report.air.qac1.download')}}';
+
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: data,
+                        xhrFields: {
+                            responseType: 'blob'
+                        },
+                        success: function(response) {
+                            KTApp.unblock("#kt_full_width_page");
+                            var blob = new Blob([response]);
+                            var link = document.createElement('a');
+                            link.href = window.URL.createObjectURL(blob);
+                            link.download = "QAC1 Report " + new Date().toDateString().replace(/ /g,
+                                "_") + ".pdf";
+                            link.click();
+                        },
+                        error: function(blob) {
+                            KTApp.unblock("#kt_quick_panel");
+                            toastr.error('Failed to generate PDF.')
+                            console.log(blob);
+                        }
+                    });
+                }else {
+                    toastr.error('এআইআর সংরক্ষন করুন');
+                }
+            }
         }
     </script>
 @endsection

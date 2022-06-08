@@ -12,14 +12,16 @@ class AuditQACAIRReportController extends Controller
 
     public function updateQACAirReport(Request $request)
     {
-        //dd($request->fiscal_year_id);
+        $air_description = json_decode($request->air_description);
+        unset($air_description['31']);
+
         Validator::make($request->all(), [
             'air_id' => 'required|integer',
             'air_description' => 'required',
         ])->validate();
         $data['air_id'] = $request->air_id;
         $data['office_id'] = $request->office_id;
-        $data['air_description'] = makeEncryptedData(gzcompress($request->air_description));
+        $data['air_description'] = makeEncryptedData(gzcompress(json_encode($air_description)));
         $data['cdesk'] = $this->current_desk_json();
         $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.update_qac_air_report'), $data)->json();
         if (isSuccess($saveAirReport)) {
@@ -154,18 +156,21 @@ class AuditQACAIRReportController extends Controller
 
             if ($qac_type == 'qac-1'){
                 if ($report_type != 'cloned'){
+                    $parent_air_id = $request->parent_air_id;
                     return view('modules.audit_quality_control.qac_01.create',
                         compact('fiscal_year_id','activity_id','audit_plan_id',
                             'annual_plan_id','auditType','directorate_name','directorate_address',
                             'content','audit_plan_entities','air_report_id','approved_status',
                             'latest_receiver_designation_id','current_designation_id',
-                            'is_sent','is_received','qac_type','audit_year','fiscal_year'));
+                            'is_sent','is_received','qac_type','audit_year','fiscal_year',
+                            'parent_air_id'));
                 }
                 else{
                     $qacOneData['template_type'] = 'qac1_report';
                     $qacOneData['cdesk'] = $cdeskData;
                     $responseReportTemplateData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.create_air_report'), $qacOneData)->json();
                     //dd($responseReportTemplateData);
+                    $parent_air_id = $request->parent_air_id;
                     if (isSuccess($responseReportTemplateData)) {
                         $content = $responseReportTemplateData['data']['content'];
                         return view('modules.audit_quality_control.qac_01.create',
@@ -173,7 +178,8 @@ class AuditQACAIRReportController extends Controller
                                 'annual_plan_id','auditType','directorate_name','directorate_address',
                                 'content','audit_plan_entities','air_report_id','approved_status',
                                 'latest_receiver_designation_id','current_designation_id',
-                                'is_sent','is_received','qac_type','audit_year','fiscal_year'));
+                                'is_sent','is_received','qac_type','audit_year','fiscal_year',
+                                'parent_air_id'));
                     }
                 }
             }

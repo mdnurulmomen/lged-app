@@ -7,6 +7,7 @@
 
                 <a data-qac-type="{{$qac_type}}"
                    style="color: black"
+                   data-parent-air-id="{{$parent_air_id}}"
                    data-scope="{{$scope}}"
                    data-air-report-id="{{$responseData['rAirInfo']['r_air_child']['id']}}"
                    onclick="QAC_Apotti_List_Container.loadAIREdit($(this))"
@@ -287,9 +288,10 @@
             office_id = $('#directorate_filter').val();
             url = '{{route('audit.report.air.qac.edit-air-report')}}';
             qac_type = elem.data('qac-type');
+            parent_air_id = elem.data('parent-air-id');
             air_report_id = elem.data('air-report-id');
             scope = elem.data('scope');
-            data = {qac_type, air_report_id, office_id, scope};
+            data = {qac_type, parent_air_id, air_report_id, office_id, scope};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,

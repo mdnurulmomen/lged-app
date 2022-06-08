@@ -355,6 +355,7 @@ return [
             'update_qac_air_report' => env('API_URL_BEE', '') . '/audit-report/air/update-qac-air-report',
             'get_audit_team' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-team',
             'get_audit_team_schedule' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-team-schedule',
+            'get_air_wise_content_key' => env('API_URL_BEE', '') . '/audit-report/air/get-air-wise-content-key',
             'get_audit_apotti_list' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-apotti-list',
             'get_air_wise_qac_apotti' => env('API_URL_BEE', '') . '/audit-report/air/get-air-wise-qac-apotti',
             'get_air_and_apotti_type_wise_qac_apotti' => env('API_URL_BEE', '') . '/audit-report/air/get-air-and-apotti-type-wise-qac-apotti',

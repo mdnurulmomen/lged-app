@@ -18,7 +18,6 @@
         .bangla-font {
             font-family: nikoshpdf !important;
         }
-
         .bangla-bijoy {
             font-family: sutonnymj !important;
         }
@@ -803,126 +802,12 @@
 </head>
 
 <body>
-<div>
-    <htmlpagefooter name="firstpage"></htmlpagefooter>
-    <htmlpagefooter name="otherpages">পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span></htmlpagefooter>
-
-    <htmlpagefooter name="even-footer">
-        <div class="bangla-font" style="float:right; width: 100%; text-align: right;">
-            পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span>
+    <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
+        {{-- forwarding letter --}}
+        <div class="pdf-screen bangla-font">
+            {!! $auditReport[0]['content'] !!}
         </div>
-    </htmlpagefooter>
-
-    <htmlpagefooter name="odd-footer">
-        <div class="bangla-font" style="float:left; width: 100%; text-align: right;">
-            পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span>
-        </div>
-    </htmlpagefooter>
-
-    {{--forwarding paper page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $auditReport[0]['content'] !!}
     </div>
-
-    {{--cover page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $auditReport[1]['content'] !!}
-    </div>
-
-    {{--index page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $auditReport[2]['content'] !!}
-    </div>
-
-    {{--part one cover page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-        {!! $auditReport[3]['content'] !!}
-    </div>
-
-    {{--part one details page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;">
-        <div>{!! $auditReport[4]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[5]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[6]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[7]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[8]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[9]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[10]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[11]['content'] !!}</div>
-    </div>
-    <div class="pdf-screen bangla-font" style="height: 100%;">
-        <div>{!! $auditReport[12]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[13]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[14]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[15]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[16]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[17]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[18]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[19]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[20]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[21]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[22]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[23]['content'] !!}</div>
-    </div>
-
-    {{--part two (one) cover page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-        {!! $auditReport[24]['content'] !!}
-    </div>
-
-    {{--sfi apotti summary page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
-        {!! $auditReport[25]['content'] !!}
-    </div>
-
-    {{--sfi apotti details page--}}
-    <div class="pdf-screen bangla-font">
-        {!! $auditReport[26]['content'] !!}
-    </div>
-
-    {{--part two (two) cover page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-        {!! $auditReport[27]['content'] !!}
-    </div>
-
-    {{--non sfi apotti summary page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
-        {!! $auditReport[28]['content'] !!}
-    </div>
-
-    {{--non sfi apotti details page--}}
-    <div class="pdf-screen bangla-font">
-        {!! $auditReport[29]['content'] !!}
-    </div>
-
-    {{--porishitoh cover page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-        {!! $auditReport[30]['content'] !!}
-    </div>
-
-    {{--porishitoh details page--}}
-    <div class="pdf-screen bangla-font">
-        @foreach($porisistos as $porishisto)
-            <div style="height: 100%;page-break-after: always;">
-                <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 5px">
-                    {!! $porishisto !!}
-                </div>
-            </div>
-        @endforeach
-    </div>
-
-    {{--<htmlpagefooter name="even-footer">
-        <div style="float:right; width: 100%; text-align: right;">Page <span class="page_number">{PAGENO}</span> of {nb}</div>
-    </htmlpagefooter>
-
-    <htmlpagefooter name="odd-footer">
-        --}}{{--@php $pageNumber = ; @endphp--}}{{--
-        <div style="float:left; width: 100%; text-align: right;">Page {PAGENO} of {nb}</div>
-    </htmlpagefooter>--}}
-</div>
 </body>
+
 </html>
