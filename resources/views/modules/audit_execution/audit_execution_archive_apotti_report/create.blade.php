@@ -18,7 +18,6 @@
             <div class="col-md-4">
                 <div class="d-flex justify-content-end">
                     <a
-                        onclick=""
                         class="btn btn-sm btn-warning btn_back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> {{___('generic.back')}}
                     </a>

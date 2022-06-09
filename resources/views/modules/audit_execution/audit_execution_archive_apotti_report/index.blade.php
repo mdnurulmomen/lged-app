@@ -166,6 +166,7 @@
                 $(".store-apotti-report").hide();
                 if (response.status === 'success') {
                     toastr.success(response.data);
+                    $('.btn_back').click();
                 } else {
                     toastr.error(response.data);
                 }
