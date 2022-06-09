@@ -201,7 +201,7 @@
     })
 
     function backToList(){
-        $('.apotti-upload a').click();
+        $('.apotti-validate a').click();
     }
 
 
