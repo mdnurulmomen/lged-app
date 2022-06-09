@@ -196,6 +196,14 @@
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
     });
 
+    $('.btn_back').click(function (){
+        backToList()
+    })
+
+    function backToList(){
+        $('.apotti-upload a').click();
+    }
+
 
     //ministry
     $('#directorate_id').change(function () {
