@@ -238,7 +238,6 @@ class AuditExecutionArchiveApottiReportController extends Controller
     {
         $data['report_id'] = $request->report_id;
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti_report.view'), $data)->json();
-//        dd($response);
         $report_details = isSuccess($response) ? $response['data'] : [];
 
         return view('modules.audit_execution.audit_execution_archive_apotti_report.view', compact('report_details'));
