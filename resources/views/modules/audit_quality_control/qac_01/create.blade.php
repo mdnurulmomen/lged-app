@@ -151,7 +151,7 @@
             let approved_status = '{{$approved_status}}';
             if (approved_status != 'approved') {
                 $(".update-qac-air-report").click();
-                //QAC_AIR_Report_Container.setAIRContentWiseData();
+                QAC_AIR_Report_Container.setAIRContentWiseData();
                 QAC_AIR_Report_Container.setAuditTeam();
                 QAC_AIR_Report_Container.setAuditApottiSummary('sfi');
                 QAC_AIR_Report_Container.setAuditApottiSummary('non-sfi');
