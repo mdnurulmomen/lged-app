@@ -70,7 +70,7 @@
                             <div class="row mt-3">
                                 @foreach($report_details['arc_report_attachment'] as $attachment)
                                         <div class="col-md-2">
-                                            <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                            <img style="cursor: pointer" class="coverImage" src="{{$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
                                                  onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                         </div>
                                 @endforeach
