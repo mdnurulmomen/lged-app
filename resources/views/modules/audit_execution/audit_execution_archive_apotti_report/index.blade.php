@@ -119,8 +119,19 @@
             );
         },
 
-        load_report_details: function () {
-
+        load_report_details: function (elem) {
+            report_id = elem.data('report-id');
+            directorate_id = elem.data('directorate-id');
+            let url = '{{route('audit.execution.archive-apotti-report.report-details')}}';
+            let data = {report_id,directorate_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.warning(response.data);
+                    } else {
+                        $('#kt_content').html(response);
+                    }
+                }
+            );
         },
 
         store_report_apotti: function (){

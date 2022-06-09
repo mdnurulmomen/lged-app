@@ -15,7 +15,9 @@
             <h5>{{$apotti_report['audit_report_name']}}</h5>
             <div class="row">
                 <div class="col-md-12 mr-5">
-                    <a href="javascript:;" data-report-id="{{$apotti_report['id']}}"
+                    <a href="javascript:;"
+                       data-report-id="{{$apotti_report['id']}}"
+                       data-directorate-id="{{$apotti_report['directorate_id']}}"
                        onclick="Archive_Apotti_Report_Container.load_report_details($(this))" class="btn btn-sm btn-primary">
                         <i class="fa fa-eye"></i>
                     </a>
