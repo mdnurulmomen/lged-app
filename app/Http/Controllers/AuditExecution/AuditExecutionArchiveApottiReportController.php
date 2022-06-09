@@ -243,4 +243,15 @@ class AuditExecutionArchiveApottiReportController extends Controller
         return view('modules.audit_execution.audit_execution_archive_apotti_report.view', compact('report_details'));
 
     }
+
+    public function reportApottiDelete(Request $request){
+        $data['apotti_id'] = $request->apotti_id;
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti_report.report_apotti_delete'), $data)->json();
+        dd($response);
+        if ($response['status'] == 'success') {
+            return response()->json(['status' => 'success', 'data' => $response['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }
+    }
 }

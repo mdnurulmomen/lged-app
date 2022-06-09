@@ -484,6 +484,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('apotti-store', [AuditExecutionArchiveApottiReportController::class, 'apottiStore'])->name('apotti-store');
             Route::post('report-sync', [AuditExecutionArchiveApottiReportController::class, 'reportSync'])->name('report-sync');
             Route::post('report-details', [AuditExecutionArchiveApottiReportController::class, 'reportDetails'])->name('report-details');
+            Route::post('report-apotti-delete', [AuditExecutionArchiveApottiReportController::class, 'reportApottiDelete'])->name('report-apotti-delete');
         });
     });
 
