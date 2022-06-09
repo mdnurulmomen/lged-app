@@ -110,7 +110,7 @@
                 <div class="col-md-3">
                     <label for="nirikkha_dhoron" class="col-form-label">নিরীক্ষার ধরন</label>
                     <select class="form-control select-select2" id="nirikkha_dhoron" name="nirikkha_dhoron">
-                        <option value="">নিরিক্ষার ধরন</option>
+                        <option value="">নিরীক্ষার ধরন</option>
                         <option value="কমপ্লায়েন্স অডিট">কমপ্লায়েন্স অডিট</option>
                         <option value="পারফরমেন্স অডিট">পারফরমেন্স অডিট</option>
                         <option value="ফাইন্যান্সিয়াল অডিট">ফাইন্যান্সিয়াল অডিট</option>
@@ -156,24 +156,17 @@
                     <label class="col-form-label">কভার-পেজ</label>
                     <input name="cover_page[]" type="file" class="mFilerInit form-control rounded-0">
                 </div>
-
-                <div class="col-md-4">
-                    <label class="col-form-label">টপ-পেজ</label>
-                    <input name="top_page[]" type="file" class="mFilerInit form-control rounded-0">
-                </div>
-
                 <div class="col-md-4">
                     <label class="col-form-label">মূল আপত্তি সংযুক্তি</label>
                     <input name="main_apottis[]" type="file" class="mFilerInit form-control rounded-0" multiple>
                 </div>
-            </div>
-
-            <div class="row">
                 <div class="col-md-4">
                     <label class="col-form-label">পরিশিষ্ট সংযুক্তি</label>
                     <input name="porisishtos[]" type="file" class="mFilerInit form-control rounded-0" multiple>
                 </div>
+            </div>
 
+            <div class="row">
                 <div class="col-md-4">
                     <label class="col-form-label">প্রামানক সংযুক্তি</label>
                     <input name="promanoks[]" type="file" class="mFilerInit form-control rounded-0" multiple>
@@ -182,6 +175,12 @@
                 <div class="col-md-4">
                     <label class="col-form-label">আপত্তির অন্যান্য সংযুক্তি</label>
                     <input name="others[]" type="file" class="mFilerInit form-control rounded-0" multiple>
+                </div>
+            </div>
+            <div class="row d-none">
+                <div class="col-md-4">
+                    <label class="col-form-label">টপ-পেজ</label>
+                    <input name="top_page[]" type="file" class="mFilerInit form-control rounded-0">
                 </div>
             </div>
         </div>
@@ -204,6 +203,13 @@
 
     });
 
+    $('.btn_back').click(function (){
+        backToList()
+    })
+
+    function backToList(){
+        $('.apotti-upload a').click();
+    }
 
     //for submit form
     $(function () {
