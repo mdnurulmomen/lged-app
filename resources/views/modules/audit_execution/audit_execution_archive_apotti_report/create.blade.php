@@ -162,6 +162,14 @@
 
     });
 
+    $('.btn_back').click(function (){
+        backToList()
+    })
+
+    function backToList(){
+        $('.apotti-validate a').click();
+    }
+
     Archive_Apotti_Create_Container = {
         loadDirectorateWiseMinistry: function (directorate_id,ministry_id='') {
             let url = '{{route('audit.execution.archive-apotti.load-directorate-wise-ministry')}}';
