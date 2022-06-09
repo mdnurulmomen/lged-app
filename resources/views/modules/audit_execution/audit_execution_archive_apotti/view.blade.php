@@ -92,7 +92,7 @@
                     <h4>কভার পেইজ</h4>
                     <div class="row mt-3">
                         <div class="col-md-2">
-                            <img style="cursor: pointer" class="coverImage" src="{{$apotti['cover_page_path'].'/'.$apotti['cover_page']}}"
+                            <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$apotti['cover_page_path'].'/'.$apotti['cover_page']}}"
                                  onclick="showImageOnModal(this)" width="80%" height="100%"/>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                         @foreach($apotti['attachments'] as $attachment)
                             @if ($attachment['attachment_type'] == 'main')
                                 <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                    <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
                                          onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 </div>
                             @endif
@@ -127,7 +127,7 @@
                         @foreach($apotti['attachments'] as $attachment)
                             @if ($attachment['attachment_type'] == 'porisishto')
                                 <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                    <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
                                          onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 </div>
                             @endif
@@ -145,7 +145,7 @@
                         @foreach($apotti['attachments'] as $attachment)
                             @if ($attachment['attachment_type'] == 'promanok')
                                 <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                    <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
                                          onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 </div>
                             @endif
@@ -163,7 +163,7 @@
                         @foreach($apotti['attachments'] as $attachment)
                             @if ($attachment['attachment_type'] == 'other')
                                 <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                    <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
                                          onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 </div>
                             @endif
