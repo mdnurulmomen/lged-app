@@ -179,6 +179,8 @@
                     } else {
                         toastr.success(response.data)
                         $('#kt_quick_panel_close').click();
+                        memo_type = $('#memo_type').val();
+                        $('#memo_type').val(memo_type).trigger('change');
 
                     }
                 }

@@ -4,7 +4,7 @@
     <div class="col-xl-12 text-right">
         <a class="btn btn-primary btn-sm btn-bold btn-square" href="javascript:;"
            onclick="Archive_Apotti_Report_Container.load_apotti_repot_upload()">
-            <i class="far fa-plus mr-1"></i> আপত্তি রিপোর্ট আপলোড করুন
+            <i class="far fa-plus mr-1"></i> অডিট রিপোর্ট আপলোড করুন
         </a>
     </div>
 </div>
@@ -135,6 +135,7 @@
         },
 
         store_report_apotti: function (){
+            alert(1);
             let url = '{{route('audit.execution.archive-apotti-report.apotti-store')}}';
             data = $('#apotti_create_form').serializeArray();
             //data = new FormData(document.getElementById("apotti_create_form"));

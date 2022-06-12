@@ -9,7 +9,7 @@
                     } else {
                         $('#ministry_id').html(response);
                         if (ministry_id != ""){
-                            $("#ministry_id").val(ministry_id).trigger('change');
+                            $("#ministry_id").val(ministry_id);
                         }
                     }
                 }
@@ -25,7 +25,7 @@
                     } else {
                         $('#entity_id').html(response);
                         if (entity_id != ""){
-                            $("#entity_id").val(entity_id).trigger('change');
+                            $("#entity_id").val(entity_id);
                         }
                     }
                 }
@@ -41,7 +41,7 @@
                     } else {
                         $('#unit_group_office_id').html(response);
                         if (parent_office_id != ""){
-                            $("#unit_group_office_id").val(parent_office_id).trigger('change');
+                            $("#unit_group_office_id").val(parent_office_id);
                         }
                     }
                 }
@@ -57,7 +57,7 @@
                     } else {
                         $('#cost_center_id').html(response);
                         if (cost_center_id != ""){
-                            $("#cost_center_id").val(cost_center_id).trigger('change');
+                            $("#cost_center_id").val(cost_center_id);
                         }
                     }
                 }

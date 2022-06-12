@@ -485,6 +485,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('report-sync', [AuditExecutionArchiveApottiReportController::class, 'reportSync'])->name('report-sync');
             Route::post('report-details', [AuditExecutionArchiveApottiReportController::class, 'reportDetails'])->name('report-details');
             Route::post('report-apotti-delete', [AuditExecutionArchiveApottiReportController::class, 'reportApottiDelete'])->name('report-apotti-delete');
+            Route::post('report-apotti-edit-form', [AuditExecutionArchiveApottiReportController::class, 'reportApottiEditForm'])->name('report-apotti-edit-form');
         });
     });
 

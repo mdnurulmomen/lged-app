@@ -70,7 +70,7 @@
                                     <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-icon-primary list-btn-toggle"
                                             title="হালনাগাদ করুন"
                                             data-apotti-id="{{$apotti['id']}}"
-                                            onclick="Report_Apottis.loadApottiEditForm($(this))">
+                                            onclick="Report_Apottis.loadArchiveApottiEditForm($(this))">
                                         <i class="fad fa-edit"></i>
                                     </button>
                                     <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-icon-danger list-btn-toggle"
@@ -144,11 +144,32 @@
                             toastr.error(response.data);
                         } else {
                             $('#apotti_'+apotti_id).remove();
+                            toastr.success(response.data);
                         }
                     });
                 }
             });
 
+        },
+
+        loadArchiveApottiEditForm: function (elem) {
+            apotti_id = elem.data('apotti-id');
+            let url = '{{route('audit.execution.archive-apotti-report.report-apotti-edit-form')}}';
+            let data = {apotti_id};
+
+            KTApp.block('#kt_content', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_content');
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $('#kt_content').html(response);
+                }
+            });
         },
     }
 </script>

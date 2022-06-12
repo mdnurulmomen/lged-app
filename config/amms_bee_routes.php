@@ -330,6 +330,7 @@ return [
             'store_report_apotti' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/store-report-apotti',
             'report_sync' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/report-sync',
             'report_apotti_delete' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/report-apotti-delete',
+            'get_arc_report_apotti_info' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/get-arc-report-apotti-info',
         ],
     ],
 

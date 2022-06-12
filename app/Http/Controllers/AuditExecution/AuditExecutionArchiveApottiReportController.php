@@ -169,6 +169,7 @@ class AuditExecutionArchiveApottiReportController extends Controller
         $data = Validator::make(
             $request->all(),
             [
+                'id' => 'nullable',
                 'report_id' => 'required',
                 'jorito_ortho_poriman' => 'required',
                 'audit_report_name' => 'required',
@@ -247,11 +248,26 @@ class AuditExecutionArchiveApottiReportController extends Controller
     public function reportApottiDelete(Request $request){
         $data['apotti_id'] = $request->apotti_id;
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti_report.report_apotti_delete'), $data)->json();
-        dd($response);
         if ($response['status'] == 'success') {
             return response()->json(['status' => 'success', 'data' => $response['data']]);
         } else {
             return response()->json(['status' => 'error', 'data' => $response]);
         }
+    }
+
+    public function reportApottiEditForm(Request $request){
+        $data['apotti_id'] = $request->apotti_id;
+        $all_directorates = $this->allAuditDirectorates();
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
+        $apotti_details = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti_report.get_arc_report_apotti_info'), $data)->json();
+//        dd($apotti_details);
+        $apotti_details = isSuccess($apotti_details) ? $apotti_details['data'] : [];
+        return view(
+            'modules.audit_execution.audit_execution_archive_apotti_report.edit_apotti',
+            compact('directorates','apotti_details')
+        );
     }
 }

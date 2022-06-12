@@ -186,7 +186,7 @@
             );
         },
 
-        loadMinistryWiseEntity: function (ministry_id) {
+        loadMinistryWiseEntity: function (ministry_id,entity_id='') {
             let url = '{{route('audit.execution.archive-apotti.load-ministry-wise-entity')}}';
             let data = {ministry_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
@@ -194,6 +194,9 @@
                         toastr.warning(response.data);
                     } else {
                         $('#entity_id').html(response);
+                        if (entity_id != ""){
+                            $("#entity_id").val(entity_id).trigger('change');
+                        }
                     }
                 }
             );
