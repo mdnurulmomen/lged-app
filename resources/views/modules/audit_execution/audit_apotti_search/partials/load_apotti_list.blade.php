@@ -64,6 +64,9 @@
 
 <table class="table table-bordered" width="100%">
     <thead class="thead-light">
+    {{--<tr>
+        <td colspan="8" class="text-left">মোট আপত্তিঃ {{enTobn(count($apotti_list['data']))}}</td>
+    </tr>--}}
     <tr class="bg-hover-warning">
         <th width="7%">আইডি</th>
         <th width="20%">নিরীক্ষিত প্রতিষ্ঠান</th>

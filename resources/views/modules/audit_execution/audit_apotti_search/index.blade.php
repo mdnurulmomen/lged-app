@@ -38,9 +38,9 @@
             <div class="col-md-4">
                 <label for="fiscal_year_id" class="col-form-label">আপত্তির অর্থবছর</label>
                 <select class="form-select select-select2" id="fiscal_year_id">
+                    <option value="">সবগুলো</option>
                     @foreach($fiscal_years as $fiscal_year)
-                        <option
-                            value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{enTobn($fiscal_year['description'])}}</option>
+                        <option value="{{$fiscal_year['id']}}">{{enTobn($fiscal_year['description'])}}</option>
                     @endforeach
                 </select>
             </div>
