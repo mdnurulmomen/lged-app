@@ -154,7 +154,7 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-md-end">
-                                                <div class="mb-2 mt-3 soongukto-wrapper">
+                                                <div class="mb-5 mt-3 soongukto-wrapper">
                                                     <div class="d-flex justify-content-end align-items-center">
                                                         <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($annual_plan['created_at'],'bn')}}</div>
                                                     </div>
@@ -197,7 +197,7 @@
                                                     <i class="fad fa-eye"></i> বিস্তারিত
                                                 </button>
 
-                                                @if(!count($annual_plan['audit_plans']))
+                                                @if(count($annual_plan['audit_plans']) == 0)
                                                     <button class="mr-3 btn btn-sm btn-warning btn-square" title="নতুন অডিট প্ল্যান করুন"
                                                             data-annual-plan-id="{{$annual_plan['id']}}"
                                                             data-activity-id="{{$annual_plan['activity_id']}}"
