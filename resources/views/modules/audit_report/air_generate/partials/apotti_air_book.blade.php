@@ -835,6 +835,7 @@
         {{-- part one cover page --}}
         <sethtmlpagefooter name="even-footer" value="on" />
         <sethtmlpagefooter name="odd-footer" value="on" />
+
         <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
             <p>&nbsp;</p>
             <p>&nbsp;</p>
@@ -856,14 +857,21 @@
             <div style="margin-top: 10px">{!! $auditReport[6]['content'] !!}</div>
             <div style="margin-top: 10px">{!! $auditReport[7]['content'] !!}</div>
             <div style="margin-top: 10px">{!! $auditReport[8]['content'] !!}</div>
-            <div style="margin-top: 10px">{!! $auditReport[9]['content'] !!}</div>
+        </div>
+
+        <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+            <div>{!! $auditReport[9]['content'] !!}</div>
             <div style="margin-top: 10px">{!! $auditReport[10]['content'] !!}</div>
         </div>
+
         <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
             <div>{!! $auditReport[11]['content'] !!}</div>
             <div style="margin-top: 10px">{!! $auditReport[12]['content'] !!}</div>
             <div style="margin-top: 10px">{!! $auditReport[13]['content'] !!}</div>
-            <div style="margin-top: 10px">{!! $auditReport[14]['content'] !!}</div>
+        </div>
+
+        <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+            <div>{!! $auditReport[14]['content'] !!}</div>
             <div style="margin-top: 10px">{!! $auditReport[15]['content'] !!}</div>
             <div style="margin-top: 10px">{!! $auditReport[16]['content'] !!}</div>
             <div style="margin-top: 10px">{!! $auditReport[17]['content'] !!}</div>

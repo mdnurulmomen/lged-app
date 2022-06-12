@@ -841,21 +841,28 @@
     </div>
 
     {{--part one details page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         <div>{!! $auditReport[4]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[5]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[6]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[7]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[8]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[9]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[10]['content'] !!}</div>
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        <div>{!! $auditReport[10]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[11]['content'] !!}</div>
     </div>
-    <div class="pdf-screen bangla-font" style="height: 100%;">
+
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         <div>{!! $auditReport[12]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[13]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[14]['content'] !!}</div>
-        <div style="margin-top: 10px">{!! $auditReport[15]['content'] !!}</div>
+    </div>
+
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        <div>{!! $auditReport[15]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[16]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[17]['content'] !!}</div>
         <div style="margin-top: 10px">{!! $auditReport[18]['content'] !!}</div>
@@ -906,6 +913,7 @@
 
     {{--porishitoh details page--}}
     <div class="pdf-screen bangla-font">
+       {{-- @php $totalPorisisto = count($porisistos); @endphp--}}
         @foreach($porisistos as $porishisto)
             <div style="height: 100%;page-break-after: always;">
                 <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 5px">
