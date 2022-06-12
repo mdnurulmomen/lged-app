@@ -92,7 +92,7 @@
             <td class="text-right">
                 <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
             </td>
-            <td class="text-left">{{enTobn($apotti['fiscal_year']['start'])}}-{{enTobn($apotti['fiscal_year']['end'])}}</td>
+            <td class="text-left">{{$apotti['fiscal_year']?enTobn($apotti['fiscal_year']['start']).'-'.enTobn($apotti['fiscal_year']['end']):'---'}}</td>
             <td class="text-left">
                 @if($apotti['apotti_type'] == 'sfi')
                     এসএফআই
