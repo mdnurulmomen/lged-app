@@ -1215,8 +1215,9 @@
             if (!$.isEmptyObject(schedule_data)) {
                 schedule = {"schedule": schedule_data}
                 team_schedules = JSON.stringify(schedule);
+                annual_plan_id = '{{$annual_plan_id}}';
                 audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id') ? $('.draft_entity_audit_plan').data('audit-plan-id') : 0;
-                data = {team_schedules, audit_plan_id};
+                data = {team_schedules, audit_plan_id,annual_plan_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'success') {
                         toastr.success(response.data);

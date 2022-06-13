@@ -279,7 +279,7 @@ class RevisedPlanController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team'), $data)->json();
-
+//        dd($responseData);
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
         } else {
@@ -323,10 +323,15 @@ class RevisedPlanController extends Controller
     {
         $data = Validator::make($request->all(), [
             'audit_plan_id' => 'integer',
+            'annual_plan_id' => 'integer',
             'team_schedules' => 'required|json',
         ])->validate();
+
+//        dd($data);
+
         $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team_schedule'), $data)->json();
+//        dd($responseData);
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
         } else {
@@ -337,6 +342,7 @@ class RevisedPlanController extends Controller
     public function updateAuditTeamSchedule(Request $request)
     {
         $data = Validator::make($request->all(), [
+            'annual_plan_id' => 'required|integer',
             'audit_plan_id' => 'required|integer',
             'team_schedules' => 'required|json',
         ])->validate();

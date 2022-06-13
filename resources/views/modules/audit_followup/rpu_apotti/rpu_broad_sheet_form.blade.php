@@ -1,4 +1,5 @@
-<form id="broad_sheet_form" enctype="multipart/form-data">
+
+<form class="pb-15" id="broad_sheet_form" enctype="multipart/form-data">
     <div class="row">
         <input type="hidden" value="{{implode(',',$apottis)}}" name="apottis">
         <div class="col-md-6">
@@ -42,9 +43,9 @@
         </div>
     </div>
 
-    <div class="mr-3 row">
-        <div class="col-md-2">
-            <a  class="btn btn-primary btn-sm btn-bold btn-square broad_sheet_submit"
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <a  class="btn btn-primary btn-sm btn-bold btn-square broad_sheet_submit float-right"
                href="javascript:;">
                 <i class="far fa-save mr-1"></i> {{___('generic.save')}}
             </a>

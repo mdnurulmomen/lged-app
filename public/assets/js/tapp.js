@@ -262,6 +262,13 @@ $(document).off('focus').on('focus', '.date-range-picker', function () {
     });
 });
 
+$(document).off('focus').on('focus', '.year-range-picker', function () {
+    $(this).daterangepicker({
+        changeYear:true,
+        yearRange: "2005:2015"
+    });
+});
+
 
 function calcWorkingDays(fromDate, toDate) { // input given as Date objects
     dDate1 = new Date(fromDate);
