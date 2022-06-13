@@ -820,9 +820,9 @@
     </htmlpagefooter>
 
     {{--forwarding paper page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    {{--<div class="pdf-screen bangla-font" style="height: 100%">
         {!! $auditReport[0]['content'] !!}
-    </div>
+    </div>--}}
 
     {{--cover page--}}
     <div class="pdf-screen bangla-font" style="height: 100%">
