@@ -149,9 +149,12 @@
                 state: 'primary' // a bootstrap color
             });
             let approved_status = '{{$approved_status}}';
+            let report_type = '{{$report_type}}';
             if (approved_status != 'approved') {
                 $(".update-qac-air-report").click();
-                QAC_AIR_Report_Container.setAIRContentWiseData();
+                if (report_type == 'cloned'){
+                    QAC_AIR_Report_Container.setAIRContentWiseData();
+                }
                 QAC_AIR_Report_Container.setAuditTeam();
                 QAC_AIR_Report_Container.setAuditApottiSummary('sfi');
                 QAC_AIR_Report_Container.setAuditApottiSummary('non-sfi');

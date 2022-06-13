@@ -158,7 +158,7 @@ class AuditQACAIRReportController extends Controller
                 if ($report_type != 'cloned'){
                     $parent_air_id = $request->parent_air_id;
                     return view('modules.audit_quality_control.qac_01.create',
-                        compact('fiscal_year_id','activity_id','audit_plan_id',
+                        compact('report_type','fiscal_year_id','activity_id','audit_plan_id',
                             'annual_plan_id','auditType','directorate_name','directorate_address',
                             'content','audit_plan_entities','air_report_id','approved_status',
                             'latest_receiver_designation_id','current_designation_id',
@@ -174,7 +174,7 @@ class AuditQACAIRReportController extends Controller
                     if (isSuccess($responseReportTemplateData)) {
                         $content = $responseReportTemplateData['data']['content'];
                         return view('modules.audit_quality_control.qac_01.create',
-                            compact('fiscal_year_id','activity_id','audit_plan_id',
+                            compact('report_type','fiscal_year_id','activity_id','audit_plan_id',
                                 'annual_plan_id','auditType','directorate_name','directorate_address',
                                 'content','audit_plan_entities','air_report_id','approved_status',
                                 'latest_receiver_designation_id','current_designation_id',
