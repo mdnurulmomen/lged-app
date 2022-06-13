@@ -135,7 +135,6 @@
         },
 
         store_report_apotti: function (){
-            alert(1);
             let url = '{{route('audit.execution.archive-apotti-report.apotti-store')}}';
             data = $('#apotti_create_form').serializeArray();
             //data = new FormData(document.getElementById("apotti_create_form"));
@@ -154,6 +153,13 @@
 
             cost_center_name = $("#cost_center_id option:selected").text();
             data.push({name: "cost_center_name", value: cost_center_name});
+
+            year_form = $("#year_from").val();
+            year_to = $("#year_to").val();
+
+            nirikkhito_ortho_bosor = year_form +' - '+ year_to;
+
+            data.push({name: "nirikkhito_ortho_bosor", value: nirikkhito_ortho_bosor});
 
             $(".store-apotti-report").text('Loading....');
 

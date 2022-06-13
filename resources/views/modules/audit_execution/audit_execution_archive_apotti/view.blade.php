@@ -43,7 +43,7 @@
                                 </tr>
                                 <tr>
                                     <th>নিরীক্ষা বছর</th>
-                                    <td>{{$apotti['nirikkhar_shal']}}</td>
+                                    <td>{{enTobn($apotti['nirikkhar_shal'])}}</td>
                                 </tr>
                                 <tr>
                                     <th>নিরীক্ষার ধরন</th>
@@ -58,7 +58,7 @@
                                 <tbody>
                                 <tr>
                                     <th style="width:180px!important">অনুচ্ছেদ নং</th>
-                                    <td>{{$apotti['onucched_no']}}</td>
+                                    <td>{{enTobn($apotti['onucched_no'])}}</td>
                                 </tr>
                                 <tr>
                                     <th>আপত্তির শিরোনাম</th>

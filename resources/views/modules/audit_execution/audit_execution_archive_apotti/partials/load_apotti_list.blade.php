@@ -21,8 +21,8 @@
         <tr>
             <td class="text-center">{{enTobn($loop->iteration)}}</td>
             <td class="text-left">{{enTobn($apotti['id'])}}</td>
-            <td class="text-left">{{$apotti['file_token_no']}}</td>
-            <td class="text-left">{{$apotti['onucched_no']}}</td>
+            <td class="text-left">{{enTobn($apotti['file_token_no'])}}</td>
+            <td class="text-left">{{enTobn($apotti['onucched_no'])}}</td>
             <td class="text-left">{{$apotti['apotti_title']}}</td>
             <td class="text-left">
                 {{empty($apotti['oniyomer_category'])?'':$apotti['oniyomer_category']['name_bn']}}
@@ -34,7 +34,7 @@
 
             <td class="text-left">{{$apotti['cost_center_name_bn']}}</td>
             <td class="text-left">{{$apotti['nirikkha_dhoron']}}</td>
-            <td class="text-left">{{$apotti['apotti_year']}}</td>
+            <td class="text-left">{{enTobn($apotti['apotti_year'])}}</td>
             <td class="text-left">{{$apotti['apottir_dhoron']}}</td>
 
             <td>

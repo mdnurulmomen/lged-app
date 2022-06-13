@@ -57,7 +57,10 @@
 
                 <div class="col-md-3">
                     <label for="nirikkhito_ortho_bosor" class="col-form-label">নিরীক্ষিত অর্থ-বছর</label>
-                    <input class="form-control" id="nirikkhito_ortho_bosor" name="nirikkhito_ortho_bosor" type="text" autocomplete="off">
+                    <div class="input-group">
+                        <input class="form-control year-picker" id="year_from"  placeholder="শুরু" type="text">
+                        <input class="form-control year-picker" id="year_to"  placeholder="শেষ" type="text">
+                    </div>
                 </div>
 
                 <div class="col-md-3">
