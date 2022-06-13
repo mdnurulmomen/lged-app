@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <label for="jorito_ortho_poriman" class="col-form-label">জড়িত অর্থ (টাকা)</label>
-                    <input class="form-control" id="jorito_ortho_poriman" name="jorito_ortho_poriman" type="text">
+                    <input class="form-control bijoy-bangla integer_type_positive" id="jorito_ortho_poriman" name="jorito_ortho_poriman" type="text">
                 </div>
             </div>
 

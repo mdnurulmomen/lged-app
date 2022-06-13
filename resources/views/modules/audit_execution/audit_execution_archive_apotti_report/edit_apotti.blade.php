@@ -142,7 +142,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <label for="onucched_no" class="col-form-label">অনুচ্ছেদ নং</label>
-                    <input class="form-control" id="onucched_no" value="{{$apotti_details['onucched_no']}}" name="onucched_no" type="text">
+                    <input class="form-control integer_type_positive bijoy-bangla" id="onucched_no" value="{{$apotti_details['onucched_no']}}" name="onucched_no" type="text">
                 </div>
                 <div class="col-md-9">
                     <label for="apotti_title" class="col-form-label">আপত্তির শিরোনাম</label>

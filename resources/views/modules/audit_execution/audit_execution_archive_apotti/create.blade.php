@@ -133,14 +133,14 @@
 
                 <div class="col-md-2">
                     <label for="jorito_ortho_poriman" class="col-form-label">জড়িত অর্থ (টাকা)</label>
-                    <input class="form-control" id="jorito_ortho_poriman" name="jorito_ortho_poriman" type="text">
+                    <input class="form-control bijoy-bangla integer_type_positive" id="jorito_ortho_poriman" name="jorito_ortho_poriman" type="text">
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-2">
                     <label for="file_no" class="col-form-label">ফাইল নং</label>
-                    <input class="form-control" id="file_no" name="file_no" type="text">
+                    <input class="form-control bijoy-bangla" id="file_no" name="file_no" type="text">
                 </div>
             </div>
 
