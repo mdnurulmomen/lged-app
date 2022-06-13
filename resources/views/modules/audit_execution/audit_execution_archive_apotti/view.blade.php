@@ -1,24 +1,22 @@
-<form class="mb-4" id="apotti_create_form" enctype="multipart/form-data" autocomplete="off">
-    <div class="card sna-card-border">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="d-flex justify-content-start">
-                    <h5 class="mt-5"></h5>
-                </div>
+<div class="card sna-card-border">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="d-flex justify-content-start">
+                <h5 class="mt-5"></h5>
             </div>
-            <div class="col-md-4">
-                <div class="d-flex justify-content-end">
-                    <a
-                        onclick=""
-                        class="btn btn-sm btn-warning btn_back btn-square mr-3">
-                        <i class="fad fa-arrow-alt-left"></i> {{___('generic.back')}}
-                    </a>
-                </div>
+        </div>
+        <div class="col-md-4">
+            <div class="d-flex justify-content-end">
+                <a
+                    onclick=""
+                    class="btn btn-sm btn-warning btn_back btn-square mr-3">
+                    <i class="fad fa-arrow-alt-left"></i> {{___('generic.back')}}
+                </a>
             </div>
         </div>
     </div>
-
-    <div class="mt-4 mb-15">
+</div>
+<div class="mt-4 mb-15">
         <div class="row">
             <div class="col-md-12">
                 <div class="card sna-card-border mt-3 mb-15">
@@ -173,7 +171,6 @@
             </div>
         </div>
     </div>
-</form>
 
 <!-- Modal -->
 <div class="modal fade" id="showImageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -203,5 +200,13 @@
         $("#showImageModal").find('.modal-title').html('Image');
         $("#showImageModal").find('.modal-body img').attr('src', imageSrc);
         $("#showImageModal").modal('show');
+    }
+
+    $('.btn_back').click(function (){
+        backToList()
+    })
+
+    function backToList(){
+        $('.apotti-upload a').click();
     }
 </script>

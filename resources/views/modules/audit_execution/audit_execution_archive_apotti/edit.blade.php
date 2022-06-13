@@ -29,7 +29,7 @@
                     <div class="row">
                         @foreach($apotti['attachments'] as $attachment)
                             <div class="col-md-2">
-                                <img style="cursor: pointer" class="coverImage" src="{{$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
                                      onclick="showImageOnModal(this)" width="60"/>
                             </div>
                         @endforeach
@@ -66,12 +66,23 @@
             </div>
             <div class="col-md-4">
                 <div class="card sna-card-border mt-3 mb-15">
-                    <input class="form-control" id="onucched_no" name="onucched_no" type="text"
+                    <div class="input-group">
+                        <input type="hidden" name="id" value="{{$apotti['id']}}">
+                        <div class="input-group-prepend"><span
+                                class="input-group-text">অনুচ্ছেদ নং</span>
+                        </div>
+                        <input class="form-control bijoy-bangla" id="onucched_no" name="onucched_no" type="text"
                            value="{{$apotti['onucched_no']}}">
+                        <div class="input-group-prepend"><span
+                                class="input-group-text">ফাইল নং</span>
+                        </div>
+                        <input class="form-control bijoy-bangla" id="file_no" name="file_no" type="text"
+                               value="{{$apotti['file_token_no']}}">
+                    </div>
 
                     <textarea class="form-control" name="apotti_title" cols="30" rows="2">{{$apotti['apotti_title']}}</textarea>
 
-                    <input style="float: right" class="form-control" id="jorito_ortho_poriman" name="jorito_ortho_poriman" type="text"
+                    <input style="float: right" class="form-control bijoy-bangla" id="jorito_ortho_poriman" name="jorito_ortho_poriman" type="text"
                            value="{{$apotti['jorito_ortho_poriman']}}">
 
                     <select class="form-select select-select2" id="directorate_id" name="directorate_id">
@@ -165,24 +176,57 @@
 
         //minitsry
         ministry_id = '{{$apotti['ministry_id']}}';
-        Archive_Apotti_Container.loadDirectorateWiseMinistry(directorate_id,ministry_id);
+        Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id,ministry_id);
 
         //entity
         entity_id = '{{$apotti['entity_info_id']}}';
-        Archive_Apotti_Container.loadMinistryWiseEntity(ministry_id,entity_id);
+        Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id,entity_id);
 
         //unit group
         parent_office_id = '{{$apotti['parent_office_id']}}';
-        Archive_Apotti_Container.loadEntityWiseUnitGroupOffice(entity_id,parent_office_id);
+        Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id,parent_office_id);
 
         //cost center
         cost_center_id = '{{$apotti['cost_center_id']}}';
-        Archive_Apotti_Container.loadEntityOrUnitGroupWiseCostCenter(parent_office_id,cost_center_id);
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(parent_office_id,cost_center_id);
 
         apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
         apotti_oniyomer_category_child_id = '{{$apotti['apotti_sub_category_id']}}';
-        Archive_Apotti_Container.loadOniyomerSubCategory(directorate_id,apotti_oniyomer_category_id,apotti_oniyomer_category_child_id);
+        Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id,apotti_oniyomer_category_id,apotti_oniyomer_category_child_id);
     });
+
+    //ministry
+    $('#directorate_id').change(function () {
+        directorate_id = $('#directorate_id').val();
+        Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
+    });
+
+    //entity
+    $('#ministry_id').change(function () {
+        ministry_id = $('#ministry_id').val();
+        Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id);
+    });
+
+    //unit group & cost center
+    $('#entity_id').change(function () {
+        entity_id = $('#entity_id').val();
+        Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id);
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(entity_id);
+    });
+
+    //cost center
+    $('#unit_group_office_id').change(function () {
+        unit_group_office_id = $('#unit_group_office_id').val();
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(unit_group_office_id);
+    });
+
+    $('.btn_back').click(function (){
+        backToList()
+    })
+
+    function backToList(){
+        $('.apotti-validate a').click();
+    }
 
 
     //for submit form
@@ -208,7 +252,7 @@
 
             $.ajax({
                 data: from_data,
-                url: '{{route('audit.execution.archive-apotti.update')}}',
+                url: '{{route('audit.execution.archive-apotti.store')}}',
                 type: "POST",
                 dataType: 'json',
                 contentType: false,

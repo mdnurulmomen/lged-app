@@ -205,6 +205,7 @@ class AuditExecutionArchiveApottiController extends Controller
         Validator::make(
             $request->all(),
             [
+                'id' => 'nullable',
                 'directorate_id' => 'required',
                 'ministry_id' => 'required',
                 'entity_id' => 'required',
@@ -237,6 +238,7 @@ class AuditExecutionArchiveApottiController extends Controller
         )->validate();
 
         $data = [
+            ['name' => 'id', 'contents' => $request->id],
             ['name' => 'directorate_id', 'contents' => $request->directorate_id],
             ['name' => 'ministry_id', 'contents' => $request->ministry_id],
             ['name' => 'ministry_name', 'contents' => $request->ministry_name],
@@ -248,13 +250,13 @@ class AuditExecutionArchiveApottiController extends Controller
             ['name' => 'cost_center_name_bn', 'contents' => $request->cost_center_name_bn],
             ['name' => 'apotti_oniyomer_category_id', 'contents' => $request->apotti_oniyomer_category_id],
             ['name' => 'apotti_oniyomer_category_child_id', 'contents' => $request->apotti_oniyomer_category_child_id],
-            ['name' => 'onucched_no', 'contents' => $request->onucched_no],
-            ['name' => 'audit_year_start', 'contents' => $request->audit_year_start],
-            ['name' => 'audit_year_end', 'contents' => $request->audit_year_end],
+            ['name' => 'onucched_no', 'contents' => bnToen($request->onucched_no)],
+            ['name' => 'audit_year_start', 'contents' => bnToen($request->audit_year_start)],
+            ['name' => 'audit_year_end', 'contents' => bnToen($request->audit_year_end)],
             ['name' => 'nirikkha_dhoron', 'contents' => $request->nirikkha_dhoron],
             ['name' => 'apottir_dhoron', 'contents' => $request->apottir_dhoron],
-            ['name' => 'jorito_ortho_poriman', 'contents' => $request->jorito_ortho_poriman],
-            ['name' => 'file_no', 'contents' => $request->file_no],
+            ['name' => 'jorito_ortho_poriman', 'contents' => bnToen($request->jorito_ortho_poriman)],
+            ['name' => 'file_no', 'contents' => bnToen($request->file_no)],
             ['name' => 'apotti_title', 'contents' => $request->apotti_title],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
@@ -476,6 +478,8 @@ class AuditExecutionArchiveApottiController extends Controller
             $data
         );
 
+        dd($response);
+
         return json_decode($response->getBody(), true);
     }
 
@@ -493,6 +497,7 @@ class AuditExecutionArchiveApottiController extends Controller
         //apotii edit
         $apotti_data['apotti_id'] = $request->apotti_id;
         $apottiResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.edit'), $apotti_data)->json();
+//        dd($apottiResponseData);
         $apotti = isSuccess($apottiResponseData) ? $apottiResponseData['data'] : [];
         //dd($apotti);
         return view(

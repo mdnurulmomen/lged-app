@@ -303,7 +303,7 @@
                     KTApp.unblock('#kt_content');
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
-                        $('.btn_back').click();
+                        $('.apotti-upload a').click();
                     } else {
                         elem.prop('disabled', false);
                         if (responseData.statusCode === '422') {
