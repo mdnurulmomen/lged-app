@@ -874,7 +874,7 @@
     </div>
 
     {{--part two (one) cover page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $auditReport[24]['content'] !!}
     </div>

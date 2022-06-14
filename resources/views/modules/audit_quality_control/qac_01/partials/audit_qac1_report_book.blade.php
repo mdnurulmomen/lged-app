@@ -874,7 +874,7 @@
     </div>
 
     {{--part two (one) cover page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $auditReport[24]['content'] !!}
     </div>
@@ -915,7 +915,7 @@
     <div class="pdf-screen bangla-font">
        {{-- @php $totalPorisisto = count($porisistos); @endphp--}}
         @foreach($porisistos as $porishisto)
-            <div style="height: 100%;page-break-after: always;">
+            <div style="{{$loop->last?'':'page-break-after: always;'}}">
                 <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 5px">
                     {!! $porishisto !!}
                 </div>

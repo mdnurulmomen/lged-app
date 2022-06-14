@@ -33,6 +33,7 @@ class AuditExecutionApottiSearchController extends Controller
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['apotti_type'] = $request->apotti_type;
         $data['total_jorito_ortho_poriman'] = $request->total_jorito_ortho_poriman;
+        $data['file_token_no'] = $request->file_token_no;
         $data['page'] = $request->page;
         $data['per_page'] = $request->per_page;
 

@@ -5,7 +5,7 @@
         <div class="row mt-2">
             <div class="col-md-3">
                 <label for="directorate_id" class="col-form-label">অডিট ডিরেক্টরেট সমূহ</label>
-                <select class="form-select select-select2" id="directorate_id" name="directorate_id">
+                <select class="form-select select-select2" id="directorate_id">
                     @foreach ($directorates as $directorate)
                         <option value="{{ $directorate['office_id'] }}">{{ $directorate['office_name_bn'] }}
                         </option>
@@ -15,21 +15,21 @@
 
             <div class="col-md-3">
                 <label for="ministry_id" class="col-form-label">মন্ত্রণালয়/বিভাগ</label>
-                <select class="form-select select-select2" id="ministry_id" name="ministry_id">
+                <select class="form-select select-select2" id="ministry_id">
                     <option value="">সবগুলো</option>
                 </select>
             </div>
 
             <div class="col-md-3">
                 <label for="entity_id" class="col-form-label">এনটিটি</label>
-                <select class="form-select select-select2" id="entity_id" name="entity_id">
+                <select class="form-select select-select2" id="entity_id">
                     <option value="">সবগুলো</option>
                 </select>
             </div>
 
             <div class="col-md-3">
-                <label for="onucched_no" class="col-form-label">অনুচ্ছেদ নং</label>
-                <input class="form-control" id="onucched_no" name="onucched_no" type="text">
+                <label for="file_token_no" class="col-form-label">ফাইল নং</label>
+                <input class="form-control" id="file_token_no" type="text">
             </div>
         </div>
 
@@ -47,7 +47,7 @@
 
             <div class="col-md-3">
                 <label for="apotti_type" class="col-form-label">আপত্তির ধরন</label>
-                <select class="form-control select-select2" id="apotti_type" name="apotti_type">
+                <select class="form-control select-select2" id="apotti_type">
                     <option selected="selected" value="">আপত্তির ধরন</option>
                     <option value="sfi">এসএফআই</option>
                     <option value="non-sfi">নন-এসএফআই</option>
@@ -56,7 +56,12 @@
 
             <div class="col-md-2">
                 <label for="total_jorito_ortho_poriman" class="col-form-label">জড়িত অর্থ (টাকা)</label>
-                <input class="form-control" id="total_jorito_ortho_poriman" name="total_jorito_ortho_poriman" type="text">
+                <input class="form-control" id="total_jorito_ortho_poriman" type="text">
+            </div>
+
+            <div class="col-md-3">
+                <label for="onucched_no" class="col-form-label">অনুচ্ছেদ নং</label>
+                <input class="form-control" id="onucched_no" type="text">
             </div>
         </div>
 
@@ -76,7 +81,7 @@
     <div id="load_apotti_list"></div>
 </div>
 
-@include('modules.audit_execution.audit_execution_archive_apotti.scripts.archive_scripts');
+@include('modules.audit_execution.audit_execution_archive_apotti.scripts.archive_scripts')
 
 <script>
     $(function() {
@@ -94,6 +99,7 @@
             fiscal_year_id = $("#fiscal_year_id").val();
             apotti_type = $("#apotti_type").val();
             total_jorito_ortho_poriman = $("#total_jorito_ortho_poriman").val();
+            file_token_no = $("#file_token_no").val();
             let url = '{{ route('audit.execution.apotti.search-list') }}';
             let data = {
                 directorate_id,
@@ -103,6 +109,7 @@
                 fiscal_year_id,
                 apotti_type,
                 total_jorito_ortho_poriman,
+                file_token_no,
                 page,
                 per_page
             };

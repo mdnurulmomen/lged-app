@@ -70,9 +70,9 @@
     <tr class="bg-hover-warning">
         <th class="text-center" width="5%">ক্রম</th>
         <th class="text-center" width="5%">আইডি</th>
-        <th class="text-center" width="5%">ফাইল নং</th>
+        <th class="text-center" width="10%">ফাইল নং</th>
         <th class="text-center" width="5%">অনুচ্ছেদ নং</th>
-        <th class="text-center" width="25%">আপত্তির শিরোনাম</th>
+        <th class="text-center" width="20%">আপত্তির শিরোনাম</th>
         <th class="text-center" width="10%">জড়িত অর্থ (টাকা)</th>
         <th class="text-center" width="20%">নিরীক্ষিত প্রতিষ্ঠান</th>
         <th class="text-center" width="10%">অর্থবছর</th>
@@ -100,12 +100,12 @@
             <td class="text-left">
                 @if($apotti['apotti_type'] == 'sfi')
                     এসএফআই
-                @elseif($apotti['apotti_type'] == 'sfi')
+                @elseif($apotti['apotti_type'] == 'non-sfi')
                     নন-এসএফআই
                 @endif
             </td>
             <td>
-                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-icon-primary list-btn-toggle"
+                <button class="tap-button mr-1 btn btn-sm btn-outline-primary btn-square"
                         title="বিস্তারিত দেখুন"
                         data-apotti-id="{{$apotti['id']}}"
                         onclick="Archive_Apotti_Container.showApotti($(this))">
