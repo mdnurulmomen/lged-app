@@ -84,7 +84,7 @@
                         @foreach($apotii_item['apotti_attachment'] as $attachment)
                             @if($attachment['attachment_type'] == 'main')
                                 <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                    <img style="cursor: pointer" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
                                          onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 </div>
                             @endif
@@ -105,7 +105,7 @@
                         @foreach($apotii_item['apotti_attachment'] as $attachment)
                             @if ($attachment['attachment_type'] == 'porisishto')
                                 <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                    <img style="cursor: pointer" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
                                          onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 </div>
                            @endif
@@ -125,7 +125,7 @@
                         @foreach($apotii_item['apotti_attachment'] as $attachment)
                             @if ($attachment['attachment_type'] == 'promanok')
                                 <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                    <img style="cursor: pointer" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
                                          onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 </div>
                             @endif
@@ -145,7 +145,7 @@
                         @foreach($apotii_item['apotti_attachment'] as $attachment)
                             @if ($attachment['attachment_type'] == 'other')
                                 <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                    <img style="cursor: pointer" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
                                          onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 </div>
                             @endif
