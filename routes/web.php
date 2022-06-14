@@ -449,6 +449,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::get('search-page', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiSearchController::class, 'index'])->name('search-page');
             Route::post('search-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiSearchController::class, 'list'])->name('search-list');
+            Route::post('search-view', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiSearchController::class, 'view'])->name('search-view');
         });
 
         //archive apotti

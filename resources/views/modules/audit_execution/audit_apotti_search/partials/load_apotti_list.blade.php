@@ -68,29 +68,33 @@
         <td colspan="8" class="text-left">মোট আপত্তিঃ {{enTobn(count($apotti_list['data']))}}</td>
     </tr>--}}
     <tr class="bg-hover-warning">
-        <th width="7%">আইডি</th>
-        <th width="20%">নিরীক্ষিত প্রতিষ্ঠান</th>
-        <th width="10%">অনুচ্ছেদ নং</th>
-        <th width="15%">আপত্তির শিরোনাম</th>
-        <th width="15%">জড়িত অর্থ (টাকা)</th>
-        <th width="10%">অর্থবছর</th>
-        <th width="13%">আপত্তির ধরন</th>
-        <th width="10%">কার্যক্রম</th>
+        <th class="text-center" width="5%">ক্রম</th>
+        <th class="text-center" width="5%">আইডি</th>
+        <th class="text-center" width="5%">ফাইল নং</th>
+        <th class="text-center" width="5%">অনুচ্ছেদ নং</th>
+        <th class="text-center" width="25%">আপত্তির শিরোনাম</th>
+        <th class="text-center" width="10%">জড়িত অর্থ (টাকা)</th>
+        <th class="text-center" width="20%">নিরীক্ষিত প্রতিষ্ঠান</th>
+        <th class="text-center" width="10%">অর্থবছর</th>
+        <th class="text-center" width="10%">আপত্তির ধরন</th>
+        <th class="text-center" width="5%">কার্যক্রম</th>
     </tr>
     </thead>
 
     <tbody>
     @forelse($apotti_list['data'] as $apotti)
         <tr>
+            <td class="text-center">{{enTobn(($apotti_list['current_page']-1)*10+$loop->iteration)}}</td>
             <td class="text-center">{{enTobn($apotti['id'])}}</td>
-            <td class="text-left">
-                মন্ত্রণালয়/বিভাগঃ {{$apotti['ministry_name_bn']}} <br>
-                এনটিটিঃ {{$apotti['parent_office_name_bn']}}
-            </td>
-            <td class="text-left">{{$apotti['onucched_no']}}</td>
+            <td class="text-left">{{$apotti['file_token_no']}}</td>
+            <td class="text-center">{{enTobn($apotti['onucched_no'])}}</td>
             <td class="text-left">{{$apotti['apotti_title']}}</td>
             <td class="text-right">
                 <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
+            </td>
+            <td class="text-left">
+                মন্ত্রণালয়/বিভাগঃ {{$apotti['ministry_name_bn']}} <br>
+                এনটিটিঃ {{$apotti['parent_office_name_bn']}}
             </td>
             <td class="text-left">{{$apotti['fiscal_year']?enTobn($apotti['fiscal_year']['start']).'-'.enTobn($apotti['fiscal_year']['end']):'---'}}</td>
             <td class="text-left">

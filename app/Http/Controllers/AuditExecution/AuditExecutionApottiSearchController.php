@@ -45,4 +45,14 @@ class AuditExecutionApottiSearchController extends Controller
             return response()->json(['status' => 'error', 'data' => $apotti_list]);
         }
     }
+
+    public function view(Request $request)
+    {
+        $data['directorate_id'] = $request->directorate_id;
+        $data['apotti_id'] = $request->apotti_id;
+        $apottiResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.search-view'), $data)->json();
+        //dd($apottiResponseData);
+        $apotti = isSuccess($apottiResponseData) ? $apottiResponseData['data'] : [];
+        return view('modules.audit_execution.audit_apotti_search.view', compact('apotti'));
+    }
 }
