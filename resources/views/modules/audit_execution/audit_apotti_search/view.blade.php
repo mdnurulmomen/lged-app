@@ -80,15 +80,13 @@
             <div class="card sna-card-border mt-3 mb-15">
                 <h4>আপত্তির মুল সংযুক্তি</h4>
                 <div class="row mt-3">
-                    @foreach($apotti['apotti_items'] as $apotii_item)
-                        @foreach($apotii_item['apotti_attachment'] as $attachment)
-                            @if($attachment['attachment_type'] == 'main')
-                                <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
-                                         onclick="showImageOnModal(this)" width="80%" height="100%"/>
-                                </div>
-                            @endif
-                        @endforeach
+                    @foreach($attachments as $attachment)
+                        @if($attachment['file_type'] == 'main')
+                            <div class="col-md-2">
+                                <img style="cursor: pointer" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
+                                     onclick="showImageOnModal(this)" width="80%" height="100%"/>
+                            </div>
+                        @endif
                     @endforeach
                 </div>
             </div>
@@ -101,15 +99,13 @@
             <div class="card sna-card-border mt-3 mb-15">
                 <h4>আপত্তির পরিশিষ্ট সংযুক্তি</h4>
                 <div class="row mt-3">
-                    @foreach($apotti['apotti_items'] as $apotii_item)
-                        @foreach($apotii_item['apotti_attachment'] as $attachment)
-                            @if ($attachment['attachment_type'] == 'porisishto')
-                                <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
-                                         onclick="showImageOnModal(this)" width="80%" height="100%"/>
-                                </div>
-                           @endif
-                       @endforeach
+                    @foreach($attachments as $attachment)
+                        @if($attachment['file_type'] == 'porisishto')
+                            <div class="col-md-2">
+                                <img style="cursor: pointer" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
+                                     onclick="showImageOnModal(this)" width="80%" height="100%"/>
+                            </div>
+                        @endif
                     @endforeach
                 </div>
             </div>
@@ -121,15 +117,13 @@
             <div class="card sna-card-border mt-3 mb-15">
                 <h4>আপত্তির প্রমানক সংযুক্তি</h4>
                 <div class="row mt-3">
-                    @foreach($apotti['apotti_items'] as $apotii_item)
-                        @foreach($apotii_item['apotti_attachment'] as $attachment)
-                            @if ($attachment['attachment_type'] == 'promanok')
-                                <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
-                                         onclick="showImageOnModal(this)" width="80%" height="100%"/>
-                                </div>
-                            @endif
-                        @endforeach
+                    @foreach($attachments as $attachment)
+                        @if($attachment['file_type'] == 'promanok')
+                            <div class="col-md-2">
+                                <img style="cursor: pointer" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
+                                     onclick="showImageOnModal(this)" width="80%" height="100%"/>
+                            </div>
+                        @endif
                     @endforeach
                 </div>
             </div>
@@ -141,15 +135,13 @@
             <div class="card sna-card-border mt-3 mb-15">
                 <h4>আপত্তির অন্যান্য সংযুক্তি</h4>
                 <div class="row mt-3">
-                    @foreach($apotti['apotti_items'] as $apotii_item)
-                        @foreach($apotii_item['apotti_attachment'] as $attachment)
-                            @if ($attachment['attachment_type'] == 'other')
-                                <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
-                                         onclick="showImageOnModal(this)" width="80%" height="100%"/>
-                                </div>
-                            @endif
-                        @endforeach
+                    @foreach($attachments as $attachment)
+                        @if($attachment['file_type'] == 'other')
+                            <div class="col-md-2">
+                                <img style="cursor: pointer" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
+                                     onclick="showImageOnModal(this)" width="80%" height="100%"/>
+                            </div>
+                        @endif
                     @endforeach
                 </div>
             </div>
