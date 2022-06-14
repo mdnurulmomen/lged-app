@@ -123,28 +123,22 @@
 
 
         showApotti: function (element) {
-            url = '{{route('audit.execution.apotti.onucched-show')}}'
+            url = '{{route('audit.execution.apotti.search-view')}}';
+            directorate_id = $("#directorate_id").val();
             apotti_id = element.data('apotti-id');
-            data = {apotti_id};
+            data = {directorate_id,apotti_id};
 
             KTApp.block('#kt_content', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
                 KTApp.unblock('#kt_content');
                 if (response.status === 'error') {
-                    toastr.error('No data found');
+                    toastr.warning(response.data);
                 } else {
-                    $(".offcanvas-title").text('বিস্তারিত');
-                    quick_panel = $("#kt_quick_panel");
-                    quick_panel.addClass('offcanvas-on');
-                    quick_panel.css('opacity', 1);
-                    quick_panel.css('width', '60%');
-                    quick_panel.removeClass('d-none');
-                    $("html").addClass("side-panel-overlay");
-                    $(".offcanvas-wrapper").html(response);
+                    $('#kt_content').html(response);
                 }
             });
         },
