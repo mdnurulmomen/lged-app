@@ -582,6 +582,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('get-final-approval-authority', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'loadFinalApprovalAuthority'])->name('get-final-approval-authority');
         Route::post('submit-final-apporval', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'submitFinalApproval'])->name('submit-final-approval');
         Route::post('final-report-status-update', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportStatusUpdate'])->name('final-report-status-update');
+        Route::get('final-report-search', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportSearch'])->name('final-report-search');
+        Route::post('get-final-report-search-list', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'getFinalReportSearchList'])->name('get-final-report-search-list');
+        Route::post('final-report-details', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportDetails'])->name('get-final-report-details');
     });
 
     Route::group(['as' => 'audit.air-report.', 'prefix' => 'audit-air-report/'], function () {

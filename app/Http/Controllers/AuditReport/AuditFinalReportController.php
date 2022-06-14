@@ -214,6 +214,57 @@ class AuditFinalReportController extends Controller
         }
     }
 
+    public function finalReportSearch(){
+        $all_directorates = $this->allAuditDirectorates();
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
+        $fiscal_years = $this->allFiscalYears();
+        return view(
+            'modules.audit_report.audit_final_report.final_report_search',
+            compact('directorates','fiscal_years')
+        );
+    }
+
+    public function getFinalReportSearchList(Request $request){
+        $data = Validator::make($request->all(), [
+            'directorate_id' => 'required',
+            'ministry_id' => 'nullable',
+            'entity_id' => 'nullable',
+            'fiscal_year_id' => 'nullable',
+        ], [
+            'directorate_id.required' => 'অধিদপ্তর বাছাই করুন',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_audit_final_report_search'), $data)->json();
+//        dd($responseData);
+        $current_designation_id = $this->current_designation_id();
+        $report_list = isSuccess($responseData) ? $responseData['data'] : [];
+        return view('modules.audit_report.audit_final_report.get_final_report_search_list',
+            compact('report_list', 'current_designation_id','data'));
+    }
+
+    public function finalReportDetails(Request $request){
+
+       $data = Validator::make($request->all(), [
+            'office_id' => 'required',
+            'air_id' => 'required',
+        ], [
+            'office_id.required' => 'অধিদপ্তর বাছাই করুন',
+        ])->validate();
+        $data['qac_type'] = 'cqat';
+        $report_name = $request->report_name;
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_qac_apotti'), $data)->json();
+        $apottiDetails = isSuccess($responseData)?$responseData['data']:[];
+//        dd($apottiDetails);
+        return view('modules.audit_report.audit_final_report.final_report_details',
+            compact('apottiDetails','report_name'));
+
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

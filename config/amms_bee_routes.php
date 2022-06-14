@@ -368,6 +368,7 @@ return [
             'get_air_last_movement' => env('API_URL_BEE', '') . '/audit-report/air/get-air-last-movement',
             'get_audit_plan_type_wise_air' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-plan-and-type-wise-air',
             'get_audit_final_report' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-final-report',
+            'get_audit_final_report_search' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-final-report-search',
             'delete_air_report_wise_apotti' => env('API_URL_BEE', '') . '/audit-report/air/delete-air-report-wise-apotti',
             'apotti_final_approval' => env('API_URL_BEE', '') . '/audit-report/air/apotti-final-approval',
             'air_send_to_rpu' => env('API_URL_BEE', '') . '/audit-report/air/air-send-to-rpu',
