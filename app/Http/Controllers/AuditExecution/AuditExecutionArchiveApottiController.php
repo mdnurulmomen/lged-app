@@ -497,12 +497,13 @@ class AuditExecutionArchiveApottiController extends Controller
         //apotii edit
         $apotti_data['apotti_id'] = $request->apotti_id;
         $apottiResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.edit'), $apotti_data)->json();
-//        dd($apottiResponseData);
-        $apotti = isSuccess($apottiResponseData) ? $apottiResponseData['data'] : [];
-        //dd($apotti);
-        return view(
-            'modules.audit_execution.audit_execution_archive_apotti.edit',
-            compact('directorates', 'categories', 'apotti')
+        $apotti = isSuccess($apottiResponseData) ? $apottiResponseData['data']['apotti'] : [];
+        $main_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['main_attachments'] : [];
+        $promanok_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['promanok_attachments'] : [];
+        $porisishto_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['porisishto_attachments'] : [];
+
+        return view('modules.audit_execution.audit_execution_archive_apotti.edit',
+            compact('directorates', 'categories', 'apotti','main_attachments','promanok_attachments','porisishto_attachments')
         );
     }
 

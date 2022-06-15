@@ -90,7 +90,7 @@
                     <h4>কভার পেইজ</h4>
                     <div class="row mt-3">
                         <div class="col-md-2">
-                            <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$apotti['cover_page_path'].'/'.$apotti['cover_page']}}"
+                            <img style="cursor: pointer"  src="{{config('amms_bee_routes.file_url').$apotti['cover_page_path'].$apotti['cover_page']}}"
                                  onclick="showImageOnModal(this)" width="80%" height="100%"/>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                         @foreach($apotti['attachments'] as $attachment)
                             @if ($attachment['attachment_type'] == 'main')
                                 <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                    <img style="cursor: pointer"  src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
                                          onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 </div>
                             @endif
@@ -125,7 +125,7 @@
                         @foreach($apotti['attachments'] as $attachment)
                             @if ($attachment['attachment_type'] == 'porisishto')
                                 <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                    <img style="cursor: pointer"  src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
                                          onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 </div>
                             @endif
@@ -143,7 +143,7 @@
                         @foreach($apotti['attachments'] as $attachment)
                             @if ($attachment['attachment_type'] == 'promanok')
                                 <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                    <img style="cursor: pointer"  src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
                                          onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 </div>
                             @endif
@@ -161,7 +161,7 @@
                         @foreach($apotti['attachments'] as $attachment)
                             @if ($attachment['attachment_type'] == 'other')
                                 <div class="col-md-2">
-                                    <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
+                                    <img style="cursor: pointer"  src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
                                          onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 </div>
                             @endif
@@ -174,20 +174,16 @@
 
 <!-- Modal -->
 <div class="modal fade" id="showImageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <i style="color:#ffffff!important;" aria-hidden="true" class="ki ki-close"></i>
                 </button>
             </div>
             <div class="modal-body">
                 <img src="" class="img-fluid" style="width:100%">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>

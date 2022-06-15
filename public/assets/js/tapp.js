@@ -304,7 +304,7 @@ function dateDifferenceInDay(date1, date2) {
 }
 
 //text disable on contact filed
-$(document).off('keypress').on('keypress', '.number-input', function () {
+$(document).off('keypress').on('keypress', '.number-input', function (key) {
     if (key.charCode < 48 || key.charCode > 57) {
         return false;
     }

@@ -1,18 +1,18 @@
 <table class="table table-bordered" width="100%">
     <thead class="thead-light">
     <tr class="bg-hover-warning">
-        <th width="5%">ক্রমিক নং</th>
-        <th width="5%">আইডি</th>
-        <th width="5%">ফাইল নং</th>
-        <th width="10%">অনুচ্ছেদ নং</th>
-        <th width="15%">আপত্তির শিরোনাম</th>
-        <th width="10%">আপত্তি অনিয়মের ক্যাটাগরি</th>
-        <th width="10%">জড়িত অর্থ (টাকা)</th>
-        <th width="10%">নিরীক্ষিত প্রতিষ্ঠান</th>
-        <th width="10%">নিরীক্ষার ধরন</th>
-        <th width="5%">অর্থবছর</th>
-        <th width="10%">আপত্তির ধরন</th>
-        <th width="5%">কার্যক্রম</th>
+        <th class="text-center" width="5%">ক্রমিক নং</th>
+        <th class="text-center" width="5%">আইডি</th>
+        <th class="text-center" width="5%">ফাইল নং</th>
+        <th class="text-center" width="10%">অনুচ্ছেদ নং</th>
+        <th class="text-center" width="15%">আপত্তির শিরোনাম</th>
+        <th class="text-center" width="10%">আপত্তি অনিয়মের ক্যাটাগরি</th>
+        <th class="text-center" width="10%">জড়িত অর্থ (টাকা)</th>
+        <th class="text-center" width="10%">নিরীক্ষিত প্রতিষ্ঠান</th>
+        <th class="text-center" width="10%">নিরীক্ষার ধরন</th>
+        <th class="text-center" width="5%">অর্থবছর</th>
+        <th class="text-center" width="10%">আপত্তির ধরন</th>
+        <th class="text-center" width="5%">কার্যক্রম</th>
     </tr>
     </thead>
 
