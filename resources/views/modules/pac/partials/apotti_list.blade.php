@@ -16,7 +16,7 @@
                 <td><input type="checkbox"  class="apotti" value="{{$apotti['apotti']['id']}}" name="apotti"></td>
                 <td style="text-align: center">{{enTobn($apotti['apotti']['onucched_no'])}}.</td>
                 <td style="text-align: left;margin-left: 5px">{{$apotti['apotti']['apotti_title']}}</td>
-                <td style="text-align: right">{{enTobn(number_format($apotti['apotti']['total_jorito_ortho_poriman'],0))}}/-</td>
+                <td style="text-align: right">{{enTobn(currency_format($apotti['apotti']['total_jorito_ortho_poriman']))}}/-</td>
             </tr>
         @endforeach
         </tbody>

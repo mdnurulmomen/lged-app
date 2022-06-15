@@ -52,7 +52,7 @@
                 @endif
             </td>
             <td class="text-right">
-                <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
+                <span>{{enTobn(currency_format($apotti['total_jorito_ortho_poriman']))}}</span>
             </td>
             <td></td>
             <td class="text-left">{{formatDate($apotti['air_issue_date'],'bn')}}</td>

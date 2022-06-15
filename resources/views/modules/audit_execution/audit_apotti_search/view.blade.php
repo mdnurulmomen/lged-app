@@ -74,7 +74,7 @@
                             </tr>
                             <tr>
                                 <th>জড়িত অর্থ</th>
-                                <td>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</td>
+                                <td>{{enTobn(currency_format($apotti['total_jorito_ortho_poriman']))}}</td>
                             </tr>
                             </tbody>
                         </table>

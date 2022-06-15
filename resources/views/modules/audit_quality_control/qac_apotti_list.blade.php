@@ -142,7 +142,7 @@
                 <span>{{$apotti['apotti_map_data']['apotti_title']}}</span>
             </td>
             <td class="text-right">
-                <span>{{enTobn(number_format($apotti['apotti_map_data']['total_jorito_ortho_poriman'],0))}}/-</span>
+                <span>{{enTobn(currency_format($apotti['apotti_map_data']['total_jorito_ortho_poriman']))}}/-</span>
             </td>
             <td class="text-left">
 

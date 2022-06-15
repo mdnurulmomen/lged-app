@@ -90,7 +90,7 @@
             <td class="text-center">{{enTobn($apotti['onucched_no'])}}</td>
             <td class="text-left">{{$apotti['apotti_title']}}</td>
             <td class="text-right">
-                <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
+                <span>{{enTobn(currency_format($apotti['total_jorito_ortho_poriman']))}}</span>
             </td>
             <td class="text-left">
                 মন্ত্রণালয়/বিভাগঃ {{$apotti['ministry_name_bn']}} <br>

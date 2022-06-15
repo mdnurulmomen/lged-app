@@ -853,7 +853,7 @@
                         <td class="bangla-font" style="text-align: justify;vertical-align: top;">
                             <span style="padding:5px; margin-bottom: 5px;">{{$broadSheet['apotti']['memo_title_bn']}}</span>
                         </td>
-                        <td class="bangla-font" style="text-align: right;vertical-align: top;">{{enTobn(number_format($broadSheet['apotti']['jorito_ortho_poriman'],0))}}/-</td>
+                        <td class="bangla-font" style="text-align: right;vertical-align: top;">{{enTobn(currency_format($broadSheet['apotti']['jorito_ortho_poriman']))}}/-</td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;">{{$broadSheet['status_reason']}}</td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;">{{$broadSheet['comment']}}</td>
                     </tr>

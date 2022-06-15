@@ -29,7 +29,7 @@
             </td>
 
             <td class="text-right">
-                <span>{{enTobn(number_format($apotti['jorito_ortho_poriman'],0))}}</span>
+                <span>{{enTobn(currency_format($apotti['jorito_ortho_poriman']))}}</span>
             </td>
 
             <td class="text-left">{{$apotti['cost_center_name_bn']}}</td>

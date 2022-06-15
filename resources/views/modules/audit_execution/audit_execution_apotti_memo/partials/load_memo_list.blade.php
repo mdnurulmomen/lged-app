@@ -112,7 +112,7 @@
                                         <div class=" subject-wrapper font-weight-normal">
                                             <span class="mr-2 font-size-1-1">জড়িত অর্থঃ</span>
                                             <span class="text-info font-size-14">
-                                                {{ enTobn(number_format($memo['jorito_ortho_poriman'], 0)) }}
+                                                {{ enTobn(currency_format($memo['jorito_ortho_poriman'])) }}
                                             </span>
                                         </div>
                                         <div class="font-weight-normal d-none predict-wrapper">

@@ -466,3 +466,138 @@ if (!function_exists('arryAortDesc')) {
         return ($a['employee_grade'] < $b['employee_grade']);
     }
 }
+
+/********************** CURRENCY FORMAT START **********************/
+if (!function_exists('currency_format')) {
+    function currency_format($input)
+    {
+        switch ('##,###.##') {
+            case '##,###.##':
+                return _currency_2_3_style($input);
+                break;
+            case '##,##.##':
+                return _currency_2_2_style($input);
+                break;
+            case "###,###.##":
+                return _currency_3_3_style($input);
+                break;
+            default:
+                return $input;
+        }
+    }
+}
+
+if (!function_exists('_currency_2_3_style')) {
+    function _currency_2_3_style($num,$has_decimal_place=0)
+    {
+        $decimal_places = 0;
+
+        $pos = strpos((string)$num, ".");
+        if ($pos === false) {
+            if ($decimal_places == 2) {
+                $decimalpart = "00";
+            } else {
+                $decimalpart = "000";
+            }
+        } else {
+            $decimalpart = substr($num, $pos + 1, $decimal_places);
+            $num = substr($num, 0, $pos);
+        }
+
+        if (strlen($num) > 3) {
+            $last3digits = substr($num, -3);
+            $numexceptlastdigits = substr($num, 0, -3 );
+            $formatted = _currency_2_3_style_makecomma($numexceptlastdigits);
+            if ($has_decimal_place == 1){
+                $stringtoreturn = $formatted . "," . $last3digits . "." . $decimalpart ;
+            }else{
+                $stringtoreturn = $formatted . "," . $last3digits;
+            }
+
+        } elseif (strlen($num) <= 3) {
+            if ($has_decimal_place == 1){
+                $stringtoreturn = $num . "." . $decimalpart;
+            }else{
+                $stringtoreturn = $num;
+            }
+        }
+
+        if (substr($stringtoreturn, 0, 2) == "-,") {
+            $stringtoreturn = "-" . substr($stringtoreturn, 2);
+        }
+        return $stringtoreturn;
+    }
+}
+
+if (!function_exists('_currency_2_3_style_makecomma')) {
+    function _currency_2_3_style_makecomma($input)
+    {
+        if (strlen($input) <= 2) {
+            return $input;
+        }
+        $length = substr($input, 0, strlen($input) - 2);
+        $formatted_input = _currency_2_3_style_makecomma($length) . "," . substr($input, -2);
+        return $formatted_input;
+    }
+}
+
+
+/********************** ##,##.## FORMAT **********************/
+
+if (!function_exists('_currency_2_2_style')) {
+    function _currency_2_2_style($num)
+    {
+        $decimal_places = 2;
+
+        $pos = strpos((string)$num, ".");
+        if ($pos === false) {
+            if ($decimal_places == 2) {
+                $decimalpart = "00";
+            } else {
+                $decimalpart = "000";
+            }
+        } else {
+            $decimalpart = substr($num, $pos + 1, $decimal_places);
+            $num = substr($num, 0, $pos);
+        }
+
+        if (strlen($num) > 2) {
+            $last2digits = substr($num, -2);
+            $numexceptlastdigits = substr($num, 0, -2);
+            $formatted = _currency_2_2_style_makecomma($numexceptlastdigits);
+            $stringtoreturn = $formatted . "," . $last2digits . "." . $decimalpart;
+        } elseif (strlen($num) <= 2) {
+            $stringtoreturn = $num . "." . $decimalpart ;
+        }
+
+        if (substr($stringtoreturn, 0, 2) == "-,") {
+            $stringtoreturn = "-" . substr($stringtoreturn, 2);
+        }
+        return $stringtoreturn;
+    }
+}
+
+if (!function_exists('_currency_2_2_style_makecomma')) {
+    function _currency_2_2_style_makecomma($input)
+    {
+        if (strlen($input) <= 2) {
+            return $input;
+        }
+        $length = substr($input, 0, strlen($input) - 2);
+        $formatted_input = _currency_2_2_style_makecomma($length) . "," . substr($input, -2);
+        return $formatted_input;
+    }
+}
+
+
+/********************** ###,###.## FORMAT **********************/
+if (!function_exists('_currency_3_3_style')) {
+    function _currency_3_3_style($num)
+    {
+        $decimal_places = 0;
+        return number_format($num, $decimal_places, '.', ',');
+    }
+}
+
+/********************** CURRENCY FORMAT END **********************/
+

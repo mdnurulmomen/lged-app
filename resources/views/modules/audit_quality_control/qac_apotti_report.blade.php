@@ -923,7 +923,7 @@
                                         @php
                                             $total_amount += $apotti['apotti_map_data']['total_jorito_ortho_poriman'];
                                         @endphp
-                                        <span>{{enTobn(number_format($apotti['apotti_map_data']['total_jorito_ortho_poriman'],0))}}/-</span>
+                                        <span>{{enTobn(currency_format($apotti['apotti_map_data']['total_jorito_ortho_poriman']))}}/-</span>
                                     </td>
                                     @if($qac_type == 'qac-1')
                                         <td class="bangla-font" style="text-align: center">
@@ -1005,7 +1005,7 @@
                         @endforeach
                         <tr class="bangla-font">
                             <td class="bangla-font" style="text-align: right" colspan="2">সর্বমোট=</td>
-                            <td class="bangla-font" style="text-align: right" >{{enTobn(number_format($total_amount))}}/-</td>
+                            <td class="bangla-font" style="text-align: right" >{{enTobn(currency_format($total_amount))}}/-</td>
                             <td colspan="7" style="text-align: left">(কথায়: {{numberConvertToBnWord($total_amount)}} টাকা মাত্র)</td>
                         </tr>
                     </table>

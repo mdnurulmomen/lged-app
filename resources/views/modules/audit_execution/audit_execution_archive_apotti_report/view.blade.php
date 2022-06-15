@@ -64,7 +64,7 @@
                                 <td class="text-left">{{$apotti['ministry_name_bn']}}</td>
                                 <td class="text-left">{{$apotti['cost_center_name_bn']}}</td>
                                 <td class="text-right">
-                                    <span>{{enTobn(number_format($apotti['jorito_ortho_poriman'],0))}}</span>
+                                    <span>{{enTobn(currency_format($apotti['jorito_ortho_poriman']))}}</span>
                                 </td>
                                 <td class="text-center">
                                     <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-icon-primary list-btn-toggle"

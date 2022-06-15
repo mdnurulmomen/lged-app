@@ -64,8 +64,8 @@
                             style="padding:5px;"><b>বিবরণঃ</b> {!! $broadSheet['apotti']['memo_description_bn'] !!}</span>
                     </td>
                     <td style="text-align: left;vertical-align: top;">
-                        <p class="pb-2"><b>জড়িত টাকার পরিমাণ : </b> {{enTobn(number_format($broadSheet['jorito_ortho_poriman'],0))}} /-</p>
-                        <p class="pb-2"><b>অনিষ্পন্ন জড়িত টাকার পরিমাণ : </b> {{enTobn(number_format($broadSheet['onishponno_jorito_ortho_poriman'],0))}}/-</p>
+                        <p class="pb-2"><b>জড়িত টাকার পরিমাণ : </b> {{enTobn(currency_format($broadSheet['jorito_ortho_poriman']))}} /-</p>
+                        <p class="pb-2"><b>অনিষ্পন্ন জড়িত টাকার পরিমাণ : </b> {{enTobn(currency_format($broadSheet['onishponno_jorito_ortho_poriman']))}}/-</p>
                     </td>
 
                     <td style="text-align: left;vertical-align: top;padding:5px;">

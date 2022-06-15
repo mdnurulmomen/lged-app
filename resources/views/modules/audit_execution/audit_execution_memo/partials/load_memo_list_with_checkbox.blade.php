@@ -127,13 +127,13 @@
                                     <div class=" subject-wrapper font-weight-normal">
                                         <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.jorito_ortho')}}:</span>
                                         <span class="text-info font-size-14">
-                                            {{enTobn(number_format($memo['jorito_ortho_poriman'],0))}}
+                                            {{enTobn(currency_format($memo['jorito_ortho_poriman']))}}
                                         </span>
                                     </div>
                                     {{--<div class="font-weight-normal">
                                         <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.onishponno_jorito_ortho')}}:</span>
                                         <span class="text-danger font-size-14">
-                                           {{enTobn(number_format($memo['onishponno_jorito_ortho_poriman'],0))}}
+                                           {{enTobn(currency_format($memo['onishponno_jorito_ortho_poriman']))}}
                                         </span>
                                     </div>--}}
                                     <div class="font-weight-normal d-none predict-wrapper">

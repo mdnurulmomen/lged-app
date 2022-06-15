@@ -42,7 +42,7 @@
     <div class="form-group">
         <label for="">জড়িত অর্থ</label>
         <input style="text-align: right" type="text" class="form-control" readonly placeholder="জড়িত অর্থ"
-               value="{{enTobn(number_format($apottiItemInfo['jorito_ortho_poriman'],0))}}">
+               value="{{enTobn(currency_format($apottiItemInfo['jorito_ortho_poriman']))}}">
     </div>
 
     <div class="form-group">

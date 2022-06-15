@@ -15,7 +15,7 @@
 
 <div class="form-group">
     <label for="">জড়িত অর্থ (টাকা)</label>
-    <input type="text" readonly class="form-control" value="{{enTobn(number_format($apotti_info['total_jorito_ortho_poriman']))}}">
+    <input type="text" readonly class="form-control" value="{{enTobn(currency_format($apotti_info['total_jorito_ortho_poriman']))}}">
 </div>
 
 <div class="form-group">

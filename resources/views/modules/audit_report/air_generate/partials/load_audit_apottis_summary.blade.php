@@ -14,12 +14,12 @@
             <tr>
                 <td style="text-align: center">{{enTobn($apotti['onucched_no'])}}.</td>
                 <td style="text-align: left;margin-left: 5px">{{$apotti['apotti_title']}}</td>
-                <td style="text-align: right">{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}/-</td>
+                <td style="text-align: right">{{enTobn(currency_format($apotti['total_jorito_ortho_poriman']))}}/-</td>
             </tr>
         @endforeach
         <tr>
             <td colspan="2" style="text-align: right">সর্বমোটঃ</td>
-            <td style="text-align: right">{{enTobn(number_format($totalJoritoOrtho,0))}}/-</td>
+            <td style="text-align: right">{{enTobn(currency_format($totalJoritoOrtho))}}/-</td>
         </tr>
         </tbody>
     </table>

@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <td width="50%"><b>জড়িত অর্থ (টাকা)</b></td>
-                <td width="50%">{{enTobn(number_format($memo_info['jorito_ortho_poriman'],0))}}</td>
+                <td width="50%">{{enTobn(currency_format($memo_info['jorito_ortho_poriman']))}}</td>
             </tr>
             <tr>
                 <td width="50%"><b>আপত্তি অনিয়মের ধরন</b></td>
@@ -55,7 +55,7 @@
             </tr>
              <tr>
                 <td width="50%"><b>অনিষ্পন্ন জড়িত অর্থ (টাকা)</b></td>
-                <td width="50%">{{enTobn(number_format($memo_info['onishponno_jorito_ortho_poriman'],0))}}</td>
+                <td width="50%">{{enTobn(currency_format($memo_info['onishponno_jorito_ortho_poriman']))}}</td>
             </tr>
             <tr>
                 <td width="50%"><b>নিরীক্ষা বছর</b></td>

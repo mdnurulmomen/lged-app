@@ -39,7 +39,7 @@
                 <span>{{$apotti['apotti_title']}}</span>
             </td>
             <td class="text-right">
-                <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
+                <span>{{enTobn(currency_format($apotti['total_jorito_ortho_poriman']))}}</span>
             </td>
             <td class="text-left">
                     @php $apotti_type = ''; @endphp

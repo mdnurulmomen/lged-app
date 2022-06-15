@@ -16,7 +16,7 @@
                 <td><input type="checkbox" checked class="apotti" value="{{$apotti['apotti_map_data']['id']}}" name="apotti"></td>
                 <td style="text-align: center">{{enTobn($apotti['apotti_map_data']['onucched_no'])}}.</td>
                 <td style="text-align: left;margin-left: 5px">{{$apotti['apotti_map_data']['apotti_title']}}</td>
-                <td style="text-align: right">{{enTobn(number_format($apotti['apotti_map_data']['total_jorito_ortho_poriman'],0))}}/-</td>
+                <td style="text-align: right">{{enTobn(currency_format($apotti['apotti_map_data']['total_jorito_ortho_poriman']))}}/-</td>
             </tr>
         @endforeach
 
@@ -25,7 +25,7 @@
                 <td><input type="checkbox"  class="apotti" value="{{$apotti['id']}}" name="apotti"></td>
                 <td style="text-align: center">{{enTobn($apotti['onucched_no'])}}.</td>
                 <td style="text-align: left;margin-left: 5px">{{$apotti['apotti_title']}}</td>
-                <td style="text-align: right">{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}/-</td>
+                <td style="text-align: right">{{enTobn(currency_format($apotti['total_jorito_ortho_poriman']))}}/-</td>
             </tr>
         @endforeach
         </tbody>
