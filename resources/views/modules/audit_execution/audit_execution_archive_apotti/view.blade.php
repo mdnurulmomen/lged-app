@@ -103,13 +103,11 @@
                 <div class="card sna-card-border mt-3 mb-15">
                     <h4>আপত্তির মুল সংযুক্তি</h4>
                     <div class="row mt-3">
-                        @foreach($apotti['attachments'] as $attachment)
-                            @if ($attachment['attachment_type'] == 'main')
-                                <div class="col-md-2">
-                                    <img style="cursor: pointer"  src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
-                                         onclick="showImageOnModal(this)" width="80%" height="100%"/>
-                                </div>
-                            @endif
+                        @foreach($main_attachments as $attachment)
+                            <div class="col-md-2">
+                                <img style="cursor: pointer"  src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
+                                     onclick="showImageOnModal(this)" width="80%" height="100%"/>
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -122,13 +120,11 @@
                 <div class="card sna-card-border mt-3 mb-15">
                     <h4>আপত্তির পরিশিষ্ট সংযুক্তি</h4>
                     <div class="row mt-3">
-                        @foreach($apotti['attachments'] as $attachment)
-                            @if ($attachment['attachment_type'] == 'porisishto')
-                                <div class="col-md-2">
-                                    <img style="cursor: pointer"  src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
-                                         onclick="showImageOnModal(this)" width="80%" height="100%"/>
-                                </div>
-                            @endif
+                        @foreach($porisishto_attachments as $attachment)
+                            <div class="col-md-2">
+                                <img style="cursor: pointer"  src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
+                                     onclick="showImageOnModal(this)" width="80%" height="100%"/>
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -140,13 +136,11 @@
                 <div class="card sna-card-border mt-3 mb-15">
                     <h4>আপত্তির প্রমানক সংযুক্তি</h4>
                     <div class="row mt-3">
-                        @foreach($apotti['attachments'] as $attachment)
-                            @if ($attachment['attachment_type'] == 'promanok')
-                                <div class="col-md-2">
-                                    <img style="cursor: pointer"  src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
-                                         onclick="showImageOnModal(this)" width="80%" height="100%"/>
-                                </div>
-                            @endif
+                        @foreach($promanok_attachments as $attachment)
+                            <div class="col-md-2">
+                                <img style="cursor: pointer"  src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
+                                     onclick="showImageOnModal(this)" width="80%" height="100%"/>
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -158,13 +152,11 @@
                 <div class="card sna-card-border mt-3 mb-15">
                     <h4>আপত্তির অন্যান্য সংযুক্তি</h4>
                     <div class="row mt-3">
-                        @foreach($apotti['attachments'] as $attachment)
-                            @if ($attachment['attachment_type'] == 'other')
-                                <div class="col-md-2">
-                                    <img style="cursor: pointer"  src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
-                                         onclick="showImageOnModal(this)" width="80%" height="100%"/>
-                                </div>
-                            @endif
+                        @foreach($other_attachments as $attachment)
+                            <div class="col-md-2">
+                                <img style="cursor: pointer"  src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
+                                     onclick="showImageOnModal(this)" width="80%" height="100%"/>
+                            </div>
                         @endforeach
                     </div>
                 </div>
