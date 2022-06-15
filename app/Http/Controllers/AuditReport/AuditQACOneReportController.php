@@ -48,7 +48,7 @@ class AuditQACOneReportController extends Controller
 
         if ($scope == 'forwarding_letter') {
             $pdf = \PDF::loadView(
-                'modules.audit_quality_control.qac_01.partials.forwarding_air_book',
+                'modules.audit_quality_control.qac_01.books.book_forwarding_air',
                 ['auditReport' => $auditReport],
                 [],
                 ['orientation' => 'P', 'format' => 'A4']
@@ -57,7 +57,7 @@ class AuditQACOneReportController extends Controller
             return $pdf->stream($fileName);
         } elseif ($scope == 'apotti_air') {
             $pdf = \PDF::loadView(
-                'modules.audit_quality_control.qac_01.partials.audit_qac1_apotti_air_book',
+                'modules.audit_quality_control.qac_01.books.book_qac1_apotti_air',
                 ['auditReport' => $auditReport],
                 [],
                 ['orientation' => 'P', 'format' => 'A4']
@@ -66,7 +66,7 @@ class AuditQACOneReportController extends Controller
             return $pdf->stream($fileName);
         } elseif ($scope == 'porishisto_air') {
             $pdf = \PDF::loadView(
-                'modules.audit_report.air_generate.partials.porishisto_air_book',
+                'modules.audit_report.air_generate.partials.book_porishisto_air',
                 ['porisistos' => $porisistos_html, 'auditReport' => $auditReport],
                 [],
                 ['orientation' => 'P', 'format' => 'A4']
@@ -75,7 +75,7 @@ class AuditQACOneReportController extends Controller
             return $pdf->stream($fileName);
         } elseif ($scope == 'full_air') {
             $pdf = \PDF::loadView(
-                'modules.audit_quality_control.qac_01.partials.audit_qac1_report_book',
+                'modules.audit_quality_control.qac_01.books.book_qac1_air',
                 ['porisistos' => $porisistos_html, 'auditReport' => $auditReport],
                 [],
                 ['orientation' => 'P', 'format' => 'A4']

@@ -28,7 +28,11 @@
                         <table class="table table-sm table-bordered">
                             <tbody>
                             <tr>
-                                <th style="width:180px!important">মন্ত্রণালয়/বিভাগ</th>
+                                <th style="width:180px!important">আইডি</th>
+                                <td>{{enTobn($apotti['id'])}}</td>
+                            </tr>
+                            <tr>
+                                <th>মন্ত্রণালয়/বিভাগ</th>
                                 <td>{{$apotti['ministry_name_bn']}}</td>
                             </tr>
                             <tr>
@@ -38,6 +42,10 @@
                             <tr>
                                 <th>অর্থ বছর</th>
                                 <td>{{enTobn($apotti['fiscal_year']['start'])}}-{{enTobn($apotti['fiscal_year']['end'])}}</td>
+                            </tr>
+                            <tr>
+                                <th>ফাইল নং</th>
+                                <td>{{$apotti['file_token_no']}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -87,9 +95,9 @@
                                 <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
 
-                                <a href="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" download class="btn btn-sm btn-primary ml-1 mt-2">
+                                <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
                                     <i class="fad fa-download"></i> Download
-                                </a>
+                                </button>
                             </div>
                         @endif
                     @endforeach
@@ -108,9 +116,10 @@
                             <div class="col-md-2">
                                 <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
-                                <a href="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" download class="btn btn-sm btn-primary ml-1 mt-2">
+
+                                <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
                                     <i class="fad fa-download"></i> Download
-                                </a>
+                                </button>
                             </div>
                         @endif
                     @endforeach
@@ -129,9 +138,9 @@
                             <div class="col-md-2">
                                 <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
-                                <a href="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" download class="btn btn-sm btn-primary ml-1 mt-2">
+                                <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
                                     <i class="fad fa-download"></i> Download
-                                </a>
+                                </button>
                             </div>
                         @endif
                     @endforeach
@@ -150,9 +159,9 @@
                             <div class="col-md-2">
                                 <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
-                                <a href="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" download class="btn btn-sm btn-primary ml-1 mt-2">
+                                <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
                                     <i class="fad fa-download"></i> Download
-                                </a>
+                                </button>
                             </div>
                         @endif
                     @endforeach
@@ -191,5 +200,23 @@
         $("#showImageModal").find('.modal-title').html('Image');
         $("#showImageModal").find('.modal-body img').attr('src', imageSrc);
         $("#showImageModal").modal('show');
+    }
+
+    function downloadImage(elem) {
+        url = elem.data('file-url');
+
+        fetch(url, {
+            mode : 'no-cors',
+        })
+            .then(response => response.blob())
+            .then(blob => {
+                let blobUrl = window.URL.createObjectURL(blob);
+                let a = document.createElement('a');
+                a.download = url.replace(/^.*[\\\/]/, '');
+                a.href = blobUrl;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            })
     }
 </script>

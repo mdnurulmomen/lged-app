@@ -329,7 +329,7 @@ class AuditAIRReportController extends Controller
 
         if ($scope == 'apotti_air') {
             $pdf = \PDF::loadView(
-                'modules.audit_report.air_generate.partials.apotti_air_book',
+                'modules.audit_report.air_generate.books.book_apotti_air',
                 ['auditReport' => $auditReport],
                 [],
                 ['orientation' => 'P', 'format' => 'A4']
@@ -338,7 +338,7 @@ class AuditAIRReportController extends Controller
             return $pdf->stream($fileName);
         } elseif ($scope == 'porishisto_air') {
             $pdf = \PDF::loadView(
-                'modules.audit_report.air_generate.partials.porishisto_air_book',
+                'modules.audit_report.air_generate.books.book_porishisto_air',
                 ['porisistos' => $porisistos_html, 'auditReport' => $auditReport],
                 [],
                 ['orientation' => 'P', 'format' => 'A4']
@@ -347,7 +347,7 @@ class AuditAIRReportController extends Controller
             return $pdf->stream($fileName);
         } elseif ($scope == 'full_air') {
             $pdf = \PDF::loadView(
-                'modules.audit_report.air_generate.partials.air_book',
+                'modules.audit_report.air_generate.books.book_air',
                 ['porisistos' => $porisistos_html, 'auditReport' => $auditReport],
                 [],
                 ['orientation' => 'P', 'format' => 'A4']

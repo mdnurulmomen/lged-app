@@ -923,7 +923,7 @@
         {{-- porishitoh details page --}}
         <div class="pdf-screen bangla-font">
             @foreach($porisistos as $porishisto)
-                <div style="height: 100%;page-break-after: always;">
+                <div style="height: 100%;{{$loop->last?'':'page-break-after: always;'}}">
                     <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 5px">
                         {!! $porishisto !!}
                     </div>

@@ -255,10 +255,10 @@ class AuditQACAIRReportController extends Controller
 //        dd($apottis);
         $qac_type = $request->qac_type;
         if ($request->apotti_view_scope == 'summary'){
-            return view('modules.audit_quality_control.qac_01.partials.load_audit_apottis_summary',compact('apottiStatusList','qac_type'));
+            return view('modules.audit_quality_control.partials.load_audit_apottis_summary',compact('apottiStatusList','qac_type'));
         }
         else{
-            return view('modules.audit_quality_control.qac_01.partials.load_audit_apottis_details',compact('apottiStatusList','qac_type'));
+            return view('modules.audit_quality_control.partials.load_audit_apottis_details',compact('apottiStatusList','qac_type'));
         }
     }
 

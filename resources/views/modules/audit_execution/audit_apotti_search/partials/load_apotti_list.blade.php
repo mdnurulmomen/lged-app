@@ -115,7 +115,7 @@
         </tr>
     @empty
         <tr data-row="0" class="datatable-row" style="left: 0px;">
-            <td colspan="8" class="datatable-cell text-center"><span>Nothing Found</span></td>
+            <td colspan="10" class="datatable-cell text-center"><span>Nothing Found</span></td>
         </tr>
     @endforelse
     </tbody>
@@ -139,7 +139,7 @@
             @if ($last_page <= 5)
                 @for ($i = 1; $i <= $apotti_list['last_page']; $i++)
                     <li class="page-item {{ $apotti_list['current_page'] == $i ? 'active' : '' }}">
-                        <a class="page-link" data-current-page={{ $current_page }}
+                        <a class="page-link" data-current-page="{{ $current_page }}"
                             href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
                            data-page="{{ $i }}">{{ $i }}</a>
                     </li>
@@ -148,69 +148,69 @@
                 @if ($current_page < 5)
                     @for ($i = 1; $i < 6; $i++)
                         <li class="page-item {{ $apotti_list['current_page'] == $i ? 'active' : '' }}">
-                            <a class="page-link" data-current-page={{ $current_page }}
+                            <a class="page-link" data-current-page="{{ $current_page }}"
                                 href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
                                data-page="{{ $i }}">{{ $i }}</a>
                         </li>
                     @endfor
                     <li class="page-item">
-                        <a class="page-link" data-current-page={{ $current_page }}
+                        <a class="page-link" data-current-page="{{ $current_page }}"
                             href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" data-current-page={{ $current_page }}
+                        <a class="page-link" data-current-page="{{ $current_page }}"
                             href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
                            data-page="{{ $last_page - 1 }}">{{ $last_page - 1 }}</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" data-current-page={{ $current_page }}
+                        <a class="page-link" data-current-page="{{ $current_page }}"
                             href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
-                           data-page="{{ $i }}">{{ $last_page }}</a>
+                           data-page="{{ $last_page }}">{{ $last_page }}</a>
                     </li>
                 @elseif ($current_page >= 5 && $current_page < $last_page - 5)
                     <li class="page-item">
-                        <a class="page-link" data-current-page={{ $current_page }}
+                        <a class="page-link" data-current-page="{{ $current_page }}"
                             href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
                            data-page="1">1</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" data-current-page={{ $current_page }}
+                        <a class="page-link" data-current-page="{{ $current_page }}"
                             href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
                     </li>
                     @for ($i = $current_page - 4; $i <= $current_page + 4; $i++)
                         <li class="page-item {{ $apotti_list['current_page'] == $i ? 'active' : '' }}">
-                            <a class="page-link" data-current-page={{ $current_page }}
+                            <a class="page-link" data-current-page="{{ $current_page }}"
                                 href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
                                data-page="{{ $i }}">{{ $i }}</a>
                         </li>
                     @endfor
                     <li class="page-item">
-                        <a class="page-link" data-current-page={{ $current_page }}
+                        <a class="page-link" data-current-page="{{ $current_page }}"
                             href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" data-current-page={{ $current_page }}
+                        <a class="page-link" data-current-page="{{ $current_page }}"
                             href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
-                           data-page="{{ $i }}">{{ $last_page }}</a>
+                           data-page="{{ $last_page }}">{{ $last_page }}</a>
                     </li>
                 @else
                     <li class="page-item">
-                        <a class="page-link" data-current-page={{ $current_page }}
+                        <a class="page-link" data-current-page="{{ $current_page }}"
                             href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
                            data-page="1">1</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" data-current-page={{ $current_page }}
+                        <a class="page-link" data-current-page="{{ $current_page }}"
                             href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
                            data-page="2">2</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" data-current-page={{ $current_page }}
+                        <a class="page-link" data-current-page="{{ $current_page }}"
                             href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
                     </li>
                     @for ($i = $current_page - 4; $i <= $last_page; $i++)
                         <li class="page-item {{ $apotti_list['current_page'] == $i ? 'active' : '' }}">
-                            <a class="page-link" data-current-page={{ $current_page }}
+                            <a class="page-link" data-current-page="{{ $current_page }}"
                                 href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
                                data-page="{{ $i }}">{{ $i }}</a>
                         </li>
