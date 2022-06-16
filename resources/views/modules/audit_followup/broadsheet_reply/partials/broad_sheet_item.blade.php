@@ -173,7 +173,7 @@
 
         getApottiDecisionForm : function (elem) {
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
@@ -190,7 +190,7 @@
             var data = {apotti_item_id,jorito_ortho,broad_sheet_id,memo_id,broad_sheet_type,office_id};
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
 
                     quick_panel = $("#kt_quick_panel");
                     $('.offcanvas-wrapper').html('');
@@ -211,13 +211,13 @@
 
             let url = '{{route('audit.followup.broadsheet.reply.get-apotti-decision-submit')}}';
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
@@ -238,7 +238,7 @@
                 cancelButtonText: 'না'
             }).then(function(result) {
                 if (result.value) {
-                    KTApp.block('#kt_content', {
+                    KTApp.block('#kt_wrapper', {
                         opacity: 0.1,
                         state: 'primary'
                     });
@@ -252,7 +252,7 @@
                     var data = {apotti_item_id,broad_sheet_id,memo_id};
 
                     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                        KTApp.unblock('#kt_content');
+                        KTApp.unblock('#kt_wrapper');
                         if (response.status === 'error') {
                             toastr.error(response.data);
                         } else {

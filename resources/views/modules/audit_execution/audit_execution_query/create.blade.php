@@ -150,7 +150,7 @@
 
 <script>
     $('#cost_center_type').change(function () {
-        KTApp.block('#kt_content', {
+        KTApp.block('#kt_wrapper', {
             opacity: 0.1,
             state: 'primary' // a bootstrap color
         });
@@ -158,7 +158,7 @@
         url = '{{route('audit.execution.load-type-wise-audit-query')}}';
         data = {cost_center_type_id};
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-            KTApp.unblock('#kt_content');
+            KTApp.unblock('#kt_wrapper');
             if (response.status === 'error') {
                 toastr.warning(response.data)
             } else {
@@ -201,13 +201,13 @@
             url = '{{route('audit.execution.query.store')}}';
             data = $('#query_add_form').serialize();
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     toastr.success('Successfully Added!');
                     $('.btn_back').click();

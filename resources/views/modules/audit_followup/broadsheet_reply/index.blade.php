@@ -66,13 +66,13 @@
             entity_id = $('#entity_id').val();
             let url = '{{route('audit.followup.broadsheet.reply.get-broad-sheet-list')}}';
             let data = {page, per_page, office_id,ministry_id,entity_id};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -86,13 +86,13 @@
             office_id = $('#directorate_filter').val();
             let url = '{{route('audit.followup.broadsheet.reply.load-broad-sheet-ministry-select')}}';
             let data = {office_id};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -107,13 +107,13 @@
             ministry_id = $('#ministry_id').val();
             let url = '{{route('audit.followup.broadsheet.reply.load-broad-sheet-entity-select')}}';
             let data = {office_id,ministry_id};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -128,13 +128,13 @@
             memo_id = element.data('memo-id');
             data = {memo_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -156,13 +156,13 @@
             memo_title_bn = element.data('memo-title-bn');
             data = {memo_id,memo_title_bn};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {

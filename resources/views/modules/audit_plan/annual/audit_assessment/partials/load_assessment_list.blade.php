@@ -108,7 +108,7 @@
     var Assessment_Container = {
         store: function () {
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
@@ -143,7 +143,7 @@
 
             if (isAllZeroFirstHalf === false || isAllZeroSecondHalf === false){
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'success') {
                         toastr.success('Successfully Added!');
                         let fiscal_year_id = $("#fiscal_year_id").val();
@@ -153,14 +153,14 @@
                     }
                 })
             }else {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 toastr.error('Please choose activity');
             }
         },
 
 
         storeAnnualPlan: function () {
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
@@ -195,7 +195,7 @@
 
             if (isAllZeroFirstHalf === false || isAllZeroSecondHalf === false){
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'success') {
                         toastr.success('Successfully Added!');
                         let fiscal_year_id = $("#fiscal_year_id").val();
@@ -205,7 +205,7 @@
                     }
                 })
             }else {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 toastr.error('Please choose activity');
             }
         }

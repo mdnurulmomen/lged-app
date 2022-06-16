@@ -39,13 +39,13 @@
             url = '{{route('audit.plan.annual.audit-assessment-score.create')}}';
             data = {};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('Server Error');
                 } else {
@@ -62,14 +62,14 @@
         },
 
         list: function (fiscal_year_id) {
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             url = '{{route('audit.plan.annual.audit-assessment-score.list')}}';
             data = {fiscal_year_id};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
@@ -83,13 +83,13 @@
             url = '{{route('audit.plan.annual.audit-assessment-score.edit')}}';
             data = {audit_assessment_score_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('Server Error');
                 } else {

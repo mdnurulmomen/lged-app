@@ -413,7 +413,7 @@
                 from_data.append('porisisto_details[]', porisisto);
             }
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
@@ -428,7 +428,7 @@
                 cache: false,
                 processData: false,
                 success: function (responseData) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
                         $('#memo_submit').hide();
@@ -446,7 +446,7 @@
                     }
                 },
                 error: function (data) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (data.responseJSON.errors) {
                         $.each(data.responseJSON.errors, function (k, v) {
                             if (isArray(v)) {

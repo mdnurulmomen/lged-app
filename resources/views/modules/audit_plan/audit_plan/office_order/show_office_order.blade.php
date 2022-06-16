@@ -231,13 +231,13 @@
             annual_plan_id = element.data('annual-plan-id');
             data = {ap_office_order_id,audit_plan_id,annual_plan_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -261,12 +261,12 @@
             annual_plan_id = element.data('annual-plan-id');
             approved_status = 'approved';
             data = {ap_office_order_id,audit_plan_id,annual_plan_id,approved_status,fiscal_year_id};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     toastr.success('Successfully Approved!');
                 }

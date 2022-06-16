@@ -113,13 +113,13 @@
             url = '{{route('audit.plan.annual.audit-assessment-score.load-criteria-list')}}';
             data = {category_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 $("#criteriaTableList").html(response);
             });
         },
@@ -128,13 +128,13 @@
             url = '{{route('audit.plan.annual.audit-assessment-score.load-ministry-wise-entity')}}';
             data = {ministry_id,category_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('Server Error');
                 } else {
@@ -163,13 +163,13 @@
             url = '{{route('audit.plan.annual.audit-assessment-score.store')}}';
             data = $('#score_create_form').serialize();
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     toastr.success('Successfully Added!');
                     fiscal_year_id = $("#fiscal_year_id").val();

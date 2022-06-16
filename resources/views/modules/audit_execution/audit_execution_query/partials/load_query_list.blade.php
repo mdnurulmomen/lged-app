@@ -176,13 +176,13 @@
                 data = {ac_query_id, schedule_id};
                 url = '{{route('audit.execution.query.edit')}}';
 
-                KTApp.block('#kt_content', {
+                KTApp.block('#kt_wrapper', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.error(response.data)
                     } else {
@@ -199,13 +199,13 @@
                 data = {scope_authority, ac_query_id, has_sent_to_rpu};
                 url = '{{route('audit.execution.query.view')}}';
 
-                KTApp.block('#kt_content', {
+                KTApp.block('#kt_wrapper', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {
@@ -237,19 +237,19 @@
                         data = {ac_query_id, cost_center_id};
                         url = '{{route('audit.execution.query.send-to-rpu')}}';
 
-                        KTApp.block('#kt_content', {
+                        KTApp.block('#kt_wrapper', {
                             opacity: 0.1,
                             state: 'primary' // a bootstrap color
                         });
 
                         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                            KTApp.unblock('#kt_content');
+                            KTApp.unblock('#kt_wrapper');
                             if (response.status === 'error') {
                                 toastr.error(response.data)
                             } else {
                                 toastr.success(response.data)
 
-                                KTApp.block('#kt_content', {
+                                KTApp.block('#kt_wrapper', {
                                     opacity: 0.1,
                                     state: 'primary' // a bootstrap color
                                 });
@@ -260,7 +260,7 @@
                                 url = '{{route('audit.execution.query.load-list')}}';
                                 data = {audit_plan_id,schedule_id,entity_id,cost_center_id};
                                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                                    KTApp.unblock('#kt_content');
+                                    KTApp.unblock('#kt_wrapper');
                                     if (response.status === 'error') {
                                         toastr.warning(response.data)
                                     } else {

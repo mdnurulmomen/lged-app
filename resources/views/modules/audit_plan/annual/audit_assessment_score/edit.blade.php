@@ -111,13 +111,13 @@
             url = '{{route('audit.plan.annual.audit-assessment-score.store')}}';
             data = $('#score_create_form').serialize();
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     toastr.success('Successfully Added!');
                     fiscal_year_id = $("#fiscal_year_id").val();

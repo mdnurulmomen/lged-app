@@ -478,11 +478,106 @@ class AuditExecutionArchiveApottiController extends Controller
             $data
         );
 
-        dd($response);
+        //dd($response);
 
         return json_decode($response->getBody(), true);
     }
 
+
+    public function storeNewAttachment(Request $request)
+    {
+        $data = [
+            ['name' => 'id', 'contents' => $request->apotti_id],
+            ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
+        ];
+
+        //cover_page
+        if ($request->hasfile('cover_page')) {
+            foreach ($request->file('cover_page') as $file) {
+                $data[] = [
+                    'name' => 'cover_page[]',
+                    'contents' => file_get_contents($file->getRealPath()),
+                    'filename' => $file->getClientOriginalName(),
+                ];
+            }
+        }
+
+        //top_page
+        if ($request->hasfile('top_page')) {
+            foreach ($request->file('top_page') as $file) {
+                $data[] = [
+                    'name' => 'top_page[]',
+                    'contents' => file_get_contents($file->getRealPath()),
+                    'filename' => $file->getClientOriginalName(),
+                ];
+            }
+        }
+
+        //main_apottis
+        if ($request->hasfile('main_apottis')) {
+            foreach ($request->file('main_apottis') as $file) {
+                $data[] = [
+                    'name' => 'main_apottis[]',
+                    'contents' => file_get_contents($file->getRealPath()),
+                    'filename' => $file->getClientOriginalName(),
+                ];
+            }
+        }
+
+
+        //porisishtos
+        if ($request->hasfile('porisishtos')) {
+            foreach ($request->file('porisishtos') as $file) {
+                $data[] = [
+                    'name' => 'porisishtos[]',
+                    'contents' => file_get_contents($file->getRealPath()),
+                    'filename' => $file->getClientOriginalName(),
+                ];
+            }
+        }
+
+
+        //promanoks
+        if ($request->hasfile('promanoks')) {
+            foreach ($request->file('promanoks') as $file) {
+                $data[] = [
+                    'name' => 'promanoks[]',
+                    'contents' => file_get_contents($file->getRealPath()),
+                    'filename' => $file->getClientOriginalName(),
+                ];
+            }
+        }
+
+        //others
+        if ($request->hasfile('others')) {
+            foreach ($request->file('others') as $file) {
+                $data[] = [
+                    'name' => 'others[]',
+                    'contents' => file_get_contents($file->getRealPath()),
+                    'filename' => $file->getClientOriginalName(),
+                ];
+            }
+        }
+
+        $response = $this->fileUPloadWithData(
+            config('amms_bee_routes.audit_conduct_query.archive_apotti.store-new-attachment'),
+            $data
+        );
+        return json_decode($response->getBody(), true);
+    }
+
+    public function deleteAttachment(Request $request){
+        $data = Validator::make($request->all(), [
+            'attachement_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = $this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.delete-attachment'), $data)->json();
+        if ($responseData['status'] == 'success') {
+            return response()->json(['status' => 'success', 'data' => $responseData['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData]);
+        }
+    }
 
     public function edit(Request $request)
     {

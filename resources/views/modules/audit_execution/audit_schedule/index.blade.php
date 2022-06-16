@@ -74,7 +74,7 @@
                 sub_team_leader_name,sub_team_leader_designation_name};
             let url = '{{route('audit.execution.memo.index')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {

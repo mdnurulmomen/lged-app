@@ -115,12 +115,12 @@
             if (fiscal_year_id) {
                 let url = '{{ route('audit.plan.annual.plan.revised.fiscal-year-wise-activity-select') }}';
                 let data = {fiscal_year_id, fiscal_year};
-                KTApp.block('#kt_content', {
+                KTApp.block('#kt_wrapper', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.error(response.data)
                     } else {
@@ -146,12 +146,12 @@
             }
             let url = '{{ route('calendar.load-schedule-entity-fiscal-year-wise-select') }}';
             let data = {directorate_id, fiscal_year_id, activity_id};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
@@ -163,12 +163,12 @@
         loadCostCenterList: function(directorate_id, fiscal_year_id, entity_id) {
             let url = '{{ route('calendar.load-cost-center-directorate-fiscal-year-wise-select') }}';
             let data = {directorate_id, fiscal_year_id, entity_id};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
@@ -197,7 +197,7 @@
             jorito_ortho_poriman = $('#jorito_ortho_poriman').val();
             has_convert_to_apotti = $('#has_convert_to_apotti').val();
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
@@ -215,7 +215,7 @@
                 per_page
             };
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
@@ -235,13 +235,13 @@
                 data['directorate_id'] = directorate_id;
             }
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function(response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -271,13 +271,13 @@
                 data['directorate_id'] = directorate_id;
             }
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function(response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {

@@ -113,13 +113,13 @@
         store: function () {
             url = '{{route('audit.followup.broadsheet.reply.broad-sheet-movement')}}';
             data = $('#approval_authority_form').serialize();
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     toastr.success('{{___('generic.sent_successfully')}}');
                     $('#kt_quick_panel_close').click();

@@ -27,18 +27,22 @@ class AuditQACOneReportController extends Controller
         if ($scope != 'apotti_air') {
             $apotti_items = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), ['air_id' => $request->air_id, 'all' => '1', 'cdesk' => $this->current_desk_json()])->json();
 
-            $serial_number = 1;
+            $porisishto_counter = 1;
             if (isSuccess($apotti_items)) {
                 $apotti_items = $apotti_items['data'];
+                $latest_onucched_no = 0;
                 foreach ($apotti_items as $apotti_item) {
-                    $onucched_no = $apotti_item['apotti']['onucched_no'];
-                    $total_porisishto = count($apotti_item['porisishtos']);
+                    $current_onucched_no = $apotti_item['apotti']['onucched_no'];
                     foreach ($apotti_item['porisishtos'] as $porisishto) {
-                        $porishisto_no = $total_porisishto>1?enTobn($onucched_no).'.'.enTobn($serial_number):enTobn($onucched_no);
-                        $porisistos_html[] = '<span>পরিশিষ্ট নম্বর-'.$porishisto_no.'</span><br><span>অনুচ্ছেদ নম্বর-'.enTobn($onucched_no).'</span>'.$porisishto['details'];
-                        $serial_number++;
+                        $porishisto_no = $current_onucched_no == $latest_onucched_no?enTobn($current_onucched_no).'.'.enTobn($porisishto_counter):enTobn($current_onucched_no);
+                        $porisistos_html[] = '<span>পরিশিষ্ট নম্বর-'.$porishisto_no.'</span><br><span>অনুচ্ছেদ নম্বর-'.enTobn($current_onucched_no).'</span>'.$porisishto['details'];
+                        $porisishto_counter++;
                     }
-                    $serial_number = 1;
+
+                    if ($current_onucched_no != $latest_onucched_no){
+                        $latest_onucched_no = $current_onucched_no;
+                        $porisishto_counter = 1;
+                    }
                 }
             } else {
                 $porisistos_html = [];
@@ -66,7 +70,7 @@ class AuditQACOneReportController extends Controller
             return $pdf->stream($fileName);
         } elseif ($scope == 'porishisto_air') {
             $pdf = \PDF::loadView(
-                'modules.audit_report.air_generate.partials.book_porishisto_air',
+                'modules.audit_quality_control.qac_01.books.book_porishisto_air',
                 ['porisistos' => $porisistos_html, 'auditReport' => $auditReport],
                 [],
                 ['orientation' => 'P', 'format' => 'A4']

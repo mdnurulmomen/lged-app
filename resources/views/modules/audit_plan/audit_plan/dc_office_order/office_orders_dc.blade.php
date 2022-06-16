@@ -42,7 +42,7 @@
             let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             let activity_id = $('#activity_id').val();
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
@@ -50,7 +50,7 @@
                 let url = '{{route('audit.plan.audit.office-orders-dc.load-office-order-list')}}';
                 let data = {fiscal_year_id,activity_id, page, per_page};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.error(response.data);
                     } else {
@@ -92,13 +92,13 @@
 
             data = {audit_plan_id,annual_plan_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 }
@@ -136,13 +136,13 @@
             annual_plan_id = element.data('annual-plan-id');
             data = {ap_office_order_id,audit_plan_id,annual_plan_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {

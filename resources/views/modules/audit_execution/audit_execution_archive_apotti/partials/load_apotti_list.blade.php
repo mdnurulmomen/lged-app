@@ -21,7 +21,7 @@
         <tr>
             <td class="text-center">{{enTobn($loop->iteration)}}</td>
             <td class="text-left">{{enTobn($apotti['id'])}}</td>
-            <td class="text-left">{{enTobn($apotti['file_token_no'])}}</td>
+            <td class="text-left">{{$apotti['file_token_no']}}</td>
             <td class="text-left">{{enTobn($apotti['onucched_no'])}}</td>
             <td class="text-left">{{$apotti['apotti_title']}}</td>
             <td class="text-left">
@@ -40,8 +40,7 @@
             <td>
                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-icon-primary list-btn-toggle"
                         title="বিস্তারিত দেখুন"
-                        data-apotti-id="{{$apotti['id']}}"
-                        onclick="Archive_Apotti_Container.loadApottiDetails($(this))">
+                        onclick="Archive_Apotti_Container.loadApottiDetails({{$apotti['id']}})">
                     <i class="fad fa-eye"></i>
                 </button>
 

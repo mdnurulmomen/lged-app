@@ -137,7 +137,7 @@
 
         loadApottiList: function () {
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
@@ -154,7 +154,7 @@
             let url = '{{route('audit.execution.apotti.load-apotti-list')}}';
             let data = {fiscal_year_id,audit_plan_id,entity_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -183,13 +183,13 @@
             apotti_id = element.data('apotti-id');
             data = {apotti_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -208,8 +208,13 @@
         editApotti: function (element){
             apotti_id = element.data('apotti-id');
             data = {apotti_id}
-            let url = '{{route('audit.execution.apotti.edit-apotti')}}'
+            let url = '{{route('audit.execution.apotti.edit-apotti')}}';
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {

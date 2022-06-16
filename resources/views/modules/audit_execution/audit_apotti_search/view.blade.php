@@ -1,4 +1,4 @@
-{{--<div class="card sna-card-border">
+<div class="card sna-card-border">
     <div class="row">
         <div class="col-md-8">
             <div class="d-flex justify-content-start">
@@ -7,15 +7,17 @@
         </div>
         <div class="col-md-4">
             <div class="d-flex justify-content-end">
-                <a
-                    onclick=""
-                    class="btn btn-sm btn-warning btn_back btn-square mr-3">
-                    <i class="fad fa-arrow-alt-left"></i> {{___('generic.back')}}
-                </a>
+                <div class="col-md-4">
+                    <div class="d-flex justify-content-end">
+                        <a class="btn btn-sm btn-warning btn_back btn-square mr-3" href="javascript:;">
+                            <i class="fad fa-arrow-alt-left"></i> {{___('generic.back')}}
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>--}}
+</div>
 <div class="mt-4 mb-15">
     <div class="row mb-5">
         <div class="col-md-12">
@@ -91,7 +93,7 @@
                 <div class="row mt-3 mb-14">
                     @foreach($attachments as $attachment)
                         @if($attachment['file_type'] == 'main')
-                            <div class="col-md-2">
+                            <div class="col-md-2 mb-16">
                                 <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
 
@@ -113,7 +115,7 @@
                 <div class="row mt-3 mb-14">
                     @foreach($attachments as $attachment)
                         @if($attachment['file_type'] == 'porisishto')
-                            <div class="col-md-2">
+                            <div class="col-md-2 mb-16">
                                 <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
 
@@ -135,7 +137,7 @@
                 <div class="row mt-3 mb-14">
                     @foreach($attachments as $attachment)
                         @if($attachment['file_type'] == 'promanok')
-                            <div class="col-md-2">
+                            <div class="col-md-2 mb-16">
                                 <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
@@ -156,7 +158,7 @@
                 <div class="row mt-3 mb-14">
                     @foreach($attachments as $attachment)
                         @if($attachment['file_type'] == 'other')
-                            <div class="col-md-2">
+                            <div class="col-md-2 mb-16">
                                 <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
                                 <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
@@ -185,10 +187,6 @@
             <div class="modal-body">
                 <img src="" class="img-fluid" style="width:100%">
             </div>
-            {{--<div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>--}}
         </div>
     </div>
 </div>
@@ -202,21 +200,8 @@
         $("#showImageModal").modal('show');
     }
 
-    function downloadImage(elem) {
-        url = elem.data('file-url');
+    $('.btn_back').click(function () {
+        $('.apotti-search a').click();
+    });
 
-        fetch(url, {
-            mode : 'no-cors',
-        })
-            .then(response => response.blob())
-            .then(blob => {
-                let blobUrl = window.URL.createObjectURL(blob);
-                let a = document.createElement('a');
-                a.download = url.replace(/^.*[\\\/]/, '');
-                a.href = blobUrl;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-            })
-    }
 </script>

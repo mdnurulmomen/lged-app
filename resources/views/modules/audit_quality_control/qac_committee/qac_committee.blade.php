@@ -54,13 +54,13 @@
             url = '{{route('audit.qac.create-qac-committee')}}'
             data = {};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -110,13 +110,13 @@
             data.push({name: "fiscal_year_id", value: fiscal_year_id});
             data.push({name: "qac_type", value: qac_type});
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     toastr.success(response.data);
                     $('#kt_quick_panel_close').click();
@@ -125,7 +125,7 @@
                     toastr.error(response.data);
                 }
             },function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.responseJSON.errors) {
                     $.each(response.responseJSON.errors, function (k, v) {
                         if (isArray(v)) {
@@ -208,13 +208,13 @@
 
             data = {qac_committee_id,title_bn};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {

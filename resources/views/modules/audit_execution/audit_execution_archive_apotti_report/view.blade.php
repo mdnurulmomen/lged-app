@@ -133,13 +133,13 @@
                     let url = '{{route('audit.execution.archive-apotti-report.report-apotti-delete')}}';
                     let data = {apotti_id};
 
-                    KTApp.block('#kt_content', {
+                    KTApp.block('#kt_wrapper', {
                         opacity: 0.1,
                         state: 'primary' // a bootstrap color
                     });
 
                     ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                        KTApp.unblock('#kt_content');
+                        KTApp.unblock('#kt_wrapper');
                         if (response.status === 'error') {
                             toastr.error(response.data);
                         } else {
@@ -157,13 +157,13 @@
             let url = '{{route('audit.execution.archive-apotti-report.report-apotti-edit-form')}}';
             let data = {apotti_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {

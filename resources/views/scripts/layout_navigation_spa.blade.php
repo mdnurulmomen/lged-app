@@ -20,7 +20,7 @@
         if (url.length < 1) {
             url = menuItem.attr('href');
         }
-        KTApp.block('#kt_content', {
+        KTApp.block('#kt_wrapper', {
             opacity: 0.1,
             state: 'primary' // a bootstrap color
         });
@@ -30,7 +30,7 @@
             url: url,
             cache: false,
             success: function (data, textStatus) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (data.status === 'error') {
                     toastr.error(data.data.error);
                 } else {
@@ -42,7 +42,7 @@
                 }
             },
             error: function (data) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 console.log(data)
                 if (data.status === 404) {
                     toastr.error(data.statusText);

@@ -279,13 +279,13 @@
 
             let url = '{{route('audit.followup.broadsheet.reply.show-braod-sheet')}}';
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -308,13 +308,13 @@
 
             let url = '{{route('audit.followup.broadsheet.reply.laod-broad-sheet-item')}}';
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -481,13 +481,13 @@
 
             let url = '{{route('audit.followup.broadsheet.reply.store-broad-sheet-reply')}}';
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
@@ -515,13 +515,13 @@
 
                     let url = '{{route('audit.followup.broadsheet.reply.send-broad-sheet-reply-to-rpu')}}';
 
-                    KTApp.block('#kt_content', {
+                    KTApp.block('#kt_wrapper', {
                         opacity: 0.1,
                         state: 'primary' // a bootstrap color
                     });
 
                     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                        KTApp.unblock('#kt_content');
+                        KTApp.unblock('#kt_wrapper');
                         if (response.status === 'error') {
                             toastr.error(response.data);
                         } else {
@@ -545,13 +545,13 @@
             let url = '{{route('audit.followup.broadsheet.reply.edit-apottoi-item')}}';
             data = {scope,apotti_item_id,cost_center_name_bn,cost_center_name_en};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {

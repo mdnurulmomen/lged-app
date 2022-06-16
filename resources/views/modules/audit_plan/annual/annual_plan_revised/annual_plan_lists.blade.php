@@ -64,13 +64,13 @@
 
             data = {fiscal_year_id, op_audit_calendar_event_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -95,13 +95,13 @@
 
             data = {fiscal_year_id, op_audit_calendar_event_id, annual_plan_main_id, activity_type};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -175,7 +175,7 @@
             KTApp.block('#kt_content');
             let url = '{{route('audit.plan.annual.plan.list.show.revised.create_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -192,7 +192,7 @@
             KTApp.block('#kt_content');
             let url = '{{route('audit.plan.annual.plan.revised.edit_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -207,7 +207,7 @@
             KTApp.block('#kt_content');
             let url = '{{route('audit.plan.annual.plan.revised.show_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -239,7 +239,7 @@
                     KTApp.block('#kt_content');
                     let url = '{{route('audit.plan.annual.plan.revised.delete_annual_plan')}}'
                     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                        KTApp.unblock('#kt_content');
+                        KTApp.unblock('#kt_wrapper');
                         if (response.status === 'error') {
                             toastr.error(response.data);
                         } else {
@@ -275,12 +275,12 @@
             ministry_name_en = $('#ministry_name_en').val()
             ministry_name_bn = $('#ministry_name_bn').val()
             data = {ministry_id, layer_id, ministry_name_en, ministry_name_bn};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -390,12 +390,12 @@
             ministry_name_en = $('#parent_ministry_name_en').val()
             ministry_name_bn = $('#parent_ministry_name_bn').val()
             data = {ministry_id, layer_id, ministry_name_en, ministry_name_bn, scope: 'parent_office'};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -409,12 +409,12 @@
             ministry_name_en = $('#parent_ministry_name_en').val()
             ministry_name_bn = $('#parent_ministry_name_bn').val()
             data = {ministry_id, ministry_name_en, ministry_name_bn, office_category_type,project_id, scope: 'parent_office'};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -566,12 +566,12 @@
                 sec_count = 0;
             }
             count = parseInt(sec_count) + 1;
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, {count}, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -841,12 +841,12 @@
             if (fiscal_year_id) {
                 let url = '{{route('audit.plan.annual.plan.revised.annual-entities-show')}}';
                 let data = {fiscal_year_id, fiscal_year, activity_id};
-                KTApp.block('#kt_content', {
+                KTApp.block('#kt_wrapper', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.error(response.data)
                     } else {
@@ -862,13 +862,13 @@
             url = '{{route('audit.plan.annual.load-assessment-entity')}}';
             data = {parent_ministry_id,office_category_type,activity_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {

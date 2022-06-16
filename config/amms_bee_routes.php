@@ -318,6 +318,8 @@ return [
             'get_oniyomer_category_list' => env('API_URL_BEE', '') . '/audit-archive-apotti/get-oniyomer-category-list',
             'get_parent_wise_oniyomer_category_list' => env('API_URL_BEE', '') . '/audit-archive-apotti/get-parent-wise-oniyomer-category-list',
             'store' => env('API_URL_BEE', '') . '/audit-archive-apotti/store',
+            'store-new-attachment' => env('API_URL_BEE', '') . '/audit-archive-apotti/store-new-attachment',
+            'delete-attachment' => env('API_URL_BEE', '') . '/audit-archive-apotti/delete-attachment',
             'update' => env('API_URL_BEE', '') . '/audit-archive-apotti/update',
             'list' => env('API_URL_BEE', '') . '/audit-archive-apotti/list',
             'edit' => env('API_URL_BEE', '') . '/audit-archive-apotti/edit',

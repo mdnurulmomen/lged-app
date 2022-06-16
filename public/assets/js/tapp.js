@@ -52,7 +52,7 @@ function ajaxCallAsyncCallback(url, data, datatype, method, callback) {
 }
 
 function errorCallbackFunc(data){
-    KTApp.unblock('#kt_content');
+    KTApp.unblock('#kt_wrapper');
     if (data.responseJSON.errors) {
         $.each(data.responseJSON.errors, function (k, v) {
             if (isArray(v)) {
@@ -304,7 +304,7 @@ function dateDifferenceInDay(date1, date2) {
 }
 
 //text disable on contact filed
-$(document).off('keypress').on('keypress', '.number-input', function (key) {
+$(document).off('keypress paste').on('keypress paste', '.number-input', function (key) {
     if (key.charCode < 48 || key.charCode > 57) {
         return false;
     }
@@ -399,4 +399,23 @@ function encryptStringToB64(str) {
 
 function decryptStringFromB64(str) {
     return decodeURIComponent(atob(str));
+}
+
+function downloadImage(elem) {
+    url = elem.data('file-url');
+    fetch(url, {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'mode' : 'no-cors'
+    })
+    .then(response => response.blob())
+    .then(blob => {
+        let blobUrl = window.URL.createObjectURL(blob);
+        let a = document.createElement('a');
+        a.download = url.replace(/^.*[\\\/]/, '');
+        a.href = blobUrl;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    })
 }

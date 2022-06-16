@@ -117,13 +117,13 @@
             let url = '{{route('rpu-apotti.get-rpu-apotti-item')}}';
             let data = {directorate_id,ministry_id,entity_id,cost_center_id,memo_type};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -141,13 +141,13 @@
             let url = '{{route('rpu-apotti.get-rpu-apotti-response-form')}}';
             let data = {directorate_id,apotti_item_id,apotti_title_bn};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
@@ -167,13 +167,13 @@
             data = $('#apoitti_response_form').serializeArray();
             let url = '{{route('rpu-apotti.rpu-response-submit')}}';
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -204,13 +204,13 @@
             data = {directorate_id,apottis}
             let url = '{{route('rpu-apotti.rpu-broad-sheet-form')}}';
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
@@ -262,13 +262,13 @@
             data.push({name: "memo_type", value: memo_type});
             data.push({name: "sender_type", value: sender_type});
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {

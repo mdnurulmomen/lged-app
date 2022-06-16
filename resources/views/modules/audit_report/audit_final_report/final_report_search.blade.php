@@ -70,13 +70,13 @@
             let url = '{{route('audit.final-report.get-final-report-search-list')}}';
             let data = {directorate_id, ministry_id, entity_id, fiscal_year_id, page, per_page};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {

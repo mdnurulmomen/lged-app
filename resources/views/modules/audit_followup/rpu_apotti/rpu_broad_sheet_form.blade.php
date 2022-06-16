@@ -102,7 +102,7 @@
             elem = $(this);
             elem.prop('disabled', true);
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
@@ -116,7 +116,7 @@
                 cache: false,
                 processData: false,
                 success: function (responseData) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
                         $('#kt_quick_panel_close').click();
@@ -136,7 +136,7 @@
                     }
                 },
                 error: function (data) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     elem.prop('disabled', false)
                     if (data.responseJSON.errors) {
                         $.each(data.responseJSON.errors, function (k, v) {

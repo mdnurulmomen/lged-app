@@ -77,13 +77,13 @@
             let url = '{{route('audit.execution.archive-apotti-report.list')}}';
             let data = {directorate_id, ministry_id, entity_id, year_from, year_to, page, per_page};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
@@ -163,13 +163,13 @@
 
             $(".store-apotti-report").text('Loading....');
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 $(".store-apotti-report").hide();
                 if (response.status === 'success') {
                     toastr.success(response.data);
@@ -178,7 +178,7 @@
                     toastr.error(response.data);
                 }
             },function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.responseJSON.errors) {
                     $.each(response.responseJSON.errors, function (k, v) {
                         if (isArray(v)) {
@@ -229,13 +229,13 @@
             let url = '{{route('audit.execution.archive-apotti-report.report-sync')}}';
             let data = {report_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {

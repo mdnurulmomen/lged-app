@@ -180,12 +180,12 @@
                 per_page
             };
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
@@ -197,7 +197,12 @@
         loadApottiUploadForm: function() {
             let url = '{{ route('audit.execution.archive-apotti.create') }}';
             let data = {};
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data);
                 } else {
@@ -209,10 +214,13 @@
         loadApottiEditForm: function(elem) {
             apotti_id = elem.data('apotti-id');
             let url = '{{ route('audit.execution.archive-apotti.edit') }}';
-            let data = {
-                apotti_id
-            };
+            let data = {apotti_id};
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data);
                 } else {
@@ -221,18 +229,17 @@
             });
         },
 
-        loadApottiDetails: function(elem) {
-            apotti_id = elem.data('apotti-id');
+        loadApottiDetails: function(apotti_id) {
             let url = '{{ route('audit.execution.archive-apotti.view') }}';
             let data = {apotti_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data);
                 } else {
@@ -244,10 +251,15 @@
         syncArchiveApottiToAmms: function(elem) {
             apotti_id = elem.data('apotti-id');
             let url = '{{ route('audit.execution.archive-apotti.migrate-archive-apotti-to-amms') }}';
-            let data = {
-                apotti_id
-            };
+            let data = {apotti_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data);
                 } else {

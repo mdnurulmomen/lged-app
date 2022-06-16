@@ -69,13 +69,13 @@
                 annual_plan_id,
             };
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
@@ -107,13 +107,13 @@
                         fiscal_year_id,
                     };
 
-                    KTApp.block('#kt_content', {
+                    KTApp.block('#kt_wrapper', {
                         opacity: 0.1,
                         state: 'primary' // a bootstrap color
                     });
 
                     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                        KTApp.unblock('#kt_content');
+                        KTApp.unblock('#kt_wrapper');
                         if (response.status === 'error') {
                             toastr.error(response.data);
                         } else {
@@ -133,7 +133,7 @@
             KTApp.block('#kt_content');
             let url = '{{route('audit.plan.annual.plan.revised.show_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
