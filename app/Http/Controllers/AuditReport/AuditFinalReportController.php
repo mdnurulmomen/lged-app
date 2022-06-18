@@ -259,4 +259,67 @@ class AuditFinalReportController extends Controller
         $apottiDetails = isSuccess($responseData)?$responseData['data']:[];
         return view('modules.audit_report.audit_final_report.final_report_details', compact('apottiDetails'));
     }
+
+    public function finalReportApottiMap(){
+        $all_directorates = $this->allAuditDirectorates();
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
+        $fiscal_years = $this->allFiscalYears();
+        return view(
+            'modules.audit_report.audit_final_report.final_report_apotti_map',
+            compact('directorates','fiscal_years')
+        );
+    }
+
+    public function getDirectorateWiseFinalReport(Request $request){
+        $data = Validator::make($request->all(), [
+            'directorate_id' => 'required',
+        ], [
+            'directorate_id.required' => 'অধিদপ্তর বাছাই করুন',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_archive_final_report'), $data)->json();
+        //dd($responseData);
+        $report_list = isSuccess($responseData) ? $responseData['data'] : [];
+        return view('modules.audit_report.audit_final_report.get_directorate_wise_final_report',
+            compact('report_list'));
+    }
+
+    public function getArchiveFinalReportApotti(Request $request){
+        $data = Validator::make($request->all(), [
+            'directorate_id' => 'required',
+        ], [
+            'directorate_id.required' => 'অধিদপ্তর বাছাই করুন',
+        ])->validate();
+
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_archive_final_report_apotti'), $data)->json();
+        //dd($responseData);
+        $apottis= isSuccess($responseData) ? $responseData['data'] : [];
+        return view('modules.audit_report.audit_final_report.get_final_report_apotii_map_list',
+            compact('apottis'));
+    }
+
+    public function mapArchiveFinalReportApotti(Request $request){
+        $data = Validator::make($request->all(), [
+            'directorate_id' => 'required',
+            'r_air_id' => 'required',
+            'apottis' => 'required',
+        ], [
+            'directorate_id.required' => 'অধিদপ্তর বাছাই করুন',
+            'r_air_id.required' => 'Report is required',
+            'apottis.required' => 'Apottis is required',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.map_archive_final_report_apotti'), $data)->json();
+        //dd($responseData);
+        if (isSuccess($responseData)) {
+            return response()->json(['status' => 'success', 'data' => 'Stored successfully']);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $responseData]);
+        }
+    }
 }

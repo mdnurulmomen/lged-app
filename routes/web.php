@@ -588,6 +588,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('final-report-search', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportSearch'])->name('final-report-search');
         Route::post('get-final-report-search-list', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'getFinalReportSearchList'])->name('get-final-report-search-list');
         Route::post('final-report-details', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportDetails'])->name('get-final-report-details');
+
+        Route::get('final-report-apotti-map', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportApottiMap'])->name('final-report-apotti-map');
+        Route::post('get-directorate-wise-final-report', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'getDirectorateWiseFinalReport'])->name('get-directorate-wise-final-report');
+        Route::post('get-archive-final-report-apotti', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'getArchiveFinalReportApotti'])->name('get-archive-final-report-apotti');
+        Route::post('map-archive-final-report-apotti', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'mapArchiveFinalReportApotti'])->name('map-archive-final-report-apotti');
     });
 
     Route::group(['as' => 'audit.air-report.', 'prefix' => 'audit-air-report/'], function () {

@@ -10,7 +10,9 @@
         <div class="col-md-3 mb-2">
             <div class="card sna-card-border">
                 <a href="javascript:;">
-                    <img class="card-img-top" style="height: 350px" src="{{$report['reported_apotti_cover_page']?rtrim(config('amms_bee_routes.file_url'),'/').$report['reported_apotti_cover_page']['attachment_path'].$report['reported_apotti_cover_page']['cover_page_name']:''}}">
+                    @if($report['has_report_attachments'] == 1)
+                        <img class="card-img-top" style="height: 350px" src="{{$report['reported_apotti_cover_page']?rtrim(config('amms_bee_routes.file_url'),'/').$report['reported_apotti_cover_page']['attachment_path'].$report['reported_apotti_cover_page']['cover_page_name']:''}}">
+                    @endif
                 </a>
                 <h5>{{$report['report_name']}}</h5>
                 <div class="row">
