@@ -98,7 +98,7 @@
                     </div>
                     <div class="row mt-3 mb-14">
                         <div class="col-md-2">
-                            <img style="cursor: pointer;border: 2px solid #040404;" class="coverImage"
+                            <img style="cursor: pointer;border: 2px solid #040404;"
                                  src="{{config('amms_bee_routes.file_url').$apotti['cover_page_path'].$apotti['cover_page']}}"
                                  onclick="showImageOnModal(this)" width="80%" height="100%"/>
 
@@ -127,7 +127,7 @@
                     <div class="row mt-3 mb-14">
                         @foreach($main_attachments as $attachment)
                             <div class="col-md-2 mb-16">
-                                <img style="cursor: pointer;border: 2px solid #040404;" class="coverImage"
+                                <img style="cursor: pointer;border: 2px solid #040404;"
                                      src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
 
@@ -164,7 +164,7 @@
                     <div class="row mt-3 mb-14">
                         @foreach($porisishto_attachments as $attachment)
                             <div class="col-md-2 mb-16">
-                                <img style="cursor: pointer;border: 2px solid #040404;" class="coverImage"
+                                <img style="cursor: pointer;border: 2px solid #040404;"
                                      src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
 
@@ -201,7 +201,7 @@
                     <div class="row mt-3 mb-14">
                         @foreach($promanok_attachments as $attachment)
                             <div class="col-md-2 mb-16">
-                                <img style="cursor: pointer;border: 2px solid #040404;" class="coverImage"
+                                <img style="cursor: pointer;border: 2px solid #040404;"
                                      src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
 
@@ -238,7 +238,7 @@
                     <div class="row mt-3 mb-14">
                         @foreach($other_attachments as $attachment)
                             <div class="col-md-2 mb-16">
-                                <img style="cursor: pointer;border: 2px solid #040404;" class="coverImage"
+                                <img style="cursor: pointer;border: 2px solid #040404;"
                                      src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
 

@@ -1,4 +1,4 @@
-<x-title-wrapper>Audi Report Search</x-title-wrapper>
+<x-title-wrapper>Audit Report Search</x-title-wrapper>
 
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
@@ -39,7 +39,7 @@
         </div>
         <div class="mt-2 row">
             <div class="col-md-3">
-                <button onclick="Archive_Apotti_Report_Container.load_apotti_report_list()"
+                <button onclick="Final_Report_Search_Container.loadFinalReportList()"
                         class="btn btn-sm btn-primary btn-square" type="button">
                     <i class="fad fa-search"></i> অনুসন্ধান
                 </button>
@@ -118,12 +118,12 @@
     //ministry
     $('#directorate_id').change(function () {
         directorate_id = $('#directorate_id').val();
-        Archive_Apotti_Container.loadDirectorateWiseMinistry(directorate_id);
+        Final_Report_Search_Container.loadDirectorateWiseMinistry(directorate_id);
     });
 
     //entity
     $('#ministry_id').change(function() {
         ministry_id = $('#ministry_id').val();
-        Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id);
+        Final_Report_Search_Container.loadMinistryWiseEntity(ministry_id);
     });
 </script>

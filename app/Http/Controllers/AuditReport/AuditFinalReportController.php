@@ -239,7 +239,7 @@ class AuditFinalReportController extends Controller
 
         $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_audit_final_report_search'), $data)->json();
-//        dd($responseData);
+        //dd($responseData);
         $current_designation_id = $this->current_designation_id();
         $report_list = isSuccess($responseData) ? $responseData['data'] : [];
         return view('modules.audit_report.audit_final_report.get_final_report_search_list',
@@ -254,80 +254,9 @@ class AuditFinalReportController extends Controller
         ], [
             'office_id.required' => 'অধিদপ্তর বাছাই করুন',
         ])->validate();
-        $data['qac_type'] = 'cqat';
-        $report_name = $request->report_name;
-        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_qac_apotti'), $data)->json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_audit_final_report_details'), $data)->json();
+        //dd($responseData);
         $apottiDetails = isSuccess($responseData)?$responseData['data']:[];
-//        dd($apottiDetails);
-        return view('modules.audit_report.audit_final_report.final_report_details',
-            compact('apottiDetails','report_name'));
-
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('modules.audit_report.audit_final_report.final_report_details', compact('apottiDetails'));
     }
 }

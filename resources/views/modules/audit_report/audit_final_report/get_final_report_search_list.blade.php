@@ -10,7 +10,7 @@
         <div class="col-md-3 mb-2">
             <div class="card sna-card-border">
                 <a href="javascript:;">
-                    <img class="card-img-top" style="height: 350px" src="">
+                    <img class="card-img-top" style="height: 350px" src="{{$report['reported_apotti_cover_page']?rtrim(config('amms_bee_routes.file_url'),'/').$report['reported_apotti_cover_page']['attachment_path'].$report['reported_apotti_cover_page']['cover_page_name']:''}}">
                 </a>
                 <h5>{{$report['report_name']}}</h5>
                 <div class="row">
@@ -37,14 +37,20 @@
         report_name = elem.data('report-name');
         let url = '{{route('audit.final-report.get-final-report-details')}}';
         let data = {air_id,office_id,report_name};
+
+        KTApp.block('#kt_wrapper', {
+            opacity: 0.1,
+            state: 'primary' // a bootstrap color
+        });
+
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                if (response.status === 'error') {
-                    toastr.warning(response.data);
-                } else {
-                    $('#kt_content').html(response);
-                }
+            KTApp.unblock('#kt_wrapper');
+            if (response.status === 'error') {
+                toastr.warning(response.data);
+            } else {
+                $('#kt_content').html(response);
             }
-        );
+        });
     }
 </script>
 
