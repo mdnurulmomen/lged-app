@@ -58,7 +58,7 @@
                                         <div class="d-flex mt-3">
                                             @if($audit_plan['office_order_log'])
                                                 @foreach($audit_plan['office_order_log'] as $office_order_log)
-                                                    <a href="{{ config('amms_bee_routes.file_url').$item['log_path'] }}"
+                                                    <a href="{{ config('amms_bee_routes.file_url').$office_order_log['log_path'] }}"
                                                        title="অফিস আদেশ বিস্তারিত দেখুন"
                                                        class="badge-square rounded-0 badge d-flex align-items-center
                                                        alert-success font-weight-normal mr-1 border decision">
