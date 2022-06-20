@@ -304,6 +304,7 @@ return [
             'apotti_wise_all_tiem' => env('API_URL_BEE', '') . '/audit-conduct-apotti/apotti-wise-all-tiem',
             'get_apotti_item_info' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-item-info',
             'update_apotti' => env('API_URL_BEE', '') . '/audit-conduct-apotti/update-apotti',
+            'delete_apotti_porisisto' => env('API_URL_BEE', '') . '/audit-conduct-apotti/delete-apotti-porisisto',
             'get-apotti-onucched-no' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-onucched-no',
             'apotti_register_list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-register-list',
             'update_apotti_register' => env('API_URL_BEE', '') . '/audit-conduct-apotti/update-apotti-register',

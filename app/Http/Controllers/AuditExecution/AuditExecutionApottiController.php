@@ -217,7 +217,6 @@ class AuditExecutionApottiController extends Controller
 
         $data['cdesk'] = $this->current_desk_json();
 
-
         $apotti_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.get_apotti_info'), $data)->json();
 //        dd($apotti_info);
         if (isSuccess($apotti_info)) {
@@ -247,6 +246,28 @@ class AuditExecutionApottiController extends Controller
             'audit_recommendation' => $request->audit_recommendation,
             'apotti_items' => isset($request->apotti_items)?$request->apotti_items:[],
             'jorito_ortho_porimans' => isset($request->jorito_ortho_porimans)?$request->jorito_ortho_porimans:[],
+            'porisisto_details' => isset($request->porisisto_details)?$request->porisisto_details:[],
+        ];
+
+        $apotti_update = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.update_apotti'), $data)->json();
+
+        if (isSuccess($apotti_update)) {
+            $apotti_update = $apotti_update['data'];
+            return response()->json(['status' => 'success', 'data' => $apotti_update]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $apotti_update]);
+        }
+    }
+
+
+    public function apottiPorisistoDelete(Request $request){
+        Validator::make($request->all(), [
+            'apotti_porisishto_id' => 'required',
+        ])->validate();
+
+        $data = [
+            'cdesk' => $this->current_desk_json(),
+            'apotti_porisishto_id' => $request->apotti_id
         ];
 
         $apotti_update = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.update_apotti'), $data)->json();

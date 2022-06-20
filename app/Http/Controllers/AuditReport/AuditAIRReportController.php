@@ -306,20 +306,18 @@ class AuditAIRReportController extends Controller
         $porisistos_html = [];
 
         if ($scope != 'apotti_air') {
-            $apotti_items = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), ['air_id' => $request->air_id, 'all' => '1', 'cdesk' => $this->current_desk_json()])->json();
+            $apottis = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), ['air_id' => $request->air_id, 'all' => '1', 'cdesk' => $this->current_desk_json()])->json();
 
-            $serial_number = 1;
-            if (isSuccess($apotti_items)) {
-                $apotti_items = $apotti_items['data'];
-                foreach ($apotti_items as $apotti_item) {
-                    $onucched_no = $apotti_item['apotti']['onucched_no'];
-                    $total_porisishto = count($apotti_item['porisishtos']);
-                    foreach ($apotti_item['porisishtos'] as $porisishto) {
-                        $porishisto_no = $total_porisishto>1?enTobn($onucched_no).'.'.enTobn($serial_number):enTobn($onucched_no);
+            $porisishto_counter = 1;
+            if (isSuccess($apottis)) {
+                foreach ($apottis['data'] as $apotti) {
+                    $onucched_no = $apotti['onucched_no'];
+                    foreach ($apotti['apotti_porisishtos'] as $porisishto) {
+                        $porishisto_no = count($apotti['apotti_porisishtos'])>1?enTobn($onucched_no).'.'.enTobn($porisishto_counter):enTobn($onucched_no);
                         $porisistos_html[] = '<span>পরিশিষ্ট নম্বর-'.$porishisto_no.'</span><br><span>অনুচ্ছেদ নম্বর-'.enTobn($onucched_no).'</span>'.$porisishto['details'];
-                        $serial_number++;
+                        $porisishto_counter++;
                     }
-                    $serial_number = 1;
+                    $porisishto_counter = 1;
                 }
             } else {
                 $porisistos_html = [];

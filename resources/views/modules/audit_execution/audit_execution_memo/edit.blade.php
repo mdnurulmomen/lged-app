@@ -498,4 +498,8 @@
         setContentType('.kt-tinymce-1');
         toastr.success('Added');
     }
+
+    function removePorisisto(elem){
+        elem.closest("tr").remove();
+    }
 </script>

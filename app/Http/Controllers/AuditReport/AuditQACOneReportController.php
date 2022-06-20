@@ -25,24 +25,18 @@ class AuditQACOneReportController extends Controller
         $porisistos_html = [];
 
         if ($scope != 'apotti_air') {
-            $apotti_items = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), ['air_id' => $request->air_id, 'all' => '1', 'cdesk' => $this->current_desk_json()])->json();
+            $apottis = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), ['air_id' => $request->air_id, 'all' => '1', 'cdesk' => $this->current_desk_json()])->json();
 
             $porisishto_counter = 1;
-            if (isSuccess($apotti_items)) {
-                $apotti_items = $apotti_items['data'];
-                $latest_onucched_no = 0;
-                foreach ($apotti_items as $apotti_item) {
-                    $current_onucched_no = $apotti_item['apotti']['onucched_no'];
-                    foreach ($apotti_item['porisishtos'] as $porisishto) {
-                        $porishisto_no = $current_onucched_no == $latest_onucched_no?enTobn($current_onucched_no).'.'.enTobn($porisishto_counter):enTobn($current_onucched_no);
-                        $porisistos_html[] = '<span>পরিশিষ্ট নম্বর-'.$porishisto_no.'</span><br><span>অনুচ্ছেদ নম্বর-'.enTobn($current_onucched_no).'</span>'.$porisishto['details'];
+            if (isSuccess($apottis)) {
+                foreach ($apottis['data'] as $apotti) {
+                    $onucched_no = $apotti['onucched_no'];
+                    foreach ($apotti['apotti_porisishtos'] as $porisishto) {
+                        $porishisto_no = count($apotti['apotti_porisishtos'])>1?enTobn($onucched_no).'.'.enTobn($porisishto_counter):enTobn($onucched_no);
+                        $porisistos_html[] = '<span>পরিশিষ্ট নম্বর-'.$porishisto_no.'</span><br><span>অনুচ্ছেদ নম্বর-'.enTobn($onucched_no).'</span>'.$porisishto['details'];
                         $porisishto_counter++;
                     }
-
-                    if ($current_onucched_no != $latest_onucched_no){
-                        $latest_onucched_no = $current_onucched_no;
-                        $porisishto_counter = 1;
-                    }
+                    $porisishto_counter = 1;
                 }
             } else {
                 $porisistos_html = [];

@@ -176,8 +176,15 @@
                 team_leader_name, team_leader_designation_name, scope_sub_team_leader,
                 sub_team_leader_name, sub_team_leader_designation_name
             };
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             let url = '{{route('audit.execution.memo.edit')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
