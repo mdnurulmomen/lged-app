@@ -433,6 +433,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('onucched-show', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedShow'])->name('onucched-show');
             Route::post('edit-apotti', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'editApotti'])->name('edit-apotti');
             Route::post('update-apotti', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'updateApotti'])->name('update-apotti');
+            Route::post('delete-apotti-porisisto', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'apottiPorisistoDelete'])->name('delete-apotti-porisisto');
             Route::post('audit-plan-wise-entity', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'auditPlanWiseEntitySelect'])->name('audit-plan-wise-entity-select');
             Route::post('audit-plan-type-wise-air', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'auditPlanTypeWiseAir'])->name('audit-plan-type-wise-air');
             Route::post('apotti-item-info', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'apottiItemInfo'])->name('apotti-item-info');

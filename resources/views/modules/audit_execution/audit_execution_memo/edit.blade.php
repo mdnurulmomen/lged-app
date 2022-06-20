@@ -324,8 +324,8 @@
                             <tr>
                                 <td>
                                     <div class="form-group">
-                                        <label style="font-size: 1.5em" class="col-form-label">পরিশিষ্ট {{enTobn($porisishto['sequence'])}}</label>
-                                        <textarea id="kt-tinymce-porisisto-{{$porisishto['sequence']}}" class="porisisto_details kt-tinymce-1">{{$porisishto['details']}}</textarea>
+                                        <label style="font-size: 1.5em" class="col-form-label">পরিশিষ্ট {{enTobn($loop->iteration)}}</label>
+                                        <textarea id="kt-tinymce-porisisto-{{$loop->iteration}}" class="porisisto_details kt-tinymce-1">{{$porisishto['details']}}</textarea>
                                     </div>
                                 </td>
                             </tr>

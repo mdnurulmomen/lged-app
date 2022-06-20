@@ -170,10 +170,16 @@
                                    id="tblPorisistoList">
                                 <tbody>
                                 @foreach($apotti_info['apotti_porisishtos'] as $porisishto)
-                                    <tr>
+                                    <tr id="apotii_porisishto_row_{{$porisishto['id']}}">
                                         <td>
                                             <div class="form-group">
-                                                <label style="font-size: 1.5em" class="col-form-label">পরিশিষ্ট {{enTobn($loop->iteration)}}</label>
+                                                <label style="font-size: 1.5em" class="col-form-label">পরিশিষ্ট {{enTobn($loop->iteration)}}
+                                                    <button style="border-radius: 13px" title="মুছে ফেলুন" type="button"
+                                                            class="ml-1 btn btn-danger btn-sm btn-square" data-porisishto-id="{{$porisishto['id']}}"
+                                                            onclick="removeUploadedPorisisto($(this))">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                </label>
                                                 <textarea id="kt-tinymce-porisisto-{{$loop->iteration}}" class="porisisto_details kt-tinymce-1">{{$porisishto['details']}}</textarea>
                                             </div>
                                         </td>
@@ -335,6 +341,31 @@
             });
         });
     });
+
+    function removeUploadedPorisisto(elem){
+        apotti_porisishto_id = elem.data('porisishto-id');
+        swal.fire({
+            title: 'আপনি কি তথ্যটি মুছে ফেলতে চান?',
+            text: "",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'হ্যাঁ',
+            cancelButtonText: 'না'
+        }).then(function(result) {
+            if (result.value) {
+                let url = '{{route('audit.execution.apotti.delete-apotti-porisisto')}}';
+                data = {apotti_porisishto_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data)
+                    } else {
+                        $("#apotii_porisishto_row_"+apotti_porisishto_id).hide();
+                        toastr.success(response.data);
+                    }
+                });
+            }
+        });
+    }
 
 </script>
 

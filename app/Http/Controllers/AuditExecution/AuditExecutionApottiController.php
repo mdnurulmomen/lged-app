@@ -267,10 +267,10 @@ class AuditExecutionApottiController extends Controller
 
         $data = [
             'cdesk' => $this->current_desk_json(),
-            'apotti_porisishto_id' => $request->apotti_id
+            'apotti_porisishto_id' => $request->apotti_porisishto_id
         ];
 
-        $apotti_update = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.update_apotti'), $data)->json();
+        $apotti_update = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.delete_apotti_porisisto'), $data)->json();
 
         if (isSuccess($apotti_update)) {
             $apotti_update = $apotti_update['data'];
