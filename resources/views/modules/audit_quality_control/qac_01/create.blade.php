@@ -51,42 +51,42 @@
                 @endif
             @endif
 
-                <div class="dropdown dropdown-inline btn-outline-primary tap-button">
-                    <a href="#" class="btn btn-sm dropdown-toggle px-5 tap-button btn-outline-primary"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fad fa-download"></i> ডাউনলোড
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="">
-                        <!--begin::Navigation-->
-                        <ul class="navi navi-hover">
-                            <li class="navi-item">
-                                <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('forwarding_letter')" class="navi-link">
-                                    <i class="fad fa-archive mr-3"></i>
-                                    <span class="navi-text">ফরোয়ার্ডিং লেটার</span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('apotti_air')" class="navi-link">
-                                    <i class="fad fa-archive mr-3"></i>
-                                    <span class="navi-text">এআইআর আপত্তি সমূহ</span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('porishisto_air')" class="navi-link">
-                                    <i class="fab fa-palfed mr-3"></i>
-                                    <span class="navi-text">এআইআর পরিশিষ্ট সমূহ</span>
-                                </a>
-                            </li>
-                            <li class="navi-item">
-                                <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('full_air')" class="navi-link">
-                                    <i class="fad fa-box-full mr-3"></i>
-                                    <span class="navi-text">সম্পূর্ণ এআইআর</span>
-                                </a>
-                            </li>
-                        </ul>
-                        <!--end::Navigation-->
-                    </div>
+            <div class="dropdown dropdown-inline btn-outline-primary tap-button">
+                <a href="#" class="btn btn-sm dropdown-toggle px-5 tap-button btn-outline-primary"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fad fa-download"></i> ডাউনলোড
+                </a>
+                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="">
+                    <!--begin::Navigation-->
+                    <ul class="navi navi-hover">
+                        <li class="navi-item">
+                            <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('forwarding_letter')" class="navi-link">
+                                <i class="fad fa-archive mr-3"></i>
+                                <span class="navi-text">ফরোয়ার্ডিং লেটার</span>
+                            </a>
+                        </li>
+                        <li class="navi-item">
+                            <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('apotti_air')" class="navi-link">
+                                <i class="fad fa-archive mr-3"></i>
+                                <span class="navi-text">এআইআর আপত্তি সমূহ</span>
+                            </a>
+                        </li>
+                        <li class="navi-item">
+                            <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('porishisto_air')" class="navi-link">
+                                <i class="fab fa-palfed mr-3"></i>
+                                <span class="navi-text">এআইআর পরিশিষ্ট সমূহ</span>
+                            </a>
+                        </li>
+                        <li class="navi-item">
+                            <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('full_air')" class="navi-link">
+                                <i class="fad fa-box-full mr-3"></i>
+                                <span class="navi-text">সম্পূর্ণ এআইআর</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--end::Navigation-->
                 </div>
+            </div>
 
             <button class="tap-button mr-1 btn btn-sm btn-outline-warning"
                     data-air-id="{{$air_report_id}}"

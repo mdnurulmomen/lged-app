@@ -36,15 +36,46 @@
                 @endif
             @endif
 
-                @if($approved_status == 'approved')
-                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
-                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
-                                    title="প্রাপক বাছাই করুন"
-                                    onclick="QAC_AIR_Report_Container.loadCagAuthority()">
-                                <i class="fad fa-paper-plane"></i> সিকিউএটি এর জন্য প্রেরণ করুন
-                        </button>
-                    @endif
+            @if($approved_status == 'approved')
+                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
+                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
+                                title="প্রাপক বাছাই করুন"
+                                onclick="QAC_AIR_Report_Container.loadCagAuthority()">
+                            <i class="fad fa-paper-plane"></i> সিকিউএটি এর জন্য প্রেরণ করুন
+                    </button>
                 @endif
+            @endif
+
+            <div class="dropdown dropdown-inline btn-outline-primary tap-button">
+                <a href="#" class="btn btn-sm dropdown-toggle px-5 tap-button btn-outline-primary"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fad fa-download"></i> ডাউনলোড
+                </a>
+                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="">
+                    <!--begin::Navigation-->
+                    <ul class="navi navi-hover">
+                        <li class="navi-item">
+                            <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('apotti_air')" class="navi-link">
+                                <i class="fad fa-archive mr-3"></i>
+                                <span class="navi-text">এআইআর আপত্তি সমূহ</span>
+                            </a>
+                        </li>
+                        <li class="navi-item">
+                            <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('porishisto_air')" class="navi-link">
+                                <i class="fab fa-palfed mr-3"></i>
+                                <span class="navi-text">এআইআর পরিশিষ্ট সমূহ</span>
+                            </a>
+                        </li>
+                        <li class="navi-item">
+                            <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('full_air')" class="navi-link">
+                                <i class="fad fa-box-full mr-3"></i>
+                                <span class="navi-text">সম্পূর্ণ এআইআর</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--end::Navigation-->
+                </div>
+            </div>
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
                     data-air-id="{{$air_report_id}}"
@@ -280,6 +311,48 @@
                     }
                 });
             },
+
+            downloadAIRReport: function(scope = 'only_apotti') {
+                air_description = templateArray;
+                air_id = '{{$air_report_id}}';
+
+                if (air_id){
+                    data = {scope, air_id, air_description};
+
+                    KTApp.block('#kt_full_width_page', {
+                        opacity: 0.1,
+                        message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                        state: 'primary' // a bootstrap color
+                    });
+
+
+                    url = '{{route('audit.report.air.qac2.download')}}';
+
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: data,
+                        xhrFields: {
+                            responseType: 'blob'
+                        },
+                        success: function(response) {
+                            KTApp.unblock("#kt_full_width_page");
+                            var blob = new Blob([response]);
+                            var link = document.createElement('a');
+                            link.href = window.URL.createObjectURL(blob);
+                            link.download = "QAC2 Report " + new Date().toDateString().replace(/ /g, "_") + ".pdf";
+                            link.click();
+                        },
+                        error: function(blob) {
+                            KTApp.unblock("#kt_quick_panel");
+                            toastr.error('Failed to generate PDF.')
+                            console.log(blob);
+                        }
+                    });
+                }else {
+                    toastr.error('এআইআর সংরক্ষন করুন');
+                }
+            }
         }
     </script>
 @endsection
