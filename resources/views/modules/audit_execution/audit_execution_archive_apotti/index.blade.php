@@ -262,9 +262,9 @@
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data);
-                    Archive_Apotti_Container.loadApottiList();
                 } else {
                     toastr.success('success');
+                    Archive_Apotti_Container.loadApottiList();
                 }
             });
         }

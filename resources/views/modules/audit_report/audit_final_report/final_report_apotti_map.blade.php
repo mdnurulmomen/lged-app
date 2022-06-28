@@ -6,7 +6,7 @@
             <div class="row mt-2">
                 <div class="col-md-12">
                     <label for="directorate_id" class="col-form-label">অডিট ডিরেক্টরেট সমূহ</label>
-                    <select class="form-select select-select2" id="directorate_id" name="directorate_id">
+                    <select class="form-select select-select2" id="directorate_id" name="directorate_id" style="width: 100%">
                         @foreach($directorates as $directorate)
                             <option value="{{$directorate['office_id']}}">{{$directorate['office_name_bn']}}</option>
                         @endforeach
@@ -17,7 +17,7 @@
             <div class="row mt-2">
                 <div class="col-md-12">
                     <label for="r_air_id" class="col-form-label">Audit Report</label>
-                    <select class="form-select select-select2" id="r_air_id" name="r_air_id">
+                    <select class="form-select select-select2" id="r_air_id" name="r_air_id" style="width: 100%">
                         <option value="">--Select--</option>
                     </select>
                 </div>
@@ -109,4 +109,10 @@
             });
         },
     };
+
+    //directorate_id
+    $('#directorate_id').change(function () {
+        directorate_id = $('#directorate_id').val();
+        Final_Report_Apotti_Map_Container.loadDirectorateWiseRAir(directorate_id);
+    });
 </script>
