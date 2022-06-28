@@ -114,5 +114,6 @@
     $('#directorate_id').change(function () {
         directorate_id = $('#directorate_id').val();
         Final_Report_Apotti_Map_Container.loadDirectorateWiseRAir(directorate_id);
+        Final_Report_Apotti_Map_Container.loadApottiList(directorate_id);
     });
 </script>

@@ -144,7 +144,7 @@
                 // dashboard_filter_data = JSON.parse(dashboard_filter_data);
                 activity_id = dashboard_filter_data.activity_id;
             }
-            let url = '{{ route('calendar.load-schedule-entity-fiscal-year-wise-select') }}';
+            let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
             let data = {directorate_id, fiscal_year_id, activity_id};
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
@@ -304,11 +304,16 @@
             $("html").addClass("side-panel-overlay");
 
             memo_id = elem.data('memo-id');
-            data = {
-                memo_id
-            };
-            let url = '{{ route('audit.execution.memo.audit-memo-log') }}'
+            data = {memo_id};
+            let url = '{{ route('audit.execution.memo.audit-memo-log') }}';
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function(response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -321,7 +326,14 @@
             memo_id = elem.data('memo-id');
             data = {memo_id};
             let url = '{{route('audit.execution.apotti.memo.edit')}}';
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {

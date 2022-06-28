@@ -224,7 +224,7 @@
                                 <li class="page-item">
                                     <a class="page-link" data-current-page={{ $current_page }}
                                         href="javascript:;" onclick="Apotti_Memo_Container.paginate($(this))"
-                                        data-page="{{ $i }}">{{ $last_page }}</a>
+                                        data-page="{{ $last_page }}">{{ $last_page }}</a>
                                 </li>
                             @elseif ($current_page >= 5 && $current_page < $last_page - 5)
                                 <li class="page-item">
@@ -250,7 +250,7 @@
                                 <li class="page-item">
                                     <a class="page-link" data-current-page={{ $current_page }}
                                         href="javascript:;" onclick="Apotti_Memo_Container.paginate($(this))"
-                                        data-page="{{ $i }}">{{ $last_page }}</a>
+                                        data-page="{{ $last_page }}">{{ $last_page }}</a>
                                 </li>
                             @else
                                 <li class="page-item">
