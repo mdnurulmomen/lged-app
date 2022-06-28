@@ -159,8 +159,9 @@
             updateAIRReport: function (elem) {
                 url = '{{route('audit.report.air.qac.update-air-report')}}';
                 air_id = elem.data('air-id');
+                air_type = '{{$qac_type}}';
                 air_description = JSON.stringify(templateArray);
-                data = {air_id,air_description};
+                data = {air_id,air_type,air_description};
                 KTApp.block('#kt_full_width_page', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
