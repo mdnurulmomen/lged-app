@@ -267,10 +267,7 @@ class AuditFinalReportController extends Controller
         }));
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
         $fiscal_years = $this->allFiscalYears();
-        return view(
-            'modules.audit_report.audit_final_report.final_report_apotti_map',
-            compact('directorates','fiscal_years')
-        );
+        return view('modules.audit_report.audit_final_report.final_report_apotti_map', compact('directorates','fiscal_years'));
     }
 
     public function getDirectorateWiseFinalReport(Request $request){
