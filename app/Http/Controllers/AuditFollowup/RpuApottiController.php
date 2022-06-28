@@ -181,6 +181,8 @@ class RpuApottiController extends Controller
                 $send_data
             );
 
+//            dd($response);
+
             return json_decode($response->getBody(), true);
         }
 

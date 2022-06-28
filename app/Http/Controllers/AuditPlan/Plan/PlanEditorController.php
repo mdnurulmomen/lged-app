@@ -124,6 +124,7 @@ class PlanEditorController extends Controller
         $data = Validator::make($request->all(), [
             'annual_plan_id' => 'required|integer',
             'parent_office_id' => 'required',
+            'modal_type' => 'nullable',
         ])->validate();
 
 //        dd($data);
@@ -136,8 +137,9 @@ class PlanEditorController extends Controller
 
         $team_layer_id = $request->team_layer_id;
         $parent_office_id = $request->parent_office_id;
+        $modal_type = $request->modal_type;
         return view('modules.audit_plan.audit_plan.plan_revised.partials.load_team_schedule',
-            compact('team_layer_id','parent_office_id'));
+            compact('team_layer_id','parent_office_id','modal_type'));
     }
 
     public function addAuditScheduleRow(Request $request){

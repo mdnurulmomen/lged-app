@@ -101,7 +101,7 @@
                                     <input type="text" id="team_start_date"
                                            class="date form-control"
                                            value="{{empty($all_teams) || empty($all_teams[0]['team_start_date'])?'':date('d/m/Y',strtotime($all_teams[0]['team_start_date']))}}"
-                                           placeholder="সম্পাদনের সময়কাল শুরু" autocomplete="off"/>
+                                           placeholder="{{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল শুরু' : 'সম্পাদনের সময়কাল শেষ' }}" autocomplete="off"/>
                                 </div>
                             </div>
                             <div class="col">
@@ -112,7 +112,7 @@
                                     <input type="text" id="team_end_date"
                                            class="date form-control"
                                            value="{{empty($all_teams) || empty($all_teams[0]['team_end_date'])?'':date('d/m/Y',strtotime($all_teams[0]['team_end_date']))}}"
-                                           placeholder="সম্পাদনের সময়কাল শেষ" autocomplete="off"/>
+                                           placeholder="{{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল শেষ' : 'সম্পাদনের সময়কাল শেষ' }}" autocomplete="off"/>
                                 </div>
                             </div>
                         </div>
@@ -239,7 +239,7 @@
                                                                                 <button title="Add Team Schedule"
                                                                                         type="button"
                                                                                         id="team_schedule_layer_btn_{{$loop->iteration}}"
-                                                                                        onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$loop->iteration}}','{{$loop->iteration}}')"
+                                                                                        onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_{{$loop->iteration}}','{{$loop->iteration}}','{{$modal_type}}')"
                                                                                         class="pulse pulse-primary justify-self-end text-danger btn btn-icon btn-md">
                                                                                     <i class="text-primary far fa-calendar-alt"></i>
                                                                                     <span class="pulse-ring"></span>
@@ -344,7 +344,7 @@
                                                                                 কস্ট সেন্টার/ইউনিট
                                                                             </th>
                                                                             <th width="28%">
-                                                                                নিরীক্ষার সময়কাল
+                                                                                {{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল শুরু' : 'নিরীক্ষার সময়কাল' }}
                                                                             </th>
 
                                                                             <th width="8%">
@@ -876,13 +876,13 @@
             }
         },
 
-        loadTeamSchedule: function (team_schedule_list_div, team_layer_id) {
+        loadTeamSchedule: function (team_schedule_list_div, team_layer_id, modal_type) {
             KTApp.block('.kt-portlet')
             url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
             annual_plan_id = '{{$annual_plan_id}}';
             parent_office_id = '{{$parent_office_id}}';
             parent_office_id = parent_office_id.replace(/&quot;/g, '"');
-            data = {team_layer_id, annual_plan_id, parent_office_id};
+            data = {team_layer_id, annual_plan_id, parent_office_id, modal_type};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('.kt-portlet')
                 if (response.status === 'error') {
@@ -1299,7 +1299,7 @@ style="padding-left: 5px;">
             <div class="d-flex align-items-center justify-content-end">
                 <div class="d-flex align-items-center justify-content-between mb-0 mt-0">
                     <div class="mr-2">
-                        <button title="Add Team Schedule" type="button" id="team_schedule_layer_btn_${number}" onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_${number}',${number})"
+                        <button title="Add Team Schedule" type="button" id="team_schedule_layer_btn_${number}" onclick="Load_Team_Container.loadTeamSchedule('team_schedule_list_${number}',${number},'{{$modal_type}}')"
                                 class="pulse pulse-primary justify-self-end text-danger btn btn-icon btn-md">
                             <i class="text-primary far fa-calendar-alt"></i>
                             <span class="pulse-ring"></span>
