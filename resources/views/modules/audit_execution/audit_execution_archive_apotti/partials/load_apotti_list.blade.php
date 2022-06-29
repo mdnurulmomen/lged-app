@@ -4,7 +4,7 @@
         <th class="text-center" width="5%">ক্রমিক নং</th>
         <th class="text-center" width="5%">আইডি</th>
         <th class="text-center" width="5%">ফাইল নং</th>
-        <th class="text-center" width="10%">অনুচ্ছেদ নং</th>
+        <th class="text-center" width="10%">অনুচ্ছেদ নম্বর</th>
         <th class="text-center" width="15%">আপত্তির শিরোনাম</th>
         <th class="text-center" width="10%">আপত্তি অনিয়মের ক্যাটাগরি</th>
         <th class="text-center" width="10%">জড়িত অর্থ (টাকা)</th>

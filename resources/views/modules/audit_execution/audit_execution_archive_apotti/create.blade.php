@@ -95,7 +95,7 @@
 
             <div class="row">
                 <div class="col-md-2">
-                    <label for="onucched_no" class="col-form-label">অনুচ্ছেদ নং</label>
+                    <label for="onucched_no" class="col-form-label">অনুচ্ছেদ নম্বর</label>
                     <input class="form-control" id="onucched_no" name="onucched_no" type="text">
                 </div>
 

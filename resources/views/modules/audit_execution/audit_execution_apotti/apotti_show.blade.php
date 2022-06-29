@@ -1,6 +1,6 @@
 <table class="annual-plan-table" border="1">
     <tr>
-        <td class="annual-plan-title">অনুচ্ছেদ নং </td>
+        <td class="annual-plan-title">অনুচ্ছেদ নম্বর </td>
         <td style="width: 60%;padding-left: 2%">
             {{$apotti_info['onucched_no']}}
         </td>

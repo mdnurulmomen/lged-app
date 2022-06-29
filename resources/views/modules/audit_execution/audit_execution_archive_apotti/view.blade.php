@@ -58,7 +58,7 @@
                         <table class="table table-sm table-bordered">
                             <tbody>
                             <tr>
-                                <th style="width:180px!important">অনুচ্ছেদ নং</th>
+                                <th style="width:180px!important">অনুচ্ছেদ নম্বর</th>
                                 <td>{{enTobn($apotti['onucched_no'])}}</td>
                             </tr>
                             <tr>

@@ -1,17 +1,47 @@
 <?php
 
+use App\Http\Controllers\AuditExecution\AuditExecutionApottiController;
+use App\Http\Controllers\AuditExecution\AuditExecutionApottiMemoController;
+use App\Http\Controllers\AuditExecution\AuditExecutionApottiSearchController;
 use App\Http\Controllers\AuditExecution\AuditExecutionArchiveApottiController;
 use App\Http\Controllers\AuditExecution\AuditExecutionArchiveApottiReportController;
 use App\Http\Controllers\AuditExecution\AuditExecutionAreaController;
+use App\Http\Controllers\AuditExecution\AuditExecutionController;
+use App\Http\Controllers\AuditExecution\AuditExecutionDiscussionController;
+use App\Http\Controllers\AuditExecution\AuditExecutionMemoController;
+use App\Http\Controllers\AuditExecution\AuditExecutionQueryController;
+use App\Http\Controllers\AuditExecution\AuditExecutionReviewController;
+use App\Http\Controllers\AuditExecution\AuditExecutionScheduleController;
 use App\Http\Controllers\AuditFollowup\AuditFollowupController;
+use App\Http\Controllers\AuditFollowup\AuditFollowupDueReportController;
+use App\Http\Controllers\AuditFollowup\AuditFollowupObservationController;
+use App\Http\Controllers\AuditFollowup\AuditFollowupRecordController;
+use App\Http\Controllers\AuditFollowup\AuditFollowupReminderController;
+use App\Http\Controllers\AuditFollowup\AuditFollowupSettlementReviewController;
 use App\Http\Controllers\AuditFollowup\BroadsheetReplyController;
 use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentController;
 use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AuditAssessmentScoreController;
+use App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController;
+use App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController;
+use App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController;
+use App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController;
+use App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController;
+use App\Http\Controllers\AuditPlan\AuditStrategicPlan\MilestoneController;
+use App\Http\Controllers\AuditPlan\AuditStrategicPlan\RiskController;
+use App\Http\Controllers\AuditReport\AuditAirDashboardController;
 use App\Http\Controllers\AuditReport\AuditAIRReportController;
 use App\Http\Controllers\AuditReport\AuditAIRReportMovementController;
+use App\Http\Controllers\AuditReport\AuditDraftReportController;
+use App\Http\Controllers\AuditReport\AuditFinalReportController;
 use App\Http\Controllers\AuditReport\AuditQACAIRReportController;
 use App\Http\Controllers\AuditReport\AuditQACOneReportController;
 use App\Http\Controllers\AuditReport\AuditQACTwoReportController;
+use App\Http\Controllers\AuditReport\AuditReportDashboardController;
+use App\Http\Controllers\AuditReport\RpuAirReportController;
+use App\Http\Controllers\AuditReport\UnsettledObservationsReportController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\QualityControl\AuditQacController;
+use App\Http\Controllers\QualityControl\AuditQacDashboardController;
 use App\Http\Controllers\QualityControl\QACController;
 use App\Http\Controllers\Setting\XAuditAssessment\CriteriaController;
 use Illuminate\Support\Facades\Route;
@@ -21,10 +51,10 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
-    Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
-    Route::get('/dashboard/referer/{type?}/{type_bn?}', [\App\Http\Controllers\DashboardController::class, 'index_referer'])->name('dashboard.index_referer');
-    Route::get('/dashboard/index', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
-    Route::post('/profile', [\App\Http\Controllers\DashboardController::class, 'getUserProfile'])->name('user_profile');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard/referer/{type?}/{type_bn?}', [DashboardController::class, 'index_referer'])->name('dashboard.index_referer');
+    Route::get('/dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::post('/profile', [DashboardController::class, 'getUserProfile'])->name('user_profile');
 
     // Plan Route Start
     Route::group(['as' => 'audit.plan.', 'prefix' => 'audit-plan/'], function () {
@@ -47,56 +77,56 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             })->name('draft_plan_create');
 
             //sp file upload
-            Route::get('sp-file-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'index'])->name('sp_file_list');
-            Route::get('file-upload', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'create'])->name('sp_file_upload');
-            Route::post('file-store', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'store'])->name('sp_file_store');
-            Route::get('final-plan-edit/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'edit'])->name('sp_file_edit');
-            Route::post('file-update', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'update'])->name('sp_file_update');
+            Route::get('sp-file-list', [FinalPlanController::class, 'index'])->name('sp_file_list');
+            Route::get('file-upload', [FinalPlanController::class, 'create'])->name('sp_file_upload');
+            Route::post('file-store', [FinalPlanController::class, 'store'])->name('sp_file_store');
+            Route::get('final-plan-edit/{id}', [FinalPlanController::class, 'edit'])->name('sp_file_edit');
+            Route::post('file-update', [FinalPlanController::class, 'update'])->name('sp_file_update');
 
-            Route::post('is-document-exist', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'isDocumentExist'])->name('is_document_exist');
+            Route::post('is-document-exist', [FinalPlanController::class, 'isDocumentExist'])->name('is_document_exist');
 
 
             //html view
-            Route::get('setting-list', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController::class, 'index'])->name('setting_list');
+            Route::get('setting-list', [HTMLViewController::class, 'index'])->name('setting_list');
 
-            Route::get('html-view-content', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController::class, 'contentView'])->name('html_view_content');
-            Route::get('html-view-content-create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController::class, 'createContent'])->name('html_view_content_create');
-            Route::get('html-view-content-key-create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController::class, 'createKey'])->name('html_view_content_key_create');
-            Route::post('html-view-content-key-store', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController::class, 'storeKey'])->name('html_view_content_key_store');
-            Route::get('html-view-content-title-duration-wise', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController::class, 'loadParentDurationWiseSelect'])->name('html_view_content_title_duration_wise');
+            Route::get('html-view-content', [HTMLViewController::class, 'contentView'])->name('html_view_content');
+            Route::get('html-view-content-create', [HTMLViewController::class, 'createContent'])->name('html_view_content_create');
+            Route::get('html-view-content-key-create', [HTMLViewController::class, 'createKey'])->name('html_view_content_key_create');
+            Route::post('html-view-content-key-store', [HTMLViewController::class, 'storeKey'])->name('html_view_content_key_store');
+            Route::get('html-view-content-title-duration-wise', [HTMLViewController::class, 'loadParentDurationWiseSelect'])->name('html_view_content_title_duration_wise');
 
-            Route::get('meetings', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController::class, 'index'])->name('meeting.all');
-            Route::post('meeting', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MeetingController::class, 'show'])->name('meeting.single');
+            Route::get('meetings', [MeetingController::class, 'index'])->name('meeting.all');
+            Route::post('meeting', [MeetingController::class, 'show'])->name('meeting.single');
 
-            Route::get('final-plans', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'index'])->name('final-plan.all');
-            Route::post('final-plan', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController::class, 'show'])->name('final-plan.single');
+            Route::get('final-plans', [FinalPlanController::class, 'index'])->name('final-plan.all');
+            Route::post('final-plan', [FinalPlanController::class, 'show'])->name('final-plan.single');
 
-            Route::get('milestones', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MilestoneController::class, 'index'])->name('milestone.all');
-            Route::post('milestone', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\MilestoneController::class, 'show'])->name('milestone.single');
+            Route::get('milestones', [MilestoneController::class, 'index'])->name('milestone.all');
+            Route::post('milestone', [MilestoneController::class, 'show'])->name('milestone.single');
 
-            Route::get('risks', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\RiskController::class, 'index'])->name('risk.all');
-            Route::post('risk', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\RiskController::class, 'show'])->name('risk.single');
+            Route::get('risks', [RiskController::class, 'index'])->name('risk.all');
+            Route::post('risk', [RiskController::class, 'show'])->name('risk.single');
 
-            Route::get('indicator/outcome', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'index'])->name('indicator.outcome');
-            Route::get('indicator/outcome/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'create'])->name('indicator.outcome.create');
-            Route::post('indicator/outcome/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'store'])->name('indicator.outcome.store');
-            Route::get('indicator/outcome/edit/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'edit'])->name('indicator.outcome.edit');
-            Route::post('indicator/outcome/update', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'update'])->name('indicator.outcome.update');
-            Route::get('indicator/outcome/show/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'show'])->name('indicator.outcome.show');
+            Route::get('indicator/outcome', [IndicatorOutcomeController::class, 'index'])->name('indicator.outcome');
+            Route::get('indicator/outcome/create', [IndicatorOutcomeController::class, 'create'])->name('indicator.outcome.create');
+            Route::post('indicator/outcome/create', [IndicatorOutcomeController::class, 'store'])->name('indicator.outcome.store');
+            Route::get('indicator/outcome/edit/{id}', [IndicatorOutcomeController::class, 'edit'])->name('indicator.outcome.edit');
+            Route::post('indicator/outcome/update', [IndicatorOutcomeController::class, 'update'])->name('indicator.outcome.update');
+            Route::get('indicator/outcome/show/{id}', [IndicatorOutcomeController::class, 'show'])->name('indicator.outcome.show');
 
-            Route::get('indicator/outcome/all', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'outcomes'])->name('indicator.outcomes');
+            Route::get('indicator/outcome/all', [IndicatorOutcomeController::class, 'outcomes'])->name('indicator.outcomes');
 
-            Route::post('indicator/genYear', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutcomeController::class, 'genYear'])->name('indicator.gen.year');
+            Route::post('indicator/genYear', [IndicatorOutcomeController::class, 'genYear'])->name('indicator.gen.year');
 
 
-            Route::get('indicator/output', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'index'])->name('indicator.output');
-            Route::post('indicator/output/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'store'])->name('indicator.output.store');
-            Route::get('indicator/output/create', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'create'])->name('indicator.output.create');
-            Route::get('indicator/output/edit/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'edit'])->name('indicator.output.edit');
-            Route::post('indicator/output/update', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'update'])->name('indicator.output.update');
-            Route::get('indicator/output/show/{id}', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'show'])->name('indicator.output.show');
+            Route::get('indicator/output', [IndicatorOutputController::class, 'index'])->name('indicator.output');
+            Route::post('indicator/output/create', [IndicatorOutputController::class, 'store'])->name('indicator.output.store');
+            Route::get('indicator/output/create', [IndicatorOutputController::class, 'create'])->name('indicator.output.create');
+            Route::get('indicator/output/edit/{id}', [IndicatorOutputController::class, 'edit'])->name('indicator.output.edit');
+            Route::post('indicator/output/update', [IndicatorOutputController::class, 'update'])->name('indicator.output.update');
+            Route::get('indicator/output/show/{id}', [IndicatorOutputController::class, 'show'])->name('indicator.output.show');
 
-            Route::get('indicator/output/all', [\App\Http\Controllers\AuditPlan\AuditStrategicPlan\IndicatorOutputController::class, 'outputs'])->name('indicator.outputs');
+            Route::get('indicator/output/all', [IndicatorOutputController::class, 'outputs'])->name('indicator.outputs');
 
 
             Route::get('/final-plan-add', function () {
@@ -356,101 +386,101 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
     //Execute
     Route::group(['as' => 'audit.execution.', 'prefix' => 'audit-conducting/'], function () {
-        Route::get('/', [\App\Http\Controllers\AuditExecution\AuditExecutionController::class, 'index']);
+        Route::get('/', [AuditExecutionController::class, 'index']);
 
-        Route::get('area', [\App\Http\Controllers\AuditExecution\AuditExecutionAreaController::class, 'index'])->name('area');
+        Route::get('area', [AuditExecutionAreaController::class, 'index'])->name('area');
 
         //audit schedule
-        Route::get('audit-schedule', [\App\Http\Controllers\AuditExecution\AuditExecutionScheduleController::class, 'auditSchedule'])->name('audit-schedule');
-        Route::post('load-audit-schedule-list', [\App\Http\Controllers\AuditExecution\AuditExecutionScheduleController::class, 'loadAuditScheduleList'])->name('load-audit-schedule-list');
+        Route::get('audit-schedule', [AuditExecutionScheduleController::class, 'auditSchedule'])->name('audit-schedule');
+        Route::post('load-audit-schedule-list', [AuditExecutionScheduleController::class, 'loadAuditScheduleList'])->name('load-audit-schedule-list');
 
         //authority query list
-        Route::get('authority-query-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'authorityQueryList'])->name('authority-query-list');
-        Route::post('load-authority-query-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadAuthorityQueryList'])->name('load-authority-query-list');
+        Route::get('authority-query-list', [AuditExecutionQueryController::class, 'authorityQueryList'])->name('authority-query-list');
+        Route::post('load-authority-query-list', [AuditExecutionQueryController::class, 'loadAuthorityQueryList'])->name('load-authority-query-list');
 
         Route::group(['as' => 'query.', 'prefix' => 'query/'], function () {
-            Route::post('index', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'auditQuery'])->name('index');
-            Route::post('load-list', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadAuditQuery'])->name('load-list');
-            Route::post('create', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'auditQueryCreate'])->name('create');
-            Route::post('store', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'storeAuditQuery'])->name('store');
-            Route::post('edit', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'editAuditQuery'])->name('edit');
-            Route::post('update', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'updateAuditQuery'])->name('update');
-            Route::post('view', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'viewAuditQuery'])->name('view');
-            Route::post('download', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'downloadAuditQuery'])->name('download');
-            Route::post('send-to-rpu', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'sendAuditQuery'])->name('send-to-rpu');
-            Route::post('received', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'receivedAuditQuery'])->name('received');
+            Route::post('index', [AuditExecutionQueryController::class, 'auditQuery'])->name('index');
+            Route::post('load-list', [AuditExecutionQueryController::class, 'loadAuditQuery'])->name('load-list');
+            Route::post('create', [AuditExecutionQueryController::class, 'auditQueryCreate'])->name('create');
+            Route::post('store', [AuditExecutionQueryController::class, 'storeAuditQuery'])->name('store');
+            Route::post('edit', [AuditExecutionQueryController::class, 'editAuditQuery'])->name('edit');
+            Route::post('update', [AuditExecutionQueryController::class, 'updateAuditQuery'])->name('update');
+            Route::post('view', [AuditExecutionQueryController::class, 'viewAuditQuery'])->name('view');
+            Route::post('download', [AuditExecutionQueryController::class, 'downloadAuditQuery'])->name('download');
+            Route::post('send-to-rpu', [AuditExecutionQueryController::class, 'sendAuditQuery'])->name('send-to-rpu');
+            Route::post('received', [AuditExecutionQueryController::class, 'receivedAuditQuery'])->name('received');
         });
-        Route::post('load-type-wise-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadTypeWiseAuditQuery'])->name('load-type-wise-audit-query');
+        Route::post('load-type-wise-audit-query', [AuditExecutionQueryController::class, 'loadTypeWiseAuditQuery'])->name('load-type-wise-audit-query');
 
 
-        Route::post('load-reject-query-form', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'loadRejectAuditQuery'])->name('load-reject-query-form');
-        Route::post('reject-audit-query', [\App\Http\Controllers\AuditExecution\AuditExecutionQueryController::class, 'rejectAuditQuery'])->name('reject-audit-query');
+        Route::post('load-reject-query-form', [AuditExecutionQueryController::class, 'loadRejectAuditQuery'])->name('load-reject-query-form');
+        Route::post('reject-audit-query', [AuditExecutionQueryController::class, 'rejectAuditQuery'])->name('reject-audit-query');
 
-        Route::get('discussion', [\App\Http\Controllers\AuditExecution\AuditExecutionDiscussionController::class, 'index'])->name('discussion');
+        Route::get('discussion', [AuditExecutionDiscussionController::class, 'index'])->name('discussion');
 
-        Route::get('review', [\App\Http\Controllers\AuditExecution\AuditExecutionReviewController::class, 'index'])->name('review');
+        Route::get('review', [AuditExecutionReviewController::class, 'index'])->name('review');
 
         Route::group(['as' => 'memo.', 'prefix' => 'memo/'], function () {
-            Route::post('index', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'index'])->name('index');
-            Route::post('create', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'create'])->name('create');
-            Route::post('store', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'store'])->name('store');
-            Route::post('edit', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'edit'])->name('edit');
-            Route::post('show', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'show'])->name('show');
-            Route::post('show-attachment', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'showAttachment'])->name('show-attachment');
-            Route::post('show-details', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'showDetails'])->name('show-details');
-            Route::post('download-pdf', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'memoPDFDownload'])->name('download.pdf');
-            Route::post('update', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'update'])->name('update');
-            Route::post('list', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'list'])->name('list');
-            Route::post('sent-to-rpu', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'sentToRpu'])->name('sent-to-rpu');
-            Route::get('authority-memo-list', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'authorityMemoList'])->name('authority-memo-list');
-            Route::post('load-authority-memo-list', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'loadAuthorityMemoList'])->name('load-authority-memo-list');
-            Route::post('audit-memo-recommendation', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'auditMemoRecommendation'])->name('audit-memo-recommendation');
-            Route::post('audit-memo-recommendation-store', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'auditMemoRecommendationStore'])->name('audit-memo-recommendation-store');
-            Route::post('audit-memo-log', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'auditMemoLog'])->name('audit-memo-log');
-            Route::post('audit-memo-log-show', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'auditMemoShow'])->name('audit-memo-log-show');
-            Route::post('send-memo-form', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'sendMemoForm'])->name('send-memo-form');
-            Route::post('delete-memo-attachment', [\App\Http\Controllers\AuditExecution\AuditExecutionMemoController::class, 'deleteMemoAttachment'])->name('delete-memo-attachment');
+            Route::post('index', [AuditExecutionMemoController::class, 'index'])->name('index');
+            Route::post('create', [AuditExecutionMemoController::class, 'create'])->name('create');
+            Route::post('store', [AuditExecutionMemoController::class, 'store'])->name('store');
+            Route::post('edit', [AuditExecutionMemoController::class, 'edit'])->name('edit');
+            Route::post('show', [AuditExecutionMemoController::class, 'show'])->name('show');
+            Route::post('show-attachment', [AuditExecutionMemoController::class, 'showAttachment'])->name('show-attachment');
+            Route::post('show-details', [AuditExecutionMemoController::class, 'showDetails'])->name('show-details');
+            Route::post('download-pdf', [AuditExecutionMemoController::class, 'memoPDFDownload'])->name('download.pdf');
+            Route::post('update', [AuditExecutionMemoController::class, 'update'])->name('update');
+            Route::post('list', [AuditExecutionMemoController::class, 'list'])->name('list');
+            Route::post('sent-to-rpu', [AuditExecutionMemoController::class, 'sentToRpu'])->name('sent-to-rpu');
+            Route::get('authority-memo-list', [AuditExecutionMemoController::class, 'authorityMemoList'])->name('authority-memo-list');
+            Route::post('load-authority-memo-list', [AuditExecutionMemoController::class, 'loadAuthorityMemoList'])->name('load-authority-memo-list');
+            Route::post('audit-memo-recommendation', [AuditExecutionMemoController::class, 'auditMemoRecommendation'])->name('audit-memo-recommendation');
+            Route::post('audit-memo-recommendation-store', [AuditExecutionMemoController::class, 'auditMemoRecommendationStore'])->name('audit-memo-recommendation-store');
+            Route::post('audit-memo-log', [AuditExecutionMemoController::class, 'auditMemoLog'])->name('audit-memo-log');
+            Route::post('audit-memo-log-show', [AuditExecutionMemoController::class, 'auditMemoShow'])->name('audit-memo-log-show');
+            Route::post('send-memo-form', [AuditExecutionMemoController::class, 'sendMemoForm'])->name('send-memo-form');
+            Route::post('delete-memo-attachment', [AuditExecutionMemoController::class, 'deleteMemoAttachment'])->name('delete-memo-attachment');
         });
 
 
         Route::group(['as' => 'apotti.', 'prefix' => 'apotti/'], function () {
-            Route::get('/', [\App\Http\Controllers\AuditReport\AuditReportDashboardController::class, 'apottiPage'])->name('dashboard');
+            Route::get('/', [AuditReportDashboardController::class, 'apottiPage'])->name('dashboard');
 
             Route::group(['as' => 'memo.', 'prefix' => 'memo/'], function () {
-                Route::get('/', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiMemoController::class, 'apottiMemoPage'])->name('dashboard');
-                Route::get('index', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiMemoController::class, 'index'])->name('index');
-                Route::post('memo-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiMemoController::class, 'loadMemoList'])->name('memo-list');
-                Route::post('edit', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiMemoController::class, 'edit'])->name('edit');
-                Route::post('convert-memo-to-apotti', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiMemoController::class, 'convertMemoToApotti'])->name('convert-memo-to-apotti');
+                Route::get('/', [AuditExecutionApottiMemoController::class, 'apottiMemoPage'])->name('dashboard');
+                Route::get('index', [AuditExecutionApottiMemoController::class, 'index'])->name('index');
+                Route::post('memo-list', [AuditExecutionApottiMemoController::class, 'loadMemoList'])->name('memo-list');
+                Route::post('edit', [AuditExecutionApottiMemoController::class, 'edit'])->name('edit');
+                Route::post('convert-memo-to-apotti', [AuditExecutionApottiMemoController::class, 'convertMemoToApotti'])->name('convert-memo-to-apotti');
             });
 
-            Route::get('index', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'index'])->name('index');
-            Route::post('load-apotti-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadApottiList'])->name('load-apotti-list');
-            Route::post('onucched-merge', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedMerge'])->name('onucched-merge');
-            Route::post('onucched-unmerge', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedUnMerge'])->name('onucched-unmerge');
-            Route::post('onucched-rearrange', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedReArrange'])->name('onucched-rearrange');
-            Route::post('onucched-merge-form', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedMergeForm'])->name('onucched-merge-form');
-            Route::post('onucched-show', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'onucchedShow'])->name('onucched-show');
-            Route::post('edit-apotti', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'editApotti'])->name('edit-apotti');
-            Route::post('update-apotti', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'updateApotti'])->name('update-apotti');
-            Route::post('delete-apotti-porisisto', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'apottiPorisistoDelete'])->name('delete-apotti-porisisto');
-            Route::post('audit-plan-wise-entity', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'auditPlanWiseEntitySelect'])->name('audit-plan-wise-entity-select');
-            Route::post('audit-plan-type-wise-air', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'auditPlanTypeWiseAir'])->name('audit-plan-type-wise-air');
-            Route::post('apotti-item-info', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'apottiItemInfo'])->name('apotti-item-info');
-            Route::get('apotti-register/{any}', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'apottiRegister'])->name('apotti-register');
-            Route::post('load-apotti-register-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadApottiRegisterList'])->name('load-apotti-register-list');
-            Route::post('edit-register', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadApottiRegisterEdit'])->name('edit-register');
+            Route::get('index', [AuditExecutionApottiController::class, 'index'])->name('index');
+            Route::post('load-apotti-list', [AuditExecutionApottiController::class, 'loadApottiList'])->name('load-apotti-list');
+            Route::post('onucched-merge', [AuditExecutionApottiController::class, 'onucchedMerge'])->name('onucched-merge');
+            Route::post('onucched-unmerge', [AuditExecutionApottiController::class, 'onucchedUnMerge'])->name('onucched-unmerge');
+            Route::post('onucched-rearrange', [AuditExecutionApottiController::class, 'onucchedReArrange'])->name('onucched-rearrange');
+            Route::post('onucched-merge-form', [AuditExecutionApottiController::class, 'onucchedMergeForm'])->name('onucched-merge-form');
+            Route::post('onucched-show', [AuditExecutionApottiController::class, 'onucchedShow'])->name('onucched-show');
+            Route::post('edit-apotti', [AuditExecutionApottiController::class, 'editApotti'])->name('edit-apotti');
+            Route::post('update-apotti', [AuditExecutionApottiController::class, 'updateApotti'])->name('update-apotti');
+            Route::post('delete-apotti-porisisto', [AuditExecutionApottiController::class, 'apottiPorisistoDelete'])->name('delete-apotti-porisisto');
+            Route::post('audit-plan-wise-entity', [AuditExecutionApottiController::class, 'auditPlanWiseEntitySelect'])->name('audit-plan-wise-entity-select');
+            Route::post('audit-plan-type-wise-air', [AuditExecutionApottiController::class, 'auditPlanTypeWiseAir'])->name('audit-plan-type-wise-air');
+            Route::post('apotti-item-info', [AuditExecutionApottiController::class, 'apottiItemInfo'])->name('apotti-item-info');
+            Route::get('apotti-register/{any}', [AuditExecutionApottiController::class, 'apottiRegister'])->name('apotti-register');
+            Route::post('load-apotti-register-list', [AuditExecutionApottiController::class, 'loadApottiRegisterList'])->name('load-apotti-register-list');
+            Route::post('edit-register', [AuditExecutionApottiController::class, 'loadApottiRegisterEdit'])->name('edit-register');
 
             Route::group(['as' => 'register.', 'prefix' => 'register/'], function () {
-                Route::post('get-approval-authority', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'loadRegisterApprovalAuthority'])->name('get-approval-authority');
-                Route::post('store-approval-authority', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'storeRegisterApprovalAuthority'])->name('store-approval-authority');
-                Route::post('update', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'updateRegisterApotti'])->name('update');
+                Route::post('get-approval-authority', [AuditExecutionApottiController::class, 'loadRegisterApprovalAuthority'])->name('get-approval-authority');
+                Route::post('store-approval-authority', [AuditExecutionApottiController::class, 'storeRegisterApprovalAuthority'])->name('store-approval-authority');
+                Route::post('update', [AuditExecutionApottiController::class, 'updateRegisterApotti'])->name('update');
             });
 
 
-            Route::get('search-page', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiSearchController::class, 'index'])->name('search-page');
-            Route::post('search-list', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiSearchController::class, 'list'])->name('search-list');
-            Route::post('search-view', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiSearchController::class, 'view'])->name('search-view');
+            Route::get('search-page', [AuditExecutionApottiSearchController::class, 'index'])->name('search-page');
+            Route::post('search-list', [AuditExecutionApottiSearchController::class, 'list'])->name('search-list');
+            Route::post('search-view', [AuditExecutionApottiSearchController::class, 'view'])->name('search-view');
         });
 
         //archive apotti
@@ -501,25 +531,25 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         });*/
 
         Route::get('/', [QACController::class, 'index'])->name('index');
-        Route::get('dashboard', [\App\Http\Controllers\QualityControl\AuditQacDashboardController::class, 'index'])->name('dashboard');
-        Route::get('qac/{any}', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'index'])->name('qac');
-        Route::post('qac-apotti-list', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'loadApottiQacList'])->name('qac-apotti-list');
-        Route::post('air-wise-apotti', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'loadAirWiseApottiList'])->name('air-wise-apotti');
-        Route::post('qac-apotti', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'qacApotti'])->name('qac-apotti');
-        Route::post('qac-apotti-submit', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'qacApottiSubmit'])->name('qac-apotti-submit');
-        Route::get('qac-committee/{any}', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'qacCommittee'])->name('qac-committee');
-        Route::post('get-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'getQacCommitteeList'])->name('qac-committee-list');
-        Route::post('create-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'createQacCommittee'])->name('create-qac-committee');
-        Route::post('store-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'storeQacCommittee'])->name('store-qac-committee');
-        Route::post('edit-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'editQacCommittee'])->name('edit-qac-committee');
-        Route::post('update-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'updateQacCommittee'])->name('update-qac-committee');
-        Route::post('delete-qac-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'deleteQacCommittee'])->name('delete-qac-committee');
-        Route::post('select-qac-committee-form', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'selectQacCommitteeForm'])->name('select-qac-committee-form');
-        Route::post('get-qac-committee-wise-members', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'getQacCommitteeWiseMembers'])->name('get-qac-committee-wise-members');
-        Route::post('submit-air-wise-committee', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'submitAirWiseCommittee'])->name('submit-air-wise-committee');
-        Route::post('create-qac-report', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'createQacReport'])->name('create-qac-report');
-        Route::post('cqat-done-form', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'cqatDoneForm'])->name('cqat-done-form');
-        Route::post('cqat-done-submit', [\App\Http\Controllers\QualityControl\AuditQacController::class, 'cqatDoneSubmit'])->name('cqat-done-submit');
+        Route::get('dashboard', [AuditQacDashboardController::class, 'index'])->name('dashboard');
+        Route::get('qac/{any}', [AuditQacController::class, 'index'])->name('qac');
+        Route::post('qac-apotti-list', [AuditQacController::class, 'loadApottiQacList'])->name('qac-apotti-list');
+        Route::post('air-wise-apotti', [AuditQacController::class, 'loadAirWiseApottiList'])->name('air-wise-apotti');
+        Route::post('qac-apotti', [AuditQacController::class, 'qacApotti'])->name('qac-apotti');
+        Route::post('qac-apotti-submit', [AuditQacController::class, 'qacApottiSubmit'])->name('qac-apotti-submit');
+        Route::get('qac-committee/{any}', [AuditQacController::class, 'qacCommittee'])->name('qac-committee');
+        Route::post('get-qac-committee', [AuditQacController::class, 'getQacCommitteeList'])->name('qac-committee-list');
+        Route::post('create-qac-committee', [AuditQacController::class, 'createQacCommittee'])->name('create-qac-committee');
+        Route::post('store-qac-committee', [AuditQacController::class, 'storeQacCommittee'])->name('store-qac-committee');
+        Route::post('edit-qac-committee', [AuditQacController::class, 'editQacCommittee'])->name('edit-qac-committee');
+        Route::post('update-qac-committee', [AuditQacController::class, 'updateQacCommittee'])->name('update-qac-committee');
+        Route::post('delete-qac-committee', [AuditQacController::class, 'deleteQacCommittee'])->name('delete-qac-committee');
+        Route::post('select-qac-committee-form', [AuditQacController::class, 'selectQacCommitteeForm'])->name('select-qac-committee-form');
+        Route::post('get-qac-committee-wise-members', [AuditQacController::class, 'getQacCommitteeWiseMembers'])->name('get-qac-committee-wise-members');
+        Route::post('submit-air-wise-committee', [AuditQacController::class, 'submitAirWiseCommittee'])->name('submit-air-wise-committee');
+        Route::post('create-qac-report', [AuditQacController::class, 'createQacReport'])->name('create-qac-report');
+        Route::post('cqat-done-form', [AuditQacController::class, 'cqatDoneForm'])->name('cqat-done-form');
+        Route::post('cqat-done-submit', [AuditQacController::class, 'cqatDoneSubmit'])->name('cqat-done-submit');
     });
 
     //Followup
@@ -548,31 +578,31 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::get('dashboard', [\App\Http\Controllers\AuditFollowup\AuditFollowupDashboardController::class, 'index'])->name('dashboard');
 
-        Route::get('observation', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'index'])->name('observation');
+        Route::get('observation', [AuditFollowupObservationController::class, 'index'])->name('observation');
 
-        Route::get('observation/lists', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'lists'])->name('observation.lists');
-        Route::get('observation/communications', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'communications'])->name('observation.communications');
+        Route::get('observation/lists', [AuditFollowupObservationController::class, 'lists'])->name('observation.lists');
+        Route::get('observation/communications', [AuditFollowupObservationController::class, 'communications'])->name('observation.communications');
 
-        Route::get('observation/create', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'create'])->name('observation.create');
-        Route::get('observation/follow-up/{id}', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'followUp'])->name('observation.follow-up');
-        Route::post('observation/follow-up', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'followUpSubmit'])->name('observation.follow-up.sent');
-        Route::get('observation/view/{id?}', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'show'])->name('observation.show');
-        Route::get('observation/edit/{id?}', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'edit'])->name('observation.edit');
-        Route::post('observation/store', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'store'])->name('observation.store');
-        Route::post('observation/update', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'update'])->name('observation.update');
-        Route::post('observation/search', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'search'])->name('observation.search');
-        Route::get('observation/delete/{id}', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'destroy'])->name('observation.delete');
-        Route::get('observation/image/delete/{id}', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'imageDestroy'])->name('observation.image.delete');
+        Route::get('observation/create', [AuditFollowupObservationController::class, 'create'])->name('observation.create');
+        Route::get('observation/follow-up/{id}', [AuditFollowupObservationController::class, 'followUp'])->name('observation.follow-up');
+        Route::post('observation/follow-up', [AuditFollowupObservationController::class, 'followUpSubmit'])->name('observation.follow-up.sent');
+        Route::get('observation/view/{id?}', [AuditFollowupObservationController::class, 'show'])->name('observation.show');
+        Route::get('observation/edit/{id?}', [AuditFollowupObservationController::class, 'edit'])->name('observation.edit');
+        Route::post('observation/store', [AuditFollowupObservationController::class, 'store'])->name('observation.store');
+        Route::post('observation/update', [AuditFollowupObservationController::class, 'update'])->name('observation.update');
+        Route::post('observation/search', [AuditFollowupObservationController::class, 'search'])->name('observation.search');
+        Route::get('observation/delete/{id}', [AuditFollowupObservationController::class, 'destroy'])->name('observation.delete');
+        Route::get('observation/image/delete/{id}', [AuditFollowupObservationController::class, 'imageDestroy'])->name('observation.image.delete');
 
-        Route::post('observation/get_audit_plan', [\App\Http\Controllers\AuditFollowup\AuditFollowupObservationController::class, 'getAuditPlan'])->name('observation.get.audit.plan');
+        Route::post('observation/get_audit_plan', [AuditFollowupObservationController::class, 'getAuditPlan'])->name('observation.get.audit.plan');
 
-        Route::get('due-report', [\App\Http\Controllers\AuditFollowup\AuditFollowupDueReportController::class, 'index'])->name('due_report');
+        Route::get('due-report', [AuditFollowupDueReportController::class, 'index'])->name('due_report');
 
-        Route::get('reminder', [\App\Http\Controllers\AuditFollowup\AuditFollowupReminderController::class, 'index'])->name('reminder');
+        Route::get('reminder', [AuditFollowupReminderController::class, 'index'])->name('reminder');
 
-        Route::get('record', [\App\Http\Controllers\AuditFollowup\AuditFollowupRecordController::class, 'index'])->name('record');
+        Route::get('record', [AuditFollowupRecordController::class, 'index'])->name('record');
 
-        Route::get('settlement-review', [\App\Http\Controllers\AuditFollowup\AuditFollowupSettlementReviewController::class, 'index'])->name('settlement_review');
+        Route::get('settlement-review', [AuditFollowupSettlementReviewController::class, 'index'])->name('settlement_review');
     });
 
     Route::group(['as' => 'audit.final-report.', 'prefix' => 'final-audit-report/'], function () {
@@ -580,29 +610,29 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             return redirect()->route('audit.final-report.dashboard');
         });
         Route::get('dashboard', [\App\Http\Controllers\AuditReport\FinalAuditDashboardController::class, 'index'])->name('dashboard');
-        Route::get('index', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'index'])->name('index');
-        Route::post('get-audit-final-report', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'getAuditFinalReport'])->name('get-audit-final-report');
-        Route::post('create-audit-final-report', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'editAuditFinalReport'])->name('edit-audit-final-report');
-        Route::post('get-final-approval-authority', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'loadFinalApprovalAuthority'])->name('get-final-approval-authority');
-        Route::post('submit-final-apporval', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'submitFinalApproval'])->name('submit-final-approval');
-        Route::post('final-report-status-update', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportStatusUpdate'])->name('final-report-status-update');
-        Route::get('final-report-search', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportSearch'])->name('final-report-search');
-        Route::post('get-final-report-search-list', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'getFinalReportSearchList'])->name('get-final-report-search-list');
-        Route::post('final-report-details', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportDetails'])->name('get-final-report-details');
+        Route::get('index', [AuditFinalReportController::class, 'index'])->name('index');
+        Route::post('get-audit-final-report', [AuditFinalReportController::class, 'getAuditFinalReport'])->name('get-audit-final-report');
+        Route::post('create-audit-final-report', [AuditFinalReportController::class, 'editAuditFinalReport'])->name('edit-audit-final-report');
+        Route::post('get-final-approval-authority', [AuditFinalReportController::class, 'loadFinalApprovalAuthority'])->name('get-final-approval-authority');
+        Route::post('submit-final-apporval', [AuditFinalReportController::class, 'submitFinalApproval'])->name('submit-final-approval');
+        Route::post('final-report-status-update', [AuditFinalReportController::class, 'finalReportStatusUpdate'])->name('final-report-status-update');
+        Route::get('final-report-search', [AuditFinalReportController::class, 'finalReportSearch'])->name('final-report-search');
+        Route::post('get-final-report-search-list', [AuditFinalReportController::class, 'getFinalReportSearchList'])->name('get-final-report-search-list');
+        Route::post('final-report-details', [AuditFinalReportController::class, 'finalReportDetails'])->name('get-final-report-details');
 
-        Route::get('final-report-apotti-map', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'finalReportApottiMap'])->name('final-report-apotti-map');
-        Route::post('get-directorate-wise-final-report', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'getDirectorateWiseFinalReport'])->name('get-directorate-wise-final-report');
-        Route::post('get-archive-final-report-apotti', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'getArchiveFinalReportApotti'])->name('get-archive-final-report-apotti');
-        Route::post('map-archive-final-report-apotti', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'mapArchiveFinalReportApotti'])->name('map-archive-final-report-apotti');
+        Route::get('final-report-apotti-map', [AuditFinalReportController::class, 'finalReportApottiMap'])->name('final-report-apotti-map');
+        Route::post('get-directorate-wise-final-report', [AuditFinalReportController::class, 'getDirectorateWiseFinalReport'])->name('get-directorate-wise-final-report');
+        Route::post('get-archive-final-report-apotti', [AuditFinalReportController::class, 'getArchiveFinalReportApotti'])->name('get-archive-final-report-apotti');
+        Route::post('map-archive-final-report-apotti', [AuditFinalReportController::class, 'mapArchiveFinalReportApotti'])->name('map-archive-final-report-apotti');
     });
 
     Route::group(['as' => 'audit.air-report.', 'prefix' => 'audit-air-report/'], function () {
         Route::get('/', function () {
             return redirect()->route('audit.air-report.dashboard');
         });
-        Route::get('dashboard', [\App\Http\Controllers\AuditReport\AuditAirDashboardController::class, 'index'])->name('dashboard');
-        Route::get('authority-air-report', [\App\Http\Controllers\AuditReport\AuditAIRReportController::class, 'authorityAirReport'])->name('authority-air-report');
-        Route::post('get-authority-air-report', [\App\Http\Controllers\AuditReport\AuditAIRReportController::class, 'getAuthorityAuditAirReport'])->name('get-authority-audit-air-report');
+        Route::get('dashboard', [AuditAirDashboardController::class, 'index'])->name('dashboard');
+        Route::get('authority-air-report', [AuditAIRReportController::class, 'authorityAirReport'])->name('authority-air-report');
+        Route::post('get-authority-air-report', [AuditAIRReportController::class, 'getAuthorityAuditAirReport'])->name('get-authority-audit-air-report');
     });
 
 
@@ -612,9 +642,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             return redirect()->route('audit.report.dashboard');
         });
 
-        Route::get('dashboard', [\App\Http\Controllers\AuditReport\AuditReportDashboardController::class, 'index'])->name('dashboard');
-        Route::get('draft-report', [\App\Http\Controllers\AuditReport\AuditDraftReportController::class, 'index'])->name('draft_report');
-        Route::get('final-report', [\App\Http\Controllers\AuditReport\AuditFinalReportController::class, 'index'])->name('final_report');
+        Route::get('dashboard', [AuditReportDashboardController::class, 'index'])->name('dashboard');
+        Route::get('draft-report', [AuditDraftReportController::class, 'index'])->name('draft_report');
+        Route::get('final-report', [AuditFinalReportController::class, 'index'])->name('final_report');
 
         Route::group(['as' => 'air.', 'prefix' => 'air/'], function () {
             Route::get('/{any}', [AuditAIRReportController::class, 'index'])->name('index');
@@ -672,7 +702,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('preview', [AuditQACAIRReportController::class, 'previewAuditReport'])->name('preview');
             });
 
-            Route::post('air-send-to-rpu', [\App\Http\Controllers\AuditReport\RpuAirReportController::class, 'airSendToRpu'])->name('air-send-to-rpu');
+            Route::post('air-send-to-rpu', [RpuAirReportController::class, 'airSendToRpu'])->name('air-send-to-rpu');
+        });
+
+        Route::group(['as' => 'unsettled-observations.', 'prefix' => 'unsettled-observations/'], function () {
+            Route::get('/', [UnsettledObservationsReportController::class, 'index'])->name('index');
+            Route::post('list', [UnsettledObservationsReportController::class, 'list'])->name('list');
+            Route::post('download', [UnsettledObservationsReportController::class, 'download'])->name('download');
         });
     });
 

@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="">অনুচ্ছেদ নং</label>
+    <label for="">অনুচ্ছেদ নম্বর</label>
     <input type="text" readonly class="form-control" value="{{enTobn($apotti_info['onucched_no'])}}">
 </div>
 

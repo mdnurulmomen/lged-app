@@ -39,7 +39,7 @@
                 <tr>
                     <td style="text-align: justify;">
                         <span style="padding:5px; margin-bottom: 5px">
-                            <b>অনুচ্ছেদ নং - {{enTobn($apotti['onucched_no'])}}  </b>
+                            <b>অনুচ্ছেদ নম্বর - {{enTobn($apotti['onucched_no'])}}  </b>
 
                             @if($apotti['is_combined'])
                                 <span class="badge badge-info text-uppercase m-1 p-1 ">

@@ -6,8 +6,8 @@
                 <form id="onucched_marge_form">
                     <div class="form-row pt-4">
                         <div class="col-md-6">
-                            <label class="col-form-label"> অনুচ্ছেদ নং</label>
-                            <input readonly class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নং" value="{{$minOnucchedNo}}">
+                            <label class="col-form-label"> অনুচ্ছেদ নম্বর</label>
+                            <input readonly class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নম্বর" value="{{$minOnucchedNo}}">
                         </div>
 
                         <div class="col-md-6">

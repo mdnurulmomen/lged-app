@@ -40,7 +40,7 @@
                 <tr>
                     <td style="text-align: justify;">
                         <span style="padding:5px; margin-bottom: 5px">
-                            <b>অডিট আপত্তি অনুচ্ছেদ নং - {{enTobn($apotti['onucched_no'])}} </b>
+                            <b>অডিট আপত্তি অনুচ্ছেদ নম্বর - {{enTobn($apotti['onucched_no'])}} </b>
                             <br> {{$apotti['apotti_title']}}
                         </span>
                     </td>

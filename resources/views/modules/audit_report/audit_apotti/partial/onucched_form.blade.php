@@ -6,8 +6,8 @@
                 <form id="onucched_marge_form">
                     <div class="form-row pt-4">
                         <div class="col-md-6">
-                            <label class="col-form-label"> অনুচ্ছেদ নং</label>
-                            <input class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নং" value="">
+                            <label class="col-form-label"> অনুচ্ছেদ নম্বর</label>
+                            <input class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নম্বর" value="">
                         </div>
 
                         <div class="col-md-6">

@@ -60,8 +60,8 @@
                             <div class="col-md-7">
                                 <div class="form-row pt-4">
                                     <div class="col-md-3">
-                                        <label class="col-form-label">অনুচ্ছেদ নং</label>
-                                        <input readonly class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নং" value="{{$apotti_info['onucched_no']}}">
+                                        <label class="col-form-label">অনুচ্ছেদ নম্বর</label>
+                                        <input readonly class="form-control" name="onucched_no" placeholder="অনুচ্ছেদ নম্বর" value="{{$apotti_info['onucched_no']}}">
                                     </div>
                                     <div class="col-md-9">
                                         <label class="col-form-label">জড়িত অর্থ (টাকা)</label>

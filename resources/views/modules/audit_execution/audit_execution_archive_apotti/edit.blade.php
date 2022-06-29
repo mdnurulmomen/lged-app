@@ -87,7 +87,7 @@
                     <input type="hidden" name="id" value="{{$apotti['id']}}">
 
                     <div class="input-group">
-                        <div class="input-group-prepend"><span class="input-group-text">অনুচ্ছেদ নং</span></div>
+                        <div class="input-group-prepend"><span class="input-group-text">অনুচ্ছেদ নম্বর</span></div>
                         <input class="form-control" id="onucched_no" name="onucched_no" type="text" value="{{$apotti['onucched_no']}}">
                       </div>
 

@@ -43,7 +43,7 @@
                 {{$loop->iteration}}
             </td>
             <td class="text-left">
-                <span>অনুচ্ছেদ নং: {{enTobn($apotti_item['onucched_no'])}}</span><br>
+                <span>অনুচ্ছেদ নম্বর: {{enTobn($apotti_item['onucched_no'])}}</span><br>
                 <span>অর্থ বছর: {{enTobn($apotti_item['fiscal_year'])}}</span><br>
                 <span>ক্যাটাগরি:
 

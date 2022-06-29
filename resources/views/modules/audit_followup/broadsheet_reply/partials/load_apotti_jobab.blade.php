@@ -1,4 +1,4 @@
-<h5>অনুচ্ছেদ নংঃ- {{enTobn($apottiItemInfo['onucched_no'])}}</h5>
+<h5>অনুচ্ছেদ নম্বরঃ- {{enTobn($apottiItemInfo['onucched_no'])}}</h5>
 
 <div class="card border-0 mb-0 mt-5">
     <div class="card-header border-top-0 border-bottom-0 bg-white p-0 mb-3">

@@ -384,6 +384,10 @@ return [
             'get-air-wise-porisistos' => env('API_URL_BEE', '') . '/audit-report/air/get-air-wise-porisistos',
             'get-authority-air-report' => env('API_URL_BEE', '') . '/audit-report/air/get-authority-air-report',
         ],
+        'unsettled_observations' => [
+            'list' => env('API_URL_BEE', '') . '/audit-report/unsettled-observations/list',
+            'download' => env('API_URL_BEE', '') . '/audit-report/unsettled-observations/download',
+        ]
     ],
 
 

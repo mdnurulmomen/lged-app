@@ -42,7 +42,7 @@
         </th>
 
         <th class="datatable-cell datatable-cell-sort text-center">
-            অনুচ্ছেদ নং
+            অনুচ্ছেদ নম্বর
         </th>
 
         <th class="datatable-cell datatable-cell-sort text-center">

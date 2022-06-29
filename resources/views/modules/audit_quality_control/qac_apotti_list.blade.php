@@ -93,7 +93,7 @@
     <thead class="thead-light">
     <tr class="bg-hover-warning">
         <th width="7%" class="text-center">
-            অনুচ্ছেদ নং
+            অনুচ্ছেদ নম্বর
         </th>
 
         <th width="25%" class="text-left">

@@ -5,7 +5,7 @@
             <th width="5%">
                 <input type="checkbox" id="checkAllApottis">
             </th>
-            <th style="text-align: center" width="10%">অনুচ্ছেদ নং</th>
+            <th style="text-align: center" width="10%">অনুচ্ছেদ নম্বর</th>
             <th style="text-align: center" width="75%">শিরোনাম</th>
             <th style="text-align: center" width="10%">জড়িত টাকা</th>
         </tr>

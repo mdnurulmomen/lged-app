@@ -68,50 +68,122 @@
         <td colspan="8" class="text-left">মোট আপত্তিঃ {{enTobn(count($apotti_list['data']))}}</td>
     </tr>--}}
     <tr class="bg-hover-warning">
-        <th class="text-center" width="5%">ক্রম</th>
-        <th class="text-center" width="5%">আইডি</th>
-        <th class="text-center" width="10%">ফাইল নং</th>
-        <th class="text-center" width="5%">অনুচ্ছেদ নম্বর</th>
-        <th class="text-center" width="20%">আপত্তির শিরোনাম</th>
-        <th class="text-center" width="10%">জড়িত অর্থ (টাকা)</th>
-        <th class="text-center" width="20%">নিরীক্ষিত প্রতিষ্ঠান</th>
-        <th class="text-center" width="10%">অর্থবছর</th>
-        <th class="text-center" width="10%">আপত্তির ধরন</th>
-        <th class="text-center" width="5%">কার্যক্রম</th>
+        @if(in_array('sl_no',$columns))
+            <th class="text-center" width="5%">ক্রমিক নং</th>
+        @endif
+
+        @if(in_array('id_no',$columns))
+           <th class="text-center" width="5%">আইডি</th>
+        @endif
+
+        @if(in_array('audit_unit',$columns))
+           <th class="text-center" width="5%">অডিট ইউনিট</th>
+        @endif
+
+        @if(in_array('fiscal_year',$columns))
+            <th class="text-center" width="10%">অর্থবছর</th>
+        @endif
+
+        @if(in_array('audit_year',$columns))
+            <th class="text-center" width="10%">নিরীক্ষা বছর</th>
+        @endif
+
+        @if(in_array('onucched_no',$columns))
+           <th class="text-center" width="5%">অনুচ্ছেদ নম্বর</th>
+        @endif
+
+        @if(in_array('apotti_title',$columns))
+           <th class="text-center" width="20%">আপত্তির শিরোনাম</th>
+        @endif
+
+        @if(in_array('jorito_ortho',$columns))
+           <th class="text-center" width="10%">জড়িত অর্থ (টাকা)</th>
+        @endif
+
+        @if(in_array('audit_type',$columns))
+           <th class="text-center" width="10%">নিরীক্ষার ধরন</th>
+        @endif
+
+        @if(in_array('memo_irregularity_type',$columns))
+           <th class="text-center" width="10%">অনিয়মের ধরন</th>
+        @endif
+
+        @if(in_array('apotti_current_status',$columns))
+            <th class="text-center" width="10%">আপত্তির বর্তমান অবস্থা</th>
+        @endif
+
+        @if(in_array('apotti_type',$columns))
+            <th class="text-center" width="10%">আপত্তির ধরন</th>
+        @endif
     </tr>
     </thead>
 
     <tbody>
     @forelse($apotti_list['data'] as $apotti)
         <tr>
-            <td class="text-center">{{enTobn(($apotti_list['current_page']-1)*10+$loop->iteration)}}</td>
-            <td class="text-center">{{enTobn($apotti['id'])}}</td>
-            <td class="text-left">{{$apotti['file_token_no']}}</td>
-            <td class="text-center">{{enTobn($apotti['onucched_no'])}}</td>
-            <td class="text-left">{{$apotti['apotti_title']}}</td>
-            <td class="text-right">
-                <span>{{enTobn(currency_format($apotti['total_jorito_ortho_poriman']))}}</span>
-            </td>
-            <td class="text-left">
-                মন্ত্রণালয়/বিভাগঃ {{$apotti['ministry_name_bn']}} <br>
-                এনটিটিঃ {{$apotti['parent_office_name_bn']}}
-            </td>
-            <td class="text-left">{{$apotti['fiscal_year']?enTobn($apotti['fiscal_year']['start']).'-'.enTobn($apotti['fiscal_year']['end']):'---'}}</td>
-            <td class="text-left">
-                @if($apotti['apotti_type'] == 'sfi')
-                    এসএফআই
-                @elseif($apotti['apotti_type'] == 'non-sfi')
-                    নন-এসএফআই
-                @endif
-            </td>
-            <td>
-                <button class="tap-button mr-1 btn btn-sm btn-outline-primary btn-square"
-                        title="বিস্তারিত দেখুন"
-                        data-apotti-id="{{$apotti['id']}}"
-                        onclick="Archive_Apotti_Container.showApotti($(this))">
-                    <i class="fad fa-eye"></i>
-                </button>
-            </td>
+            @if(in_array('sl_no',$columns))
+                <td class="text-center">{{enTobn(($apotti_list['current_page']-1)*10+$loop->iteration)}}</td>
+            @endif
+
+            @if(in_array('id_no',$columns))
+               <td class="text-center">{{enTobn($apotti['id'])}}</td>
+            @endif
+
+            @if(in_array('audit_unit',$columns))
+               <td class="text-left">{{$apotti['cost_center_name_bn']}}</td>
+            @endif
+
+            @if(in_array('fiscal_year',$columns))
+                <td class="text-left">{{$apotti['fiscal_year']?enTobn($apotti['fiscal_year']['start']).'-'.enTobn($apotti['fiscal_year']['end']):'---'}}</td>
+            @endif
+
+            @if(in_array('audit_year',$columns))
+                <td class="text-left" width="10%">{{enTobn($apotti['audit_year_start'])}}-{{enTobn($apotti['audit_year_end'])}}</td>
+            @endif
+
+            @if(in_array('onucched_no',$columns))
+                <td class="text-center" width="5%">
+                    {{enTobn($apotti['onucched_no'])}}
+                </td>
+            @endif
+
+            @if(in_array('apotti_title',$columns))
+                <td class="text-left" width="20%">
+                    {{$apotti['memo_title_bn']}}
+                </td>
+            @endif
+
+            @if(in_array('jorito_ortho',$columns))
+                <td class="text-right" width="10%">
+                    {{enTobn(currency_format($apotti['jorito_ortho_poriman']))}}
+                </td>
+            @endif
+
+            @if(in_array('audit_type',$columns))
+                <td class="text-left" width="10%">
+                    @if($apotti['audit_type'] == 'compliance')
+                        কমপ্লায়েন্স অডিট
+                    @endif
+                </td>
+            @endif
+
+            @if(in_array('memo_irregularity_type',$columns))
+                <td class="text-left" width="10%">{{$apotti['memo_irregularity_type_name']}}</td>
+            @endif
+
+            @if(in_array('apotti_current_status',$columns))
+                <td class="text-left" width="5%">{{$apotti['memo_status_name']}}</td>
+            @endif
+
+            @if(in_array('apotti_type',$columns))
+                <td class="text-left" width="10%">
+                    @if($apotti['memo_type'] == 'sfi')
+                        এসএফআই
+                    @elseif($apotti['memo_type'] == 'non-sfi')
+                        নন-এসএফআই
+                    @endif
+                </td>
+            @endif
         </tr>
     @empty
         <tr data-row="0" class="datatable-row" style="left: 0px;">
@@ -132,7 +204,7 @@
         <ul>
             <li class="page-item">
                 <a class="page-link" href="javascript:;"
-                   onclick="Archive_Apotti_Container.paginate($(this))" data-page={{ $prev_page }}>
+                   onclick="Unsettled_Observations_Report_Container.paginate($(this))" data-page={{ $prev_page }}>
                     <i class="fa fa-angle-left"></i>
                 </a>
             </li>
@@ -140,7 +212,7 @@
                 @for ($i = 1; $i <= $apotti_list['last_page']; $i++)
                     <li class="page-item {{ $apotti_list['current_page'] == $i ? 'active' : '' }}">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
+                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
                            data-page="{{ $i }}">{{ $i }}</a>
                     </li>
                 @endfor
@@ -149,7 +221,7 @@
                     @for ($i = 1; $i < 6; $i++)
                         <li class="page-item {{ $apotti_list['current_page'] == $i ? 'active' : '' }}">
                             <a class="page-link" data-current-page="{{ $current_page }}"
-                                href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
+                                href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
                                data-page="{{ $i }}">{{ $i }}</a>
                         </li>
                     @endfor
@@ -159,18 +231,18 @@
                     </li>
                     <li class="page-item">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
+                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
                            data-page="{{ $last_page - 1 }}">{{ $last_page - 1 }}</a>
                     </li>
                     <li class="page-item">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
+                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
                            data-page="{{ $last_page }}">{{ $last_page }}</a>
                     </li>
                 @elseif ($current_page >= 5 && $current_page < $last_page - 5)
                     <li class="page-item">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
+                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
                            data-page="1">1</a>
                     </li>
                     <li class="page-item">
@@ -180,7 +252,7 @@
                     @for ($i = $current_page - 4; $i <= $current_page + 4; $i++)
                         <li class="page-item {{ $apotti_list['current_page'] == $i ? 'active' : '' }}">
                             <a class="page-link" data-current-page="{{ $current_page }}"
-                                href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
+                                href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
                                data-page="{{ $i }}">{{ $i }}</a>
                         </li>
                     @endfor
@@ -190,18 +262,18 @@
                     </li>
                     <li class="page-item">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
+                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
                            data-page="{{ $last_page }}">{{ $last_page }}</a>
                     </li>
                 @else
                     <li class="page-item">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
+                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
                            data-page="1">1</a>
                     </li>
                     <li class="page-item">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
+                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
                            data-page="2">2</a>
                     </li>
                     <li class="page-item">
@@ -211,7 +283,7 @@
                     @for ($i = $current_page - 4; $i <= $last_page; $i++)
                         <li class="page-item {{ $apotti_list['current_page'] == $i ? 'active' : '' }}">
                             <a class="page-link" data-current-page="{{ $current_page }}"
-                                href="javascript:;" onclick="Archive_Apotti_Container.paginate($(this))"
+                                href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
                                data-page="{{ $i }}">{{ $i }}</a>
                         </li>
                     @endfor
@@ -219,7 +291,7 @@
             @endif
             <li class="page-item">
                 <a class="page-link" href="javascript:;"
-                   onclick="Archive_Apotti_Container.paginate($(this))" data-page="{{ $next_page }}">
+                   onclick="Unsettled_Observations_Report_Container.paginate($(this))" data-page="{{ $next_page }}">
                     <i class="fa fa-angle-right"></i>
                 </a>
             </li>

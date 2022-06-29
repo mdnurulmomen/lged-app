@@ -37,7 +37,7 @@
         </th>
 
         <th width="15%" class="datatable-cell datatable-cell-sort text-left">
-            অনুচ্ছেদ নং
+            অনুচ্ছেদ নম্বর
         </th>
 
         <th width="20%" class="datatable-cell datatable-cell-sort text-left">

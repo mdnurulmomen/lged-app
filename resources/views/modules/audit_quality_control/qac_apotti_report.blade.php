@@ -876,7 +876,7 @@
                     <table  class="bangla-font table table-bordered table-striped qac_table" style="width: 100%;margin-top: 10px;padding: 5px"
                             border="1px">
                         <tr class="bangla-font" style="padding: 10px">
-                            <td class="bangla-font" style="text-align: center" width="5%">অনুচ্ছেদ নং </td>
+                            <td class="bangla-font" style="text-align: center" width="5%">অনুচ্ছেদ নম্বর </td>
                             <td class="bangla-font" style="text-align: center" width="30%"> অনুচ্ছেদের শিরোনাম</td>
                             <td class="bangla-font" style="text-align: center" width="10%"> জড়িত অর্থ (টাকা)</td>
                             @if($qac_type == 'qac-1')
