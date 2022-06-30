@@ -1,5 +1,24 @@
 <x-title-wrapper>Audit Schedules</x-title-wrapper>
 
+<div class="card sna-card-border mt-3" style="margin-bottom:15px;">
+    <div class="row">
+        <div class="col-md-3">
+            <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
+                <option value="">--সিলেক্ট--</option>
+                @foreach($fiscal_years as $fiscal_year)
+                    <option
+                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control select-select2" id="activity_id">
+                <option value="">--সিলেক্ট--</option>
+            </select>
+        </div>
+    </div>
+</div>
+
 <div class="card sna-card-border mt-2 mb-15">
     <div class="load-table-data" data-href="{{route('audit.execution.load-audit-schedule-list')}}">
         <div class="d-flex align-items-center">
@@ -16,12 +35,20 @@
 
 <script>
     $(function () {
+        Audit_Query_Schedule_Container.loadFiscalYearWiseActivity();
+        loadData();
+    });
+
+    $('#activity_id,#select_fiscal_year_annual_plan').change(function () {
         loadData();
     });
 
     function loadData() {
+        fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+        activity_id = $('#activity_id').val();
+
         url = $(".load-table-data").data('href');
-        var data = {};
+        var data = {fiscal_year_id,activity_id};
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
             if (resp.status === 'error') {
                 toastr.error('no');
@@ -81,6 +108,28 @@
                     $('#kt_content').html(response)
                 }
             });
+        },
+
+        loadFiscalYearWiseActivity: function () {
+            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
+            if (fiscal_year_id) {
+                let url = '{{route('audit.plan.annual.plan.revised.fiscal-year-wise-activity-select')}}';
+                let data = {fiscal_year_id, fiscal_year};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data)
+                    } else {
+                        $('#activity_id').html(response);
+                        setActivityAnonymously();
+                        // alert(activity_id);
+                        // $('#activity_id').val(7);
+                        // Annual_Plan_Container.loadAnnualPlanList();
+                    }
+                });
+            } else {
+                $('#activity_id').html('');
+            }
         },
     }
 </script>

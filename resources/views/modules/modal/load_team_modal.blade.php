@@ -1216,14 +1216,17 @@
                 schedule = {"schedule": schedule_data}
                 team_schedules = JSON.stringify(schedule);
                 annual_plan_id = '{{$annual_plan_id}}';
+                modal_type = '{{$modal_type}}';
                 audit_plan_id = $('.draft_entity_audit_plan').data('audit-plan-id') ? $('.draft_entity_audit_plan').data('audit-plan-id') : 0;
                 data = {team_schedules, audit_plan_id,annual_plan_id};
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     if (response.status === 'success') {
                         toastr.success(response.data);
                         //$(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
-                        if (audit_plan_id == 0){
+                        if (modal_type == 'data-collection'){
                             Load_Team_Container.insertAuditScheduleListInBook();
+                            activity_id = $('#activity_id').val();
+                            $('#activity_id').val(activity_id).trigger('change');
                         }else{
                             Load_Team_Container.teamMemberInsertIntoBook(audit_plan_id);
                             Load_Team_Container.teamMemberScheduleInsertIntoBook(audit_plan_id);
