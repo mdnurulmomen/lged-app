@@ -39,7 +39,7 @@ class UnsettledObservationsReportController extends Controller
         $data['per_page'] = $request->per_page;
 
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.unsettled_observations.list'), $data)->json();
-        dd($response);
+        //dd($response);
         if (isSuccess($response)) {
             $response = $response['data'];
             $apotti_list = $response['apotti_list'];

@@ -19,7 +19,13 @@ class NumberConversionToBn{
 
         if(is_float($number)){
             $dot = explode(".", $number);
-            return $this->numberSelector($dot[0]).' দশমিক '.$this->numToBnDecimal($dot[1]);
+            if (isset($dot[1])){
+                return $this->numberSelector($dot[0]).' দশমিক '.$this->numToBnDecimal($dot[1]);
+            }
+            else{
+                return $this->numberSelector($dot[0]);
+            }
+
         }else{
             return $this->numberSelector($number);
         }

@@ -473,7 +473,7 @@ if (!function_exists('currency_format')) {
     {
         switch ('##,###.##') {
             case '##,###.##':
-                return _currency_2_3_style($input);
+                return _currency_2_3_style($input,1);
                 break;
             case '##,##.##':
                 return _currency_2_2_style($input);
@@ -490,15 +490,11 @@ if (!function_exists('currency_format')) {
 if (!function_exists('_currency_2_3_style')) {
     function _currency_2_3_style($num,$has_decimal_place=0)
     {
-        $decimal_places = 0;
+        $decimal_places = 2;
 
         $pos = strpos((string)$num, ".");
         if ($pos === false) {
-            if ($decimal_places == 2) {
-                $decimalpart = "00";
-            } else {
-                $decimalpart = "000";
-            }
+            $decimalpart = null;
         } else {
             $decimalpart = substr($num, $pos + 1, $decimal_places);
             $num = substr($num, 0, $pos);
@@ -508,15 +504,23 @@ if (!function_exists('_currency_2_3_style')) {
             $last3digits = substr($num, -3);
             $numexceptlastdigits = substr($num, 0, -3 );
             $formatted = _currency_2_3_style_makecomma($numexceptlastdigits);
+
             if ($has_decimal_place == 1){
-                $stringtoreturn = $formatted . "," . $last3digits . "." . $decimalpart ;
+                if ($decimalpart){
+                    $stringtoreturn = $formatted . "," . $last3digits . "." . $decimalpart ;
+                }else{
+                    $stringtoreturn = $formatted . "," . $last3digits;
+                }
             }else{
                 $stringtoreturn = $formatted . "," . $last3digits;
             }
-
         } elseif (strlen($num) <= 3) {
             if ($has_decimal_place == 1){
-                $stringtoreturn = $num . "." . $decimalpart;
+                if ($decimalpart){
+                    $stringtoreturn = $num . "." . $decimalpart;
+                }else{
+                    $stringtoreturn = $num;
+                }
             }else{
                 $stringtoreturn = $num;
             }
