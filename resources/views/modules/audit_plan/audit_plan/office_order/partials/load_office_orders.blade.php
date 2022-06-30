@@ -146,7 +146,7 @@
 
                                                     @if(($audit_plan['office_order']['approved_status'] == 'draft' && $audit_plan['office_order']['office_order_movement'] != null
                                                     && $audit_plan['office_order']['office_order_movement']['employee_designation_id'] == $current_designation_id) || (isset($audit_plan['office_order_update']) && $audit_plan['office_order_update']['approved_status'] == 'draft' && isset($audit_plan['office_order_update']['office_order_movement']) && $audit_plan['office_order_update']['office_order_movement'] != null
-                                                    && $audit_plan['office_order_update']['office_order_movement']['employee_designation_id']))
+                                                    && $audit_plan['office_order_update']['office_order_movement']['employee_designation_id'] == $current_designation_id))
                                                         <button
                                                             class="mr-1 btn btn-approval" title="অনুমোদন করুন"
                                                             data-ap-office-order-id="{{$audit_plan['has_update_office_order'] == 1 ? $audit_plan['office_order_update']['id'] : $audit_plan['office_order']['id'] }}"

@@ -25,12 +25,17 @@ class OfficeOrderController extends Controller
             'page' => 'required|integer',
         ])->validate();
 
-//        dd($requestData);
 
         $requestData['cdesk'] =$this->current_desk_json();
+
+        $data['current_grade'] = $this->current_desk()['officer_grade'];
+
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.audit_plan_list'), $requestData)->json();
-//        dd($responseData);
+
         $data['audit_plans'] = isSuccess($responseData)?$responseData['data']:[];
+
+//        dd($data['audit_plans']);
+
         $data['current_designation_id'] = $this->current_designation_id();
         return view('modules.audit_plan.audit_plan.office_order.partials.load_office_orders',$data);
     }
