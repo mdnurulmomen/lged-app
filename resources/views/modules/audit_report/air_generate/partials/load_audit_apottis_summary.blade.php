@@ -26,7 +26,7 @@
 
     <table width="100%" border="0">
         <tr>
-            <td>কথায়ঃ {{numberConvertToBnWord($totalJoritoOrtho)}} টাকা মাত্র</td>
+            <td>কথায়ঃ {{ltrim(numberConvertToBnWord($totalJoritoOrtho))}} টাকা মাত্র</td>
         </tr>
     </table>
 </div>

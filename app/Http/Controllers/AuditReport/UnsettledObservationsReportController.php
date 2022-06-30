@@ -38,14 +38,16 @@ class UnsettledObservationsReportController extends Controller
         $data['page'] = $request->page;
         $data['per_page'] = $request->per_page;
 
-        $apotti_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.unsettled_observations.list'), $data)->json();
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.unsettled_observations.list'), $data)->json();
         //dd($apotti_list);
-        if (isSuccess($apotti_list)) {
-            $apotti_list = $apotti_list['data'];
+        if (isSuccess($response)) {
+            $response = $response['data'];
+            $apotti_list = $response['apotti_list'];
+            $total_jorito_ortho_poriman = $response['total_jorito_ortho_poriman'];
             return view('modules.audit_report.unsettled_observations_report.partials.load_apotti_item_list',
-                compact('apotti_list','columns'));
+                compact('apotti_list','total_jorito_ortho_poriman','columns'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $apotti_list]);
+            return response()->json(['status' => 'error', 'data' => $response]);
         }
     }
 

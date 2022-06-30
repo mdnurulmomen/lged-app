@@ -229,12 +229,12 @@
                                             <label for="with_assessment" class="radio radio-success">
                                                 <input id="with_assessment" type="radio" name="assessment" value="with_assessment"/>
                                                 <span></span>
-                                                With Auditability Assessment
+                                                With Entity Assessment
                                             </label>
                                             <label for="with_out_assessment" class="radio radio-success">
                                                 <input checked id="with_out_assessment" type="radio" name="assessment" value="with_out_assessment"/>
                                                 <span></span>
-                                                Without Auditability Assessment
+                                                Without Entity Assessment
                                             </label>
                                         </div>
                                     </div>

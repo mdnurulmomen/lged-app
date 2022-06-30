@@ -64,9 +64,13 @@
 
 <table class="table table-bordered" width="100%">
     <thead class="thead-light">
-    {{--<tr>
-        <td colspan="8" class="text-left">মোট আপত্তিঃ {{enTobn(count($apotti_list['data']))}}</td>
-    </tr>--}}
+    <tr>
+        <th colspan="{{count($columns)}}" class="text-left">
+            মোট আপত্তিঃ {{enTobn($apotti_list['total'])}} <br>
+            মোট জড়িত অর্থ (টাকা): {{enTobn(currency_format($total_jorito_ortho_poriman))}}
+            ({{ltrim(numberConvertToBnWord($total_jorito_ortho_poriman))}} টাকা মাত্র)
+        </th>
+    </tr>
     <tr class="bg-hover-warning">
         @if(in_array('sl_no',$columns))
             <th class="text-center" width="5%">ক্রমিক নং</th>
@@ -186,8 +190,8 @@
             @endif
         </tr>
     @empty
-        <tr data-row="0" class="datatable-row" style="left: 0px;">
-            <td colspan="10" class="datatable-cell text-center"><span>Nothing Found</span></td>
+        <tr>
+            <td colspan="{{count($columns)}}" class="text-center"><span>Nothing Found</span></td>
         </tr>
     @endforelse
     </tbody>

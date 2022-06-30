@@ -3,6 +3,7 @@
         loadDirectorateWiseMinistry: function (directorate_id,ministry_id='') {
             let url = '{{route('audit.execution.archive-apotti.load-directorate-wise-ministry')}}';
             let data = {directorate_id};
+            $("#ministry_id").html('<option value="">Loading...</option>');
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data);
@@ -19,6 +20,7 @@
         loadMinistryWiseEntity: function (ministry_id,entity_id='') {
             let url = '{{route('audit.execution.archive-apotti.load-ministry-wise-entity')}}';
             let data = {ministry_id};
+            $("#entity_id").html('<option value="">Loading...</option>');
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data);
@@ -35,6 +37,7 @@
         loadEntityWiseUnitGroupOffice: function (entity_id,parent_office_id='') {
             let url = '{{route('audit.execution.archive-apotti.load-entity-wise-unit-group-office')}}';
             let data = {entity_id};
+            $("#unit_group_office_id").html('<option value="">Loading...</option>');
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data);
@@ -51,6 +54,7 @@
         loadEntityOrUnitGroupWiseCostCenter: function (parent_office_id,cost_center_id='') {
             let url = '{{route('audit.execution.archive-apotti.load-entity-or-unit-group-wise-cost-center')}}';
             let data = {parent_office_id};
+            $("#cost_center_id").html('<option value="">Loading...</option>');
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data);
@@ -67,6 +71,7 @@
         loadOniyomerSubCategory: function (directorate_id,apotti_oniyomer_category_id,apotti_oniyomer_category_child_id="") {
             let url = '{{route('audit.execution.archive-apotti.load-oniyomer-sub-category-list')}}';
             let data = {directorate_id,apotti_oniyomer_category_id};
+            $("#apotti_oniyomer_category_child_id").html('<option value="">Loading...</option>');
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {
                         toastr.warning(response.data);
