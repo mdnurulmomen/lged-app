@@ -19,7 +19,7 @@
                 </a>
                 <h5>{{$report['report_name']}}</h5>
                 <div class="row">
-                    <div class="col-md-3 mr-5">
+                    <div class="col-md-3">
                         <a href="javascript:;"
                            data-report-id="{{$report['id']}}"
                            data-report-name="{{$report['report_name']}}"
@@ -29,8 +29,14 @@
                         </a>
                     </div>
 
-                    <div class="col-md-6">
-                        <b> আপত্তি : {{($report['report_apotti_map_count'])}}</b>
+                    <div class="col-md-9">
+                        <a href="javascript:;"
+                           data-report-id="{{$report['id']}}"
+                           data-report-name="{{$report['report_name']}}"
+                           data-directorate-id="{{$data['directorate_id']}}"
+                           onclick="loadFinalReportDetails($(this))" class="btn btn-sm btn-outline-primary float-right">
+                            মোট আপত্তি : {{enTobn($report['report_apotti_map_count'])}}
+                        </a>
                     </div>
 
                 </div>
