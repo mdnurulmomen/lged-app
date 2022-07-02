@@ -5,18 +5,21 @@
         border-top-right-radius: calc(.25rem - 1px);
     }
 </style>
+<div class="row ml-5">
+    <span><p class="float-left pr-5 font-size-h4-sm">মোট অডিট রিপোর্ট : {{enTobn(count($report_list['airList']))}}</p>  <p class="float-left font-size-h4-sm">মোট আপত্তি : {{enTobn($report_list['totalApottiCount'])}}</p></span>
+</div>
 <div class="row mt-3">
-    @forelse($report_list as $report)
+    @forelse($report_list['airList'] as $report)
         <div class="col-md-3 mb-2">
             <div class="card sna-card-border">
                 <a href="javascript:;">
                     @if($report['has_report_attachments'] == 1)
-                        <img class="card-img-top" style="height: 350px" src="{{$report['reported_apotti_cover_page']?rtrim(config('amms_bee_routes.file_url'),'/').$report['reported_apotti_cover_page']['attachment_path'].$report['reported_apotti_cover_page']['cover_page_name']:''}}">
+                        <img class="card-img-top" style="height: 250px" src="{{$report['reported_apotti_cover_page']?rtrim(config('amms_bee_routes.file_url'),'/').$report['reported_apotti_cover_page']['attachment_path'].$report['reported_apotti_cover_page']['cover_page_name']:''}}">
                     @endif
                 </a>
                 <h5>{{$report['report_name']}}</h5>
                 <div class="row">
-                    <div class="col-md-12 mr-5">
+                    <div class="col-md-3 mr-5">
                         <a href="javascript:;"
                            data-report-id="{{$report['id']}}"
                            data-report-name="{{$report['report_name']}}"
@@ -25,6 +28,11 @@
                             <i class="fa fa-eye"></i>
                         </a>
                     </div>
+
+                    <div class="col-md-6">
+                        <b> আপত্তি : {{($report['report_apotti_map_count'])}}</b>
+                    </div>
+
                 </div>
             </div>
         </div>
