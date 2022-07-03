@@ -29,6 +29,7 @@ class AuditExecutionApottiSearchController extends Controller
         $data['directorate_id'] = $request->directorate_id;
         $data['ministry_id'] = $request->ministry_id;
         $data['entity_id'] = $request->entity_id;
+        $data['cost_center_id'] = $request->cost_center_id;
         $data['onucched_no'] = $request->onucched_no;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['apotti_type'] = $request->apotti_type;

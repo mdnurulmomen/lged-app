@@ -28,13 +28,26 @@
             </div>
 
             <div class="col-md-3">
-                <label for="file_token_no" class="col-form-label">ফাইল নং</label>
-                <input class="form-control" id="file_token_no" type="text">
+                <label for="unit_group_office_id" class="col-form-label">গ্রুপ</label>
+                <select class="form-select select-select2" id="unit_group_office_id" name="unit_group_office_id">
+                    <option value="">সবগুলো</option>
+                </select>
             </div>
         </div>
 
-
         <div class="row mb-2">
+            <div class="col-md-4">
+                <label for="cost_center_id" class="col-form-label">কস্ট সেন্টার/ইউনিট</label>
+                <select class="form-select select-select2" id="cost_center_id" name="cost_center_id">
+                    <option value="">সবগুলো</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="file_token_no" class="col-form-label">ফাইল নং</label>
+                <input class="form-control" id="file_token_no" type="text">
+            </div>
+
             <div class="col-md-4">
                 <label for="fiscal_year_id" class="col-form-label">আপত্তির অর্থবছর</label>
                 <select class="form-select select-select2" id="fiscal_year_id">
@@ -44,8 +57,11 @@
                     @endforeach
                 </select>
             </div>
+        </div>
 
-            <div class="col-md-3">
+
+        <div class="row mb-2">
+            <div class="col-md-4">
                 <label for="apotti_type" class="col-form-label">আপত্তির ধরন</label>
                 <select class="form-control select-select2" id="apotti_type">
                     <option selected="selected" value="">আপত্তির ধরন</option>
@@ -54,12 +70,12 @@
                 </select>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <label for="total_jorito_ortho_poriman" class="col-form-label">জড়িত অর্থ (টাকা)</label>
                 <input class="form-control" id="total_jorito_ortho_poriman" type="text">
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label for="onucched_no" class="col-form-label">অনুচ্ছেদ নম্বর</label>
                 <input class="form-control" id="onucched_no" type="text">
             </div>
@@ -94,16 +110,19 @@
             directorate_id = $("#directorate_id").val();
             ministry_id = $("#ministry_id").val();
             entity_id = $("#entity_id").val();
+            cost_center_id = $("#cost_center_id").val();
             onucched_no = $("#onucched_no").val();
             fiscal_year_id = $("#fiscal_year_id").val();
             apotti_type = $("#apotti_type").val();
             total_jorito_ortho_poriman = $("#total_jorito_ortho_poriman").val();
             file_token_no = $("#file_token_no").val();
+
             let url = '{{ route('audit.execution.apotti.search-list') }}';
             let data = {
                 directorate_id,
                 ministry_id,
                 entity_id,
+                cost_center_id,
                 onucched_no,
                 fiscal_year_id,
                 apotti_type,
