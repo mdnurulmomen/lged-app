@@ -93,6 +93,10 @@
     <thead class="thead-light">
     <tr class="bg-hover-warning">
         <th width="7%" class="text-center">
+            ক্রমিক নম্বর
+        </th>
+
+        <th width="7%" class="text-center">
             অনুচ্ছেদ নম্বর
         </th>
 
@@ -129,6 +133,7 @@
     <tbody>
     @forelse($responseData['apottiList'] as $apotti)
         <tr class="text-center">
+            <td>{{enTobn($loop->iteration)}}</td>
             <td>
                 {{enTobn($apotti['apotti_map_data']['onucched_no'])}}
 

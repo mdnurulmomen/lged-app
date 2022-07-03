@@ -802,6 +802,18 @@
 </head>
 
 <body>
+    <htmlpageheader name="even-header">
+        <div class="bangla-font" style="float:right; width: 100%; text-align: right;">
+            <span>খসড়া</span>
+        </div>
+    </htmlpageheader>
+
+    <htmlpageheader name="odd-header">
+        <div class="bangla-font" style="float:right; width: 100%; text-align: right;">
+            <span>খসড়া</span>
+        </div>
+    </htmlpageheader>
+
     <htmlpagefooter name="firstpage"></htmlpagefooter>
     <htmlpagefooter name="otherpages">পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span></htmlpagefooter>
 
