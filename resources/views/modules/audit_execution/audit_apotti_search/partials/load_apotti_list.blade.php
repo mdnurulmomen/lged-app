@@ -64,9 +64,13 @@
 
 <table class="table table-bordered" width="100%">
     <thead class="thead-light">
-    {{--<tr>
-        <td colspan="8" class="text-left">মোট আপত্তিঃ {{enTobn(count($apotti_list['data']))}}</td>
-    </tr>--}}
+    <tr>
+        <th colspan="10" class="text-left">
+            মোট আপত্তিঃ {{enTobn($apotti_list['total'])}} <br>
+            মোট জড়িত অর্থ (টাকা): {{enTobn(currency_format($total_jorito_ortho_poriman))}}
+            ({{ltrim(numberConvertToBnWord($total_jorito_ortho_poriman))}} টাকা মাত্র)
+        </th>
+    </tr>
     <tr class="bg-hover-warning">
         <th class="text-center" width="5%">ক্রম</th>
         <th class="text-center" width="5%">আইডি</th>

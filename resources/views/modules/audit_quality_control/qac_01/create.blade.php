@@ -152,9 +152,8 @@
             let report_type = '{{$report_type}}';
             if (approved_status != 'approved') {
                 $(".update-qac-air-report").click();
-                if (report_type == 'cloned'){
-                    QAC_AIR_Report_Container.setAIRContentWiseData();
-                }
+                /*if (report_type == 'cloned'){}*/
+                QAC_AIR_Report_Container.setAIRContentWiseData();
                 QAC_AIR_Report_Container.setAuditTeam();
                 QAC_AIR_Report_Container.setAuditApottiSummary('sfi');
                 QAC_AIR_Report_Container.setAuditApottiSummary('non-sfi');

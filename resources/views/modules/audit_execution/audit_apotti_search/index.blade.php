@@ -87,7 +87,6 @@
     $(function() {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
-        Archive_Apotti_Container.loadApottiList();
     });
 
     var Archive_Apotti_Container = {
