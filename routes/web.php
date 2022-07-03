@@ -746,7 +746,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             //final report
             Route::group(['as' => 'final-report.', 'prefix' => 'final-report/'], function () {
-                Route::post('download', [AuditQACAIRReportController::class, 'downloadAuditReport'])->name('download');
+                Route::post('download', [AuditQACAIRReportController::class, 'download'])->name('download');
                 Route::post('preview', [AuditQACAIRReportController::class, 'previewAuditReport'])->name('preview');
             });
 

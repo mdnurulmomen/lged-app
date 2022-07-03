@@ -71,6 +71,7 @@ class AuditQacController extends Controller
         $requestData['air_id'] = $parent_air_id;
         $requestData['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get_air_wise_audit_apotti_list'), $requestData)->json();
+        //dd($responseData);
         $responseData = isSuccess($responseData) ? $responseData['data'] : [];
         $current_designation_id = $this->current_designation_id();
         $entity_ids = [];

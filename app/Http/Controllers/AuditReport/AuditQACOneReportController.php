@@ -14,18 +14,17 @@ class AuditQACOneReportController extends Controller
         ini_set('memory_limit', '-1');
         ini_set('max_execution_time', 0);
 
-        /*$auditReport = $request->air_description;
-        $pdf = \PDF::loadView('modules.audit_quality_control.qac_01.partials.audit_qac1_report_book',
-            ['auditReport' => $auditReport], [] , ['orientation' => 'P', 'format' => 'A4']);
-
-        $fileName = 'qac1_report_' . date('D_M_j_Y') . '.pdf';
-        return $pdf->stream($fileName);*/
-
         $scope = $request->scope ?: 'apotti_air';
         $porisistos_html = [];
 
         if ($scope != 'apotti_air') {
-            $apottis = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), ['air_id' => $request->air_id, 'all' => '1', 'cdesk' => $this->current_desk_json()])->json();
+            $apottis = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'),
+                [
+                    'air_id' => $request->air_id,
+                    'air_type' => 'qac-1',
+                    'cdesk' => $this->current_desk_json()
+                ])
+                ->json();
 
             $porisishto_counter = 1;
             if (isSuccess($apottis)) {

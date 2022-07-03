@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\AuditReport;
 
 use App\Http\Controllers\Controller;
-use App\Services\PDFServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
-use Mpdf\Mpdf;
 
 class AuditAIRReportController extends Controller
 {
@@ -306,7 +304,12 @@ class AuditAIRReportController extends Controller
         $porisistos_html = [];
 
         if ($scope != 'apotti_air') {
-            $apottis = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), ['air_id' => $request->air_id, 'all' => '1', 'cdesk' => $this->current_desk_json()])->json();
+            $apottis = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'),
+                [
+                    'air_id' => $request->air_id,
+                    'air_type' => 'preliminary',
+                    'cdesk' => $this->current_desk_json()
+                ])->json();
 
             $porisishto_counter = 1;
             if (isSuccess($apottis)) {

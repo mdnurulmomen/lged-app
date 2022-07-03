@@ -390,11 +390,13 @@
             downloadAIRReport: function(scope = 'only_apotti') {
                 air_description = templateArray;
                 air_id = '{{$air_report_id}}';
+                air_type = '{{$qac_type}}';
 
                 if (air_id){
                     data = {
                         scope,
                         air_id,
+                        air_type,
                         air_description
                     };
 
