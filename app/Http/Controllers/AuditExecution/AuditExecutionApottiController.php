@@ -60,7 +60,7 @@ class AuditExecutionApottiController extends Controller
     public function loadApottiRegisterList(Request $request){
         $data = Validator::make($request->all(), [
             'directorate_id' => 'required',
-            'fiscal_year_id' => 'required',
+            'fiscal_year_id' => 'nullable',
             'apotti_type' => 'required',
         ])->validate();
 

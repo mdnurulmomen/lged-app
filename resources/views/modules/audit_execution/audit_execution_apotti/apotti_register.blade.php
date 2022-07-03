@@ -5,7 +5,7 @@
             <div class="col-md-3">
                 <select class="form-select select-select2" id="directorate_id">
                     @if(count($directorates) > 1)
-                        <option value="all">Select Directorate</option>
+                        <option value="all">সকল অধিদপ্তর</option>
                     @endif
                     @foreach($directorates as $directorate)
                         <option value="{{$directorate['office_id']}}">{{$directorate['office_name_bn']}}</option>
@@ -15,9 +15,10 @@
 
             <div class="col-md-3">
                 <select class="form-select select-select2" id="fiscal_year_id">
+                    <option value="">সকল অর্থবছর</option>
                     @foreach($fiscal_years as $fiscal_year)
                         <option
-                            value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{enTobn($fiscal_year['description'])}}</option>
+                            value="{{$fiscal_year['id']}}">{{enTobn($fiscal_year['description'])}}</option>
                     @endforeach
                 </select>
             </div>
