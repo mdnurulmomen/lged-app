@@ -65,7 +65,7 @@
 <table class="table table-bordered" width="100%">
     <thead class="thead-light">
     <tr>
-        <th colspan="{{count($columns)}}" class="text-left">
+        <th colspan="{{count($columns)+1}}" class="text-left">
             মোট আপত্তিঃ {{enTobn($apotti_list['total'])}} <br>
             মোট জড়িত অর্থ (টাকা): {{enTobn(currency_format($total_jorito_ortho_poriman))}}
             ({{ltrim(numberConvertToBnWord($total_jorito_ortho_poriman))}} টাকা মাত্র)
@@ -119,6 +119,7 @@
         @if(in_array('apotti_type',$columns))
             <th class="text-center" width="10%">আপত্তির ধরন</th>
         @endif
+            <th class="text-center" width="5%">কার্যক্রম</th>
     </tr>
     </thead>
 
@@ -188,6 +189,15 @@
                     @endif
                 </td>
             @endif
+                <td>
+                    <button class="tap-button mr-1 btn btn-sm btn-outline-primary btn-square"
+                            title="বিস্তারিত দেখুন"
+                            data-apotti-id="{{$apotti['apotti_id']}}"
+                            onclick="Unsettled_Observations_Report_Container.showApotti($(this))"
+                    >
+                        <i class="fad fa-eye"></i>
+                    </button>
+                </td>
         </tr>
     @empty
         <tr>
