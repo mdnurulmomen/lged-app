@@ -5,7 +5,7 @@
     <meta charset="utf-8"/>
     <title>AMMS 2 - @yield('title')</title>
     @include('layouts.partials.header')
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}"/>
+    <link rel="shortcut icon" href="{{ asset('assets/images/e_audit_150.png') }}"/>
     @yield('styles')
 </head>
 <!--end::Head-->

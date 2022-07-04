@@ -31,7 +31,9 @@ body,
 }
 
 .brand-logo img {
-    width: 42px;
+    width: 75px;
+    padding-top: 18px;
+    padding-bottom: 10px;
 }
 
 .partners img {

@@ -13,7 +13,7 @@
                                     data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
                                     onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">
                                 <i class="fad fa-paper-plane"></i>
-                                ওসিএজিতে প্রেরণ
+                                অনুমোদনের জন্য প্রেরণ করুন
                             </button>
                         @endif
 

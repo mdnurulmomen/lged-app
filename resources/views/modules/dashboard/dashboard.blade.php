@@ -32,12 +32,6 @@
             <p style="color: white" class="font-weight-bold font-size-h1 mt-5">Financial Audit</p>
         </a>
     </div>
-    <div class="row mb-5">
-        <a style="background-color: #c38be6!important;" href="{{route('audit.execution.archive-apotti.archive-page')}}" class="col bg-light-warning rounded-xl mr-7 text-center h-200px">
-            <img class="mt-5" width="80px" height="80px" src="{{asset('assets/images/repository.png')}}" alt="">
-            <p style="color: black" class="font-weight-bold font-size-h1 mt-5">Audit Repository</p>
-        </a>
-    </div>
 @endsection
 
 @section('scripts')

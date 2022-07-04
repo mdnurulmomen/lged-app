@@ -8,7 +8,7 @@
                                 data-op-audit-calendar-event-id=""
                                 onclick="">
                             <i class="fad fa-paper-plane"></i>
-                            ওসিএজিতে প্রেরণ
+                            অনুমোদনের জন্য প্রেরণ করুন
                         </button>
 
                     <button data-fiscal-year-id=""

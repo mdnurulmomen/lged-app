@@ -3,7 +3,7 @@
     <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between py-4">
         <!--begin::Copyright-->
         <div class="text-dark">
-            <span class="text-dark font-weight-bold">&copy;Comptroller and Auditor General of Bangladesh</span>
+            <span class="text-dark font-weight-bold">&copy;Local Government Engineering Department</span>
         </div>
         <!--end::Copyright-->
         <!--end::Nav-->
