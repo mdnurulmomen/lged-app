@@ -66,6 +66,8 @@ class AnnualPlanRevisedController extends Controller
             $data['activity_type'] = 'financial';
         }
 
+        $current_designation_id = $this->current_designation_id();
+
         $planListResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_entities_list_show'),
             $data)->json();
 //        dd($planListResponseData);
@@ -79,7 +81,7 @@ class AnnualPlanRevisedController extends Controller
 
         return view('modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection',
             compact('plan_list', 'fiscal_year',
-                'fiscal_year_id','op_audit_calendar_event_id'));
+                'fiscal_year_id','op_audit_calendar_event_id','current_designation_id'));
 
     }
 

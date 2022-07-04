@@ -5,16 +5,18 @@
             <div class="row">
                 <div class="col-md-7">
                     @if(!is_null($plan_list))
-                        @if($plan_list['approval_status'] == 'draft' || $plan_list['approval_status'] == 'reject')
-                            <button class="btn btn-sm btn-primary btn-square mr-1"
-                                    data-annual-plan-main-id="{{$plan_list['id']}}"
-                                    data-activity-type="{{$plan_list['activity_type']}}"
-                                    data-fiscal-year-id="{{$fiscal_year_id}}"
-                                    data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                                    onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">
-                                <i class="fad fa-paper-plane"></i>
-                                ওসিএজিতে প্রেরণ
-                            </button>
+                        @if($current_designation_id == 2)
+                            @if($plan_list['approval_status'] == 'draft' || $plan_list['approval_status'] == 'reject')
+                                <button class="btn btn-sm btn-primary btn-square mr-1"
+                                        data-annual-plan-main-id="{{$plan_list['id']}}"
+                                        data-activity-type="{{$plan_list['activity_type']}}"
+                                        data-fiscal-year-id="{{$fiscal_year_id}}"
+                                        data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
+                                        onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">
+                                    <i class="fad fa-paper-plane"></i>
+                                    ওসিএজিতে প্রেরণ
+                                </button>
+                            @endif
                         @endif
 
                         <button data-fiscal-year-id="{{$fiscal_year_id}}"
