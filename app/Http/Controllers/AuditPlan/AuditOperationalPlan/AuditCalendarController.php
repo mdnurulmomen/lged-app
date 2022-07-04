@@ -109,10 +109,12 @@ class AuditCalendarController extends Controller
      */
     public function updateMilestoneTargetDate(Request $request): \Illuminate\Http\JsonResponse
     {
-        Validator::make($request->all(), ['yearly_audit_calendar_id' => 'nullable|integer', 'milestone_id' => 'required|integer', 'target_date' => 'required|date',])->validate();
+        Validator::make($request->all(), ['yearly_audit_calendar_id' => 'nullable|integer',
+            'milestone_id' => 'required|integer',
+            'target_date' => 'required',])->validate();
 
         $data = [
-            'target_date' => $request->target_date,
+            'target_date' => date('Y-m-d',strtotime($request->target_date)),
             "milestone_id" => $request->milestone_id,
             "yearly_audit_calendar_id" => $request->yearly_audit_calendar_id,
             "unit_id" => $this->current_office_unit_id(),

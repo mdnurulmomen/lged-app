@@ -34,9 +34,9 @@
                                             <input data-milestone-id="{{$milestone['id']}}"
                                                    data-activity-id="{{$activity_calendar['id']}}"
                                                    data-milestone-calendar-id="{{$milestone['milestone_calendar'] ? $milestone['milestone_calendar']['id'] : ''}}"
-                                                   type="date"
+                                                   type="text"
                                                    value="{{$milestone['milestone_calendar'] ? $milestone['milestone_calendar']['target_date'] : ''}}"
-                                                   class="form-control border-0 w-100 date target_date">
+                                                   class="form-control border-0 w-100 date target_date" placeholder="dd/mm/yy">
                                         </td>
                                     </tr>
                                 @endforeach
