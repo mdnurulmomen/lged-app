@@ -32,6 +32,7 @@
 
     $('#select_fiscal_year_annual_plan').change(function () {
         Annual_Plan_Container.loadAnnualPlanList();
+        Annual_Plan_Container.loadFiscalYearWiseActivity();
     });
 
     $('#activity_id').change(function () {
