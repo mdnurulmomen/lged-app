@@ -85,7 +85,7 @@
                                     <table class="table table-bordered w-100 mb-0">
                                         @foreach($activity_calendar['milestones'] as $milestone)
                                             <tr>
-                                                <td style="height:60px">{{$milestone['milestone_calendar']['target_date']}}</td>
+                                                <td style="height:60px">{{$milestone['milestone_calendar'] ? $milestone['milestone_calendar']['target_date'] : ''}}</td>
                                             </tr>
                                         @endforeach
                                     </table>

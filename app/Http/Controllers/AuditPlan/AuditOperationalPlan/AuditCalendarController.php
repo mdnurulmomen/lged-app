@@ -77,6 +77,7 @@ class AuditCalendarController extends Controller
         $yearly_audit_calendar_id = $request->yearly_audit_calendar_id;
         $fiscal_year = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_show'), ['fiscal_year_id' => $fiscal_year_id])->json()['data'];
         $activity_calendars = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_all_lists'), ['fiscal_year_id' => $fiscal_year_id, 'yearly_calendar_id' => $yearly_audit_calendar_id])->json();
+//        dd($activity_calendars);
         $responsible_offices = $this->allResponsibleOffices();
         if (isSuccess($activity_calendars)) {
             $activity_calendars = $activity_calendars['data'];
@@ -94,6 +95,7 @@ class AuditCalendarController extends Controller
         Validator::make($request->all(), ['fiscal_year_id' => 'required|integer',])->validate();
         $fiscal_year_id = $request->fiscal_year_id;
         $activity_calendars = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_all_lists'), ['fiscal_year_id' => $fiscal_year_id])->json();
+//        dd($activity_calendars);
         if ($activity_calendars['status'] = 'success') {
             $activity_calendars = $activity_calendars['data'];
             return view('modules.audit_plan.operational.audit_calendar.partials.load_schedule_milestones', compact('activity_calendars'));
@@ -107,7 +109,7 @@ class AuditCalendarController extends Controller
      */
     public function updateMilestoneTargetDate(Request $request): \Illuminate\Http\JsonResponse
     {
-        Validator::make($request->all(), ['yearly_audit_calendar_id' => 'required|integer', 'milestone_id' => 'required|integer', 'target_date' => 'required|date',])->validate();
+        Validator::make($request->all(), ['yearly_audit_calendar_id' => 'nullable|integer', 'milestone_id' => 'required|integer', 'target_date' => 'required|date',])->validate();
 
         $data = [
             'target_date' => $request->target_date,
@@ -120,7 +122,7 @@ class AuditCalendarController extends Controller
         ];
 
         $updateMilestoneDate = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_milestone_target_date_update'), $data)->json();
-
+        // dd($updateMilestoneDate);
         if ($updateMilestoneDate['status'] = 'success') {
             return response()->json(['status' => 'success', 'data' => 'Updated!']);
         } else {

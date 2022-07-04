@@ -32,7 +32,7 @@
                                     @foreach($activity_calendar['milestones'] as $milestone)
                                         <tr>
                                             <td class="p-0">
-                                                <p class="form-control border-0 w-100">{{formatDate($milestone['milestone_calendar']['target_date'])}}</p>
+                                                <p class="form-control border-0 w-100">{{ $milestone['milestone_calendar'] ? formatDate($milestone['milestone_calendar']['target_date']) : ''}}</p>
                                             </td>
                                         </tr>
                                     @endforeach
