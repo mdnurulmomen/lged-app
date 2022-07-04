@@ -66,15 +66,22 @@ class AuditExecutionApottiController extends Controller
 
         $data['start_date'] = $request->start_date;
         $data['end_date'] = $request->end_date;
+        $data['page'] = $request->page;
+        $data['per_page'] = $request->per_page;
+
+
         $data['cdesk'] = $this->current_desk_json();
-        $apotti_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.apotti_register_list'), $data)->json();
-        //dd($apotti_list);
-        if (isSuccess($apotti_list)) {
-            $apotti_list = $apotti_list['data'];
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.apotti_register_list'), $data)->json();
+
+        if (isSuccess($response)) {
+            $response = $response['data'];
+            $apotti_list = $response['apotti_list'];
+            $total_jorito_ortho_poriman = $response['total_jorito_ortho_poriman'];
+//            dd($total_jorito_ortho_poriman);
             return view('modules.audit_execution.audit_execution_apotti.partial.load_apotti_register_list',
-                compact('apotti_list'));
+                compact('apotti_list','total_jorito_ortho_poriman'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $apotti_list]);
+            return response()->json(['status' => 'error', 'data' => $response]);
         }
     }
 

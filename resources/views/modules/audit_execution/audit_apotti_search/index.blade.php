@@ -61,7 +61,7 @@
 
 
         <div class="row mb-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="apotti_type" class="col-form-label">আপত্তির ধরন</label>
                 <select class="form-control select-select2" id="apotti_type">
                     <option selected="selected" value="">আপত্তির ধরন</option>
@@ -70,12 +70,22 @@
                 </select>
             </div>
 
-            <div class="col-md-4">
-                <label for="total_jorito_ortho_poriman" class="col-form-label">জড়িত অর্থ (টাকা)</label>
-                <input class="form-control" id="total_jorito_ortho_poriman" type="text">
+            <div class="col-md-3">
+                <label for="memo_status" class="col-form-label">আপত্তির অবস্থা</label>
+                <select class="form-control select-select2" id="memo_status">
+                    <option selected="selected" value="">আপত্তির অবস্থা</option>
+                    <option value="1">নিস্পন্ন</option>
+                    <option value="2">অনিস্পন্ন</option>
+                    <option value="3">আংশিক নিস্পন্ন</option>
+                </select>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <label for="jorito_ortho_poriman" class="col-form-label">জড়িত অর্থ (টাকা)</label>
+                <input class="form-control" id="jorito_ortho_poriman" type="text">
+            </div>
+
+            <div class="col-md-3">
                 <label for="onucched_no" class="col-form-label">অনুচ্ছেদ নম্বর</label>
                 <input class="form-control" id="onucched_no" type="text">
             </div>
@@ -114,8 +124,9 @@
             onucched_no = $("#onucched_no").val();
             fiscal_year_id = $("#fiscal_year_id").val();
             apotti_type = $("#apotti_type").val();
-            total_jorito_ortho_poriman = $("#total_jorito_ortho_poriman").val();
+            jorito_ortho_poriman = $("#jorito_ortho_poriman").val();
             file_token_no = $("#file_token_no").val();
+            memo_status = $("#memo_status").val();
 
             let url = '{{ route('audit.execution.apotti.search-list') }}';
             let data = {
@@ -126,8 +137,9 @@
                 onucched_no,
                 fiscal_year_id,
                 apotti_type,
-                total_jorito_ortho_poriman,
+                jorito_ortho_poriman,
                 file_token_no,
+                memo_status,
                 page,
                 per_page
             };

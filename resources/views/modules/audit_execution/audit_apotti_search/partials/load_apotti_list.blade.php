@@ -92,9 +92,9 @@
             <td class="text-center">{{enTobn($apotti['id'])}}</td>
             <td class="text-left">{{$apotti['file_token_no']}}</td>
             <td class="text-center">{{enTobn($apotti['onucched_no'])}}</td>
-            <td class="text-left">{{$apotti['apotti_title']}}</td>
+            <td class="text-left">{{$apotti['memo_title_bn']}}</td>
             <td class="text-right">
-                <span>{{enTobn(currency_format($apotti['total_jorito_ortho_poriman']))}}</span>
+                <span>{{enTobn(currency_format($apotti['jorito_ortho_poriman']))}}</span>
             </td>
             <td class="text-left">
                 মন্ত্রণালয়/বিভাগঃ {{$apotti['ministry_name_bn']}} <br>
@@ -102,16 +102,16 @@
             </td>
             <td class="text-left">{{$apotti['fiscal_year']?enTobn($apotti['fiscal_year']['start']).'-'.enTobn($apotti['fiscal_year']['end']):'---'}}</td>
             <td class="text-left">
-                @if($apotti['apotti_type'] == 'sfi')
+                @if($apotti['memo_type'] == 'sfi')
                     এসএফআই
-                @elseif($apotti['apotti_type'] == 'non-sfi')
+                @elseif($apotti['memo_type'] == 'non-sfi')
                     নন-এসএফআই
                 @endif
             </td>
             <td>
                 <button class="tap-button mr-1 btn btn-sm btn-outline-primary btn-square"
                         title="বিস্তারিত দেখুন"
-                        data-apotti-id="{{$apotti['id']}}"
+                        data-apotti-id="{{$apotti['apotti_id']}}"
                         onclick="Archive_Apotti_Container.showApotti($(this))">
                     <i class="fad fa-eye"></i>
                 </button>

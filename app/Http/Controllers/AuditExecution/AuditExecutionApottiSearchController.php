@@ -33,13 +33,14 @@ class AuditExecutionApottiSearchController extends Controller
         $data['onucched_no'] = $request->onucched_no;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['apotti_type'] = $request->apotti_type;
-        $data['total_jorito_ortho_poriman'] = $request->total_jorito_ortho_poriman;
+        $data['jorito_ortho_poriman'] = $request->total_jorito_ortho_poriman;
         $data['file_token_no'] = $request->file_token_no;
+        $data['memo_status'] = $request->memo_status;
         $data['page'] = $request->page;
         $data['per_page'] = $request->per_page;
 
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.search-list'), $data)->json();
-        //dd($response);
+//        dd($response);
         if (isSuccess($response)) {
             $response = $response['data'];
             $apotti_list = $response['apotti_list'];
