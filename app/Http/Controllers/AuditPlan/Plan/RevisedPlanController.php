@@ -71,7 +71,7 @@ class RevisedPlanController extends Controller
 
 
         $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_create_draft'), $data)->json();
-//        dd($audit_plan);
+        //dd($audit_plan);
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
             //dd($audit_plan);
@@ -115,7 +115,7 @@ class RevisedPlanController extends Controller
                 'directorate_address_top' => $directorate_address_top,
                 'directorate_website' => $directorate_website,
                 'created_by' => $this->getEmployeeInfo()['name_bng'] . ',<br>' . $this->current_office()['designation'],
-                'directorate_name' => $this->current_office()['office_name_bn'],
+                'directorate_name' => 'স্থানীয় সরকার প্রকৌশল অধিদপ্তর',
                 'party_name' => '',
                 'entity_name' => $entity_name,
                 'entity_office_type' => $audit_plan['annual_plan']['office_type'],
