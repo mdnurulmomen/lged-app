@@ -66,7 +66,7 @@ use App\Http\Controllers\AuditReport\AuditQACTwoReportController;
 use App\Http\Controllers\AuditReport\AuditReportDashboardController;
 use App\Http\Controllers\AuditReport\FinalAuditDashboardController;
 use App\Http\Controllers\AuditReport\RpuAirReportController;
-use App\Http\Controllers\AuditReport\UnsettledObservationsReportController;
+use App\Http\Controllers\AuditReport\ObservationsReportController;
 use App\Http\Controllers\CommunicationManagementController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentManagementController;
@@ -753,10 +753,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('air-send-to-rpu', [RpuAirReportController::class, 'airSendToRpu'])->name('air-send-to-rpu');
         });
 
-        Route::group(['as' => 'unsettled-observations.', 'prefix' => 'unsettled-observations/'], function () {
-            Route::get('/', [UnsettledObservationsReportController::class, 'index'])->name('index');
-            Route::post('list', [UnsettledObservationsReportController::class, 'list'])->name('list');
-            Route::post('download', [UnsettledObservationsReportController::class, 'download'])->name('download');
+        //observation report
+        Route::group(['as' => 'observations.', 'prefix' => 'observations/'], function () {
+            Route::group(['as' => 'get-status-wise.', 'prefix' => 'get-status-wise/'], function () {
+                Route::get('/{any}', [ObservationsReportController::class, 'index']);
+                Route::post('list', [ObservationsReportController::class, 'list'])->name('list');
+                Route::post('download', [ObservationsReportController::class, 'download'])->name('download');
+            });
         });
     });
 

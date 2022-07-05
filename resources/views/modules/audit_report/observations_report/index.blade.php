@@ -1,4 +1,6 @@
-<x-title-wrapper>অনিষ্পন্ন আপত্তির তালিকা</x-title-wrapper>
+<x-title-wrapper>
+    {{$memo_status == 'unsettled'?'অনিষ্পন্ন আপত্তির তালিকা':'নিস্পন্ন আপত্তির তালিকা'}}
+</x-title-wrapper>
 
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
@@ -92,14 +94,14 @@
 
         <div class="row mt-2 mb-2">
             <div class="col-md-4">
-                <button onclick="Unsettled_Observations_Report_Container.loadApottiList()" class="btn btn-sm btn-primary btn-square"
+                <button onclick="Observations_Report_Container.loadApottiList()" class="btn btn-sm btn-primary btn-square"
                     type="button">
                     <i class="fad fa-search"></i> অনুসন্ধান
                 </button>
 
-                <button onclick="Unsettled_Observations_Report_Container.downloadReport()" class="btn btn-sm btn-primary btn-square"
+                <button onclick="Observations_Report_Container.downloadReport()" class="btn btn-sm btn-primary btn-square"
                         type="button">
-                    <i class="fad fa-download"></i> Download
+                    <i class="fad fa-download"></i> ডাউনলোড
                 </button>
             </div>
         </div>
@@ -119,8 +121,9 @@
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
     });
 
-    var Unsettled_Observations_Report_Container = {
+    var Observations_Report_Container = {
         loadApottiList: function(page = 1, per_page = 10) {
+            memo_status = '{{$memo_status}}';
             directorate_id = $("#directorate_id").val();
             ministry_id = $("#ministry_id").val();
             entity_id = $("#entity_id").val();
@@ -129,8 +132,9 @@
             memo_type = $("#memo_type").val();
             jorito_ortho_poriman = $("#jorito_ortho_poriman").val();
             columns = $("#columns").val();
-            let url = '{{ route('audit.report.unsettled-observations.list') }}';
+            let url = '{{ route('audit.report.observations.get-status-wise.list') }}';
             let data = {
+                memo_status,
                 directorate_id,
                 ministry_id,
                 entity_id,
@@ -158,6 +162,7 @@
         },
 
         downloadReport: function() {
+            memo_status = '{{$memo_status}}';
             directorate_id = $("#directorate_id").val();
             directorate_name = $("#directorate_id option:selected").text();
 
@@ -178,6 +183,7 @@
             columns = $("#columns").val();
 
             let data = {
+                memo_status,
                 directorate_id,
                 directorate_name,
                 ministry_id,
@@ -200,7 +206,7 @@
             });
 
 
-            let url = '{{ route('audit.report.unsettled-observations.download') }}';
+            let url = '{{ route('audit.report.observations.get-status-wise.download') }}';
 
             $.ajax({
                 type: 'POST',
@@ -250,7 +256,7 @@
         paginate: function(elem) {
             page = $(elem).attr('data-page');
             per_page = $(elem).attr('data-per-page');
-            Unsettled_Observations_Report_Container.loadApottiList(page, per_page);
+            Observations_Report_Container.loadApottiList(page, per_page);
         },
     };
 
