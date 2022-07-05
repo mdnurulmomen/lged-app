@@ -109,12 +109,13 @@ class AuditCalendarController extends Controller
      */
     public function updateMilestoneTargetDate(Request $request): \Illuminate\Http\JsonResponse
     {
+
         Validator::make($request->all(), ['yearly_audit_calendar_id' => 'nullable|integer',
             'milestone_id' => 'required|integer',
             'target_date' => 'required',])->validate();
 
         $data = [
-            'target_date' => date('Y-m-d',strtotime($request->target_date)),
+            'target_date' => date('Y-m-d',strtotime(str_replace('/','-',$request->target_date))),
             "milestone_id" => $request->milestone_id,
             "yearly_audit_calendar_id" => $request->yearly_audit_calendar_id,
             "unit_id" => $this->current_office_unit_id(),
@@ -124,7 +125,7 @@ class AuditCalendarController extends Controller
         ];
 
         $updateMilestoneDate = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_milestone_target_date_update'), $data)->json();
-        // dd($updateMilestoneDate);
+
         if ($updateMilestoneDate['status'] = 'success') {
             return response()->json(['status' => 'success', 'data' => 'Updated!']);
         } else {
@@ -309,7 +310,7 @@ class AuditCalendarController extends Controller
         ])->validate();
 
         $publish_event = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_publish_events_as_calendars'), $data)->json();
-
+        dd($publish_event);
         if (isSuccess($publish_event)) {
             return response()->json(['status' => 'success', 'data' => 'Published']);
         } else {
