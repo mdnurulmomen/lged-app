@@ -33,6 +33,8 @@ class ObservationsReportController extends Controller
         $data['entity_id'] = $request->entity_id;
         $data['cost_center_id'] = $request->cost_center_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['audit_year_start'] = $request->audit_year_start;
+        $data['audit_year_end'] = $request->audit_year_end;
         $data['memo_type'] = $request->memo_type;
         $data['jorito_ortho_poriman'] = $request->jorito_ortho_poriman;
         $columns = $request->columns?:[];

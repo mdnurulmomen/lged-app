@@ -31,9 +31,13 @@ class AuditQACOneReportController extends Controller
                 foreach ($apottis['data'] as $apotti) {
                     $onucched_no = $apotti['onucched_no'];
                     foreach ($apotti['apotti_porisishtos'] as $porisishto) {
-                        $porishisto_no = count($apotti['apotti_porisishtos'])>1?enTobn($onucched_no).'.'.enTobn($porisishto_counter):enTobn($onucched_no);
-                        $porisistos_html[] = '<span>পরিশিষ্ট নম্বর-'.$porishisto_no.'</span><br><span>অনুচ্ছেদ নম্বর-'.enTobn($onucched_no).'</span>'.$porisishto['details'];
-                        $porisishto_counter++;
+                        if ($porisishto['porisishto_type'] == 'summary'){
+                            $porisistos_html[] = '<span>অনুচ্ছেদ নম্বর-'.enTobn($onucched_no).'</span>'.$porisishto['details'];
+                        }else{
+                            $porishisto_no = count($apotti['apotti_porisishtos'])>1?enTobn($onucched_no).'.'.enTobn($porisishto_counter):enTobn($onucched_no);
+                            $porisistos_html[] = '<span>পরিশিষ্ট নম্বর-'.$porishisto_no.'</span><br><span>অনুচ্ছেদ নম্বর-'.enTobn($onucched_no).'</span>'.$porisishto['details'];
+                            $porisishto_counter++;
+                        }
                     }
                     $porisishto_counter = 1;
                 }

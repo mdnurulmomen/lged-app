@@ -36,19 +36,19 @@
         </div>
 
         <div class="row mb-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="cost_center_id" class="col-form-label">কস্ট সেন্টার/ইউনিট</label>
                 <select class="form-select select-select2" id="cost_center_id" name="cost_center_id">
                     <option value="">সবগুলো</option>
                 </select>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="file_token_no" class="col-form-label">ফাইল নং</label>
                 <input class="form-control" id="file_token_no" type="text">
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="fiscal_year_id" class="col-form-label">আপত্তির অর্থবছর</label>
                 <select class="form-select select-select2" id="fiscal_year_id">
                     <option value="">সবগুলো</option>
@@ -56,6 +56,15 @@
                         <option value="{{$fiscal_year['id']}}">{{enTobn($fiscal_year['description'])}}</option>
                     @endforeach
                 </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="audit_year_start" class="col-form-label">নিরীক্ষা বছর</label>
+                <div class="input-group">
+                    <input class="form-control year-picker" id="audit_year_start"
+                           placeholder="শুরু" type="text">
+                    <input class="form-control year-picker" id="audit_year_end" placeholder="শেষ" type="text">
+                </div>
             </div>
         </div>
 
@@ -123,6 +132,8 @@
             cost_center_id = $("#cost_center_id").val();
             onucched_no = $("#onucched_no").val();
             fiscal_year_id = $("#fiscal_year_id").val();
+            audit_year_start = $("#audit_year_start").val();
+            audit_year_end = $("#audit_year_end").val();
             apotti_type = $("#apotti_type").val();
             jorito_ortho_poriman = $("#jorito_ortho_poriman").val();
             file_token_no = $("#file_token_no").val();
@@ -136,6 +147,8 @@
                 cost_center_id,
                 onucched_no,
                 fiscal_year_id,
+                audit_year_start,
+                audit_year_end,
                 apotti_type,
                 jorito_ortho_poriman,
                 file_token_no,

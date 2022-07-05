@@ -225,7 +225,7 @@ class AuditExecutionApottiController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $apotti_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.get_apotti_info'), $data)->json();
-//        dd($apotti_info);
+        //dd($apotti_info);
         if (isSuccess($apotti_info)) {
             $apotti_info = $apotti_info['data'];
             return view('modules.audit_execution.audit_execution_apotti.apotti_edit',
@@ -251,9 +251,10 @@ class AuditExecutionApottiController extends Controller
             'response_of_rpu' => $request->response_of_rpu,
             'audit_conclusion' => $request->audit_conclusion,
             'audit_recommendation' => $request->audit_recommendation,
-            'apotti_items' => isset($request->apotti_items)?$request->apotti_items:[],
-            'jorito_ortho_porimans' => isset($request->jorito_ortho_porimans)?$request->jorito_ortho_porimans:[],
-            'porisisto_details' => isset($request->porisisto_details)?$request->porisisto_details:[],
+            'apotti_items' => $request->apotti_items ?? [],
+            'jorito_ortho_porimans' => $request->jorito_ortho_porimans ?? [],
+            'porisisto_details' => $request->porisisto_details ?? [],
+            'porisisto_summary' => $request->porisisto_summary ?? [],
         ];
 
         $apotti_update = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.update_apotti'), $data)->json();

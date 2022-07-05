@@ -47,7 +47,7 @@
                 </select>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label for="fiscal_year_id" class="col-form-label">আপত্তির অর্থবছর</label>
                 <select class="form-select select-select2" id="fiscal_year_id">
                     <option value="">সবগুলো</option>
@@ -57,6 +57,17 @@
                 </select>
             </div>
 
+            <div class="col-md-4">
+                <label for="audit_year_start" class="col-form-label">নিরীক্ষা বছর</label>
+                <div class="input-group">
+                    <input class="form-control year-picker" id="audit_year_start" name="audit_year_start"
+                           placeholder="শুরু" type="text">
+                    <input class="form-control year-picker" name="audit_year_end" placeholder="শেষ" type="text">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-2">
                 <label for="memo_type" class="col-form-label">আপত্তির ধরন</label>
                 <select class="form-control select-select2" id="memo_type">
@@ -129,6 +140,8 @@
             entity_id = $("#entity_id").val();
             cost_center_id = $("#cost_center_id").val();
             fiscal_year_id = $("#fiscal_year_id").val();
+            audit_year_start = $("#audit_year_start").val();
+            audit_year_end = $("#audit_year_end").val();
             memo_type = $("#memo_type").val();
             jorito_ortho_poriman = $("#jorito_ortho_poriman").val();
             columns = $("#columns").val();
@@ -140,6 +153,8 @@
                 entity_id,
                 cost_center_id,
                 fiscal_year_id,
+                audit_year_start,
+                audit_year_end,
                 memo_type,
                 jorito_ortho_poriman,
                 columns,

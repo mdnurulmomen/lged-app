@@ -50,6 +50,12 @@
                             <span class="nav-text">পরিশিষ্ট</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" data-toggle="tab"
+                           href="#summary_tab">
+                            <span class="nav-text">পরিশিষ্ট সারাংশ</span>
+                        </a>
+                    </li>
                 </ul>
 
                 <div class="tab-content" id="apotti_edit_tab">
@@ -189,6 +195,15 @@
                             </table>
                         </fieldset>
                     </div>
+
+                    <div class="tab-pane fade border border-top-0 p-3" id="summary_tab"
+                         role="tabpanel" aria-labelledby="summary-tab">
+                        <div class="col-md-12 mb-2">
+                            <textarea id="kt-tinymce-summary" class="kt-tinymce-summary">
+                                {!! $apotti_info['apotti_porisishto_summary']?$apotti_info['apotti_porisishto_summary']['details']:'' !!}
+                            </textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -277,6 +292,24 @@
         elem.closest("tr").remove();
     }
 
+    tinymce.init({
+        selector: '.kt-tinymce-summary',
+        menubar: false,
+        min_height: 600,
+        height: 600,
+        max_height: 640,
+        branding: false,
+        content_style: "body {font-family: solaimanlipi;font-size: 13pt;}",
+        fontsize_formats: "8pt 10pt 12pt 13pt 14pt 18pt 24pt 36pt",
+        font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Verdana=verdana,geneva; Solaimanlipi=solaimanlipi",
+        toolbar: ['styleselect fontselect fontsizeselect | blockquote subscript superscript | undo redo | cut copy paste | bold italic | link image',
+            'alignleft aligncenter alignright alignjustify | table | bullist numlist | outdent indent | advlist | autolink | lists charmap | print preview |  code'],
+        plugins: 'advlist paste autolink link image lists charmap print preview code table',
+        context_menu: 'link image table',
+        setup: function (editor) {
+        },
+    });
+
     //for submit form
     $(function () {
         $.ajaxSetup({
@@ -297,6 +330,13 @@
                 from_data.append('porisisto_details[]', porisisto);
             }
 
+            from_data.append('porisisto_summary', tinymce.get("kt-tinymce-summary").getContent());
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             $.ajax({
                 data: from_data,
                 url: "{{route('audit.execution.apotti.update-apotti')}}",
@@ -306,6 +346,7 @@
                 cache: false,
                 processData: false,
                 success: function (responseData) {
+                    KTApp.unblock('#kt_wrapper');
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
                         $('.btn_back').click();
@@ -355,7 +396,12 @@
             if (result.value) {
                 let url = '{{route('audit.execution.apotti.delete-apotti-porisisto')}}';
                 data = {apotti_porisishto_id};
+                KTApp.block('#kt_wrapper', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.error(response.data)
                     } else {
