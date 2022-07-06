@@ -235,4 +235,19 @@ trait UserInfoCollector
             return 'assets/media/users/blank.png';
         }
     }
+
+    public function currentFiscalYear()
+    {
+        if (!session()->has('_current_fiscal_year_id') || session('_current_fiscal_year_id') == null) {
+            $current_fiscal_year = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.get_current_fiscal_year'), [
+                'cdesk' => $this->current_desk_json(),
+            ])->json();
+            if (is_array($current_fiscal_year) && isset($current_fiscal_year['status']) && $current_fiscal_year['status'] == 'success') {
+                session()->put('_current_fiscal_year_id', $current_fiscal_year['data']);
+                session()->save();
+                return session('_current_fiscal_year_id');
+            }
+        }
+        return session('_current_fiscal_year_id');
+    }
 }

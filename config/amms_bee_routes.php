@@ -8,6 +8,7 @@ return [
         'fiscal_year_show' => env('API_URL_BEE', '') . '/fiscal-year/show',
         'fiscal_year_update' => env('API_URL_BEE', '') . '/fiscal-year/update',
         'fiscal_year_delete' => env('API_URL_BEE', '') . '/fiscal-year/delete',
+        'get_current_fiscal_year' => env('API_URL_BEE', '') . '/fiscal-year/get-current-fiscal-year',
 
         'strategic_plan_duration_lists' => env('API_URL_BEE', '') . '/x-strategic-plan/duration',
         'strategic_plan_duration_create' => env('API_URL_BEE', '') . '/x-strategic-plan/duration/create',
