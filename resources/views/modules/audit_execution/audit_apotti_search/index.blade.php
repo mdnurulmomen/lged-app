@@ -113,7 +113,7 @@
 
 
 <div class="card sna-card-border mt-2 mb-15">
-    <div id="load_apotti_list"></div>
+    <div id="load_apotti_list" class="table-responsive"></div>
 </div>
 
 @include('modules.audit_execution.audit_execution_archive_apotti.scripts.archive_scripts')

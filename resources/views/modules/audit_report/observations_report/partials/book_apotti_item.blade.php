@@ -826,7 +826,10 @@
         <br>
 
         <span>মোট আপত্তি: {{enTobn(count($apotti_list))}}</span> <br>
-        <span>মোট জড়িত অর্থ (টাকা): {{enTobn(currency_format($total_jorito_ortho_poriman))}}</span>
+        <span>
+            মোট জড়িত অর্থ (টাকা): {{enTobn(currency_format($total_jorito_ortho_poriman))}}
+            ({{ltrim(numberConvertToBnWord($total_jorito_ortho_poriman))}} টাকা মাত্র)
+        </span>
 
         <table style="margin-top: 5px" class="table table-bordered" width="100%">
             <thead class="thead-light">
