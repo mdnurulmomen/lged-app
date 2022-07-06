@@ -193,7 +193,7 @@
                     <button class="tap-button mr-1 btn btn-sm btn-outline-primary btn-square"
                             title="বিস্তারিত দেখুন"
                             data-apotti-id="{{$apotti['apotti_id']}}"
-                            onclick="Unsettled_Observations_Report_Container.showApotti($(this))"
+                            onclick="Observations_Report_Container.showApotti($(this))"
                     >
                         <i class="fad fa-eye"></i>
                     </button>
@@ -218,7 +218,7 @@
         <ul>
             <li class="page-item">
                 <a class="page-link" href="javascript:;"
-                   onclick="Unsettled_Observations_Report_Container.paginate($(this))" data-page={{ $prev_page }}>
+                   onclick="Observations_Report_Container.paginate($(this))" data-page={{ $prev_page }}>
                     <i class="fa fa-angle-left"></i>
                 </a>
             </li>
@@ -226,7 +226,7 @@
                 @for ($i = 1; $i <= $apotti_list['last_page']; $i++)
                     <li class="page-item {{ $apotti_list['current_page'] == $i ? 'active' : '' }}">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
+                            href="javascript:;" onclick="Observations_Report_Container.paginate($(this))"
                            data-page="{{ $i }}">{{ $i }}</a>
                     </li>
                 @endfor
@@ -235,7 +235,7 @@
                     @for ($i = 1; $i < 6; $i++)
                         <li class="page-item {{ $apotti_list['current_page'] == $i ? 'active' : '' }}">
                             <a class="page-link" data-current-page="{{ $current_page }}"
-                                href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
+                                href="javascript:;" onclick="Observations_Report_Container.paginate($(this))"
                                data-page="{{ $i }}">{{ $i }}</a>
                         </li>
                     @endfor
@@ -245,18 +245,18 @@
                     </li>
                     <li class="page-item">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
+                            href="javascript:;" onclick="Observations_Report_Container.paginate($(this))"
                            data-page="{{ $last_page - 1 }}">{{ $last_page - 1 }}</a>
                     </li>
                     <li class="page-item">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
+                            href="javascript:;" onclick="Observations_Report_Container.paginate($(this))"
                            data-page="{{ $last_page }}">{{ $last_page }}</a>
                     </li>
                 @elseif ($current_page >= 5 && $current_page < $last_page - 5)
                     <li class="page-item">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
+                            href="javascript:;" onclick="Observations_Report_Container.paginate($(this))"
                            data-page="1">1</a>
                     </li>
                     <li class="page-item">
@@ -266,7 +266,7 @@
                     @for ($i = $current_page - 4; $i <= $current_page + 4; $i++)
                         <li class="page-item {{ $apotti_list['current_page'] == $i ? 'active' : '' }}">
                             <a class="page-link" data-current-page="{{ $current_page }}"
-                                href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
+                                href="javascript:;" onclick="Observations_Report_Container.paginate($(this))"
                                data-page="{{ $i }}">{{ $i }}</a>
                         </li>
                     @endfor
@@ -276,18 +276,18 @@
                     </li>
                     <li class="page-item">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
+                            href="javascript:;" onclick="Observations_Report_Container.paginate($(this))"
                            data-page="{{ $last_page }}">{{ $last_page }}</a>
                     </li>
                 @else
                     <li class="page-item">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
+                            href="javascript:;" onclick="Observations_Report_Container.paginate($(this))"
                            data-page="1">1</a>
                     </li>
                     <li class="page-item">
                         <a class="page-link" data-current-page="{{ $current_page }}"
-                            href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
+                            href="javascript:;" onclick="Observations_Report_Container.paginate($(this))"
                            data-page="2">2</a>
                     </li>
                     <li class="page-item">
@@ -297,7 +297,7 @@
                     @for ($i = $current_page - 4; $i <= $last_page; $i++)
                         <li class="page-item {{ $apotti_list['current_page'] == $i ? 'active' : '' }}">
                             <a class="page-link" data-current-page="{{ $current_page }}"
-                                href="javascript:;" onclick="Unsettled_Observations_Report_Container.paginate($(this))"
+                                href="javascript:;" onclick="Observations_Report_Container.paginate($(this))"
                                data-page="{{ $i }}">{{ $i }}</a>
                         </li>
                     @endfor
@@ -305,7 +305,7 @@
             @endif
             <li class="page-item">
                 <a class="page-link" href="javascript:;"
-                   onclick="Unsettled_Observations_Report_Container.paginate($(this))" data-page="{{ $next_page }}">
+                   onclick="Observations_Report_Container.paginate($(this))" data-page="{{ $next_page }}">
                     <i class="fa fa-angle-right"></i>
                 </a>
             </li>

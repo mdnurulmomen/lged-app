@@ -121,7 +121,7 @@
 
 
 <div class="card sna-card-border mt-2 mb-15">
-    <div id="load_apotti_list"></div>
+    <div id="load_apotti_list" class="table-responsive"></div>
 </div>
 
 @include('modules.audit_execution.audit_execution_archive_apotti.scripts.archive_scripts')
@@ -235,7 +235,7 @@
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "unsettled_observations_report_" + new Date().toDateString().replace(/ /g,
+                    link.download = "observations_report_" + new Date().toDateString().replace(/ /g,
                         "_") + ".pdf";
                     link.click();
                 },
