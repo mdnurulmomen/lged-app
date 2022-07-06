@@ -27,11 +27,13 @@
     $(function () {
         Audit_Plan_Container.loadFiscalYearWiseActivity();
     });
+
     $('#activity_id').change(function () {
         activity_id = $(this).val();
         fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
         Audit_Plan_Container.loadAuditablePlanList(fiscal_year_id,activity_id);
     });
+
     var Audit_Plan_Container = {
         loadAuditablePlanList: function (fiscal_year_id,activity_id, page = 1, per_page = 100) {
             let url = '{{route('audit.plan.audit.revised.plan.load-all-lists')}}';
@@ -196,9 +198,10 @@
     };
 
     $('#select_fiscal_year_annual_plan').change(function () {
-        let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+        fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+        activity_id = $('#activity_id').val();
         if (fiscal_year_id) {
-            Audit_Plan_Container.loadAuditablePlanList(fiscal_year_id);
+            Audit_Plan_Container.loadAuditablePlanList(fiscal_year_id,activity_id);
         } else {
             $('#load_auditable_plan_lists').html('');
         }
