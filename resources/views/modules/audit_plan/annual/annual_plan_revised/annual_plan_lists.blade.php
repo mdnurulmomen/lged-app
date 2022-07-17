@@ -205,7 +205,7 @@
         showPlanInfo: function (elem) {
             annual_plan_id = elem.data('annual-plan-id');
             data = {annual_plan_id}
-            KTApp.block('#kt_content');
+            KTApp.block('#kt_wrapper');
             let url = '{{route('audit.plan.annual.plan.revised.show_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_wrapper');
