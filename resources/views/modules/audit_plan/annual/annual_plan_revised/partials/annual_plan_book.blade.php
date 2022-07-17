@@ -872,7 +872,7 @@
                                         ইউনিটের
                                         নাম ও সংখ্যা
                                     </td>
-                                    <td class="bangla-font" style="text-align: center" width="10%">Subject Matter
+                                    <td class="bangla-font" style="text-align: center" width="10%">সাবজেক্ট ম্যাটার
                                     </td>
                                     <td class="bangla-font" style="text-align: center" width="15%">প্রয়োজনীয় লোকবল
                                     </td>
