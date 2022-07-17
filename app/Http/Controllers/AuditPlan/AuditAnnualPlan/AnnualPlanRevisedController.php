@@ -251,6 +251,7 @@ class AnnualPlanRevisedController extends Controller
                 'comment' => $request->comment,
                 'budget' => $request->budget ? $request->budget : 0,
                 'cost_center_total_budget' => $request->cost_center_total_budget ? $request->cost_center_total_budget : 0,
+                'total_expenditure' => $request->total_expenditure ? $request->total_expenditure : 0,
                 'milestone_list' => json_decode($request->milestone_list, true),
                 'annual_plan_type' => $request->annual_plan_type,
                 'thematic_title' => $request->thematic_title,
