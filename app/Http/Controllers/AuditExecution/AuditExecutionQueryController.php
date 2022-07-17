@@ -30,9 +30,17 @@ class AuditExecutionQueryController extends Controller
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
         $cost_center_name_en = $request->cost_center_name_en;
-        return view('modules.audit_execution.audit_execution_query.audit_query',
-            compact('audit_plan_id','schedule_id', 'entity_id','cost_center_id', 'cost_center_name_bn',
-                'cost_center_name_en'));
+        return view(
+            'modules.audit_execution.audit_execution_query.audit_query',
+            compact(
+                'audit_plan_id',
+                'schedule_id',
+                'entity_id',
+                'cost_center_id',
+                'cost_center_name_bn',
+                'cost_center_name_en'
+            )
+        );
     }
 
     public function loadAuditQuery(Request $request)
@@ -45,8 +53,10 @@ class AuditExecutionQueryController extends Controller
         $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.load_audit_query'), $data)->json();
         //dd($data);
         $audit_query_list = $audit_query_list['status'] == 'success' ? $audit_query_list['data'] : [];
-        return view('modules.audit_execution.audit_execution_query.partials.load_query_list',
-            compact('audit_query_list', 'schedule_id'));
+        return view(
+            'modules.audit_execution.audit_execution_query.partials.load_query_list',
+            compact('audit_query_list', 'schedule_id')
+        );
     }
 
     public function loadTypeWiseAuditQuery(Request $request)
@@ -55,8 +65,10 @@ class AuditExecutionQueryController extends Controller
         $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.load_type_wise_audit_query'), $data)->json();
         //dd($audit_query_list);
         $audit_query_list = $audit_query_list['status'] == 'success' ? $audit_query_list['data'] : [];
-        return view('modules.audit_execution.audit_execution_query.partials.load_type_wise_query_list',
-            compact('audit_query_list'));
+        return view(
+            'modules.audit_execution.audit_execution_query.partials.load_type_wise_query_list',
+            compact('audit_query_list')
+        );
     }
 
     public function sendAuditQuery(Request $request)
@@ -97,15 +109,24 @@ class AuditExecutionQueryController extends Controller
     public function auditQueryCreate(Request $request)
     {
         $cost_center_types = $this->allCostCenterType();
-        $audit_plan_id= $request->audit_plan_id;
+        $audit_plan_id = $request->audit_plan_id;
         $schedule_id = $request->schedule_id;
         $entity_id = $request->entity_id;
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
         $cost_center_name_en = $request->cost_center_name_en;
-        return view('modules.audit_execution.audit_execution_query.create',
-            compact('cost_center_types', 'audit_plan_id','schedule_id',
-                'entity_id','cost_center_id', 'cost_center_name_bn', 'cost_center_name_en'));
+        return view(
+            'modules.audit_execution.audit_execution_query.create',
+            compact(
+                'cost_center_types',
+                'audit_plan_id',
+                'schedule_id',
+                'entity_id',
+                'cost_center_id',
+                'cost_center_name_bn',
+                'cost_center_name_en'
+            )
+        );
     }
 
     public function loadRejectAuditQuery(Request $request)
@@ -113,8 +134,10 @@ class AuditExecutionQueryController extends Controller
         $ac_query_id = $request->ac_query_id;
         $cost_center_type_id = $request->cost_center_type_id;
         $query_title_bn = $request->query_title_bn;
-        return view('modules.audit_execution.audit_execution_query.partials.load_query_reject',
-            compact('ac_query_id', 'cost_center_type_id', 'query_title_bn'));
+        return view(
+            'modules.audit_execution.audit_execution_query.partials.load_query_reject',
+            compact('ac_query_id', 'cost_center_type_id', 'query_title_bn')
+        );
     }
 
     public function storeAuditQuery(Request $request)
@@ -134,7 +157,7 @@ class AuditExecutionQueryController extends Controller
 
         $store_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.store_audit_query'), $data)->json();
 
-//        dd($store_audit_query);
+        //        dd($store_audit_query);
 
         if ($store_audit_query['status'] == 'success') {
             $store_audit_query = $store_audit_query['data'];
@@ -168,8 +191,10 @@ class AuditExecutionQueryController extends Controller
         if (isSuccess($audit_query)) {
             $auditQueryInfo = $audit_query['data'];
             $cost_center_types = $this->allCostCenterType();
-            return view('modules.audit_execution.audit_execution_query.edit',
-                compact('auditQueryInfo', 'cost_center_types', 'schedule_id'));
+            return view(
+                'modules.audit_execution.audit_execution_query.edit',
+                compact('auditQueryInfo', 'cost_center_types', 'schedule_id')
+            );
         } else {
             return response()->json(['status' => 'error', 'data' => $audit_query]);
         }
@@ -213,8 +238,10 @@ class AuditExecutionQueryController extends Controller
             $auditQueryInfo = $audit_query['data'];
             $hasSentToRpu = $request->has_sent_to_rpu;
             $scopeAuthority = $request->scope_authority;
-            return view('modules.audit_execution.audit_execution_query.show',
-                compact('auditQueryInfo', 'hasSentToRpu', 'scopeAuthority'));
+            return view(
+                'modules.audit_execution.audit_execution_query.show',
+                compact('auditQueryInfo', 'hasSentToRpu', 'scopeAuthority')
+            );
         } else {
             return response()->json(['status' => 'error', 'data' => $audit_query]);
         }
@@ -231,21 +258,10 @@ class AuditExecutionQueryController extends Controller
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.view_audit_query'), $data)->json();
         $auditQueryInfo = isSuccess($responseData) ? $responseData['data'] : [];
 
-        $directorateName = $this->current_office()['office_name_bn'];
-
-        if ($this->current_office_id() == 14) {
-            $directorateAddress = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.worksaudit.org.bd';
-        } elseif ($this->current_office_id() == 3) {
-            $directorateAddress = 'অডিট কমপ্লেক্স (২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.dgcivil-cagbd.org';
-        } else {
-            $directorateAddress = 'অডিট কমপ্লেক্স (৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.cad.org.bd';
-        }
-
-        $pdf = \PDF::loadView('modules.audit_execution.audit_execution_query.partials.query_book',
-            compact('auditQueryInfo', 'directorateName', 'directorateAddress', 'directorateWebsite'));
+        $pdf = \PDF::loadView(
+            'modules.audit_execution.audit_execution_query.partials.query_book',
+            compact('auditQueryInfo')
+        );
         return $pdf->stream('query_' . $request->ac_query_id . '.pdf');
     }
 
@@ -262,12 +278,12 @@ class AuditExecutionQueryController extends Controller
 
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
 
-        return view('modules.audit_execution.audit_execution_query.authority_query_list',compact('directorates','fiscal_years'));
+        return view('modules.audit_execution.audit_execution_query.authority_query_list', compact('directorates', 'fiscal_years'));
     }
 
     public function loadAuthorityQueryList(Request $request)
     {
-        if (session::has('dashboard_filter_data')){
+        if (session::has('dashboard_filter_data')) {
             Session::forget('dashboard_filter_data');
         }
 
@@ -279,7 +295,7 @@ class AuditExecutionQueryController extends Controller
         $data['activity_id'] = $request->activity_id;
         $data['cost_center_id'] = $request->cost_center_id;
 
-        if ($request->start_date && $request->end_date){
+        if ($request->start_date && $request->end_date) {
             $start_date = str_replace('/', '-', $request->start_date);
             $data['start_date'] = Carbon::parse($start_date)->format('Y-m-d');
             $end_date = str_replace('/', '-', $request->end_date);
@@ -287,10 +303,12 @@ class AuditExecutionQueryController extends Controller
         }
 
         $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.authority_query_list'), $data)->json();
-//        dd($audit_query_list);
+        //        dd($audit_query_list);
         $audit_query_list = isSuccess($audit_query_list) ? $audit_query_list['data'] : $audit_query_list['data'];
 
-        return view('modules.audit_execution.audit_execution_query.partials.load_authority_query_list',
-            compact('audit_query_list'));
+        return view(
+            'modules.audit_execution.audit_execution_query.partials.load_authority_query_list',
+            compact('audit_query_list')
+        );
     }
 }
