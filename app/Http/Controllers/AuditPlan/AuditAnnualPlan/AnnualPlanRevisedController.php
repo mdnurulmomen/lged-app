@@ -220,8 +220,8 @@ class AnnualPlanRevisedController extends Controller
                 'office_type_id' => 'nullable',
                 'subject_matter' => 'required|string',
                 'total_unit_no' => 'required|string',
-                'staff_comment' => 'sometimes',
-                'staff_info' => 'sometimes',
+                'staff_comment' => 'nullable',
+                'staff_info' => 'nullable',
                 'budget' => 'nullable|string',
             ], [
                 'activity_id.required' => 'অ্যাক্টিভিটি অ্যাক্টিভিটি বাছাই করুন',
@@ -301,6 +301,8 @@ class AnnualPlanRevisedController extends Controller
             $data['nominated_man_powers'] = json_encode($nominated_man_powers, JSON_UNESCAPED_UNICODE);
             $data['nominated_man_power_counts'] = $total_man_power;
 
+//            dd($staffs);
+
 
             if ($request->id) {
                 $store_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_update'), $data)->json();
@@ -373,7 +375,7 @@ class AnnualPlanRevisedController extends Controller
             //            dd($nominated_man_powers);
             $staff_list = $nominated_man_powers['staffs'];
             $staff_comment = $nominated_man_powers['comment'];
-
+//            dd($staff_list);
             return view(
                 'modules.audit_plan.annual.annual_plan_revised.edit_annual_plan_info',
                 compact(

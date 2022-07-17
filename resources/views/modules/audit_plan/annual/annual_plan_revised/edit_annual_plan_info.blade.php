@@ -377,7 +377,7 @@
                                 data-select2-id="team_section_{{ $loop->iteration }}">
                                 <div class="col-md-4">
                                     <label for="designation">পদবি</label>
-                                    <select
+                                    <select data-id="{{ $loop->iteration }}"
                                         class="form-control select-select2 staff_designation designation_{{ $loop->iteration }}"
                                         name="designation[]">
                                         <option value="">--বাছাই করুন--</option>
@@ -392,7 +392,7 @@
                                 </div>
                                 <div class="col-md-3" data-select2-id="1743">
                                     <label for="responsibility">দায়িত্ব</label>
-                                    <select
+                                    <select data-id="{{ $loop->iteration }}"
                                         class="form-control select-select2 staff_responsibility responsibility_{{ $loop->iteration }}"
                                         name="responsibility">
                                         <option value="">--বাছাই করুন--</option>
@@ -409,8 +409,8 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="staff">জন</label>
-                                    <input data-row-count="{{ $loop->iteration }}"
-                                        class="form-control staff_1 staff_number" type="number" name="staff"
+                                    <input data-id="{{ $loop->iteration }}" data-row-count="{{ $loop->iteration }}"
+                                        class="form-control staff_{{ $loop->iteration }} staff_number" type="number" name="staff"
                                         value="{{ $staff['staff'] }}">
                                 </div>
                                 <div class="col-md-2 mt-9">
@@ -424,8 +424,8 @@
                                         <i class="fal fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="hidden" name="staff_info[]" class="staff_info_1"
-                                    value="{{ $staff['designation_en'] }}|{{ $staff['designation_bn'] }}_{{ $staff['responsibility_bn'] }}|{{ $staff['responsibility_en'] }}_{{ $staff['staff'] }}">
+                                <input data-id="{{ $loop->iteration }}" type="hidden" name="staff_info[]" class="staff_info_{{ $loop->iteration }}"
+                                    value="{{ $staff['designation_en'] }}|{{ $staff['designation_bn'] }}_{{ $staff['responsibility_en'] }}|{{ $staff['responsibility_bn'] }}_{{ $staff['staff'] }}">
                             </div>
                         @endforeach
                     </div>
@@ -576,4 +576,34 @@
             $('#parent_ministry_id').val(parent_ministry_id).trigger('change');
         }
     });
+
+    $('.staff_designation').on('change', function () {
+        id = $(this).attr('data-id');
+        designation = $(this).val();
+        responsibility = $(".responsibility_"+id).val();
+        staff = parseInt($('.staff_'+id).val());
+        staff = isNaN(staff) ? 0 : staff;
+        val = designation + '_' + responsibility + '_' + staff;
+        $('.staff_info_'+id).val(val)
+    })
+
+    $('.staff_responsibility').on('change', function () {
+        id = $(this).attr('data-id');
+        designation = $(".designation_"+id).val();
+        responsibility = $(this).val();
+        staff = parseInt($('.staff_'+id).val());
+        staff = isNaN(staff) ? 0 : staff;
+        val = designation + '_' + responsibility + '_' + staff;
+        $('.staff_info_'+id).val(val)
+    })
+
+    $('.staff_number').on('change', function () {
+        id = $(this).attr('data-id');
+        designation = $(".designation_"+id).val();
+        responsibility = $(".responsibility_"+id).val();
+        staff = parseInt($(this).val());
+        staff = isNaN(staff) ? 0 : staff;
+        val = designation + '_' + responsibility + '_' + staff;
+        $('.staff_info_'+id).val(val)
+    })
 </script>
