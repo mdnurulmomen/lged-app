@@ -460,16 +460,16 @@ class AnnualPlanRevisedController extends Controller
             'annual_plan_main_id' => 'required|integer',
             'activity_type' => 'nullable',
         ])->validate();
+        
         $data['cdesk'] = $this->current_desk_json();
         $data['office_id'] = $this->current_office_id();
 
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
-        //        dd($plan_infos);
-        // $office_details = $this->current_office_details();
-        // $directorate_address = $office_details['office_address'];
+
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
-            $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos], [], ['orientation' => 'L', 'format' => 'A4']);
+            $office_id = $this->current_office_id();
+            $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos,'office_id' => $office_id], [], ['orientation' => 'L', 'format' => 'A4']);
             return $pdf->stream('annual_plan.pdf');
         } else {
             return response()->json(['status' => 'error', 'data' => $plan_infos]);

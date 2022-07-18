@@ -862,6 +862,13 @@
                                     </td>
                                     <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের নাম
                                     </td>
+
+                                    @if($office_id == 18)
+                                        <td class="bangla-font" style="text-align: center" width="10%">
+                                            প্রজেক্ট
+                                        </td>
+                                    @endif
+
                                     <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের ধরন
                                     </td>
                                     <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের মোট
@@ -882,12 +889,15 @@
                                     <td class="bangla-font" style="text-align: center" width="3%">০১</td>
                                     <td class="bangla-font" style="text-align: center" width="10%">০২</td>
                                     <td class="bangla-font" style="text-align: center" width="10%">০৩</td>
-                                    <td class="bangla-font" style="text-align: center" width="10%">০৪</td>
-                                    <td class="bangla-font" style="text-align: center" width="10%">০৫</td>
-                                    <td class="bangla-font" style="text-align: center" width="20%">০৬</td>
-                                    <td class="bangla-font" style="text-align: center" width="10%">০৭</td>
-                                    <td class="bangla-font" style="text-align: center" width="15%">০৮</td>
-                                    <td class="bangla-font" style="text-align: center" width="12%">০৯</td>
+                                    @if($office_id == 18)
+                                        <td class="bangla-font" style="text-align: center" width="10%">০৪</td>
+                                    @endif
+                                    <td class="bangla-font" style="text-align: center" width="10%"> {{$office_id == 18 ? '০৫' : '০৪'}} </td>
+                                    <td class="bangla-font" style="text-align: center" width="10%">{{$office_id == 18 ?  '০৬' : '০৫' }}</td>
+                                    <td class="bangla-font" style="text-align: center" width="20%"> {{$office_id == 18 ? '০৭' : '০৬' }} </td>
+                                    <td class="bangla-font" style="text-align: center" width="10%">{{$office_id == 18 ?  '০৮' : '০৭' }}</td>
+                                    <td class="bangla-font" style="text-align: center" width="15%">{{$office_id == 18 ?  '০৯' : '০৮' }}</td>
+                                    <td class="bangla-font" style="text-align: center" width="12%">{{$office_id == 18 ?  '১০' : '০৯' }} </td>
                                 </tr>
                                 @foreach ($plan['annual_plans'] as $id => $annual_plans)
                                     <tr class="bangla-font" style="padding: 5px">
@@ -913,6 +923,12 @@
                                             @endphp
                                             {{ implode(' , ', array_unique($entities)) }}
                                         </td>
+
+                                        @if($office_id == 18)
+                                            <td class="bangla-font" width="10%">
+                                                {{ $annual_plans['project_name_bn'] }}
+                                            </td>
+                                        @endif
                                         <td class="bangla-font" width="10%">{{ $annual_plans['office_type'] }}
                                         </td>
                                         <td class="bangla-font" style="text-align: center" width="10%">
