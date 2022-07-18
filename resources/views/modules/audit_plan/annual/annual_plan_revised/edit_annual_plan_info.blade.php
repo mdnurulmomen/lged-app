@@ -372,62 +372,73 @@
                     </div>
 
                     <div class="team-section">
-                        @foreach ($staff_list as $staff)
-                            <div class="form-row pt-4 staff_row" id="team_section_{{ $loop->iteration }}"
-                                data-select2-id="team_section_{{ $loop->iteration }}">
-                                <div class="col-md-4">
-                                    <label for="designation">পদবি</label>
-                                    <select data-id="{{ $loop->iteration }}"
-                                        class="form-control select-select2 staff_designation designation_{{ $loop->iteration }}"
-                                        name="designation[]">
-                                        <option value="">--বাছাই করুন--</option>
-                                        @foreach ($designations as $designation)
-                                            <option @if ($designation['designation_eng'] == $staff['designation_en']) selected @endif
+                            <table width="100%"
+                                   class="table table-bordered table-striped table-hover table-condensed table-sm"
+                                   id="tblTeamMemberList">
+                                <tbody>
+                                @foreach ($staff_list as $staff)
+                                    <tr class="form-row pt-4 staff_row" id="team_section_{{ $loop->iteration }}"
+                                     data-select2-id="team_section_{{ $loop->iteration }}">
+
+                                     <td width="35%">
+                                        <label for="designation">পদবি</label>
+                                        <select data-id="{{ $loop->iteration }}"
+                                                class="form-control select-select2 staff_designation designation_{{ $loop->iteration }}"
+                                                name="designation[]">
+                                            <option value="">--বাছাই করুন--</option>
+                                            @foreach ($designations as $designation)
+                                                <option @if ($designation['designation_eng'] == $staff['designation_en']) selected @endif
                                                 data-designation-en="{{ $designation['designation_eng'] }}"
-                                                value="{{ $designation['designation_eng'] }}|{{ $designation['designation_bng'] }}">
-                                                {{ $designation['designation_bng'] }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-3" data-select2-id="1743">
-                                    <label for="responsibility">দায়িত্ব</label>
-                                    <select data-id="{{ $loop->iteration }}"
-                                        class="form-control select-select2 staff_responsibility responsibility_{{ $loop->iteration }}"
-                                        name="responsibility">
-                                        <option value="">--বাছাই করুন--</option>
-                                        <option data-responsibility-en="Team Leader"
-                                            @if ($staff['responsibility_en'] == 'Team Leader') selected @endif
-                                            value="Team Leader|দলনেতা">দলনেতা</option>
-                                        <option data-responsibility-en="Sub Team Leader"
-                                            @if ($staff['responsibility_en'] == 'Sub Team Leader') selected @endif
-                                            value="Sub Team Leader|উপদলনেতা">উপদলনেতা</option>
-                                        <option data-responsibility-en="Member"
-                                            @if ($staff['responsibility_en'] == 'Member') selected @endif value="Member|সদস্য">
-                                            সদস্য</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="staff">জন</label>
-                                    <input data-id="{{ $loop->iteration }}" data-row-count="{{ $loop->iteration }}"
-                                        class="form-control staff_{{ $loop->iteration }} staff_number" type="number" name="staff"
-                                        value="{{ $staff['staff'] }}">
-                                </div>
-                                <div class="col-md-2 mt-9">
-                                    <span title="যোগ করুন" onclick="Annual_Plan_Container.addTeamSection($(this))"
-                                        class="btn btn-outline-primary btn-sm btn-square">
-                                        <i class="fal fa-plus"></i>
-                                    </span>
-                                    <button title="মুছে ফেলুন"
-                                        onclick="Annual_Plan_Container.removeTeamSection($(this))"
-                                        class="btn btn-outline-danger btn-sm btn-danger btn-square">
-                                        <i class="fal fa-minus"></i>
-                                    </button>
-                                </div>
-                                <input data-id="{{ $loop->iteration }}" type="hidden" name="staff_info[]" class="staff_info_{{ $loop->iteration }}"
-                                    value="{{ $staff['designation_en'] }}|{{ $staff['designation_bn'] }}_{{ $staff['responsibility_en'] }}|{{ $staff['responsibility_bn'] }}_{{ $staff['staff'] }}">
-                            </div>
-                        @endforeach
+                                                        value="{{ $designation['designation_eng'] }}|{{ $designation['designation_bng'] }}">
+                                                    {{ $designation['designation_bng'] }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+
+                                    <td width="35%">
+                                        <label for="responsibility">দায়িত্ব</label>
+                                        <select data-id="{{ $loop->iteration }}"
+                                                class="form-control select-select2 staff_responsibility responsibility_{{ $loop->iteration }}"
+                                                name="responsibility">
+                                            <option value="">--বাছাই করুন--</option>
+                                            <option data-responsibility-en="Team Leader"
+                                                    @if ($staff['responsibility_en'] == 'Team Leader') selected @endif
+                                                    value="Team Leader|দলনেতা">দলনেতা</option>
+                                            <option data-responsibility-en="Sub Team Leader"
+                                                    @if ($staff['responsibility_en'] == 'Sub Team Leader') selected @endif
+                                                    value="Sub Team Leader|উপদলনেতা">উপদলনেতা</option>
+                                            <option data-responsibility-en="Member"
+                                                    @if ($staff['responsibility_en'] == 'Member') selected @endif value="Member|সদস্য">
+                                                সদস্য</option>
+                                        </select>
+                                    </td>
+
+                                    <td width="20%">
+                                        <label for="staff">জন</label>
+                                        <input data-id="{{ $loop->iteration }}" data-row-count="{{ $loop->iteration }}"
+                                               class="form-control staff_{{ $loop->iteration }} staff_number" type="number" name="staff"
+                                               value="{{ $staff['staff'] }}">
+                                    </td>
+
+                                    <td width="10%">
+                                        <span title="যোগ করুন" onclick="Annual_Plan_Container.addTeamSection($(this))"
+                                              class="btn btn-outline-primary btn-sm btn-square">
+                                            <i class="fal fa-plus"></i>
+                                        </span>
+                                            <button title="মুছে ফেলুন"
+                                                    onclick="Annual_Plan_Container.removeTeamSection($(this))"
+                                                    class="btn btn-outline-danger btn-sm btn-danger btn-square">
+                                                <i class="fal fa-minus"></i>
+                                            </button>
+                                    </td>
+
+                                    <input data-id="{{ $loop->iteration }}" type="hidden" name="staff_info[]" class="staff_info_{{ $loop->iteration }}"
+                                           value="{{ $staff['designation_en'] }}|{{ $staff['designation_bn'] }}_{{ $staff['responsibility_en'] }}|{{ $staff['responsibility_bn'] }}_{{ $staff['staff'] }}">
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                     </div>
                     <div class="form-row pt-4">
                         <div class="col-md-12">

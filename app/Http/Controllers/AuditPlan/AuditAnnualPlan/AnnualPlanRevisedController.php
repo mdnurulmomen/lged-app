@@ -460,7 +460,7 @@ class AnnualPlanRevisedController extends Controller
             'annual_plan_main_id' => 'required|integer',
             'activity_type' => 'nullable',
         ])->validate();
-        
+
         $data['cdesk'] = $this->current_desk_json();
         $data['office_id'] = $this->current_office_id();
 
