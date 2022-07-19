@@ -19,23 +19,25 @@
                             @endif
                         @endif
 
-                        <button data-fiscal-year-id="{{$fiscal_year_id}}"
-                                data-annual-plan-main-id="{{$plan_list['id']}}"
-                                data-activity-type="{{$plan_list['activity_type']}}"
-                                onclick="Annual_Plan_Container.printAnnualPlan($(this))"
-                                class="btn btn-sm btn-primary btn-square mr-1">
-                            <i class="fad fa-file-download"></i>
-                            ডাউনলোড
-                        </button>
+                       @if($current_office_id != 1)
+                            <button data-fiscal-year-id="{{$fiscal_year_id}}"
+                                    data-annual-plan-main-id="{{$plan_list['id']}}"
+                                    data-activity-type="{{$plan_list['activity_type']}}"
+                                    onclick="Annual_Plan_Container.printAnnualPlan($(this))"
+                                    class="btn btn-sm btn-primary btn-square mr-1">
+                                <i class="fad fa-file-download"></i>
+                                ডাউনলোড
+                            </button>
 
-                        <button class="btn btn-sm btn-info btn-square mr-1"
-                                data-annual-plan-main-id="{{$plan_list['id']}}"
-                                data-fiscal-year-id="{{$fiscal_year_id}}"
-                                data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                                onclick="Annual_Plan_Container.movementHistory($(this))">
-                            <i class="fad fa-eye"></i>
-                            লগ
-                        </button>
+                            <button class="btn btn-sm btn-info btn-square mr-1"
+                                    data-annual-plan-main-id="{{$plan_list['id']}}"
+                                    data-fiscal-year-id="{{$fiscal_year_id}}"
+                                    data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
+                                    onclick="Annual_Plan_Container.movementHistory($(this))">
+                                <i class="fad fa-eye"></i>
+                                লগ
+                            </button>
+                       @endif
 
                         <span class="badge badge-info text-uppercase m-1 p-1 ">
                         {{$plan_list['approval_status']}}
@@ -223,7 +225,7 @@
                                                         onclick="Annual_Plan_Container.showPlanInfo($(this))">
                                                     <i class="fad fa-eye"></i> বিস্তারিত
                                                 </button>
-                                                @if($plan_list['approval_status'] == 'draft' || $plan_list['approval_status'] == 'reject')
+                                                @if(($plan_list['approval_status'] == 'draft' || $plan_list['approval_status'] == 'reject') && $current_office_id != 1)
                                                     <button class="mr-3 btn btn-sm btn-outline-warning btn-square"
                                                             title="সম্পাদনা করুন"
                                                             data-annual-plan-id="{{$plan['id']}}"

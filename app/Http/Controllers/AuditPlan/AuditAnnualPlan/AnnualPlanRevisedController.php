@@ -11,8 +11,14 @@ class AnnualPlanRevisedController extends Controller
 {
     public function index()
     {
+        $all_directorates = $this->allAuditDirectorates();
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
+
         $fiscal_years = $this->allFiscalYears();
-        return view('modules.audit_plan.annual.annual_plan_revised.annual_plan_lists', compact('fiscal_years'));
+        return view('modules.audit_plan.annual.annual_plan_revised.annual_plan_lists', compact('directorates','fiscal_years'));
     }
 
     public function annualPlanCalender()
@@ -52,8 +58,12 @@ class AnnualPlanRevisedController extends Controller
     public function showAnnualPlanEntities(Request $request)
     {
         $data = Validator::make($request->all(), [
+            'office_id' => 'required',
             'fiscal_year_id' => 'required|integer',
             'activity_id' => 'nullable',
+        ],[
+            'office_id.required' => 'অধিদপ্তর বাছাই করুন',
+            'fiscal_year_id.required' => 'অর্থবছর বাছাই করুন',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
@@ -80,6 +90,7 @@ class AnnualPlanRevisedController extends Controller
 
         $fiscal_year = $request->fiscal_year;
         $fiscal_year_id = $request->fiscal_year_id;
+        $current_office_id = $this->current_office_id();
 
         return view(
             'modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection',
@@ -88,7 +99,8 @@ class AnnualPlanRevisedController extends Controller
                 'fiscal_year',
                 'fiscal_year_id',
                 'op_audit_calendar_event_id',
-                'current_designation_id'
+                'current_designation_id',
+                'current_office_id'
             )
         );
     }
@@ -397,6 +409,7 @@ class AnnualPlanRevisedController extends Controller
     {
         $data = Validator::make($request->all(), [
             'annual_plan_id' => 'required|integer',
+            'office_id' => 'required|integer',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();

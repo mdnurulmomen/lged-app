@@ -3,11 +3,21 @@
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row">
         <div class="col-md-3">
+            <select class="form-select select-select2" id="directorate_filter">
+                @if(count($directorates) > 1)
+                    <option value="">অধিদপ্তর বাছাই করুন</option>
+                @endif
+                @foreach($directorates as $directorate)
+                    <option value="{{$directorate['office_id']}}">{{$directorate['office_name_bn']}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-3">
             <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
                 <option value="">--সিলেক্ট--</option>
                 @foreach($fiscal_years as $fiscal_year)
                     <option
-                        value="{{$fiscal_year['id']}}" {{now()->year + 1 == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                        value="{{$fiscal_year['id']}}" {{$current_fiscal_year == $fiscal_year['id']?'selected':''}}>{{$fiscal_year['description']}}</option>
                 @endforeach
             </select>
         </div>
@@ -35,7 +45,7 @@
         Annual_Plan_Container.loadFiscalYearWiseActivity();
     });
 
-    $('#activity_id').change(function () {
+    $('#activity_id,#directorate_filter').change(function () {
         Annual_Plan_Container.loadAnnualPlanList();
     });
 
@@ -203,8 +213,9 @@
         },
 
         showPlanInfo: function (elem) {
+            office_id = $('#directorate_filter').val();
             annual_plan_id = elem.data('annual-plan-id');
-            data = {annual_plan_id}
+            data = {annual_plan_id,office_id}
             KTApp.block('#kt_wrapper');
             let url = '{{route('audit.plan.annual.plan.revised.show_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -836,12 +847,13 @@
             }
         },
         loadAnnualPlanList: function () {
+            office_id = $('#directorate_filter').val();
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             activity_id = $('#activity_id').val();
             fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
             if (fiscal_year_id) {
                 let url = '{{route('audit.plan.annual.plan.revised.annual-entities-show')}}';
-                let data = {fiscal_year_id, fiscal_year, activity_id};
+                let data = {office_id,fiscal_year_id, fiscal_year, activity_id};
                 KTApp.block('#kt_wrapper', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
