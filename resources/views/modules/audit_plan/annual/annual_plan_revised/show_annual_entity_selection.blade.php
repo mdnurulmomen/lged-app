@@ -44,7 +44,7 @@
                     @endif
                 </div>
                 {{--            @php dump($plan_list) @endphp--}}
-                @if((!$plan_list) || (isset($plan_list['approval_status']) && $plan_list['approval_status'] == 'draft' || $plan_list['approval_status']  == 'reject'))
+                @if((!$plan_list) || (isset($plan_list['approval_status']) && $plan_list['approval_status'] == 'draft' || $plan_list['approval_status']  == 'reject') && $current_office_id != 1)
                     <div class="col-md-5">
                         <div class="d-flex justify-content-md-end">
                             <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
