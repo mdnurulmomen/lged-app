@@ -457,21 +457,21 @@
                                                                                         </td>
                                                                                         <td>
                                                                                             <div style="display: flex;">
-                                                                                                <button type="button" title="schedule"
+                                                                                                <button type="button" title="সিডিউল"
                                                                                                         onclick="addAuditScheduleTblRow({{$loop->parent->iteration}},{{$loop->iteration}})"
                                                                                                         class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-calendar-day"></span>
                                                                                                 </button>
 
-                                                                                                <button type="button" title="Transit"
+                                                                                                <button type="button" title="ট্রানজিট"
                                                                                                         onclick="addDetailsTblRow({{ $loop->parent->iteration }},{{$loop->iteration}})"
                                                                                                         class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-plus"></span>
                                                                                                 </button>
 
-                                                                                                <button type='button' title="remove"
+                                                                                                <button type='button' title="বাদ দিন"
                                                                                                         data-row='row1'
                                                                                                         onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
                                                                                                         class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
@@ -507,21 +507,21 @@
 
                                                                                         <td>
                                                                                             <div style="display: flex">
-                                                                                                <button type="button" title="schedule"
+                                                                                                <button type="button" title="সিডিউল"
                                                                                                         onclick="addAuditScheduleTblRow({{ $loop->parent->iteration }},{{$loop->iteration}})"
                                                                                                         class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-calendar-day"></span>
                                                                                                 </button>
 
-                                                                                                <button type="button" title="Transit"
+                                                                                                <button type="button" title="ট্রানজিট"
                                                                                                         onclick="addDetailsTblRow({{ $loop->parent->iteration }},{{$loop->iteration}})"
                                                                                                         class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-plus"></span>
                                                                                                 </button>
 
-                                                                                                <button type='button' title="remove"
+                                                                                                <button type='button' title="বাদ দিন"
                                                                                                         data-row='row1'
                                                                                                         onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
                                                                                                         class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
@@ -677,13 +677,13 @@
         teamScheduleHtml += "<td colspan='2'><input placeholder='ট্রানজিট' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
         teamScheduleHtml += "<td colspan='2'><div><input placeholder='ট্রানজিটের তারিখ' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/><span class='fal fa-calendar field-icon'></span></div></td>";
         teamScheduleHtml += "<td><div style='display: flex'>" +
-            "<button title='schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ","+totalAuditScheduleRow+")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
+            "<button title='সিডিউল' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ","+totalAuditScheduleRow+")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
             "<span class='fad fa-calendar-day'></span>" +
             "</button>" +
-            "<button title='Transit' type='button' onclick='addDetailsTblRow(" + layer_id + ","+totalAuditScheduleRow+")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
+            "<button title='ট্রানজিট' type='button' onclick='addDetailsTblRow(" + layer_id + ","+totalAuditScheduleRow+")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
             "<span class='fad fa-plus'></span>" +
             "</button>" +
-            "<button title='remove' onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
+            "<button title='বাদ দিন' onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
             "data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>" +
             "<span class='fal fa-trash-alt'></span>" +
             "</button>" +

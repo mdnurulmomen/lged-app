@@ -59,9 +59,9 @@
                 {{$office_order['heading_details']}}
             </div>
 
-            <div style="font-family:SolaimanLipi,serif !important;text-align: center">
-                <b><u>নিরীক্ষা দল নং-০১</u></b>
-            </div>
+{{--            <div style="font-family:SolaimanLipi,serif !important;text-align: center">--}}
+{{--                <b><u>নিরীক্ষা দল নং-০১</u></b>--}}
+{{--            </div>--}}
 
             <div style="margin-top: 5px">
                 <table width="100%" border="1">

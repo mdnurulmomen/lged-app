@@ -72,18 +72,18 @@
             </td>
             <td>
                 <div style="display: flex">
-                    <button type="button" title="schedule" onclick="addAuditScheduleTblRow({{$team_layer_id}},1)"
+                    <button type="button" title="সিডিউল" onclick="addAuditScheduleTblRow({{$team_layer_id}},1)"
                             class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                         <span class="fad fa-calendar-day"></span>
                     </button>
 
-                    <button type="button" title="visit"
+                    <button type="button" title="ট্রানজিট"
                             onclick="addDetailsTblRow({{$team_layer_id}},1)"
                             class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                         <span class="fad fa-plus"></span>
                     </button>
 
-                    <button type='button' title="remove"
+                    <button type='button' title="বাদ দিন"
                             data-row='row1'
                             onclick="removeScheduleRow($(this), {{$team_layer_id}})"
                             class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
@@ -106,19 +106,19 @@
             </td>
             <td>
                 <div style="display: flex">
-                    <button type="button" title="schedule"
+                    <button type="button" title="সিডিউল"
                             onclick="addAuditScheduleTblRow({{$team_layer_id}},2)"
                             class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                         <span class="fad fa-calendar-day"></span>
                     </button>
 
-                    <button type="button" title="visit"
+                    <button type="button" title="ট্রানজিট"
                             onclick="addDetailsTblRow({{$team_layer_id}},2)"
                             class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                         <span class="fad fa-plus"></span>
                     </button>
 
-                    <button type='button' title="remove"
+                    <button type='button' title="বাদ দিন"
                             data-row='row1'
                             onclick="removeScheduleRow($(this), {{$team_layer_id}})"
                             class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>

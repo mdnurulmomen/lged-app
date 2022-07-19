@@ -173,6 +173,7 @@
 
                                                 @if($audit_plan['office_order'])
                                                     <button
+                                                        title="বিস্তারিত দেখুন"
                                                         class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
                                                 list-btn-toggle"
                                                         data-audit-plan-id="0"
@@ -185,6 +186,7 @@
                                                 @if($audit_plan['office_order'])
                                                     @if($audit_plan['office_order']['approved_status'] == 'draft')
                                                         <button
+                                                            title="প্রেরণ করুন"
                                                             class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
                                                 list-btn-toggle"
                                                             data-ap-office-order-id="{{$audit_plan['office_order']['id']}}"

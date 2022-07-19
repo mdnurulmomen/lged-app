@@ -56,9 +56,9 @@
             {{$office_order['heading_details']}}
         </div>
 
-        <div style="text-align: center">
-            <b><u>জনবল</u></b>
-        </div>
+{{--        <div style="text-align: center">--}}
+{{--            <b><u>জনবল</u></b>--}}
+{{--        </div>--}}
 
         <div style="margin-top: 5px">
             <table width="100%" border="1">

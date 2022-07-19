@@ -803,9 +803,9 @@
             {{$office_order['heading_details']}}
         </div>
 
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;margin-top: 10px">
-            <span style="font-weight: bold;border-bottom: 1px solid black">জনবল</span>
-        </div>
+{{--        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;margin-top: 10px">--}}
+{{--            <span style="font-weight: bold;border-bottom: 1px solid black">জনবল</span>--}}
+{{--        </div>--}}
 
         <div class="bangla-font" style="margin-top: 5px">
             <table class="bangla-font" width="100%" border="1">

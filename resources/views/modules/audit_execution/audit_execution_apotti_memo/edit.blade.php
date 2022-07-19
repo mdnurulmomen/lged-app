@@ -385,63 +385,76 @@
         $('#memo_submit').on('click', function (e) {
             e.preventDefault();
 
-            from_data = new FormData(document.getElementById("memo_create_form"));
-            from_data.append('memo_description_bn', tinymce.get("kt-tinymce-memo-details").getContent());
+            swal.fire({
+                title: 'আপনি কি অনুচ্ছেদে রুপান্তর করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
 
-            total_porisito = $(".porisisto_details").length;
-            for (start=1;start<=total_porisito;start++){
-                porisisto = tinymce.get("kt-tinymce-porisisto-"+start+"").getContent();
-                from_data.append('porisisto_details[]', porisisto);
-            }
+                    from_data = new FormData(document.getElementById("memo_create_form"));
+                    from_data.append('memo_description_bn', tinymce.get("kt-tinymce-memo-details").getContent());
 
-            KTApp.block('#kt_wrapper', {
-                opacity: 0.1,
-                state: 'primary' // a bootstrap color
-            });
-
-
-            $.ajax({
-                data: from_data,
-                url: "{{route('audit.execution.apotti.memo.convert-memo-to-apotti')}}",
-                type: "POST",
-                dataType: 'json',
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function (responseData) {
-                    KTApp.unblock('#kt_wrapper');
-                    if (responseData.status === 'success') {
-                        toastr.success(responseData.data);
-                        $('#memo_submit').hide();
-                    } else {
-                        if (responseData.statusCode === '422') {
-                            var errors = responseData.msg;
-                            $.each(errors, function (k, v) {
-                                if (v !== '') {
-                                    toastr.error(v);
-                                }
-                            });
-                        } else {
-                            toastr.error(responseData.data);
-                        }
+                    total_porisito = $(".porisisto_details").length;
+                    for (start=1;start<=total_porisito;start++){
+                        porisisto = tinymce.get("kt-tinymce-porisisto-"+start+"").getContent();
+                        from_data.append('porisisto_details[]', porisisto);
                     }
-                },
-                error: function (data) {
-                    KTApp.unblock('#kt_wrapper');
-                    if (data.responseJSON.errors) {
-                        $.each(data.responseJSON.errors, function (k, v) {
-                            if (isArray(v)) {
-                                $.each(v, function (n, m) {
-                                    toastr.error(m)
-                                    console.log(m, n, v);
-                                })
+
+                    KTApp.block('#kt_wrapper', {
+                        opacity: 0.1,
+                        state: 'primary' // a bootstrap color
+                    });
+
+
+                    $.ajax({
+                        data: from_data,
+                        url: "{{route('audit.execution.apotti.memo.convert-memo-to-apotti')}}",
+                        type: "POST",
+                        dataType: 'json',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (responseData) {
+                            KTApp.unblock('#kt_wrapper');
+                            if (responseData.status === 'success') {
+                                toastr.success(responseData.data);
+                                $('#memo_submit').hide();
                             } else {
-                                if (v !== '') {
-                                    toastr.error(v);
+                                if (responseData.statusCode === '422') {
+                                    var errors = responseData.msg;
+                                    $.each(errors, function (k, v) {
+                                        if (v !== '') {
+                                            toastr.error(v);
+                                        }
+                                    });
+                                } else {
+                                    toastr.error(responseData.data);
                                 }
                             }
-                        });
-                    }
+                        },
+                        error: function (data) {
+                            KTApp.unblock('#kt_wrapper');
+                            if (data.responseJSON.errors) {
+                                $.each(data.responseJSON.errors, function (k, v) {
+                                    if (isArray(v)) {
+                                        $.each(v, function (n, m) {
+                                            toastr.error(m)
+                                            console.log(m, n, v);
+                                        })
+                                    } else {
+                                        if (v !== '') {
+                                            toastr.error(v);
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+
                 }
             });
         });

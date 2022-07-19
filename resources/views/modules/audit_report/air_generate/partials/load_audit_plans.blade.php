@@ -113,7 +113,7 @@
                                                     data-audit-plan-entity-info="{{json_encode($audit_plan['annual_plan']['ap_entities'])}}"
                                                     data-audit-plan-entities="{{implode(' , ', array_unique($entities))}}"
                                                     onclick="AIR_Container.loadAIRCreate($(this))">
-                                                <i class="fad fa-plus-circle"></i> নতুন এআইআর
+                                                <i class="fad fa-plus-circle"></i> ড্রাফট এআইআর তৈরি করুন
                                             </button>
                                         </div>
                                     </div>
