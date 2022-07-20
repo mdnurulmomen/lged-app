@@ -26,6 +26,12 @@
                 <option value="">--সিলেক্ট--</option>
             </select>
         </div>
+
+        <div class="col-md-3">
+            <select class="form-control select-select2" name="office_ministry_id" id="office_ministry_id">
+                <option value="">মন্ত্রণালয় বাছাই করুন</option>
+            </select>
+        </div>
     </div>
 </div>
 
@@ -36,7 +42,7 @@
 <script>
     $(function () {
         Annual_Plan_Container.loadFiscalYearWiseActivity();
-        // Annual_Plan_Container.loadAnnualPlanList();
+        Annual_Plan_Container.loadMinistryLists();
 
     });
 
@@ -45,7 +51,7 @@
         Annual_Plan_Container.loadFiscalYearWiseActivity();
     });
 
-    $('#activity_id,#directorate_filter').change(function () {
+    $('#activity_id,#directorate_filter,#office_ministry_id').change(function () {
         Annual_Plan_Container.loadAnnualPlanList();
     });
 
@@ -849,11 +855,12 @@
         loadAnnualPlanList: function () {
             office_id = $('#directorate_filter').val();
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            office_ministry_id = $('#office_ministry_id').val();
             activity_id = $('#activity_id').val();
             fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
             if (fiscal_year_id) {
                 let url = '{{route('audit.plan.annual.plan.revised.annual-entities-show')}}';
-                let data = {office_id,fiscal_year_id, fiscal_year, activity_id};
+                let data = {office_id,fiscal_year_id, fiscal_year, activity_id, office_ministry_id};
                 KTApp.block('#kt_wrapper', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
@@ -887,6 +894,15 @@
                 } else {
                     $('.rp_auditee_parent_office_tree').html(response)
                 }
+            });
+        },
+
+        loadMinistryLists: function () {
+            let url = '{{route('mis_and_dashboard.derictorate_wise_ministry')}}';
+            directorate_id = $('#directorate_filter').val();
+            let data = {directorate_id};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                $('#office_ministry_id').html(response);
             });
         },
 

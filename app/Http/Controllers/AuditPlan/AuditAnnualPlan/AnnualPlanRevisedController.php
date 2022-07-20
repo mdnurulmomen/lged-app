@@ -61,10 +61,13 @@ class AnnualPlanRevisedController extends Controller
             'office_id' => 'required',
             'fiscal_year_id' => 'required|integer',
             'activity_id' => 'nullable',
+            'office_ministry_id' => 'nullable',
         ],[
             'office_id.required' => 'অধিদপ্তর বাছাই করুন',
             'fiscal_year_id.required' => 'অর্থবছর বাছাই করুন',
         ])->validate();
+
+//        dd($data);
 
         $data['cdesk'] = $this->current_desk_json();
         if (session('dashboard_audit_type') == 'Compliance Audit') {
@@ -82,7 +85,7 @@ class AnnualPlanRevisedController extends Controller
             config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_entities_list_show'),
             $data
         )->json();
-        //        dd($planListResponseData);
+//        dd($planListResponseData);
 
         $plan_list = isSuccess($planListResponseData) ? $planListResponseData['data']['annual_plan_list'] : [];
         //        $approval_status = isSuccess($planListResponseData)?$planListResponseData['data']['approval_status']:[];
