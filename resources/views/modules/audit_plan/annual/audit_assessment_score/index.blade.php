@@ -13,7 +13,7 @@
     <select class="form-control select-select2" id="fiscal_year_id">
         <option value="">--সিলেক্ট--</option>
         @foreach($fiscal_years as $fiscal_year)
-            <option value="{{$fiscal_year['id']}}" {{$fiscal_year['id'] == 1?'selected':''}}>
+            <option value="{{$fiscal_year['id']}}" {{$fiscal_year['id'] == $current_fiscal_year?'selected':''}}>
                 {{$fiscal_year['description']}}
             </option>
         @endforeach

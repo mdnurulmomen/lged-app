@@ -2,6 +2,8 @@
 <div class="d-flex body-wrapper">
     <div class="col-md-6 officers_list_area card">
         <h5 class="mt-2 mb-4"></h5>
+        <input id="employee_search" type="text" class="form-control"
+               placeholder="খুঁজুন">
         <div class="rounded-0" id="qacMemberTree"
              style="overflow-y: scroll; height: 65vh">
             <ul>
@@ -38,7 +40,7 @@
     </div>
 
     <div class="col-md-6 card">
-        <form  id="qac_committee_form" >
+        <form  id="qac_committee_form" style="margin-top: 10px">
             <input type="text" class="form-control my-3 ml-3" name="title" placeholder="কমিটি নাম">
             <h5 class="text-primary mt-3 mb-4 pl-3"><u>সদস্যের তালিকাঃ</u></h5>
             <ul class="select_member p-0" style="overflow-y: scroll; height: 50vh"></ul>
@@ -64,7 +66,12 @@
                 "icon": "fal fa-user"
             },
         },
-        "plugins": ["types", "checkbox", "search"]
+        "plugins": ["types", "checkbox", "search"],
+        "search": {
+            "show_only_matches": true,
+            "show_only_matches_children": true,
+            "case_insensitive": true,
+        },
     });
 
     $('#qacMemberTree').on('select_node.jstree', function (e, data) {
@@ -97,6 +104,11 @@
     }).on('deselect_node.jstree', function (e, data) {
         var officer_info = $('#' + data.node.id).data('officer-info');
         $('#selected_member_li_' + officer_info.officer_id).remove();
+    });
+
+    $('#employee_search').keyup(function () {
+        $('#qacMemberTree').jstree(true).show_all();
+        $('#qacMemberTree').jstree('search', $(this).val());
     });
 
     selected = null
