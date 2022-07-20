@@ -860,7 +860,7 @@
                                     <td class="bangla-font" style="text-align: center" width="3%">ক্রঃনং</td>
                                     <td class="bangla-font" style="text-align: center" width="10%">মন্ত্রণালয়/ বিভাগ
                                     </td>
-                                    <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের নাম
+                                    <td class="bangla-font" style="text-align: center" width="10%">এনটিটি/প্রতিষ্ঠানের নাম
                                     </td>
 
                                     @if($office_id == 18)
@@ -869,9 +869,9 @@
                                         </td>
                                     @endif
 
-                                    <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের ধরন
+                                    <td class="bangla-font" style="text-align: center" width="10%">এনটিটি/প্রতিষ্ঠানের ধরন
                                     </td>
-                                    <td class="bangla-font" style="text-align: center" width="10%">প্রতিষ্ঠানের মোট
+                                    <td class="bangla-font" style="text-align: center" width="10%">এনটিটি/প্রতিষ্ঠানের মোট
                                         ইউনিট সংখ্যা
                                     </td>
                                     <td class="bangla-font" style="text-align: center" width="20%">অডিটের জন্য
