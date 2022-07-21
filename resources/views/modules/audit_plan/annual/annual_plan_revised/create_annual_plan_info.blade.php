@@ -1,7 +1,7 @@
 <div class="row m-0 mb-2 page-title-wrapper d-md-flex align-items-md-center">
     <div class="col-md-6">
         <div class="title py-2">
-            <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Annual Plan</h4>
+            <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Annual Audit Plan</h4>
         </div>
     </div>
     <div class="col-md-6 text-right">
@@ -282,7 +282,7 @@
                     </div>
 
                     <div class="col-md-6 @if (session('dashboard_audit_type') == 'Performance Audit') d-none @endif">
-                        <label for="total_selected_unit_no">নির্বাচিত ইউনিট সংখ্যা</label>
+                        <label for="total_selected_unit_no">অডিটের জন্য নির্বাচিত ইউনিট সংখ্যা</label>
                         <input class="form-control bijoy-bangla text-right" type="text"
                             name="total_selected_unit_no" id="total_selected_unit_no">
                     </div>
@@ -297,7 +297,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="budget">নির্বাচিত ইউনিটের মোট বাজেট</label>
+                        <label for="budget">অডিটের জন্য নির্বাচিত ইউনিটের মোট বাজেট</label>
                         <input class="form-control text-right bijoy-bangla integer_type_positive" type="text"
                             id="cost_center_total_budget" name="cost_center_total_budget">
                     </div>
@@ -305,7 +305,7 @@
                 @if (session('dashboard_audit_type') != 'Performance Audit')
                     <div class="form-row mt-2">
                         <div class="col-md-6">
-                            <label for="budget">নির্বাচিত ইউনিটের মোট খরচ</label>
+                            <label for="budget">অডিটের জন্য নির্বাচিত ইউনিটের মোট খরচ</label>
                             <input class="form-control text-right bijoy-bangla integer_type_positive" type="text"
                                 id="total_expenditure" name="total_expenditure">
                         </div>

@@ -1,4 +1,4 @@
-<x-title-wrapper>Edit Annual Plan</x-title-wrapper>
+<x-title-wrapper>Edit Annual Audit Plan</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:30px;">
     <div class="row">
