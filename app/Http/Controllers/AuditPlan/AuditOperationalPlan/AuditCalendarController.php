@@ -310,7 +310,7 @@ class AuditCalendarController extends Controller
         ])->validate();
 
         $publish_event = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_calendar_publish_events_as_calendars'), $data)->json();
-        dd($publish_event);
+//        dd($publish_event);
         if (isSuccess($publish_event)) {
             return response()->json(['status' => 'success', 'data' => 'Published']);
         } else {
