@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-7">
                     @if(!is_null($plan_list))
-                        @if($current_designation_id == 2 || $current_designation_id == 3 || $current_designation_id == 5)
+                        @if($current_designation_grade == 2 || $current_designation_grade == 3 || $current_designation_grade == 5)
                             @if($plan_list['approval_status'] == 'draft' || $plan_list['approval_status'] == 'reject')
                                 <button class="btn btn-sm btn-primary btn-square mr-1"
                                         data-annual-plan-main-id="{{$plan_list['id']}}"
