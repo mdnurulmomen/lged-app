@@ -75,7 +75,7 @@
                 <div class="row tapp-sub-topbar">
                     <div class="col-md-6">
                         @if (env('APP_MODE') == 'training')
-                            <p class="text-danger mb-0 font-weight-bolder">ট্রেনিং সার্ভার</p>
+                            <p class="text-danger mb-0 font-weight-bolder h1">ট্রেনিং সার্ভার</p>
                         @endif
                     </div>
                     <div class="col-md-6">
