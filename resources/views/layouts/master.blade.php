@@ -75,11 +75,11 @@
                 <div class="row tapp-sub-topbar">
                     <div class="col-md-6">
                         @if (env('APP_MODE') == 'training')
-                            <p class="text-danger font-weight-bolder">ট্রেনিং সার্ভার</p>
+                            <p class="text-danger mb-0 font-weight-bolder">ট্রেনিং সার্ভার</p>
                         @endif
                     </div>
                     <div class="col-md-6">
-                        <p>{{ $userOffices[0]['office_name_bn'] }}</p>
+                        <p class="mb-0">{{ $userOffices[0]['office_name_bn'] }}</p>
                     </div>
                 </div>
 
