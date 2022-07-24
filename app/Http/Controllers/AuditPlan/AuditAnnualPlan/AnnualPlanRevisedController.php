@@ -80,6 +80,7 @@ class AnnualPlanRevisedController extends Controller
         }
 
         $current_designation_id = $this->current_designation_id();
+        $current_designation_grade = $this->current_officer_grade();
 
         $planListResponseData = $this->initHttpWithToken()->post(
             config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_entities_list_show'),
@@ -103,7 +104,8 @@ class AnnualPlanRevisedController extends Controller
                 'fiscal_year_id',
                 'op_audit_calendar_event_id',
                 'current_designation_id',
-                'current_office_id'
+                'current_office_id',
+                'current_designation_grade'
             )
         );
     }
