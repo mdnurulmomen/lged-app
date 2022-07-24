@@ -522,6 +522,8 @@ class AuditExecutionMemoController extends Controller
         $data['jorito_ortho_poriman'] = $request->jorito_ortho_poriman;
         $data['audit_year_start'] = $request->audit_year_start;
         $data['audit_year_end'] = $request->audit_year_end;
+        $memo_code = $request->memo_code ?   explode('-',$request->memo_code) : '';
+        $data['memo_code'] = $memo_code ?  $memo_code[1] : '';
         $data['page'] = $request->page;
         $data['per_page'] = $request->per_page;
 

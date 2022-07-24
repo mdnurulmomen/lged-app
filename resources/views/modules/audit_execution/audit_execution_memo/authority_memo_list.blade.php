@@ -106,6 +106,11 @@
                     placeholder="জড়িত অর্থ (টাকা)" type="text">
             </div>
 
+            <div class="col-md-3">
+                <input class="form-control mb-1 mt-1" pattern="[0-9\.]*" id="memo_code"
+                       placeholder="memo code" type="text">
+            </div>
+
             <div class="col-md-3 mt-1">
                 <button id="btn_filter" class="btn icon-btn-primary" type="button">
                     <i class="fad fa-search"></i> অনুসন্ধান
@@ -351,6 +356,7 @@
             audit_year_end = $('#audit_year_end').val();
             start_date = $('#start_date').val();
             end_date = $('#end_date').val();
+            memo_code = $('#memo_code').val();
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
@@ -374,6 +380,7 @@
                 audit_year_end,
                 start_date,
                 end_date,
+                memo_code,
                 page,
                 per_page
             };

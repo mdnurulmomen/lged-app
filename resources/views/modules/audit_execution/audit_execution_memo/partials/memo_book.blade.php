@@ -794,6 +794,16 @@
 <body>
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
+
+        <div style="text-align: right">
+            @php
+                $generatorPNG = new Picqer\Barcode\BarcodeGeneratorPNG();
+                $memo_code = 'M-'.$memoInfo['id'];
+            @endphp
+            <img src="data:image/png;base64,{{ base64_encode($generatorPNG->getBarcode($memo_code, $generatorPNG::TYPE_CODE_128)) }}">
+            <p style="margin-top: 0;font-size: 14px"> M-{{$memoInfo['id']}}</p>
+        </div>
+
         <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;color: black">
             মহাপরিচালকের কার্যালয়<br>
             {{$directorateName}} <br>

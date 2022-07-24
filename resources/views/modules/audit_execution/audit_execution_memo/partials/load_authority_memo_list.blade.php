@@ -81,7 +81,8 @@
                                             <span class="mr-1 ">মেমো নংঃ</span>
                                             <a href="javascript:void(0)"
                                                 class="text-dark text-hover-primary font-size-h5">
-                                                {{ enTobn($memo['onucched_no']) }}
+{{--                                                {{ enTobn($memo['onucched_no']) }}--}}
+                                                    M-{{$memo['id']}}
                                             </a>
                                         </div>
                                         <div class="font-weight-normal">
