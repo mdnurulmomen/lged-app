@@ -176,7 +176,7 @@
                                                 </span>
                                             </span>
                                         </div>
-                                        <div class="d-flex align-items-center flex-wrap  font-size-1-2">
+                                        <div class="font-weight-normal">
                                             <span
                                                 class="mr-1">{{___('generic.list_views.plan.audit_plan.entity_or_institute')}}</span>
                                             <a href="javascript:void(0)" class="text-info font-size-h5">
@@ -190,6 +190,16 @@
                                                 {{implode(' , ', array_unique($entities))}}
                                             </a>
                                         </div>
+
+                                        @if($office_id == 18)
+                                        <div class="font-weight-normal">
+                                            <span
+                                                class="mr-2 font-size-1-1">প্রজেক্ট</span>
+                                            <span class="font-size-14">
+                                            {{$plan['project_name_bn']}}
+                                        </span>
+                                        </div>
+                                        @endif
                                         <div class="font-weight-normal">
                                             <span
                                                 class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.institute_type')}}</span>

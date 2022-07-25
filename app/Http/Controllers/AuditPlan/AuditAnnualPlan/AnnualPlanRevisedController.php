@@ -96,6 +96,8 @@ class AnnualPlanRevisedController extends Controller
         $fiscal_year_id = $request->fiscal_year_id;
         $current_office_id = $this->current_office_id();
 
+        $office_id = $request->office_id;
+
         return view(
             'modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection',
             compact(
@@ -105,7 +107,8 @@ class AnnualPlanRevisedController extends Controller
                 'op_audit_calendar_event_id',
                 'current_designation_id',
                 'current_office_id',
-                'current_designation_grade'
+                'current_designation_grade',
+                'office_id'
             )
         );
     }
