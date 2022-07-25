@@ -71,7 +71,7 @@
         </a>
     </div>
     <div class="d-flex flex-wrap text-center w-50 justify-content-center pl-1">
-        <h4 class="w-100 py-3 m-0">As of Today</h4>
+        <h4 class="w-100 py-3 m-0">Till Today</h4>
         <a href="javascript:;" data-page="query" data-status="yearly"
            onclick="Team_Calendar_Container.pageRedirect($(this))" class="w-50 pt-3">
             <h6 class="font-weight-bold">Query</h6>
