@@ -125,6 +125,8 @@ class OperationalPlanController extends Controller
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
 
+//        dd($data);
+
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
 //        dd($plan_infos);
         /*$directorateInfo = $this->initDoptorHttp()->post(config('cag_doptor_api.offices'), ['office_ids' => $request->office_id])->json();
@@ -141,7 +143,9 @@ class OperationalPlanController extends Controller
 
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
-            return view('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos,'directorate_address'=> $directorate_address], [], ['orientation' => 'L', 'format' => 'A4']);
+            $office_id = $request->office_id;
+
+            return view('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos,'directorate_address'=> $directorate_address, 'office_id' => $office_id], [], ['orientation' => 'L', 'format' => 'A4']);
         } else {
             return response()->json(['status' => 'error', 'data' => $plan_infos]);
         }
