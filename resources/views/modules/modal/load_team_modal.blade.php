@@ -66,6 +66,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col">
+                                <label>নিরীক্ষাধীন অর্থ বছর শুরু</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text"><i
                                                 style="color:#3699FF !important"
@@ -78,6 +79,7 @@
                                 </div>
                             </div>
                             <div class="col">
+                                <label>নিরীক্ষাধীন অর্থ বছর শেষ</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text"><i
                                                 style="color:#3699FF !important"
@@ -94,6 +96,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col">
+                                <label>{{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল শুরু' : 'সম্পাদনের সময়কাল শেষ' }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text"><i
                                                 style="color:#3699FF !important"
@@ -105,6 +108,7 @@
                                 </div>
                             </div>
                             <div class="col">
+                                <label>{{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল শেষ' : 'সম্পাদনের সময়কাল শেষ' }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text"><i
                                                 style="color:#3699FF !important"
