@@ -123,25 +123,16 @@ class OperationalPlanController extends Controller
             'annual_plan_main_id' => 'required|integer',
             'activity_type' => 'nullable',
         ])->validate();
+
         $data['cdesk'] = $this->current_desk_json();
 
-//        dd($data);
-
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
-
-        if ($request->office_id == 19) {
-            $directorate_address = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-        } elseif ($request->office_id == 32) {
-            $directorate_address = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-        } else {
-            $directorate_address = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-        }
 
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
             $office_id = $request->office_id;
 
-            return view('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos,'directorate_address'=> $directorate_address, 'office_id' => $office_id], [], ['orientation' => 'L', 'format' => 'A4']);
+            return view('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos, 'office_id' => $office_id], [], ['orientation' => 'L', 'format' => 'A4']);
         } else {
             return response()->json(['status' => 'error', 'data' => $plan_infos]);
         }

@@ -806,9 +806,7 @@
 
         <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;color: black">
             মহাপরিচালকের কার্যালয়<br>
-            {{$directorateName}} <br>
-            {!! $directorateAddress !!}<br>
-            <u>{{$directorateWebsite}}</u>
+            <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="false"  />
         </div>
         <br>
 
@@ -862,11 +860,11 @@
                     @if($memoInfo['issued_by'] == 'sub_team_leader')
                         <p>({{$memoInfo['sub_team_leader_name']}})</p>
                         <p>{{$memoInfo['sub_team_leader_designation']}} ও উপদলনেতা</p>
-                        <p>{{$directorateName}}</p>
+                        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"  />
                     @else
                         <p>({{$memoInfo['team_leader_name']}})</p>
                         <p>{{$memoInfo['team_leader_designation']}} ও দলনেতা</p>
-                        <p>{{$directorateName}}</p>
+                        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"  />
                     @endif
                 </td>
             </tr>
@@ -915,11 +913,11 @@
                     @if($memoInfo['issued_by'] == 'sub_team_leader')
                         <p>({{$memoInfo['sub_team_leader_name']}})</p>
                         <p>{{$memoInfo['sub_team_leader_designation']}} ও উপদলনেতা</p>
-                        <p>{{$directorateName}}</p>
+                        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"  />
                     @else
                         <p>({{$memoInfo['team_leader_name']}})</p>
                         <p>{{$memoInfo['team_leader_designation']}} ও দলনেতা</p>
-                        <p>{{$directorateName}}</p>
+                        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"  />
                     @endif
                 </td>
             </tr>

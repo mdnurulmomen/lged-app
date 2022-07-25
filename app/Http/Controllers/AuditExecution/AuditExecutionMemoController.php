@@ -221,32 +221,22 @@ class AuditExecutionMemoController extends Controller
         $data = Validator::make($request->all(), [
             'memo_id' => 'required|integer',
         ])->validate();
+
         $data['cdesk'] = $this->current_desk_json();
+
         if ($request->directorate_id) {
             $data['directorate_id'] = $request->directorate_id;
         }
+
         $directorate_id = $request->directorate_id ?: $this->current_office_id();
         $memoInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.info'), $data)->json();
-        $directorateName = $this->current_office()['office_name_bn'];
-        if ($directorate_id == 14) {
-            $directorateAddress = 'অডিট কমপ্লেক্স (৩য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.worksaudit.org.bd';
-        } elseif ($directorate_id == 3) {
-            $directorateAddress = 'অডিট কমপ্লেক্স (২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.dgcivil-cagbd.org';
-        } else {
-            $directorateAddress = 'অডিট কমপ্লেক্স (৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.cad.org.bd';
-        }
+
         if (isSuccess($memoInfo)) {
             $memoInfoDetails = $memoInfo['data'];
             return view(
                 'modules.audit_execution.audit_execution_memo.show',
                 compact(
                     'memoInfoDetails',
-                    'directorateAddress',
-                    'directorateWebsite',
-                    'directorateName',
                     'directorate_id'
                 )
             );
@@ -577,13 +567,9 @@ class AuditExecutionMemoController extends Controller
         //dd($responseData);
         $memoInfo = isSuccess($responseData) ? $responseData['data'] : [];
 
-        $directorateName = $this->current_office()['office_name_bn'];
-        $directorateAddress = '';
-        $directorateWebsite = '';
-
         $pdf = \PDF::loadView(
             'modules.audit_execution.audit_execution_memo.partials.memo_book',
-            compact('memoInfo', 'directorateName', 'directorateAddress', 'directorateWebsite')
+            compact('memoInfo','directorate_id')
         );
         return $pdf->stream('document.pdf');
     }
