@@ -20,7 +20,7 @@ class OfficeHeaderDetails extends Component
     public $office_name_bn;
 
 
-    public function __construct($officeid,$onlyofficename)
+    public function __construct($officeid='',$onlyofficename='')
     {
 
         $directorateInfo = $officeid ?   $this->initDoptorHttp()->post(config('cag_doptor_api.offices'), ['office_ids' => $officeid])->json() : [];

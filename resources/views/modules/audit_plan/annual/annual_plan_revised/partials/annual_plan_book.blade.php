@@ -791,7 +791,7 @@
             <div class="bangla-font" style="text-align: center;font-size: 12px;margin-top: 5px">
                 {{-- {{ $plan_infos['office_info']['office_name_bn'] }} <br>
                 {!! $directorate_address !!} --}}
-                <x-office-header-details officeid="{{$office_id}}"/>
+                <x-office-header-details officeid="{{$office_id}}" />
             </div>
             <div class="bangla-font" style="text-align: center;font-size: 15px;margin-top: 5px">
                 <span>
