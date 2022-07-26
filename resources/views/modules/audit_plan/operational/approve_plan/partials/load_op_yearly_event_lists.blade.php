@@ -5,9 +5,8 @@
         <tr>
             <th class="text-light">Serial Number</th>
             <th class="text-light">Audit Directorate</th>
-            <th class="text-light">Type</th>
-{{--            <th class="text-light">Activity Count</th>--}}
-{{--            <th class="text-light">Milestone Count</th>--}}
+            <th class="text-light">Status</th>
+            <th class="text-light">Audit Type</th>
             <th class="text-light">Action</th>
         </tr>
         </thead>
@@ -16,7 +15,10 @@
             @foreach($event_list as $event)
                     <tr>
                         <td>{{enToBn($loop->iteration)}}</td>
-                        <td>{{$event['office_bn']}}
+                        <td>
+                            {{$event['office_bn']}}
+                        </td>
+                        <td>
                             <span class="badge badge-info text-uppercase m-1 p-1">
                                 @if ($event['approval_status'] == 'pending')
                                     Pending for Approval

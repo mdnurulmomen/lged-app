@@ -1,4 +1,4 @@
-<x-title-wrapper>Approve Audit Annual Plan List</x-title-wrapper>
+<x-title-wrapper>Annual Audit Plan List</x-title-wrapper>
 
 <div class="card sna-card-border mt-3">
     <form>
@@ -44,7 +44,7 @@
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
-                
+
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
