@@ -786,7 +786,7 @@
 </head>
 
 <body>
-    <button data-fiscal-year-id="{{$fiscal_year_id}}"
+    <button data-office-id="{{$office_id}}" data-fiscal-year-id="{{$fiscal_year_id}}"
             data-annual-plan-main-id="{{$annual_plan_main_id}}"
             data-activity-type="{{$activity_type}}"
             onclick="Annual_Plan_Container.printAnnualPlan($(this))"

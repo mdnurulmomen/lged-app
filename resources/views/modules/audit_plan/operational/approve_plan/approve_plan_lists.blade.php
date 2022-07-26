@@ -190,6 +190,7 @@
 
         printAnnualPlan: function (elem) {
             url = '{{route('audit.plan.annual.plan.revised.book')}}';
+            office_id = elem.data('office-id');
             fiscal_year_id = elem.data('fiscal-year-id');
             annual_plan_main_id = elem.data('annual-plan-main-id');
             activity_type = elem.data('activity-type');
@@ -203,7 +204,7 @@
             $.ajax({
                 type: 'POST',
                 url: url,
-                data: {fiscal_year_id,annual_plan_main_id,activity_type},
+                data: {office_id,fiscal_year_id,annual_plan_main_id,activity_type},
                 xhrFields: {
                     responseType: 'blob'
                 },

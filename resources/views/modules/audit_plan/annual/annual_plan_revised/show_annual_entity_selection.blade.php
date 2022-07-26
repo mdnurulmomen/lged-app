@@ -20,7 +20,7 @@
                         @endif
 
                        @if($current_office_id != 1)
-                            <button data-fiscal-year-id="{{$fiscal_year_id}}"
+                            <button data-office-id="{{$office_id}}" data-fiscal-year-id="{{$fiscal_year_id}}"
                                     data-annual-plan-main-id="{{$plan_list['id']}}"
                                     data-activity-type="{{$plan_list['activity_type']}}"
                                     onclick="Annual_Plan_Container.printAnnualPlan($(this))"

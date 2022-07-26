@@ -120,7 +120,7 @@ class OperationalPlanController extends Controller
         $fiscal_year_id = $request->fiscal_year_id;
         $annual_plan_main_id = $request->annual_plan_main_id;
         $activity_type = $request->activity_type;
-
+        
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
             'office_id' => 'required|integer',

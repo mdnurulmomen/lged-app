@@ -11,14 +11,14 @@ class AnnualPlanRevisedController extends Controller
 {
     public function index()
     {
+        $office_id = $this->current_office_id();
         $all_directorates = $this->allAuditDirectorates();
         $self_directorate = current(array_filter($all_directorates, function ($item) {
             return $this->current_office_id() == $item['office_id'];
         }));
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
-
         $fiscal_years = $this->allFiscalYears();
-        return view('modules.audit_plan.annual.annual_plan_revised.annual_plan_lists', compact('directorates','fiscal_years'));
+        return view('modules.audit_plan.annual.annual_plan_revised.annual_plan_lists', compact('office_id','directorates','fiscal_years'));
     }
 
     public function annualPlanCalender()
@@ -477,14 +477,13 @@ class AnnualPlanRevisedController extends Controller
     public function exportAnnualPlanBook(Request $request)
     {
         $data = Validator::make($request->all(), [
+            'office_id' => 'required|integer',
             'fiscal_year_id' => 'required|integer',
             'annual_plan_main_id' => 'required|integer',
             'activity_type' => 'nullable',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
-        $data['office_id'] = $this->current_office_id();
-
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
 
         if (isSuccess($plan_infos)) {
