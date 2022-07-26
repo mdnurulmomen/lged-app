@@ -15,7 +15,7 @@
                     <select class="form-control select-select2" name="status">
                         <option value="pending">Pending</option>
                         <option value="approved">Approved</option>
-                        <option value="reject">Reject</option>
+                        <option value="reject">Return to Audit Directorate</option>
                     </select>
                 </div>
             </div>
@@ -30,7 +30,8 @@
                 <a tabindex="0" href="javascript:;" role="button"
                    onclick="Approve_Plan_List_Container.sendAnnualPlanReceiverToSender()"
                    class="btn btn-primary btn-sm btn-square btn-forward">
-                    <i class="fa fa-paper-plane"></i>প্রেরণ করুন</a>
+                    <i class="far fa-save"></i> সংরক্ষণ করুন
+                </a>
             </div>
         </div>
     </div>

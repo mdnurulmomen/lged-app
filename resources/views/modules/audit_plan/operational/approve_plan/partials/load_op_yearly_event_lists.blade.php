@@ -15,23 +15,27 @@
         @if(!empty($event_list))
             @foreach($event_list as $event)
                     <tr>
-                        <td>{{$loop->iteration}}</td>
+                        <td>{{enToBn($loop->iteration)}}</td>
                         <td>{{$event['office_bn']}}
-                            <span class="badge badge-info text-uppercase m-1 p-1">{{$event['approval_status']}}</span>
+                            <span class="badge badge-info text-uppercase m-1 p-1">
+                                {{$event['approval_status'] == 'pending'?'Pending for Approval':$event['approval_status']}}
+                            </span>
                         </td>
                         <td>
-                            {{$event['activity_type']}}
+                            {{$event['activity_type'] == 'compliance'?'কমপ্লায়েন্স':$event['activity_type']}}
                         </td>
-{{--                        <td>--}}
-{{--                            {{$event['activity_count']}}--}}
-{{--                        </td>--}}
-{{--                        <td>--}}
-{{--                            {{$event['milestone_count']}}--}}
-{{--                        </td>--}}
                         <td>
                             <div class='btn-group btn-group-sm' role='group'>
-                                <button
-                                    class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                <button title="মুভমেন্ট লগ" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary mr-1"
+                                    data-annual-plan-main-id="{{$event['annual_plan_main_id']}}"
+                                    data-fiscal-year-id="{{$event['fiscal_year_id']}}"
+                                    data-op-audit-calendar-event-id="{{$event['op_audit_calendar_event_id']}}"
+                                    onclick="Approve_Plan_List_Container.movementHistory($(this))">
+                                    <i class="fad fa-info"></i>
+                                </button>
+
+                                <button title="বিস্তারিত"
+                                    class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary mr-1"
                                     data-office-id="{{$event['office_id']}}"
                                     data-annual-plan-main-id="{{$event['annual_plan_main_id']}}"
                                     data-activity-type="{{$event['activity_type']}}"
@@ -42,17 +46,19 @@
                                     <i class="fad fa-eye"></i>
                                 </button>
 
-                                <button
-                                    class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
-                                    data-op-audit-calendar-event-id="{{$event['op_audit_calendar_event_id']}}"
-                                    data-office-id="{{$event['office_id']}}"
-                                    data-annual-plan-main-id="{{$event['annual_plan_main_id']}}"
-                                    data-activity-type="{{$event['activity_type']}}"
-                                    data-office-name-bn="{{$event['office_bn']}}"
-                                    onclick="Approve_Plan_List_Container.loadOpYearlyEventApprovalForm($(this))"
-                                    title="View Approval Form">
-                                    <i class="fad fa-check"></i>
-                                </button>
+                                @if ($event['approval_status'] == 'pending')
+                                    <button title="অ্যাকশন"
+                                        class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                        data-op-audit-calendar-event-id="{{$event['op_audit_calendar_event_id']}}"
+                                        data-office-id="{{$event['office_id']}}"
+                                        data-annual-plan-main-id="{{$event['annual_plan_main_id']}}"
+                                        data-activity-type="{{$event['activity_type']}}"
+                                        data-office-name-bn="{{$event['office_bn']}}"
+                                        onclick="Approve_Plan_List_Container.loadOpYearlyEventApprovalForm($(this))"
+                                        title="View Approval Form">
+                                        <i class="fad fa-check"></i>
+                                    </button>
+                                @endif
                             </div>
                         </td>
                     </tr>

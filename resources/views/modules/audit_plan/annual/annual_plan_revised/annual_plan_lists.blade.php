@@ -809,6 +809,13 @@
             fiscal_year_id = elem.data('fiscal-year-id');
             annual_plan_main_id = elem.data('annual-plan-main-id');
             activity_type = elem.data('activity-type');
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                state: 'primary' // a bootstrap color
+            });
+
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -818,6 +825,7 @@
                 },
 
                 success: function (response) {
+                    KTApp.unblock("#kt_wrapper");
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);

@@ -1,21 +1,24 @@
 <x-title-wrapper>Approve Audit Annual Plan List</x-title-wrapper>
-<form class="pl-4 pt-4">
-    <div class="form-row">
-        <div class="col-md-4 ">
-            <label>Audit Year</label>
-            <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
-                <option value="">Choose Fiscal Year</option>
-                @foreach($fiscal_years as $fiscal_year)
-                    <option
-                        value="{{$fiscal_year['id']}}" {{$current_fiscal_year == $fiscal_year['id']?'selected':''}}>{{$fiscal_year['description']}}</option>
-                @endforeach
-            </select>
+
+<div class="card sna-card-border mt-3">
+    <form>
+        <div class="form-row">
+            <div class="col-md-4 ">
+                <label>Audit Year</label>
+                <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
+                    <option value="">Choose Fiscal Year</option>
+                    @foreach($fiscal_years as $fiscal_year)
+                        <option
+                            value="{{$fiscal_year['id']}}" {{$current_fiscal_year == $fiscal_year['id']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 
-<div class="px-3 py-3" id="load_directorate_lists">
-
+<div class="card sna-card-border mt-3">
+    <div id="load_directorate_lists"></div>
 </div>
 
 @include('scripts.script_generic')
@@ -146,6 +149,35 @@
                     }
                 }
             })
+        },
+
+        movementHistory: function (element) {
+            url = '{{route('audit.plan.annual.plan.revised.movement-history-annual-plan')}}';
+            fiscal_year_id = element.data('fiscal-year-id');
+            op_audit_calendar_event_id = element.data('op-audit-calendar-event-id');
+
+            data = {fiscal_year_id, op_audit_calendar_event_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('গতিবিধি');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
         },
     };
 </script>
