@@ -81,7 +81,7 @@
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
-                    quick_panel.css('width', '40%');
+                    quick_panel.css('width', '70%');
                     quick_panel.removeClass('d-none');
                     $("html").addClass("side-panel-overlay");
                     $(".offcanvas-wrapper").html(response);
@@ -185,6 +185,43 @@
                     $("html").addClass("side-panel-overlay");
                     $(".offcanvas-wrapper").html(response);
                 }
+            });
+        },
+
+        printAnnualPlan: function (elem) {
+            url = '{{route('audit.plan.annual.plan.revised.book')}}';
+            fiscal_year_id = elem.data('fiscal-year-id');
+            annual_plan_main_id = elem.data('annual-plan-main-id');
+            activity_type = elem.data('activity-type');
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                state: 'primary' // a bootstrap color
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {fiscal_year_id,annual_plan_main_id,activity_type},
+                xhrFields: {
+                    responseType: 'blob'
+                },
+
+                success: function (response) {
+                    KTApp.unblock("#kt_wrapper");
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "annual_plan.pdf";
+                    link.click();
+                },
+
+                error: function (blob) {
+                    toastr.error('Failed to generate PDF.')
+                    console.log(blob);
+                }
+
             });
         },
     };

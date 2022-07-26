@@ -117,6 +117,10 @@ class OperationalPlanController extends Controller
 
     public function loadDirectorateWiseAnnualPlan(Request $request)
     {
+        $fiscal_year_id = $request->fiscal_year_id;
+        $annual_plan_main_id = $request->annual_plan_main_id;
+        $activity_type = $request->activity_type;
+
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
             'office_id' => 'required|integer',
@@ -127,12 +131,19 @@ class OperationalPlanController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
+        //dd($plan_infos);
 
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
             $office_id = $request->office_id;
-
-            return view('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos, 'office_id' => $office_id], [], ['orientation' => 'L', 'format' => 'A4']);
+            return view('modules.audit_plan.operational.approve_plan.partials.annual_plan_book',
+            [
+                'plan_infos' => $plan_infos,
+                'office_id' => $office_id,
+                'fiscal_year_id' => $fiscal_year_id,
+                'annual_plan_main_id' => $annual_plan_main_id,
+                'activity_type' => $activity_type,
+            ], [], ['orientation' => 'L', 'format' => 'A4']);
         } else {
             return response()->json(['status' => 'error', 'data' => $plan_infos]);
         }
