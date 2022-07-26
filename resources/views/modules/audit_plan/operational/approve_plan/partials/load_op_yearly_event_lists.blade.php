@@ -54,6 +54,15 @@
                                     <i class="fad fa-eye"></i>
                                 </button>
 
+                                <button title="ডাউনলোড" data-office-id="{{$event['office_id']}}"
+                                        data-fiscal-year-id="{{$event['fiscal_year_id']}}"
+                                        data-annual-plan-main-id="{{$event['annual_plan_main_id']}}"
+                                        data-activity-type="{{$event['activity_type']}}"
+                                        onclick="Approve_Plan_List_Container.printAnnualPlan($(this))"
+                                        class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary mr-1">
+                                    <i class="fad fa-file-download"></i>
+                                </button>
+
                                 @if ($event['approval_status'] == 'pending')
                                     <button title="অ্যাকশন"
                                         class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"

@@ -789,8 +789,8 @@
     <button data-office-id="{{$office_id}}" data-fiscal-year-id="{{$fiscal_year_id}}"
             data-annual-plan-main-id="{{$annual_plan_main_id}}"
             data-activity-type="{{$activity_type}}"
-            onclick="Annual_Plan_Container.printAnnualPlan($(this))"
-            class="btn btn-sm btn-primary btn-square">
+            onclick="Approve_Plan_List_Container.printAnnualPlan($(this))"
+            class="btn btn-sm btn-danger btn-square">
         <i class="fad fa-file-download"></i>
         ডাউনলোড
     </button>

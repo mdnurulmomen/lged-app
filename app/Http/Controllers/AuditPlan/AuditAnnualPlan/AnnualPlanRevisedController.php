@@ -488,7 +488,7 @@ class AnnualPlanRevisedController extends Controller
 
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
-            $office_id = $this->current_office_id();
+            $office_id = $request->office_id;
             $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos,'office_id' => $office_id], [], ['orientation' => 'L', 'format' => 'A4']);
             return $pdf->stream('annual_plan.pdf');
         } else {
