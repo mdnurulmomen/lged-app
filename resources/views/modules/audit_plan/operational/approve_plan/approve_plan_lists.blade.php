@@ -35,10 +35,18 @@
         loadOpYearlyEventList: function () {
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
+
             if (fiscal_year_id) {
                 let url = '{{route('audit.plan.operational.plan.load-op-yearly-event-list')}}';
                 let data = {fiscal_year_id, fiscal_year};
+
+                KTApp.block('#kt_wrapper', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
+                
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.error(response.data)
                     } else {

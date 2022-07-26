@@ -40,7 +40,14 @@
                        @endif
 
                         <span class="badge badge-info text-uppercase m-1 p-1 ">
-                        {{$plan_list['approval_status']}}
+                            @if ($plan_list['approval_status'] == 'pending')
+                                Pending for Approval
+                            @elseif ($plan_list['approval_status'] == 'reject')
+                                Return to Audit Directorate
+                            @else
+                                {{$plan_list['approval_status']}}
+                            @endif
+                        </span>
                     @endif
                 </div>
                 {{--            @php dump($plan_list) @endphp--}}

@@ -79,7 +79,15 @@
                                                 <td>
                                                     <p class="mb-0">
                                                         <span class="sender">
-                                                            <span class="sender_name badge badge-info m-1 p-1">{{$annual_plan_movement['status']}}</span>
+                                                            <span class="sender_name badge badge-info m-1 p-1">
+                                                                @if ($annual_plan_movement['status'] == 'pending')
+                                                                    Pending for Approval
+                                                                @elseif ($annual_plan_movement['status'] == 'reject')
+                                                                    Return to Audit Directorate
+                                                                @else
+                                                                    {{$annual_plan_movement['status']}}
+                                                                @endif
+                                                            </span>
                                                         </span>
                                                     </p>
                                                 </td>

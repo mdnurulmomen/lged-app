@@ -18,7 +18,13 @@
                         <td>{{enToBn($loop->iteration)}}</td>
                         <td>{{$event['office_bn']}}
                             <span class="badge badge-info text-uppercase m-1 p-1">
-                                {{$event['approval_status'] == 'pending'?'Pending for Approval':$event['approval_status']}}
+                                @if ($event['approval_status'] == 'pending')
+                                    Pending for Approval
+                                @elseif ($event['approval_status'] == 'reject')
+                                    Return to Audit Directorate
+                                @else
+                                    {{$event['approval_status']}}
+                                @endif
                             </span>
                         </td>
                         <td>
