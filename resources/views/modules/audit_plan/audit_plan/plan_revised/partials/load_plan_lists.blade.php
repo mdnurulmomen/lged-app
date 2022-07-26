@@ -78,7 +78,7 @@
                             <div class="pr-2 flex-fill cursor-pointer position-relative">
                                 <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                     <!--begin::Title-->
-                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
+                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">
                                         <div class="font-weight-normal">
                                             <span class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.ministry_or_bivag')}}</span>
                                             <span class="font-size-14">
@@ -145,7 +145,7 @@
                                     </div>
                                     <!--end::Title-->
                                     <!--begin::Info-->
-                                    <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-4">
+                                    <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-6">
                                         <div class="d-block">
                                             <div
                                                 class="d-md-flex flex-wrap mb-2 align-items-center justify-content-md-end text-nowrap">
@@ -154,7 +154,7 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-md-end">
-                                                <div class="mb-5 mt-3 soongukto-wrapper">
+                                                <div class="mb-5 mt-5 soongukto-wrapper">
                                                     <div class="d-flex justify-content-end align-items-center">
                                                         <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($annual_plan['created_at'],'bn')}}</div>
                                                     </div>
@@ -177,7 +177,7 @@
                                                     }
                                                     $entity_list = json_encode($entity_list);
                                                 @endphp
-                                                <button class="mr-3 btn btn-sm btn-primary btn-square" title="বিস্তারিত দেখুন"
+                                                <button {{$annual_plan['annual_plan_main']['approval_status'] != 'approved'?'disabled':''}} class="mr-3 btn btn-sm btn-primary btn-square" title="বিস্তারিত দেখুন"
                                                         data-annual-plan-id="{{$annual_plan['id']}}"
                                                         data-activity-id="{{$annual_plan['activity_id']}}"
                                                         data-fiscal-year-id="{{$annual_plan['fiscal_year_id']}}"
@@ -198,11 +198,12 @@
                                                 </button>
 
                                                 @if(count($annual_plan['audit_plans']) == 0)
-                                                    <button class="mr-3 btn btn-sm btn-warning btn-square" title="নতুন অডিট প্ল্যান করুন"
-                                                            data-annual-plan-id="{{$annual_plan['id']}}"
-                                                            data-activity-id="{{$annual_plan['activity_id']}}"
-                                                            data-fiscal-year-id="{{$annual_plan['fiscal_year_id']}}"
-                                                            onclick="Audit_Plan_Container.loadAuditPlanBookCreatable($(this))">
+                                                    <button {{$annual_plan['annual_plan_main']['approval_status'] != 'approved'?'disabled':''}}
+                                                        class="mr-3 btn btn-sm btn-warning btn-square" title="নতুন অডিট প্ল্যান করুন"
+                                                        data-annual-plan-id="{{$annual_plan['id']}}"
+                                                        data-activity-id="{{$annual_plan['activity_id']}}"
+                                                        data-fiscal-year-id="{{$annual_plan['fiscal_year_id']}}"
+                                                        onclick="Audit_Plan_Container.loadAuditPlanBookCreatable($(this))">
                                                         <i class="fad fa-plus-circle"></i> নতুন অডিট প্ল্যান
                                                     </button>
                                                 @endif
