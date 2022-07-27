@@ -103,12 +103,12 @@
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
                     $('#activity_id').html(response);
                 }
+                KTApp.unblock('#kt_wrapper');
             }
             );
         },
@@ -122,12 +122,12 @@
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data)
                 } else {
                     $('#audit_plan_id').html(response);
                 }
+                KTApp.unblock('#kt_wrapper');
             });
         },
 
