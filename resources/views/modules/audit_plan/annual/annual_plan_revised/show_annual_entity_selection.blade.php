@@ -94,62 +94,60 @@
             </div>
         </div>
     </div>
-
-    <div class="toolbar flex-wrap justify-content-between shadow-sm pl-1 d-flex border-bottom">
-        <div class="d-flex">
-            <div id="daak_group_action_panel">
-                <div class="d-flex flex-wrap">
-                    <div class="btn-group">
-                        <div class="dropdown bootstrap-select form-control">
-                            <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light border-0"
-                                    data-toggle="dropdown" role="combobox" aria-owns="bs-select-1"
-                                    aria-haspopup="listbox" aria-expanded="false" data-id="daak_status_selectpicker"
-                                    title="সকল">
-                                <div class="filter-option">
-                                    <div class="filter-option-inner">
-                                        <div class="filter-option-inner-inner">সকল</div>
+    {{--list view--}}
+    @if(!empty($plan_list))
+        <div class="toolbar flex-wrap justify-content-between shadow-sm pl-1 d-flex border-bottom">
+            <div class="d-flex">
+                <div id="daak_group_action_panel">
+                    <div class="d-flex flex-wrap">
+                        <div class="btn-group">
+                            <div class="dropdown bootstrap-select form-control">
+                                <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light border-0"
+                                        data-toggle="dropdown" role="combobox" aria-owns="bs-select-1"
+                                        aria-haspopup="listbox" aria-expanded="false" data-id="daak_status_selectpicker"
+                                        title="সকল">
+                                    <div class="filter-option">
+                                        <div class="filter-option-inner">
+                                            <div class="filter-option-inner-inner">সকল</div>
+                                        </div>
                                     </div>
-                                </div>
-                            </button>
-                            <div class="dropdown-menu " style="max-height: 406px; overflow: hidden; min-height: 118px;">
-                                <div class="inner show" role="listbox" id="bs-select-1" tabindex="-1"
-                                     aria-activedescendant="bs-select-1-0"
-                                     style="max-height: 406px; overflow-y: auto; min-height: 118px;">
-                                    <ul class="dropdown-menu inner show" role="presentation"
-                                        style="margin-top: 0px; margin-bottom: 0px;">
-                                        <li class="selected active"><a role="option"
-                                                                       class="dropdown-item active selected"
-                                                                       id="bs-select-1-0" tabindex="0" aria-setsize="5"
-                                                                       aria-posinset="1" aria-selected="true"><span
-                                                    class="text">সকল</span></a></li>
-                                    </ul>
+                                </button>
+                                <div class="dropdown-menu " style="max-height: 406px; overflow: hidden; min-height: 118px;">
+                                    <div class="inner show" role="listbox" id="bs-select-1" tabindex="-1"
+                                         aria-activedescendant="bs-select-1-0"
+                                         style="max-height: 406px; overflow-y: auto; min-height: 118px;">
+                                        <ul class="dropdown-menu inner show" role="presentation"
+                                            style="margin-top: 0px; margin-bottom: 0px;">
+                                            <li class="selected active"><a role="option"
+                                                                           class="dropdown-item active selected"
+                                                                           id="bs-select-1-0" tabindex="0" aria-setsize="5"
+                                                                           aria-posinset="1" aria-selected="true"><span
+                                                        class="text">সকল</span></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <button id="btn-daak-toolbar-reset" class="btn btn-icon mx-1" type="button" data-toggle="tooltip"
-                            title="রিসেট">
-                        <span class="fas fa-recycle text-warning"></span>
-                    </button>
-                    <button id="btn-daak-toolbar-refresh" class="btn btn-icon mx-1" type="button" data-toggle="tooltip"
-                            title="রিফ্রেশ">
-                        <span class="fa fa-sync text-info"></span>
-                    </button>
-                    <div id="personal_folder_selected_name" class="p-2 d-none">
+                        <button id="btn-daak-toolbar-reset" class="btn btn-icon mx-1" type="button" data-toggle="tooltip"
+                                title="রিসেট">
+                            <span class="fas fa-recycle text-warning"></span>
+                        </button>
+                        <button id="btn-daak-toolbar-refresh" class="btn btn-icon mx-1" type="button" data-toggle="tooltip"
+                                title="রিফ্রেশ">
+                            <span class="fa fa-sync text-info"></span>
+                        </button>
+                        <div id="personal_folder_selected_name" class="p-2 d-none">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="daak_pagination_panel" class="float-right d-flex align-items-center" style="vertical-align:middle;">
+            <div id="daak_pagination_panel" class="float-right d-flex align-items-center" style="vertical-align:middle;">
                     <span class="mr-2"><span id="daak_item_length_start">{{count($plan_list['annual_plan_items']) > 1 ?'১':'০'}}</span> - <span
                             id="daak_item_length_end">{{enTobn(count($plan_list['annual_plan_items'] ?? []))}}</span> সর্বমোট: <span
                             id="daak_item_total_record">{{enTobn(count($plan_list['annual_plan_items']?? []))}}</span></span>
 
+            </div>
         </div>
-    </div>
-
-    {{--list view--}}
-    @if(!empty($plan_list))
         <div>
             <ul class="list-group list-group-flush">
                 @foreach($plan_list['annual_plan_items'] as $plan)
