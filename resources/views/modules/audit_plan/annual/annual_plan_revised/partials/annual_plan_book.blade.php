@@ -788,9 +788,10 @@
 <body>
     <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
         <div class="pdf-screen bangla-font" style="height: 100%">
-            <div class="bangla-font" style="text-align: center;font-size: 12px;margin-top: 5px">
+            <div class="bangla-font" style="text-align: center;margin-top: 5px">
                 {{-- {{ $plan_infos['office_info']['office_name_bn'] }} <br>
                 {!! $directorate_address !!} --}}
+                <span style="font-size: 16px">মহাপরিচালকের কার্যালয় </span> <br>
                 <x-office-header-details officeid="{{$office_id}}" />
             </div>
             <div class="bangla-font" style="text-align: center;font-size: 15px;margin-top: 5px">

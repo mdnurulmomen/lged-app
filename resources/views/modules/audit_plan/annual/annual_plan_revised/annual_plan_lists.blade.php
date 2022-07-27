@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<div id="load_annual_plan_lists"></div>
+<div class="mb-14" id="load_annual_plan_lists"></div>
 
 
 @include('scripts.script_generic')
@@ -607,8 +607,8 @@
 
             data = $('#annual_plan_form').serializeArray();
 
-            entity_info = {}
-            auditee = {}
+            entity_info = {};
+            auditee = {};
 
             $(".selected_entity").each(function () {
                 entity_data = JSON.parse($(this).val());
@@ -862,13 +862,15 @@
                 $('#activity_id').html('');
             }
         },
+
         loadAnnualPlanList: function () {
             office_id = $('#directorate_filter').val();
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             office_ministry_id = $('#office_ministry_id').val();
             activity_id = $('#activity_id').val();
             fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
-            if (fiscal_year_id) {
+
+            if (office_id) {
                 let url = '{{route('audit.plan.annual.plan.revised.annual-entities-show')}}';
                 let data = {office_id,fiscal_year_id, fiscal_year, activity_id, office_ministry_id};
                 KTApp.block('#kt_wrapper', {
@@ -878,12 +880,13 @@
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
-                        toastr.error(response.data)
+                        toastr.error(response.data);
                     } else {
                         $('#load_annual_plan_lists').html(response);
                     }
                 });
             } else {
+                toastr.error('Please select directorate');
                 $('#load_annual_plan_lists').html('');
             }
         },
