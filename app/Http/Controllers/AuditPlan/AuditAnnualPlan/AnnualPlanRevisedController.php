@@ -86,7 +86,7 @@ class AnnualPlanRevisedController extends Controller
             config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_entities_list_show'),
             $data
         )->json();
-//        dd($planListResponseData);
+        //dd($planListResponseData);
 
         $plan_list = isSuccess($planListResponseData) ? $planListResponseData['data']['annual_plan_list'] : [];
         //        $approval_status = isSuccess($planListResponseData)?$planListResponseData['data']['approval_status']:[];

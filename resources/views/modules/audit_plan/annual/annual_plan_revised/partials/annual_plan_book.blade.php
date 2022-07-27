@@ -874,10 +874,8 @@
                                     <td class="bangla-font" style="text-align: center" width="10%">এনটিটি/প্রতিষ্ঠানের মোট
                                         ইউনিট সংখ্যা
                                     </td>
-                                    <td class="bangla-font" style="text-align: center" width="20%">অডিটের জন্য
-                                        প্রস্তাবিত
-                                        ইউনিটের
-                                        নাম ও সংখ্যা
+                                    <td class="bangla-font" style="text-align: center" width="20%">
+                                        অডিটের জন্য প্রস্তাবিত ইউনিটের সংখ্যা
                                     </td>
                                     <td class="bangla-font" style="text-align: center" width="10%">সাবজেক্ট ম্যাটার
                                     </td>

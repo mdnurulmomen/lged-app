@@ -39,7 +39,7 @@
                                     data-fiscal-year-id="{{$event['fiscal_year_id']}}"
                                     data-op-audit-calendar-event-id="{{$event['op_audit_calendar_event_id']}}"
                                     onclick="Approve_Plan_List_Container.movementHistory($(this))">
-                                    <i class="fad fa-info"></i>
+                                    <i class="fad fa-clipboard-list"></i>
                                 </button>
 
                                 <button title="বিস্তারিত"

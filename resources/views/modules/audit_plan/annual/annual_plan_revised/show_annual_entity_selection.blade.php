@@ -141,17 +141,10 @@
             </div>
         </div>
         <div id="daak_pagination_panel" class="float-right d-flex align-items-center" style="vertical-align:middle;">
-                    <span class="mr-2"><span id="daak_item_length_start">১</span> - <span
+                    <span class="mr-2"><span id="daak_item_length_start">{{count($plan_list['annual_plan_items']) > 1 ?'১':'০'}}</span> - <span
                             id="daak_item_length_end">{{enTobn(count($plan_list['annual_plan_items'] ?? []))}}</span> সর্বমোট: <span
                             id="daak_item_total_record">{{enTobn(count($plan_list['annual_plan_items']?? []))}}</span></span>
-            <div class="btn-group">
-                <button class="btn-list-prev btn btn-icon btn-secondary btn-square" disabled="disabled" type="button"><i
-                        class="fad fa-chevron-left" data-toggle="popover" data-content="পূর্ববর্তী"
-                        data-original-title="" title=""></i></button>
-                <button class="btn-list-next btn btn-icon btn-secondary btn-square" type="button" disabled="disabled"><i
-                        class="fad fa-chevron-right" data-toggle="popover" data-content="পরবর্তী" data-original-title=""
-                        title=""></i></button>
-            </div>
+
         </div>
     </div>
 

@@ -85,7 +85,7 @@
                                                                 @elseif ($annual_plan_movement['status'] == 'reject')
                                                                     Return to Audit Directorate
                                                                 @else
-                                                                    {{$annual_plan_movement['status']}}
+                                                                    {{ucfirst($annual_plan_movement['status'])}}
                                                                 @endif
                                                             </span>
                                                         </span>
