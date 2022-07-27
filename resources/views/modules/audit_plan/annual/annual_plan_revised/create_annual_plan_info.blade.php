@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="row" style="margin-bottom:15px;">
+<div class="row mb-14">
     <div class="col-6">
         <div class="card sna-card-border">
             <select class="form-control" name="activity_id" id="activity_id">

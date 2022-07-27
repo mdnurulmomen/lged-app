@@ -603,10 +603,14 @@
         },
 
         submitAnnualPlan: function (elem) {
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             url = '{{route('audit.plan.annual.plan.revised.store')}}';
-
             data = $('#annual_plan_form').serializeArray();
-
             entity_info = {};
             auditee = {};
 
@@ -782,26 +786,45 @@
             data.push({name: "project_name_bn", value: $('#project_id').find(':selected').text()});
             data.push({name: "project_name_en", value: $('#project_id').find(':selected').attr('data-name-en')});
 
-            elem.prop('disabled', true)
-
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                elem.prop('disabled', false)
-                if (response.status === 'success') {
-                    toastr.success('Successfully Added!');
-                    $('.annual_plan_menu a').click();
-                } else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
-                            if (v !== '') {
-                                toastr.error(v);
+            if ($.isEmptyObject(entity_info)){
+                KTApp.unblock('#kt_wrapper');
+                toastr.error('Please choose entity');
+            }
+            else{
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('#kt_wrapper');
+                    if (response.status === 'success') {
+                        toastr.success('Successfully Added!');
+                        $('.annual_plan_menu a').click();
+                    } else {
+                        if (response.statusCode === '422') {
+                            var errors = response.msg;
+                            $.each(errors, function (k, v) {
+                                if (v !== '') {
+                                    toastr.error(v);
+                                }
+                            });
+                        } else {
+                            toastr.error(response.data.message);
+                        }
+                    }
+                },function (response) {
+                    KTApp.unblock('#kt_wrapper');
+                    if (response.responseJSON.errors) {
+                        $.each(response.responseJSON.errors, function (k, v) {
+                            if (isArray(v)) {
+                                $.each(v, function (n, m) {
+                                    toastr.error(m);
+                                })
+                            } else {
+                                if (v !== '') {
+                                    toastr.error(v);
+                                }
                             }
                         });
-                    } else {
-                        toastr.error(response.data.message);
                     }
-                }
-            })
+                })
+            }
         },
 
         printAnnualPlan: function (elem) {

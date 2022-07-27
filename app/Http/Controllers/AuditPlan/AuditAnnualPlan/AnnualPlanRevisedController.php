@@ -243,7 +243,6 @@ class AnnualPlanRevisedController extends Controller
                 'staff_comment' => 'nullable',
                 'staff_info' => 'nullable',
                 'budget' => 'nullable|string',
-                'entity_list' => 'required|string',
             ], [
                 'activity_id.required' => 'অ্যাক্টিভিটি অ্যাক্টিভিটি বাছাই করুন',
                 'subject_matter.required' => 'সাবজেক্ট ম্যাটার আবশ্যক',

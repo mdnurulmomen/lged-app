@@ -95,21 +95,34 @@
         load_apotti_repot_upload: function (){
             let url = '{{route('audit.execution.archive-apotti-report.create')}}';
             let data = {};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data);
-                    } else {
-                        $('#kt_content').html(response);
-                    }
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.warning(response.data);
+                } else {
+                    $('#kt_content').html(response);
                 }
-            );
+            });
         },
 
         load_apotti_upload: function (elem){
             report_id = elem.data('report-id');
             let url = '{{route('audit.execution.archive-apotti-report.apotti-upload-page')}}';
             let data = {report_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data);
                     } else {
@@ -124,7 +137,14 @@
             directorate_id = elem.data('directorate-id');
             let url = '{{route('audit.execution.archive-apotti-report.report-details')}}';
             let data = {report_id,directorate_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data);
                     } else {
