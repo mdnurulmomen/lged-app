@@ -159,7 +159,7 @@ class AnnualPlanRevisedController extends Controller
         )->json();
 
         $office_id = $this->current_office_id();
-
+        $data['office_id'] = $office_id;
         $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), $data)->json();
         $all_project = $all_project ? $all_project['data'] : [];
 
@@ -361,7 +361,7 @@ class AnnualPlanRevisedController extends Controller
             $data
         )->json();
 
-        //        dd($annual_plan_info);
+//        dd($annual_plan_info);
 
         if (session('dashboard_audit_type') == 'Compliance Audit') {
             $data['activity_type'] = 'compliance';
@@ -387,6 +387,11 @@ class AnnualPlanRevisedController extends Controller
         $fiscal_year_id = $request->fiscal_year_id;
         $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
 
+        $data['office_id'] = $this->current_office_id();
+
+        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), $data)->json();
+        $all_project = $all_project ? $all_project['data'] : [];
+
         if (isSuccess($all_activity)) {
             $all_activity = $all_activity['data'];
             $annual_plan_info = $annual_plan_info['data'];
@@ -406,6 +411,7 @@ class AnnualPlanRevisedController extends Controller
                     'staff_list',
                     'designations',
                     'staff_comment',
+                    'all_project'
                 )
             );
         } else {
