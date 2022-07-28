@@ -137,7 +137,14 @@
         sendAnnualPlanSenderToReceiver: function () {
             url = '{{route('audit.plan.annual.plan.revised.send-annual-plan-sender-to-receiver')}}';
             data = $('#approval_authority_form').serialize();
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     toastr.success('অনুমোদনের জন্য প্রেরিত হয়েছে');
                     $("#kt_quick_panel_close").click();

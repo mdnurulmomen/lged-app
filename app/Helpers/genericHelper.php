@@ -368,6 +368,7 @@ if (!function_exists('formatDate')) {
 if (!function_exists('formatDateTime')) {
     function formatDateTime($date_time, $lang = 'en', $separator = '/')
     {
+        date_default_timezone_set('Asia/Dhaka');
         if (!empty($date_time) || $date_time != '') {
             $date_time = bnToen($date_time);
             if ($lang == 'bn') {
