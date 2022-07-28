@@ -180,7 +180,7 @@ class AnnualPlanRevisedController extends Controller
     public function fiscalYearWiseActivitySelect(Request $request)
     {
         $data = Validator::make($request->all(), [
-            'fiscal_year_id' => 'required|integer',
+            'fiscal_year_id' => 'required',
         ],[
             'fiscal_year_id.required' => 'অর্থবছর বাছাই করুন',
         ])->validate();
