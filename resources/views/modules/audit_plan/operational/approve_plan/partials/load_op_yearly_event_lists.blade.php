@@ -19,15 +19,13 @@
                             {{$event['office_bn']}}
                         </td>
                         <td>
-                            <span class="badge badge-info text-uppercase m-1 p-1">
-                                @if ($event['approval_status'] == 'pending')
-                                    Pending for Approval
-                                @elseif ($event['approval_status'] == 'reject')
-                                    Return to Audit Directorate
-                                @else
-                                    {{$event['approval_status']}}
-                                @endif
-                            </span>
+                            @if ($event['approval_status'] == 'pending')
+                                <span class="badge badge-info text-uppercase m-1 p-1">Pending for Approval</span>
+                            @elseif ($event['approval_status'] == 'reject')
+                                <span class="badge badge-primary text-uppercase m-1 p-1">Return to Audit Directorate</span>
+                            @else
+                                <span class="badge badge-success text-uppercase m-1 p-1">{{$event['approval_status']}}</span>
+                            @endif
                         </td>
                         <td>
                             {{$event['activity_type'] == 'compliance'?'কমপ্লায়েন্স':$event['activity_type']}}
@@ -49,8 +47,7 @@
                                     data-activity-type="{{$event['activity_type']}}"
                                     data-fiscal-year-id="{{$event['fiscal_year_id']}}"
                                     data-office-name-bn="{{$event['office_bn']}}"
-                                    onclick="Approve_Plan_List_Container.viewDirectorateWiseAnnualPlan($(this))"
-                                    title="View Plan">
+                                    onclick="Approve_Plan_List_Container.viewDirectorateWiseAnnualPlan($(this))">
                                     <i class="fad fa-eye"></i>
                                 </button>
 
@@ -71,8 +68,7 @@
                                         data-annual-plan-main-id="{{$event['annual_plan_main_id']}}"
                                         data-activity-type="{{$event['activity_type']}}"
                                         data-office-name-bn="{{$event['office_bn']}}"
-                                        onclick="Approve_Plan_List_Container.loadOpYearlyEventApprovalForm($(this))"
-                                        title="View Approval Form">
+                                        onclick="Approve_Plan_List_Container.loadOpYearlyEventApprovalForm($(this))">
                                         <i class="fad fa-check"></i>
                                     </button>
                                 @endif
