@@ -45,6 +45,11 @@
                                     <span></span>
                                     Entity Based
                                 </label>
+                                <label for="project_based" class="radio radio-success project_based">
+                                    <input id="project_based" type="radio" name="annual_plan_type" value="project_based" />
+                                    <span></span>
+                                    Project Based
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -203,8 +208,8 @@
                         id="select_rp_parent_office" role="tabpanel" aria-labelledby="calender-tab">
                         <div class="px-3">
                             <x-rp-parent-office-select grid="6" unit="true" />
-                            @if ($office_id == 18)
-                                <div class="row">
+{{--                            @if ($office_id == 5 || $office_id ==  17 || $office_id ==  18)--}}
+                                <div style="display: none" class="row project_div">
                                     <div class="col-md-6">
                                         <label>প্রজেক্ট</label>
                                         <select id="project_id" class="form-control select-select2">
@@ -217,7 +222,7 @@
                                     </div>
                                 </div>
                                 <br>
-                            @endif
+{{--                            @endif--}}
                         </div>
                         <h5 class="text-primary pl-3"><u>এনটিটি/সংস্থার তালিকাঃ</u></h5>
                         @if (session('dashboard_audit_type') != 'Performance Audit')
@@ -421,10 +426,17 @@
         if (annual_plan_type == 'thematic') {
             $('.thematic_title').show();
             $('.annual_plan_type').removeClass('mt-12');
-        } else {
+            $('.project_div').hide();
+        } else if(annual_plan_type == 'entity_based') {
             $('.thematic_title').hide();
             $('.thematic_title').val('');
             $('.annual_plan_type').addClass('mt-12');
+            $('.project_div').hide();
+        }else {
+            $('.thematic_title').hide();
+            $('.thematic_title').val('');
+            $('.annual_plan_type').addClass('mt-12');
+            $('.project_div').show();
         }
     });
 

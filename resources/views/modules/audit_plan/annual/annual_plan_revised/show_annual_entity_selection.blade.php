@@ -189,14 +189,14 @@
                                             </a>
                                         </div>
 
-                                        @if($office_id == 18)
-                                        <div class="font-weight-normal">
-                                            <span
-                                                class="mr-2 font-size-1-1">প্রজেক্ট</span>
-                                            <span class="font-size-14">
-                                            {{$plan['project_name_bn']}}
-                                        </span>
-                                        </div>
+{{--                                        @if($office_id == 5 || $office_id == 17 || $office_id == 18)--}}
+                                        @if($plan['project_id'])
+                                            <div class="font-weight-normal">
+                                                <span class="mr-2 font-size-1-1">প্রজেক্ট</span>
+                                                    <span class="font-size-14">
+                                                        {{$plan['project_name_bn']}}
+                                                    </span>
+                                            </div>
                                         @endif
                                         <div class="font-weight-normal">
                                             <span

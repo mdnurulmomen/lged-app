@@ -160,7 +160,7 @@ class AnnualPlanRevisedController extends Controller
 
         $office_id = $this->current_office_id();
 
-        $all_project = $office_id == 18 ?  $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), $data)->json() : [];
+        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), $data)->json();
         $all_project = $all_project ? $all_project['data'] : [];
 
         //        dd($all_project);
@@ -541,7 +541,7 @@ class AnnualPlanRevisedController extends Controller
         ];
 
         //office id 18 fapad
-        if ($request->project_id && $this->current_office_id() == 18) {
+        if ($request->project_id) {
             $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-project-wise-entity'), $data)->json();
         } else {
             $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-rp-office-ministry-wise'), $data)->json();
