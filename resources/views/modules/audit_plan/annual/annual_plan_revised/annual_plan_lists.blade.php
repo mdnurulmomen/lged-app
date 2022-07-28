@@ -43,7 +43,6 @@
     $(function () {
         Annual_Plan_Container.loadFiscalYearWiseActivity();
         Annual_Plan_Container.loadMinistryLists();
-
     });
 
     $('#select_fiscal_year_annual_plan').change(function () {
@@ -887,6 +886,21 @@
                         // $('#activity_id').val(7);
                         // Annual_Plan_Container.loadAnnualPlanList();
                     }
+                },function (response) {
+                    KTApp.unblock('#kt_wrapper');
+                    if (response.responseJSON.errors) {
+                        $.each(response.responseJSON.errors, function (k, v) {
+                            if (isArray(v)) {
+                                $.each(v, function (n, m) {
+                                    toastr.error(m);
+                                })
+                            } else {
+                                if (v !== '') {
+                                    toastr.error(v);
+                                }
+                            }
+                        });
+                    }
                 });
             } else {
                 $('#activity_id').html('');
@@ -941,11 +955,26 @@
         },
 
         loadMinistryLists: function () {
-            let url = '{{route('mis_and_dashboard.derictorate_wise_ministry')}}';
+            let url = '{{route('mis_and_dashboard.directorate_wise_ministry')}}';
             directorate_id = $('#directorate_filter').val();
             let data = {directorate_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 $('#office_ministry_id').html(response);
+            },function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.responseJSON.errors) {
+                    $.each(response.responseJSON.errors, function (k, v) {
+                        if (isArray(v)) {
+                            $.each(v, function (n, m) {
+                                toastr.error(m);
+                            })
+                        } else {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        }
+                    });
+                }
             });
         },
 

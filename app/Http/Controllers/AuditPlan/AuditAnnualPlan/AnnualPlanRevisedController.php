@@ -181,9 +181,9 @@ class AnnualPlanRevisedController extends Controller
     {
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
+        ],[
+            'fiscal_year_id.required' => 'অর্থবছর বাছাই করুন',
         ])->validate();
-
-        //        dd($data);
 
         if (session('dashboard_audit_type') == 'Compliance Audit') {
             $data['activity_type'] = 'compliance';

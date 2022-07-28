@@ -80,7 +80,7 @@
     var Rpu_Apotti_Container = {
         loadDirectorateWiseMinstry: function () {
             directorate_id = $('#directorate_filter').val();
-            let url = '{{route('mis_and_dashboard.derictorate_wise_ministry')}}';
+            let url = '{{route('mis_and_dashboard.directorate_wise_ministry')}}';
             let data = {directorate_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     if (response.status === 'error') {

@@ -57,7 +57,7 @@ class MISAndDashboardController extends Controller
 
     }
 
-    public function derictorateWiseMinistry(Request $request)
+    public function directorateWiseMinistry(Request $request)
     {
         $data = Validator::make($request->all(), ['directorate_id' => 'integer|required'])->validate();
         $all_ministrys = $this->initRPUHttp()->post(config('cag_rpu_api.get-directorate-wise-ministry-list'), $data)->json();

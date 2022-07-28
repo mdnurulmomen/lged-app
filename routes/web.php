@@ -779,7 +779,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::get('/rpu-list', [MISAndDashboardController::class, 'rpuListIndex'])->name('rpu_list.index');
         Route::post('/load-rpu-lists', [MISAndDashboardController::class, 'loadRpuLists'])->name('rpu_list.load-lists');
-        Route::post('/directorate_wise_ministry', [MISAndDashboardController::class, 'derictorateWiseMinistry'])->name('derictorate_wise_ministry');
+        Route::post('/directorate_wise_ministry', [MISAndDashboardController::class, 'directorateWiseMinistry'])->name('directorate_wise_ministry');
 
         Route::get('/team-list', [MISAndDashboardController::class, 'teamListIndex'])->name('team_list.index');
         Route::post('/load-team-lists', [MISAndDashboardController::class, 'loadTeamLists'])->name('team_list.load-lists');
