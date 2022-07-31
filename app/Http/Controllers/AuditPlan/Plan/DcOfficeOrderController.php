@@ -99,7 +99,8 @@ class DcOfficeOrderController extends Controller
                 'heading_details' => $request->heading_details,
                 'advices' => $request->advices,
                 'approved_status' => 'draft',
-                'order_cc_list' => $request->order_cc_list
+                'order_cc_list' => $request->order_cc_list,
+                'cc_sender_details' => $request->cc_sender_details,
             ];
 
             $responseGenerateOfficeOrder = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order_dc.generate_office_order'), $data)->json();

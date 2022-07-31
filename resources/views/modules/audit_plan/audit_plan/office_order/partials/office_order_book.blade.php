@@ -936,7 +936,7 @@
     </div>
 
     <div class="pdf-screen bangla-font" style="height: 100%">
-        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;margin:60px 0 40px 0;text-align: center;float: right;width: 20%">
+        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;margin:60px 0 40px 0;text-align: center;float: right;width: 40%">
             @if($office_order['office_order_movement'] != null)
                 ({{$office_order['office_order_movement']['employee_name_bn']}}) <br>
                 {{$office_order['office_order_movement']['employee_designation_bn']}} <br>
@@ -963,7 +963,7 @@
             {!! nl2br($office_order['order_cc_list']) !!}
         </div>
 
-        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;margin-top:10px;text-align: center;float: right;width: 20%">
+        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;margin-top:10px;text-align: center;float: right;width: 40%">
             {{--({{$office_order['draft_officer_name_bn']}}) <br>
             {{$office_order['draft_designation_name_bn']}} <br>
             {{$office_order['draft_office_unit_bn']}} <br>
