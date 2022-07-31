@@ -934,11 +934,12 @@
         </div>
 
         <div class="bangla-font" style="font-family:nikoshpdf,serif !important;margin:60px 0 40px 0;text-align: center;float: right;width: 30%">
-            @if($office_order['office_order_movement'] != null)
+            {!! nl2br($office_order['issuer_details']) !!}
+            {{--@if($office_order['office_order_movement'] != null)
                 ({{$office_order['office_order_movement']['employee_name_bn']}}) <br>
                 {{$office_order['office_order_movement']['employee_designation_bn']}} <br>
                 ফোন: {{enTobn($office_order['office_order_movement']['officer_phone'])}}
-            @endif
+            @endif--}}
         </div>
     </div>
 

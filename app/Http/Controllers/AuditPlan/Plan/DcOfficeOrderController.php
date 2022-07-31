@@ -69,7 +69,7 @@ class DcOfficeOrderController extends Controller
             $data['office_order'] = $responseData['data']['office_order'];
             $data['audit_team_members'] = $responseData['data']['audit_team_members'];
             $data['audit_team_schedules'] = $responseData['data']['audit_team_schedules'];
-            return view('modules.audit_plan.audit_plan.office_order.show_office_order',$data);
+            return view('modules.audit_plan.audit_plan.dc_office_order.show_office_order_dc',$data);
         } else{
             return response()->json(['status' => 'error', 'data' => $responseData]);
         }
@@ -100,6 +100,7 @@ class DcOfficeOrderController extends Controller
                 'advices' => $request->advices,
                 'approved_status' => 'draft',
                 'order_cc_list' => $request->order_cc_list,
+                'issuer_details' => $request->issuer_details,
                 'cc_sender_details' => $request->cc_sender_details,
             ];
 
@@ -226,18 +227,20 @@ class DcOfficeOrderController extends Controller
     {
         $requestData = [
             'cdesk' => $this->current_desk_json(),
+            'office_order_id' => $request->office_order_id,
             'audit_plan_id' => $request->audit_plan_id,
             'annual_plan_id' => $request->annual_plan_id,
         ];
-
         $data['office_id'] = $this->current_office_id();
         $data['current_designation_id'] = $this->current_designation_id();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order_dc.show_office_order'), $requestData)
             ->json();
+
         $data['office_order'] = $responseData['data']['office_order'];
         $data['audit_team_members'] = $responseData['data']['audit_team_members'];
         $data['audit_team_schedules'] = $responseData['data']['audit_team_schedules'];
+
         $pdf = \PDF::loadView('modules.audit_plan.audit_plan.dc_office_order.partials.office_order_book_dc', $data);
-        return $pdf->stream('document.pdf');
+        return $pdf->stream('office_order_dc.pdf');
     }
 }
