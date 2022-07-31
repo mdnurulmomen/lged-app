@@ -202,6 +202,7 @@
                                                 </button>
 
                                                 <button class="mr-3 btn btn-sm btn-primary btn-square" title="বিস্তারিত দেখুন"
+                                                        data-office-id="{{$office_id}}"
                                                         data-annual-plan-id="{{$annual_plan['id']}}"
                                                         onclick="Audit_Plan_Container.showPlanInfo($(this))">
                                                     <i class="fad fa-eye"></i> বিস্তারিত

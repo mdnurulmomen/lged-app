@@ -155,8 +155,10 @@
         },
 
         showPlanInfo: function (elem) {
+            office_id = elem.data('office-id');
             annual_plan_id = elem.data('annual-plan-id');
-            data = {annual_plan_id}
+
+            data = {office_id,annual_plan_id};
             let url = '{{route('audit.plan.annual.plan.revised.show_plan_info')}}';
 
             KTApp.block('#kt_wrapper', {
