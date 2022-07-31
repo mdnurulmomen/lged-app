@@ -60,7 +60,7 @@
 {{--            <b><u>জনবল</u></b>--}}
 {{--        </div>--}}
 
-        <div style="margin-top: 5px">
+        {{--<div style="margin-top: 5px">
             <table width="100%" border="1">
                 <thead>
                 <tr>
@@ -86,7 +86,8 @@
                 @endforeach
                 </tbody>
             </table>
-        </div>
+        </div>--}}
+
         @foreach($audit_team_schedules as $audit_team_schedule)
             @if($audit_team_schedule['team_schedules'] != null)
                 <div style="text-align: center;margin-top: 10px">

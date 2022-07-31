@@ -803,7 +803,7 @@
             {{$office_order['heading_details']}}
         </div>
 
-        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: center;margin-top: 10px">
+        {{--<div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: center;margin-top: 10px">
             <b><u>নিরীক্ষা দল নং-০১</u></b>
         </div>
 
@@ -830,7 +830,7 @@
                 @endforeach
                 </tbody>
             </table>
-        </div>
+        </div>--}}
 
          @foreach($audit_team_schedules as $audit_team_schedule)
              @if($audit_team_schedule['team_schedules'] != null)
@@ -928,9 +928,7 @@
         <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: justify">
             {!! nl2br($office_order['advices']) !!}
         </div>
-    </div>
 
-    <div class="pdf-screen bangla-font" style="height: 100%">
         <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: justify">
             মহাপরিচালক মহোদয়ের সদয় অনুমোদনক্রমে।
         </div>
@@ -942,7 +940,10 @@
                 ফোন: {{enTobn($office_order['office_order_movement']['officer_phone'])}}
             @endif
         </div>
+    </div>
 
+    {{--office order page 2--}}
+    <div class="pdf-screen bangla-font" style="height: 100%">
         <div class="bangla-font" style="font-family:nikoshpdf,serif !important;width: 100%;margin-top: 10px">
             <div style="text-align: left;float:left;width: 70%;">
                 {{$office_order['memorandum_no']}}
