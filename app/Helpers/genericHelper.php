@@ -353,6 +353,7 @@ if (!function_exists('explodeAndMakeArray')) {
 if (!function_exists('formatDate')) {
     function formatDate($date, $lang = 'en', $separator = '/')
     {
+		date_default_timezone_set('Asia/Dhaka');
         if (!empty($date) || $date != '') {
             $date = bnToen($date);
             if ($lang == 'bn') {

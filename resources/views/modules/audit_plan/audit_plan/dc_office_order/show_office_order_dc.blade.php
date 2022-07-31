@@ -263,7 +263,13 @@
             approved_status = 'approved';
             data = {ap_office_order_id,audit_plan_id,annual_plan_id,approved_status,fiscal_year_id};
 
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     toastr.success('Successfully Approved!');
                 }
@@ -289,6 +295,12 @@
             annual_plan_id = elem.data('annual-plan-id');
             data = {audit_plan_id,annual_plan_id};
 
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                state: 'primary' // a bootstrap color
+            });
+
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -297,6 +309,7 @@
                     responseType: 'blob'
                 },
                 success: function (response) {
+                    KTApp.unblock('#kt_wrapper');
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);

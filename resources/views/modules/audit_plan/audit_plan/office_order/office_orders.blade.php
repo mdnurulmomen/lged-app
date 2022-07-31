@@ -65,10 +65,17 @@
         loadFiscalYearWiseActivity: function () {
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             if (fiscal_year_id) {
                 let url = '{{route('audit.plan.annual.plan.revised.fiscal-year-wise-activity-select')}}';
                 let data = {fiscal_year_id, fiscal_year};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.error(response.data)
                     } else {
@@ -121,8 +128,15 @@
             office_order_id = elem.data('office-order-id');
             audit_plan_id = elem.data('audit-plan-id');
             annual_plan_id = elem.data('annual-plan-id');
-            data = {audit_plan_id,annual_plan_id,office_order_id}
+            data = {audit_plan_id,annual_plan_id,office_order_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -136,8 +150,15 @@
             office_order_id = elem.data('office-order-id');
             audit_plan_id = elem.data('audit-plan-id');
             annual_plan_id = elem.data('annual-plan-id');
-            data = {office_order_id,audit_plan_id,annual_plan_id}
+            data = {office_order_id,audit_plan_id,annual_plan_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -178,7 +199,14 @@
         saveOfficeOrderApprovalAuthority: function () {
             url = '{{route('audit.plan.audit.office-orders.store-office-order-approval-authority')}}';
             data = $('#approval_authority_form').serialize();
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     toastr.success('{{___('generic.sent_successfully')}}');
                     $('#kt_quick_panel_close').click();

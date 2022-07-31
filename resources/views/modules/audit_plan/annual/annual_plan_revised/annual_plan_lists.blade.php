@@ -615,221 +615,227 @@
                 state: 'primary' // a bootstrap color
             });
 
-            url = '{{route('audit.plan.annual.plan.revised.store')}}';
-            data = $('#annual_plan_form').serializeArray();
-            entity_info = {};
-            auditee = {};
+            if($('#activity_id').val() == ""){
+                KTApp.unblock('#kt_wrapper');
+                toastr.error('Please choose activity');
+            }
+            else{
+                url = '{{route('audit.plan.annual.plan.revised.store')}}';
+                data = $('#annual_plan_form').serializeArray();
+                entity_info = {};
+                auditee = {};
 
-            $(".selected_entity").each(function () {
-                entity_data = JSON.parse($(this).val());
-                entity_info[entity_data.entity_id] = {
-                    entity_id: entity_data.entity_id,
-                    entity_en: entity_data.entity_name_en,
-                    entity_bn: entity_data.entity_name_bn,
-                    ministry_id: entity_data.ministry_id,
-                    ministry_name_en: entity_data.ministry_name_en,
-                    ministry_name_bn: entity_data.ministry_name_bn,
-                    layer_id: entity_data.layer_id,
-                    entity_total_unit: entity_data.child_count,
-                }
-
-                $(".selected_auditee").each(function () {
-                    temp = JSON.parse($(this).val());
-
-                    if (typeof auditee[temp.entity_id] === 'undefined') {
-                        auditee[temp.entity_id] = {};
+                $(".selected_entity").each(function () {
+                    entity_data = JSON.parse($(this).val());
+                    entity_info[entity_data.entity_id] = {
+                        entity_id: entity_data.entity_id,
+                        entity_en: entity_data.entity_name_en,
+                        entity_bn: entity_data.entity_name_bn,
+                        ministry_id: entity_data.ministry_id,
+                        ministry_name_en: entity_data.ministry_name_en,
+                        ministry_name_bn: entity_data.ministry_name_bn,
+                        layer_id: entity_data.layer_id,
+                        entity_total_unit: entity_data.child_count,
                     }
-                    if (entity_data.entity_id == temp.entity_id) {
-                        if (typeof auditee[temp.entity_id][temp.office_id] === 'undefined') {
-                            auditee[temp.entity_id][temp.office_id] = {};
+
+                    $(".selected_auditee").each(function () {
+                        temp = JSON.parse($(this).val());
+
+                        if (typeof auditee[temp.entity_id] === 'undefined') {
+                            auditee[temp.entity_id] = {};
                         }
-                        auditee[temp.entity_id][temp.office_id] = temp;
-                        if (typeof entity_info[auditee.entity_id] === 'undefined') {
-                            entity_info[auditee.entity_id] = {};
+                        if (entity_data.entity_id == temp.entity_id) {
+                            if (typeof auditee[temp.entity_id][temp.office_id] === 'undefined') {
+                                auditee[temp.entity_id][temp.office_id] = {};
+                            }
+                            auditee[temp.entity_id][temp.office_id] = temp;
+                            if (typeof entity_info[auditee.entity_id] === 'undefined') {
+                                entity_info[auditee.entity_id] = {};
+                            }
+                            if (entity_data.entity_id) {
+                                entity_info[entity_data.entity_id]['nominated_offices'] = auditee[entity_data.entity_id];
+                            }
                         }
-                        if (entity_data.entity_id) {
-                            entity_info[entity_data.entity_id]['nominated_offices'] = auditee[entity_data.entity_id];
-                        }
-                    }
+
+                    });
 
                 });
 
-            });
+                $s_key = 1;
+                sub_subject_list = {};
+                $(".sub_subject_matter_div input").each(function () {
 
-            $s_key = 1;
-            sub_subject_list = {};
-            $(".sub_subject_matter_div input").each(function () {
-
-                if ($(this).hasClass('sub_subject_matter')) {
-                    if (!$(this).val()) {
-                        toastr.warning('Select Sub Topic');
-                        sub_subject_list = {};
-                        return false;
-                    }else{
-                        if (typeof sub_subject_list[$s_key] === 'undefined') {
-                            sub_subject_list[$s_key] = {};
-                        }
-                        sub_subject_list[$s_key]['sub_subject_matter'] = $(this).val();
-                    }
-                }
-                $s_key++;
-            });
-
-            $o_key = 1;
-            sub_objective_list = {};
-            $(".sub_objective_row input").each(function () {
-                row_id = $(this).closest('.sub_objective_row').attr('id');
-                if ($(this).hasClass('sub_objective')) {
-                    if (!$(this).val()) {
-                        toastr.warning('Select Sub Objective');
-                        sub_objective_list = {};
-                        return false;
-                    }else{
-                        if (typeof sub_objective_list[$o_key] === 'undefined') {
-                            sub_objective_list[$o_key] = {};
-                        }
-                        sub_objective_list[$o_key]['sub_objective'] = $(this).val();
-                        sub_objective_list[$o_key]['line_of_enquires'] = {};
-
-                        $("#"+row_id+ " .line_of_enquire_row input").each(function (j) {
-                            if ($(this).hasClass('line_of_enquire')) {
-                                if (!$(this).val()) {
-                                    toastr.warning('Select Line Of Enquire');
-                                    sub_objective_list = {};
-                                    return false;
-                                }
-
-                                sub_objective_list[$o_key]['line_of_enquires'][j]= $(this).val();
+                    if ($(this).hasClass('sub_subject_matter')) {
+                        if (!$(this).val()) {
+                            toastr.warning('Select Sub Topic');
+                            sub_subject_list = {};
+                            return false;
+                        }else{
+                            if (typeof sub_subject_list[$s_key] === 'undefined') {
+                                sub_subject_list[$s_key] = {};
                             }
-                        });
-
+                            sub_subject_list[$s_key]['sub_subject_matter'] = $(this).val();
+                        }
                     }
-                }
-                $o_key++;
-            });
+                    $s_key++;
+                });
 
-            milestone_list = {};
+                $o_key = 1;
+                sub_objective_list = {};
+                $(".sub_objective_row input").each(function () {
+                    row_id = $(this).closest('.sub_objective_row').attr('id');
+                    if ($(this).hasClass('sub_objective')) {
+                        if (!$(this).val()) {
+                            toastr.warning('Select Sub Objective');
+                            sub_objective_list = {};
+                            return false;
+                        }else{
+                            if (typeof sub_objective_list[$o_key] === 'undefined') {
+                                sub_objective_list[$o_key] = {};
+                            }
+                            sub_objective_list[$o_key]['sub_objective'] = $(this).val();
+                            sub_objective_list[$o_key]['line_of_enquires'] = {};
 
-            $(".milestone_row input").each(function () {
-                if ($(this).hasClass('milestone_id')) {
-                    milestone_id = $(this).val();
-                    milestone_list[milestone_id] = {
-                        activity_id: $('#activity_id').val(),
-                        fiscal_year_id: $('#fiscal_year_id').val(),
-                        milestone_id: milestone_id,
-                    }
-                }
-                if ($(this).hasClass('milestone_target_date')) {
-                    milestone_list[milestone_id]['milestone_target_date'] = formatDate($(this).val());
-                }
-                if ($(this).hasClass('milestone_start_date')) {
-                    if (!$(this).val()) {
-                        toastr.warning('Select start date');
-                        milestone_list = {};
-                        $('#milestone_tab').click();
-                        return false;
-                    }
-                    milestone_list[milestone_id]['start_date'] = formatDate($(this).val());
-                }
-                if ($(this).hasClass('milestone_end_date')) {
-                    if (!$(this).val()) {
-                        toastr.warning('Select end date');
-                        milestone_list = {};
-                        return false;
-                    }
-                    milestone_list[milestone_id]['end_date'] = formatDate($(this).val());
-                }
-            });
+                            $("#"+row_id+ " .line_of_enquire_row input").each(function (j) {
+                                if ($(this).hasClass('line_of_enquire')) {
+                                    if (!$(this).val()) {
+                                        toastr.warning('Select Line Of Enquire');
+                                        sub_objective_list = {};
+                                        return false;
+                                    }
 
-            if(Object.keys(milestone_list).length === 0){
-                return;
-            }
-            sub_subject_list = JSON.stringify(sub_subject_list);
-            sub_objective_list = JSON.stringify(sub_objective_list);
-            milestone_list = JSON.stringify(milestone_list);
-            entity_list = JSON.stringify(entity_info);
-            annual_plan_type = $('input[name="annual_plan_type"]:checked').val();
-            // staff_list = {};
-            //
-            // $(".staff_row input, .staff_row select").each(function () {
-            //     // alert(count);
-            //     row_count = 0;
-            //     if ($(this).hasClass('staff_number')) {
-            //         row_count = $(this).attr('data-row-count');
-            //         alert(row_count);
-            //         staff_list[row_count] = {
-            //             staff: $(this).val(),
-            //         }
-            //     }
-            //     if ($(this).hasClass('staff_designation') && $(this).is("select")) {
-            //         staff_list[row_count]['designation_bn'] = $(this).val();
-            //         staff_list[row_count]['designation_en'] = $(this).find(':selected').attr('data-designation-en')
-            //     }
-            //     if ($(this).hasClass('staff_responsibility') && $(this).is("select")) {
-            //         staff_list[row_count]['responsibility_bn'] = $(this).val();
-            //         staff_list[row_count]['responsibility_en'] = $(this).find(':selected').attr('data-responsibility-en')
-            //     }
-            // });
-            //
-            // console.log(staff_list);sub_objective_list
-
-            data.push({name: "sub_subject_list", value: sub_subject_list});
-            data.push({name: "sub_objective_list", value: sub_objective_list});
-            data.push({name: "audit_approach", value: $("input[name='audit_approach']:checked").val()});
-            data.push({name: "activity_id", value: $('#activity_id').val()});
-            data.push({name: "milestone_id", value: $('#milestone_id').val()});
-            data.push({name: "milestone_list", value: milestone_list});
-            data.push({name: "entity_list", value: entity_list});
-            data.push({name: "annual_plan_type", value: annual_plan_type});
-            data.push({name: "thematic_title", value: $('.thematic_title').val()});
-            data.push({name: "office_type", value: $('#office_category_type_title_bn').val() ? $('#office_category_type_title_bn').val() : null});
-            data.push({name: "office_type_en", value: $('#office_category_type_title_en').val() ? $('#office_category_type_title_en').val() : null});
-            data.push({name: "office_type_id", value: $('#office_category_type_select').val() ? $('#office_category_type_select').val() : null});
-            data.push({name: "subject_matter", value: $('#subject_matter').val() ? $('#subject_matter').val() : null});
-            data.push({name: "vumika", value: $('#vumika').val() ? $('#vumika').val() : null});
-            data.push({name: "audit_objective", value: $('#audit_objective').val() ? $('#audit_objective').val() : null});
-            data.push({name: "project_id", value: $('#project_id').val()});
-            data.push({name: "project_name_bn", value: $('#project_id').find(':selected').text()});
-            data.push({name: "project_name_en", value: $('#project_id').find(':selected').attr('data-name-en')});
-
-            if ($.isEmptyObject(entity_info)){
-                KTApp.unblock('#kt_wrapper');
-                toastr.error('Please choose entity');
-            }
-            else{
-                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('#kt_wrapper');
-                    if (response.status === 'success') {
-                        toastr.success('Successfully Added!');
-                        $('.annual_plan_menu a').click();
-                    } else {
-                        if (response.statusCode === '422') {
-                            var errors = response.msg;
-                            $.each(errors, function (k, v) {
-                                if (v !== '') {
-                                    toastr.error(v);
+                                    sub_objective_list[$o_key]['line_of_enquires'][j]= $(this).val();
                                 }
                             });
-                        } else {
-                            toastr.error(response.data.message);
+
                         }
                     }
-                },function (response) {
-                    KTApp.unblock('#kt_wrapper');
-                    if (response.responseJSON.errors) {
-                        $.each(response.responseJSON.errors, function (k, v) {
-                            if (isArray(v)) {
-                                $.each(v, function (n, m) {
-                                    toastr.error(m);
-                                })
-                            } else {
-                                if (v !== '') {
-                                    toastr.error(v);
-                                }
-                            }
-                        });
+                    $o_key++;
+                });
+
+                milestone_list = {};
+
+                $(".milestone_row input").each(function () {
+                    if ($(this).hasClass('milestone_id')) {
+                        milestone_id = $(this).val();
+                        milestone_list[milestone_id] = {
+                            activity_id: $('#activity_id').val(),
+                            fiscal_year_id: $('#fiscal_year_id').val(),
+                            milestone_id: milestone_id,
+                        }
                     }
-                })
+                    if ($(this).hasClass('milestone_target_date')) {
+                        milestone_list[milestone_id]['milestone_target_date'] = formatDate($(this).val());
+                    }
+                    if ($(this).hasClass('milestone_start_date')) {
+                        if (!$(this).val()) {
+                            toastr.warning('Select start date');
+                            milestone_list = {};
+                            $('#milestone_tab').click();
+                            return false;
+                        }
+                        milestone_list[milestone_id]['start_date'] = formatDate($(this).val());
+                    }
+                    if ($(this).hasClass('milestone_end_date')) {
+                        if (!$(this).val()) {
+                            toastr.warning('Select end date');
+                            milestone_list = {};
+                            return false;
+                        }
+                        milestone_list[milestone_id]['end_date'] = formatDate($(this).val());
+                    }
+                });
+
+                if(Object.keys(milestone_list).length === 0){
+                    return;
+                }
+                sub_subject_list = JSON.stringify(sub_subject_list);
+                sub_objective_list = JSON.stringify(sub_objective_list);
+                milestone_list = JSON.stringify(milestone_list);
+                entity_list = JSON.stringify(entity_info);
+                annual_plan_type = $('input[name="annual_plan_type"]:checked').val();
+                // staff_list = {};
+                //
+                // $(".staff_row input, .staff_row select").each(function () {
+                //     // alert(count);
+                //     row_count = 0;
+                //     if ($(this).hasClass('staff_number')) {
+                //         row_count = $(this).attr('data-row-count');
+                //         alert(row_count);
+                //         staff_list[row_count] = {
+                //             staff: $(this).val(),
+                //         }
+                //     }
+                //     if ($(this).hasClass('staff_designation') && $(this).is("select")) {
+                //         staff_list[row_count]['designation_bn'] = $(this).val();
+                //         staff_list[row_count]['designation_en'] = $(this).find(':selected').attr('data-designation-en')
+                //     }
+                //     if ($(this).hasClass('staff_responsibility') && $(this).is("select")) {
+                //         staff_list[row_count]['responsibility_bn'] = $(this).val();
+                //         staff_list[row_count]['responsibility_en'] = $(this).find(':selected').attr('data-responsibility-en')
+                //     }
+                // });
+                //
+                // console.log(staff_list);sub_objective_list
+
+                data.push({name: "sub_subject_list", value: sub_subject_list});
+                data.push({name: "sub_objective_list", value: sub_objective_list});
+                data.push({name: "audit_approach", value: $("input[name='audit_approach']:checked").val()});
+                data.push({name: "activity_id", value: $('#activity_id').val()});
+                data.push({name: "milestone_id", value: $('#milestone_id').val()});
+                data.push({name: "milestone_list", value: milestone_list});
+                data.push({name: "entity_list", value: entity_list});
+                data.push({name: "annual_plan_type", value: annual_plan_type});
+                data.push({name: "thematic_title", value: $('.thematic_title').val()});
+                data.push({name: "office_type", value: $('#office_category_type_title_bn').val() ? $('#office_category_type_title_bn').val() : null});
+                data.push({name: "office_type_en", value: $('#office_category_type_title_en').val() ? $('#office_category_type_title_en').val() : null});
+                data.push({name: "office_type_id", value: $('#office_category_type_select').val() ? $('#office_category_type_select').val() : null});
+                data.push({name: "subject_matter", value: $('#subject_matter').val() ? $('#subject_matter').val() : null});
+                data.push({name: "vumika", value: $('#vumika').val() ? $('#vumika').val() : null});
+                data.push({name: "audit_objective", value: $('#audit_objective').val() ? $('#audit_objective').val() : null});
+                data.push({name: "project_id", value: $('#project_id').val()});
+                data.push({name: "project_name_bn", value: $('#project_id').find(':selected').text()});
+                data.push({name: "project_name_en", value: $('#project_id').find(':selected').attr('data-name-en')});
+
+                if ($.isEmptyObject(entity_info)){
+                    KTApp.unblock('#kt_wrapper');
+                    toastr.error('Please choose entity');
+                }
+                else{
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        KTApp.unblock('#kt_wrapper');
+                        if (response.status === 'success') {
+                            toastr.success('Successfully Added!');
+                            $('.annual_plan_menu a').click();
+                        } else {
+                            if (response.statusCode === '422') {
+                                var errors = response.msg;
+                                $.each(errors, function (k, v) {
+                                    if (v !== '') {
+                                        toastr.error(v);
+                                    }
+                                });
+                            } else {
+                                toastr.error(response.data.message);
+                            }
+                        }
+                    },function (response) {
+                        KTApp.unblock('#kt_wrapper');
+                        if (response.responseJSON.errors) {
+                            $.each(response.responseJSON.errors, function (k, v) {
+                                if (isArray(v)) {
+                                    $.each(v, function (n, m) {
+                                        toastr.error(m);
+                                    })
+                                } else {
+                                    if (v !== '') {
+                                        toastr.error(v);
+                                    }
+                                }
+                            });
+                        }
+                    })
+                }
             }
         },
 

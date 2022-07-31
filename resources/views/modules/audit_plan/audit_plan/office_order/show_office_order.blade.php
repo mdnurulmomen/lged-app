@@ -37,8 +37,8 @@
 
 <div class="card sna-card-border mt-3" style="margin-bottom:30px;">
     <div style="text-align: center">
-        {{--মহাপরিচালকের কার্যালয় <br>--}}
-        <x-office-header-details />
+        মহাপরিচালকের কার্যালয় <br>
+        <x-office-header-details officeid="{{$office_id}}" />
 
         <div style="width: 100%;margin-top: 10px">
             <span style="width: 85%;float: left;text-align: left">
@@ -261,10 +261,12 @@
             annual_plan_id = element.data('annual-plan-id');
             approved_status = 'approved';
             data = {ap_office_order_id,audit_plan_id,annual_plan_id,approved_status,fiscal_year_id};
+
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
@@ -293,6 +295,12 @@
             annual_plan_id = elem.data('annual-plan-id');
             data = {audit_plan_id,annual_plan_id,office_order_id};
 
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                state: 'primary' // a bootstrap color
+            });
+
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -301,6 +309,7 @@
                     responseType: 'blob'
                 },
                 success: function (response) {
+                    KTApp.unblock('#kt_wrapper');
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);

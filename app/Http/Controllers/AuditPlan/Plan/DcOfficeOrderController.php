@@ -64,23 +64,7 @@ class DcOfficeOrderController extends Controller
 
         $data['current_designation_id'] = $this->current_designation_id();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order_dc.show_office_order'), $requestData)->json();
-        //dd($responseData);
-        $directorateName = $this->current_office()['office_name_bn'];
-        if ($this->current_office_id() == 14){
-            $directorateAddress = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.dgcivil-cagbd.org';
-        }
-        elseif ($this->current_office_id() == 3){
-            $directorateAddress = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.worksaudit.org.bd';
-        }
-        else{
-            $directorateAddress = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.cad.org.bd';
-        }
-        $data['directorateName'] = $directorateName;
-        $data['directorateAddress'] = $directorateAddress;
-        $data['directorateWebsite'] = $directorateWebsite;
+        $data['office_id'] = $this->current_office_id();
         if(isSuccess($responseData)){
             $data['office_order'] = $responseData['data']['office_order'];
             $data['audit_team_members'] = $responseData['data']['audit_team_members'];

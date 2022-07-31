@@ -87,7 +87,7 @@
                                     <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-4">
                                         <div class="d-block">
                                             <div class="mt-5 d-flex align-items-center justify-content-md-end">
-                                                <div class="mb-2 mt-3 soongukto-wrapper">
+                                                <div class="mb-2 mt-5 soongukto-wrapper">
                                                     <div class="d-flex justify-content-end align-items-center">
                                                         <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($audit_plan['created_at'],'bn')}}</div>
                                                     </div>

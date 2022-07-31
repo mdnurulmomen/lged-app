@@ -49,7 +49,14 @@
         loadAuditablePlanList: function (fiscal_year_id,activity_id, page = 1, per_page = 100) {
             let url = '{{route('audit.plan.audit.revised.plan.load-all-lists')}}';
             let data = {fiscal_year_id,activity_id, page, per_page};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -61,7 +68,14 @@
         loadAuditPlans: function () {
             let url = '{{route('audit.plan.audit.revised.plan.load-all-lists')}}';
             let data = {fiscal_year_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -143,8 +157,13 @@
         showPlanInfo: function (elem) {
             annual_plan_id = elem.data('annual-plan-id');
             data = {annual_plan_id}
-            KTApp.block('#kt_wrapper');
-            let url = '{{route('audit.plan.annual.plan.revised.show_plan_info')}}'
+            let url = '{{route('audit.plan.annual.plan.revised.show_plan_info')}}';
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
@@ -171,10 +190,12 @@
             parent_office_id = elem.data('parent-office-id');
             modal_type = 'data-collection';
             data = {annual_plan_id, activity_id, fiscal_year_id, audit_plan_id, parent_office_id,modal_type};
+
             KTApp.block('.content', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('.content');
                 if (response.status === 'error') {
@@ -185,13 +206,21 @@
                 }
             })
         },
+
         loadFiscalYearWiseActivity: function () {
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             if (fiscal_year_id) {
                 let url = '{{route('audit.plan.annual.plan.revised.fiscal-year-wise-activity-select')}}';
                 let data = {fiscal_year_id, fiscal_year};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.error(response.data)
                     } else {

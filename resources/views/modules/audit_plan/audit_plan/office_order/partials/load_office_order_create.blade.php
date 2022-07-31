@@ -69,7 +69,15 @@
         generateOfficeOrder: function (elem) {
             url = '{{route('audit.plan.audit.office-orders.generate-office-order')}}';
             data = $('#office_order_generate_form').serialize();
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     toastr.success('সফলভাবে অফিস আদেশ সংরক্ষন করা হয়েছে');
                     $('#kt_quick_panel_close').click();
