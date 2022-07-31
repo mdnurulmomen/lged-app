@@ -213,11 +213,8 @@
                 {!! nl2br($office_order['order_cc_list']) !!}
             </div>
 
-            <div style="font-family:SolaimanLipi,serif !important;text-align: center;float: right">
-                ({{$office_order['draft_officer_name_bn']}}) <br>
-                {{$office_order['draft_designation_name_bn']}} <br>
-                {{$office_order['draft_office_unit_bn']}} <br>
-                ফোন: {{enTobn($office_order['draft_officer_phone'])}}
+            <div style="text-align: center;float: right">
+                {!! nl2br($office_order['cc_sender_details']) !!}
             </div>
         </div>
     </div>

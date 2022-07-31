@@ -187,6 +187,10 @@
             {!! nl2br($office_order['advices']) !!}
         </div>
 
+        <div style="text-align: justify">
+            মহাপরিচালক মহোদয়ের সদয় অনুমোদনক্রমে।
+        </div>
+
         <div style="text-align: center;float: right">
             @if(isset($office_order['office_order_movement']) && $office_order['office_order_movement'] != null)
                 ({{$office_order['office_order_movement']['employee_name_bn']}}) <br>
