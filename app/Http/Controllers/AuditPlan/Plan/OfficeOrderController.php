@@ -277,9 +277,7 @@ class OfficeOrderController extends Controller
             'audit_plan_id' => $request->audit_plan_id,
             'annual_plan_id' => $request->annual_plan_id,
         ];
-
-//        dd($requestData);
-
+        $data['office_id'] = $this->current_office_id();
         $data['current_designation_id'] = $this->current_designation_id();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_office_order'), $requestData)
             ->json();
