@@ -82,6 +82,7 @@ class RevisedPlanController extends Controller
             $activity_id = $request->activity_id;
             $fiscal_year_id = $request->fiscal_year_id;
             $annual_plan_id = $request->annual_plan_id;
+            $project_id = $audit_plan['annual_plan']['project_id'];
             $parent_office_id = 0;
             $annual_plan_type = $audit_plan['annual_plan']['annual_plan_type'] == 'thematic' ? 'থিমেটিক (ইস্যু)' : 'এনটিটি ভিত্তিক';
             $content = $audit_plan['plan_description'];
@@ -126,7 +127,7 @@ class RevisedPlanController extends Controller
             ];
 //            dd($cover_info);
             return view('modules.audit_plan.audit_plan.plan_revised.create_entity_audit_plan', compact('activity_id', 'annual_plan_id', 'audit_plan',
-                'entity_list', 'content', 'cover_info', 'fiscal_year_id', 'parent_office_content'));
+                'entity_list', 'content', 'cover_info', 'fiscal_year_id', 'parent_office_content','project_id'));
         } else {
             return ['status' => 'error', 'data' => $audit_plan];
         }

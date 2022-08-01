@@ -638,8 +638,9 @@
     }
 
     function loadSelectNominatedOffices(parent_office_id, layer_id, total_audit_schedule_row, ministry_id) {
+        project_id = '{{$project_id}}';
         url = '{{route('audit.plan.audit.editor.load-select-nominated-offices')}}';
-        data = {parent_office_id, layer_id, total_audit_schedule_row, ministry_id};
+        data = {parent_office_id, layer_id, total_audit_schedule_row, ministry_id,project_id};
 
         KTApp.block('.kt-portlet')
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
