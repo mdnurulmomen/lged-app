@@ -612,11 +612,11 @@ class AnnualPlanRevisedController extends Controller
             'parent_office_layer_id' => $request->parent_office_layer_id,
             'project_id' => $request->project_id,
         ];
-        //        dd($data);
+//                dd($data);
         $office_id = $this->current_office_id();
 
         //office id 18 fapad
-        if ($request->project_id && $office_id == 18) {
+        if ($request->project_id) {
             $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-project-wise-cost-center'), $data)->json();
         } else {
             $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-ministry-parent-wise-child-office'), $data)->json();
