@@ -17,7 +17,7 @@
                 <select class="form-select select-select2" id="fiscal_year_id">
                     @foreach($fiscal_years as $fiscal_year)
                         <option
-                            value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{enTobn($fiscal_year['description'])}}</option>
+                            value="{{$fiscal_year['id']}}" {{$current_fiscal_year == $fiscal_year['id']?'selected':''}}>{{enTobn($fiscal_year['description'])}}</option>
                     @endforeach
                 </select>
             </div>
@@ -63,6 +63,11 @@
 
     $('#activity_id').change(function (){
         Air_Report_Container.loadAirReportList();
+    });
+
+    $('#fiscal_year_id').change(function (){
+        fiscal_year_id = $(this).val();
+        Air_Report_Container.loadActivity(fiscal_year_id);
     });
 
     var Air_Report_Container = {
