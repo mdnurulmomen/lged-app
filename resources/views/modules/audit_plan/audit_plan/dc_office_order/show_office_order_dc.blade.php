@@ -106,6 +106,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        
 
                         @php $teamMemberSL = 1; @endphp
                         @foreach(json_decode($audit_team_schedule['team_members'],true) as $role => $team_members)
