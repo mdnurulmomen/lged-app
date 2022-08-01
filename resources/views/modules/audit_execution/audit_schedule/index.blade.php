@@ -39,8 +39,12 @@
         loadData();
     });
 
-    $('#activity_id,#select_fiscal_year_annual_plan').change(function () {
+    $('#select_fiscal_year_annual_plan').change(function () {
         Audit_Query_Schedule_Container.loadFiscalYearWiseActivity();
+        loadData();
+    });
+
+    $('#activity_id').change(function () {
         loadData();
     });
 
