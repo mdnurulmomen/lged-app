@@ -278,17 +278,17 @@
                         <!--end:Item-->
 
                         <!--begin:Item-->
-                        @if ($userDetails['username'] == '1-CAG-RPU001')
+                        @if ($userDetails['username'] == '1-CAG-RPU001' || (session('_current_office') && session('_current_office')['office_unit_organogram']['ref_designation_grade'] =='3'))
                             <div class="col-4">
                                 <a href="{{route('settings.index')}}"
-                                class=" text-center ">
+                                   class=" text-center ">
                                     <span class="svg-icon svg-icon-3x svg-icon-primary">
                                         <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="Stockholm-icons-/-Shopping-/-Settings" stroke="none" stroke-width="1"
-                                            fill="none" fill-rule="evenodd">
+                                               fill="none" fill-rule="evenodd">
                                                 <rect id="Bound" opacity="0.200000003" x="0" y="0" width="24"
-                                                    height="24"></rect>
+                                                      height="24"></rect>
                                                 <path
                                                     d="M4.5,7 L9.5,7 C10.3284271,7 11,7.67157288 11,8.5 C11,9.32842712 10.3284271,10 9.5,10 L4.5,10 C3.67157288,10 3,9.32842712 3,8.5 C3,7.67157288 3.67157288,7 4.5,7 Z M13.5,15 L18.5,15 C19.3284271,15 20,15.6715729 20,16.5 C20,17.3284271 19.3284271,18 18.5,18 L13.5,18 C12.6715729,18 12,17.3284271 12,16.5 C12,15.6715729 12.6715729,15 13.5,15 Z"
                                                     id="Combined-Shape" fill="#000000" opacity="0.3"></path>
