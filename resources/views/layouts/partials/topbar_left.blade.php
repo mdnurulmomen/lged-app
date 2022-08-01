@@ -278,7 +278,7 @@
                         <!--end:Item-->
 
                         <!--begin:Item-->
-                        @if ($userDetails['username'] == '1-CAG-RPU001' || (session('_current_office') && session('_current_office')['office_unit_organogram']['ref_designation_grade'] =='3'))
+                        @if ($userDetails['username'] == '1-CAG-RPU001' || $current_officer_grade =='3')
                             <div class="col-4">
                                 <a href="{{route('settings.index')}}"
                                    class=" text-center ">
