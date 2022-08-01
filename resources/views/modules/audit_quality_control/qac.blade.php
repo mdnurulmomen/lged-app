@@ -18,7 +18,7 @@
                 <select class="form-select select-select2" id="fiscal_year_id">
                     @foreach($fiscal_years as $fiscal_year)
                     <option
-                        value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{enTobn($fiscal_year['description'])}}</option>
+                        value="{{$fiscal_year['id']}}" {{$current_fiscal_year == $fiscal_year['id']?'selected':''}}>{{enTobn($fiscal_year['description'])}}</option>
                     @endforeach
                 </select>
             </div>
@@ -107,6 +107,7 @@
                     toastr.warning(response.data)
                 } else {
                     $('#activity_id').html(response);
+                    setActivityAnonymously();
                 }
                 KTApp.unblock('#kt_wrapper');
             }
@@ -417,5 +418,10 @@
         entity_list = $(this).find(':selected').attr('data-entity-info');
         Qac_Container.loadPlanWiseEntity(entity_list);
         Qac_Container.loadAuditPlanAndTypeWiseAIRList($(this).val());
+    });
+
+    $('#fiscal_year_id').change(function (){
+        fiscal_year_id = $(this).val();
+        Qac_Container.loadActivity(fiscal_year_id);
     });
 </script>
