@@ -106,7 +106,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        
+
 
                         @php $teamMemberSL = 1; @endphp
                         @foreach(json_decode($audit_team_schedule['team_members'],true) as $role => $team_members)
@@ -135,7 +135,7 @@
                             <td style="text-align: center" width="5%">ক্রমিক নং</td>
                             <td style="text-align: center" width="45%">শাখার নাম</td>
                             <td style="text-align: center" width="20%">নিরীক্ষা বছর</td>
-                            <td style="text-align: center" width="15%">নিরীক্ষা সময়কাল</td>
+                            <td style="text-align: center" width="15%">ডাটা কালেকশন সময়কাল</td>
                             <td style="text-align: center" width="15%">মোট কর্ম দিবস</td>
                         </tr>
                         <tr>
