@@ -156,39 +156,32 @@
                                                             onclick="Office_Order_Container_Dc.loadOfficeOrderCreateForm($(this))">
                                                         <i class="fad fa-plus-circle"></i>অফিস অর্ডার তৈরি করুন
                                                     </button>
-                                                @endif
-
-                                                @if($audit_plan['office_order'])
-                                                        @if($audit_plan['office_order']['approved_status'] == 'draft')
-                                                    <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
-                                                list-btn-toggle" title="অফিস অর্ডার করুন"
-                                                            data-audit-plan-id="0"
-                                                            data-annual-plan-id="{{$audit_plan['id']}}"
-                                                            onclick="Office_Order_Container_Dc.loadOfficeOrderCreateForm($(this))">
-                                                        <i class="fad fa-edit"></i>
-                                                    </button>
+                                                @else
+                                                    @if($audit_plan['office_order']['approved_status'] == 'draft')
+                                                        <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
+                                                                list-btn-toggle" title="অফিস অর্ডার করুন"
+                                                                data-audit-plan-id="0"
+                                                                data-annual-plan-id="{{$audit_plan['id']}}"
+                                                                onclick="Office_Order_Container_Dc.loadOfficeOrderCreateForm($(this))">
+                                                            <i class="fad fa-edit"></i>
+                                                        </button>
                                                     @endif
-                                                @endif
 
-
-                                                @if($audit_plan['office_order'])
                                                     <button
                                                         title="বিস্তারিত দেখুন"
                                                         class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
-                                                list-btn-toggle"
+                                            list-btn-toggle"
                                                         data-audit-plan-id="0"
                                                         data-annual-plan-id="{{$audit_plan['id']}}"
                                                         onclick="Office_Order_Container_Dc.showOfficeOrder($(this))" type="button">
                                                         <i class="fad fa-eye"></i>
                                                     </button>
-                                                @endif
 
-                                                @if($audit_plan['office_order'])
-                                                    @if($audit_plan['office_order']['approved_status'] == 'draft')
+                                                    @if($audit_plan['office_order']['approved_status'] == 'pending')
                                                         <button
                                                             title="প্রেরণ করুন"
                                                             class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
-                                                list-btn-toggle"
+                                            list-btn-toggle"
                                                             data-ap-office-order-id="{{$audit_plan['office_order']['id']}}"
                                                             data-audit-plan-id="0"
                                                             data-annual-plan-id="{{$audit_plan['id']}}"
@@ -198,11 +191,11 @@
                                                         </button>
                                                     @endif
 
-                                                    @if($audit_plan['office_order']['approved_status'] == 'draft' && $audit_plan['office_order']['office_order_movement'] != null
+                                                    @if($audit_plan['office_order']['approved_status'] == 'pending' && $audit_plan['office_order']['office_order_movement'] != null
                                                     && $audit_plan['office_order']['office_order_movement']['employee_designation_id'] == $current_designation_id)
                                                         <button
                                                             class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
-                                                list-btn-toggle"
+                                            list-btn-toggle"
                                                             data-ap-office-order-id="{{$audit_plan['office_order']['id']}}"
                                                             data-audit-plan-id="0"
                                                             data-annual-plan-id="{{$audit_plan['id']}}"
