@@ -166,6 +166,7 @@ class RevisedPlanController extends Controller
             $activity_id = $audit_plan['activity_id'];
             $annual_plan_id = $audit_plan['annual_plan_id'];
             $fiscal_year_id = $request->fiscal_year_id;
+            $project_id = $request->project_id;
 
             $entities = [];
             $entity_list = [];
@@ -188,7 +189,7 @@ class RevisedPlanController extends Controller
             $entity_list = json_encode($entity_list);
 
             return view('modules.audit_plan.audit_plan.plan_revised.edit_entity_audit_plan', compact('activity_id', 'annual_plan_id',
-                'audit_plan', 'content', 'fiscal_year_id', 'parent_office_id', 'entity_list'));
+                'audit_plan', 'content', 'fiscal_year_id', 'parent_office_id', 'entity_list','project_id'));
         } else {
             return ['status' => 'error', 'data' => $audit_plan];
         }
