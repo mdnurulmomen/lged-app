@@ -859,7 +859,7 @@
                                  <tr class="bangla-font">
                                      <td class="bangla-font" style="text-align: center">{{enTobn($teamMemberSL)}}</td>
                                      <td class="bangla-font" style="text-align: left;">&nbsp;জনাব {{$sub_team_leader['officer_name_bn']}}</td>
-                                     <td class="bangla-font" style="text-align: center">{{$sub_team_leader['designation_bn'].' ও '.$sub_team_leader['team_member_role_bn']}}</td>
+                                     <td class="bangla-font" style="text-align: center">{{$sub_team_leader['designation_bn'].','.$sub_team_leader['team_member_role_bn']}}</td>
                                      <td class="bangla-font" style="text-align: center">{{enTobn($sub_team_leader['officer_mobile'])}}</td>
                                      <td class="bangla-font" style="text-align: center"></td>
                                  </tr>
