@@ -177,7 +177,7 @@
                                                         <i class="fad fa-eye"></i>
                                                     </button>
 
-                                                    @if($audit_plan['office_order']['approved_status'] == 'pending')
+                                                    @if($audit_plan['office_order']['approved_status'] == 'draft')
                                                         <button
                                                             title="প্রেরণ করুন"
                                                             class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
