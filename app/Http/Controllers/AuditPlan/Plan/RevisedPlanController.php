@@ -147,7 +147,6 @@ class RevisedPlanController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
-//        dd($audit_plan);
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
             $parent_office_id = 0;
@@ -166,7 +165,7 @@ class RevisedPlanController extends Controller
             $activity_id = $audit_plan['activity_id'];
             $annual_plan_id = $audit_plan['annual_plan_id'];
             $fiscal_year_id = $request->fiscal_year_id;
-            $project_id = $request->project_id;
+            $project_id = $audit_plan['annual_plan']['project_id'];
 
             $entities = [];
             $entity_list = [];

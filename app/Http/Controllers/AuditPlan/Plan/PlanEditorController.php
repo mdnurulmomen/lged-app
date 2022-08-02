@@ -70,6 +70,7 @@ class PlanEditorController extends Controller
 
     public function loadNominatedOfficesSelectView(Request $request)
     {
+//        dd($request->all());
         $getParentWithChildOfficePassData['parent_office_id'] = $request->parent_office_id;
         $getParentWithChildOfficePassData['ministry_id'] = $request->ministry_id;
 
