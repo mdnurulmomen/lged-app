@@ -25,7 +25,8 @@
             </div>
         </div>
         <div class="col-md-6 text-right">
-{{--            @if($audit_plan['office_order'] == null || $audit_plan['office_order']['approved_status'] != 'approved')--}}
+
+            @if($check_edit_lock)
                 <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
                         data-audit-plan-id="{{$audit_plan['id']}}"
                         data-office-order-approval-status="{{$audit_plan['office_order'] ? $audit_plan['office_order']['approved_status'] : ''}}"
@@ -34,25 +35,28 @@
                         onclick="Entity_Plan_Container.showTeamCreateModal($(this));">
                         <i class="fas fa-users"></i> Team
                 </button>
-{{--            @endif--}}
 
-            <button class="btn btn-sm btn-square btn-warning btn-hover-warning"
-                    onclick="Entity_Plan_Container.riskAssessment($(this));">
-                <i class="fas fa-ballot-check"></i> Risk Assessment
-            </button>
+                <button class="btn btn-sm btn-square btn-warning btn-hover-warning"
+                        onclick="Entity_Plan_Container.riskAssessment($(this));">
+                    <i class="fas fa-ballot-check"></i> Risk Assessment
+                </button>
+            @endif
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
                     onclick="Entity_Plan_Container.previewAuditPlan()">
                 <i class="fas fa-eye"></i> Preview
             </button>
 
-            <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan"
-                    data-audit-plan-id="{{$audit_plan['id']}}"
-                    data-activity-id="{{$activity_id}}"
-                    data-annual-plan-id="{{$annual_plan_id}}"
-                    onclick="Entity_Plan_Container.draftEntityPlan($(this))">
-                <i class="fas fa-save"></i> Save
-            </button>
+
+            @if($check_edit_lock)
+              <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan"
+                      data-audit-plan-id="{{$audit_plan['id']}}"
+                      data-activity-id="{{$activity_id}}"
+                      data-annual-plan-id="{{$annual_plan_id}}"
+                      onclick="Entity_Plan_Container.draftEntityPlan($(this))">
+                  <i class="fas fa-save"></i> Save
+              </button>
+            @endif
         </div>
     </div>
 

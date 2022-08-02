@@ -905,7 +905,7 @@
                                                 <br>
                                                 <p><b>প্রজেক্ট :</b> {{ $annual_plans['project_name_bn'] }}</p>
                                             @endif
-                                            
+
                                         </td>
                                         <td class="bangla-font" style="text-align: center" width="10%">
                                             @php

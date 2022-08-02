@@ -146,9 +146,14 @@ class RevisedPlanController extends Controller
 
         $data['cdesk'] = $this->current_desk_json();
 
+        $check_edit_lock = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_lock'), $data)->json();
+        $check_edit_lock = $check_edit_lock['data'];
+//        dd($check_edit_lock);
         $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
+
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
+//            dd($audit_plan);
             $parent_office_id = 0;
             $content = json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])));
 //            $content = json_decode($content,true);
@@ -188,7 +193,7 @@ class RevisedPlanController extends Controller
             $entity_list = json_encode($entity_list);
 
             return view('modules.audit_plan.audit_plan.plan_revised.edit_entity_audit_plan', compact('activity_id', 'annual_plan_id',
-                'audit_plan', 'content', 'fiscal_year_id', 'parent_office_id', 'entity_list','project_id'));
+                'audit_plan', 'content', 'fiscal_year_id', 'parent_office_id', 'entity_list','project_id','check_edit_lock'));
         } else {
             return ['status' => 'error', 'data' => $audit_plan];
         }
