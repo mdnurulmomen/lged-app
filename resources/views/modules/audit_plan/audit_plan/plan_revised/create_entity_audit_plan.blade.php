@@ -14,7 +14,7 @@
 @section('content')
     <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
 
-    <div style="background-color: var(--sbodycontentbg);" class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
+    <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
         <div class="col-md-6">
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">
@@ -38,7 +38,10 @@
             </button>
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info entity_audit_plan_preview"
-                    onclick="Entity_Plan_Container.previewAuditPlan()">
+                    data-scope-editable="false"
+                    data-annual-plan-id="{{$annual_plan_id}}"
+                    data-fiscal-year-id="{{$fiscal_year_id}}"
+                    onclick="Entity_Plan_Container.previewAuditPlan($(this))">
                 <i class="fas fa-eye"></i> Preview
             </button>
 

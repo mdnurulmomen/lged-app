@@ -150,10 +150,11 @@
                                                    class="badge-square rounded-0 badge d-flex align-items-center
                                                    alert-{{$audit_plans['office_order'] == null || $audit_plans['office_order']['approved_status'] !='approved'?'danger':'success'}}
                                                        font-weight-normal mr-1 border decision"
+                                                   data-scope-editable="true"
                                                    data-audit-plan-id="{{$audit_plans['id']}}"
                                                    data-fiscal-year-id="{{$audit_plans['fiscal_year_id']}}"
                                                    data-annual-plan-id="{{$audit_plans['annual_plan_id']}}"
-                                                   onclick="Audit_Plan_Container.loadAuditPlanBookEditable($(this))">
+                                                   onclick="Audit_Plan_Container.loadAuditPlanBookOpen($(this))">
                                                     <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
                                                     প্ল্যান: {{enTobn($audit_plans['id'])}} {{$edit_user}}
                                                 </a>
