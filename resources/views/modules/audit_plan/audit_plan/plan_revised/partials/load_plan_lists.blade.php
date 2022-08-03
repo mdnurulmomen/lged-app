@@ -138,6 +138,13 @@
 
                                         <div class="d-flex mt-3">
                                             @foreach($annual_plan['audit_plans'] as $audit_plans)
+                                                @php
+                                                    $start = strtotime($audit_plans['edit_time_start']);
+                                                    $end = strtotime(now());
+                                                    $mins = ($end - $start) / 60;
+
+                                                    $edit_user = $mins < 30 ? 'এই সময়ে হালনাগাদ করতেছেন'.'('.$audit_plans['edit_user_details'].')' : '';
+                                                @endphp
                                                 <a href="javascript:;"
                                                    title="প্ল্যান-{{enTobn($audit_plans['id'])}} বিস্তারিত দেখুন"
                                                    class="badge-square rounded-0 badge d-flex align-items-center
@@ -148,7 +155,7 @@
                                                    data-annual-plan-id="{{$audit_plans['annual_plan_id']}}"
                                                    onclick="Audit_Plan_Container.loadAuditPlanBookEditable($(this))">
                                                     <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
-                                                    প্ল্যান: {{enTobn($audit_plans['id'])}}
+                                                    প্ল্যান: {{enTobn($audit_plans['id'])}} {{$edit_user}}
                                                 </a>
                                             @endforeach
                                         </div>

@@ -39,7 +39,7 @@ class PlanEditorController extends Controller
         $cdesk = $this->current_desk_json();
         $data['cdesk'] = $cdesk;
         $teamResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_wise_team'), $data)->json();
-//        dd($office_order_approval_status);
+//        dd($teamResponseData);
         //for office list
         $nominated_offices_list = [];
 //        $getParentWithChildOfficePassData['parent_office_id'] = $parent_office_id;

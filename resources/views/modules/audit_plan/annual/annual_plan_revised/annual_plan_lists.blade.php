@@ -794,7 +794,7 @@
                 data.push({name: "vumika", value: $('#vumika').val() ? $('#vumika').val() : null});
                 data.push({name: "audit_objective", value: $('#audit_objective').val() ? $('#audit_objective').val() : null});
                 data.push({name: "project_id", value: $('#project_id').val()});
-                data.push({name: "project_name_bn", value: $('#project_id').find(':selected').text()});
+                data.push({name: "project_name_bn", value: $('#project_id').find(':selected').attr('data-name-bn')});
                 data.push({name: "project_name_en", value: $('#project_id').find(':selected').attr('data-name-en')});
 
                 if ($.isEmptyObject(entity_info)){

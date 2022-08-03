@@ -9,6 +9,23 @@
         .tox-notification.tox-notification--in.tox-notification--warning {
             display: none !important;
         }
+
+        .progressBar {
+            width: 90%;
+            margin: 10px auto;
+            height: 22px;
+            background-color: #0A5F44;
+        }
+
+        .progressBar div {
+            height: 100%;
+            text-align: right;
+            padding: 0 10px;
+            line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+            width: 0;
+            background-color: #3699ff;
+            box-sizing: border-box;
+        }
     </style>
 @endsection
 @section('content')
@@ -65,6 +82,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="p-5">
+                        <div class="progressBar" id="progressBar">
+                            <div class="bar"></div>
+                        </div>
+                        <div>
+                            <p style="margin-left: 15px" class="text-danger">{{enTobn(30)}} মিনিটের মধ্যে সংরক্ষণ বাটনে ক্লিক করুন</p>
+                        </div>
                         <div id="createPlanJsTree" class="mt-5"></div>
                     </div>
                 </div>
@@ -78,7 +101,7 @@
             </div>
         </div>
     </div>
-    <div class="load-office-wise-employee"></div>
+{{--    <div class="load-office-wise-employee"></div>--}}
 @endsection
 @section('scripts')
     @include('scripts.audit_plan.edit.script_edit_entity_audit_plan')
