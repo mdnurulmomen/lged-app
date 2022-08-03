@@ -82,12 +82,20 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="p-5">
-                        <div class="progressBar" id="progressBar">
-                            <div class="bar"></div>
-                        </div>
-                        <div>
-                            <p style="margin-left: 15px" class="text-danger">{{enTobn(30)}} মিনিটের মধ্যে সংরক্ষণ বাটনে ক্লিক করুন</p>
-                        </div>
+                        @if(!$check_edit_lock)
+                            <div class="ml-5">
+                                <p><i class="fa fa-user pl-5"></i> {{ 'হালনাগাদ করতেছেন ('.$audit_plan['edit_user_details'].')' }}</p>
+                                <p><i class="fa fa-clock pl-5"></i> {{enTobn($audit_plan['edit_time_start'])}} থেকে হালনাগাদ করতেছেন</p>
+                            </div>
+                        @else
+                            <div class="progressBar" id="progressBar">
+                                <div class="bar"></div>
+                            </div>
+                            <div>
+                                <p style="margin-left: 15px" class="text-danger">{{enTobn(30)}} মিনিটের মধ্যে সংরক্ষণ বাটনে ক্লিক করুন</p>
+                            </div>
+                        @endif
+
                         <div id="createPlanJsTree" class="mt-5"></div>
                     </div>
                 </div>
