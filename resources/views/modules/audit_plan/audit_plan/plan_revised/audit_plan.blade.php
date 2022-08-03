@@ -84,6 +84,42 @@
             });
         },
 
+        loadAuditPlanBookOpen: function (elem) {
+            url = '{{route('audit.plan.audit.revised.plan.book-audit-plan')}}';
+            scope_editable= elem.data('scope-editable')
+            audit_plan_id = elem.data('audit-plan-id')
+            fiscal_year_id = elem.data('fiscal-year-id')
+            annual_plan_id = elem.data('annual-plan-id')
+
+            data = {
+                scope_editable,
+                audit_plan_id,
+                fiscal_year_id,
+                annual_plan_id,
+            };
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('অডিট প্ল্যান');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '90%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            })
+        },
+
         loadAuditPlanBookEditable: function (elem) {
             url = '{{route('audit.plan.audit.revised.plan.update-entity-audit-plan')}}';
             audit_plan_id = elem.data('audit-plan-id')

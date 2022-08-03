@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AuditPlan\Plan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RevisedPlanController extends Controller
@@ -155,18 +156,8 @@ class RevisedPlanController extends Controller
             $audit_plan = $audit_plan['data'];
 //            dd($audit_plan);
             $parent_office_id = 0;
-            $content = json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])));
-//            $content = json_decode($content,true);
-//            $content[] = [
-//                    "id" => 31,
-//                    "content_id" => "content_6_2",
-//                   "has_child" => "0",
-//                   "parent" => "28",
-//                   "text" => "অন্যান্য",
-//                   "content" => ""
-//            ];
-//            $content = json_encode($content);
-//            dd($content);
+            $content = gzuncompress(getDecryptedData($audit_plan['plan_description']));
+
             $activity_id = $audit_plan['activity_id'];
             $annual_plan_id = $audit_plan['annual_plan_id'];
             $fiscal_year_id = $request->fiscal_year_id;
@@ -216,7 +207,10 @@ class RevisedPlanController extends Controller
         }
         $data['activity_id'] = $request->activity_id;
         $data['annual_plan_id'] = $request->annual_plan_id;
-        $data['plan_description'] = makeEncryptedData(gzcompress(json_encode($request->plan_description)));
+
+        $plan_description = json_decode($request->plan_description);
+        $data['plan_description'] = makeEncryptedData(gzcompress(json_encode($plan_description)));
+
         $data['status'] = 'approved';
         $data['cdesk'] = $this->current_desk_json();
         $save_draft = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_make_draft'), $data)->json();
@@ -251,18 +245,41 @@ class RevisedPlanController extends Controller
     {
         ini_set('max_execution_time', '600');
         ini_set("pcre.backtrack_limit", "50000000");
-        $plans = $request->plan;
-        if ($request->scope == 'generate') {
+
+        $scope_editable = $request->scope_editable;
+        $fiscal_year_id = $request->fiscal_year_id;
+        $data['fiscal_year_id'] = $fiscal_year_id;
+        $annual_plan_id = $request->annual_plan_id;
+        $data['annual_plan_id'] = $annual_plan_id;
+        $audit_plan_id = $request->audit_plan_id;
+        $data['audit_plan_id'] = $audit_plan_id;
+
+        $current_office_id = $this->current_office_id();
+        $data['cdesk'] = $this->current_desk_json();
+
+        $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
+        if (isSuccess($audit_plan)) {
+            $audit_plan = $audit_plan['data'];
+            $fiscal_year = 'FY'.substr($audit_plan['fiscal_year']['start'],-2).'-'.substr($audit_plan['fiscal_year']['end'],-2);
+            $plans = json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])),true);
+
+            $entity_name = '';
+            foreach ($audit_plan['annual_plan']['ap_entities'] as $ap_entities) {
+                $entity_name = $ap_entities['entity_name_en'];
+                break;
+            }
+
             $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
                 ['plans' => $plans], [], ['orientation' => 'P', 'format' => 'A4']);
-            $fileName = 'audit_plan_' . date('D_M_j_Y') . '.pdf';
-            return $pdf->stream($fileName);
-        } elseif ($request->scope == 'preview') {
-            return view('modules.audit_plan.audit_plan.plan_revised.partials.preview_audit_plan',
-                compact('plans'));
+            $fileName = $current_office_id.'_Plan'.$audit_plan_id.'_'.$fiscal_year.'_'.$entity_name.'.pdf';
 
-        } else {
-            return ['status' => 'error', 'data' => 'Somethings went wrong'];
+            Storage::put('public/individual_plan/'.$fileName, $pdf->output());
+            return view('modules.audit_plan.audit_plan.plan_revised.partials.preview_audit_plan',
+                compact('scope_editable','fiscal_year_id','annual_plan_id','audit_plan_id','plans',
+                    'current_office_id','fileName'));
+        }
+        else {
+            return ['status' => 'error', 'data' => 'Error'];
         }
     }
 

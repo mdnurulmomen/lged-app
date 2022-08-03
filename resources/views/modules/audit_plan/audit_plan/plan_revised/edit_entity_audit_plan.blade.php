@@ -11,26 +11,27 @@
         }
 
         .progressBar {
-            width: 90%;
-            margin: 10px auto;
-            height: 22px;
-            background-color: #0A5F44;
+            width: 100%;
+            /*margin: 10px auto;
+            height: 22px;*/
+            /*background-color: #0A5F44;*/
         }
 
         .progressBar div {
             height: 100%;
-            text-align: right;
-            padding: 0 10px;
-            line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+            text-align: left;
+            /*padding: 0 10px;*/
+            /*line-height: 22px;*/ /* same as #progressBar height if we want text middle aligned */
             width: 0;
-            background-color: #3699ff;
+            /*background-color: #3699ff;*/
             box-sizing: border-box;
         }
     </style>
 @endsection
 @section('content')
     <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
-    <div style="background-color: var(--sbodycontentbg);" class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
+
+    <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
         <div class="col-md-6">
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">
@@ -60,7 +61,10 @@
             @endif
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
-                    onclick="Entity_Plan_Container.previewAuditPlan()">
+                    data-scope-editable="false"
+                    data-annual-plan-id="{{$annual_plan_id}}"
+                    data-fiscal-year-id="{{$fiscal_year_id}}"
+                    onclick="Entity_Plan_Container.previewAuditPlan($(this))">
                 <i class="fas fa-eye"></i> Preview
             </button>
 
@@ -92,7 +96,9 @@
                                 <div class="bar"></div>
                             </div>
                             <div>
-                                <p style="margin-left: 15px" class="text-danger">{{enTobn(30)}} মিনিটের মধ্যে সংরক্ষণ বাটনে ক্লিক করুন</p>
+                                <p style="margin-left: 15px" class="text-danger">
+                                    ৩০ মিনিটের মধ্যে সংরক্ষণ বাটনে ক্লিক করুন
+                                </p>
                             </div>
                         @endif
 
