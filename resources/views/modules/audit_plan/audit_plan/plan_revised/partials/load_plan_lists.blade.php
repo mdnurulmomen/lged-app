@@ -154,6 +154,7 @@
                                                    data-audit-plan-id="{{$audit_plans['id']}}"
                                                    data-fiscal-year-id="{{$audit_plans['fiscal_year_id']}}"
                                                    data-annual-plan-id="{{$audit_plans['annual_plan_id']}}"
+                                                   data-approval-status="{{$audit_plans['status']}}"
                                                    onclick="Audit_Plan_Container.loadAuditPlanBookOpen($(this))">
                                                     <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
                                                     প্ল্যান: {{enTobn($audit_plans['id'])}} {{$edit_user}}

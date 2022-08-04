@@ -95,11 +95,11 @@
                             <div class="progressBar" id="progressBar">
                                 <div class="bar"></div>
                             </div>
-                            <div>
+                            {{--<div>
                                 <p style="margin-left: 15px" class="text-danger">
                                     ৩০ মিনিটের মধ্যে সংরক্ষণ বাটনে ক্লিক করুন
                                 </p>
-                            </div>
+                            </div>--}}
                         @endif
 
                         <div id="createPlanJsTree" class="mt-5"></div>
