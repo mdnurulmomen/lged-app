@@ -396,7 +396,7 @@
                 porisisto = tinymce.get("kt-tinymce-porisisto-"+start+"").getContent();
                 from_data.append('porisisto_details[]', porisisto);
             }
-            
+
             $.ajax({
                 data: from_data,
                 url: "{{route('audit.execution.memo.update')}}",

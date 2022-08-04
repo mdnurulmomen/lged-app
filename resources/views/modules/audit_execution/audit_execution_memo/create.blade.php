@@ -284,7 +284,7 @@
                     KTApp.unblock('#kt_wrapper');
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
-                        $('.btn-back a').click();
+                        $('.btn-back').click();
                     } else {
                         elem.prop('disabled', false);
                         if (responseData.statusCode === '422') {
