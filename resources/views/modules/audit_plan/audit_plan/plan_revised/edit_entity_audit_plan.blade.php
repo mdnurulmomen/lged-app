@@ -93,7 +93,7 @@
                             </div>
                         @else
                             <div class="progressBar" id="progressBar">
-                                <div class="bar"></div>
+                                <div class="bar" style="width:100%"></div>
                             </div>
                             {{--<div>
                                 <p style="margin-left: 15px" class="text-danger">
@@ -115,7 +115,9 @@
             </div>
         </div>
     </div>
-{{--    <div class="load-office-wise-employee"></div>--}}
+
+    <div class="load-office-wise-employee"></div>
+
 @endsection
 @section('scripts')
     @include('scripts.audit_plan.edit.script_edit_entity_audit_plan')

@@ -90,12 +90,14 @@
             audit_plan_id = elem.data('audit-plan-id')
             fiscal_year_id = elem.data('fiscal-year-id')
             annual_plan_id = elem.data('annual-plan-id')
+            approval_status = elem.data('approval-status')
 
             data = {
                 scope_editable,
                 audit_plan_id,
                 fiscal_year_id,
                 annual_plan_id,
+                approval_status,
             };
 
             KTApp.block('#kt_wrapper', {
