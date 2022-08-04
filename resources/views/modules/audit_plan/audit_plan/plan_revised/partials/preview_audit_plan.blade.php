@@ -1,4 +1,4 @@
-@if($scope_editable)
+@if($scope_editable == 1)
     <div class="row mb-3">
         <div class="col-md-12">
             <div class="d-flex justify-content-end">

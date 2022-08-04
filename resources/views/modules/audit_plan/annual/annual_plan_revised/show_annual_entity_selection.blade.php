@@ -157,6 +157,10 @@
                                 <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                     <!--begin::Title-->
                                     <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-7">
+                                        <div class="font-weight-bolder">
+                                            <span class="mr-2 font-size-1-2">ক্রমিক নং:</span>
+                                            <span class="font-size-14">{{enTobn($loop->iteration)}}</span>
+                                        </div>
                                         <div class="font-weight-normal">
                                             <span
                                                 class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.ministry_or_bivag')}}</span>
