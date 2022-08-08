@@ -3,6 +3,16 @@
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row">
         <div class="col-md-3">
+            <select class="form-select select-select2" id="directorate_filter">
+                @if(count($directorates) > 1)
+                    <option value="">অধিদপ্তর বাছাই করুন</option>
+                @endif
+                @foreach($directorates as $directorate)
+                    <option value="{{$directorate['office_id']}}">{{$directorate['office_name_bn']}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-3">
             <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
                 <option value="">--সিলেক্ট--</option>
                 @foreach($fiscal_years as $fiscal_year)
@@ -45,10 +55,17 @@
         Audit_Plan_Container.loadAuditablePlanList(fiscal_year_id,activity_id);
     });
 
+    $('#directorate_filter').change(function () {
+        activity_id = $('#activity_id').val();
+        fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+        Audit_Plan_Container.loadAuditablePlanList(fiscal_year_id,activity_id);
+    });
+
     var Audit_Plan_Container = {
         loadAuditablePlanList: function (fiscal_year_id,activity_id, page = 1, per_page = 100) {
+            office_id = $('#directorate_filter').val();
             let url = '{{route('audit.plan.audit.revised.plan.load-all-lists')}}';
-            let data = {fiscal_year_id,activity_id, page, per_page};
+            let data = {fiscal_year_id,activity_id,office_id, page, per_page};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
@@ -90,7 +107,8 @@
             audit_plan_id = elem.data('audit-plan-id')
             fiscal_year_id = elem.data('fiscal-year-id')
             annual_plan_id = elem.data('annual-plan-id')
-            approval_status = elem.data('approval-status')
+            approval_status = elem.data('approval-status');
+            office_id =  $('#directorate_filter').val();
 
             data = {
                 scope_editable,
@@ -98,6 +116,7 @@
                 fiscal_year_id,
                 annual_plan_id,
                 approval_status,
+                office_id
             };
 
             KTApp.block('#kt_wrapper', {

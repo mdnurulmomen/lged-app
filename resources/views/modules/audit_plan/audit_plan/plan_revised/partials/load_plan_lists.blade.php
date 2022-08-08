@@ -201,36 +201,44 @@
                                                     }
                                                     $entity_list = json_encode($entity_list);
                                                 @endphp
-                                                <button {{$annual_plan['annual_plan_main']['approval_status'] != 'approved'?'disabled':''}} class="mr-3 btn btn-sm btn-primary btn-square" title="বিস্তারিত দেখুন"
+
+                                                @if($office_id !=1)
+                                                    <button
+                                                        {{$annual_plan['annual_plan_main']['approval_status'] != 'approved'?'disabled':''}} class="mr-3 btn btn-sm btn-primary btn-square"
+                                                        title="বিস্তারিত দেখুন"
                                                         data-annual-plan-id="{{$annual_plan['id']}}"
                                                         data-activity-id="{{$annual_plan['activity_id']}}"
                                                         data-fiscal-year-id="{{$annual_plan['fiscal_year_id']}}"
                                                         data-parent-office-id="{{$entity_list}}"
                                                         onclick="Audit_Plan_Container.showTeamDataCollectionCreateModal($(this));">
-                                                    <i class="fa fa-database" aria-hidden="true"></i>
-                                                    প্রাইমারি ডাটা কালেকশন
-                                                    @if($annual_plan['has_dc_schedule'])
-                                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                                    @endif
+                                                        <i class="fa fa-database" aria-hidden="true"></i>
+                                                        প্রাইমারি ডাটা কালেকশন
+                                                        @if($annual_plan['has_dc_schedule'])
+                                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                                        @endif
 
-                                                </button>
-
-                                                <button class="mr-3 btn btn-sm btn-primary btn-square" title="বিস্তারিত দেখুন"
-                                                        data-office-id="{{$office_id}}"
-                                                        data-annual-plan-id="{{$annual_plan['id']}}"
-                                                        onclick="Audit_Plan_Container.showPlanInfo($(this))">
-                                                    <i class="fad fa-eye"></i> বিস্তারিত
-                                                </button>
-
-                                                @if(count($annual_plan['audit_plans']) == 0)
-                                                    <button {{$annual_plan['annual_plan_main']['approval_status'] != 'approved'?'disabled':''}}
-                                                        class="mr-3 btn btn-sm btn-warning btn-square" title="নতুন অডিট প্ল্যান করুন"
-                                                        data-annual-plan-id="{{$annual_plan['id']}}"
-                                                        data-activity-id="{{$annual_plan['activity_id']}}"
-                                                        data-fiscal-year-id="{{$annual_plan['fiscal_year_id']}}"
-                                                        onclick="Audit_Plan_Container.loadAuditPlanBookCreatable($(this))">
-                                                        <i class="fad fa-plus-circle"></i> নতুন অডিট প্ল্যান
                                                     </button>
+
+                                                    <button class="mr-3 btn btn-sm btn-primary btn-square"
+                                                            title="বিস্তারিত দেখুন"
+                                                            data-office-id="{{$office_id}}"
+                                                            data-annual-plan-id="{{$annual_plan['id']}}"
+                                                            onclick="Audit_Plan_Container.showPlanInfo($(this))">
+                                                        <i class="fad fa-eye"></i> বিস্তারিত
+                                                    </button>
+
+                                                    @if(count($annual_plan['audit_plans']) == 0)
+                                                        <button
+                                                            {{$annual_plan['annual_plan_main']['approval_status'] != 'approved'?'disabled':''}}
+                                                            class="mr-3 btn btn-sm btn-warning btn-square"
+                                                            title="নতুন অডিট প্ল্যান করুন"
+                                                            data-annual-plan-id="{{$annual_plan['id']}}"
+                                                            data-activity-id="{{$annual_plan['activity_id']}}"
+                                                            data-fiscal-year-id="{{$annual_plan['fiscal_year_id']}}"
+                                                            onclick="Audit_Plan_Container.loadAuditPlanBookCreatable($(this))">
+                                                            <i class="fad fa-plus-circle"></i> নতুন অডিট প্ল্যান
+                                                        </button>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </div>

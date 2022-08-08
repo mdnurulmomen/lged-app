@@ -11,8 +11,15 @@ class RevisedPlanController extends Controller
 {
     public function index()
     {
+        $office_id = $this->current_office_id();
+        $all_directorates = $this->allAuditDirectorates();
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
         $fiscal_years = $this->allFiscalYears();
-        return view('modules.audit_plan.audit_plan.plan_revised.audit_plan', compact('fiscal_years'));
+        return view('modules.audit_plan.audit_plan.plan_revised.audit_plan',
+            compact('fiscal_years','office_id','directorates'));
     }
 
     /**
@@ -21,11 +28,13 @@ class RevisedPlanController extends Controller
     public function showAuditablePlanLists(Request $request)
     {
         $data = Validator::make($request->all(), [
+            'office_id' => 'nullable',
             'fiscal_year_id' => 'required|integer',
             'activity_id' => 'required|integer',
             'per_page' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();
+//        dd($data);
         $data['cdesk'] = $this->current_desk_json();
         $all_entities = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_lists'), $data)->json();
         //dd($all_entities);
@@ -214,6 +223,7 @@ class RevisedPlanController extends Controller
         $data['status'] = 'approved';
         $data['cdesk'] = $this->current_desk_json();
         $save_draft = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_make_draft'), $data)->json();
+//        dd($save_draft);
         if (isSuccess($save_draft)) {
             return response()->json(['status' => 'success', 'data' => $save_draft['data']]);
         } else {
@@ -257,6 +267,8 @@ class RevisedPlanController extends Controller
 
         $current_office_id = $this->current_office_id();
         $data['cdesk'] = $this->current_desk_json();
+
+        $data['office_id'] = $request->office_id;
 
         $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
         if (isSuccess($audit_plan)) {
