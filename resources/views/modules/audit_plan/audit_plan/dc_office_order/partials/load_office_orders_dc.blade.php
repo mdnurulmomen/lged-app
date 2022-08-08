@@ -130,6 +130,12 @@
                                             </span>
                                         </div>
                                         <div class="font-weight-normal">
+                                            <span class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.subject_matter')}}</span>
+                                            <span class="font-size-14">
+                                                {{$audit_plan['subject_matter']}}
+                                            </span>
+                                        </div>
+                                        <div class="font-weight-normal">
                                             <span title="প্রতিষ্ঠানের ইউনিটের সংখ্যা" class="label label-outline-danger label-pill label-inline">
                                                 {{$audit_plan['office_order'] != null? ucfirst($audit_plan['office_order']['approved_status']):'অফিস অর্ডার তৈরি হয়নি'}}
                                             </span>
@@ -164,7 +170,7 @@
                                                         <i class="fad fa-plus-circle"></i>অফিস অর্ডার তৈরি করুন
                                                     </button>
                                                 @else
-                                                    @if($audit_plan['office_order']['approved_status'] == 'draft')
+                                                    @if($audit_plan['office_order']['approved_status'] != 'approved')
                                                         <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
                                                                 list-btn-toggle" title="অফিস অর্ডার করুন"
                                                                 data-audit-plan-id="0"
@@ -184,7 +190,7 @@
                                                         <i class="fad fa-eye"></i>
                                                     </button>
 
-                                                    @if($audit_plan['office_order']['approved_status'] == 'draft')
+                                                    @if($audit_plan['office_order']['approved_status'] != 'approved')
                                                         <button
                                                             title="প্রেরণ করুন"
                                                             class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
