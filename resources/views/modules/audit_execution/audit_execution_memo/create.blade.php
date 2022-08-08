@@ -24,7 +24,7 @@
                         data-scope-sub-team-leader="{{$scope_sub_team_leader}}"
                         data-sub-team-leader-name-bn="{{$sub_team_leader_name}}"
                         data-sub-team-leader-designation-name-bn="{{$sub_team_leader_designation_name}}"
-                        class="btn btn-sm btn-warning btn_back btn-square mr-3">
+                        class="btn btn-sm btn-warning btn-back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> {{___('generic.back')}}
                     </a>
                     <a id="memo_submit" class="btn btn-primary btn-sm btn-bold btn-square"
@@ -284,7 +284,7 @@
                     KTApp.unblock('#kt_wrapper');
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
-                        $('.apotti-upload a').click();
+                        $('.btn-back').click();
                     } else {
                         elem.prop('disabled', false);
                         if (responseData.statusCode === '422') {

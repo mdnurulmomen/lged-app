@@ -25,7 +25,7 @@
                         data-scope-sub-team-leader="{{$scope_sub_team_leader}}"
                         data-sub-team-leader-name-bn="{{$sub_team_leader_name}}"
                         data-sub-team-leader-designation-name-bn="{{$sub_team_leader_designation_name}}"
-                        class="btn btn-sm btn-warning btn_back btn-square mr-3">
+                        class="btn btn-sm btn-warning btn-back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>
                     <a id="memo_submit" class="btn btn-primary btn-sm btn-bold btn-square"
@@ -397,7 +397,6 @@
                 from_data.append('porisisto_details[]', porisisto);
             }
 
-
             $.ajax({
                 data: from_data,
                 url: "{{route('audit.execution.memo.update')}}",
@@ -409,7 +408,7 @@
                 success: function (responseData) {
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
-                        $('.btn_back').click();
+                        $('.btn-back').click();
                     } else {
                         if (responseData.statusCode === '422') {
                             var errors = responseData.msg;

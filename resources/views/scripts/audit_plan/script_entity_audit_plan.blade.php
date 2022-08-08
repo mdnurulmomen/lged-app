@@ -37,8 +37,15 @@
             annual_plan_id = elem.data('annual-plan-id');
             audit_plan_id = elem.data('audit-plan-id');
 
+            KTApp.block('#kt_full_width_page', {
+                opacity: 0.1,
+                message: 'সংরক্ষন হচ্ছে অপেক্ষা করুন',
+                state: 'primary' // a bootstrap color
+            });
+
             data = {plan_description, activity_id, annual_plan_id, audit_plan_id};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_full_width_page');
                 if (response.status === 'success') {
                     if (!audit_plan_id) {
                         if ($(".entity_audit_plan_team_schedule").length) {
@@ -78,6 +85,7 @@
 
             KTApp.block('#kt_full_width_page', {
                 opacity: 0.1,
+                message: 'লোড হচ্ছে অপেক্ষা করুন',
                 state: 'primary' // a bootstrap color
             });
 

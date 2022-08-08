@@ -148,7 +148,7 @@ class RevisedPlanController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $check_edit_lock = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_lock'), $data)->json();
-        $check_edit_lock = $check_edit_lock['data'];
+        $check_edit_lock = isSuccess($check_edit_lock)?$check_edit_lock['data']:[];
 //        dd($check_edit_lock);
         $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
 
@@ -208,8 +208,8 @@ class RevisedPlanController extends Controller
         $data['activity_id'] = $request->activity_id;
         $data['annual_plan_id'] = $request->annual_plan_id;
 
-        $plan_description = json_decode($request->plan_description);
-        $data['plan_description'] = makeEncryptedData(gzcompress(json_encode($plan_description)));
+        //$plan_description = json_decode($request->plan_description);
+        $data['plan_description'] = makeEncryptedData(gzcompress(json_encode($request->plan_description)));
 
         $data['status'] = 'approved';
         $data['cdesk'] = $this->current_desk_json();
@@ -247,6 +247,7 @@ class RevisedPlanController extends Controller
         ini_set("pcre.backtrack_limit", "50000000");
 
         $scope_editable = $request->scope_editable;
+        $approval_status = $request->approval_status ?? 'pending';
         $fiscal_year_id = $request->fiscal_year_id;
         $data['fiscal_year_id'] = $fiscal_year_id;
         $annual_plan_id = $request->annual_plan_id;
@@ -261,7 +262,9 @@ class RevisedPlanController extends Controller
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
             $fiscal_year = 'FY'.substr($audit_plan['fiscal_year']['start'],-2).'-'.substr($audit_plan['fiscal_year']['end'],-2);
-            $plans = json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])),true);
+            $plans = json_decode(json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])),true),true);
+            $team_schedules = $audit_plan['audit_teams'];
+            //dd($team_schedules);
 
             $entity_name = '';
             foreach ($audit_plan['annual_plan']['ap_entities'] as $ap_entities) {
@@ -270,12 +273,13 @@ class RevisedPlanController extends Controller
             }
 
             $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
-                ['plans' => $plans], [], ['orientation' => 'P', 'format' => 'A4']);
+                ['plans' => $plans,'team_schedules' => $team_schedules], [], ['orientation' => 'P', 'format' => 'A4']);
             $fileName = $current_office_id.'_Plan'.$audit_plan_id.'_'.$fiscal_year.'_'.$entity_name.'.pdf';
 
             Storage::put('public/individual_plan/'.$fileName, $pdf->output());
+
             return view('modules.audit_plan.audit_plan.plan_revised.partials.preview_audit_plan',
-                compact('scope_editable','fiscal_year_id','annual_plan_id','audit_plan_id','plans',
+                compact('scope_editable','approval_status','fiscal_year_id','annual_plan_id','audit_plan_id','plans',
                     'current_office_id','fileName'));
         }
         else {

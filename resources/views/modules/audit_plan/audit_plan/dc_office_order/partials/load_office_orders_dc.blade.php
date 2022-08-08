@@ -67,8 +67,11 @@
                 </div>
             </div>
             <div id="daak_pagination_panel" class="float-right d-flex align-items-center" style="vertical-align:middle;">
-                    <span class="mr-2"><span id="daak_item_length_start">১</span> - <span id="daak_item_length_end">৫</span> সর্বমোট: <span
-                            id="daak_item_total_record">৫</span></span>
+                    <span class="mr-2"><span id="daak_item_length_start">১</span> -
+                        <span id="daak_item_length_end">{{enTobn(count($audit_plans['data']))}}</span>
+                        সর্বমোট:
+                        <span id="daak_item_total_record">{{enTobn(count($audit_plans['data']))}}</span>
+                    </span>
                 <div class="btn-group">
                     <button class="btn-list-prev btn btn-icon btn-secondary btn-square" disabled="disabled" type="button"><i
                             class="fad fa-chevron-left" data-toggle="popover" data-content="পূর্ববর্তী"
@@ -90,6 +93,10 @@
                                 <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                     <!--begin::Title-->
                                     <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
+                                        <div class="font-weight-bolder">
+                                            <span class="mr-2 font-size-1-2">ক্রমিক নং:</span>
+                                            <span class="font-size-14">{{enTobn($loop->iteration)}}</span>
+                                        </div>
                                         <div class="font-weight-normal">
                                             <span class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.ministry_or_bivag')}}</span>
                                             <span class="font-size-14">

@@ -61,7 +61,7 @@
             @endif
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
-                    data-scope-editable="false"
+                    data-scope-editable="0"
                     data-annual-plan-id="{{$annual_plan_id}}"
                     data-fiscal-year-id="{{$fiscal_year_id}}"
                     onclick="Entity_Plan_Container.previewAuditPlan($(this))">
@@ -93,13 +93,13 @@
                             </div>
                         @else
                             <div class="progressBar" id="progressBar">
-                                <div class="bar"></div>
+                                <div class="bar" style="width:100%"></div>
                             </div>
-                            <div>
+                            {{--<div>
                                 <p style="margin-left: 15px" class="text-danger">
                                     ৩০ মিনিটের মধ্যে সংরক্ষণ বাটনে ক্লিক করুন
                                 </p>
-                            </div>
+                            </div>--}}
                         @endif
 
                         <div id="createPlanJsTree" class="mt-5"></div>
@@ -115,7 +115,9 @@
             </div>
         </div>
     </div>
-{{--    <div class="load-office-wise-employee"></div>--}}
+
+    <div class="load-office-wise-employee"></div>
+
 @endsection
 @section('scripts')
     @include('scripts.audit_plan.edit.script_edit_entity_audit_plan')

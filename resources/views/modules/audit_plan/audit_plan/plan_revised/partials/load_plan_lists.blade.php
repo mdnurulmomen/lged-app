@@ -79,6 +79,11 @@
                                 <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                     <!--begin::Title-->
                                     <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-6">
+                                        <div class="font-weight-bolder">
+                                            <span class="mr-2 font-size-1-2">ক্রমিক নং:</span>
+                                            <span class="font-size-14">{{enTobn($loop->iteration)}}</span>
+                                        </div>
+
                                         <div class="font-weight-normal">
                                             <span class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.ministry_or_bivag')}}</span>
                                             <span class="font-size-14">
@@ -150,10 +155,11 @@
                                                    class="badge-square rounded-0 badge d-flex align-items-center
                                                    alert-{{$audit_plans['office_order'] == null || $audit_plans['office_order']['approved_status'] !='approved'?'danger':'success'}}
                                                        font-weight-normal mr-1 border decision"
-                                                   data-scope-editable="true"
+                                                   data-scope-editable="1"
                                                    data-audit-plan-id="{{$audit_plans['id']}}"
                                                    data-fiscal-year-id="{{$audit_plans['fiscal_year_id']}}"
                                                    data-annual-plan-id="{{$audit_plans['annual_plan_id']}}"
+                                                   data-approval-status="{{$audit_plans['status']}}"
                                                    onclick="Audit_Plan_Container.loadAuditPlanBookOpen($(this))">
                                                     <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
                                                     প্ল্যান: {{enTobn($audit_plans['id'])}} {{$edit_user}}
