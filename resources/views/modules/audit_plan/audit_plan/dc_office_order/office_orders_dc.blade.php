@@ -138,7 +138,8 @@
             url = '{{route('audit.plan.audit.office-orders-dc.show-office-order')}}';
             audit_plan_id = elem.data('audit-plan-id');
             annual_plan_id = elem.data('annual-plan-id');
-            data = {audit_plan_id,annual_plan_id};
+            office_id = $('#directorate_filter').val();
+            data = {audit_plan_id,annual_plan_id,office_id};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,

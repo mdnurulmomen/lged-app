@@ -195,7 +195,7 @@
                                                         class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger
                                                         btn-icon-primary
                                                         list-btn-toggle"
-                                                        
+
                                                         data-audit-plan-id="0"
                                                         data-annual-plan-id="{{$audit_plan['id']}}"
                                                         onclick="Office_Order_Container_Dc.showOfficeOrder($(this))"

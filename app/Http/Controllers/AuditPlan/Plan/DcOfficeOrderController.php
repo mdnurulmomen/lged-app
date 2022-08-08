@@ -69,6 +69,7 @@ class DcOfficeOrderController extends Controller
             'cdesk' => $this->current_desk_json(),
             'audit_plan_id' => $request->audit_plan_id,
             'annual_plan_id' => $request->annual_plan_id,
+            'office_id' => $request->office_id,
         ];
 
         $data['current_designation_id'] = $this->current_designation_id();

@@ -139,7 +139,8 @@
             office_order_id = elem.data('office-order-id');
             audit_plan_id = elem.data('audit-plan-id');
             annual_plan_id = elem.data('annual-plan-id');
-            data = {audit_plan_id,annual_plan_id,office_order_id};
+            office_id = $('#directorate_filter').val();
+            data = {audit_plan_id,annual_plan_id,office_order_id,office_id};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
