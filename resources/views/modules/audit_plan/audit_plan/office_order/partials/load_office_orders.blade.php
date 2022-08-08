@@ -182,29 +182,33 @@
                                                 </div>
                                             </div>
                                             <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
-                                                @if($audit_plan['has_office_order'] == 0 || $audit_plan['has_update_office_order'] == 2)
-                                                    <button class="mr-3 btn btn-sm btn-create" title="অফিস অর্ডার তৈরি করুন"
-                                                            data-audit-plan-id="{{$audit_plan['id']}}"
-                                                            data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
-                                                            data-has-update-request="{{$audit_plan['audit_team_update_count']}}"
-                                                            onclick="Office_Order_Container.loadOfficeOrderCreateForm($(this))">
-                                                        <i style="color:#ffffff;" class="fad fa-plus-circle"></i> অফিস অর্ডার তৈরি করুন
-                                                    </button>
-                                                @endif
-
-                                                @if($audit_plan['has_office_order'] == 1)
-                                                    @if($audit_plan['office_order']['approved_status'] != 'approved' || $audit_plan['has_update_office_order'] == 1 )
-                                                        <button class="mr-1 btn btn-sm btn-edit" title="হালনাগাদ করুন"
-                                                                data-office-order-id="{{$audit_plan['has_update_office_order'] == 1 ? $audit_plan['office_order_update']['id'] : $audit_plan['office_order']['id']}}"
+                                                @if($current_office_id != 1)
+                                                    @if($audit_plan['has_office_order'] == 0 || $audit_plan['has_update_office_order'] == 2)
+                                                        <button class="mr-3 btn btn-sm btn-create"
+                                                                title="অফিস অর্ডার তৈরি করুন"
                                                                 data-audit-plan-id="{{$audit_plan['id']}}"
                                                                 data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                                                                data-has-update-request="{{$audit_plan['audit_team_update_count']}}"
                                                                 onclick="Office_Order_Container.loadOfficeOrderCreateForm($(this))">
-                                                            <i style="color: white" class="fad fa-edit"></i>
+                                                            <i style="color:#ffffff;" class="fad fa-plus-circle"></i>
+                                                            অফিস অর্ডার তৈরি করুন
                                                         </button>
                                                     @endif
-                                                @endif
 
-                                                @if($audit_plan['has_office_order'] == 1)
+                                                    @if($audit_plan['has_office_order'] == 1)
+                                                        @if($audit_plan['office_order']['approved_status'] != 'approved' || $audit_plan['has_update_office_order'] == 1 )
+                                                            <button class="mr-1 btn btn-sm btn-edit"
+                                                                    title="হালনাগাদ করুন"
+                                                                    data-office-order-id="{{$audit_plan['has_update_office_order'] == 1 ? $audit_plan['office_order_update']['id'] : $audit_plan['office_order']['id']}}"
+                                                                    data-audit-plan-id="{{$audit_plan['id']}}"
+                                                                    data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                                                                    onclick="Office_Order_Container.loadOfficeOrderCreateForm($(this))">
+                                                                <i style="color: white" class="fad fa-edit"></i>
+                                                            </button>
+                                                        @endif
+                                                    @endif
+
+                                                    @if($audit_plan['has_office_order'] == 1)
                                                         @if($audit_plan['has_update_office_order'] == 1)
                                                             <button
                                                                 class="mr-1 btn btn-sm btn-details"
@@ -217,34 +221,35 @@
                                                                 <i style="color: white" class="fad fa-eye"></i> আপডেট
                                                             </button>
                                                         @endif
-                                                @endif
-
-                                                @if($audit_plan['has_office_order'] == 1)
-                                                    @if($audit_plan['office_order']['approved_status'] != 'draft' || (isset($audit_plan['office_order_update']) && $audit_plan['office_order_update']['approved_status'] == 'draft'))
-                                                        <button
-                                                            class="mr-1 btn btn-sm btn-sent" title="প্রেরণ করুন"
-                                                            data-ap-office-order-id="{{$audit_plan['has_update_office_order'] == 1 ? $audit_plan['office_order_update']['id'] : $audit_plan['office_order']['id'] }}"
-                                                            data-audit-plan-id="{{$audit_plan['id']}}"
-                                                            data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
-                                                            onclick="Office_Order_Container.loadOfficeOrderApprovalAuthority($(this))"
-                                                            type="button">
-                                                            <i style="color: white" class="fad fa-share-square"></i>
-                                                        </button>
                                                     @endif
 
-                                                    @if(($audit_plan['office_order']['approved_status'] == 'pending' && $audit_plan['office_order']['office_order_movement'] != null
-                                                        && $audit_plan['office_order']['office_order_movement']['employee_designation_id'] == $current_designation_id) || (isset($audit_plan['office_order_update']) && $audit_plan['office_order_update']['approved_status'] == 'pending' && isset($audit_plan['office_order_update']['office_order_movement']) && $audit_plan['office_order_update']['office_order_movement'] != null
-                                                        && $audit_plan['office_order_update']['office_order_movement']['employee_designation_id'] == $current_designation_id))
-                                                        <button
-                                                            class="mr-1 btn btn-approval" title="অনুমোদন করুন"
-                                                            data-ap-office-order-id="{{$audit_plan['has_update_office_order'] == 1 ? $audit_plan['office_order_update']['id'] : $audit_plan['office_order']['id'] }}"
-                                                            data-audit-plan-id="{{$audit_plan['id']}}"
-                                                            data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
-                                                            data-has-office-order-update="{{$audit_plan['has_update_office_order']}}"
-                                                            onclick="Office_Order_Container.approveOfficeOrder($(this))"
-                                                            type="button">
-                                                            <i style="color: white" class="fad fa-check"></i>
-                                                        </button>
+                                                    @if($audit_plan['has_office_order'] == 1)
+                                                        @if($audit_plan['office_order']['approved_status'] != 'draft' || (isset($audit_plan['office_order_update']) && $audit_plan['office_order_update']['approved_status'] == 'draft'))
+                                                            <button
+                                                                class="mr-1 btn btn-sm btn-sent" title="প্রেরণ করুন"
+                                                                data-ap-office-order-id="{{$audit_plan['has_update_office_order'] == 1 ? $audit_plan['office_order_update']['id'] : $audit_plan['office_order']['id'] }}"
+                                                                data-audit-plan-id="{{$audit_plan['id']}}"
+                                                                data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                                                                onclick="Office_Order_Container.loadOfficeOrderApprovalAuthority($(this))"
+                                                                type="button">
+                                                                <i style="color: white" class="fad fa-share-square"></i>
+                                                            </button>
+                                                        @endif
+
+                                                        @if(($audit_plan['office_order']['approved_status'] == 'pending' && $audit_plan['office_order']['office_order_movement'] != null
+                                                            && $audit_plan['office_order']['office_order_movement']['employee_designation_id'] == $current_designation_id) || (isset($audit_plan['office_order_update']) && $audit_plan['office_order_update']['approved_status'] == 'pending' && isset($audit_plan['office_order_update']['office_order_movement']) && $audit_plan['office_order_update']['office_order_movement'] != null
+                                                            && $audit_plan['office_order_update']['office_order_movement']['employee_designation_id'] == $current_designation_id))
+                                                            <button
+                                                                class="mr-1 btn btn-approval" title="অনুমোদন করুন"
+                                                                data-ap-office-order-id="{{$audit_plan['has_update_office_order'] == 1 ? $audit_plan['office_order_update']['id'] : $audit_plan['office_order']['id'] }}"
+                                                                data-audit-plan-id="{{$audit_plan['id']}}"
+                                                                data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                                                                data-has-office-order-update="{{$audit_plan['has_update_office_order']}}"
+                                                                onclick="Office_Order_Container.approveOfficeOrder($(this))"
+                                                                type="button">
+                                                                <i style="color: white" class="fad fa-check"></i>
+                                                            </button>
+                                                        @endif
                                                     @endif
                                                 @endif
                                             </div>

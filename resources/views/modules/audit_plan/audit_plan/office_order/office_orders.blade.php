@@ -2,6 +2,16 @@
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row">
         <div class="col-md-3">
+            <select class="form-select select-select2" id="directorate_filter">
+                @if(count($directorates) > 1)
+                    <option value="">অধিদপ্তর বাছাই করুন</option>
+                @endif
+                @foreach($directorates as $directorate)
+                    <option value="{{$directorate['office_id']}}">{{$directorate['office_name_bn']}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-3">
             <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
                 <option value="">--সিলেক্ট--</option>
                 @foreach($fiscal_years as $fiscal_year)
@@ -31,7 +41,7 @@
         Office_Order_Container.loadFiscalYearWiseActivity();
     });
 
-    $('#activity_id').change(function () {
+    $('#activity_id,#directorate_filter').change(function () {
         Office_Order_Container.loadOfficeOrderList();
     });
 
@@ -39,6 +49,7 @@
         loadOfficeOrderList: function (page = 1, per_page = 500) {
             let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             let activity_id = $('#activity_id').val();
+            let office_id = $('#directorate_filter').val();
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
@@ -47,7 +58,7 @@
 
             if (fiscal_year_id) {
                 let url = '{{route('audit.plan.audit.office-orders.load-office-order-list')}}';
-                let data = {fiscal_year_id,activity_id, page, per_page};
+                let data = {fiscal_year_id,activity_id,office_id, page, per_page};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {

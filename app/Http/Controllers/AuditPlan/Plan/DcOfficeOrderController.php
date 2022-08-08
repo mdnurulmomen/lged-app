@@ -11,13 +11,21 @@ class DcOfficeOrderController extends Controller
 {
     public function index()
     {
+        $office_id = $this->current_office_id();
+        $all_directorates = $this->allAuditDirectorates();
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
         $fiscal_years = $this->allFiscalYears();
-        return view('modules.audit_plan.audit_plan.dc_office_order.office_orders_dc', compact('fiscal_years'));
+        return view('modules.audit_plan.audit_plan.dc_office_order.office_orders_dc',
+            compact('fiscal_years','office_id','directorates'));
     }
 
     public function loadOfficeOrderList(Request $request)
     {
         $requestData = Validator::make($request->all(), [
+            'office_id' => 'nullable',
             'fiscal_year_id' => 'required|integer',
             'activity_id' => 'nullable',
             'per_page' => 'required|integer',
@@ -32,6 +40,7 @@ class DcOfficeOrderController extends Controller
         $data['audit_plans'] = isSuccess($responseData)?$responseData['data']:[];
 //        dd($data['audit_plans']);
         $data['current_designation_id'] = $this->current_designation_id();
+        $data['current_office_id'] = $this->current_office_id();
         return view('modules.audit_plan.audit_plan.dc_office_order.partials.load_office_orders_dc',$data);
     }
 
