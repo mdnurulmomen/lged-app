@@ -165,7 +165,8 @@ class RevisedPlanController extends Controller
             $audit_plan = $audit_plan['data'];
 //            dd($audit_plan);
             $parent_office_id = 0;
-            $content = gzuncompress(getDecryptedData($audit_plan['plan_description']));
+            $content = json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])),true);
+            //dd($content);
 
             $activity_id = $audit_plan['activity_id'];
             $annual_plan_id = $audit_plan['annual_plan_id'];
