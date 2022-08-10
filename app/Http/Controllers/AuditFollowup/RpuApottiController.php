@@ -59,6 +59,8 @@ class RpuApottiController extends Controller
         $data['entity_id'] = $request->entity_id;
         $data['memo_type'] = $request->memo_type;
         $data['memo_title_bn'] = $request->memo_title_bn;
+        $data['page'] = 1; //$request->page
+        $data['per_page'] = 10; //$request->per_page
 
         $apotti_item_list = $this->initRPUHttp()->post(config('cag_rpu_api.get-rpu-apotti-item'), $data)->json();
 
