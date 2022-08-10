@@ -64,7 +64,7 @@ class RpuApottiController extends Controller
 
         $apotti_item_list = $this->initRPUHttp()->post(config('cag_rpu_api.get-rpu-apotti-item'), $data)->json();
 
-        $apotti_item_list = isSuccess($apotti_item_list) ? $apotti_item_list['data']: [];
+        $apotti_item_list = isSuccess($apotti_item_list) ? $apotti_item_list['data']['data']: [];
 
         return view('modules.audit_followup.rpu_apotti.load_rpu_apotti_item', compact('apotti_item_list'));
 
