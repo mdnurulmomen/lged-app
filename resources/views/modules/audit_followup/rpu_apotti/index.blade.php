@@ -115,7 +115,7 @@
             );
         },
 
-        loadRpuApottiItem: function (){
+        loadRpuApottiItem: function (page=1,per_page=10){
             directorate_id = $('#directorate_filter').val();
             fiscal_year_id = $('#fiscal_year_id').val();
             ministry_id = $('#ministry_id').val();
@@ -124,7 +124,7 @@
             memo_title_bn = $('#memo_title_bn').val();
 
             let url = '{{route('rpu-apotti.get-rpu-apotti-item')}}';
-            let data = {directorate_id,fiscal_year_id,ministry_id,entity_id,memo_type,memo_title_bn};
+            let data = {directorate_id,fiscal_year_id,ministry_id,entity_id,memo_type,memo_title_bn,page,per_page};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
@@ -140,6 +140,12 @@
                     }
                 }
             );
+        },
+
+        paginate: function(elem) {
+            page = $(elem).attr('data-page');
+            per_page = $(elem).attr('data-per-page');
+            Rpu_Apotti_Container.loadRpuApottiItem(page, per_page);
         },
 
         loadApottiResponseForm: function (elem){
