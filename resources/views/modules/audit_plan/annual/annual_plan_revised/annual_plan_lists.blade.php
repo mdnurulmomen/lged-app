@@ -102,14 +102,43 @@
             });
         },
 
+        annualPlanUpdateRequest: function (element) {
+            swal.fire({
+                title: 'আপনি কি পুনরায় সম্পাদনা করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    annual_plan_main_id = element.data('annual-plan-main-id');
+                    data = {annual_plan_main_id}
+                    KTApp.block('#kt_content');
+                    let url = '{{route('audit.plan.annual.plan.update-request')}}'
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        KTApp.unblock('#kt_wrapper');
+                        if (response.status === 'error') {
+                            toastr.error(response.data);
+                        } else {
+                            toastr.success(response.data);
+                            $('.annual_plan_menu a').click();
+                        }
+                    });
+
+                }
+            });
+        },
+
         loadAnnualPlanApprovalAuthority: function (element) {
             url = '{{route('audit.plan.annual.plan.revised.load-annual-plan-approval-authority')}}';
             fiscal_year_id = element.data('fiscal-year-id');
             annual_plan_main_id = element.data('annual-plan-main-id');
             activity_type = element.data('activity-type');
             op_audit_calendar_event_id = element.data('op-audit-calendar-event-id');
+            has_update_request = element.data('has-update-request');
 
-            data = {fiscal_year_id, op_audit_calendar_event_id, annual_plan_main_id, activity_type};
+            data = {fiscal_year_id, op_audit_calendar_event_id, annual_plan_main_id, activity_type,has_update_request};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
@@ -194,7 +223,8 @@
             fiscal_year_id = elem.data('fiscal-year-id');
             annual_plan_main_id = elem.data('annual-plan-main-id');
             op_audit_calendar_event_id = elem.data('op-audit-calendar-event-id');
-            data = {fiscal_year_id,annual_plan_main_id, op_audit_calendar_event_id}
+            has_update_request = elem.data('has-update-request');
+            data = {fiscal_year_id,annual_plan_main_id, op_audit_calendar_event_id,has_update_request}
             KTApp.block('#kt_content');
             let url = '{{route('audit.plan.annual.plan.list.show.revised.create_plan_info')}}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -257,9 +287,9 @@
                 cancelButtonText: 'না'
             }).then(function(result) {
                 if (result.value) {
-
                     annual_plan_id = elem.data('annual-plan-id');
-                    data = {annual_plan_id}
+                    has_update_request = elem.data('has-update-request');
+                    data = {annual_plan_id,has_update_request}
                     KTApp.block('#kt_content');
                     let url = '{{route('audit.plan.annual.plan.revised.delete_annual_plan')}}'
                     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -843,6 +873,7 @@
             url = '{{route('audit.plan.annual.plan.revised.book')}}';
             office_id = elem.data('office-id');
             fiscal_year_id = elem.data('fiscal-year-id');
+            has_update_request = elem.data('has-update-request');
             annual_plan_main_id = elem.data('annual-plan-main-id');
             activity_type = elem.data('activity-type');
 
@@ -855,7 +886,7 @@
             $.ajax({
                 type: 'POST',
                 url: url,
-                data: {office_id,fiscal_year_id,annual_plan_main_id,activity_type},
+                data: {office_id,fiscal_year_id,annual_plan_main_id,activity_type,has_update_request},
                 xhrFields: {
                     responseType: 'blob'
                 },

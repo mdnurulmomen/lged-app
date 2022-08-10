@@ -146,6 +146,7 @@ return [
         'ap_yearly_plan_entities_list_show' => env('API_URL_BEE', '') . '/planning/annual-plan/show-entities',
         'ap_yearly_plan_submission' => env('API_URL_BEE', '') . '/planning/annual-plan/create',
         'ap_yearly_plan_update' => env('API_URL_BEE', '') . '/planning/annual-plan/update',
+        'update_annual_plan_main' => env('API_URL_BEE', '') . '/planning/annual-plan/update-annual-plan-main',
         'get_annual_plan_info' => env('API_URL_BEE', '') . '/planning/annual-plan/get-annual-plan-info',
         'delete_annual_plan' => env('API_URL_BEE', '') . '/planning/annual-plan/delete-annual-plan',
         'ap_yearly_plan_book' => env('API_URL_BEE', '') . '/planning/annual-plan/book',

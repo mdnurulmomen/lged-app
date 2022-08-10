@@ -5,17 +5,19 @@
     <input type="hidden" name="office_id" value="{{$office_id}}">
     <input type="hidden" name="annual_plan_main_id" value="{{$annual_plan_main_id}}">
     <input type="hidden" name="activity_type" value="{{$activity_type}}">
+    <input type="hidden" name="has_update_request" value="{{$has_update_request}}">
     <input type="hidden" name="receiver_type" value="sender">
 
     <div class="row">
         <div class="col-md-12">
             <div class="form-row">
                 <div class="col-md-12">
-                    <label>Status</label>
+                    <label>স্ট্যাটাস</label>
                     <select class="form-control select-select2" name="status">
-                        <option value="pending">Pending</option>
-                        <option value="approved">Approved</option>
-                        <option value="reject">Return to Audit Directorate</option>
+                            <option value="">--বাছাই করুন--</option>
+{{--                        <option value="pending">Pending</option>--}}
+                        <option value="approved">অনুমোদিত</option>
+                        <option value="reject">অডিট অধিদপ্তরে ফেরত পাঠান</option>
                     </select>
                 </div>
             </div>

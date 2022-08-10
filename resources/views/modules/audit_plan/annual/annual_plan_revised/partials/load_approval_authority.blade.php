@@ -2,6 +2,7 @@
 <form id="approval_authority_form">
     <input type="hidden" name="annual_plan_main_id" value="{{$annual_plan_main_id}}">
     <input type="hidden" name="activity_type" value="{{$activity_type}}">
+    <input type="hidden" name="has_update_request" value="{{$has_update_request}}">
     <div class="row">
         <div class="col-md-12 officers_list_area">
             <h5 class="mt-2 mb-4">{{empty($current_desk_approval_authority)?'':$current_desk_approval_authority['receiver_name_bn'].'('.$current_desk_approval_authority['receiver_designation_bn'].') কাছে প্রেরিত হয়েছে।'}}</h5>

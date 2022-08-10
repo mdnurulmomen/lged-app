@@ -158,7 +158,7 @@ class RevisedPlanController extends Controller
 
         $check_edit_lock = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_lock'), $data)->json();
         $check_edit_lock = isSuccess($check_edit_lock)?$check_edit_lock['data']:[];
-//        dd($check_edit_lock);
+
         $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
 
         if (isSuccess($audit_plan)) {

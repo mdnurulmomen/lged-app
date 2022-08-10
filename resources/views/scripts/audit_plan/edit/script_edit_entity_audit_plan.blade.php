@@ -1,29 +1,6 @@
 <script>
     $(function (){
-
         progress(1800, 1800, $('#progressBar'));
-
-        {{--edit_lock = '{{$check_edit_lock}}';--}}
-        {{--user_info = 'এই সময়ে হালনাগাদ করতেছেন' + '({{$audit_plan['edit_user_details']}})';--}}
-        {{--if(!edit_lock){--}}
-        {{--    $.notify(user_info, {--}}
-        {{--        spacing: '10',--}}
-        {{--        timer: '2000000',--}}
-
-        {{--        placement: {--}}
-        {{--            from: 'bottom',--}}
-        {{--            align: 'right'--}}
-        {{--        },--}}
-
-        {{--        delay: '1000',--}}
-        {{--        z_index: '1000',--}}
-        {{--        animate: {--}}
-        {{--            enter: 'animated ' + 'bounce',--}}
-        {{--            exit: 'animated ' + 'bounce'--}}
-        {{--        }--}}
-        {{--    });--}}
-        {{--}--}}
-
     });
 
     function progress(timeleft, timetotal, $element) {

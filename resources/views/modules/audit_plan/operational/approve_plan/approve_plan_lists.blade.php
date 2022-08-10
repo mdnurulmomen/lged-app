@@ -63,9 +63,10 @@
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             office_id = element.data('office-id');
             annual_plan_main_id = element.data('annual-plan-main-id');
+            has_update_request = element.data('has-update-request');
             activity_type = element.data('activity-type');
             office_id = element.data('office-id');
-            data = {fiscal_year_id,office_id,activity_type,annual_plan_main_id};
+            data = {fiscal_year_id,office_id,activity_type,annual_plan_main_id,has_update_request};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
@@ -94,10 +95,11 @@
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             op_audit_calendar_event_id = element.data('op-audit-calendar-event-id');
             annual_plan_main_id = element.data('annual-plan-main-id');
+            has_update_request = element.data('has-update-request');
             activity_type = element.data('activity-type');
             office_id = element.data('office-id');
             office_name_bn = element.data('office-name-bn');
-            data = {fiscal_year_id,op_audit_calendar_event_id,office_id,activity_type,annual_plan_main_id};
+            data = {fiscal_year_id,op_audit_calendar_event_id,office_id,activity_type,annual_plan_main_id,has_update_request};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
@@ -200,6 +202,7 @@
             office_id = elem.data('office-id');
             fiscal_year_id = elem.data('fiscal-year-id');
             annual_plan_main_id = elem.data('annual-plan-main-id');
+            has_update_request = elem.data('has-update-request');
             activity_type = elem.data('activity-type');
 
             KTApp.block('#kt_wrapper', {
@@ -211,7 +214,7 @@
             $.ajax({
                 type: 'POST',
                 url: url,
-                data: {office_id,fiscal_year_id,annual_plan_main_id,activity_type},
+                data: {office_id,fiscal_year_id,annual_plan_main_id,activity_type,has_update_request},
                 xhrFields: {
                     responseType: 'blob'
                 },

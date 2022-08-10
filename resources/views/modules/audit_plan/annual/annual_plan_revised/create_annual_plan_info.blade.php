@@ -371,6 +371,7 @@
                 </div>
                 <input type="hidden" name="op_audit_calendar_event_id" value="{{ $op_audit_calendar_event_id }}">
                 <input type="hidden" id="fiscal_year_id" name="fiscal_year_id" value="{{ $fiscal_year_id }}">
+                <input type="hidden" id="has_update_request" name="has_update_request" value="{{ $has_update_request }}">
             </div>
         </form>
     </div>

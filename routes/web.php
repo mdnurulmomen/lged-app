@@ -271,6 +271,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::post('/load-annual-plan-lists', [AnnualPlanRevisedController::class, 'showAnnualPlanLists'])->name('plan.list.all');
             Route::get('/annual-plan-calender', [AnnualPlanRevisedController::class, 'annualPlanCalender'])->name('plan.annual-plan-calender');
+            Route::post('/update-request', [AnnualPlanRevisedController::class, 'annualPlanUpdateRequest'])->name('plan.update-request');
 
             Route::post('/load-annual-entity-selection', [AnnualPlanController::class, 'showEntitySelection'])->name('plan.list.show.entity-selection');
 

@@ -96,7 +96,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col">
-                                <label>{{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল শুরু' : 'সম্পাদনের সময়কাল শেষ' }}</label>
+                                <label>{{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল শুরু' : 'সম্পাদনের সময়কাল শুরু' }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text"><i
                                                 style="color:#3699FF !important"
@@ -104,7 +104,7 @@
                                     <input type="text" id="team_start_date"
                                            class="date form-control"
                                            value="{{empty($all_teams) || empty($all_teams[0]['team_start_date'])?'':date('d/m/Y',strtotime($all_teams[0]['team_start_date']))}}"
-                                           placeholder="{{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল শুরু' : 'সম্পাদনের সময়কাল শেষ' }}" autocomplete="off"/>
+                                           placeholder="{{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল শুরু' : 'সম্পাদনের সময়কাল শুরু' }}" autocomplete="off"/>
                                 </div>
                             </div>
                             <div class="col">

@@ -27,6 +27,26 @@ class AnnualPlanRevisedController extends Controller
         return view('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_calender', compact('fiscal_years'));
     }
 
+    public function annualPlanUpdateRequest(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'annual_plan_main_id' => 'required|integer',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+        $data['has_update_request'] = 1;
+
+        $annual_plan_main_update = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.update_annual_plan_main'), $data)->json();
+//        dd($annual_plan_main_update);
+        if (isSuccess($annual_plan_main_update)) {
+            $annual_plan_main_update = $annual_plan_main_update['data'];
+            return response()->json(['status' => 'success', 'data' => $annual_plan_main_update]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $annual_plan_main_update]);
+        }
+
+    }
+
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -86,7 +106,8 @@ class AnnualPlanRevisedController extends Controller
             config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_entities_list_show'),
             $data
         )->json();
-        //dd($planListResponseData);
+
+//        dd($planListResponseData);
 
         $plan_list = isSuccess($planListResponseData) ? $planListResponseData['data']['annual_plan_list'] : [];
         //        $approval_status = isSuccess($planListResponseData)?$planListResponseData['data']['approval_status']:[];
@@ -168,10 +189,20 @@ class AnnualPlanRevisedController extends Controller
         $fiscal_year_id = $request->fiscal_year_id;
         $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
         $annual_plan_main_id = $request->annual_plan_main_id;
+        $has_update_request = $request->has_update_request;
 
         if (isSuccess($all_activity)) {
             $all_activity = $all_activity['data'];
-            return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info', compact('all_activity', 'fiscal_year_id', 'op_audit_calendar_event_id', 'annual_plan_main_id', 'all_project', 'office_id'));
+            return view('modules.audit_plan.annual.annual_plan_revised.create_annual_plan_info',
+                compact('all_activity',
+                    'fiscal_year_id',
+                    'op_audit_calendar_event_id',
+                    'annual_plan_main_id',
+                    'all_project',
+                    'office_id',
+                    'has_update_request',
+                )
+            );
         } else {
             return response()->json(['status' => 'error', 'data' => $all_activity]);
         }
@@ -278,6 +309,7 @@ class AnnualPlanRevisedController extends Controller
                 'project_id' => $request->project_id,
                 'project_name_bn' => $request->project_name_bn,
                 'project_name_en' => $request->project_name_en,
+                'has_update_request' => $request->has_update_request,
             ];
 
             //            dd($data);
@@ -462,6 +494,7 @@ class AnnualPlanRevisedController extends Controller
     {
         $data = Validator::make($request->all(), [
             'annual_plan_id' => 'required|integer',
+            'has_update_request' => 'nullable',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
@@ -471,7 +504,7 @@ class AnnualPlanRevisedController extends Controller
             $data
         )->json();
 
-        //        dd($delete_annual_plan);
+//        dd($delete_annual_plan);
 
         if (isSuccess($delete_annual_plan)) {
             return response()->json(['status' => 'success', 'data' => $delete_annual_plan['data']]);
@@ -486,12 +519,13 @@ class AnnualPlanRevisedController extends Controller
             'office_id' => 'required|integer',
             'fiscal_year_id' => 'required|integer',
             'annual_plan_main_id' => 'required|integer',
+            'has_update_request' => 'nullable',
             'activity_type' => 'nullable',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
-
+//        dd($plan_infos);
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
             $office_id = $request->office_id;
@@ -670,6 +704,7 @@ class AnnualPlanRevisedController extends Controller
         $annual_plan_main_id = $request->annual_plan_main_id;
         $activity_type = $request->activity_type;
         $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
+        $has_update_request = $request->has_update_request;
         $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($officeId);
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_current_desk_approval_authority'), $data)->json();
@@ -684,7 +719,8 @@ class AnnualPlanRevisedController extends Controller
                 'activity_type',
                 'op_audit_calendar_event_id',
                 'officer_lists',
-                'current_desk_approval_authority'
+                'current_desk_approval_authority',
+                'has_update_request'
             )
         );
     }
@@ -692,7 +728,6 @@ class AnnualPlanRevisedController extends Controller
     public function sendAnnualPlanSenderToReceiver(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            //dd($request->all());
             $data = Validator::make($request->all(), [
                 'fiscal_year_id' => 'required|integer',
                 'annual_plan_main_id' => 'required|integer',
@@ -711,6 +746,7 @@ class AnnualPlanRevisedController extends Controller
                 'receiver_designation_id' => 'required',
                 'receiver_designation_en' => 'required',
                 'receiver_designation_bn' => 'required',
+                'has_update_request' => 'nullable',
             ])->validate();
 
             $data['status'] = 'pending';
