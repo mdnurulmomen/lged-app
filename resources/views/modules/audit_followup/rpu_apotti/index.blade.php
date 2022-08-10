@@ -17,7 +17,7 @@
                 <select class="form-select select-select2" id="fiscal_year_id">
                     @foreach($fiscal_years as $fiscal_year)
                         <option
-                            value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{enTobn($fiscal_year['description'])}}</option>
+                            value="{{$fiscal_year['id']}}" {{$fiscal_year['is_current'] == 1?'selected':''}}>{{enTobn($fiscal_year['description'])}}</option>
                     @endforeach
                 </select>
             </div>
@@ -30,11 +30,13 @@
 
             <div class="col-md-3">
                 <select class="form-select select-select2" id="entity_id">
-                    <option value="">এন্টিটি বাছাই করুন</option>
+                    <option value="">এনটিটি বাছাই করুন</option>
                 </select>
             </div>
+        </div>
 
-            <div class="col-md-3 mt-2">
+        <div class="row mt-2 mb-2">
+            <div class="col-md-3">
                 <select class="form-select select-select2" id="memo_type">
                     <option value="">ক্যাটাগরি বাছাই করুন</option>
                     <option value="sfi"> এসএফআই </option>
@@ -42,6 +44,15 @@
                 </select>
             </div>
 
+            <div class="col-md-6">
+                <input type="text" id="memo_title_bn" class="form-control" placeholder="শিরোনাম লিখুন...">
+            </div>
+
+            <div class="col-md-3">
+                <button onclick="Rpu_Apotti_Container.loadRpuApottiItem()" class="mt-2 btn btn-sm btn-primary btn-square" type="button">
+                    <i class="fad fa-search"></i> অনুসন্ধান
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -62,10 +73,10 @@
 
     $(function () {
         Rpu_Apotti_Container.loadDirectorateWiseMinstry();
+        Rpu_Apotti_Container.loadRpuApottiItem();
     });
 
     $('#ministry_id').change(function (){
-        // Rpu_Apotti_Container.loadRpuApottiItem();
         Rpu_Apotti_Container.loadMinistryWiseEntity();
     });
 
@@ -73,9 +84,6 @@
         Rpu_Apotti_Container.loadDirectorateWiseMinstry();
     });
 
-    $('#memo_type').change(function (){
-        Rpu_Apotti_Container.loadRpuApottiItem();
-    });
 
     var Rpu_Apotti_Container = {
         loadDirectorateWiseMinstry: function () {
@@ -109,13 +117,14 @@
 
         loadRpuApottiItem: function (){
             directorate_id = $('#directorate_filter').val();
+            fiscal_year_id = $('#fiscal_year_id').val();
             ministry_id = $('#ministry_id').val();
             entity_id = $('#entity_id').val();
-            cost_center_id = $('#cost_center_id').val();
             memo_type = $('#memo_type').val();
+            memo_title_bn = $('#memo_title_bn').val();
 
             let url = '{{route('rpu-apotti.get-rpu-apotti-item')}}';
-            let data = {directorate_id,ministry_id,entity_id,cost_center_id,memo_type};
+            let data = {directorate_id,fiscal_year_id,ministry_id,entity_id,memo_type,memo_title_bn};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,

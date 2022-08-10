@@ -175,10 +175,10 @@ input[type="text"]::placeholder {
     text-align: left;
 }
 
-.form-control::placeholder {
+/*.form-control::placeholder {
     color: #000;
     opacity: 1;
-}
+}*/
 
 .annual-plan-table {
     width: 100%;

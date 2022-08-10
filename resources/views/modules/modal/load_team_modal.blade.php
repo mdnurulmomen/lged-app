@@ -1229,14 +1229,14 @@
                         toastr.success(response.data);
                         //$(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
                         if (modal_type == 'data-collection'){
-                            Load_Team_Container.insertAuditScheduleListInBook();
+                            /*Load_Team_Container.insertAuditScheduleListInBook();*/
                             activity_id = $('#activity_id').val();
                             $('#activity_id').val(activity_id).trigger('change');
                         }else{
                             Load_Team_Container.teamMemberInsertIntoBook(audit_plan_id);
-                            Load_Team_Container.teamMemberScheduleInsertIntoBook(audit_plan_id);
+                            /*Load_Team_Container.teamMemberScheduleInsertIntoBook(audit_plan_id);*/
+                            Load_Team_Container.setJsonContentFromPlanBook();
                         }
-                        Load_Team_Container.setJsonContentFromPlanBook();
                     } else {
                         toastr.error(response.data);
                         console.log(response);
