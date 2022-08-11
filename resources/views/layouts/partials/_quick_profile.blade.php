@@ -5,7 +5,7 @@
                 <h3 class="card-label">User <small>লগইন তথ্য</small>
                 </h3>
             </div>
-            <a target="_blank" href="https://doptor.amms.cag.org.bd/profile" title="প্রোফাইল সংশোধন" class="btn btn-primary font-weight-bold text-white btn-profile btn-square btn-sm">
+            <a target="_blank" href="{{config('amms_bee_routes.edit_profile_url')}}" title="প্রোফাইল সংশোধন" class="btn btn-primary font-weight-bold text-white btn-profile btn-square btn-sm">
                 <i class="fa fa-pencil"></i><span class="ml-2">প্রোফাইল সংশোধন</span>
             </a>
         </div>

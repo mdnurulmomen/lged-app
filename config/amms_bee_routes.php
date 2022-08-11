@@ -438,4 +438,5 @@ return [
     'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',
 
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',
+    'edit_profile_url' => env('EDIT_PROFILE_URL', '') . '/profile',
 ];
