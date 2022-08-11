@@ -122,6 +122,8 @@ class RevisedPlanController extends Controller
                 $entity_name = implode(' , ', array_unique($entities));
             }
 
+            $project_name_bn = $audit_plan['annual_plan']['project_name_bn'];
+
             $cover_info = [
                 'directorate_address_footer' => $directorate_address_footer,
                 'directorate_address_top' => $directorate_address_top,
@@ -129,6 +131,7 @@ class RevisedPlanController extends Controller
                 'created_by' => $this->getEmployeeInfo()['name_bng'] . ',<br>' . $this->current_office()['designation'],
                 'directorate_name' => $this->current_office()['office_name_bn'],
                 'party_name' => '',
+                'project_name_bn' => $project_name_bn,
                 'entity_name' => $entity_name,
                 'entity_office_type' => $audit_plan['annual_plan']['office_type'],
                 'fiscal_year' => enTobn($audit_plan['annual_plan']['fiscal_year']['start']) . ' - ' . enTobn($audit_plan['annual_plan']['fiscal_year']['end']),

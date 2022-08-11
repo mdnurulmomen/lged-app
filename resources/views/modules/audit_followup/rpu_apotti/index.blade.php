@@ -1,4 +1,4 @@
-<x-title-wrapper>তালিকা</x-title-wrapper>
+<x-title-wrapper>আরপি হতে আগত জবাবের তালিকা</x-title-wrapper>
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
         <div class="row mt-2 mb-2">
@@ -45,7 +45,7 @@
             </div>
 
             <div class="col-md-6">
-                <input type="text" id="memo_title_bn" class="form-control" placeholder="শিরোনাম লিখুন...">
+                <input type="text" id="memo_title_bn" class="form-control" placeholder="অনুসন্ধান করুন...">
             </div>
 
             <div class="col-md-3">

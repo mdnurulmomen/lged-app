@@ -41,7 +41,7 @@
                    <input {{$apotti_item['is_sent_amms'] == 1 ? 'checked disabled' : ''}} class="select-apotti" value="{{$apotti_item['apotti_item_id']}}" type="checkbox">
                 </td>
                 <td class="text-center">
-                    {{$loop->iteration}}
+                    {{enTobn(($apotti_item_list['current_page']-1)*10+$loop->iteration)}}
                 </td>
                 <td class="text-left">
                     <span>অনুচ্ছেদ নম্বর: {{enTobn($apotti_item['onucched_no'])}}</span><br>

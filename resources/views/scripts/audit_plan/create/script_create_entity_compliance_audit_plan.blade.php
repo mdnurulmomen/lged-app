@@ -62,16 +62,17 @@
 
 
     function setCoverInformation() {
-        $('.directorate_address_top').html("{!! $cover_info['directorate_address_top'] !!}")
-        $('.directorate_address_footer').html("{{$cover_info['directorate_address_footer']}}")
-        $('.directorate_website').html("{{$cover_info['directorate_website']}}")
-        $('.directorate_name').html("{{$cover_info['directorate_name']}}")
-        $('.created_by').html("{!! $cover_info['created_by'] !!}")
-        $('.entity_name').html("{{$cover_info['entity_name']}}")
-        $('.entity_office_type').html("{{$cover_info['entity_office_type']}}")
-        $('.audit_fiscal_year').html("{{$cover_info['fiscal_year']}}")
-        $('.thematic_issue').text("{{$cover_info['annual_plan_type']}}")
-        $('.audit_subject_matter').text("{{$cover_info['audit_subject_matter']}}")
+        $('.directorate_address_top').html("{!! $cover_info['directorate_address_top'] !!}");
+        $('.directorate_address_footer').html("{{$cover_info['directorate_address_footer']}}");
+        $('.directorate_website').html("{{$cover_info['directorate_website']}}");
+        $('.directorate_name').html("{{$cover_info['directorate_name']}}");
+        $('.created_by').html("{!! $cover_info['created_by'] !!}");
+        $('.project_name').html("{{$cover_info['project_name_bn']}}");
+        $('.entity_name').html("{{$cover_info['entity_name']}}");
+        $('.entity_office_type').html("{{$cover_info['entity_office_type']}}");
+        $('.audit_fiscal_year').html("{{$cover_info['fiscal_year']}}");
+        $('.thematic_issue').text("{{$cover_info['annual_plan_type']}}");
+        $('.audit_subject_matter').text("{{$cover_info['audit_subject_matter']}}");
 
         if (!isEmpty(parentOfficeOtherDataJSON)) {
             parentOfficeOtherDataJSON.map((content) => {
