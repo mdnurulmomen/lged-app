@@ -252,7 +252,7 @@
 
                                                                             @if($value['team_parent_id'])
                                                                                 <button type="button"
-                                                                                        onclick="Load_Team_Container.deleteNode('layer','right_{{$loop->iteration}}', 0, '{{$value['id']}}')"
+                                                                                        onclick="Load_Team_Container.deleteNode('layer','permitted_level_{{$loop->iteration}}', 0, '{{$value['id']}}')"
                                                                                         class="justify-self-end text-danger btn btn-icon btn-md del_layer">
                                                                                     <i class="text-danger far fa-trash-alt"></i>
                                                                                 </button>
@@ -1313,7 +1313,7 @@ style="padding-left: 5px;">
                             <span class="pulse-ring"></span>
                         </button>`
             if (number > 1) {
-                level_html = level_html + `                        <button type="button" onclick="Load_Team_Container.deleteNode('layer','right_${number}', 0)"
+                level_html = level_html + `                        <button type="button" onclick="Load_Team_Container.deleteNode('layer','permitted_level_${number}', 0,0)"
                                 class="justify-self-end text-danger btn btn-icon btn-md del_layer">
                             <i class="text-danger far fa-trash-alt"></i>
                         </button>`
