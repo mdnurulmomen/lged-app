@@ -82,14 +82,14 @@
                     @endif
                 </div>
                 {{--            @php dump($plan_list) @endphp--}}
-                @if((!$plan_list) || (isset($plan_list['approval_status']) && $plan_list['approval_status'] == 'draft' || $plan_list['approval_status']  == 'reject' || $plan_list['has_update_request'] == 1 || $plan_list['has_update_request'] == 2) && $current_office_id != 1)
+                @if((!$plan_list) || (isset($plan_list['approval_status']) && (isset($plan_list['has_update_request'])) &&  $plan_list['approval_status'] == 'draft' || $plan_list['approval_status']  == 'reject' || $plan_list['has_update_request'] == 1 || $plan_list['has_update_request'] == 2) && $current_office_id != 1)
                     <div class="col-md-5">
                         <div class="d-flex justify-content-md-end">
                             <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
                                data-annual-plan-main-id="{{isset($plan_list['id']) ? $plan_list['id'] : 0}}"
                                data-fiscal-year-id="{{$fiscal_year_id}}"
                                data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                               data-has-update-request="{{$plan_list['has_update_request']}}"
+                               data-has-update-request="{{isset($plan_list['has_update_request']) ? $plan_list['has_update_request'] : Null}}"
                                class="btn btn-sm btn-info btn-square mr-1"
                                href="javascript:;">
                                 <i class="fas fa-plus-circle mr-1"></i>
