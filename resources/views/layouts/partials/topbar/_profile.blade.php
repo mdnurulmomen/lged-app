@@ -4,7 +4,7 @@
         @if (isset($userDetails['user_role_id']) && $userDetails['user_role_id'] == 3)
             <div class="top-right-username">
                 <div class="profile-name">{{ $employeeInfo['name_bng'] ?? 'User Name' }}</div>
-                <div class="profile-designation mt-4">{{ isset($userOffices) ? $userOffices[0]['designation'] : '' }}
+                <div class="profile-designation">{{ isset($userOffices) ? $userOffices[0]['designation'] : '' }}
                 </div>
             </div>
             <span class="symbol symbol-lg-35 symbol-25">

@@ -428,9 +428,11 @@ ul.sna-breadcrumb li a:hover {
 .top-right-username {
     color: var(--sheadertxtcolor);
     margin-right: 7px;
+    margin-top: 3px;
     display: flex;
     flex-wrap: wrap;
     width: 150px;
+    line-height: 1em;
 }
 
 .top-right-username div {
@@ -438,7 +440,7 @@ ul.sna-breadcrumb li a:hover {
 }
 
 .top-right-username .profile-name {
-    font-size: 15px;
+    font-size: 13px;
     text-align: right;
     font-weight: 500;
 }

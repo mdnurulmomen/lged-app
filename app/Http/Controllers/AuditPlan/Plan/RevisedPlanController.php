@@ -279,6 +279,7 @@ class RevisedPlanController extends Controller
             $audit_plan = $audit_plan['data'];
             $fiscal_year = 'FY'.substr($audit_plan['fiscal_year']['start'],-2).'-'.substr($audit_plan['fiscal_year']['end'],-2);
             $plans = json_decode(json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])),true),true);
+            //dd($plans);
             $team_schedules = $audit_plan['audit_teams'];
             //dd($team_schedules);
 

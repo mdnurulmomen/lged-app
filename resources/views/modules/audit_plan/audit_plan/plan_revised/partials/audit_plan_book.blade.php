@@ -920,7 +920,10 @@
                                 @endphp
                                 @foreach(json_decode($audit_team_schedule['team_schedules'],true) as $role => $team_schedule)
                                     @if($team_schedule['schedule_type'] == 'schedule')
-                                        @php $totalActivityManDays= $totalActivityManDays+$team_schedule['activity_man_days']; @endphp
+                                        @php
+                                            $activity_man_days = empty($team_schedule['activity_man_days'])?0:enTobn($team_schedule['activity_man_days']);
+                                            $totalActivityManDays= $totalActivityManDays+$activity_man_days;
+                                        @endphp
                                         <tr>
                                             <td style="text-align: center">{{enTobn($loop->iteration)}}.</td>
                                             <td style="text-align: left;margin-left: 5px">{{$team_schedule['cost_center_name_bn']}}</td>
@@ -931,7 +934,7 @@
                                             <td style="text-align: center">
                                                 {{formatDate($team_schedule['team_member_end_date'],'bn')}} খ্রি.
                                             </td>
-                                            <td style="text-align: center">{{enTobn($team_schedule['activity_man_days'])}} কর্ম দিবস</td>
+                                            <td style="text-align: center">{{$activity_man_days}} কর্ম দিবস</td>
                                             <td></td>
                                         </tr>
                                     @else
