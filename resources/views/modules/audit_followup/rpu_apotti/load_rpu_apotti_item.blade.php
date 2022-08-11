@@ -34,14 +34,15 @@
     </thead>
 
     <tbody>
-    @if (!empty($apotti_item_list['data']))
-        @foreach($apotti_item_list['data'] as $apotti_item)
+    @if (!empty($apotti_item_list))
+        @foreach($apotti_item_list as $apotti_item)
             <tr class="text-center">
                 <td class="text-center">
                    <input {{$apotti_item['is_sent_amms'] == 1 ? 'checked disabled' : ''}} class="select-apotti" value="{{$apotti_item['apotti_item_id']}}" type="checkbox">
                 </td>
                 <td class="text-center">
-                    {{enTobn(($apotti_item_list['current_page']-1)*10+$loop->iteration)}}
+                    {{--{{enTobn(($apotti_item_list['current_page']-1)*10+$loop->iteration)}}--}}
+                    {{enTobn($loop->iteration)}}
                 </td>
                 <td class="text-left">
                     <span>অনুচ্ছেদ নম্বর: {{enTobn($apotti_item['onucched_no'])}}</span><br>
@@ -89,7 +90,7 @@
             </tr>
         @endforeach
 
-        <tr>
+        {{--<tr>
             <td colspan="7">
                 <div class="pagination_ui">
                     <div class="pagination">
@@ -197,7 +198,7 @@
                     </div>
                 </div>
             </td>
-        </tr>
+        </tr>--}}
     @else
         <tr data-row="0" class="datatable-row" style="left: 0px;">
             <td colspan="7" class="datatable-cell text-center"><span>Nothing Found</span></td>

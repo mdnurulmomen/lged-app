@@ -50,19 +50,23 @@ class RpuApottiController extends Controller
         $data =  Validator::make($request->all(), [
             'directorate_id' => 'required',
             'fiscal_year_id' => 'required',
+            'ministry_id' => 'required',
+            'entity_id' => 'required',
+            'memo_type' => 'required',
         ],[
             'directorate_id.required' => 'অধিদপ্তর বাছাই করুন',
             'fiscal_year_id.required' => 'অর্থ বছর বাছাই করুন',
+            'ministry_id.required' => 'মন্ত্রণালয় বাছাই করুন',
+            'entity_id.required' => 'এনটিটি বাছাই করুন',
+            'memo_type.required' => 'ক্যাটাগরি বাছাই করুন',
         ])->validate();
 
-        $data['ministry_id'] = $request->ministry_id;
-        $data['entity_id'] = $request->entity_id;
-        $data['memo_type'] = $request->memo_type;
         $data['memo_title_bn'] = $request->memo_title_bn;
         $data['page'] = $request->page;
         $data['per_page'] = $request->per_page;
 
         $apotti_item_list = $this->initRPUHttp()->post(config('cag_rpu_api.get-rpu-apotti-item'), $data)->json();
+        //dd($apotti_item_list);
         $apotti_item_list = isSuccess($apotti_item_list) ? $apotti_item_list['data']: [];
 
         return view('modules.audit_followup.rpu_apotti.load_rpu_apotti_item', compact('apotti_item_list'));
