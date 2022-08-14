@@ -182,6 +182,7 @@ return [
         'ap_risk_assessment_store' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/store',
         'ap_risk_assessment_update' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/update',
         'ap_risk_assessment_list' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/ap-risk-assessment-list',
+        'ap_risk_assessment_plan_wise' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/ap-risk-assessment-plan-wise',
         'risk_assessment_type_wise_item' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/type-wise-item-list',
         'ap_office_order' => [
             'audit_plan_list' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/audit-plan-list',
@@ -391,7 +392,6 @@ return [
         'observations' => [
             'get-status-wise' => [
                 'list' => env('API_URL_BEE', '') . '/audit-report/observations/get-status-wise/list',
-                'download' => env('API_URL_BEE', '') . '/audit-report/observations/get-status-wise/download',
             ]
         ]
     ],

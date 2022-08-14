@@ -40,6 +40,7 @@ class ObservationsReportController extends Controller
         $columns = $request->columns?:[];
         $data['page'] = $request->page;
         $data['per_page'] = $request->per_page;
+        $data['scope'] = 'list';
 
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.observations.get-status-wise.list'), $data)->json();
         //dd($response);
@@ -68,14 +69,15 @@ class ObservationsReportController extends Controller
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['memo_type'] = $request->memo_type;
         $data['jorito_ortho_poriman'] = $request->jorito_ortho_poriman;
+        $data['scope'] = 'download';
 
         $columns                = $request->columns?               : [];
-        $directorate_name       = $request->directorate_name;
+        $directorate_name       = trim($request->directorate_name);
         $ministry_name          = $request->ministry_name;
-        $entity_name            = $request->entity_name;
+        $entity_name            = trim($request->entity_name);
         $unit_group_office_name = $request->unit_group_office_name;
 
-        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.observations.get-status-wise.download'), $data)->json();
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.observations.get-status-wise.list'), $data);
         //dd($response);
         if (isSuccess($response)) {
             $response = $response['data'];

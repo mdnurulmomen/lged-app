@@ -15,8 +15,7 @@
     </div>
 @endif
 
-<iframe src="{{asset('storage/individual_plan/'.$fileName)}}" width="100%" height="500px">
-</iframe>
+<iframe src="{{asset('storage/individual_plan/'.$fileName)}}" width="100%" height="100%"></iframe>
 
 {{--<div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
    --}}{{--cover page--}}{{--

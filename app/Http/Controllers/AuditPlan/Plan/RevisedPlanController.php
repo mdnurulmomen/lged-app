@@ -257,8 +257,9 @@ class RevisedPlanController extends Controller
 
     public function auditPlanBook(Request $request)
     {
-        ini_set('max_execution_time', '600');
-        ini_set("pcre.backtrack_limit", "50000000");
+        ini_set("pcre.backtrack_limit", "999999999999");
+        ini_set('memory_limit', '-1');
+        ini_set('max_execution_time', 0);
 
         $scope_editable = $request->scope_editable;
         $approval_status = $request->approval_status ?? 'pending';
@@ -275,6 +276,7 @@ class RevisedPlanController extends Controller
         $data['office_id'] = $request->office_id;
 
         $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
+
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
             $fiscal_year = 'FY'.substr($audit_plan['fiscal_year']['start'],-2).'-'.substr($audit_plan['fiscal_year']['end'],-2);
@@ -289,8 +291,13 @@ class RevisedPlanController extends Controller
                 break;
             }
 
+            //for risk assessments
+            $risk_assessments = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_risk_assessment_plan_wise'), $data)->json();
+            $risk_assessments = isSuccess($risk_assessments)?$risk_assessments['data']:[];
+            //dd($risk_assessments);
+
             $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
-                ['plans' => $plans,'team_schedules' => $team_schedules], [], ['orientation' => 'P', 'format' => 'A4']);
+                ['plans' => $plans,'team_schedules' => $team_schedules,'risk_assessments' => $risk_assessments], [], ['orientation' => 'P', 'format' => 'A4']);
             $fileName = $current_office_id.'_Plan'.$audit_plan_id.'_'.$fiscal_year.'_'.$entity_name.'.pdf';
 
             Storage::put('public/individual_plan/'.$fileName, $pdf->output());

@@ -889,7 +889,125 @@
 
     {{--materiality calculate page--}}
     <div class="pdf-screen bangla-font" style="height: 100%;">
-        {!! $plans[29]['content'] !!}
+        <p><strong>ঝুঁকি বিশ্লেষণ ও ম্যাটেরিয়ালিটি:</strong></p>
+        @if(!empty($risk_assessments))
+            @php $inherent_risk = $risk_assessments['inherent_risk']; @endphp
+            @php $control_risk = $risk_assessments['control_risk']; @endphp
+            @php $detection_risk = $risk_assessments['detection_risk']; @endphp
+
+            @if(!empty($inherent_risk))
+
+                <h4>Inherent Risk</h4>
+                <table class="table" border="1" width="100%">
+                    <thead>
+                    <tr>
+                        <th width="10%" style="text-align: center">ক্রমিক নং</th>
+                        <th width="70%" style="text-align: left">
+                            ইনহেরেন্ট রিস্ক ফ্যাক্টর
+                        </th>
+                        <th width="20%" style="text-align: left">
+                            রিস্কস্কোর (উচ্চ/মধ্যম/নিম্ন)
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php $total_number = 0; @endphp
+                    @foreach($inherent_risk['risk_assessment_items'] as $risk_assessment_item)
+                        @php
+                            $risk_value = $risk_assessment_item['risk_value'] ?? 0;
+                            $total_number += $risk_value;
+                        @endphp
+                        <tr>
+                            <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
+                            <td>{{$risk_assessment_item['risk_assessment_title_bn']}}</td>
+                            <td style="text-align: center">{{enTobn($risk_value)}}</td>
+                        </tr>
+                    @endforeach
+
+                    <tr>
+                        <td style="text-align: center" colspan="2">মোট:</td>
+                        <td style="text-align: center">{{enTobn($total_number)}}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center" colspan="2">
+                            সামগ্রিক ইনহেরেন্ট রিস্ক
+                        </td>
+                        <td style="text-align: center">
+                            {{enTobn(round($inherent_risk['risk_rate'],2))}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            @endif
+
+            @if(!empty($control_risk))
+                <h4>Control Risk</h4>
+                <table class="table" border="1" width="100%">
+                    <thead>
+                    <tr>
+                        <th width="10%" style="text-align: center">ক্রমিক নং</th>
+                        <th width="70%" style="text-align: left">
+                            কন্ট্রোল রিস্ক ফ্যাক্টর
+                        </th>
+                        <th width="20%" style="text-align: left">
+                            রিস্কস্কোর (উচ্চ/মধ্যম/নিম্ন)
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php $total_number = 0; @endphp
+                    @foreach($control_risk['risk_assessment_items'] as $risk_assessment_item)
+                        @php
+                            $risk_value = $risk_assessment_item['risk_value'] ?? 0;
+                            $total_number += $risk_value;
+                        @endphp
+                        <tr>
+                            <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
+                            <td>{{$risk_assessment_item['risk_assessment_title_bn']}}</td>
+                            <td style="text-align: center">{{enTobn($risk_value)}}</td>
+                        </tr>
+                    @endforeach
+
+                    <tr>
+                        <td style="text-align: center" colspan="2">মোট:</td>
+                        <td style="text-align: center">{{enTobn($total_number)}}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center" colspan="2">
+                            সামগ্রিক ইনহেরেন্ট রিস্ক
+                        </td>
+                        <td style="text-align: center">
+                            {{enTobn(round($control_risk['risk_rate'],2))}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            @endif
+
+            @if(!empty($detection_risk))
+                <h4>Detection Risk</h4>
+                <table class="table" border="1" width="100%">
+                    <thead>
+                    <tr>
+                        <th width="10%" style="text-align: center">ক্রমিক নং</th>
+                        <th width="45%" style="text-align: left">ডিটেকশান রিস্ক</th>
+                        <th width="45%" style="text-align: left">মিটিগেশন</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($detection_risk['risk_assessment_items'] as $risk_assessment_item)
+                        <tr>
+                            <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
+                            <td>{{$risk_assessment_item['risk_assessment_title_bn']}}</td>
+                            <td>
+                                {{$risk_assessment_item['detection_risk_value_bn']}}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            @endif
+        @endif
     </div>
 
     {{--audit schedule page--}}

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'app_name' => 'Audit Management & Monitoring System',
+    'app_name' => 'Audit Management & Monitoring System 2.0',
     'loading' => 'Loading',
     'choose' => 'বাছাই করুন',
     'save' => 'Save',
