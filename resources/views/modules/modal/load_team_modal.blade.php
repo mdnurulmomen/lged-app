@@ -719,7 +719,7 @@
 
     }
 
-    function addDetailsTblRow(layer_id,layer_row,schedule_type='visit') {
+    function addDetailsTblRow(layer_id,layer_row,schedule_type='"visit"') {
         var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
         var teamScheduleHtml = "<tbody id='schedule_tbody_" + layer_id + "_" + totalAuditScheduleRow + "'  data-schedule-type='visit' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
