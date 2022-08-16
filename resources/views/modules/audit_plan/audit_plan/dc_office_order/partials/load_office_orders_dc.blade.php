@@ -236,18 +236,20 @@
                                                             </button>
                                                         @endif
 
-                                                        @if($audit_plan['office_order']['approved_status'] == 'pending' && $audit_plan['office_order']['office_order_movement'] != null
-                                                        && $audit_plan['office_order']['office_order_movement']['employee_designation_id'] == $current_designation_id)
-                                                            <button
-                                                                class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
+                                                        @if($current_grade == 2 || $current_grade == 3 || $current_grade == 5)
+                                                            @if($audit_plan['office_order']['approved_status'] == 'pending' && $audit_plan['office_order']['office_order_movement'] != null
+                                                            && $audit_plan['office_order']['office_order_movement']['employee_designation_id'] == $current_designation_id)
+                                                                <button
+                                                                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
                                             list-btn-toggle"
-                                                                data-ap-office-order-id="{{$audit_plan['office_order']['id']}}"
-                                                                data-audit-plan-id="0"
-                                                                data-annual-plan-id="{{$audit_plan['id']}}"
-                                                                onclick="Office_Order_Container_Dc.approveOfficeOrder($(this))"
-                                                                type="button">
-                                                                <i class="fad fa-check"></i>
-                                                            </button>
+                                                                    data-ap-office-order-id="{{$audit_plan['office_order']['id']}}"
+                                                                    data-audit-plan-id="0"
+                                                                    data-annual-plan-id="{{$audit_plan['id']}}"
+                                                                    onclick="Office_Order_Container_Dc.approveOfficeOrder($(this))"
+                                                                    type="button">
+                                                                    <i class="fad fa-check"></i>
+                                                                </button>
+                                                            @endif
                                                         @endif
                                                     @endif
                                                 @endif

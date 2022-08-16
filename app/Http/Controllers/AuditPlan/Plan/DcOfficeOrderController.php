@@ -35,6 +35,7 @@ class DcOfficeOrderController extends Controller
 //     dd($requestData);
 
         $requestData['cdesk'] =$this->current_desk_json();
+        $data['current_grade'] = $this->current_desk()['officer_grade'];
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order_dc.annual_plan_list'), $requestData)->json();
 //        dd($responseData);
         $data['audit_plans'] = isSuccess($responseData)?$responseData['data']:[];
