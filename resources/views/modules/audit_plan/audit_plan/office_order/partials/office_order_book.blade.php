@@ -895,7 +895,7 @@
                          @endphp
                          @foreach(json_decode($audit_team_schedule['team_schedules'],true) as $role => $team_schedule)
                              @if($team_schedule['schedule_type'] == 'schedule')
-                                 @php $totalActivityManDays= $totalActivityManDays+$team_schedule['activity_man_days']; @endphp
+                                 @php $totalActivityManDays = $totalActivityManDays+$team_schedule['activity_man_days']; @endphp
                                  <tr class="bangla-font">
                                      <td class="bangla-font" style="text-align: center">{{enTobn($loop->iteration)}}.</td>
                                      <td class="bangla-font" style="text-align: left;">&nbsp;{{$team_schedule['cost_center_name_bn']}}</td>
