@@ -51,6 +51,9 @@
     }
 </style>
 {{--<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
+
+@php $total_unit = 0 ;@endphp
+
 <!-- Office Modal -->
 <div class="modal fade custom-modal" id="officeEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="officeEmployeeModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-xl" role="document">
@@ -185,7 +188,11 @@
                         <div class="kt-portlet" style="margin-bottom:0;">
                             <div class="kt-portlet__head d-md-flex align-items-md-center justify-content-md-between">
                                 <div class="kt-portlet__head-label">
-                                    <h5 class="kt-portlet__head-title">বাছাইকৃত অফিসারদের তালিকা</h5>
+                                    <h5 class="kt-portlet__head-title">
+                                        {{--বাছাইকৃত অফিসারদের তালিকা--}}
+                                        বাছাইকৃত সর্বমোট ইউনিটঃ
+                                        <span class="total_unit_count">{{enTobn($total_unit)}}</span>
+                                    </h5>
                                 </div>
                                 <div class="kt-portlet__head-label">
                                     <div
@@ -233,6 +240,27 @@
                                                                            class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2">
                                                                 </div>
 
+                                                                @php $total_team_wise_unit = 0; @endphp
+                                                                @if($value['team_schedules'])
+                                                                    @php
+                                                                        $team_schedules = json_decode($value['team_schedules'],true);
+                                                                    @endphp
+                                                                    @foreach($team_schedules as $key => $schedule)
+                                                                        @php
+                                                                            $schedule_type = Arr::has($schedule, 'schedule_type') ? $schedule['schedule_type'] : 'schedule'
+                                                                        @endphp
+
+                                                                        @if($schedule_type == 'schedule')
+                                                                            @php $total_team_wise_unit += 1; @endphp
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+
+                                                                <h5 class="layer_text text-dark-75 text-primary font-weight-bold p-2" style="width: 20%;">
+                                                                    ইউনিট সংখ্যাঃ <span class="team_wise_total_unit_{{$loop->iteration}}">
+                                                                        {{enTobn($total_team_wise_unit)}}
+                                                                    </span>
+                                                                </h5>
 
                                                                 <div
                                                                     class="d-flex align-items-center justify-content-end">
@@ -260,9 +288,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
-
                                                             </div>
+
                                                             <div class="dragged_data_area px-2 pt-0"
                                                                  id="right_drop_zone_{{$loop->iteration}}">
                                                                 <ul class="listed_items rounded-0 list-group"
@@ -373,6 +400,7 @@
                                                                                 @endphp
 
                                                                                 @if($schedule_type == 'schedule')
+                                                                                    @php $total_unit += 1; @endphp
                                                                                     <tbody
                                                                                         id="schedule_tbody_{{$loop->parent->iteration}}_{{$loop->iteration}}"
                                                                                         data-tbody-id="{{$loop->parent->iteration}}_{{$loop->iteration}}"
@@ -590,7 +618,16 @@
     all_teams = {};
     all_schedules = {};
 
-    function removeScheduleRow(elem, layer_id) {
+    function removeScheduleRow(elem, layer_id,schedule_type='schedule') {
+        if(schedule_type == 'schedule'){
+            //for unit count
+            let total_unit = bnToen($('.total_unit_count').text());
+            $('.total_unit_count').text(enTobn(parseInt(total_unit)-1));
+
+            //for team wise unit count
+            let team_wise_total_unit = bnToen($('.team_wise_total_unit_'+layer_id).text());
+            $('.team_wise_total_unit_'+layer_id).text(enTobn(parseInt(team_wise_total_unit)-1));
+        }
         elem.closest("tr").remove();
     }
 
@@ -615,12 +652,12 @@
         }
     }
 
-    function addAuditScheduleTblRow(layer_id,layer_row) {
+    function addAuditScheduleTblRow(layer_id,layer_row,schedule_type='schedule') {
         total_audit_schedule_row = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
         entity_list = '{{$parent_office_id}}';
         entity_list = entity_list.replace(/&quot;/g, '"');
         url = '{{route('audit.plan.audit.editor.add-audit-schedule-row')}}';
-        data = {layer_id, total_audit_schedule_row, entity_list};
+        data = {layer_id, total_audit_schedule_row, entity_list,schedule_type};
 
         KTApp.block('.kt-portlet')
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
@@ -630,6 +667,13 @@
                 console.log(response)
             } else {
                 // $('#audit_schedule_table_' + layer_id).append(response);
+                //for unit count
+                let total_unit = bnToen($('.total_unit_count').text());
+                $('.total_unit_count').text(enTobn(parseInt(total_unit)+1));
+
+                //for team wise unit count
+                let team_wise_total_unit = bnToen($('.team_wise_total_unit_'+layer_id).text());
+                $('.team_wise_total_unit_'+layer_id).text(enTobn(parseInt(team_wise_total_unit)+1));
                 $('#schedule_tbody_' + layer_id + '_' + layer_row).after(response);
 
                 // $('.select-select2').select2();
@@ -675,7 +719,7 @@
 
     }
 
-    function addDetailsTblRow(layer_id,layer_row) {
+    function addDetailsTblRow(layer_id,layer_row,schedule_type='visit') {
         var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
         var teamScheduleHtml = "<tbody id='schedule_tbody_" + layer_id + "_" + totalAuditScheduleRow + "'  data-schedule-type='visit' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
@@ -688,7 +732,7 @@
             "<button title='ট্রানজিট' type='button' onclick='addDetailsTblRow(" + layer_id + ","+totalAuditScheduleRow+")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
             "<span class='fad fa-plus'></span>" +
             "</button>" +
-            "<button title='বাদ দিন' onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
+            "<button title='বাদ দিন' onclick='removeScheduleRow($(this), " + layer_id + ","+schedule_type+")' type='button' " +
             "data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>" +
             "<span class='fal fa-trash-alt'></span>" +
             "</button>" +
@@ -882,19 +926,28 @@
         },
 
         loadTeamSchedule: function (team_schedule_list_div, team_layer_id, modal_type) {
-            KTApp.block('.kt-portlet')
+            KTApp.block('.kt-portlet');
             url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
             annual_plan_id = '{{$annual_plan_id}}';
             parent_office_id = '{{$parent_office_id}}';
             parent_office_id = parent_office_id.replace(/&quot;/g, '"');
             data = {team_layer_id, annual_plan_id, parent_office_id, modal_type};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('.kt-portlet')
+                KTApp.unblock('.kt-portlet');
                 if (response.status === 'error') {
-                    toastr.error('No Auditable Units Chosen.');
+                    toastr.error('No Auditable Units Chosen');
                 } else {
                     $("#" + team_schedule_list_div).append(response);
                     $("#team_schedule_layer_btn_" + team_layer_id).hide();
+                    let total_unit_count = $('.total_unit_count');
+                    if(team_layer_id == 1){
+                        total_unit_count.text('১');
+                    }else {
+                        //for unit count
+                        let total_unit = bnToen(total_unit_count.text());
+                        total_unit_count.text(enTobn(parseInt(total_unit)+1));
+                    }
+                    $(".team_wise_total_unit_" + team_layer_id).text('১');
                 }
             })
         },
@@ -1303,7 +1356,9 @@ style="padding-left: 5px;">
                 <input type="text" value="${team_name}"
                        class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2">
             </div>
-            <!--<h5 class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2" style="width: 20%;">${team_name}</h5>-->
+            <h5 class="layer_text text-dark-75 text-primary font-weight-bold p-2" style="width: 20%;">
+                ইউনিট সংখ্যাঃ <span class="team_wise_total_unit_${number}">০</span>
+            </h5>
             <div class="d-flex align-items-center justify-content-end">
                 <div class="d-flex align-items-center justify-content-between mb-0 mt-0">
                     <div class="mr-2">
@@ -1559,6 +1614,10 @@ style="padding-left: 5px;">
     };
 
     $(function () {
+        total_unit_count = '{{$total_unit}}';
+        if(total_unit_count > 0){
+            $(".total_unit_count").text(enTobn(total_unit_count));
+        }
         Load_Team_Container.loadOfficer(0, 'own_office');
     });
 

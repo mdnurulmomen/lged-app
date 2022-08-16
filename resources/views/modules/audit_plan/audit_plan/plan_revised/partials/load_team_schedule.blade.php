@@ -85,7 +85,7 @@
 
                     <button type='button' title="বাদ দিন"
                             data-row='row1'
-                            onclick="removeScheduleRow($(this), {{$team_layer_id}})"
+                            onclick="removeScheduleRow($(this), {{$team_layer_id}},'schedule')"
                             class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                         <span class='fal fa-trash-alt'></span>
                     </button>
@@ -120,7 +120,7 @@
 
                     <button type='button' title="বাদ দিন"
                             data-row='row1'
-                            onclick="removeScheduleRow($(this), {{$team_layer_id}})"
+                            onclick="removeScheduleRow($(this), {{$team_layer_id}},'visit')"
                             class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                         <span class='fal fa-trash-alt'></span>
                     </button>

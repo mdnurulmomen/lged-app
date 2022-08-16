@@ -132,10 +132,11 @@ class PlanEditorController extends Controller
     }
 
     public function addAuditScheduleRow(Request $request){
+        $schedule_type = $request->schedule_type;
         $layer_id = $request->layer_id;
         $total_audit_schedule_row = $request->total_audit_schedule_row;
         $entity_list = $request->entity_list;
         return view('modules.audit_plan.audit_plan.plan_revised.partials.add_audit_schedule_row',
-            compact('layer_id','total_audit_schedule_row','entity_list'));
+            compact('schedule_type','layer_id','total_audit_schedule_row','entity_list'));
     }
 }

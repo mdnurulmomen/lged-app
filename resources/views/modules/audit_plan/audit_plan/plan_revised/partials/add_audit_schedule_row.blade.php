@@ -47,7 +47,7 @@
                     class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>
                 <span class='fad fa-plus'></span>
             </button>
-            <button title='Remove' onclick='removeScheduleRow($(this), {{$layer_id}})' type='button'
+            <button title='Remove' onclick='removeScheduleRow($(this),{{$layer_id}},"{{$schedule_type}}")' type='button'
                     data-row='row{{$total_audit_schedule_row}}'
                     class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                 <span class='fal fa-trash-alt'></span>
