@@ -193,6 +193,10 @@
         </div>
 
         <div style="text-align: center;float: right">
+            {!! nl2br($office_order['issuer_details']) !!}
+        </div>
+
+        <div style="text-align: center;float: right">
             @if(isset($office_order['office_order_movement']) && $office_order['office_order_movement'] != null)
                 ({{$office_order['office_order_movement']['employee_name_bn']}}) <br>
                 {{$office_order['office_order_movement']['employee_designation_bn']}} <br>

@@ -49,6 +49,15 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
+                <label for="issuer_details">ইস্যুকারী<span class="text-danger">*</span></label>
+                <textarea class="form-control" name="issuer_details" id="issuer_details" placeholder="ইস্যুকারী" cols="40" rows="2">{{empty($office_order)?'':$office_order['issuer_details']}}</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
                 <label for="cc_sender_details">দায়িত্বপ্রাপ্ত কর্মকর্তার<span class="text-danger">*</span></label>
                 <textarea class="form-control" name="cc_sender_details" id="cc_sender_details" placeholder="দায়িত্বপ্রাপ্ত কর্মকর্তার" cols="40" rows="2">{{empty($office_order)?'':$office_order['cc_sender_details']}}</textarea>
             </div>
