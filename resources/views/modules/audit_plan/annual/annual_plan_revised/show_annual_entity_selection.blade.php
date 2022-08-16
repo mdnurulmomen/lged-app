@@ -61,14 +61,14 @@
                             </button>
                         @endif
 
-                        @if($plan_list['approval_status'] == 'approved' && !$plan_list['has_update_request'])
-                            <button data-annual-plan-main-id="{{$plan_list['id']}}"
-                                    onclick="Annual_Plan_Container.annualPlanUpdateRequest($(this))"
-                                    class="btn btn-sm btn-primary btn-square mr-1">
-                                <i class="fad fa-pencil"></i>
-                                পুনরায় সম্পাদনা
-                            </button>
-                        @endif
+{{--                        @if($plan_list['approval_status'] == 'approved' && !$plan_list['has_update_request'])--}}
+{{--                            <button data-annual-plan-main-id="{{$plan_list['id']}}"--}}
+{{--                                    onclick="Annual_Plan_Container.annualPlanUpdateRequest($(this))"--}}
+{{--                                    class="btn btn-sm btn-primary btn-square mr-1">--}}
+{{--                                <i class="fad fa-pencil"></i>--}}
+{{--                                পুনরায় সম্পাদনা--}}
+{{--                            </button>--}}
+{{--                        @endif--}}
 
                         <span class="badge badge-info text-uppercase m-1 p-1 ">
                             @if ($plan_list['approval_status'] == 'pending')
