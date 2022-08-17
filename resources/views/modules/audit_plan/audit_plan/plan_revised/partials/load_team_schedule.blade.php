@@ -26,7 +26,7 @@
             </th>
         </tr>
         </thead>
-        <tbody id="schedule_tbody_{{$team_layer_id}}_1" data-tbody-id="{{$team_layer_id}}_1" data-schedule-type="schedule">
+        <tbody class="sequence_tbody_{{$team_layer_id}}" id="schedule_tbody_{{$team_layer_id}}_1" data-tbody-id="{{$team_layer_id}}_1" data-schedule-type="schedule">
         <tr class='audit_schedule_row_{{$team_layer_id}}' data-layer-id="{{$team_layer_id}}"
             data-audit-schedule-first-row='1_{{$team_layer_id}}'>
             <td>
@@ -94,7 +94,7 @@
         </tr>
         </tbody>
 
-        <tbody id="schedule_tbody_{{$team_layer_id}}_2" data-tbody-id="{{$team_layer_id}}_2" data-schedule-type="visit">
+        <tbody class="sequence_tbody_{{$team_layer_id}}" id="schedule_tbody_{{$team_layer_id}}_2" data-tbody-id="{{$team_layer_id}}_2" data-schedule-type="visit">
         <tr class="audit_schedule_row_{{$team_layer_id}}" data-layer-id="{{$team_layer_id}}"
             data-schedule-second-row='1_{{$team_layer_id}}'>
             <td colspan="2">

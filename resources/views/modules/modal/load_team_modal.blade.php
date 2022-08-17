@@ -401,7 +401,7 @@
 
                                                                                 @if($schedule_type == 'schedule')
                                                                                     @php $total_unit += 1; @endphp
-                                                                                    <tbody
+                                                                                    <tbody class="sequence_tbody_{{$loop->parent->iteration}}"
                                                                                         id="schedule_tbody_{{$loop->parent->iteration}}_{{$loop->iteration}}"
                                                                                         data-tbody-id="{{$loop->parent->iteration}}_{{$loop->iteration}}"
                                                                                         data-schedule-type="{{$schedule_type}}">
@@ -515,7 +515,7 @@
                                                                                     </tbody>
 
                                                                                 @elseif($schedule_type == 'visit')
-                                                                                    <tbody
+                                                                                    <tbody class="sequence_tbody_{{$loop->parent->iteration}}"
                                                                                         id="schedule_tbody_{{$loop->parent->iteration}}_{{$loop->iteration}}"
                                                                                         data-tbody-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
                                                                                         data-schedule-type="{{$schedule_type}}">
@@ -628,7 +628,7 @@
             let team_wise_total_unit = bnToen($('.team_wise_total_unit_'+layer_id).text());
             $('.team_wise_total_unit_'+layer_id).text(enTobn(parseInt(team_wise_total_unit)-1));
         }
-        elem.closest("tr").remove();
+        elem.closest("tbody").remove();
     }
 
     function removeAuditScheduleListDiv(layer_id) {
@@ -721,7 +721,7 @@
 
     function addDetailsTblRow(layer_id,layer_row,schedule_type='"visit"') {
         var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
-        var teamScheduleHtml = "<tbody id='schedule_tbody_" + layer_id + "_" + totalAuditScheduleRow + "'  data-schedule-type='visit' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
+        var teamScheduleHtml = "<tbody class='sequence_tbody_" + layer_id + "' id='schedule_tbody_" + layer_id + "_" + totalAuditScheduleRow + "'  data-schedule-type='visit' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
         teamScheduleHtml += "<td colspan='2'><input placeholder='ট্রানজিট' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
         teamScheduleHtml += "<td colspan='2'><div><input placeholder='ট্রানজিটের তারিখ' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/><span class='fal fa-calendar field-icon'></span></div></td>";
@@ -1117,6 +1117,12 @@
             team_schedule = {};
             $('[id^=audit_schedule_table_]').each(function (i, v) {
                 layer_id = v.id.split('_')[3]
+
+                    $('.sequence_tbody_'+layer_id).each(function (i, v) {
+                        i++
+                        $(this).attr('data-tbody-id', layer_id+'_'+i);
+                    });
+
                 if ($('#list_group_' + layer_id + ' [data-member-role="teamLeader"]').length > 0 || $('[id^=permitted_level_]').length == 1) {
                     leader_info = JSON.parse($('#list_group_' + layer_id + ' [data-member-role="teamLeader"]').attr('data-content'));
                 } else {
@@ -1136,88 +1142,89 @@
                 activity_details = '';
                 schedule_type = '';
 
+                level = 1;
                 $(".audit_schedule_row_" + layer_id + " input, .audit_schedule_row_" + layer_id + " select").each(function () {
-                    tbodyId = $(this).closest('tbody').data('tbody-id');
-                    tbodySerialId = tbodyId.split('_');
-                    //console.log(tbodyId)
+                        tbodyId = $(this).closest('tbody').data('tbody-id');
+                        tbodySerialId = tbodyId.split('_');
 
-                    schedule_type = $(this).closest('tbody').data('schedule-type');
-                    if (schedule_type === 'visit') {
-                        ministry_id = '';
-                        ministry_name_bn = '';
-                        ministry_name_en = '';
-                        entity_id = '';
-                        entity_name_bn = '';
-                        entity_name_en = '';
-                        cost_center_id = '';
-                        cost_center_name_en = '';
-                        cost_center_name_bn = '';
-                        activity_man_days = '0';
-                    } else {
-                        activity_details = '';
-                    }
-
-                    if ($(this).hasClass('input-entity-name') && $(this).is("select")) {
-                        ministry_id = $(this).find(':selected').attr('data-ministry-id') ? $(this).find(':selected').attr('data-ministry-id') : '';
-                        ministry_name_bn = $(this).find(':selected').attr('data-ministry-name-bn') ? $(this).find(':selected').attr('data-ministry-name-bn') : '';
-                        ministry_name_en = $(this).find(':selected').attr('data-ministry-name-en') ? $(this).find(':selected').attr('data-ministry-name-en') : '';
-                        entity_id = $(this).find(':selected').val();
-                        entity_name_bn = $(this).find(':selected').attr('data-entity-name-bn') ? $(this).find(':selected').attr('data-entity-name-bn') : '';
-                        entity_name_en = $(this).find(':selected').attr('data-entity-name-en') ? $(this).find(':selected').attr('data-entity-name-en') : '';
-                    }
-
-                    if ($(this).hasClass('input-branch-name') && $(this).is("select")) {
-                        cost_center_id = $(this).find(':selected').attr('data-cost-center-id');
-                        cost_center_name_en = $(this).find(':selected').attr('data-cost-center-name-en');
-                        cost_center_name_bn = $(this).find(':selected').attr('data-cost-center-name-bn');
-                    }
-
-                    if (!$(this).is('select')) {
-                        if ($(this).hasClass('input-start-duration')) {
-                            team_member_start_date = formatDate($(this).val());
+                        schedule_type = $(this).closest('tbody').data('schedule-type');
+                        if (schedule_type === 'visit') {
+                            ministry_id = '';
+                            ministry_name_bn = '';
+                            ministry_name_en = '';
+                            entity_id = '';
+                            entity_name_bn = '';
+                            entity_name_en = '';
+                            cost_center_id = '';
+                            cost_center_name_en = '';
+                            cost_center_name_bn = '';
+                            activity_man_days = '0';
+                        } else {
+                            activity_details = '';
                         }
-                        if ($(this).hasClass('input-end-duration')) {
-                            team_member_end_date = formatDate($(this).val());
-                        }
-                        if ($(this).hasClass('input-total-working-day')) {
-                            activity_man_days = $(this).val();
-                        }
-                        if ($(this).hasClass('input-detail-duration')) {
-                            team_member_start_date = $(this).val() === "" ? "" : formatDate($(this).val());
-                            team_member_end_date = $(this).val() === "" ? "" : formatDate($(this).val());
-                        }
-                        if ($(this).hasClass('input-detail')) {
-                            activity_details = $(this).val();
-                        }
-                    }
 
-                    sequence_level = tbodySerialId[1];
+                        if ($(this).hasClass('input-entity-name') && $(this).is("select")) {
+                            ministry_id = $(this).find(':selected').attr('data-ministry-id') ? $(this).find(':selected').attr('data-ministry-id') : '';
+                            ministry_name_bn = $(this).find(':selected').attr('data-ministry-name-bn') ? $(this).find(':selected').attr('data-ministry-name-bn') : '';
+                            ministry_name_en = $(this).find(':selected').attr('data-ministry-name-en') ? $(this).find(':selected').attr('data-ministry-name-en') : '';
+                            entity_id = $(this).find(':selected').val();
+                            entity_name_bn = $(this).find(':selected').attr('data-entity-name-bn') ? $(this).find(':selected').attr('data-entity-name-bn') : '';
+                            entity_name_en = $(this).find(':selected').attr('data-entity-name-en') ? $(this).find(':selected').attr('data-entity-name-en') : '';
+                        }
 
-                    schedule_data = {
-                        ministry_id,
-                        ministry_name_bn,
-                        ministry_name_en,
-                        entity_id,
-                        entity_name_bn,
-                        entity_name_en,
-                        cost_center_id,
-                        cost_center_name_en,
-                        cost_center_name_bn,
-                        team_member_start_date,
-                        team_member_end_date,
-                        activity_man_days,
-                        activity_details,
-                        sequence_level,
-                        schedule_type
-                    };
+                        if ($(this).hasClass('input-branch-name') && $(this).is("select")) {
+                            cost_center_id = $(this).find(':selected').attr('data-cost-center-id');
+                            cost_center_name_en = $(this).find(':selected').attr('data-cost-center-name-en');
+                            cost_center_name_bn = $(this).find(':selected').attr('data-cost-center-name-bn');
+                        }
 
-                    if (schedule_data.cost_center_id in team_schedule[leader_info.designation_id] == false && typeof schedule_data.cost_center_id !== 'undefined') {
-                        team_schedule[leader_info.designation_id][sequence_level] = {};
-                    }
-                    if (typeof schedule_data.cost_center_id !== 'undefined') {
-                        team_schedule[leader_info.designation_id][sequence_level] = schedule_data;
-                    }
-                });
+                        if (!$(this).is('select')) {
+                            if ($(this).hasClass('input-start-duration')) {
+                                team_member_start_date = formatDate($(this).val());
+                            }
+                            if ($(this).hasClass('input-end-duration')) {
+                                team_member_end_date = formatDate($(this).val());
+                            }
+                            if ($(this).hasClass('input-total-working-day')) {
+                                activity_man_days = $(this).val();
+                            }
+                            if ($(this).hasClass('input-detail-duration')) {
+                                team_member_start_date = $(this).val() === "" ? "" : formatDate($(this).val());
+                                team_member_end_date = $(this).val() === "" ? "" : formatDate($(this).val());
+                            }
+                            if ($(this).hasClass('input-detail')) {
+                                activity_details = $(this).val();
+                            }
+                        }
+                        sequence_level = tbodySerialId[1];
+
+                        schedule_data = {
+                            ministry_id,
+                            ministry_name_bn,
+                            ministry_name_en,
+                            entity_id,
+                            entity_name_bn,
+                            entity_name_en,
+                            cost_center_id,
+                            cost_center_name_en,
+                            cost_center_name_bn,
+                            team_member_start_date,
+                            team_member_end_date,
+                            activity_man_days,
+                            activity_details,
+                            sequence_level,
+                            schedule_type
+                        };
+
+                        if (schedule_data.cost_center_id in team_schedule[leader_info.designation_id] == false && typeof schedule_data.cost_center_id !== 'undefined') {
+                            team_schedule[leader_info.designation_id][sequence_level] = {};
+                        }
+                        if (typeof schedule_data.cost_center_id !== 'undefined') {
+                            team_schedule[leader_info.designation_id][sequence_level] = schedule_data;
+                        }
+                    });
+
+
             });
             all_schedules = team_schedule;
             return all_schedules;

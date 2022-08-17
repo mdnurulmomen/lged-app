@@ -1,4 +1,4 @@
-<tbody id="schedule_tbody_{{$layer_id}}_{{$total_audit_schedule_row}}" data-schedule-type='schedule' data-tbody-id='{{$layer_id}}_{{$total_audit_schedule_row}}'>
+<tbody class="sequence_tbody_{{$layer_id}}" id="schedule_tbody_{{$layer_id}}_{{$total_audit_schedule_row}}" data-schedule-type='schedule' data-tbody-id='{{$layer_id}}_{{$total_audit_schedule_row}}'>
 <tr class='audit_schedule_row_{{$layer_id}}' data-layer-id='{{$layer_id}}'
     data-audit-schedule-first-row='{{$total_audit_schedule_row}}_{{$layer_id}}'>
     <td class='selected_entity_data_{{$layer_id}}'>
