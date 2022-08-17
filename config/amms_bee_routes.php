@@ -77,6 +77,10 @@ return [
         'movement' => [
             'store' => env('API_URL_BEE', '') . '/movement/store',
         ],
+
+        'vacation-date' => [
+            'year-wise-vacation-list' => env('API_URL_BEE', '') . '/vacation-date/year-wise-vacation-list',
+        ]
     ],
 
     'audit_operational_plan' => [

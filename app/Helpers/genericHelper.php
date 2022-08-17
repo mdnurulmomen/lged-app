@@ -670,3 +670,25 @@ if (!function_exists('getWorkingDays')) {
         return $workingDays;
     }
 }
+
+if (!function_exists('getWorkingDates')) {
+    function getWorkingDates($startDate, $total_day, $holidays=[]){
+        $weekend = array('Fri','Sat');
+        $date = new DateTime("$startDate");
+        $nextDay = clone $date;
+        $i = 0; // We have 0 future dates to start with
+        $nextDates = array(); // Empty array to hold the next 3 dates
+        while ($i < $total_day)
+        {
+            $i++;
+            $nextDay->add(new DateInterval('P1D')); // Add 1 day
+            if (in_array($nextDay->format('m-d'), $holidays)) continue; // Don't include year to ensure the check is year independent
+            // Note that you may need to do more complicated things for special holidays that don't use specific dates like "the last Friday of this month"
+            if (in_array($nextDay->format('D'), $weekend)) continue;
+            // These next lines will only execute if continue isn't called for this iteration
+            $nextDates[] = $nextDay->format('Y-m-d');
+        }
+        return $nextDates;
+    }
+
+}

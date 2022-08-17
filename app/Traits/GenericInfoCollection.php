@@ -126,4 +126,14 @@ trait GenericInfoCollection
         return $this->initHttpWithToken()->post(config('amms_bee_routes.audit_template_show'), ['template' => $template_type, 'language' => $lang])->json();
     }
 
+    public function yearWiseVacationList($year)
+    {
+        $data['year'] = $year;
+        $list = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.vacation-date.year-wise-vacation-list'),$data)->json();
+        if ($list['status'] == 'success') {
+            return $list['data'];
+        } else {
+            return [];
+        }
+    }
 }
