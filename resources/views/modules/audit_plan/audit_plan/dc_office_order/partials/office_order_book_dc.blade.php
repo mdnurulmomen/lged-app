@@ -832,6 +832,7 @@
             </table>
         </div>--}}
 
+         @php $allWorkingDates = []; @endphp
          @foreach($audit_team_schedules as $audit_team_schedule)
              @if($audit_team_schedule['team_schedules'] != null)
                  <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: center;margin-top: 10px">
@@ -887,37 +888,57 @@
                              <td class="bangla-font" style="text-align: center" width="15%">৪</td>
                              <td class="bangla-font" style="text-align: center" width="15%">৫</td>
                          </tr>
-                         @php
-                             $totalActivityManDays = 0;
-                         @endphp
+
+                         @php $schedule_sl = 0; @endphp
+
                          @foreach(json_decode($audit_team_schedule['team_schedules'],true) as $role => $team_schedule)
                              @if($team_schedule['schedule_type'] == 'schedule')
-                                 @php $totalActivityManDays= $totalActivityManDays+$team_schedule['activity_man_days']; @endphp
+                                 @php
+                                     $schedule_sl++;
+                                     $activity_man_days = empty($team_schedule['activity_man_days'])?0:$team_schedule['activity_man_days'];
+                                     $teamWiseWorkingDates = getWorkingDates(date('Y-m-d', strtotime('-1 day', strtotime($team_schedule['team_member_start_date']))),$activity_man_days,$vacations);
+                                 @endphp
+
+                                 @if(!empty($teamWiseWorkingDates))
+                                     @foreach($teamWiseWorkingDates as $teamWiseWorkingDate)
+                                         @php $allWorkingDates[] = $teamWiseWorkingDate; @endphp
+                                     @endforeach
+                                 @endif
+
                                  <tr class="bangla-font">
-                                     <td class="bangla-font" style="text-align: center">{{enTobn($loop->iteration)}}.</td>
+                                     <td class="bangla-font" style="text-align: center">{{enTobn($schedule_sl)}}.</td>
                                      <td class="bangla-font" style="text-align: left;">&nbsp;{{$team_schedule['cost_center_name_bn']}}</td>
                                      <td class="bangla-font" style="text-align: center">{{enTobn($audit_team_schedule['audit_year_start'])}}-{{enTobn($audit_team_schedule['audit_year_end'])}}</td>
                                      <td class="bangla-font" style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি.
                                          হতে {{formatDate($team_schedule['team_member_end_date'],'bn')}} খ্রি.
                                      </td>
-                                     <td class="bangla-font" style="text-align: center">{{enTobn($team_schedule['activity_man_days'])}} কর্ম দিবস</td>
+                                     <td class="bangla-font" style="text-align: center">
+                                         @if($activity_man_days > 0)
+                                             {{enTobn($activity_man_days)}} কর্ম দিবস
+                                         @endif
+                                     </td>
                                  </tr>
                              @else
                                  <tr class="bangla-font">
-                                     <td class="bangla-font" style="text-align: center">{{enTobn($loop->iteration)}}.</td>
-                                     <td class="bangla-font" colspan="3" style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি. {{$team_schedule['activity_details']}}</td>
+                                     <td class="bangla-font" colspan="4" style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি. {{$team_schedule['activity_details']}}</td>
                                      <td></td>
                                  </tr>
                              @endif
                          @endforeach
+                         @php $allWorkingDates = array_unique($allWorkingDates); @endphp
                          <tr class="bangla-font">
                              <th class="bangla-font" colspan="4" style="text-align: right">সর্বমোট</th>
-                             <th class="bangla-font" style="text-align: center">{{enTobn($totalActivityManDays)}} কর্ম দিবস</th>
+                             <th class="bangla-font" style="text-align: center">
+                                 @if(count($allWorkingDates) > 0)
+                                     {{enTobn(count($allWorkingDates))}} কর্ম দিবস
+                                 @endif
+                             </th>
                          </tr>
                          </tbody>
                      </table>
                  </div>
              @endif
+             @php unset($allWorkingDates); @endphp
          @endforeach
 
 

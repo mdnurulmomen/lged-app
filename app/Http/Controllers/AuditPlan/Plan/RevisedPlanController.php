@@ -280,6 +280,8 @@ class RevisedPlanController extends Controller
         if (isSuccess($audit_plan)) {
             $audit_plan = $audit_plan['data'];
             $fiscal_year = 'FY'.substr($audit_plan['fiscal_year']['start'],-2).'-'.substr($audit_plan['fiscal_year']['end'],-2);
+
+            $vacations = $this->yearWiseVacationList(date("Y"));
             $plans = json_decode(json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])),true),true);
             //dd($plans);
             $team_schedules = $audit_plan['audit_teams'];
@@ -297,7 +299,7 @@ class RevisedPlanController extends Controller
             //dd($risk_assessments);
 
             $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
-                ['plans' => $plans,'team_schedules' => $team_schedules,'risk_assessments' => $risk_assessments], [], ['orientation' => 'P', 'format' => 'A4']);
+                ['vacations' => $vacations,'plans' => $plans,'team_schedules' => $team_schedules,'risk_assessments' => $risk_assessments], [], ['orientation' => 'P', 'format' => 'A4']);
             $fileName = $current_office_id.'_Plan'.$audit_plan_id.'_'.$fiscal_year.'_'.$entity_name.'.pdf';
 
             Storage::put('public/individual_plan/'.$fileName, $pdf->output());

@@ -901,7 +901,8 @@
                              @if($team_schedule['schedule_type'] == 'schedule')
                                  @php
                                      $schedule_sl++;
-                                     $teamWiseWorkingDates = getWorkingDates(date('Y-m-d', strtotime('-1 day', strtotime($team_schedule['team_member_start_date']))),$team_schedule['activity_man_days'],$vacations);
+                                     $activity_man_days = empty($team_schedule['activity_man_days'])?0:$team_schedule['activity_man_days'];
+                                     $teamWiseWorkingDates = getWorkingDates(date('Y-m-d', strtotime('-1 day', strtotime($team_schedule['team_member_start_date']))),$activity_man_days,$vacations);
                                  @endphp
 
                                  @if(!empty($teamWiseWorkingDates))
@@ -914,10 +915,15 @@
                                      <td class="bangla-font" style="text-align: center">{{enTobn($schedule_sl)}}.</td>
                                      <td class="bangla-font" style="text-align: left;">&nbsp;{{$team_schedule['cost_center_name_bn']}}</td>
                                      <td class="bangla-font" style="text-align: center">{{enTobn($audit_team_schedule['audit_year_start'])}}-{{enTobn($audit_team_schedule['audit_year_end'])}}</td>
-                                     <td class="bangla-font" style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি.
+                                     <td class="bangla-font" style="text-align: center">
+                                         {{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি.
                                          হতে {{formatDate($team_schedule['team_member_end_date'],'bn')}} খ্রি.
                                      </td>
-                                     <td class="bangla-font" style="text-align: center">{{enTobn($team_schedule['activity_man_days'])}} কর্ম দিবস</td>
+                                     <td class="bangla-font" style="text-align: center">
+                                         @if($activity_man_days > 0)
+                                            {{enTobn($activity_man_days)}} কর্ম দিবস
+                                         @endif
+                                     </td>
                                  </tr>
                              @else
                                  <tr class="bangla-font">
@@ -931,14 +937,18 @@
                          @endphp
                          <tr class="bangla-font">
                              <th class="bangla-font" colspan="4" style="text-align: right">সর্বমোট</th>
-                             <th class="bangla-font" style="text-align: center">{{enTobn(count($allWorkingDates))}} কর্ম দিবস</th>
+                             <th class="bangla-font" style="text-align: center">
+                                 @if(count($allWorkingDates) > 0)
+                                    {{enTobn(count($allWorkingDates))}} কর্ম দিবস
+                                 @endif
+                             </th>
                          </tr>
                          </tbody>
                      </table>
                  </div>
              @endif
 
-             @php unset($allWorkingDates);@endphp
+             @php unset($allWorkingDates); @endphp
          @endforeach
 
 

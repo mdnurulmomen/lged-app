@@ -81,7 +81,7 @@
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
-                message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                message: 'সংরক্ষন হচ্ছে অপেক্ষা করুন...',
                 state: 'primary' // a bootstrap color
             });
 
