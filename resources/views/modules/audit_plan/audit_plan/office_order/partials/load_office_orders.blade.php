@@ -232,7 +232,7 @@
                                                     @endif
 
                                                     @if($audit_plan['has_office_order'] == 1)
-                                                        @if($audit_plan['office_order']['approved_status'] != 'draft' || (isset($audit_plan['office_order_update']) && $audit_plan['office_order_update']['approved_status'] == 'draft'))
+                                                        @if($audit_plan['office_order']['approved_status'] != 'approved' || (isset($audit_plan['office_order_update']) && $audit_plan['office_order_update']['approved_status'] == 'draft'))
                                                             <button
                                                                 class="mr-1 btn btn-sm btn-sent" title="প্রেরণ করুন"
                                                                 data-ap-office-order-id="{{$audit_plan['has_update_office_order'] == 1 ? $audit_plan['office_order_update']['id'] : $audit_plan['office_order']['id'] }}"

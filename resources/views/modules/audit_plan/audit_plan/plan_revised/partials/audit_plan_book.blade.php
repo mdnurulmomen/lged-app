@@ -1077,7 +1077,7 @@
                                     @endif
                                 @endforeach
                                 @php
-                                    $allWorkingDates = array_unique($allWorkingDates);
+                                    $allWorkingDates = !empty($allWorkingDates) ?  array_unique($allWorkingDates) : [];
                                 @endphp
                                 <tr>
                                     <th colspan="5" style="text-align: right">সর্বমোট</th>

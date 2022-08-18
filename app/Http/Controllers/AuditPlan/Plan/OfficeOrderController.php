@@ -318,9 +318,12 @@ class OfficeOrderController extends Controller
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_office_order'), $requestData)
             ->json();
 
+        $data['vacations'] = $this->yearWiseVacationList(date('Y'));
+
         $data['office_order'] = $responseData['data']['office_order'];
         $data['audit_team_members'] = $responseData['data']['audit_team_members'];
         $data['audit_team_schedules'] = $responseData['data']['audit_team_schedules'];
+        $data['office_id'] = $this->current_office_id();
 
         $pdf = \PDF::loadView('modules.audit_plan.audit_plan.office_order.partials.office_order_book', $data);
 
