@@ -1249,7 +1249,37 @@
             fiscal_year_id = '{{$fiscal_year_id}}';
             audit_year_start = $('#audit_year_start').val();
             audit_year_end = $('#audit_year_end').val();
+
+            layer_id = 0;
+            list_group = $('[id^=list_group_]');
+
+            list_group.each(function (index, value) {
+                is_subteam_leader = 0;
+                $('p[id^=permitted_]').each(function (i, v) {
+                    if (layer_id != $('#' + v.id).attr('data-layer')) {
+                        layer_id == $('#' + v.id).attr('data-layer');
+                    }
+                    role = $('#' + v.id).attr('data-member-role');
+                    layer_id = $('#' + v.id).attr('data-layer');
+
+                    console.log(layer_id);
+
+                    if (layer_id > 1) {
+                        if (role == 'subTeamLeader') {
+                            is_subteam_leader = 1;
+                            return;
+                        }
+                    }
+                });
+            });
+
+            if(!is_subteam_leader){
+                toastr.warning('Please Select Sub Team Leader');
+                return;
+            }
+
             teams = Load_Team_Container.makeAuditTeam();
+
             modal_type = '{{$modal_type}}';
             data = {
                 annual_plan_id,
