@@ -322,7 +322,7 @@
                                                                                         <button type="button"
                                                                                                 data-designation-id="{{$member['designation_id']}}"
                                                                                                 onclick="Load_Team_Container.memberRole($(this), '{{$loop->parent->parent->iteration}}' , 'teamLeader', '{{$member['designation_id']}}')"
-                                                                                                class="teamLeaderBtn btn btn-xs signatory_layer text-primary">
+                                                                                                class="teamLeaderBtn btn btn-xs signatory_layer text-primary team_leader_designtion_{{$member['designation_id']}}">
                                                                                             <i data-value="@if($member['team_member_role_en'] == 'teamLeader') 1 @else 0 @endif"
                                                                                                class="far text-primary @if($member['team_member_role_en'] == 'teamLeader') fa-dot-circle @else fa-circle @endif "></i>দলনেতা
                                                                                         </button>
@@ -332,7 +332,7 @@
                                                                                     <button type="button"
                                                                                             data-designation-id="{{$member['designation_id']}}"
                                                                                             onclick="Load_Team_Container.memberRole($(this), '{{$loop->parent->parent->iteration}}' , 'subTeamLeader', '{{$member['designation_id']}}')"
-                                                                                            class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary">
+                                                                                            class="subTeamLeaderBtn btn btn-xs signatory_layer sub_team_leader_designtion_{{$member['designation_id']}} text-primary">
                                                                                         <i data-value="@if($member['team_member_role_en'] == 'subTeamLeader') 1 @else 0 @endif"
                                                                                            class="far text-primary @if($member['team_member_role_en'] == 'subTeamLeader') fa-dot-circle @else fa-circle @endif "></i>উপ
                                                                                         দলনেতা
@@ -340,7 +340,7 @@
                                                                                     <button type="button"
                                                                                             data-designation-id="{{$member['designation_id']}}"
                                                                                             onclick="Load_Team_Container.memberRole($(this), '{{$loop->parent->parent->iteration}}' , 'member', '{{$member['designation_id']}}')"
-                                                                                            class="memberBtn btn btn-xs signatory_layer text-primary">
+                                                                                            class="memberBtn btn btn-xs signatory_layer text-primary member_designtion_{{$member['designation_id']}}">
                                                                                         <i data-value="@if($member['team_member_role_en'] == 'member') 1 @else 0 @endif"
                                                                                            class="far text-primary @if($member['team_member_role_en'] == 'member') fa-dot-circle @else fa-circle @endif "></i>সদস্য
                                                                                     </button>
@@ -869,18 +869,19 @@
         },
 
         addNode: function (layer_index, data_content, addType) {
+            // alert(layer_index);
             var html_officer = data_content.officer_name_bn;
             var node_html = `<li id="designtion_${data_content.designation_id}" class="list-group-item overflow-hidden p-1">
                                 <p data-content='${JSON.stringify(data_content)}' data-member-role="member" data-layer="${layer_index}" class="assignedMember_${data_content.designation_id}_${layer_index} p-0 mb-0 permitted_designation" id="permitted_${data_content.designation_id}" data-id="${data_content.designation_id}">
                                     <i class="far fa-user"></i><span class="ml-2 mr-2">${html_officer}</span>
                                     <small>${data_content.designation_bn}, ${data_content.unit_name_bn}</small>`;
             if (layer_index == $('[id^=permitted_level_]').first().attr('data-layer_index')) {
-                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader', ${data_content.designation_id})" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-circle"></i>দলনেতা</button>`;
+                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader', ${data_content.designation_id})" class="teamLeaderBtn btn btn-xs signatory_layer text-primary team_leader_designtion_${data_content.designation_id}"><i data-value="0" class="far text-primary fa-circle"></i>দলনেতা</button>`;
                 Load_Team_Container.editor_leader_info = data_content.officer_name_bn + ', ' + data_content.designation_bn + ', ' + data_content.unit_name_bn + '|';
             }
 
-            node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'subTeamLeader', ${data_content.designation_id})" class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-circle"></i>উপ দলনেতা</button>
-<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'member', ${data_content.designation_id})" class="memberBtn btn btn-xs signatory_layer text-primary"><i data-value="1" class="far text-primary fa-dot-circle"></i>সদস্য</button>
+            node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'subTeamLeader', ${data_content.designation_id})" class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary sub_team_leader_designtion_${data_content.designation_id}"><i data-value="0" class="far text-primary fa-circle"></i>উপ দলনেতা</button>
+<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'member', ${data_content.designation_id})" class="memberBtn btn btn-xs signatory_layer text-primary"><i data-value="1" class="far text-primary fa-dot-circle member_designtion_${data_content.designation_id}"></i>সদস্য</button>
                     </select> <button type="button" onclick="Load_Team_Container.deleteNode('designation','permitted_${data_content.designation_id}', 0)" class="text-danger btn btn-icon btn-xs del_layer_designation"><i class="text-danger far fa-trash-alt"></i></button>
 </p>                            </li>
             `;
@@ -891,6 +892,16 @@
             // Load_Team_Container.newNodeResetSortableList($("#permitted_level_" + layer_index));
             if ($("p[id^=permitted_]").length == 1) {
                 $('.teamLeaderBtn').click();
+            }
+
+
+            if (layer_index > 1) {
+                list_group_count = $('ul#list_group_'+layer_index).children('li').length;
+                if ( list_group_count == 1) {
+                    $(".sub_team_leader_designtion_" + data_content.designation_id).click();
+                }else{
+                    $(".member_designtion_" + data_content.designation_id).click();
+                }
             }
 
             if (data_content.employee_grade > 6) {
