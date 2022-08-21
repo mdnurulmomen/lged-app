@@ -836,7 +836,7 @@
             </tr>
             </tbody>
         </table>
-        
+
         @if(!empty($team_members))
             <div style='margin-bottom: 10px;'>
                 <table width="100%" border="1">

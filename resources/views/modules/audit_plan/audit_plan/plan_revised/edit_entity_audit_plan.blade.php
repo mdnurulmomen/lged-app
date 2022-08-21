@@ -62,6 +62,7 @@
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
                     data-scope-editable="0"
+                    data-audit-plan-id="{{$audit_plan['id']}}"
                     data-annual-plan-id="{{$annual_plan_id}}"
                     data-fiscal-year-id="{{$fiscal_year_id}}"
                     onclick="Entity_Plan_Container.previewAuditPlan($(this))">

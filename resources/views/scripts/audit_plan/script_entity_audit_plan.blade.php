@@ -76,9 +76,11 @@
         previewAuditPlan: function (elem) {
             $('.draft_entity_audit_plan').click();
             scope_editable = 'false';
-            audit_plan_id = $(".draft_entity_audit_plan").data('audit-plan-id');
-            fiscal_year_id = elem.data('fiscal-year-id')
-            annual_plan_id = elem.data('annual-plan-id')
+
+            var isExistAuditPlanId = document.getElementsByClassName('draft_entity_audit_plan');
+            audit_plan_id = isExistAuditPlanId.length > 0 ? $(".draft_entity_audit_plan").data('audit-plan-id') : elem.data('audit-plan-id');
+            fiscal_year_id = elem.data('fiscal-year-id');
+            annual_plan_id = elem.data('annual-plan-id');
 
             data = {scope_editable,audit_plan_id,fiscal_year_id,annual_plan_id};
             url = '{{route('audit.plan.audit.revised.plan.book-audit-plan')}}';

@@ -74,6 +74,7 @@
 
 <script>
     var dashboard_filter_data = '{!! session('dashboard_filter_data') !!}';
+
     $(function() {
         if (dashboard_filter_data != "") {
             filter_data = JSON.parse(dashboard_filter_data);
@@ -362,6 +363,10 @@
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
         Apotti_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
+    });
+
+    $('#fiscal_year_id').change(function() {
+        Apotti_Memo_Container.loadFiscalYearWiseActivity();
     });
 
     $('#entity_filter').change(function() {
