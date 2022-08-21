@@ -791,33 +791,32 @@
 <body>
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     {{--cover page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[0]['content'] !!}
     </div>
 
     {{--index page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[1]['content'] !!}
     </div>
 
     {{--strategic form part 01--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;
-    page-break-after: always">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[3]['content'] !!}
     </div>
 
     {{--strategic form part 02--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[4]['content'] !!}
     </div>
 
     {{--strategic form part 03--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[5]['content'] !!}
     </div>
 
     {{--audit plan form 1 (part-01)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[6]['content'] !!}
         {!! $plans[7]['content'] !!}
         {!! $plans[8]['content'] !!}
@@ -826,87 +825,102 @@
     </div>
 
     {{--audit plan form 1 (part-02)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
-        <table width="100%" border="1">
-            <thead>
-            <tr>
-                <th style="text-align: center" width="6%">ক্রমিক নং</th>
-                <th style="text-align: center" width="49%">নাম</th>
-                <th style="text-align: center" width="45%">সংশোধিত</th>
-            </tr>
-            </thead>
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        <table style='margin-bottom: 5px; width: 100%;' border='0' width='100%' cellspacing='0' cellpadding='0'>
             <tbody>
-            @foreach($team_members as $member)
-                <tr>
-                    <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
-                    <td style="text-align: left">জনাব {{$member['team_member_name_bn']}},{{$member['team_member_designation_bn']}}</td>
-                    <td style="text-align: left"></td>
-                </tr>
-            @endforeach
+            <tr>
+                <td style='width: 6%; vertical-align: top;'>১.৪</td>
+                <td style='vertical-align: top; width: 94%;' colspan='2'>
+                    জ্যেষ্ঠতার ক্রমানুসারে অডিট দলের সদস্যগণের নাম (দলনেতা ক্রমিক ১ এ)
+                </td>
+            </tr>
             </tbody>
         </table>
+        
+        @if(!empty($team_members))
+            <div style='margin-bottom: 10px;'>
+                <table width="100%" border="1">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center" width="6%">ক্রমিক নং</th>
+                        <th style="text-align: center" width="49%">নাম</th>
+                        <th style="text-align: center" width="45%">সংশোধিত</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($team_members as $member)
+                        <tr>
+                            <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
+                            <td style="text-align: left">জনাব {{$member['team_member_name_bn']}},{{$member['team_member_designation_bn']}}</td>
+                            <td style="text-align: left"></td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
         {{--{!! $plans[11]['content'] !!}--}}
     </div>
 
     {{--audit plan form 1 (part-03)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[12]['content'] !!}
         {!! $plans[13]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-01)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[14]['content'] !!}
         {!! $plans[15]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-01)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[16]['content'] !!}
         {!! $plans[17]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-02)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[18]['content'] !!}
         {!! $plans[19]['content'] !!}
         {!! $plans[20]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-02)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[21]['content'] !!}
         {!! $plans[22]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-03)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[23]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-04)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[24]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-05)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[25]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-06)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[26]['content'] !!}
     </div>
 
     {{--audit risk assessment page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;
     page-break-after: always">
         {!! $plans[27]['content'] !!}
     </div>
 
     {{--materiality calculate page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         <p><strong>ঝুঁকি বিশ্লেষণ ও ম্যাটেরিয়ালিটি:</strong></p>
         @if(!empty($risk_assessments))
             @php $inherent_risk = $risk_assessments['inherent_risk']; @endphp
@@ -1029,7 +1043,7 @@
     </div>
 
     {{--audit schedule page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
         {{--{!! $plans[30]['content'] !!}--}}
         <p><strong>নিরীক্ষা সূচী:</strong></p>
         <div style="text-align: center">

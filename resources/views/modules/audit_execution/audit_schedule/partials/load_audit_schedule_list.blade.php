@@ -9,13 +9,17 @@
                             <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
+                                    <div class="font-weight-bolder">
+                                        <span class="mr-2 font-size-1-2">ক্রমিক নং:</span>
+                                        <span class="font-size-14">{{enTobn($loop->iteration)}}</span>
+                                    </div>
+
                                     <div class="font-weight-normal">
                                         <span class="mr-2 font-size-1-1">এনটিটি/প্রতিষ্ঠানঃ</span>
                                         <span class="font-size-14">
                                             {{$schedule['entity_name_bn']}}
                                             <span class="label label-outline-warning label-pill label-inline">
                                                 প্ল্যান - {{$schedule['audit_plan_id']}}</span>
-
                                     </div>
 
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
