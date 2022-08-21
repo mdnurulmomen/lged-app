@@ -168,6 +168,7 @@ return [
         'ap_entity_lists' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan',
         'ap_entity_plan_create_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/new',
         'ap_entity_plan_edit_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/edit',
+        'ap_entity_plan_view' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/view',
         'ap_entity_plan_make_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/update',
         'ap_entity_plan_edit_lock' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/lock',
         'ap_entity_plan_draft_show' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/show',

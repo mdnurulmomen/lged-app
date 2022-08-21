@@ -275,31 +275,33 @@ class RevisedPlanController extends Controller
 
         $data['office_id'] = $request->office_id;
 
-        $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
+        $ap_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_view'), $data)->json();
+        //dd($ap_plan);
 
-        if (isSuccess($audit_plan)) {
-            $audit_plan = $audit_plan['data'];
-            $fiscal_year = 'FY'.substr($audit_plan['fiscal_year']['start'],-2).'-'.substr($audit_plan['fiscal_year']['end'],-2);
+        if (isSuccess($ap_plan)) {
+            $ap_plan = $ap_plan['data'];
+            $individual_plan = $ap_plan['individual_plan'];
+            $fiscal_year = 'FY'.substr($individual_plan['fiscal_year']['start'],-2).'-'.substr($individual_plan['fiscal_year']['end'],-2);
 
             $vacations = $this->yearWiseVacationList(date("Y"));
-            $plans = json_decode(json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])),true),true);
-            //dd($plans);
-            $team_schedules = $audit_plan['audit_teams'];
+            $plans = json_decode(json_decode(gzuncompress(getDecryptedData($individual_plan['plan_description'])),true),true);
+            $team_schedules = $individual_plan['audit_teams'];
             //dd($team_schedules);
 
             $entity_name = '';
-            foreach ($audit_plan['annual_plan']['ap_entities'] as $ap_entities) {
+            foreach ($individual_plan['annual_plan']['ap_entities'] as $ap_entities) {
                 $entity_name = $ap_entities['entity_name_en'];
                 break;
             }
 
+            //for team members
+            $team_members = $ap_plan['team_members'];
+
             //for risk assessments
-            $risk_assessments = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_risk_assessment_plan_wise'), $data)->json();
-            $risk_assessments = isSuccess($risk_assessments)?$risk_assessments['data']:[];
-            //dd($risk_assessments);
+            $risk_assessments = $ap_plan['risk_assessments'];
 
             $pdf = \PDF::loadView('modules.audit_plan.audit_plan.plan_revised.partials.audit_plan_book',
-                ['vacations' => $vacations,'plans' => $plans,'team_schedules' => $team_schedules,'risk_assessments' => $risk_assessments], [], ['orientation' => 'P', 'format' => 'A4']);
+                ['vacations' => $vacations,'plans' => $plans,'team_schedules' => $team_schedules, 'team_members' => $team_members,'risk_assessments' => $risk_assessments], [], ['orientation' => 'P', 'format' => 'A4']);
             $fileName = $current_office_id.'_Plan'.$audit_plan_id.'_'.$fiscal_year.'_'.$entity_name.'.pdf';
 
             Storage::put('public/individual_plan/'.$fileName, $pdf->output());
