@@ -1273,7 +1273,7 @@
                 });
             });
 
-            if(!is_subteam_leader){
+            if(layer_id > 1 && !is_subteam_leader){
                 toastr.warning('Please Select Sub Team Leader');
                 return;
             }
