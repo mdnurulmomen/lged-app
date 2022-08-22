@@ -92,7 +92,6 @@
             }
             if (filter_data.activity_id != null) {
                 $("#activity_id").val(filter_data.activity_id).trigger('change');
-                Apotti_Memo_Container.loadMemoList();
             }
         }
 
@@ -101,7 +100,6 @@
         Apotti_Memo_Container.loadFiscalYearWiseActivity();
 
         if (directorate_id !== 'all') {
-            Apotti_Memo_Container.loadMemoList();
             Apotti_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
         } else {
             toastr.warning('Please select directorate');
@@ -129,7 +127,6 @@
                         Apotti_Memo_Container.setActivityAnonymously();
                         if (dashboard_filter_data.activity_id != null) {
                             $("#activity_id").val(dashboard_filter_data.activity_id).trigger('change');
-                            Apotti_Memo_Container.loadMemoList();
                         }
                     }
                 });
@@ -140,7 +137,6 @@
 
         loadEntityList: function(directorate_id, fiscal_year_id) {
             activity_id = $('#activity_id').val();
-            console.log(dashboard_filter_data)
             if (dashboard_filter_data && activity_id == null) {
                 // dashboard_filter_data = JSON.parse(dashboard_filter_data);
                 activity_id = dashboard_filter_data.activity_id;
@@ -182,7 +178,6 @@
             preset_activity_id = getUserIndividualEvent('activity_id');
             activity_id = preset_activity_id ? preset_activity_id : $("select#activity_id option:eq(1)").val();
             $("select#activity_id").val(activity_id).trigger('change');
-            Apotti_Memo_Container.loadMemoList();
         },
 
         loadMemoList: function(page = 1, per_page = 10) {
