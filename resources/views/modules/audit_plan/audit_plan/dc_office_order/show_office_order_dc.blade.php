@@ -1,4 +1,4 @@
-<x-title-wrapper>Office Order</x-title-wrapper>
+<x-title-wrapper>Data Collection Office Order</x-title-wrapper>
 
 <div class="row m-0 mb-2 page-title-wrapper d-md-flex align-items-md-center">
     <div class="col-md-12">

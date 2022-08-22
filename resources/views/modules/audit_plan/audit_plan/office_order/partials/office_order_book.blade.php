@@ -882,7 +882,7 @@
                          <tbody>
                          <tr class="bangla-font">
                              <td class="bangla-font" style="text-align: center" width="5%">ক্রমিক নং</td>
-                             <td class="bangla-font" style="text-align: center" width="45%">শাখার নাম</td>
+                             <td class="bangla-font" style="text-align: center" width="45%">প্রতিষ্ঠানের নাম</td>
                              <td class="bangla-font" style="text-align: center" width="20%">নিরীক্ষা বছর</td>
                              <td class="bangla-font" style="text-align: center" width="15%">নিরীক্ষা সময়কাল</td>
                              <td class="bangla-font" style="text-align: center" width="15%">মোট কর্ম দিবস</td>
@@ -950,8 +950,10 @@
 
              @php unset($allWorkingDates); @endphp
          @endforeach
+    </div>
 
-
+    {{--office order page 2--}}
+    <div class="pdf-screen bangla-font" style="height: 100%">
         {{--for audit advice--}}
         <div class="bangla-font" style="font-family:nikoshpdf,serif !important;margin-top: 10px">
             <u>নিরীক্ষা দলের প্রতি নির্দেশনা:</u>
@@ -973,10 +975,7 @@
                 ফোন: {{enTobn($office_order['office_order_movement']['officer_phone'])}}
             @endif--}}
         </div>
-    </div>
 
-    {{--office order page 2--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
         <div class="bangla-font" style="font-family:nikoshpdf,serif !important;width: 100%;margin-top: 10px">
             <div style="text-align: left;float:left;width: 70%;">
                 {{$office_order['memorandum_no']}}

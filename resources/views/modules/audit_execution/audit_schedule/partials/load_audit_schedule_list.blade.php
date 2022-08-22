@@ -76,6 +76,7 @@
                                                 <button class="mr-3 btn btn-sm btn-warning btn-square"
                                                         title="মেমো"
                                                         data-schedule-id="{{$schedule['id']}}"
+                                                        data-team-id="{{$schedule['team_id']}}"
                                                         data-audit-plan-id="{{$schedule['audit_plan_id']}}"
                                                         data-entity-id="{{$schedule['entity_id']}}"
                                                         data-cost-center-id="{{$schedule['cost_center_id']}}"

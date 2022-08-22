@@ -89,6 +89,7 @@
 
         memo: function (elem) {
             schedule_id = elem.data('schedule-id');
+            team_id = elem.data('team-id');
             audit_plan_id = elem.data('audit-plan-id');
             entity_id = elem.attr('data-entity-id');
             cost_center_id = elem.data('cost-center-id');
@@ -101,7 +102,7 @@
             sub_team_leader_name = elem.data('sub-team-leader-name-bn');
             sub_team_leader_designation_name = elem.data('sub-team-leader-designation-name-bn');
 
-            data = {schedule_id, audit_plan_id, entity_id, cost_center_id,cost_center_name_bn,audit_year_start,
+            data = {schedule_id, team_id, audit_plan_id, entity_id, cost_center_id,cost_center_name_bn,audit_year_start,
                 audit_year_end,team_leader_name,team_leader_designation_name,scope_sub_team_leader,
                 sub_team_leader_name,sub_team_leader_designation_name};
             let url = '{{route('audit.execution.memo.index')}}'

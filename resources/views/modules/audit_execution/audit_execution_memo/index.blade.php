@@ -18,6 +18,7 @@
 
                     <a class="btn btn-sm btn-primary btn_back btn-square"
                        data-schedule-id="{{$schedule_id}}"
+                       data-team-id="{{$team_id}}"
                        data-audit-plan-id="{{$audit_plan_id}}"
                        data-cost-center-id="{{$cost_center_id}}"
                        data-cost-center-name-bn="{{$cost_center_name_bn}}"
@@ -75,6 +76,7 @@
 
         createMemo: function (elem) {
             schedule_id = elem.data('schedule-id');
+            team_id = elem.data('team-id');
             cost_center_id = elem.data('cost-center-id');
             audit_plan_id = elem.data('audit-plan-id');
             cost_center_name_bn = elem.data('cost-center-name-bn');
@@ -87,11 +89,11 @@
             sub_team_leader_name = elem.data('sub-team-leader-name-bn');
             sub_team_leader_designation_name = elem.data('sub-team-leader-designation-name-bn');
             data = {
-                schedule_id, audit_plan_id, cost_center_id, cost_center_name_bn, audit_year_start, audit_year_end,
+                schedule_id, team_id, audit_plan_id, cost_center_id, cost_center_name_bn, audit_year_start, audit_year_end,
                 team_leader_name, team_leader_designation_name, scope_sub_team_leader,
                 sub_team_leader_name, sub_team_leader_designation_name
             };
-            let url = '{{route('audit.execution.memo.create')}}'
+            let url = '{{route('audit.execution.memo.create')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
                     toastr.error(response.data);

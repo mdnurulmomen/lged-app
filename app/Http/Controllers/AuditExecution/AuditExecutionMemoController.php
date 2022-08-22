@@ -19,6 +19,7 @@ class AuditExecutionMemoController extends Controller
     public function index(Request $request)
     {
         $schedule_id = $request->schedule_id;
+        $team_id = $request->team_id;
         $audit_plan_id = $request->audit_plan_id;
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
@@ -33,6 +34,7 @@ class AuditExecutionMemoController extends Controller
             'modules.audit_execution.audit_execution_memo.index',
             compact(
                 'schedule_id',
+                'team_id',
                 'audit_plan_id',
                 'cost_center_id',
                 'cost_center_name_bn',
@@ -75,7 +77,13 @@ class AuditExecutionMemoController extends Controller
      */
     public function create(Request $request)
     {
+        $data = Validator::make($request->all(), [
+            'audit_plan_id' => 'required|integer',
+            'team_id' => 'required|integer',
+        ])->validate();
+
         $schedule_id = $request->schedule_id;
+        $team_id = $request->team_id;
         $audit_plan_id = $request->audit_plan_id;
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
@@ -86,11 +94,13 @@ class AuditExecutionMemoController extends Controller
         $scope_sub_team_leader = $request->scope_sub_team_leader;
         $sub_team_leader_name = $request->sub_team_leader_name;
         $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
+        $team_members = $this->getPlanAndTeamWiseTeamMembers($audit_plan_id,$team_id);
 
         return view(
             'modules.audit_execution.audit_execution_memo.create',
             compact(
                 'schedule_id',
+                'team_id',
                 'audit_plan_id',
                 'cost_center_id',
                 'cost_center_name_bn',
@@ -100,7 +110,8 @@ class AuditExecutionMemoController extends Controller
                 'team_leader_designation_name',
                 'scope_sub_team_leader',
                 'sub_team_leader_name',
-                'sub_team_leader_designation_name'
+                'sub_team_leader_designation_name',
+                'team_members'
             )
         );
     }
@@ -113,7 +124,7 @@ class AuditExecutionMemoController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->porisisto_details);
+        //dd($request->finder_details);
         Validator::make(
             $request->all(),
             [
@@ -147,6 +158,9 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'memo_irregularity_sub_type', 'contents' => $request->memo_irregularity_sub_type],
             ['name' => 'memo_type', 'contents' => 0],
             ['name' => 'memo_status', 'contents' => 0],
+            ['name' => 'finder_officer_id', 'contents' => $request->finder_officer_id],
+            ['name' => 'finder_office_id', 'contents' => $request->finder_office_id],
+            ['name' => 'finder_details', 'contents' => $request->finder_details],
             ['name' => 'team_leader_name', 'contents' => $request->team_leader_name],
             ['name' => 'team_leader_designation', 'contents' => $request->team_leader_designation],
             ['name' => 'sub_team_leader_name', 'contents' => $request->sub_team_leader_name],
