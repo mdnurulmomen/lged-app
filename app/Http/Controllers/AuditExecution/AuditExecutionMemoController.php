@@ -318,6 +318,7 @@ class AuditExecutionMemoController extends Controller
         $memo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.info'), $data)->json();
 
         $schedule_id = $request->schedule_id;
+        $team_id = $request->team_id;
         $audit_plan_id = $request->audit_plan_id;
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
@@ -328,6 +329,7 @@ class AuditExecutionMemoController extends Controller
         $scope_sub_team_leader = $request->scope_sub_team_leader;
         $sub_team_leader_name = $request->sub_team_leader_name;
         $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
+        $team_members = $this->getPlanAndTeamWiseTeamMembers($audit_plan_id,$team_id);
 
         if (isSuccess($memo)) {
             $memoInfo = $memo['data'];
@@ -336,6 +338,7 @@ class AuditExecutionMemoController extends Controller
                 compact(
                     'memoInfo',
                     'schedule_id',
+                    'team_id',
                     'audit_plan_id',
                     'cost_center_id',
                     'cost_center_name_bn',
@@ -345,7 +348,8 @@ class AuditExecutionMemoController extends Controller
                     'team_leader_designation_name',
                     'scope_sub_team_leader',
                     'sub_team_leader_name',
-                    'sub_team_leader_designation_name'
+                    'sub_team_leader_designation_name',
+                    'team_members'
                 )
             );
         } else {
@@ -443,6 +447,9 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'memo_irregularity_sub_type', 'contents' => $request->memo_irregularity_sub_type],
             ['name' => 'memo_type', 'contents' => 0],
             ['name' => 'memo_status', 'contents' => 0],
+            ['name' => 'finder_officer_id', 'contents' => $request->finder_officer_id],
+            ['name' => 'finder_office_id', 'contents' => $request->finder_office_id],
+            ['name' => 'finder_details', 'contents' => $request->finder_details],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
 

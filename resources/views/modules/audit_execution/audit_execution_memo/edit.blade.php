@@ -15,6 +15,7 @@
                     <a
                         onclick="Audit_Query_Schedule_Container.memo($(this))"
                         data-schedule-id="{{$schedule_id}}"
+                        data-team-id="{{$team_id}}"
                         data-audit-plan-id="{{$audit_plan_id}}"
                         data-cost-center-id="{{$cost_center_id}}"
                         data-cost-center-name-bn="{{$cost_center_name_bn}}"
@@ -82,6 +83,26 @@
 
                         <div class="col-md-5">
                             <div class="card sna-card-border mb-4">
+                                <select class="form-control select-select2" name="finder_officer_id" id="finder_officer_id">
+                                    <option value="" data-finder-office-id="" data-finder-details="">--Select Memo Raised By--</option>
+                                    @foreach($team_members as $member)
+                                        <option {{$member['team_member_officer_id'] == $memoInfo['memo']['finder_officer_id']?'selected':''}} value="{{$member['team_member_officer_id']}}" data-finder-office-id="{{$member['team_member_office_id']}}"
+                                                data-finder-details="{{json_encode(
+    [
+        'team_member_name_bn' => $member['team_member_name_bn'],
+        'team_member_name_en' => $member['team_member_name_en'],
+        'team_member_designation_bn' => $member['team_member_designation_bn'],
+        'team_member_designation_en' => $member['team_member_designation_en'],
+        'team_member_role_bn' => $member['team_member_role_bn'],
+        'team_member_role_en' => $member['team_member_role_en'],
+        'mobile_no' => $member['mobile_no'],
+        'employee_grade' => $member['employee_grade'],
+    ], JSON_UNESCAPED_UNICODE)}}">
+                                            {{$member['team_member_name_bn'].', '.$member['team_member_designation_bn']}}
+                                        </option>
+                                    @endforeach
+                                </select>
+
                                 <div class="row">
                                     <div class="col-md-12">
                                         <input class="form-control bangla-number-input amount_number_format mb-1"
@@ -397,6 +418,16 @@
                 from_data.append('porisisto_details[]', porisisto);
             }
 
+            finder_office_id = $("#finder_officer_id").find(':selected').attr('data-finder-office-id');
+            from_data.append('finder_office_id', finder_office_id);
+            finder_details = $("#finder_officer_id").find(':selected').attr('data-finder-details');
+            from_data.append('finder_details', finder_details);
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             $.ajax({
                 data: from_data,
                 url: "{{route('audit.execution.memo.update')}}",
@@ -406,6 +437,7 @@
                 cache: false,
                 processData: false,
                 success: function (responseData) {
+                    KTApp.unblock('#kt_wrapper');
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
                         $('.btn-back').click();

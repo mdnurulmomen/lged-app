@@ -119,6 +119,17 @@
                                                 {{ enTobn(currency_format($memo['jorito_ortho_poriman'])) }}
                                             </span>
                                         </div>
+
+                                        @if($memo['finder_details'])
+                                            @php $finder_details = json_decode($memo['finder_details'],true); @endphp
+                                            <div class="font-weight-normal">
+                                                <span class="mr-2 font-size-1-1">উত্থাপনকারী:</span>
+                                                <span class="font-size-14">
+                                               {{$finder_details['team_member_name_bn'].', '.$finder_details['team_member_designation_bn']}}
+                                            </span>
+                                            </div>
+                                        @endif
+
                                         <div class="font-weight-normal d-none predict-wrapper">
                                             <span class="predict-label text-success "></span>
                                         </div>

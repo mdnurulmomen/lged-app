@@ -30,18 +30,24 @@
 {{--                                        </span>--}}
                                     </div>
                                     @endif
+
                                     <div class=" subject-wrapper font-weight-normal">
                                         <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.jorito_ortho')}}:</span>
                                         <span class="text-info font-size-14">
                                             {{enTobn(currency_format($memo['jorito_ortho_poriman']))}}
                                         </span>
                                     </div>
-                                    {{--<div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.onishponno_jorito_ortho')}}:</span>
-                                        <span class="text-danger font-size-14">
-                                           {{enTobn(currency_format($memo['onishponno_jorito_ortho_poriman']))}}
-                                        </span>
-                                    </div>--}}
+
+                                    @if($memo['finder_details'])
+                                        @php $finder_details = json_decode($memo['finder_details'],true); @endphp
+                                        <div class="font-weight-normal">
+                                            <span class="mr-2 font-size-1-1">উত্থাপনকারী:</span>
+                                            <span class="font-size-14">
+                                               {{$finder_details['team_member_name_bn'].', '.$finder_details['team_member_designation_bn']}}
+                                            </span>
+                                        </div>
+                                    @endif
+
                                     <div class="font-weight-normal d-none predict-wrapper">
                                         <span class="predict-label text-success "></span>
                                     </div>

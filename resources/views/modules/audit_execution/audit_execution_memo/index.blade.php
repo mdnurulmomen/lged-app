@@ -162,6 +162,7 @@
         editMemo: function (elem) {
             memo_id = elem.data('memo-id');
             schedule_id = '{{$schedule_id}}';
+            team_id = '{{$team_id}}';
             audit_plan_id = '{{$audit_plan_id}}';
             cost_center_id = '{{$cost_center_id}}';
             cost_center_name_bn = '{{$cost_center_name_bn}}';
@@ -174,7 +175,7 @@
             sub_team_leader_name = '{{$sub_team_leader_name}}';
             sub_team_leader_designation_name = '{{$sub_team_leader_designation_name}}';
             data = {
-                memo_id, schedule_id, audit_plan_id, cost_center_id, cost_center_name_bn, audit_year_start, audit_year_end,
+                memo_id, schedule_id, team_id, audit_plan_id, cost_center_id, cost_center_name_bn, audit_year_start, audit_year_end,
                 team_leader_name, team_leader_designation_name, scope_sub_team_leader,
                 sub_team_leader_name, sub_team_leader_designation_name
             };
@@ -184,7 +185,7 @@
                 state: 'primary' // a bootstrap color
             });
 
-            let url = '{{route('audit.execution.memo.edit')}}'
+            let url = '{{route('audit.execution.memo.edit')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
