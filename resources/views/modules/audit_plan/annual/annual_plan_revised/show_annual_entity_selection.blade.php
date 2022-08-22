@@ -4,7 +4,7 @@
         <div class="col-xl-12">
             <div class="row">
                 <div class="col-md-7">
-                    @if(!is_null($plan_list))
+                    @if(!empty($plan_list))
                         @if($current_designation_grade == 2 || $current_designation_grade == 3 || $current_designation_grade == 5)
                             @if($plan_list['approval_status'] == 'draft' || $plan_list['approval_status'] == 'reject' || $plan_list['has_update_request'] == 2)
                                 <button class="btn btn-sm btn-primary btn-square mr-1"
@@ -81,15 +81,15 @@
                         </span>
                     @endif
                 </div>
-                {{--            @php dump($plan_list) @endphp--}}
-                @if((!$plan_list) || (isset($plan_list['approval_status']) && (isset($plan_list['has_update_request'])) &&  $plan_list['approval_status'] == 'draft' || $plan_list['approval_status']  == 'reject' || $plan_list['has_update_request'] == 1 || $plan_list['has_update_request'] == 2) && $current_office_id != 1)
+{{--                @php dump($plan_list) @endphp--}}
+                @if( empty($plan_list) || !empty($plan_list) && (isset($plan_list['approval_status'])  &&  $plan_list['approval_status'] == 'draft' || $plan_list['approval_status']  == 'reject' || $plan_list['has_update_request'] == 1 || $plan_list['has_update_request'] == 2) && $current_office_id != 1)
                     <div class="col-md-5">
                         <div class="d-flex justify-content-md-end">
                             <a onclick="Annual_Plan_Container.addPlanInfo($(this))"
-                               data-annual-plan-main-id="{{isset($plan_list['id']) ? $plan_list['id'] : 0}}"
+                               data-annual-plan-main-id="{{ !empty($plan_list) ? $plan_list['id'] : 0}}"
                                data-fiscal-year-id="{{$fiscal_year_id}}"
-                               data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                               data-has-update-request="{{isset($plan_list['has_update_request']) ? $plan_list['has_update_request'] : Null}}"
+                               data-op-audit-calendar-event-id="{{!empty($op_audit_calendar_event_id) ? $op_audit_calendar_event_id : 0}}"
+                               data-has-update-request="{{!empty($plan_list)  ? $plan_list['has_update_request'] : Null}}"
                                class="btn btn-sm btn-info btn-square mr-1"
                                href="javascript:;">
                                 <i class="fas fa-plus-circle mr-1"></i>
