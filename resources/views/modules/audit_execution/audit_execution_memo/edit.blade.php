@@ -84,7 +84,7 @@
                         <div class="col-md-5">
                             <div class="card sna-card-border mb-4">
                                 <select class="form-control select-select2" name="finder_officer_id" id="finder_officer_id">
-                                    <option value="" data-finder-office-id="" data-finder-details="">--Select Memo Raised By--</option>
+                                    <option value="" data-finder-office-id="" data-finder-details="">--উত্থাপনকারী বাছাই করুন--</option>
                                     @foreach($team_members as $member)
                                         <option {{$member['team_member_officer_id'] == $memoInfo['memo']['finder_officer_id']?'selected':''}} value="{{$member['team_member_officer_id']}}" data-finder-office-id="{{$member['team_member_office_id']}}"
                                                 data-finder-details="{{json_encode(

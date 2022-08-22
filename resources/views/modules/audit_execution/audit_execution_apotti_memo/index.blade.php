@@ -361,7 +361,10 @@
     });
 
     $('#fiscal_year_id').change(function() {
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
         Apotti_Memo_Container.loadFiscalYearWiseActivity();
+        Apotti_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
     });
 
     $('#entity_filter').change(function() {
