@@ -137,10 +137,10 @@
 
         loadEntityList: function(directorate_id, fiscal_year_id) {
             activity_id = $('#activity_id').val();
-            if (dashboard_filter_data && activity_id == null) {
+            /*if (dashboard_filter_data && activity_id == null) {
                 // dashboard_filter_data = JSON.parse(dashboard_filter_data);
                 activity_id = dashboard_filter_data.activity_id;
-            }
+            }*/
             let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
             let data = {directorate_id, fiscal_year_id, activity_id};
             KTApp.block('#kt_wrapper', {

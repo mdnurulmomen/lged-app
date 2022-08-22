@@ -79,6 +79,9 @@ class TeamCalendarController extends Controller
     public function loadScheduleEntityFiscalYearWiseSelect(Request $request){
         $data['office_id'] = $request->directorate_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
+        if ($request->activity_id){
+            $data['activity_id'] = $request->activity_id;
+        }
 
         $entity_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_schedule_entity_fiscal_year_wise'), $data)->json();
         //dd($entity_list);
