@@ -36,6 +36,7 @@
             activity_id = elem.data('activity-id');
             annual_plan_id = elem.data('annual-plan-id');
             audit_plan_id = elem.data('audit-plan-id');
+            is_continue = elem.data('is-continue');
 
             KTApp.block('#kt_full_width_page', {
                 opacity: 0.1,
@@ -43,7 +44,7 @@
                 state: 'primary' // a bootstrap color
             });
 
-            data = {plan_description, activity_id, annual_plan_id, audit_plan_id};
+            data = {plan_description, activity_id, annual_plan_id, audit_plan_id,is_continue};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_full_width_page');
                 if (response.status === 'success') {
@@ -63,6 +64,12 @@
                         }
                         if ($(".entity_audit_plan_preview").length){
                             $('.entity_audit_plan_preview').prop( "disabled", false );
+                        }
+                    }else{
+                        if(is_continue){
+                            progress(1800, 1800, $('#progressBar'));
+                        }else{
+                            $('#progressBar').html('');
                         }
                     }
                     toastr.success('Audit Plan Saved Successfully');

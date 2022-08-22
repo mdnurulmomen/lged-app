@@ -223,8 +223,8 @@ class RevisedPlanController extends Controller
 
         //$plan_description = json_decode($request->plan_description);
         $data['plan_description'] = makeEncryptedData(gzcompress(json_encode($request->plan_description)));
-
         $data['status'] = 'approved';
+        $data['is_continue'] = $request->is_continue;
         $data['cdesk'] = $this->current_desk_json();
         $save_draft = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_make_draft'), $data)->json();
 //        dd($save_draft);

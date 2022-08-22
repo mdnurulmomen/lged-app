@@ -32,7 +32,7 @@
     <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
 
     <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">
                     <a href="{{route('audit.plan.audit.plan.all')}}">
@@ -42,7 +42,7 @@
                 </h4>
             </div>
         </div>
-        <div class="col-md-6 text-right">
+        <div class="col-md-8 text-right">
 
             @if($check_edit_lock)
                 <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
@@ -51,7 +51,7 @@
                         data-has-update-office-order="{{$audit_plan['has_update_office_order']}}"
                         data-parent-office-id="{{$entity_list}}"
                         onclick="Entity_Plan_Container.showTeamCreateModal($(this));">
-                        <i class="fas fa-users"></i> Team
+                    <i class="fas fa-users"></i> Team
                 </button>
 
                 <button class="btn btn-sm btn-square btn-warning btn-hover-warning"
@@ -71,13 +71,23 @@
 
 
             @if($check_edit_lock)
-              <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan"
-                      data-audit-plan-id="{{$audit_plan['id']}}"
-                      data-activity-id="{{$activity_id}}"
-                      data-annual-plan-id="{{$annual_plan_id}}"
-                      onclick="Entity_Plan_Container.draftEntityPlan($(this))">
-                  <i class="fas fa-save"></i> Save
-              </button>
+                <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan"
+                        data-audit-plan-id="{{$audit_plan['id']}}"
+                        data-activity-id="{{$activity_id}}"
+                        data-annual-plan-id="{{$annual_plan_id}}"
+                        data-is-continue="1"
+                        onclick="Entity_Plan_Container.draftEntityPlan($(this))">
+                    <i class="fas fa-save"></i> Save And Continue
+                </button>
+
+                <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan"
+                        data-audit-plan-id="{{$audit_plan['id']}}"
+                        data-activity-id="{{$activity_id}}"
+                        data-annual-plan-id="{{$annual_plan_id}}"
+                        data-is-continue="0"
+                        onclick="Entity_Plan_Container.draftEntityPlan($(this))">
+                    <i class="fas fa-save"></i> Save And Exit
+                </button>
             @endif
         </div>
     </div>
@@ -89,8 +99,11 @@
                     <div class="p-5">
                         @if(!$check_edit_lock)
                             <div class="ml-5">
-                                <p><i class="fa fa-user pl-5"></i> {{ 'হালনাগাদ করছেন ('.$audit_plan['edit_user_details'].')' }}</p>
-                                <p><i class="fa fa-clock pl-5"></i> {{enTobn($audit_plan['edit_time_start'])}} থেকে হালনাগাদ করছেন</p>
+                                <p>
+                                    <i class="fa fa-user pl-5"></i> {{ 'হালনাগাদ করছেন ('.$audit_plan['edit_user_details'].')' }}
+                                </p>
+                                <p><i class="fa fa-clock pl-5"></i> {{enTobn($audit_plan['edit_time_start'])}} থেকে
+                                    হালনাগাদ করছেন</p>
                             </div>
                         @else
                             <div class="progressBar" id="progressBar">
