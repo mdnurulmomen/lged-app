@@ -781,13 +781,13 @@
 
 <body>
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
         <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center">
             মহাপরিচালকের কার্যালয় <br>
             <x-office-header-details officeid="{{$office_id}}" />
         </div>
 
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;width: 100%;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;width: 100%;margin-top: 5px">
             <div style="text-align: left;float: left;width: 70%;">
                 {{$office_order['memorandum_no']}}
             </div>
@@ -796,7 +796,7 @@
             </div>
         </div>
 
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;margin: 10px 0 10px 0">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;margin: 5px 0 5px 0">
             <b><u>অফিস আদেশ</u></b>
         </div>
         <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: justify">
@@ -835,7 +835,7 @@
          @php $allWorkingDates = []; @endphp
          @foreach($audit_team_schedules as $audit_team_schedule)
              @if($audit_team_schedule['team_schedules'] != null)
-                 <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: center;margin-top: 10px">
+                 <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: center;margin-top: 5px">
                      <b><u>{{$audit_team_schedule['team_name']}}</u></b>
                  </div>
 
