@@ -371,6 +371,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('editor/load-audit-team-schedule', [PlanEditorController::class, 'loadAuditTeamSchedule'])->name('editor.load-audit-team-schedule');
             Route::post('editor/add-audit-schedule-row', [PlanEditorController::class, 'addAuditScheduleRow'])->name('editor.add-audit-schedule-row');
             Route::post('editor/load-select-nominated-offices', [PlanEditorController::class, 'loadNominatedOfficesSelectView'])->name('editor.load-select-nominated-offices');
+            Route::post('editor/get-entity-wise-cos-center-autocomplete', [PlanEditorController::class, 'getEntityWiseCosCenterAutoComplete'])->name('editor.get-entity-wise-cos-center-autocomplete');
             Route::post('editor/load-select-nominated-office-option', [PlanEditorController::class, 'loadNominatedOfficesSelectOption'])->name('editor.load-select-nominated-office-option');
             Route::post('editor/load-risk-assessment-list', [RiskAssessmentController::class, 'loadRiskAssessment'])->name('editor.load-risk-assessment-list');
             Route::post('editor/load-risk-assessment-list-type-wise', [RiskAssessmentController::class, 'loadRiskAssessmentTypeWise'])->name('editor.load-risk-assessment-type-wise-list');

@@ -2,7 +2,7 @@
 <tr class='audit_schedule_row_{{$layer_id}}' data-layer-id='{{$layer_id}}'
     data-audit-schedule-first-row='{{$total_audit_schedule_row}}_{{$layer_id}}'>
     <td class='selected_entity_data_{{$layer_id}}'>
-        <select data-id="{{$layer_id}}_{{$total_audit_schedule_row}}" class='form-control select-select2 input-entity-name'>
+        <select id="entity_name_select_{{$layer_id}}_{{$total_audit_schedule_row}}" data-id="{{$layer_id}}_{{$total_audit_schedule_row}}" class='form-control select-select2 input-entity-name'>
             <option>--{{___('generic.choose')}}--</option>
             @foreach(json_decode($entity_list,true) as $key => $entity)
                 <option data-ministry-id="{{$entity['ministry_id']}}"
@@ -15,8 +15,8 @@
         </select>
     </td>
     <td class='selected_nominated_office_data_{{$layer_id}}'>
-        <select id="branch_name_select_{{$layer_id}}_{{$total_audit_schedule_row}}" data-id="{{$layer_id}}_{{$total_audit_schedule_row}}" class='form-control select-select2 input-branch-name'>
-            <option>--{{___('generic.loading')}}--</option>
+        <select id="branch_name_select_{{$layer_id}}_{{$total_audit_schedule_row}}" data-id="{{$layer_id}}_{{$total_audit_schedule_row}}" class='form-control input-branch-name'>
+            <option>--{{___('generic.choose')}}--</option>
         </select>
     </td>
 
@@ -58,16 +58,42 @@
 </tbody>
 
 <script>
-    $(".input-entity-name").change(function () {
-        parent_office_id = $(this).val();
-        ministry_id = $(this).children('option:selected').data('ministry-id');
+    $('.input-branch-name').select2({
+        ajax: {
+            url: '{{route('audit.plan.audit.editor.get-entity-wise-cos-center-autocomplete')}}',
+            method: 'post',
+            delay: 500,
+            dataType: 'json',
+            data: function (params) {
+                layer_row = $(this).attr('data-id');
+                parent_office_id = $('#entity_name_select_'+layer_row).val();
+                return {
+                    parent_office_id: parent_office_id,
+                    cost_center_name_bn: params.term, // search term
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
 
-        layer_row = $(this).attr('data-id');
-        layer_row = layer_row.split("_");
-
-        layer_id = layer_row[0];
-        row = layer_row[1];
-
-        loadSelectNominatedOffices(parent_office_id, layer_id, row, ministry_id);
+                return {
+                    results: $.map(data.results, function (item) {
+                        cost_center_info = {
+                            'cost_center_id': item.id,
+                            'cost_center_name_en': item.office_name_en,
+                            'cost_center_name_bn': item.office_name_bn,
+                        };
+                        return {
+                            text: item.office_name_bn,
+                            id: JSON.stringify(cost_center_info)
+                        }
+                    }),
+                    pagination: {
+                        more: (params.page * 10) < data.data_count
+                    }
+                };
+            },
+        },
+        minimumInputLength: 5,
     });
 </script>

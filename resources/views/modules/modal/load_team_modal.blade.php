@@ -431,18 +431,24 @@
                                                                                             </select>
                                                                                         </td>
                                                                                         <td class="selected_nominated_office_data_{{$loop->iteration}}">
+                                                                                            @php
+                                                                                                    $cost_center_info = json_encode([
+                                                                                                        'cost_center_id' => $schedule['cost_center_id'],
+                                                                                                        'cost_center_name_bn' => $schedule['cost_center_name_bn'],
+                                                                                                        'cost_center_name_en' => $schedule['cost_center_name_en'],
+
+                                                                                                    ]);
+
+                                                                                            @endphp
                                                                                             <select
                                                                                                 id="branch_name_select_{{ $loop->parent->iteration }}_{{$loop->iteration}}"
-                                                                                                class="form-control select-select2 input-branch-name"
+                                                                                                class="form-control input-branch-name"
                                                                                                 data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}">
                                                                                                 <option value=''>
                                                                                                     --Select--
                                                                                                 </option>
                                                                                                 <option
-                                                                                                    value="{{$schedule['cost_center_id']}}"
-                                                                                                    data-cost-center-id="{{$schedule['cost_center_id']}}"
-                                                                                                    data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
-                                                                                                    data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
+                                                                                                    value="{{$cost_center_info}}"
                                                                                                     selected
                                                                                                 >
                                                                                                     {{$schedule['cost_center_name_bn']}}
@@ -1184,9 +1190,12 @@
                         }
 
                         if ($(this).hasClass('input-branch-name') && $(this).is("select")) {
-                            cost_center_id = $(this).find(':selected').attr('data-cost-center-id');
-                            cost_center_name_en = $(this).find(':selected').attr('data-cost-center-name-en');
-                            cost_center_name_bn = $(this).find(':selected').attr('data-cost-center-name-bn');
+                            cost_center_info = $(this).find(':selected').val();
+                            cost_center_info = JSON.parse(cost_center_info);
+
+                            cost_center_id = cost_center_info.cost_center_id
+                            cost_center_name_en = cost_center_info.cost_center_name_en
+                            cost_center_name_bn = cost_center_info.cost_center_name_bn
                         }
 
                         if (!$(this).is('select')) {
@@ -1262,8 +1271,6 @@
                     role = $('#' + v.id).attr('data-member-role');
                     layer_id = $('#' + v.id).attr('data-layer');
 
-                    console.log(layer_id);
-
                     if (layer_id > 1) {
                         if (role == 'subTeamLeader') {
                             is_subteam_leader = 1;
@@ -1273,7 +1280,7 @@
                 });
             });
 
-            if(layer_id > 1 && !is_subteam_leader){
+            if(list_group.length > 1 && !is_subteam_leader){
                 toastr.warning('Please Select Sub Team Leader');
                 return;
             }
@@ -1686,16 +1693,55 @@ style="padding-left: 5px;">
         loadSelectNominatedOffices(parent_office_id, layer_id, row, ministry_id);
     });
 
-    $('.input-branch-name').on('select2:opening', function (e) {
-        // $(this).find('[value="'+$(this).val()+'"]').remove();
-        layer_row = $(this).attr('data-id');
-        parent_office_id = $('#entity_name_select_' + layer_row).val();
-        layer_row = layer_row.split("_");
-        layer_id = layer_row[0];
-        row = layer_row[1];
-        // $('#branch_name_select_' + layer_id + '_'+ row).select2().trigger("select2:close");
-        loadSelectNominatedOfficeOption(parent_office_id, layer_id, row);
+    $('.input-branch-name').select2({
+        ajax: {
+            url: '{{route('audit.plan.audit.editor.get-entity-wise-cos-center-autocomplete')}}',
+            method: 'post',
+            delay: 500,
+            dataType: 'json',
+            data: function (params) {
+                layer_row = $(this).attr('data-id');
+                parent_office_id = $('#entity_name_select_'+layer_row).val();
+                return {
+                    parent_office_id: parent_office_id,
+                    cost_center_name_bn: params.term, // search term
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+
+                return {
+                    results: $.map(data.results, function (item) {
+                        cost_center_info = {
+                            'cost_center_id': item.id,
+                            'cost_center_name_en': item.office_name_en,
+                            'cost_center_name_bn': item.office_name_bn,
+                        };
+                        return {
+                            text: item.office_name_bn,
+                            id: JSON.stringify(cost_center_info)
+                        }
+                    }),
+                    pagination: {
+                        more: (params.page * 10) < data.data_count
+                    }
+                };
+            },
+        },
+        minimumInputLength: 5,
     });
+
+    // $('.input-branch-name').on('select2:opening', function (e) {
+    //     // $(this).find('[value="'+$(this).val()+'"]').remove();
+    //     layer_row = $(this).attr('data-id');
+    //     parent_office_id = $('#entity_name_select_' + layer_row).val();
+    //     layer_row = layer_row.split("_");
+    //     layer_id = layer_row[0];
+    //     row = layer_row[1];
+    //     // $('#branch_name_select_' + layer_id + '_'+ row).select2().trigger("select2:close");
+    //     loadSelectNominatedOfficeOption(parent_office_id, layer_id, row);
+    // });
 
     $('.input-end-duration').change(function (){
 

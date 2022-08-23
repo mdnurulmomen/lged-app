@@ -383,8 +383,6 @@ class RevisedPlanController extends Controller
             'team_schedules' => 'required|json',
         ])->validate();
 
-//        dd($data);
-
         $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team_schedule'), $data)->json();
 //        dd($responseData);

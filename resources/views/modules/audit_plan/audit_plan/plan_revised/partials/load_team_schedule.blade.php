@@ -44,7 +44,7 @@
                 </select>
             </td>
             <td class="selected_nominated_office_data_{{$team_layer_id}}">
-                <select id="branch_name_select_{{$team_layer_id}}_0" class="form-control select-select2 input-branch-name"
+                <select id="branch_name_select_{{$team_layer_id}}_0" class="form-control input-branch-name"
                         data-id="{{$team_layer_id}}_0">
                     <option value=''>--{{___('generic.select')}}--</option>
                 </select>
@@ -136,17 +136,56 @@
         populateData(this);
     });
 
-    $(".input-entity-name").change(function () {
-        parent_office_id = $(this).val();
-        ministry_id = $(this).children('option:selected').data('ministry-id');
-        layer_row = $(this).attr('data-id');
-        layer_row = layer_row.split("_");
+    $('.input-branch-name').select2({
+        ajax: {
+            url: '{{route('audit.plan.audit.editor.get-entity-wise-cos-center-autocomplete')}}',
+            method: 'post',
+            delay: 500,
+            dataType: 'json',
+            data: function (params) {
+                layer_row = $(this).attr('data-id');
+                parent_office_id = $('#entity_name_select_'+layer_row).val();
+                return {
+                    parent_office_id: parent_office_id,
+                    cost_center_name_bn: params.term, // search term
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
 
-        layer_id = layer_row[0];
-        row = layer_row[1];
-
-        loadSelectNominatedOffices(parent_office_id, layer_id, row, ministry_id);
+                return {
+                    results: $.map(data.results, function (item) {
+                        cost_center_info = {
+                            'cost_center_id': item.id,
+                            'cost_center_name_en': item.office_name_en,
+                            'cost_center_name_bn': item.office_name_bn,
+                        };
+                        return {
+                            text: item.office_name_bn,
+                            id: JSON.stringify(cost_center_info)
+                        }
+                    }),
+                    pagination: {
+                        more: (params.page * 10) < data.data_count
+                    }
+                };
+            },
+        },
+        minimumInputLength: 5,
     });
+
+    // $(".input-entity-name").change(function () {
+    //     parent_office_id = $(this).val();
+    //     ministry_id = $(this).children('option:selected').data('ministry-id');
+    //     layer_row = $(this).attr('data-id');
+    //     layer_row = layer_row.split("_");
+    //
+    //     layer_id = layer_row[0];
+    //     row = layer_row[1];
+    //
+    //     loadSelectNominatedOffices(parent_office_id, layer_id, row, ministry_id);
+    // });
     $('.select-select2').select2({width: '100%'});
 </script>
 

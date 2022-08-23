@@ -86,6 +86,21 @@ class PlanEditorController extends Controller
         return view('modules.audit_plan.audit_plan.plan_revised.partials.select_nominated_offices', compact('nominated_offices_list', 'layer_id', 'total_audit_schedule_row'));
     }
 
+    public function getEntityWiseCosCenterAutoComplete(Request $request){
+        $project_id = 0;
+        $data['parent_office_id'] = $request->parent_office_id;
+        $data['cost_center_name_bn'] = $request->cost_center_name_bn;
+
+        if($project_id){
+//            $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-project-wise-nominated-cost-center-list'), $data)->json();
+        }else{
+            $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-by-parent-office-autoselect'), $data)->json();
+        }
+
+        return isSuccess($nominated_offices) ? $nominated_offices['data'] : [];
+
+    }
+
     public function loadNominatedOfficesSelectOption(Request $request)
     {
         $getParentWithChildOfficePassData['parent_office_id'] = $request->parent_office_id;
