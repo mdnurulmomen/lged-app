@@ -187,14 +187,13 @@ class AuditExecutionQueryController extends Controller
         $data['cdesk'] = $this->current_desk_json();
         $data['ac_query_id'] = $request->ac_query_id;
         $schedule_id = $request->schedule_id;
+        $audit_plan_id = $request->audit_plan_id;
+        $entity_id = $request->entity_id;
         $audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.view_audit_query'), $data)->json();
         if (isSuccess($audit_query)) {
             $auditQueryInfo = $audit_query['data'];
             $cost_center_types = $this->allCostCenterType();
-            return view(
-                'modules.audit_execution.audit_execution_query.edit',
-                compact('auditQueryInfo', 'cost_center_types', 'schedule_id')
-            );
+            return view('modules.audit_execution.audit_execution_query.edit', compact('auditQueryInfo', 'cost_center_types', 'schedule_id','audit_plan_id','entity_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $audit_query]);
         }

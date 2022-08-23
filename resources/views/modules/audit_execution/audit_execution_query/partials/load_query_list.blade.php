@@ -66,8 +66,9 @@
             </div>
         </div>
         <div id="daak_pagination_panel" class="float-right d-flex align-items-center" style="vertical-align:middle;">
-                <span class="mr-2"><span id="daak_item_length_start">১</span> - <span id="daak_item_length_end">৫</span> সর্বমোট: <span
-                        id="daak_item_total_record">৫</span></span>
+                <span class="mr-2">
+                    সর্বমোট: <span id="daak_item_total_record">{{enTobn(count($audit_query_list))}}</span>
+                </span>
             <div class="btn-group">
                 <button class="btn-list-prev btn btn-icon btn-secondary btn-square" disabled="disabled" type="button"><i
                         class="fad fa-chevron-left" data-toggle="popover"
@@ -140,6 +141,8 @@
                                             @if($query['has_sent_to_rpu'] == 0)
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                         title="{{___('generic.buttons.title.edit')}}" data-schedule-id="{{$schedule_id}}"
+                                                        data-audit-plan-id="{{$query['audit_plan_id']}}"
+                                                        data-entity-id="{{$query['entity_office_id']}}"
                                                         data-ac-query-id="{{$query['id']}}"
                                                         onclick="Audit_Query_List_Container.editQuery($(this))">
                                                     <i class="fad fa-edit"></i>
@@ -173,7 +176,9 @@
             editQuery: function (elem) {
                 ac_query_id = elem.data('ac-query-id');
                 schedule_id = elem.data('schedule-id');
-                data = {ac_query_id, schedule_id};
+                audit_plan_id = elem.data('audit-plan-id');
+                entity_id = elem.data('entity-id');
+                data = {ac_query_id, schedule_id, audit_plan_id, entity_id};
                 url = '{{route('audit.execution.query.edit')}}';
 
                 KTApp.block('#kt_wrapper', {

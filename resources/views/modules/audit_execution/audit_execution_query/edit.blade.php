@@ -13,6 +13,8 @@
                     <a
                         onclick="Audit_Query_Schedule_Container.query($(this))"
                         data-schedule-id="{{$schedule_id}}"
+                        data-audit-plan-id="{{$audit_plan_id}}"
+                        data-entity-id="{{$entity_id}}"
                         data-cost-center-id="{{$auditQueryInfo['cost_center_id']}}"
                         data-cost-center-name-en="{{$auditQueryInfo['cost_center_name_en']}}"
                         data-cost-center-name-bn="{{$auditQueryInfo['cost_center_name_bn']}}"
