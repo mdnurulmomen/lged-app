@@ -87,15 +87,17 @@ class PlanEditorController extends Controller
     }
 
     public function getEntityWiseCosCenterAutoComplete(Request $request){
-        $project_id = 0;
+        $data['project_id'] = $request->project_id;
         $data['parent_office_id'] = $request->parent_office_id;
         $data['cost_center_name_bn'] = $request->cost_center_name_bn;
-
-        if($project_id){
-//            $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-project-wise-nominated-cost-center-list'), $data)->json();
+        
+        if($request->project_id){
+            $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-project-map-cos-center-autoselect'), $data)->json();
         }else{
             $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-by-parent-office-autoselect'), $data)->json();
         }
+
+//        dd($nominated_offices);
 
         return isSuccess($nominated_offices) ? $nominated_offices['data'] : [];
 
@@ -142,8 +144,9 @@ class PlanEditorController extends Controller
         $team_layer_id = $request->team_layer_id;
         $parent_office_id = $request->parent_office_id;
         $modal_type = $request->modal_type;
+        $project_id = $request->project_id;
         return view('modules.audit_plan.audit_plan.plan_revised.partials.load_team_schedule',
-            compact('team_layer_id','parent_office_id','modal_type'));
+            compact('team_layer_id','parent_office_id','modal_type','project_id'));
     }
 
     public function addAuditScheduleRow(Request $request){
@@ -151,7 +154,8 @@ class PlanEditorController extends Controller
         $layer_id = $request->layer_id;
         $total_audit_schedule_row = $request->total_audit_schedule_row;
         $entity_list = $request->entity_list;
+        $project_id = $request->project_id;
         return view('modules.audit_plan.audit_plan.plan_revised.partials.add_audit_schedule_row',
-            compact('schedule_type','layer_id','total_audit_schedule_row','entity_list'));
+            compact('schedule_type','layer_id','total_audit_schedule_row','entity_list','project_id'));
     }
 }

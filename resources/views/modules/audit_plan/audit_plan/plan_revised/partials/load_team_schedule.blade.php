@@ -143,10 +143,12 @@
             delay: 500,
             dataType: 'json',
             data: function (params) {
+                project_id = '{{$project_id}}'
                 layer_row = $(this).attr('data-id');
                 parent_office_id = $('#entity_name_select_'+layer_row).val();
                 return {
                     parent_office_id: parent_office_id,
+                    project_id: project_id,
                     cost_center_name_bn: params.term, // search term
                     page: params.page
                 };

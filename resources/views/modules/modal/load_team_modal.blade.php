@@ -662,8 +662,9 @@
         total_audit_schedule_row = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
         entity_list = '{{$parent_office_id}}';
         entity_list = entity_list.replace(/&quot;/g, '"');
+        project_id = '{{$project_id}}';
         url = '{{route('audit.plan.audit.editor.add-audit-schedule-row')}}';
-        data = {layer_id, total_audit_schedule_row, entity_list,schedule_type};
+        data = {layer_id, total_audit_schedule_row, entity_list,schedule_type,project_id};
 
         KTApp.block('.kt-portlet')
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
@@ -946,9 +947,10 @@
             KTApp.block('.kt-portlet');
             url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
             annual_plan_id = '{{$annual_plan_id}}';
+            project_id = '{{$project_id}}';
             parent_office_id = '{{$parent_office_id}}';
             parent_office_id = parent_office_id.replace(/&quot;/g, '"');
-            data = {team_layer_id, annual_plan_id, parent_office_id, modal_type};
+            data = {team_layer_id, annual_plan_id, parent_office_id, modal_type,project_id};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('.kt-portlet');
                 if (response.status === 'error') {
@@ -1702,6 +1704,7 @@ style="padding-left: 5px;">
             data: function (params) {
                 layer_row = $(this).attr('data-id');
                 parent_office_id = $('#entity_name_select_'+layer_row).val();
+                project_id = '{{$project_id}}';
                 return {
                     parent_office_id: parent_office_id,
                     cost_center_name_bn: params.term, // search term
