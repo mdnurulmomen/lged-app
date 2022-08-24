@@ -62,7 +62,7 @@
         ajax: {
             url: '{{route('audit.plan.audit.editor.get-entity-wise-cos-center-autocomplete')}}',
             method: 'post',
-            delay: 500,
+            delay: 3000,
             dataType: 'json',
             data: function (params) {
                 layer_row = $(this).attr('data-id');
@@ -96,6 +96,6 @@
                 };
             },
         },
-        minimumInputLength: 5,
+        // minimumInputLength: 5,
     });
 </script>

@@ -140,7 +140,7 @@
         ajax: {
             url: '{{route('audit.plan.audit.editor.get-entity-wise-cos-center-autocomplete')}}',
             method: 'post',
-            delay: 500,
+            delay: 3000,
             dataType: 'json',
             data: function (params) {
                 project_id = '{{$project_id}}'
@@ -169,12 +169,12 @@
                         }
                     }),
                     pagination: {
-                        more: (params.page * 10) < data.data_count
+                        more: (params.page * 50) < data.data_count
                     }
                 };
             },
         },
-        minimumInputLength: 5,
+        // minimumInputLength: 5,
     });
 
     // $(".input-entity-name").change(function () {
