@@ -142,27 +142,35 @@ class AuditExecutionQueryController extends Controller
 
     public function storeAuditQuery(Request $request)
     {
-        $data = Validator::make($request->all(), [
-            'schedule_id' => 'required|integer',
-            'memorandum_no' => 'required',
-            'memorandum_date' => 'required',
-            'rpu_office_head_details' => 'required',
-            'subject' => 'required',
-            'audit_query_items' => 'required',
-        ])->validate();
+        $data = Validator::make(
+            $request->all(),
+            [
+                'schedule_id' => 'required',
+                'memorandum_no' => 'required',
+                'memorandum_date' => 'required',
+                'rpu_office_head_details' => 'required',
+                'subject' => 'required',
+            ],
+            [
+                'schedule_id.required' => 'Schedule id is required',
+                'memorandum_no.required' => 'Memorandum no is required',
+                'memorandum_date.required' => 'Memorandum date is required',
+                'rpu_office_head_details.required' => 'RP office head details is required',
+                'subject.required' => 'Subject is required',
+            ]
+        )->validate();
 
         $data['cdesk'] = $this->current_desk_json();
+        $data['audit_query_items'] = $request->audit_query_items;
         $data['description'] = $request->description;
         $data['cc'] = $request->cc;
 
         $store_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.store_audit_query'), $data)->json();
 
-        //        dd($store_audit_query);
-
-        if ($store_audit_query['status'] == 'success') {
+        if (isSuccess($store_audit_query)) {
             $store_audit_query = $store_audit_query['data'];
             return response()->json(['status' => 'success', 'data' => $store_audit_query]);
-        } else {
+        }else {
             return response()->json(['status' => 'error', 'data' => $store_audit_query]);
         }
     }

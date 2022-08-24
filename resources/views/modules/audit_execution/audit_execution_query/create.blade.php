@@ -193,16 +193,22 @@
                     toastr.success('Successfully Added!');
                     $('.btn_back').click();
                 } else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
+                   toastr.error(response.data.message);
+                }
+            },function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.responseJSON.errors) {
+                    $.each(response.responseJSON.errors, function (k, v) {
+                        if (isArray(v)) {
+                            $.each(v, function (n, m) {
+                                toastr.error(m);
+                            })
+                        } else {
                             if (v !== '') {
                                 toastr.error(v);
                             }
-                        });
-                    } else {
-                        toastr.error(response.data.message);
-                    }
+                        }
+                    });
                 }
             })
         },

@@ -914,8 +914,7 @@
     </div>
 
     {{--audit risk assessment page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;
-    page-break-after: always">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[27]['content'] !!}
     </div>
 
