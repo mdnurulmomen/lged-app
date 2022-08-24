@@ -70,6 +70,7 @@
                             progress(1800, 1800, $('#progressBar'));
                         }else{
                             $('#progressBar').html('');
+                            window.location.reload();
                         }
                     }
                     toastr.success('Audit Plan Saved Successfully');

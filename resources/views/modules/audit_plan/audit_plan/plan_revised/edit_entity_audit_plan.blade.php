@@ -77,16 +77,16 @@
                         data-annual-plan-id="{{$annual_plan_id}}"
                         data-is-continue="1"
                         onclick="Entity_Plan_Container.draftEntityPlan($(this))">
-                    <i class="fas fa-save"></i> Save And Continue
+                    <i class="fas fa-repeat"></i> Save & Continue
                 </button>
 
-                <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan"
+                <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan_exit"
                         data-audit-plan-id="{{$audit_plan['id']}}"
                         data-activity-id="{{$activity_id}}"
                         data-annual-plan-id="{{$annual_plan_id}}"
                         data-is-continue="0"
                         onclick="Entity_Plan_Container.draftEntityPlan($(this))">
-                    <i class="fas fa-save"></i> Save And Exit
+                    <i class="fas fa-sign-out"></i> Save & Exit
                 </button>
             @endif
         </div>
