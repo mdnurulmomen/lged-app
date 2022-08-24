@@ -1,5 +1,6 @@
-<form id="query_update_form" autocomplete="off">
+<form class="mb-14" id="query_update_form" autocomplete="off">
     <input type="hidden" name="ac_query_id" value="{{$auditQueryInfo['id']}}">
+
     <div class="card sna-card-border">
         <div class="row">
             <div class="col-md-8">
@@ -18,10 +19,10 @@
                         data-cost-center-id="{{$auditQueryInfo['cost_center_id']}}"
                         data-cost-center-name-en="{{$auditQueryInfo['cost_center_name_en']}}"
                         data-cost-center-name-bn="{{$auditQueryInfo['cost_center_name_bn']}}"
-                        class="btn btn-sm btn-outline-warning btn_back btn-square mr-3">
+                        class="btn btn-sm btn-warning btn_back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>
-                    <a id="memo_submit" class="btn btn-success btn-sm btn-bold btn-square"
+                    <a id="memo_submit" class="btn btn-primary btn-sm btn-bold btn-square"
                        onclick="Query_Create_Container.updateAuditQuery()"
                        href="javascript:;">
                         <i class="far fa-save mr-1"></i> Update
@@ -30,119 +31,115 @@
             </div>
         </div>
     </div>
+
     <div class="row mt-2">
         <div class="col-md-7">
             <div class="card sna-card-border">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="memorandum_no">স্মারক নং <span class="text-danger">*</span></label>
-                                <input type="text" id="memorandum_no" name="memorandum_no"
-                                       value="{{$auditQueryInfo['memorandum_no']}}" class="form-control"
-                                       placeholder="স্মারক নং">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="memorandum_date">স্মারক তারিখ <span class="text-danger">*</span></label>
-                                <input type="text" id="memorandum_date" name="memorandum_date"
-                                       value="{{$auditQueryInfo['memorandum_date']}}" class="date form-control"
-                                       placeholder="স্মারক তারিখ">
-                            </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="memorandum_no">স্মারক নং <span class="text-danger">*</span></label>
+                            <input type="text" id="memorandum_no" name="memorandum_no"
+                                   value="{{$auditQueryInfo['memorandum_no']}}" class="form-control"
+                                   placeholder="স্মারক নং">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="rpu_office_head_details">বরাবর <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="rpu_office_head_details" name="rpu_office_head_details"
-                                  cols="30" rows="2">{{$auditQueryInfo['rpu_office_head_details']}}</textarea>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="memorandum_date">স্মারক তারিখ <span class="text-danger">*</span></label>
+                            <input type="text" id="memorandum_date" name="memorandum_date"
+                                   value="{{$auditQueryInfo['memorandum_date']}}" class="date form-control"
+                                   placeholder="স্মারক তারিখ">
+                        </div>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="rpu_office_head_details">বরাবর <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="rpu_office_head_details" name="rpu_office_head_details"
+                              cols="30" rows="2">{{$auditQueryInfo['rpu_office_head_details']}}</textarea>
+                </div>
 
-                    <div class="form-group">
-                        <label for="subject">বিষয় <span class="text-danger">*</span></label>
-                        <input type="text" id="subject" class="form-control" name="subject"
-                               value="{{$auditQueryInfo['subject']}}" placeholder="বিষয়">
-                    </div>
+                <div class="form-group">
+                    <label for="subject">বিষয় <span class="text-danger">*</span></label>
+                    <input type="text" id="subject" class="form-control" name="subject"
+                           value="{{$auditQueryInfo['subject']}}" placeholder="বিষয়">
+                </div>
 
-                    <div class="form-group">
-                        <label for="description">বিস্তারিত</label>
-                        <textarea class="form-control" id="description" name="description" cols="30"
-                                  rows="4">{{$auditQueryInfo['description']}}</textarea>
-                    </div>
+                <div class="form-group">
+                    <label for="description">বিস্তারিত</label>
+                    <textarea class="form-control" id="description" name="description" cols="30"
+                              rows="4">{{$auditQueryInfo['description']}}</textarea>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <fieldset class="scheduler-border">
-                                <legend class="scheduler-border">
-                                    কোয়েরিসমূহ
-                                </legend>
-                                <table width="100%"
-                                       class="table table-bordered table-striped table-hover table-condensed table-sm"
-                                       id="tblQueryList">
-                                    <tbody>
-                                    @foreach($auditQueryInfo['query_items'] as $item)
-                                        <tr>
-                                            <td width="82%">
-                                                    <textarea class="form-control" name="audit_query_items[]" cols="30"
-                                                              rows="1">{{$item['item_title_bn']}}</textarea>
-                                            </td>
-                                            <td class="pt-2">
-                                                <button title="যোগ করুন" type='button'
-                                                        class='btn btn-outline-primary btn-sm btn-square'
-                                                        onclick="Query_Create_Container.addQueryItem()">
-                                                    <span class='fa fa-plus'></span>
-                                                </button>
-                                                <button title="মুছে ফেলুন" type='button'
-                                                        class='btn btn-outline-danger btn-sm btn-square'
-                                                        onclick="Query_Create_Container.removeQueryItem($(this))">
-                                                    <span class='fa fa-trash'></span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                <div class="row">
+                    <div class="col-md-12">
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">
+                                কোয়েরিসমূহ
+                            </legend>
+                            <table width="100%"
+                                   class="table table-bordered table-striped table-hover table-condensed table-sm"
+                                   id="tblQueryList">
+                                <tbody>
+                                @foreach($auditQueryInfo['query_items'] as $item)
                                     <tr>
                                         <td width="82%">
-                                            <input class="form-control" type="text" name="audit_query_items[]">
+                                                    <textarea class="form-control" name="audit_query_items[]" cols="30"
+                                                              rows="1">{{$item['item_title_bn']}}</textarea>
                                         </td>
                                         <td class="pt-2">
                                             <button title="যোগ করুন" type='button'
-                                                    class='btn btn-primary btn-sm btn-square'
+                                                    class='btn btn-outline-primary btn-sm btn-square'
                                                     onclick="Query_Create_Container.addQueryItem()">
                                                 <span class='fa fa-plus'></span>
                                             </button>
                                             <button title="মুছে ফেলুন" type='button'
-                                                    class='btn btn-danger btn-sm btn-square'
+                                                    class='btn btn-outline-danger btn-sm btn-square'
                                                     onclick="Query_Create_Container.removeQueryItem($(this))">
                                                 <span class='fa fa-trash'></span>
                                             </button>
                                         </td>
                                     </tr>
-                                    </tbody>
-                                </table>
-                            </fieldset>
-                        </div>
+                                @endforeach
+                                <tr>
+                                    <td width="82%">
+                                        <input class="form-control" type="text" name="audit_query_items[]">
+                                    </td>
+                                    <td class="pt-2">
+                                        <button title="যোগ করুন" type='button'
+                                                class='btn btn-primary btn-sm btn-square'
+                                                onclick="Query_Create_Container.addQueryItem()">
+                                            <span class='fa fa-plus'></span>
+                                        </button>
+                                        <button title="মুছে ফেলুন" type='button'
+                                                class='btn btn-danger btn-sm btn-square'
+                                                onclick="Query_Create_Container.removeQueryItem($(this))">
+                                            <span class='fa fa-trash'></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </fieldset>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="cc">অনুলিপি</label>
-                        <textarea class="form-control" id="cc" name="cc" cols="30"
-                                  rows="4">{{$auditQueryInfo['cc']}}</textarea>
-                    </div>
+                <div class="form-group">
+                    <label for="cc">অনুলিপি</label>
+                    <textarea class="form-control" id="cc" name="cc" cols="30" rows="4">{{$auditQueryInfo['cc']}}</textarea>
                 </div>
             </div>
         </div>
         <div class="col-md-5">
             <div class="card sna-card-border">
-                <div class="card-body">
-                    <label for="">কস্ট সেন্টার টাইপ</label>
-                    <select name="cost_center_type_id" id="cost_center_type" class="form-control">
-                        <option value="">---সিলেক্ট---</option>
-                        @foreach($cost_center_types as $key => $type)
-                            <option value="{{$type['id']}}">{{$type['name_bn']}}</option>
-                        @endforeach
-                    </select>
-                    <div id="load_type_wise_query_list"></div>
-                </div>
+                <label for="">কস্ট সেন্টার টাইপ</label>
+                <select name="cost_center_type_id" id="cost_center_type" class="form-control">
+                    <option value="">---সিলেক্ট---</option>
+                    @foreach($cost_center_types as $key => $type)
+                        <option value="{{$type['id']}}">{{$type['name_bn']}}</option>
+                    @endforeach
+                </select>
+                <div id="load_type_wise_query_list"></div>
             </div>
         </div>
     </div>
@@ -210,16 +207,22 @@
                     toastr.success('Successfully Added!');
                     $('.btn_back').click();
                 } else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
+                    toastr.error(response.data.message);
+                }
+            },function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.responseJSON.errors) {
+                    $.each(response.responseJSON.errors, function (k, v) {
+                        if (isArray(v)) {
+                            $.each(v, function (n, m) {
+                                toastr.error(m);
+                            })
+                        } else {
                             if (v !== '') {
                                 toastr.error(v);
                             }
-                        });
-                    } else {
-                        toastr.error(response.data.message);
-                    }
+                        }
+                    });
                 }
             })
         },

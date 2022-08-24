@@ -210,18 +210,29 @@ class AuditExecutionQueryController extends Controller
     //update
     public function updateAuditQuery(Request $request)
     {
-        $data = Validator::make($request->all(), [
-            'ac_query_id' => 'required|integer',
-            'memorandum_no' => 'required',
-            'memorandum_date' => 'required',
-            'rpu_office_head_details' => 'required',
-            'subject' => 'required',
-            'audit_query_items' => 'required',
-        ])->validate();
+        $data = Validator::make(
+            $request->all(),
+            [
+                'ac_query_id' => 'required',
+                'memorandum_no' => 'required',
+                'memorandum_date' => 'required',
+                'rpu_office_head_details' => 'required',
+                'subject' => 'required',
+            ],
+            [
+                'ac_query_id.required' => 'Query id is required',
+                'memorandum_no.required' => 'Memorandum no is required',
+                'memorandum_date.required' => 'Memorandum date is required',
+                'rpu_office_head_details.required' => 'RP office head details is required',
+                'subject.required' => 'Subject is required',
+            ]
+        )->validate();
 
         $data['cdesk'] = $this->current_desk_json();
         $data['description'] = $request->description;
+        $data['audit_query_items'] = $request->audit_query_items;
         $data['cc'] = $request->cc;
+
         $rejected_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.update_audit_query'), $data)->json();
         if ($rejected_audit_query['status'] == 'success') {
             $rejected_audit_query = $rejected_audit_query['data'];

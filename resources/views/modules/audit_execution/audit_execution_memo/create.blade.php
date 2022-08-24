@@ -81,11 +81,14 @@
 
                         <div class="col-md-5">
                             <div class="card sna-card-border mb-4">
-                                <select class="form-control select-select2" name="finder_officer_id" id="finder_officer_id">
-                                    <option value="" data-finder-office-id="" data-finder-details="">--উত্থাপনকারী বাছাই করুন--</option>
-                                    @foreach($team_members as $member)
-                                        <option value="{{$member['team_member_officer_id']}}" data-finder-office-id="{{$member['team_member_office_id']}}"
-                                                data-finder-details="{{json_encode(
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                        <label class="col-form-label">উত্থাপনকারী</label>
+                                        <select class="form-control select-select2" name="finder_officer_id" id="finder_officer_id">
+                                            <option value="" data-finder-office-id="" data-finder-details="">--উত্থাপনকারী বাছাই করুন--</option>
+                                            @foreach($team_members as $member)
+                                                <option value="{{$member['team_member_officer_id']}}" data-finder-office-id="{{$member['team_member_office_id']}}"
+                                                        data-finder-details="{{json_encode(
     [
         'team_member_name_bn' => $member['team_member_name_bn'],
         'team_member_name_en' => $member['team_member_name_en'],
@@ -96,10 +99,13 @@
         'mobile_no' => $member['mobile_no'],
         'employee_grade' => $member['employee_grade'],
     ], JSON_UNESCAPED_UNICODE)}}">
-                                            {{$member['team_member_name_bn'].', '.$member['team_member_designation_bn']}}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                                    {{$member['team_member_name_bn'].', '.$member['team_member_designation_bn']}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
 
                                 <div class="row">
                                     <div class="col-md-12">

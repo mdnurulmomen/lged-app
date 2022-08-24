@@ -1,4 +1,4 @@
-<form id="query_add_form" autocomplete="off">
+<form class="mb-14" id="query_add_form" autocomplete="off">
     <input type="hidden" name="schedule_id" value="{{$schedule_id}}">
 
     <div class="card sna-card-border">

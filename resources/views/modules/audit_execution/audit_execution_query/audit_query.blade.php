@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<div class="card sna-card-border mt-2">
+<div class="card sna-card-border mt-2 mb-14">
     <div id="load_query_list"></div>
 </div>
 
