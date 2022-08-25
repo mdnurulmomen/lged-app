@@ -1,4 +1,4 @@
-<x-title-wrapper>অনিষ্পন্ন আপত্তির তালিকা</x-title-wrapper>
+<x-title-wrapper>মন্ত্রণালয় ভিত্তিক অনিষ্পন্ন আপত্তি</x-title-wrapper>
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row">
         <div class="col-md-3">

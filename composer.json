@@ -19,6 +19,7 @@
         "laravel/ui": "^3.3",
         "ndoptor/integration-sso-laravel": "^2.0",
         "niklasravnsborg/laravel-pdf": "^4.1",
+        "phpoffice/phpspreadsheet": "^1.24",
         "picqer/php-barcode-generator": "^2.2"
     },
     "require-dev": {

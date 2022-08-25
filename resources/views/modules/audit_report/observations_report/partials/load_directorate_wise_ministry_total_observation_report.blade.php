@@ -10,7 +10,7 @@
 {{--        </div>--}}
 {{--    </div>--}}
 {{--</div>--}}
-<h2>এসএফআই তালিকা</h2>
+<h2>এসএফআই</h2>
 <table class="table table-bordered" width="100%">
     <thead class="thead-light">
     <tr class="bg-hover-warning">
@@ -34,11 +34,13 @@
 
     <tbody>
     @php
-        $ministry_list_onisponno = array_filter($ministry_list, function ($var) {
+        $ministry_list_sfi = array_filter($ministry_list, function ($var) {
             return ($var['memo_type'] == 'sfi');
         });
+        $total_apotti_count_sfi =  $ministry_list_sfi ?  array_sum(array_column($ministry_list_sfi,'total_apotti')) : 0;
+        $total_jorito_ortho_poriman_sfi = $ministry_list_sfi ? array_sum(array_column($ministry_list_sfi,'total_jorito_ortho_poriman')) : 0;
     @endphp
-    @forelse($ministry_list_onisponno as $report)
+    @forelse($ministry_list_sfi as $report)
         <tr class="text-center">
             <td class="text-center">
                 {{$loop->iteration}}
@@ -46,11 +48,11 @@
             <td class="text-left">
                 {{$report['ministry'] ? $report['ministry']['name_bng'] : ''}}
             </td>
-            <td class="text-left">
+            <td class="text-right">
                 {{enTobn($report['total_apotti'])}}
             </td>
-            <td class="text-left">
-                {{enTobn($report['total_jorito_ortho_poriman'])}}
+            <td class="text-right">
+                {{enTobn(currency_format($report['total_jorito_ortho_poriman']))}}
             </td>
         </tr>
     @empty
@@ -58,9 +60,15 @@
             <td colspan="4" class="datatable-cell text-center"><span>Nothing Found</span></td>
         </tr>
     @endforelse
+    <tr>
+        <td></td>
+        <td>সর্বমোট</td>
+        <td class="text-right">{{enTobn($total_apotti_count_sfi)}}</td>
+        <td class="text-right">{{enTobn(currency_format($total_jorito_ortho_poriman_sfi))}}</td>
+    </tr>
     </tbody>
 </table>
-<h2>নন-এসএফআই তালিকা</h2>
+<h2>নন-এসএফআই</h2>
 <table class="table table-bordered" width="100%">
     <thead class="thead-light">
     <tr class="bg-hover-warning">
@@ -84,11 +92,14 @@
 
     <tbody>
     @php
-        $ministry_list_nisponno = array_filter($ministry_list, function ($var) {
+        $ministry_list_non_sfi = array_filter($ministry_list, function ($var) {
             return ($var['memo_type'] == 'non-sfi');
         });
+        $total_apotti_count_non_sfi =  $ministry_list_non_sfi ? array_sum(array_column($ministry_list_non_sfi,'total_apotti')) : 0;
+        $total_jorito_ortho_poriman_non_sfi = $ministry_list_non_sfi ?  array_sum(array_column($ministry_list_non_sfi,'total_jorito_ortho_poriman')) : 0;
     @endphp
-    @forelse($ministry_list_nisponno as $report)
+
+    @forelse($ministry_list_non_sfi as $report)
         <tr class="text-center">
             <td class="text-center">
                 {{$loop->iteration}}
@@ -96,11 +107,11 @@
             <td class="text-left">
                 {{$report['ministry'] ? $report['ministry']['name_bng'] : ''}}
             </td>
-            <td class="text-left">
+            <td class="text-right">
                 {{enTobn($report['total_apotti'])}}
             </td>
-            <td class="text-left">
-                {{enTobn($report['total_jorito_ortho_poriman'])}}
+            <td class="text-right">
+                {{enTobn(currency_format($report['total_jorito_ortho_poriman']))}}
             </td>
         </tr>
     @empty
@@ -108,5 +119,11 @@
             <td colspan="4" class="datatable-cell text-center"><span>Nothing Found</span></td>
         </tr>
     @endforelse
+    <tr>
+        <td></td>
+        <td>সর্বমোট</td>
+        <td class="text-right">{{enTobn($total_apotti_count_non_sfi)}}</td>
+        <td class="text-right">{{enTobn(currency_format($total_jorito_ortho_poriman_non_sfi))}}</td>
+    </tr>
     </tbody>
 </table>
