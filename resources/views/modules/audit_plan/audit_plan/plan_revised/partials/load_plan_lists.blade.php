@@ -151,12 +151,12 @@
                                                     $edit_user = $mins < 30 ? 'এই সময়ে হালনাগাদ করতেছেন'.'('.$audit_plans['edit_user_details'].')' : '';
                                                 @endphp
 
-                                                @if($audit_plans['office_order'] == null || $audit_plans['office_order']['approved_status'] !='approved')
-                                                    @php $scopeEditable = 0; @endphp
-                                                @elseif(!in_array($current_grade,[2,3]))
-                                                    @php $scopeEditable = 0; @endphp
-                                                @else
+                                                @if(in_array($current_grade,[2,3]))
                                                     @php $scopeEditable = 1; @endphp
+                                                @elseif($audit_plans['office_order'] == null || $audit_plans['office_order']['approved_status'] !='approved')
+                                                    @php $scopeEditable = 1; @endphp
+                                                @else
+                                                    @php $scopeEditable = 0; @endphp
                                                 @endif
 
                                                 <a href="javascript:;"
