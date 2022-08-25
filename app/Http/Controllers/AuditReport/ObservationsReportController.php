@@ -71,13 +71,13 @@ class ObservationsReportController extends Controller
         $data['jorito_ortho_poriman'] = $request->jorito_ortho_poriman;
         $data['scope'] = 'download';
 
-        $columns                = $request->columns?               : [];
+        $columns                = $request->columns?: [];
         $directorate_name       = trim($request->directorate_name);
         $ministry_name          = $request->ministry_name;
         $entity_name            = trim($request->entity_name);
         $unit_group_office_name = $request->unit_group_office_name;
 
-        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.observations.get-status-wise.list'), $data);
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.observations.get-status-wise.list'), $data)->json();
         //dd($response);
         if (isSuccess($response)) {
             $response = $response['data'];
