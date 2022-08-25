@@ -787,10 +787,15 @@
 
 <body>
     <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
-        <div class="pdf-screen bangla-font" style="height: 100%">
-            <x-office-header-details />
 
-            <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">
+        <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
+            <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: center">
+                মহাপরিচালকের কার্যালয় <br>
+                <x-office-header-details />
+            </div>
+
+
+            <div class="bangla-font" style="font-family:nikoshpdf,serif !important;width: 100%;margin-top: 10px">
                 <div style="text-align: left;float: left;width: 70%;">
                     স্মারক নং-{{ $auditQueryInfo['memorandum_no'] }}
                 </div>
@@ -799,21 +804,29 @@
                 </div>
             </div>
 
+            @if($auditQueryInfo['suthro'])
+                <div class="bangla-font"
+                     style="font-family:nikoshpdf,serif !important;text-align:justify;margin-top: 5px">
+                    সূত্র-{{ $auditQueryInfo['suthro'] }}
+                </div>
+            @endif
+
             <div class="bangla-font"
-                style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 20px">
+                style="font-family:nikoshpdf,serif !important;text-align:justify;margin-top: 20px">
                 <span>বরাবর,</span>
             </div>
-            <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-left: 40px">
+
+            <div class="bangla-font" style="font-family:nikoshpdf,serif !important;margin-left: 40px">
                 {!! nl2br($auditQueryInfo['rpu_office_head_details']) !!}
             </div>
 
             <div class="bangla-font"
-                style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+                style="font-family:nikoshpdf,serif !important;text-align:justify;margin-top: 10px">
                 <span style="font-weight: bold">বিষয়ঃ {!! str_repeat('&nbsp;', 1) !!} {{ $auditQueryInfo['subject'] }}</span>
             </div>
 
             <div class="bangla-font"
-                style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+                style="font-family:nikoshpdf,serif !important;text-align:justify;margin-top: 10px">
                 {!! str_repeat('&nbsp;', 10) !!} {{ $auditQueryInfo['description'] }}
 
                 <table class="bangla-font" width="100%">
@@ -835,18 +848,19 @@
             </div>
 
             <div class="bangla-font"
-                style="font-family:SolaimanLipi,serif !important;margin-top:40px;text-align: center;float: right;width: 35%">
+                style="font-family:nikoshpdf,serif !important;margin-top:40px;text-align: center;float: right;width: 35%">
                 @if ($auditQueryInfo['plan_team'] != null)
                     ({{ $auditQueryInfo['plan_team']['leader_name_bn'] }}) <br>
-                    {{ $auditQueryInfo['plan_team']['leader_designation_name_bn'] }}
-                    {{ $auditQueryInfo['plan_team']['team_parent_id'] == 0 ? 'দলনেতা' : 'উপ দলনেতা' }}
-                    <br>
+                    {{ $auditQueryInfo['plan_team']['leader_designation_name_bn'] }}, দলনেতা <br>
+                    {{--{{ $auditQueryInfo['plan_team']['team_parent_id'] == 0 ? 'দলনেতা' : 'উপ দলনেতা' }}--}}
                     {{-- {{$auditQueryInfo['querier_unit_name_bn']}} <br> --}}
                     অডিট এনগেজমেন্ট {{ $auditQueryInfo['plan_team']['team_name'] }}
                 @endif
             </div>
+        </div>
 
-            <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">
+        <div class="pdf-screen bangla-font" style="height: 100%">
+            <div class="bangla-font" style="font-family:nikoshpdf,serif !important;width: 100%;margin-top: 10px">
                 <div style="text-align: left;float: left;width: 70%;">
                     স্মারক নং-{{ $auditQueryInfo['memorandum_no'] }}
                 </div>
@@ -856,24 +870,19 @@
             </div>
 
             <div class="bangla-font"
-                style="font-family:SolaimanLipi,serif !important;text-align:justify;margin-top: 10px">
+                 style="font-family:nikoshpdf,serif !important;text-align:justify;margin-top: 10px">
                 <span style="margin-bottom: 10px">অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য:</span> <br>
                 {!! nl2br($auditQueryInfo['cc']) !!}
             </div>
 
-            <div class="bangla-font"
-                style="font-family:SolaimanLipi,serif !important;margin-top:50px;text-align: center;float: right;width: 35%">
+            <div class="bangla-font" style="font-family:nikoshpdf,serif !important;margin-top:50px;text-align: center;float: right;width: 35%">
+                ({{ $auditQueryInfo['querier_officer_name_bn']}}) <br>
+                {{ $auditQueryInfo['querier_designation_bn']}} <br>
                 @if ($auditQueryInfo['plan_team'])
-                    ({{ $auditQueryInfo['plan_team']['leader_name_bn'] }}) <br>
-                    {{ $auditQueryInfo['plan_team']['leader_designation_name_bn'] }}
-                    ও {{ $auditQueryInfo['plan_team']['team_parent_id'] == 0 ? 'দলনেতা' : 'উপ দলনেতা' }}<br>
-                    {{-- {{$auditQueryInfo['querier_unit_name_bn']}} <br> --}}
                     অডিট এনগেজমেন্ট {{ $auditQueryInfo['plan_team']['team_name'] }}
                 @endif
             </div>
         </div>
-
-        <div class="pdf-screen bangla-font" style="height: 100%"></div>
     </div>
 </body>
 

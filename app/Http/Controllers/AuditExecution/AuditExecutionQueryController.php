@@ -161,6 +161,7 @@ class AuditExecutionQueryController extends Controller
         )->validate();
 
         $data['cdesk'] = $this->current_desk_json();
+        $data['suthro'] = $request->suthro;
         $data['audit_query_items'] = $request->audit_query_items;
         $data['description'] = $request->description;
         $data['cc'] = $request->cc;
@@ -229,6 +230,7 @@ class AuditExecutionQueryController extends Controller
         )->validate();
 
         $data['cdesk'] = $this->current_desk_json();
+        $data['suthro'] = $request->suthro;
         $data['description'] = $request->description;
         $data['audit_query_items'] = $request->audit_query_items;
         $data['cc'] = $request->cc;

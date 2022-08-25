@@ -53,6 +53,12 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="suthro">সূত্র</label>
+                    <input type="text" id="suthro" class="form-control" name="suthro" placeholder="সূত্র" value="{{$auditQueryInfo['suthro']}}">
+                </div>
+
                 <div class="form-group">
                     <label for="rpu_office_head_details">বরাবর <span class="text-danger">*</span></label>
                     <textarea class="form-control" id="rpu_office_head_details" name="rpu_office_head_details"
