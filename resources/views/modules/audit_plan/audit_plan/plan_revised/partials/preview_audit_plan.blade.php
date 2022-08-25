@@ -1,4 +1,4 @@
-@if($scope_editable == 1 && $current_office_id != 1) {{--&& $approval_status != 'approved'--}}
+@if($scope_editable == 1) {{--&& $current_office_id != 1 && $approval_status != 'approved'--}}
     <div class="row mb-3">
         <div class="col-md-12">
             <div class="d-flex justify-content-end">

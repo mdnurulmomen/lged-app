@@ -40,9 +40,10 @@ class RevisedPlanController extends Controller
         //dd($all_entities);
         if (isSuccess($all_entities)) {
             $office_id = $this->current_office_id();
+            $current_grade = $this->current_desk()['officer_grade'];
             $all_entities = $all_entities['data'];
             return view('modules.audit_plan.audit_plan.plan_revised.partials.load_plan_lists',
-                compact('all_entities','office_id'));
+                compact('all_entities','office_id','current_grade'));
         } else {
             return response()->json(['status' => 'error', 'data' => $all_entities]);
         }

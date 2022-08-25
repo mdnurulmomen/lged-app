@@ -19,6 +19,10 @@
             font-family: nikoshpdf !important;
         }
 
+        .bangla-bijoy {
+            font-family: sutonnymj !important;
+        }
+
         article,
         aside,
         details,
@@ -789,6 +793,21 @@
 </head>
 
 <body>
+<htmlpagefooter name="firstpage"></htmlpagefooter>
+<htmlpagefooter name="otherpages">পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span></htmlpagefooter>
+
+<htmlpagefooter name="even-footer">
+    <div class="bangla-font" style="float:right; width: 100%; text-align: right;">
+        পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span>
+    </div>
+</htmlpagefooter>
+
+<htmlpagefooter name="odd-footer">
+    <div class="bangla-font" style="float:left; width: 100%; text-align: right;">
+        পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span>
+    </div>
+</htmlpagefooter>
+
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     {{--cover page--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
@@ -1137,14 +1156,6 @@
         </div>
     @endif
 
-    <htmlpagefooter name="even-footer">
-        <div style="float:right; width: 100%; text-align: right;">Page <span class="page_number">{PAGENO}</span> of {nb}</div>
-    </htmlpagefooter>
-
-    <htmlpagefooter name="odd-footer">
-        {{--@php $pageNumber = ; @endphp--}}
-        <div style="float:left; width: 100%; text-align: right;">Page {PAGENO} of {nb}</div>
-    </htmlpagefooter>
 </div>
 </body>
 </html>

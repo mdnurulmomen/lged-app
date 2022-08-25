@@ -150,12 +150,21 @@
 
                                                     $edit_user = $mins < 30 ? 'এই সময়ে হালনাগাদ করতেছেন'.'('.$audit_plans['edit_user_details'].')' : '';
                                                 @endphp
+
+                                                @if($audit_plans['office_order'] == null || $audit_plans['office_order']['approved_status'] !='approved')
+                                                    @php $scopeEditable = 0; @endphp
+                                                @elseif(!in_array($current_grade,[2,3]))
+                                                    @php $scopeEditable = 0; @endphp
+                                                @else
+                                                    @php $scopeEditable = 1; @endphp
+                                                @endif
+
                                                 <a href="javascript:;"
                                                    title="প্ল্যান-{{enTobn($audit_plans['id'])}} বিস্তারিত দেখুন"
                                                    class="badge-square rounded-0 badge d-flex align-items-center
                                                    alert-{{$audit_plans['office_order'] == null || $audit_plans['office_order']['approved_status'] !='approved'?'danger':'success'}}
                                                        font-weight-normal mr-1 border decision"
-                                                   data-scope-editable="1"
+                                                   data-scope-editable="{{$scopeEditable}}"
                                                    data-audit-plan-id="{{$audit_plans['id']}}"
                                                    data-fiscal-year-id="{{$audit_plans['fiscal_year_id']}}"
                                                    data-annual-plan-id="{{$audit_plans['annual_plan_id']}}"
