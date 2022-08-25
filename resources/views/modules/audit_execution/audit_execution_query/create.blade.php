@@ -56,10 +56,6 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="suthro">সূত্র</label>
-                    <input type="text" id="suthro" class="form-control" name="suthro" placeholder="সূত্র">
-                </div>
 
                 <div class="form-group">
                     <label for="rpu_office_head_details">বরাবর<span class="text-danger">*</span></label>
@@ -70,6 +66,11 @@
                 <div class="form-group">
                     <label for="subject">বিষয়<span class="text-danger">*</span></label>
                     <input type="text" id="subject" class="form-control" name="subject" placeholder="বিষয়">
+                </div>
+
+                <div class="form-group">
+                    <label for="suthro">সূত্র</label>
+                    <input type="text" id="suthro" class="form-control" name="suthro" placeholder="সূত্র">
                 </div>
 
                 <div class="form-group">

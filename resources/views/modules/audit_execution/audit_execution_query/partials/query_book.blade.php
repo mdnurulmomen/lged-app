@@ -804,13 +804,6 @@
                 </div>
             </div>
 
-            @if($auditQueryInfo['suthro'])
-                <div class="bangla-font"
-                     style="font-family:nikoshpdf,serif !important;text-align:justify;margin-top: 5px">
-                    সূত্র-{{ $auditQueryInfo['suthro'] }}
-                </div>
-            @endif
-
             <div class="bangla-font"
                 style="font-family:nikoshpdf,serif !important;text-align:justify;margin-top: 20px">
                 <span>বরাবর,</span>
@@ -824,6 +817,13 @@
                 style="font-family:nikoshpdf,serif !important;text-align:justify;margin-top: 10px">
                 <span style="font-weight: bold">বিষয়ঃ {!! str_repeat('&nbsp;', 1) !!} {{ $auditQueryInfo['subject'] }}</span>
             </div>
+
+            @if($auditQueryInfo['suthro'])
+                <div class="bangla-font"
+                     style="font-family:nikoshpdf,serif !important;text-align:justify;margin-top: 5px">
+                    সূত্র-{{ $auditQueryInfo['suthro'] }}
+                </div>
+            @endif
 
             <div class="bangla-font"
                 style="font-family:nikoshpdf,serif !important;text-align:justify;margin-top: 10px">
