@@ -34,4 +34,6 @@ return [
     'apotti-response-submit' => env('API_URL_RPU', '') . '/apotti/apotti-response-submit',
     'store-rpu-broad-sheet' => env('API_URL_RPU', '') . '/apotti/store-rpu-broad-sheet',
     'get-ministry-wise-apotti-entity' => env('API_URL_RPU', '') . '/apotti/get-ministry-wise-apotti-entity',
+    'get-ministry-wise-apotti-entity' => env('API_URL_RPU', '') . '/apotti/get-ministry-wise-apotti-entity',
+    'get-directorate-wise-ministry-total-observation' => env('API_URL_RPU', '') . '/apotti/get-directorate-wise-ministry-total-observation',
 ];

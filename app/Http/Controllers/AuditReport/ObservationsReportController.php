@@ -104,4 +104,41 @@ class ObservationsReportController extends Controller
         }
     }
 
+    public function directorateWiseMinistryTotalObservation(Request $request){
+        $office_id = $this->current_office_id();
+        $all_directorates = $this->allAuditDirectorates();
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
+        return view('modules.audit_report.observations_report.directorate_wise_ministry_total_observation_report',
+            compact('office_id','directorates'));
+    }
+
+    public function getDirectorateWiseMinistryTotalObservation(Request $request){
+        $data['directorate_id']  = $request->office_id;
+        $ministry_list = $this->initHttpWithToken()->post(config('cag_rpu_api.get-directorate-wise-ministry-total-observation'), $data)->json();
+//        dd($ministry_list);
+        if (isSuccess($ministry_list)) {
+            $ministry_list = $ministry_list['data'];
+            return view('modules.audit_report.observations_report.partials.load_directorate_wise_ministry_total_observation_report',
+                compact('ministry_list'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $ministry_list]);
+        }
+    }
+
+    public function getDirectorateWiseMinistryTotalObservationExport(Request $request){
+        $data['directorate_id']  = $request->office_id;
+        $ministry_list = $this->initHttpWithToken()->post(config('cag_rpu_api.get-directorate-wise-ministry-total-observation'), $data)->json();
+//        dd($ministry_list);
+        if (isSuccess($ministry_list)) {
+            $ministry_list = $ministry_list['data'];
+            return view('modules.audit_report.observations_report.partials.load_directorate_wise_ministry_total_observation_report',
+                compact('ministry_list'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $ministry_list]);
+        }
+    }
+
 }
