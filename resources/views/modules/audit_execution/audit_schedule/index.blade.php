@@ -74,9 +74,10 @@
             cost_center_id = elem.attr('data-cost-center-id');
             cost_center_name_en = elem.attr('data-cost-center-name-en');
             cost_center_name_bn = elem.attr('data-cost-center-name-bn');
+            project_name_bn = elem.attr('data-project-name-bn');
 
             data = {schedule_id,audit_plan_id,entity_id,cost_center_id, cost_center_name_en,
-                cost_center_name_bn};
+                cost_center_name_bn,project_name_bn};
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
@@ -101,11 +102,12 @@
             scope_sub_team_leader = elem.data('scope-sub-team-leader');
             sub_team_leader_name = elem.data('sub-team-leader-name-bn');
             sub_team_leader_designation_name = elem.data('sub-team-leader-designation-name-bn');
+            project_name_bn = elem.data('project-name-bn');
 
             data = {schedule_id, team_id, audit_plan_id, entity_id, cost_center_id,cost_center_name_bn,audit_year_start,
                 audit_year_end,team_leader_name,team_leader_designation_name,scope_sub_team_leader,
-                sub_team_leader_name,sub_team_leader_designation_name};
-            let url = '{{route('audit.execution.memo.index')}}'
+                sub_team_leader_name,sub_team_leader_designation_name,project_name_bn};
+            let url = '{{route('audit.execution.memo.index')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {

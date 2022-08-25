@@ -5,7 +5,10 @@
         <div class="row">
             <div class="col-md-7">
                 <h4 class="mt-3">
-                    {{$cost_center_name_bn}}
+                    {{$cost_center_name_bn}} <br>
+                    @if(!empty($project_name_bn))
+                        প্রজেক্টঃ {{$project_name_bn}}
+                    @endif
                 </h4>
             </div>
             <div class="col-md-5">

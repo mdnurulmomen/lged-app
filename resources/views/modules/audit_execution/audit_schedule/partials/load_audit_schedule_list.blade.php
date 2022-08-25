@@ -19,7 +19,9 @@
                                         <span class="font-size-14">
                                             {{$schedule['entity_name_bn']}}
                                             <span class="label label-outline-warning label-pill label-inline">
-                                                প্ল্যান - {{$schedule['audit_plan_id']}}</span>
+                                                প্ল্যান - {{$schedule['audit_plan_id']}}
+                                            </span>
+                                        </span>
                                     </div>
 
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
@@ -31,6 +33,15 @@
                                             <span class="ml-2 label label-outline-warning label-pill label-inline">{{__('চলমান')}}</span>
                                         @endif
                                     </div>
+
+                                    @if($schedule['annual_plan'] && $schedule['annual_plan']['project_id'])
+                                        <div class="font-weight-normal">
+                                            <span class="mr-2 font-size-1-1">প্রজেক্টঃ</span>
+                                            <span class="font-size-14">
+                                                    {{$schedule['annual_plan']['project_name_bn']}}
+                                            </span>
+                                        </div>
+                                    @endif
 
                                     <div class="font-weight-normal">
                                         <span class="mr-2 font-size-1-1">তারিখঃ</span>
@@ -69,7 +80,8 @@
                                                         data-entity-id="{{$schedule['entity_id']}}"
                                                         data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                         data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
-                                                        data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}">
+                                                        data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
+                                                        data-project-name-bn="{{$schedule['annual_plan'] && $schedule['annual_plan']['project_id'] ? $schedule['annual_plan']['project_name_bn'] : ''}}">
                                                     <i class="fad fa-clipboard-list"></i> কোয়েরি ({{enTobn($schedule['queries_count'])}})
                                                 </button>
 
@@ -88,6 +100,7 @@
                                                         data-scope-sub-team-leader="{{$schedule['plan_team']['team_parent_id']}}"
                                                         data-sub-team-leader-name-bn="{{$schedule['plan_team']['leader_name_bn']}}"
                                                         data-sub-team-leader-designation-name-bn="{{$schedule['plan_team']['leader_designation_name_bn']}}"
+                                                        data-project-name-bn="{{$schedule['annual_plan'] && $schedule['annual_plan']['project_id'] ? $schedule['annual_plan']['project_name_bn'] : ''}}"
                                                         onclick="Audit_Query_Schedule_Container.memo($(this))">
                                                     <i class="fad fa-clipboard-list"></i> মেমো ({{enTobn($schedule['memos_count'])}})
                                                 </button>

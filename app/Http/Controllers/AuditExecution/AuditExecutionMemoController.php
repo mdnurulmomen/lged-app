@@ -30,6 +30,7 @@ class AuditExecutionMemoController extends Controller
         $scope_sub_team_leader = $request->scope_sub_team_leader;
         $sub_team_leader_name = $request->sub_team_leader_name;
         $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
+        $project_name_bn = $request->project_name_bn;
         return view(
             'modules.audit_execution.audit_execution_memo.index',
             compact(
@@ -44,7 +45,8 @@ class AuditExecutionMemoController extends Controller
                 'team_leader_designation_name',
                 'scope_sub_team_leader',
                 'sub_team_leader_name',
-                'sub_team_leader_designation_name'
+                'sub_team_leader_designation_name',
+                'project_name_bn',
             )
         );
     }

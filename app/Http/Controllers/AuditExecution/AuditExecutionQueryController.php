@@ -30,6 +30,7 @@ class AuditExecutionQueryController extends Controller
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
         $cost_center_name_en = $request->cost_center_name_en;
+        $project_name_bn = $request->project_name_bn;
         return view(
             'modules.audit_execution.audit_execution_query.audit_query',
             compact(
@@ -38,7 +39,8 @@ class AuditExecutionQueryController extends Controller
                 'entity_id',
                 'cost_center_id',
                 'cost_center_name_bn',
-                'cost_center_name_en'
+                'cost_center_name_en',
+                'project_name_bn'
             )
         );
     }
