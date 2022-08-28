@@ -16,25 +16,29 @@
     <tr class="text-center">
         <th rowspan="2">ক্রমিক নং</th>
         <th rowspan="2">মন্ত্রণালয়</th>
-        <th colspan="2">মোট আপত্তি</th>
-        <th colspan="2">মোট জড়িত অর্থ</th>
-        <th rowspan="2">সর্বমোট আপত্তি
-        </th>
-        <th rowspan="2">সর্বমোট জড়িত অর্থ
+        <th colspan="2">এসএফআই </th>
+        <th colspan="2">নন-এসএফআই </th>
+        <th colspan="2">সর্বমোট
         </th>
     </tr>
     <tr class="text-center">
         <th>
-            এসএফআই
+            মোট আপত্তি
         </th>
         <th>
-            নন-এসএফআই
+            মোট জড়িত অর্থ
         </th>
         <th>
-            এসএফআই
+            মোট আপত্তি
         </th>
         <th>
-            নন-এসএফআই
+            মোট জড়িত অর্থ
+        </th>
+        <th>
+            মোট আপত্তি
+        </th>
+        <th>
+            মোট জড়িত অর্থ
         </th>
     </tr>
     </thead>
@@ -51,16 +55,16 @@
                 {{enTobn(currency_format($report['sfi_count']))}}
             </td>
             <td class="text-right">
-                {{enTobn(currency_format($report['non_sfi_count']))}}
+                {{enTobn(currency_format($report['jorito_ortho_poriman_sfi']))}}
             </td>
             <td class="text-right">
-                {{enTobn(currency_format($report['jorito_ortho_poriman_sfi']))}}
+                {{enTobn(currency_format($report['non_sfi_count']))}}
             </td>
             <td class="text-right">
                 {{enTobn(currency_format($report['jorito_ortho_poriman_non_sfi']))}}
             </td>
             <td class="text-right">
-                {{enTobn(currency_format($report['non_sfi_count'] + $report['non_sfi_count']))}}
+                {{enTobn(currency_format($report['sfi_count'] + $report['non_sfi_count']))}}
             </td>
             <td class="text-right">
                 {{enTobn(currency_format($report['jorito_ortho_poriman_sfi'] + $report['jorito_ortho_poriman_non_sfi']))}}
@@ -80,8 +84,8 @@
     <tr>
         <td colspan="2" class="text-right">সর্বমোট</td>
         <td class="text-right">{{enTobn(currency_format($total_apotti_count_sfi))}}</td>
-        <td class="text-right">{{enTobn(currency_format($total_apotti_count_non_sfi))}}</td>
         <td class="text-right">{{enTobn(currency_format($total_jorito_ortho_poriman_sfi))}}</td>
+        <td class="text-right">{{enTobn(currency_format($total_apotti_count_non_sfi))}}</td>
         <td class="text-right">{{enTobn(currency_format($total_jorito_ortho_poriman_non_sfi))}}</td>
         <td class="text-right">{{enTobn(currency_format($total_apotti))}}</td>
         <td class="text-right">{{enTobn(currency_format($total_jorito_ortho))}}</td>

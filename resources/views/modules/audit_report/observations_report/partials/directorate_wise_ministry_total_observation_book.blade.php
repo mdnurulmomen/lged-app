@@ -41,54 +41,58 @@
     </div>
     <table style="margin-top: 20px" class="table bangla-font" width="100%" border="1">
         <thead>
-        <tr class="bangla-font" style="text-align: center">
+        <tr style="text-align: center">
             <th rowspan="2">ক্রমিক নং</th>
             <th rowspan="2">মন্ত্রণালয়</th>
-            <th colspan="2">মোট আপত্তি</th>
-            <th colspan="2">মোট জড়িত অর্থ</th>
-            <th rowspan="2">সর্বমোট আপত্তি
-            </th>
-            <th rowspan="2">সর্বমোট জড়িত অর্থ
+            <th colspan="2">এসএফআই </th>
+            <th colspan="2">নন-এসএফআই </th>
+            <th colspan="2">সর্বমোট
             </th>
         </tr>
-        <tr class="bangla-font" style="text-align: center">
+        <tr style="text-align: center">
             <th>
-                এসএফআই
+                মোট আপত্তি
             </th>
             <th>
-                নন-এসএফআই
+                মোট জড়িত অর্থ
             </th>
             <th>
-                এসএফআই
+                মোট আপত্তি
             </th>
             <th>
-                নন-এসএফআই
+                মোট জড়িত অর্থ
+            </th>
+            <th>
+                মোট আপত্তি
+            </th>
+            <th>
+                মোট জড়িত অর্থ
             </th>
         </tr>
         </thead>
         <tbody>
         @foreach($ministry_list as $report)
             <tr class="bangla-font" style="text-align: center">
-                <td class="text-center">
+                <td style="text-align: center">
                     {{enTobn($loop->iteration)}}
                 </td>
-                <td class="text-left">
+                <td style="text-align: center">
                     {{$report['ministry'] ? $report['ministry']['name_bng'] : ''}}
                 </td>
                 <td style="text-align: right">
                     {{enTobn(currency_format($report['sfi_count']))}}
                 </td>
                 <td style="text-align: right">
-                    {{enTobn(currency_format($report['non_sfi_count']))}}
+                    {{enTobn(currency_format($report['jorito_ortho_poriman_sfi']))}}
                 </td>
                 <td style="text-align: right">
-                    {{enTobn(currency_format($report['jorito_ortho_poriman_sfi']))}}
+                    {{enTobn(currency_format($report['non_sfi_count']))}}
                 </td>
                 <td style="text-align: right">
                     {{enTobn(currency_format($report['jorito_ortho_poriman_non_sfi']))}}
                 </td>
                 <td style="text-align: right">
-                    {{enTobn(currency_format($report['non_sfi_count'] + $report['non_sfi_count']))}}
+                    {{enTobn(currency_format($report['sfi_count'] + $report['non_sfi_count']))}}
                 </td>
                 <td style="text-align: right">
                     {{enTobn(currency_format($report['jorito_ortho_poriman_sfi'] + $report['jorito_ortho_poriman_non_sfi']))}}
@@ -108,8 +112,8 @@
         <tr class="bangla-font" style="text-align: center">
             <td colspan="2" style="text-align: right">সর্বমোট</td>
             <td style="text-align: right">{{enTobn(currency_format($total_apotti_count_sfi))}}</td>
-            <td style="text-align: right">{{enTobn(currency_format($total_apotti_count_non_sfi))}}</td>
             <td style="text-align: right">{{enTobn(currency_format($total_jorito_ortho_poriman_sfi))}}</td>
+            <td style="text-align: right">{{enTobn(currency_format($total_apotti_count_non_sfi))}}</td>
             <td style="text-align: right">{{enTobn(currency_format($total_jorito_ortho_poriman_non_sfi))}}</td>
             <td style="text-align: right">{{enTobn(currency_format($total_apotti))}}</td>
             <td style="text-align: right">{{enTobn(currency_format($total_jorito_ortho))}}</td>
