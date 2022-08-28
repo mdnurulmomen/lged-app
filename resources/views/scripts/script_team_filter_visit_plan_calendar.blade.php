@@ -72,41 +72,41 @@
                     navLinks: true,
                     events: [
                             @foreach($calendar_data as $team)
-                            @if($team['child'])
-                            @foreach($team['child'] as $sub_team)
-                            @if($sub_team['team_schedules'])
-                            @php
-                                if(isset($cost_center_id)){
-                                    $schedules = json_decode($sub_team['team_schedules'],true);
+{{--                            @if($team['child'])--}}
+{{--                            @foreach($team['child'] as $sub_team)--}}
+{{--                            @if($sub_team['team_schedules'])--}}
+{{--                            @php--}}
+{{--                                if(isset($cost_center_id)){--}}
+{{--                                    $schedules = json_decode($sub_team['team_schedules'],true);--}}
 
-                                    $schedules = array_filter($schedules, function ($var) use ($cost_center_id) {
-                                             return ($var['cost_center_id'] == $cost_center_id);
-                                        });
+{{--                                    $schedules = array_filter($schedules, function ($var) use ($cost_center_id) {--}}
+{{--                                             return ($var['cost_center_id'] == $cost_center_id);--}}
+{{--                                        });--}}
 
-                                }else{
-                                    $schedules = json_decode($sub_team['team_schedules'],true);
-                                }
-                            @endphp
+{{--                                }else{--}}
+{{--                                    $schedules = json_decode($sub_team['team_schedules'],true);--}}
+{{--                                }--}}
+{{--                            @endphp--}}
 
-                            @foreach($schedules as $schedule)
+{{--                            @foreach($schedules as $schedule)--}}
 
-                        {
-                            title: '{{$sub_team['team_name']}}  (দলনেতা : {{$sub_team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
-                            start: '{{$schedule['team_member_start_date']}}',
-                            end: '{{$schedule['team_member_end_date']}}',
-                            description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
-                            team_id: '{{$sub_team['id']}}',
-                            team_name: '{{$sub_team['team_name']}}',
-                            team_members: '{{$sub_team['team_members']}}',
-                            team_schedules: '{{$sub_team['team_schedules']}}',
-                            audit_start_end_year: '{{$sub_team['audit_year_start']}} - {{$sub_team['audit_year_end']}}',
-                            className: "fc-event-waring @if($sub_team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-primary @endif"
+{{--                        {--}}
+{{--                            title: '{{$sub_team['team_name']}}  (দলনেতা : {{$sub_team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',--}}
+{{--                            start: '{{$schedule['team_member_start_date']}}',--}}
+{{--                            end: '{{$schedule['team_member_end_date']}}',--}}
+{{--                            description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',--}}
+{{--                            team_id: '{{$sub_team['id']}}',--}}
+{{--                            team_name: '{{$sub_team['team_name']}}',--}}
+{{--                            team_members: '{{$sub_team['team_members']}}',--}}
+{{--                            team_schedules: '{{$sub_team['team_schedules']}}',--}}
+{{--                            audit_start_end_year: '{{$sub_team['audit_year_start']}} - {{$sub_team['audit_year_end']}}',--}}
+{{--                            className: "fc-event-waring @if($sub_team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-primary @endif"--}}
 
-                        },
-                            @endforeach
-                            @endif
-                            @endforeach
-                            @endif
+{{--                        },--}}
+{{--                            @endforeach--}}
+{{--                            @endif--}}
+{{--                            @endforeach--}}
+{{--                            @endif--}}
 
                             @if($team['team_schedules'])
                             @php
