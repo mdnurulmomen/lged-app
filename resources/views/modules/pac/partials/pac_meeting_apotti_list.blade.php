@@ -40,7 +40,7 @@
                 <tr>
                     <td style="text-align: justify;">
                         <span style="padding:5px; margin-bottom: 5px">
-                            <b>অডিট আপত্তি অনুচ্ছেদ নং - {{enTobn($apotti['onucched_no'])}} </b>
+                            <b>অডিট আপত্তি অনুচ্ছেদ নম্বর - {{enTobn($apotti['onucched_no'])}} </b>
                             <br> {{$apotti['apotti_title']}}
                         </span>
                     </td>
@@ -108,12 +108,12 @@
             apotti_id = elem.data('apotti-id');
             let url = '{{route('pac.pac-apotti-decision-form')}}';
             let data = {apotti_id};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {

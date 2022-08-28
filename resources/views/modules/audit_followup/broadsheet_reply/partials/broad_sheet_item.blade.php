@@ -23,7 +23,7 @@
             <tr class="bg-light">
                 <td style="text-align: center" width="5%">ক্রমিক</td>
                 <td style="text-align: center" width="10%">কস্ট সেন্টার/ইউনিট</td>
-                <td style="text-align: center" width="5%">নিরীক্ষা বছর ও অনুচ্ছেদ নং</td>
+                <td style="text-align: center" width="5%">নিরীক্ষা বছর ও অনুচ্ছেদ নম্বর</td>
                 <td style="text-align: center" width="5%">আপত্তি ক্যাটাগরি</td>
                 <td style="text-align: center" width="25%">শিরোনাম ও বিবরণ</td>
                 <td style="text-align: center" width="25%"> অর্থ </td>
@@ -46,7 +46,7 @@
                     <td style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['cost_center_name_bn'])}}</td>
                     <td style="text-align: left;vertical-align: top;">
                         <p><b>নিরীক্ষা বছর : </b>{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</p>
-                        <p><b>অনুচ্ছেদ নং : </b>{{enTobn($broadSheet['apotti']['onucched_no'])}}</p>
+                        <p><b>অনুচ্ছেদ নম্বর : </b>{{enTobn($broadSheet['apotti']['onucched_no'])}}</p>
                     </td>
                     <td style="text-align: center;vertical-align: top;">
                         @if($broadSheet['apotti']['memo_type'] == 'sfi')
@@ -64,8 +64,8 @@
                             style="padding:5px;"><b>বিবরণঃ</b> {!! $broadSheet['apotti']['memo_description_bn'] !!}</span>
                     </td>
                     <td style="text-align: left;vertical-align: top;">
-                        <p class="pb-2"><b>জড়িত টাকার পরিমাণ : </b> {{enTobn(number_format($broadSheet['jorito_ortho_poriman'],0))}} /-</p>
-                        <p class="pb-2"><b>অনিষ্পন্ন জড়িত টাকার পরিমাণ : </b> {{enTobn(number_format($broadSheet['onishponno_jorito_ortho_poriman'],0))}}/-</p>
+                        <p class="pb-2"><b>জড়িত টাকার পরিমাণ : </b> {{enTobn(currency_format($broadSheet['jorito_ortho_poriman']))}} /-</p>
+                        <p class="pb-2"><b>অনিষ্পন্ন জড়িত টাকার পরিমাণ : </b> {{enTobn(currency_format($broadSheet['onishponno_jorito_ortho_poriman']))}}/-</p>
                     </td>
 
                     <td style="text-align: left;vertical-align: top;padding:5px;">
@@ -173,7 +173,7 @@
 
         getApottiDecisionForm : function (elem) {
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
@@ -190,7 +190,7 @@
             var data = {apotti_item_id,jorito_ortho,broad_sheet_id,memo_id,broad_sheet_type,office_id};
 
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
 
                     quick_panel = $("#kt_quick_panel");
                     $('.offcanvas-wrapper').html('');
@@ -211,13 +211,13 @@
 
             let url = '{{route('audit.followup.broadsheet.reply.get-apotti-decision-submit')}}';
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
@@ -238,7 +238,7 @@
                 cancelButtonText: 'না'
             }).then(function(result) {
                 if (result.value) {
-                    KTApp.block('#kt_content', {
+                    KTApp.block('#kt_wrapper', {
                         opacity: 0.1,
                         state: 'primary'
                     });
@@ -252,7 +252,7 @@
                     var data = {apotti_item_id,broad_sheet_id,memo_id};
 
                     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                        KTApp.unblock('#kt_content');
+                        KTApp.unblock('#kt_wrapper');
                         if (response.status === 'error') {
                             toastr.error(response.data);
                         } else {

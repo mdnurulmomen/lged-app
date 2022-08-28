@@ -867,7 +867,7 @@
                 <tr class="bangla-font">
                     <td class="bangla-font" style="text-align: center" width="10%">কস্ট সেন্টার/ইউনিট</td>
                     <td class="bangla-font" style="text-align: center" width="5%">নিরীক্ষা বছর</td>
-                    <td class="bangla-font" style="text-align: center" width="5%">অনুচ্ছেদ নং</td>
+                    <td class="bangla-font" style="text-align: center" width="5%">অনুচ্ছেদ নম্বর</td>
                     <td class="bangla-font" style="text-align: center" width="5%">আপত্তি ক্যাটাগরি</td>
                     <td class="bangla-font" style="text-align: center" width="20%">শিরোনাম ও বিবরণ</td>
                     <td class="bangla-font" style="text-align: right" width="10%">জড়িত টাকার পরিমাণ</td>
@@ -894,7 +894,7 @@
                             <br>
                             <span style="padding:5px;"><b>বিবরণঃ</b> {!! $broadSheet['apotti']['memo_description_bn'] !!}</span>
                         </td>
-                        <td class="bangla-font" style="text-align: right;vertical-align: top;">{{enTobn(number_format($broadSheet['apotti']['jorito_ortho_poriman'],0))}}/-</td>
+                        <td class="bangla-font" style="text-align: right;vertical-align: top;">{{enTobn(currency_format($broadSheet['apotti']['jorito_ortho_poriman']))}}/-</td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['unit_response']}}</td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['entity_response']}}</td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;padding:5px;">{{$broadSheet['apotti']['ministry_response']}}</td>

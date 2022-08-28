@@ -12,14 +12,17 @@ class AuditQACAIRReportController extends Controller
 
     public function updateQACAirReport(Request $request)
     {
-        //dd($request->fiscal_year_id);
+        $air_description = json_decode($request->air_description);
+        unset($air_description['31']);
+
         Validator::make($request->all(), [
             'air_id' => 'required|integer',
             'air_description' => 'required',
         ])->validate();
         $data['air_id'] = $request->air_id;
+        $data['air_type'] = $request->air_type ?? null;
         $data['office_id'] = $request->office_id;
-        $data['air_description'] = makeEncryptedData(gzcompress($request->air_description));
+        $data['air_description'] = makeEncryptedData(gzcompress(json_encode($air_description)));
         $data['cdesk'] = $this->current_desk_json();
         $saveAirReport = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.update_qac_air_report'), $data)->json();
         if (isSuccess($saveAirReport)) {
@@ -129,30 +132,20 @@ class AuditQACAIRReportController extends Controller
             $is_sent = $airReport['is_sent'];
             $is_received = $airReport['is_received'];
             $qac_type = $request->qac_type;
+
             $fiscal_year_id = $airReport['fiscal_year_id'];
+            $audit_year = enTobn($airReport['fiscal_year']['start']).'-'.enTobn($airReport['fiscal_year']['end']);
+            $fiscal_year = enTobn($airReport['fiscal_year']['start']).'-'.enTobn($airReport['fiscal_year']['end']);
 
-            $fiscal_year_data['fiscal_year_id'] = $fiscal_year_id;
-            $fiscal_year_response = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.fiscal_year_show'), $fiscal_year_data)->json();
-
-            if (isSuccess($fiscal_year_response)) {
-                $fiscal_year_start = $fiscal_year_response['data']['start'];
-                $fiscal_year_end = $fiscal_year_response['data']['end'];
-            }
-            $audit_year = '২০১৯-২০২০';
-            $fiscal_year = enTobn($fiscal_year_start).'-'.enTobn($fiscal_year_end);
             $activity_id = $airReport['activity_id'];
             $audit_plan_id = $airReport['audit_plan_id'];
             $annual_plan_id = $airReport['annual_plan_id'];
 
             $directorate_name = $this->current_office()['office_name_bn'];
-            if ($this->current_office_id() == 14) {
-                $directorate_address = 'অডিট কমপ্লেক্স <br> ৩য় তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
-            } elseif ($this->current_office_id() == 3) {
-                $directorate_address = 'অডিট কমপ্লেক্স <br> ২য় তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
-            } else {
-                $directorate_address = 'অডিট কমপ্লেক্স <br> ৮ম তলা, সেগুনবাগিচা,ঢাকা-১০০০।';
-            }
-            $auditType = 'কমপ্লায়েন্স অডিট';
+            //$directorate_address = $this->current_office_details()['office_address']; //todo
+            $directorate_address = '';
+
+            $auditType = $request->session()->get('dashboard_audit_type_bn');
 
             //for entity info
             $entityNames = [];
@@ -163,13 +156,15 @@ class AuditQACAIRReportController extends Controller
 
 
             if ($qac_type == 'qac-1'){
+                $parent_air_id = $request->parent_air_id;
                 if ($report_type != 'cloned'){
                     return view('modules.audit_quality_control.qac_01.create',
-                        compact('fiscal_year_id','activity_id','audit_plan_id',
+                        compact('report_type','fiscal_year_id','activity_id','audit_plan_id',
                             'annual_plan_id','auditType','directorate_name','directorate_address',
                             'content','audit_plan_entities','air_report_id','approved_status',
                             'latest_receiver_designation_id','current_designation_id',
-                            'is_sent','is_received','qac_type','audit_year','fiscal_year'));
+                            'is_sent','is_received','qac_type','audit_year','fiscal_year',
+                            'parent_air_id'));
                 }
                 else{
                     $qacOneData['template_type'] = 'qac1_report';
@@ -179,11 +174,12 @@ class AuditQACAIRReportController extends Controller
                     if (isSuccess($responseReportTemplateData)) {
                         $content = $responseReportTemplateData['data']['content'];
                         return view('modules.audit_quality_control.qac_01.create',
-                            compact('fiscal_year_id','activity_id','audit_plan_id',
+                            compact('report_type','fiscal_year_id','activity_id','audit_plan_id',
                                 'annual_plan_id','auditType','directorate_name','directorate_address',
                                 'content','audit_plan_entities','air_report_id','approved_status',
                                 'latest_receiver_designation_id','current_designation_id',
-                                'is_sent','is_received','qac_type','audit_year','fiscal_year'));
+                                'is_sent','is_received','qac_type','audit_year','fiscal_year',
+                                'parent_air_id'));
                     }
                 }
             }
@@ -213,12 +209,13 @@ class AuditQACAIRReportController extends Controller
                 $desk_office_id = $desk_office_id['office_id'];
                 $office_id = $request->office_id;
                 $scope = $request->scope;
+                $parent_air_id = $request->parent_air_id;
 
                 if ($report_type != 'cloned'){
                     return view('modules.audit_quality_control.cqat.create',
                         compact('content','audit_plan_entities','air_report_id',
                             'approved_status','latest_receiver_designation_id','current_designation_id',
-                            'is_sent','is_received','qac_type','office_id','scope','desk_office_id'));
+                            'is_sent','is_received','qac_type','office_id','scope','desk_office_id','parent_air_id'));
                 }else{
                     $cqatData['template_type'] = 'cqat_report';
                     $cqatData['cdesk'] = $cdeskData;
@@ -229,11 +226,12 @@ class AuditQACAIRReportController extends Controller
                         return view('modules.audit_quality_control.cqat.create',
                             compact('content','audit_plan_entities','air_report_id',
                                 'approved_status','latest_receiver_designation_id','current_designation_id',
-                                'is_sent','is_received','qac_type','office_id','scope','desk_office_id'));
+                                'is_sent','is_received','qac_type','office_id','scope','desk_office_id','parent_air_id'));
                     }
                 }
 
-            }else{
+            }
+            else{
                 return view('modules.audit_quality_control.qac_01.edit',
                     compact('content','audit_plan_entities','air_report_id',
                         'approved_status', 'latest_receiver_designation_id','current_designation_id',
@@ -258,10 +256,10 @@ class AuditQACAIRReportController extends Controller
 //        dd($apottis);
         $qac_type = $request->qac_type;
         if ($request->apotti_view_scope == 'summary'){
-            return view('modules.audit_quality_control.qac_01.partials.load_audit_apottis_summary',compact('apottiStatusList','qac_type'));
+            return view('modules.audit_quality_control.partials.load_audit_apottis_summary',compact('apottiStatusList','qac_type'));
         }
         else{
-            return view('modules.audit_quality_control.qac_01.partials.load_audit_apottis_details',compact('apottiStatusList','qac_type'));
+            return view('modules.audit_quality_control.partials.load_audit_apottis_details',compact('apottiStatusList','qac_type'));
         }
     }
 
@@ -284,52 +282,85 @@ class AuditQACAIRReportController extends Controller
         }
     }
 
-
-    public function downloadAuditReport(Request $request)
+    public function getAirWisePorisistos(Request $request)
     {
-        $auditReport = $request->air_description;
-        $coverPage = $auditReport[0];
-        $indexPage = $auditReport[1];
-        $partOneCoverPage = $auditReport[2];
-        $inductionPage = $auditReport[3];
-        $chapterOneCoverPage = $auditReport[4];
-        $executiveSummaryPage = $auditReport[11];
-        $abbreviationOfWordPage = $auditReport[12];
-        $chapterTwoCoverPage = $auditReport[13];
-        $auditOnnuchedSumaryPage = $auditReport[14];
-        $auditOnnuchedDetailsCoverPage = $auditReport[15];
-        $auditOnnuchedDetailsPage = $auditReport[16];
-        $partTwoCoverPage = $auditReport[17];
-        $appendicesCoverPage = $auditReport[18];
-        $appendicesDetailsPage = $auditReport[19];
-
-        unset($auditReport[0], $auditReport[1], $auditReport[2], $auditReport[3], $auditReport[4], $auditReport[11],
-            $auditReport[12],$auditReport[13],$auditReport[14],$auditReport[15],$auditReport[16],
-            $auditReport[17],$auditReport[18],$auditReport[19]);
-
-        $pdf = \PDF::loadView('modules.audit_quality_control.cqat.partials.audit_report_book',
-            [
-                'coverPage' => $coverPage,
-                'indexPage' => $indexPage,
-                'partOneCoverPage' => $partOneCoverPage,
-                'inductionPage' => $inductionPage,
-                'chapterOneCoverPage' => $chapterOneCoverPage,
-                'executiveSummaryPage' => $executiveSummaryPage,
-                'abbreviationOfWordPage' => $abbreviationOfWordPage,
-                'chapterTwoCoverPage' => $chapterTwoCoverPage,
-                'auditOnnuchedSumaryPage' => $auditOnnuchedSumaryPage,
-                'auditOnnuchedDetailsCoverPage' => $auditOnnuchedDetailsCoverPage,
-                'auditOnnuchedDetailsPage' => $auditOnnuchedDetailsPage,
-                'partTwoCoverPage' => $partTwoCoverPage,
-                'appendicesCoverPage' => $appendicesCoverPage,
-                'appendicesDetailsPage' => $appendicesDetailsPage,
-                'auditReport' => $auditReport,
-            ], [] , ['orientation' => 'P', 'format' => 'A4']);
-
-        $fileName = 'audit_air_report_' . date('D_M_j_Y') . '.pdf';
-        return $pdf->stream($fileName);
+        $requestData = Validator::make($request->all(), [
+            'air_id' => 'required',
+        ])->validate();
+        $requestData['cdesk'] =$this->current_desk_json();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'), $requestData)->json();
+        $apotti_items = isSuccess($responseData)?$responseData['data']:[];
+        return view('modules.audit_report.air_generate.partials.load_audit_apottis_wise_porisistos',compact('apotti_items'));
     }
 
+
+    public function download(Request $request)
+    {
+        ini_set("pcre.backtrack_limit", "999999999999");
+        ini_set('memory_limit', '-1');
+        ini_set('max_execution_time', 0);
+
+        $scope = $request->scope ?: 'apotti_air';
+        $porisistos_html = [];
+
+        if ($scope != 'apotti_air') {
+            $apottis = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.air.get-air-wise-porisistos'),
+                [
+                    'air_id' => $request->air_id,
+                    'air_type' => 'cqat',
+                    'cdesk' => $this->current_desk_json()
+                ])->json();
+
+            $porisishto_counter = 1;
+            if (isSuccess($apottis)) {
+                foreach ($apottis['data'] as $apotti) {
+                    $onucched_no = $apotti['onucched_no'];
+                    foreach ($apotti['apotti_porisishtos'] as $porisishto) {
+                        if ($porisishto['porisishto_type'] == 'summary'){
+                            $porisistos_html[] = '<span>অনুচ্ছেদ নম্বর-'.enTobn($onucched_no).'</span>'.$porisishto['details'];
+                        }else{
+                            $porishisto_no = count($apotti['apotti_porisishtos'])>1?enTobn($onucched_no).'.'.enTobn($porisishto_counter):enTobn($onucched_no);
+                            $porisistos_html[] = '<span>পরিশিষ্ট নম্বর-'.$porishisto_no.'</span><br><span>অনুচ্ছেদ নম্বর-'.enTobn($onucched_no).'</span>'.$porisishto['details'];
+                            $porisishto_counter++;
+                        }
+                    }
+                    $porisishto_counter = 1;
+                }
+            } else {
+                $porisistos_html = [];
+            }
+        }
+        $auditReport = $request->air_description;
+
+        if ($scope == 'apotti_air') {
+            $pdf = \PDF::loadView(
+                'modules.audit_quality_control.cqat.books.book_cqat_apotti_air',
+                ['auditReport' => $auditReport],
+                [],
+                ['orientation' => 'P', 'format' => 'A4']
+            );
+            $fileName = 'Final_Report_' . date('D_M_j_Y') . '.pdf';
+            return $pdf->stream($fileName);
+        } elseif ($scope == 'porishisto_air') {
+            $pdf = \PDF::loadView(
+                'modules.audit_quality_control.cqat.books.book_porishisto_air',
+                ['porisistos' => $porisistos_html, 'auditReport' => $auditReport],
+                [],
+                ['orientation' => 'P', 'format' => 'A4']
+            );
+            $fileName = 'Final_Report_' . date('D_M_j_Y') . '.pdf';
+            return $pdf->stream($fileName);
+        } elseif ($scope == 'full_air') {
+            $pdf = \PDF::loadView(
+                'modules.audit_quality_control.cqat.books.book_cqat_full_air',
+                ['porisistos' => $porisistos_html, 'auditReport' => $auditReport],
+                [],
+                ['orientation' => 'P', 'format' => 'A4']
+            );
+            $fileName = 'Final_Report_' . date('D_M_j_Y') . '.pdf';
+            return $pdf->stream($fileName);
+        }
+    }
 
     public function previewAuditReport(Request $request)
     {

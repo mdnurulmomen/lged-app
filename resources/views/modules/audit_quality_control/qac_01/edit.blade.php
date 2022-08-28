@@ -27,7 +27,7 @@
         <div class="col-md-6 text-right">
             @if($approved_status == 'approved')
                 @if($is_sent == 0)
-                    <button class="btn btn-sm btn-square btn-primary btn-hover-primary air_sent_responsible_party"
+                    <button class="tap-button mr-1 btn btn-sm btn-outline-primary air_sent_responsible_party"
                             onclick="QAC_AIR_Report_Container.airSendToRpu()">
                         <i class="fad fa-paper-plane"></i> রেস্পন্সিবল পার্টিকে প্রেরণ করুন
                     </button>
@@ -42,7 +42,7 @@
                 @endif
             @else
                 @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
-                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
+                    <button class="tap-button mr-1 btn btn-sm btn-outline-primary load_approval_authority"
                             title="প্রাপক বাছাই করুন"
                             onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">
                         <i class="fad fa-paper-plane"></i> প্রেরণ করুন
@@ -50,17 +50,17 @@
                 @endif
             @endif
 
-                <button class="btn btn-sm btn-square btn-info btn-hover-info"
+                <button class="tap-button mr-1 btn btn-sm btn-outline-warning"
                         data-air-id="{{$air_report_id}}"
                         onclick="QAC_AIR_Report_Container.previewAirReport($(this))">
-                    <i class="fad fa-search"></i> Preview
+                    <i class="fad fa-eye"></i> Preview
                 </button>
 
             @if($approved_status != 'approved')
-                <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
+                <button class="tap-button mr-1 btn btn-sm btn-outline-primary update-qac-air-report"
                         data-air-id="{{$air_report_id}}"
                         onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
-                    <i class="fas fa-save"></i> Update
+                    <i class="fad fa-save"></i> হালনাগাদ করুন
                 </button>
             @endif
         </div>
@@ -90,13 +90,18 @@
 
     <script>
         $(function () {
+            KTApp.block('#kt_full_width_page', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             let approved_status = '{{$approved_status}}';
             if (approved_status != 'approved'){
                 $(".update-qac-air-report").click();
-                QAC_AIR_Report_Container.insertAuditApottiSummary();
-                QAC_AIR_Report_Container.insertAuditApottiDetails();
+                QAC_AIR_Report_Container.setAuditApottiSummary();
+                QAC_AIR_Report_Container.setAuditApottiDetails();
                 $(".update-qac-air-report").click();
             }
+            KTApp.unblock('#kt_full_width_page');
         });
 
         var QAC_AIR_Report_Container = {
@@ -112,7 +117,14 @@
                 air_id = elem.data('air-id');
                 air_description = JSON.stringify(templateArray);
                 data = {air_id,air_description};
+
+                KTApp.block('#kt_full_width_page', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
+
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'success') {
                         toastr.success('AIR Book Saved Successfully');
                     } else {
@@ -132,13 +144,13 @@
                 data = {scope,air_description};
                 url = '{{route('audit.report.air.download')}}';
 
-                KTApp.block('#kt_content', {
+                KTApp.block('#kt_full_width_page', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {
@@ -154,7 +166,7 @@
                 });
             },
 
-            insertAuditApottiSummary: function () {
+            setAuditApottiSummary: function () {
                 url = '{{route('audit.report.air.qac.get-air-wise-qac-apotti')}}';
                 qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'summary';
@@ -171,7 +183,7 @@
             },
 
 
-            insertAuditApottiDetails: function () {
+            setAuditApottiDetails: function () {
                 url = '{{route('audit.report.air.qac.get-air-wise-qac-apotti')}}';
                 qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'details';
@@ -193,13 +205,13 @@
                 air_type = '{{$qac_type}}';
                 data = {air_report_id,air_type};
 
-                KTApp.block('.content', {
+                KTApp.block('#kt_full_width_page', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('.content');
+                    KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {
@@ -219,15 +231,19 @@
                 let url = '{{route('audit.report.air.air-send-to-rpu')}}';
                 air_id = '{{$air_report_id}}';
                 let data = {air_id};
+                KTApp.block('#kt_full_width_page', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                        if (response.status === 'error') {
-                            toastr.warning(response.data)
-                        } else {
-                            toastr.success(response.data);
-                            $('.air_sent_responsible_party').hide();
-                        }
+                    KTApp.unblock('#kt_full_width_page');
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        toastr.success(response.data);
+                        $('.air_sent_responsible_party').hide();
                     }
-                );
+                });
             },
         }
 

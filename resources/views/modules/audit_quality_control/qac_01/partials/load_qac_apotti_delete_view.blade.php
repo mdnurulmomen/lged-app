@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="">অনুচ্ছেদ নং</label>
+    <label for="">অনুচ্ছেদ নম্বর</label>
     <input type="text" readonly class="form-control" value="{{enTobn($apotti_info['onucched_no'])}}">
 </div>
 
@@ -15,7 +15,7 @@
 
 <div class="form-group">
     <label for="">জড়িত অর্থ (টাকা)</label>
-    <input type="text" readonly class="form-control" value="{{enTobn(number_format($apotti_info['total_jorito_ortho_poriman']))}}">
+    <input type="text" readonly class="form-control" value="{{enTobn(currency_format($apotti_info['total_jorito_ortho_poriman']))}}">
 </div>
 
 <div class="form-group">

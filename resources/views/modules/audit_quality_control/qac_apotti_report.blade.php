@@ -227,11 +227,13 @@
         table {
             border-collapse: collapse;
             border-spacing: 0;
+            font-family: nikoshpdf !important;
         }
 
         td,
         th {
-            padding: 0;
+            padding: 3px;
+            font-family: nikoshpdf !important;
         }
 
         /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
@@ -337,13 +339,13 @@
         }
 
         html {
-            font-size: 10px;
+            font-size: 12px;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
+            font-size: 18px;
             line-height: 1.42857143;
             color: #333333;
             background-color: #ffffff;
@@ -849,20 +851,20 @@
                     </tr>
                     <tr class="bangla-font">
                         <td class="bangla-font">নিরীক্ষা বছর :</td>
-                        <td class="bangla-font"></td>
+                        <td class="bangla-font">{{enTobn($responseData['rAirInfo']['fiscal_year']['start'])}}-{{enTobn($responseData['rAirInfo']['fiscal_year']['end'])}}</td>
                     </tr>
-                    <tr>
+                    {{--<tr>
                         <td class="bangla-font">নিরীক্ষার ধরন :</td>
                         <td class="bangla-font"></td>
-                    </tr>
+                    </tr>--}}
                     <tr>
-                        <td class="bangla-font">সভার তারিখ:</td>
+                        <td class="bangla-font">সভার তারিখ :</td>
                         <td class="bangla-font">{{enTobn(formatDate($responseData['rAirInfo']['qac_report_date'],'bn'))}}</td>
                     </tr>
                     <tr>
-                        <td valign="top" class="bangla-font">সম্পন্নকারী দল: </td>
+                        <td valign="top" class="bangla-font">সম্পন্নকারী দল :</td>
                         <td class="bangla-font">
-                            @foreach(array_reverse($committeeData['committee']['qac_committee_members']) as $member)
+                            @foreach($committeeData['committee']['qac_committee_members'] as $member)
                                     <p>{{enTobn($loop->iteration)}}) {{$member['officer_bn']}}({{$member['officer_designation_bn']}},{{$member['officer_unit_bn']}})</p>
                             @endforeach
                         </td>
@@ -874,7 +876,7 @@
                     <table  class="bangla-font table table-bordered table-striped qac_table" style="width: 100%;margin-top: 10px;padding: 5px"
                             border="1px">
                         <tr class="bangla-font" style="padding: 10px">
-                            <td class="bangla-font" style="text-align: center" width="5%">অনুচ্ছেদ নং </td>
+                            <td class="bangla-font" style="text-align: center" width="5%">অনুচ্ছেদ নম্বর </td>
                             <td class="bangla-font" style="text-align: center" width="30%"> অনুচ্ছেদের শিরোনাম</td>
                             <td class="bangla-font" style="text-align: center" width="10%"> জড়িত অর্থ (টাকা)</td>
                             @if($qac_type == 'qac-1')
@@ -911,7 +913,7 @@
                             @foreach($apotti['apotti_map_data']['apotti_status'] as $apotti_status)
                                 @if($apotti_status['qac_type'] == $qac_type)
                                 <tr class="bangla-font">
-                                    <td class="bangla-font text-center">
+                                    <td class="bangla-font" style="text-align: center">
                                         {{enTobn($apotti['apotti_map_data']['onucched_no'])}}
                                     </td>
                                     <td class="bangla-font text-left">
@@ -921,7 +923,7 @@
                                         @php
                                             $total_amount += $apotti['apotti_map_data']['total_jorito_ortho_poriman'];
                                         @endphp
-                                        <span>{{enTobn(number_format($apotti['apotti_map_data']['total_jorito_ortho_poriman'],0))}}/-</span>
+                                        <span>{{enTobn(currency_format($apotti['apotti_map_data']['total_jorito_ortho_poriman']))}}/-</span>
                                     </td>
                                     @if($qac_type == 'qac-1')
                                         <td class="bangla-font" style="text-align: center">
@@ -1003,7 +1005,7 @@
                         @endforeach
                         <tr class="bangla-font">
                             <td class="bangla-font" style="text-align: right" colspan="2">সর্বমোট=</td>
-                            <td class="bangla-font" style="text-align: right" >{{enTobn(number_format($total_amount))}}/-</td>
+                            <td class="bangla-font" style="text-align: right" >{{enTobn(currency_format($total_amount))}}/-</td>
                             <td colspan="7" style="text-align: left">(কথায়: {{numberConvertToBnWord($total_amount)}} টাকা মাত্র)</td>
                         </tr>
                     </table>
@@ -1011,7 +1013,7 @@
                 <div class="row">
                     <table width="100%" style="margin-top: 20px">
                         <tr>
-                            @foreach($committeeData['committee']['qac_committee_members'] as $member)
+                            @foreach(array_reverse($committeeData['committee']['qac_committee_members']) as $member)
                                 <td class="bangla-font" style="text-align: center" width="30%">
                                     <b>({{$member['officer_bn']}})</b>
                                     <p>{{$member['officer_designation_bn']}}</p>

@@ -1,7 +1,5 @@
 <x-title-wrapper>Add Content</x-title-wrapper>
 
-@include('modules.audit_plan.strategic.settings.partial.style_common')
-
 <div class="col-lg-12">
     <!--begin::Advance Table Widget 4-->
     <div class="card card-custom card-stretch gutter-b">

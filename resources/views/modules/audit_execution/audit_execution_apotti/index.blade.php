@@ -6,7 +6,7 @@
                 <select class="form-select select-select2" id="fiscal_year_id">
                     @foreach($fiscal_years as $fiscal_year)
                         <option
-                            value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{enTobn($fiscal_year['description'])}}</option>
+                            value="{{$fiscal_year['id']}}" {{$current_fiscal_year == $fiscal_year['id']?'selected':''}}>{{enTobn($fiscal_year['description'])}}</option>
                     @endforeach
                 </select>
             </div>
@@ -76,11 +76,19 @@
         loadActivity: function (fiscal_year_id) {
             let url = '{{route('audit.plan.operational.activity.select')}}';
             let data = {fiscal_year_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
                         $('#activity_id').html(response);
+                        setActivityAnonymously();
                     }
                 }
             );
@@ -88,7 +96,14 @@
         loadActivityWiseAuditPlan: function (fiscal_year_id,activity_id) {
             let url = '{{route('audit.plan.operational.activity.audit-plan')}}';
             let data = {fiscal_year_id,activity_id,office_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -100,7 +115,14 @@
         loadPlanWiseEntity: function (entity_list) {
             let url = '{{route('audit.execution.apotti.audit-plan-wise-entity-select')}}';
             let data = {entity_list};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -112,7 +134,14 @@
         loadCostCenterList: function (directorate_id, fiscal_year_id, entity_id) {
             let url = '{{route('calendar.load-cost-center-directorate-fiscal-year-wise-select')}}';
             let data = {directorate_id, fiscal_year_id, entity_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -125,7 +154,14 @@
         loadTeamList: function (directorate_id, fiscal_year_id, cost_center_id) {
             let url = '{{route('calendar.load-teams-select')}}';
             let data = {directorate_id, fiscal_year_id, cost_center_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -137,7 +173,7 @@
 
         loadApottiList: function () {
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
@@ -154,7 +190,7 @@
             let url = '{{route('audit.execution.apotti.load-apotti-list')}}';
             let data = {fiscal_year_id,audit_plan_id,entity_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -167,7 +203,14 @@
         loadApottiItemInfo: function (apotti_item_id) {
             let url = '{{route('audit.execution.apotti.apotti-item-info')}}';
             let data = {apotti_item_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -179,17 +222,17 @@
 
 
         showApotti: function (element) {
-            url = '{{route('audit.execution.apotti.onucched-show')}}'
+            url = '{{route('audit.execution.apotti.onucched-show')}}';
             apotti_id = element.data('apotti-id');
             data = {apotti_id};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -208,8 +251,13 @@
         editApotti: function (element){
             apotti_id = element.data('apotti-id');
             data = {apotti_id}
-            let url = '{{route('audit.execution.apotti.edit-apotti')}}'
+            let url = '{{route('audit.execution.apotti.edit-apotti')}}';
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -223,12 +271,18 @@
             data.push({name: "apotti_description", value: tinymce.get("kt-tinymce-1").getContent()});
 
             apotti_id = elem.data('apotti-id');
-
             data.push({name: "apotti_id", value: apotti_id});
+            console.log(data)
 
             let url = '{{route('audit.execution.apotti.update-apotti')}}';
 
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -253,22 +307,33 @@
             }).then(function(result) {
                 if (result.value) {
                     apottiId = {};
+                    onucchedNo = [];
                     sequence = []
                      apotti = document.getElementsByClassName('select-apotti');
                      // sequence = $(apotti[0]).attr('data-sequence');
+
+                    KTApp.block('#kt_wrapper', {
+                        opacity: 0.1,
+                        state: 'primary' // a bootstrap color
+                    });
 
 
                     $('.select-apotti').each(function(i){
                         if(this.checked){
                             apottiId[i] = $(this).val();
                             // sequence = $(this).attr('data-sequence');
+                            onucchedNo.push($(this).attr('data-onucched-no'));
                             sequence.push($(this).attr('data-sequence'));
                         }
                     });
+
                     sequence = Math.min(...sequence);
-                    data = {apottiId,sequence}
-                    let url = '{{route('audit.execution.apotti.onucched-merge-form')}}'
+                    minOnucchedNo = Math.min(...onucchedNo);
+                    data = {apottiId,sequence,minOnucchedNo}
+
+                    let url = '{{route('audit.execution.apotti.onucched-merge-form')}}';
                     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        KTApp.unblock('#kt_wrapper');
                         if (response.status === 'error') {
                             toastr.error(response.data)
                         } else {
@@ -289,8 +354,15 @@
             data.push({name: "apottiId", value: JSON.stringify(apottiId)});
             data.push({name: "sequence", value: sequence});
 
-            let url = '{{route('audit.execution.apotti.onucched-merge')}}'
+            let url = '{{route('audit.execution.apotti.onucched-merge')}}';
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -318,8 +390,15 @@
                 if (result.value) {
                     apotti_item_id = elem.data('apotti-item-id');
                     data  = {apotti_item_id}
-                    let url = '{{route('audit.execution.apotti.onucched-unmerge')}}'
+                    let url = '{{route('audit.execution.apotti.onucched-unmerge')}}';
+
+                    KTApp.block('#kt_wrapper', {
+                        opacity: 0.1,
+                        state: 'primary' // a bootstrap color
+                    });
+
                     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        KTApp.unblock('#kt_wrapper');
                         if (response.status === 'error') {
                             toastr.error(response.data);
                         } else {
@@ -369,53 +448,27 @@
                     // data  = {apotti_sequence}
                     data  = {onucched_list}
 
-                    let url = '{{route('audit.execution.apotti.onucched-rearrange')}}'
+                    let url = '{{route('audit.execution.apotti.onucched-rearrange')}}';
+
+                    KTApp.block('#kt_wrapper', {
+                        opacity: 0.1,
+                        state: 'primary' // a bootstrap color
+                    });
+
                     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        KTApp.unblock('#kt_wrapper');
                         if (response.status === 'error') {
                             toastr.error(response.data);
                         } else {
                             toastr.success(response.data);
                             $('#kt_quick_panel_close').click();
-                            Apotti_Container.loadApottiList()
+                            Apotti_Container.loadApottiList();
                         }
                     });
                 }
             });
         },
     };
-
-    $('#btn_filter').click(function () {
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        team_filter = $('#team_filter').val();
-        cost_center_id = $('#cost_center_filter').val();
-        memo_irregularity_type = $('#memo_irregularity_type').val();
-        memo_irregularity_sub_type = $('#memo_irregularity_sub_type').val();
-        memo_type = $('#memo_type').val();
-        memo_status = $('#memo_status').val();
-        jorito_ortho_poriman = $('#jorito_ortho_poriman').val();
-        audit_year_start = $('#audit_year_start').val();
-        audit_year_end = $('#audit_year_end').val();
-        if (directorate_id !== 'all') {
-            Authority_Memo_Container.loadMemoList(directorate_id, fiscal_year_id, cost_center_id, team_filter, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start,audit_year_end);
-        } else {
-            toastr.info('Please select a directorate.')
-        }
-    });
-
-    $('#entity_filter').change(function () {
-        entity_id = $('#entity_filter').val();
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        Authority_Memo_Container.loadCostCenterList(directorate_id, fiscal_year_id, entity_id);
-    });
-
-    $('#cost_center_filter').change(function () {
-        cost_center_id = $('#cost_center_filter').val();
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        Authority_Memo_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
-    });
 
     $('#activity_id').change(function (){
         activity_id = $('#activity_id').val();
@@ -426,5 +479,10 @@
     $('#audit_plan_id').change(function (){
         entity_list = $(this).find(':selected').attr('data-entity-info');
         Apotti_Container.loadPlanWiseEntity(entity_list);
+    });
+
+    $('#fiscal_year_id').change(function (){
+        fiscal_year_id = $(this).val();
+        Apotti_Container.loadActivity(fiscal_year_id);
     });
 </script>

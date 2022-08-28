@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-12">
         <select class="form-control" name="entity_id" id="entity_id">
-            <option>--এন্টিটি বাছাই করুন--</option>
+            <option>--এনটিটি বাছাই করুন--</option>
             @foreach($entity_info as $entity)
                 <option
                     data-ministry-id="{{$entity['ministry_id']}}"
@@ -45,13 +45,13 @@
         data = {air_id,air_type,fiscal_year_id,audit_plan_id,entity_id};
         url = '{{route('audit.report.air.get-audit-apotti-list')}}';
 
-        KTApp.block('#kt_content', {
+        KTApp.block('#kt_wrapper', {
             opacity: 0.1,
             state: 'primary' // a bootstrap color
         });
 
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-            KTApp.unblock('#kt_content');
+            KTApp.unblock('#kt_wrapper');
             if (response.status === 'error') {
                 toastr.error('No data found');
             } else {

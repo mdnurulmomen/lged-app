@@ -95,7 +95,7 @@
 
             <div class="row">
                 <div class="col-md-2">
-                    <label for="onucched_no" class="col-form-label">অনুচ্ছেদ নং</label>
+                    <label for="onucched_no" class="col-form-label">অনুচ্ছেদ নম্বর</label>
                     <input class="form-control" id="onucched_no" name="onucched_no" type="text">
                 </div>
 
@@ -110,7 +110,7 @@
                 <div class="col-md-3">
                     <label for="nirikkha_dhoron" class="col-form-label">নিরীক্ষার ধরন</label>
                     <select class="form-control select-select2" id="nirikkha_dhoron" name="nirikkha_dhoron">
-                        <option value="">নিরিক্ষার ধরন</option>
+                        <option value="">নিরীক্ষার ধরন</option>
                         <option value="কমপ্লায়েন্স অডিট">কমপ্লায়েন্স অডিট</option>
                         <option value="পারফরমেন্স অডিট">পারফরমেন্স অডিট</option>
                         <option value="ফাইন্যান্সিয়াল অডিট">ফাইন্যান্সিয়াল অডিট</option>
@@ -133,7 +133,7 @@
 
                 <div class="col-md-2">
                     <label for="jorito_ortho_poriman" class="col-form-label">জড়িত অর্থ (টাকা)</label>
-                    <input class="form-control" id="jorito_ortho_poriman" name="jorito_ortho_poriman" type="text">
+                    <input class="form-control number-input" id="jorito_ortho_poriman" name="jorito_ortho_poriman" type="text">
                 </div>
             </div>
 
@@ -156,24 +156,17 @@
                     <label class="col-form-label">কভার-পেজ</label>
                     <input name="cover_page[]" type="file" class="mFilerInit form-control rounded-0">
                 </div>
-
-                <div class="col-md-4">
-                    <label class="col-form-label">টপ-পেজ</label>
-                    <input name="top_page[]" type="file" class="mFilerInit form-control rounded-0">
-                </div>
-
                 <div class="col-md-4">
                     <label class="col-form-label">মূল আপত্তি সংযুক্তি</label>
                     <input name="main_apottis[]" type="file" class="mFilerInit form-control rounded-0" multiple>
                 </div>
-            </div>
-
-            <div class="row">
                 <div class="col-md-4">
                     <label class="col-form-label">পরিশিষ্ট সংযুক্তি</label>
                     <input name="porisishtos[]" type="file" class="mFilerInit form-control rounded-0" multiple>
                 </div>
+            </div>
 
+            <div class="row">
                 <div class="col-md-4">
                     <label class="col-form-label">প্রামানক সংযুক্তি</label>
                     <input name="promanoks[]" type="file" class="mFilerInit form-control rounded-0" multiple>
@@ -184,6 +177,12 @@
                     <input name="others[]" type="file" class="mFilerInit form-control rounded-0" multiple>
                 </div>
             </div>
+            <div class="row d-none">
+                <div class="col-md-4">
+                    <label class="col-form-label">টপ-পেজ</label>
+                    <input name="top_page[]" type="file" class="mFilerInit form-control rounded-0">
+                </div>
+            </div>
         </div>
     </div>
 </form>
@@ -192,7 +191,7 @@
 <script>
     $(function () {
         directorate_id = $('#directorate_id').val();
-        Archive_Apotti_Container.loadDirectorateWiseMinistry(directorate_id);
+        Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
     });
 
     $(document).ready(function () {
@@ -201,9 +200,15 @@
             addMore: true,
             allowDuplicates: false
         });
-
     });
 
+    $('.btn_back').click(function (){
+        backToList()
+    })
+
+    function backToList(){
+        $('.apotti-upload a').click();
+    }
 
     //for submit form
     $(function () {
@@ -233,7 +238,7 @@
             elem = $(this);
             elem.prop('disabled', true);
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
@@ -247,7 +252,7 @@
                 cache: false,
                 processData: false,
                 success: function (responseData) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
                         $('.btn_back').click();
@@ -266,7 +271,7 @@
                     }
                 },
                 error: function (data) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     elem.prop('disabled', false)
                     if (data.responseJSON.errors) {
                         $.each(data.responseJSON.errors, function (k, v) {
@@ -285,5 +290,37 @@
                 }
             });
         });
+    });
+
+    //ministry
+    $('#directorate_id').change(function () {
+        directorate_id = $('#directorate_id').val();
+        Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
+    });
+
+    //entity
+    $('#ministry_id').change(function () {
+        ministry_id = $('#ministry_id').val();
+        Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id);
+    });
+
+    //unit group & cost center
+    $('#entity_id').change(function () {
+        entity_id = $('#entity_id').val();
+        Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id);
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(entity_id);
+    });
+
+    //cost center
+    $('#unit_group_office_id').change(function () {
+        unit_group_office_id = $('#unit_group_office_id').val();
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(unit_group_office_id);
+    });
+
+    //sub category
+    $('#apotti_oniyomer_category_id').change(function () {
+        directorate_id = $('#directorate_id').val();
+        apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
+        Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id,apotti_oniyomer_category_id);
     });
 </script>

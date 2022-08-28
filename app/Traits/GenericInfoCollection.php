@@ -126,4 +126,23 @@ trait GenericInfoCollection
         return $this->initHttpWithToken()->post(config('amms_bee_routes.audit_template_show'), ['template' => $template_type, 'language' => $lang])->json();
     }
 
+    public function yearWiseVacationList($year)
+    {
+        $data['year'] = $year;
+        $list = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.vacation-date.year-wise-vacation-list'),$data)->json();
+        if ($list['status'] == 'success') {
+            return $list['data'];
+        } else {
+            return [];
+        }
+    }
+
+    public function getPlanAndTeamWiseTeamMembers($audit_plan_id,$team_id)
+    {
+        $data['audit_plan_id'] = $audit_plan_id;
+        $data['team_id'] = $team_id;
+        $data['cdesk'] = $this->current_desk_json();
+        $list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_and_team_wise_team_members'),$data)->json();
+        return $list['status'] == 'success' ? $list['data'] : [];
+    }
 }

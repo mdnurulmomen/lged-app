@@ -175,10 +175,10 @@ input[type="text"]::placeholder {
     text-align: left;
 }
 
-.form-control::placeholder {
+/*.form-control::placeholder {
     color: #000;
     opacity: 1;
-}
+}*/
 
 .annual-plan-table {
     width: 100%;
@@ -477,9 +477,11 @@ ul.sna-breadcrumb li a:hover {
 .top-right-username {
     color: var(--sheadertxtcolor);
     margin-right: 7px;
+    margin-top: 3px;
     display: flex;
     flex-wrap: wrap;
     width: 150px;
+    line-height: 1em;
 }
 
 .top-right-username div {
@@ -487,7 +489,7 @@ ul.sna-breadcrumb li a:hover {
 }
 
 .top-right-username .profile-name {
-    font-size: 15px;
+    font-size: 13px;
     text-align: right;
     font-weight: 500;
 }
@@ -638,8 +640,8 @@ ul.sna-breadcrumb li a:hover {
 }
 
 .btn.btn-download {
-    background-color: #6c1004;
-    border-color: #6c1004;
+    background-color: #b61903;
+    border-color: #b61903;
 }
 
 .btn.btn-sent {
@@ -649,8 +651,8 @@ ul.sna-breadcrumb li a:hover {
 
 .btn.btn-quick-panel-close {
     color: #ffffff;
-    background-color: #b74753;
-    border-color: #b74753;
+    background-color: #f26d3e;
+    border-color: #f26d3e;
 }
 
 .topbar .widget_container svg {
@@ -762,4 +764,123 @@ ul.sna-breadcrumb li a:hover {
     border-radius: 50%;
     top: 0.7rem;
     left: 0.75rem;
+}
+
+
+/*tap button */
+.tap-button {
+    color: black!important;
+}
+
+.tap-button > i{
+    color: black!important;
+}
+
+.tap-button:hover {
+    background-color: #d3d3d3!important;
+    color: black!important;
+    border: 1px solid black!important;
+}
+
+
+/*tap alert button*/
+.tap-alert-success {
+    color: black!important;
+    background: #72d9d8!important;
+}
+
+.tap-alert-danger {
+    color: black!important;
+    background: #ffb4bb!important;
+}
+
+/*tap badge*/
+.tap-badge-warning{
+    color: #ffffff!important;
+    background-color: #f26d3e!important;
+}
+
+.tap-badge-success{
+    color: #ffffff!important;
+    background-color: #358323!important;
+}
+
+/*fieldset*/
+fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+    box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    width:auto;
+    padding:0 10px;
+    border-bottom:none;
+}
+
+/*pagination*/
+.pagination_ui {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.pagination ul {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 8px;
+}
+
+.pagination ul li {
+    color: rgba(76, 120, 234, 0.85);
+    list-style: none;
+    line-height: 45px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+.pagination ul li.numb {
+    list-style: none;
+    height: 45px;
+    width: 45px;
+    margin: 0 3px;
+    line-height: 45px;
+    border-radius: 50%;
+}
+
+.pagination ul li.numb.first {
+    margin: 0px 3px 0 -5px;
+}
+
+.pagination ul li.numb.last {
+    margin: 0px -5px 0 3px;
+}
+
+.pagination ul li.dots {
+    font-size: 22px;
+    cursor: default;
+}
+
+.pagination ul li.btn {
+    padding: 0 20px;
+    border-radius: 50px;
+}
+
+.pagination li.active,
+.pagination ul li.numb:hover,
+.pagination ul li:first-child:hover,
+.pagination ul li:last-child:hover {
+    color: #fff;
+    background: rgba(76, 120, 234, 0.85);
 }

@@ -29,9 +29,9 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <label class="col-form-label">আপত্তির অবস্থা</label>
+                    <label class="col-form-label">আপত্তির অবস্থা <span class="text-danger">*</span></label>
                     <select name="apotti_status" class="form-control">
-                        <option value="0">আপত্তির অবস্থা বাছাই করুন</option>
+                        <option value="">আপত্তির অবস্থা বাছাই করুন</option>
                         <option @if(isset($apotti_item_info['status']) && $apotti_item_info['status'] == '1') selected
                                 @endif value="1">নিষ্পন্ন
                         </option>
@@ -47,7 +47,7 @@
         @endif
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <label>নিষ্পন্ন/অনিষ্পন্নের কারণ</label>
+                    <label>নিষ্পন্ন/অনিষ্পন্নের কারণ <span class="text-danger">*</span></label>
                     <textarea class="form-control"
                               name="status_reason">{{isset($apotti_item_info['status_reason']) ? $apotti_item_info['status_reason'] : ''}}</textarea>
                 </div>

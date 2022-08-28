@@ -11,27 +11,37 @@ class DcOfficeOrderController extends Controller
 {
     public function index()
     {
+        $office_id = $this->current_office_id();
+        $all_directorates = $this->allAuditDirectorates();
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
         $fiscal_years = $this->allFiscalYears();
-        return view('modules.audit_plan.audit_plan.dc_office_order.office_orders_dc', compact('fiscal_years'));
+        return view('modules.audit_plan.audit_plan.dc_office_order.office_orders_dc',
+            compact('fiscal_years','office_id','directorates'));
     }
 
     public function loadOfficeOrderList(Request $request)
     {
         $requestData = Validator::make($request->all(), [
+            'office_id' => 'nullable',
             'fiscal_year_id' => 'required|integer',
             'activity_id' => 'nullable',
             'per_page' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();
 
-//        dd($requestData);
+//     dd($requestData);
 
         $requestData['cdesk'] =$this->current_desk_json();
+        $data['current_grade'] = $this->current_desk()['officer_grade'];
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order_dc.annual_plan_list'), $requestData)->json();
 //        dd($responseData);
         $data['audit_plans'] = isSuccess($responseData)?$responseData['data']:[];
 //        dd($data['audit_plans']);
         $data['current_designation_id'] = $this->current_designation_id();
+        $data['current_office_id'] = $this->current_office_id();
         return view('modules.audit_plan.audit_plan.dc_office_order.partials.load_office_orders_dc',$data);
     }
 
@@ -50,13 +60,7 @@ class DcOfficeOrderController extends Controller
         return view('modules.audit_plan.audit_plan.dc_office_order.partials.load_office_order_create_dc',$data);
     }
 
-    public function loadOfficeOrderCCCreate(Request $request){
-        $requestData = [
-            'cdesk' => $this->current_desk_json(),
-            'audit_plan_id' => $request->audit_plan_id,
-            'annual_plan_id' => $request->annual_plan_id,
-        ];
-
+    public function loadOfficeOrderCCCreate(){
         return view('modules.modal.load_office_order_cc_modal');
     }
 
@@ -66,32 +70,18 @@ class DcOfficeOrderController extends Controller
             'cdesk' => $this->current_desk_json(),
             'audit_plan_id' => $request->audit_plan_id,
             'annual_plan_id' => $request->annual_plan_id,
+            'office_id' => $request->office_id,
         ];
 
         $data['current_designation_id'] = $this->current_designation_id();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order_dc.show_office_order'), $requestData)->json();
-        //dd($responseData);
-        $directorateName = $this->current_office()['office_name_bn'];
-        if ($this->current_office_id() == 14){
-            $directorateAddress = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.dgcivil-cagbd.org';
-        }
-        elseif ($this->current_office_id() == 3){
-            $directorateAddress = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.worksaudit.org.bd';
-        }
-        else{
-            $directorateAddress = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.cad.org.bd';
-        }
-        $data['directorateName'] = $directorateName;
-        $data['directorateAddress'] = $directorateAddress;
-        $data['directorateWebsite'] = $directorateWebsite;
+        $data['office_id'] = $this->current_office_id();
         if(isSuccess($responseData)){
+            $data['vacations'] = $this->yearWiseVacationList(date("Y"));
             $data['office_order'] = $responseData['data']['office_order'];
             $data['audit_team_members'] = $responseData['data']['audit_team_members'];
             $data['audit_team_schedules'] = $responseData['data']['audit_team_schedules'];
-            return view('modules.audit_plan.audit_plan.office_order.show_office_order',$data);
+            return view('modules.audit_plan.audit_plan.dc_office_order.show_office_order_dc',$data);
         } else{
             return response()->json(['status' => 'error', 'data' => $responseData]);
         }
@@ -121,7 +111,9 @@ class DcOfficeOrderController extends Controller
                 'heading_details' => $request->heading_details,
                 'advices' => $request->advices,
                 'approved_status' => 'draft',
-                'order_cc_list' => $request->order_cc_list
+                'order_cc_list' => $request->order_cc_list,
+                'issuer_details' => $request->issuer_details,
+                'cc_sender_details' => $request->cc_sender_details,
             ];
 
             $responseGenerateOfficeOrder = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order_dc.generate_office_order'), $data)->json();
@@ -247,34 +239,21 @@ class DcOfficeOrderController extends Controller
     {
         $requestData = [
             'cdesk' => $this->current_desk_json(),
+            'office_order_id' => $request->office_order_id,
             'audit_plan_id' => $request->audit_plan_id,
             'annual_plan_id' => $request->annual_plan_id,
         ];
-
+        $data['office_id'] = $this->current_office_id();
         $data['current_designation_id'] = $this->current_designation_id();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order_dc.show_office_order'), $requestData)
             ->json();
-        //dd($responseData);
-        $directorateName = $this->current_office()['office_name_bn'];
-        if ($this->current_office_id() == 14){
-            $directorateAddress = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.dgcivil-cagbd.org';
-        }
-        elseif ($this->current_office_id() == 3){
-            $directorateAddress = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.worksaudit.org.bd';
-        }
-        else{
-            $directorateAddress = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-            $directorateWebsite = 'www.cad.org.bd';
-        }
+
+        $data['vacations'] = $this->yearWiseVacationList(date("Y"));
         $data['office_order'] = $responseData['data']['office_order'];
         $data['audit_team_members'] = $responseData['data']['audit_team_members'];
         $data['audit_team_schedules'] = $responseData['data']['audit_team_schedules'];
-        $data['directorateName'] = $directorateName;
-        $data['directorateAddress'] = $directorateAddress;
-        $data['directorateWebsite'] = $directorateWebsite;
+
         $pdf = \PDF::loadView('modules.audit_plan.audit_plan.dc_office_order.partials.office_order_book_dc', $data);
-        return $pdf->stream('document.pdf');
+        return $pdf->stream('office_order_dc.pdf');
     }
 }

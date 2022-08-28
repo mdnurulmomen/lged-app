@@ -19,7 +19,7 @@
                 <select class="form-select select-select2" id="fiscal_year_id">
                     @foreach($fiscal_years as $fiscal_year)
                         <option
-                            value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                            value="{{$fiscal_year['id']}}" {{$current_fiscal_year == $fiscal_year['id']?'selected':''}}>{{$fiscal_year['description']}}</option>
                     @endforeach
                 </select>
             </div>
@@ -114,6 +114,11 @@
             $('.query-list-container').html('');
         }
     });
+
+    $('#fiscal_year_id').change(function (){
+        Authority_Query_Container.loadFiscalYearWiseActivity();
+    });
+
     var Authority_Query_Container = {
         loadFiscalYearWiseActivity: function () {
             fiscal_year_id = $('#fiscal_year_id').val();
@@ -200,7 +205,7 @@
             start_date = $('#start_date').val();
             end_date = $('#end_date').val();
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
@@ -225,7 +230,7 @@
             };
             console.log(data);
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -247,13 +252,13 @@
             }
             url = '{{route('audit.execution.query.view')}}';
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {

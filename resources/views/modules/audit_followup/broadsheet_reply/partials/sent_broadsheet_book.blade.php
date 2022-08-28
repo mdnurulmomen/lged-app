@@ -836,7 +836,7 @@
                 <tr class="bangla-font">
                     <td class="bangla-font" style="text-align: center" width="5%">ক্রমিক</td>
                     <td class="bangla-font" style="text-align: center" width="10%">কস্ট সেন্টার/ইউনিট</td>
-                    <td class="bangla-font" style="text-align: center" width="15%">অনুচ্ছেদ নং ও নিরীক্ষা বছর </td>
+                    <td class="bangla-font" style="text-align: center" width="15%">অনুচ্ছেদ নম্বর ও নিরীক্ষা বছর </td>
                     <td class="bangla-font" style="text-align: center" width="20%">শিরোনাম</td>
                     <td class="bangla-font" style="text-align: center" width="15%">জড়িত টাকার পরিমাণ</td>
                     <td class="bangla-font" style="text-align: center" width="20%">নিষ্পন্ন/অনিষ্পন্নের কারণ</td>
@@ -847,13 +847,13 @@
                         <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($loop->iteration)}}</td>
                         <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['cost_center_name_bn'])}}</td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;">
-                           <p><b>অনুচ্ছেদ নং : </b>{{enTobn($broadSheet['apotti']['onucched_no'])}}</p>
+                           <p><b>অনুচ্ছেদ নম্বর : </b>{{enTobn($broadSheet['apotti']['onucched_no'])}}</p>
                             <p><b>নিরীক্ষা বছর : </b>{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</p>
                         </td>
                         <td class="bangla-font" style="text-align: justify;vertical-align: top;">
                             <span style="padding:5px; margin-bottom: 5px;">{{$broadSheet['apotti']['memo_title_bn']}}</span>
                         </td>
-                        <td class="bangla-font" style="text-align: right;vertical-align: top;">{{enTobn(number_format($broadSheet['apotti']['jorito_ortho_poriman'],0))}}/-</td>
+                        <td class="bangla-font" style="text-align: right;vertical-align: top;">{{enTobn(currency_format($broadSheet['apotti']['jorito_ortho_poriman']))}}/-</td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;">{{$broadSheet['status_reason']}}</td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;">{{$broadSheet['comment']}}</td>
                     </tr>

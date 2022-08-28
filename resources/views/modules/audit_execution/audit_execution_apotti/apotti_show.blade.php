@@ -1,6 +1,6 @@
 <table class="annual-plan-table" border="1">
     <tr>
-        <td class="annual-plan-title">অনুচ্ছেদ নং </td>
+        <td class="annual-plan-title">অনুচ্ছেদ নম্বর </td>
         <td style="width: 60%;padding-left: 2%">
             {{$apotti_info['onucched_no']}}
         </td>
@@ -20,13 +20,13 @@
     <tr>
         <td class="annual-plan-title">জড়িত অর্থ (টাকা)</td>
         <td style="width: 60%;padding-left: 2%">
-            {{enTobn($apotti_info['total_jorito_ortho_poriman'])}}
+            {{enTobn(currency_format($apotti_info['total_jorito_ortho_poriman']))}}/-
         </td>
     </tr>
     <tr>
         <td class="annual-plan-title">অনিষ্পন্ন জড়িত অর্থ (টাকা)</td>
         <td style="width: 60%;padding-left: 2%">
-            {{enTobn($apotti_info['total_onishponno_jorito_ortho_poriman'])}}
+            {{enTobn(currency_format($apotti_info['total_onishponno_jorito_ortho_poriman']))}}/-
         </td>
     </tr>
     <tr>
@@ -61,7 +61,6 @@
     <table class="table table-striped">
         <thead class="thead-light">
             <tr>
-                <th width="5%">অনুচ্ছেদ নং</th>
                 <th width="30%">ইউনিট</th>
                 <th width="15%">শিরোনাম</th>
                 <th width="15%">জড়িত অর্থ (টাকা) </th>
@@ -73,26 +72,23 @@
         @foreach($apotti_info['apotti_items'] as $apotti_item)
             <tr class="milestone_row">
                 <td>
-                    {{$apotti_item['onucched_no']}}
-                </td>
-                <td>
                     {{$apotti_item['cost_center_name_en']}}
                 </td>
                 <td>
                     {{$apotti_item['memo_title_bn']}}
                 </td>
                 <td>
-                    {{enTobn($apotti_item['jorito_ortho_poriman'])}}
+                    {{enTobn(currency_format($apotti_item['jorito_ortho_poriman']))}}
                 </td>
                 <td>
-                    {{enTobn($apotti_item['onishponno_jorito_ortho_poriman'])}}
+                    {{enTobn(currency_format($apotti_item['onishponno_jorito_ortho_poriman']))}}
                 </td>
                 <td>
-                    <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="বিস্তারিত দেখুন"
+                    <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিচ্ছিন্ন করুন"
                             data-apotti-item-id="{{$apotti_item['id']}}"
                             data-is-combined="{{$apotti_info['is_combined']}}"
                             onclick="Apotti_Container.unMergeOnucched($(this))">
-                        <i class="fad fa-trash"></i>
+                        <i class="fad fa-repeat-alt"></i>
                     </button>
                 </td>
             </tr>

@@ -8,8 +8,7 @@
             </div>
             <div class="col-md-4">
                 <div class="d-flex justify-content-end">
-                    <a
-                        onclick=""
+                    <a href="javascript:;"
                         class="btn btn-sm btn-warning btn_back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> {{___('generic.back')}}
                     </a>
@@ -27,16 +26,14 @@
             <div class="col-md-8">
                 <div class="card sna-card-border mt-3">
                     <div class="row">
-                        @foreach($apotti['attachments'] as $attachment)
-                            <div class="col-md-2">
-                                <img style="cursor: pointer" class="coverImage" src="{{$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
-                                     onclick="showImageOnModal(this)" width="60"/>
-                            </div>
-                        @endforeach
+                        <div class="col-md-2">
+                            <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$apotti['cover_page_path'].$apotti['cover_page']}}"
+                                 onclick="showImageOnModal(this)" width="60%"/>
+                        </div>
                     </div>
                 </div>
 
-                <div class="card sna-card-border mt-3" style="height: calc(100vh - 145px);overflow: auto;padding: 10px;">
+                <div class="card sna-card-border mt-3" style="height: calc(100vh - 145px);overflow-y: auto;padding: 10px;">
                     <div class="row">
                         <div class="col-md-8">
                             <button class="mr-2 btn btn-icon btn-square btn-sm btn-hover-icon-danger btn-primary list-btn-toggle" type="button" onclick="zoomIn()" id="btnZoom">
@@ -54,24 +51,54 @@
                         </div>
                     </div>
 
-                    @foreach($apotti['attachments'] as $attachment)
-                        @if ($attachment['attachment_type'] == 'main')
-                            <div class="double-scroll zoom mt-1"  style="height: calc(100vh - 245px);">
-                                <img src="{{$attachment['attachment_path'].'/'.$attachment['attachment_name']}}"
-                                     alt="" id="image" {{--onclick="rotate(this)"--}} width="650px">
-                            </div>
-                        @endif
+                    @foreach($main_attachments as $attachment)
+                        <img src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
+                             alt="" width="100%">
                     @endforeach
+
+                    <div style="display:none;" class="load-porisishto-attachment">
+                        @foreach($porisishto_attachments as $attachment)
+                            <img src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
+                                 alt="" width="100%">
+                        @endforeach
+                    </div>
+
+                    <div style="display:none;" class="load-promanok-attachment">
+                        @foreach($promanok_attachments as $attachment)
+                            <img src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
+                                 alt="" width="100%">
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="d-flex mt-2">
+                    <a class="mr-2 btn btn-primary btn-sm btn-bold btn-square"
+                       href="javascript:;" onclick="loadPorisishto()">
+                        পরিশিষ্ট লোড করুন {{enTobn(count($porisishto_attachments))}}
+                    </a>
+                    <a class="btn btn-primary btn-sm btn-bold btn-square"
+                       href="javascript:;" onclick="loadPromanok()">
+                        প্রমাণক লোড করুন {{enTobn(count($promanok_attachments))}}
+                    </a>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card sna-card-border mt-3 mb-15">
-                    <input class="form-control" id="onucched_no" name="onucched_no" type="text"
-                           value="{{$apotti['onucched_no']}}">
+                    <input type="hidden" name="id" value="{{$apotti['id']}}">
+
+                    <div class="input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">অনুচ্ছেদ নম্বর</span></div>
+                        <input class="form-control" id="onucched_no" name="onucched_no" type="text" value="{{$apotti['onucched_no']}}">
+                      </div>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend"><span class="input-group-text">ফাইল নং</span></div>
+                        <input class="form-control" id="file_no" name="file_no" type="text" value="{{$apotti['file_token_no']}}">
+                    </div>
 
                     <textarea class="form-control" name="apotti_title" cols="30" rows="2">{{$apotti['apotti_title']}}</textarea>
 
-                    <input style="float: right" class="form-control" id="jorito_ortho_poriman" name="jorito_ortho_poriman" type="text"
+                    <input style="float: right" class="form-control number-input" id="jorito_ortho_poriman" name="jorito_ortho_poriman" type="text"
                            value="{{$apotti['jorito_ortho_poriman']}}">
 
                     <select class="form-select select-select2" id="directorate_id" name="directorate_id">
@@ -139,20 +166,16 @@
 
 <!-- Modal -->
 <div class="modal fade" id="showImageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <i style="color:#ffffff!important;" aria-hidden="true" class="ki ki-close"></i>
                 </button>
             </div>
             <div class="modal-body">
                 <img src="" class="img-fluid" style="width:100%">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
@@ -165,24 +188,57 @@
 
         //minitsry
         ministry_id = '{{$apotti['ministry_id']}}';
-        Archive_Apotti_Container.loadDirectorateWiseMinistry(directorate_id,ministry_id);
+        Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id,ministry_id);
 
         //entity
         entity_id = '{{$apotti['entity_info_id']}}';
-        Archive_Apotti_Container.loadMinistryWiseEntity(ministry_id,entity_id);
+        Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id,entity_id);
 
         //unit group
         parent_office_id = '{{$apotti['parent_office_id']}}';
-        Archive_Apotti_Container.loadEntityWiseUnitGroupOffice(entity_id,parent_office_id);
+        Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id,parent_office_id);
 
         //cost center
         cost_center_id = '{{$apotti['cost_center_id']}}';
-        Archive_Apotti_Container.loadEntityOrUnitGroupWiseCostCenter(parent_office_id,cost_center_id);
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(parent_office_id,cost_center_id);
 
         apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
         apotti_oniyomer_category_child_id = '{{$apotti['apotti_sub_category_id']}}';
-        Archive_Apotti_Container.loadOniyomerSubCategory(directorate_id,apotti_oniyomer_category_id,apotti_oniyomer_category_child_id);
+        Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id,apotti_oniyomer_category_id,apotti_oniyomer_category_child_id);
     });
+
+    //ministry
+    $('#directorate_id').change(function () {
+        directorate_id = $('#directorate_id').val();
+        Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
+    });
+
+    //entity
+    $('#ministry_id').change(function () {
+        ministry_id = $('#ministry_id').val();
+        Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id);
+    });
+
+    //unit group & cost center
+    $('#entity_id').change(function () {
+        entity_id = $('#entity_id').val();
+        Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id);
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(entity_id);
+    });
+
+    //cost center
+    $('#unit_group_office_id').change(function () {
+        unit_group_office_id = $('#unit_group_office_id').val();
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(unit_group_office_id);
+    });
+
+    $('.btn_back').click(function (){
+        backToList()
+    })
+
+    function backToList(){
+        $('.apotti-upload a').click();
+    }
 
 
     //for submit form
@@ -201,21 +257,21 @@
             elem = $(this);
             elem.prop('disabled', true);
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             $.ajax({
                 data: from_data,
-                url: '{{route('audit.execution.archive-apotti.update')}}',
+                url: '{{route('audit.execution.archive-apotti.store')}}',
                 type: "POST",
                 dataType: 'json',
                 contentType: false,
                 cache: false,
                 processData: false,
                 success: function (responseData) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
                         $('.btn_back').click();
@@ -234,7 +290,7 @@
                     }
                 },
                 error: function (data) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     elem.prop('disabled', false)
                     if (data.responseJSON.errors) {
                         $.each(data.responseJSON.errors, function (k, v) {
@@ -293,5 +349,13 @@
         setTimeout(function() {
             $(image).css("margin-top", $(image).position().left + "px");
         }, 500);
+    }
+
+    function loadPorisishto() {
+        $(".load-porisishto-attachment").show();
+    }
+
+    function loadPromanok() {
+        $(".load-promanok-attachment").show();
     }
 </script>

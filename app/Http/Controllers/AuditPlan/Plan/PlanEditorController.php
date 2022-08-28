@@ -22,11 +22,14 @@ class PlanEditorController extends Controller
             'parent_office_id' => 'required',
         ])->validate();
 
+        $project_id = $request->project_id;
         $modal_type = $request->modal_type;
         $activity_id = $request->activity_id;
         $annual_plan_id = $request->annual_plan_id;
         $fiscal_year_id = $request->fiscal_year_id;
         $audit_plan_id = $request->audit_plan_id;
+        $has_update_office_order = $request->has_update_office_order;
+        $office_order_approval_status = $request->office_order_approval_status;
         $parent_office_id = json_encode($request->parent_office_id);
 
         $own_office = ['name' => $this->current_office()['office_name_bn'], 'id' => $this->current_office()['id']];
@@ -47,6 +50,8 @@ class PlanEditorController extends Controller
 
         $all_teams = isSuccess($teamResponseData) ? $teamResponseData['data'] : [];
 
+//        dd($all_teams);
+
         return view('modules.modal.load_team_modal', compact(
             'activity_id',
             'annual_plan_id',
@@ -56,30 +61,46 @@ class PlanEditorController extends Controller
             'all_teams',
             'other_offices',
             'parent_office_id',
-            'modal_type'
+            'modal_type',
+            'has_update_office_order',
+            'office_order_approval_status',
+            'project_id'
         ));
     }
 
     public function loadNominatedOfficesSelectView(Request $request)
     {
-//        dd($request->all());
-//        $data = [
-//            'parent_office_id' => $request->parent_office_id,
-//            'parent_ministry_id' => 25,
-//            'parent_office_layer_id' => '',
-//        ];
-////        dd($data);
-//        $rp_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-ministry-parent-wise-child-office'), $data)->json();
-//        dd($rp_offices);
         $getParentWithChildOfficePassData['parent_office_id'] = $request->parent_office_id;
-        $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $getParentWithChildOfficePassData)->json();
+        $getParentWithChildOfficePassData['ministry_id'] = $request->ministry_id;
+
+        if($request->project_id){
+            $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-project-wise-nominated-cost-center-list'), $getParentWithChildOfficePassData)->json();
+        }else{
+            $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $getParentWithChildOfficePassData)->json();
+        }
 
         $nominated_offices_list = isSuccess($nominated_offices) ? $nominated_offices['data'] : [];
         $nominated_offices_list = !empty($nominated_offices_list) ? !empty($nominated_offices_list['child_offices']) ? $nominated_offices_list['child_offices'] : [$nominated_offices_list['parent_office']] : [];
-//        dd($nominated_offices_list);
         $layer_id = $request->layer_id;
         $total_audit_schedule_row = $request->total_audit_schedule_row;
         return view('modules.audit_plan.audit_plan.plan_revised.partials.select_nominated_offices', compact('nominated_offices_list', 'layer_id', 'total_audit_schedule_row'));
+    }
+
+    public function getEntityWiseCosCenterAutoComplete(Request $request){
+        $data['project_id'] = $request->project_id;
+        $data['parent_office_id'] = $request->parent_office_id;
+        $data['cost_center_name_bn'] = $request->cost_center_name_bn;
+        
+        if($request->project_id){
+            $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-project-map-cos-center-autoselect'), $data)->json();
+        }else{
+            $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-by-parent-office-autoselect'), $data)->json();
+        }
+
+//        dd($nominated_offices);
+
+        return isSuccess($nominated_offices) ? $nominated_offices['data'] : [];
+
     }
 
     public function loadNominatedOfficesSelectOption(Request $request)
@@ -109,6 +130,7 @@ class PlanEditorController extends Controller
         $data = Validator::make($request->all(), [
             'annual_plan_id' => 'required|integer',
             'parent_office_id' => 'required',
+            'modal_type' => 'nullable',
         ])->validate();
 
 //        dd($data);
@@ -121,15 +143,19 @@ class PlanEditorController extends Controller
 
         $team_layer_id = $request->team_layer_id;
         $parent_office_id = $request->parent_office_id;
+        $modal_type = $request->modal_type;
+        $project_id = $request->project_id;
         return view('modules.audit_plan.audit_plan.plan_revised.partials.load_team_schedule',
-            compact('team_layer_id','parent_office_id'));
+            compact('team_layer_id','parent_office_id','modal_type','project_id'));
     }
 
     public function addAuditScheduleRow(Request $request){
+        $schedule_type = $request->schedule_type;
         $layer_id = $request->layer_id;
         $total_audit_schedule_row = $request->total_audit_schedule_row;
         $entity_list = $request->entity_list;
+        $project_id = $request->project_id;
         return view('modules.audit_plan.audit_plan.plan_revised.partials.add_audit_schedule_row',
-            compact('layer_id','total_audit_schedule_row','entity_list'));
+            compact('schedule_type','layer_id','total_audit_schedule_row','entity_list','project_id'));
     }
 }

@@ -47,12 +47,12 @@
         createPacMeeting: function () {
             let url = '{{route('pac.pac-meeting-create')}}';
             let data = {};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -72,13 +72,13 @@
             meeting_place = elem.data('meeting-place');
             data = {pac_meeting_id,directorate_id,meeting_no,parliament_no,meeting_date,meeting_place};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
@@ -93,12 +93,12 @@
             pac_meeting_id =  elem.data('pac-meeting-id');
             let url = '{{route('pac.pac-meeting-show')}}';
             let data = {pac_meeting_id};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -118,12 +118,12 @@
             pac_meeting_id =  elem.data('pac-meeting-id');
             let url = '{{route('pac.pac-meeting-minutes')}}';
             let data = {pac_meeting_id};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -145,12 +145,12 @@
                 if (result.value) {
                     let url = '{{route('pac.sent-to-pac')}}';
                     let data = {pac_meeting_id};
-                    KTApp.block('#kt_content', {
+                    KTApp.block('#kt_wrapper', {
                         opacity: 0.1,
                         state: 'primary' // a bootstrap color
                     });
                     ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                        KTApp.unblock('#kt_content');
+                        KTApp.unblock('#kt_wrapper');
                         if (response.status === 'error') {
                             toastr.error(response.data)
                         } else {
@@ -165,12 +165,12 @@
             pac_meeting_id =  elem.data('pac-meeting-id');
             let url = '{{route('pac.cag-and-directorate-decision')}}';
             let data = {pac_meeting_id};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {

@@ -5,20 +5,22 @@
         <div class="row mt-2 mb-2">
             <div class="col-md-3">
                 <select class="form-select select-select2" id="directorate_filter">
-                    @if(count($directorates) > 1)
+                    @if (count($directorates) > 1)
                         <option value="all">Select Directorate</option>
                     @endif
-                    @foreach($directorates as $directorate)
-                        <option value="{{$directorate['office_id']}}">{{$directorate['office_name_bn']}}</option>
+                    @foreach ($directorates as $directorate)
+                        <option value="{{ $directorate['office_id'] }}">{{ $directorate['office_name_bn'] }}
+                        </option>
                     @endforeach
                 </select>
             </div>
 
             <div class="col-md-3">
                 <select class="form-select select-select2" id="fiscal_year_id">
-                    @foreach($fiscal_years as $fiscal_year)
-                        <option
-                            value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                    @foreach ($fiscal_years as $fiscal_year)
+                        <option value="{{ $fiscal_year['id'] }}"
+                            {{$current_fiscal_year == $fiscal_year['id']?'selected':''}}>
+                            {{ $fiscal_year['description'] }}</option>
                     @endforeach
                 </select>
             </div>
@@ -30,12 +32,17 @@
             </div>
 
             <div class="col-md-3">
-                <select class="form-select select-select2" id="entity_filter">
-                    <option value="">All Entity</option>
+                <select class="form-select select-select2" id="audit_plan_id">
+                    <option value="">প্ল্যান বাছাই করুন</option>
                 </select>
             </div>
         </div>
         <div class="row mt-2 mb-2">
+            <div class="col-md-3">
+                <select class="form-select select-select2" id="entity_filter">
+                    <option value="">All Entity</option>
+                </select>
+            </div>
             <div class="col-md-3">
                 <select class="form-select select-select2" id="cost_center_filter">
                     <option value="">All Cost Center</option>
@@ -55,7 +62,8 @@
                     <option value="4">বিশেষ ধরনের আপত্তি</option>
                 </select>
             </div>
-
+        </div>
+        <div class="row mt-2 mb-2">
             <div class="col-md-3">
                 <select class="form-select select-select2" id="memo_irregularity_sub_type">
                     <option value="">আপত্তি অনিয়মের সাব-ধরন</option>
@@ -63,35 +71,44 @@
                     <option value="2">কম আদায় করা</option>
                     <option value="3">আদায় করা সত্ত্বেও কোষাগারে জমা না করা</option>
                     <option value="4">বাজার দর অপেক্ষা উচ্চমূল্যে ক্রয় কার্য সম্পাদন</option>
-                    <option value="5">রেসপন্সিভ সর্বনিম্ন দরদাতার স্থলে উচ্চ দরদাতার নিকট থেকে কার্য/পণ্য/সেবা ক্রয়</option>
+                    <option value="5">রেসপন্সিভ সর্বনিম্ন দরদাতার স্থলে উচ্চ দরদাতার নিকট থেকে কার্য/পণ্য/সেবা ক্রয়
+                    </option>
                     <option value="6">প্রকল্প শেষে অব্যয়িত অর্থ ফেরত না দেওয়া</option>
                     <option value="7">ভুল বেতন নির্ধারণীর মাধ্যমে অতিরিক্ত বেতন উত্তোলন</option>
                     <option value="8">প্রাপ্যতাবিহীন ভাতা উত্তোলন</option>
                     <option value="9">জাতীয় অন্যান্য সরকারী অর্থের ক্ষতি সংক্রান্ত আপত্তি।</option>
                 </select>
             </div>
+
+            <div class="col-md-3">
+                <input class="form-control mb-1 mt-1 year-picker" id="audit_year_start"
+                    placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text">
+            </div>
+
+            <div class="col-md-3">
+                <input class="form-control mb-1 mt-1 year-picker" id="audit_year_end"
+                    placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">
+            </div>
+
+            <div class="col-md-3">
+                <input autocomplete="off" type="text" id="start_date" class="date form-control"
+                    placeholder="শুরুর তারিখ">
+            </div>
         </div>
+
         <div class="row mt-2 mb-2">
-            <div class="col-md-3">
-                <input class="form-control mb-1 mt-1 year-picker" id="audit_year_start" placeholder="নিরীক্ষাধীন অর্থ বছর শুরু" type="text">
-            </div>
-
-            <div class="col-md-3">
-                <input class="form-control mb-1 mt-1 year-picker" id="audit_year_end" placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">
-            </div>
-
-            <div class="col-md-3">
-                <input autocomplete="off" type="text" id="start_date" class="date form-control" placeholder="শুরুর তারিখ">
-            </div>
-
             <div class="col-md-3">
                 <input autocomplete="off" type="text" id="end_date" class="date form-control" placeholder="শেষের তারিখ">
             </div>
-        </div>
 
-        <div class="row mt-2 mb-2">
             <div class="col-md-3">
-                <input class="form-control mb-1 mt-1" pattern="[0-9\.]*" id="jorito_ortho_poriman" placeholder="জড়িত অর্থ (টাকা)" type="text">
+                <input class="form-control mb-1 mt-1" pattern="[0-9\.]*" id="jorito_ortho_poriman"
+                    placeholder="জড়িত অর্থ (টাকা)" type="text">
+            </div>
+
+            <div class="col-md-3">
+                <input class="form-control mb-1 mt-1" pattern="[0-9\.]*" id="memo_code"
+                       placeholder="memo code" type="text">
             </div>
 
             <div class="col-md-3 mt-1">
@@ -108,8 +125,8 @@
 
 
 <script>
-    var dashboard_filter_data = '{!! session('dashboard_filter_data')!!}';
-    $(function () {
+    var dashboard_filter_data = '{!! session('dashboard_filter_data') !!}';
+    $(function() {
         if (dashboard_filter_data != "") {
             filter_data = JSON.parse(dashboard_filter_data);
             if (filter_data.directorate_id != null) {
@@ -129,11 +146,12 @@
             }
             if (filter_data.activity_id != null) {
                 $("#activity_id").val(filter_data.activity_id).trigger('change');
+                Authority_Memo_Container.loadMemoList();
             }
 
             if (filter_data.status != null) {
                 if (filter_data.status == 'daily') {
-                    let today = '{{now()->format('d/m/Y')}}';
+                    let today = '{{ now()->format('d/m/Y') }}';
                     $("#start_date").val(today);
                     $("#end_date").val(today);
                 }
@@ -146,28 +164,64 @@
 
         if (directorate_id !== 'all') {
             Authority_Memo_Container.loadMemoList();
-            Authority_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
+            // Authority_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
         } else {
             toastr.warning('Please select directorate');
             $('.memo-list-container').html('');
         }
     });
 
+    $('#directorate_filter').change(function (){
+        Authority_Memo_Container.loadActivityWiseAuditPlan();
+    });
+
+
+    $('#activity_id').change(function (){
+        Authority_Memo_Container.loadActivityWiseAuditPlan();
+    });
+
+    $('#audit_plan_id').change(function (){
+        entity_list = $(this).find(':selected').attr('data-entity-info');
+        Authority_Memo_Container.loadPlanWiseEntity(entity_list);
+    });
+
+    $('#entity_filter').change(function() {
+        entity_id = $('#entity_filter').val();
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
+        Authority_Memo_Container.loadCostCenterList(directorate_id, fiscal_year_id, entity_id);
+    });
+
+    $('#cost_center_filter').change(function() {
+        cost_center_id = $('#cost_center_filter').val();
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
+        Authority_Memo_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
+    });
+
+    $('#fiscal_year_id').change(function() {
+        Authority_Memo_Container.loadFiscalYearWiseActivity();
+    });
+
     var Authority_Memo_Container = {
-        loadFiscalYearWiseActivity: function () {
+        loadFiscalYearWiseActivity: function() {
             fiscal_year_id = $('#fiscal_year_id').val();
             fiscal_year = $('#fiscal_year_id').select2('data')[0].text;
             if (fiscal_year_id) {
-                let url = '{{route('audit.plan.annual.plan.revised.fiscal-year-wise-activity-select')}}';
-                let data = {fiscal_year_id, fiscal_year};
-                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                let url = '{{ route('audit.plan.annual.plan.revised.fiscal-year-wise-activity-select') }}';
+                let data = {
+                    fiscal_year_id,
+                    fiscal_year
+                };
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
                     if (response.status === 'error') {
                         toastr.error(response.data)
                     } else {
                         $('#activity_id').html(response);
-                        setActivityAnonymously();
+                        Authority_Memo_Container.setActivityAnonymously();
                         if (dashboard_filter_data.activity_id != null) {
                             $("#activity_id").val(dashboard_filter_data.activity_id).trigger('change');
+                            Authority_Memo_Container.loadMemoList();
                         }
                     }
                 });
@@ -176,16 +230,43 @@
             }
         },
 
-        loadEntityList: function (directorate_id, fiscal_year_id) {
+        loadActivityWiseAuditPlan: function () {
+
+            office_id = $('#directorate_filter').val();
             activity_id = $('#activity_id').val();
-            console.log(dashboard_filter_data)
-            if (dashboard_filter_data && activity_id == null) {
-                // dashboard_filter_data = JSON.parse(dashboard_filter_data);
-                activity_id = dashboard_filter_data.activity_id;
-            }
-            let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
-            let data = {directorate_id, fiscal_year_id, activity_id};
+            fiscal_year_id = $('#fiscal_year_id').val();
+
+            let url = '{{route('audit.plan.operational.activity.audit-plan')}}';
+
+            let data = {fiscal_year_id,activity_id,office_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_wrapper');
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        $('#audit_plan_id').html(response);
+                    }
+                }
+            );
+        },
+
+        loadPlanWiseEntity: function (entity_list) {
+            let url = '{{route('audit.execution.apotti.audit-plan-wise-entity-select')}}';
+            let data = {entity_list};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -195,33 +276,67 @@
             );
         },
 
-        loadCostCenterList: function (directorate_id, fiscal_year_id, entity_id) {
-            let url = '{{route('calendar.load-cost-center-directorate-fiscal-year-wise-select')}}';
-            let data = {directorate_id, fiscal_year_id, entity_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#cost_center_filter').html(response);
-                    }
+        {{--loadEntityList: function(directorate_id, fiscal_year_id) {--}}
+        {{--    activity_id = $('#activity_id').val();--}}
+        {{--    if (dashboard_filter_data && activity_id == null) {--}}
+        {{--        // dashboard_filter_data = JSON.parse(dashboard_filter_data);--}}
+        {{--        activity_id = dashboard_filter_data.activity_id;--}}
+        {{--    }--}}
+        {{--    let url = '{{ route('calendar.load-schedule-entity-fiscal-year-wise-select') }}';--}}
+        {{--    let data = {--}}
+        {{--        directorate_id,--}}
+        {{--        fiscal_year_id,--}}
+        {{--        activity_id--}}
+        {{--    };--}}
+        {{--    ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {--}}
+        {{--        if (response.status === 'error') {--}}
+        {{--            toastr.warning(response.data)--}}
+        {{--        } else {--}}
+        {{--            $('#entity_filter').html(response);--}}
+        {{--        }--}}
+        {{--    });--}}
+        {{--},--}}
+
+        loadCostCenterList: function(directorate_id, fiscal_year_id, entity_id) {
+            let url = '{{ route('calendar.load-cost-center-directorate-fiscal-year-wise-select') }}';
+            let data = {
+                directorate_id,
+                fiscal_year_id,
+                entity_id
+            };
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    $('#cost_center_filter').html(response);
                 }
-            );
+            });
         },
 
-        loadTeamList: function (directorate_id, fiscal_year_id, cost_center_id) {
-            let url = '{{route('calendar.load-teams-select')}}';
-            let data = {directorate_id, fiscal_year_id, cost_center_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#team_filter').html(response);
-                    }
+        loadTeamList: function(directorate_id, fiscal_year_id, cost_center_id) {
+            let url = '{{ route('calendar.load-teams-select') }}';
+            let data = {
+                directorate_id,
+                fiscal_year_id,
+                cost_center_id
+            };
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    $('#team_filter').html(response);
                 }
-            );
+            });
         },
 
-        loadMemoList: function () {
+        setActivityAnonymously: function() {
+            preset_activity_id = getUserIndividualEvent('activity_id');
+            activity_id = preset_activity_id ? preset_activity_id : $("select#activity_id option:eq(1)").val();
+            $("select#activity_id").val(activity_id).trigger('change');
+            Authority_Memo_Container.loadMemoList();
+        },
+
+        loadMemoList: function(page = 1, per_page = 10) {
             directorate_id = $('#directorate_filter').val();
             fiscal_year_id = $('#fiscal_year_id').val();
             activity_id = $('#activity_id').val();
@@ -241,41 +356,62 @@
             audit_year_end = $('#audit_year_end').val();
             start_date = $('#start_date').val();
             end_date = $('#end_date').val();
+            memo_code = $('#memo_code').val();
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
-            let url = '{{route('audit.execution.memo.load-authority-memo-list')}}';
-            let data = {directorate_id, fiscal_year_id, activity_id, entity_id, cost_center_id, team_id, memo_irregularity_type, memo_irregularity_sub_type, memo_type, memo_status, jorito_ortho_poriman, audit_year_start, audit_year_end, start_date, end_date};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    KTApp.unblock('#kt_content');
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('.memo-list-container').html(response);
-                    }
+            let url = '{{ route('audit.execution.memo.load-authority-memo-list') }}';
+            let data = {
+                directorate_id,
+                fiscal_year_id,
+                activity_id,
+                entity_id,
+                cost_center_id,
+                team_id,
+                memo_irregularity_type,
+                memo_irregularity_sub_type,
+                memo_type,
+                memo_status,
+                jorito_ortho_poriman,
+                audit_year_start,
+                audit_year_end,
+                start_date,
+                end_date,
+                memo_code,
+                page,
+                per_page
+            };
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.warning(response.data)
+                } else {
+                    $('.memo-list-container').html(response);
                 }
-            );
+            });
         },
 
-        showMemo: function (element) {
-            url = '{{route('audit.execution.memo.show')}}'
+        showMemo: function(element) {
+            url = '{{ route('audit.execution.memo.show') }}'
             memo_id = element.data('memo-id');
-            data = {memo_id};
+            data = {
+                memo_id
+            };
             directorate_id = $('#directorate_filter').val();
             if (directorate_id) {
                 data['directorate_id'] = directorate_id;
             }
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function(response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -291,24 +427,27 @@
             });
         },
 
-        showMemoAttachment: function (element) {
-            url = '{{route('audit.execution.memo.show-attachment')}}';
+        showMemoAttachment: function(element) {
+            url = '{{ route('audit.execution.memo.show-attachment') }}';
             memo_id = element.data('memo-id');
             memo_title_bn = element.data('memo-title-bn');
             directorate_id = $('#directorate_filter').val();
-            data = {memo_id, memo_title_bn};
+            data = {
+                memo_id,
+                memo_title_bn
+            };
 
             if (directorate_id) {
                 data['directorate_id'] = directorate_id;
             }
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function(response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -324,7 +463,7 @@
             });
         },
 
-        memoLog: function (elem) {
+        memoLog: function(elem) {
 
             quick_panel = $("#kt_quick_panel");
             $(".offcanvas-title").text('Memo Log');
@@ -335,9 +474,11 @@
             $("html").addClass("side-panel-overlay");
 
             memo_id = elem.data('memo-id');
-            data = {memo_id};
-            let url = '{{route('audit.execution.memo.audit-memo-log')}}'
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+            data = {
+                memo_id
+            };
+            let url = '{{ route('audit.execution.memo.audit-memo-log') }}'
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function(response) {
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -345,9 +486,15 @@
                 }
             });
         },
+
+        paginate: function(elem) {
+            page = $(elem).attr('data-page');
+            per_page = $(elem).attr('data-per-page');
+            Authority_Memo_Container.loadMemoList(page, per_page);
+        },
     };
 
-    $('#btn_filter').click(function () {
+    $('#btn_filter').click(function() {
         directorate_id = $('#directorate_filter').val();
         if (directorate_id !== 'all') {
             Authority_Memo_Container.loadMemoList();
@@ -356,23 +503,9 @@
         }
     });
 
-    $('#directorate_filter').change(function () {
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        Authority_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
-    });
-
-    $('#entity_filter').change(function () {
-        entity_id = $('#entity_filter').val();
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        Authority_Memo_Container.loadCostCenterList(directorate_id, fiscal_year_id, entity_id);
-    });
-
-    $('#cost_center_filter').change(function () {
-        cost_center_id = $('#cost_center_filter').val();
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        Authority_Memo_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
-    });
+    // $('#directorate_filter').change(function() {
+    //     directorate_id = $('#directorate_filter').val();
+    //     fiscal_year_id = $('#fiscal_year_id').val();
+    //     Authority_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
+    // });
 </script>

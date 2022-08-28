@@ -44,7 +44,7 @@
                             @foreach($activity['milestones'] as $milestone)
                         {
                             title: '{{$milestone['title_en']}}',
-                            start: '{{$milestone['milestone_calendar']['target_date']}}',
+                            start: '{{$milestone['milestone_calendar'] ? $milestone['milestone_calendar']['target_date'] : ''}}',
                             description: '{{$activity['title_en']}}',
                             className: "fc-event-danger fc-event-solid-warning"
                         },

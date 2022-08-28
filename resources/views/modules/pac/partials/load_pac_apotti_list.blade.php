@@ -3,7 +3,7 @@
            cellpadding="0">
         <tbody>
         <tr>
-            <td style="width: 100%; text-align: center;">অডিট আপত্তির অনুচ্ছেদ নং - ০১</td>
+            <td style="width: 100%; text-align: center;">অডিট আপত্তির অনুচ্ছেদ নম্বর - ০১</td>
         </tr>
         </tbody>
     </table>

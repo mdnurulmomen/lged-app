@@ -1,6 +1,7 @@
 <form autocomplete="off" id="office_order_generate_form">
     <input type="hidden" name="audit_plan_id" value="{{$audit_plan_id}}">
     <input type="hidden" name="annual_plan_id" value="{{$annual_plan_id}}">
+    <input type="hidden" name="id" value="{{empty($office_order)?'':$office_order['id']}}">
 
     <div class="row">
         <div class="col-md-6">
@@ -48,6 +49,15 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
+                <label for="issuer_details">ইস্যুকারী<span class="text-danger">*</span></label>
+                <textarea class="form-control" name="issuer_details" id="issuer_details" placeholder="ইস্যুকারী" cols="40" rows="2">{{empty($office_order)?'':$office_order['issuer_details']}}</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
                 <label for="cc_sender_details">দায়িত্বপ্রাপ্ত কর্মকর্তার<span class="text-danger">*</span></label>
                 <textarea class="form-control" name="cc_sender_details" id="cc_sender_details" placeholder="দায়িত্বপ্রাপ্ত কর্মকর্তার" cols="40" rows="2">{{empty($office_order)?'':$office_order['cc_sender_details']}}</textarea>
             </div>
@@ -68,7 +78,15 @@
         generateOfficeOrder: function (elem) {
             url = '{{route('audit.plan.audit.office-orders.generate-office-order')}}';
             data = $('#office_order_generate_form').serialize();
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                message: 'সংরক্ষন হচ্ছে অপেক্ষা করুন...',
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     toastr.success('সফলভাবে অফিস আদেশ সংরক্ষন করা হয়েছে');
                     $('#kt_quick_panel_close').click();

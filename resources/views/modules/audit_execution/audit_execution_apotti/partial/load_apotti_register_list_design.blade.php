@@ -96,7 +96,7 @@
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
-                                        <span class="mr-1 ">অনুচ্ছেদ নং: </span>
+                                        <span class="mr-1 ">অনুচ্ছেদ নম্বর: </span>
                                         <a href="javascript:void(0)" class="text-dark text-hover-primary font-size-h5">
                                             {{enTobn($apotti['onucched_no'])}}
                                         </a>
@@ -126,13 +126,13 @@
                                     <div class=" subject-wrapper font-weight-normal">
                                         <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.jorito_ortho')}}:</span>
                                         <span class="text-info font-size-14">
-                                            {{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}
+                                            {{enTobn(currency_format($apotti['total_jorito_ortho_poriman']))}}
                                         </span>
                                     </div>
                                     <div class="font-weight-normal">
                                         <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.onishponno_jorito_ortho')}}:</span>
                                         <span class="text-danger font-size-14">
-                                           {{enTobn(number_format($apotti['total_onishponno_jorito_ortho_poriman'],0))}}
+                                           {{enTobn(currency_format($apotti['total_onishponno_jorito_ortho_poriman']))}}
                                         </span>
                                     </div>
                                     <div class="font-weight-normal">

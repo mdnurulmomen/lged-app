@@ -62,6 +62,10 @@
         <td style="width: 60%;padding-left: 2%">{{ enTobn($annual_plan_info['cost_center_total_budget'])}}</td>
     </tr>
     <tr>
+        <td class="annual-plan-title"> নির্বাচিত ইউনিটের মোট খরচ</td>
+        <td style="width: 60%;padding-left: 2%">{{ enTobn($annual_plan_info['total_expenditure'])}}</td>
+    </tr>
+    <tr>
         <td class="annual-plan-title">মন্তব্য</td>
         <td style="width: 60%;padding-left: 2%">{{$annual_plan_info['comment']}}</td>
     </tr>

@@ -1,37 +1,39 @@
 @foreach($apottis as $apotti)
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-        <div style="font-weight: bold">
-            অনুচ্ছেদ নং-{{enTobn($apotti['onucched_no'])}}
-        </div>
-
-        <div style="font-weight: bold">
-            শিরোনামঃ {{$apotti['apotti_title']}}
-        </div>
-
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 10px">
-            <span style="font-weight: bold">বিবরণঃ</span>
+    <div style="height:100%;page-break-after: always">
+        <span class="bangla-font" style="font-family:Nikosh,serif !important;">
+            <strong>অনুচ্ছেদ নম্বর-</strong>
+            {{enTobn($apotti['onucched_no'])}}
+        </span>
+        <br>
+        <span class="bangla-font" style="font-family:Nikosh,serif !important;text-align: justify;">
+            <strong>শিরোনামঃ</strong>
+            {{$apotti['apotti_title']}}
+        </span>
+        <br>
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;">
+            <strong>বিবরণঃ</strong>
+            <div style="margin-top: -1em;">
             {!! $apotti['apotti_description'] !!}
+            </div>
         </div>
-
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">অনিয়মের কারণঃ</span>
+        <span class="bangla-font" style="font-family:Nikosh,serif !important;text-align: justify;">
+            <strong>অনিয়মের কারণঃ</strong>
             {{$apotti['irregularity_cause']}}
-        </div>
-
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">অডিটি প্রতিষ্ঠানের জবাবঃ</span>
+        </span>
+        <br>
+        <span class="bangla-font" style="font-family:Nikosh,serif !important;text-align: justify;">
+            <strong>অডিটি প্রতিষ্ঠানের জবাবঃ</strong>
             {{$apotti['response_of_rpu']}}
-        </div>
-
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">নিরীক্ষা মন্তব্যঃ</span>
+        </span>
+        <br>
+        <span class="bangla-font" style="font-family:Nikosh,serif !important;text-align: justify;">
+            <strong>নিরীক্ষা মন্তব্যঃ</strong>
             {{$apotti['audit_conclusion']}}
-        </div>
-
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
-            <span style="font-weight: bold">নিরীক্ষার সুপারিশঃ</span>
+        </span>
+        <br>
+        <span class="bangla-font" style="font-family:Nikosh,serif !important;text-align: justify;">
+            <strong>নিরীক্ষার সুপারিশঃ</strong>
             {{$apotti['audit_recommendation']}}
-        </div>
+        </span>
     </div>
-    <br>
 @endforeach

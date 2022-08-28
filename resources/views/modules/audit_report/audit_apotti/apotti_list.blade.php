@@ -42,7 +42,7 @@
         </th>
 
         <th class="datatable-cell datatable-cell-sort text-center">
-            অনুচ্ছেদ নং
+            অনুচ্ছেদ নম্বর
         </th>
 
         <th class="datatable-cell datatable-cell-sort text-center">
@@ -92,10 +92,10 @@
                 <span>{{$apotti['apotti_title']}}</span>
             </td>
             <td>
-                <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
+                <span>{{enTobn(currency_format($apotti['total_jorito_ortho_poriman']))}}</span>
             </td>
 {{--            <td>--}}
-{{--                <span>{{enTobn(number_format($apotti['total_onishponno_jorito_ortho_poriman'],0))}}</span>--}}
+{{--                <span>{{enTobn(currency_format($apotti['total_onishponno_jorito_ortho_poriman']))}}</span>--}}
 {{--            </td>--}}
             <td>
                 <button class="mr-3 btn btn-sm btn-outline-primary btn-square" title="বিস্তারিত দেখুন"

@@ -1,11 +1,14 @@
 <?php
 return [
+    'file_url' => env('FILE_URL', ''),
+
     'settings' => [
         'fiscal_year_lists' => env('API_URL_BEE', '') . '/fiscal-year',
         'fiscal_year_create' => env('API_URL_BEE', '') . '/fiscal-year/create',
         'fiscal_year_show' => env('API_URL_BEE', '') . '/fiscal-year/show',
         'fiscal_year_update' => env('API_URL_BEE', '') . '/fiscal-year/update',
         'fiscal_year_delete' => env('API_URL_BEE', '') . '/fiscal-year/delete',
+        'get_current_fiscal_year' => env('API_URL_BEE', '') . '/fiscal-year/get-current-fiscal-year',
 
         'strategic_plan_duration_lists' => env('API_URL_BEE', '') . '/x-strategic-plan/duration',
         'strategic_plan_duration_create' => env('API_URL_BEE', '') . '/x-strategic-plan/duration/create',
@@ -74,6 +77,10 @@ return [
         'movement' => [
             'store' => env('API_URL_BEE', '') . '/movement/store',
         ],
+
+        'vacation-date' => [
+            'year-wise-vacation-list' => env('API_URL_BEE', '') . '/vacation-date/year-wise-vacation-list',
+        ]
     ],
 
     'audit_operational_plan' => [
@@ -143,6 +150,7 @@ return [
         'ap_yearly_plan_entities_list_show' => env('API_URL_BEE', '') . '/planning/annual-plan/show-entities',
         'ap_yearly_plan_submission' => env('API_URL_BEE', '') . '/planning/annual-plan/create',
         'ap_yearly_plan_update' => env('API_URL_BEE', '') . '/planning/annual-plan/update',
+        'update_annual_plan_main' => env('API_URL_BEE', '') . '/planning/annual-plan/update-annual-plan-main',
         'get_annual_plan_info' => env('API_URL_BEE', '') . '/planning/annual-plan/get-annual-plan-info',
         'delete_annual_plan' => env('API_URL_BEE', '') . '/planning/annual-plan/delete-annual-plan',
         'ap_yearly_plan_book' => env('API_URL_BEE', '') . '/planning/annual-plan/book',
@@ -160,7 +168,9 @@ return [
         'ap_entity_lists' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan',
         'ap_entity_plan_create_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/new',
         'ap_entity_plan_edit_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/edit',
+        'ap_entity_plan_view' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/view',
         'ap_entity_plan_make_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/update',
+        'ap_entity_plan_edit_lock' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/lock',
         'ap_entity_plan_draft_show' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/show',
         'store_audit_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/audit-team/store',
         'update_audit_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/audit-team/update',
@@ -171,18 +181,23 @@ return [
         'get_audit_plan_wise_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team',
 
         'get_audit_plan_wise_team_members' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team-members',
+        'get_audit_plan_and_team_wise_team_members' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-and-team-wise-team-members',
         'get_audit_plan_wise_team_schedules' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team-schedules',
+        'team_log_discard' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/team-log-discard',
 
         'ap_risk_assessment_store' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/store',
         'ap_risk_assessment_update' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/update',
         'ap_risk_assessment_list' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/ap-risk-assessment-list',
+        'ap_risk_assessment_plan_wise' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/ap-risk-assessment-plan-wise',
         'risk_assessment_type_wise_item' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/type-wise-item-list',
         'ap_office_order' => [
             'audit_plan_list' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/audit-plan-list',
             'generate_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/generate',
             'show_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/show',
+            'show_update_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/show-update',
             'store_approval_authority' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/store-approval-authority',
             'approve_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/approve',
+            'store_office_order_log' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/store-office-order-log',
         ],
 
         'ap_office_order_dc' => [
@@ -299,20 +314,38 @@ return [
             'apotti_wise_all_tiem' => env('API_URL_BEE', '') . '/audit-conduct-apotti/apotti-wise-all-tiem',
             'get_apotti_item_info' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-item-info',
             'update_apotti' => env('API_URL_BEE', '') . '/audit-conduct-apotti/update-apotti',
+            'delete_apotti_porisisto' => env('API_URL_BEE', '') . '/audit-conduct-apotti/delete-apotti-porisisto',
             'get-apotti-onucched-no' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-onucched-no',
             'apotti_register_list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-apotti-register-list',
             'update_apotti_register' => env('API_URL_BEE', '') . '/audit-conduct-apotti/update-apotti-register',
             'store_apotti_register_movement' => env('API_URL_BEE', '') . '/audit-conduct-apotti/store-apotti-register-movement',
+            'search-list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/search-list',
+            'search-view' => env('API_URL_BEE', '') . '/audit-conduct-apotti/search-view',
+            'apotti-memo-list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/apotti-memo-list',
+            'convert-memo-to-apotti' => env('API_URL_BEE', '') . '/audit-conduct-apotti/convert-memo-to-apotti',
         ],
 
         'archive_apotti' => [
             'get_oniyomer_category_list' => env('API_URL_BEE', '') . '/audit-archive-apotti/get-oniyomer-category-list',
             'get_parent_wise_oniyomer_category_list' => env('API_URL_BEE', '') . '/audit-archive-apotti/get-parent-wise-oniyomer-category-list',
             'store' => env('API_URL_BEE', '') . '/audit-archive-apotti/store',
+            'store-new-attachment' => env('API_URL_BEE', '') . '/audit-archive-apotti/store-new-attachment',
+            'delete-attachment' => env('API_URL_BEE', '') . '/audit-archive-apotti/delete-attachment',
             'update' => env('API_URL_BEE', '') . '/audit-archive-apotti/update',
             'list' => env('API_URL_BEE', '') . '/audit-archive-apotti/list',
             'edit' => env('API_URL_BEE', '') . '/audit-archive-apotti/edit',
-        ]
+            'migrate' => env('API_URL_BEE', '') . '/audit-archive-apotti/migrate-to-amms',
+        ],
+
+        'archive_apotti_report' => [
+            'store' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/store',
+            'list' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/list',
+            'view' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/view',
+            'store_report_apotti' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/store-report-apotti',
+            'report_sync' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/report-sync',
+            'report_apotti_delete' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/report-apotti-delete',
+            'get_arc_report_apotti_info' => env('API_URL_BEE', '') . '/audit-archive-apotti-report/get-arc-report-apotti-info',
+        ],
     ],
 
     'audit_quality_control' => [
@@ -338,6 +371,7 @@ return [
             'update_qac_air_report' => env('API_URL_BEE', '') . '/audit-report/air/update-qac-air-report',
             'get_audit_team' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-team',
             'get_audit_team_schedule' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-team-schedule',
+            'get_air_wise_content_key' => env('API_URL_BEE', '') . '/audit-report/air/get-air-wise-content-key',
             'get_audit_apotti_list' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-apotti-list',
             'get_air_wise_qac_apotti' => env('API_URL_BEE', '') . '/audit-report/air/get-air-wise-qac-apotti',
             'get_air_and_apotti_type_wise_qac_apotti' => env('API_URL_BEE', '') . '/audit-report/air/get-air-and-apotti-type-wise-qac-apotti',
@@ -348,11 +382,24 @@ return [
             'get_air_last_movement' => env('API_URL_BEE', '') . '/audit-report/air/get-air-last-movement',
             'get_audit_plan_type_wise_air' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-plan-and-type-wise-air',
             'get_audit_final_report' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-final-report',
+            'get_archive_final_report' => env('API_URL_BEE', '') . '/audit-report/air/get-archive-final-report',
+            'get_audit_final_report_search' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-final-report-search',
+            'get_audit_final_report_details' => env('API_URL_BEE', '') . '/audit-report/air/get-audit-final-report-details',
+            'get_archive_final_report_apotti' => env('API_URL_BEE', '') . '/audit-report/air/get-archive-final-report-apotti',
+            'map_archive_final_report_apotti' => env('API_URL_BEE', '') . '/audit-report/air/map-archive-final-report-apotti',
             'delete_air_report_wise_apotti' => env('API_URL_BEE', '') . '/audit-report/air/delete-air-report-wise-apotti',
             'apotti_final_approval' => env('API_URL_BEE', '') . '/audit-report/air/apotti-final-approval',
             'air_send_to_rpu' => env('API_URL_BEE', '') . '/audit-report/air/air-send-to-rpu',
             'final_report_movement' => env('API_URL_BEE', '') . '/audit-report/air/final-report-movement',
+            'get-air-wise-porisistos' => env('API_URL_BEE', '') . '/audit-report/air/get-air-wise-porisistos',
+            'get-authority-air-report' => env('API_URL_BEE', '') . '/audit-report/air/get-authority-air-report',
         ],
+
+        'observations' => [
+            'get-status-wise' => [
+                'list' => env('API_URL_BEE', '') . '/audit-report/observations/get-status-wise/list',
+            ]
+        ]
     ],
 
 
@@ -391,7 +438,11 @@ return [
         'store-pac-worksheet-report' => env('API_URL_BEE', '') . '/pac/store-pac-worksheet-report',
     ],
 
+    'rpu-apotti' => [
+        'send-apotti-reply' => env('API_URL_BEE', '') . '/audit-report/air/audit-apotti-item-response-by-rpu',
+    ],
     'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',
 
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',
+    'edit_profile_url' => env('EDIT_PROFILE_URL', '') . '/profile',
 ];

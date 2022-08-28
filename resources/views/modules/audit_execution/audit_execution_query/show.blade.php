@@ -51,11 +51,11 @@
                         {{$item['item_title_bn']}}
 
                         @if($item['status'] =="pending")
+                            @php $badgeStyle ='danger'; @endphp
+                        @elseif($item['status'] =="submitted by RP")
                             @php $badgeStyle ='warning'; @endphp
-                        @elseif($item['status'] =="submitted")
-                            @php $badgeStyle ='primary'; @endphp
                         @else
-                            @php $badgeStyle ='info'; @endphp
+                            @php $badgeStyle ='primary'; @endphp
                         @endif
                         <span class="query_receive_status badge badge-{{$badgeStyle}} text-uppercase m-1 p-1 ">
                             {{$item['status']}}
@@ -64,7 +64,7 @@
 
                     @if($scopeAuthority == 0)
                         <td>
-                            @if($item['status'] == 'submitted')
+                            @if($item['status'] == 'submitted by RP')
                                 <button title="রিসিভ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
                                         data-ac-query-item-id="{{$item['id']}}"
                                         data-ac-query-id="{{$item['ac_query_id']}}"

@@ -1,4 +1,4 @@
-<div class="row">
+{{--<div class="row">
     <div class="col-md-12">
         <div class="d-flex justify-content-end mt-4">
             <button onclick="Preview_AIR_Container.generatePDF()"
@@ -8,7 +8,7 @@
             </button>
         </div>
     </div>
-</div>
+</div>--}}
 
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
@@ -27,9 +27,10 @@
 <script>
     var Preview_AIR_Container = {
         generatePDF: function () {
+            air_id = $("#airId").val();
             air_description = templateArray;
             scope = 'generate';
-            data = {scope,air_description};
+            data = {scope,air_id,air_description};
 
             url = '{{route('audit.report.air.download')}}';
 
@@ -44,7 +45,7 @@
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "Air_Report_"+new Date().toDateString().replace(/ /g,"_")+".pdf";
+                    link.download = "qac1_report_"+new Date().toDateString().replace(/ /g,"_")+".pdf";
                     link.click();
                 },
                 error: function (blob) {

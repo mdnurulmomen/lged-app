@@ -118,13 +118,13 @@
             data = $('#approval_authority_form').serializeArray();
             data.push({name: "office_id", value: office_id});
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_full_width_page', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_full_width_page');
                 if (response.status === 'success') {
                     toastr.success('{{___('generic.sent_successfully')}}');
                     $('#kt_quick_panel_close').click();
@@ -136,7 +136,23 @@
                     }
                 }
                 else {
-                    toastr.error(response.data.message);
+                    toastr.error(response.data);
+                }
+            },function (response) {
+                KTApp.unblock('#kt_full_width_page');
+                console.log(response)
+                if (response.responseJSON.errors) {
+                    $.each(response.responseJSON.errors, function (k, v) {
+                        if (isArray(v)) {
+                            $.each(v, function (n, m) {
+                                toastr.error(m);
+                            })
+                        } else {
+                            if (v !== '') {
+                                toastr.error(v);
+                            }
+                        }
+                    });
                 }
             })
         },

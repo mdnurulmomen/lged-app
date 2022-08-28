@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<div class="card sna-card-border mt-2">
+<div class="card sna-card-border mt-2 mb-14">
     <div id="load_committee_list">
         <div class="d-flex align-items-center">
             <div class="spinner-grow text-warning mr-3" role="status">
@@ -54,13 +54,13 @@
             url = '{{route('audit.qac.create-qac-committee')}}'
             data = {};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -68,7 +68,7 @@
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
-                    quick_panel.css('width', '80%');
+                    quick_panel.css('width', '70%');
                     quick_panel.removeClass('d-none');
                     $("html").addClass("side-panel-overlay");
                     $(".offcanvas-wrapper").html(response);
@@ -91,16 +91,16 @@
                 member_data = JSON.parse($(this).val());
 
                 member_info[member_data.officer_id] = {
-                    officer_id: member_data.officer_id,
-                    officer_bn: member_data.officer_bn,
-                    officer_en: member_data.officer_en,
-                    officer_unit_id: member_data.officer_unit_id,
-                    officer_unit_bn: member_data.officer_unit_bn,
-                    officer_unit_en: member_data.officer_unit_en,
+                    officer_id               : member_data.officer_id,
+                    officer_bn               : member_data.officer_bn,
+                    officer_en               : member_data.officer_en,
+                    officer_unit_id          : member_data.officer_unit_id,
+                    officer_unit_bn          : member_data.officer_unit_bn,
+                    officer_unit_en          : member_data.officer_unit_en,
                     officer_designation_grade: member_data.officer_designation_grade,
-                    officer_designation_id: member_data.officer_designation_id,
-                    officer_designation_bn: member_data.officer_designation_bn,
-                    officer_designation_en: member_data.officer_designation_en,
+                    officer_designation_id   : member_data.officer_designation_id,
+                    officer_designation_bn   : member_data.officer_designation_bn,
+                    officer_designation_en   : member_data.officer_designation_en,
                 }
             });
 
@@ -110,22 +110,34 @@
             data.push({name: "fiscal_year_id", value: fiscal_year_id});
             data.push({name: "qac_type", value: qac_type});
 
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     toastr.success(response.data);
                     $('#kt_quick_panel_close').click();
                     Qac_Committee_Container.loadCommittee();
                 } else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
+                    toastr.error(response.data);
+                }
+            },function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.responseJSON.errors) {
+                    $.each(response.responseJSON.errors, function (k, v) {
+                        if (isArray(v)) {
+                            $.each(v, function (n, m) {
+                                toastr.error(m);
+                            })
+                        } else {
                             if (v !== '') {
                                 toastr.error(v);
                             }
-                        });
-                    } else {
-                        toastr.error(response.data.message);
-                    }
+                        }
+                    });
                 }
             })
         },
@@ -196,13 +208,13 @@
 
             data = {qac_committee_id,title_bn};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {

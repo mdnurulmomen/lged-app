@@ -1,22 +1,3 @@
-<style>
-    fieldset.scheduler-border {
-        border: 1px groove #ddd !important;
-        padding: 0 1.4em 1.4em 1.4em !important;
-        margin: 0 0 1.5em 0 !important;
-        -webkit-box-shadow:  0px 0px 0px 0px #000;
-        box-shadow:  0px 0px 0px 0px #000;
-    }
-
-    legend.scheduler-border {
-        font-size: 1.2em !important;
-        font-weight: bold !important;
-        text-align: left !important;
-        width:auto;
-        padding:0 10px;
-        border-bottom:none;
-    }
-</style>
-
 <link rel="stylesheet" href="{{asset('assets/css/mFiler-font.css')}}" referrerpolicy="origin">
 <link rel="stylesheet" href="{{asset('assets/css/mFiler.css')}}" referrerpolicy="origin">
 
@@ -33,6 +14,7 @@
                     <a
                         onclick="Audit_Query_Schedule_Container.memo($(this))"
                         data-schedule-id="{{$schedule_id}}"
+                        data-team-id="{{$team_id}}"
                         data-audit-plan-id="{{$audit_plan_id}}"
                         data-cost-center-id="{{$cost_center_id}}"
                         data-cost-center-name-bn="{{$cost_center_name_bn}}"
@@ -43,7 +25,7 @@
                         data-scope-sub-team-leader="{{$scope_sub_team_leader}}"
                         data-sub-team-leader-name-bn="{{$sub_team_leader_name}}"
                         data-sub-team-leader-designation-name-bn="{{$sub_team_leader_designation_name}}"
-                        class="btn btn-sm btn-warning btn_back btn-square mr-3">
+                        class="btn btn-sm btn-warning btn-back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> {{___('generic.back')}}
                     </a>
                     <a id="memo_submit" class="btn btn-primary btn-sm btn-bold btn-square"
@@ -99,6 +81,32 @@
 
                         <div class="col-md-5">
                             <div class="card sna-card-border mb-4">
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                        <label class="col-form-label">উত্থাপনকারী</label>
+                                        <select class="form-control select-select2" name="finder_officer_id" id="finder_officer_id">
+                                            <option value="" data-finder-office-id="" data-finder-details="">--উত্থাপনকারী বাছাই করুন--</option>
+                                            @foreach($team_members as $member)
+                                                <option value="{{$member['team_member_officer_id']}}" data-finder-office-id="{{$member['team_member_office_id']}}"
+                                                        data-finder-details="{{json_encode(
+    [
+        'team_member_name_bn' => $member['team_member_name_bn'],
+        'team_member_name_en' => $member['team_member_name_en'],
+        'team_member_designation_bn' => $member['team_member_designation_bn'],
+        'team_member_designation_en' => $member['team_member_designation_en'],
+        'team_member_role_bn' => $member['team_member_role_bn'],
+        'team_member_role_en' => $member['team_member_role_en'],
+        'mobile_no' => $member['mobile_no'],
+        'employee_grade' => $member['employee_grade'],
+    ], JSON_UNESCAPED_UNICODE)}}">
+                                                    {{$member['team_member_name_bn'].', '.$member['team_member_designation_bn']}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+
                                 <div class="row">
                                     <div class="col-md-12">
                                         <input class="form-control bangla-number-input amount_number_format mb-1"
@@ -283,10 +291,15 @@
                 from_data.append('porisisto_details[]', porisisto);
             }
 
+            finder_office_id = $("#finder_officer_id").find(':selected').attr('data-finder-office-id');
+            from_data.append('finder_office_id', finder_office_id);
+            finder_details = $("#finder_officer_id").find(':selected').attr('data-finder-details');
+            from_data.append('finder_details', finder_details);
+
             elem = $(this);
             elem.prop('disabled', true);
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
@@ -300,10 +313,10 @@
                 cache: false,
                 processData: false,
                 success: function (responseData) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
-                        $('.btn_back').click();
+                        $('.btn-back').click();
                     } else {
                         elem.prop('disabled', false);
                         if (responseData.statusCode === '422') {
@@ -319,7 +332,7 @@
                     }
                 },
                 error: function (data) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     elem.prop('disabled', false)
                     if (data.responseJSON.errors) {
                         $.each(data.responseJSON.errors, function (k, v) {

@@ -292,11 +292,6 @@
                 widows: 3;
             }
 
-            h2,
-            h3 {
-                page-break-after: avoid;
-            }
-
             .navbar {
                 display: none;
             }
@@ -339,13 +334,13 @@
         }
 
         html {
-            font-size: 10px;
+            font-size: 14px;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
+            font-size: 18px;
             line-height: 1.42857143;
             color: #333333;
             background-color: #ffffff;
@@ -789,6 +784,9 @@
             even-header-name: even-header;
             odd-footer-name: odd-footer;
             even-footer-name: even-footer;
+
+            margin-left: 2.5cm;
+            margin-right: 2cm;
         }
     </style>
 </head>
@@ -836,7 +834,7 @@
 
 
     <div class="pdf-screen bangla-font" style="height: 100%">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $chapterTwoCoverPage['content'] !!}
     </div>
 
@@ -845,7 +843,7 @@
     </div>
 
     <div class="pdf-screen bangla-font" style="height: 100%">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $auditOnnuchedDetailsCoverPage['content'] !!}
     </div>
 
@@ -854,18 +852,18 @@
     </div>
 
     <div class="pdf-screen bangla-font" style="height: 100%">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $partTwoCoverPage['content'] !!}
     </div>
 
     <div class="pdf-screen bangla-font" style="height: 100%">
-        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+        <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
         {!! $appendicesCoverPage['content'] !!}
     </div>
 
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    {{--<div class="pdf-screen bangla-font" style="height: 100%">
         {!! $appendicesDetailsPage['content'] !!}
-    </div>
+    </div>--}}
 
     <htmlpagefooter name="even-footer">
         <div style="float:right; width: 100%; text-align: right;">Page <span class="page_number">{PAGENO}</span> of {nb}</div>

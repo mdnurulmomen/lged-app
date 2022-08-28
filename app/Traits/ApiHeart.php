@@ -125,4 +125,13 @@ trait ApiHeart
         return session('_ponjika_token');
     }
 
+    public function initPDFHttp(): \Illuminate\Http\Client\PendingRequest
+    {
+        return Http::withoutVerifying()->withHeaders($this->apiHeaders())->withToken($this->getPDFToken());
+    }
+
+    public function getPDFToken()
+    {
+        return 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDEzNTIzMDcsImp0aSI6Ik1UWXdNVE0xTWpNd053PT0iLCJpc3MiOiJodHRwOlwvXC9wZGZnZW4udGFwcHdhcmUuY29tXC8iLCJuYmYiOjE2MDEzNTIzMDcsImRhdGEiOiJ7XCJjbGllbnRfbmFtZVwiOlwiRS1Ob3RoaVwifSJ9.yvG_VyiAu4z_tEv3dNyk_RqNiz28KtrkeQRcuFOo4uAynXCADHPsW3XoPa6J4iiJPpO92BftQP9tP-pZxnmhbg';
+    }
 }

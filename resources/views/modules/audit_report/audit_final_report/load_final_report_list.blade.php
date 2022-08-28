@@ -28,30 +28,26 @@
                     <span class="label label-outline-success label-pill label-inline">
                       অনুমোদিত
                     </span>
-                @endif
-                @if($report['is_bg_press'] && !$report['is_printing_done'])
-                    <span class="label label-outline-warning label-pill label-inline">
-                      বিজি প্রেসে প্রেরণ করা হয়েছে
-                    </span>
-                @endif
-
-                @if($report['is_printing_done'])
-                    <span class="label label-outline-success label-pill label-inline">
-                      মুদ্রণ সম্পন্ন হয়েছে
-                    </span>
-                @endif
-
-                @if($report['latest_r_air_movement'])
+                @elseif($report['latest_r_air_movement'])
                     <span class="label label-outline-warning label-pill label-inline">
                       {{$report['latest_r_air_movement']['receiver_employee_designation_bn']}} এর কাছে প্রেরণ করা হয়েছে
                     </span>
                 @endif
 
+                @if($report['is_bg_press'] && !$report['is_printing_done'])
+                    <span class="label label-outline-warning label-pill label-inline">
+                      বিজি প্রেসে প্রেরণ করা হয়েছে
+                    </span>
+                @elseif($report['is_printing_done'])
+                    <span class="label label-outline-success label-pill label-inline">
+                      মুদ্রণ সম্পন্ন হয়েছে
+                    </span>
+                @endif
             </td>
             <td class="text-left">
                 <button class="mr-1 btn btn-sm btn-primary btn-square" title="বিস্তারিত দেখুন"
                         data-air-report-id="{{$report['id']}}"
-                        onclick="Final_report_Container.loadAIREdit($(this))">
+                        onclick="Final_Report_Container.loadAIREdit($(this))">
                     <i class="fad fa-eye"></i> বিস্তারিত
                 </button>
 
@@ -61,7 +57,7 @@
                             <button class="mr-1 btn btn-sm btn-primary btn-square" title="বিজি প্রেসে প্রেরণ"
                                     data-air-report-id="{{$report['id']}}"
                                     data-bg-press="1"
-                                    onclick="Final_report_Container.loadFinalReportStatusUpdate($(this))">
+                                    onclick="Final_Report_Container.loadFinalReportStatusUpdate($(this))">
                                 <i class="fa fa-paper-plane"></i> বিজি প্রেসে প্রেরণ করুন
                             </button>
                         @endif
@@ -72,7 +68,7 @@
                             <button class="mr-1 btn btn-sm btn-primary btn-square" title="মুদ্রণ সম্পন্ন"
                                     data-air-report-id="{{$report['id']}}"
                                     data-printing-done="1"
-                                    onclick="Final_report_Container.loadFinalReportStatusUpdate($(this))">
+                                    onclick="Final_Report_Container.loadFinalReportStatusUpdate($(this))">
                                 <i class="fad fa-book-dead"></i> মুদ্রণ সম্পন্ন করুন
                             </button>
                         @endif

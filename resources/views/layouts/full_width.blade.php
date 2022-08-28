@@ -17,7 +17,7 @@
 <!--end::Header Mobile-->
 <div class="d-flex flex-column flex-root">
     <!--begin::Page-->
-    <div class="d-flex flex-row flex-column-fluid page">
+    <div class="d-flex flex-row flex-column-fluid page" id="kt_full_width_page">
         <!--begin::Wrapper-->
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
             <!--begin::Header-->
@@ -69,6 +69,7 @@
 @include('layouts.partials.scroll_top')
 <!--end::Scrolltop-->
 @include('layouts.partials.footer_script')
+@include('scripts.script_master')
 @yield('scripts')
 @include('scripts.layout_navigation_spa')
 </html>

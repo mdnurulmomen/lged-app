@@ -21,14 +21,14 @@
         <!--begin::Wrapper-->
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
             <!--begin::Header-->
-            <div id="kt_header" class="header header-fixed" style="height: 120px !important;">
+            <div id="kt_header" class="header header-fixed" style="height: 85px !important;">
                 <!--begin::Container-->
                 <div class="container pl-0 pr-0 d-flex align-items-stretch justify-content-between">
                     <!--begin::Header Menu Wrapper-->
                     <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
                         <!--begin::Header Logo-->
                         <div class="header-logo">
-                            @include('partials.logo', ['area_style' => 'height: 120px !important', 'img_style' => 'width: 110px !important', 'text'=> 'Comptroller and Auditor General of Bangladesh'])
+                            @include('partials.logo', ['area_style' => 'height: 95px !important', 'img_style' => 'width: 80px !important', 'text'=> 'Comptroller and Auditor General of Bangladesh'])
                         </div>
                         <!--end::Header Logo-->
                         <!--begin::Header Menu-->
@@ -46,8 +46,8 @@
             <!--begin::Content-->
             <div class="content container d-flex flex-column flex-column-fluid pt-0">
                 <!-- Start Content-->
-            @yield('content')
-            <!-- End Content-->
+                @yield('content')
+                <!-- End Content-->
             </div>
             <!--end::Content-->
             <!--begin::Footer-->
@@ -59,16 +59,16 @@
     <!--end::Page-->
 </div>
 <!--end::Main-->
-<!--begin::Chat Panel-->
-@include('layouts.partials._chat')
-<!--end::Chat Panel-->
-<!--begin::Quick Panel-->
-@include('layouts.partials._quick_panel')
-<!--end::Quick Panel-->
+@include('scripts.script_master')
+
+
 <!--begin::Scrolltop-->
 @include('layouts.partials.scroll_top')
 <!--end::Scrolltop-->
+
+@include('layouts.partials.all_modals')
+
 @include('layouts.partials.footer_script')
+@include('scripts.script_master')
 @yield('scripts')
-@include('scripts.layout_navigation_spa')
 </html>

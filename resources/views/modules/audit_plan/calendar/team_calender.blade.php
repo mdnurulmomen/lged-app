@@ -15,7 +15,7 @@
         <select class="form-select select-select2" id="fiscal_year_id">
             @foreach($fiscal_years as $fiscal_year)
                 <option
-                    value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                    value="{{$fiscal_year['id']}}" {{$current_fiscal_year == $fiscal_year['id']?'selected':''}}>{{$fiscal_year['description']}}</option>
             @endforeach
         </select>
     </div>
@@ -71,7 +71,7 @@
         </a>
     </div>
     <div class="d-flex flex-wrap text-center w-50 justify-content-center pl-1">
-        <h4 class="w-100 py-3 m-0">As of Today</h4>
+        <h4 class="w-100 py-3 m-0">Till Today</h4>
         <a href="javascript:;" data-page="query" data-status="yearly"
            onclick="Team_Calendar_Container.pageRedirect($(this))" class="w-50 pt-3">
             <h6 class="font-weight-bold">Query</h6>
@@ -246,12 +246,12 @@
             quick_panel.removeClass('d-none');
             $("html").addClass("side-panel-overlay");
             $('.offcanvas-title').html('List');
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.warning(response.data)
                     } else {
@@ -394,5 +394,9 @@
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
         Team_Calendar_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
+    });
+
+    $('#fiscal_year_id').change(function (){
+        Team_Calendar_Container.loadFiscalYearWiseActivity();
     });
 </script>

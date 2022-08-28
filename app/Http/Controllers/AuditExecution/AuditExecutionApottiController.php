@@ -60,21 +60,28 @@ class AuditExecutionApottiController extends Controller
     public function loadApottiRegisterList(Request $request){
         $data = Validator::make($request->all(), [
             'directorate_id' => 'required',
-            'fiscal_year_id' => 'required',
+            'fiscal_year_id' => 'nullable',
             'apotti_type' => 'required',
         ])->validate();
 
         $data['start_date'] = $request->start_date;
         $data['end_date'] = $request->end_date;
+        $data['page'] = $request->page;
+        $data['per_page'] = $request->per_page;
+
+
         $data['cdesk'] = $this->current_desk_json();
-        $apotti_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.apotti_register_list'), $data)->json();
-        //dd($apotti_list);
-        if (isSuccess($apotti_list)) {
-            $apotti_list = $apotti_list['data'];
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.apotti_register_list'), $data)->json();
+
+        if (isSuccess($response)) {
+            $response = $response['data'];
+            $apotti_list = $response['apotti_list'];
+            $total_jorito_ortho_poriman = $response['total_jorito_ortho_poriman'];
+//            dd($total_jorito_ortho_poriman);
             return view('modules.audit_execution.audit_execution_apotti.partial.load_apotti_register_list',
-                compact('apotti_list'));
+                compact('apotti_list','total_jorito_ortho_poriman'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $apotti_list]);
+            return response()->json(['status' => 'error', 'data' => $response]);
         }
     }
 
@@ -98,11 +105,12 @@ class AuditExecutionApottiController extends Controller
     {
         $data = Validator::make($request->all(), [
             'apottiId' => 'required',
+            'minOnucchedNo' => 'required',
         ])->validate();
+
         $data['cdesk'] = $this->current_desk_json();
 
         $apotti_item_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.apotti_wise_all_tiem'), $data)->json();
-
 
         if (isSuccess($apotti_item_list)) {
             $apotti_item_list = $apotti_item_list['data'];
@@ -112,7 +120,9 @@ class AuditExecutionApottiController extends Controller
             }
             $apotti_ids = json_encode($request->apottiId);
             $sequence = $request->sequence;
-            return view('modules.audit_execution.audit_execution_apotti.partial.onucched_form',compact('apotti_item_list','apotti_ids','jorito_ourtho','sequence'));
+            $minOnucchedNo = $request->minOnucchedNo;
+            return view('modules.audit_execution.audit_execution_apotti.partial.onucched_form',
+                compact('apotti_item_list','apotti_ids','jorito_ourtho','sequence','minOnucchedNo'));
         } else {
             return response()->json(['status' => 'error', 'data' => $apotti_item_list]);
         }
@@ -156,8 +166,6 @@ class AuditExecutionApottiController extends Controller
         ];
 
         $unmerged_apotti = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.onucched_unmerge'), $data)->json();
-
-//        dd($unmerged_apotti);
 
         if (isSuccess($unmerged_apotti)) {
             $unmerged_apotti = $unmerged_apotti['data'];
@@ -216,9 +224,8 @@ class AuditExecutionApottiController extends Controller
 
         $data['cdesk'] = $this->current_desk_json();
 
-
         $apotti_info = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.get_apotti_info'), $data)->json();
-//        dd($apotti_info);
+        //dd($apotti_info);
         if (isSuccess($apotti_info)) {
             $apotti_info = $apotti_info['data'];
             return view('modules.audit_execution.audit_execution_apotti.apotti_edit',
@@ -229,7 +236,6 @@ class AuditExecutionApottiController extends Controller
     }
 
     public function updateApotti(Request $request){
-
         Validator::make($request->all(), [
             'apotti_id' => 'required',
         ])->validate();
@@ -239,14 +245,40 @@ class AuditExecutionApottiController extends Controller
             'apotti_id' => $request->apotti_id,
             'onucched_no' => $request->onucched_no,
             'apotti_title' => $request->apotti_title,
+            'total_jorito_ortho_poriman' => $request->total_jorito_ortho_poriman,
             'apotti_description' => $request->apotti_description,
             'irregularity_cause' => $request->irregularity_cause,
             'response_of_rpu' => $request->response_of_rpu,
             'audit_conclusion' => $request->audit_conclusion,
             'audit_recommendation' => $request->audit_recommendation,
+            'apotti_items' => $request->apotti_items ?? [],
+            'jorito_ortho_porimans' => $request->jorito_ortho_porimans ?? [],
+            'porisisto_details' => $request->porisisto_details ?? [],
+            'porisisto_summary' => $request->porisisto_summary ?? [],
         ];
 
         $apotti_update = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.update_apotti'), $data)->json();
+
+        if (isSuccess($apotti_update)) {
+            $apotti_update = $apotti_update['data'];
+            return response()->json(['status' => 'success', 'data' => $apotti_update]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $apotti_update]);
+        }
+    }
+
+
+    public function apottiPorisistoDelete(Request $request){
+        Validator::make($request->all(), [
+            'apotti_porisishto_id' => 'required',
+        ])->validate();
+
+        $data = [
+            'cdesk' => $this->current_desk_json(),
+            'apotti_porisishto_id' => $request->apotti_porisishto_id
+        ];
+
+        $apotti_update = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.delete_apotti_porisisto'), $data)->json();
 
         if (isSuccess($apotti_update)) {
             $apotti_update = $apotti_update['data'];

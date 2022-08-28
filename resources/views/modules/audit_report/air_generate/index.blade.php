@@ -6,13 +6,13 @@
             <option value="">--সিলেক্ট--</option>
             @foreach($fiscal_years as $fiscal_year)
                 <option
-                    value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                    value="{{$fiscal_year['id']}}" {{$current_fiscal_year == $fiscal_year['id']?'selected':''}}>{{$fiscal_year['description']}}</option>
             @endforeach
         </select>
     </div>
 </div>
 
-<div class="card sna-card-border mt-2">
+<div class="card sna-card-border mt-2 mb-14">
     <div class="load-plan-list">
         <div class="d-flex align-items-center">
             <div class="spinner-grow text-warning mr-3" role="status">
@@ -39,10 +39,17 @@
         loadAuditPlanList: function (page = 1, per_page = 500) {
             let air_type = '{{$air_type}}';
             let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             if (fiscal_year_id) {
                 let url = '{{route('audit.report.air.load-approved-plan-list')}}';
                 let data = {air_type, fiscal_year_id, page, per_page};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.error(response.data);
                     } else {
@@ -51,6 +58,7 @@
                 });
             }
             else {
+                KTApp.unblock('#kt_wrapper');
                 $('.load-plan-list').html('');
             }
         },
@@ -59,21 +67,23 @@
             url = '{{route('audit.report.air.create')}}';
             air_type = '{{$air_type}}';
             fiscal_year_id = elem.data('fiscal-year-id');
+            fiscal_year_start = elem.data('fiscal-year-start');
+            fiscal_year_end = elem.data('fiscal-year-end');
             activity_id = elem.data('activity-id');
             annual_plan_id = elem.data('annual-plan-id');
             audit_plan_id = elem.data('audit-plan-id');
             audit_plan_entities = elem.data('audit-plan-entities');
             audit_plan_entity_info = elem.data('audit-plan-entity-info');
 
-            data = {air_type,fiscal_year_id,activity_id,annual_plan_id, audit_plan_id,audit_plan_entities,audit_plan_entity_info};
+            data = {air_type,fiscal_year_id,fiscal_year_start,fiscal_year_end,activity_id,annual_plan_id, audit_plan_id,audit_plan_entities,audit_plan_entity_info};
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
@@ -97,13 +107,13 @@
             data = {fiscal_year_id,activity_id,annual_plan_id, audit_plan_id,audit_plan_entities, air_report_id};
 
 
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
@@ -124,13 +134,13 @@
             air_report_id = elem.data('air-report-id');
             audit_plan_entities = elem.data('audit-plan-entities');
             data = {air_report_id,audit_plan_entities};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {

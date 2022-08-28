@@ -98,7 +98,7 @@ class OperationalPlanController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $event_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.op_yearly_event_lists'), $data)->json();
-
+//        dd($event_list);
         $event_list = isSuccess($event_list)?$event_list['data']:[];
         return view('modules.audit_plan.operational.approve_plan.partials.load_op_yearly_event_lists',compact('event_list'));
 
@@ -111,37 +111,41 @@ class OperationalPlanController extends Controller
         $office_id = $request->office_id;
         $activity_type = $request->activity_type;
         $op_audit_calendar_event_id = $request->op_audit_calendar_event_id;
+        $has_update_request = $request->has_update_request;
         return view('modules.audit_plan.operational.approve_plan.partials.load_op_yearly_event_approval_form',
-            compact('op_audit_calendar_event_id','fiscal_year_id','office_id','activity_type','annual_plan_main_id'));
+            compact('op_audit_calendar_event_id','fiscal_year_id','office_id','activity_type','annual_plan_main_id','has_update_request'));
     }
 
     public function loadDirectorateWiseAnnualPlan(Request $request)
     {
+        $fiscal_year_id = $request->fiscal_year_id;
+        $annual_plan_main_id = $request->annual_plan_main_id;
+        $activity_type = $request->activity_type;
+
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
             'office_id' => 'required|integer',
             'annual_plan_main_id' => 'required|integer',
             'activity_type' => 'nullable',
+            'has_update_request' => 'nullable',
         ])->validate();
+
         $data['cdesk'] = $this->current_desk_json();
 
         $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
-//        dd($plan_infos);
-        /*$directorateInfo = $this->initDoptorHttp()->post(config('cag_doptor_api.offices'), ['office_ids' => $request->office_id])->json();
-        $directorateInfo = $directorateInfo['status'] == 'success'?$directorateInfo['data']:[];
-        dd($directorateInfo);*/
-
-        if ($request->office_id == 19) {
-            $directorate_address = 'অডিট কমপ্লেক্স,১ম তলা <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-        } elseif ($request->office_id == 32) {
-            $directorate_address = 'অডিট কমপ্লেক্স (নিচ তলা ও ২য় তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-        } else {
-            $directorate_address = 'অডিট কমপ্লেক্স (৭ম-৮ম তলা) <br> সেগুনবাগিচা,ঢাকা-১০০০।';
-        }
+        //dd($plan_infos);
 
         if (isSuccess($plan_infos)) {
             $plan_infos = $plan_infos['data'];
-            return view('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos,'directorate_address'=> $directorate_address], [], ['orientation' => 'L', 'format' => 'A4']);
+            $office_id = $request->office_id;
+            return view('modules.audit_plan.operational.approve_plan.partials.annual_plan_book',
+            [
+                'plan_infos' => $plan_infos,
+                'office_id' => $office_id,
+                'fiscal_year_id' => $fiscal_year_id,
+                'annual_plan_main_id' => $annual_plan_main_id,
+                'activity_type' => $activity_type,
+            ], [], ['orientation' => 'L', 'format' => 'A4']);
         } else {
             return response()->json(['status' => 'error', 'data' => $plan_infos]);
         }
@@ -158,11 +162,19 @@ class OperationalPlanController extends Controller
                 'office_id' => 'required|integer',
                 'activity_type' => 'required|string',
                 'receiver_type' => 'required',
+                'has_update_request' => 'nullable',
                 'status' => 'required',
+            ],[
+                'status.required' => 'স্ট্যাটাস বাছাই করুন'
             ])->validate();
 
             $data['comments'] = $request->comments;
             $data['cdesk'] = $this->current_desk_json();
+
+            if($request->has_update_request){
+                $annual_plan_log_pdf = $this->generateAnnualPlanLogPdf($data);
+                $data['annual_plan_log_pdf'] = $annual_plan_log_pdf;
+            }
 
             $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.send_annual_plan_receiver_to_sender'), $data)->json();
 //            dd($responseData);
@@ -171,6 +183,7 @@ class OperationalPlanController extends Controller
             } else {
                 return response()->json(['status' => 'error', 'data' => $responseData]);
             }
+
         } catch (ValidationException $exception) {
             return response()->json([
                 'status' => 'error',
@@ -180,5 +193,19 @@ class OperationalPlanController extends Controller
         } catch (\Exception $exception) {
             return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
         }
+    }
+
+    public function generateAnnualPlanLogPdf($data){
+        $data['has_update_request'] = 0;
+        $plan_infos = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.ap_yearly_plan_book'), $data)->json();
+        if (isSuccess($plan_infos)) {
+            $plan_infos = $plan_infos['data'];
+            $office_id = $data['office_id'];
+            $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.partials.annual_plan_book', ['plan_infos' => $plan_infos,'office_id' => $office_id], [], ['orientation' => 'L', 'format' => 'A4']);
+            return base64_encode($pdf->output());
+        } else {
+            return response()->json(['status' => 'error', 'data' => $plan_infos]);
+        }
+
     }
 }

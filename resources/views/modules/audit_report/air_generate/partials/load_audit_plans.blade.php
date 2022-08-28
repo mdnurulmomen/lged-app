@@ -1,84 +1,4 @@
 @if(!empty($audit_plans['data']))
-    <div class="search-all position-relative">
-        <div class="row">
-            <div class="col align-self-start">
-                <div class="input-group-append">
-                    <button class="btn btn-icon btn-light-info btn-square advanced_button" type="button"><i
-                            class="fa fa-caret-down"></i>
-                    </button>
-                    <input type="text" placeholder="অনুসন্ধান করুন" class="form-control rounded-0">
-                    <button data-toggle="tooltip" data-placement="left" title="খুঁজুন"
-                            class="btn btn-icon btn-light-success btn-square" type="button"><i
-                            class="fad fa-search"></i>
-                    </button>
-                    <button data-toggle="tooltip" data-placement="left" title="রিসেট"
-                            class="btn btn-icon btn-light-danger btn-square" id="reset_btn" type="reset"><i
-                            class="fad fa-recycle"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="toolbar flex-wrap justify-content-between shadow-sm pl-1 d-flex border-bottom">
-        <div class="d-flex">
-            <div id="daak_group_action_panel">
-                <div class="d-flex flex-wrap">
-                    <div class="btn-group">
-                        <div class="dropdown bootstrap-select form-control">
-                            <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light border-0"
-                                    data-toggle="dropdown" role="combobox" aria-owns="bs-select-1"
-                                    aria-haspopup="listbox" aria-expanded="false" data-id="daak_status_selectpicker"
-                                    title="সকল">
-                                <div class="filter-option">
-                                    <div class="filter-option-inner">
-                                        <div class="filter-option-inner-inner">সকল</div>
-                                    </div>
-                                </div>
-                            </button>
-                            <div class="dropdown-menu " style="max-height: 406px; overflow: hidden; min-height: 118px;">
-                                <div class="inner show" role="listbox" id="bs-select-1" tabindex="-1"
-                                     aria-activedescendant="bs-select-1-0"
-                                     style="max-height: 406px; overflow-y: auto; min-height: 118px;">
-                                    <ul class="dropdown-menu inner show" role="presentation"
-                                        style="margin-top: 0px; margin-bottom: 0px;">
-                                        <li class="selected active"><a role="option"
-                                                                       class="dropdown-item active selected"
-                                                                       id="bs-select-1-0" tabindex="0" aria-setsize="5"
-                                                                       aria-posinset="1" aria-selected="true"><span
-                                                    class="text">সকল</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button id="btn-daak-toolbar-reset" class="btn btn-icon mx-1" type="button" data-toggle="tooltip"
-                            title="রিসেট">
-                        <span class="fas fa-recycle text-warning"></span>
-                    </button>
-                    <button id="btn-daak-toolbar-refresh" class="btn btn-icon mx-1" type="button" data-toggle="tooltip"
-                            title="রিফ্রেশ">
-                        <span class="fa fa-sync text-info"></span>
-                    </button>
-                    <div id="personal_folder_selected_name" class="p-2 d-none">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="daak_pagination_panel" class="float-right d-flex align-items-center" style="vertical-align:middle;">
-                <span class="mr-2"><span id="daak_item_length_start">১</span> - <span id="daak_item_length_end">{{enTobn(count($audit_plans['data']))}}</span> সর্বমোট: <span
-                        id="daak_item_total_record">{{enTobn(count($audit_plans['data']))}}</span></span>
-            <div class="btn-group">
-                <button class="btn-list-prev btn btn-icon btn-secondary btn-square" disabled="disabled" type="button"><i
-                        class="fad fa-chevron-left" data-toggle="popover" data-content="পূর্ববর্তী"
-                        data-original-title="" title=""></i></button>
-                <button class="btn-list-next btn btn-icon btn-secondary btn-square" type="button" disabled="disabled"><i
-                        class="fad fa-chevron-right" data-toggle="popover" data-content="পরবর্তী" data-original-title=""
-                        title=""></i></button>
-            </div>
-        </div>
-    </div>
-
     {{--list view--}}
     <div>
         <ul class="list-group list-group-flush">
@@ -146,7 +66,7 @@
                                         @foreach($audit_plan['air_reports'] as $airReport)
                                             <a href="javascript:;"
                                                title="এআইআর-{{enTobn($airReport['id'])}} বিস্তারিত দেখুন"
-                                               class="badge-square rounded-0 badge d-flex align-items-center {{$airReport['status'] == 'approved'?'alert-success':'alert-danger'}}
+                                               class="badge-square rounded-0 badge d-flex align-items-center {{$airReport['status'] == 'approved'?'tap-alert-success':'tap-alert-danger'}}
                                                    font-weight-normal mr-1 border decision"
                                                data-fiscal-year-id="{{$audit_plan['fiscal_year_id']}}"
                                                data-activity-id="{{$audit_plan['activity_id']}}"
@@ -157,8 +77,10 @@
                                                data-air-report-id="{{$airReport['id']}}"
                                                onclick="AIR_Container.loadAIRShow($(this))">
                                                 <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
-                                                প্রিলিমিনারি এআইআর: {{enTobn($airReport['id'])}}
-                                                {{empty($airReport['latest_r_air_movement'])?'':'('.$airReport['latest_r_air_movement']['receiver_employee_designation_bn'].' এর কাছে প্রেরণ করা হয়েছে)'}}
+                                                ড্রাফ্ট এআইআর: {{enTobn($airReport['id'])}}
+                                                @if($airReport['status'] == 'draft')
+                                                    {{empty($airReport['latest_r_air_movement'])?'':'('.$airReport['latest_r_air_movement']['receiver_employee_designation_bn'].' এর কাছে প্রেরণ করা হয়েছে)'}}
+                                                @endif
                                             </a>
                                         @endforeach
                                     </div>
@@ -183,13 +105,15 @@
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
                                             <button class="mr-3 btn btn-sm btn-primary btn-square" title="নতুন এআইআর করুন"
                                                     data-fiscal-year-id="{{$audit_plan['fiscal_year_id']}}"
+                                                    data-fiscal-year-start="{{$audit_plan['fiscal_year']['start']}}"
+                                                    data-fiscal-year-end="{{$audit_plan['fiscal_year']['end']}}"
                                                     data-activity-id="{{$audit_plan['activity_id']}}"
                                                     data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
                                                     data-audit-plan-id="{{$audit_plan['id']}}"
                                                     data-audit-plan-entity-info="{{json_encode($audit_plan['annual_plan']['ap_entities'])}}"
                                                     data-audit-plan-entities="{{implode(' , ', array_unique($entities))}}"
                                                     onclick="AIR_Container.loadAIRCreate($(this))">
-                                                <i class="fad fa-plus-circle"></i> নতুন এআইআর
+                                                <i class="fad fa-plus-circle"></i> ড্রাফট এআইআর তৈরি করুন
                                             </button>
                                         </div>
                                     </div>

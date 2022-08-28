@@ -39,7 +39,7 @@
                 <tr>
                     <td style="text-align: justify;">
                         <span style="padding:5px; margin-bottom: 5px">
-                            <b>অনুচ্ছেদ নং - {{enTobn($apotti['onucched_no'])}}  </b>
+                            <b>অনুচ্ছেদ নম্বর - {{enTobn($apotti['onucched_no'])}}  </b>
 
                             @if($apotti['is_combined'])
                                 <span class="badge badge-info text-uppercase m-1 p-1 ">
@@ -101,12 +101,12 @@
             apotti_id = elem.data('apotti-id');
             let url = '{{route('pac.get-apotti-item')}}';
             let data = {apotti_id};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -125,12 +125,12 @@
             apotti_item_id = elem.data('apotti-item-id');
             let url = '{{route('pac.cag-and-directorate-decision-form')}}';
             let data = {apotti_item_id};
-            KTApp.block('#kt_content', {
+            KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_content');
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {

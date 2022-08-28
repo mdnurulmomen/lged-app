@@ -32,15 +32,23 @@
 <table class="table table-hover" id="tblLocations">
     <thead class="thead-light">
     <tr class="bg-hover-warning">
+        <th width="5%" class="datatable-cell datatable-cell-sort text-left">
+            ক্রমিক নম্বর
+        </th>
+
         <th width="5%" class="datatable-cell datatable-cell-sort text-center">
             <input type="checkbox" id="selectAll">
         </th>
 
         <th width="10%" class="datatable-cell datatable-cell-sort text-left">
-            অনুচ্ছেদ নং
+            অনুচ্ছেদ নম্বর
         </th>
 
-        <th width="55%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="20%" class="datatable-cell datatable-cell-sort text-left">
+            কস্ট সেন্টার/ইউনিট
+        </th>
+
+        <th width="30%" class="datatable-cell datatable-cell-sort text-left">
             শিরোনাম
         </th>
 
@@ -55,13 +63,15 @@
     </thead>
 
     <tbody>
-    @forelse($apotti_list['data'] as $apotti)
+    @forelse($apotti_list as $apotti)
         <tr class="text-center">
+            <td>{{enTobn($loop->iteration)}}</td>
             <td>
                 <input
                     type="checkbox"
                     {{$apotti['air_generate_type'] == 'preliminary'?'disabled':''}}
                     data-sequence="{{$apotti['apotti_sequence']}}"
+                    data-onucched-no="{{$apotti['onucched_no']}}"
                     value="{{$apotti['id']}}"
                     class="select-apotti">
 
@@ -69,7 +79,7 @@
             </td>
             <td class="text-left">
 
-                <input data-id="{{$apotti['id']}}" data-real-val="{{$apotti['onucched_no']}}" id="apptti_{{$apotti['id']}}" class="bijoy-bangla onucched_no" type="text" style="width: 25px;" value="{{$apotti['onucched_no']}}">
+                <input data-id="{{$apotti['id']}}" data-real-val="{{$apotti['onucched_no']}}" id="apptti_{{$apotti['id']}}" class="bijoy-bangla onucched_no" type="text" style="width: 40px;" value="{{$apotti['onucched_no']}}">
 
                 @if(count($apotti['apotti_items']) > 1)
                     <span class="badge badge-info text-uppercase m-1 p-1 ">
@@ -78,10 +88,13 @@
                 @endif
             </td>
             <td class="text-left">
+                {{$apotti['is_combined'] == 0 ? $apotti['apotti_items'][0]['cost_center_name_bn'] : $apotti['parent_office_name_bn']}}
+            </td>
+            <td class="text-left">
                 {{$apotti['apotti_title']}}
             </td>
             <td class="text-right">
-                <span>{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}</span>
+                <span>{{enTobn(currency_format($apotti['total_jorito_ortho_poriman']))}}</span>
             </td>
 
             <td>
@@ -102,7 +115,7 @@
         </tr>
     @empty
         <tr data-row="0" class="datatable-row" style="left: 0px;">
-            <td colspan="4" class="datatable-cell text-center"><span>Nothing Found</span></td>
+            <td colspan="6" class="datatable-cell text-center"><span>Nothing Found</span></td>
         </tr>
     @endforelse
     </tbody>
@@ -152,15 +165,27 @@
         }
     });
 
-    $(".onucched_no").on('keyup',function(){
+    $(".onucched_no").on('blur',function(){
 
         onucched_no = $(this).val();
         change_id = $(this).attr('data-id');
         real_val = $(this).attr('data-real-val');
 
+        var maximum = 0;
+        $('.onucched_no').each(function() {
+            var value = $(this).val();
+            maximum = (value > maximum) ? value : maximum;
+        });
+
+        if(onucched_no > maximum){
+            toastr.warning(onucched_no + 'No is not exist');
+            $(this).val(real_val)
+            return;
+        }
+
+
         $('.onucched_no').each(function(){
             id = $(this).attr('data-id');
-
             if(onucched_no == $(this).val()){
                 if(change_id != id){
                     $('#apptti_'+id).val(real_val);

@@ -1,11 +1,11 @@
-<div class="mt-5 table-responsive">
+<div class="mt-5 mb-12 table-responsive">
     <table class="table table-bordered" width="100%">
         <thead>
         <tr>
             <th width="5%">
                 <input type="checkbox" id="checkAllApottis">
             </th>
-            <th style="text-align: center" width="10%">অনুচ্ছেদ নং</th>
+            <th style="text-align: center" width="10%">অনুচ্ছেদ নম্বর</th>
             <th style="text-align: center" width="75%">শিরোনাম</th>
             <th style="text-align: center" width="10%">জড়িত টাকা</th>
         </tr>
@@ -16,7 +16,7 @@
                 <td><input type="checkbox" checked class="apotti" value="{{$apotti['apotti_map_data']['id']}}" name="apotti"></td>
                 <td style="text-align: center">{{enTobn($apotti['apotti_map_data']['onucched_no'])}}.</td>
                 <td style="text-align: left;margin-left: 5px">{{$apotti['apotti_map_data']['apotti_title']}}</td>
-                <td style="text-align: right">{{enTobn(number_format($apotti['apotti_map_data']['total_jorito_ortho_poriman'],0))}}/-</td>
+                <td style="text-align: right">{{enTobn(currency_format($apotti['apotti_map_data']['total_jorito_ortho_poriman']))}}/-</td>
             </tr>
         @endforeach
 
@@ -25,7 +25,7 @@
                 <td><input type="checkbox"  class="apotti" value="{{$apotti['id']}}" name="apotti"></td>
                 <td style="text-align: center">{{enTobn($apotti['onucched_no'])}}.</td>
                 <td style="text-align: left;margin-left: 5px">{{$apotti['apotti_title']}}</td>
-                <td style="text-align: right">{{enTobn(number_format($apotti['total_jorito_ortho_poriman'],0))}}/-</td>
+                <td style="text-align: right">{{enTobn(currency_format($apotti['total_jorito_ortho_poriman']))}}/-</td>
             </tr>
         @endforeach
         </tbody>
@@ -53,14 +53,20 @@
             });
 
             $("#auditApottis").val(apottis);
-            $('.air_report_save').click();
 
             if (apottis.length > 0) {
                 Audit_Apotti_Container.setAuditApottiSummary(apottis);
                 Audit_Apotti_Container.setAuditApottiDetails(apottis);
-                Audit_Apotti_Container.setAuditApottiWisePrisistos(apottis);
+                //Audit_Apotti_Container.setAuditApottiWisePrisistos(JSON.stringify(apottis));
+                Audit_Apotti_Container.setAuditApottiWisePrisistos();
                 toastr.success('সফলভাবে আপত্তিসমূহ সংরক্ষণ করা হয়েছে');
+                $('#kt_quick_panel_close').click();
+                $('.air_report_save').click();
+            }else{
+                toastr.warning('আপত্তি বাছাই করুন');
+                return;
             }
+
         },
 
         setAuditApottiSummary: function (apottis) {
@@ -85,14 +91,15 @@
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
+                    $('.audit_apotti_details').html('');
                     $('.audit_apotti_details').html(response);
                     Insert_AIR_Data_Container.setJsonContentFromPlanBook();
                 }
             });
         },
 
-        setAuditApottiWisePrisistos: function (apottis) {
-            url = '{{route('audit.report.air.get-audit-apotti-wise-porisistos')}}';
+        setAuditApottiWisePrisistos: function () {
+            /*url = '{{route('audit.report.air.get-audit-apotti-wise-porisistos')}}';
             let data = {apottis};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 if (response.status === 'error') {
@@ -101,7 +108,10 @@
                     $('.audit_apotti_porisistos').html(response);
                     Insert_AIR_Data_Container.setJsonContentFromPlanBook();
                 }
-            });
+            });*/
+
+            $('.audit_apotti_porisistos').html('<h1 class="text-center">পরিশিষ্টসমূহ ডাউলোড এর পর দেখতে পারবেন।</h1>');
+            Insert_AIR_Data_Container.setJsonContentFromPlanBook();
         },
     }
 

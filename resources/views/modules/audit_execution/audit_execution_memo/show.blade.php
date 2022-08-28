@@ -11,11 +11,8 @@
 <div style="height: 100%">
     <div style="text-align: center;color: black">
         মহাপরিচালকের কার্যালয়<br>
-        {{$directorateName}} <br>
-        {!! $directorateAddress !!}<br>
-        <u>{{$directorateWebsite}}</u>
     </div>
-    {{--    <x-office-header-details />--}}
+        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="false"  />
     <br>
     @if($memoInfoDetails['memo']['memo_sharok_no'])
         <table width="100%">
@@ -94,11 +91,11 @@
                 @if($memoInfoDetails['memo']['issued_by'] == 'sub_team_leader')
                     <p>({{$memoInfoDetails['memo']['sub_team_leader_name']}})</p>
                     <p>{{$memoInfoDetails['memo']['sub_team_leader_designation']}} ও উপদলনেতা</p>
-                    <p>{{$directorateName}}</p>
+                    <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"/>
                 @else
                     <p>({{$memoInfoDetails['memo']['team_leader_name']}})</p>
                     <p>{{$memoInfoDetails['memo']['team_leader_designation']}} ও দলনেতা</p>
-                    <p>{{$directorateName}}</p>
+                    <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"/>
                 @endif
             </td>
         </tr>
@@ -148,16 +145,25 @@
                 @if($memoInfoDetails['memo']['issued_by'] == 'sub_team_leader')
                     <p>({{$memoInfoDetails['memo']['sub_team_leader_name']}})</p>
                     <p>{{$memoInfoDetails['memo']['sub_team_leader_designation']}} ও উপদলনেতা</p>
-                    <p>{{$directorateName}}</p>
+                    <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"/>
                 @else
                     <p>({{$memoInfoDetails['memo']['team_leader_name']}})</p>
                     <p>{{$memoInfoDetails['memo']['team_leader_designation']}} ও দলনেতা</p>
-                    <p>{{$directorateName}}</p>
+                    <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"/>
                 @endif
             </td>
         </tr>
     </table>
+    <br>
+
+
+    {{--porisishto--}}
+    @foreach($memoInfoDetails['memo']['ac_memo_porisishtos'] as $porisishto)
+        <div style="height: 100%">{!! $porisishto['details'] !!}</div>
+    @endforeach
 </div>
+
+
 
 
 <script>

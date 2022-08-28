@@ -5,7 +5,10 @@
         <div class="row">
             <div class="col-md-7">
                 <h4 class="mt-3">
-                    {{$cost_center_name_bn}}
+                    {{$cost_center_name_bn}} <br>
+                    @if(!empty($project_name_bn))
+                        প্রজেক্টঃ {{$project_name_bn}}
+                    @endif
                 </h4>
             </div>
             <div class="col-md-5">
@@ -16,7 +19,7 @@
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>
 
-                    <a class="btn btn-sm btn-success btn-square"
+                    <a class="btn btn-sm btn-primary btn-square"
                        onclick="Audit_Query_Container.addQuery($(this))"
                        title="মেমো তৈরি করুন"
                        href="javascript:;">
@@ -28,14 +31,14 @@
     </div>
 </div>
 
-<div class="card sna-card-border mt-2">
+<div class="card sna-card-border mt-2 mb-14">
     <div id="load_query_list"></div>
 </div>
 
 <script>
 
     $(function () {
-        KTApp.block('#kt_content', {
+        KTApp.block('#kt_wrapper', {
             opacity: 0.1,
             state: 'primary' // a bootstrap color
         });
@@ -46,7 +49,7 @@
         url = '{{route('audit.execution.query.load-list')}}';
         data = {audit_plan_id,schedule_id,entity_id,cost_center_id};
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-            KTApp.unblock('#kt_content');
+            KTApp.unblock('#kt_wrapper');
             if (response.status === 'error') {
                 toastr.warning(response.data)
             } else {

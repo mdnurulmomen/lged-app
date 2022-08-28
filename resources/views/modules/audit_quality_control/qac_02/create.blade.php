@@ -13,7 +13,8 @@
 @endsection
 @section('content')
     <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
-    <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
+
+    <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
         <div class="col-md-6">
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">
@@ -35,15 +36,46 @@
                 @endif
             @endif
 
-                @if($approved_status == 'approved')
-                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
-                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
-                                    title="প্রাপক বাছাই করুন"
-                                    onclick="QAC_AIR_Report_Container.loadCagAuthority()">
-                                <i class="fad fa-paper-plane"></i> সিকিউএটি এর জন্য প্রেরণ করুন
-                        </button>
-                    @endif
+            @if($approved_status == 'approved')
+                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)
+                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"
+                                title="প্রাপক বাছাই করুন"
+                                onclick="QAC_AIR_Report_Container.loadCagAuthority()">
+                            <i class="fad fa-paper-plane"></i> সিকিউএটি এর জন্য প্রেরণ করুন
+                    </button>
                 @endif
+            @endif
+
+            <div class="dropdown dropdown-inline btn-outline-primary tap-button">
+                <a href="#" class="btn btn-sm dropdown-toggle px-5 tap-button btn-outline-primary"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fad fa-download"></i> ডাউনলোড
+                </a>
+                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="">
+                    <!--begin::Navigation-->
+                    <ul class="navi navi-hover">
+                        <li class="navi-item">
+                            <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('apotti_air')" class="navi-link">
+                                <i class="fad fa-archive mr-3"></i>
+                                <span class="navi-text">এআইআর আপত্তি সমূহ</span>
+                            </a>
+                        </li>
+                        <li class="navi-item">
+                            <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('porishisto_air')" class="navi-link">
+                                <i class="fab fa-palfed mr-3"></i>
+                                <span class="navi-text">এআইআর পরিশিষ্ট সমূহ</span>
+                            </a>
+                        </li>
+                        <li class="navi-item">
+                            <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('full_air')" class="navi-link">
+                                <i class="fad fa-box-full mr-3"></i>
+                                <span class="navi-text">সম্পূর্ণ এআইআর</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--end::Navigation-->
+                </div>
+            </div>
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
                     data-air-id="{{$air_report_id}}"
@@ -56,7 +88,7 @@
                     <button class="btn btn-sm btn-square btn-success btn-hover-success update-qac-air-report"
                             data-air-id="{{$air_report_id}}"
                             onclick="QAC_AIR_Report_Container.updateAIRReport($(this))">
-                        <i class="fas fa-save"></i> Update
+                        <i class="fas fa-save"></i> সংরক্ষণ করুন
                     </button>
                 @endif
             @endif
@@ -101,13 +133,19 @@
 
     <script>
         $(function () {
+            KTApp.block('#kt_full_width_page', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
             let approved_status = '{{$approved_status}}';
             if (approved_status != 'approved'){
                 $(".update-qac-air-report").click();
-                QAC_AIR_Report_Container.insertAuditApottiSummary();
-                QAC_AIR_Report_Container.insertAuditApottiDetails();
+                QAC_AIR_Report_Container.setAuditApottiSummary();
+                QAC_AIR_Report_Container.setAuditApottiDetails();
+                //QAC_AIR_Report_Container.setAuditApottiWisePrisistos();
                 $(".update-qac-air-report").click();
             }
+            KTApp.unblock('#kt_full_width_page');
         });
 
         var QAC_AIR_Report_Container = {
@@ -121,9 +159,15 @@
             updateAIRReport: function (elem) {
                 url = '{{route('audit.report.air.qac.update-air-report')}}';
                 air_id = elem.data('air-id');
+                air_type = '{{$qac_type}}';
                 air_description = JSON.stringify(templateArray);
-                data = {air_id,air_description};
+                data = {air_id,air_type,air_description};
+                KTApp.block('#kt_full_width_page', {
+                    opacity: 0.1,
+                    state: 'primary' // a bootstrap color
+                });
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'success') {
                         toastr.success('Audit Report Saved Successfully');
                     } else {
@@ -143,13 +187,13 @@
                 data = {scope,air_description};
                 url = '{{route('audit.report.air.qac2.preview')}}';
 
-                KTApp.block('#kt_content', {
+                KTApp.block('#kt_full_width_page', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('#kt_content');
+                    KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {
@@ -165,7 +209,7 @@
                 });
             },
 
-            insertAuditApottiSummary: function () {
+            setAuditApottiSummary: function () {
                 url = '{{route('audit.report.air.qac.get-air-wise-qac-apotti')}}';
                 qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'summary';
@@ -182,7 +226,7 @@
             },
 
 
-            insertAuditApottiDetails: function () {
+            setAuditApottiDetails: function () {
                 url = '{{route('audit.report.air.qac.get-air-wise-qac-apotti')}}';
                 qac_type = '{{$qac_type}}';
                 apotti_view_scope = 'details';
@@ -198,19 +242,34 @@
                 });
             },
 
+
+            setAuditApottiWisePrisistos: function () {
+                url = '{{route('audit.report.air.qac.get-air-wise-porisistos')}}';
+                air_id = '{{$air_report_id}}';
+                let data = {air_id};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data);
+                    } else {
+                        $('.audit_apotti_porisistos').html(response);
+                        QAC_AIR_Report_Container.setJsonContentFromPlanBook();
+                    }
+                });
+            },
+
             loadApprovalAuthority: function () {
                 url = '{{route('audit.report.air.get-approval-authority')}}';
                 air_report_id = '{{$air_report_id}}';
                 air_type = '{{$qac_type}}';
                 data = {air_report_id,air_type};
 
-                KTApp.block('.content', {
+                KTApp.block('#kt_full_width_page', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('.content');
+                    KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {
@@ -232,13 +291,13 @@
                 air_type = '{{$qac_type}}';
                 data = {air_report_id,air_type};
 
-                KTApp.block('.content', {
+                KTApp.block('#kt_full_width_page', {
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
 
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                    KTApp.unblock('.content');
+                    KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {
@@ -253,6 +312,48 @@
                     }
                 });
             },
+
+            downloadAIRReport: function(scope = 'only_apotti') {
+                air_description = templateArray;
+                air_id = '{{$air_report_id}}';
+
+                if (air_id){
+                    data = {scope, air_id, air_description};
+
+                    KTApp.block('#kt_full_width_page', {
+                        opacity: 0.1,
+                        message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                        state: 'primary' // a bootstrap color
+                    });
+
+
+                    url = '{{route('audit.report.air.qac2.download')}}';
+
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: data,
+                        xhrFields: {
+                            responseType: 'blob'
+                        },
+                        success: function(response) {
+                            KTApp.unblock("#kt_full_width_page");
+                            var blob = new Blob([response]);
+                            var link = document.createElement('a');
+                            link.href = window.URL.createObjectURL(blob);
+                            link.download = "QAC2 Report " + new Date().toDateString().replace(/ /g, "_") + ".pdf";
+                            link.click();
+                        },
+                        error: function(blob) {
+                            KTApp.unblock("#kt_quick_panel");
+                            toastr.error('Failed to generate PDF.')
+                            console.log(blob);
+                        }
+                    });
+                }else {
+                    toastr.error('এআইআর সংরক্ষন করুন');
+                }
+            }
         }
     </script>
 @endsection
