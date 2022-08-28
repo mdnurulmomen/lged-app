@@ -107,34 +107,35 @@
                             @endif
                             @endforeach
                             @endif
-                            @if($team['team_schedules'])
-                            @php
-                                if(isset($cost_center_id)){
-                                    $schedules = json_decode($team['team_schedules'],true);
-                                    $schedules = array_filter($schedules, function ($var) use ($cost_center_id){
-                                             return ($var['cost_center_id'] == $cost_center_id);
-                                        });
-                                }else{
-                                    $schedules = json_decode($team['team_schedules'],true);
-                                }
 
-                            @endphp
-                            @foreach($schedules as $schedule)
-                        {
-                            title: '{{$team['team_name']}}  (দলনেতা : {{$team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
-                            start: '{{$schedule['team_member_start_date']}}',
-                            end: '{{$schedule['team_member_end_date']}}',
-                            description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
-                            team_id: '{{$team['id']}}',
-                            team_name: '{{$team['team_name']}}',
-                            team_members: '{{$team['team_members']}}',
-                            team_schedules: '{{$team['team_schedules']}}',
-                            audit_start_end_year: '{{$team['audit_year_start']}} - {{$team['audit_year_end']}}',
-                            className: "fc-event-waring @if($team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-primary @endif"
+{{--                            @if($team['team_schedules'])--}}
+{{--                            @php--}}
+{{--                                if(isset($cost_center_id)){--}}
+{{--                                    $schedules = json_decode($team['team_schedules'],true);--}}
+{{--                                    $schedules = array_filter($schedules, function ($var) use ($cost_center_id){--}}
+{{--                                             return ($var['cost_center_id'] == $cost_center_id);--}}
+{{--                                        });--}}
+{{--                                }else{--}}
+{{--                                    $schedules = json_decode($team['team_schedules'],true);--}}
+{{--                                }--}}
 
-                        },
-                        @endforeach
-                        @endif
+{{--                            @endphp--}}
+{{--                            @foreach($schedules as $schedule)--}}
+{{--                        {--}}
+{{--                            title: '{{$team['team_name']}}  (দলনেতা : {{$team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',--}}
+{{--                            start: '{{$schedule['team_member_start_date']}}',--}}
+{{--                            end: '{{$schedule['team_member_end_date']}}',--}}
+{{--                            description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',--}}
+{{--                            team_id: '{{$team['id']}}',--}}
+{{--                            team_name: '{{$team['team_name']}}',--}}
+{{--                            team_members: '{{$team['team_members']}}',--}}
+{{--                            team_schedules: '{{$team['team_schedules']}}',--}}
+{{--                            audit_start_end_year: '{{$team['audit_year_start']}} - {{$team['audit_year_end']}}',--}}
+{{--                            className: "fc-event-waring @if($team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-primary @endif"--}}
+
+{{--                        },--}}
+{{--                        @endforeach--}}
+{{--                        @endif--}}
                         @endforeach
                     ],
 
