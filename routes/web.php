@@ -765,7 +765,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             Route::get('directorate-wise-ministry-total-observation', [ObservationsReportController::class, 'directorateWiseMinistryTotalObservation'])->name('directorate-wise-ministry-total-observation');
             Route::post('get-directorate-wise-ministry-total-observation', [ObservationsReportController::class, 'getDirectorateWiseMinistryTotalObservation'])->name('get-directorate-wise-ministry-total-observation');
-            Route::post('get-directorate-wise-ministry-total-observation-export', [ObservationsReportController::class, 'getDirectorateWiseMinistryTotalObservationExport'])->name('get-directorate-wise-ministry-total-observation-export');
+            Route::post('get-directorate-wise-ministry-total-observation-download', [ObservationsReportController::class, 'getDirectorateWiseMinistryTotalObservationDownload'])->name('get-directorate-wise-ministry-total-observation-download');
         });
     });
 

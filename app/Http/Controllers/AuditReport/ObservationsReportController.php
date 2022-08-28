@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ObservationsReportController extends Controller
 {
@@ -115,6 +117,8 @@ class ObservationsReportController extends Controller
             compact('office_id','directorates'));
     }
 
+
+
     public function getDirectorateWiseMinistryTotalObservation(Request $request){
         $data['directorate_id']  = $request->office_id;
         $ministry_list = $this->initHttpWithToken()->post(config('cag_rpu_api.get-directorate-wise-ministry-total-observation'), $data)->json();
@@ -128,17 +132,14 @@ class ObservationsReportController extends Controller
         }
     }
 
-    public function getDirectorateWiseMinistryTotalObservationExport(Request $request){
+    public function getDirectorateWiseMinistryTotalObservationDownload(Request $request){
         $data['directorate_id']  = $request->office_id;
+
         $ministry_list = $this->initHttpWithToken()->post(config('cag_rpu_api.get-directorate-wise-ministry-total-observation'), $data)->json();
-//        dd($ministry_list);
-        if (isSuccess($ministry_list)) {
-            $ministry_list = $ministry_list['data'];
-            return view('modules.audit_report.observations_report.partials.load_directorate_wise_ministry_total_observation_report',
-                compact('ministry_list'));
-        } else {
-            return response()->json(['status' => 'error', 'data' => $ministry_list]);
-        }
+        $ministry_list = isSuccess($ministry_list) ? $ministry_list['data'] : [];
+        $data['ministry_list'] = $ministry_list;
+        $pdf = \PDF::loadView('modules.audit_report.observations_report.partials.directorate_wise_ministry_total_observation_book', $data, ['orientation' => 'P', 'format' => 'A4']);
+        return $pdf->stream('document.pdf');
     }
 
 }

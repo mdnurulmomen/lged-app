@@ -47,23 +47,37 @@
                 }
             });
         },
-        loadDirectoratewiseMinistryReportExport: function () {
+        loadDirectoratewiseMinistryReportDownload: function () {
 
             let office_id = $('#directorate_filter').val();
+            let url = '{{route('audit.report.observations.get-directorate-wise-ministry-total-observation-download')}}';
+
+            data = {office_id};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
+                message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
                 state: 'primary' // a bootstrap color
             });
 
-            let url = '{{route('audit.report.observations.get-directorate-wise-ministry-total-observation-export')}}';
-            let data = {office_id};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_wrapper');
-                if (response.status === 'error') {
-                    toastr.error(response.data);
-                } else {
-                    $('.load-directorate-wise-ministry').html(response);
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (response) {
+                    KTApp.unblock('#kt_wrapper');
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "directorate_wise_ministry_apotti.pdf";
+                    link.click();
+                },
+                error: function (blob) {
+                    toastr.error('Failed to generate PDF.')
+                    console.log(blob);
                 }
             });
         },

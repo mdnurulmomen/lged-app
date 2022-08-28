@@ -1060,6 +1060,7 @@
                     }
                     data_content = $('#' + v.id).attr('data-content');
                     content = JSON.parse(data_content);
+
                     officer_id = content.officer_id;
                     layer_id = $('#' + v.id).attr('data-layer');
 
@@ -1112,6 +1113,8 @@
                     if (layer_id in all_teams == false) {
                         all_teams['all_teams'][layer_id] = {};
                     }
+
+                    console.log(leader_info);
 
                     all_teams['team_start_date'] = formatDate($('#team_start_date').val());
                     all_teams['team_end_date'] = formatDate($('#team_end_date').val());
