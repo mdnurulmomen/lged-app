@@ -19,7 +19,7 @@
                                         <span class="font-size-14">
                                             {{$schedule['entity_name_bn']}}
                                             <span class="label label-outline-warning label-pill label-inline">
-                                                প্ল্যান - {{$schedule['audit_plan_id']}}
+                                                প্ল্যান - {{enTobn($schedule['audit_plan_id'])}}
                                             </span>
                                         </span>
                                     </div>
@@ -63,13 +63,13 @@
                                                 <i class="flaticon2-copy mr-2 text-primary"></i>
                                             </div>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-md-end">
+                                        {{--<div class="d-flex align-items-center justify-content-md-end">
                                             <div class="mb-2 mt-3 soongukto-wrapper">
                                                 <div class="d-flex justify-content-end align-items-center">
                                                     <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($schedule['created_at'],'bn')}}</div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>--}}
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
                                             @if($schedule['office_order'] != null && $schedule['office_order']['approved_status'] == 'approved')
                                                 @if($schedule['team_member_start_date'] <= date('Y-m-d',strtotime(now())))
@@ -106,7 +106,7 @@
                                                     </button>
                                                 @else
                                                     <button class="mr-3 btn btn-sm btn-outline-danger btn-square">
-                                                        <i class="fad fa-info-square"></i> অডিট  শুরুর তারিখ {{formatDate($schedule['team_member_start_date'],'bn')}}
+                                                        <i class="fad fa-info-square"></i> অডিট  শুরুর তারিখ হতে ({{formatDate($schedule['team_member_start_date'],'bn')}}) কোয়েরি এবং মেমোর বাটন দৃশ্যমান হবে
                                                     </button>
                                                 @endif
                                             @else

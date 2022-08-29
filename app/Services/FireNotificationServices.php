@@ -45,11 +45,11 @@ class FireNotificationServices
                     throw new \Exception($send_mail['message']);
                 }
 
-                \Log::info('MAIL SENT SUCCESSFUL: ' . $data['notifiable_type']);
+                /*\Log::info('MAIL SENT SUCCESSFUL: ' . $data['notifiable_type']);*/
                 return response()->json(responseFormat('success', 'Successfully Sent Mail'));
             }
         } catch (\Exception $exception) {
-            \Log::error($exception->getMessage());
+            /*\Log::error($exception->getMessage());*/
             return response()->json(responseFormat('error', $exception->getMessage()));
         }
     }

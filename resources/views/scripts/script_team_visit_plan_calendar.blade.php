@@ -154,8 +154,8 @@
 
                         html += `<table class="table table-bordered" id='table'>
                                 <tr>
-                                    <th>শাখার নাম</th>
-                                    <th>নিরীক্ষা বছর</th>
+                                    <th>ইউনিট/কস্ট সেন্টারের নাম</th>
+                                    <th>অর্থ বছর</th>
                                     <th>নিরীক্ষা সময়কাল</th>
                                     <th>মোট কর্ম দিবস</th>
                                 </tr>`;
