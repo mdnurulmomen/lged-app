@@ -200,7 +200,7 @@
             );
         },
         loadTeamFilter: function (directorate_id, fiscal_year_id, cost_center_id, team_id) {
-            KTApp.block('#load_team_calendar')
+            KTApp.block('#load_team_calendar');
             let url = '{{route('calendar.load-teams-calender-filter')}}';
             let data = {directorate_id, fiscal_year_id, cost_center_id, team_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {

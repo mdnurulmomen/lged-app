@@ -126,6 +126,7 @@
                             start: '{{$schedule['team_member_start_date']}}',
                             end: '{{$schedule['team_member_end_date']}}',
                             description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
+                            directorate_name: $("#directorate_filter option:selected").text(),
                             team_id: '{{$team['id']}}',
                             team_name: '{{$team['team_name']}}',
                             team_members: '{{$team['team_members']}}',
@@ -228,8 +229,8 @@
 
                         html += `<table width='100%' class="table table-bordered" id='table'>
                                 <tr>
-                                    <th width='30%'>শাখার নাম</th>
-                                    <th width='25%'>নিরীক্ষা বছর</th>
+                                    <th width='30%'>ইউনিট/কস্ট সেন্টারের নাম</th>
+                                    <th width='25%'>অর্থ বছর</th>
                                     <th width='35%'>নিরীক্ষা সময়কাল</th>
                                     <th width='10%'>মোট কর্ম দিবস</th>
                                 </tr>`;
@@ -263,7 +264,7 @@
                         quick_panel.removeClass('d-none');
                         $("html").addClass("side-panel-overlay");
 
-                        $('.offcanvas-title').html(event.event.extendedProps.team_name);
+                        $('.offcanvas-title').html(event.event.extendedProps.directorate_name+' &#8594; '+event.event.extendedProps.team_name);
                         $('.offcanvas-wrapper').html(html);
 
                     },
