@@ -140,8 +140,12 @@ class RpuApottiController extends Controller
             'memo_type.required' => 'আপত্তি ক্যাটাগরি অবশ্যক',
         ])->validate();
 
+        $memorandum_date = formatDate($request->memorandum_date,'en','-');
+
         $data['apottis'] = explode(",",$request->apottis);
-        $data['memorandum_date'] = date("y-m-d",strtotime($request->memorandum_date));
+        $data['memorandum_date'] = date("Y-m-d",strtotime($memorandum_date));
+
+//        dd($data);
 
         $store_broad_sheet = $this->initRPUHttp()->post(config('cag_rpu_api.store-rpu-broad-sheet'), $data)->json();
 
