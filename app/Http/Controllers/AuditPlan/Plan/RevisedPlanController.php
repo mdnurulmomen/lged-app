@@ -222,6 +222,9 @@ class RevisedPlanController extends Controller
         }
         $data['activity_id'] = $request->activity_id;
         $data['annual_plan_id'] = $request->annual_plan_id;
+        $data['plan_no'] = $request->plan_no;
+
+//        dd($data);
 
         //$plan_description = json_decode($request->plan_description);
         $data['plan_description'] = makeEncryptedData(gzcompress(json_encode($request->plan_description)));

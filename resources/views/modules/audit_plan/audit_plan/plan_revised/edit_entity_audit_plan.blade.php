@@ -34,12 +34,15 @@
     <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
         <div class="col-md-4">
             <div class="title py-2">
-                <h4 class="mb-0 font-weight-bold">
-                    <a href="{{route('audit.plan.audit.plan.all')}}">
-                        <i title="Back To Audit Plan" class="fad fa-backward mr-3"></i>
-                    </a>
-                    Edit Audit Plan
-                </h4>
+                <span>
+                    <h4 class="mb-0 font-weight-bold">
+                        <a href="{{route('audit.plan.audit.plan.all')}}">
+                            <i title="Back To Audit Plan" class="fad fa-backward mr-3"></i>
+                        </a>
+                        <span>Edit Audit Plan <input id="plan_no" name="plan_no" style="width: 80px;height: 35px" type="text" value="{{$audit_plan['plan_no']}}"
+                                                     class="text-hover-primary font-weight-bold p-2 bijoy-bangla"></span>
+                    </h4>
+                </span>
             </div>
         </div>
         <div class="col-md-8 text-right">
@@ -47,6 +50,7 @@
             @if($check_edit_lock)
                 <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
                         data-audit-plan-id="{{$audit_plan['id']}}"
+                        data-audit-plan-no="{{$audit_plan['plan_no']}}"
                         data-office-order-approval-status="{{$audit_plan['office_order'] ? $audit_plan['office_order']['approved_status'] : ''}}"
                         data-has-update-office-order="{{$audit_plan['has_update_office_order']}}"
                         data-parent-office-id="{{$entity_list}}"
