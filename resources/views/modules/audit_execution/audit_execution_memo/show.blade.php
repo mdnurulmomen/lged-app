@@ -6,11 +6,13 @@
             <i class="far fa-download"></i> মেমো ডাউনলোড
         </button>
 
-        <button title="ডাউনলোড করুন" data-scope="porisistho" data-memo-id="{{$memoInfoDetails['memo']['id']}}" data-directorate-id="{{$directorate_id}}"
-                onclick="Show_Memo_Container.memoPDFDownload($(this))"
-                class="btn btn-danger btn-sm btn-bold btn-square">
-            <i class="far fa-download"></i> পরিশিষ্ট ডাউনলোড
-        </button>
+        @if(!empty($memoInfoDetails['memo']['ac_memo_porisishtos']))
+            <button title="ডাউনলোড করুন" data-scope="porisistho" data-memo-id="{{$memoInfoDetails['memo']['id']}}" data-directorate-id="{{$directorate_id}}"
+                    onclick="Show_Memo_Container.memoPDFDownload($(this))"
+                    class="btn btn-danger btn-sm btn-bold btn-square">
+                <i class="far fa-download"></i> পরিশিষ্ট ডাউনলোড
+            </button>
+        @endif
     </div>
 </div>
 
@@ -164,9 +166,9 @@
 
 
     {{--porisishto--}}
-    @foreach($memoInfoDetails['memo']['ac_memo_porisishtos'] as $porisishto)
+    {{--@foreach($memoInfoDetails['memo']['ac_memo_porisishtos'] as $porisishto)
         <div style="height: 100%">{!! $porisishto['details'] !!}</div>
-    @endforeach
+    @endforeach--}}
 </div>
 
 

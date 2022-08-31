@@ -869,6 +869,7 @@
                 </td>
             </tr>
         </table>
+
         <table width="100%" style="color: black">
             <tr>
                 <td class="bangla-font" width="33%" style="text-align: left">
@@ -907,7 +908,7 @@
             </table>
         @endif
 
-        {{--<br>
+        <br>
         <table class="bangla-font" width="100%" style="color: black">
             <tr>
                 <td width="33%"></td>
@@ -924,7 +925,7 @@
                     @endif
                 </td>
             </tr>
-        </table>--}}
+        </table>
     </div>
 </div>
 </body>

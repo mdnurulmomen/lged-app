@@ -162,8 +162,8 @@
                             </div>
 
                             <div class="card sna-card-border mb-4">
-                                <label class="col-form-label">পরিশিষ্ট সংযুক্তি</label>
-                                <input name="porisishtos[]" type="file" class="mFilerInit form-control rounded-0" multiple>
+                                {{--<label class="col-form-label">পরিশিষ্ট সংযুক্তি</label>
+                                <input name="porisishtos[]" type="file" class="mFilerInit form-control rounded-0" multiple>--}}
 
                                 <label class="col-form-label">প্রমানক সংযুক্তি</label>
                                 <input name="pramanoks[]" type="file" class="mFilerInit form-control rounded-0" multiple>

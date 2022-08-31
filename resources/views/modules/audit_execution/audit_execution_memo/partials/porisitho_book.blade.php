@@ -795,9 +795,11 @@
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     {{--porisishto--}}
     @if(!empty($memoInfo['ac_memo_porisishtos']))
-        @foreach($memoInfo['ac_memo_porisishtos'] as $porisishto)
-            <div class="pdf-screen bangla-font" style="height: 100%">{!! $porisishto['details'] !!}</div>
-        @endforeach
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;color: black">
+            @foreach($memoInfo['ac_memo_porisishtos'] as $porisishto)
+                <div class="pdf-screen bangla-font" style="height: 100%">{!! $porisishto['details'] !!}</div>
+            @endforeach
+        </div>
     @else
         <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;color: black">
             <h2>কোন পরিশিষ্ট পাওয়া যায় নি</h2>

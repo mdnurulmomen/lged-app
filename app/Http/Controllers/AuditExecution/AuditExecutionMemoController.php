@@ -185,7 +185,7 @@ class AuditExecutionMemoController extends Controller
 
 
         //for porisishtos
-        if ($request->hasfile('porisishtos')) {
+        /*if ($request->hasfile('porisishtos')) {
             foreach ($request->file('porisishtos') as $file) {
                 $data[] = [
                     'name' => 'porisishtos[]',
@@ -193,7 +193,7 @@ class AuditExecutionMemoController extends Controller
                     'filename' => $file->getClientOriginalName(),
                 ];
             }
-        }
+        }*/
 
 
         //for pramanoks
@@ -467,7 +467,7 @@ class AuditExecutionMemoController extends Controller
 
 
         //for porisishtos
-        if ($request->hasfile('porisishtos')) {
+        /*if ($request->hasfile('porisishtos')) {
             foreach ($request->file('porisishtos') as $file) {
                 $data[] = [
                     'name' => 'porisishtos[]',
@@ -475,7 +475,7 @@ class AuditExecutionMemoController extends Controller
                     'filename' => $file->getClientOriginalName(),
                 ];
             }
-        }
+        }*/
 
 
         //for pramanoks

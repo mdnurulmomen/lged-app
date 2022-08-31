@@ -140,6 +140,14 @@
             </div>
         </div>
         <div class="col-md-5">
+            <div class="card sna-card-border px-3 mb-2">
+                
+                <div class="form-group">
+                    <label for="responsible_person_details">দায়িত্বপ্রাপ্ত কর্মকর্তা</label>
+                    <textarea class="form-control" id="responsible_person_details" name="responsible_person_details" cols="30" rows="4">{{$auditQueryInfo['responsible_person_details']}}</textarea>
+                </div>
+            </div>
+
             <div class="card sna-card-border">
                 <label for="">কস্ট সেন্টার টাইপ</label>
                 <select name="cost_center_type_id" id="cost_center_type" class="form-control">
