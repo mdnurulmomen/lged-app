@@ -89,9 +89,10 @@
                                 <tbody>
                                 @foreach($auditQueryInfo['query_items'] as $item)
                                     <tr>
-                                        <td width="82%">
-                                                    <textarea class="form-control" name="audit_query_items[]" cols="30"
-                                                              rows="1">{{$item['item_title_bn']}}</textarea>
+                                        <td width="5%"><span style="font-size: 16px" class="m-3">{{enTobn($loop->iteration)}}</span></td>
+                                        <td width="77%">
+                                            <textarea class="form-control audit_query_item" name="audit_query_items[]" cols="30"
+                                                      rows="1">{{$item['item_title_bn']}}</textarea>
                                         </td>
                                         <td class="pt-2">
                                             <button title="যোগ করুন" type='button'
@@ -108,17 +109,19 @@
                                     </tr>
                                 @endforeach
                                 <tr>
-                                    <td width="82%">
-                                        <input class="form-control" type="text" name="audit_query_items[]">
+                                    <td width="5%"><span style="font-size: 16px" class="m-3">{{enTobn(count($auditQueryInfo['query_items'])+1)}}</span></td>
+                                    <td width="77%">
+                                        <textarea class="form-control audit_query_item" name="audit_query_items[]" cols="30"
+                                                  rows="1"></textarea>
                                     </td>
                                     <td class="pt-2">
                                         <button title="যোগ করুন" type='button'
-                                                class='btn btn-primary btn-sm btn-square'
+                                                class='btn btn-outline-primary btn-sm btn-square'
                                                 onclick="Query_Create_Container.addQueryItem()">
                                             <span class='fa fa-plus'></span>
                                         </button>
                                         <button title="মুছে ফেলুন" type='button'
-                                                class='btn btn-danger btn-sm btn-square'
+                                                class='btn btn-outline-danger btn-sm btn-square'
                                                 onclick="Query_Create_Container.removeQueryItem($(this))">
                                             <span class='fa fa-trash'></span>
                                         </button>
@@ -173,10 +176,12 @@
 
     var Query_Create_Container = {
         addQueryItem: function (value='') {
+            item_length = enTobn($(".audit_query_item").length+1);
             queryItemHtml = `
             <tr>
-                <td width="82%">
-                    <textarea class="form-control" name="audit_query_items[]" cols="30" rows="1">${value}</textarea>
+                <td width="5%"><span style="font-size: 16px" class="m-3">${item_length}</span></td>
+                <td width="77%">
+                    <textarea class="form-control audit_query_item" name="audit_query_items[]" cols="30" rows="1">${value}</textarea>
                 </td>
                 <td class="pt-2">
                     <button title="যোগ করুন" type='button' class='btn btn-outline-primary btn-sm btn-square'

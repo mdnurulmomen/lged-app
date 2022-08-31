@@ -82,6 +82,11 @@
                                                             data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                             data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
                                                             data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
+                                                            data-team-leader-name-bn="{{$schedule['plan_parent_team']['leader_name_bn']}}"
+                                                            data-team-leader-designation-name-bn="{{$schedule['plan_parent_team']['leader_designation_name_bn']}}"
+                                                            data-scope-sub-team-leader="{{$schedule['plan_team']['team_parent_id']}}"
+                                                            data-sub-team-leader-name-bn="{{$schedule['plan_team']['leader_name_bn']}}"
+                                                            data-sub-team-leader-designation-name-bn="{{$schedule['plan_team']['leader_designation_name_bn']}}"
                                                             data-project-name-bn="{{$schedule['annual_plan'] && $schedule['annual_plan']['project_id'] ? $schedule['annual_plan']['project_name_bn'] : ''}}">
                                                         <i class="fad fa-clipboard-list"></i> কোয়েরি ({{enTobn($schedule['queries_count'])}})
                                                     </button>

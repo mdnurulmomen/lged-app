@@ -1,9 +1,15 @@
 <div class="col-md-12">
-    <div class="d-flex justify-content-end mt-4">
-        <button title="ডাউনলোড করুন" data-memo-id="{{$memoInfoDetails['memo']['id']}}" data-directorate-id="{{$directorate_id}}"
+    <div class="d-flex justify-content-end mb-2">
+        <button title="ডাউনলোড করুন" data-scope="memo" data-memo-id="{{$memoInfoDetails['memo']['id']}}" data-directorate-id="{{$directorate_id}}"
                 onclick="Show_Memo_Container.memoPDFDownload($(this))"
-                class="btn btn-info btn-sm btn-bold btn-square">
-            <i class="far fa-download"></i> ডাউনলোড
+                class="btn btn-danger btn-sm btn-bold btn-square mr-2">
+            <i class="far fa-download"></i> মেমো ডাউনলোড
+        </button>
+
+        <button title="ডাউনলোড করুন" data-scope="porisistho" data-memo-id="{{$memoInfoDetails['memo']['id']}}" data-directorate-id="{{$directorate_id}}"
+                onclick="Show_Memo_Container.memoPDFDownload($(this))"
+                class="btn btn-danger btn-sm btn-bold btn-square">
+            <i class="far fa-download"></i> পরিশিষ্ট ডাউনলোড
         </button>
     </div>
 </div>
@@ -169,10 +175,17 @@
 <script>
     var Show_Memo_Container = {
         memoPDFDownload: function (elem) {
-            url = '{{route('audit.execution.memo.download.pdf')}}';
+            url = '{{route('audit.execution.memo.download')}}';
+            scope = elem.data('scope');
             memo_id = elem.data('memo-id');
             directorate_id = elem.data('directorate-id');
-            data = {memo_id, directorate_id};
+            data = {scope,memo_id,directorate_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                state: 'primary' // a bootstrap color
+            });
 
             $.ajax({
                 type: 'POST',
@@ -185,8 +198,9 @@
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "memo.pdf";
+                    link.download = scope+".pdf";
                     link.click();
+                    KTApp.unblock('#kt_wrapper');
                 },
                 error: function (blob) {
                     toastr.error('Failed to generate PDF.')

@@ -22,6 +22,11 @@
                         data-cost-center-id="{{$cost_center_id}}"
                         data-cost-center-name-en="{{$cost_center_name_en}}"
                         data-cost-center-name-bn="{{$cost_center_name_bn}}"
+                        data-team-leader-name-bn="{{$team_leader_name}}"
+                        data-team-leader-designation-name-bn="{{$team_leader_designation_name}}"
+                        data-scope-sub-team-leader="{{$scope_sub_team_leader}}"
+                        data-sub-team-leader-name-bn="{{$sub_team_leader_name}}"
+                        data-sub-team-leader-designation-name-bn="{{$sub_team_leader_designation_name}}"
                         class="btn btn-sm btn-warning btn_back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>
@@ -121,6 +126,36 @@
             </div>
         </div>
         <div class="col-md-5">
+            <div class="card sna-card-border px-3 mb-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-form-label text-primary bold mr-3">ইস্যুকারীঃ</label>
+                        <input type="radio" class="mr-1" name="issued_by" value="team_leader" checked><span class="mr-3">দলনেতা</span>
+                        <input type="radio" class="mr-1" name="issued_by" value="sub_team_leader"><span class="mr-3">উপদলনেতা</span>
+
+                        <br>
+                        <label class="col-form-label">দলনেতা</label>
+                        <input type="text" class="form-control mb-1" placeholder="দলনেতা" readonly
+                               value="{{$team_leader_name.' ('.$team_leader_designation_name.')'}}">
+                        <input type="hidden" name="team_leader_name" value="{{$team_leader_name}}">
+                        <input type="hidden" name="team_leader_designation" value="{{$team_leader_designation_name}}">
+
+                        <label class="col-form-label">উপদলনেতা</label>
+                        <input type="text" class="form-control mb-1" placeholder="উপদলনেতা" readonly
+                               value="{{$scope_sub_team_leader > 0?$sub_team_leader_name.' ('.$sub_team_leader_designation_name.')':''}}">
+                        <input type="hidden" name="sub_team_leader_name"
+                               value="{{$scope_sub_team_leader > 0?$sub_team_leader_name:''}}">
+                        <input type="hidden" name="sub_team_leader_designation"
+                               value="{{$scope_sub_team_leader > 0?$sub_team_leader_designation_name:''}}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="responsible_person_details">দায়িত্বপ্রাপ্ত কর্মকর্তা</label>
+                    <textarea class="form-control" id="responsible_person_details" name="responsible_person_details" cols="30" rows="4"></textarea>
+                </div>
+            </div>
+
             <div class="card sna-card-border px-3">
                 <label for="cost_center_type">কস্ট সেন্টার টাইপ</label>
                 <select name="cost_center_type_id" id="cost_center_type" class="form-control">

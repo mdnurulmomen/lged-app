@@ -31,6 +31,7 @@ class AuditExecutionMemoController extends Controller
         $sub_team_leader_name = $request->sub_team_leader_name;
         $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
         $project_name_bn = $request->project_name_bn;
+
         return view(
             'modules.audit_execution.audit_execution_memo.index',
             compact(
@@ -590,8 +591,10 @@ class AuditExecutionMemoController extends Controller
         //dd($responseData);
         $memoInfo = isSuccess($responseData) ? $responseData['data'] : [];
 
+        $renderFile = $request->scope == 'memo'?'memo_book':'porisitho_book';
+        //dd($memoInfo['ac_memo_porisishtos']);
         $pdf = \PDF::loadView(
-            'modules.audit_execution.audit_execution_memo.partials.memo_book',
+            'modules.audit_execution.audit_execution_memo.partials.'.$renderFile,
             compact('memoInfo','directorate_id')
         );
         return $pdf->stream('document.pdf');

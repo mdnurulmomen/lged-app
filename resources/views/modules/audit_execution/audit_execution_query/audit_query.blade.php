@@ -21,7 +21,7 @@
 
                     <a class="btn btn-sm btn-primary btn-square"
                        onclick="Audit_Query_Container.addQuery($(this))"
-                       title="মেমো তৈরি করুন"
+                       title="কোয়েরি শিট তৈরি করুন"
                        href="javascript:;">
                         <i class="fa fa-plus mr-1"></i> কোয়েরি শিট
                     </a>
@@ -66,7 +66,14 @@
             cost_center_id = '{{$cost_center_id}}';
             cost_center_name_bn = '{{$cost_center_name_bn}}';
             cost_center_name_en = '{{$cost_center_name_bn}}';
-            data = {schedule_id,audit_plan_id,entity_id,cost_center_id,cost_center_name_bn,cost_center_name_en};
+            team_leader_name = '{{$team_leader_name}}';
+            team_leader_designation_name = '{{$team_leader_designation_name}}';
+            scope_sub_team_leader = '{{$scope_sub_team_leader}}';
+            sub_team_leader_name = '{{$sub_team_leader_name}}';
+            sub_team_leader_designation_name = '{{$sub_team_leader_designation_name}}';
+
+            data = {schedule_id,audit_plan_id,entity_id,cost_center_id,cost_center_name_bn,cost_center_name_en,team_leader_name,team_leader_designation_name,scope_sub_team_leader,sub_team_leader_name,sub_team_leader_designation_name};
+
             url = '{{route('audit.execution.query.create')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
