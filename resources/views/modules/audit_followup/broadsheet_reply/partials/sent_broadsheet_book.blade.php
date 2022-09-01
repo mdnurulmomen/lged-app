@@ -869,7 +869,9 @@
                 @endforeach
                 </tbody>
             </table>
-            <p style="padding-left: 8%;margin-top: 5px">মহাপরিচালক মহোদয়ের সদয় অনুমোদনক্রমে।</p>
+            <p style="padding-left: 8%;margin-top: 5px">
+                {{$broadSheetItem[0]['apotti']['memo_type'] == 'sfi' ? 'মহাপরিচালক' : 'পরিচালক' }}
+                মহোদয়ের সদয় অনুমোদনক্রমে।</p>
         </div>
 
         <br><br>
