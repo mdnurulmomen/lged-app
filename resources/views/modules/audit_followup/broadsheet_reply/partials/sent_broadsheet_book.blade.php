@@ -848,7 +848,15 @@
                         <td class="bangla-font" style="text-align: center;vertical-align: top;">{{enTobn($broadSheet['apotti']['cost_center_name_bn'])}}</td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;">
                            <p><b>অনুচ্ছেদ নম্বর : </b>{{enTobn($broadSheet['apotti']['onucched_no'])}}</p>
-                            <p><b>নিরীক্ষা বছর : </b>{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</p>
+                           <p><b>নিরীক্ষা বছর : </b>{{enTobn($broadSheet['apotti']['fiscal_year']['start']).'-'.enTobn($broadSheet['apotti']['fiscal_year']['end'])}}</p>
+                            <p><b>আপত্তি ক্যাটাগরি : </b>
+                                @if($broadSheet['apotti']['memo_type'] == 'sfi')
+                                    @php $apottiType = 'এসএফআই'; @endphp
+                                @else
+                                    @php $apottiType = 'নন-এসএফআই'; @endphp
+                                @endif
+                                {{$apottiType}}
+                            </p>
                         </td>
                         <td class="bangla-font" style="text-align: justify;vertical-align: top;">
                             <span style="padding:5px; margin-bottom: 5px;">{{$broadSheet['apotti']['memo_title_bn']}}</span>

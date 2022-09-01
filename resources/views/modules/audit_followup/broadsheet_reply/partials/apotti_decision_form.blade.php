@@ -8,20 +8,20 @@
             <div class="row mb-1">
                 <div class="col-md-12">
                     <label>জড়িত টাকার</label>
-                    <input class="form-control bijoy-bangla" name="jorito_ortho" value="{{$jorito_ortho}}" readonly>
+                    <input id="jorito_ortho" class="form-control bijoy-bangla" name="jorito_ortho" value="{{$jorito_ortho}}" readonly>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6">
                     <label>আদায়কৃত অর্থ</label>
-                    <input class="form-control bijoy-bangla" name="collected_amount"
+                    <input id="collected_amount" class="form-control bijoy-bangla integer_type_positive" name="collected_amount"
                            value="{{isset($apotti_item_info['collected_amount']) ? $apotti_item_info['collected_amount'] : ''}}"
                            placeholder="আদায়কৃত অর্থ">
                 </div>
                 <div class="col-md-6">
                     <label>সমন্বয় কৃত অর্থ</label>
-                    <input class="form-control bijoy-bangla" name="adjusted_amount"
+                    <input id="adjusted_amount" class="form-control bijoy-bangla integer_type_positive" name="adjusted_amount"
                            value="{{isset($apotti_item_info['adjusted_amount']) ? $apotti_item_info['adjusted_amount'] : ''}}"
                            placeholder="সমন্বয় কৃত অর্থ">
                 </div>
@@ -80,3 +80,20 @@
         </button>
     </div>
 </div>
+
+<script>
+    $('#collected_amount,#adjusted_amount').on('blur',function () {
+        jorito_ortho = $('#jorito_ortho').val();
+        collected_amount = $('#collected_amount').val() ? $('#collected_amount').val() : 0;
+        adjusted_amount = $('#adjusted_amount').val() ? $('#adjusted_amount').val() : 0;
+
+        total = parseInt(collected_amount) + parseInt(adjusted_amount);
+
+        if(total > jorito_ortho){
+            toastr.warning('অ্যামাউন্ট জড়িত অর্থ হতে বড় হওয়া যাবে না');
+            $('#collected_amount').val('');
+            $('#adjusted_amount').val('');
+        }
+
+    });
+</script>

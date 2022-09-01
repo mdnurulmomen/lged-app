@@ -133,7 +133,7 @@
                         @if(!$broadSheet['approval_status'])
                             <button class="mr-1 mr-1 btn btn-sm btn-primary btn-square btn_apotti_decision" title="সিদ্ধান্ত"
                                     data-broad-sheet-id="{{$broadSheet['broad_sheet_reply_id']}}"
-                                    data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
+                                    data-apotti-item-id="{{$broadSheet['apotti_item_id']}}"
                                     data-memo-id="{{$broadSheet['apotti']['memo_id']}}"
                                     data-jorito-ortho="{{$broadSheet['apotti']['jorito_ortho_poriman']}}"
                                     data-broad-sheet-type="{{$broadSheetInfo['broad_sheet_type']}}"
@@ -152,7 +152,7 @@
                                 @if($desk_officer_grade == 6)
                                     <button class="mr-1 btn btn-sm btn-info btn-square" title="অনুমোদন করুন"
                                             data-broad-sheet-id="{{$broadSheet['broad_sheet_reply_id']}}"
-                                            data-apotti-item-id="{{$broadSheet['apotti']['id']}}"
+                                            data-apotti-item-id="{{$broadSheet['apotti_item_id']}}"
                                             data-memo-id="{{$broadSheet['apotti']['memo_id']}}"
                                             onclick="ApottiDecision_Container.approveBraodSheetApotti($(this))">
                                         অনুমোদন করুন
