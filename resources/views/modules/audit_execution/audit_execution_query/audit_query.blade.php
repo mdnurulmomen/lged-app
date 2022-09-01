@@ -46,8 +46,16 @@
         schedule_id = '{{$schedule_id}}';
         entity_id ='{{$entity_id}}';
         cost_center_id ='{{$cost_center_id}}';
+        team_leader_name = '{{$team_leader_name}}';
+        team_leader_designation_name = '{{$team_leader_designation_name}}';
+        scope_sub_team_leader = '{{$scope_sub_team_leader}}';
+        sub_team_leader_name = '{{$sub_team_leader_name}}';
+        sub_team_leader_designation_name = '{{$sub_team_leader_designation_name}}';
+
         url = '{{route('audit.execution.query.load-list')}}';
-        data = {audit_plan_id,schedule_id,entity_id,cost_center_id};
+
+        data = {audit_plan_id,schedule_id,entity_id,cost_center_id,team_leader_name,team_leader_designation_name,scope_sub_team_leader,sub_team_leader_name,sub_team_leader_designation_name};
+
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             KTApp.unblock('#kt_wrapper');
             if (response.status === 'error') {

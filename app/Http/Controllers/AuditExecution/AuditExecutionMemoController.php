@@ -137,6 +137,7 @@ class AuditExecutionMemoController extends Controller
                 'jorito_ortho_poriman' => 'required',
                 'audit_year_start' => 'required',
                 'audit_year_end' => 'required',
+                'finder_officer_id' => 'required',
             ],
             [
                 'schedule_id.required' => 'Audit schedule is required',
@@ -145,6 +146,7 @@ class AuditExecutionMemoController extends Controller
                 'jorito_ortho_poriman.required' => 'Jorito ortho is required',
                 'audit_year_start.required' => 'Audit year start is required',
                 'audit_year_end.required' => 'Audit year end is required',
+                'finder_officer_id.required' => 'Raised by is required',
             ]
         )->validate();
 
@@ -426,6 +428,7 @@ class AuditExecutionMemoController extends Controller
                 'jorito_ortho_poriman' => 'required',
                 'audit_year_start' => 'required',
                 'audit_year_end' => 'required',
+                'finder_officer_id' => 'required',
             ],
             [
                 'memo_id.required' => 'Memo id is required',
@@ -434,6 +437,7 @@ class AuditExecutionMemoController extends Controller
                 'jorito_ortho_poriman.required' => 'Jorito ortho is required',
                 'audit_year_start.required' => 'Audit year start is required',
                 'audit_year_end.required' => 'Audit year end is required',
+                'finder_officer_id.required' => 'Raised by is required',
             ]
         )->validate();
 
