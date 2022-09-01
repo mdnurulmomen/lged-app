@@ -142,11 +142,11 @@
 
                         <label class="col-form-label">উপদলনেতা</label>
                         <input type="text" class="form-control mb-1" placeholder="উপদলনেতা" readonly
-                               value="{{$scope_sub_team_leader > 0?$sub_team_leader_name.' ('.$sub_team_leader_designation_name.')':''}}">
+                               value="{{$sub_team_leader_name ? $sub_team_leader_name.' ('.$sub_team_leader_designation_name.')':''}}">
                         <input type="hidden" name="sub_team_leader_name"
-                               value="{{$scope_sub_team_leader > 0?$sub_team_leader_name:''}}">
+                               value="{{$sub_team_leader_name ?: ''}}">
                         <input type="hidden" name="sub_team_leader_designation"
-                               value="{{$scope_sub_team_leader > 0?$sub_team_leader_designation_name:''}}">
+                               value="{{$sub_team_leader_designation_name ?: ''}}">
                     </div>
                 </div>
 

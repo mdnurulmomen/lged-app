@@ -178,7 +178,13 @@
                 schedule_id = elem.data('schedule-id');
                 audit_plan_id = elem.data('audit-plan-id');
                 entity_id = elem.data('entity-id');
-                data = {ac_query_id, schedule_id, audit_plan_id, entity_id};
+                team_leader_name = '{{$team_leader_name}}';
+                team_leader_designation_name = '{{$team_leader_designation_name}}';
+                scope_sub_team_leader = '{{$scope_sub_team_leader}}';
+                sub_team_leader_name = '{{$sub_team_leader_name}}';
+                sub_team_leader_designation_name = '{{$sub_team_leader_designation_name}}';
+
+                data = {ac_query_id, schedule_id, audit_plan_id, entity_id, team_leader_name, team_leader_designation_name, scope_sub_team_leader, sub_team_leader_name, sub_team_leader_designation_name};
                 url = '{{route('audit.execution.query.edit')}}';
 
                 KTApp.block('#kt_wrapper', {
