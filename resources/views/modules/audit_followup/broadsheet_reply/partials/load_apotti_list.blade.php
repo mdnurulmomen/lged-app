@@ -119,7 +119,7 @@
                                         @if($item['broad_sheet_items_count'] == $item['broad_sheet_item_decision'])
                                             <div class="subject-wrapper font-weight-normal mt-2">
                                                 <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
-                                                        title="জারিপত্র"
+                                                        title="জারিপত্র তৈরি করুন"
                                                         data-broad-sheet-id="{{$item['id']}}"
                                                         data-memorandum-no="{{$item['memorandum_no']}}"
                                                         onclick="Broadsheet_Reply_List_Container.sendToRpuForm($(this))">
@@ -135,6 +135,13 @@
                                                     জারিপত্র প্রেরণ করা হয়েছে
                                                 </button>
                                             @else
+                                                <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
+                                                        title="জারিপত্র তৈরি করুন"
+                                                        data-broad-sheet-id="{{$item['id']}}"
+                                                        data-memorandum-no="{{$item['memorandum_no']}}"
+                                                        onclick="Broadsheet_Reply_List_Container.sendToRpuForm($(this))">
+                                                    <i class="fa fa-edit"></i> জারিপত্র সম্পাদনা করুন
+                                                </button>
                                                 <button data-broad-sheet-id="{{$item['id']}}"
                                                         onclick="Broadsheet_Reply_List_Container.sentBroadSheetReplyToRpu($(this))"
                                                         class="mr-3 btn btn-sm btn-primary btn-square">
@@ -354,11 +361,11 @@
         },
 
         sendToRpuForm: function (elem) {
-
+            office_id = $('#directorate_filter').val();
             broad_sheet_id = elem.data('broad-sheet-id');
             memorandum_no = elem.data('memorandum-no');
 
-            data = {broad_sheet_id,memorandum_no};
+            data = {broad_sheet_id,memorandum_no,office_id};
 
             url = '{{route('audit.followup.broadsheet.reply.send-broad-sheet-reply-form')}}';
 

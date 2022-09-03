@@ -83,7 +83,7 @@
                             <div class="card sna-card-border mb-4">
                                 <div class="row mb-2">
                                     <div class="col-md-12">
-                                        <label class="col-form-label">উত্থাপনকারী</label>
+                                        <label class="col-form-label">উত্থাপনকারী<span class="text-danger">*</span></label>
                                         <select class="form-control select-select2" name="finder_officer_id" id="finder_officer_id">
                                             <option value="" data-finder-office-id="" data-finder-details="">--উত্থাপনকারী বাছাই করুন--</option>
                                             @foreach($team_members as $member)
@@ -162,8 +162,8 @@
                             </div>
 
                             <div class="card sna-card-border mb-4">
-                                <label class="col-form-label">পরিশিষ্ট সংযুক্তি</label>
-                                <input name="porisishtos[]" type="file" class="mFilerInit form-control rounded-0" multiple>
+                                {{--<label class="col-form-label">পরিশিষ্ট সংযুক্তি</label>
+                                <input name="porisishtos[]" type="file" class="mFilerInit form-control rounded-0" multiple>--}}
 
                                 <label class="col-form-label">প্রমানক সংযুক্তি</label>
                                 <input name="pramanoks[]" type="file" class="mFilerInit form-control rounded-0" multiple>

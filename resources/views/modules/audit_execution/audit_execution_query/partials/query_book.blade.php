@@ -849,13 +849,17 @@
 
             <div class="bangla-font"
                 style="font-family:nikoshpdf,serif !important;margin-top:40px;text-align: center;float: right;width: 35%">
-                @if ($auditQueryInfo['plan_team'] != null)
+                {{--@if ($auditQueryInfo['plan_team'] != null)
                     ({{ $auditQueryInfo['plan_team']['leader_name_bn'] }}) <br>
                     {{ $auditQueryInfo['plan_team']['leader_designation_name_bn'] }}, দলনেতা <br>
-                    {{--{{ $auditQueryInfo['plan_team']['team_parent_id'] == 0 ? 'দলনেতা' : 'উপ দলনেতা' }}--}}
-                    {{-- {{$auditQueryInfo['querier_unit_name_bn']}} <br> --}}
+                    --}}{{--{{ $auditQueryInfo['plan_team']['team_parent_id'] == 0 ? 'দলনেতা' : 'উপ দলনেতা' }}--}}{{--
+                    --}}{{-- {{$auditQueryInfo['querier_unit_name_bn']}} <br> --}}{{--
                     অডিট এনগেজমেন্ট {{ $auditQueryInfo['plan_team']['team_name'] }}
-                @endif
+                @endif--}}
+
+                ({{ $auditQueryInfo['team_leader_name'] }}) <br>
+                {{ $auditQueryInfo['team_leader_designation'] }}, দলনেতা <br>
+                অডিট এনগেজমেন্ট {{ $auditQueryInfo['plan_team']['team_name'] }}
             </div>
         </div>
 
@@ -876,11 +880,12 @@
             </div>
 
             <div class="bangla-font" style="font-family:nikoshpdf,serif !important;margin-top:50px;text-align: center;float: right;width: 35%">
-                ({{ $auditQueryInfo['querier_officer_name_bn']}}) <br>
+                {{--({{ $auditQueryInfo['querier_officer_name_bn']}}) <br>
                 {{ $auditQueryInfo['querier_designation_bn']}} <br>
                 @if ($auditQueryInfo['plan_team'])
                     অডিট এনগেজমেন্ট {{ $auditQueryInfo['plan_team']['team_name'] }}
-                @endif
+                @endif--}}
+                {!! nl2br($auditQueryInfo['responsible_person_details']) !!}
             </div>
         </div>
     </div>

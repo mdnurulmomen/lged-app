@@ -89,9 +89,10 @@
                                 <tbody>
                                 @foreach($auditQueryInfo['query_items'] as $item)
                                     <tr>
-                                        <td width="82%">
-                                                    <textarea class="form-control" name="audit_query_items[]" cols="30"
-                                                              rows="1">{{$item['item_title_bn']}}</textarea>
+                                        <td width="5%"><span style="font-size: 16px" class="m-3">{{enTobn($loop->iteration)}}</span></td>
+                                        <td width="77%">
+                                            <textarea class="form-control audit_query_item" name="audit_query_items[]" cols="30"
+                                                      rows="1">{{$item['item_title_bn']}}</textarea>
                                         </td>
                                         <td class="pt-2">
                                             <button title="যোগ করুন" type='button'
@@ -108,17 +109,19 @@
                                     </tr>
                                 @endforeach
                                 <tr>
-                                    <td width="82%">
-                                        <input class="form-control" type="text" name="audit_query_items[]">
+                                    <td width="5%"><span style="font-size: 16px" class="m-3">{{enTobn(count($auditQueryInfo['query_items'])+1)}}</span></td>
+                                    <td width="77%">
+                                        <textarea class="form-control audit_query_item" name="audit_query_items[]" cols="30"
+                                                  rows="1"></textarea>
                                     </td>
                                     <td class="pt-2">
                                         <button title="যোগ করুন" type='button'
-                                                class='btn btn-primary btn-sm btn-square'
+                                                class='btn btn-outline-primary btn-sm btn-square'
                                                 onclick="Query_Create_Container.addQueryItem()">
                                             <span class='fa fa-plus'></span>
                                         </button>
                                         <button title="মুছে ফেলুন" type='button'
-                                                class='btn btn-danger btn-sm btn-square'
+                                                class='btn btn-outline-danger btn-sm btn-square'
                                                 onclick="Query_Create_Container.removeQueryItem($(this))">
                                             <span class='fa fa-trash'></span>
                                         </button>
@@ -137,6 +140,36 @@
             </div>
         </div>
         <div class="col-md-5">
+            <div class="card sna-card-border px-3 mb-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-form-label text-primary bold mr-3">ইস্যুকারীঃ</label>
+                        <input type="radio" class="mr-1" name="issued_by" value="team_leader" {{$auditQueryInfo['issued_by'] == 'team_leader' ? 'checked':''}}><span class="mr-3">দলনেতা</span>
+                        <input type="radio" class="mr-1" name="issued_by" value="sub_team_leader" {{$auditQueryInfo['issued_by'] == 'sub_team_leader' ? 'checked':''}}><span class="mr-3">উপদলনেতা</span>
+
+                        <br>
+                        <label class="col-form-label">দলনেতা</label>
+                        <input type="text" class="form-control mb-1" placeholder="দলনেতা" readonly
+                               value="{{$team_leader_name.' ('.$team_leader_designation_name.')'}}">
+                        <input type="hidden" name="team_leader_name" value="{{$team_leader_name}}">
+                        <input type="hidden" name="team_leader_designation" value="{{$team_leader_designation_name}}">
+
+                        <label class="col-form-label">উপদলনেতা</label>
+                        <input type="text" class="form-control mb-1" placeholder="উপদলনেতা" readonly
+                               value="{{$sub_team_leader_name ? $sub_team_leader_name.' ('.$sub_team_leader_designation_name.')':''}}">
+                        <input type="hidden" name="sub_team_leader_name"
+                               value="{{$sub_team_leader_name ?: ''}}">
+                        <input type="hidden" name="sub_team_leader_designation"
+                               value="{{$sub_team_leader_designation_name ?: ''}}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="responsible_person_details">দায়িত্বপ্রাপ্ত কর্মকর্তা</label>
+                    <textarea class="form-control" id="responsible_person_details" name="responsible_person_details" cols="30" rows="4">{{$auditQueryInfo['responsible_person_details']}}</textarea>
+                </div>
+            </div>
+
             <div class="card sna-card-border">
                 <label for="">কস্ট সেন্টার টাইপ</label>
                 <select name="cost_center_type_id" id="cost_center_type" class="form-control">
@@ -173,10 +206,12 @@
 
     var Query_Create_Container = {
         addQueryItem: function (value='') {
+            item_length = enTobn($(".audit_query_item").length+1);
             queryItemHtml = `
             <tr>
-                <td width="82%">
-                    <textarea class="form-control" name="audit_query_items[]" cols="30" rows="1">${value}</textarea>
+                <td width="5%"><span style="font-size: 16px" class="m-3">${item_length}</span></td>
+                <td width="77%">
+                    <textarea class="form-control audit_query_item" name="audit_query_items[]" cols="30" rows="1">${value}</textarea>
                 </td>
                 <td class="pt-2">
                     <button title="যোগ করুন" type='button' class='btn btn-outline-primary btn-sm btn-square'

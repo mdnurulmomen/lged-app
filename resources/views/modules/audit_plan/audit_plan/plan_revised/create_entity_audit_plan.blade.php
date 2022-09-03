@@ -21,7 +21,8 @@
                     <a href="{{route('audit.plan.audit.index')}}">
                         <i title="Back To Audit Plan" class="fad fa-backward mr-3"></i>
                     </a>
-                    Create Audit Plan
+                    Create Audit Plan <input id="plan_no" name="plan_no" style="width: 80px;height: 35px" type="text" value=""
+                                             class="text-hover-primary font-weight-bold p-2 bijoy-bangla"></span>
                 </h4>
             </div>
         </div>

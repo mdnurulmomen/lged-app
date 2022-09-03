@@ -380,9 +380,18 @@ class BroadsheetReplyController extends Controller
         $data = Validator::make($request->all(), [
             'broad_sheet_id' => 'required|integer',
             'memorandum_no' => 'required',
+            'office_id' => 'required'
         ])->validate();
+        $data['cdesk'] = $this->current_desk_json();
+        $broadSheetinfo = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.get_sent_broad_sheet_info'), $data)->json();
+//        dd($broadSheetinfo);
+        if (isSuccess($broadSheetinfo)) {
+            $data['broad_sheet_info'] = $broadSheetinfo['data'];
+            return view('modules.audit_followup.broadsheet_reply.partials.rpu_braod_sheet_reply_form', $data);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $broadSheetinfo['data']]);
+        }
 
-        return view('modules.audit_followup.broadsheet_reply.partials.rpu_braod_sheet_reply_form', $data);
     }
 
     public function storeBroadSheetReply(Request $request){
@@ -406,7 +415,7 @@ class BroadsheetReplyController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.follow_up.broadsheet_reply.store_broad_sheet_reply'), $data)->json();
-
+//        dd($responseData);
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
         } else {

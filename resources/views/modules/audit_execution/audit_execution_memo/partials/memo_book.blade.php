@@ -869,6 +869,7 @@
                 </td>
             </tr>
         </table>
+
         <table width="100%" style="color: black">
             <tr>
                 <td class="bangla-font" width="33%" style="text-align: left">
@@ -880,6 +881,7 @@
                 <td class="bangla-font" width="33%" style="text-align: center"></td>
             </tr>
         </table>
+
         <br>
         @if($memoInfo['memo_sharok_no'])
             <table class="bangla-font" width="100%" style="color: black">
@@ -889,6 +891,7 @@
                 </tr>
             </table>
         @endif
+
         <br>
         @if($memoInfo['memo_cc'])
             <table class="bangla-font" width="100%" style="color: black">
@@ -904,6 +907,7 @@
                 </tr>
             </table>
         @endif
+
         <br>
         <table class="bangla-font" width="100%" style="color: black">
             <tr>
@@ -923,13 +927,6 @@
             </tr>
         </table>
     </div>
-
-    {{--porisishto--}}
-    @if(!empty($memoInfo['ac_memo_porisishtos']))
-        @foreach($memoInfo['ac_memo_porisishtos'] as $porisishto)
-            <div class="pdf-screen bangla-font" style="height: 100%">{!! $porisishto['details'] !!}</div>
-        @endforeach
-    @endif
 </div>
 </body>
 </html>

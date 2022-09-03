@@ -49,7 +49,7 @@
             </div>
 
             <div class="col-md-3">
-                <button onclick="Rpu_Apotti_Container.loadRpuApottiItem()" class="mt-2 btn btn-sm btn-primary btn-square" type="button">
+                <button onclick="Rpu_Apotti_Container.loadRpuApottiItem()" class="mt-2 btn btn-sm btn-primary btn-square search_btn" type="button">
                     <i class="fad fa-search"></i> অনুসন্ধান
                 </button>
             </div>

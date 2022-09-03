@@ -28,6 +28,7 @@ class PlanEditorController extends Controller
         $annual_plan_id = $request->annual_plan_id;
         $fiscal_year_id = $request->fiscal_year_id;
         $audit_plan_id = $request->audit_plan_id;
+        $audit_plan_no = $request->audit_plan_no;
         $has_update_office_order = $request->has_update_office_order;
         $office_order_approval_status = $request->office_order_approval_status;
         $parent_office_id = json_encode($request->parent_office_id);
@@ -64,7 +65,8 @@ class PlanEditorController extends Controller
             'modal_type',
             'has_update_office_order',
             'office_order_approval_status',
-            'project_id'
+            'project_id',
+            'audit_plan_no',
         ));
     }
 
@@ -90,7 +92,7 @@ class PlanEditorController extends Controller
         $data['project_id'] = $request->project_id;
         $data['parent_office_id'] = $request->parent_office_id;
         $data['cost_center_name_bn'] = $request->cost_center_name_bn;
-        
+
         if($request->project_id){
             $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-project-map-cos-center-autoselect'), $data)->json();
         }else{

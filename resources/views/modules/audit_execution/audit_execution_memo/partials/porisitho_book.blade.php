@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {{--    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>--}}
     <style>
+        @page  {
+            margin-top: 2.54cm;
+            margin-right: 2cm;
+            margin-bottom: 2cm;
+            margin-left: 2.80cm;
+        }
+
         html {
             -ms-text-size-adjust: 100%;
             -webkit-text-size-adjust: 100%;
         }
 
-        @font-face {
-            font-family: 'SolaimanLipi';
-            src: url({{asset('assets/font/SolaimanLipi.ttf')}}) format('truetype');
-            font-weight: normal;
-            font-style: normal
-        }
-
         body {
             margin: 0;
-            font-family: SolaimanLipi !important;
+            font-family: nikoshpdf !important;
+        }
+
+        .bangla-font {
+            font-family: nikoshpdf !important;
         }
 
         article,
@@ -320,7 +326,7 @@
 
             .table-bordered th,
             .table-bordered td {
-                border: 1px solid #ddd !important;
+                border: .5px solid black !important;
             }
         }
 
@@ -338,13 +344,13 @@
         }
 
         html {
-            font-size: 10px;
+            font-size: 16px;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1.42857143;
             color: #333333;
             background-color: #ffffff;
@@ -443,6 +449,7 @@
             cursor: pointer;
         }
 
+
         table {
             background-color: transparent;
         }
@@ -521,7 +528,7 @@
         }
 
         .table-bordered {
-            border: 1px solid #dddddd;
+            border: .5px solid black;
         }
 
         .table-bordered > thead > tr > th,
@@ -530,7 +537,7 @@
         .table-bordered > thead > tr > td,
         .table-bordered > tbody > tr > td,
         .table-bordered > tfoot > tr > td {
-            border: 1px solid #dddddd;
+            border: .5px solid black;
         }
 
         .table-bordered > thead > tr > th,
@@ -778,229 +785,26 @@
             border: 0 !important;
         }
 
-        .pdf-screen {
-            background-color: #ffffff;
-            padding: 0.25in;
-            height: 842px;
-            width: 595px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .pdf-screen:last-child {
-            margin-bottom: 0;
-        }
-
-        .pdf-screen .no-border th, #split-2 .pdf-screen .no-border td {
-            border: 0 !important;
-            padding-left: 0;
-        }
-
-        .pdf-screen .no-border {
-            border: 0 !important;
-        }
-
-        .pdf-screen .pageTileNumber {
-            position: absolute;
-            top: 12px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-        }
-
-        @media print {
-            @page {
-                size: A4;
-                margin: .25in;
-            }
+        table tbody tr td{
+            font-family: nikoshpdf !important;
         }
     </style>
 </head>
-<body style="margin-top: 15px" onLoad="window.print();" onclick="window.close();">
-<div id="writing-screen-wrapper" style="font-family:Nikosh,serif !important;">
-    <div class="pdf-screen" style="height: 100%;font-family:Nikosh,serif !important; page-break-after:always">
-        <div style="font-family:Nikosh,serif !important;text-align: center">
-            মহাপরিচালকের কার্যালয় <br>
-            {{$directorateName}} <br>
-            {!! $directorateAddress !!}
+
+<body>
+<div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
+    {{--porisishto--}}
+    @if(!empty($memoInfo['ac_memo_porisishtos']))
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;color: black">
+            @foreach($memoInfo['ac_memo_porisishtos'] as $porisishto)
+                <div class="pdf-screen bangla-font" style="height: 100%">{!! $porisishto['details'] !!}</div>
+            @endforeach
         </div>
-
-        <div style="font-family:Nikosh,serif !important;width: 100%;margin-top: 10px">
-            <span style="width: 70%;float: left">
-                {{$office_order['memorandum_no']}}
-            </span>
-            <span style="width: 30%;float: right">
-                তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
-            </span>
+    @else
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;color: black">
+            <h2>কোন পরিশিষ্ট পাওয়া যায় নি</h2>
         </div>
-
-        <div style="font-family:Nikosh,serif !important;text-align: center">
-           <b><u>অফিস আদেশ</u></b>
-        </div>
-        <div style="font-family:Nikosh,serif !important;text-align: justify">
-            {{$office_order['heading_details']}}
-        </div>
-
-        <div style="font-family:Nikosh,serif !important;text-align: center">
-            <b><u>নিরীক্ষা দল নং-০১</u></b>
-        </div>
-
-        <div style="margin-top: 5px">
-            <table width="100%" border="1">
-                <thead>
-                <tr>
-                    <th style="text-align: center" width="5%">ক্রমিক নং</th>
-                    <th style="text-align: center" width="45%">নাম</th>
-                    <th style="text-align: center" width="20%">পদবী</th>
-                    <th style="text-align: center" width="15%">নিরীক্ষা দলের অবস্থান</th>
-                    <th style="text-align: center" width="15%">মোবাইল নং</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($audit_team_members as $audit_team_member)
-                    <tr>
-                        <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
-                        <td style="text-align: left">{{$audit_team_member['team_member_name_bn']}}</td>
-                        <td style="text-align: center">{{$audit_team_member['team_member_designation_bn']}}</td>
-                        <td style="text-align: center">{{$audit_team_member['team_member_role_bn']}}</td>
-                        <td style="text-align: center">{{enTobn($audit_team_member['mobile_no'])}}</td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-
-        @foreach($audit_team_schedules as $audit_team_schedule)
-            @if($audit_team_schedule['team_schedules'] != null)
-                <div style="font-family:Nikosh,serif !important;text-align: center;margin-top: 10px">
-                    <b><u>{{$audit_team_schedule['team_name']}}</u></b>
-                </div>
-
-                <div style="margin-top: 5px">
-                    <table width="100%" border="1">
-                        <thead>
-                        <tr>
-                            <th style="text-align: center" width="5%">ক্রমিক নং</th>
-                            <th style="text-align: center" width="45%">নাম</th>
-                            <th style="text-align: center" width="20%">পদবী</th>
-                            <th style="text-align: center" width="15%">মোবাইল নং</th>
-                            <th style="text-align: center" width="15%">মন্তব্য</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach(json_decode($audit_team_schedule['team_members'],true) as $role => $team_members)
-                            @if($role != 'teamLeader')
-                                @foreach($team_members as $key => $sub_team_leader)
-                                    <tr>
-                                        <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
-                                        <td style="text-align: left">{{$sub_team_leader['officer_name_bn']}}</td>
-                                        <td style="text-align: center">{{$sub_team_leader['designation_bn'].' ও '.$sub_team_leader['team_member_role_bn']}}</td>
-                                        <td style="text-align: center">{{enTobn($sub_team_leader['officer_mobile'])}}</td>
-                                        <td style="text-align: center"></td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-                <div style="margin-top: 15px">
-                    <table width="100%" border="1">
-                        <tbody>
-                        <tr>
-                            <td style="text-align: center" width="5%">ক্রমিক নং</td>
-                            <td style="text-align: center" width="45%">প্রতিষ্ঠানের নাম</td>
-                            <td style="text-align: center" width="20%">নিরীক্ষা বছর</td>
-                            <td style="text-align: center" width="15%">নিরীক্ষা সময়কাল</td>
-                            <td style="text-align: center" width="15%">মোট কর্ম দিবস</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center" width="5%">১</td>
-                            <td style="text-align: center" width="45%">২</td>
-                            <td style="text-align: center" width="20%">৩</td>
-                            <td style="text-align: center" width="15%">৪</td>
-                            <td style="text-align: center" width="15%">৫</td>
-                        </tr>
-                        @php
-                            $totalActivityManDays = 0;
-                        @endphp
-                        @foreach(json_decode($audit_team_schedule['team_schedules'],true) as $role => $team_schedule)
-                            @if($team_schedule['schedule_type'] == 'schedule')
-                                @php $totalActivityManDays= $totalActivityManDays+$team_schedule['activity_man_days']; @endphp
-                                <tr>
-                                    <td style="text-align: center">{{enTobn($loop->iteration)}}.</td>
-                                    <td style="text-align: left">{{$team_schedule['cost_center_name_bn']}}</td>
-                                    <td style="text-align: center">{{enTobn($audit_team_schedule['audit_year_start'])}}-{{enTobn($audit_team_schedule['audit_year_end'])}}</td>
-                                    <td style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি.
-                                        হতে {{formatDate($team_schedule['team_member_end_date'],'bn')}} খ্রি.
-                                    </td>
-                                    <td style="text-align: center">{{enTobn($team_schedule['activity_man_days'])}} কর্ম দিবস</td>
-                                </tr>
-                            @else
-                                <tr>
-                                    <td style="text-align: center">{{enTobn($loop->iteration)}}.</td>
-                                    <td colspan="3" style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি. {{$team_schedule['activity_details']}}</td>
-                                    <td></td>
-                                </tr>
-                            @endif
-                        @endforeach
-                        <tr>
-                            <th colspan="4" style="text-align: right">সর্বমোট</th>
-                            <th style="text-align: center">{{enTobn($totalActivityManDays)}} কর্ম দিবস</th>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            @endif
-        @endforeach
-
-
-        {{--for audit advice--}}
-        <div style="font-family:Nikosh,serif !important;margin-top: 10px">
-            <u>নিরীক্ষা দলের প্রতি নির্দেশনা:</u>
-        </div>
-
-        <div style="font-family:Nikosh,serif !important;text-align: justify">
-            {!! nl2br($office_order['advices']) !!}
-        </div>
-
-        <div style="font-family:Nikosh,serif !important;text-align: center;float: right">
-            @if($office_order['office_order_movement'] != null)
-                ({{$office_order['office_order_movement']['employee_name_bn']}}) <br>
-                {{$office_order['office_order_movement']['employee_designation_bn']}} <br>
-                ফোন: {{enTobn($office_order['office_order_movement']['officer_phone'])}}
-            @endif
-        </div>
-    </div>
-    <div class="pdf-screen" style="height: 100%;font-family:Nikosh,serif !important; page-break-after:always">
-        <div style="font-family:Nikosh,serif !important;width: 100%;margin-top: 10px">
-            <span style="width: 70%;float: left">
-                {{$office_order['memorandum_no']}}
-            </span>
-            <span style="width: 30%;float: right">
-                তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
-            </span>
-        </div>
-
-        {{--for audit advice--}}
-        <div style="font-family:Nikosh,serif !important;margin-top: 10px">
-            <u>সদয় অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য অনুলিপি প্রেরণ করা হলো :(জ্যেষ্ঠতার ক্রমানুসারে নয় )</u>
-        </div>
-
-        <div style="font-family:Nikosh,serif !important;text-align: justify">
-            {!! nl2br($office_order['order_cc_list']) !!}
-        </div>
-
-        <div style="font-family:Nikosh,serif !important;text-align: center;float: right">
-            ({{$office_order['draft_officer_name_bn']}}) <br>
-            {{$office_order['draft_designation_name_bn']}} <br>
-            {{$office_order['draft_office_unit_bn']}} <br>
-            ফোন: {{enTobn($office_order['draft_officer_phone'])}}
-        </div>
-    </div>
+    @endif
 </div>
 </body>
 </html>
-

@@ -30,7 +30,13 @@ class AuditExecutionQueryController extends Controller
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
         $cost_center_name_en = $request->cost_center_name_en;
+        $team_leader_name = $request->team_leader_name;
+        $team_leader_designation_name = $request->team_leader_designation_name;
+        $scope_sub_team_leader = $request->scope_sub_team_leader;
+        $sub_team_leader_name = $request->sub_team_leader_name;
+        $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
         $project_name_bn = $request->project_name_bn;
+
         return view(
             'modules.audit_execution.audit_execution_query.audit_query',
             compact(
@@ -40,7 +46,12 @@ class AuditExecutionQueryController extends Controller
                 'cost_center_id',
                 'cost_center_name_bn',
                 'cost_center_name_en',
-                'project_name_bn'
+                'team_leader_name',
+                'team_leader_designation_name',
+                'scope_sub_team_leader',
+                'sub_team_leader_name',
+                'sub_team_leader_designation_name',
+                'project_name_bn',
             )
         );
     }
@@ -55,9 +66,17 @@ class AuditExecutionQueryController extends Controller
         $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.load_audit_query'), $data)->json();
         //dd($data);
         $audit_query_list = $audit_query_list['status'] == 'success' ? $audit_query_list['data'] : [];
+        $team_leader_name = $request->team_leader_name;
+        $team_leader_designation_name = $request->team_leader_designation_name;
+        $scope_sub_team_leader = $request->scope_sub_team_leader;
+        $sub_team_leader_name = $request->sub_team_leader_name;
+        $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
+
         return view(
             'modules.audit_execution.audit_execution_query.partials.load_query_list',
-            compact('audit_query_list', 'schedule_id')
+            compact('audit_query_list', 'schedule_id','team_leader_name',
+                'team_leader_designation_name','scope_sub_team_leader','sub_team_leader_name',
+                'sub_team_leader_designation_name',)
         );
     }
 
@@ -117,6 +136,12 @@ class AuditExecutionQueryController extends Controller
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
         $cost_center_name_en = $request->cost_center_name_en;
+        $team_leader_name = $request->team_leader_name;
+        $team_leader_designation_name = $request->team_leader_designation_name;
+        $scope_sub_team_leader = $request->scope_sub_team_leader;
+        $sub_team_leader_name = $request->sub_team_leader_name;
+        $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
+
         return view(
             'modules.audit_execution.audit_execution_query.create',
             compact(
@@ -126,7 +151,12 @@ class AuditExecutionQueryController extends Controller
                 'entity_id',
                 'cost_center_id',
                 'cost_center_name_bn',
-                'cost_center_name_en'
+                'cost_center_name_en',
+                'team_leader_name',
+                'team_leader_designation_name',
+                'scope_sub_team_leader',
+                'sub_team_leader_name',
+                'sub_team_leader_designation_name',
             )
         );
     }
@@ -167,6 +197,12 @@ class AuditExecutionQueryController extends Controller
         $data['audit_query_items'] = $request->audit_query_items;
         $data['description'] = $request->description;
         $data['cc'] = $request->cc;
+        $data['issued_by'] = $request->issued_by;
+        $data['team_leader_name'] = $request->team_leader_name;
+        $data['team_leader_designation'] = $request->team_leader_designation;
+        $data['sub_team_leader_name'] = $request->sub_team_leader_name;
+        $data['sub_team_leader_designation'] = $request->sub_team_leader_designation;
+        $data['responsible_person_details'] = $request->responsible_person_details;
 
         $store_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.store_audit_query'), $data)->json();
 
@@ -201,10 +237,17 @@ class AuditExecutionQueryController extends Controller
         $audit_plan_id = $request->audit_plan_id;
         $entity_id = $request->entity_id;
         $audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.view_audit_query'), $data)->json();
+
         if (isSuccess($audit_query)) {
             $auditQueryInfo = $audit_query['data'];
             $cost_center_types = $this->allCostCenterType();
-            return view('modules.audit_execution.audit_execution_query.edit', compact('auditQueryInfo', 'cost_center_types', 'schedule_id','audit_plan_id','entity_id'));
+            $team_leader_name = $request->team_leader_name;
+            $team_leader_designation_name = $request->team_leader_designation_name;
+            $scope_sub_team_leader = $request->scope_sub_team_leader;
+            $sub_team_leader_name = $request->sub_team_leader_name;
+            $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
+
+            return view('modules.audit_execution.audit_execution_query.edit', compact('auditQueryInfo', 'cost_center_types', 'schedule_id','audit_plan_id','entity_id','team_leader_name','team_leader_designation_name','scope_sub_team_leader','sub_team_leader_name','sub_team_leader_designation_name'));
         } else {
             return response()->json(['status' => 'error', 'data' => $audit_query]);
         }
@@ -236,6 +279,12 @@ class AuditExecutionQueryController extends Controller
         $data['description'] = $request->description;
         $data['audit_query_items'] = $request->audit_query_items;
         $data['cc'] = $request->cc;
+        $data['issued_by'] = $request->issued_by;
+        $data['team_leader_name'] = $request->team_leader_name;
+        $data['team_leader_designation'] = $request->team_leader_designation;
+        $data['sub_team_leader_name'] = $request->sub_team_leader_name;
+        $data['sub_team_leader_designation'] = $request->sub_team_leader_designation;
+        $data['responsible_person_details'] = $request->responsible_person_details;
 
         $rejected_audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.update_audit_query'), $data)->json();
         if ($rejected_audit_query['status'] == 'success') {

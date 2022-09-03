@@ -31,6 +31,7 @@ class AuditExecutionMemoController extends Controller
         $sub_team_leader_name = $request->sub_team_leader_name;
         $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
         $project_name_bn = $request->project_name_bn;
+
         return view(
             'modules.audit_execution.audit_execution_memo.index',
             compact(
@@ -136,6 +137,7 @@ class AuditExecutionMemoController extends Controller
                 'jorito_ortho_poriman' => 'required',
                 'audit_year_start' => 'required',
                 'audit_year_end' => 'required',
+                'finder_officer_id' => 'required',
             ],
             [
                 'schedule_id.required' => 'Audit schedule is required',
@@ -144,6 +146,7 @@ class AuditExecutionMemoController extends Controller
                 'jorito_ortho_poriman.required' => 'Jorito ortho is required',
                 'audit_year_start.required' => 'Audit year start is required',
                 'audit_year_end.required' => 'Audit year end is required',
+                'finder_officer_id.required' => 'Raised by is required',
             ]
         )->validate();
 
@@ -184,7 +187,7 @@ class AuditExecutionMemoController extends Controller
 
 
         //for porisishtos
-        if ($request->hasfile('porisishtos')) {
+        /*if ($request->hasfile('porisishtos')) {
             foreach ($request->file('porisishtos') as $file) {
                 $data[] = [
                     'name' => 'porisishtos[]',
@@ -192,7 +195,7 @@ class AuditExecutionMemoController extends Controller
                     'filename' => $file->getClientOriginalName(),
                 ];
             }
-        }
+        }*/
 
 
         //for pramanoks
@@ -425,6 +428,7 @@ class AuditExecutionMemoController extends Controller
                 'jorito_ortho_poriman' => 'required',
                 'audit_year_start' => 'required',
                 'audit_year_end' => 'required',
+                'finder_officer_id' => 'required',
             ],
             [
                 'memo_id.required' => 'Memo id is required',
@@ -433,6 +437,7 @@ class AuditExecutionMemoController extends Controller
                 'jorito_ortho_poriman.required' => 'Jorito ortho is required',
                 'audit_year_start.required' => 'Audit year start is required',
                 'audit_year_end.required' => 'Audit year end is required',
+                'finder_officer_id.required' => 'Raised by is required',
             ]
         )->validate();
 
@@ -466,7 +471,7 @@ class AuditExecutionMemoController extends Controller
 
 
         //for porisishtos
-        if ($request->hasfile('porisishtos')) {
+        /*if ($request->hasfile('porisishtos')) {
             foreach ($request->file('porisishtos') as $file) {
                 $data[] = [
                     'name' => 'porisishtos[]',
@@ -474,7 +479,7 @@ class AuditExecutionMemoController extends Controller
                     'filename' => $file->getClientOriginalName(),
                 ];
             }
-        }
+        }*/
 
 
         //for pramanoks
@@ -590,8 +595,10 @@ class AuditExecutionMemoController extends Controller
         //dd($responseData);
         $memoInfo = isSuccess($responseData) ? $responseData['data'] : [];
 
+        $renderFile = $request->scope == 'memo'?'memo_book':'porisitho_book';
+        //dd($memoInfo['ac_memo_porisishtos']);
         $pdf = \PDF::loadView(
-            'modules.audit_execution.audit_execution_memo.partials.memo_book',
+            'modules.audit_execution.audit_execution_memo.partials.'.$renderFile,
             compact('memoInfo','directorate_id')
         );
         return $pdf->stream('document.pdf');
