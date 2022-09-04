@@ -410,6 +410,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('load-teams-calender', [TeamCalendarController::class, 'loadTeamCalendar'])->name('calendar.load-teams-calender');
         Route::post('load-teams-calender-filter', [TeamCalendarController::class, 'loadTeamCalendarFilter'])->name('calendar.load-teams-calender-filter');
         Route::post('load-teams-select', [TeamCalendarController::class, 'loadTeamsSelect'])->name('calendar.load-teams-select');
+        Route::post('load-team-schedule', [TeamCalendarController::class, 'loadTeamSchedule'])->name('calendar.load-team-schedule');
         Route::post('load-schedule-entity-fiscal-year-wise-select', [TeamCalendarController::class, 'loadScheduleEntityFiscalYearWiseSelect'])->name('calendar.load-schedule-entity-fiscal-year-wise-select');
         Route::post('load-cost-center-directorate-fiscal-year-wise-select', [TeamCalendarController::class, 'loadCostCenterDirectorateFiscalYearWiseSelect'])->name('calendar.load-cost-center-directorate-fiscal-year-wise-select');
         Route::get('teams', [TeamCalendarController::class, 'index'])->name('calendar.teams');

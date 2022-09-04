@@ -129,8 +129,6 @@
                             directorate_name: $("#directorate_filter option:selected").text(),
                             team_id: '{{$team['id']}}',
                             team_name: '{{$team['team_name']}}',
-                            team_members: '{{$team['team_members']}}',
-                            team_schedules: '{{$team['team_schedules']}}',
                             audit_start_end_year: '{{$team['audit_year_start']}} - {{$team['audit_year_end']}}',
                             className: "fc-event-waring @if($team['audit_plan_id'] == 0) fc-event-solid-success  @else fc-event-solid-primary @endif"
 
@@ -156,116 +154,35 @@
                     },
 
                     eventClick: function (event, jsEvent, view) {
+
+                        KTApp.block('#kt_wrapper', {
+                            opacity: 0.1,
+                            state: 'primary' // a bootstrap color
+                        });
+
+                        directorate_id = $('#directorate_filter').val();
                         team_id = event.event.extendedProps.team_id;
 
-                        team_members_jsn = event.event.extendedProps.team_members;
-                        team_schedule_jsn = event.event.extendedProps.team_schedules;
+                        url = '{{route('calendar.load-team-schedule')}}';
 
-                        team_members = JSON.parse(team_members_jsn.replace(/&quot;/g, '"'));
-                        team_schedules = JSON.parse(team_schedule_jsn.replace(/&quot;/g, '"'));
+                        var data = {directorate_id,team_id};
 
-                        // console.log(team_schedules);
+                        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
+                            KTApp.unblock('#kt_wrapper');
 
-                        var html = '<h4 class="text-center"> সদস্য তালিকা </h4>'
-
-                        html += `<table class="table table-bordered" id='table'>
-                                <tr>
-                                    <th>নাম</th>
-                                    <th>পদবী</th>
-                                    <th>নিরীক্ষা দলের অবস্থান</th>
-                                    <th>মোবাইল নং</th>
-                                </tr>`;
-
-                        $.each(team_members.teamLeader, function (key, value) {
-                            html += '<tr>';
-                            html += '<td>' + value.officer_name_bn + '</td>';
-
-                            html += '<td>' + value.designation_bn + '</td>';
-
-                            html += '<td>' + value.team_member_role_bn + '</td>';
-
-                            html += '<td>' + enTobn(value.officer_mobile) + '</td>';
-
-                            html += '</tr>';
+                            quick_panel = $("#kt_quick_panel");
+                            $('.offcanvas-wrapper').html('');
+                            quick_panel.addClass('offcanvas-on');
+                            quick_panel.css('opacity', 1);
+                            quick_panel.css('width', '40%');
+                            $('.offcanvas-footer').hide();
+                            quick_panel.removeClass('d-none');
+                            $("html").addClass("side-panel-overlay");
+                            $('.offcanvas-title').html(event.event.extendedProps.directorate_name+' &#8594; '+event.event.extendedProps.team_name);
+                            $('.offcanvas-wrapper').html(resp);
                         });
 
-                        if (team_members.subTeamLeader) {
 
-                            $.each(team_members.subTeamLeader, function (key, value) {
-                                html += '<tr>';
-                                html += '<td>' + value.officer_name_bn + '</td>';
-
-                                html += '<td>' + value.designation_bn + '</td>';
-
-                                html += '<td>' + value.team_member_role_bn + '</td>';
-
-                                html += '<td>' + enTobn(value.officer_mobile) + '</td>';
-
-                                html += '</tr>';
-                            });
-
-                        }
-
-                        if (team_members.member) {
-                            $.each(team_members.member, function (key, value) {
-                                html += '<tr>';
-                                html += '<td>' + value.officer_name_bn + '</td>';
-
-                                html += '<td>' + value.designation_bn + '</td>';
-
-                                html += '<td>' + value.team_member_role_bn + '</td>';
-
-                                html += '<td>' + enTobn(value.officer_mobile) + '</td>';
-
-                                html += '</tr>';
-                            });
-
-                        }
-
-
-                        html += `</table>`;
-
-                        html += '</br>';
-
-                        html += `<table width='100%' class="table table-bordered" id='table'>
-                                <tr>
-                                    <th width='30%'>ইউনিট/কস্ট সেন্টারের নাম</th>
-                                    <th width='25%'>অর্থ বছর</th>
-                                    <th width='35%'>নিরীক্ষা সময়কাল</th>
-                                    <th width='10%'>মোট কর্ম দিবস</th>
-                                </tr>`;
-
-                        $.each(team_schedules, function (key, data) {
-                            if (data.schedule_type === 'schedule') {
-                                html += '<tr>';
-                                html += '<td>' + data.cost_center_name_bn + '</td>';
-
-                                html += '<td>' + enTobn(event.event.extendedProps.audit_start_end_year) + '</td>';
-
-                                html += '<td>' + enTobn(DmyFormat(data.team_member_start_date, '/')) + ' থেকে ' + enTobn(DmyFormat(data.team_member_end_date, '/')) + '</td>';
-
-                                html += '<td>' + enTobn(data.activity_man_days) + '</td>';
-
-                                html += '</tr>';
-                            } else if (data.schedule_type === 'visit') {
-                                html += '<tr>';
-                                html += '<td class="text-center" colspan="4">' + enTobn(DmyFormat(data.team_member_start_date, '/')) + ' খ্রি. ' + data.activity_details + '</td>';
-                                html += '</tr>';
-                            }
-                        });
-
-                        html += `</table>`;
-
-                        quick_panel = $("#kt_quick_panel");
-                        quick_panel.addClass('offcanvas-on');
-                        quick_panel.css('opacity', 1);
-                        quick_panel.css('width', '50%');
-                        $('.offcanvas-footer').hide();
-                        quick_panel.removeClass('d-none');
-                        $("html").addClass("side-panel-overlay");
-
-                        $('.offcanvas-title').html(event.event.extendedProps.directorate_name+' &#8594; '+event.event.extendedProps.team_name);
-                        $('.offcanvas-wrapper').html(html);
 
                     },
                 });

@@ -127,6 +127,23 @@ class TeamCalendarController extends Controller
         }
     }
 
+    public function loadTeamSchedule(Request $request){
+
+        $data['office_id'] = $request->directorate_id;
+        $data['team_id'] = $request->team_id;
+
+        $team_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_team_info'), $data)->json();
+
+        if (isSuccess($team_data)) {
+            $audit_year = $team_data['data']['audit_year_start'].'-'.$team_data['data']['audit_year_end'];
+            $team_members = json_decode($team_data['data']['team_members'],true);
+            $team_schedules = $team_data['data']['team_schedules'] ? json_decode($team_data['data']['team_schedules'],true) : [];
+            return view('modules.audit_plan.calendar.load_team_schedule', compact('team_members','team_schedules','audit_year'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $team_data]);
+        }
+    }
+
     public function loadTeamCalendarScheduleList(Request $request)
     {
         $data['cdesk'] = $this->current_desk_json();
