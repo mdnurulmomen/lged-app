@@ -137,6 +137,14 @@ trait GenericInfoCollection
         }
     }
 
+    public function getTeam($team_id)
+    {
+        $data['team_id'] = $team_id;
+        $data['cdesk'] = $this->current_desk_json();
+        $list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_team_info'),$data)->json();
+        return $list['status'] == 'success' ? $list['data'] : [];
+    }
+
     public function getPlanAndTeamWiseTeamMembers($audit_plan_id,$team_id)
     {
         $data['audit_plan_id'] = $audit_plan_id;

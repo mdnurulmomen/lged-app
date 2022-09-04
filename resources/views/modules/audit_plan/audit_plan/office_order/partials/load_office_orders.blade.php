@@ -141,7 +141,7 @@
                                         <div class="font-weight-normal">
                                             <span class="mr-2 font-size-1-1">প্ল্যানঃ</span>
                                             <span class="font-size-14">
-                                                    অডিট প্ল্যান {{enTobn($audit_plan['plan_no'])}}
+                                                    অডিট প্ল্যান {{enTobn($audit_plan['id'])}}
                                                 </span>
                                             <span class="label label-outline-danger label-pill label-inline">
                                                     {{$audit_plan['office_order'] != null? ucfirst($audit_plan['office_order']['approved_status']):'অফিস অর্ডার তৈরি হয়নি'}}

@@ -140,7 +140,8 @@
 
                                             @if($query['has_sent_to_rpu'] == 0)
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                        title="{{___('generic.buttons.title.edit')}}" data-schedule-id="{{$schedule_id}}"
+                                                        title="{{___('generic.buttons.title.edit')}}" data-team-id="{{$team_id}}"
+                                                        data-schedule-id="{{$schedule_id}}"
                                                         data-audit-plan-id="{{$query['audit_plan_id']}}"
                                                         data-entity-id="{{$query['entity_office_id']}}"
                                                         data-ac-query-id="{{$query['id']}}"
@@ -175,16 +176,12 @@
         var Audit_Query_List_Container = {
             editQuery: function (elem) {
                 ac_query_id = elem.data('ac-query-id');
+                team_id = elem.data('team-id');
                 schedule_id = elem.data('schedule-id');
                 audit_plan_id = elem.data('audit-plan-id');
                 entity_id = elem.data('entity-id');
-                team_leader_name = '{{$team_leader_name}}';
-                team_leader_designation_name = '{{$team_leader_designation_name}}';
-                scope_sub_team_leader = '{{$scope_sub_team_leader}}';
-                sub_team_leader_name = '{{$sub_team_leader_name}}';
-                sub_team_leader_designation_name = '{{$sub_team_leader_designation_name}}';
 
-                data = {ac_query_id, schedule_id, audit_plan_id, entity_id, team_leader_name, team_leader_designation_name, scope_sub_team_leader, sub_team_leader_name, sub_team_leader_designation_name};
+                data = {ac_query_id, team_id, schedule_id, audit_plan_id, entity_id};
                 url = '{{route('audit.execution.query.edit')}}';
 
                 KTApp.block('#kt_wrapper', {
