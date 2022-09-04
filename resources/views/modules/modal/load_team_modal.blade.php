@@ -1394,18 +1394,16 @@
 
         addLayer: function () {
             var innerDivLength = $("#permitted_designations").children('.timeline-item');
-            // var number = innerDivLength.length + 1;
             var number = innerDivLength.length + 1;
-            // console.log(number)
-            team_name = 'দল ' + enTobn($('#plan_no').val());
+            // team_name = 'দল ' + enTobn($('#plan_no').val());
 
-            // if (number === 1) {
-            //     team_name = 'দল ' + enTobn(number);
-            // } else {
-            //     subteamNumber = number - 1;
-            //     team_name = 'উপদল ' + enTobn(subteamNumber);
-            //     // $("#team_schedule_layer_btn_" + 1).hide();
-            // }
+            if (number === 1) {
+                team_name = 'দল ' + enTobn(number);
+            } else {
+                subteamNumber = number - 1;
+                team_name = 'উপদল ' + enTobn(subteamNumber);
+                // $("#team_schedule_layer_btn_" + 1).hide();
+            }
             var level_html = `
                 <div class="custom-timeline-item timeline-item border-left-0 d-flex align-items-start"
 style="padding-left: 5px;">

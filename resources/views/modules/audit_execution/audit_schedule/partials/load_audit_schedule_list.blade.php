@@ -30,7 +30,7 @@
                                             {{$schedule['cost_center_name_bn']}}
                                         </span>
                                         @if ((now()->toDateString() >= date('Y-m-d', strtotime($schedule['team_member_start_date']))) && (now()->toDateString() <= date('Y-m-d', strtotime($schedule['team_member_end_date']))))
-                                            <span class="ml-2 label label-outline-warning label-pill label-inline">{{__('চলমান')}}</span>
+                                            <span class="ml-2 mt-1 label label-outline-warning label-pill label-inline">{{__('চলমান')}}</span>
                                         @endif
                                     </div>
 
@@ -77,34 +77,25 @@
                                                             title="কোয়েরি"
                                                             onclick="Audit_Query_Schedule_Container.query($(this))"
                                                             data-schedule-id="{{$schedule['id']}}"
+                                                            data-team-id="{{$schedule['team_id']}}"
                                                             data-audit-plan-id="{{$schedule['audit_plan_id']}}"
                                                             data-entity-id="{{$schedule['entity_id']}}"
                                                             data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                             data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
                                                             data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
-                                                            data-team-leader-name-bn="{{$schedule['plan_parent_team']['leader_name_bn']}}"
-                                                            data-team-leader-designation-name-bn="{{$schedule['plan_parent_team']['leader_designation_name_bn']}}"
-                                                            data-scope-sub-team-leader="{{$schedule['plan_team']['team_parent_id']}}"
-                                                            data-sub-team-leader-name-bn="{{$schedule['plan_team']['leader_name_bn']}}"
-                                                            data-sub-team-leader-designation-name-bn="{{$schedule['plan_team']['leader_designation_name_bn']}}"
                                                             data-project-name-bn="{{$schedule['annual_plan'] && $schedule['annual_plan']['project_id'] ? $schedule['annual_plan']['project_name_bn'] : ''}}">
                                                         <i class="fad fa-clipboard-list"></i> কোয়েরি ({{enTobn($schedule['queries_count'])}})
                                                     </button>
                                                     <button class="mr-3 btn btn-sm btn-warning btn-square"
                                                             title="মেমো"
-                                                            data-schedule-id="{{$schedule['id']}}"
                                                             data-team-id="{{$schedule['team_id']}}"
+                                                            data-schedule-id="{{$schedule['id']}}"
                                                             data-audit-plan-id="{{$schedule['audit_plan_id']}}"
                                                             data-entity-id="{{$schedule['entity_id']}}"
                                                             data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                             data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
                                                             data-audit-year-start="{{$schedule['plan_team']['audit_year_start']}}"
                                                             data-audit-year-end="{{$schedule['plan_team']['audit_year_end']}}"
-                                                            data-team-leader-name-bn="{{$schedule['plan_parent_team']['leader_name_bn']}}"
-                                                            data-team-leader-designation-name-bn="{{$schedule['plan_parent_team']['leader_designation_name_bn']}}"
-                                                            data-scope-sub-team-leader="{{$schedule['plan_team']['team_parent_id']}}"
-                                                            data-sub-team-leader-name-bn="{{$schedule['plan_team']['leader_name_bn']}}"
-                                                            data-sub-team-leader-designation-name-bn="{{$schedule['plan_team']['leader_designation_name_bn']}}"
                                                             data-project-name-bn="{{$schedule['annual_plan'] && $schedule['annual_plan']['project_id'] ? $schedule['annual_plan']['project_name_bn'] : ''}}"
                                                             onclick="Audit_Query_Schedule_Container.memo($(this))">
                                                         <i class="fad fa-clipboard-list"></i> মেমো ({{enTobn($schedule['memos_count'])}})

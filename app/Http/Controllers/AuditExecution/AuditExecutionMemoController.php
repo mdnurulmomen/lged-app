@@ -92,12 +92,9 @@ class AuditExecutionMemoController extends Controller
         $cost_center_name_bn = $request->cost_center_name_bn;
         $audit_year_start = $request->audit_year_start;
         $audit_year_end = $request->audit_year_end;
-        $team_leader_name = $request->team_leader_name;
-        $team_leader_designation_name = $request->team_leader_designation_name;
-        $scope_sub_team_leader = $request->scope_sub_team_leader;
-        $sub_team_leader_name = $request->sub_team_leader_name;
-        $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
         $team_members = $this->getPlanAndTeamWiseTeamMembers($audit_plan_id,$team_id);
+        $get_team = $this->getTeam($team_id);
+        //dd(json_decode($get_team['team_members'],true));
 
         return view(
             'modules.audit_execution.audit_execution_memo.create',
@@ -109,12 +106,8 @@ class AuditExecutionMemoController extends Controller
                 'cost_center_name_bn',
                 'audit_year_start',
                 'audit_year_end',
-                'team_leader_name',
-                'team_leader_designation_name',
-                'scope_sub_team_leader',
-                'sub_team_leader_name',
-                'sub_team_leader_designation_name',
-                'team_members'
+                'team_members',
+                'get_team',
             )
         );
     }
@@ -329,12 +322,8 @@ class AuditExecutionMemoController extends Controller
         $cost_center_name_bn = $request->cost_center_name_bn;
         $audit_year_start = $request->audit_year_start;
         $audit_year_end = $request->audit_year_end;
-        $team_leader_name = $request->team_leader_name;
-        $team_leader_designation_name = $request->team_leader_designation_name;
-        $scope_sub_team_leader = $request->scope_sub_team_leader;
-        $sub_team_leader_name = $request->sub_team_leader_name;
-        $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
         $team_members = $this->getPlanAndTeamWiseTeamMembers($audit_plan_id,$team_id);
+        $get_team = $this->getTeam($request->team_id);
 
         if (isSuccess($memo)) {
             $memoInfo = $memo['data'];
@@ -349,12 +338,8 @@ class AuditExecutionMemoController extends Controller
                     'cost_center_name_bn',
                     'audit_year_start',
                     'audit_year_end',
-                    'team_leader_name',
-                    'team_leader_designation_name',
-                    'scope_sub_team_leader',
-                    'sub_team_leader_name',
-                    'sub_team_leader_designation_name',
-                    'team_members'
+                    'team_members',
+                    'get_team',
                 )
             );
         } else {

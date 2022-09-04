@@ -39,7 +39,7 @@
                         <a href="{{route('audit.plan.audit.plan.all')}}">
                             <i title="Back To Audit Plan" class="fad fa-backward mr-3"></i>
                         </a>
-                        <span>Edit Audit Plan <input id="plan_no" name="plan_no" style="width: 80px;height: 35px" type="text" value="{{$audit_plan['plan_no']}}"
+                        <span>Edit Audit Plan <input id="plan_no" name="plan_no" style="width: 80px;height: 35px;display: none" type="text" value="{{$audit_plan['plan_no']}}"
                                                      class="text-hover-primary font-weight-bold p-2 bijoy-bangla"></span>
                     </h4>
                 </span>

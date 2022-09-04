@@ -86,16 +86,9 @@
             cost_center_name_en = elem.data('cost-center-name-bn');
             audit_year_start = elem.data('audit-year-start');
             audit_year_end = elem.data('audit-year-end');
-            team_leader_name = elem.data('team-leader-name-bn');
-            team_leader_designation_name = elem.data('team-leader-designation-name-bn');
-            scope_sub_team_leader = elem.data('scope-sub-team-leader');
-            sub_team_leader_name = elem.data('sub-team-leader-name-bn');
-            sub_team_leader_designation_name = elem.data('sub-team-leader-designation-name-bn');
-            data = {
-                schedule_id, team_id, audit_plan_id, cost_center_id, cost_center_name_bn, audit_year_start, audit_year_end,
-                team_leader_name, team_leader_designation_name, scope_sub_team_leader,
-                sub_team_leader_name, sub_team_leader_designation_name
-            };
+
+            data = {schedule_id, team_id, audit_plan_id, cost_center_id, cost_center_name_bn, audit_year_start, audit_year_end};
+
             let url = '{{route('audit.execution.memo.create')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 if (response.status === 'error') {
@@ -172,16 +165,8 @@
             cost_center_name_en = '{{$cost_center_name_bn}}';
             audit_year_start = '{{$audit_year_start}}';
             audit_year_end = '{{$audit_year_end}}';
-            team_leader_name = '{{$team_leader_name}}';
-            team_leader_designation_name = '{{$team_leader_designation_name}}';
-            scope_sub_team_leader = '{{$scope_sub_team_leader}}';
-            sub_team_leader_name = '{{$sub_team_leader_name}}';
-            sub_team_leader_designation_name = '{{$sub_team_leader_designation_name}}';
-            data = {
-                memo_id, schedule_id, team_id, audit_plan_id, cost_center_id, cost_center_name_bn, audit_year_start, audit_year_end,
-                team_leader_name, team_leader_designation_name, scope_sub_team_leader,
-                sub_team_leader_name, sub_team_leader_designation_name
-            };
+
+            data = {memo_id, schedule_id, team_id, audit_plan_id, cost_center_id, cost_center_name_bn, audit_year_start, audit_year_end};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,

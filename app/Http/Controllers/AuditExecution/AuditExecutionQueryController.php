@@ -24,33 +24,25 @@ class AuditExecutionQueryController extends Controller
 
     public function auditQuery(Request $request)
     {
+        $team_id = $request->team_id;
         $audit_plan_id = $request->audit_plan_id;
         $schedule_id = $request->schedule_id;
         $entity_id = $request->entity_id;
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
         $cost_center_name_en = $request->cost_center_name_en;
-        $team_leader_name = $request->team_leader_name;
-        $team_leader_designation_name = $request->team_leader_designation_name;
-        $scope_sub_team_leader = $request->scope_sub_team_leader;
-        $sub_team_leader_name = $request->sub_team_leader_name;
-        $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
         $project_name_bn = $request->project_name_bn;
 
         return view(
             'modules.audit_execution.audit_execution_query.audit_query',
             compact(
+                'team_id',
                 'audit_plan_id',
                 'schedule_id',
                 'entity_id',
                 'cost_center_id',
                 'cost_center_name_bn',
                 'cost_center_name_en',
-                'team_leader_name',
-                'team_leader_designation_name',
-                'scope_sub_team_leader',
-                'sub_team_leader_name',
-                'sub_team_leader_designation_name',
                 'project_name_bn',
             )
         );
@@ -58,25 +50,18 @@ class AuditExecutionQueryController extends Controller
 
     public function loadAuditQuery(Request $request)
     {
+        $team_id= $request->team_id;
         $schedule_id = $request->schedule_id;
         $data['audit_plan_id'] = $request->audit_plan_id;
         $data['entity_id'] = $request->entity_id;
         $data['cost_center_id'] = $request->cost_center_id;
         $data['cdesk'] = $this->current_desk_json();
         $audit_query_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.load_audit_query'), $data)->json();
-        //dd($data);
         $audit_query_list = $audit_query_list['status'] == 'success' ? $audit_query_list['data'] : [];
-        $team_leader_name = $request->team_leader_name;
-        $team_leader_designation_name = $request->team_leader_designation_name;
-        $scope_sub_team_leader = $request->scope_sub_team_leader;
-        $sub_team_leader_name = $request->sub_team_leader_name;
-        $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
 
         return view(
             'modules.audit_execution.audit_execution_query.partials.load_query_list',
-            compact('audit_query_list', 'schedule_id','team_leader_name',
-                'team_leader_designation_name','scope_sub_team_leader','sub_team_leader_name',
-                'sub_team_leader_designation_name',)
+            compact('audit_query_list', 'team_id','schedule_id')
         );
     }
 
@@ -136,11 +121,10 @@ class AuditExecutionQueryController extends Controller
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
         $cost_center_name_en = $request->cost_center_name_en;
-        $team_leader_name = $request->team_leader_name;
-        $team_leader_designation_name = $request->team_leader_designation_name;
-        $scope_sub_team_leader = $request->scope_sub_team_leader;
-        $sub_team_leader_name = $request->sub_team_leader_name;
-        $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
+        $get_team = $this->getTeam($request->team_id);
+        //dd($get_team);
+        //dd(json_decode($get_team[0]['team_members'],true));
+
 
         return view(
             'modules.audit_execution.audit_execution_query.create',
@@ -152,11 +136,7 @@ class AuditExecutionQueryController extends Controller
                 'cost_center_id',
                 'cost_center_name_bn',
                 'cost_center_name_en',
-                'team_leader_name',
-                'team_leader_designation_name',
-                'scope_sub_team_leader',
-                'sub_team_leader_name',
-                'sub_team_leader_designation_name',
+                'get_team',
             )
         );
     }
@@ -241,13 +221,8 @@ class AuditExecutionQueryController extends Controller
         if (isSuccess($audit_query)) {
             $auditQueryInfo = $audit_query['data'];
             $cost_center_types = $this->allCostCenterType();
-            $team_leader_name = $request->team_leader_name;
-            $team_leader_designation_name = $request->team_leader_designation_name;
-            $scope_sub_team_leader = $request->scope_sub_team_leader;
-            $sub_team_leader_name = $request->sub_team_leader_name;
-            $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
-
-            return view('modules.audit_execution.audit_execution_query.edit', compact('auditQueryInfo', 'cost_center_types', 'schedule_id','audit_plan_id','entity_id','team_leader_name','team_leader_designation_name','scope_sub_team_leader','sub_team_leader_name','sub_team_leader_designation_name'));
+            $get_team = $this->getTeam($request->team_id);
+            return view('modules.audit_execution.audit_execution_query.edit', compact('auditQueryInfo', 'cost_center_types', 'schedule_id','audit_plan_id','entity_id','get_team'));
         } else {
             return response()->json(['status' => 'error', 'data' => $audit_query]);
         }

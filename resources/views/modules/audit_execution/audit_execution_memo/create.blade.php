@@ -20,11 +20,6 @@
                         data-cost-center-name-bn="{{$cost_center_name_bn}}"
                         data-audit-year-start="{{$audit_year_start}}"
                         data-audit-year-end="{{$audit_year_end}}"
-                        data-team-leader-name-bn="{{$team_leader_name}}"
-                        data-team-leader-designation-name-bn="{{$team_leader_designation_name}}"
-                        data-scope-sub-team-leader="{{$scope_sub_team_leader}}"
-                        data-sub-team-leader-name-bn="{{$sub_team_leader_name}}"
-                        data-sub-team-leader-designation-name-bn="{{$sub_team_leader_designation_name}}"
                         class="btn btn-sm btn-warning btn-back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> {{___('generic.back')}}
                     </a>
@@ -170,22 +165,33 @@
                             </div>
 
                             <div class="card sna-card-border mb-4">
-                                <input type="hidden" name="issued_by"
-                                       value="{{$scope_sub_team_leader > 0?'sub_team_leader':'team_leader'}}">
+                                <input type="hidden" name="issued_by" value="team_leader">
 
                                 <label class="col-form-label">দলনেতা</label>
-                                <input type="text" class="form-control mb-1" placeholder="দলনেতা" readonly
-                                       value="{{$team_leader_name.' ('.$team_leader_designation_name.')'}}">
-                                <input type="hidden" name="team_leader_name" value="{{$team_leader_name}}">
-                                <input type="hidden" name="team_leader_designation" value="{{$team_leader_designation_name}}">
+                                @foreach(json_decode($get_team['team_members'],true) as $key => $team)
+                                    @if($key == 'teamLeader')
+                                        @foreach($team as $teamLeader)
+                                            <input type="text" class="form-control mb-1" placeholder="দলনেতা" readonly
+                                                   value="{{$teamLeader['officer_name_bn'].' ('.$teamLeader['designation_bn'].')'}}">
+                                            <input type="hidden" name="team_leader_name" value="{{$teamLeader['officer_name_bn']}}">
+                                            <input type="hidden" name="team_leader_designation" value="{{$teamLeader['designation_bn']}}">
+                                        @endforeach
+                                    @endif
+                                @endforeach
 
                                 <label class="col-form-label">উপদলনেতা</label>
-                                <input type="text" class="form-control mb-1" placeholder="উপদলনেতা" readonly
-                                       value="{{$scope_sub_team_leader > 0?$sub_team_leader_name.' ('.$sub_team_leader_designation_name.')':''}}">
-                                <input type="hidden" name="sub_team_leader_name"
-                                       value="{{$scope_sub_team_leader > 0?$sub_team_leader_name:''}}">
-                                <input type="hidden" name="sub_team_leader_designation"
-                                       value="{{$scope_sub_team_leader > 0?$sub_team_leader_designation_name:''}}">
+                                @foreach(json_decode($get_team['team_members'],true) as $key => $team)
+                                    @if($key == 'subTeamLeader')
+                                        @foreach($team as $subTeamLeader)
+                                            <input type="text" class="form-control mb-1" placeholder="উপদলনেতা" readonly
+                                                   value="{{$subTeamLeader['officer_name_bn'].' ('.$subTeamLeader['designation_bn'].')'}}">
+                                            <input type="hidden" name="sub_team_leader_name"
+                                                   value="{{$subTeamLeader['officer_name_bn']}}">
+                                            <input type="hidden" name="sub_team_leader_designation"
+                                                   value="{{$subTeamLeader['designation_bn']}}">
+                                        @endforeach
+                                    @endif
+                                @endforeach
                             </div>
 
                             <div class="card sna-card-border mb-4 d-none">

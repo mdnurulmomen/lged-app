@@ -121,9 +121,9 @@ trait GenericInfoCollection
         }
     }
 
-    public function getAuditTemplate($template_type, $lang = 'en'): array
+    public function getAuditTemplate($template_type, $template_name, $lang = 'en'): array
     {
-        return $this->initHttpWithToken()->post(config('amms_bee_routes.audit_template_show'), ['template' => $template_type, 'language' => $lang])->json();
+        return $this->initHttpWithToken()->post(config('amms_bee_routes.audit_template_show'), ['template_type' => $template_type, 'template_name' => $template_name, 'language' => $lang])->json();
     }
 
     public function yearWiseVacationList($year)
@@ -135,6 +135,14 @@ trait GenericInfoCollection
         } else {
             return [];
         }
+    }
+
+    public function getTeam($team_id)
+    {
+        $data['team_id'] = $team_id;
+        $data['cdesk'] = $this->current_desk_json();
+        $list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_team_info'),$data)->json();
+        return $list['status'] == 'success' ? $list['data'] : [];
     }
 
     public function getPlanAndTeamWiseTeamMembers($audit_plan_id,$team_id)
