@@ -839,7 +839,7 @@
                     <td class="bangla-font" style="text-align: center" width="12%">অনুচ্ছেদ নম্বর ও নিরীক্ষা বছর </td>
                     <td class="bangla-font" style="text-align: center" width="20%">শিরোনাম</td>
                     <td class="bangla-font" style="text-align: center" width="15%">জড়িত টাকার পরিমাণ</td>
-                    <td class="bangla-font" style="text-align: center" width="20%">নিষ্পন্ন/অনিষ্পন্নের কারণ</td>
+                    <td class="bangla-font" style="text-align: center" width="20%">নিষ্পন্ন/অনিষ্পন্নের অবস্থা ও কারণ</td>
                     <td class="bangla-font" style="text-align: center" width="15%">অডিট অধিদপ্তরের মন্তব্য</td>
                 </tr>
                 @foreach($broadSheetItem as $broadSheet)
@@ -862,7 +862,25 @@
                             <span style="padding:5px; margin-bottom: 5px;">{{$broadSheet['apotti']['memo_title_bn']}}</span>
                         </td>
                         <td class="bangla-font" style="text-align: right;vertical-align: top;">{{enTobn(currency_format($broadSheet['apotti']['jorito_ortho_poriman']))}}/-</td>
-                        <td class="bangla-font" style="text-align: left;vertical-align: top;">{{$broadSheet['status_reason']}}</td>
+                        <td class="bangla-font" style="text-align: left;vertical-align: top;">
+                            <span>
+                                <b>অবস্থা:</b>
+                                @if($broadSheet['status'] == 1)
+                                    নিস্পন্ন
+                                @elseif($broadSheet['status'] == 2)
+                                    অনিস্পন্ন
+                                @elseif($broadSheet['status'] == 3)
+                                    আংশিক নিস্পন্ন
+                                @endif
+                            </span><br>
+
+                            @if($broadSheet['status_reason'])
+                                <span>
+                                    <b>কারণ:</b>
+                                    {{$broadSheet['status_reason']}}
+                                </span>
+                            @endif
+                        </td>
                         <td class="bangla-font" style="text-align: left;vertical-align: top;">{{$broadSheet['comment']}}</td>
                     </tr>
 
