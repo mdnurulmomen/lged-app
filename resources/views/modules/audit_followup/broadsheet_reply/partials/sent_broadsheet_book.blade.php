@@ -835,7 +835,7 @@
                 <tbody>
                 <tr class="bangla-font">
                     <td class="bangla-font" style="text-align: center" width="5%">ক্রমিক</td>
-                    <td class="bangla-font" style="text-align: center" width="10%">কস্ট সেন্টার/ইউনিট</td>
+                    <td class="bangla-font" style="text-align: center" width="20%">কস্ট সেন্টার/ইউনিট</td>
                     <td class="bangla-font" style="text-align: center" width="15%">অনুচ্ছেদ নম্বর ও নিরীক্ষা বছর </td>
                     <td class="bangla-font" style="text-align: center" width="20%">শিরোনাম</td>
                     <td class="bangla-font" style="text-align: center" width="15%">জড়িত টাকার পরিমাণ</td>

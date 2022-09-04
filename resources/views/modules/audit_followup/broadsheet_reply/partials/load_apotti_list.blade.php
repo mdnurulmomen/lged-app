@@ -183,7 +183,7 @@
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
 
                                             @if($item['broad_sheet_hard_copy'])
-                                                <a href="{{ config('amms_bee_routes.file_url').$item['broad_sheet_hard_copy'] }}"
+                                                <a target="_blank"  href="{{ config('amms_bee_routes.file_url').$item['broad_sheet_hard_copy'] }}"
                                                    title="{{___('generic.buttons.title.details')}}"
                                                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle">
                                                     <i class="fa fa-eye"></i>
@@ -213,7 +213,7 @@
 {{--                                            @if($item['unit_response'] != null)--}}
 
                                                 @if($item['broad_sheet_hard_copy'])
-                                                    <a href="{{ config('amms_bee_routes.file_url').$item['broad_sheet_hard_copy'] }}"
+                                                    <a target="_blank" href="{{ config('amms_bee_routes.file_url').$item['broad_sheet_hard_copy'] }}"
                                                        title="{{___('generic.buttons.title.details')}}"
                                                        class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle">
                                                         <i class="fa fa-download"></i>
