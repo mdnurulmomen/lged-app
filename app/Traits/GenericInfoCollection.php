@@ -121,9 +121,9 @@ trait GenericInfoCollection
         }
     }
 
-    public function getAuditTemplate($template_type, $lang = 'en'): array
+    public function getAuditTemplate($template_type, $template_name, $lang = 'en'): array
     {
-        return $this->initHttpWithToken()->post(config('amms_bee_routes.audit_template_show'), ['template' => $template_type, 'language' => $lang])->json();
+        return $this->initHttpWithToken()->post(config('amms_bee_routes.audit_template_show'), ['template_type' => $template_type, 'template_name' => $template_name, 'language' => $lang])->json();
     }
 
     public function yearWiseVacationList($year)

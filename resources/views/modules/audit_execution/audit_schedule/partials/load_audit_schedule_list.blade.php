@@ -30,7 +30,7 @@
                                             {{$schedule['cost_center_name_bn']}}
                                         </span>
                                         @if ((now()->toDateString() >= date('Y-m-d', strtotime($schedule['team_member_start_date']))) && (now()->toDateString() <= date('Y-m-d', strtotime($schedule['team_member_end_date']))))
-                                            <span class="ml-2 label label-outline-warning label-pill label-inline">{{__('চলমান')}}</span>
+                                            <span class="ml-2 mt-1 label label-outline-warning label-pill label-inline">{{__('চলমান')}}</span>
                                         @endif
                                     </div>
 
