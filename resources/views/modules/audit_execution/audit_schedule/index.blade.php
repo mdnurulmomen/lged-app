@@ -3,6 +3,17 @@
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row">
         <div class="col-md-3">
+            <select class="form-select select-select2" id="directorate_filter">
+                @if (count($directorates) > 1)
+                    <option value="all">Select Directorate</option>
+                @endif
+                @foreach ($directorates as $directorate)
+                    <option value="{{ $directorate['office_id'] }}">{{ $directorate['office_name_bn'] }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-3">
             <select class="form-control select-select2" name="fiscal_year" id="select_fiscal_year_annual_plan">
                 <option value="">--সিলেক্ট--</option>
                 @foreach($fiscal_years as $fiscal_year)
@@ -14,6 +25,12 @@
         <div class="col-md-3">
             <select class="form-control select-select2" id="activity_id">
                 <option value="">--সিলেক্ট--</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <select class="form-select select-select2" id="audit_plan_id">
+                <option value="">প্ল্যান বাছাই করুন</option>
             </select>
         </div>
     </div>
@@ -32,39 +49,50 @@
     </div>
 </div>
 
-
 <script>
     $(function () {
         Audit_Query_Schedule_Container.loadFiscalYearWiseActivity();
-        loadData();
+        Audit_Query_Schedule_Container.loadData();
     });
 
     $('#select_fiscal_year_annual_plan').change(function () {
         Audit_Query_Schedule_Container.loadFiscalYearWiseActivity();
-        loadData();
+        Audit_Query_Schedule_Container.loadData();
     });
 
     $('#activity_id').change(function () {
-        loadData();
+        Audit_Query_Schedule_Container.loadActivityWiseAuditPlan();
+        Audit_Query_Schedule_Container.loadData();
     });
 
-    function loadData() {
-        fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
-        activity_id = $('#activity_id').val();
+    $('#audit_plan_id').change(function (){
+        Authority_Memo_Container.loadData();
+    });
 
-        url = $(".load-table-data").data('href');
-        var data = {fiscal_year_id,activity_id};
-        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
-            if (resp.status === 'error') {
-                toastr.error('no');
-            } else {
-                $(".load-table-data").html(resp);
-            }
-        });
-    }
-</script>
-<script>
     var Audit_Query_Schedule_Container = {
+        loadData: function (page = 1, per_page = 200){
+            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            activity_id = $('#activity_id').val();
+            audit_plan_id = $('#audit_plan_id').val();
+
+            url = $(".load-table-data").data('href');
+            var data = {page,per_page,fiscal_year_id,activity_id,audit_plan_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
+                KTApp.unblock("#kt_wrapper");
+                if (resp.status === 'error') {
+                    toastr.error('no');
+                } else {
+                    $(".load-table-data").html(resp);
+                }
+            });
+        },
+
         query: function (elem) {
             url = '{{route('audit.execution.query.index')}}';
 
@@ -77,9 +105,15 @@
             cost_center_name_bn = elem.attr('data-cost-center-name-bn');
             project_name_bn = elem.attr('data-project-name-bn');
 
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             data = {schedule_id,team_id,audit_plan_id,entity_id,cost_center_id,cost_center_name_en,cost_center_name_bn,project_name_bn};
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -99,9 +133,16 @@
             audit_year_end = elem.data('audit-year-end');
             project_name_bn = elem.data('project-name-bn');
 
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             data = {schedule_id, team_id, audit_plan_id, entity_id, cost_center_id,cost_center_name_bn,audit_year_start,
                 audit_year_end,project_name_bn};
+
             let url = '{{route('audit.execution.memo.index')}}';
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
@@ -132,6 +173,38 @@
             } else {
                 $('#activity_id').html('');
             }
+        },
+
+        loadActivityWiseAuditPlan: function () {
+
+            office_id = $('#directorate_filter').val();
+            activity_id = $('#activity_id').val();
+            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+
+            let url = '{{route('audit.plan.operational.activity.audit-plan')}}';
+
+            let data = {fiscal_year_id,activity_id,office_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_wrapper');
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        $('#audit_plan_id').html(response);
+                    }
+                }
+            );
+        },
+
+        paginate: function(elem) {
+            page = $(elem).attr('data-page');
+            per_page = $(elem).attr('data-per-page');
+            Audit_Query_Schedule_Container.loadData(page, per_page);
         },
     }
 </script>
