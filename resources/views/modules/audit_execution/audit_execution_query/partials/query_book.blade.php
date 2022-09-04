@@ -859,7 +859,7 @@
 
                 ({{ $auditQueryInfo['team_leader_name'] }}) <br>
                 {{ $auditQueryInfo['team_leader_designation'] }}, দলনেতা <br>
-                অডিট এনগেজমেন্ট {{ $auditQueryInfo['plan_team']['team_name'] }}
+                {{--অডিট এনগেজমেন্ট {{ $auditQueryInfo['plan_team']['team_name'] }}--}}
             </div>
         </div>
 
