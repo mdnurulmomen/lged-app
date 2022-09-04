@@ -94,6 +94,7 @@ class AuditExecutionMemoController extends Controller
         $audit_year_end = $request->audit_year_end;
         $team_members = $this->getPlanAndTeamWiseTeamMembers($audit_plan_id,$team_id);
         $get_team = $this->getTeam($team_id);
+        //dd(json_decode($get_team['team_members'],true));
 
         return view(
             'modules.audit_execution.audit_execution_memo.create',

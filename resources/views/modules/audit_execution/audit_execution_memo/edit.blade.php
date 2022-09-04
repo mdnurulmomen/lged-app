@@ -21,11 +21,6 @@
                         data-cost-center-name-bn="{{$cost_center_name_bn}}"
                         data-audit-year-start="{{$audit_year_start}}"
                         data-audit-year-end="{{$audit_year_end}}"
-                        data-team-leader-name-bn="{{$team_leader_name}}"
-                        data-team-leader-designation-name-bn="{{$team_leader_designation_name}}"
-                        data-scope-sub-team-leader="{{$scope_sub_team_leader}}"
-                        data-sub-team-leader-name-bn="{{$sub_team_leader_name}}"
-                        data-sub-team-leader-designation-name-bn="{{$sub_team_leader_designation_name}}"
                         class="btn btn-sm btn-warning btn-back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>
