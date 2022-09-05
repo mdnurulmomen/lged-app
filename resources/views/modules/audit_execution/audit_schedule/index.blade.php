@@ -66,7 +66,7 @@
     });
 
     $('#audit_plan_id').change(function (){
-        Authority_Memo_Container.loadData();
+        Audit_Query_Schedule_Container.loadData();
     });
 
     var Audit_Query_Schedule_Container = {
