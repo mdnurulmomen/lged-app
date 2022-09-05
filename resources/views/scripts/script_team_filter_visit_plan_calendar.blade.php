@@ -122,7 +122,7 @@
                             @endphp
                             @foreach($schedules as $schedule)
                         {
-                            title: '{{$team['team_name']}}  (দলনেতা : {{$team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
+                            title: '{{$team['team_name']}}  (দলনেতা : {{$team['leader_name_bn']}}) - {{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}} {{$team['annual_plan']['project_id'] ? '(প্রজেক্ট : '.$team['annual_plan']['project_name_bn'].')' : '' }}',
                             start: '{{$schedule['team_member_start_date']}}',
                             end: '{{$schedule['team_member_end_date']}}',
                             description: '{{$schedule['schedule_type']=='schedule'?$schedule['cost_center_name_bn']:$schedule['activity_details']}}',
