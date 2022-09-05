@@ -199,7 +199,7 @@
                                                 </button>
                                             @endif
 
-                                                @if($item['broad_sheet_reply'] && !$item['broad_sheet_reply']['is_sent_rpu'])
+                                                @if(!$item['broad_sheet_reply'] ||  ($item['broad_sheet_reply'] && !$item['broad_sheet_reply']['is_sent_rpu']))
 
                                                     {{--                                            @if($item['latest_broad_sheet_movement'] && $item['latest_broad_sheet_movement']['receiver_officer_id'] == $desk_officer_id)--}}
                                                     <button
@@ -240,7 +240,7 @@
 {{--                                                        onclick="Broadsheet_Reply_List_Container.editApottiItem($(this))">--}}
 {{--                                                    <i class="fad fa-comments-alt"></i>--}}
 {{--                                                </button>--}}
-                                                @if($item['broad_sheet_reply'] && !$item['broad_sheet_reply']['is_sent_rpu'])
+                                                @if(!$item['broad_sheet_reply'] ||  ($item['broad_sheet_reply'] && !$item['broad_sheet_reply']['is_sent_rpu']))
                                                     <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                             title="সিদ্ধান্ত দিন" data-scope="response"
                                                             data-broad-sheet-id="{{$item['id']}}"
