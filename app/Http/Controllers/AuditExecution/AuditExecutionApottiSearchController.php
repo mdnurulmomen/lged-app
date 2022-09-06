@@ -29,7 +29,8 @@ class AuditExecutionApottiSearchController extends Controller
 
     public function list(Request $request){
         $data['directorate_id'] = $request->directorate_id;
-        $data['project_id'] = $request->project_id;
+        $data['project_id'] = $request->project_id ?  [$request->project_id] : null;
+        $data['doner_id'] = $request->doner_id;
         $data['ministry_id'] = $request->ministry_id;
         $data['entity_id'] = $request->entity_id;
         $data['cost_center_id'] = $request->cost_center_id;
@@ -44,10 +45,21 @@ class AuditExecutionApottiSearchController extends Controller
         $data['page'] = $request->page;
         $data['per_page'] = $request->per_page;
 
+        if($request->doner_id && !$request->project_id){
+            $doner_data['directorate_id'] = $request->directorate_id;
+            $doner_data['doner_id'] = $request->doner_id;
+            $doner_data['type'] = 'only_id';
+
+            $project_list = $this->initRPUHttp()->post(config('cag_rpu_api.get-doner-wise-project'),$doner_data)->json();
+
+            $data['project_id'] = !empty($project_list['data']) ? $project_list['data']  : null;
+
+        }
+
 //        dd($data);
 
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.search-list'), $data)->json();
-        //dd($response);
+//        dd($response);
         if (isSuccess($response)) {
             $response = $response['data'];
             $apotti_list = $response['apotti_list'];

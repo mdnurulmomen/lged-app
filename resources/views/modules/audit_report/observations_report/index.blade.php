@@ -153,6 +153,7 @@
             memo_status = '{{$memo_status}}';
             directorate_id = $("#directorate_id").val();
             project_id = $("#project_id").val();
+            doner_id = $("#doner_id").val();
             ministry_id = $("#ministry_id").val();
             entity_id = $("#entity_id").val();
             cost_center_id = $("#cost_center_id").val();
@@ -167,6 +168,7 @@
                 memo_status,
                 directorate_id,
                 project_id,
+                doner_id,
                 ministry_id,
                 entity_id,
                 cost_center_id,

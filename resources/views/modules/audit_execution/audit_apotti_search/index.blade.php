@@ -144,6 +144,7 @@
     var Archive_Apotti_Container = {
         loadApottiList: function(page = 1, per_page = 10) {
             directorate_id = $("#directorate_id").val();
+            doner_id = $("#doner_id").val();
             project_id = $("#project_id").val();
             ministry_id = $("#ministry_id").val();
             entity_id = $("#entity_id").val();
@@ -160,6 +161,7 @@
             let url = '{{ route('audit.execution.apotti.search-list') }}';
             let data = {
                 directorate_id,
+                doner_id,
                 project_id,
                 ministry_id,
                 entity_id,
