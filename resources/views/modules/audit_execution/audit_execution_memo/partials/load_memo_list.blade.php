@@ -19,6 +19,7 @@
                                         <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.audit_title')}}:</span>
                                         <span class="description text-info text-wrap font-size-14">{{$memo['memo_title_bn']}}</span>
                                     </div>
+
                                     @if($memo['irregularity_cause'])
                                         <div class="font-weight-normal">
                                             <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.irregularity_cause')}}:</span>
