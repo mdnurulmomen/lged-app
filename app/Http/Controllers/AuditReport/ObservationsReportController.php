@@ -23,14 +23,17 @@ class ObservationsReportController extends Controller
         $self_directorate = current(array_filter($all_directorates, function ($item) {
             return $this->current_office_id() == $item['office_id'];
         }));
+        $all_doners = $this->allDoners();
+
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
         return view('modules.audit_report.observations_report.index', compact('fiscal_years',
-            'directorates','memo_status'));
+            'directorates','memo_status','all_doners'));
     }
 
     public function list(Request $request){
         $data['memo_status'] = $request->memo_status;
         $data['directorate_id'] = $request->directorate_id;
+        $data['project_id'] = $request->project_id;
         $data['ministry_id'] = $request->ministry_id;
         $data['entity_id'] = $request->entity_id;
         $data['cost_center_id'] = $request->cost_center_id;

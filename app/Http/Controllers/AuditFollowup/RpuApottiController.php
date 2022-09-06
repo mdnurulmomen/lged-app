@@ -145,9 +145,19 @@ class RpuApottiController extends Controller
         $data['apottis'] = explode(",",$request->apottis);
         $data['memorandum_date'] = date("Y-m-d",strtotime($memorandum_date));
 
+        if ($request->hasfile('broad_sheet_hard_copy')) {
+            $file = $request->broad_sheet_hard_copy;
+            $fileExtension = $file->extension();
+            $data['file_extension'] =  $fileExtension;
+        }else{
+            $data['file_extension'] = '';
+        }
+
 //        dd($data);
 
         $store_broad_sheet = $this->initRPUHttp()->post(config('cag_rpu_api.store-rpu-broad-sheet'), $data)->json();
+
+//        dd($store_broad_sheet);
 
         if(isSuccess($store_broad_sheet)){
             $response_data = $store_broad_sheet['data'];

@@ -24,6 +24,27 @@
             </div>
 
             <div class="col-md-3">
+                <label for="doner_id" class="col-form-label">ডোনার</label>
+                <select class="form-select select-select2" id="doner_id">
+                    <option value="">সবগুলো</option>
+                    @foreach ($all_doners as $doner)
+                        <option value="{{ $doner['id'] }}">{{ $doner['name_bn'] }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="project_id" class="col-form-label">প্রকল্প</label>
+                <select class="form-select select-select2" id="project_id">
+                    <option value="">সবগুলো</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="row mb-2">
+            <div class="col-md-3">
                 <label for="entity_id" class="col-form-label">এনটিটি</label>
                 <select class="form-select select-select2" id="entity_id">
                     <option value="">সবগুলো</option>
@@ -36,18 +57,14 @@
                     <option value="">সবগুলো</option>
                 </select>
             </div>
-        </div>
 
-
-        <div class="row mb-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="cost_center_id" class="col-form-label">কস্ট সেন্টার/ইউনিট</label>
                 <select class="form-select select-select2" id="cost_center_id" name="cost_center_id">
                     <option value="">সবগুলো</option>
                 </select>
             </div>
-
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="fiscal_year_id" class="col-form-label">আপত্তির অর্থবছর</label>
                 <select class="form-select select-select2" id="fiscal_year_id">
                     <option value="">সবগুলো</option>
@@ -56,7 +73,9 @@
                     @endforeach
                 </select>
             </div>
+        </div>
 
+        <div class="row">
             <div class="col-md-4">
                 <label for="audit_year_start" class="col-form-label">নিরীক্ষা বছর</label>
                 <div class="input-group">
@@ -65,9 +84,6 @@
                     <input class="form-control year-picker" name="audit_year_end" placeholder="শেষ" type="text">
                 </div>
             </div>
-        </div>
-
-        <div class="row">
             <div class="col-md-2">
                 <label for="memo_type" class="col-form-label">আপত্তির ধরন</label>
                 <select class="form-control select-select2" id="memo_type">
@@ -136,6 +152,7 @@
         loadApottiList: function(page = 1, per_page = 10) {
             memo_status = '{{$memo_status}}';
             directorate_id = $("#directorate_id").val();
+            project_id = $("#project_id").val();
             ministry_id = $("#ministry_id").val();
             entity_id = $("#entity_id").val();
             cost_center_id = $("#cost_center_id").val();
@@ -149,6 +166,7 @@
             let data = {
                 memo_status,
                 directorate_id,
+                project_id,
                 ministry_id,
                 entity_id,
                 cost_center_id,
@@ -196,9 +214,11 @@
             memo_type = $("#memo_type").val();
             jorito_ortho_poriman = $("#jorito_ortho_poriman").val();
             columns = $("#columns").val();
+            project_id = $("#project_id").val();
 
             let data = {
                 memo_status,
+                project_id,
                 directorate_id,
                 directorate_name,
                 ministry_id,
@@ -273,6 +293,28 @@
             per_page = $(elem).attr('data-per-page');
             Observations_Report_Container.loadApottiList(page, per_page);
         },
+
+        laadDonerWiseProject: function (element) {
+            url = '{{route('audit.execution.apotti.get-doner-wise-project')}}';
+
+            directorate_id = $("#directorate_id").val();
+            doner_id = $("#doner_id").val();
+            data = {directorate_id,doner_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.warning(response.data);
+                } else {
+                    $('#project_id').html(response);
+                }
+            });
+        },
     };
 
 
@@ -280,6 +322,11 @@
     $('#directorate_id').change(function() {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
+    });
+
+    $('#doner_id').change(function() {
+        doner_id = $('#doner_id').val();
+        Observations_Report_Container.laadDonerWiseProject();
     });
 
     //entity
