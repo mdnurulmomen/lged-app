@@ -196,7 +196,7 @@
         showApotti: function (element) {
             url = '{{route('audit.execution.apotti.get-doner-wise-project')}}';
             directorate_id = $("#directorate_id").val();
-            doner_id = element.data('apotti-id');
+            apotti_id = element.data('apotti-id');
             data = {directorate_id,apotti_id};
 
             KTApp.block('#kt_wrapper', {
