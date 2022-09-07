@@ -140,7 +140,8 @@
 
                                             @if($query['has_sent_to_rpu'] == 0)
                                                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                        title="{{___('generic.buttons.title.edit')}}" data-team-id="{{$team_id}}"
+                                                        title="{{___('generic.buttons.title.edit')}}"
+                                                        data-team-id="{{$team_id}}"
                                                         data-schedule-id="{{$schedule_id}}"
                                                         data-audit-plan-id="{{$query['audit_plan_id']}}"
                                                         data-entity-id="{{$query['entity_office_id']}}"
@@ -180,8 +181,9 @@
                 schedule_id = elem.data('schedule-id');
                 audit_plan_id = elem.data('audit-plan-id');
                 entity_id = elem.data('entity-id');
+                project_name_bn = '{{$project_name_bn}}';
 
-                data = {ac_query_id, team_id, schedule_id, audit_plan_id, entity_id};
+                data = {ac_query_id, team_id, schedule_id, audit_plan_id, entity_id, project_name_bn};
                 url = '{{route('audit.execution.query.edit')}}';
 
                 KTApp.block('#kt_wrapper', {
