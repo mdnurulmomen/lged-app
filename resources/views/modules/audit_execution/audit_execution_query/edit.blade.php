@@ -14,11 +14,13 @@
                     <a
                         onclick="Audit_Query_Schedule_Container.query($(this))"
                         data-schedule-id="{{$schedule_id}}"
+                        data-team-id="{{$team_id}}"
                         data-audit-plan-id="{{$audit_plan_id}}"
                         data-entity-id="{{$entity_id}}"
                         data-cost-center-id="{{$auditQueryInfo['cost_center_id']}}"
                         data-cost-center-name-en="{{$auditQueryInfo['cost_center_name_en']}}"
                         data-cost-center-name-bn="{{$auditQueryInfo['cost_center_name_bn']}}"
+                        data-project-name-bn="{{$project_name_bn}}"
                         class="btn btn-sm btn-warning btn_back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>

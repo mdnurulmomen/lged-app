@@ -24,6 +24,13 @@
                                         </span>
                                     </div>
 
+                                    <div class="subject-wrapper font-weight-normal">
+                                        <span class="mr-2 font-size-1-1">সাবজেক্ট ম্যাটার:</span>
+                                        <span class="description text-wrap font-size-14">
+                                            {{$schedule['annual_plan']['subject_matter']}}
+                                        </span>
+                                    </div>
+
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                         <span class="mr-1">কস্ট সেন্টারঃ</span>
                                         <span class="text-info font-size-1-1">
