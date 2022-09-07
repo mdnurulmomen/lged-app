@@ -326,6 +326,7 @@ return [
             'search-view' => env('API_URL_BEE', '') . '/audit-conduct-apotti/search-view',
             'apotti-memo-list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/apotti-memo-list',
             'convert-memo-to-apotti' => env('API_URL_BEE', '') . '/audit-conduct-apotti/convert-memo-to-apotti',
+            'get-ministry-wise-project-from-office-db' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-ministry-wise-project',
         ],
 
         'archive_apotti' => [

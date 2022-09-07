@@ -53,11 +53,12 @@ class Controller extends BaseController
 
     public function wizard()
     {
-        if (!session('_wizard')) {
-            $http = $this->initHttp()->get(config('cag_doptor_api.widget'))->json();
-            session()->put(['_wizard' => $http['data']]);
-            session()->save();
-        }
-        return session('_wizard');
+//        if (!session('_wizard')) {
+//            $http = $this->initHttp()->get(config('cag_doptor_api.widget'))->json();
+//            session()->put(['_wizard' => $http['data']]);
+//            session()->save();
+//        }
+//        return session('_wizard');
+        return '';
     }
 }
