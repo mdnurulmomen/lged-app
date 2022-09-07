@@ -109,6 +109,41 @@ class AuditExecutionApottiSearchController extends Controller
         );
     }
 
+    public function editSubmit(Request $request)
+    {
+        Validator::make($request->all(), [
+            'apotti_item_id' => 'required',
+            'directorate_id' => 'required',
+            'fiscal_year_id' => 'required',
+            'audit_year_start' => 'required',
+            'audit_year_end' => 'required',
+            'fiscal_year' => 'required',
+            'audit_type' => 'required',
+        ])->validate();
+
+        $daata = [];
+        $data['apotti_item_id'] = $request->apotti_item_id;
+        $data['directorate_id'] = $request->directorate_id;
+        $data['audit_type'] = $request->audit_type;
+        $data['project_id'] = $request->project_id;
+        $data['ministry_id'] = $request->ministry_id;
+        $data['ministry_name_en'] = $request->ministry_name_en;
+        $data['ministry_name_bn'] = $request->ministry_name_bn;
+        $data['parent_office_id'] = $request->entity_id;
+        $data['parent_office_name_en'] = $request->entity_name_en;
+        $data['parent_office_name_bn'] = $request->entity_name_bn;
+        $data['cost_center_id'] = $request->cost_center_id;
+        $data['cost_center_name_en'] = $request->cost_center_name_en;
+        $data['cost_center_name_bn'] = $request->cost_center_name_bn;
+        $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['audit_year_start'] = $request->audit_year_start;
+        $data['audit_year_end'] = $request->audit_year_end;
+        $data['memo_type'] = $request->memo_type;
+        $data['fiscal_year'] = $request->fiscal_year;
+
+        return $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.store-edited-apotti'), $data)->json();
+    }
+
     public function getDonerWiseProject(Request $request)
     {
         $data['directorate_id'] = $request->directorate_id;

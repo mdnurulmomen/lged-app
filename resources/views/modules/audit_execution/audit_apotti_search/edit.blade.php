@@ -95,7 +95,9 @@
             </div>
             <div class="col-md-4">
                 <div class="card sna-card-border mt-3 mb-15">
-                    <input type="hidden" name="id" value="{{$apotti_item['id']}}">
+                    <input type="hidden" name="apotti_item_id" value="{{$apotti_item['id']}}">
+                    <input type="hidden" name="apotti_id" value="{{$apotti['id']}}">
+                    <input type="hidden" name="directorate_id" value="{{$search_data['directorate_id']}}">
 
                     <div class="input-group">
                         <div class="input-group-prepend"><span class="input-group-text">অনুচ্ছেদ নম্বর</span></div>
@@ -125,37 +127,44 @@
                     </div>
 
                     <p class="text-danger d-none" style="font-weight:bold; font-size:1.1em" id="unmapped_error_tag">
-                        আপত্তি সঠিক ম্যাপ এ নেই। অনুগ্রহ করে সঠিক ম্যাপ করুন।</p>
+                        সঠিক ম্যাপ এ নেই। অনুগ্রহ করে সঠিক ম্যাপ করুন।</p>
 
                     <select class="form-select select-select2" id="ministry_id" name="ministry_id">
                         <option value="">মন্ত্রণালয়/অফিস</option>
                     </select>
+                    <br>
 
                     <select class="form-select select-select2" id="entity_id" name="entity_id">
                         <option value="">এনটিটি</option>
                     </select>
+                    <br>
 
                     <select class="form-select select-select2" id="unit_group_office_id" name="unit_group_office_id">
                         <option value="">ইউনিট গ্রুপ</option>
                     </select>
+                    <br>
 
                     <select class="form-select select-select2" id="cost_center_id" name="cost_center_id">
                         <option value="">কস্ট সেন্টার</option>
                     </select>
+                    <br>
 
-                    <select class="form-select select-select2" id="cost_center_id" name="cost_center_id">
+                    <select class="form-select select-select2" id="project_id" name="project_id">
                         <option value="">প্রজেক্ট বাছাই করুন</option>
                         @foreach($all_projects as $project)
-                            <option value="{{$project['id']}}">{{$project['project_name_bn']}}</option>
+                            <option value="{{$project['id']}}" data-project-name-en="{{$project['project_name_en']}}"
+                                    data-project-name-bn="{{$project['project_name_bn']}}">{{$project['project_name_bn']}}</option>
                         @endforeach
                     </select>
+                    <br>
 
-                    <select class="form-select select-select2" id="cost_center_id" name="cost_center_id">
+                    <select class="form-select select-select2" id="fiscal_year_id" name="fiscal_year_id">
                         <option value="">অর্থ বছর বাছাই করুন</option>
                         @foreach($fiscal_years as $fiscal_year)
                             <option value="{{$fiscal_year['id']}}">{{$fiscal_year['description']}}</option>
                         @endforeach
                     </select>
+                    <br>
 
                     <div class="input-group">
                         <input class="form-control year-picker" id="audit_year_start" name="audit_year_start"
@@ -163,34 +172,35 @@
                         <input class="form-control year-picker" name="audit_year_end" placeholder="শেষ" type="text"
                                value="{{$apotti_item['audit_year_end']}}">
                     </div>
+                    <br>
 
-                    <select class="form-control select-select2" id="nirikkha_dhoron" name="nirikkha_dhoron">
+                    <select class="form-control select-select2" id="audit_type" name="audit_type">
                         <option value="">নিরিক্ষার ধরন</option>
                         <option
-                            value="কমপ্লায়েন্স অডিট" {{$apotti_item['audit_type'] == 'compliance'?'selected':''}}>
+                            value="compliance" {{$apotti_item['audit_type'] == 'compliance'?'selected':''}}>
                             কমপ্লায়েন্স অডিট
                         </option>
                         <option
-                            value="পারফরমেন্স অডিট" {{$apotti_item['audit_type'] == 'performance'?'selected':''}}>
+                            value="performance" {{$apotti_item['audit_type'] == 'performance'?'selected':''}}>
                             পারফরমেন্স অডিট
                         </option>
                         <option
-                            value="ফাইন্যান্সিয়াল অডিট" {{$apotti_item['audit_type'] == 'financial'?'selected':''}}>
+                            value="financial" {{$apotti_item['audit_type'] == 'financial'?'selected':''}}>
                             ফাইন্যান্সিয়াল অডিট
                         </option>
-                        <option value="বার্ষিক অডিট" {{$apotti_item['audit_type'] == 'yearly'?'selected':''}}>
+                        <option value="yearly" {{$apotti_item['audit_type'] == 'yearly'?'selected':''}}>
                             বার্ষিক অডিট
                         </option>
-                        <option value="বিশেষ অডিট" {{$apotti_item['audit_type'] == 'special'?'selected':''}}>বিশেষ
+                        <option value="special" {{$apotti_item['audit_type'] == 'special'?'selected':''}}>বিশেষ
                             অডিট
                         </option>
                         <option
-                            value="ইস্যুভিত্তিক অডিট" {{$apotti_item['audit_type'] == 'issue'?'selected':''}}>
+                            value="issue" {{$apotti_item['audit_type'] == 'issue'?'selected':''}}>
                             ইস্যুভিত্তিক অডিট
                         </option>
                     </select>
 
-                    <select class="form-control select-select2" id="apottir_dhoron" name="apottir_dhoron">
+                    <select class="form-control select-select2" id="memo_type" name="memo_type">
                         <option value="">আপত্তির ধরন</option>
                         <option value="sfi" {{$apotti_item['memo_type'] == 'sfi'?'selected':''}}>এসএফআই</option>
                         <option value="non-sfi" {{$apotti_item['memo_type'] == 'non-sfi'?'selected':''}}>নন-এসএফআই
@@ -293,6 +303,32 @@
 
             from_data = new FormData(document.getElementById("apotti_create_form"));
 
+            ministry_name_en = $('#ministry_id option:selected').attr('data-ministry-name-en');
+            ministry_name_bn = $('#ministry_id option:selected').attr('data-ministry-name-bn');
+
+            from_data.append('ministry_name_en', ministry_name_en);
+            from_data.append('ministry_name_bn', ministry_name_bn);
+
+            entity_name_en = $('#entity_id option:selected').attr('data-office-name-en');
+            entity_name_bn = $('#entity_id option:selected').attr('data-office-name-bn');
+
+            from_data.append('entity_name_en', entity_name_en);
+            from_data.append('entity_name_bn', entity_name_bn);
+
+            cost_center_name_en = $('#cost_center_id option:selected').attr('data-office-name-en');
+            cost_center_name_bn = $('#cost_center_id option:selected').attr('data-office-name-bn');
+
+            from_data.append('cost_center_name_en', cost_center_name_en);
+            from_data.append('cost_center_name_bn', cost_center_name_bn);
+
+            project_name_en = $('#project_id option:selected').attr('data-project-name-en');
+            project_name_bn = $('#project_id option:selected').attr('data-project-name-bn');
+
+            from_data.append('project_name_en', project_name_en);
+            from_data.append('project_name_bn', project_name_bn);
+
+            from_data.append('fiscal_year', $('#fiscal_year_id option:selected').text());
+
             elem = $(this);
             elem.prop('disabled', true);
 
@@ -303,7 +339,7 @@
 
             $.ajax({
                 data: from_data,
-                url: '{{route('audit.execution.archive-apotti.store')}}',
+                url: '{{route('audit.execution.apotti.search-edit-submit')}}',
                 type: "POST",
                 dataType: 'json',
                 contentType: false,
