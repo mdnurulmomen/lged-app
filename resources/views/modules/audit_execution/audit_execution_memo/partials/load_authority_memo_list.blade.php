@@ -113,6 +113,14 @@
                                             </div>
                                         @endif
 
+                                        <div class="subject-wrapper font-weight-normal">
+                                            <span class="mr-2 font-size-1-1">প্ল্যান/সাবজেক্ট ম্যাটার:</span>
+                                            <span class="description text-wrap font-size-14">
+                                                প্ল্যান {{enTobn($memo['audit_plan']['id'])}}
+                                                ({{$memo['audit_plan']['annual_plan']['subject_matter']}})
+                                            </span>
+                                        </div>
+
                                         <div class=" subject-wrapper font-weight-normal">
                                             <span class="mr-2 font-size-1-1">জড়িত অর্থঃ</span>
                                             <span class="text-info font-size-14">

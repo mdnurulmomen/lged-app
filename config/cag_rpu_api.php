@@ -35,4 +35,8 @@ return [
     'store-rpu-broad-sheet' => env('API_URL_RPU', '') . '/apotti/store-rpu-broad-sheet',
     'get-ministry-wise-apotti-entity' => env('API_URL_RPU', '') . '/apotti/get-ministry-wise-apotti-entity',
     'get-directorate-wise-ministry-total-observation' => env('API_URL_RPU', '') . '/apotti/get-directorate-wise-ministry-total-observation',
+
+
+    'get-all-doner' => env('API_URL_RPU', '') . '/doner-agency/list',
+    'get-doner-wise-project' => env('API_URL_RPU', '') . '/doner-agency/get-doner-wise-project',
 ];

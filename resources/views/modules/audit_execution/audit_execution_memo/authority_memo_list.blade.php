@@ -344,6 +344,7 @@
                 dashboard_filter_data = JSON.parse(dashboard_filter_data);
                 activity_id = dashboard_filter_data.activity_id;
             }
+            audit_plan_id = $('#audit_plan_id').val();
             entity_id = $('#entity_filter').val();
             team_id = $('#team_filter').val();
             cost_center_id = $('#cost_center_filter').val();
@@ -368,6 +369,7 @@
                 directorate_id,
                 fiscal_year_id,
                 activity_id,
+                audit_plan_id,
                 entity_id,
                 cost_center_id,
                 team_id,

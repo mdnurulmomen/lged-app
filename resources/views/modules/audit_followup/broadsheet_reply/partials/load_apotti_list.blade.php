@@ -131,9 +131,7 @@
                                         <div class="d-flex mt-3">
 
                                             @if($item['broad_sheet_reply']['is_sent_rpu'])
-                                                <button class="mr-3 btn btn-sm btn-info btn-square">
-                                                    জারিপত্র প্রেরণ করা হয়েছে
-                                                </button>
+                                                   <p class="mt-3 pr-5">জারিপত্র প্রেরণ করা হয়েছে</p>
                                             @else
                                                 <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
                                                         title="জারিপত্র তৈরি করুন"
@@ -201,14 +199,19 @@
                                                 </button>
                                             @endif
 
-{{--                                            @if($item['latest_broad_sheet_movement'] && $item['latest_broad_sheet_movement']['receiver_officer_id'] == $desk_officer_id)--}}
-                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                @if(!$item['broad_sheet_reply'] ||  ($item['broad_sheet_reply'] && !$item['broad_sheet_reply']['is_sent_rpu']))
+
+                                                    {{--                                            @if($item['latest_broad_sheet_movement'] && $item['latest_broad_sheet_movement']['receiver_officer_id'] == $desk_officer_id)--}}
+                                                    <button
+                                                        class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                         title=""
                                                         data-broad-sheet-id="{{$item['id']}}"
                                                         onclick="Broadsheet_Reply_List_Container.loadBraodSheetApprovalAuthority($(this))">
-                                                    <i class="fa fa-paper-plane"></i>
-                                                </button>
-{{--                                            @endif--}}
+                                                        <i class="fa fa-paper-plane"></i>
+                                                    </button>
+                                                    {{--                                            @endif--}}
+
+                                                @endif
 
 {{--                                            @if($item['unit_response'] != null)--}}
 
@@ -237,14 +240,15 @@
 {{--                                                        onclick="Broadsheet_Reply_List_Container.editApottiItem($(this))">--}}
 {{--                                                    <i class="fad fa-comments-alt"></i>--}}
 {{--                                                </button>--}}
-
-                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                        title="সিদ্ধান্ত দিন" data-scope="response"
-                                                        data-broad-sheet-id="{{$item['id']}}"
-                                                        onclick="Broadsheet_Reply_List_Container.loadBroadSheetItem($(this))">
-                                                    <i class="fas fa-plus-octagon"></i>
-                                                </button>
+                                                @if(!$item['broad_sheet_reply'] ||  ($item['broad_sheet_reply'] && !$item['broad_sheet_reply']['is_sent_rpu']))
+                                                    <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                            title="সিদ্ধান্ত দিন" data-scope="response"
+                                                            data-broad-sheet-id="{{$item['id']}}"
+                                                            onclick="Broadsheet_Reply_List_Container.loadBroadSheetItem($(this))">
+                                                        <i class="fas fa-plus-octagon"></i>
+                                                    </button>
 {{--                                            @endif--}}
+                                                @endif
 
                                             {{--<button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
                                             list-btn-toggle"

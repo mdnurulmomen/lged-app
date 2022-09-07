@@ -20,8 +20,13 @@ class AuditExecutionScheduleController extends Controller
 
     public function auditSchedule()
     {
+        $all_directorates = $this->allAuditDirectorates();
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
         $fiscal_years = $this->allFiscalYears();
-        return view('modules.audit_execution.audit_schedule.index',compact('fiscal_years'));
+        return view('modules.audit_execution.audit_schedule.index',compact('directorates','fiscal_years'));
     }
 
     public function loadAuditScheduleList(Request $request)
@@ -29,7 +34,9 @@ class AuditExecutionScheduleController extends Controller
 
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['activity_id'] = $request->activity_id;
-
+        $data['audit_plan_id'] = $request->audit_plan_id;
+        $data['page'] = $request->page;
+        $data['per_page'] = $request->per_page;
         $data['cdesk'] = $this->current_desk_json();
         $audit_query_schedule_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.get_query_schedule_list'), $data)->json();
         //dd($audit_query_schedule_list);

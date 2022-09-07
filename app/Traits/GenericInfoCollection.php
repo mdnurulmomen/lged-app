@@ -89,6 +89,16 @@ trait GenericInfoCollection
         }
     }
 
+    public function allDoners(){
+
+        $all_doner = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-doner'))->json();
+        if ($all_doner['status'] == 'success') {
+            return $all_doner['data'];
+        } else {
+            return [];
+        }
+    }
+
     public function cagDoptorOtherOffices($own_office_id)
     {
         $officer_lists = $this->initDoptorHttp()->post(config('cag_doptor_api.other_offices'), ['own_office_id' => $own_office_id])->json();

@@ -442,6 +442,11 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'finder_officer_id', 'contents' => $request->finder_officer_id],
             ['name' => 'finder_office_id', 'contents' => $request->finder_office_id],
             ['name' => 'finder_details', 'contents' => $request->finder_details],
+            ['name' => 'team_leader_name', 'contents' => $request->team_leader_name],
+            ['name' => 'team_leader_designation', 'contents' => $request->team_leader_designation],
+            ['name' => 'sub_team_leader_name', 'contents' => $request->sub_team_leader_name],
+            ['name' => 'sub_team_leader_designation', 'contents' => $request->sub_team_leader_designation],
+            ['name' => 'issued_by', 'contents' => $request->issued_by],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
 
@@ -515,6 +520,7 @@ class AuditExecutionMemoController extends Controller
         $data['office_id'] = $request->directorate_id;
         $data['team_id'] = $request->team_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['audit_plan_id'] = $request->audit_plan_id;
         $data['entity_id'] = $request->entity_id;
         $data['activity_id'] = $request->activity_id;
         $data['cost_center_id'] = $request->cost_center_id;

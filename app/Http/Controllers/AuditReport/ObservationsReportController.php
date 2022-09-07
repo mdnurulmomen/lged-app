@@ -23,14 +23,18 @@ class ObservationsReportController extends Controller
         $self_directorate = current(array_filter($all_directorates, function ($item) {
             return $this->current_office_id() == $item['office_id'];
         }));
+        $all_doners = $this->allDoners();
+
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
         return view('modules.audit_report.observations_report.index', compact('fiscal_years',
-            'directorates','memo_status'));
+            'directorates','memo_status','all_doners'));
     }
 
     public function list(Request $request){
         $data['memo_status'] = $request->memo_status;
         $data['directorate_id'] = $request->directorate_id;
+        $data['project_id'] = $request->project_id ?  [$request->project_id] : null;
+        $data['doner_id'] = $request->doner_id;
         $data['ministry_id'] = $request->ministry_id;
         $data['entity_id'] = $request->entity_id;
         $data['cost_center_id'] = $request->cost_center_id;
@@ -44,8 +48,17 @@ class ObservationsReportController extends Controller
         $data['per_page'] = $request->per_page;
         $data['scope'] = 'list';
 
+        if($request->doner_id && !$request->project_id){
+            $doner_data['directorate_id'] = $request->directorate_id;
+            $doner_data['doner_id'] = $request->doner_id;
+            $doner_data['type'] = 'only_id';
+
+            $project_list = $this->initRPUHttp()->post(config('cag_rpu_api.get-doner-wise-project'),$doner_data)->json();
+            $data['project_id'] = $project_list['data'];
+        }
+
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.observations.get-status-wise.list'), $data)->json();
-        //dd($response);
+//        dd($response);
         if (isSuccess($response)) {
             $response = $response['data'];
             $apotti_list = $response['apotti_list'];
