@@ -152,8 +152,8 @@
                     <select class="form-select select-select2" id="project_id" name="project_id">
                         <option value="">প্রজেক্ট বাছাই করুন</option>
                         @foreach($all_projects as $project)
-                            <option value="{{$project['id']}}" data-project-name-en="{{$project['project_name_en']}}"
-                                    data-project-name-bn="{{$project['project_name_bn']}}">{{$project['project_name_bn']}}</option>
+                            <option value="{{$project['id']}}" data-project-name-en="{{$project['name_en']}}"
+                                    data-project-name-bn="{{$project['name_bn']}}">{{$project['name_bn']}}</option>
                         @endforeach
                     </select>
                     <br>
