@@ -16,7 +16,7 @@
             <div class="col-md-3">
                 <label for="ministry_id" class="col-form-label">মন্ত্রণালয়/বিভাগ</label>
                 <select class="form-select select-select2" id="ministry_id">
-                    <option value="">সবগুলো</option>
+                    <option value="">সবগুলো (ALL)</option>
                 </select>
             </div>
 
