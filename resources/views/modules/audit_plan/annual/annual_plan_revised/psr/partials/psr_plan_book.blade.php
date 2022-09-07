@@ -845,7 +845,10 @@
         {!! $plans[9]['content'] !!}
         {!! $plans[10]['content'] !!}
     </div>
-        {{--{!! $plans[11]['content'] !!}--}}
+
+    {{--audit plan form 1 (part-02)--}}
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        {!! $plans[11]['content'] !!}
     </div>
 
     {{--audit plan form 1 (part-03)--}}
@@ -904,14 +907,19 @@
         {!! $plans[27]['content'] !!}
     </div>
 
+    {{--materiality calculate page--}}
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        {!! $plans[29]['content'] !!}
+    </div>
 
-    {{--audit other details page--}}
-    @if(array_key_exists(31, $plans))
-        <div class="pdf-screen bangla-font" style="height: 100%">
-            {!! $plans[31]['content'] !!}
-        </div>
-    @endif
+    {{--audit schedule page--}}
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
+        {!! $plans[30]['content'] !!}
+    </div>
 
+    <div class="pdf-screen bangla-font" style="height: 100%">
+        {!! $plans[31]['content'] !!}
+    </div>
 </div>
 </body>
 </html>

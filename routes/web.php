@@ -318,8 +318,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('/create', [AnnualPlanPSRController::class, 'create'])->name('create');
                 Route::post('/load-ministry-wise-entity', [AnnualPlanPSRController::class, 'loadMinistryWiseEntity'])->name('load-ministry-wise-entity');
                 Route::post('/load-criteria-list', [AuditAssessmentScoreController::class, 'loadCategoryWiseCriteriaList'])->name('load-criteria-list');
-                Route::post('/store', [AnnualPlanPSRController::class, 'savePSRPlan'])->name('store');
-                Route::post('/psrview', [AnnualPlanPSRController::class, 'annualPlanPSRBookPreview'])->name('psrview');
+                Route::post('/store', [AnnualPlanPSRController::class, 'store'])->name('store');
+                Route::post('/psrview', [AnnualPlanPSRController::class, 'preview'])->name('psrview');
                 Route::post('/edit', [AuditAssessmentScoreController::class, 'edit'])->name('edit');
             });
 
@@ -548,6 +548,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('search-list', [AuditExecutionApottiSearchController::class, 'list'])->name('search-list');
             Route::post('search-view', [AuditExecutionApottiSearchController::class, 'view'])->name('search-view');
             Route::post('get-doner-wise-project', [AuditExecutionApottiSearchController::class, 'getDonerWiseProject'])->name('get-doner-wise-project');
+            Route::post('get-ministry-wise-project-and-doner', [AuditExecutionApottiSearchController::class, 'getMinistryWiseProjectAndDoner'])->name('get-ministry-wise-project-and-doner');
+            Route::post('get-ministry-wise-project', [AuditExecutionApottiSearchController::class, 'getMinistryWiseProject'])->name('get-ministry-wise-project');
         });
 
         //archive apotti
