@@ -21,10 +21,9 @@ class AuditExecutionApottiSearchController extends Controller
         $self_directorate = current(array_filter($all_directorates, function ($item) {
             return $this->current_office_id() == $item['office_id'];
         }));
-        $all_doners = $this->allDoners();
 //        dd($all_doners);
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
-        return view('modules.audit_execution.audit_apotti_search.index',compact('fiscal_years','directorates','all_doners'));
+        return view('modules.audit_execution.audit_apotti_search.index',compact('fiscal_years','directorates'));
     }
 
     public function list(Request $request){
@@ -83,9 +82,53 @@ class AuditExecutionApottiSearchController extends Controller
 
     public function getDonerWiseProject(Request  $request){
         $data['directorate_id'] = $request->directorate_id;
+        $data['ministry_id'] = $request->ministry_id;
         $data['doner_id'] = $request->doner_id;
-        $project_list = $this->initRPUHttp()->post(config('cag_rpu_api.get-doner-wise-project'),$data)->json();
+
+        $data['type'] = 'only_id';
+
+        $project_ids = $this->initRPUHttp()->post(config('cag_rpu_api.get-doner-wise-project'),$data)->json();
+        $project_ids = isSuccess($project_ids) ? $project_ids['data'] : [];
+
+        $project_data['directorate_id'] = $request->directorate_id;
+        $project_data['ministry_id'] = $request->ministry_id;
+        $project_data['project_ids'] =  $project_ids;
+        $project_data['type'] =  'by_project_ids';
+
+        $project_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.get-ministry-wise-project-from-office-db'), $project_data)->json();
         $project_list = isSuccess($project_list) ? $project_list['data'] : [];
+
+
+        return view('modules.audit_execution.audit_apotti_search.partials.project_select', compact('project_list'));
+    }
+
+    public function getMinistryWiseProjectAndDoner(Request $request){
+        $data['directorate_id'] = $request->directorate_id;
+        $data['ministry_id'] = $request->ministry_id;
+        $data['type'] = 'only_id';
+
+        $project_ids = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.get-ministry-wise-project-from-office-db'), $data)->json();
+        $project_ids = isSuccess($project_ids) ? $project_ids['data'] : [];
+
+        $rpu_data['project_ids'] = $project_ids;
+
+        $doner_list = $this->initRPUHttp()->post(config('cag_rpu_api.get-project-wise-doner'),$rpu_data)->json();
+
+        $doner_list = isSuccess($doner_list) ? $doner_list['data'] : [];
+
+        return view('modules.audit_execution.audit_apotti_search.partials.doner_select', compact('doner_list'));
+    }
+
+    public function getMinistryWiseProject(Request $request){
+        $data['directorate_id'] = $request->directorate_id;
+        $data['ministry_id'] = $request->ministry_id;
+
+        $project_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.get-ministry-wise-project-from-office-db'), $data)->json();
+//        dd($project_list);
+        $project_list = isSuccess($project_list) ? $project_list['data'] : [];
+
+
+
         return view('modules.audit_execution.audit_apotti_search.partials.project_select', compact('project_list'));
     }
 }
