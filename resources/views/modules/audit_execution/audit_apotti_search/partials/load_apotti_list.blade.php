@@ -14,6 +14,7 @@
         <th class="text-center" width="5%">অনুচ্ছেদ নম্বর</th>
         <th class="text-center" width="20%">আপত্তির শিরোনাম</th>
         <th class="text-center" width="10%">জড়িত অর্থ (টাকা)</th>
+        <th class="text-center" width="10%">প্রকল্প</th>
         <th class="text-center" width="20%">নিরীক্ষিত প্রতিষ্ঠান</th>
         <th class="text-center" width="10%">অর্থবছর</th>
         <th class="text-center" width="10%">আপত্তির ধরন</th>
@@ -31,6 +32,9 @@
             <td class="text-left">{{$apotti['memo_title_bn']}}</td>
             <td class="text-right">
                 <span>{{enTobn(currency_format($apotti['jorito_ortho_poriman']))}}</span>
+            </td>
+            <td class="text-left text-justify">
+                <span>{{$apotti['project_name_bn']}}</span>
             </td>
             <td class="text-left">
                 মন্ত্রণালয়/বিভাগঃ {{$apotti['ministry_name_bn']}} <br>

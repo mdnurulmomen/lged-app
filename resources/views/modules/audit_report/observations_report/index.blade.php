@@ -107,6 +107,7 @@
                     <option value="sl_no" selected>ক্রমিক নং</option>
                     <option value="id_no" selected>আইডি</option>
                     <option value="audit_unit" selected>অডিট ইউনিট</option>
+                    <option value="project" selected>প্রকল্প</option>
                     <option value="fiscal_year" selected>অর্থবছর</option>
                     <option value="audit_year" selected>নিরীক্ষা বছর</option>
                     <option value="onucched_no" selected>অনুচ্ছেদ নম্বর</option>
@@ -201,7 +202,8 @@
             memo_status = '{{$memo_status}}';
             directorate_id = $("#directorate_id").val();
             directorate_name = $("#directorate_id option:selected").text();
-
+            project_id = $('#project_id').val();
+            doner_id = $('#doner_id').val();
             ministry_id = $("#ministry_id").val();
             ministry_name = $("#ministry_id option:selected").text();
 
@@ -234,7 +236,9 @@
                 fiscal_year_id,
                 memo_type,
                 jorito_ortho_poriman,
-                columns
+                columns,
+                doner_id,
+                project_id
             };
 
             KTApp.block('#kt_wrapper', {
@@ -383,8 +387,8 @@
     $('#ministry_id').change(function() {
         ministry_id = $('#ministry_id').val();
         Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id);
-        Archive_Apotti_Container.loadMinistryWisePrjectAndDoner();
-        Archive_Apotti_Container.laadMinisryWiseProject();
+        Observations_Report_Container.loadMinistryWisePrjectAndDoner();
+        Observations_Report_Container.laadMinisryWiseProject();
     });
 
     //unit group & cost center
@@ -409,8 +413,8 @@
 
     $('#plan_type').click(function () {
         if($(this).is(':checked') == true){
-            Archive_Apotti_Container.loadMinistryWisePrjectAndDoner();
-            Archive_Apotti_Container.laadMinisryWiseProject();
+            Observations_Report_Container.loadMinistryWisePrjectAndDoner();
+            Observations_Report_Container.laadMinisryWiseProject();
             $('#doner_div').show();
             $('#project_div').show();
         }else {

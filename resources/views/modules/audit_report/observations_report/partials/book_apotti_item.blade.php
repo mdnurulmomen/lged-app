@@ -849,6 +849,10 @@
                     <th style="text-align: center" width="20%">অডিট ইউনিট</th>
                 @endif
 
+                    @if(in_array('project',$columns))
+                        <th style="text-align: center" width="20%">প্রকল্প</th>
+                    @endif
+
                 @if(in_array('fiscal_year',$columns))
                     <th style="text-align: center" width="10%">অর্থবছর</th>
                 @endif
@@ -910,6 +914,10 @@
                     @if(in_array('audit_unit',$columns))
                         <td style="text-align: left;vertical-align: top;">{{$apotti['cost_center_name_bn']}}</td>
                     @endif
+
+                        @if(in_array('project',$columns))
+                            <td style="text-align: left;vertical-align: top;">{{$apotti['project_name_bn']}}</td>
+                        @endif
 
                     @if(in_array('fiscal_year',$columns))
                         <td style="text-align: left">{{$apotti['fiscal_year']?enTobn($apotti['fiscal_year']['start']).'-'.enTobn($apotti['fiscal_year']['end']):'---'}}</td>
