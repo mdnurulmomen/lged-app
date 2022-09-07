@@ -126,6 +126,8 @@ class AuditExecutionApottiSearchController extends Controller
         $data['directorate_id'] = $request->directorate_id;
         $data['audit_type'] = $request->audit_type;
         $data['project_id'] = $request->project_id;
+        $data['project_name_en'] = $request->project_name_en;
+        $data['project_name_bn'] = $request->project_name_bn;
         $data['ministry_id'] = $request->ministry_id;
         $data['ministry_name_en'] = $request->ministry_name_en;
         $data['ministry_name_bn'] = $request->ministry_name_bn;
