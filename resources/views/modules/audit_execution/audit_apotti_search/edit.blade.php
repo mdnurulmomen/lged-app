@@ -118,6 +118,15 @@
                            readonly
                     >
 
+                    <div class="border mt-2 mb-2 pt-2">
+                        <p>মন্ত্রনালয়ঃ {{$apotti_item['ministry_name_bn']}}</p>
+                        <p>এন্টিটিঃ {{$apotti_item['parent_office_name_bn']}}</p>
+                        <p>কস্টসেন্টারঃ {{$apotti_item['cost_center_name_bn']}}</p>
+                    </div>
+
+                    <p class="text-danger d-none" style="font-weight:bold; font-size:1.1em" id="unmapped_error_tag">
+                        আপত্তি সঠিক ম্যাপ এ নেই। অনুগ্রহ করে সঠিক ম্যাপ করুন।</p>
+
                     <select class="form-select select-select2" id="ministry_id" name="ministry_id">
                         <option value="">মন্ত্রণালয়/অফিস</option>
                     </select>
@@ -132,6 +141,20 @@
 
                     <select class="form-select select-select2" id="cost_center_id" name="cost_center_id">
                         <option value="">কস্ট সেন্টার</option>
+                    </select>
+
+                    <select class="form-select select-select2" id="cost_center_id" name="cost_center_id">
+                        <option value="">প্রজেক্ট বাছাই করুন</option>
+                        @foreach($all_projects as $project)
+                            <option value="{{$project['id']}}">{{$project['project_name_bn']}}</option>
+                        @endforeach
+                    </select>
+
+                    <select class="form-select select-select2" id="cost_center_id" name="cost_center_id">
+                        <option value="">অর্থ বছর বাছাই করুন</option>
+                        @foreach($fiscal_years as $fiscal_year)
+                            <option value="{{$fiscal_year['id']}}">{{$fiscal_year['description']}}</option>
+                        @endforeach
                     </select>
 
                     <div class="input-group">
@@ -213,12 +236,10 @@
 
         //entity
         entity_id = '{{$apotti_item['parent_office_id']}}';
-        Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id, entity_id);
-        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(entity_id);
+        loadMinistryWiseEntity(ministry_id, entity_id);
 
-        //entity
-        {{--parent_office_id = '{{$apotti_item['parent_office_id']}}';--}}
-        {{--Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id, parent_office_id);--}}
+
+        Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id, entity_id);
 
         //cost center
         cost_center_id = '{{$apotti_item['cost_center_id']}}';
@@ -375,5 +396,23 @@
 
     function loadPromanok() {
         $(".load-promanok-attachment").show();
+    }
+
+    function loadMinistryWiseEntity(ministry_id, entity_id = '') {
+        let url = '{{route('audit.execution.archive-apotti.load-ministry-wise-entity')}}';
+        let data = {ministry_id};
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'error') {
+                    toastr.warning(response.data);
+                } else {
+                    $('#entity_id').html(response);
+                    if ($("#entity_id option[value='" + entity_id + "']").length == 0) {
+                        $('#unmapped_error_tag').removeClass('d-none')
+                    } else {
+                        $('#entity_id').val(entity_id).trigger('change');
+                    }
+                }
+            }
+        );
     }
 </script>

@@ -89,6 +89,12 @@ class AuditExecutionApottiSearchController extends Controller
         }));
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
 
+        $data['office_id'] = $request->directorate_id;
+        $all_projects = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), $data)->json();
+        $all_projects = $all_projects ? $all_projects['data'] : [];
+
+        $fiscal_years = $this->allFiscalYears();
+
         //apotii edit
         $search_data['apotti_item_id'] = $request->apotti_item_id;
         $search_data['directorate_id'] = $request->directorate_id;
@@ -99,7 +105,7 @@ class AuditExecutionApottiSearchController extends Controller
         $promanok_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['promanok_attachments'] : [];
         $porisishto_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['porisishto_attachments'] : [];
         return view('modules.audit_execution.audit_apotti_search.edit',
-            compact('directorates', 'apotti', 'apotti_item', 'main_attachments', 'promanok_attachments', 'porisishto_attachments', 'search_data')
+            compact('directorates', 'apotti', 'apotti_item', 'main_attachments', 'promanok_attachments', 'porisishto_attachments', 'search_data', 'all_projects', 'fiscal_years')
         );
     }
 
