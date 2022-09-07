@@ -116,15 +116,11 @@ class AnnualPlanRevisedController extends Controller
         $fiscal_year = $request->fiscal_year;
         $fiscal_year_id = $request->fiscal_year_id;
         $current_office_id = $this->current_office_id();
-        $psr_plan_id = $request->psr_plan_id;
-        $annual_plan_id = $request->annual_plan_id;
         $office_id = $request->office_id;
 
         return view(
             'modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection',
             compact(
-                'psr_plan_id',
-                'annual_plan_id',
                 'plan_list',
                 'fiscal_year',
                 'fiscal_year_id',

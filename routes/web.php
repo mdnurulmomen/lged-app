@@ -318,8 +318,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('/create', [AnnualPlanPSRController::class, 'create'])->name('create');
                 Route::post('/load-ministry-wise-entity', [AnnualPlanPSRController::class, 'loadMinistryWiseEntity'])->name('load-ministry-wise-entity');
                 Route::post('/load-criteria-list', [AuditAssessmentScoreController::class, 'loadCategoryWiseCriteriaList'])->name('load-criteria-list');
-                Route::post('/store', [AnnualPlanPSRController::class, 'savePSRPlan'])->name('store');
-                Route::post('/psrview', [AnnualPlanPSRController::class, 'annualPlanPSRBookPreview'])->name('psrview');
+                Route::post('/store', [AnnualPlanPSRController::class, 'store'])->name('store');
+                Route::post('/psrview', [AnnualPlanPSRController::class, 'preview'])->name('psrview');
                 Route::post('/edit', [AuditAssessmentScoreController::class, 'edit'])->name('edit');
             });
 

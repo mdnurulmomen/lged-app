@@ -1017,7 +1017,6 @@
 
 
         loadPSRBookCreatable: function (elem) {
-            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             swal.fire({
                 title: 'আপনি কি নতুন প্রি স্টাডি রিপোর্ট প্রস্তুত করতে চান?',
                 text: "",
@@ -1028,12 +1027,11 @@
             }).then(function(result) {
                 if (result.value) {
                     url = '{{route('audit.plan.annual.psr.create')}}';
-                    psr_plan_id = elem.data('id');
-                    // annual_plan_id = elem.data('annual-plan-id');
+                    annual_plan_id = elem.data('annual-plan-id');
                     fiscal_year_id = elem.data('fiscal-year-id');
+                    activity_id = elem.data('op-audit-calendar-event-id');
 
-
-                    data = {psr_plan_id,fiscal_year_id};
+                    data = {annual_plan_id,fiscal_year_id,activity_id};
 
                     KTApp.block('#kt_wrapper', {
                         opacity: 0.1,
