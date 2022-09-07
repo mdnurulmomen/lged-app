@@ -88,18 +88,18 @@ class AuditExecutionApottiSearchController extends Controller
             return $this->current_office_id() == $item['office_id'];
         }));
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
-        $categoryResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.get_oniyomer_category_list'), [])->json();
-        $categories = isSuccess($categoryResponseData) ? $categoryResponseData['data'] : [];
 
         //apotii edit
-        $apotti_data['apotti_id'] = $request->apotti_id;
-        $apottiResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.edit'), $apotti_data)->json();
+        $search_data['apotti_item_id'] = $request->apotti_item_id;
+        $search_data['directorate_id'] = $request->directorate_id;
+        $apottiResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.apotti.search-edit'), $search_data)->json();
         $apotti = isSuccess($apottiResponseData) ? $apottiResponseData['data']['apotti'] : [];
+        $apotti_item = isSuccess($apottiResponseData) ? $apottiResponseData['data']['apotti_item'] : [];
         $main_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['main_attachments'] : [];
         $promanok_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['promanok_attachments'] : [];
         $porisishto_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['porisishto_attachments'] : [];
-        return view('modules.audit_execution.audit_execution_archive_apotti.edit',
-            compact('directorates', 'categories', 'apotti', 'main_attachments', 'promanok_attachments', 'porisishto_attachments')
+        return view('modules.audit_execution.audit_apotti_search.edit',
+            compact('directorates', 'apotti', 'apotti_item', 'main_attachments', 'promanok_attachments', 'porisishto_attachments', 'search_data')
         );
     }
 

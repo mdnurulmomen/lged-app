@@ -198,12 +198,13 @@
         },
 
         loadApottiEditForm: function (elem) {
-            apotti_id = elem.data('apotti-id');
+            apotti_item_id = elem.data('apotti-item-id');
+            directorate_id = $('#directorate_id').val();
             let url = '{{ route('audit.execution.apotti.search-edit') }}';
-            let data = {apotti_id};
+            let data = {apotti_item_id, directorate_id};
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
-                state: 'primary' // a bootstrap color
+                state: 'primary'
             });
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 KTApp.unblock('#kt_wrapper');

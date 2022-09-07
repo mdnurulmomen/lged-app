@@ -324,6 +324,7 @@ return [
             'store_apotti_register_movement' => env('API_URL_BEE', '') . '/audit-conduct-apotti/store-apotti-register-movement',
             'search-list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/search-list',
             'search-view' => env('API_URL_BEE', '') . '/audit-conduct-apotti/search-view',
+            'search-edit' => env('API_URL_BEE', '') . '/audit-conduct-apotti/search-edit',
             'apotti-memo-list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/apotti-memo-list',
             'convert-memo-to-apotti' => env('API_URL_BEE', '') . '/audit-conduct-apotti/convert-memo-to-apotti',
             'get-ministry-wise-project-from-office-db' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-ministry-wise-project',

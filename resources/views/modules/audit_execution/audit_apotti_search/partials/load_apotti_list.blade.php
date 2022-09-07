@@ -53,7 +53,7 @@
                 </button>
                 <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-icon-primary list-btn-toggle"
                         title="হালনাগাদ করুন"
-                        data-apotti-id="{{$apotti['id']}}"
+                        data-apotti-item-id="{{$apotti['id']}}"
                         onclick="Archive_Apotti_Container.loadApottiEditForm($(this))">
                     <i class="fad fa-edit"></i>
                 </button>
