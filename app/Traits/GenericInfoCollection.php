@@ -131,9 +131,15 @@ trait GenericInfoCollection
         }
     }
 
-    public function getAuditTemplate($template_type, $template_name, $lang = 'en'): array
+    public function getAuditTemplate($template_type, $template_name, $lang = 'bn'): array
     {
-        return $this->initHttpWithToken()->post(config('amms_bee_routes.audit_template_show'), ['template_type' => $template_type, 'template_name' => $template_name, 'language' => $lang])->json();
+        $getTemplate = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_template_show'), ['template_type' => $template_type, 'template_name' => $template_name, 'language' => $lang])->json();
+        //dd($getTemplate);
+        if ($getTemplate['status'] == 'success') {
+            return $getTemplate['data'];
+        } else {
+            return [];
+        }
     }
 
     public function yearWiseVacationList($year)

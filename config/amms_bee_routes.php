@@ -229,7 +229,10 @@ return [
         'html_view_content_title_store' => env('API_URL_BEE', '') . '/html-view-content-title-store',
         'html_view_content_title_duration_wise' => env('API_URL_BEE', '') . '/html-view-content-title-duration-wise',
     ],
-
+    'psr_plan' =>[
+        'store' => env('API_URL_BEE', '') . '/planning/psr-plan/store',
+        'view' => env('API_URL_BEE', '') . '/planning/psr-plan/view',
+    ],
     'audit_visit_plan_calendar' => [
         'team_calendar_list' => env('API_URL_BEE', '') . '/planning/calendar/teams',
         'update_visit_calender_status' => env('API_URL_BEE', '') . '/planning/calendar/update-visit-calender-status',

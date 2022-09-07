@@ -409,4 +409,11 @@ class AuditExecutionApottiController extends Controller
             return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
         }
     }
+
+    public function uploadedApottiView(){
+        return view('modules.audit_execution.audit_execution_apotti.appotti_upload.index');
+    }
+    public function apottiUpload(){
+        return view('modules.audit_execution.audit_execution_apotti.appotti_upload.appotti_uploaded');
+    }
 }

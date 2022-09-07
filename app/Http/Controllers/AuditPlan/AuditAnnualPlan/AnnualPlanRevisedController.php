@@ -116,7 +116,6 @@ class AnnualPlanRevisedController extends Controller
         $fiscal_year = $request->fiscal_year;
         $fiscal_year_id = $request->fiscal_year_id;
         $current_office_id = $this->current_office_id();
-
         $office_id = $request->office_id;
 
         return view(

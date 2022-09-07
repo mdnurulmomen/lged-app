@@ -4,6 +4,11 @@
 
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <input type="checkbox" id="plan_type"> প্রকল্প
+            </div>
+        </div>
         <div class="row mt-2">
             <div class="col-md-3">
                 <label for="directorate_id" class="col-form-label">অডিট ডিরেক্টরেট সমূহ</label>
@@ -23,21 +28,17 @@
                 </select>
             </div>
 
-            <div class="col-md-3">
-                <label for="doner_id" class="col-form-label">ডোনার</label>
+            <div id="doner_div" class="col-md-3" style="display: none">
+                <label for="doner_id" class="col-form-label">ডেভেলপমেন্ট এজেন্সী</label>
                 <select class="form-select select-select2" id="doner_id">
-                    <option value="">সবগুলো</option>
-                    @foreach ($all_doners as $doner)
-                        <option value="{{ $doner['id'] }}">{{ $doner['name_bn'] }}
-                        </option>
-                    @endforeach
+                    <option value="">সবগুলো (ALL)</option>
                 </select>
             </div>
 
-            <div class="col-md-3">
+            <div id="project_div" class="col-md-3" style="display: none">
                 <label for="project_id" class="col-form-label">প্রকল্প</label>
                 <select class="form-select select-select2" id="project_id">
-                    <option value="">সবগুলো</option>
+                    <option value="">সবগুলো (ALL)</option>
                 </select>
             </div>
         </div>
@@ -301,7 +302,54 @@
 
             directorate_id = $("#directorate_id").val();
             doner_id = $("#doner_id").val();
-            data = {directorate_id,doner_id};
+            ministry_id = $("#ministry_id").val();
+            data = {directorate_id,doner_id,ministry_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.warning(response.data);
+                } else {
+                    $('#project_id').html(response);
+                }
+            });
+        },
+
+        loadMinistryWisePrjectAndDoner: function (element) {
+            url = '{{route('audit.execution.apotti.get-ministry-wise-project-and-doner')}}';
+
+            directorate_id = $("#directorate_id").val();
+            ministry_id = $("#ministry_id").val();
+
+            doner_id = $("#doner_id").val();
+            data = {directorate_id,ministry_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.warning(response.data);
+                } else {
+                    $('#doner_id').html(response);
+                }
+            });
+        },
+
+        laadMinisryWiseProject: function (element) {
+            url = '{{route('audit.execution.apotti.get-ministry-wise-project')}}';
+
+            directorate_id = $("#directorate_id").val();
+            ministry_id = $("#ministry_id").val();
+            data = {directorate_id,ministry_id};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
@@ -335,6 +383,8 @@
     $('#ministry_id').change(function() {
         ministry_id = $('#ministry_id').val();
         Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id);
+        Archive_Apotti_Container.loadMinistryWisePrjectAndDoner();
+        Archive_Apotti_Container.laadMinisryWiseProject();
     });
 
     //unit group & cost center
@@ -355,5 +405,17 @@
         directorate_id = $('#directorate_id').val();
         apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
         Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id, apotti_oniyomer_category_id);
+    });
+
+    $('#plan_type').click(function () {
+        if($(this).is(':checked') == true){
+            Archive_Apotti_Container.loadMinistryWisePrjectAndDoner();
+            Archive_Apotti_Container.laadMinisryWiseProject();
+            $('#doner_div').show();
+            $('#project_div').show();
+        }else {
+            $('#doner_div').hide();
+            $('#project_div').hide();
+        }
     });
 </script>

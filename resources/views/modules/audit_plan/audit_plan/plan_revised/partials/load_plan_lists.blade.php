@@ -240,7 +240,7 @@
 
                                                     @if(count($annual_plan['audit_plans']) == 0)
                                                         <button
-                                                            {{$annual_plan['annual_plan_main']['approval_status'] != 'approved'?'disabled':''}}
+                                                            {{-- {{$annual_plan['annual_plan_main']['approval_status'] != 'approved'?'disabled':''}} --}}
                                                             class="mr-3 btn btn-sm btn-warning btn-square"
                                                             title="নতুন অডিট প্ল্যান করুন"
                                                             data-annual-plan-id="{{$annual_plan['id']}}"

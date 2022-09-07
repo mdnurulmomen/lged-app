@@ -1015,6 +1015,44 @@
             });
         },
 
+
+        loadPSRBookCreatable: function (elem) {
+            swal.fire({
+                title: 'আপনি কি নতুন প্রি স্টাডি রিপোর্ট প্রস্তুত করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    url = '{{route('audit.plan.annual.psr.create')}}';
+                    annual_plan_id = elem.data('annual-plan-id');
+                    fiscal_year_id = elem.data('fiscal-year-id');
+                    activity_id = elem.data('op-audit-calendar-event-id');
+
+                    data = {annual_plan_id,fiscal_year_id,activity_id};
+
+                    KTApp.block('#kt_wrapper', {
+                        opacity: 0.1,
+                        state: 'primary' // a bootstrap color
+                    });
+
+                    ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                        KTApp.unblock('#kt_wrapper');
+                        if (response.status === 'error') {
+                            toastr.error(response.data);
+                        } else {
+                            var newDoc = document.open("text/html", "replace");
+                            newDoc.write(response);
+                            newDoc.close();
+                        }
+                    })
+                }
+            });
+
+        },
+
         backToAnnualPlanList: function () {
             $('.annual_plan_menu a').click();
         },
