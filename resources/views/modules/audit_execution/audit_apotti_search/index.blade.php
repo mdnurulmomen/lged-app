@@ -1,7 +1,12 @@
-<x-title-wrapper>Apotti List</x-title-wrapper>
+<x-title-wrapper> আপত্তির তালিকা</x-title-wrapper>
 
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <input type="checkbox" id="plan_type"> প্রকল্প
+            </div>
+        </div>
         <div class="row mt-2">
             <div class="col-md-3">
                 <label for="directorate_id" class="col-form-label">অডিট ডিরেক্টরেট সমূহ</label>
@@ -20,14 +25,14 @@
                 </select>
             </div>
 
-            <div class="col-md-3">
+            <div id="doner_div" class="col-md-3" style="display: none">
                 <label for="doner_id" class="col-form-label">ডেভেলপমেন্ট এজেন্সী</label>
                 <select class="form-select select-select2" id="doner_id">
                     <option value="">সবগুলো</option>
                 </select>
             </div>
 
-            <div class="col-md-3">
+            <div id="project_div" class="col-md-3" style="display: none">
                 <label for="project_id" class="col-form-label">প্রকল্প</label>
                 <select class="form-select select-select2" id="project_id">
                     <option value="">সবগুলো</option>
@@ -135,8 +140,6 @@
     $(function() {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
-        Archive_Apotti_Container.loadMinistryWisePrjectAndDoner();
-        Archive_Apotti_Container.laadMinisryWiseProject();
     });
 
     var Archive_Apotti_Container = {
@@ -327,5 +330,17 @@
         directorate_id = $('#directorate_id').val();
         apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
         Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id, apotti_oniyomer_category_id);
+    });
+
+    $('#plan_type').click(function () {
+        if($(this).is(':checked') == true){
+            Archive_Apotti_Container.loadMinistryWisePrjectAndDoner();
+            Archive_Apotti_Container.laadMinisryWiseProject();
+            $('#doner_div').show();
+            $('#project_div').show();
+        }else {
+            $('#doner_div').hide();
+            $('#project_div').hide();
+        }
     });
 </script>
