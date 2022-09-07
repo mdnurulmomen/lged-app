@@ -140,6 +140,10 @@
     $(function() {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
+        var type = localStorage['report_type'] || '';
+        if(type == 'project_based'){
+            $('#plan_type').click();
+        }
     });
 
     var Archive_Apotti_Container = {
@@ -334,6 +338,7 @@
 
     $('#plan_type').click(function () {
         if($(this).is(':checked') == true){
+            localStorage['report_type'] = 'project_based';
             Archive_Apotti_Container.loadMinistryWisePrjectAndDoner();
             Archive_Apotti_Container.laadMinisryWiseProject();
             $('#doner_div').show();
