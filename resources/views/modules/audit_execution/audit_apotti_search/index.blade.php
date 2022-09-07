@@ -21,7 +21,7 @@
             </div>
 
             <div class="col-md-3">
-                <label for="doner_id" class="col-form-label">ডোনার</label>
+                <label for="doner_id" class="col-form-label">ডেভেলপমেন্ট এজেন্সী</label>
                 <select class="form-select select-select2" id="doner_id">
                     <option value="">সবগুলো</option>
                 </select>
