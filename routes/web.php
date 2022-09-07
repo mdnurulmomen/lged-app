@@ -92,6 +92,7 @@ use App\Http\Controllers\Setting\XStrategicPlan\DurationController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutcomeController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutputController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanPSRController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -311,6 +312,17 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/load-annual-plan-edit-milestone', [AnnualPlanRevisedController::class, 'loadEditAnnualPlanMilestone'])->name('plan.list.load-edit-milestone');
             Route::post('/annual-plan-edit-milestone', [AnnualPlanRevisedController::class, 'editAnnualPlanMilestone'])->name('plan.list.edit-milestone');
 
+            // PSR
+            Route::group(['as' => 'psr.', 'prefix' => 'psr/'], function () {
+                Route::get('/', [AnnualPlanPSRController::class, 'index']);
+                Route::post('/create', [AnnualPlanPSRController::class, 'create'])->name('create');
+                Route::post('/load-ministry-wise-entity', [AnnualPlanPSRController::class, 'loadMinistryWiseEntity'])->name('load-ministry-wise-entity');
+                Route::post('/load-criteria-list', [AuditAssessmentScoreController::class, 'loadCategoryWiseCriteriaList'])->name('load-criteria-list');
+                Route::post('/store', [AnnualPlanPSRController::class, 'savePSRPlan'])->name('store');
+                Route::post('/psrview', [AnnualPlanPSRController::class, 'annualPlanPSRBookPreview'])->name('psrview');
+                Route::post('/edit', [AuditAssessmentScoreController::class, 'edit'])->name('edit');
+            });
+
             //audit assessment score
             Route::group(['as' => 'audit-assessment-score.', 'prefix' => 'audit-assessment-score/'], function () {
                 Route::get('/', [AuditAssessmentScoreController::class, 'index']);
@@ -330,12 +342,12 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('/store_annual_plan', [AuditAssessmentController::class, 'storeAnnualPlan'])->name('store_annual_plan');
             });
 
-            Route::group(['as' => 'psr.', 'prefix' => 'psr/'], function () {
-                Route::get('/', [PreliminarySurveyReportController::class, 'index']);
-                Route::post('load-psr', [PreliminarySurveyReportController::class, 'loadPsr'])->name('load-psr');
-                Route::post('create-psr', [PreliminarySurveyReportController::class, 'create'])->name('create-psr');
-                Route::post('store-psr', [PreliminarySurveyReportController::class, 'store'])->name('store-psr');
-            });
+            // Route::group(['as' => 'psr.', 'prefix' => 'psr/'], function () {
+            //     Route::get('/', [PreliminarySurveyReportController::class, 'index']);
+            //     Route::post('load-psr', [PreliminarySurveyReportController::class, 'loadPsr'])->name('load-psr');
+            //     Route::post('create-psr', [PreliminarySurveyReportController::class, 'create'])->name('create-psr');
+            //     Route::post('store-psr', [PreliminarySurveyReportController::class, 'store'])->name('store-psr');
+            // });
         });
 
         //audit Plan

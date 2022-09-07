@@ -113,5 +113,6 @@
         let controlRiskTotalPoint = 0;
         let detectionRiskTotalPoint = 0;
     })
+
     </script>
 @endsection

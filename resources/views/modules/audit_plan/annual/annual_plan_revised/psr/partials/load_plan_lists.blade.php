@@ -171,9 +171,7 @@
                                                    data-approval-status="{{$audit_plans['status']}}"
                                                    onclick="Audit_Plan_Container.loadAuditPlanBookOpen($(this))">
                                                     <i class="fad fa-badge-sheriff mr-2 text-dark-100"></i>
-{{--                                                    প্ল্যান: {{enTobn($audit_plans['plan_no'])}}--}}
-                                                    প্ল্যান: {{enTobn($audit_plans['id'])}}
-                                                    {{$edit_user}}
+                                                    প্ল্যান: {{enTobn($audit_plans['plan_no'])}} {{$edit_user}}
                                                 </a>
                                             @endforeach
                                         </div>

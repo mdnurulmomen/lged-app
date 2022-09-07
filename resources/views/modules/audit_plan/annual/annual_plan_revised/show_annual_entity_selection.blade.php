@@ -291,8 +291,16 @@
                                                             onclick="Annual_Plan_Container.deletePlan($(this))">
                                                         <i class="fad fa-trash"></i> বাতিল করুন
                                                     </button>
-                                                @endif
 
+                                                    <button
+                                                        class="mr-3 btn btn-sm btn-warning btn-square"
+                                                        title="প্রি স্টাডি রিপোর্ট"
+                                                        data-psr-plan-id="{{ $psr_plan_id }}"
+                                                        data-annual-plan-id="{{ $annual_plan_id}}"                                                  "
+                                                        onclick="Annual_Plan_Container.loadPSRBookCreatable($(this))">
+                                                        <i class="fad fa-plus-circle"></i> প্রি স্টাডি রিপোর্ট
+                                                    </button>
+                                                @endif
                                             </div>
                                             <div>
                                                 <div class="mb-2 mt-3">
