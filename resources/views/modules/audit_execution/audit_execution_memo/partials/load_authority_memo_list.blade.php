@@ -84,6 +84,9 @@
 {{--                                                {{ enTobn($memo['onucched_no']) }}--}}
                                                     M-{{$memo['id']}}
                                             </a>
+                                            <span title="মেমো স্ট্যাটাস"
+                                            class="label label-outline-primary label-pill label-inline" style="margin-left: 6px;">{{$memo['memo_status'] == 0 ? "Pandding" : "Sent"}}
+                                        </span>
                                         </div>
                                         <div class="font-weight-normal">
                                             <span class="mr-2 font-size-1-1">কস্ট সেন্টারঃ</span>
