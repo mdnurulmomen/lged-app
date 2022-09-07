@@ -532,6 +532,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('search-page', [AuditExecutionApottiSearchController::class, 'index'])->name('search-page');
             Route::post('search-list', [AuditExecutionApottiSearchController::class, 'list'])->name('search-list');
             Route::post('search-view', [AuditExecutionApottiSearchController::class, 'view'])->name('search-view');
+            Route::post('search-edit', [AuditExecutionApottiSearchController::class, 'edit'])->name('search-edit');
             Route::post('get-doner-wise-project', [AuditExecutionApottiSearchController::class, 'getDonerWiseProject'])->name('get-doner-wise-project');
             Route::post('get-ministry-wise-project-and-doner', [AuditExecutionApottiSearchController::class, 'getMinistryWiseProjectAndDoner'])->name('get-ministry-wise-project-and-doner');
             Route::post('get-ministry-wise-project', [AuditExecutionApottiSearchController::class, 'getMinistryWiseProject'])->name('get-ministry-wise-project');
@@ -830,7 +831,6 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     });
 
 
-
     Route::group(['as' => 'settings.', 'prefix' => 'settings/'], function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');
         Route::get('/dashboard', [SettingController::class, 'showSettingsDashboard'])->name('dashboard');
@@ -911,7 +911,6 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('store', [XMovementController::class, 'store'])->name('store');
         });
     });
-
 
 
     //Miscellaneous

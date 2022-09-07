@@ -596,7 +596,6 @@ class AuditExecutionArchiveApottiController extends Controller
         $main_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['main_attachments'] : [];
         $promanok_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['promanok_attachments'] : [];
         $porisishto_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['porisishto_attachments'] : [];
-
         return view('modules.audit_execution.audit_execution_archive_apotti.edit',
             compact('directorates', 'categories', 'apotti','main_attachments','promanok_attachments','porisishto_attachments')
         );

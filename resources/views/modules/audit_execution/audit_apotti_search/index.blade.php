@@ -116,7 +116,7 @@
         <div class="row mt-2 mb-2">
             <div class="col-md-3">
                 <button onclick="Archive_Apotti_Container.loadApottiList()" class="btn btn-sm btn-primary btn-square"
-                    type="button">
+                        type="button">
                     <i class="fad fa-search"></i> অনুসন্ধান
                 </button>
             </div>
@@ -132,7 +132,7 @@
 @include('modules.audit_execution.audit_execution_archive_apotti.scripts.archive_scripts')
 
 <script>
-    $(function() {
+    $(function () {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
         Archive_Apotti_Container.loadMinistryWisePrjectAndDoner();
@@ -140,7 +140,7 @@
     });
 
     var Archive_Apotti_Container = {
-        loadApottiList: function(page = 1, per_page = 10) {
+        loadApottiList: function (page = 1, per_page = 10) {
             directorate_id = $("#directorate_id").val();
             doner_id = $("#doner_id").val();
             project_id = $("#project_id").val();
@@ -180,7 +180,7 @@
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.error(response.data);
@@ -190,19 +190,15 @@
             });
         },
 
-
-        showApotti: function (element) {
-            url = '{{route('audit.execution.apotti.get-doner-wise-project')}}';
-            directorate_id = $("#directorate_id").val();
-            apotti_id = element.data('apotti-id');
-            data = {directorate_id,apotti_id};
-
+        loadApottiEditForm: function (elem) {
+            apotti_id = elem.data('apotti-id');
+            let url = '{{ route('audit.execution.apotti.search-edit') }}';
+            let data = {apotti_id};
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
-
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data);
@@ -212,7 +208,28 @@
             });
         },
 
-        paginate: function(elem) {
+        showApotti: function (element) {
+            url = '{{route('audit.execution.apotti.get-doner-wise-project')}}';
+            directorate_id = $("#directorate_id").val();
+            apotti_id = element.data('apotti-id');
+            data = {directorate_id, apotti_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.warning(response.data);
+                } else {
+                    $('#kt_content').html(response);
+                }
+            });
+        },
+
+        paginate: function (elem) {
             page = $(elem).attr('data-page');
             per_page = $(elem).attr('data-per-page');
             Archive_Apotti_Container.loadApottiList(page, per_page);
@@ -224,14 +241,14 @@
             directorate_id = $("#directorate_id").val();
             doner_id = $("#doner_id").val();
             ministry_id = $("#ministry_id").val();
-            data = {directorate_id,doner_id,ministry_id};
+            data = {directorate_id, doner_id, ministry_id};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data);
@@ -248,14 +265,14 @@
             ministry_id = $("#ministry_id").val();
 
             doner_id = $("#doner_id").val();
-            data = {directorate_id,ministry_id};
+            data = {directorate_id, ministry_id};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data);
@@ -270,14 +287,14 @@
 
             directorate_id = $("#directorate_id").val();
             ministry_id = $("#ministry_id").val();
-            data = {directorate_id,ministry_id};
+            data = {directorate_id, ministry_id};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
                     toastr.warning(response.data);
@@ -290,19 +307,19 @@
 
 
     //ministry
-    $('#directorate_id').change(function() {
+    $('#directorate_id').change(function () {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
     });
 
-    $('#doner_id').change(function() {
+    $('#doner_id').change(function () {
         doner_id = $('#doner_id').val();
         Archive_Apotti_Container.laadDonerWiseProject();
     });
 
 
     //entity
-    $('#ministry_id').change(function() {
+    $('#ministry_id').change(function () {
         ministry_id = $('#ministry_id').val();
         Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id);
         Archive_Apotti_Container.loadMinistryWisePrjectAndDoner();
@@ -310,20 +327,20 @@
     });
 
     //unit group & cost center
-    $('#entity_id').change(function() {
+    $('#entity_id').change(function () {
         entity_id = $('#entity_id').val();
         Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id);
         Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(entity_id);
     });
 
     //cost center
-    $('#unit_group_office_id').change(function() {
+    $('#unit_group_office_id').change(function () {
         unit_group_office_id = $('#unit_group_office_id').val();
         Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(unit_group_office_id);
     });
 
     //sub category
-    $('#apotti_oniyomer_category_id').change(function() {
+    $('#apotti_oniyomer_category_id').change(function () {
         directorate_id = $('#directorate_id').val();
         apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
         Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id, apotti_oniyomer_category_id);
