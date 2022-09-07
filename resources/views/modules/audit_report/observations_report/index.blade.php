@@ -148,6 +148,10 @@
     $(function() {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
+        var type = localStorage['report_type'] || '';
+        if(type == 'project_based'){
+            $('#plan_type').click();
+        }
     });
 
     var Observations_Report_Container = {
@@ -203,9 +207,14 @@
             directorate_id = $("#directorate_id").val();
             directorate_name = $("#directorate_id option:selected").text();
             project_id = $('#project_id').val();
+            project_name = $('#project_id').val() ?  $("#project_id option:selected").text() : '';
+
             doner_id = $('#doner_id').val();
+            doner_name = $('#doner_id').val() ? $("#doner_id option:selected").text() : '';
+
+
             ministry_id = $("#ministry_id").val();
-            ministry_name = $("#ministry_id option:selected").text();
+            ministry_name = $("#ministry_id").val() ? $("#ministry_id option:selected").text() : '';
 
             entity_id = $("#entity_id").val();
             entity_name = $("#entity_id option:selected").text();
@@ -238,7 +247,9 @@
                 jorito_ortho_poriman,
                 columns,
                 doner_id,
-                project_id
+                doner_name,
+                project_id,
+                project_name,
             };
 
             KTApp.block('#kt_wrapper', {
@@ -413,6 +424,7 @@
 
     $('#plan_type').click(function () {
         if($(this).is(':checked') == true){
+            localStorage['report_type'] = 'project_based';
             Observations_Report_Container.loadMinistryWisePrjectAndDoner();
             Observations_Report_Container.laadMinisryWiseProject();
             $('#doner_div').show();

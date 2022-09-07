@@ -113,6 +113,8 @@ class ObservationsReportController extends Controller
                 [
                     'directorate_name' => $directorate_name,
                     'ministry_name' => $ministry_name,
+                    'project_name' => $request->project_name,
+                    'doner_name' => $request->doner_name,
                     'entity_name' => $entity_name,
                     'unit_group_office_name' => $unit_group_office_name,
                     'apotti_list' => $apotti_list,

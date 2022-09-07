@@ -825,6 +825,15 @@
         </div>
         <br>
 
+        @if($ministry_name)
+            <span>মন্ত্রণালয়/বিভাগ: {{$ministry_name}}</span> <br>
+        @endif
+        @if($doner_name)
+            <span>ডেভেলপমেন্ট এজেন্সী: {{$doner_name}}</span> <br>
+        @endif
+        @if($project_name)
+            <span>প্রকল্প: {{$project_name}}</span> <br>
+        @endif
         <span>মোট আপত্তি: {{enTobn(count($apotti_list))}}</span> <br>
         <span>
             মোট জড়িত অর্থ (টাকা): {{enTobn(currency_format($total_jorito_ortho_poriman))}}
