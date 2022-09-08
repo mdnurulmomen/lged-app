@@ -195,7 +195,7 @@
                             অডিট
                         </option>
                         <option
-                            value="issue" {{$apotti_item['audit_type'] == 'issue'?'selected':''}}>
+                            value="issue" {{$apotti_item['audit_type'] == 'issue_based'?'selected':''}}>
                             ইস্যুভিত্তিক অডিট
                         </option>
                     </select>
