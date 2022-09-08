@@ -766,6 +766,12 @@ ul.sna-breadcrumb li a:hover {
     left: 0.75rem;
 }
 
+.btn.btn-save {
+    color: #ffffff;
+    background-color: #067c22;
+    border-color: #067c22;
+}
+
 
 /*tap button */
 .tap-button {

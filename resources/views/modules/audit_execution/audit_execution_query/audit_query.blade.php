@@ -77,8 +77,14 @@
 
             data = {team_id,schedule_id,audit_plan_id,entity_id,cost_center_id,cost_center_name_bn,cost_center_name_en,project_name_bn};
 
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             url = '{{route('audit.execution.query.create')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock("#kt_wrapper");
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {

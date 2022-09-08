@@ -75,7 +75,7 @@
 
 
             @if($check_edit_lock)
-                <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan"
+                <button class="btn btn-sm btn-square btn-save draft_entity_audit_plan"
                         data-audit-plan-id="{{$audit_plan['id']}}"
                         data-activity-id="{{$activity_id}}"
                         data-annual-plan-id="{{$annual_plan_id}}"
@@ -84,7 +84,7 @@
                     <i class="fas fa-repeat"></i> Save & Continue
                 </button>
 
-                <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan_exit"
+                <button class="btn btn-sm btn-square btn-save draft_entity_audit_plan_exit"
                         data-audit-plan-id="{{$audit_plan['id']}}"
                         data-activity-id="{{$activity_id}}"
                         data-annual-plan-id="{{$annual_plan_id}}"

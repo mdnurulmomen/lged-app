@@ -89,7 +89,7 @@
                         <div class="pr-2 flex-fill cursor-pointer position-relative">
                             <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                 <!--begin::Title-->
-                                <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
+                                <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-10">
                                     <div class="font-weight-normal">
                                         <span class="mr-2 font-size-1-1">কস্ট সেন্টারঃ</span>
                                         <span class="font-size-14">
@@ -104,7 +104,7 @@
                                         <a href="javascript:void(0)" class="text-dark text-hover-primary font-size-h5">
                                             {{$query['memorandum_no']}}
                                         </a>
-                                        <span class="ml-2 label label-outline-info label-pill label-inline">
+                                        <span class="ml-2 label {{$query['status'] == 'sent'? 'label-success' : 'label-warning'}} label-pill label-inline">
                                             {{strtoupper($query['status'])}}
                                         </span>
                                     </div>
@@ -124,7 +124,7 @@
                                 </div>
                                 <!--end::Title-->
                                 <!--begin::Info-->
-                                <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-4">
+                                <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-2">
                                     <div class="d-block">
                                         <div
                                             class="d-md-flex flex-wrap mb-2 align-items-center justify-content-md-end text-nowrap">

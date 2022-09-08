@@ -95,7 +95,7 @@
                                         <a href="javascript:void(0)" class="text-dark text-hover-primary font-size-h5">
                                             {{$query['memorandum_no']}}
                                         </a>
-                                        <span class="ml-2 label label-outline-info label-pill label-inline">
+                                        <span class="ml-2 label {{$query['status'] == 'sent'? 'label-success' : 'label-warning'}} label-pill label-inline">
                                             {{strtoupper($query['status'])}}
                                         </span>
                                     </div>
