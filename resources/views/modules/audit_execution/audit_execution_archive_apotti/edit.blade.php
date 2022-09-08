@@ -9,7 +9,7 @@
             <div class="col-md-4">
                 <div class="d-flex justify-content-end">
                     <a href="javascript:;"
-                        class="btn btn-sm btn-warning btn_back btn-square mr-3">
+                       class="btn btn-sm btn-warning btn_back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> {{___('generic.back')}}
                     </a>
                     <a id="archive_apotti_submit" class="btn btn-primary btn-sm btn-bold btn-square"
@@ -27,22 +27,30 @@
                 <div class="card sna-card-border mt-3">
                     <div class="row">
                         <div class="col-md-2">
-                            <img style="cursor: pointer" class="coverImage" src="{{config('amms_bee_routes.file_url').$apotti['cover_page_path'].$apotti['cover_page']}}"
+                            <img style="cursor: pointer" class="coverImage"
+                                 src="{{config('amms_bee_routes.file_url').$apotti['cover_page_path'].$apotti['cover_page']}}"
                                  onclick="showImageOnModal(this)" width="60%"/>
                         </div>
                     </div>
                 </div>
 
-                <div class="card sna-card-border mt-3" style="height: calc(100vh - 145px);overflow-y: auto;padding: 10px;">
+                <div class="card sna-card-border mt-3"
+                     style="height: calc(100vh - 145px);overflow-y: auto;padding: 10px;">
                     <div class="row">
                         <div class="col-md-8">
-                            <button class="mr-2 btn btn-icon btn-square btn-sm btn-hover-icon-danger btn-primary list-btn-toggle" type="button" onclick="zoomIn()" id="btnZoom">
+                            <button
+                                class="mr-2 btn btn-icon btn-square btn-sm btn-hover-icon-danger btn-primary list-btn-toggle"
+                                type="button" onclick="zoomIn()" id="btnZoom">
                                 <i class="fa fa-plus"></i>
                             </button>
-                            <button class="mr-2 btn btn-icon btn-square btn-sm btn-hover-icon-danger btn-primary list-btn-toggle" type="button" onclick="zoomOut()" id="btnZoom">
+                            <button
+                                class="mr-2 btn btn-icon btn-square btn-sm btn-hover-icon-danger btn-primary list-btn-toggle"
+                                type="button" onclick="zoomOut()" id="btnZoom">
                                 <i class="fad fa-minus"></i>
                             </button>
-                            <button class="mr-2 btn btn-icon btn-square btn-sm btn-hover-icon-danger btn-primary list-btn-toggle" type="button" onclick="rotate(image)">
+                            <button
+                                class="mr-2 btn btn-icon btn-square btn-sm btn-hover-icon-danger btn-primary list-btn-toggle"
+                                type="button" onclick="rotate(image)">
                                 <i class="fad fa-undo"></i>
                             </button>
                         </div>
@@ -52,21 +60,24 @@
                     </div>
 
                     @foreach($main_attachments as $attachment)
-                        <img src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
-                             alt="" width="100%">
+                        <img
+                            src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
+                            alt="" width="100%">
                     @endforeach
 
                     <div style="display:none;" class="load-porisishto-attachment">
                         @foreach($porisishto_attachments as $attachment)
-                            <img src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
-                                 alt="" width="100%">
+                            <img
+                                src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
+                                alt="" width="100%">
                         @endforeach
                     </div>
 
                     <div style="display:none;" class="load-promanok-attachment">
                         @foreach($promanok_attachments as $attachment)
-                            <img src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
-                                 alt="" width="100%">
+                            <img
+                                src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
+                                alt="" width="100%">
                         @endforeach
                     </div>
                 </div>
@@ -88,22 +99,27 @@
 
                     <div class="input-group">
                         <div class="input-group-prepend"><span class="input-group-text">অনুচ্ছেদ নম্বর</span></div>
-                        <input class="form-control" id="onucched_no" name="onucched_no" type="text" value="{{$apotti['onucched_no']}}">
-                      </div>
+                        <input class="form-control" id="onucched_no" name="onucched_no" type="text"
+                               value="{{$apotti['onucched_no']}}">
+                    </div>
 
                     <div class="input-group">
                         <div class="input-group-prepend"><span class="input-group-text">ফাইল নং</span></div>
-                        <input class="form-control" id="file_no" name="file_no" type="text" value="{{$apotti['file_token_no']}}">
+                        <input class="form-control" id="file_no" name="file_no" type="text"
+                               value="{{$apotti['file_token_no']}}">
                     </div>
 
-                    <textarea class="form-control" name="apotti_title" cols="30" rows="2">{{$apotti['apotti_title']}}</textarea>
+                    <textarea class="form-control" name="apotti_title" cols="30"
+                              rows="2">{{$apotti['apotti_title']}}</textarea>
 
-                    <input style="float: right" class="form-control number-input" id="jorito_ortho_poriman" name="jorito_ortho_poriman" type="text"
+                    <input style="float: right" class="form-control number-input" id="jorito_ortho_poriman"
+                           name="jorito_ortho_poriman" type="text"
                            value="{{$apotti['jorito_ortho_poriman']}}">
 
                     <select class="form-select select-select2" id="directorate_id" name="directorate_id">
                         @foreach($directorates as $directorate)
-                            <option value="{{$directorate['office_id']}}" {{$apotti['directorate_id']==$directorate['office_id']?'selected':''}}>{{$directorate['office_name_bn']}}</option>
+                            <option
+                                value="{{$directorate['office_id']}}" {{$apotti['directorate_id']==$directorate['office_id']?'selected':''}}>{{$directorate['office_name_bn']}}</option>
                         @endforeach
                     </select>
 
@@ -124,39 +140,65 @@
                     </select>
 
                     <div class="input-group">
-                        <input class="form-control year-picker" id="audit_year_start" name="audit_year_start" placeholder="শুরু" type="text" value="{{$apotti['year_start']}}">
-                        <input class="form-control year-picker" name="audit_year_end" placeholder="শেষ" type="text" value="{{$apotti['year_end']}}">
+                        <input class="form-control year-picker" id="audit_year_start" name="audit_year_start"
+                               placeholder="শুরু" type="text" value="{{$apotti['year_start']}}">
+                        <input class="form-control year-picker" name="audit_year_end" placeholder="শেষ" type="text"
+                               value="{{$apotti['year_end']}}">
                     </div>
 
-                    <select class="form-select select-select2" id="apotti_oniyomer_category_id" name="apotti_oniyomer_category_id">
+                    <select class="form-select select-select2" id="apotti_oniyomer_category_id"
+                            name="apotti_oniyomer_category_id">
                         <option value="">--বাছাই করুন--</option>
                         @foreach($categories as $category)
-                            <option value="{{$category['id']}}" {{$apotti['apotti_category_id'] == $category['id']?'selected':''}}>
+                            <option
+                                value="{{$category['id']}}" {{$apotti['apotti_category_id'] == $category['id']?'selected':''}}>
                                 {{$category['name_bn']}}
                             </option>
                         @endforeach
                     </select>
 
-                    <select class="form-select select-select2" id="apotti_oniyomer_category_child_id" name="apotti_oniyomer_category_child_id">
+                    <select class="form-select select-select2" id="apotti_oniyomer_category_child_id"
+                            name="apotti_oniyomer_category_child_id">
                         <option value="">সবগুলো</option>
                     </select>
 
                     <select class="form-control select-select2" id="nirikkha_dhoron" name="nirikkha_dhoron">
                         <option value="">নিরিক্ষার ধরন</option>
-                        <option value="কমপ্লায়েন্স অডিট" {{$apotti['nirikkha_dhoron'] == 'কমপ্লায়েন্স অডিট'?'selected':''}}>কমপ্লায়েন্স অডিট</option>
-                        <option value="পারফরমেন্স অডিট" {{$apotti['nirikkha_dhoron'] == 'পারফরমেন্স অডিট'?'selected':''}}>পারফরমেন্স অডিট</option>
-                        <option value="ফাইন্যান্সিয়াল অডিট" {{$apotti['nirikkha_dhoron'] == 'ফাইন্যান্সিয়াল অডিট'?'selected':''}}>ফাইন্যান্সিয়াল অডিট</option>
-                        <option value="বার্ষিক অডিট" {{$apotti['nirikkha_dhoron'] == 'বার্ষিক অডিট'?'selected':''}}>বার্ষিক অডিট</option>
-                        <option value="বিশেষ অডিট" {{$apotti['nirikkha_dhoron'] == 'বিশেষ অডিট'?'selected':''}}>বিশেষ অডিট</option>
-                        <option value="ইস্যুভিত্তিক অডিট" {{$apotti['nirikkha_dhoron'] == 'ইস্যুভিত্তিক অডিট'?'selected':''}}>ইস্যুভিত্তিক অডিট</option>
+                        <option
+                            value="কমপ্লায়েন্স অডিট" {{$apotti['nirikkha_dhoron'] == 'কমপ্লায়েন্স অডিট'?'selected':''}}>
+                            কমপ্লায়েন্স অডিট
+                        </option>
+                        <option
+                            value="পারফরমেন্স অডিট" {{$apotti['nirikkha_dhoron'] == 'পারফরমেন্স অডিট'?'selected':''}}>
+                            পারফরমেন্স অডিট
+                        </option>
+                        <option
+                            value="ফাইন্যান্সিয়াল অডিট" {{$apotti['nirikkha_dhoron'] == 'ফাইন্যান্সিয়াল অডিট'?'selected':''}}>
+                            ফাইন্যান্সিয়াল অডিট
+                        </option>
+                        <option value="বার্ষিক অডিট" {{$apotti['nirikkha_dhoron'] == 'বার্ষিক অডিট'?'selected':''}}>
+                            বার্ষিক অডিট
+                        </option>
+                        <option value="বিশেষ অডিট" {{$apotti['nirikkha_dhoron'] == 'বিশেষ অডিট'?'selected':''}}>বিশেষ
+                            অডিট
+                        </option>
+                        <option
+                            value="ইস্যুভিত্তিক অডিট" {{$apotti['nirikkha_dhoron'] == 'ইস্যুভিত্তিক অডিট'?'selected':''}}>
+                            ইস্যুভিত্তিক অডিট
+                        </option>
                     </select>
 
                     <select class="form-control select-select2" id="apottir_dhoron" name="apottir_dhoron">
                         <option value="">আপত্তির ধরন</option>
                         <option value="এসএফআই" {{$apotti['apottir_dhoron'] == 'এসএফআই'?'selected':''}}>এসএফআই</option>
-                        <option value="নন-এসএফআই" {{$apotti['apottir_dhoron'] == 'নন-এসএফআই'?'selected':''}}>নন-এসএফআই</option>
-                        <option value="ড্রাফ্ট প্যারা" {{$apotti['apottir_dhoron'] == 'ড্রাফ্ট প্যারা'?'selected':''}}>ড্রাফ্ট প্যারা</option>
-                        <option value="পাণ্ডুলিপি" {{$apotti['apottir_dhoron'] == 'পাণ্ডুলিপি'?'selected':''}}>রিপোর্টভুক্ত আপত্তি</option>
+                        <option value="নন-এসএফআই" {{$apotti['apottir_dhoron'] == 'নন-এসএফআই'?'selected':''}}>নন-এসএফআই
+                        </option>
+                        <option value="ড্রাফ্ট প্যারা" {{$apotti['apottir_dhoron'] == 'ড্রাফ্ট প্যারা'?'selected':''}}>
+                            ড্রাফ্ট প্যারা
+                        </option>
+                        <option value="পাণ্ডুলিপি" {{$apotti['apottir_dhoron'] == 'পাণ্ডুলিপি'?'selected':''}}>
+                            রিপোর্টভুক্ত আপত্তি
+                        </option>
                     </select>
                 </div>
             </div>
@@ -188,23 +230,23 @@
 
         //minitsry
         ministry_id = '{{$apotti['ministry_id']}}';
-        Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id,ministry_id);
+        Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id, ministry_id);
 
         //entity
         entity_id = '{{$apotti['entity_info_id']}}';
-        Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id,entity_id);
+        Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id, entity_id);
 
         //unit group
         parent_office_id = '{{$apotti['parent_office_id']}}';
-        Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id,parent_office_id);
+        Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id, parent_office_id);
 
         //cost center
         cost_center_id = '{{$apotti['cost_center_id']}}';
-        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(parent_office_id,cost_center_id);
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(parent_office_id, cost_center_id);
 
         apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
         apotti_oniyomer_category_child_id = '{{$apotti['apotti_sub_category_id']}}';
-        Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id,apotti_oniyomer_category_id,apotti_oniyomer_category_child_id);
+        Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id, apotti_oniyomer_category_id, apotti_oniyomer_category_child_id);
     });
 
     //ministry
@@ -232,11 +274,11 @@
         Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(unit_group_office_id);
     });
 
-    $('.btn_back').click(function (){
+    $('.btn_back').click(function () {
         backToList()
     })
 
-    function backToList(){
+    function backToList() {
         $('.apotti-upload a').click();
     }
 
@@ -253,6 +295,15 @@
             e.preventDefault();
 
             from_data = new FormData(document.getElementById("apotti_create_form"));
+
+            from_data.append('cost_center_name_en', $('#cost_center_id option:selected').attr('data-office-name-en'))
+            from_data.append('cost_center_name_bn', $('#cost_center_id option:selected').attr('data-office-name-bn'))
+
+            from_data.append('entity_name_en', $('#entity_id option:selected').attr('data-office-name-en'))
+            from_data.append('entity_name_bn', $('#entity_id option:selected').attr('data-office-name-bn'))
+
+            from_data.append('ministry_name_en', $('#ministry_id option:selected').attr('data-ministry-name-en'))
+            from_data.append('ministry_name_bn', $('#ministry_id option:selected').attr('data-ministry-name-bn'))
 
             elem = $(this);
             elem.prop('disabled', true);
@@ -323,7 +374,7 @@
         let imgWidth = image.clientWidth;
 
         image.style.width = (imgWidth + 50) + "px";
-        if($(".doubleScroll-scroll:first").length == 0) {
+        if ($(".doubleScroll-scroll:first").length == 0) {
             $('.double-scroll').doubleScroll();
         }
         $(".doubleScroll-scroll:first").css('width', (imgWidth + 50) + "px");
@@ -334,7 +385,7 @@
         let imgWidth = image.clientWidth;
 
         image.style.width = (imgWidth - 50) + "px";
-        if($(".doubleScroll-scroll:first").length == 0) {
+        if ($(".doubleScroll-scroll:first").length == 0) {
             $('.double-scroll').doubleScroll();
         }
         $(".doubleScroll-scroll:first").css('width', (imgWidth - 50) + "px");
@@ -346,7 +397,7 @@
         image.setAttribute("style", "transform: rotate(" + rotateAngle + "deg)");
 
         rotateAngle = rotateAngle + 90;
-        setTimeout(function() {
+        setTimeout(function () {
             $(image).css("margin-top", $(image).position().left + "px");
         }, 500);
     }

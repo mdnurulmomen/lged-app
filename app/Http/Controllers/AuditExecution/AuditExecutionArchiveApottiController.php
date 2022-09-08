@@ -31,7 +31,7 @@ class AuditExecutionArchiveApottiController extends Controller
 
         $categoryResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.get_oniyomer_category_list'), [])->json();
         $categories = isSuccess($categoryResponseData) ? $categoryResponseData['data'] : [];
-        return view('modules.audit_execution.audit_execution_archive_apotti.index',compact('directorates', 'categories'));
+        return view('modules.audit_execution.audit_execution_archive_apotti.index', compact('directorates', 'categories'));
     }
 
     public function create()
@@ -240,14 +240,23 @@ class AuditExecutionArchiveApottiController extends Controller
         $data = [
             ['name' => 'id', 'contents' => $request->id],
             ['name' => 'directorate_id', 'contents' => $request->directorate_id],
+
             ['name' => 'ministry_id', 'contents' => $request->ministry_id],
-            ['name' => 'ministry_name', 'contents' => $request->ministry_name],
+            ['name' => 'ministry_name_en', 'contents' => $request->ministry_name_en],
+            ['name' => 'ministry_name_bn', 'contents' => $request->ministry_name_bn],
+
             ['name' => 'entity_id', 'contents' => $request->entity_id],
-            ['name' => 'entity_name', 'contents' => $request->entity_name],
+            ['name' => 'entity_name_en', 'contents' => $request->entity_name_en],
+            ['name' => 'entity_name_bn', 'contents' => $request->entity_name_bn],
+
             ['name' => 'unit_group_office_id', 'contents' => $request->unit_group_office_id],
+            ['name' => 'parent_office_name_en', 'contents' => $request->parent_office_name_en],
             ['name' => 'parent_office_name_bn', 'contents' => $request->parent_office_name_bn],
+
             ['name' => 'cost_center_id', 'contents' => $request->cost_center_id],
+            ['name' => 'cost_center_name_en', 'contents' => $request->cost_center_name_en],
             ['name' => 'cost_center_name_bn', 'contents' => $request->cost_center_name_bn],
+
             ['name' => 'apotti_oniyomer_category_id', 'contents' => $request->apotti_oniyomer_category_id],
             ['name' => 'apotti_oniyomer_category_child_id', 'contents' => $request->apotti_oniyomer_category_child_id],
             ['name' => 'onucched_no', 'contents' => bnToen($request->onucched_no)],
@@ -260,8 +269,6 @@ class AuditExecutionArchiveApottiController extends Controller
             ['name' => 'apotti_title', 'contents' => $request->apotti_title],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
-
-
         //cover_page
         if ($request->hasfile('cover_page')) {
             foreach ($request->file('cover_page') as $file) {
@@ -566,7 +573,8 @@ class AuditExecutionArchiveApottiController extends Controller
         return json_decode($response->getBody(), true);
     }
 
-    public function deleteAttachment(Request $request){
+    public function deleteAttachment(Request $request)
+    {
         $data = Validator::make($request->all(), [
             'attachement_id' => 'required|integer',
         ])->validate();
@@ -597,7 +605,7 @@ class AuditExecutionArchiveApottiController extends Controller
         $promanok_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['promanok_attachments'] : [];
         $porisishto_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['porisishto_attachments'] : [];
         return view('modules.audit_execution.audit_execution_archive_apotti.edit',
-            compact('directorates', 'categories', 'apotti','main_attachments','promanok_attachments','porisishto_attachments')
+            compact('directorates', 'categories', 'apotti', 'main_attachments', 'promanok_attachments', 'porisishto_attachments')
         );
     }
 
@@ -612,7 +620,7 @@ class AuditExecutionArchiveApottiController extends Controller
         $porisishto_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['porisishto_attachments'] : [];
         $other_attachments = isSuccess($apottiResponseData) ? $apottiResponseData['data']['other_attachments'] : [];
 
-        return view('modules.audit_execution.audit_execution_archive_apotti.view', compact('apotti','main_attachments','promanok_attachments','porisishto_attachments','other_attachments'));
+        return view('modules.audit_execution.audit_execution_archive_apotti.view', compact('apotti', 'main_attachments', 'promanok_attachments', 'porisishto_attachments', 'other_attachments'));
     }
 
     public function migrateArchiveApottiToAmms(Request $request)
