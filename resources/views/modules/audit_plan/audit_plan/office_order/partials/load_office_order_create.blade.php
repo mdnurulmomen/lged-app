@@ -1,4 +1,4 @@
-<form autocomplete="off" id="office_order_generate_form">
+<form class="mb-10" autocomplete="off" id="office_order_generate_form">
     <input type="hidden" name="audit_plan_id" value="{{$audit_plan_id}}">
     <input type="hidden" name="annual_plan_id" value="{{$annual_plan_id}}">
     <input type="hidden" name="id" value="{{empty($office_order)?'':$office_order['id']}}">
@@ -37,6 +37,26 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="memorandum_no">স্মারক নং<span class="text-danger">*</span></label>
+                <input class="form-control" type="text" id="memorandum_no_2" name="memorandum_no_2"
+                       placeholder="স্মারক নং লিখুন"
+                       value="{{empty($office_order)?'':$office_order['memorandum_no_2']}}">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="memorandum_date">স্মারকলিপির তারিখ<span class="text-danger">*</span></label>
+                <input class="form-control date" type="text" id="memorandum_date_2" name="memorandum_date_2"
+                       placeholder="স্মারকলিপির তারিখ"
+                       value="{{empty($office_order)?'':formatDate($office_order['memorandum_date_2'])}}">
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
