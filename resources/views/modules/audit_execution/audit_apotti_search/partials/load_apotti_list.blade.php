@@ -1,7 +1,7 @@
 <table class="table table-bordered" width="100%">
     <thead class="thead-light">
     <tr>
-        <th colspan="10" class="text-left">
+        <th colspan="11" class="text-left">
             মোট আপত্তিঃ {{enTobn($apotti_list['total'])}} <br>
             মোট জড়িত অর্থ (টাকা): {{enTobn(currency_format($total_jorito_ortho_poriman))}}
             {{--({{ltrim(numberConvertToBnWord($total_jorito_ortho_poriman))}} টাকা মাত্র)--}}

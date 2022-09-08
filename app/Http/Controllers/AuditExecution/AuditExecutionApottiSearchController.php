@@ -34,12 +34,12 @@ class AuditExecutionApottiSearchController extends Controller
         $data['ministry_id'] = $request->ministry_id;
         $data['entity_id'] = $request->entity_id;
         $data['cost_center_id'] = $request->cost_center_id;
-        $data['onucched_no'] = $request->onucched_no;
+        $data['onucched_no'] = bnToen($request->onucched_no);
         $data['fiscal_year_id'] = $request->fiscal_year_id;
         $data['audit_year_start'] = $request->audit_year_start;
         $data['audit_year_end'] = $request->audit_year_end;
         $data['apotti_type'] = $request->apotti_type;
-        $data['jorito_ortho_poriman'] = $request->total_jorito_ortho_poriman;
+        $data['jorito_ortho_poriman'] = $request->jorito_ortho_poriman;
         $data['file_token_no'] = $request->file_token_no;
         $data['memo_status'] = $request->memo_status;
         $data['page'] = $request->page;
