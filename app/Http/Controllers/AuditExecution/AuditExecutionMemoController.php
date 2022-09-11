@@ -635,12 +635,12 @@ class AuditExecutionMemoController extends Controller
     {
         $data = Validator::make($request->all(), [
             'memo_id' => 'required',
+            'office_id' => 'required',
         ])->validate();
 
         $data['cdesk'] = $this->current_desk_json();
-
         $log_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.audit_memo_log_list'), $data)->json();
-        //        dd($log_list);
+//        dd($log_list);
         if (isSuccess($log_list)) {
             $memo_id = $request->memo_id;
             $log_list = $log_list['data'];

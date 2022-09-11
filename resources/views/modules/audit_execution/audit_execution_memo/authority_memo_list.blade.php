@@ -474,10 +474,11 @@
             quick_panel.css('width', '40%');
             quick_panel.removeClass('d-none');
             $("html").addClass("side-panel-overlay");
-
+            office_id = $('#directorate_filter').val();
             memo_id = elem.data('memo-id');
             data = {
-                memo_id
+                memo_id,
+                office_id
             };
             let url = '{{ route('audit.execution.memo.audit-memo-log') }}'
             ajaxCallAsyncCallbackAPI(url, data, 'post', function(response) {
