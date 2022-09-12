@@ -531,6 +531,7 @@ class AuditExecutionMemoController extends Controller
         $data['jorito_ortho_poriman'] = $request->jorito_ortho_poriman;
         $data['audit_year_start'] = $request->audit_year_start;
         $data['audit_year_end'] = $request->audit_year_end;
+        $data['finder_officer_id'] = $request->finder_officer_id;
         $memo_code = $request->memo_code ?   explode('-',$request->memo_code) : '';
         $data['memo_code'] = $memo_code ?  $memo_code[1] : '';
         $data['page'] = $request->page;
@@ -545,7 +546,7 @@ class AuditExecutionMemoController extends Controller
 
 
         $get_memo_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.authority_memo_list'), $data)->json();
-        //dd($get_memo_list);
+//        dd($get_memo_list);
         //dd($memo_list['data']['total_memo']);
         if (isSuccess($get_memo_list)) {
             $memos = $get_memo_list['data']['memo_list'];
@@ -685,5 +686,20 @@ class AuditExecutionMemoController extends Controller
         } else {
             return response()->json(['status' => 'error', 'data' => $responseData]);
         }
+    }
+
+    public function getAuditMemoFinderSelect(Request $request){
+        $audit_plan_id = $request->audit_plan_id;
+        $team_id = $request->team_id;
+        $office_id = $request->office_id;
+
+        $team_members = $this->getPlanAndTeamWiseTeamMembers($office_id,$audit_plan_id,$team_id);
+
+//        dd($team_members);
+
+        return view(
+            'modules.audit_execution.audit_execution_memo.memo_finder_select',
+            compact('team_members')
+        );
     }
 }

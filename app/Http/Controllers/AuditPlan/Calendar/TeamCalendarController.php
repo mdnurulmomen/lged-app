@@ -47,6 +47,7 @@ class TeamCalendarController extends Controller
     {
         $data['office_id'] = $request->directorate_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['audit_plan_id'] = $request->audit_plan_id;
         $data['cost_center_id'] = $request->cost_center_id;
 
         $team_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_fiscal_year_cost_center_wise_team'), $data)->json();

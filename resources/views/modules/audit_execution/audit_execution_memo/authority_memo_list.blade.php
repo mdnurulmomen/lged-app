@@ -53,6 +53,14 @@
                     <option value="">All Teams</option>
                 </select>
             </div>
+
+            <div class="col-md-3">
+                <select class="form-select select-select2" id="finder_officer_id">
+                    <option value="">All Member</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2 mb-2">
             <div class="col-md-3">
                 <select class="form-select select-select2" id="memo_irregularity_type">
                     <option value="">আপত্তি অনিয়মের ধরন</option>
@@ -62,8 +70,6 @@
                     <option value="4">বিশেষ ধরনের আপত্তি</option>
                 </select>
             </div>
-        </div>
-        <div class="row mt-2 mb-2">
             <div class="col-md-3">
                 <select class="form-select select-select2" id="memo_irregularity_sub_type">
                     <option value="">আপত্তি অনিয়মের সাব-ধরন</option>
@@ -89,14 +95,14 @@
                 <input class="form-control mb-1 mt-1 year-picker" id="audit_year_end"
                     placeholder="নিরীক্ষাধীন অর্থ বছর শেষ" type="text">
             </div>
-
-            <div class="col-md-3">
-                <input autocomplete="off" type="text" id="start_date" class="date form-control"
-                    placeholder="শুরুর তারিখ">
-            </div>
         </div>
 
         <div class="row mt-2 mb-2">
+            <div class="col-md-3">
+                <input autocomplete="off" type="text" id="start_date" class="date form-control"
+                       placeholder="শুরুর তারিখ">
+            </div>
+
             <div class="col-md-3">
                 <input autocomplete="off" type="text" id="end_date" class="date form-control" placeholder="শেষের তারিখ">
             </div>
@@ -183,6 +189,8 @@
     $('#audit_plan_id').change(function (){
         entity_list = $(this).find(':selected').attr('data-entity-info');
         Authority_Memo_Container.loadPlanWiseEntity(entity_list);
+        Authority_Memo_Container.loadMemoFinder();
+        Authority_Memo_Container.loadTeamList();
     });
 
     $('#entity_filter').change(function() {
@@ -193,14 +201,15 @@
     });
 
     $('#cost_center_filter').change(function() {
-        cost_center_id = $('#cost_center_filter').val();
-        directorate_id = $('#directorate_filter').val();
-        fiscal_year_id = $('#fiscal_year_id').val();
-        Authority_Memo_Container.loadTeamList(directorate_id, fiscal_year_id, cost_center_id);
+        Authority_Memo_Container.loadTeamList();
     });
 
     $('#fiscal_year_id').change(function() {
         Authority_Memo_Container.loadFiscalYearWiseActivity();
+    });
+
+    $('#team_filter').change(function (){
+        Authority_Memo_Container.loadMemoFinder();
     });
 
     var Authority_Memo_Container = {
@@ -276,6 +285,31 @@
             );
         },
 
+        loadMemoFinder: function () {
+            office_id =  $('#directorate_filter').val();
+            audit_plan_id =  $('#audit_plan_id').val();
+            team_id =  $('#team_filter').val();
+
+            let url = '{{route('audit.execution.memo.get-audit-memo-finder')}}';
+
+            let data = {office_id,audit_plan_id,team_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_wrapper');
+                    if (response.status === 'error') {
+                        toastr.warning(response.data)
+                    } else {
+                        $('#finder_officer_id').html(response);
+                    }
+                }
+            );
+        },
+
         {{--loadEntityList: function(directorate_id, fiscal_year_id) {--}}
         {{--    activity_id = $('#activity_id').val();--}}
         {{--    if (dashboard_filter_data && activity_id == null) {--}}
@@ -313,11 +347,17 @@
             });
         },
 
-        loadTeamList: function(directorate_id, fiscal_year_id, cost_center_id) {
+        loadTeamList: function() {
+            cost_center_id = $('#cost_center_filter').val();
+            directorate_id = $('#directorate_filter').val();
+            fiscal_year_id = $('#fiscal_year_id').val();
+            audit_plan_id = $('#audit_plan_id').val();
+
             let url = '{{ route('calendar.load-teams-select') }}';
             let data = {
                 directorate_id,
                 fiscal_year_id,
+                audit_plan_id,
                 cost_center_id
             };
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
@@ -358,6 +398,7 @@
             start_date = $('#start_date').val();
             end_date = $('#end_date').val();
             memo_code = $('#memo_code').val();
+            finder_officer_id = $('#finder_officer_id').val();
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
@@ -383,6 +424,7 @@
                 start_date,
                 end_date,
                 memo_code,
+                finder_officer_id,
                 page,
                 per_page
             };
