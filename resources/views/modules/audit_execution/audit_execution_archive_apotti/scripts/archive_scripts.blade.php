@@ -85,7 +85,7 @@
                 }
             );
         },
-        loadAllProjects: function (directorate_id) {
+        loadAllProjects: function (directorate_id, project_id = '') {
             url = '{{route('rpu.rp-projects.all')}}';
             data = {directorate_id};
             $("#project_id").html('<option value="">Loading...</option>');
@@ -97,6 +97,9 @@
                         option_value = `<option value="${project.id}" data-project-name-en="${project.name_en}" data-project-name-bn="${project.name_bn}">${project.name_bn}</option>`;
                         $('#project_id').append(option_value)
                     })
+                    if (project_id != "") {
+                        $("#project_id").val(project_id).trigger('change');
+                    }
                 }
             );
         },

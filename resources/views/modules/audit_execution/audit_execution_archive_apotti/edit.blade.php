@@ -123,20 +123,29 @@
                         @endforeach
                     </select>
 
+                    <label for="ministry_id" class="col-form-label">মন্ত্রণালয়</label>
                     <select class="form-select select-select2" id="ministry_id" name="ministry_id">
                         <option value="">মন্ত্রণালয়/অফিস</option>
                     </select>
 
+                    <label for="entity_id" class="col-form-label">এনটিটি</label>
                     <select class="form-select select-select2" id="entity_id" name="entity_id">
                         <option value="">এনটিটি</option>
                     </select>
 
+                    <label for="unit_group_office_id" class="col-form-label">ইউনিট গ্রুপ</label>
                     <select class="form-select select-select2" id="unit_group_office_id" name="unit_group_office_id">
                         <option value="">ইউনিট গ্রুপ</option>
                     </select>
 
+                    <label for="cost_center_id" class="col-form-label">কস্ট সেন্টার</label>
                     <select class="form-select select-select2" id="cost_center_id" name="cost_center_id">
                         <option value="">কস্ট সেন্টার</option>
+                    </select>
+
+                    <label for="project_id" class="col-form-label">প্রকল্প</label>
+                    <select class="form-select select-select2" id="project_id" name="project_id">
+                        <option value="">সবগুলো</option>
                     </select>
 
                     <div class="input-group">
@@ -247,12 +256,18 @@
         apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
         apotti_oniyomer_category_child_id = '{{$apotti['apotti_sub_category_id']}}';
         Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id, apotti_oniyomer_category_id, apotti_oniyomer_category_child_id);
+
+        project_id = '{{$apotti['project_id']}}';
+        Archive_Apotti_Common_Container.loadAllProjects(directorate_id, project_id);
     });
 
     //ministry
     $('#directorate_id').change(function () {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
+
+        project_id = '{{$apotti['project_id']}}';
+        Archive_Apotti_Common_Container.loadAllProjects(directorate_id, project_id);
     });
 
     //entity
@@ -304,6 +319,12 @@
 
             from_data.append('ministry_name_en', $('#ministry_id option:selected').attr('data-ministry-name-en'))
             from_data.append('ministry_name_bn', $('#ministry_id option:selected').attr('data-ministry-name-bn'))
+
+            from_data.append('project_name_en', $('#project_id option:selected').attr('data-project-name-en'))
+            from_data.append('project_name_bn', $('#project_id option:selected').attr('data-project-name-bn'))
+
+            from_data.append('parent_office_name_en', $('#unit_group_office_id option:selected').attr('data-office-name-en'))
+            from_data.append('parent_office_name_bn', $('#unit_group_office_id option:selected').attr('data-office-name-bn'))
 
             elem = $(this);
             elem.prop('disabled', true);
