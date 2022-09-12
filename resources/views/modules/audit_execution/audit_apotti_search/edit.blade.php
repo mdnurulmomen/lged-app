@@ -157,11 +157,11 @@
                         @endforeach
                     </select>
                     <br>
-
                     <select class="form-select select-select2" id="fiscal_year_id" name="fiscal_year_id">
                         <option value="">অর্থ বছর বাছাই করুন</option>
                         @foreach($fiscal_years as $fiscal_year)
-                            <option value="{{$fiscal_year['id']}}">{{$fiscal_year['description']}}</option>
+                            <option
+                                value="{{$fiscal_year['id']}}" {{$apotti_item['fiscal_year_id'] == $fiscal_year['id'] ? "selected" : ''}}>{{$fiscal_year['description']}}</option>
                         @endforeach
                     </select>
                     <br>
