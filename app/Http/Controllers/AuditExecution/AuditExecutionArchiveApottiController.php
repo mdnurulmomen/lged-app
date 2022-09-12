@@ -257,6 +257,10 @@ class AuditExecutionArchiveApottiController extends Controller
             ['name' => 'cost_center_name_en', 'contents' => $request->cost_center_name_en],
             ['name' => 'cost_center_name_bn', 'contents' => $request->cost_center_name_bn],
 
+            ['name' => 'project_id', 'contents' => $request->project_id],
+            ['name' => 'project_name_en', 'contents' => $request->project_name_en],
+            ['name' => 'project_name_bn', 'contents' => $request->project_name_bn],
+
             ['name' => 'apotti_oniyomer_category_id', 'contents' => $request->apotti_oniyomer_category_id],
             ['name' => 'apotti_oniyomer_category_child_id', 'contents' => $request->apotti_oniyomer_category_child_id],
             ['name' => 'onucched_no', 'contents' => bnToen($request->onucched_no)],

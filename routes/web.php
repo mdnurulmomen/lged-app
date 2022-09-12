@@ -946,6 +946,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('get-office-layer', [GenericRPUController::class, 'getMinistryWiseOfficeLayer'])->name('office-layer.all');
         Route::post('get-rp-offices', [GenericRPUController::class, 'getMinistryLayerWiseOffice'])->name('rp-offices.all');
         Route::post('get-ministry-wise-rp-entities', [GenericRPUController::class, 'getMinistryWiseEntities'])->name('rp-offices.all');
+        Route::post('get-all-projects', [GenericRPUController::class, 'getAllProjects'])->name('rp-projects.all');
     });
 
     Route::group(['as' => 'rpu-apotti.', 'prefix' => 'rpu-apotti/'], function () {

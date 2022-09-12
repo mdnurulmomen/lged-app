@@ -146,6 +146,12 @@
                     <label for="file_no" class="col-form-label">ফাইল নং</label>
                     <input class="form-control" id="file_no" name="file_no" type="text">
                 </div>
+                <div class="col-md-4">
+                    <label for="project_id" class="col-form-label">প্রকল্প</label>
+                    <select class="form-select select-select2" id="project_id" name="project_id">
+                        <option value="">সবগুলো</option>
+                    </select>
+                </div>
             </div>
 
             <div class="row">
@@ -196,6 +202,7 @@
     $(function () {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
+        Archive_Apotti_Common_Container.loadAllProjects(directorate_id);
     });
 
     $(document).ready(function () {
@@ -239,6 +246,9 @@
 
             from_data.append('ministry_name_en', $('#ministry_id option:selected').attr('data-ministry-name-en'))
             from_data.append('ministry_name_bn', $('#ministry_id option:selected').attr('data-ministry-name-bn'))
+
+            from_data.append('project_name_en', $('#project_id option:selected').attr('data-project-name-en'))
+            from_data.append('project_name_bn', $('#project_id option:selected').attr('data-project-name-bn'))
 
             elem = $(this);
             elem.prop('disabled', true);
@@ -301,6 +311,7 @@
     $('#directorate_id').change(function () {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
+        Archive_Apotti_Common_Container.loadAllProjects(directorate_id);
     });
 
     //entity

@@ -85,5 +85,20 @@
                 }
             );
         },
+        loadAllProjects: function (directorate_id) {
+            url = '{{route('rpu.rp-projects.all')}}';
+            data = {directorate_id};
+            $("#project_id").html('<option value="">Loading...</option>');
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    var projects = response;
+                    console.log(projects)
+                    $("#project_id").html('<option value="">All</option>');
+                    $.each(response, function (key, project) {
+                        option_value = `<option value="${project.id}" data-project-name-en="${project.name_en}" data-project-name-bn="${project.name_bn}">${project.name_bn}</option>`;
+                        $('#project_id').append(option_value)
+                    })
+                }
+            );
+        },
     };
 </script>
