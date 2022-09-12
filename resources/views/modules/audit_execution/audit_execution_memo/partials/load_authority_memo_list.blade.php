@@ -182,13 +182,14 @@
                                                     <i class="fa fa-eye"></i>
                                                 </button>
 
-                                                <button
+                                                <button style="width: 50px"
                                                     class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
                                                 list-btn-toggle"
                                                     title="{{ ___('generic.buttons.title.history') }}"
                                                     data-memo-id="{{ $memo['id'] }}"
                                                     onclick="Authority_Memo_Container.memoLog($(this))">
                                                     <i class="fas fa-repeat-alt"></i>
+                                                    <b class="pl-2">{{enTobn($memo['memo_logs_count'])}}</b>
                                                 </button>
                                             </div>
                                         </div>
