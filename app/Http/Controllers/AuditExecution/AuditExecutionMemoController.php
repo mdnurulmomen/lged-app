@@ -92,7 +92,7 @@ class AuditExecutionMemoController extends Controller
         $cost_center_name_bn = $request->cost_center_name_bn;
         $audit_year_start = $request->audit_year_start;
         $audit_year_end = $request->audit_year_end;
-        $team_members = $this->getPlanAndTeamWiseTeamMembers($audit_plan_id,$team_id);
+        $team_members = $this->getPlanAndTeamWiseTeamMembers(0,$audit_plan_id,$team_id);
         $get_team = $this->getTeam($team_id);
         //dd(json_decode($get_team['team_members'],true));
 
@@ -322,7 +322,7 @@ class AuditExecutionMemoController extends Controller
         $cost_center_name_bn = $request->cost_center_name_bn;
         $audit_year_start = $request->audit_year_start;
         $audit_year_end = $request->audit_year_end;
-        $team_members = $this->getPlanAndTeamWiseTeamMembers($audit_plan_id,$team_id);
+        $team_members = $this->getPlanAndTeamWiseTeamMembers(0,$audit_plan_id,$team_id);
         $get_team = $this->getTeam($request->team_id);
 
         if (isSuccess($memo)) {
