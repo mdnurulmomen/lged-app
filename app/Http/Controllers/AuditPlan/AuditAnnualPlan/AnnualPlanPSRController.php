@@ -18,7 +18,7 @@ class AnnualPlanPSRController extends Controller
         }));
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
         $fiscal_years = $this->allFiscalYears();
-        return view('modules.audit_plan.annual.annual_plan_revised.psr.psr_annual_plan_lists', compact('office_id', 'directorates', 'fiscal_years'));
+        return view('modules.audit_plan.annual.annual_plan_revised.annual_plan_lists', compact('office_id', 'directorates', 'fiscal_years'));
     }
 
     public function create(Request $request)

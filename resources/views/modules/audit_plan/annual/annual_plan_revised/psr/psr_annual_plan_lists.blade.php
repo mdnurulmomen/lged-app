@@ -41,20 +41,20 @@
 @include('scripts.script_generic')
 <script>
     $(function () {
-        Annual_Plan_Container.loadFiscalYearWiseActivity();
-        Annual_Plan_Container.loadMinistryLists();
+        Annual_Plan_PSR_Container.loadFiscalYearWiseActivity();
+        Annual_Plan_PSR_Container.loadMinistryLists();
     });
 
     $('#select_fiscal_year_annual_plan').change(function () {
-        Annual_Plan_Container.loadAnnualPlanList();
-        Annual_Plan_Container.loadFiscalYearWiseActivity();
+        Annual_Plan_PSR_Container.loadAnnualPlanList();
+        Annual_Plan_PSR_Container.loadFiscalYearWiseActivity();
     });
 
     $('#activity_id,#directorate_filter,#office_ministry_id').change(function () {
-        Annual_Plan_Container.loadAnnualPlanList();
+        Annual_Plan_PSR_Container.loadAnnualPlanList();
     });
 
-    var Annual_Plan_Container = {
+    var Annual_Plan_PSR_Container = {
         loadAnnualActivityEventList: function (page = 1, per_page = 100) {
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
@@ -176,7 +176,7 @@
                 if (response.status === 'success') {
                     toastr.success('অনুমোদনের জন্য প্রেরিত হয়েছে');
                     $("#kt_quick_panel_close").click();
-                    Annual_Plan_Container.loadAnnualPlanList();
+                    Annual_Plan_PSR_Container.loadAnnualPlanList();
                 } else {
                     if (response.statusCode === '422') {
                         var errors = response.msg;
@@ -498,20 +498,20 @@
                     });
 
                     newRow = '<li class="parent_office" data-child-count="' + entity_info.child_count + '" data-entity-info="' + JSON.stringify(entity_info) + '" id="selected_rp_parent_auditee_' + entity_info.entity_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;">' +
-                        '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_Container.removeSelectedEntity(' + entity_info.entity_id + ',' + node_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
+                        '<span id="btn_remove_auditee_' + entity_info.entity_id + '" data-auditee-id="' + entity_info.entity_id + '"  onclick="Annual_Plan_PSR_Container.removeSelectedEntity(' + entity_info.entity_id + ',' + node_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
                         '<i class="fa fa-home pr-2"></i>' + entity_info.entity_name_bn + '<span class="ml-2 badge badge-info">এনটিটি</span>' +
                         '<input name="parent_office" class="selected_entity" id="selected_parent_entity_' + entity_info.entity_id + '" type="hidden" value=""/>' +
                         '</li>';
                     selected_rp_office = $(".selected_rp_offices");
                     selected_rp_office.append(newRow);
 
-                    Annual_Plan_Container.selectedEntityTotalUnit();
+                    Annual_Plan_PSR_Container.selectedEntityTotalUnit();
 
                 } else {
                     count = $('[id^=selected_rp_auditee_]').length
                     newRow = '<li class="entity_' + entity_info.entity_id + '" id="selected_rp_auditee_' + entity_info.office_id + '" style="border: 1px solid #ebf3f2;list-style: none;margin: 5px;padding-left: 4px;cursor: move;" draggable="true" ondragend="dragEnd()" ondragover="dragOver(event)" ondragstart="dragStart(event)">' +
                         '<span class="selected_entity_sr badge badge-white pl-1" >' + enTobn(count + 1) + '| </span>' +
-                        '<span id="btn_remove_auditee_' + entity_info.office_id + '" data-auditee-id="' + entity_info.office_id + '"  onclick="Annual_Plan_Container.removeSelectedRPAuditee(' + entity_info.office_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
+                        '<span id="btn_remove_auditee_' + entity_info.office_id + '" data-auditee-id="' + entity_info.office_id + '"  onclick="Annual_Plan_PSR_Container.removeSelectedRPAuditee(' + entity_info.office_id + ')" style="cursor:pointer;color:red;"><i class="fas fa-trash-alt text-danger pr-2"></i></span>' +
                         '<i class="fa fa-home pr-2"></i>' + entity_info.office_name_bn +
                         '<input name="selected_entity[]" class="selected_auditee" id="selected_entity_' + entity_info.office_id + '" type="hidden" value=""/>' +
                         '</li>';
@@ -568,7 +568,7 @@
             $('#selected_rp_parent_auditee_' + entity_id).remove();
             $('.entity_' + entity_id).remove();
             $("#selected_entity").find('option[value="' + entity_id + '"]').remove();
-            Annual_Plan_Container.selectedEntityTotalUnit();
+            Annual_Plan_PSR_Container.selectedEntityTotalUnit();
 
             if ($('#rp_auditee_parent_offices').jstree(true)) {
                 $("#rp_auditee_parent_offices").jstree("uncheck_node", node_id);
@@ -921,7 +921,7 @@
                         $('#activity_id').html(response);
                         setActivityAnonymously();
                         // $('#activity_id').val(7);
-                        // Annual_Plan_Container.loadAnnualPlanList();
+                        // Annual_Plan_PSR_Container.loadAnnualPlanList();
                     }
                 },function (response) {
                     KTApp.unblock('#kt_wrapper');
