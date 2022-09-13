@@ -79,11 +79,16 @@
                                         {{-- </div> --}}
                                         <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                             <span class="mr-1 ">মেমো নংঃ</span>
+
                                             <a href="javascript:void(0)"
-                                                class="text-dark text-hover-primary font-size-h5">
+                                                class="text-dark text-hover-primary font-size-h5 mr-1">
 {{--                                                {{ enTobn($memo['onucched_no']) }}--}}
                                                     M-{{$memo['id']}}
                                             </a>
+
+                                            <span class="label label-{{$memo['has_sent_to_rpu'] == 0 ? 'warning' : 'success'}} label-pill label-inline">
+                                                {{ $memo['has_sent_to_rpu'] == 0 ? 'PENDING' : 'SENT' }}
+                                            </span>
                                         </div>
                                         <div class="font-weight-normal">
                                             <span class="mr-2 font-size-1-1">কস্ট সেন্টারঃ</span>
