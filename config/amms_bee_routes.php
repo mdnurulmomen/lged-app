@@ -229,7 +229,7 @@ return [
         'html_view_content_title_store' => env('API_URL_BEE', '') . '/html-view-content-title-store',
         'html_view_content_title_duration_wise' => env('API_URL_BEE', '') . '/html-view-content-title-duration-wise',
     ],
-    'psr_plan' =>[
+    'psr_plan' => [
         'store' => env('API_URL_BEE', '') . '/planning/psr-plan/store',
         'view' => env('API_URL_BEE', '') . '/planning/psr-plan/view',
     ],
@@ -324,6 +324,8 @@ return [
             'store_apotti_register_movement' => env('API_URL_BEE', '') . '/audit-conduct-apotti/store-apotti-register-movement',
             'search-list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/search-list',
             'search-view' => env('API_URL_BEE', '') . '/audit-conduct-apotti/search-view',
+            'search-edit' => env('API_URL_BEE', '') . '/audit-conduct-apotti/search-edit',
+            'store-edited-apotti' => env('API_URL_BEE', '') . '/audit-conduct-apotti/store-edited-apotti',
             'apotti-memo-list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/apotti-memo-list',
             'convert-memo-to-apotti' => env('API_URL_BEE', '') . '/audit-conduct-apotti/convert-memo-to-apotti',
             'get-ministry-wise-project-from-office-db' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-ministry-wise-project',

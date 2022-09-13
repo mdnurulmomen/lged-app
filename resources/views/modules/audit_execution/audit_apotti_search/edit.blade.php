@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-md-2">
                             <img style="cursor: pointer" class="coverImage"
-                                 src="{{config('amms_bee_routes.file_url').$apotti['cover_page_path'].$apotti['cover_page']}}"
+                                 src="{{config('amms_bee_routes.file_url').$apotti_item['cover_page_path'].$apotti_item['cover_page']}}"
                                  onclick="showImageOnModal(this)" width="60%"/>
                         </div>
                     </div>
@@ -61,14 +61,14 @@
 
                     @foreach($main_attachments as $attachment)
                         <img
-                            src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
+                            src="{{config('amms_bee_routes.file_url').$attachment['file_path'].$attachment['file_custom_name']}}"
                             alt="" width="100%">
                     @endforeach
 
                     <div style="display:none;" class="load-porisishto-attachment">
                         @foreach($porisishto_attachments as $attachment)
                             <img
-                                src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
+                                src="{{config('amms_bee_routes.file_url').$attachment['file_path'].$attachment['file_custom_name']}}"
                                 alt="" width="100%">
                         @endforeach
                     </div>
@@ -76,7 +76,7 @@
                     <div style="display:none;" class="load-promanok-attachment">
                         @foreach($promanok_attachments as $attachment)
                             <img
-                                src="{{config('amms_bee_routes.file_url').$attachment['attachment_path'].$attachment['attachment_name']}}"
+                                src="{{config('amms_bee_routes.file_url').$attachment['file_path'].$attachment['file_custom_name']}}"
                                 alt="" width="100%">
                         @endforeach
                     </div>
@@ -95,117 +95,120 @@
             </div>
             <div class="col-md-4">
                 <div class="card sna-card-border mt-3 mb-15">
-                    <input type="hidden" name="id" value="{{$apotti['id']}}">
+                    <input type="hidden" name="apotti_item_id" value="{{$apotti_item['id']}}">
+                    <input type="hidden" name="apotti_id" value="{{$apotti['id']}}">
+                    <input type="hidden" name="directorate_id" value="{{$search_data['directorate_id']}}">
 
                     <div class="input-group">
                         <div class="input-group-prepend"><span class="input-group-text">অনুচ্ছেদ নম্বর</span></div>
                         <input class="form-control" id="onucched_no" name="onucched_no" type="text"
-                               value="{{$apotti['onucched_no']}}">
+                               value="{{$apotti['onucched_no']}}" readonly>
                     </div>
 
                     <div class="input-group">
                         <div class="input-group-prepend"><span class="input-group-text">ফাইল নং</span></div>
                         <input class="form-control" id="file_no" name="file_no" type="text"
-                               value="{{$apotti['file_token_no']}}">
+                               value="{{$apotti['file_token_no']}}" readonly>
                     </div>
 
                     <textarea class="form-control" name="apotti_title" cols="30"
-                              rows="2">{{$apotti['apotti_title']}}</textarea>
+                              rows="2" readonly>{{$apotti['apotti_title']}}</textarea>
 
                     <input style="float: right" class="form-control number-input" id="jorito_ortho_poriman"
                            name="jorito_ortho_poriman" type="text"
-                           value="{{$apotti['jorito_ortho_poriman']}}">
+                           value="{{$apotti_item['jorito_ortho_poriman']}}"
+                           readonly
+                    >
 
-                    <select class="form-select select-select2" id="directorate_id" name="directorate_id">
-                        @foreach($directorates as $directorate)
-                            <option
-                                value="{{$directorate['office_id']}}" {{$apotti['directorate_id']==$directorate['office_id']?'selected':''}}>{{$directorate['office_name_bn']}}</option>
-                        @endforeach
-                    </select>
+                    <div class="border mt-2 mb-2 pt-2">
+                        <p>মন্ত্রনালয়ঃ {{$apotti_item['ministry_name_bn']}}</p>
+                        <p>এন্টিটিঃ {{$apotti_item['parent_office_name_bn']}}</p>
+                        <p>কস্টসেন্টারঃ {{$apotti_item['cost_center_name_bn']}}</p>
+                    </div>
 
-                    <label for="ministry_id" class="col-form-label">মন্ত্রণালয়</label>
+                    <p class="text-danger d-none" style="font-weight:bold; font-size:1.1em" id="unmapped_error_tag">
+                        সঠিক ম্যাপ এ নেই। অনুগ্রহ করে সঠিক ম্যাপ করুন।</p>
+
                     <select class="form-select select-select2" id="ministry_id" name="ministry_id">
                         <option value="">মন্ত্রণালয়/অফিস</option>
                     </select>
+                    <br>
 
-                    <label for="entity_id" class="col-form-label">এনটিটি</label>
                     <select class="form-select select-select2" id="entity_id" name="entity_id">
                         <option value="">এনটিটি</option>
                     </select>
+                    <br>
 
-                    <label for="unit_group_office_id" class="col-form-label">ইউনিট গ্রুপ</label>
                     <select class="form-select select-select2" id="unit_group_office_id" name="unit_group_office_id">
                         <option value="">ইউনিট গ্রুপ</option>
                     </select>
+                    <br>
 
-                    <label for="cost_center_id" class="col-form-label">কস্ট সেন্টার</label>
                     <select class="form-select select-select2" id="cost_center_id" name="cost_center_id">
                         <option value="">কস্ট সেন্টার</option>
                     </select>
+                    <br>
 
-                    <label for="project_id" class="col-form-label">প্রকল্প</label>
                     <select class="form-select select-select2" id="project_id" name="project_id">
-                        <option value="">সবগুলো</option>
+                        <option value="">প্রজেক্ট বাছাই করুন</option>
+                        @foreach($all_projects as $project)
+                            <option value="{{$project['id']}}" data-project-name-en="{{$project['name_en']}}"
+                                    data-project-name-bn="{{$project['name_bn']}}">{{$project['name_bn']}}</option>
+                        @endforeach
                     </select>
+                    <br>
+                    <select class="form-select select-select2" id="fiscal_year_id" name="fiscal_year_id">
+                        <option value="">অর্থ বছর বাছাই করুন</option>
+                        @foreach($fiscal_years as $fiscal_year)
+                            <option
+                                value="{{$fiscal_year['id']}}" {{$apotti_item['fiscal_year_id'] == $fiscal_year['id'] ? "selected" : ''}}>{{$fiscal_year['description']}}</option>
+                        @endforeach
+                    </select>
+                    <br>
 
                     <div class="input-group">
                         <input class="form-control year-picker" id="audit_year_start" name="audit_year_start"
-                               placeholder="শুরু" type="text" value="{{$apotti['year_start']}}">
+                               placeholder="শুরু" type="text" value="{{$apotti_item['audit_year_start']}}">
                         <input class="form-control year-picker" name="audit_year_end" placeholder="শেষ" type="text"
-                               value="{{$apotti['year_end']}}">
+                               value="{{$apotti_item['audit_year_end']}}">
                     </div>
+                    <br>
 
-                    <select class="form-select select-select2" id="apotti_oniyomer_category_id"
-                            name="apotti_oniyomer_category_id">
-                        <option value="">--বাছাই করুন--</option>
-                        @foreach($categories as $category)
-                            <option
-                                value="{{$category['id']}}" {{$apotti['apotti_category_id'] == $category['id']?'selected':''}}>
-                                {{$category['name_bn']}}
-                            </option>
-                        @endforeach
-                    </select>
-
-                    <select class="form-select select-select2" id="apotti_oniyomer_category_child_id"
-                            name="apotti_oniyomer_category_child_id">
-                        <option value="">সবগুলো</option>
-                    </select>
-
-                    <select class="form-control select-select2" id="nirikkha_dhoron" name="nirikkha_dhoron">
+                    <select class="form-control select-select2" id="audit_type" name="audit_type">
                         <option value="">নিরিক্ষার ধরন</option>
                         <option
-                            value="কমপ্লায়েন্স অডিট" {{$apotti['nirikkha_dhoron'] == 'কমপ্লায়েন্স অডিট'?'selected':''}}>
+                            value="compliance" {{$apotti_item['audit_type'] == 'compliance'?'selected':''}}>
                             কমপ্লায়েন্স অডিট
                         </option>
                         <option
-                            value="পারফরমেন্স অডিট" {{$apotti['nirikkha_dhoron'] == 'পারফরমেন্স অডিট'?'selected':''}}>
+                            value="performance" {{$apotti_item['audit_type'] == 'performance'?'selected':''}}>
                             পারফরমেন্স অডিট
                         </option>
                         <option
-                            value="ফাইন্যান্সিয়াল অডিট" {{$apotti['nirikkha_dhoron'] == 'ফাইন্যান্সিয়াল অডিট'?'selected':''}}>
+                            value="financial" {{$apotti_item['audit_type'] == 'financial'?'selected':''}}>
                             ফাইন্যান্সিয়াল অডিট
                         </option>
-                        <option value="বার্ষিক অডিট" {{$apotti['nirikkha_dhoron'] == 'বার্ষিক অডিট'?'selected':''}}>
+                        <option value="yearly" {{$apotti_item['audit_type'] == 'yearly'?'selected':''}}>
                             বার্ষিক অডিট
                         </option>
-                        <option value="বিশেষ অডিট" {{$apotti['nirikkha_dhoron'] == 'বিশেষ অডিট'?'selected':''}}>বিশেষ
+                        <option value="special" {{$apotti_item['audit_type'] == 'special'?'selected':''}}>বিশেষ
                             অডিট
                         </option>
                         <option
-                            value="ইস্যুভিত্তিক অডিট" {{$apotti['nirikkha_dhoron'] == 'ইস্যুভিত্তিক অডিট'?'selected':''}}>
+                            value="issue" {{$apotti_item['audit_type'] == 'issue_based'?'selected':''}}>
                             ইস্যুভিত্তিক অডিট
                         </option>
                     </select>
 
-                    <select class="form-control select-select2" id="apottir_dhoron" name="apottir_dhoron">
+                    <select class="form-control select-select2" id="memo_type" name="memo_type">
                         <option value="">আপত্তির ধরন</option>
-                        <option value="এসএফআই" {{$apotti['apottir_dhoron'] == 'এসএফআই'?'selected':''}}>এসএফআই</option>
-                        <option value="নন-এসএফআই" {{$apotti['apottir_dhoron'] == 'নন-এসএফআই'?'selected':''}}>নন-এসএফআই
+                        <option value="sfi" {{$apotti_item['memo_type'] == 'sfi'?'selected':''}}>এসএফআই</option>
+                        <option value="non-sfi" {{$apotti_item['memo_type'] == 'non-sfi'?'selected':''}}>নন-এসএফআই
                         </option>
-                        <option value="ড্রাফ্ট প্যারা" {{$apotti['apottir_dhoron'] == 'ড্রাফ্ট প্যারা'?'selected':''}}>
+                        <option value="draft-para" {{$apotti_item['memo_type'] == 'draft-para'?'selected':''}}>
                             ড্রাফ্ট প্যারা
                         </option>
-                        <option value="পাণ্ডুলিপি" {{$apotti['apottir_dhoron'] == 'পাণ্ডুলিপি'?'selected':''}}>
+                        <option value="pandulipi" {{$apotti_item['memo_type'] == 'pandulipi'?'selected':''}}>
                             রিপোর্টভুক্ত আপত্তি
                         </option>
                     </select>
@@ -235,39 +238,28 @@
 
 <script>
     $(function () {
-        directorate_id = $('#directorate_id').val();
+        directorate_id = {{$search_data['directorate_id']}};
 
         //minitsry
-        ministry_id = '{{$apotti['ministry_id']}}';
+        ministry_id = '{{$apotti_item['ministry_id']}}';
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id, ministry_id);
 
         //entity
-        entity_id = '{{$apotti['entity_info_id']}}';
-        Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id, entity_id);
+        entity_id = '{{$apotti_item['parent_office_id']}}';
+        loadMinistryWiseEntity(ministry_id, entity_id);
 
-        //unit group
-        parent_office_id = '{{$apotti['parent_office_id']}}';
-        Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id, parent_office_id);
+
+        Archive_Apotti_Common_Container.loadEntityWiseUnitGroupOffice(entity_id, entity_id);
 
         //cost center
-        cost_center_id = '{{$apotti['cost_center_id']}}';
-        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(parent_office_id, cost_center_id);
-
-        apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
-        apotti_oniyomer_category_child_id = '{{$apotti['apotti_sub_category_id']}}';
-        Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id, apotti_oniyomer_category_id, apotti_oniyomer_category_child_id);
-
-        project_id = '{{$apotti['project_id']}}';
-        Archive_Apotti_Common_Container.loadAllProjects(directorate_id, project_id);
+        cost_center_id = '{{$apotti_item['cost_center_id']}}';
+        Archive_Apotti_Common_Container.loadEntityOrUnitGroupWiseCostCenter(entity_id, cost_center_id);
     });
 
     //ministry
     $('#directorate_id').change(function () {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
-
-        project_id = '{{$apotti['project_id']}}';
-        Archive_Apotti_Common_Container.loadAllProjects(directorate_id, project_id);
     });
 
     //entity
@@ -311,20 +303,31 @@
 
             from_data = new FormData(document.getElementById("apotti_create_form"));
 
-            from_data.append('cost_center_name_en', $('#cost_center_id option:selected').attr('data-office-name-en'))
-            from_data.append('cost_center_name_bn', $('#cost_center_id option:selected').attr('data-office-name-bn'))
+            ministry_name_en = $('#ministry_id option:selected').attr('data-ministry-name-en');
+            ministry_name_bn = $('#ministry_id option:selected').attr('data-ministry-name-bn');
 
-            from_data.append('entity_name_en', $('#entity_id option:selected').attr('data-office-name-en'))
-            from_data.append('entity_name_bn', $('#entity_id option:selected').attr('data-office-name-bn'))
+            from_data.append('ministry_name_en', ministry_name_en);
+            from_data.append('ministry_name_bn', ministry_name_bn);
 
-            from_data.append('ministry_name_en', $('#ministry_id option:selected').attr('data-ministry-name-en'))
-            from_data.append('ministry_name_bn', $('#ministry_id option:selected').attr('data-ministry-name-bn'))
+            entity_name_en = $('#entity_id option:selected').attr('data-office-name-en');
+            entity_name_bn = $('#entity_id option:selected').attr('data-office-name-bn');
 
-            from_data.append('project_name_en', $('#project_id option:selected').attr('data-project-name-en'))
-            from_data.append('project_name_bn', $('#project_id option:selected').attr('data-project-name-bn'))
+            from_data.append('entity_name_en', entity_name_en);
+            from_data.append('entity_name_bn', entity_name_bn);
 
-            from_data.append('parent_office_name_en', $('#unit_group_office_id option:selected').attr('data-office-name-en'))
-            from_data.append('parent_office_name_bn', $('#unit_group_office_id option:selected').attr('data-office-name-bn'))
+            cost_center_name_en = $('#cost_center_id option:selected').attr('data-office-name-en');
+            cost_center_name_bn = $('#cost_center_id option:selected').attr('data-office-name-bn');
+
+            from_data.append('cost_center_name_en', cost_center_name_en);
+            from_data.append('cost_center_name_bn', cost_center_name_bn);
+
+            project_name_en = $('#project_id option:selected').attr('data-project-name-en');
+            project_name_bn = $('#project_id option:selected').attr('data-project-name-bn');
+
+            from_data.append('project_name_en', project_name_en);
+            from_data.append('project_name_bn', project_name_bn);
+
+            from_data.append('fiscal_year', $('#fiscal_year_id option:selected').text());
 
             elem = $(this);
             elem.prop('disabled', true);
@@ -336,7 +339,7 @@
 
             $.ajax({
                 data: from_data,
-                url: '{{route('audit.execution.archive-apotti.store')}}',
+                url: '{{route('audit.execution.apotti.search-edit-submit')}}',
                 type: "POST",
                 dataType: 'json',
                 contentType: false,
@@ -429,5 +432,23 @@
 
     function loadPromanok() {
         $(".load-promanok-attachment").show();
+    }
+
+    function loadMinistryWiseEntity(ministry_id, entity_id = '') {
+        let url = '{{route('audit.execution.archive-apotti.load-ministry-wise-entity')}}';
+        let data = {ministry_id};
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                if (response.status === 'error') {
+                    toastr.warning(response.data);
+                } else {
+                    $('#entity_id').html(response);
+                    if ($("#entity_id option[value='" + entity_id + "']").length == 0) {
+                        $('#unmapped_error_tag').removeClass('d-none')
+                    } else {
+                        $('#entity_id').val(entity_id).trigger('change');
+                    }
+                }
+            }
+        );
     }
 </script>

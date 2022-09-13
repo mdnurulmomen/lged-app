@@ -24,6 +24,13 @@
                                         </span>
                                     </div>
 
+                                    <div class="subject-wrapper font-weight-normal">
+                                        <span class="mr-2 font-size-1-1">সাবজেক্ট ম্যাটার:</span>
+                                        <span class="description text-wrap font-size-14">
+                                            {{$schedule['annual_plan']['subject_matter']}}
+                                        </span>
+                                    </div>
+
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                         <span class="mr-1">কস্ট সেন্টারঃ</span>
                                         <span class="text-info font-size-1-1">
@@ -102,7 +109,7 @@
                                                     </button>
                                                 @else
                                                     <button class="mr-3 btn btn-sm btn-outline-danger btn-square">
-                                                        <i class="fad fa-info-square"></i> অডিট  শুরুর তারিখ হতে ({{formatDate($schedule['team_member_start_date'],'bn')}}) কোয়েরি এবং মেমোর বাটন দৃশ্যমান হবে
+                                                        <i class="fad fa-info-square"></i> অডিট শুরুর তারিখ ({{formatDate($schedule['team_member_start_date'],'bn')}}) হতে কোয়েরি এবং মেমোর বাটন দৃশ্যমান হবে
                                                     </button>
                                                 @endif
                                             @else
@@ -121,111 +128,113 @@
             @endforeach
         </ul>
 
-        <div class="pagination_ui">
-            <div class="pagination">
-                @php
-                    $current_page = $audit_query_schedule_list['current_page'];
-                    $last_page = $audit_query_schedule_list['last_page'];
-                    $prev_page = $audit_query_schedule_list['current_page'] - 1 < 1 ? 1 : $audit_query_schedule_list['current_page'] - 1;
-                    $next_page = $audit_query_schedule_list['current_page'] + 1 > $audit_query_schedule_list['last_page'] ? $audit_query_schedule_list['last_page'] : $audit_query_schedule_list['current_page'] + 1;
-                @endphp
-                <ul>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:;"
-                           onclick="Audit_Query_Schedule_Container.paginate($(this))" data-page={{ $prev_page }}>
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                    </li>
-                    @if ($last_page <= 5)
-                        @for ($i = 1; $i <= $audit_query_schedule_list['last_page']; $i++)
-                            <li class="page-item {{ $audit_query_schedule_list['current_page'] == $i ? 'active' : '' }}">
-                                <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
-                                   data-page="{{ $i }}">{{ $i }}</a>
-                            </li>
-                        @endfor
-                    @else
-                        @if ($current_page < 5)
-                            @for ($i = 1; $i < 6; $i++)
+        @if($audit_query_schedule_list['total'] > 200)
+            <div class="pagination_ui">
+                <div class="pagination">
+                    @php
+                        $current_page = $audit_query_schedule_list['current_page'];
+                        $last_page = $audit_query_schedule_list['last_page'];
+                        $prev_page = $audit_query_schedule_list['current_page'] - 1 < 1 ? 1 : $audit_query_schedule_list['current_page'] - 1;
+                        $next_page = $audit_query_schedule_list['current_page'] + 1 > $audit_query_schedule_list['last_page'] ? $audit_query_schedule_list['last_page'] : $audit_query_schedule_list['current_page'] + 1;
+                    @endphp
+                    <ul>
+                        <li class="page-item">
+                            <a class="page-link" href="javascript:;"
+                               onclick="Audit_Query_Schedule_Container.paginate($(this))" data-page={{ $prev_page }}>
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        @if ($last_page <= 5)
+                            @for ($i = 1; $i <= $audit_query_schedule_list['last_page']; $i++)
                                 <li class="page-item {{ $audit_query_schedule_list['current_page'] == $i ? 'active' : '' }}">
                                     <a class="page-link" data-current-page={{ $current_page }}
                                             href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
                                        data-page="{{ $i }}">{{ $i }}</a>
                                 </li>
                             @endfor
-                            <li class="page-item">
-                                <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
-                                   data-page="{{ $last_page - 1 }}">{{ $last_page - 1 }}</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
-                                   data-page="{{ $last_page }}">{{ $last_page }}</a>
-                            </li>
-                        @elseif ($current_page >= 5 && $current_page < $last_page - 5)
-                            <li class="page-item">
-                                <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
-                                   data-page="1">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
-                            </li>
-                            @for ($i = $current_page - 4; $i <= $current_page + 4; $i++)
-                                <li class="page-item {{ $audit_query_schedule_list['current_page'] == $i ? 'active' : '' }}">
-                                    <a class="page-link" data-current-page={{ $current_page }}
-                                            href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
-                                       data-page="{{ $i }}">{{ $i }}</a>
-                                </li>
-                            @endfor
-                            <li class="page-item">
-                                <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
-                                   data-page="{{ $last_page }}">{{ $last_page }}</a>
-                            </li>
                         @else
-                            <li class="page-item">
-                                <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
-                                   data-page="1">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
-                                   data-page="2">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
-                            </li>
-                            @for ($i = $current_page - 4; $i <= $last_page; $i++)
-                                <li class="page-item {{ $audit_query_schedule_list['current_page'] == $i ? 'active' : '' }}">
+                            @if ($current_page < 5)
+                                @for ($i = 1; $i < 6; $i++)
+                                    <li class="page-item {{ $audit_query_schedule_list['current_page'] == $i ? 'active' : '' }}">
+                                        <a class="page-link" data-current-page={{ $current_page }}
+                                                href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
+                                           data-page="{{ $i }}">{{ $i }}</a>
+                                    </li>
+                                @endfor
+                                <li class="page-item">
+                                    <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
+                                </li>
+                                <li class="page-item">
                                     <a class="page-link" data-current-page={{ $current_page }}
                                             href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
-                                       data-page="{{ $i }}">{{ $i }}</a>
+                                       data-page="{{ $last_page - 1 }}">{{ $last_page - 1 }}</a>
                                 </li>
-                            @endfor
+                                <li class="page-item">
+                                    <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
+                                       data-page="{{ $last_page }}">{{ $last_page }}</a>
+                                </li>
+                            @elseif ($current_page >= 5 && $current_page < $last_page - 5)
+                                <li class="page-item">
+                                    <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
+                                       data-page="1">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
+                                </li>
+                                @for ($i = $current_page - 4; $i <= $current_page + 4; $i++)
+                                    <li class="page-item {{ $audit_query_schedule_list['current_page'] == $i ? 'active' : '' }}">
+                                        <a class="page-link" data-current-page={{ $current_page }}
+                                                href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
+                                           data-page="{{ $i }}">{{ $i }}</a>
+                                    </li>
+                                @endfor
+                                <li class="page-item">
+                                    <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
+                                       data-page="{{ $last_page }}">{{ $last_page }}</a>
+                                </li>
+                            @else
+                                <li class="page-item">
+                                    <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
+                                       data-page="1">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
+                                       data-page="2">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
+                                </li>
+                                @for ($i = $current_page - 4; $i <= $last_page; $i++)
+                                    <li class="page-item {{ $audit_query_schedule_list['current_page'] == $i ? 'active' : '' }}">
+                                        <a class="page-link" data-current-page={{ $current_page }}
+                                                href="javascript:;" onclick="Audit_Query_Schedule_Container.paginate($(this))"
+                                           data-page="{{ $i }}">{{ $i }}</a>
+                                    </li>
+                                @endfor
+                            @endif
                         @endif
-                    @endif
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:;"
-                           onclick="Audit_Query_Schedule_Container.paginate($(this))" data-page="{{ $next_page }}">
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    </li>
-                </ul>
+                        <li class="page-item">
+                            <a class="page-link" href="javascript:;"
+                               onclick="Audit_Query_Schedule_Container.paginate($(this))" data-page="{{ $next_page }}">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 @else
     <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">

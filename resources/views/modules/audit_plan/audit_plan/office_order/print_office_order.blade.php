@@ -977,10 +977,10 @@
     <div class="pdf-screen" style="height: 100%;font-family:Nikosh,serif !important; page-break-after:always">
         <div style="font-family:Nikosh,serif !important;width: 100%;margin-top: 10px">
             <span style="width: 70%;float: left">
-                {{$office_order['memorandum_no']}}
+                {{$office_order['memorandum_no_2'] ?: $office_order['memorandum_no']}}
             </span>
             <span style="width: 30%;float: right">
-                তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
+                তারিখঃ  {{$office_order['memorandum_date_2'] ? formatDate($office_order['memorandum_date_2'],'bn') : enTobn($office_order['memorandum_date'])}} খ্রি।
             </span>
         </div>
 

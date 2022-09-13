@@ -52,6 +52,7 @@ class AuditExecutionQueryController extends Controller
     {
         $team_id= $request->team_id;
         $schedule_id = $request->schedule_id;
+        $project_name_bn = $request->project_name_bn;
         $data['audit_plan_id'] = $request->audit_plan_id;
         $data['entity_id'] = $request->entity_id;
         $data['cost_center_id'] = $request->cost_center_id;
@@ -61,7 +62,7 @@ class AuditExecutionQueryController extends Controller
 
         return view(
             'modules.audit_execution.audit_execution_query.partials.load_query_list',
-            compact('audit_query_list', 'team_id','schedule_id')
+            compact('audit_query_list', 'team_id','schedule_id','project_name_bn')
         );
     }
 
@@ -121,11 +122,11 @@ class AuditExecutionQueryController extends Controller
         $cost_center_id = $request->cost_center_id;
         $cost_center_name_bn = $request->cost_center_name_bn;
         $cost_center_name_en = $request->cost_center_name_en;
-        $get_team = $this->getTeam($request->team_id);
+        $project_name_bn = $request->project_name_bn;
+        $team_id = $request->team_id;
+        $get_team = $this->getTeam($team_id);
         //dd($get_team);
         //dd(json_decode($get_team[0]['team_members'],true));
-
-
         return view(
             'modules.audit_execution.audit_execution_query.create',
             compact(
@@ -136,6 +137,8 @@ class AuditExecutionQueryController extends Controller
                 'cost_center_id',
                 'cost_center_name_bn',
                 'cost_center_name_en',
+                'team_id',
+                'project_name_bn',
                 'get_team',
             )
         );
@@ -216,13 +219,15 @@ class AuditExecutionQueryController extends Controller
         $schedule_id = $request->schedule_id;
         $audit_plan_id = $request->audit_plan_id;
         $entity_id = $request->entity_id;
+        $team_id = $request->team_id;
+        $project_name_bn = $request->project_name_bn;
         $audit_query = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.view_audit_query'), $data)->json();
 
         if (isSuccess($audit_query)) {
             $auditQueryInfo = $audit_query['data'];
             $cost_center_types = $this->allCostCenterType();
-            $get_team = $this->getTeam($request->team_id);
-            return view('modules.audit_execution.audit_execution_query.edit', compact('auditQueryInfo', 'cost_center_types', 'schedule_id','audit_plan_id','entity_id','get_team'));
+            $get_team = $this->getTeam($team_id);
+            return view('modules.audit_execution.audit_execution_query.edit', compact('auditQueryInfo', 'cost_center_types', 'schedule_id','audit_plan_id','entity_id','get_team','team_id','project_name_bn'));
         } else {
             return response()->json(['status' => 'error', 'data' => $audit_query]);
         }

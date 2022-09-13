@@ -59,7 +59,7 @@ class OfficeOrderController extends Controller
         ];
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_office_order'), $requestData)->json();
-//        dd($requestData);
+        //dd($responseData);
         $office_order = isSuccess($responseData)?$responseData['data']['office_order']:'';
         $data['office_order'] = $request->update_request == 0 ?  $office_order : '';
         $data['audit_plan_id'] = $request->audit_plan_id;
@@ -113,11 +113,9 @@ class OfficeOrderController extends Controller
             'annual_plan_id' => $request->annual_plan_id,
         ];
 
-//        dd($requestData);
-
         $data['current_designation_id'] = $this->current_designation_id();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_update_office_order'), $requestData)->json();
-//        dd($responseData);
+        //dd($responseData);
         if(isSuccess($responseData)){
             $data['office_order'] = $responseData['data']['office_order'];
             $data['audit_team_members'] = $responseData['data']['audit_team_members'];
@@ -136,7 +134,9 @@ class OfficeOrderController extends Controller
                 'audit_plan_id' => 'required',
                 'annual_plan_id' => 'required',
                 'memorandum_no' => 'required',
+                'memorandum_no_2' => 'required',
                 'memorandum_date' => 'required',
+                'memorandum_date_2' => 'required',
                 'heading_details' => 'required',
                 'advices' => 'required',
                 'order_cc_list' => 'required',
@@ -150,7 +150,9 @@ class OfficeOrderController extends Controller
                 'audit_plan_id' => $request->audit_plan_id,
                 'annual_plan_id' => $request->annual_plan_id,
                 'memorandum_no' => $request->memorandum_no,
+                'memorandum_no_2' => $request->memorandum_no_2,
                 'memorandum_date' => $request->memorandum_date,
+                'memorandum_date_2' => $request->memorandum_date_2,
                 'heading_details' => $request->heading_details,
                 'advices' => $request->advices,
                 'approved_status' => 'draft',

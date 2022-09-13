@@ -235,12 +235,12 @@
         </div>--}}
 
         <div style="width: 100%;margin-top: 100px">
-                <span style="width: 85%;float: left;text-align: left">
-                    {{$office_order['memorandum_no']}}
-                </span>
+            <span style="width: 85%;float: left;text-align: left">
+                {{$office_order['memorandum_no_2'] ?: $office_order['memorandum_no']}}
+            </span>
             <span style="width: 15%;float: right;text-align: right">
-                    তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
-                </span>
+                তারিখঃ  {{$office_order['memorandum_date_2'] ? formatDate($office_order['memorandum_date_2'],'bn') : enTobn($office_order['memorandum_date'])}} খ্রি।
+            </span>
         </div>
         <br>
 
