@@ -268,6 +268,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/', [AuditAnnualPlanController::class, 'index'])->name('index');
             Route::get('/dashboard', [AuditAnnualPlanController::class, 'showAnnualPlanDashboard'])->name('dashboard');
 
+            Route::get('/psr/index', [AnnualPlanPSRController::class, 'loadPsrIndex'])->name('psr.index');
+            Route::get('/psr/load-topic-lists', [AnnualPlanPSRController::class, 'loadPsrTopicLists'])->name('psr.load-topic-lists');
+
             Route::get('/plans', [AnnualPlanController::class, 'index'])->name('plan.all');
 
             Route::post('/load-annual-plan-lists', [AnnualPlanRevisedController::class, 'showAnnualPlanLists'])->name('plan.list.all');
@@ -843,7 +846,6 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     });
 
 
-
     Route::group(['as' => 'settings.', 'prefix' => 'settings/'], function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');
         Route::get('/dashboard', [SettingController::class, 'showSettingsDashboard'])->name('dashboard');
@@ -924,7 +926,6 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('store', [XMovementController::class, 'store'])->name('store');
         });
     });
-
 
 
     //Miscellaneous
