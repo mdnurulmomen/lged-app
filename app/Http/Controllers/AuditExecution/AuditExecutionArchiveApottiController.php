@@ -202,40 +202,54 @@ class AuditExecutionArchiveApottiController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make(
-            $request->all(),
-            [
-                'id' => 'nullable',
-                'directorate_id' => 'required',
-                'ministry_id' => 'required',
-                'entity_id' => 'required',
-                'apotti_oniyomer_category_id' => 'required',
-                'apotti_oniyomer_category_child_id' => 'required',
-                'onucched_no' => 'required',
-                'audit_year_start' => 'required',
-                'audit_year_end' => 'required',
-                'nirikkha_dhoron' => 'required',
-                'apottir_dhoron' => 'required',
-                'jorito_ortho_poriman' => 'required',
-                'file_no' => 'required',
-                'apotti_title' => 'required',
-            ],
-            [
-                'directorate_id.required' => 'Directorate field is required.',
-                'ministry_id.required' => 'Ministry field is required.',
-                'entity_id.required' => 'Entity field is required.',
-                'apotti_oniyomer_category_id.required' => 'Category field is required.',
-                'apotti_oniyomer_category_child_id.required' => 'Sub Category field is required.',
-                'onucched_no.required' => 'Onucched no field is required.',
-                'audit_year_start.required' => 'Audit start year field is required.',
-                'audit_year_end.required' => 'Audit end year field is required.',
-                'nirikkha_dhoron.required' => 'Nirikkha dhoron field is required.',
-                'apottir_dhoron.required' => 'Apottir dhoron field is required.',
-                'jorito_ortho_poriman.required' => 'Jorito Ortho Poriman dhoron field is required.',
-                'file_no.required' => 'File no field is required.',
-                'apotti_title.required' => 'Title field is required.',
-            ]
-        )->validate();
+        if ($this->getUsername() == '1-CAG-A001') {
+            Validator::make(
+                $request->all(),
+                [
+                    'id' => 'nullable',
+                    'apotti_title' => 'required',
+                ],
+                [
+                    'apotti_title.required' => 'Title field is required.',
+                ]
+            )->validate();
+        } else {
+            Validator::make(
+                $request->all(),
+                [
+                    'id' => 'nullable',
+                    'directorate_id' => 'required',
+                    'ministry_id' => 'required',
+                    'entity_id' => 'required',
+                    'apotti_oniyomer_category_id' => 'required',
+                    'apotti_oniyomer_category_child_id' => 'required',
+                    'onucched_no' => 'required',
+                    'audit_year_start' => 'required',
+                    'audit_year_end' => 'required',
+                    'nirikkha_dhoron' => 'required',
+                    'apottir_dhoron' => 'required',
+                    'jorito_ortho_poriman' => 'required',
+                    'file_no' => 'required',
+                    'apotti_title' => 'required',
+                ],
+                [
+                    'directorate_id.required' => 'Directorate field is required.',
+                    'ministry_id.required' => 'Ministry field is required.',
+                    'entity_id.required' => 'Entity field is required.',
+                    'apotti_oniyomer_category_id.required' => 'Category field is required.',
+                    'apotti_oniyomer_category_child_id.required' => 'Sub Category field is required.',
+                    'onucched_no.required' => 'Onucched no field is required.',
+                    'audit_year_start.required' => 'Audit start year field is required.',
+                    'audit_year_end.required' => 'Audit end year field is required.',
+                    'nirikkha_dhoron.required' => 'Nirikkha dhoron field is required.',
+                    'apottir_dhoron.required' => 'Apottir dhoron field is required.',
+                    'jorito_ortho_poriman.required' => 'Jorito Ortho Poriman dhoron field is required.',
+                    'file_no.required' => 'File no field is required.',
+                    'apotti_title.required' => 'Title field is required.',
+                ]
+            )->validate();
+        }
+
 
         $data = [
             ['name' => 'id', 'contents' => $request->id],
