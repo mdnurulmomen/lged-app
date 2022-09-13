@@ -320,7 +320,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('/load-criteria-list', [AuditAssessmentScoreController::class, 'loadCategoryWiseCriteriaList'])->name('load-criteria-list');
                 Route::post('/store', [AnnualPlanPSRController::class, 'store'])->name('store');
                 Route::post('/psrview', [AnnualPlanPSRController::class, 'preview'])->name('psrview');
-                Route::post('/edit', [AuditAssessmentScoreController::class, 'edit'])->name('edit');
+                Route::post('/PSRBook', [AnnualPlanPSRController::class, 'PSRBook'])->name('PSRBook');
+                Route::post('/update', [AnnualPlanPSRController::class, 'update'])->name('update');
             });
 
             //audit assessment score

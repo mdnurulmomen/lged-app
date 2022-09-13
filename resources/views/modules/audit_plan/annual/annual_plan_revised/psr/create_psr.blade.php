@@ -140,7 +140,9 @@
                         $(".offcanvas-wrapper").html(response);
                     }
                 })
-            }
+            },
+
+        //     
         }
     </script>
 @endsection

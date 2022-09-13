@@ -93,52 +93,53 @@
                             aria-labelledby="activity-tab">
                             <div class="form-row mt-2">
                                 <div class="col-md-12">
-                                    <label for="vumika">ভূমিকা <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" id="vumika" name="vumika">
-                                </div>
-                                <div class="row mt-2 mb-2 mx-0">
-                                    <p class="col-md-12 mb-1 px-2">সাবজেক্ট ম্যাটার :</p><br>
-                                    <div class="col-md-12 px-2">
-                                        <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
+                                    <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
                                         <input class="form-control" type="text" id="subject_matter"
                                             name="subject_matter">
+
+                                </div>
+                                <div class="row mt-2 mb-2 mx-0">
+                                    {{-- <p class="col-md-12 mb-1 px-2">সাবজেক্ট ম্যাটার :</p><br> --}}
+                                    <div class="col-md-12 px-2">
+                                        {{-- <label for="vumika">ভূমিকা <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" id="vumika" name="vumika"> --}}
                                     </div>
                                     <div class="col-md-12 px-2 mt-2">
-                                        <label for="sub_subject_matter">সাব টপিক<span
-                                                class="text-danger">*</span></label>
+                                        {{-- <label for="sub_subject_matter">সাব টপিক<span
+                                                class="text-danger">*</span></label> --}}
                                         <div class="sub_subject_matter_div">
                                             <div>
                                                 <div class="input-group">
-                                                    <input class="form-control sub_subject_matter" type="text"
+                                                    {{-- <input class="form-control sub_subject_matter" type="text"
                                                         id="sub_subject_matter" name="sub_subject_matter">
                                                     <button type="button"
                                                         class="mt-1 ml-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-primary btn-icon-primary add_sub_topic
                                                                             list-btn-toggle"><i
-                                                            class="fad fa-plus-circle"></i></button>
+                                                            class="fad fa-plus-circle"></i></button> --}}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <label for="audit_objective">অডিট অবজেকটিভ<span
+                                    {{-- <label for="audit_objective">অডিট অবজেকটিভ<span
                                             class="text-danger">*</span></label>
                                     <input class="form-control" type="text" id="audit_objective"
-                                        name="audit_objective">
+                                        name="audit_objective"> --}}
 
 
-                                    <div id="objectiveAppendSection" class="objectiveAppendSection">
-                                        <fieldset class="scheduler-border">
-                                            <legend class="scheduler-border">
+                                    {{-- <div id="objectiveAppendSection" class="objectiveAppendSection">
+                                        <fieldset class="scheduler-border"> --}}
+                                            {{-- <legend class="scheduler-border">
                                                 সাব অবজেকটিভ
-                                                {{-- <span class="fa fa-plus-circle btn_objective_add"></span> --}}
+
                                                 <button
                                                     class="btn btn-sm btn-square btn-outline-primary btn_objective_add float-right"><i
                                                         class="fa fa-plus"></i> নতুন যোগ করুন
                                                 </button>
-                                            </legend>
+                                            </legend> --}}
 
-                                            <div class="sub_objective_row " id="sub_objective_row_1">
+                                            {{-- <div class="sub_objective_row " id="sub_objective_row_1">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
@@ -176,16 +177,16 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
-                                        </fieldset>
+                                        {{-- </fieldset>
 
                                         <div class="object_append_div">
 
                                         </div>
 
 
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                                 <div class="col-md-12">

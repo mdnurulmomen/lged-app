@@ -46,18 +46,19 @@
                     @if (session('dashboard_audit_type') == 'Performance Audit')
                         <div class="form-row mt-2">
                             <div class="col-md-12">
-                                <label for="vumika">ভূমিকা <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" id="vumika" name="vumika">
-                            </div>
-                            <div class="row mt-2 mb-2">
-                                <p class="col-md-12 mb-1">সাবজেক্ট ম্যাটার :</p><br>
-                                <div class="col-md-12">
-                                    <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
+                                <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
                                     <input class="form-control" type="text" id="subject_matter" name="subject_matter"
                                            value="{{ $annual_plan_info['subject_matter'] }}">
-                                </div>
+
+                            </div>
+                            <div class="row mt-2 mb-2">
+                                {{-- <p class="col-md-12 mb-1">সাবজেক্ট ম্যাটার :</p><br> --}}
+                                {{-- <div class="col-md-12">
+                                    <label for="vumika">ভূমিকা <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text" id="vumika" name="vumika">
+                                </div> --}}
                                 <div class="col-md-12">
-                                    <label for="sub_subject_matter">সাব টপিক<span class="text-danger">*</span></label>
+                                    {{-- <label for="sub_subject_matter">সাব টপিক<span class="text-danger">*</span></label>
                                     <div class="sub_subject_matter_div">
                                         <div>
                                             <div class="input-group">
@@ -69,11 +70,11 @@
                                                         class="fad fa-plus-circle"></i></button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <label for="audit_objective">অডিট অবজেকটিভ<span class="text-danger">*</span></label>
+                                {{-- <label for="audit_objective">অডিট অবজেকটিভ<span class="text-danger">*</span></label>
                                 <input class="form-control d-none" type="text" id="audit_objective" name="audit_objective">
                                 <table id="objectiveTable" class="table table-striped">
                                     <thead class="thead-light">
@@ -105,7 +106,7 @@
                                         </td>
                                     </tr>
                                     </tbody>
-                                </table>
+                                </table> --}}
                             </div>
                             <div class="col-md-12">
                                 <label for="audit_approach">অডিট অ্যাপ্রোচ<span class="text-danger">*</span></label><br>

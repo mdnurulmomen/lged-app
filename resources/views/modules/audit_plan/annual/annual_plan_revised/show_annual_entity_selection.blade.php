@@ -293,14 +293,25 @@
                                                         <i class="fad fa-trash"></i> বাতিল করুন
                                                     </button>
 
-                                                    <button onclick="Annual_Plan_Container.loadPSRBookCreatable($(this))"
-                                                        class="mr-3 btn btn-sm btn-warning btn-square"
-                                                        title="প্রি স্টাডি রিপোর্ট"
-                                                        data-annual-plan-id="{{$plan['id']}}"
-                                                        data-fiscal-year-id="{{$fiscal_year_id}}"
-                                                        data-op-audit-calendar-event-id="{{$plan_list['op_audit_calendar_event_id']}}">
-                                                        <i class="fad fa-plus-circle"></i> প্রি স্টাডি রিপোর্ট
-                                                    </button>
+                                                        @if ($plan['annual_plan_psr'])
+                                                        <button class="btn btn-sm btn-square btn-info btn-hover-info entity_audit_plan_preview"
+                                                                data-scope-editable="1"
+                                                                data-psr-plan-id="{{$plan['annual_plan_psr']['id']}}"
+                                                                onclick="Annual_Plan_Container.BookPSRPlan($(this))">
+                                                                <i class="fas fa-eye"></i> Preview
+                                                        </button>
+                                                        @else
+
+                                                        <button onclick="Annual_Plan_Container.loadPSRBookCreatable($(this))"
+                                                                class="mr-3 btn btn-sm btn-warning btn-square @if (session('dashboard_audit_type') == 'Compliance Audit') d-none @endif"
+                                                                title="প্রি স্টাডি রিপোর্ট"
+                                                                data-annual-plan-id="{{$plan['id']}}"
+                                                                data-fiscal-year-id="{{$fiscal_year_id}}"
+                                                                data-op-audit-calendar-event-id="{{$plan_list['op_audit_calendar_event_id']}}">
+                                                                <i class="fad fa-plus-circle"></i> প্রি স্টাডি রিপোর্ট
+                                                            </button>
+
+                                                        @endif
                                                 @endif
                                             </div>
                                             <div>
@@ -338,5 +349,6 @@
             $('.second').show();
             $('.first').hide();
         });
+
     </script>
 </div>

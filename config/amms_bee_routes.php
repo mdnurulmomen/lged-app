@@ -232,6 +232,7 @@ return [
     'psr_plan' => [
         'store' => env('API_URL_BEE', '') . '/planning/psr-plan/store',
         'view' => env('API_URL_BEE', '') . '/planning/psr-plan/view',
+        'update' => env('API_URL_BEE', '') . '/planning/psr-plan/update',
     ],
     'audit_visit_plan_calendar' => [
         'team_calendar_list' => env('API_URL_BEE', '') . '/planning/calendar/teams',

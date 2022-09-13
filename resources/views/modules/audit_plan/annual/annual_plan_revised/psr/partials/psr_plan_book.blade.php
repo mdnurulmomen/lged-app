@@ -820,105 +820,129 @@
     {{--index page--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[1]['content'] !!}
+
     </div>
 
     {{--strategic form part 01--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[3]['content'] !!}
-    </div>
+    </div> --}}
 
     {{--strategic form part 02--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        {!! $plans[2]['content'] !!}
+        {!! $plans[3]['content'] !!}
         {!! $plans[4]['content'] !!}
+
+
     </div>
 
     {{--strategic form part 03--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[5]['content'] !!}
+        {!! $plans[6]['content'] !!}
+        {!! $plans[7]['content'] !!}
+
     </div>
 
     {{--audit plan form 1 (part-01)--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-        {!! $plans[6]['content'] !!}
-        {!! $plans[7]['content'] !!}
         {!! $plans[8]['content'] !!}
-        {!! $plans[9]['content'] !!}
-        {!! $plans[10]['content'] !!}
+
     </div>
 
     {{--audit plan form 1 (part-02)--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        {!! $plans[9]['content'] !!}
+        {!! $plans[10]['content'] !!}
         {!! $plans[11]['content'] !!}
     </div>
 
     {{--audit plan form 1 (part-03)--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+
         {!! $plans[12]['content'] !!}
         {!! $plans[13]['content'] !!}
-    </div>
-
-    {{--audit plan form 2 (part-01)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[14]['content'] !!}
         {!! $plans[15]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-01)--}}
+    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        {!! $plans[14]['content'] !!}
+        {!! $plans[15]['content'] !!}
+    </div> --}}
+
+    {{--audit plan form 2 (part-01)--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[16]['content'] !!}
         {!! $plans[17]['content'] !!}
+        {!! $plans[18]['content'] !!}
+
+
     </div>
 
     {{--audit plan form 2 (part-02)--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-        {!! $plans[18]['content'] !!}
         {!! $plans[19]['content'] !!}
         {!! $plans[20]['content'] !!}
+
     </div>
 
     {{--audit plan form 2 (part-02)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[21]['content'] !!}
         {!! $plans[22]['content'] !!}
-    </div>
+    </div> --}}
 
     {{--audit plan form 2 (part-03)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[23]['content'] !!}
-    </div>
+    </div> --}}
 
     {{--audit plan form 2 (part-04)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[24]['content'] !!}
-    </div>
+    </div> --}}
 
     {{--audit plan form 2 (part-05)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[25]['content'] !!}
-    </div>
+    </div> --}}
 
     {{--audit plan form 2 (part-06)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[26]['content'] !!}
-    </div>
+    </div> --}}
 
     {{--audit risk assessment page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[27]['content'] !!}
-    </div>
-
-    {{--materiality calculate page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        {!! $plans[28]['content'] !!}
         {!! $plans[29]['content'] !!}
+        {!! $plans[30]['content'] !!}
+        {!! $plans[31]['content'] !!}
+        {!! $plans[32]['content'] !!}
+        {!! $plans[33]['content'] !!}
     </div>
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        {!! $plans[34]['content'] !!}
+        {!! $plans[35]['content'] !!}
+        {!! $plans[36]['content'] !!}
+        {!! $plans[37]['content'] !!}
+    </div> --}}
+    {{--materiality calculate page--}}
+    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        {!! $plans[29]['content'] !!}
+    </div> --}}
 
     {{--audit schedule page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
+    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
         {!! $plans[30]['content'] !!}
-    </div>
+    </div> --}}
 
     <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $plans[31]['content'] !!}
+       {!! $plans[21]['content'] !!}
     </div>
 </div>
 </body>

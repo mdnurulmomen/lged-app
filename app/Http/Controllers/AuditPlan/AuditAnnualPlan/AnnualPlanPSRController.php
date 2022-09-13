@@ -51,6 +51,7 @@ class AnnualPlanPSRController extends Controller
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
          $data = Validator::make($request->all(), [
+            //  'psr_plan_id' => '1',
              'psr_plan_id' => 'nullable',
              'annual_plan_id' => 'required',
              'fiscal_year_id' => 'required',
@@ -99,6 +100,68 @@ class AnnualPlanPSRController extends Controller
         }
         else {
             return ['status' => 'error', 'data' => 'Error'];
+        }
+    }
+    public function PSRBook(Request $request)
+    {
+        ini_set("pcre.backtrack_limit", "999999999999");
+        ini_set('memory_limit', '-1');
+        ini_set('max_execution_time', 0);
+
+        $scope_editable = $request->scope_editable;
+        $psr_plan_id = $request->psr_plan_id;
+        $data['psr_plan_id'] = $psr_plan_id;
+        $data['cdesk'] = $this->current_desk_json();
+        // dd($data);
+        $ap_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.psr_plan.view'), $data)->json();
+
+
+        if (isSuccess($ap_plan)) {
+            $ap_plan = $ap_plan['data'];
+            $plans = json_decode(json_decode(gzuncompress(getDecryptedData($ap_plan['plan_description'])),true),true);
+            //dd($plans[1]['content']);
+            $current_office_id = $this->current_office_id();
+            $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.psr.partials.psr_plan_book', ['plans' => $plans], [], ['orientation' => 'P', 'format' => 'A4']);
+            $fileName = $current_office_id.'_Plan'.$psr_plan_id.'.pdf';
+
+            Storage::put('public/psrs/'.$fileName, $pdf->output());
+
+            return view('modules.audit_plan.annual.annual_plan_revised.psr.partials.preview_psr_plan',
+                compact('fileName','psr_plan_id'));
+        }
+        else {
+            return ['status' => 'error', 'data' => 'Error'];
+        }
+    }
+
+    public function update(Request $request)
+    {
+        // $data = Validator::make($request->all(), [
+        //     'psr_plan_id' => 'required|integer',
+        // ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+        $annual_plan_id = $request->annual_plan_id;
+        $data['annual_plan_id'] = $annual_plan_id;
+
+        $check_edit_psr = $this->initHttpWithToken()->post(config('amms_bee_routes.psr_plan.update'), $data)->json();
+        // dd($check_edit_psr);
+        $check_edit_psr = isSuccess($check_edit_psr)?$check_edit_psr['data']:[];
+
+        // $audit_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_entity_plan_edit_draft'), $data)->json();
+
+        if (isSuccess($check_edit_psr)) {
+
+            $content = json_decode(gzuncompress(getDecryptedData($audit_plan['plan_description'])),true);
+            //dd($content);
+
+            $activity_id = $check_edit_psr['activity_id'];
+            $annual_plan_id = $check_edit_psr['annual_plan_id'];
+            $fiscal_year_id = $request->fiscal_year_id;
+            return view('modules.audit_plan.audit_plan.plan_revised.edit_entity_audit_plan', compact('activity_id', 'annual_plan_id',
+                'audit_plan', 'content', 'fiscal_year_id', 'parent_office_id', 'entity_list','project_id','check_edit_lock'));
+        } else {
+            return ['status' => 'error', 'data' => $check_edit_psr];
         }
     }
 }

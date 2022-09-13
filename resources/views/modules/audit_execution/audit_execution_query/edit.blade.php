@@ -146,8 +146,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label class="col-form-label text-primary bold mr-3">ইস্যুকারীঃ</label>
-                        <input type="radio" class="mr-1" name="issued_by" value="team_leader" {{$auditQueryInfo['issued_by'] == 'team_leader' ? 'checked':''}}><span class="mr-3">দলনেতা</span>
-                        <input type="radio" class="mr-1" name="issued_by" value="sub_team_leader" {{$auditQueryInfo['issued_by'] == 'sub_team_leader' ? 'checked':''}}><span class="mr-3">উপদলনেতা</span>
+                        <input type="radio" class="mr-1" name="issued_by"  value="team_leader" {{$auditQueryInfo['issued_by'] == 'team_leader' ? 'checked':''}}><span class="mr-3">দলনেতা</span>
+                        <input type="radio" class="mr-1" name="issued_by"  value="sub_team_leader" {{$auditQueryInfo['issued_by'] == 'sub_team_leader' ? 'checked':''}}><span class="mr-3">উপদলনেতা</span>
 
                         <br>
                         <label class="col-form-label">দলনেতা</label>
