@@ -1017,7 +1017,6 @@
 
 
         loadPSRBookCreatable: function (elem) {
-            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
             swal.fire({
                 title: 'আপনি কি নতুন প্রি স্টাডি রিপোর্ট প্রস্তুত করতে চান?',
                 text: "",
@@ -1028,12 +1027,11 @@
             }).then(function(result) {
                 if (result.value) {
                     url = '{{route('audit.plan.annual.psr.create')}}';
-                    psr_plan_id = elem.data('id');
-                    // annual_plan_id = elem.data('annual-plan-id');
+                    annual_plan_id = elem.data('annual-plan-id');
                     fiscal_year_id = elem.data('fiscal-year-id');
+                    activity_id = elem.data('op-audit-calendar-event-id');
 
-
-                    data = {psr_plan_id,fiscal_year_id};
+                    data = {annual_plan_id,fiscal_year_id,activity_id};
 
                     KTApp.block('#kt_wrapper', {
                         opacity: 0.1,
@@ -1054,6 +1052,72 @@
             });
 
         },
+        loadAuditPlanPSRBookOpen: function (elem) {
+            url = '{{route('audit.plan.annual.psr.PSRBook')}}';
+            scope_editable= elem.data('scope-editable')
+            fiscal_year_id = elem.data('fiscal-year-id')
+            annual_plan_id = elem.data('annual-plan-id');
+            activity_id = elem.data('op-audit-calendar-event-id');
+            office_id =  $('#directorate_filter').val();
+
+            data = {
+                scope_editable,
+                fiscal_year_id,
+                annual_plan_id,
+                activity_id
+            };
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('অডিট প্ল্যান');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '90%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            })
+        },
+
+        BookPSRPlan: function (elem) {
+                scope_editable = elem.data('scope-editable');
+                psr_plan_id = elem.data('psr-plan-id');
+
+                data = {scope_editable,psr_plan_id};
+                url = '{{route('audit.plan.annual.psr.PSRBook')}}';
+
+                KTApp.block('#kt_full_width_page', {
+                    opacity: 0.1,
+                    message: 'লোড হচ্ছে অপেক্ষা করুন',
+                    state: 'primary' // a bootstrap color
+                });
+
+                ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                    KTApp.unblock('#kt_full_width_page');
+                    if (response.status === 'error') {
+                        toastr.error('No data found');
+                    } else {
+                        $(".offcanvas-title").text('প্ল্যান');
+                        quick_panel = $("#kt_quick_panel");
+                        quick_panel.addClass('offcanvas-on');
+                        quick_panel.css('opacity', 1);
+                        quick_panel.css('width', '90%');
+                        quick_panel.removeClass('d-none');
+                        $("html").addClass("side-panel-overlay");
+                        $(".offcanvas-wrapper").html(response);
+                    }
+                })
+            },
 
         backToAnnualPlanList: function () {
             $('.annual_plan_menu a').click();

@@ -46,7 +46,7 @@
                 <i class="fas fa-eye"></i> Preview
             </button>
 
-            <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan entity_audit_plan_save"
+            <button class="btn btn-sm btn-square btn-save draft_entity_audit_plan entity_audit_plan_save"
                     data-activity-id="{{$activity_id}}"
                     data-annual-plan-id="{{$annual_plan_id}}"
                     onclick="Entity_Plan_Container.draftEntityPlan($(this))">

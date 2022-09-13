@@ -321,9 +321,10 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('/create', [AnnualPlanPSRController::class, 'create'])->name('create');
                 Route::post('/load-ministry-wise-entity', [AnnualPlanPSRController::class, 'loadMinistryWiseEntity'])->name('load-ministry-wise-entity');
                 Route::post('/load-criteria-list', [AuditAssessmentScoreController::class, 'loadCategoryWiseCriteriaList'])->name('load-criteria-list');
-                Route::post('/store', [AnnualPlanPSRController::class, 'savePSRPlan'])->name('store');
-                Route::post('/psrview', [AnnualPlanPSRController::class, 'annualPlanPSRBookPreview'])->name('psrview');
-                Route::post('/edit', [AuditAssessmentScoreController::class, 'edit'])->name('edit');
+                Route::post('/store', [AnnualPlanPSRController::class, 'store'])->name('store');
+                Route::post('/psrview', [AnnualPlanPSRController::class, 'preview'])->name('psrview');
+                Route::post('/PSRBook', [AnnualPlanPSRController::class, 'PSRBook'])->name('PSRBook');
+                Route::post('/update', [AnnualPlanPSRController::class, 'update'])->name('update');
             });
 
             //audit assessment score
@@ -506,6 +507,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('audit-memo-log-show', [AuditExecutionMemoController::class, 'auditMemoShow'])->name('audit-memo-log-show');
             Route::post('send-memo-form', [AuditExecutionMemoController::class, 'sendMemoForm'])->name('send-memo-form');
             Route::post('delete-memo-attachment', [AuditExecutionMemoController::class, 'deleteMemoAttachment'])->name('delete-memo-attachment');
+            Route::post('get-audit-memo-finder', [AuditExecutionMemoController::class, 'getAuditMemoFinderSelect'])->name('get-audit-memo-finder');
         });
 
 
@@ -550,7 +552,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('search-page', [AuditExecutionApottiSearchController::class, 'index'])->name('search-page');
             Route::post('search-list', [AuditExecutionApottiSearchController::class, 'list'])->name('search-list');
             Route::post('search-view', [AuditExecutionApottiSearchController::class, 'view'])->name('search-view');
+            Route::post('search-edit', [AuditExecutionApottiSearchController::class, 'edit'])->name('search-edit');
+            Route::post('search-edit-submit', [AuditExecutionApottiSearchController::class, 'editSubmit'])->name('search-edit-submit');
             Route::post('get-doner-wise-project', [AuditExecutionApottiSearchController::class, 'getDonerWiseProject'])->name('get-doner-wise-project');
+            Route::post('get-ministry-wise-project-and-doner', [AuditExecutionApottiSearchController::class, 'getMinistryWiseProjectAndDoner'])->name('get-ministry-wise-project-and-doner');
+            Route::post('get-ministry-wise-project', [AuditExecutionApottiSearchController::class, 'getMinistryWiseProject'])->name('get-ministry-wise-project');
         });
 
         //archive apotti
@@ -945,6 +951,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('get-office-layer', [GenericRPUController::class, 'getMinistryWiseOfficeLayer'])->name('office-layer.all');
         Route::post('get-rp-offices', [GenericRPUController::class, 'getMinistryLayerWiseOffice'])->name('rp-offices.all');
         Route::post('get-ministry-wise-rp-entities', [GenericRPUController::class, 'getMinistryWiseEntities'])->name('rp-offices.all');
+        Route::post('get-all-projects', [GenericRPUController::class, 'getAllProjects'])->name('rp-projects.all');
     });
 
     Route::group(['as' => 'rpu-apotti.', 'prefix' => 'rpu-apotti/'], function () {

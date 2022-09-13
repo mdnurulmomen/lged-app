@@ -32,7 +32,7 @@
                             </tr>
                             <tr>
                                 <th>এনটিটি</th>
-                                <td>{{$apotti['entity_name']}}</td>
+                                <td>{{$apotti['entity_name_bn']}}</td>
                             </tr>
                             <tr>
                                 <th>গ্রুপ</th>
@@ -42,6 +42,12 @@
                                 <th>কস্ট সেন্টার</th>
                                 <td>{{$apotti['cost_center_name_bn']}}</td>
                             </tr>
+                            @if($apotti['project_id'])
+                                <tr>
+                                    <th>প্রকল্প</th>
+                                    <td>{{$apotti['project_name_bn']}}</td>
+                                </tr>
+                            @endif
                             <tr>
                                 <th>নিরীক্ষা বছর</th>
                                 <td>{{enTobn($apotti['nirikkhar_shal'])}}</td>
@@ -362,7 +368,7 @@
         });
     });
 
-    function deleteAttachment(elem){
+    function deleteAttachment(elem) {
         swal.fire({
             title: 'আপনি কি মুছে ফেলতে চান?',
             text: "",
@@ -370,7 +376,7 @@
             showCancelButton: true,
             confirmButtonText: 'হ্যাঁ',
             cancelButtonText: 'না'
-        }).then(function(result) {
+        }).then(function (result) {
             if (result.value) {
                 let url = '{{ route('audit.execution.archive-apotti.delete-attachment') }}';
                 apotti_id = '{{$apotti['id']}}';
@@ -380,12 +386,12 @@
                     opacity: 0.1,
                     state: 'primary' // a bootstrap color
                 });
-                ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     KTApp.unblock('#kt_wrapper');
                     if (response.status === 'success') {
                         toastr.success(response.data);
                         Archive_Apotti_Container.loadApottiDetails(apotti_id);
-                    }else {
+                    } else {
                         toastr.error(response.data);
                     }
                 });

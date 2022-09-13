@@ -15,28 +15,27 @@
     <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
 
     <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">
                     <a href="">
-                        <i title="Back To Audit Plan" class="fad fa-backward mr-3"></i>
+                        <i title="Back To Annual Plan" class="fad fa-backward mr-3"></i>
                     </a>
                 </h4>
             </div>
         </div>
-        <div class="col-md-6 text-right">
-            <button class="btn btn-sm btn-square btn-info btn-hover-info entity_audit_plan_preview"
-                    data-scope-editable="0"
-                    data-fiscal-year-id="1"
-                    data-annual-plan-id="20"
+        <div class="col-md-8 text-right">
+            <button disabled class="btn btn-sm btn-square btn-info btn-hover-info entity_audit_plan_preview"
+                    data-scope-editable="1"
                     onclick="PSR_Plan_Container.previewAuditPlanPSR($(this))">
                 <i class="fas fa-eye"></i> Preview
             </button>
 
             <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan entity_audit_plan_save"
-            data-fiscal-year-id="1"
-            data-annual-plan-id="20"
-         onclick="PSR_Plan_Container.draftPSRPlan($(this))">
+                    data-annual-plan-id="{{$annual_plan_id}}"
+                    data-fiscal-year-id="{{$fiscal_year_id}}"
+                    data-activity-id="{{$activity_id}}"
+                    onclick="PSR_Plan_Container.draftPSRPlan($(this))">
                 <i class="fas fa-save"></i> Save
             </button>
         </div>
@@ -50,7 +49,7 @@
                         <div class="input-group mb-5">
                         </div>
                         <div class="mt-5">
-                            {{--<h3>Audit list</h3>--}}
+                            <h3>PSR Plan</h3>
                         </div>
                         <!---JS tree start---->
                         <div id="createPlanJsTree" class="mt-5">
@@ -74,25 +73,20 @@
             </div>
         </div>
     </div>
-    <div class="load-office-wise-employee"></div>
 @endsection
+
 @section('scripts')
     @include('scripts.annual_plan.psr.create.script_create_psr')
 
     <script>
         var PSR_Plan_Container = {
-
             draftPSRPlan: function (elem) {
                 url = '{{route('audit.plan.annual.psr.store')}}';
-
-                plan_description = JSON.stringify(templateArray);
+                psr_plan_id = typeof elem.data('psr-plan-id') !== typeof undefined && elem.data('psr-plan-id') !== false ? elem.data('psr-plan-id') : '';
                 annual_plan_id = elem.data('annual-plan-id');
-                is_continue = elem.data('is-continue');
-                plan_no = $('#plan_no').val();
-                // data = {
-                //     psr_plan_id,
-                //     annual_plan_id
-                //         };
+                fiscal_year_id = elem.data('fiscal-year-id');
+                activity_id = elem.data('activity-id');
+                plan_description = JSON.stringify(templateArray);
 
                 KTApp.block('#kt_full_width_page', {
                     opacity: 0.1,
@@ -100,33 +94,29 @@
                     state: 'primary' // a bootstrap color
                 });
 
-                data = {plan_description, psr_plan_id, annual_plan_id,is_continue,plan_no};
+                data = {plan_description, psr_plan_id, annual_plan_id,fiscal_year_id,activity_id};
+
                 ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                     KTApp.unblock('#kt_full_width_page');
                     if (response.status === 'success') {
                         toastr.success('Audit Plan Saved Successfully');
-                    }else {
-                        if(response.data.message == 'exist'){
-                            toastr.error('Plan number already exist');
-                        }else {
-                            toastr.error('Not Saved');
+                        if (!psr_plan_id) {
+                            if ($(".entity_audit_plan_save").length){
+                                $('.entity_audit_plan_save').attr('data-psr-plan-id', response.data);
+                                $('.entity_audit_plan_preview').prop( "disabled", false );
+                            }
                         }
-
-                        console.log(response)
+                    }else {
+                        toastr.error('Not Saved');
                     }
                 })
             },
 
-        previewAuditPlanPSR: function (elem) {
-                $('.draft_entity_audit_plan').click();
-                scope_editable = 'false';
+            previewAuditPlanPSR: function (elem) {
+                scope_editable = elem.data('scope-editable');
+                psr_plan_id = $(".draft_entity_audit_plan").data('psr-plan-id');
 
-                var isExistAuditPlanId = document.getElementsByClassName('draft_entity_audit_plan');
-                psr_plan_id = isExistAuditPlanId.length > 0 ? $(".draft_entity_audit_plan").data('audit-plan-id') : elem.data('audit-plan-id');
-                fiscal_year_id = elem.data('fiscal-year-id');
-                // annual_plan_id = elem.data('annual-plan-id');
-
-                data = {audit_plan_id,fiscal_year_id};
+                data = {scope_editable,psr_plan_id};
                 url = '{{route('audit.plan.annual.psr.psrview')}}';
 
                 KTApp.block('#kt_full_width_page', {
@@ -140,7 +130,7 @@
                     if (response.status === 'error') {
                         toastr.error('No data found');
                     } else {
-                        $(".offcanvas-title").text('অডিট প্ল্যান');
+                        $(".offcanvas-title").text('প্ল্যান');
                         quick_panel = $("#kt_quick_panel");
                         quick_panel.addClass('offcanvas-on');
                         quick_panel.css('opacity', 1);
@@ -149,8 +139,10 @@
                         $("html").addClass("side-panel-overlay");
                         $(".offcanvas-wrapper").html(response);
                     }
-                });
+                })
             },
-        };
+
+        //     
+        }
     </script>
 @endsection

@@ -94,10 +94,10 @@
                     @foreach($attachments as $attachment)
                         @if($attachment['file_type'] == 'main')
                             <div class="col-md-2 mb-16">
-                                <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
+                                <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['file_path'].$attachment['file_custom_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
 
-                                <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
+                                <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{config('amms_bee_routes.file_url').$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
                                     <i class="fad fa-download"></i> Download
                                 </button>
                             </div>
@@ -116,10 +116,10 @@
                     @foreach($attachments as $attachment)
                         @if($attachment['file_type'] == 'porisishto')
                             <div class="col-md-2 mb-16">
-                                <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
+                                <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['file_path'].$attachment['file_custom_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
 
-                                <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
+                                <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{config('amms_bee_routes.file_url').$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
                                     <i class="fad fa-download"></i> Download
                                 </button>
                             </div>
@@ -138,9 +138,9 @@
                     @foreach($attachments as $attachment)
                         @if($attachment['file_type'] == 'promanok')
                             <div class="col-md-2 mb-16">
-                                <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
+                                <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['file_path'].$attachment['file_custom_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
-                                <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
+                                <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{config('amms_bee_routes.file_url').$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
                                     <i class="fad fa-download"></i> Download
                                 </button>
                             </div>
@@ -159,9 +159,9 @@
                     @foreach($attachments as $attachment)
                         @if($attachment['file_type'] == 'other')
                             <div class="col-md-2 mb-16">
-                                <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}"
+                                <img style="cursor: pointer;border: 2px solid #040404;box-shadow: 10px 10px 5px #ccc;" class="coverImage" src="{{config('amms_bee_routes.file_url').$attachment['file_path'].$attachment['file_custom_name']}}"
                                      onclick="showImageOnModal(this)" width="80%" height="100%"/>
-                                <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{'https://audit-archive.tappware.com'.$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
+                                <button class="btn btn-sm btn-primary ml-1 mt-2" data-file-url="{{config('amms_bee_routes.file_url').$attachment['file_path'].$attachment['file_custom_name']}}" onclick="downloadImage($(this))">
                                     <i class="fad fa-download"></i> Download
                                 </button>
                             </div>

@@ -978,10 +978,10 @@
     <div class="pdf-screen bangla-font" style="height: 100%">
         <div class="bangla-font" style="font-family:nikoshpdf,serif !important;width: 100%;margin-top: 10px">
             <div style="text-align: left;float:left;width: 70%;">
-                {{$office_order['memorandum_no']}}
+                {{$office_order['memorandum_no_2'] ?: $office_order['memorandum_no']}}
             </div>
             <div style="text-align: right;float:right;width: 30%">
-                তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
+                তারিখঃ  {{$office_order['memorandum_date_2'] ? formatDate($office_order['memorandum_date_2'],'bn') : enTobn($office_order['memorandum_date'])}} খ্রি।
             </div>
         </div>
 

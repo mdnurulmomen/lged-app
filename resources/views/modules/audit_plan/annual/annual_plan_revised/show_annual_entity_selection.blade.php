@@ -284,6 +284,7 @@
                                                             onclick="Annual_Plan_Container.editPlanInfo($(this))">
                                                         <i class="fad fa-edit"></i> সম্পাদনা
                                                     </button>
+
                                                     <button class="btn btn-sm btn-outline-danger btn-square"
                                                             title="বাতিল করুন"
                                                             data-annual-plan-id="{{$plan['id']}}"
@@ -292,21 +293,33 @@
                                                         <i class="fad fa-trash"></i> বাতিল করুন
                                                     </button>
 
-                                                    <button
-                                                        class="mr-3 btn btn-sm btn-warning btn-square"
-                                                        title="প্রি স্টাডি রিপোর্ট"
-                                                        data-psr-plan-id="{{ $psr_plan_id }}"
-                                                        data-annual-plan-id="{{ $annual_plan_id}}"                                                  "
-                                                        onclick="Annual_Plan_Container.loadPSRBookCreatable($(this))">
-                                                        <i class="fad fa-plus-circle"></i> প্রি স্টাডি রিপোর্ট
-                                                    </button>
+                                                        @if ($plan['annual_plan_psr'])
+                                                        <button class="btn btn-sm btn-square btn-info btn-hover-info entity_audit_plan_preview"
+                                                                data-scope-editable="1"
+                                                                data-psr-plan-id="{{$plan['annual_plan_psr']['id']}}"
+                                                                onclick="Annual_Plan_Container.BookPSRPlan($(this))">
+                                                                <i class="fas fa-eye"></i> Preview
+                                                        </button>
+                                                        @else
+
+                                                        <button onclick="Annual_Plan_Container.loadPSRBookCreatable($(this))"
+                                                                class="mr-3 btn btn-sm btn-warning btn-square @if (session('dashboard_audit_type') == 'Compliance Audit') d-none @endif"
+                                                                title="প্রি স্টাডি রিপোর্ট"
+                                                                data-annual-plan-id="{{$plan['id']}}"
+                                                                data-fiscal-year-id="{{$fiscal_year_id}}"
+                                                                data-op-audit-calendar-event-id="{{$plan_list['op_audit_calendar_event_id']}}">
+                                                                <i class="fad fa-plus-circle"></i> প্রি স্টাডি রিপোর্ট
+                                                            </button>
+
+                                                        @endif
                                                 @endif
                                             </div>
                                             <div>
                                                 <div class="mb-2 mt-3">
                                                     <div>
                                                         <div class="text-dark-75 ml-3"
-                                                             cspas="date">{{formatDateTime($plan['created_at'],'bn')}}</div>
+                                                             cspas="date">{{formatDateTime($plan['created_at'],'bn')}}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -336,5 +349,6 @@
             $('.second').show();
             $('.first').hide();
         });
+
     </script>
 </div>

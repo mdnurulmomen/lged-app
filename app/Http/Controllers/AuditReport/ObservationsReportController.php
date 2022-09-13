@@ -23,11 +23,10 @@ class ObservationsReportController extends Controller
         $self_directorate = current(array_filter($all_directorates, function ($item) {
             return $this->current_office_id() == $item['office_id'];
         }));
-        $all_doners = $this->allDoners();
 
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
         return view('modules.audit_report.observations_report.index', compact('fiscal_years',
-            'directorates','memo_status','all_doners'));
+            'directorates','memo_status'));
     }
 
     public function list(Request $request){
@@ -78,6 +77,8 @@ class ObservationsReportController extends Controller
 
         $data['memo_status'] = $request->memo_status;
         $data['directorate_id'] = $request->directorate_id;
+        $data['project_id'] = $request->project_id ?  [$request->project_id] : null;
+        $data['doner_id'] = $request->doner_id;
         $data['ministry_id'] = $request->ministry_id;
         $data['entity_id'] = $request->entity_id;
         $data['cost_center_id'] = $request->cost_center_id;
@@ -92,6 +93,15 @@ class ObservationsReportController extends Controller
         $entity_name            = trim($request->entity_name);
         $unit_group_office_name = $request->unit_group_office_name;
 
+        if($request->doner_id && !$request->project_id){
+            $doner_data['directorate_id'] = $request->directorate_id;
+            $doner_data['doner_id'] = $request->doner_id;
+            $doner_data['type'] = 'only_id';
+
+            $project_list = $this->initRPUHttp()->post(config('cag_rpu_api.get-doner-wise-project'),$doner_data)->json();
+            $data['project_id'] = $project_list['data'];
+        }
+
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_report.observations.get-status-wise.list'), $data)->json();
         //dd($response);
         if (isSuccess($response)) {
@@ -103,6 +113,8 @@ class ObservationsReportController extends Controller
                 [
                     'directorate_name' => $directorate_name,
                     'ministry_name' => $ministry_name,
+                    'project_name' => $request->project_name,
+                    'doner_name' => $request->doner_name,
                     'entity_name' => $entity_name,
                     'unit_group_office_name' => $unit_group_office_name,
                     'apotti_list' => $apotti_list,

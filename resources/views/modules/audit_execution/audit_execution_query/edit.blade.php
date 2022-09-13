@@ -14,11 +14,13 @@
                     <a
                         onclick="Audit_Query_Schedule_Container.query($(this))"
                         data-schedule-id="{{$schedule_id}}"
+                        data-team-id="{{$team_id}}"
                         data-audit-plan-id="{{$audit_plan_id}}"
                         data-entity-id="{{$entity_id}}"
                         data-cost-center-id="{{$auditQueryInfo['cost_center_id']}}"
                         data-cost-center-name-en="{{$auditQueryInfo['cost_center_name_en']}}"
                         data-cost-center-name-bn="{{$auditQueryInfo['cost_center_name_bn']}}"
+                        data-project-name-bn="{{$project_name_bn}}"
                         class="btn btn-sm btn-warning btn_back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>
@@ -144,8 +146,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label class="col-form-label text-primary bold mr-3">ইস্যুকারীঃ</label>
-                        <input type="radio" class="mr-1" name="issued_by" value="team_leader" {{$auditQueryInfo['issued_by'] == 'team_leader' ? 'checked':''}}><span class="mr-3">দলনেতা</span>
-                        <input type="radio" class="mr-1" name="issued_by" value="sub_team_leader" {{$auditQueryInfo['issued_by'] == 'sub_team_leader' ? 'checked':''}}><span class="mr-3">উপদলনেতা</span>
+                        <input type="radio" class="mr-1" name="issued_by"  value="team_leader" {{$auditQueryInfo['issued_by'] == 'team_leader' ? 'checked':''}}><span class="mr-3">দলনেতা</span>
+                        <input type="radio" class="mr-1" name="issued_by"  value="sub_team_leader" {{$auditQueryInfo['issued_by'] == 'sub_team_leader' ? 'checked':''}}><span class="mr-3">উপদলনেতা</span>
 
                         <br>
                         <label class="col-form-label">দলনেতা</label>

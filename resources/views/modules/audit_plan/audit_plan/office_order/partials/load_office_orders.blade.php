@@ -244,27 +244,25 @@
                                                             </button>
                                                         @endif
 
+                                                        @if($current_grade == 2 || $current_grade == 3 || $current_grade == 5)
 
-                                                            @if($current_grade == 2 || $current_grade == 3 || $current_grade == 5)
-
-                                                                @if(($audit_plan['office_order']['approved_status'] == 'pending' && $audit_plan['office_order']['office_order_movement'] != null
-                                                                    && $audit_plan['office_order']['office_order_movement']['employee_designation_id'] == $current_designation_id) || (isset($audit_plan['office_order_update']) && $audit_plan['office_order_update']['approved_status'] == 'pending' && isset($audit_plan['office_order_update']['office_order_movement']) && $audit_plan['office_order_update']['office_order_movement'] != null
-                                                                    && $audit_plan['office_order_update']['office_order_movement']['employee_designation_id'] == $current_designation_id))
-                                                                    <button
-                                                                        class="mr-1 btn btn-approval"
-                                                                        title="অনুমোদন করুন"
-                                                                        data-ap-office-order-id="{{$audit_plan['has_update_office_order'] == 1 ? $audit_plan['office_order_update']['id'] : $audit_plan['office_order']['id'] }}"
-                                                                        data-audit-plan-id="{{$audit_plan['id']}}"
-                                                                        data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
-                                                                        data-has-office-order-update="{{$audit_plan['has_update_office_order']}}"
-                                                                        onclick="Office_Order_Container.approveOfficeOrder($(this))"
-                                                                        type="button">
-                                                                        <i style="color: white"
-                                                                           class="fad fa-check"></i>
-                                                                    </button>
-                                                                @endif
-
+                                                            @if(($audit_plan['office_order']['approved_status'] == 'pending' && $audit_plan['office_order']['office_order_movement'] != null
+                                                                && $audit_plan['office_order']['office_order_movement']['employee_designation_id'] == $current_designation_id) || (isset($audit_plan['office_order_update']) && $audit_plan['office_order_update']['approved_status'] == 'pending' && isset($audit_plan['office_order_update']['office_order_movement']) && $audit_plan['office_order_update']['office_order_movement'] != null
+                                                                && $audit_plan['office_order_update']['office_order_movement']['employee_designation_id'] == $current_designation_id))
+                                                                <button
+                                                                    class="mr-1 btn btn-approval"
+                                                                    title="অনুমোদন করুন"
+                                                                    data-ap-office-order-id="{{$audit_plan['has_update_office_order'] == 1 ? $audit_plan['office_order_update']['id'] : $audit_plan['office_order']['id'] }}"
+                                                                    data-audit-plan-id="{{$audit_plan['id']}}"
+                                                                    data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                                                                    data-has-office-order-update="{{$audit_plan['has_update_office_order']}}"
+                                                                    onclick="Office_Order_Container.approveOfficeOrder($(this))"
+                                                                    type="button">
+                                                                    <i style="color: white"
+                                                                       class="fad fa-check"></i>
+                                                                </button>
                                                             @endif
+                                                        @endif
                                                     @endif
                                                 @endif
                                             </div>

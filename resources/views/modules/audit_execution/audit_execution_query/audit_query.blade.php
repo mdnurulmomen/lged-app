@@ -48,10 +48,11 @@
         schedule_id = '{{$schedule_id}}';
         entity_id ='{{$entity_id}}';
         cost_center_id ='{{$cost_center_id}}';
+        project_name_bn ='{{$project_name_bn}}';
 
         url = '{{route('audit.execution.query.load-list')}}';
 
-        data = {team_id,audit_plan_id,schedule_id,entity_id,cost_center_id};
+        data = {team_id,audit_plan_id,schedule_id,entity_id,cost_center_id,project_name_bn};
 
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             KTApp.unblock('#kt_wrapper');
@@ -72,11 +73,18 @@
             cost_center_id = '{{$cost_center_id}}';
             cost_center_name_bn = '{{$cost_center_name_bn}}';
             cost_center_name_en = '{{$cost_center_name_bn}}';
+            project_name_bn ='{{$project_name_bn}}';
 
-            data = {team_id,schedule_id,audit_plan_id,entity_id,cost_center_id,cost_center_name_bn,cost_center_name_en};
+            data = {team_id,schedule_id,audit_plan_id,entity_id,cost_center_id,cost_center_name_bn,cost_center_name_en,project_name_bn};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
 
             url = '{{route('audit.execution.query.create')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock("#kt_wrapper");
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
