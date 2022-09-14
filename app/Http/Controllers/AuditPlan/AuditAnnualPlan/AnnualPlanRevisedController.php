@@ -107,9 +107,11 @@ class AnnualPlanRevisedController extends Controller
             $data
         )->json();
 
-    //    dd($planListResponseData);
+
+    //
 
         $plan_list = isSuccess($planListResponseData) ? $planListResponseData['data']['annual_plan_list'] : [];
+        // dd($plan_list);
         //        $approval_status = isSuccess($planListResponseData)?$planListResponseData['data']['approval_status']:[];
         $op_audit_calendar_event_id = isSuccess($planListResponseData) ? $planListResponseData['data']['op_audit_calendar_event_id'] : [];
 //        dd($plan_list);
@@ -119,19 +121,40 @@ class AnnualPlanRevisedController extends Controller
         $office_id = $request->office_id;
 
 
-        return view(
-            'modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection',
-            compact(
-                'plan_list',
-                'fiscal_year',
-                'fiscal_year_id',
-                'op_audit_calendar_event_id',
-                'current_designation_id',
-                'current_office_id',
-                'current_designation_grade',
-                'office_id'
-            )
-        );
+        if (session('dashboard_audit_type') == 'Compliance Audit') {
+            return view(
+                'modules.audit_plan.annual.annual_plan_revised.show_annual_entity_selection',
+                compact(
+                    'plan_list',
+                    'fiscal_year',
+                    'fiscal_year_id',
+                    'op_audit_calendar_event_id',
+                    'current_designation_id',
+                    'current_office_id',
+                    'current_designation_grade',
+                    'office_id'
+
+                )
+            );
+        } else if (session('dashboard_audit_type') == 'Performance Audit') {
+            return view(
+                'modules.audit_plan.annual.annual_plan_revised.show_annual_entity_topic',
+                compact(
+                    'plan_list',
+                    'fiscal_year',
+                    'fiscal_year_id',
+                    'op_audit_calendar_event_id',
+                    'current_designation_id',
+                    'current_office_id',
+                    'current_designation_grade',
+                    'office_id'
+                )
+            );
+        } else if (session('dashboard_audit_type')  == 'Financial Audit') {
+            $data['activity_type'] = 'financial';
+        }
+
+
     }
 
     public function showStaffAssignList(Request $request)
