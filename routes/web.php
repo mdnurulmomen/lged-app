@@ -267,10 +267,6 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::group(['as' => 'annual.', 'prefix' => 'annual/'], function () {
             Route::get('/', [AuditAnnualPlanController::class, 'index'])->name('index');
             Route::get('/dashboard', [AuditAnnualPlanController::class, 'showAnnualPlanDashboard'])->name('dashboard');
-
-            Route::get('/psr/index', [AnnualPlanPSRController::class, 'loadPsrIndex'])->name('psr.index');
-            Route::get('/psr/load-topic-lists', [AnnualPlanPSRController::class, 'loadPsrTopicLists'])->name('psr.load-topic-lists');
-
             Route::get('/plans', [AnnualPlanController::class, 'index'])->name('plan.all');
 
             Route::post('/load-annual-plan-lists', [AnnualPlanRevisedController::class, 'showAnnualPlanLists'])->name('plan.list.all');
@@ -317,14 +313,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             // PSR
             Route::group(['as' => 'psr.', 'prefix' => 'psr/'], function () {
-                Route::get('/', [AnnualPlanPSRController::class, 'index']);
+                Route::get('/index', [AnnualPlanPSRController::class, 'index'])->name('index');
                 Route::post('/create', [AnnualPlanPSRController::class, 'create'])->name('create');
                 Route::post('/load-ministry-wise-entity', [AnnualPlanPSRController::class, 'loadMinistryWiseEntity'])->name('load-ministry-wise-entity');
                 Route::post('/load-criteria-list', [AuditAssessmentScoreController::class, 'loadCategoryWiseCriteriaList'])->name('load-criteria-list');
                 Route::post('/store', [AnnualPlanPSRController::class, 'store'])->name('store');
-                Route::post('/psrview', [AnnualPlanPSRController::class, 'preview'])->name('psrview');
-                Route::post('/PSRBook', [AnnualPlanPSRController::class, 'PSRBook'])->name('PSRBook');
-                Route::post('/update', [AnnualPlanPSRController::class, 'update'])->name('update');
+                Route::post('/preview', [AnnualPlanPSRController::class, 'preview'])->name('preview');
+                Route::post('/edit', [AnnualPlanPSRController::class, 'edit'])->name('edit');
             });
 
             //audit assessment score

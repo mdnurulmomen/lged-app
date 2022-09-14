@@ -1,22 +1,9 @@
 <script>
-    $(function (){
-        progress(1800, 1800, $('#progressBar'));
-    });
-
-    function progress(timeleft, timetotal, $element) {
-        var progressBarWidth = timeleft * $element.width() / timetotal;
-        // $element.find('div').animate({ width: progressBarWidth }, 500).html(' ৩০ মিনিটের মধ্যে সংরক্ষণ বাটনে ক্লিক করুন ('+Math.floor(timeleft/60) + ":"+ timeleft%60+')');
-        $element.find('div').html(' ৩০ মিনিটের মধ্যে সংরক্ষণ বাটনে ক্লিক করুন ('+Math.floor(timeleft/60) + ":"+ timeleft%60+')');
-        if(timeleft > 0) {
-            setTimeout(function() {
-                progress(timeleft - 1, timetotal, $element);
-            }, 1000);
-        }
-    }
-
     var auditPaperList = [];
     var activePdf = '';
     var templateArray = {!! $content !!};
+
+    setCoverInformation();
 
     $('#createPlanJsTree').jstree({
         "core": {
@@ -35,6 +22,7 @@
             $('#createPlanJsTree').jstree(true).toggle_node(data.node);
         }
         activePdf = data.node.id;
+        setCoverInformation();
         templateArray.map(function (value, index) {
             if (value.id === activePdf) {
                 content = value.content;
@@ -42,6 +30,7 @@
                 tinymce.get("kt-tinymce-1").setContent(content);
             }
         });
+        setCoverInformation();
     });
 
 
@@ -53,10 +42,25 @@
         }
         auditPaperList.push(arrayData);
 
-        dataHtml = '<div class="pdf-screen">' +
+        var dataHtml = '<div class="pdf-screen">' +
             '<div id="pdfContent_' + templateArray[i].content_id + '">' + templateArray[i].content + '</div>' +
             '</div>';
+        setCoverInformation();
         $("#writing-screen-wrapper").append(dataHtml);
+    }
+
+    function setJsonContentFromPlan() {
+        templateArray.map(function (value, index) {
+            cover = $("#pdfContent_" + value.content_id).html();
+            value.content = cover;
+        });
+    }
+
+    setJsonContentFromPlan();
+
+
+    function setCoverInformation() {
+        /*$('.directorate_name').html("");*/
     }
 
     function checkIdAndSetContentTinyMce(e) {
@@ -78,7 +82,7 @@
         branding: false,
         content_style: "body {font-family: solaimanlipi;font-size: 13pt;}",
         fontsize_formats: "8pt 10pt 12pt 13pt 14pt 18pt 24pt 36pt",
-        font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Verdana=verdana,geneva; Solaimanlipi=solaimanlipi; AdorshoLipi=adorshoLipi",
+        font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Verdana=verdana,geneva; Solaimanlipi=solaimanlipi",
         toolbar: ['styleselect fontselect fontsizeselect | blockquote subscript superscript | undo redo | cut copy paste | bold italic | link image | alignleft aligncenter alignright alignjustify ',
             'table | bullist numlist | outdent indent | advlist | autolink | lists charmap | print preview |  code'],
         plugins: 'advlist paste autolink link image lists charmap print preview code table',
@@ -95,5 +99,4 @@
         snapOffset: 10,
         gutterSize: 5,
     });
-
 </script>
