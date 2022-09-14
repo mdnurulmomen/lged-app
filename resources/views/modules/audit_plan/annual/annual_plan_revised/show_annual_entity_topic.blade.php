@@ -245,14 +245,14 @@
                                     <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-5">
                                         <div>
                                             <div class="action-group">
-                                                <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
+                                                <button class="mr-2 btn btn-sm btn-outline-primary btn-square"
                                                         title="বিস্তারিত দেখুন"
                                                         data-annual-plan-id="{{$plan['id']}}"
                                                         onclick="Annual_Plan_Container.showPlanInfo($(this))">
                                                     <i class="fad fa-eye"></i> বিস্তারিত
                                                 </button>
                                                 @if(($plan_list['approval_status'] == 'draft' || $plan_list['approval_status'] == 'reject' || $plan_list['has_update_request'] == 1 || $plan_list['has_update_request'] == 2) && $current_office_id != 1)
-                                                    <button class="mr-3 btn btn-sm btn-outline-warning btn-square"
+                                                    <button class="mr-2 btn btn-sm btn-outline-warning btn-square"
                                                             title="সম্পাদনা করুন"
                                                             data-annual-plan-id="{{$plan['id']}}"
                                                             data-fiscal-year-id="{{$fiscal_year_id}}"
@@ -261,7 +261,7 @@
                                                         <i class="fad fa-edit"></i> সম্পাদনা
                                                     </button>
 
-                                                    <button class="btn btn-sm btn-outline-danger btn-square"
+                                                    <button class="mr-2 btn btn-sm btn-outline-danger btn-square"
                                                             title="বাতিল করুন"
                                                             data-annual-plan-id="{{$plan['id']}}"
                                                             data-has-update-request="{{$plan_list['has_update_request']}}"

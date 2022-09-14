@@ -788,6 +788,9 @@
             even-header-name: even-header;
             odd-footer-name: odd-footer;
             even-footer-name: even-footer;
+
+            margin-left: 2cm;
+            margin-right: 2cm;
         }
     </style>
 </head>
@@ -817,130 +820,71 @@
         {!! $plans[0]['content'] !!}
     </div>
 
-    {{--index page--}}
+    {{--index page সূচিপত্র--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[1]['content'] !!}
-
     </div>
 
-    {{--strategic form part 01--}}
-    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-        {!! $plans[3]['content'] !!}
-    </div> --}}
-
-    {{--strategic form part 02--}}
+    {{--page 01 ভূমিকা/প্রি-স্টাডি রিপোর্ট উদ্দেশ্য/প্রি-স্টাডি পদ্ধতি--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[2]['content'] !!}
         {!! $plans[3]['content'] !!}
         {!! $plans[4]['content'] !!}
-
-
     </div>
 
-    {{--strategic form part 03--}}
+    {{--page 02 এনটিটি সম্পর্কে ধারণা/বিষয়বস্তুর ভূমিকা/লক্ষ্য ও উদ্দেশ্যাবলি--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[5]['content'] !!}
         {!! $plans[6]['content'] !!}
         {!! $plans[7]['content'] !!}
-
     </div>
 
-    {{--audit plan form 1 (part-01)--}}
+    {{--page 03 সাংগঠনিক ব্যবস্থাপনা--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[8]['content'] !!}
-
     </div>
 
-    {{--audit plan form 1 (part-02)--}}
+    {{--page 04 বাজেট ও ব্যয় বিশ্লেষণ--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[9]['content'] !!}
+    </div>
+
+    {{--page 05 প্রি-স্টাডি ফাইডিংসসমূহ--}}
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[10]['content'] !!}
+    </div>
+
+    {{--page 06 মূল অডিট সর্ম্পকে সুপারিশ--}}
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[11]['content'] !!}
     </div>
 
-    {{--audit plan form 1 (part-03)--}}
+    {{--page 07 মূল অডিট কাজের প্রস্তাবনা--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-
         {!! $plans[12]['content'] !!}
+    </div>
+
+    {{--page 08 অডিটের উদ্দেশ্য/অডিট পন্থা/অডিট আওতা/নমুনা আকার ও ব্যাপ্তি কভারেজ/অডিট পদ্ধতি--}}
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[13]['content'] !!}
         {!! $plans[14]['content'] !!}
         {!! $plans[15]['content'] !!}
-    </div>
-
-    {{--audit plan form 2 (part-01)--}}
-    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-        {!! $plans[14]['content'] !!}
-        {!! $plans[15]['content'] !!}
-    </div> --}}
-
-    {{--audit plan form 2 (part-01)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[16]['content'] !!}
         {!! $plans[17]['content'] !!}
+    </div>
+
+    {{--page 08 জনবল/সংক্ষিপ্তসার--}}
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[18]['content'] !!}
-
-
-    </div>
-
-    {{--audit plan form 2 (part-02)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[19]['content'] !!}
-        {!! $plans[20]['content'] !!}
-
     </div>
 
-    {{--audit plan form 2 (part-02)--}}
-    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-        {!! $plans[21]['content'] !!}
-        {!! $plans[22]['content'] !!}
-    </div> --}}
-
-    {{--audit plan form 2 (part-03)--}}
-    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-        {!! $plans[23]['content'] !!}
-    </div> --}}
-
-    {{--audit plan form 2 (part-04)--}}
-    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-        {!! $plans[24]['content'] !!}
-    </div> --}}
-
-    {{--audit plan form 2 (part-05)--}}
-    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-        {!! $plans[25]['content'] !!}
-    </div> --}}
-
-    {{--audit plan form 2 (part-06)--}}
-    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-        {!! $plans[26]['content'] !!}
-    </div> --}}
-
-    {{--audit risk assessment page--}}
-    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-        {!! $plans[27]['content'] !!}
-        {!! $plans[28]['content'] !!}
-        {!! $plans[29]['content'] !!}
-        {!! $plans[30]['content'] !!}
-        {!! $plans[31]['content'] !!}
-        {!! $plans[32]['content'] !!}
-        {!! $plans[33]['content'] !!}
-    </div>
+    {{--page 09 শব্দার্থ ও শব্দ সংক্ষেপ--}}
     <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-        {!! $plans[34]['content'] !!}
-        {!! $plans[35]['content'] !!}
-        {!! $plans[36]['content'] !!}
-        {!! $plans[37]['content'] !!}
-    </div> --}}
-    {{--materiality calculate page--}}
-    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
-        {!! $plans[29]['content'] !!}
-    </div> --}}
+        {!! $plans[20]['content'] !!}
+    </div>
 
-    {{--audit schedule page--}}
-    {{-- <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
-        {!! $plans[30]['content'] !!}
-    </div> --}}
-
+    {{--page 10 পরিশিষ্ট--}}
     <div class="pdf-screen bangla-font" style="height: 100%">
        {!! $plans[21]['content'] !!}
     </div>

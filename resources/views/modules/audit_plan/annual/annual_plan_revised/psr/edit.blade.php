@@ -50,7 +50,7 @@
                 <i class="fas fa-eye"></i> Preview
             </button>
 
-            <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan entity_audit_plan_save"
+            <button class="btn btn-sm btn-square btn-save draft_entity_audit_plan entity_audit_plan_save"
                     data-annual-plan-id="{{$annual_plan_id}}"
                     data-fiscal-year-id="{{$fiscal_year_id}}"
                     data-activity-id="{{$activity_id}}"
