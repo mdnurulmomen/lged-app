@@ -19,7 +19,7 @@
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">
                     <a href="">
-                        <i title="Back To Annual Plan" class="fad fa-backward mr-3"></i>
+                        <i title="Back To Plan" class="fad fa-backward mr-3"></i>
                     </a>
                 </h4>
             </div>
@@ -52,8 +52,7 @@
                             <h3>PSR Plan</h3>
                         </div>
                         <!---JS tree start---->
-                        <div id="createPlanJsTree" class="mt-5">
-                        </div>
+                        <div id="createPlanJsTree" class="mt-5"></div>
                         <!---JS tree end---->
                         <div class="form-group mt-5">
                             {{--<input class="form-control rounded-0" type="text" name="" id="searchPlaneField"
@@ -69,8 +68,7 @@
         </div>
 
         <div id="split-2" class="d-none">
-            <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;">
-            </div>
+            <div id="writing-screen-wrapper" style="font-family:SolaimanLipi,serif !important;"></div>
         </div>
     </div>
 @endsection

@@ -34,13 +34,11 @@
     <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
         <div class="col-md-4">
             <div class="title py-2">
-                <span>
-                    <h4 class="mb-0 font-weight-bold">
-                        <a href="#">
-                            <i title="Back To Audit Plan" class="fad fa-backward mr-3"></i>
-                        </a>
-                    </h4>
-                </span>
+                <h4 class="mb-0 font-weight-bold">
+                    <a href="#">
+                        <i title="Back To Plan" class="fad fa-backward mr-3"></i>
+                    </a>
+                </h4>
             </div>
         </div>
         <div class="col-md-8 text-right">
@@ -75,8 +73,7 @@
             <textarea id="kt-tinymce-1" name="kt-tinymce-1" class="kt-tinymce-1"></textarea>
         </div>
         <div id="split-2" class="d-none">
-            <div id="writing-screen-wrapper" style="font-family:Nikosh,serif !important;">
-            </div>
+            <div id="writing-screen-wrapper" style="font-family:Nikosh,serif !important;"></div>
         </div>
     </div>
 @endsection

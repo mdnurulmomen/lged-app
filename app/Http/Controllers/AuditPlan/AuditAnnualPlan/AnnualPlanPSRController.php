@@ -28,9 +28,14 @@ class AnnualPlanPSRController extends Controller
         $activity_id = $request->activity_id;
         $psr_data = $this->getAuditTemplate('performance', 'PSR');
         $content = $psr_data['content'];
-        // dd($content);
-        return view('modules.audit_plan.annual.annual_plan_revised.psr.create',
-            compact('content', 'annual_plan_id', 'fiscal_year_id', 'activity_id'));
+
+        $data['annual_plan_id'] = $annual_plan_id;
+        $data['fiscal_year_id'] = $fiscal_year_id;
+        $data['op_audit_calendar_event_id'] = $activity_id;
+        $data['cdesk'] = $this->current_desk_json();
+        $annual_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_annual_plan_info'), $data)->json();
+        $annual_plan = isSuccess($annual_plan) ? $annual_plan['data'] : [];
+        return view('modules.audit_plan.annual.annual_plan_revised.psr.create',compact('content', 'annual_plan_id', 'fiscal_year_id', 'activity_id','annual_plan'));
     }
 
     // Save PSR
