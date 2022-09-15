@@ -1,4 +1,4 @@
-<x-title-wrapper>Annual Audit Plan List</x-title-wrapper>
+<x-title-wrapper>PSR List</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row">
@@ -1093,8 +1093,9 @@
         previewPSRPlan: function (elem) {
             scope_editable = elem.data('scope-editable');
             psr_plan_id = elem.data('psr-plan-id');
+            office_id = $('#directorate_filter').val();
 
-            data = {scope_editable,psr_plan_id};
+            data = {scope_editable,psr_plan_id,office_id};
             url = '{{route('audit.plan.annual.psr.preview')}}';
 
             KTApp.block('#kt_wrapper', {
@@ -1144,8 +1145,45 @@
             })
         },
 
+        sendPsrReportToOcag: function (elem) {
+
+            url = '{{route('audit.plan.annual.psr.send-psr-report-to-ocag')}}';
+            psr_id = elem.data('annual-plan-psr-id');
+
+            ajaxCallAsyncCallbackAPI(url, {psr_id}, 'post', function (response) {
+                if (response.status === 'success') {
+                    toastr.success(response.data);
+                    $('.psr_plan a').click();
+                } else {
+                    toastr.error(response.data)
+                }
+            })
+        },
+
+        sendPsrTopicToOcag: function (elem) {
+            url = '{{route('audit.plan.annual.psr.send-psr-topic-to-ocag')}}';
+            annual_plan_main_id = elem.data('annual-plan-main-id');
+            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+
+            psr_list = [];
+            $(".select-psr").each(function (i, value) {
+                if ($(this).is(':checked') && !$(this).is(':disabled')) {
+                    psr_list.push($(this).val());
+                }
+            });
+
+            ajaxCallAsyncCallbackAPI(url, {fiscal_year_id,annual_plan_main_id,psr_list}, 'post', function (response) {
+                if (response.status === 'success') {
+                    toastr.success(response.data);
+                    $('.psr_plan a').click();
+                } else {
+                    toastr.error(response.data);
+                }
+            })
+        },
+
         backToAnnualPlanList: function () {
-            $('.annual_plan_menu a').click();
+            $('.psr_plan a').click();
         },
     };
 </script>

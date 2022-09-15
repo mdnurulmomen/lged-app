@@ -233,6 +233,10 @@ return [
         'store' => env('API_URL_BEE', '') . '/planning/psr-plan/store',
         'view' => env('API_URL_BEE', '') . '/planning/psr-plan/view',
         'update' => env('API_URL_BEE', '') . '/planning/psr-plan/update',
+        'send_psr_to_ocag' => env('API_URL_BEE', '') . '/planning/psr-plan/send-to-ocag',
+        'get_psr_approval_list' => env('API_URL_BEE', '') . '/planning/psr-plan/get-psr-approval-list',
+        'approve_psr_topic' => env('API_URL_BEE', '') . '/planning/psr-plan/approve-psr-topic',
+        'get_psr_report_approval_list' => env('API_URL_BEE', '') . '/planning/psr-plan/get-psr-report-approval-list',
     ],
     'audit_visit_plan_calendar' => [
         'team_calendar_list' => env('API_URL_BEE', '') . '/planning/calendar/teams',

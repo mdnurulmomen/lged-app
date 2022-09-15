@@ -1,87 +1,17 @@
 <div class="card sna-card-border mt-3" style="margin-bottom:30px;">
-
     <div class="table-search-header-wrapper mb-4 pt-3 pb-3 shadow-sm">
         <div class="col-xl-12">
             <div class="row">
                 <div class="col-md-7">
                     @if(!empty($plan_list))
-                        @if($current_designation_grade == 2 || $current_designation_grade == 3 || $current_designation_grade == 5)
-                            @if($plan_list['approval_status'] == 'draft' || $plan_list['approval_status'] == 'reject' || $plan_list['has_update_request'] == 2)
-                                <button class="btn btn-sm btn-primary btn-square mr-1"
-                                        data-annual-plan-main-id="{{$plan_list['id']}}"
-                                        data-activity-type="{{$plan_list['activity_type']}}"
-                                        data-fiscal-year-id="{{$fiscal_year_id}}"
-                                        data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                                        data-has-update-request="{{$plan_list['has_update_request']}}"
-                                        onclick="Annual_Plan_Container.loadAnnualPlanApprovalAuthority($(this))">
-                                    <i class="fad fa-paper-plane"></i>
-                                    ওসিএজিতে প্রেরণ
-                                </button>
-                            @endif
-                        @endif
-
-                        @if($current_office_id != 1)
-                            <button data-office-id="{{$office_id}}" data-fiscal-year-id="{{$fiscal_year_id}}"
-                                    data-annual-plan-main-id="{{$plan_list['id']}}"
-                                    data-has-update-request="0"
-                                    data-activity-type="{{$plan_list['activity_type']}}"
-                                    onclick="Annual_Plan_Container.printAnnualPlan($(this))"
-                                    class="btn btn-sm btn-primary btn-square mr-1">
-                                <i class="fad fa-file-download"></i>
-                                ডাউনলোড
-                            </button>
-
-                            @foreach($plan_list['annual_plan_logs'] as $log)
-                                    <a href="{{ config('amms_bee_routes.file_url').$log['log_path'] }}"
-                                            class="btn btn-sm btn-primary btn-square mr-1">
-                                        <i class="fad fa-file-download"></i>
-                                        লগ {{enTobn($loop->iteration)}}
-                                    </a>
-                            @endforeach
-
-                            @if($plan_list['has_update_request'] == 2 || $plan_list['has_update_request'] == 3)
-                                <button data-office-id="{{$office_id}}" data-fiscal-year-id="{{$fiscal_year_id}}"
-                                        data-annual-plan-main-id="{{$plan_list['id']}}"
-                                        data-has-update-request="{{$plan_list['has_update_request']}}"
-                                        data-activity-type="{{$plan_list['activity_type']}}"
-                                        onclick="Annual_Plan_Container.printAnnualPlan($(this))"
-                                        class="btn btn-sm btn-primary btn-square mr-1">
-                                    <i class="fad fa-file-download"></i>
-                                    রিভাইজড ডাউনলোড
-                                </button>
-                            @endif
-
-                            <button class="btn btn-sm btn-info btn-square mr-1"
-                                    data-annual-plan-main-id="{{$plan_list['id']}}"
-                                    data-fiscal-year-id="{{$fiscal_year_id}}"
-                                    data-op-audit-calendar-event-id="{{$op_audit_calendar_event_id}}"
-                                    onclick="Annual_Plan_Container.movementHistory($(this))">
-                                <i class="fad fa-eye"></i>
-                                মুভমেন্ট লগ
-                            </button>
-                        @endif
-
-{{--                        @if($plan_list['approval_status'] == 'approved' && !$plan_list['has_update_request'])--}}
-{{--                            <button data-annual-plan-main-id="{{$plan_list['id']}}"--}}
-{{--                                    onclick="Annual_Plan_Container.annualPlanUpdateRequest($(this))"--}}
-{{--                                    class="btn btn-sm btn-primary btn-square mr-1">--}}
-{{--                                <i class="fad fa-pencil"></i>--}}
-{{--                                পুনরায় সম্পাদনা--}}
-{{--                            </button>--}}
-{{--                        @endif--}}
-
-                        <span class="badge badge-info text-uppercase m-1 p-1 ">
-                            @if ($plan_list['approval_status'] == 'pending')
-                                Pending for Approval
-                            @elseif ($plan_list['approval_status'] == 'reject')
-                                Return to Audit Directorate
-                            @else
-                                {{$plan_list['approval_status']}}
-                            @endif
-                        </span>
+                        <button class="btn btn-sm btn-primary btn-square mr-1"
+                                data-annual-plan-main-id="{{$plan_list['id']}}"
+                                onclick="Annual_Plan_Container.sendPsrTopicToOcag($(this))">
+                            <i class="fad fa-paper-plane"></i>
+                            ওসিএজিতে প্রেরণ
+                        </button>
                     @endif
                 </div>
-{{--                @php dump($plan_list) @endphp--}}
                 @if( empty($plan_list) || !empty($plan_list) && (isset($plan_list['approval_status'])  &&  $plan_list['approval_status'] == 'draft' || $plan_list['approval_status']  == 'reject' || $plan_list['has_update_request'] == 1 || $plan_list['has_update_request'] == 2) && $current_office_id != 1)
                     <div class="col-md-5">
                         <div class="d-flex justify-content-md-end">
@@ -172,6 +102,9 @@
                                     <!--begin::Title-->
                                     <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-7">
                                         <div class="font-weight-bolder">
+                                            <span class="mr-2 font-size-1-2">
+                                                <input @if($plan['is_sent_cag']) checked  disabled @endif value="{{$plan['id']}}" type="checkbox" class="select-psr">
+                                            </span>
                                             <span class="mr-2 font-size-1-2">ক্রমিক নং:</span>
                                             <span class="font-size-14">{{enTobn($loop->iteration)}}</span>
                                         </div>
@@ -239,6 +172,26 @@
                                         <div class="font-weight-normal d-none predict-wrapper">
                                             <span class="predict-label text-success "></span>
                                         </div>
+
+                                        <div class="d-flex mt-3">
+                                            @if($plan['annual_plan_psr'] && $plan['annual_plan_psr']['is_sent_cag'])
+
+                                                @if($plan['status'] == 'approved')
+                                                    <span class="label label-outline-success label-pill label-inline">
+                                                        অনুমোদিত
+                                                    </span>
+                                                @else
+                                                    <p class="mt-3 pr-5">জারিপত্র প্রেরণ করা হয়েছে</p>
+                                                @endif
+                                            @elseif($plan['annual_plan_psr'])
+                                                <button data-annual-plan-psr-id="{{$plan['annual_plan_psr']['id']}}"
+                                                        onclick="Annual_Plan_Container.sendPsrReportToOcag($(this))"
+                                                        class="mr-3 btn btn-sm btn-primary btn-square">
+                                                    <i class="fa fa-paper-plane"></i> ওসিএজিতে প্রেরণ করুন
+                                                </button>
+                                            @endif
+                                        </div>
+
                                     </div>
                                     <!--end::Title-->
                                     <!--begin::Info-->
@@ -251,8 +204,8 @@
                                                         onclick="Annual_Plan_Container.showPlanInfo($(this))">
                                                     <i class="fad fa-eye"></i> বিস্তারিত
                                                 </button>
-                                                @if(($plan_list['approval_status'] == 'draft' || $plan_list['approval_status'] == 'reject' || $plan_list['has_update_request'] == 1 || $plan_list['has_update_request'] == 2) && $current_office_id != 1)
-                                                    <button class="mr-2 btn btn-sm btn-outline-warning btn-square"
+                                                @if($plan['status'] == 'draft' && $current_office_id != 1)
+                                                    <button class="mr-3 btn btn-sm btn-outline-warning btn-square"
                                                             title="সম্পাদনা করুন"
                                                             data-annual-plan-id="{{$plan['id']}}"
                                                             data-fiscal-year-id="{{$fiscal_year_id}}"
@@ -268,22 +221,25 @@
                                                             onclick="Annual_Plan_Container.deletePlan($(this))">
                                                         <i class="fad fa-trash"></i> বাতিল করুন
                                                     </button>
+                                                @endif
 
-                                                    @if ($plan['annual_plan_psr'])
+                                                @if($plan['status'] == 'approved' && !$plan['annual_plan_psr'])
+                                                    <button
+                                                        onclick="Annual_Plan_Container.loadPSRBookCreatable($(this))"
+                                                        class="mr-3 btn btn-sm btn-warning btn-square @if (session('dashboard_audit_type') == 'Compliance Audit') d-none @endif"
+                                                        title="প্রি স্টাডি রিপোর্ট"
+                                                        data-annual-plan-id="{{$plan['id']}}"
+                                                        data-fiscal-year-id="{{$fiscal_year_id}}"
+                                                        data-op-audit-calendar-event-id="{{$plan_list['op_audit_calendar_event_id']}}">
+                                                        <i class="fad fa-plus-circle"></i> প্রি স্টাডি রিপোর্ট
+                                                    </button>
+                                                @else
+                                                    @if($plan['annual_plan_psr'])
                                                         <button class="btn btn-sm btn-square btn-info btn-hover-info entity_audit_plan_preview"
                                                                 data-scope-editable="1"
                                                                 data-psr-plan-id="{{$plan['annual_plan_psr']['id']}}"
                                                                 onclick="Annual_Plan_Container.previewPSRPlan($(this))">
                                                             <i class="fas fa-eye"></i> Preview
-                                                        </button>
-                                                    @else
-                                                        <button onclick="Annual_Plan_Container.loadPSRBookCreatable($(this))"
-                                                                class="mr-3 btn btn-sm btn-warning btn-square @if (session('dashboard_audit_type') == 'Compliance Audit') d-none @endif"
-                                                                title="প্রি স্টাডি রিপোর্ট"
-                                                                data-annual-plan-id="{{$plan['id']}}"
-                                                                data-fiscal-year-id="{{$fiscal_year_id}}"
-                                                                data-op-audit-calendar-event-id="{{$plan_list['op_audit_calendar_event_id']}}">
-                                                            <i class="fad fa-plus-circle"></i> প্রি স্টাডি রিপোর্ট
                                                         </button>
                                                     @endif
                                                 @endif

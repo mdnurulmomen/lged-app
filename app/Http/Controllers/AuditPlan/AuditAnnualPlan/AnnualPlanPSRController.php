@@ -63,6 +63,151 @@ class AnnualPlanPSRController extends Controller
         }
     }
 
+    public function sendPsrTopicToOcag(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'annual_plan_main_id' => 'required',
+            'fiscal_year_id' => 'required',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $data['annual_plan_ids'] = $request->psr_list;
+
+//        dd($data);
+
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.psr_plan.send_psr_to_ocag'), $data)->json();
+
+        if (isSuccess($response)) {
+            return response()->json(['status' => 'success', 'data' => $response['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }
+    }
+
+    public function sendPsrReportToOcag(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'psr_id' => 'required',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $data['status'] = 'pending';
+        $data['is_sent_cag'] = 1;
+
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.psr_plan.update'), $data)->json();
+
+        if (isSuccess($response)) {
+            return response()->json(['status' => 'success', 'data' => $response['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }
+    }
+
+    public function psrTopicApproval(){
+        $office_id = $this->current_office_id();
+        $all_directorates = $this->allAuditDirectorates();
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
+        $fiscal_years = $this->allFiscalYears();
+        return view('modules.audit_plan.annual.annual_plan_revised.psr.psr_topic_approval', compact('office_id', 'directorates', 'fiscal_years'));
+    }
+
+    public function getPsrTopicApprovalList(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'office_id' => 'required',
+            'fiscal_year_id' => 'required',
+        ])->validate();
+
+        $data['activity_type'] = 'performance';
+
+        $psr_approval_list = $this->initHttpWithToken()->post(config('amms_bee_routes.psr_plan.get_psr_approval_list'), $data)->json();
+//        dd($psr_approval_list);
+        if (isSuccess($psr_approval_list)) {
+            $psr_approval_list = $psr_approval_list['data'];
+            return view('modules.audit_plan.annual.annual_plan_revised.psr.psr_approval_list', compact('psr_approval_list'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $psr_approval_list]);
+        }
+
+    }
+
+    public function approvePsrTopic(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'office_id' => 'required',
+            'annual_plan_id' => 'required',
+            'fiscal_year_id' => 'required',
+        ])->validate();
+
+//        dd($data);
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.psr_plan.approve_psr_topic'), $data)->json();
+
+        if (isSuccess($response)) {
+            return response()->json(['status' => 'success', 'data' => $response['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }
+    }
+
+    public function getPsrReprotApprovalList(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'office_id' => 'required',
+            'fiscal_year_id' => 'required',
+        ])->validate();
+
+        $psr_approval_list = $this->initHttpWithToken()->post(config('amms_bee_routes.psr_plan.get_psr_report_approval_list'), $data)->json();
+//        dd($psr_approval_list);
+        if (isSuccess($psr_approval_list)) {
+            $psr_approval_list = $psr_approval_list['data'];
+            return view('modules.audit_plan.annual.annual_plan_revised.psr.psr_report_approval_list', compact('psr_approval_list'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $psr_approval_list]);
+        }
+
+    }
+
+    public function psrReportApproval(){
+        $office_id = $this->current_office_id();
+        $all_directorates = $this->allAuditDirectorates();
+        $self_directorate = current(array_filter($all_directorates, function ($item) {
+            return $this->current_office_id() == $item['office_id'];
+        }));
+        $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
+        $fiscal_years = $this->allFiscalYears();
+        return view('modules.audit_plan.annual.annual_plan_revised.psr.psr_report_approval', compact('office_id', 'directorates', 'fiscal_years'));
+    }
+
+    public function approvePsrReport(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'office_id' => 'required',
+            'psr_id' => 'required',
+        ])->validate();
+
+        $data['status'] = 'approved';
+
+//        dd($data);
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $response = $this->initHttpWithToken()->post(config('amms_bee_routes.psr_plan.update'), $data)->json();
+
+        if (isSuccess($response)) {
+            return response()->json(['status' => 'success', 'data' => $response['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $response]);
+        }
+    }
+
 
     public function preview(Request $request)
     {
@@ -73,7 +218,11 @@ class AnnualPlanPSRController extends Controller
         $scope_editable = $request->scope_editable;
         $psr_plan_id = $request->psr_plan_id;
         $data['psr_plan_id'] = $psr_plan_id;
+        $data['office_id'] = $request->office_id;
         $data['cdesk'] = $this->current_desk_json();
+
+//        dd($data);
+
         $ap_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.psr_plan.view'), $data)->json();
 
         if (isSuccess($ap_plan)) {
