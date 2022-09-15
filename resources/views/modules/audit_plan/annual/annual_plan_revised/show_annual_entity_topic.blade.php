@@ -176,7 +176,7 @@
                                         <div class="d-flex mt-3">
                                             @if($plan['annual_plan_psr'] && $plan['annual_plan_psr']['is_sent_cag'])
 
-                                                @if($plan['status'] == 'approved')
+                                                @if($plan['annual_plan_psr']['status'] == 'approved')
                                                     <span class="label label-outline-success label-pill label-inline">
                                                         অনুমোদিত
                                                     </span>
