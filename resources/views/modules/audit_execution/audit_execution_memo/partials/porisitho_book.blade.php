@@ -5,13 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     {{--    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>--}}
     <style>
-        @page  {
-            margin-top: 2.54cm;
-            margin-right: 2cm;
-            margin-bottom: 2cm;
-            margin-left: 2.80cm;
-        }
-
         html {
             -ms-text-size-adjust: 100%;
             -webkit-text-size-adjust: 100%;
@@ -24,6 +17,10 @@
 
         .bangla-font {
             font-family: nikoshpdf !important;
+        }
+
+        .bangla-bijoy {
+            font-family: sutonnymj !important;
         }
 
         article,
@@ -234,11 +231,13 @@
         table {
             border-collapse: collapse;
             border-spacing: 0;
+            font-family: nikoshpdf !important;
         }
 
         td,
         th {
-            padding: 0;
+            padding: 3px;
+            font-family: nikoshpdf !important;
         }
 
         /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
@@ -326,7 +325,7 @@
 
             .table-bordered th,
             .table-bordered td {
-                border: .5px solid black !important;
+                border: 1px solid #ddd !important;
             }
         }
 
@@ -344,12 +343,12 @@
         }
 
         html {
-            font-size: 16px;
+            font-size: 10px;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         body {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-family: Poppins, Nikosh, sans-serif;
             font-size: 16px;
             line-height: 1.42857143;
             color: #333333;
@@ -449,7 +448,6 @@
             cursor: pointer;
         }
 
-
         table {
             background-color: transparent;
         }
@@ -528,7 +526,7 @@
         }
 
         .table-bordered {
-            border: .5px solid black;
+            border: 1px solid #dddddd;
         }
 
         .table-bordered > thead > tr > th,
@@ -537,7 +535,7 @@
         .table-bordered > thead > tr > td,
         .table-bordered > tbody > tr > td,
         .table-bordered > tfoot > tr > td {
-            border: .5px solid black;
+            border: 1px solid #dddddd;
         }
 
         .table-bordered > thead > tr > th,
@@ -784,10 +782,6 @@
         .no-border tbody, .no-border td, .no-border tfoot, .no-border th, .no-border thead, .no-border tr {
             border: 0 !important;
         }
-
-        table tbody tr td{
-            font-family: nikoshpdf !important;
-        }
     </style>
 </head>
 
@@ -795,13 +789,15 @@
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     {{--porisishto--}}
     @if(!empty($memoInfo['ac_memo_porisishtos']))
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;color: black">
+        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: center;color: black">
             @foreach($memoInfo['ac_memo_porisishtos'] as $porisishto)
-                <div class="pdf-screen bangla-font" style="height: 100%">{!! $porisishto['details'] !!}</div>
+                <div class="pdf-screen bangla-font" style="height: 100%;font-family:nikoshpdf,serif !important;">
+                    {!! $porisishto['details'] !!}
+                </div>
             @endforeach
         </div>
     @else
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;color: black">
+        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: center;color: black">
             <h2>কোন পরিশিষ্ট পাওয়া যায় নি</h2>
         </div>
     @endif
