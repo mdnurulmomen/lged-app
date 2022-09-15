@@ -82,7 +82,7 @@ class AnnualPlanPSRController extends Controller
             //dd($plans[1]['content']);
             $current_office_id = $this->current_office_id();
             $pdf = \PDF::loadView('modules.audit_plan.annual.annual_plan_revised.psr.partials.psr_plan_book', ['plans' => $plans], [], ['orientation' => 'P', 'format' => 'A4']);
-            $fileName = $current_office_id . '_Plan' . $psr_plan_id . '.pdf';
+            $fileName = $current_office_id . '_PSR_Plan_' . $psr_plan_id . '.pdf';
 
             Storage::put('public/psrs/' . $fileName, $pdf->output());
 
