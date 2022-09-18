@@ -143,7 +143,7 @@ class RpuApottiController extends Controller
         $memorandum_date = formatDate($request->memorandum_date,'en','-');
 
         $data['apottis'] = explode(",",$request->apottis);
-        $data['memorandum_date'] = date("Y-m-d",strtotime($memorandum_date));
+        $data['memorandum_date'] = date("d-m-Y",strtotime($memorandum_date));
 
         if ($request->hasfile('broad_sheet_hard_copy')) {
             $file = $request->broad_sheet_hard_copy;
