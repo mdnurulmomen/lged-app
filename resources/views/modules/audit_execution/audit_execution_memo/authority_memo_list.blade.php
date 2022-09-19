@@ -40,23 +40,23 @@
         <div class="row mt-2 mb-2">
             <div class="col-md-3">
                 <select class="form-select select-select2" id="entity_filter">
-                    <option value="">All Entity</option>
+                    <option value="">সকল এনটিটি</option>
                 </select>
             </div>
             <div class="col-md-3">
                 <select class="form-select select-select2" id="cost_center_filter">
-                    <option value="">All Cost Center</option>
+                    <option value="">সকল কস্ট সেন্টার</option>
                 </select>
             </div>
             <div class="col-md-3">
                 <select class="form-select select-select2" id="team_filter">
-                    <option value="">All Teams</option>
+                    <option value="">সকল দল</option>
                 </select>
             </div>
 
             <div class="col-md-3">
                 <select class="form-select select-select2" id="finder_officer_id">
-                    <option value="">All Member</option>
+                    <option value="">উত্থাপনকারী বাছাই করুন </option>
                 </select>
             </div>
         </div>
