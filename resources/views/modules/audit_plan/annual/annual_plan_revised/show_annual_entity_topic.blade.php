@@ -165,7 +165,7 @@
                                         </div>
                                         <div class="font-weight-normal">
                                             <span
-                                                class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.subject_matter')}}</span>
+                                                class="mr-2 font-size-1-1">টপিক :</span>
                                             <span class="font-size-14">
                                             {{$plan['subject_matter']}}
                                                 @if($plan['status'] == 'approved')
