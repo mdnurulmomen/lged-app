@@ -75,17 +75,21 @@
                             <span class="nav-text">এনটিটি/সংস্থা</span>
                         </a>
                     </li>
+                    @if (session('dashboard_audit_type') == 'Compliance Audit')
                     <li class="nav-item">
                         <a id="select_cost_centers" class="nav-link rounded-0" data-toggle="tab"
                             href="#select_entity_by_layer">
                             <span class="nav-text">কস্ট সেন্টার/ইউনিট</span>
                         </a>
                     </li>
+                    @endif
+                    @if (session('dashboard_audit_type') == 'Compliance Audit')
                     <li class="nav-item">
                         <a id="milestone_tab" class="nav-link rounded-0" data-toggle="tab" href="#select_milestone">
                             <span class="nav-text">নিরীক্ষা কাজের পর্যায়</span>
                         </a>
                     </li>
+                    @endif
                 </ul>
                 <div class="tab-content" id="rp_office_tab">
                     @if (session('dashboard_audit_type') == 'Performance Audit')
@@ -331,6 +335,7 @@
             </div>
 
             {{-- team create --}}
+            @if (session('dashboard_audit_type') == 'compliance Audit')
             <div class="card sna-card-border mt-3">
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">
@@ -361,7 +366,7 @@
                     </div>
                 </div>
             </div>
-
+@endif
             {{-- details --}}
             <div class="card sna-card-border mt-3">
                 <div class="form-row">

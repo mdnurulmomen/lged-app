@@ -1,4 +1,4 @@
-<x-title-wrapper>PSR List</x-title-wrapper>
+<x-title-wrapper>Topic List</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row">
@@ -656,7 +656,7 @@
         },
 
         submitAnnualPlan: function (elem) {
-
+alert(1);
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
@@ -776,10 +776,9 @@
                     }
                     if ($(this).hasClass('milestone_start_date')) {
                         if (!$(this).val()) {
-                            toastr.warning('Select start date');
+
                             milestone_list = {};
-                            $('#milestone_tab').click();
-                            return false;
+
                         }
                         milestone_list[milestone_id]['start_date'] = formatDate($(this).val());
                     }
@@ -793,9 +792,9 @@
                     }
                 });
 
-                if(Object.keys(milestone_list).length === 0){
-                    return;
-                }
+                //if(Object.keys(milestone_list).length === 0){
+                    //return;
+                //}
                 sub_subject_list = JSON.stringify(sub_subject_list);
                 sub_objective_list = JSON.stringify(sub_objective_list);
                 milestone_list = JSON.stringify(milestone_list);
