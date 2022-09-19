@@ -6,7 +6,8 @@
                     @if(!empty($plan_list))
                         <button class="btn btn-sm btn-primary btn-square mr-1"
                                 data-annual-plan-main-id="{{$plan_list['id']}}"
-                                onclick="Annual_Plan_Container.sendPsrTopicToOcag($(this))">
+                                data-psr-approval-type="topic"
+                                onclick="Annual_Plan_Container.loadPsrApprovalAuthority($(this))">
                             <i class="fad fa-paper-plane"></i>
                             ওসিএজিতে প্রেরণ
                         </button>
@@ -167,6 +168,11 @@
                                                 class="mr-2 font-size-1-1">{{___('generic.list_views.plan.audit_plan.subject_matter')}}</span>
                                             <span class="font-size-14">
                                             {{$plan['subject_matter']}}
+                                                @if($plan['status'] == 'approved')
+                                                    <span class="label label-outline-success label-pill label-inline">
+                                                       টপিক অনুমোদিত
+                                                    </span>
+                                                @endif
                                         </span>
                                         </div>
                                         <div class="font-weight-normal d-none predict-wrapper">
@@ -175,17 +181,20 @@
 
                                         <div class="d-flex mt-3">
                                             @if($plan['annual_plan_psr'] && $plan['annual_plan_psr']['is_sent_cag'])
-
                                                 @if($plan['annual_plan_psr']['status'] == 'approved')
                                                     <span class="label label-outline-success label-pill label-inline">
-                                                        অনুমোদিত
+                                                       পিএসআর অনুমোদিত
                                                     </span>
                                                 @else
-                                                    <p class="mt-3 pr-5">জারিপত্র প্রেরণ করা হয়েছে</p>
+                                                    <p class="mt-3 pr-5">ওসিএজিতে প্রেরণ করা হয়েছে</p>
                                                 @endif
-                                            @elseif($plan['annual_plan_psr'])
-                                                <button data-annual-plan-psr-id="{{$plan['annual_plan_psr']['id']}}"
-                                                        onclick="Annual_Plan_Container.sendPsrReportToOcag($(this))"
+                                            @elseif($plan['annual_plan_psr']
+                                                    && $plan['annual_plan_psr']['office_approval_status'] == 'approved'
+                                                    && $current_office_id != 1)
+                                                <button
+                                                        data-annual-plan-id="{{$plan['id']}}"
+                                                        data-psr-approval-type="psr_plan"
+                                                        onclick="Annual_Plan_Container.loadPsrApprovalAuthority($(this))"
                                                         class="mr-3 btn btn-sm btn-primary btn-square">
                                                     <i class="fa fa-paper-plane"></i> ওসিএজিতে প্রেরণ করুন
                                                 </button>
@@ -241,6 +250,15 @@
                                                                 onclick="Annual_Plan_Container.previewPSRPlan($(this))">
                                                             <i class="fas fa-eye"></i> Preview
                                                         </button>
+
+                                                    @if($plan['annual_plan_psr']['office_approval_status'] == 'draft' && $current_office_id != 1 && ($current_designation_grade == 2 || $current_designation_grade == 3 || $current_designation_grade == 5))
+
+                                                        <button class="mr-1 btn btn-sm btn-edit" title="অনুমোদন করুন"
+                                                                data-annual-plan-psr-id="{{$plan['annual_plan_psr']['id']}}"
+                                                                onclick="Annual_Plan_Container.approvePsrReport($(this))">
+                                                            অনুমোদন করুন
+                                                        </button>
+                                                        @endif
                                                     @endif
                                                 @endif
                                             </div>

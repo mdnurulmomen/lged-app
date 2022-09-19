@@ -53,6 +53,7 @@ class AnnualPlanPSRController extends Controller
         $data['cdesk'] = $this->current_desk_json();
         $data['plan_description'] = makeEncryptedData(gzcompress(json_encode($request->plan_description)));
         $data['status'] = 'draft';
+        $data['office_approval_status'] = 'draft';
 
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.psr_plan.store'), $data)->json();
         //dd($response);
@@ -193,7 +194,7 @@ class AnnualPlanPSRController extends Controller
             'psr_id' => 'required',
         ])->validate();
 
-        $data['status'] = 'approved';
+        $data['office_approval_status'] = 'approved';
 
 //        dd($data);
 
@@ -268,6 +269,125 @@ class AnnualPlanPSRController extends Controller
             return view('modules.audit_plan.annual.annual_plan_revised.psr.edit', compact('psr_plan_id','activity_id','fiscal_year_id','annual_plan_id','content'));
         } else {
             return ['status' => 'error', 'data' => $ap_plan['data']];
+        }
+    }
+
+    public function loadPsrApporvalAuthority(Request $request)
+    {
+        $psr_approval_type = $request->psr_approval_type;
+        $officeId = config('cag_amms_config.ocag_office_id');
+        $fiscal_year_id = $request->fiscal_year_id;
+        $annual_plan_id = $request->annual_plan_id;
+        $officer_lists = $this->cagDoptorOfficeUnitDesignationEmployees($officeId);
+//        dd($officer_lists);
+//        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan_revised.get_current_desk_approval_authority'), $data)->json();
+//        $current_desk_approval_authority = isSuccess($responseData) ? $responseData['data'] : [];
+        return view(
+            'modules.audit_plan.annual.annual_plan_revised.psr.partials.psr_approval_authority',
+            compact(
+                'officeId',
+                'fiscal_year_id',
+                'officer_lists',
+                'psr_approval_type',
+                'annual_plan_id',
+            )
+        );
+    }
+
+    public function sendPsrSenderToReceiver(Request $request): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = Validator::make($request->all(), [
+                'psr_approval_type' => 'required|string',
+                'fiscal_year_id' => 'required|integer',
+                'receiver_type' => 'required',
+                'receiver_office_id' => 'required',
+                'receiver_office_name_en' => 'required',
+                'receiver_office_name_bn' => 'required',
+                'receiver_unit_id' => 'required',
+                'receiver_unit_name_en' => 'required',
+                'receiver_unit_name_bn' => 'required',
+                'receiver_officer_id' => 'required',
+                'receiver_name_en' => 'required',
+                'receiver_name_bn' => 'required',
+                'receiver_designation_id' => 'required',
+                'receiver_designation_en' => 'required',
+                'receiver_designation_bn' => 'required',
+            ])->validate();
+
+//            dd($data);
+
+            $data['psr_list'] = explode(',',$request->psr_list);
+            $data['status'] = 'pending';
+            $data['comments'] = $request->comments;
+            $data['cdesk'] = $this->current_desk_json();
+
+            $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.psr_plan.send_psr_sender_to_receiver'), $data)->json();
+//            dd($responseData);
+            if (isSuccess($responseData)) {
+                return response()->json(['status' => 'success', 'data' => 'Added!']);
+            } else {
+                return response()->json(['status' => 'error', 'data' => $responseData]);
+            }
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => $exception->errors(),
+                'statusCode' => '422',
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
+        }
+    }
+
+    public function laodPsrApprovalForm(Request $request)
+    {
+        $fiscal_year_id = $request->fiscal_year_id;
+        $annual_plan_id = $request->annual_plan_id;
+        $office_id = $request->office_id;
+        $psr_approval_type = $request->psr_approval_type;
+
+        return view('modules.audit_plan.annual.annual_plan_revised.psr.partials.psr_approval_form',
+            compact('fiscal_year_id','office_id','psr_approval_type','annual_plan_id'));
+    }
+
+    public function sendPsrReceiverToSender(Request $request): \Illuminate\Http\JsonResponse
+    {
+        try {
+//            dd($request->all());
+            $data = Validator::make($request->all(), [
+                'fiscal_year_id' => 'required|integer',
+                'annual_plan_id' => 'required|integer',
+                'office_id' => 'required|integer',
+                'psr_approval_type' => 'required|string',
+                'receiver_type' => 'required',
+                'status' => 'required',
+            ],[
+                'status.required' => 'স্ট্যাটাস বাছাই করুন'
+            ])->validate();
+
+//            dd($data);
+
+            $data['comments'] = $request->comments;
+            $data['cdesk'] = $this->current_desk_json();
+
+
+            $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.psr_plan.send_psr_receiver_to_sender'), $data)->json();
+//            dd($responseData);
+            if (isSuccess($responseData)) {
+                return response()->json(['status' => 'success', 'data' => 'Added!']);
+            } else {
+                return response()->json(['status' => 'error', 'data' => $responseData]);
+            }
+
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => $exception->errors(),
+                'statusCode' => '422',
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
         }
     }
 }

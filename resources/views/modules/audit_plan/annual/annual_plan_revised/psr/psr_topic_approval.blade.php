@@ -37,6 +37,7 @@
 </div>
 
 @include('scripts.script_generic')
+@include('modules.audit_plan.annual.annual_plan_revised.psr.partials.approve_psr_common_script')
 <script>
 
     $('#select_fiscal_year_annual_plan,#directorate_filter').change(function () {
@@ -128,6 +129,29 @@
                     console.log(blob);
                 }
 
+            });
+        },
+
+        showPlanInfo: function (elem) {
+            office_id = $('#directorate_filter').val();
+            annual_plan_id = elem.data('annual-plan-id');
+            data = {annual_plan_id,office_id}
+            KTApp.block('#kt_wrapper');
+            let url = '{{route('audit.plan.annual.plan.revised.show_plan_info')}}'
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $(".offcanvas-title").text('বিস্তারিত');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
             });
         },
     };

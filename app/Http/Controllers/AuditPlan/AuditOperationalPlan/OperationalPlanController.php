@@ -154,7 +154,7 @@ class OperationalPlanController extends Controller
     public function sendAnnualPlanReceiverToSender(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            //dd($request->all());
+//            dd($request->all());
             $data = Validator::make($request->all(), [
                 'fiscal_year_id' => 'required|integer',
                 'annual_plan_main_id' => 'required|integer',
