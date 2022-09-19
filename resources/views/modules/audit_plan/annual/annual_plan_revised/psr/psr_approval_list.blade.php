@@ -27,7 +27,7 @@
             <td class="text-left">
                 <button class="mr-1 btn btn-sm btn-primary btn-square" title="বিস্তারিত দেখুন"
                         data-annual-plan-id="{{$topic['id']}}"
-{{--                        onclick="Air_Report_Container.loadAIREdit($(this))"--}}
+                        onclick="Approve_Psr_Topic_List_Container.showPlanInfo($(this))"
                 >
                     <i class="fad fa-eye"></i> বিস্তারিত
                 </button>
@@ -35,12 +35,14 @@
                 @if($topic['status'] == 'pending')
                     <button class="mr-1 btn btn-sm btn-edit" title="অনুমোদন করুন"
                             data-annual-plan-id="{{$topic['id']}}"
-                            onclick="Approve_Psr_Topic_List_Container.approvePsrTopic($(this))">
-                        <i style="color: white" class="fad fa-check"></i>
+                            data-psr-approval-type="topic"
+                            onclick="Approve_Psr_Common_Container.loadPsrApprovalForm($(this))">
                         অনুমোদন করুন
                     </button>
                 @else
-                    অনুমোদিত
+                    <span class="label label-outline-success label-pill label-inline">
+                        অনুমোদিত
+                    </span>
                 @endif
             </td>
         </tr>

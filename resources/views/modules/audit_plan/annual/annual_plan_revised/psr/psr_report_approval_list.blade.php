@@ -34,13 +34,15 @@
 
                 @if($topic['status'] == 'pending')
                     <button class="mr-1 btn btn-sm btn-edit" title="অনুমোদন করুন"
-                            data-annual-plan-psr-id="{{$topic['id']}}"
-                            onclick="Approve_Psr_Reprot_List_Container.approvePsrReport($(this))">
-                        <i style="color: white" class="fad fa-check"></i>
+                            data-annual-plan-id="{{$topic['annual_plan_id']}}"
+                            data-psr-approval-type="psr_plan"
+                            onclick="Approve_Psr_Common_Container.loadPsrApprovalForm($(this))">
                         অনুমোদন করুন
                     </button>
                 @else
-                    অনুমোদিত
+                    <span class="label label-outline-success label-pill label-inline">
+                        অনুমোদিত
+                    </span>
                 @endif
             </td>
         </tr>

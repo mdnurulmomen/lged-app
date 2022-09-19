@@ -237,6 +237,9 @@ return [
         'get_psr_approval_list' => env('API_URL_BEE', '') . '/planning/psr-plan/get-psr-approval-list',
         'approve_psr_topic' => env('API_URL_BEE', '') . '/planning/psr-plan/approve-psr-topic',
         'get_psr_report_approval_list' => env('API_URL_BEE', '') . '/planning/psr-plan/get-psr-report-approval-list',
+        'send_psr_sender_to_receiver' => env('API_URL_BEE', '') . '/planning/psr-plan/send-psr-sender-to-receiver',
+        'send_psr_receiver_to_sender' => env('API_URL_BEE', '') . '/planning/psr-plan/send-psr-receiver-to-sender',
+        'get_psr_movement_histories' => env('API_URL_BEE', '') . '/planning/annual-plan/get-psr-movement-histories',
     ],
     'audit_visit_plan_calendar' => [
         'team_calendar_list' => env('API_URL_BEE', '') . '/planning/calendar/teams',

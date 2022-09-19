@@ -162,14 +162,31 @@
             });
         },
 
-        sendAnnualPlanSenderToReceiver: function () {
-            url = '{{route('audit.plan.annual.plan.revised.send-annual-plan-sender-to-receiver')}}';
-            data = $('#approval_authority_form').serialize();
-
+        sendPsrSenderToReceiver: function () {
+            url = '{{route('audit.plan.annual.psr.send-psr-sender-to-receiver')}}';
+            data = $('#approval_authority_form').serializeArray();
+            annual_plan_id = $('#annual_plan_id').val();
+            psr_approval_type = $('#psr_approval_type').val();
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
+
+            psr_list = [];
+
+            if(psr_approval_type == 'topic'){
+                $(".select-psr").each(function (i, value) {
+                    if ($(this).is(':checked') && !$(this).is(':disabled')) {
+                        psr_list.push($(this).val());
+                    }
+                });
+            }else if (psr_approval_type == 'psr_plan')
+            {
+                psr_list.push(annual_plan_id);
+            }
+
+
+            data.push({name: "psr_list", value: psr_list});
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_wrapper');
@@ -1145,41 +1162,140 @@
             })
         },
 
-        sendPsrReportToOcag: function (elem) {
+        loadPsrApprovalAuthority: function (element) {
+            fiscal_year_id =   $('#select_fiscal_year_annual_plan').val();
+            psr_approval_type =  element.data('psr-approval-type');
+            annual_plan_id =  element.data('annual-plan-id');
+            url = '{{route('audit.plan.annual.psr.load-psr-approval-authority')}}';
+            data = {fiscal_year_id,psr_approval_type,annual_plan_id};
 
-            url = '{{route('audit.plan.annual.psr.send-psr-report-to-ocag')}}';
-            psr_id = elem.data('annual-plan-psr-id');
+            if(psr_approval_type == 'topic'){
+                psr_list = [];
+                $(".select-psr").each(function (i, value) {
+                    if ($(this).is(':checked') && !$(this).is(':disabled')) {
+                        psr_list.push($(this).val());
+                    }
+                });
 
-            ajaxCallAsyncCallbackAPI(url, {psr_id}, 'post', function (response) {
-                if (response.status === 'success') {
-                    toastr.success(response.data);
-                    $('.psr_plan a').click();
-                } else {
-                    toastr.error(response.data)
+                if(!psr_list.length){
+                    toastr.warning('Please select at least one topic');
+                    return;
                 }
-            })
+            }
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                } else {
+                    $(".offcanvas-title").text('অনুমোদনকারী বাছাই করুন');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '40%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
+        sendPsrReportToOcag: function (elem) {
+            swal.fire({
+                title: 'আপনি কি ওসিএজিতে প্রেরণ করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    url = '{{route('audit.plan.annual.psr.send-psr-report-to-ocag')}}';
+                    psr_id = elem.data('annual-plan-psr-id');
+
+                    ajaxCallAsyncCallbackAPI(url, {psr_id}, 'post', function (response) {
+                        if (response.status === 'success') {
+                            toastr.success(response.data);
+                            $('.psr_plan a').click();
+                        } else {
+                            toastr.error(response.data)
+                        }
+                    });
+                }
+            });
         },
 
         sendPsrTopicToOcag: function (elem) {
-            url = '{{route('audit.plan.annual.psr.send-psr-topic-to-ocag')}}';
-            annual_plan_main_id = elem.data('annual-plan-main-id');
-            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            swal.fire({
+                title: 'আপনি কি ওসিএজিতে প্রেরণ করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    url = '{{route('audit.plan.annual.psr.send-psr-topic-to-ocag')}}';
+                    annual_plan_main_id = elem.data('annual-plan-main-id');
+                    fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
 
-            psr_list = [];
-            $(".select-psr").each(function (i, value) {
-                if ($(this).is(':checked') && !$(this).is(':disabled')) {
-                    psr_list.push($(this).val());
+                    psr_list = [];
+                    $(".select-psr").each(function (i, value) {
+                        if ($(this).is(':checked') && !$(this).is(':disabled')) {
+                            psr_list.push($(this).val());
+                        }
+                    });
+
+                    ajaxCallAsyncCallbackAPI(url, {fiscal_year_id,annual_plan_main_id,psr_list}, 'post', function (response) {
+                        if (response.status === 'success') {
+                            toastr.success(response.data);
+                            $('.psr_plan a').click();
+                        } else {
+                            toastr.error(response.data);
+                        }
+                    });
                 }
             });
 
-            ajaxCallAsyncCallbackAPI(url, {fiscal_year_id,annual_plan_main_id,psr_list}, 'post', function (response) {
-                if (response.status === 'success') {
-                    toastr.success(response.data);
-                    $('.psr_plan a').click();
-                } else {
-                    toastr.error(response.data);
+        },
+
+        approvePsrReport: function (elem) {
+            swal.fire({
+                title: 'আপনি কি অনুমোদন করতে চান?',
+                text: "",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'হ্যাঁ',
+                cancelButtonText: 'না'
+            }).then(function(result) {
+                if (result.value) {
+                    office_id = $('#directorate_filter').val();
+                    fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+                    psr_id = elem.data('annual-plan-psr-id');
+
+                    let url = '{{route('audit.plan.annual.psr.approve-psr-report')}}';
+                    let data = {fiscal_year_id, office_id, psr_id};
+
+                    KTApp.block('#kt_wrapper', {
+                        opacity: 0.1,
+                        state: 'primary' // a bootstrap color
+                    });
+
+                    ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                        KTApp.unblock('#kt_wrapper');
+                        if (response.status === 'error') {
+                            toastr.error(response.data)
+                        } else {
+                            toastr.success('Approved Successfully');
+                            $('#directorate_filter').trigger('change');
+                        }
+                    });
                 }
-            })
+            });
         },
 
         backToAnnualPlanList: function () {

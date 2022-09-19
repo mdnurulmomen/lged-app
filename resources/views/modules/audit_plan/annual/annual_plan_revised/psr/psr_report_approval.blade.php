@@ -37,6 +37,7 @@
 </div>
 
 @include('scripts.script_generic')
+@include('modules.audit_plan.annual.annual_plan_revised.psr.partials.approve_psr_common_script')
 <script>
 
     $('#select_fiscal_year_annual_plan,#directorate_filter').change(function () {
@@ -62,30 +63,6 @@
                     toastr.error(response.data)
                 } else {
                     $('#load_psr_approval_list').html(response);
-                }
-            });
-        },
-
-        approvePsrReport: function (elem) {
-            office_id = $('#directorate_filter').val();
-            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
-            psr_id = elem.data('annual-plan-psr-id');
-
-            let url = '{{route('audit.plan.annual.psr.approve-psr-report')}}';
-            let data = {fiscal_year_id, office_id, psr_id};
-
-            KTApp.block('#kt_wrapper', {
-                opacity: 0.1,
-                state: 'primary' // a bootstrap color
-            });
-
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                KTApp.unblock('#kt_wrapper');
-                if (response.status === 'error') {
-                    toastr.error(response.data)
-                } else {
-                    toastr.success('Approved Successfully');
-                    $('#directorate_filter').trigger('change');
                 }
             });
         },
@@ -159,6 +136,6 @@
                     $(".offcanvas-wrapper").html(response);
                 }
             })
-        },
+        }
     };
 </script>

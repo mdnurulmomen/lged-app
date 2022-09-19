@@ -326,9 +326,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('/approve-psr-topic', [AnnualPlanPSRController::class, 'approvePsrTopic'])->name('approve-psr-topic');
                 Route::post('/send-psr-to-report-ocag', [AnnualPlanPSRController::class, 'sendPsrReportToOcag'])->name('send-psr-report-to-ocag');
 
+                Route::post('/load-psr-approval-authority', [AnnualPlanPSRController::class, 'loadPsrApporvalAuthority'])->name('load-psr-approval-authority');
+                Route::post('/send-psr-sender-to-receiver', [AnnualPlanPSRController::class, 'sendPsrSenderToReceiver'])->name('send-psr-sender-to-receiver');
                 Route::get('/psr-report-approval', [AnnualPlanPSRController::class, 'psrReportApproval'])->name('psr-report-approval');
                 Route::post('/get-psr-reprot-approval-list', [AnnualPlanPSRController::class, 'getPsrReprotApprovalList'])->name('get-psr-report-approval-list');
                 Route::post('/approve-psr-report', [AnnualPlanPSRController::class, 'approvePsrReport'])->name('approve-psr-report');
+                Route::post('/load-psr-approval-form', [AnnualPlanPSRController::class, 'laodPsrApprovalForm'])->name('load-psr-approval-form');
+                Route::post('/send-psr-receiver-to-sender', [AnnualPlanPSRController::class, 'sendPsrReceiverToSender'])->name('send-psr-receiver-to-sender');
             });
 
             //audit assessment score
