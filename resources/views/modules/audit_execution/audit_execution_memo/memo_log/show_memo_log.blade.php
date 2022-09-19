@@ -5,10 +5,10 @@
             Field Name
         </th>
         <th>
-            Old
+            Old Memo
         </th>
         <th>
-            New
+            New Memo
         </th>
     </tr>
     </thead>
