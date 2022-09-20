@@ -217,6 +217,7 @@ class AnnualPlanPSRController extends Controller
 
         $scope_editable = $request->scope_editable;
         $psr_plan_id = $request->psr_plan_id;
+        $office_approval_status = $request->office_approval_status;
         $data['psr_plan_id'] = $psr_plan_id;
         $data['office_id'] = $request->office_id;
         $data['cdesk'] = $this->current_desk_json();
@@ -236,7 +237,7 @@ class AnnualPlanPSRController extends Controller
             Storage::put('public/psrs/' . $fileName, $pdf->output());
 
             return view('modules.audit_plan.annual.annual_plan_revised.psr.partials.preview_psr_plan',
-                compact('fileName','scope_editable','psr_plan_id'));
+                compact('fileName','scope_editable','psr_plan_id','office_approval_status'));
         } else {
             return ['status' => 'error', 'data' => 'Error'];
         }

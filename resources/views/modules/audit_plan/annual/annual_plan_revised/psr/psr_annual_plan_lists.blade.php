@@ -1085,9 +1085,10 @@
         previewPSRPlan: function (elem) {
             scope_editable = elem.data('scope-editable');
             psr_plan_id = elem.data('psr-plan-id');
+            office_approval_status = elem.data('psr-office-status');
             office_id = $('#directorate_filter').val();
 
-            data = {scope_editable,psr_plan_id,office_id};
+            data = {scope_editable,psr_plan_id,office_id,office_approval_status};
             url = '{{route('audit.plan.annual.psr.preview')}}';
 
             KTApp.block('#kt_wrapper', {

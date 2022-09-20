@@ -213,17 +213,16 @@
                                                         onclick="Annual_Plan_Container.showPlanInfo($(this))">
                                                     <i class="fad fa-eye"></i> বিস্তারিত
                                                 </button>
-                                                @if($plan['status'] == 'draft' && $current_office_id != 1)
-                                                    <button class="mr-3 btn btn-sm btn-outline-warning btn-square"
+                                                @if($plan['status'] != 'approved' && $current_office_id != 1)
+                                                        <button class="mr-3 btn btn-sm btn-outline-warning btn-square"
                                                             title="সম্পাদনা করুন"
                                                             data-annual-plan-id="{{$plan['id']}}"
                                                             data-fiscal-year-id="{{$fiscal_year_id}}"
                                                             data-op-audit-calendar-event-id="{{$plan_list['op_audit_calendar_event_id']}}"
                                                             onclick="Annual_Plan_Container.editPlanInfo($(this))">
-                                                        <i class="fad fa-edit"></i> সম্পাদনা
-                                                    </button>
-
-                                                    <button class="mr-2 btn btn-sm btn-outline-danger btn-square"
+                                                            <i class="fad fa-edit"></i> সম্পাদনা
+                                                        </button>
+                                                <button class="mr-2 btn btn-sm btn-outline-danger btn-square"
                                                             title="বাতিল করুন"
                                                             data-annual-plan-id="{{$plan['id']}}"
                                                             data-has-update-request="{{$plan_list['has_update_request']}}"
@@ -247,6 +246,7 @@
                                                         <button class="btn btn-sm btn-square btn-info btn-hover-info entity_audit_plan_preview"
                                                                 data-scope-editable="1"
                                                                 data-psr-plan-id="{{$plan['annual_plan_psr']['id']}}"
+                                                                data-psr-office-status="{{$plan['annual_plan_psr']['office_approval_status']}}"
                                                                 onclick="Annual_Plan_Container.previewPSRPlan($(this))">
                                                             <i class="fas fa-eye"></i> Preview
                                                         </button>
