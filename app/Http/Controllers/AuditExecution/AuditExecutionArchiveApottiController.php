@@ -651,4 +651,14 @@ class AuditExecutionArchiveApottiController extends Controller
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.migrate'), $data)->json();
         return $response;
     }
+
+    public function destroy(Request $request)
+    {
+        $data = [
+            'apotti_id' => $request->apotti_id,
+            'cdesk' => $this->current_desk_json(),
+        ];
+        return $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.delete'), $data)->json();
+
+    }
 }

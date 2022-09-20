@@ -57,6 +57,12 @@
                         onclick="Archive_Apotti_Container.syncArchiveApottiToAmms($(this))">
                     <i class="fa fa-paper-plane"></i>
                 </button>
+                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-icon-primary list-btn-toggle"
+                        title="Delete"
+                        data-apotti-id="{{$apotti['id']}}"
+                        onclick="Archive_Apotti_Container.deleteArchiveApotti($(this))">
+                    <i class="fa fa-paper-plane"></i>
+                </button>
             </td>
         </tr>
     @empty

@@ -254,6 +254,26 @@
             });
         },
 
+        deleteArchiveApotti: function (elem) {
+            apotti_id = elem.data('apotti-id');
+            url = '{{ route('audit.execution.archive-apotti.delete') }}';
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary'
+            });
+
+            ajaxCallAsyncCallbackAPI(url, {apotti_id}, 'POST', function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.warning(response.data);
+                } else {
+                    toastr.success('success');
+                    Archive_Apotti_Container.loadApottiList();
+                }
+            });
+        },
+
         syncArchiveApottiToAmms: function (elem) {
             apotti_id = elem.data('apotti-id');
             let url = '{{ route('audit.execution.archive-apotti.migrate-archive-apotti-to-amms') }}';

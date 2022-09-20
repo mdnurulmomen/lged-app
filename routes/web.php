@@ -578,6 +578,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('store-new-attachment', [AuditExecutionArchiveApottiController::class, 'storeNewAttachment'])->name('store-new-attachment');
             Route::post('delete-attachment', [AuditExecutionArchiveApottiController::class, 'deleteAttachment'])->name('delete-attachment');
             Route::post('update', [AuditExecutionArchiveApottiController::class, 'update'])->name('update');
+            Route::post('delete', [AuditExecutionArchiveApottiController::class, 'destroy'])->name('delete');
             Route::post('list', [AuditExecutionArchiveApottiController::class, 'list'])->name('list');
 
             Route::post('load-directorate-wise-ministry', [AuditExecutionArchiveApottiController::class, 'loadDirectorateWiseMinistry'])->name('load-directorate-wise-ministry');
