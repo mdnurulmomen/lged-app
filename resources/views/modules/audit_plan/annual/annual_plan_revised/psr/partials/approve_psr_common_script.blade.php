@@ -45,6 +45,7 @@
                 if (response.status === 'success') {
                     toastr.success('অনুমোদনের জন্য প্রেরিত হয়েছে');
                     $("#kt_quick_panel_close").click();
+                    $('#directorate_filter').trigger('change');
                 } else {
                     if (response.statusCode === '422') {
                         var errors = response.msg;

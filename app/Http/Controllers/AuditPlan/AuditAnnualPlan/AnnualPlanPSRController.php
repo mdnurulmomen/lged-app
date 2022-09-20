@@ -53,7 +53,6 @@ class AnnualPlanPSRController extends Controller
         $data['cdesk'] = $this->current_desk_json();
         $data['plan_description'] = makeEncryptedData(gzcompress(json_encode($request->plan_description)));
         $data['status'] = 'draft';
-        $data['office_approval_status'] = 'draft';
 
         $response = $this->initHttpWithToken()->post(config('amms_bee_routes.psr_plan.store'), $data)->json();
         //dd($response);
