@@ -64,6 +64,7 @@ class AuditExecutionArchiveApottiController extends Controller
         $data['nirikkha_dhoron'] = $request->nirikkha_dhoron;
         $data['apottir_dhoron'] = $request->apottir_dhoron;
         $data['jorito_ortho_poriman'] = $request->jorito_ortho_poriman;
+        $data['file_no'] = $request->file_no;
 
         $apotti_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.archive_apotti.list'), $data)->json();
         if (isSuccess($apotti_list)) {

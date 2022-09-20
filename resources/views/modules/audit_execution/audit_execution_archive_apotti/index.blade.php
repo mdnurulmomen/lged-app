@@ -52,7 +52,7 @@
                 </select>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="apotti_oniyomer_category_id" class="col-form-label">অনিয়মের ক্যাটাগরি</label>
                 <select class="form-select select-select2" id="apotti_oniyomer_category_id"
                         name="apotti_oniyomer_category_id">
@@ -65,12 +65,16 @@
                 </select>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="apotti_oniyomer_category_child_id" class="col-form-label">অনিয়মের সাব-ক্যাটাগরি</label>
                 <select class="form-select select-select2" id="apotti_oniyomer_category_child_id"
                         name="apotti_oniyomer_category_child_id">
                     <option value="">সবগুলো</option>
                 </select>
+            </div>
+            <div class="col-md-2">
+                <label for="file_no" class="col-form-label">ফাইল নম্বর</label>
+                <input class="form-control" id="file_no" name="file_no" type="text">
             </div>
         </div>
 
@@ -161,6 +165,7 @@
             nirikkha_dhoron = $("#nirikkha_dhoron").val();
             apottir_dhoron = $("#apottir_dhoron").val();
             jorito_ortho_poriman = $("#jorito_ortho_poriman").val();
+            file_no = $("#file_no").val();
             let url = '{{ route('audit.execution.archive-apotti.list') }}';
             let data = {
                 directorate_id,
@@ -176,6 +181,7 @@
                 nirikkha_dhoron,
                 apottir_dhoron,
                 jorito_ortho_poriman,
+                file_no,
                 page,
                 per_page
             };
