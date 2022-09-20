@@ -18,11 +18,22 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="form-group">
                 <label for="link">Link<span class="text-danger">*</span></label>
                 <input class="form-control" type="text" id="link" name="link"
                        placeholder="Enter link">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="activity_type">Activity Type<span class="text-danger">*</span></label>
+                <select name="activity_type" id="activity_type" class="form-control select-select2">
+                    <option value="all"> All </option>
+                    <option value="compliance"> Compliance </option>
+                    <option value="performance"> Performance</option>
+                    <option value="financial"> Financial </option>
+                </select>
             </div>
         </div>
     </div>

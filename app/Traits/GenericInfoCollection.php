@@ -170,4 +170,16 @@ trait GenericInfoCollection
         $list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_and_team_wise_team_members'),$data)->json();
         return $list['status'] == 'success' ? $list['data'] : [];
     }
+
+    public function current_activity_type(){
+        if (session('dashboard_audit_type') == 'Compliance Audit') {
+            $activity_type = 'compliance';
+        } else if (session('dashboard_audit_type') == 'Performance Audit') {
+            $activity_type = 'performance';
+        } else if (session('dashboard_audit_type')  == 'Financial Audit') {
+            $activity_type= 'financial';
+        }
+
+        return $activity_type;
+    }
 }
