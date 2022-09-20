@@ -61,7 +61,7 @@
                         title="Delete"
                         data-apotti-id="{{$apotti['id']}}"
                         onclick="Archive_Apotti_Container.deleteArchiveApotti($(this))">
-                    <i class="fa fa-paper-plane"></i>
+                    <i class="fa fa-trash"></i>
                 </button>
             </td>
         </tr>
