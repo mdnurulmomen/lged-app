@@ -194,8 +194,11 @@ trait UserInfoCollector
         $menus = $this->initHttpWithToken()->post(config('amms_bee_routes.role-and-permissions.menus'), [
             'cdesk' => $this->current_desk_json(),
             'module_link' => $module_link,
+            'activity_type' => $this->current_activity_type()
         ])->json();
+
 //        dd($menus);
+
         if (is_array($menus) && isset($menus['status']) && $menus['status'] == 'success') {
             session()->put('_module_menus', $menus['data']);
             session()->save();

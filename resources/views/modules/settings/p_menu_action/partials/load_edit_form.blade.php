@@ -22,12 +22,24 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="form-group">
                 <label for="link">Link</label>
                 <input class="form-control" type="text" id="link" name="link"
                        value="{{$menuActionInfo['link']}}"
                        placeholder="Enter link">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="activity_type">Activity Type<span class="text-danger">*</span></label>
+                <select name="activity_type" id="activity_type" class="form-control select-select2">
+                    <option value="all" @if($menuActionInfo['activity_type'] == 'all') selected @endif> All </option>
+                    <option value="compliance" @if($menuActionInfo['activity_type'] == 'compliance') selected @endif> Compliance </option>
+                    <option value="performance" @if($menuActionInfo['activity_type'] == 'performance') selected @endif> Performance</option>
+                    <option value="financial" @if($menuActionInfo['activity_type'] == 'financial') selected @endif> Financial </option>
+                </select>
             </div>
         </div>
     </div>
