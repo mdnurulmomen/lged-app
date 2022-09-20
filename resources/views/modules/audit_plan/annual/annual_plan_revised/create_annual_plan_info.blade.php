@@ -387,11 +387,10 @@
 @include('scripts.script_generic')
 <script>
     $(function() {
-        @if (session('dashboard_audit_type') == 'Performance Audit')
-            $('#activity_id').val(9).trigger('change');
-        @endif
-        // Annual_Plan_Container.loadEntityChildOffices(parent_office_id);
+        activity_type = localStorage['cag_amms_web_activity_id'];
+        $('#activity_id').val(activity_type);
     });
+
     $("select#selected_entity").change(function() {
         ministry_id = $(this).find(':selected').attr('data-ministry-id');
         // layer_id = $(this).find(':selected').attr('data-layer-id');
