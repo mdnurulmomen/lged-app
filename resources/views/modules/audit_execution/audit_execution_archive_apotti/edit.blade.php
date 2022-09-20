@@ -430,4 +430,10 @@
     function loadPromanok() {
         $(".load-promanok-attachment").show();
     }
+
+    $('#apotti_oniyomer_category_id').change(function () {
+        directorate_id = $('#directorate_id').val();
+        apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
+        Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id, apotti_oniyomer_category_id);
+    });
 </script>
