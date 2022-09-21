@@ -160,8 +160,6 @@
         </tbody>
     </table>
 @endif
-
-@if(session('dashboard_audit_type') == 'Compliance Audit')
     @if($annual_plan_info['ap_milestones'])
     <br>
     <h4>নিরীক্ষা কাজের পর্যায়</h4>
@@ -195,5 +193,5 @@
         @endforeach
         </tbody>
     </table>
-@endif
+
 @endif

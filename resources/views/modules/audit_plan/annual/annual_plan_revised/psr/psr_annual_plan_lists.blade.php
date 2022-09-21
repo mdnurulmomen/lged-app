@@ -656,6 +656,7 @@
         },
 
         submitAnnualPlan: function (elem) {
+
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
@@ -761,44 +762,68 @@
 
                 milestone_list = {};
 
-                // $(".milestone_row input").each(function () {
-                //     if ($(this).hasClass('milestone_id')) {
-                //         milestone_id = $(this).val();
-                //         milestone_list[milestone_id] = {
-                //             activity_id: $('#activity_id').val(),
-                //             fiscal_year_id: $('#fiscal_year_id').val(),
-                //             milestone_id: milestone_id,
-                //         }
-                //     }
-                //     if ($(this).hasClass('milestone_target_date')) {
-                //         milestone_list[milestone_id]['milestone_target_date'] = formatDate($(this).val());
-                //     }
-                //     if ($(this).hasClass('milestone_start_date')) {
-                //         if (!$(this).val()) {
-                //
-                //             milestone_list = {};
-                //
-                //         }
-                //         milestone_list[milestone_id]['start_date'] = formatDate($(this).val());
-                //     }
-                //     if ($(this).hasClass('milestone_end_date')) {
-                //         if (!$(this).val()) {
-                //             toastr.warning('Select end date');
-                //             milestone_list = {};
-                //             return false;
-                //         }
-                //         milestone_list[milestone_id]['end_date'] = formatDate($(this).val());
-                //     }
-                // });
+                $(".milestone_row input").each(function () {
+                    if ($(this).hasClass('milestone_id')) {
+                        milestone_id = $(this).val();
+                        milestone_list[milestone_id] = {
+                            activity_id: $('#activity_id').val(),
+                            fiscal_year_id: $('#fiscal_year_id').val(),
+                            milestone_id: milestone_id,
+                        }
+                    }
+                    if ($(this).hasClass('milestone_target_date')) {
+                        milestone_list[milestone_id]['milestone_target_date'] = formatDate($(this).val());
+                    }
+                    if ($(this).hasClass('milestone_start_date')) {
+                        if (!$(this).val()) {
+                            toastr.warning('Select start date');
+                            milestone_list = {};
+                            $('#milestone_tab').click();
+                            return false;
+                        }
+                        milestone_list[milestone_id]['start_date'] = formatDate($(this).val());
+                    }
+                    if ($(this).hasClass('milestone_end_date')) {
+                        if (!$(this).val()) {
+                            toastr.warning('Select end date');
+                            milestone_list = {};
+                            return false;
+                        }
+                        milestone_list[milestone_id]['end_date'] = formatDate($(this).val());
+                    }
+                });
 
-                //if(Object.keys(milestone_list).length === 0){
-                    //return;
-                //}
+                if(Object.keys(milestone_list).length === 0){
+                    return;
+                }
                 sub_subject_list = JSON.stringify(sub_subject_list);
                 sub_objective_list = JSON.stringify(sub_objective_list);
                 milestone_list = JSON.stringify(milestone_list);
                 entity_list = JSON.stringify(entity_info);
                 annual_plan_type = $('input[name="annual_plan_type"]:checked').val();
+                // staff_list = {};
+                //
+                // $(".staff_row input, .staff_row select").each(function () {
+                //     // alert(count);
+                //     row_count = 0;
+                //     if ($(this).hasClass('staff_number')) {
+                //         row_count = $(this).attr('data-row-count');
+                //         alert(row_count);
+                //         staff_list[row_count] = {
+                //             staff: $(this).val(),
+                //         }
+                //     }
+                //     if ($(this).hasClass('staff_designation') && $(this).is("select")) {
+                //         staff_list[row_count]['designation_bn'] = $(this).val();
+                //         staff_list[row_count]['designation_en'] = $(this).find(':selected').attr('data-designation-en')
+                //     }
+                //     if ($(this).hasClass('staff_responsibility') && $(this).is("select")) {
+                //         staff_list[row_count]['responsibility_bn'] = $(this).val();
+                //         staff_list[row_count]['responsibility_en'] = $(this).find(':selected').attr('data-responsibility-en')
+                //     }
+                // });
+                //
+                // console.log(staff_list);sub_objective_list
 
                 data.push({name: "sub_subject_list", value: sub_subject_list});
                 data.push({name: "sub_objective_list", value: sub_objective_list});

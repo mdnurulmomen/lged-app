@@ -1,9 +1,13 @@
 <div class="row m-0 mb-2 page-title-wrapper d-md-flex align-items-md-center">
+
     <div class="col-md-6">
+        @if (session('dashboard_audit_type') != 'Performance Audit')
         <div class="title py-2">
             <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Annual Audit Plan</h4>
         </div>
+        @endif
     </div>
+
     <div class="col-md-6 text-right">
         <a onclick="Annual_Plan_Container.backToAnnualPlanList()" class="btn btn-sm btn-warning btn_back btn-square mr-3">
             <i class="fad fa-arrow-alt-left"></i> ফেরত যান
@@ -18,7 +22,6 @@
     <div class="col-6">
         <div class="card sna-card-border">
             <select class="form-control" name="activity_id" id="activity_id">
-                <option value="">অ্যাক্টিভিটি বাছাই করুন</option>
                 @foreach ($all_activity as $activity)
                     <option data-activity-type="{{ $activity['activity_type'] }}"
                         data-activity-key="{{ $activity['activity_key'] }}" value="{{ $activity['id'] }}">
@@ -83,13 +86,13 @@
                         </a>
                     </li>
                     @endif
-                    @if (session('dashboard_audit_type') == 'Compliance Audit')
+
                     <li class="nav-item">
                         <a id="milestone_tab" class="nav-link rounded-0" data-toggle="tab" href="#select_milestone">
                             <span class="nav-text">নিরীক্ষা কাজের পর্যায়</span>
                         </a>
                     </li>
-                    @endif
+
                 </ul>
                 <div class="tab-content" id="rp_office_tab">
                     @if (session('dashboard_audit_type') == 'Performance Audit')
@@ -97,9 +100,9 @@
                             aria-labelledby="activity-tab">
                             <div class="form-row mt-2">
                                 <div class="col-md-12">
-                                    <label for="subject_matter">মেইন টপিক<span class="text-danger">*</span></label>
+                                    <label for="subject_matter">সাবজেক্ট ম্যাটার<span class="text-danger">*</span></label>
                                         <input class="form-control" type="text" id="subject_matter"
-                                            name="subject_matter">
+                                            name="subject_matter" placeholder="সাবজেক্ট ম্যাটার লিখুন">
 
                                 </div>
                                 <div class="row mt-2 mb-2 mx-0">
@@ -197,12 +200,13 @@
                                     <label for="audit_approach">অডিট অ্যাপ্রোচ<span
                                             class="text-danger">*</span></label></br>
                                     {{-- <input class="form-control d-none" type="text" id="audit_approach" name="audit_approach"> --}}
+                                    <input type="radio" class="ml-3" name="audit_approach"
+                                    value="System Oriented"> System Oriented
                                     <input type="radio" name="audit_approach" value="Problem Oriented" checked>
                                     Problem Oriented
                                     <input type="radio" class="ml-3" name="audit_approach"
                                         value="Result Oriented"> Result Oriented
-                                    <input type="radio" class="ml-3" name="audit_approach"
-                                        value="System Oriented"> System Oriented
+
 
                                 </div>
                             </div>
@@ -282,8 +286,8 @@
                 <input type="hidden" value="" name="id">
                 <div class="form-row">
                     <div class="@if (session('dashboard_audit_type') == 'Performance Audit') col-md-12 @else col-md-6 @endif">
-                        <label for="total_unit_no">প্রতিষ্ঠানের মোট ইউনিট সংখ্যা<span
-                                class="text-danger">*</span></label>
+                        <label for="total_unit_no">নির্বাচিত ইউনিট সংখ্যা<span
+                                class="text-danger"></span></label>
                         <input class="form-control bijoy-bangla text-right" type="text" id="total_unit_no"
                             name="total_unit_no">
                         <input type="hidden" id="total_unit">
@@ -330,12 +334,18 @@
             {{-- auditable unit list --}}
             <div class="card sna-card-border mt-3">
                 <div class="selected_rp_offices">
-                    <h5 class="text-primary"><u>অডিটের জন্য প্রস্তাবিত ইউনিটের তালিকাঃ</u></h5>
+                    <h5 class="text-primary"><u>
+                        @if(session('dashboard_audit_type') != 'Performance Audit')
+                        অডিটের জন্য প্রস্তাবিত ইউনিটের তালিকাঃ
+                        @elseif (session('dashboard_audit_type') == 'Performance Audit')
+                        অডিটের জন্য প্রস্তাবিত এনটিটি/সংস্থার নামঃ
+                        @endif
+                    </u></h5>
                 </div>
             </div>
 
             {{-- team create --}}
-            @if (session('dashboard_audit_type') == 'compliance Audit')
+
             <div class="card sna-card-border mt-3">
                 <fieldset class="scheduler-border">
                     <legend class="scheduler-border">
@@ -358,15 +368,16 @@
                 </span>
 
                 <div class="team-section"></div> --}}
-
-                <div class="form-row pt-2">
-                    <div class="col-md-12">
-                        <label for="staff_comment">টিমের বর্ণনা</label>
-                        <textarea rows="1" class="form-control" name="staff_comment" id="staff_comment"></textarea>
+                @if (session('dashboard_audit_type') != 'Performance Audit')
+                    <div class="form-row pt-2">
+                        <div class="col-md-12">
+                            <label for="staff_comment">টিমের বর্ণনা</label>
+                            <textarea rows="1" class="form-control" name="staff_comment" id="staff_comment"></textarea>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
-@endif
+
             {{-- details --}}
             <div class="card sna-card-border mt-3">
                 <div class="form-row">
@@ -388,7 +399,7 @@
 <script>
     $(function() {
         activity_type = localStorage['cag_amms_web_activity_id'];
-        $('#activity_id').val(activity_type);
+        $('#activity_id').val(activity_type).trigger('change');
     });
 
     $("select#selected_entity").change(function() {
