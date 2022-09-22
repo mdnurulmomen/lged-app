@@ -47,6 +47,7 @@ class TeamCalendarController extends Controller
     {
         $data['office_id'] = $request->directorate_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['audit_plan_id'] = $request->audit_plan_id;
         $data['cost_center_id'] = $request->cost_center_id;
 
         $team_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_fiscal_year_cost_center_wise_team'), $data)->json();
@@ -79,6 +80,9 @@ class TeamCalendarController extends Controller
     public function loadScheduleEntityFiscalYearWiseSelect(Request $request){
         $data['office_id'] = $request->directorate_id;
         $data['fiscal_year_id'] = $request->fiscal_year_id;
+        if ($request->activity_id){
+            $data['activity_id'] = $request->activity_id;
+        }
 
         $entity_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.get_schedule_entity_fiscal_year_wise'), $data)->json();
         //dd($entity_list);
@@ -113,7 +117,7 @@ class TeamCalendarController extends Controller
         $data['cost_center_id'] = $request->cost_center_id;
 //        dd($data);
         $calendar_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_visit_plan_calendar.team_calender_filter'), $data)->json();
-//        dd($calendar_data);
+        //dd($calendar_data);
         if (isSuccess($calendar_data)) {
             $calendar_data = $calendar_data['data'];
             $team_id = $request->team_id;
@@ -121,6 +125,23 @@ class TeamCalendarController extends Controller
             return view('modules.audit_plan.calendar.load_team_filter_calendar', compact('calendar_data', 'team_id','cost_center_id'));
         } else {
             return response()->json(['status' => 'error', 'data' => $calendar_data]);
+        }
+    }
+
+    public function loadTeamSchedule(Request $request){
+
+        $data['office_id'] = $request->directorate_id;
+        $data['team_id'] = $request->team_id;
+
+        $team_data = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_team_info'), $data)->json();
+
+        if (isSuccess($team_data)) {
+            $audit_year = $team_data['data']['audit_year_start'].'-'.$team_data['data']['audit_year_end'];
+            $team_members = json_decode($team_data['data']['team_members'],true);
+            $team_schedules = $team_data['data']['team_schedules'] ? json_decode($team_data['data']['team_schedules'],true) : [];
+            return view('modules.audit_plan.calendar.load_team_schedule', compact('team_members','team_schedules','audit_year'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $team_data]);
         }
     }
 

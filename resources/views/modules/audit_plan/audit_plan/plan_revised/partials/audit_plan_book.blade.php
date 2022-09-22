@@ -19,6 +19,10 @@
             font-family: nikoshpdf !important;
         }
 
+        .bangla-bijoy {
+            font-family: sutonnymj !important;
+        }
+
         article,
         aside,
         details,
@@ -789,35 +793,52 @@
 </head>
 
 <body>
+
+{{--
+<htmlpagefooter name="firstpage"></htmlpagefooter>
+<htmlpagefooter name="otherpages">পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span></htmlpagefooter>
+--}}
+
+<htmlpagefooter name="even-footer">
+    <div class="bangla-font" style="float:right; width: 100%; text-align: right;">
+        পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span>
+    </div>
+</htmlpagefooter>
+
+<htmlpagefooter name="odd-footer">
+    <div class="bangla-font" style="float:right; width: 100%; text-align: right;">
+        পৃষ্ঠা <span class="bangla-bijoy">{PAGENO}</span>
+    </div>
+</htmlpagefooter>
+
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     {{--cover page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[0]['content'] !!}
     </div>
 
     {{--index page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[1]['content'] !!}
     </div>
 
     {{--strategic form part 01--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;
-    page-break-after: always">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[3]['content'] !!}
     </div>
 
     {{--strategic form part 02--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[4]['content'] !!}
     </div>
 
     {{--strategic form part 03--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[5]['content'] !!}
     </div>
 
     {{--audit plan form 1 (part-01)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[6]['content'] !!}
         {!! $plans[7]['content'] !!}
         {!! $plans[8]['content'] !!}
@@ -826,75 +847,309 @@
     </div>
 
     {{--audit plan form 1 (part-02)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
-        {!! $plans[11]['content'] !!}
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        <table style='margin-bottom: 5px; width: 100%;' border='0' width='100%' cellspacing='0' cellpadding='0'>
+            <tbody>
+            <tr>
+                <td style='width: 6%; vertical-align: top;'>১.৪</td>
+                <td style='vertical-align: top; width: 94%;' colspan='2'>
+                    জ্যেষ্ঠতার ক্রমানুসারে অডিট দলের সদস্যগণের নাম (দলনেতা ক্রমিক ১ এ)
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        @if(!empty($team_members))
+            <div style='margin-bottom: 10px;'>
+                <table width="100%" border="1">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center" width="6%">ক্রমিক নং</th>
+                        <th style="text-align: center" width="49%">নাম</th>
+                        <th style="text-align: center" width="45%">সংশোধিত</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($team_members as $member)
+                        <tr>
+                            <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
+                            <td style="text-align: left">জনাব {{$member['team_member_name_bn']}},{{$member['team_member_designation_bn']}}</td>
+                            <td style="text-align: left"></td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
+        {{--{!! $plans[11]['content'] !!}--}}
     </div>
 
     {{--audit plan form 1 (part-03)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[12]['content'] !!}
         {!! $plans[13]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-01)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[14]['content'] !!}
         {!! $plans[15]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-01)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[16]['content'] !!}
         {!! $plans[17]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-02)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[18]['content'] !!}
         {!! $plans[19]['content'] !!}
         {!! $plans[20]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-02)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[21]['content'] !!}
         {!! $plans[22]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-03)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[23]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-04)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[24]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-05)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[25]['content'] !!}
     </div>
 
     {{--audit plan form 2 (part-06)--}}
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[26]['content'] !!}
     </div>
 
     {{--audit risk assessment page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always;
-    page-break-after: always">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
         {!! $plans[27]['content'] !!}
     </div>
 
     {{--materiality calculate page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;">
-        {!! $plans[29]['content'] !!}
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+        <p><strong>ঝুঁকি বিশ্লেষণ ও ম্যাটেরিয়ালিটি:</strong></p>
+        @if(!empty($risk_assessments))
+            @php $inherent_risk = $risk_assessments['inherent_risk']; @endphp
+            @php $control_risk = $risk_assessments['control_risk']; @endphp
+            @php $detection_risk = $risk_assessments['detection_risk']; @endphp
+
+            @if(!empty($inherent_risk))
+
+                <h4>Inherent Risk</h4>
+                <table class="table" border="1" width="100%">
+                    <thead>
+                    <tr>
+                        <th width="10%" style="text-align: center">ক্রমিক নং</th>
+                        <th width="70%" style="text-align: left">
+                            ইনহেরেন্ট রিস্ক ফ্যাক্টর
+                        </th>
+                        <th width="20%" style="text-align: left">
+                            রিস্কস্কোর (উচ্চ/মধ্যম/নিম্ন)
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php $total_number = 0; @endphp
+                    @foreach($inherent_risk['risk_assessment_items'] as $risk_assessment_item)
+                        @php
+                            $risk_value = $risk_assessment_item['risk_value'] ?? 0;
+                            $total_number += $risk_value;
+                        @endphp
+                        <tr>
+                            <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
+                            <td>{{$risk_assessment_item['risk_assessment_title_bn']}}</td>
+                            <td style="text-align: center">{{enTobn($risk_value)}}</td>
+                        </tr>
+                    @endforeach
+
+                    <tr>
+                        <td style="text-align: center" colspan="2">মোট:</td>
+                        <td style="text-align: center">{{enTobn($total_number)}}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center" colspan="2">
+                            সামগ্রিক ইনহেরেন্ট রিস্ক
+                        </td>
+                        <td style="text-align: center">
+                            {{enTobn(round($inherent_risk['risk_rate'],2))}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            @endif
+
+            @if(!empty($control_risk))
+                <h4>Control Risk</h4>
+                <table class="table" border="1" width="100%">
+                    <thead>
+                    <tr>
+                        <th width="10%" style="text-align: center">ক্রমিক নং</th>
+                        <th width="70%" style="text-align: left">
+                            কন্ট্রোল রিস্ক ফ্যাক্টর
+                        </th>
+                        <th width="20%" style="text-align: left">
+                            রিস্কস্কোর (উচ্চ/মধ্যম/নিম্ন)
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php $total_number = 0; @endphp
+                    @foreach($control_risk['risk_assessment_items'] as $risk_assessment_item)
+                        @php
+                            $risk_value = $risk_assessment_item['risk_value'] ?? 0;
+                            $total_number += $risk_value;
+                        @endphp
+                        <tr>
+                            <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
+                            <td>{{$risk_assessment_item['risk_assessment_title_bn']}}</td>
+                            <td style="text-align: center">{{enTobn($risk_value)}}</td>
+                        </tr>
+                    @endforeach
+
+                    <tr>
+                        <td style="text-align: center" colspan="2">মোট:</td>
+                        <td style="text-align: center">{{enTobn($total_number)}}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center" colspan="2">
+                            সামগ্রিক ইনহেরেন্ট রিস্ক
+                        </td>
+                        <td style="text-align: center">
+                            {{enTobn(round($control_risk['risk_rate'],2))}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            @endif
+
+            @if(!empty($detection_risk))
+                <h4>Detection Risk</h4>
+                <table class="table" border="1" width="100%">
+                    <thead>
+                    <tr>
+                        <th width="10%" style="text-align: center">ক্রমিক নং</th>
+                        <th width="45%" style="text-align: left">ডিটেকশান রিস্ক</th>
+                        <th width="45%" style="text-align: left">মিটিগেশন</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($detection_risk['risk_assessment_items'] as $risk_assessment_item)
+                        <tr>
+                            <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
+                            <td>{{$risk_assessment_item['risk_assessment_title_bn']}}</td>
+                            <td>
+                                {{$risk_assessment_item['detection_risk_value_bn']}}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            @endif
+        @endif
     </div>
 
     {{--audit schedule page--}}
-    <div class="pdf-screen bangla-font" style="height: 100%;page-break-before: always">
-        {!! $plans[30]['content'] !!}
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
+        {{--{!! $plans[30]['content'] !!}--}}
+        <p><strong>নিরীক্ষা সূচী:</strong></p>
+        <div style="text-align: center">
+            @php
+                $allWorkingDates = [];
+            @endphp
+            @if($team_schedules)
+                @foreach($team_schedules as $audit_team_schedule)
+                    @if($audit_team_schedule['team_schedules'] != null)
+                        <div style="margin-top: 15px">
+                            <table width="100%" border="1">
+                                <tbody>
+                                <tr>
+                                    <td colspan="7" style="text-align: center">{{$audit_team_schedule['team_name']}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center" width="5%">ক্রমিক নং</td>
+                                    <td style="text-align: center" width="30%">নিরীক্ষা প্রতিষ্ঠানের নাম</td>
+                                    <td style="text-align: center" width="15%">নিরীক্ষার বৎসর (অর্থ বছর)</td>
+                                    <td style="text-align: center" width="15%">নিরীক্ষার শুরুর তারিখ</td>
+                                    <td style="text-align: center" width="15%">নিরীক্ষার শেষের তারিখ</td>
+                                    <td style="text-align: center" width="15%">কর্ম দিবস</td>
+                                    <td style="text-align: center" width="15%">মন্তব্য</td>
+                                </tr>
+                                @php
+                                    $schedule_sl = 0;
+                                @endphp
+                                @foreach(json_decode($audit_team_schedule['team_schedules'],true) as $role => $team_schedule)
+                                    @if($team_schedule['schedule_type'] == 'schedule')
+                                        @php
+                                            $schedule_sl++;
+                                            $activity_man_days = empty($team_schedule['activity_man_days'])?0:$team_schedule['activity_man_days'];
+                                            $teamWiseWorkingDates = getWorkingDates(date('Y-m-d', strtotime('-1 day', strtotime($team_schedule['team_member_start_date']))),$activity_man_days,$vacations);
+                                        @endphp
+
+                                        @if(!empty($teamWiseWorkingDates))
+                                            @foreach($teamWiseWorkingDates as $teamWiseWorkingDate)
+                                                @php $allWorkingDates[] = $teamWiseWorkingDate; @endphp
+                                            @endforeach
+                                        @endif
+
+                                        <tr>
+                                            <td style="text-align: center">{{enTobn($schedule_sl)}}.</td>
+                                            <td style="text-align: left;margin-left: 5px">{{$team_schedule['cost_center_name_bn']}}</td>
+                                            <td style="text-align: center">{{enTobn($audit_team_schedule['audit_year_start'])}}-{{enTobn($audit_team_schedule['audit_year_end'])}}</td>
+                                            <td style="text-align: center">
+                                                {{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি.
+                                            </td>
+                                            <td style="text-align: center">
+                                                {{formatDate($team_schedule['team_member_end_date'],'bn')}} খ্রি.
+                                            </td>
+                                            <td style="text-align: center">
+                                                @if($activity_man_days > 0)
+                                                    {{enTobn($activity_man_days)}} কর্ম দিবস
+                                                @endif
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    @else
+                                        <tr>
+                                            <td colspan="7" style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি. {{$team_schedule['activity_details']}}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                                @php
+                                    $allWorkingDates = !empty($allWorkingDates) ?  array_unique($allWorkingDates) : [];
+                                @endphp
+                                <tr>
+                                    <th colspan="5" style="text-align: right">সর্বমোট</th>
+                                    <th style="text-align: center">
+                                        @if(count($allWorkingDates) > 0)
+                                            {{enTobn(count($allWorkingDates))}} কর্ম দিবস
+                                        @endif
+                                    </th>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+
+                    @php unset($allWorkingDates); @endphp
+                @endforeach
+            @endif
+        </div>
     </div>
 
     {{--audit other details page--}}
@@ -904,14 +1159,6 @@
         </div>
     @endif
 
-    <htmlpagefooter name="even-footer">
-        <div style="float:right; width: 100%; text-align: right;">Page <span class="page_number">{PAGENO}</span> of {nb}</div>
-    </htmlpagefooter>
-
-    <htmlpagefooter name="odd-footer">
-        {{--@php $pageNumber = ; @endphp--}}
-        <div style="float:left; width: 100%; text-align: right;">Page {PAGENO} of {nb}</div>
-    </htmlpagefooter>
 </div>
 </body>
 </html>

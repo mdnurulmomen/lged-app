@@ -120,7 +120,7 @@
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
                         $('#kt_quick_panel_close').click();
-                        $('#memo_type').val(memo_type).trigger('change');
+                        $('.search_btn').click();
                     } else {
                         elem.prop('disabled', false);
                         if (responseData.statusCode === '422') {

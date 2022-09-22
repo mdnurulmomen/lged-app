@@ -60,5 +60,15 @@
 </div>
 <!--end::Main-->
 @include('scripts.script_master')
+
+
+<!--begin::Scrolltop-->
+@include('layouts.partials.scroll_top')
+<!--end::Scrolltop-->
+
+@include('layouts.partials.all_modals')
+
+@include('layouts.partials.footer_script')
+@include('scripts.script_master')
 @yield('scripts')
 </html>

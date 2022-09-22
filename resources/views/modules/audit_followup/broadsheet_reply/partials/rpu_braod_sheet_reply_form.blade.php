@@ -5,25 +5,25 @@
         <div class="row">
             <div class="col-md-6">
                 <label>স্মারক নং<span class="text-danger">*</span></label>
-                <input class="form-control" name="memorandum_no" placeholder="স্মারক নং">
+                <input class="form-control" name="memorandum_no" value="{{$broad_sheet_info ?  $broad_sheet_info['memorandum_no'] : ''}}" placeholder="স্মারক নং">
             </div>
             <div class="col-md-6">
                 <label>স্মারক তারিখ<span class="text-danger">*</span></label>
-                <input class="form-control date" name="memorandum_date" placeholder="স্মারক তারিখ">
+                <input class="form-control date" name="memorandum_date" value="{{$broad_sheet_info ?  formatDate($broad_sheet_info['memorandum_date'],'en','/') : ''}}" placeholder="স্মারক তারিখ">
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
                 <label for="rpu_office_head_details">বরাবর <span class="text-danger">*</span></label>
-                <textarea class="form-control" id="rpu_office_head_details" name="rpu_office_head_details" cols="30" rows="2"></textarea>
+                <textarea class="form-control" id="rpu_office_head_details" name="rpu_office_head_details"  cols="30" rows="2">{{$broad_sheet_info ?  $broad_sheet_info['rpu_office_head_details'] : ''}}</textarea>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
                 <label for="subject">বিষয় <span class="text-danger">*</span></label>
-                <input type="text" id="subject" class="form-control" name="subject" placeholder="বিষয়">
+                <input type="text" id="subject" class="form-control" name="subject" value="{{$broad_sheet_info ?  $broad_sheet_info['subject'] : ''}}" placeholder="বিষয়">
             </div>
         </div>
 
@@ -31,14 +31,14 @@
         <div class="row">
             <div class="col-md-12">
                 <label for="description">বিস্তারিত<span class="text-danger">*</span></label>
-                <textarea class="form-control" id="description" name="description" cols="30" rows="4"></textarea>
+                <textarea class="form-control" id="description" name="description" cols="30" rows="4">{{$broad_sheet_info ?  $broad_sheet_info['description'] : ''}}</textarea>
             </div>
         </div>
 
         <div class="row mt-2">
             <div class="col-md-12">
                 <label>অনুলিপি</label>
-                <textarea class="form-control" name="braod_sheet_cc"></textarea>
+                <textarea class="form-control" name="braod_sheet_cc">{{$broad_sheet_info ?  $broad_sheet_info['braod_sheet_cc'] : ''}}</textarea>
             </div>
         </div>
     </div>

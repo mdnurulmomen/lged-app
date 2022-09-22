@@ -23,4 +23,8 @@
 
         },
     };
+
+    $(document).on("input", ".integer_type_positive", function (event) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
 </script>

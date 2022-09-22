@@ -19,7 +19,7 @@
         todayHighlight: true,
         orientation: "bottom left",
         templates: arrows,
-        format: "dd-mm-yyyy",
+        format: "dd/mm/yyyy",
     });
 
     $('#kt_datepicker_5').datepicker({

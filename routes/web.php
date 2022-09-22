@@ -66,7 +66,7 @@ use App\Http\Controllers\AuditReport\AuditQACTwoReportController;
 use App\Http\Controllers\AuditReport\AuditReportDashboardController;
 use App\Http\Controllers\AuditReport\FinalAuditDashboardController;
 use App\Http\Controllers\AuditReport\RpuAirReportController;
-use App\Http\Controllers\AuditReport\UnsettledObservationsReportController;
+use App\Http\Controllers\AuditReport\ObservationsReportController;
 use App\Http\Controllers\CommunicationManagementController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentManagementController;
@@ -92,6 +92,7 @@ use App\Http\Controllers\Setting\XStrategicPlan\DurationController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutcomeController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutputController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanPSRController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -266,11 +267,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::group(['as' => 'annual.', 'prefix' => 'annual/'], function () {
             Route::get('/', [AuditAnnualPlanController::class, 'index'])->name('index');
             Route::get('/dashboard', [AuditAnnualPlanController::class, 'showAnnualPlanDashboard'])->name('dashboard');
-
             Route::get('/plans', [AnnualPlanController::class, 'index'])->name('plan.all');
 
             Route::post('/load-annual-plan-lists', [AnnualPlanRevisedController::class, 'showAnnualPlanLists'])->name('plan.list.all');
             Route::get('/annual-plan-calender', [AnnualPlanRevisedController::class, 'annualPlanCalender'])->name('plan.annual-plan-calender');
+            Route::post('/update-request', [AnnualPlanRevisedController::class, 'annualPlanUpdateRequest'])->name('plan.update-request');
 
             Route::post('/load-annual-entity-selection', [AnnualPlanController::class, 'showEntitySelection'])->name('plan.list.show.entity-selection');
 
@@ -310,6 +311,30 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/load-annual-plan-edit-milestone', [AnnualPlanRevisedController::class, 'loadEditAnnualPlanMilestone'])->name('plan.list.load-edit-milestone');
             Route::post('/annual-plan-edit-milestone', [AnnualPlanRevisedController::class, 'editAnnualPlanMilestone'])->name('plan.list.edit-milestone');
 
+            // PSR
+            Route::group(['as' => 'psr.', 'prefix' => 'psr/'], function () {
+                Route::get('/index', [AnnualPlanPSRController::class, 'index'])->name('index');
+                Route::post('/create', [AnnualPlanPSRController::class, 'create'])->name('create');
+                Route::post('/load-ministry-wise-entity', [AnnualPlanPSRController::class, 'loadMinistryWiseEntity'])->name('load-ministry-wise-entity');
+                Route::post('/load-criteria-list', [AuditAssessmentScoreController::class, 'loadCategoryWiseCriteriaList'])->name('load-criteria-list');
+                Route::post('/store', [AnnualPlanPSRController::class, 'store'])->name('store');
+                Route::post('/preview', [AnnualPlanPSRController::class, 'preview'])->name('preview');
+                Route::post('/edit', [AnnualPlanPSRController::class, 'edit'])->name('edit');
+                Route::post('/send-psr-to-topic-ocag', [AnnualPlanPSRController::class, 'sendPsrTopicToOcag'])->name('send-psr-topic-to-ocag');
+                Route::get('/psr-topic-approval', [AnnualPlanPSRController::class, 'psrTopicApproval'])->name('psr-topic-approval');
+                Route::post('/get-psr-topic-approval-list', [AnnualPlanPSRController::class, 'getPsrTopicApprovalList'])->name('get-psr-topic-approval-list');
+                Route::post('/approve-psr-topic', [AnnualPlanPSRController::class, 'approvePsrTopic'])->name('approve-psr-topic');
+                Route::post('/send-psr-to-report-ocag', [AnnualPlanPSRController::class, 'sendPsrReportToOcag'])->name('send-psr-report-to-ocag');
+
+                Route::post('/load-psr-approval-authority', [AnnualPlanPSRController::class, 'loadPsrApporvalAuthority'])->name('load-psr-approval-authority');
+                Route::post('/send-psr-sender-to-receiver', [AnnualPlanPSRController::class, 'sendPsrSenderToReceiver'])->name('send-psr-sender-to-receiver');
+                Route::get('/psr-report-approval', [AnnualPlanPSRController::class, 'psrReportApproval'])->name('psr-report-approval');
+                Route::post('/get-psr-reprot-approval-list', [AnnualPlanPSRController::class, 'getPsrReprotApprovalList'])->name('get-psr-report-approval-list');
+                Route::post('/approve-psr-report', [AnnualPlanPSRController::class, 'approvePsrReport'])->name('approve-psr-report');
+                Route::post('/load-psr-approval-form', [AnnualPlanPSRController::class, 'laodPsrApprovalForm'])->name('load-psr-approval-form');
+                Route::post('/send-psr-receiver-to-sender', [AnnualPlanPSRController::class, 'sendPsrReceiverToSender'])->name('send-psr-receiver-to-sender');
+            });
+
             //audit assessment score
             Route::group(['as' => 'audit-assessment-score.', 'prefix' => 'audit-assessment-score/'], function () {
                 Route::get('/', [AuditAssessmentScoreController::class, 'index']);
@@ -329,12 +354,12 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 Route::post('/store_annual_plan', [AuditAssessmentController::class, 'storeAnnualPlan'])->name('store_annual_plan');
             });
 
-            Route::group(['as' => 'psr.', 'prefix' => 'psr/'], function () {
-                Route::get('/', [PreliminarySurveyReportController::class, 'index']);
-                Route::post('load-psr', [PreliminarySurveyReportController::class, 'loadPsr'])->name('load-psr');
-                Route::post('create-psr', [PreliminarySurveyReportController::class, 'create'])->name('create-psr');
-                Route::post('store-psr', [PreliminarySurveyReportController::class, 'store'])->name('store-psr');
-            });
+            // Route::group(['as' => 'psr.', 'prefix' => 'psr/'], function () {
+            //     Route::get('/', [PreliminarySurveyReportController::class, 'index']);
+            //     Route::post('load-psr', [PreliminarySurveyReportController::class, 'loadPsr'])->name('load-psr');
+            //     Route::post('create-psr', [PreliminarySurveyReportController::class, 'create'])->name('create-psr');
+            //     Route::post('store-psr', [PreliminarySurveyReportController::class, 'store'])->name('store-psr');
+            // });
         });
 
         //audit Plan
@@ -370,6 +395,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('editor/load-audit-team-schedule', [PlanEditorController::class, 'loadAuditTeamSchedule'])->name('editor.load-audit-team-schedule');
             Route::post('editor/add-audit-schedule-row', [PlanEditorController::class, 'addAuditScheduleRow'])->name('editor.add-audit-schedule-row');
             Route::post('editor/load-select-nominated-offices', [PlanEditorController::class, 'loadNominatedOfficesSelectView'])->name('editor.load-select-nominated-offices');
+            Route::post('editor/get-entity-wise-cos-center-autocomplete', [PlanEditorController::class, 'getEntityWiseCosCenterAutoComplete'])->name('editor.get-entity-wise-cos-center-autocomplete');
             Route::post('editor/load-select-nominated-office-option', [PlanEditorController::class, 'loadNominatedOfficesSelectOption'])->name('editor.load-select-nominated-office-option');
             Route::post('editor/load-risk-assessment-list', [RiskAssessmentController::class, 'loadRiskAssessment'])->name('editor.load-risk-assessment-list');
             Route::post('editor/load-risk-assessment-list-type-wise', [RiskAssessmentController::class, 'loadRiskAssessmentTypeWise'])->name('editor.load-risk-assessment-type-wise-list');
@@ -408,6 +434,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('load-teams-calender', [TeamCalendarController::class, 'loadTeamCalendar'])->name('calendar.load-teams-calender');
         Route::post('load-teams-calender-filter', [TeamCalendarController::class, 'loadTeamCalendarFilter'])->name('calendar.load-teams-calender-filter');
         Route::post('load-teams-select', [TeamCalendarController::class, 'loadTeamsSelect'])->name('calendar.load-teams-select');
+        Route::post('load-team-schedule', [TeamCalendarController::class, 'loadTeamSchedule'])->name('calendar.load-team-schedule');
         Route::post('load-schedule-entity-fiscal-year-wise-select', [TeamCalendarController::class, 'loadScheduleEntityFiscalYearWiseSelect'])->name('calendar.load-schedule-entity-fiscal-year-wise-select');
         Route::post('load-cost-center-directorate-fiscal-year-wise-select', [TeamCalendarController::class, 'loadCostCenterDirectorateFiscalYearWiseSelect'])->name('calendar.load-cost-center-directorate-fiscal-year-wise-select');
         Route::get('teams', [TeamCalendarController::class, 'index'])->name('calendar.teams');
@@ -476,7 +503,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('show', [AuditExecutionMemoController::class, 'show'])->name('show');
             Route::post('show-attachment', [AuditExecutionMemoController::class, 'showAttachment'])->name('show-attachment');
             Route::post('show-details', [AuditExecutionMemoController::class, 'showDetails'])->name('show-details');
-            Route::post('download-pdf', [AuditExecutionMemoController::class, 'memoPDFDownload'])->name('download.pdf');
+            Route::post('download', [AuditExecutionMemoController::class, 'memoPDFDownload'])->name('download');
             Route::post('update', [AuditExecutionMemoController::class, 'update'])->name('update');
             Route::post('list', [AuditExecutionMemoController::class, 'list'])->name('list');
             Route::post('sent-to-rpu', [AuditExecutionMemoController::class, 'sentToRpu'])->name('sent-to-rpu');
@@ -488,6 +515,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('audit-memo-log-show', [AuditExecutionMemoController::class, 'auditMemoShow'])->name('audit-memo-log-show');
             Route::post('send-memo-form', [AuditExecutionMemoController::class, 'sendMemoForm'])->name('send-memo-form');
             Route::post('delete-memo-attachment', [AuditExecutionMemoController::class, 'deleteMemoAttachment'])->name('delete-memo-attachment');
+            Route::post('get-audit-memo-finder', [AuditExecutionMemoController::class, 'getAuditMemoFinderSelect'])->name('get-audit-memo-finder');
         });
 
 
@@ -519,6 +547,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('load-apotti-register-list', [AuditExecutionApottiController::class, 'loadApottiRegisterList'])->name('load-apotti-register-list');
             Route::post('edit-register', [AuditExecutionApottiController::class, 'loadApottiRegisterEdit'])->name('edit-register');
 
+            Route::get('apotti-uplaod', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'uploadedApottiView'])->name('apotti-uplaod');
+            Route::get('uploaded-apotti', [\App\Http\Controllers\AuditExecution\AuditExecutionApottiController::class, 'apottiUpload'])->name('uploaded-apotti');
+
             Route::group(['as' => 'register.', 'prefix' => 'register/'], function () {
                 Route::post('get-approval-authority', [AuditExecutionApottiController::class, 'loadRegisterApprovalAuthority'])->name('get-approval-authority');
                 Route::post('store-approval-authority', [AuditExecutionApottiController::class, 'storeRegisterApprovalAuthority'])->name('store-approval-authority');
@@ -529,6 +560,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('search-page', [AuditExecutionApottiSearchController::class, 'index'])->name('search-page');
             Route::post('search-list', [AuditExecutionApottiSearchController::class, 'list'])->name('search-list');
             Route::post('search-view', [AuditExecutionApottiSearchController::class, 'view'])->name('search-view');
+            Route::post('search-edit', [AuditExecutionApottiSearchController::class, 'edit'])->name('search-edit');
+            Route::post('search-edit-submit', [AuditExecutionApottiSearchController::class, 'editSubmit'])->name('search-edit-submit');
+            Route::post('get-doner-wise-project', [AuditExecutionApottiSearchController::class, 'getDonerWiseProject'])->name('get-doner-wise-project');
+            Route::post('get-ministry-wise-project-and-doner', [AuditExecutionApottiSearchController::class, 'getMinistryWiseProjectAndDoner'])->name('get-ministry-wise-project-and-doner');
+            Route::post('get-ministry-wise-project', [AuditExecutionApottiSearchController::class, 'getMinistryWiseProject'])->name('get-ministry-wise-project');
         });
 
         //archive apotti
@@ -542,6 +578,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('store-new-attachment', [AuditExecutionArchiveApottiController::class, 'storeNewAttachment'])->name('store-new-attachment');
             Route::post('delete-attachment', [AuditExecutionArchiveApottiController::class, 'deleteAttachment'])->name('delete-attachment');
             Route::post('update', [AuditExecutionArchiveApottiController::class, 'update'])->name('update');
+            Route::post('delete', [AuditExecutionArchiveApottiController::class, 'destroy'])->name('delete');
             Route::post('list', [AuditExecutionArchiveApottiController::class, 'list'])->name('list');
 
             Route::post('load-directorate-wise-ministry', [AuditExecutionArchiveApottiController::class, 'loadDirectorateWiseMinistry'])->name('load-directorate-wise-ministry');
@@ -746,17 +783,24 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
             //final report
             Route::group(['as' => 'final-report.', 'prefix' => 'final-report/'], function () {
-                Route::post('download', [AuditQACAIRReportController::class, 'downloadAuditReport'])->name('download');
+                Route::post('download', [AuditQACAIRReportController::class, 'download'])->name('download');
                 Route::post('preview', [AuditQACAIRReportController::class, 'previewAuditReport'])->name('preview');
             });
 
             Route::post('air-send-to-rpu', [RpuAirReportController::class, 'airSendToRpu'])->name('air-send-to-rpu');
         });
 
-        Route::group(['as' => 'unsettled-observations.', 'prefix' => 'unsettled-observations/'], function () {
-            Route::get('/', [UnsettledObservationsReportController::class, 'index'])->name('index');
-            Route::post('list', [UnsettledObservationsReportController::class, 'list'])->name('list');
-            Route::post('download', [UnsettledObservationsReportController::class, 'download'])->name('download');
+        //observation report
+        Route::group(['as' => 'observations.', 'prefix' => 'observations/'], function () {
+            Route::group(['as' => 'get-status-wise.', 'prefix' => 'get-status-wise/'], function () {
+                Route::get('/{any}', [ObservationsReportController::class, 'index']);
+                Route::post('list', [ObservationsReportController::class, 'list'])->name('list');
+                Route::post('download', [ObservationsReportController::class, 'download'])->name('download');
+            });
+
+            Route::get('directorate-wise-ministry-total-observation', [ObservationsReportController::class, 'directorateWiseMinistryTotalObservation'])->name('directorate-wise-ministry-total-observation');
+            Route::post('get-directorate-wise-ministry-total-observation', [ObservationsReportController::class, 'getDirectorateWiseMinistryTotalObservation'])->name('get-directorate-wise-ministry-total-observation');
+            Route::post('get-directorate-wise-ministry-total-observation-download', [ObservationsReportController::class, 'getDirectorateWiseMinistryTotalObservationDownload'])->name('get-directorate-wise-ministry-total-observation-download');
         });
     });
 
@@ -776,7 +820,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::get('/rpu-list', [MISAndDashboardController::class, 'rpuListIndex'])->name('rpu_list.index');
         Route::post('/load-rpu-lists', [MISAndDashboardController::class, 'loadRpuLists'])->name('rpu_list.load-lists');
-        Route::post('/directorate_wise_ministry', [MISAndDashboardController::class, 'derictorateWiseMinistry'])->name('derictorate_wise_ministry');
+        Route::post('/directorate_wise_ministry', [MISAndDashboardController::class, 'directorateWiseMinistry'])->name('directorate_wise_ministry');
 
         Route::get('/team-list', [MISAndDashboardController::class, 'teamListIndex'])->name('team_list.index');
         Route::post('/load-team-lists', [MISAndDashboardController::class, 'loadTeamLists'])->name('team_list.load-lists');
@@ -815,7 +859,6 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('cag-and-directorate-decision-form', [PacController::class, 'cagAndDirectorateDecisionForm'])->name('cag-and-directorate-decision-form');
         Route::post('get-apotti-item', [PacController::class, 'getApottiItem'])->name('get-apotti-item');
     });
-
 
 
     Route::group(['as' => 'settings.', 'prefix' => 'settings/'], function () {
@@ -900,7 +943,6 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     });
 
 
-
     //Miscellaneous
     Route::get('locale/{locale}', [App\Http\Controllers\ChangeController::class, 'changeLocale'])->name('change.locale');
     Route::get('change/office/{id}/{office_id}/{office_unit_id}/{designation_id}', [App\Http\Controllers\ChangeController::class, 'changeDesignation'])->name('change.office');
@@ -918,6 +960,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('get-office-layer', [GenericRPUController::class, 'getMinistryWiseOfficeLayer'])->name('office-layer.all');
         Route::post('get-rp-offices', [GenericRPUController::class, 'getMinistryLayerWiseOffice'])->name('rp-offices.all');
         Route::post('get-ministry-wise-rp-entities', [GenericRPUController::class, 'getMinistryWiseEntities'])->name('rp-offices.all');
+        Route::post('get-all-projects', [GenericRPUController::class, 'getAllProjects'])->name('rp-projects.all');
     });
 
     Route::group(['as' => 'rpu-apotti.', 'prefix' => 'rpu-apotti/'], function () {

@@ -1,6 +1,6 @@
 <style>
-    .jFiler-theme-default .jFiler-input{
-        width: 329px!important;
+    .jFiler-theme-default .jFiler-input {
+        width: 329px !important;
     }
 </style>
 <link rel="stylesheet" href="{{asset('assets/css/mFiler-font.css')}}" referrerpolicy="origin">
@@ -75,7 +75,8 @@
 
                 <div class="col-md-4">
                     <label for="apotti_oniyomer_category_id" class="col-form-label">অনিয়মের ক্যাটাগরি</label>
-                    <select class="form-select select-select2" id="apotti_oniyomer_category_id" name="apotti_oniyomer_category_id">
+                    <select class="form-select select-select2" id="apotti_oniyomer_category_id"
+                            name="apotti_oniyomer_category_id">
                         <option value="">--বাছাই করুন--</option>
                         @foreach($categories as $category)
                             <option value="{{$category['id']}}">
@@ -87,7 +88,8 @@
 
                 <div class="col-md-4">
                     <label for="apotti_oniyomer_category_child_id" class="col-form-label">অনিয়মের সাব-ক্যাটাগরি</label>
-                    <select class="form-select select-select2" id="apotti_oniyomer_category_child_id" name="apotti_oniyomer_category_child_id">
+                    <select class="form-select select-select2" id="apotti_oniyomer_category_child_id"
+                            name="apotti_oniyomer_category_child_id">
                         <option value="">সবগুলো</option>
                     </select>
                 </div>
@@ -102,7 +104,8 @@
                 <div class="col-md-2">
                     <label for="audit_year_start" class="col-form-label">আপত্তির অর্থবছর</label>
                     <div class="input-group">
-                        <input class="form-control year-picker" id="audit_year_start" name="audit_year_start" placeholder="শুরু" type="text">
+                        <input class="form-control year-picker" id="audit_year_start" name="audit_year_start"
+                               placeholder="শুরু" type="text">
                         <input class="form-control year-picker" name="audit_year_end" placeholder="শেষ" type="text">
                     </div>
                 </div>
@@ -133,7 +136,8 @@
 
                 <div class="col-md-2">
                     <label for="jorito_ortho_poriman" class="col-form-label">জড়িত অর্থ (টাকা)</label>
-                    <input class="form-control number-input" id="jorito_ortho_poriman" name="jorito_ortho_poriman" type="text">
+                    <input class="form-control number-input" id="jorito_ortho_poriman" name="jorito_ortho_poriman"
+                           type="text">
                 </div>
             </div>
 
@@ -141,6 +145,12 @@
                 <div class="col-md-2">
                     <label for="file_no" class="col-form-label">ফাইল নং</label>
                     <input class="form-control" id="file_no" name="file_no" type="text">
+                </div>
+                <div class="col-md-4">
+                    <label for="project_id" class="col-form-label">প্রকল্প</label>
+                    <select class="form-select select-select2" id="project_id" name="project_id">
+                        <option value="">সবগুলো</option>
+                    </select>
                 </div>
             </div>
 
@@ -192,6 +202,7 @@
     $(function () {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
+        Archive_Apotti_Common_Container.loadAllProjects(directorate_id);
     });
 
     $(document).ready(function () {
@@ -202,11 +213,11 @@
         });
     });
 
-    $('.btn_back').click(function (){
+    $('.btn_back').click(function () {
         backToList()
     })
 
-    function backToList(){
+    function backToList() {
         $('.apotti-upload a').click();
     }
 
@@ -223,17 +234,21 @@
 
             from_data = new FormData(document.getElementById("apotti_create_form"));
 
-            ministry_name = $("#ministry_id option:selected").text();
-            from_data.append('ministry_name', ministry_name);
 
-            entity_name = $("#entity_id option:selected").text();
-            from_data.append('entity_name', entity_name);
+            from_data.append('parent_office_name_en', $('#unit_group_office_id option:selected').attr('data-office-name-en'))
+            from_data.append('parent_office_name_bn', $('#unit_group_office_id option:selected').attr('data-office-name-bn'))
 
-            parent_office_name_bn = $("#unit_group_office_id option:selected").text();
-            from_data.append('parent_office_name_bn', parent_office_name_bn);
+            from_data.append('cost_center_name_en', $('#cost_center_id option:selected').attr('data-office-name-en'))
+            from_data.append('cost_center_name_bn', $('#cost_center_id option:selected').attr('data-office-name-bn'))
 
-            cost_center_name_bn = $("#cost_center_id option:selected").text();
-            from_data.append('cost_center_name_bn', cost_center_name_bn);
+            from_data.append('entity_name_en', $('#entity_id option:selected').attr('data-office-name-en'))
+            from_data.append('entity_name_bn', $('#entity_id option:selected').attr('data-office-name-bn'))
+
+            from_data.append('ministry_name_en', $('#ministry_id option:selected').attr('data-ministry-name-en'))
+            from_data.append('ministry_name_bn', $('#ministry_id option:selected').attr('data-ministry-name-bn'))
+
+            from_data.append('project_name_en', $('#project_id option:selected').attr('data-project-name-en'))
+            from_data.append('project_name_bn', $('#project_id option:selected').attr('data-project-name-bn'))
 
             elem = $(this);
             elem.prop('disabled', true);
@@ -296,6 +311,7 @@
     $('#directorate_id').change(function () {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
+        Archive_Apotti_Common_Container.loadAllProjects(directorate_id);
     });
 
     //entity
@@ -321,6 +337,6 @@
     $('#apotti_oniyomer_category_id').change(function () {
         directorate_id = $('#directorate_id').val();
         apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
-        Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id,apotti_oniyomer_category_id);
+        Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id, apotti_oniyomer_category_id);
     });
 </script>

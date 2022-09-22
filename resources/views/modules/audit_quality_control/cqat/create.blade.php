@@ -13,7 +13,8 @@
 @endsection
 @section('content')
     <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
-    <div class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
+
+    <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
         <div class="col-md-6">
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">
@@ -25,47 +26,36 @@
             </div>
         </div>
         <div class="col-md-6 text-right">
-
-
-{{--            @if($scope == 'final')--}}
-{{--                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)--}}
-{{--                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"--}}
-{{--                            title="প্রাপক বাছাই করুন"--}}
-{{--                            onclick="QAC_AIR_Report_Container.loadCagAuthority()">--}}
-{{--                        <i class="fad fa-paper-plane"></i> {{$desk_office_id == 1 ? 'নিজ অফিসে প্রেরণ করুন' : 'সিএজিতে প্রেরণ করুন' }}--}}
-{{--                    </button>--}}
-{{--                @endif--}}
-
-{{--                @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)--}}
-{{--                    <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"--}}
-{{--                            title=" অধিদপ্তর প্রেরণ করুন"--}}
-{{--                            onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">--}}
-{{--                        <i class="fad fa-paper-plane"></i> {{$desk_office_id == 1 ? 'অধিদপ্তর প্রেরণ' : 'নিজ অফিসে প্রেরণ করুন' }}--}}
-{{--                    </button>--}}
-{{--                @endif--}}
-{{--            @else--}}
-{{--                @if($approved_status != 'approved')--}}
-{{--                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)--}}
-{{--                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"--}}
-{{--                                title="প্রাপক বাছাই করুন"--}}
-{{--                                onclick="QAC_AIR_Report_Container.loadCagAuthority()">--}}
-{{--                            <i class="fad fa-paper-plane"></i> প্রেরণ করুন--}}
-{{--                        </button>--}}
-{{--                    @endif--}}
-{{--                @endif--}}
-
-{{--                @if($approved_status == 'approved')--}}
-{{--                    @if($latest_receiver_designation_id == 0 || $latest_receiver_designation_id == $current_designation_id)--}}
-{{--                        <button class="btn btn-sm btn-square btn-warning btn-hover-warning load_approval_authority"--}}
-{{--                                title=" অধিদপ্তর প্রেরণ করুন"--}}
-{{--                                onclick="QAC_AIR_Report_Container.loadApprovalAuthority()">--}}
-{{--                            <i class="fad fa-paper-plane"></i> @if($scope == 'final') প্রেরণ করুন  @else  অধিদপ্তর প্রেরণ--}}
-{{--                            করুন @endif--}}
-{{--                        </button>--}}
-{{--                    @endif--}}
-{{--                @endif--}}
-{{--            @endif--}}
-
+            <div class="dropdown dropdown-inline btn-outline-primary tap-button">
+                <a href="#" class="btn btn-sm dropdown-toggle px-5 tap-button btn-outline-primary"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fad fa-download"></i> ডাউনলোড
+                </a>
+                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="">
+                    <!--begin::Navigation-->
+                    <ul class="navi navi-hover">
+                        <li class="navi-item">
+                            <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('apotti_air')" class="navi-link">
+                                <i class="fad fa-archive mr-3"></i>
+                                <span class="navi-text">এআইআর আপত্তি সমূহ</span>
+                            </a>
+                        </li>
+                        <li class="navi-item">
+                            <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('porishisto_air')" class="navi-link">
+                                <i class="fab fa-palfed mr-3"></i>
+                                <span class="navi-text">এআইআর পরিশিষ্ট সমূহ</span>
+                            </a>
+                        </li>
+                        <li class="navi-item">
+                            <a href="javascript:;" onclick="QAC_AIR_Report_Container.downloadAIRReport('full_air')" class="navi-link">
+                                <i class="fad fa-box-full mr-3"></i>
+                                <span class="navi-text">সম্পূর্ণ এআইআর</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--end::Navigation-->
+                </div>
+            </div>
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info"
                     data-air-id="{{$air_report_id}}"
@@ -130,7 +120,7 @@
             //$(".update-qac-air-report").click();
             QAC_AIR_Report_Container.setAuditApottiSummary();
             QAC_AIR_Report_Container.setAuditApottiDetails();
-            //QAC_AIR_Report_Container.setAuditApottiWisePrisistos();
+            QAC_AIR_Report_Container.setAIRContentWiseData();
             //$(".update-qac-air-report").click();
             KTApp.unblock('#kt_full_width_page');
         });
@@ -244,6 +234,36 @@
                 });
             },
 
+            setAIRContentWiseData: function () {
+                url = '{{route('audit.report.air.get-air-wise-content-key')}}';
+                relational_id = '{{$parent_air_id}}';
+                template_type = 'qac-2';
+                let data = {relational_id, template_type};
+                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    if (response.status === 'error') {
+                        toastr.error(response.data);
+                    } else {
+
+                        KTApp.block('#kt_full_width_page', {
+                            opacity: 0.1,
+                            message: 'ডাটা লোড হচ্ছে অপেক্ষা করুন...',
+                            state: 'primary' // a bootstrap color
+                        });
+
+                        $('.div_preface_cover').html(response.data.preface_cover_page);
+                        $('.div_audit_report_info').html(response.data.audit_report_info_page);
+                        $('.div_audit_organization_info').html(response.data.audit_organization_info_page);
+                        $('.div_legal_basis_audit').html(response.data.legal_basis_audit_page);
+                        $('.div_scope_audit').html(response.data.scope_audit_page);
+                        $('.div_audit_planning_and_management').html(response.data.audit_planning_and_management_page);
+                        $('.div_executive_summary').html(response.data.executive_summary_page);
+                        $('.div_abbreviation_words').html(response.data.abbreviation_words_page);
+                        QAC_AIR_Report_Container.setJsonContentFromPlanBook();
+                        KTApp.unblock("#kt_full_width_page");
+                    }
+                });
+            },
+
             loadApprovalAuthority: function () {
                 url = '{{route('audit.report.air.get-approval-authority')}}';
                 air_report_id = '{{$air_report_id}}';
@@ -273,6 +293,53 @@
                     }
                 });
             },
+
+            downloadAIRReport: function(scope = 'only_apotti') {
+                air_description = templateArray;
+                air_id = '{{$air_report_id}}';
+
+                if (air_id){
+                    data = {
+                        scope,
+                        air_id,
+                        air_description
+                    };
+
+                    KTApp.block('#kt_full_width_page', {
+                        opacity: 0.1,
+                        message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                        state: 'primary' // a bootstrap color
+                    });
+
+
+                    url = '{{route('audit.report.air.final-report.download')}}';
+
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: data,
+                        xhrFields: {
+                            responseType: 'blob'
+                        },
+                        success: function(response) {
+                            KTApp.unblock("#kt_full_width_page");
+                            var blob = new Blob([response]);
+                            var link = document.createElement('a');
+                            link.href = window.URL.createObjectURL(blob);
+                            link.download = "Final_Report_ " + new Date().toDateString().replace(/ /g,
+                                "_") + ".pdf";
+                            link.click();
+                        },
+                        error: function(blob) {
+                            KTApp.unblock("#kt_quick_panel");
+                            toastr.error('Failed to generate PDF.')
+                            console.log(blob);
+                        }
+                    });
+                }else {
+                    toastr.error('এআইআর সংরক্ষন করুন');
+                }
+            }
         }
     </script>
 @endsection

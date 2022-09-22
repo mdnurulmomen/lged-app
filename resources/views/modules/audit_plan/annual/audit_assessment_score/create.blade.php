@@ -1,22 +1,3 @@
-<style>
-    fieldset.scheduler-border {
-        border: 1px groove #ddd !important;
-        padding: 0 1.4em 1.4em 1.4em !important;
-        margin: 0 0 1.5em 0 !important;
-        -webkit-box-shadow:  0px 0px 0px 0px #000;
-        box-shadow:  0px 0px 0px 0px #000;
-    }
-
-    legend.scheduler-border {
-        font-size: 1.2em !important;
-        font-weight: bold !important;
-        text-align: left !important;
-        width:auto;
-        padding:0 10px;
-        border-bottom:none;
-    }
-</style>
-
 <form style="height: 100vh" id="score_create_form" autocomplete="off">
     <input type="hidden" name="point" id="totalPoint">
     <div class="row">
@@ -26,7 +7,7 @@
                 <option value="">--সিলেক্ট--</option>
                 @foreach($fiscal_years as $fiscal_year)
                     <option
-                        value="{{$fiscal_year['id']}}" {{$fiscal_year['id']==1?'selected':''}}>{{$fiscal_year['description']}}</option>
+                        value="{{$fiscal_year['id']}}" {{$fiscal_year['id']==$current_fiscal_year?'selected':''}}>{{$fiscal_year['description']}}</option>
                 @endforeach
             </select>
         </div>

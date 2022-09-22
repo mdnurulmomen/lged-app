@@ -177,10 +177,10 @@ input[type="text"]::placeholder {
     text-align: left;
 }
 
-.form-control::placeholder {
+/*.form-control::placeholder {
     color: #000;
     opacity: 1;
-}
+}*/
 
 .annual-plan-table {
     width: 100%;
@@ -310,12 +310,61 @@ ul.sna-breadcrumb li a:hover {
 #kt_wrapper, #kt_header {
     transition: all .5s;
 }
-
-
-.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
-    padding: 0;
+@import url('https://fonts.maateen.me/solaiman-lipi/font.css');
+#apotti_upload_container{
+    padding-bottom: 1.5cm;
+    font-family: 'SolaimanLipi', Arial, sans-serif !important;
 }
 
+#search-criteria .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--multiple {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    border: 1px solid var(--sactive);
+    outline: none !important;
+    border-radius: 0;
+    line-height: 0;
+    height: 32px;
+}
+#search-criteria .form-control {
+    border: 1px solid #1061a5;
+    height: 1cm;
+}
+#search-criteria .btn.btn-primary {
+    color: #FFFFFF;
+    background-color: #3699FF;
+    border-color: #3699FF;
+    margin-top: .5cm;
+    height: 1cm;
+}
+#search-criteria .btn.btn-info {
+    color: #ffffff;
+    background-color: #8950FC;
+    border-color: #8950FC;
+    margin-top: .5cm;
+    height: 1cm;
+}
+.btn.btn-success {
+    color: #ffffff;
+    background-color: #1BC5BD;
+    border-color: #1BC5BD;
+    padding: 15px 10px;
+}
+
+#search-criteria .btn.btn-danger {
+    color: #ffffff;
+    background-color: #F64E60;
+    border-color: #F64E60;
+    margin-top: .5cm;
+    margin-left: -1.5cm;
+    height: 1cm;
+}
 #kt_header_menu .menu-item .btn {
     padding: 14px 10px 14px 10px;
     font-weight: bold;
@@ -430,9 +479,11 @@ ul.sna-breadcrumb li a:hover {
 .top-right-username {
     color: var(--sheadertxtcolor);
     margin-right: 7px;
+    margin-top: 3px;
     display: flex;
     flex-wrap: wrap;
     width: 150px;
+    line-height: 1em;
 }
 
 .top-right-username div {
@@ -440,7 +491,7 @@ ul.sna-breadcrumb li a:hover {
 }
 
 .top-right-username .profile-name {
-    font-size: 15px;
+    font-size: 13px;
     text-align: right;
     font-weight: 500;
 }
@@ -717,6 +768,12 @@ ul.sna-breadcrumb li a:hover {
     left: 0.75rem;
 }
 
+.btn.btn-save {
+    color: #ffffff;
+    background-color: #067c22;
+    border-color: #067c22;
+}
+
 
 /*tap button */
 .tap-button {
@@ -754,4 +811,84 @@ ul.sna-breadcrumb li a:hover {
 .tap-badge-success{
     color: #ffffff!important;
     background-color: #358323!important;
+}
+
+/*fieldset*/
+fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+    box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    width:auto;
+    padding:0 10px;
+    border-bottom:none;
+}
+
+/*pagination*/
+.pagination_ui {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.pagination ul {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 8px;
+}
+
+.pagination ul li {
+    color: rgba(76, 120, 234, 0.85);
+    list-style: none;
+    line-height: 45px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+.pagination ul li.numb {
+    list-style: none;
+    height: 45px;
+    width: 45px;
+    margin: 0 3px;
+    line-height: 45px;
+    border-radius: 50%;
+}
+
+.pagination ul li.numb.first {
+    margin: 0px 3px 0 -5px;
+}
+
+.pagination ul li.numb.last {
+    margin: 0px -5px 0 3px;
+}
+
+.pagination ul li.dots {
+    font-size: 22px;
+    cursor: default;
+}
+
+.pagination ul li.btn {
+    padding: 0 20px;
+    border-radius: 50px;
+}
+
+.pagination li.active,
+.pagination ul li.numb:hover,
+.pagination ul li:first-child:hover,
+.pagination ul li:last-child:hover {
+    color: #fff;
+    background: rgba(76, 120, 234, 0.85);
 }

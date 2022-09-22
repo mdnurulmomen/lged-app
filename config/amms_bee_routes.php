@@ -8,6 +8,7 @@ return [
         'fiscal_year_show' => env('API_URL_BEE', '') . '/fiscal-year/show',
         'fiscal_year_update' => env('API_URL_BEE', '') . '/fiscal-year/update',
         'fiscal_year_delete' => env('API_URL_BEE', '') . '/fiscal-year/delete',
+        'get_current_fiscal_year' => env('API_URL_BEE', '') . '/fiscal-year/get-current-fiscal-year',
 
         'strategic_plan_duration_lists' => env('API_URL_BEE', '') . '/x-strategic-plan/duration',
         'strategic_plan_duration_create' => env('API_URL_BEE', '') . '/x-strategic-plan/duration/create',
@@ -76,6 +77,10 @@ return [
         'movement' => [
             'store' => env('API_URL_BEE', '') . '/movement/store',
         ],
+
+        'vacation-date' => [
+            'year-wise-vacation-list' => env('API_URL_BEE', '') . '/vacation-date/year-wise-vacation-list',
+        ]
     ],
 
     'audit_operational_plan' => [
@@ -145,6 +150,7 @@ return [
         'ap_yearly_plan_entities_list_show' => env('API_URL_BEE', '') . '/planning/annual-plan/show-entities',
         'ap_yearly_plan_submission' => env('API_URL_BEE', '') . '/planning/annual-plan/create',
         'ap_yearly_plan_update' => env('API_URL_BEE', '') . '/planning/annual-plan/update',
+        'update_annual_plan_main' => env('API_URL_BEE', '') . '/planning/annual-plan/update-annual-plan-main',
         'get_annual_plan_info' => env('API_URL_BEE', '') . '/planning/annual-plan/get-annual-plan-info',
         'delete_annual_plan' => env('API_URL_BEE', '') . '/planning/annual-plan/delete-annual-plan',
         'ap_yearly_plan_book' => env('API_URL_BEE', '') . '/planning/annual-plan/book',
@@ -162,7 +168,9 @@ return [
         'ap_entity_lists' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan',
         'ap_entity_plan_create_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/new',
         'ap_entity_plan_edit_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/edit',
+        'ap_entity_plan_view' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/view',
         'ap_entity_plan_make_draft' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/update',
+        'ap_entity_plan_edit_lock' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/lock',
         'ap_entity_plan_draft_show' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/show',
         'store_audit_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/audit-team/store',
         'update_audit_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/audit-team/update',
@@ -173,12 +181,14 @@ return [
         'get_audit_plan_wise_team' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team',
 
         'get_audit_plan_wise_team_members' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team-members',
+        'get_audit_plan_and_team_wise_team_members' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-and-team-wise-team-members',
         'get_audit_plan_wise_team_schedules' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/get-audit-plan-wise-team-schedules',
         'team_log_discard' => env('API_URL_BEE', '') . '/planning/audit-plan/entity-audit-plan/team-log-discard',
 
         'ap_risk_assessment_store' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/store',
         'ap_risk_assessment_update' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/update',
         'ap_risk_assessment_list' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/ap-risk-assessment-list',
+        'ap_risk_assessment_plan_wise' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/ap-risk-assessment-plan-wise',
         'risk_assessment_type_wise_item' => env('API_URL_BEE', '') . '/planning/audit-plan/risk-assessment/type-wise-item-list',
         'ap_office_order' => [
             'audit_plan_list' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/audit-plan-list',
@@ -219,7 +229,18 @@ return [
         'html_view_content_title_store' => env('API_URL_BEE', '') . '/html-view-content-title-store',
         'html_view_content_title_duration_wise' => env('API_URL_BEE', '') . '/html-view-content-title-duration-wise',
     ],
-
+    'psr_plan' => [
+        'store' => env('API_URL_BEE', '') . '/planning/psr-plan/store',
+        'view' => env('API_URL_BEE', '') . '/planning/psr-plan/view',
+        'update' => env('API_URL_BEE', '') . '/planning/psr-plan/update',
+        'send_psr_to_ocag' => env('API_URL_BEE', '') . '/planning/psr-plan/send-to-ocag',
+        'get_psr_approval_list' => env('API_URL_BEE', '') . '/planning/psr-plan/get-psr-approval-list',
+        'approve_psr_topic' => env('API_URL_BEE', '') . '/planning/psr-plan/approve-psr-topic',
+        'get_psr_report_approval_list' => env('API_URL_BEE', '') . '/planning/psr-plan/get-psr-report-approval-list',
+        'send_psr_sender_to_receiver' => env('API_URL_BEE', '') . '/planning/psr-plan/send-psr-sender-to-receiver',
+        'send_psr_receiver_to_sender' => env('API_URL_BEE', '') . '/planning/psr-plan/send-psr-receiver-to-sender',
+        'get_psr_movement_histories' => env('API_URL_BEE', '') . '/planning/annual-plan/get-psr-movement-histories',
+    ],
     'audit_visit_plan_calendar' => [
         'team_calendar_list' => env('API_URL_BEE', '') . '/planning/calendar/teams',
         'update_visit_calender_status' => env('API_URL_BEE', '') . '/planning/calendar/update-visit-calender-status',
@@ -311,8 +332,11 @@ return [
             'store_apotti_register_movement' => env('API_URL_BEE', '') . '/audit-conduct-apotti/store-apotti-register-movement',
             'search-list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/search-list',
             'search-view' => env('API_URL_BEE', '') . '/audit-conduct-apotti/search-view',
+            'search-edit' => env('API_URL_BEE', '') . '/audit-conduct-apotti/search-edit',
+            'store-edited-apotti' => env('API_URL_BEE', '') . '/audit-conduct-apotti/store-edited-apotti',
             'apotti-memo-list' => env('API_URL_BEE', '') . '/audit-conduct-apotti/apotti-memo-list',
             'convert-memo-to-apotti' => env('API_URL_BEE', '') . '/audit-conduct-apotti/convert-memo-to-apotti',
+            'get-ministry-wise-project-from-office-db' => env('API_URL_BEE', '') . '/audit-conduct-apotti/get-ministry-wise-project',
         ],
 
         'archive_apotti' => [
@@ -324,6 +348,7 @@ return [
             'update' => env('API_URL_BEE', '') . '/audit-archive-apotti/update',
             'list' => env('API_URL_BEE', '') . '/audit-archive-apotti/list',
             'edit' => env('API_URL_BEE', '') . '/audit-archive-apotti/edit',
+            'delete' => env('API_URL_BEE', '') . '/audit-archive-apotti/delete',
             'migrate' => env('API_URL_BEE', '') . '/audit-archive-apotti/migrate-to-amms',
         ],
 
@@ -384,9 +409,11 @@ return [
             'get-air-wise-porisistos' => env('API_URL_BEE', '') . '/audit-report/air/get-air-wise-porisistos',
             'get-authority-air-report' => env('API_URL_BEE', '') . '/audit-report/air/get-authority-air-report',
         ],
-        'unsettled_observations' => [
-            'list' => env('API_URL_BEE', '') . '/audit-report/unsettled-observations/list',
-            'download' => env('API_URL_BEE', '') . '/audit-report/unsettled-observations/download',
+
+        'observations' => [
+            'get-status-wise' => [
+                'list' => env('API_URL_BEE', '') . '/audit-report/observations/get-status-wise/list',
+            ]
         ]
     ],
 
@@ -432,4 +459,5 @@ return [
     'audit_template_show' => env('API_URL_BEE', '') . '/audit-template/show',
 
     'login_in_cag_bee' => env('API_URL_BEE', '') . '/login-in-amms',
+    'edit_profile_url' => env('EDIT_PROFILE_URL', '') . '/profile',
 ];

@@ -72,6 +72,7 @@ class PMenuActionController extends Controller
             'title_en' => 'required',
             'title_bn' => 'required',
             'link' => 'nullable',
+            'activity_type' => 'required',
         ])->validate();
 
         $data['class'] = $request->class;
@@ -135,6 +136,7 @@ class PMenuActionController extends Controller
             'title_en' => 'required',
             'title_bn' => 'required',
             'link' => 'nullable',
+            'activity_type' => 'required',
         ])->validate();
 
         $data['class'] = $request->class;

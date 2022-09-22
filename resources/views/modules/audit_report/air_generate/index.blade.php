@@ -6,7 +6,7 @@
             <option value="">--সিলেক্ট--</option>
             @foreach($fiscal_years as $fiscal_year)
                 <option
-                    value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{$fiscal_year['description']}}</option>
+                    value="{{$fiscal_year['id']}}" {{$current_fiscal_year == $fiscal_year['id']?'selected':''}}>{{$fiscal_year['description']}}</option>
             @endforeach
         </select>
     </div>
@@ -39,10 +39,17 @@
         loadAuditPlanList: function (page = 1, per_page = 500) {
             let air_type = '{{$air_type}}';
             let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             if (fiscal_year_id) {
                 let url = '{{route('audit.report.air.load-approved-plan-list')}}';
                 let data = {air_type, fiscal_year_id, page, per_page};
                 ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                    KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
                         toastr.error(response.data);
                     } else {
@@ -51,6 +58,7 @@
                 });
             }
             else {
+                KTApp.unblock('#kt_wrapper');
                 $('.load-plan-list').html('');
             }
         },

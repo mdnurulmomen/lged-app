@@ -44,6 +44,11 @@ class Controller extends BaseController
         $moduleMenus = $this->userPermittedModules();
         view()->share('modules', $moduleMenus);
 
+        $current_fiscal_year = $this->currentFiscalYear();
+        view()->share('current_fiscal_year', $current_fiscal_year);
+
+        $current_officer_grade = $this->current_officer_grade();
+        view()->share('current_officer_grade', $current_officer_grade);
     }
 
     public function wizard()

@@ -61,10 +61,12 @@
                 @endphp
                 <table class="table table-bordered" id='table'>
                 <thead>
-                <th>শাখার নাম</th>
-                <th>নিরীক্ষা বছর</th>
-                <th>নিরীক্ষা সময়কাল</th>
-                <th>মোট কর্ম দিবস</th>
+                <tr>
+                    <th>ইউনিট/কস্ট সেন্টারের নাম</th>
+                    <th>অর্থ বছর</th>
+                    <th>নিরীক্ষা সময়কাল</th>
+                    <th>মোট কর্ম দিবস</th>
+                </tr>
                 </thead>
                 <tbody>
                 @foreach($sub_team_schedules as $sub_team_schedule)
@@ -88,10 +90,12 @@
                     @endphp
                 <table class="table table-bordered" id='table'>
                 <thead>
-                <th>শাখার নাম</th>
-                <th>নিরীক্ষা বছর</th>
-                <th>নিরীক্ষা সময়কাল</th>
-                <th>মোট কর্ম দিবস</th>
+                <tr>
+                    <th>ইউনিট/কস্ট সেন্টারের নাম</th>
+                    <th>অর্থ বছর</th>
+                    <th>নিরীক্ষা সময়কাল</th>
+                    <th>মোট কর্ম দিবস</th>
+                </tr>
                 </thead>
                 <tbody>
                 @foreach($team_schedules as $schedules)

@@ -152,6 +152,7 @@
             let report_type = '{{$report_type}}';
             if (approved_status != 'approved') {
                 $(".update-qac-air-report").click();
+
                 if (report_type == 'cloned'){
                     QAC_AIR_Report_Container.setAIRContentWiseData();
                 }
@@ -391,11 +392,13 @@
             downloadAIRReport: function(scope = 'only_apotti') {
                 air_description = templateArray;
                 air_id = '{{$air_report_id}}';
+                air_type = '{{$qac_type}}';
 
                 if (air_id){
                     data = {
                         scope,
                         air_id,
+                        air_type,
                         air_description
                     };
 

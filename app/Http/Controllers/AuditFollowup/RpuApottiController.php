@@ -49,17 +49,24 @@ class RpuApottiController extends Controller
 
         $data =  Validator::make($request->all(), [
             'directorate_id' => 'required',
+            'fiscal_year_id' => 'required',
             'ministry_id' => 'required',
+            'entity_id' => 'required',
             'memo_type' => 'required',
-            'entity_id' => 'nullable',
         ],[
             'directorate_id.required' => 'অধিদপ্তর বাছাই করুন',
-            'ministry_id.required' => 'মন্ত্রণালয় বাছাই করুন',
+            'fiscal_year_id.required' => 'অর্থ বছর বাছাই করুন',
+            'ministry_id.required' => 'মন্ত্রণালয় বাছাই করুন',
+            'entity_id.required' => 'এনটিটি বাছাই করুন',
             'memo_type.required' => 'ক্যাটাগরি বাছাই করুন',
         ])->validate();
 
-        $apotti_item_list = $this->initRPUHttp()->post(config('cag_rpu_api.get-rpu-apotti-item'), $data)->json();
+        $data['memo_title_bn'] = $request->memo_title_bn;
+        $data['page'] = $request->page;
+        $data['per_page'] = $request->per_page;
 
+        $apotti_item_list = $this->initRPUHttp()->post(config('cag_rpu_api.get-rpu-apotti-item'), $data)->json();
+        //dd($apotti_item_list);
         $apotti_item_list = isSuccess($apotti_item_list) ? $apotti_item_list['data']: [];
 
         return view('modules.audit_followup.rpu_apotti.load_rpu_apotti_item', compact('apotti_item_list'));
@@ -133,10 +140,24 @@ class RpuApottiController extends Controller
             'memo_type.required' => 'আপত্তি ক্যাটাগরি অবশ্যক',
         ])->validate();
 
+        $memorandum_date = formatDate($request->memorandum_date,'en','-');
+
         $data['apottis'] = explode(",",$request->apottis);
-        $data['memorandum_date'] = date("y-m-d",strtotime($request->memorandum_date));
+        $data['memorandum_date'] = date("d-m-Y",strtotime($memorandum_date));
+
+        if ($request->hasfile('broad_sheet_hard_copy')) {
+            $file = $request->broad_sheet_hard_copy;
+            $fileExtension = $file->extension();
+            $data['file_extension'] =  $fileExtension;
+        }else{
+            $data['file_extension'] = '';
+        }
+
+//        dd($data);
 
         $store_broad_sheet = $this->initRPUHttp()->post(config('cag_rpu_api.store-rpu-broad-sheet'), $data)->json();
+
+//        dd($store_broad_sheet);
 
         if(isSuccess($store_broad_sheet)){
             $response_data = $store_broad_sheet['data'];

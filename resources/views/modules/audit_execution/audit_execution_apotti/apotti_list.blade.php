@@ -32,11 +32,15 @@
 <table class="table table-hover" id="tblLocations">
     <thead class="thead-light">
     <tr class="bg-hover-warning">
+        <th width="5%" class="datatable-cell datatable-cell-sort text-left">
+            ক্রমিক নম্বর
+        </th>
+
         <th width="5%" class="datatable-cell datatable-cell-sort text-center">
             <input type="checkbox" id="selectAll">
         </th>
 
-        <th width="15%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="10%" class="datatable-cell datatable-cell-sort text-left">
             অনুচ্ছেদ নম্বর
         </th>
 
@@ -44,7 +48,7 @@
             কস্ট সেন্টার/ইউনিট
         </th>
 
-        <th width="35%" class="datatable-cell datatable-cell-sort text-left">
+        <th width="30%" class="datatable-cell datatable-cell-sort text-left">
             শিরোনাম
         </th>
 
@@ -61,6 +65,7 @@
     <tbody>
     @forelse($apotti_list as $apotti)
         <tr class="text-center">
+            <td>{{enTobn($loop->iteration)}}</td>
             <td>
                 <input
                     type="checkbox"

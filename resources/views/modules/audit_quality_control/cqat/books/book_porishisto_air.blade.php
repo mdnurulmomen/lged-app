@@ -320,7 +320,7 @@
 
             .table-bordered th,
             .table-bordered td {
-                border: 1px solid #000000 !important;
+                border: 1px solid #ddd !important;
             }
         }
 
@@ -521,7 +521,7 @@
         }
 
         .table-bordered {
-            border: 1px solid #000000;
+            border: 1px solid #dddddd;
         }
 
         .table-bordered>thead>tr>th,
@@ -530,7 +530,7 @@
         .table-bordered>thead>tr>td,
         .table-bordered>tbody>tr>td,
         .table-bordered>tfoot>tr>td {
-            border: 1px solid #000000;
+            border: 1px solid #dddddd;
         }
 
         .table-bordered>thead>tr>th,
@@ -818,155 +818,23 @@
     </htmlpagefooter>
 
     <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;color: black">
-            {{$directorate_name}} <br>
-            অডিট কমপ্লেক্স <br>
-            সেগুনবাগিচা, ঢাকা, ১০০০
+
+        {{-- cover page --}}
+        <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always;">
+            {!! $auditReport[1]['content'] !!}
         </div>
-        <br>
 
-        <span>মোট আপত্তি: {{enTobn(count($apotti_list))}}</span> <br>
-        <span>মোট জড়িত অর্থ (টাকা): {{enTobn(currency_format($total_jorito_ortho_poriman))}}</span>
-
-        <table style="margin-top: 5px" class="table table-bordered" width="100%">
-            <thead class="thead-light">
-            {{--<tr>
-                <td colspan="8" style="text-align: left">মোট আপত্তিঃ {{enTobn(count($apotti_list['data']))}}</td>
-            </tr>--}}
-            <tr class="bg-hover-warning">
-                @if(in_array('sl_no',$columns))
-                    <th style="text-align: center" width="5%">ক্রমিক নং</th>
-                @endif
-
-                @if(in_array('id_no',$columns))
-                    <th style="text-align: center" width="10%">আইডি</th>
-                @endif
-
-                @if(in_array('audit_unit',$columns))
-                    <th style="text-align: center" width="20%">অডিট ইউনিট</th>
-                @endif
-
-                @if(in_array('fiscal_year',$columns))
-                    <th style="text-align: center" width="10%">অর্থবছর</th>
-                @endif
-
-                @if(in_array('audit_year',$columns))
-                    <th style="text-align: center" width="10%">নিরীক্ষা বছর</th>
-                @endif
-
-                @if(in_array('onucched_no',$columns))
-                    <th style="text-align: center" width="5%">অনুচ্ছেদ নম্বর</th>
-                @endif
-
-                @if(in_array('apotti_title',$columns))
-                    <th style="text-align: center" width="30%">আপত্তির শিরোনাম</th>
-                @endif
-
-                @if(in_array('jorito_ortho',$columns))
-                    <th style="text-align: center" width="10%">জড়িত অর্থ (টাকা)</th>
-                @endif
-
-                @if(in_array('audit_type',$columns))
-                    <th style="text-align: center" width="10%">নিরীক্ষার ধরন</th>
-                @endif
-
-                @if(in_array('memo_irregularity_type',$columns))
-                    <th style="text-align: center" width="10%">অনিয়মের ধরন</th>
-                @endif
-
-                @if(in_array('apotti_current_status',$columns))
-                    <th style="text-align: center" width="10%">আপত্তির বর্তমান অবস্থা</th>
-                @endif
-
-                @if(in_array('apotti_type',$columns))
-                    <th style="text-align: center" width="10%">আপত্তির ধরন</th>
-                @endif
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr>
-                <th colspan="{{count($columns)}}" style="background: #dfdfdf;padding:8px;text-align: center">
-                    <span style="width:30%;display:inline-block;">মন্ত্রণালয়/বিভাগ: {{$ministry_name}}</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span style="width:30%;display:inline-block;">ডিপার্টমেন্ট/সংস্থা: {{$entity_name}}</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span style="width:30%;display:inline-block;">গ্রুপ: {{$unit_group_office_name}}</span>
-                </th>
-            </tr>
-            @forelse($apotti_list as $apotti)
-                <tr>
-                    @if(in_array('sl_no',$columns))
-                        <td style="text-align: center">{{enTobn($loop->iteration)}}</td>
-                    @endif
-
-                    @if(in_array('id_no',$columns))
-                        <td style="text-align: center">{{enTobn($apotti['id'])}}</td>
-                    @endif
-
-                    @if(in_array('audit_unit',$columns))
-                        <td style="text-align: left;vertical-align: top;">{{$apotti['cost_center_name_bn']}}</td>
-                    @endif
-
-                    @if(in_array('fiscal_year',$columns))
-                        <td style="text-align: left">{{$apotti['fiscal_year']?enTobn($apotti['fiscal_year']['start']).'-'.enTobn($apotti['fiscal_year']['end']):'---'}}</td>
-                    @endif
-
-                    @if(in_array('audit_year',$columns))
-                        <td style="text-align: left" width="10%">{{enTobn($apotti['audit_year_start'])}}-{{enTobn($apotti['audit_year_end'])}}</td>
-                    @endif
-
-                    @if(in_array('onucched_no',$columns))
-                        <td style="text-align: center" width="5%">
-                            {{enTobn($apotti['onucched_no'])}}
-                        </td>
-                    @endif
-
-                    @if(in_array('apotti_title',$columns))
-                        <td style="text-align: left;vertical-align: top;" width="20%">
-                            {{$apotti['memo_title_bn']}}
-                        </td>
-                    @endif
-
-                    @if(in_array('jorito_ortho',$columns))
-                        <td style="text-align: right" width="10%">
-                            {{enTobn(currency_format($apotti['jorito_ortho_poriman']))}}
-                        </td>
-                    @endif
-
-                    @if(in_array('audit_type',$columns))
-                        <td style="text-align: left" width="10%">
-                            @if($apotti['audit_type'] == 'compliance')
-                                কমপ্লায়েন্স অডিট
-                            @endif
-                        </td>
-                    @endif
-
-                    @if(in_array('memo_irregularity_type',$columns))
-                        <td style="text-align: left" width="10%">{{$apotti['memo_irregularity_type_name']}}</td>
-                    @endif
-
-                    @if(in_array('apotti_current_status',$columns))
-                        <td style="text-align: left" width="5%">{{$apotti['memo_status_name']}}</td>
-                    @endif
-
-                    @if(in_array('apotti_type',$columns))
-                        <td style="text-align: left" width="10%">
-                            @if($apotti['memo_type'] == 'sfi')
-                                এসএফআই
-                            @elseif($apotti['memo_type'] == 'non-sfi')
-                                নন-এসএফআই
-                            @endif
-                        </td>
-                    @endif
-                </tr>
-            @empty
-                <tr data-row="0" class="datatable-row" style="left: 0px;">
-                    <td colspan="{{count($columns)}}" class="datatable-cell text-center"><span>Nothing Found</span></td>
-                </tr>
-            @endforelse
-            </tbody>
-        </table>
+        {{-- porishitoh details page --}}
+        <div class="pdf-screen bangla-font">
+            @foreach ($porisistos as $porishisto)
+                <div style="{{$loop->last?'':'page-break-after: always;'}}">
+                    <div class="bangla-font"
+                        style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 5px">
+                        {!! $porishisto !!}
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
 </body>
 

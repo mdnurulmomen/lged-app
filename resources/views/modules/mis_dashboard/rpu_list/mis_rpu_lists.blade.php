@@ -70,7 +70,7 @@
 
     var MIS_RPU_LIST_CONTAINER = {
         loadMinistryLists: function () {
-            let url = '{{route('mis_and_dashboard.derictorate_wise_ministry')}}';
+            let url = '{{route('mis_and_dashboard.directorate_wise_ministry')}}';
             directorate_id = $('#directorate_id').val();
             let data = {directorate_id};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {

@@ -1,67 +1,3 @@
-<style>
-    .pagination_ui {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
-    }
-
-    .pagination ul {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        padding: 8px;
-    }
-
-    .pagination ul li {
-        color: rgba(76, 120, 234, 0.85);
-        list-style: none;
-        line-height: 45px;
-        text-align: center;
-        font-size: 18px;
-        font-weight: 500;
-        cursor: pointer;
-        user-select: none;
-        transition: all 0.3s ease;
-    }
-
-    .pagination ul li.numb {
-        list-style: none;
-        height: 45px;
-        width: 45px;
-        margin: 0 3px;
-        line-height: 45px;
-        border-radius: 50%;
-    }
-
-    .pagination ul li.numb.first {
-        margin: 0px 3px 0 -5px;
-    }
-
-    .pagination ul li.numb.last {
-        margin: 0px -5px 0 3px;
-    }
-
-    .pagination ul li.dots {
-        font-size: 22px;
-        cursor: default;
-    }
-
-    .pagination ul li.btn {
-        padding: 0 20px;
-        border-radius: 50px;
-    }
-
-    .pagination li.active,
-    .pagination ul li.numb:hover,
-    .pagination ul li:first-child:hover,
-    .pagination ul li:last-child:hover {
-        color: #fff;
-        background: rgba(76, 120, 234, 0.85);
-    }
-
-</style>
-
 <div class="card sna-card-border mt-2 mb-14">
     @if (!empty($memo_list))
         <div class="toolbar flex-wrap justify-content-between shadow-sm pl-1 d-flex border-bottom">
@@ -143,10 +79,15 @@
                                         {{-- </div> --}}
                                         <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                             <span class="mr-1 ">মেমো নংঃ</span>
+
                                             <a href="javascript:void(0)"
-                                                class="text-dark text-hover-primary font-size-h5">
-                                                {{ enTobn($memo['onucched_no']) }}
+                                                class="text-dark text-hover-primary font-size-h5 mr-1">
+{{--                                                {{ enTobn($memo['onucched_no']) }}--}}
+                                                    M-{{$memo['id']}}
                                             </a>
+                                            <span title="মেমো স্ট্যাটাস"
+                                            class="label label-outline-primary label-pill label-inline" style="margin-left: 6px;">{{$memo['has_sent_to_rpu'] == 0 ? "Pending" : "Sent"}}
+                                        </span>
                                         </div>
                                         <div class="font-weight-normal">
                                             <span class="mr-2 font-size-1-1">কস্ট সেন্টারঃ</span>
@@ -154,7 +95,7 @@
                                                 {{ $memo['cost_center_name_bn'] }}
                                             </span>
                                             <span title="এনটিটি"
-                                                class="label label-outline-primary label-pill label-inline">
+                                                class="label label-outline-warning label-pill label-inline">
                                                 {{ $memo['parent_office_name_bn'] }}
                                             </span>
                                         </div>
@@ -176,12 +117,31 @@
                                             </div>
                                         @endif
 
+                                        <div class="subject-wrapper font-weight-normal">
+                                            <span class="mr-2 font-size-1-1">প্ল্যান/সাবজেক্ট ম্যাটার:</span>
+                                            <span class="description text-wrap font-size-14">
+                                                প্ল্যান {{enTobn($memo['audit_plan']['id'])}}
+                                                ({{$memo['audit_plan']['annual_plan']['subject_matter']}})
+                                            </span>
+                                        </div>
+
                                         <div class=" subject-wrapper font-weight-normal">
                                             <span class="mr-2 font-size-1-1">জড়িত অর্থঃ</span>
                                             <span class="text-info font-size-14">
                                                 {{ enTobn(currency_format($memo['jorito_ortho_poriman'])) }}
                                             </span>
                                         </div>
+
+                                        @if($memo['finder_details'])
+                                            @php $finder_details = json_decode($memo['finder_details'],true); @endphp
+                                            <div class="font-weight-normal">
+                                                <span class="mr-2 font-size-1-1">উত্থাপনকারী:</span>
+                                                <span class="font-size-14">
+                                               {{$finder_details['team_member_name_bn'].', '.$finder_details['team_member_designation_bn']}}
+                                            </span>
+                                            </div>
+                                        @endif
+
                                         <div class="font-weight-normal d-none predict-wrapper">
                                             <span class="predict-label text-success "></span>
                                         </div>
@@ -226,13 +186,14 @@
                                                     <i class="fa fa-eye"></i>
                                                 </button>
 
-                                                <button
+                                                <button style="width: 50px"
                                                     class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
                                                 list-btn-toggle"
                                                     title="{{ ___('generic.buttons.title.history') }}"
                                                     data-memo-id="{{ $memo['id'] }}"
                                                     onclick="Authority_Memo_Container.memoLog($(this))">
                                                     <i class="fas fa-repeat-alt"></i>
+                                                    <b class="pl-2">{{enTobn($memo['memo_logs_count'])}}</b>
                                                 </button>
                                             </div>
                                         </div>
@@ -245,112 +206,113 @@
                 @endforeach
             </ul>
 
-            <div class="pagination_ui">
-                <div class="pagination">
-                    @php
-                        $current_page = $memos['current_page'];
-                        $last_page = $memos['last_page'];
-                        $prev_page = $memos['current_page'] - 1 < 1 ? 1 : $memos['current_page'] - 1;
-                        $next_page = $memos['current_page'] + 1 > $memos['last_page'] ? $memos['last_page'] : $memos['current_page'] + 1;
-                    @endphp
-                    <ul>
-                        <li class="page-item">
-                            <a class="page-link" href="javascript:;"
-                                onclick="Authority_Memo_Container.paginate($(this))" data-page={{ $prev_page }}>
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        </li>
-                        @if ($last_page <= 5)
-                            @for ($i = 1; $i <= $memos['last_page']; $i++)
-                                <li class="page-item {{ $memos['current_page'] == $i ? 'active' : '' }}">
-                                    <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
-                                        data-page="{{ $i }}">{{ $i }}</a>
-                                </li>
-                            @endfor
-                        @else
-                            @if ($current_page < 5)
-                                @for ($i = 1; $i < 6; $i++)
+            @if($memos['total'] > 10)
+                <div class="pagination_ui">
+                    <div class="pagination">
+                        @php
+                            $current_page = $memos['current_page'];
+                            $last_page = $memos['last_page'];
+                            $prev_page = $memos['current_page'] - 1 < 1 ? 1 : $memos['current_page'] - 1;
+                            $next_page = $memos['current_page'] + 1 > $memos['last_page'] ? $memos['last_page'] : $memos['current_page'] + 1;
+                        @endphp
+                        <ul>
+                            <li class="page-item">
+                                <a class="page-link" href="javascript:;"
+                                    onclick="Authority_Memo_Container.paginate($(this))" data-page={{ $prev_page }}>
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                            @if ($last_page <= 5)
+                                @for ($i = 1; $i <= $memos['last_page']; $i++)
                                     <li class="page-item {{ $memos['current_page'] == $i ? 'active' : '' }}">
                                         <a class="page-link" data-current-page={{ $current_page }}
                                             href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
                                             data-page="{{ $i }}">{{ $i }}</a>
                                     </li>
                                 @endfor
-                                <li class="page-item">
-                                    <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
-                                        data-page="{{ $last_page - 1 }}">{{ $last_page - 1 }}</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
-                                        data-page="{{ $last_page }}">{{ $last_page }}</a>
-                                </li>
-                            @elseif ($current_page >= 5 && $current_page < $last_page - 5)
-                                <li class="page-item">
-                                    <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
-                                        data-page="1">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
-                                </li>
-                                @for ($i = $current_page - 4; $i <= $current_page + 4; $i++)
-                                    <li class="page-item {{ $memos['current_page'] == $i ? 'active' : '' }}">
-                                        <a class="page-link" data-current-page={{ $current_page }}
-                                            href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
-                                            data-page="{{ $i }}">{{ $i }}</a>
-                                    </li>
-                                @endfor
-                                <li class="page-item">
-                                    <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
-                                        data-page="{{ $last_page }}">{{ $last_page }}</a>
-                                </li>
                             @else
-                                <li class="page-item">
-                                    <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
-                                        data-page="1">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
-                                        data-page="2">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" data-current-page={{ $current_page }}
-                                        href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
-                                </li>
-                                @for ($i = $current_page - 4; $i <= $last_page; $i++)
-                                    <li class="page-item {{ $memos['current_page'] == $i ? 'active' : '' }}">
+                                @if ($current_page < 5)
+                                    @for ($i = 1; $i < 6; $i++)
+                                        <li class="page-item {{ $memos['current_page'] == $i ? 'active' : '' }}">
+                                            <a class="page-link" data-current-page={{ $current_page }}
+                                                href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
+                                                data-page="{{ $i }}">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+                                    <li class="page-item">
+                                        <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
+                                    </li>
+                                    <li class="page-item">
                                         <a class="page-link" data-current-page={{ $current_page }}
                                             href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
-                                            data-page="{{ $i }}">{{ $i }}</a>
+                                            data-page="{{ $last_page - 1 }}">{{ $last_page - 1 }}</a>
                                     </li>
-                                @endfor
+                                    <li class="page-item">
+                                        <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
+                                            data-page="{{ $last_page }}">{{ $last_page }}</a>
+                                    </li>
+                                @elseif ($current_page >= 5 && $current_page < $last_page - 5)
+                                    <li class="page-item">
+                                        <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
+                                            data-page="1">1</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
+                                    </li>
+                                    @for ($i = $current_page - 4; $i <= $current_page + 4; $i++)
+                                        <li class="page-item {{ $memos['current_page'] == $i ? 'active' : '' }}">
+                                            <a class="page-link" data-current-page={{ $current_page }}
+                                                href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
+                                                data-page="{{ $i }}">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+                                    <li class="page-item">
+                                        <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
+                                            data-page="{{ $last_page }}">{{ $last_page }}</a>
+                                    </li>
+                                @else
+                                    <li class="page-item">
+                                        <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
+                                            data-page="1">1</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
+                                            data-page="2">2</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" data-current-page={{ $current_page }}
+                                            href="javascript:;" data-page="{{ $last_page - 2 }}">...</a>
+                                    </li>
+                                    @for ($i = $current_page - 4; $i <= $last_page; $i++)
+                                        <li class="page-item {{ $memos['current_page'] == $i ? 'active' : '' }}">
+                                            <a class="page-link" data-current-page={{ $current_page }}
+                                                href="javascript:;" onclick="Authority_Memo_Container.paginate($(this))"
+                                                data-page="{{ $i }}">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+                                @endif
                             @endif
-                        @endif
-                        <li class="page-item">
-                            <a class="page-link" href="javascript:;"
-                                onclick="Authority_Memo_Container.paginate($(this))" data-page="{{ $next_page }}">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
+                            <li class="page-item">
+                                <a class="page-link" href="javascript:;"
+                                    onclick="Authority_Memo_Container.paginate($(this))" data-page="{{ $next_page }}">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-
+            @endif
         </div>
     @else
         <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">

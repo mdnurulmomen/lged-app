@@ -5,7 +5,7 @@
             <div class="col-md-3">
                 <select class="form-select select-select2" id="directorate_id">
                     @if(count($directorates) > 1)
-                        <option value="all">Select Directorate</option>
+                        <option value="all">সকল অধিদপ্তর</option>
                     @endif
                     @foreach($directorates as $directorate)
                         <option value="{{$directorate['office_id']}}">{{$directorate['office_name_bn']}}</option>
@@ -15,9 +15,10 @@
 
             <div class="col-md-3">
                 <select class="form-select select-select2" id="fiscal_year_id">
+                    <option value="">সকল অর্থবছর</option>
                     @foreach($fiscal_years as $fiscal_year)
                         <option
-                            value="{{$fiscal_year['id']}}" {{now()->year == $fiscal_year['end']?'selected':''}}>{{enTobn($fiscal_year['description'])}}</option>
+                            value="{{$fiscal_year['id']}}">{{enTobn($fiscal_year['description'])}}</option>
                     @endforeach
                 </select>
             </div>
@@ -42,7 +43,7 @@
 </div>
 
 
-<div class="card sna-card-border mt-2">
+<div class="card sna-card-border mt-2 mb-15">
     <div id="load_apotti_list">
         <div class="d-flex align-items-center">
             <div class="spinner-grow text-warning mr-3" role="status">
@@ -62,7 +63,7 @@
     });
 
     var Apotti_Register_Container = {
-        loadApottiList: function () {
+        loadApottiList: function (page = 1,per_page=10) {
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
@@ -76,7 +77,7 @@
             end_date = $('#end_date').val();
 
             let url = '{{route('audit.execution.apotti.load-apotti-register-list')}}';
-            let data = {directorate_id,fiscal_year_id,apotti_type,start_date,end_date};
+            let data = {directorate_id,fiscal_year_id,apotti_type,start_date,end_date,page,per_page};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                     KTApp.unblock('#kt_wrapper');
                     if (response.status === 'error') {
@@ -193,6 +194,12 @@
                     $(".offcanvas-wrapper").html(response);
                 }
             });
+        },
+
+        paginate: function(elem) {
+            page = $(elem).attr('data-page');
+            per_page = $(elem).attr('data-per-page');
+            Apotti_Register_Container.loadApottiList(page, per_page);
         },
 
         storeApprovalAuthority: function () {

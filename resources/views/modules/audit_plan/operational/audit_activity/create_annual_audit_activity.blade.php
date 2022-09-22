@@ -181,6 +181,7 @@
         data = $('#op_activity_form').serialize();
         method = $(this).data('method');
         submitModalData(url, data, method, 'op_activity_modal')
+        $('.search_activities').click();
     });
     $('#btn_op_activity_edit_modal_save').click(function () {
         url = $(this).data('url');

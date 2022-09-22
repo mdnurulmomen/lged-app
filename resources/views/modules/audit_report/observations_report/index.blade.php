@@ -1,7 +1,14 @@
-<x-title-wrapper>অনিষ্পন্ন আপত্তির তালিকা</x-title-wrapper>
+<x-title-wrapper>
+    {{$memo_status == 'unsettled'?'অনিষ্পন্ন আপত্তির তালিকা':'নিস্পন্ন আপত্তির তালিকা'}}
+</x-title-wrapper>
 
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <input type="checkbox" id="plan_type"> প্রকল্প
+            </div>
+        </div>
         <div class="row mt-2">
             <div class="col-md-3">
                 <label for="directorate_id" class="col-form-label">অডিট ডিরেক্টরেট সমূহ</label>
@@ -21,6 +28,23 @@
                 </select>
             </div>
 
+            <div id="doner_div" class="col-md-3" style="display: none">
+                <label for="doner_id" class="col-form-label">ডেভেলপমেন্ট এজেন্সী</label>
+                <select class="form-select select-select2" id="doner_id">
+                    <option value="">সবগুলো (ALL)</option>
+                </select>
+            </div>
+
+            <div id="project_div" class="col-md-3" style="display: none">
+                <label for="project_id" class="col-form-label">প্রকল্প</label>
+                <select class="form-select select-select2" id="project_id">
+                    <option value="">সবগুলো (ALL)</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="row mb-2">
             <div class="col-md-3">
                 <label for="entity_id" class="col-form-label">এনটিটি</label>
                 <select class="form-select select-select2" id="entity_id">
@@ -34,17 +58,13 @@
                     <option value="">সবগুলো</option>
                 </select>
             </div>
-        </div>
 
-
-        <div class="row mb-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="cost_center_id" class="col-form-label">কস্ট সেন্টার/ইউনিট</label>
                 <select class="form-select select-select2" id="cost_center_id" name="cost_center_id">
                     <option value="">সবগুলো</option>
                 </select>
             </div>
-
             <div class="col-md-3">
                 <label for="fiscal_year_id" class="col-form-label">আপত্তির অর্থবছর</label>
                 <select class="form-select select-select2" id="fiscal_year_id">
@@ -54,7 +74,17 @@
                     @endforeach
                 </select>
             </div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-4">
+                <label for="audit_year_start" class="col-form-label">নিরীক্ষা বছর</label>
+                <div class="input-group">
+                    <input class="form-control year-picker" id="audit_year_start" name="audit_year_start"
+                           placeholder="শুরু" type="text">
+                    <input class="form-control year-picker" name="audit_year_end" placeholder="শেষ" type="text">
+                </div>
+            </div>
             <div class="col-md-2">
                 <label for="memo_type" class="col-form-label">আপত্তির ধরন</label>
                 <select class="form-control select-select2" id="memo_type">
@@ -77,6 +107,7 @@
                     <option value="sl_no" selected>ক্রমিক নং</option>
                     <option value="id_no" selected>আইডি</option>
                     <option value="audit_unit" selected>অডিট ইউনিট</option>
+                    <option value="project" selected>প্রকল্প</option>
                     <option value="fiscal_year" selected>অর্থবছর</option>
                     <option value="audit_year" selected>নিরীক্ষা বছর</option>
                     <option value="onucched_no" selected>অনুচ্ছেদ নম্বর</option>
@@ -92,14 +123,14 @@
 
         <div class="row mt-2 mb-2">
             <div class="col-md-4">
-                <button onclick="Unsettled_Observations_Report_Container.loadApottiList()" class="btn btn-sm btn-primary btn-square"
+                <button onclick="Observations_Report_Container.loadApottiList()" class="btn btn-sm btn-primary btn-square"
                     type="button">
                     <i class="fad fa-search"></i> অনুসন্ধান
                 </button>
 
-                <button onclick="Unsettled_Observations_Report_Container.downloadReport()" class="btn btn-sm btn-primary btn-square"
+                <button onclick="Observations_Report_Container.downloadReport()" class="btn btn-sm btn-primary btn-square"
                         type="button">
-                    <i class="fad fa-download"></i> Download
+                    <i class="fad fa-download"></i> ডাউনলোড
                 </button>
             </div>
         </div>
@@ -108,7 +139,7 @@
 
 
 <div class="card sna-card-border mt-2 mb-15">
-    <div id="load_apotti_list"></div>
+    <div id="load_apotti_list" class="table-responsive"></div>
 </div>
 
 @include('modules.audit_execution.audit_execution_archive_apotti.scripts.archive_scripts')
@@ -117,25 +148,39 @@
     $(function() {
         directorate_id = $('#directorate_id').val();
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
+        var type = localStorage['report_type'] || '';
+        if(type == 'project_based'){
+            $('#plan_type').click();
+        }
     });
 
-    var Unsettled_Observations_Report_Container = {
+    var Observations_Report_Container = {
         loadApottiList: function(page = 1, per_page = 10) {
+            memo_status = '{{$memo_status}}';
             directorate_id = $("#directorate_id").val();
+            project_id = $("#project_id").val();
+            doner_id = $("#doner_id").val();
             ministry_id = $("#ministry_id").val();
             entity_id = $("#entity_id").val();
             cost_center_id = $("#cost_center_id").val();
             fiscal_year_id = $("#fiscal_year_id").val();
+            audit_year_start = $("#audit_year_start").val();
+            audit_year_end = $("#audit_year_end").val();
             memo_type = $("#memo_type").val();
             jorito_ortho_poriman = $("#jorito_ortho_poriman").val();
             columns = $("#columns").val();
-            let url = '{{ route('audit.report.unsettled-observations.list') }}';
+            let url = '{{ route('audit.report.observations.get-status-wise.list') }}';
             let data = {
+                memo_status,
                 directorate_id,
+                project_id,
+                doner_id,
                 ministry_id,
                 entity_id,
                 cost_center_id,
                 fiscal_year_id,
+                audit_year_start,
+                audit_year_end,
                 memo_type,
                 jorito_ortho_poriman,
                 columns,
@@ -158,11 +203,18 @@
         },
 
         downloadReport: function() {
+            memo_status = '{{$memo_status}}';
             directorate_id = $("#directorate_id").val();
             directorate_name = $("#directorate_id option:selected").text();
+            project_id = $('#project_id').val();
+            project_name = $('#project_id').val() ?  $("#project_id option:selected").text() : '';
+
+            doner_id = $('#doner_id').val();
+            doner_name = $('#doner_id').val() ? $("#doner_id option:selected").text() : '';
+
 
             ministry_id = $("#ministry_id").val();
-            ministry_name = $("#ministry_id option:selected").text();
+            ministry_name = $("#ministry_id").val() ? $("#ministry_id option:selected").text() : '';
 
             entity_id = $("#entity_id").val();
             entity_name = $("#entity_id option:selected").text();
@@ -176,8 +228,11 @@
             memo_type = $("#memo_type").val();
             jorito_ortho_poriman = $("#jorito_ortho_poriman").val();
             columns = $("#columns").val();
+            project_id = $("#project_id").val();
 
             let data = {
+                memo_status,
+                project_id,
                 directorate_id,
                 directorate_name,
                 ministry_id,
@@ -190,7 +245,11 @@
                 fiscal_year_id,
                 memo_type,
                 jorito_ortho_poriman,
-                columns
+                columns,
+                doner_id,
+                doner_name,
+                project_id,
+                project_name,
             };
 
             KTApp.block('#kt_wrapper', {
@@ -200,7 +259,7 @@
             });
 
 
-            let url = '{{ route('audit.report.unsettled-observations.download') }}';
+            let url = '{{ route('audit.report.observations.get-status-wise.download') }}';
 
             $.ajax({
                 type: 'POST',
@@ -214,7 +273,7 @@
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "unsettled_observations_report_" + new Date().toDateString().replace(/ /g,
+                    link.download = "observations_report_" + new Date().toDateString().replace(/ /g,
                         "_") + ".pdf";
                     link.click();
                 },
@@ -250,7 +309,76 @@
         paginate: function(elem) {
             page = $(elem).attr('data-page');
             per_page = $(elem).attr('data-per-page');
-            Unsettled_Observations_Report_Container.loadApottiList(page, per_page);
+            Observations_Report_Container.loadApottiList(page, per_page);
+        },
+
+        laadDonerWiseProject: function (element) {
+            url = '{{route('audit.execution.apotti.get-doner-wise-project')}}';
+
+            directorate_id = $("#directorate_id").val();
+            doner_id = $("#doner_id").val();
+            ministry_id = $("#ministry_id").val();
+            data = {directorate_id,doner_id,ministry_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.warning(response.data);
+                } else {
+                    $('#project_id').html(response);
+                }
+            });
+        },
+
+        loadMinistryWisePrjectAndDoner: function (element) {
+            url = '{{route('audit.execution.apotti.get-ministry-wise-project-and-doner')}}';
+
+            directorate_id = $("#directorate_id").val();
+            ministry_id = $("#ministry_id").val();
+
+            doner_id = $("#doner_id").val();
+            data = {directorate_id,ministry_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.warning(response.data);
+                } else {
+                    $('#doner_id').html(response);
+                }
+            });
+        },
+
+        laadMinisryWiseProject: function (element) {
+            url = '{{route('audit.execution.apotti.get-ministry-wise-project')}}';
+
+            directorate_id = $("#directorate_id").val();
+            ministry_id = $("#ministry_id").val();
+            data = {directorate_id,ministry_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function(response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.warning(response.data);
+                } else {
+                    $('#project_id').html(response);
+                }
+            });
         },
     };
 
@@ -261,10 +389,17 @@
         Archive_Apotti_Common_Container.loadDirectorateWiseMinistry(directorate_id);
     });
 
+    $('#doner_id').change(function() {
+        doner_id = $('#doner_id').val();
+        Observations_Report_Container.laadDonerWiseProject();
+    });
+
     //entity
     $('#ministry_id').change(function() {
         ministry_id = $('#ministry_id').val();
         Archive_Apotti_Common_Container.loadMinistryWiseEntity(ministry_id);
+        Observations_Report_Container.loadMinistryWisePrjectAndDoner();
+        Observations_Report_Container.laadMinisryWiseProject();
     });
 
     //unit group & cost center
@@ -285,5 +420,18 @@
         directorate_id = $('#directorate_id').val();
         apotti_oniyomer_category_id = $('#apotti_oniyomer_category_id').val();
         Archive_Apotti_Common_Container.loadOniyomerSubCategory(directorate_id, apotti_oniyomer_category_id);
+    });
+
+    $('#plan_type').click(function () {
+        if($(this).is(':checked') == true){
+            localStorage['report_type'] = 'project_based';
+            Observations_Report_Container.loadMinistryWisePrjectAndDoner();
+            Observations_Report_Container.laadMinisryWiseProject();
+            $('#doner_div').show();
+            $('#project_div').show();
+        }else {
+            $('#doner_div').hide();
+            $('#project_div').hide();
+        }
     });
 </script>

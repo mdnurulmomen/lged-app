@@ -910,7 +910,7 @@
                         <tbody>
                         <tr>
                             <td style="text-align: center" width="5%">ক্রমিক নং</td>
-                            <td style="text-align: center" width="45%">শাখার নাম</td>
+                            <td style="text-align: center" width="45%">প্রতিষ্ঠানের নাম</td>
                             <td style="text-align: center" width="20%">নিরীক্ষা বছর</td>
                             <td style="text-align: center" width="15%">নিরীক্ষা সময়কাল</td>
                             <td style="text-align: center" width="15%">মোট কর্ম দিবস</td>

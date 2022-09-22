@@ -36,11 +36,30 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 <label for="order_cc_list">অনুলিপি<span class="text-danger">*</span></label>
                 <textarea class="form-control" name="order_cc_list" id="order_cc_list" placeholder="অনুলিপি" cols="30" rows="2">{{empty($office_order)?'':$office_order['order_cc_list']}}</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="issuer_details">ইস্যুকারী<span class="text-danger">*</span></label>
+                <textarea class="form-control" name="issuer_details" id="issuer_details" placeholder="ইস্যুকারী" cols="40" rows="2">{{empty($office_order)?'':$office_order['issuer_details']}}</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="cc_sender_details">দায়িত্বপ্রাপ্ত কর্মকর্তার<span class="text-danger">*</span></label>
+                <textarea class="form-control" name="cc_sender_details" id="cc_sender_details" placeholder="দায়িত্বপ্রাপ্ত কর্মকর্তার" cols="40" rows="2">{{empty($office_order)?'':$office_order['cc_sender_details']}}</textarea>
             </div>
         </div>
     </div>
@@ -59,7 +78,14 @@
         generateOfficeOrder: function (elem) {
             url = '{{route('audit.plan.audit.office-orders-dc.generate-office-order')}}';
             data = $('#office_order_generate_form').serialize();
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     toastr.success('সফলভাবে অফিস আদেশ সংরক্ষন করা হয়েছে');
                     $('#kt_quick_panel_close').click();

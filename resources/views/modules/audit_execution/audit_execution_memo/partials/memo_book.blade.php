@@ -794,11 +794,19 @@
 <body>
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
     <div class="pdf-screen bangla-font" style="height: 100%">
+
+        <div style="text-align: right">
+            @php
+                $generatorPNG = new Picqer\Barcode\BarcodeGeneratorPNG();
+                $memo_code = 'M-'.$memoInfo['id'];
+            @endphp
+            <img src="data:image/png;base64,{{ base64_encode($generatorPNG->getBarcode($memo_code, $generatorPNG::TYPE_CODE_128)) }}">
+            <p style="margin-top: 0;font-size: 14px"> M-{{$memoInfo['id']}}</p>
+        </div>
+
         <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;color: black">
             মহাপরিচালকের কার্যালয়<br>
-            {{$directorateName}} <br>
-            {!! $directorateAddress !!}<br>
-            <u>{{$directorateWebsite}}</u>
+            <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="false"  />
         </div>
         <br>
 
@@ -852,15 +860,16 @@
                     @if($memoInfo['issued_by'] == 'sub_team_leader')
                         <p>({{$memoInfo['sub_team_leader_name']}})</p>
                         <p>{{$memoInfo['sub_team_leader_designation']}} ও উপদলনেতা</p>
-                        <p>{{$directorateName}}</p>
+                        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"  />
                     @else
                         <p>({{$memoInfo['team_leader_name']}})</p>
                         <p>{{$memoInfo['team_leader_designation']}} ও দলনেতা</p>
-                        <p>{{$directorateName}}</p>
+                        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"  />
                     @endif
                 </td>
             </tr>
         </table>
+
         <table width="100%" style="color: black">
             <tr>
                 <td class="bangla-font" width="33%" style="text-align: left">
@@ -872,6 +881,7 @@
                 <td class="bangla-font" width="33%" style="text-align: center"></td>
             </tr>
         </table>
+
         <br>
         @if($memoInfo['memo_sharok_no'])
             <table class="bangla-font" width="100%" style="color: black">
@@ -881,6 +891,7 @@
                 </tr>
             </table>
         @endif
+
         <br>
         @if($memoInfo['memo_cc'])
             <table class="bangla-font" width="100%" style="color: black">
@@ -896,6 +907,7 @@
                 </tr>
             </table>
         @endif
+
         <br>
         <table class="bangla-font" width="100%" style="color: black">
             <tr>
@@ -905,23 +917,16 @@
                     @if($memoInfo['issued_by'] == 'sub_team_leader')
                         <p>({{$memoInfo['sub_team_leader_name']}})</p>
                         <p>{{$memoInfo['sub_team_leader_designation']}} ও উপদলনেতা</p>
-                        <p>{{$directorateName}}</p>
+                        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"  />
                     @else
                         <p>({{$memoInfo['team_leader_name']}})</p>
                         <p>{{$memoInfo['team_leader_designation']}} ও দলনেতা</p>
-                        <p>{{$directorateName}}</p>
+                        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"  />
                     @endif
                 </td>
             </tr>
         </table>
     </div>
-
-    {{--porisishto--}}
-    @if(!empty($memoInfo['ac_memo_porisishtos']))
-        @foreach($memoInfo['ac_memo_porisishtos'] as $porisishto)
-            <div class="pdf-screen bangla-font" style="height: 100%">{!! $porisishto['details'] !!}</div>
-        @endforeach
-    @endif
 </div>
 </body>
 </html>

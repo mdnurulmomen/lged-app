@@ -1,23 +1,4 @@
-<style>
-    fieldset.scheduler-border {
-        border: 1px groove #ddd !important;
-        padding: 0 1.4em 1.4em 1.4em !important;
-        margin: 0 0 1.5em 0 !important;
-        -webkit-box-shadow:  0px 0px 0px 0px #000;
-        box-shadow:  0px 0px 0px 0px #000;
-    }
-
-    legend.scheduler-border {
-        font-size: 1.2em !important;
-        font-weight: bold !important;
-        text-align: left !important;
-        width:auto;
-        padding:0 10px;
-        border-bottom:none;
-    }
-</style>
-
-<form id="query_add_form" autocomplete="off">
+<form class="mb-14" id="query_add_form" autocomplete="off">
     <input type="hidden" name="schedule_id" value="{{$schedule_id}}">
 
     <div class="card sna-card-border">
@@ -36,11 +17,13 @@
                     <a
                         onclick="Audit_Query_Schedule_Container.query($(this))"
                         data-schedule-id="{{$schedule_id}}"
+                        data-team-id="{{$team_id}}"
                         data-audit-plan-id="{{$audit_plan_id}}"
                         data-entity-id="{{$entity_id}}"
                         data-cost-center-id="{{$cost_center_id}}"
                         data-cost-center-name-en="{{$cost_center_name_en}}"
                         data-cost-center-name-bn="{{$cost_center_name_bn}}"
+                        data-project-name-bn="{{$project_name_bn}}"
                         class="btn btn-sm btn-warning btn_back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>
@@ -74,6 +57,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="form-group">
                     <label for="rpu_office_head_details">বরাবর<span class="text-danger">*</span></label>
                     <textarea class="form-control" id="rpu_office_head_details" name="rpu_office_head_details"
@@ -83,6 +68,11 @@
                 <div class="form-group">
                     <label for="subject">বিষয়<span class="text-danger">*</span></label>
                     <input type="text" id="subject" class="form-control" name="subject" placeholder="বিষয়">
+                </div>
+
+                <div class="form-group">
+                    <label for="suthro">সূত্র</label>
+                    <input type="text" id="suthro" class="form-control" name="suthro" placeholder="সূত্র">
                 </div>
 
                 <div class="form-group">
@@ -133,6 +123,48 @@
             </div>
         </div>
         <div class="col-md-5">
+            <div class="card sna-card-border px-3 mb-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-form-label text-primary bold mr-3">ইস্যুকারীঃ</label>
+                        <input type="radio" class="mr-1" name="issued_by" value="team_leader" checked><span class="mr-3">দলনেতা</span>
+                        <input type="radio" class="mr-1" name="issued_by" value="sub_team_leader"><span class="mr-3">উপদলনেতা</span>
+
+                        <br>
+                        <label class="col-form-label">দলনেতা</label>
+                        @foreach(json_decode($get_team['team_members'],true) as $key => $team)
+                            @if($key == 'teamLeader')
+                                @foreach($team as $teamLeader)
+                                    <input type="text" class="form-control mb-1" placeholder="দলনেতা" readonly
+                                           value="{{$teamLeader['officer_name_bn'].' ('.$teamLeader['designation_bn'].')'}}">
+                                    <input type="hidden" name="team_leader_name" value="{{$teamLeader['officer_name_bn']}}">
+                                    <input type="hidden" name="team_leader_designation" value="{{$teamLeader['designation_bn']}}">
+                                @endforeach
+                            @endif
+                        @endforeach
+
+                        <label class="col-form-label">উপদলনেতা</label>
+                        @foreach(json_decode($get_team['team_members'],true) as $key => $team)
+                            @if($key == 'subTeamLeader')
+                                @foreach($team as $subTeamLeader)
+                                    <input type="text" class="form-control mb-1" placeholder="উপদলনেতা" readonly
+                                           value="{{$subTeamLeader['officer_name_bn'].' ('.$subTeamLeader['designation_bn'].')'}}">
+                                    <input type="hidden" name="sub_team_leader_name"
+                                           value="{{$subTeamLeader['officer_name_bn']}}">
+                                    <input type="hidden" name="sub_team_leader_designation"
+                                           value="{{$subTeamLeader['designation_bn']}}">
+                                @endforeach
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="responsible_person_details">দায়িত্বপ্রাপ্ত কর্মকর্তা</label>
+                    <textarea class="form-control" id="responsible_person_details" name="responsible_person_details" cols="30" rows="4"></textarea>
+                </div>
+            </div>
+
             <div class="card sna-card-border px-3">
                 <label for="cost_center_type">কস্ট সেন্টার টাইপ</label>
                 <select name="cost_center_type_id" id="cost_center_type" class="form-control">
@@ -212,16 +244,22 @@
                     toastr.success('Successfully Added!');
                     $('.btn_back').click();
                 } else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
+                   toastr.error(response.data.message);
+                }
+            },function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.responseJSON.errors) {
+                    $.each(response.responseJSON.errors, function (k, v) {
+                        if (isArray(v)) {
+                            $.each(v, function (n, m) {
+                                toastr.error(m);
+                            })
+                        } else {
                             if (v !== '') {
                                 toastr.error(v);
                             }
-                        });
-                    } else {
-                        toastr.error(response.data.message);
-                    }
+                        }
+                    });
                 }
             })
         },

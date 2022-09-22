@@ -781,14 +781,13 @@
 
 <body>
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;page-break-after: always">
         <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center">
             মহাপরিচালকের কার্যালয় <br>
-            <b>{{$directorateName}}</b> <br>
-            {!! $directorateAddress !!}
+            <x-office-header-details officeid="{{$office_id}}" />
         </div>
 
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;width: 100%;margin-top: 10px">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;width: 100%;margin-top: 5px">
             <div style="text-align: left;float: left;width: 70%;">
                 {{$office_order['memorandum_no']}}
             </div>
@@ -797,14 +796,14 @@
             </div>
         </div>
 
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;margin: 10px 0 10px 0">
+        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;margin: 5px 0 5px 0">
             <b><u>অফিস আদেশ</u></b>
         </div>
         <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: justify">
             {{$office_order['heading_details']}}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;margin-top: 10px">
+        {{--<div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: center;margin-top: 10px">
             <b><u>নিরীক্ষা দল নং-০১</u></b>
         </div>
 
@@ -831,11 +830,12 @@
                 @endforeach
                 </tbody>
             </table>
-        </div>
+        </div>--}}
 
+         @php $allWorkingDates = []; @endphp
          @foreach($audit_team_schedules as $audit_team_schedule)
              @if($audit_team_schedule['team_schedules'] != null)
-                 <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: center;margin-top: 10px">
+                 <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: center;margin-top: 5px">
                      <b><u>{{$audit_team_schedule['team_name']}}</u></b>
                  </div>
 
@@ -853,18 +853,19 @@
                          <tbody>
                          @php $teamMemberSL = 1; @endphp
                          @foreach(json_decode($audit_team_schedule['team_members'],true) as $role => $team_members)
-                             @if($role != 'teamLeader')
-                                 @foreach($team_members as $key => $sub_team_leader)
-                                     <tr class="bangla-font">
-                                         <td class="bangla-font" style="text-align: center">{{enTobn($teamMemberSL)}}</td>
-                                         <td class="bangla-font" style="text-align: left;">&nbsp;জনাব {{$sub_team_leader['officer_name_bn']}}</td>
-                                         <td class="bangla-font" style="text-align: center">{{$sub_team_leader['designation_bn'].' ও '.$sub_team_leader['team_member_role_bn']}}</td>
-                                         <td class="bangla-font" style="text-align: center">{{enTobn($sub_team_leader['officer_mobile'])}}</td>
-                                         <td class="bangla-font" style="text-align: center"></td>
-                                     </tr>
-                                     @php $teamMemberSL++; @endphp
-                                 @endforeach
-                             @endif
+                             @php
+                                 usort($team_members, "arryAortAsc");
+                             @endphp
+                             @foreach($team_members as $key => $sub_team_leader)
+                                 <tr class="bangla-font">
+                                     <td class="bangla-font" style="text-align: center">{{enTobn($teamMemberSL)}}</td>
+                                     <td class="bangla-font" style="text-align: left;">&nbsp;জনাব {{$sub_team_leader['officer_name_bn']}}</td>
+                                     <td class="bangla-font" style="text-align: center">{{$sub_team_leader['designation_bn'].','.$sub_team_leader['team_member_role_bn']}}</td>
+                                     <td class="bangla-font" style="text-align: center">{{enTobn($sub_team_leader['officer_mobile'])}}</td>
+                                     <td class="bangla-font" style="text-align: center"></td>
+                                 </tr>
+                                 @php $teamMemberSL++; @endphp
+                             @endforeach
                          @endforeach
                          </tbody>
                      </table>
@@ -875,9 +876,9 @@
                          <tbody>
                          <tr class="bangla-font">
                              <td class="bangla-font" style="text-align: center" width="5%">ক্রমিক নং</td>
-                             <td class="bangla-font" style="text-align: center" width="45%">শাখার নাম</td>
+                             <td class="bangla-font" style="text-align: center" width="45%">প্রতিষ্ঠানের নাম</td>
                              <td class="bangla-font" style="text-align: center" width="20%">নিরীক্ষা বছর</td>
-                             <td class="bangla-font" style="text-align: center" width="15%">নিরীক্ষা সময়কাল</td>
+                             <td class="bangla-font" style="text-align: center" width="15%">ডাটা কালেকশন সময়কাল</td>
                              <td class="bangla-font" style="text-align: center" width="15%">মোট কর্ম দিবস</td>
                          </tr>
                          <tr>
@@ -887,61 +888,85 @@
                              <td class="bangla-font" style="text-align: center" width="15%">৪</td>
                              <td class="bangla-font" style="text-align: center" width="15%">৫</td>
                          </tr>
-                         @php
-                             $totalActivityManDays = 0;
-                         @endphp
+
+                         @php $schedule_sl = 0; @endphp
+
                          @foreach(json_decode($audit_team_schedule['team_schedules'],true) as $role => $team_schedule)
                              @if($team_schedule['schedule_type'] == 'schedule')
-                                 @php $totalActivityManDays= $totalActivityManDays+$team_schedule['activity_man_days']; @endphp
+                                 @php
+                                     $schedule_sl++;
+                                     $activity_man_days = empty($team_schedule['activity_man_days'])?0:$team_schedule['activity_man_days'];
+                                     $teamWiseWorkingDates = getWorkingDates(date('Y-m-d', strtotime('-1 day', strtotime($team_schedule['team_member_start_date']))),$activity_man_days,$vacations);
+                                 @endphp
+
+                                 @if(!empty($teamWiseWorkingDates))
+                                     @foreach($teamWiseWorkingDates as $teamWiseWorkingDate)
+                                         @php $allWorkingDates[] = $teamWiseWorkingDate; @endphp
+                                     @endforeach
+                                 @endif
+
                                  <tr class="bangla-font">
-                                     <td class="bangla-font" style="text-align: center">{{enTobn($loop->iteration)}}.</td>
+                                     <td class="bangla-font" style="text-align: center">{{enTobn($schedule_sl)}}.</td>
                                      <td class="bangla-font" style="text-align: left;">&nbsp;{{$team_schedule['cost_center_name_bn']}}</td>
                                      <td class="bangla-font" style="text-align: center">{{enTobn($audit_team_schedule['audit_year_start'])}}-{{enTobn($audit_team_schedule['audit_year_end'])}}</td>
                                      <td class="bangla-font" style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি.
                                          হতে {{formatDate($team_schedule['team_member_end_date'],'bn')}} খ্রি.
                                      </td>
-                                     <td class="bangla-font" style="text-align: center">{{enTobn($team_schedule['activity_man_days'])}} কর্ম দিবস</td>
+                                     <td class="bangla-font" style="text-align: center">
+                                         @if($activity_man_days > 0)
+                                             {{enTobn($activity_man_days)}} কর্ম দিবস
+                                         @endif
+                                     </td>
                                  </tr>
                              @else
                                  <tr class="bangla-font">
-                                     <td class="bangla-font" style="text-align: center">{{enTobn($loop->iteration)}}.</td>
-                                     <td class="bangla-font" colspan="3" style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি. {{$team_schedule['activity_details']}}</td>
+                                     <td class="bangla-font" colspan="4" style="text-align: center">{{formatDate($team_schedule['team_member_start_date'],'bn')}} খ্রি. {{$team_schedule['activity_details']}}</td>
                                      <td></td>
                                  </tr>
                              @endif
                          @endforeach
+                         @php $allWorkingDates = array_unique($allWorkingDates); @endphp
                          <tr class="bangla-font">
                              <th class="bangla-font" colspan="4" style="text-align: right">সর্বমোট</th>
-                             <th class="bangla-font" style="text-align: center">{{enTobn($totalActivityManDays)}} কর্ম দিবস</th>
+                             <th class="bangla-font" style="text-align: center">
+                                 @if(count($allWorkingDates) > 0)
+                                     {{enTobn(count($allWorkingDates))}} কর্ম দিবস
+                                 @endif
+                             </th>
                          </tr>
                          </tbody>
                      </table>
                  </div>
-
              @endif
+             @php unset($allWorkingDates); @endphp
          @endforeach
 
-
         {{--for audit advice--}}
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;margin-top: 10px">
             <u>নিরীক্ষা দলের প্রতি নির্দেশনা:</u>
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: justify">
+        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: justify">
             {!! nl2br($office_order['advices']) !!}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin:60px 0 40px 0;text-align: center;float: right;width: 20%">
-            @if($office_order['office_order_movement'] != null)
+        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: justify">
+            মহাপরিচালক মহোদয়ের সদয় অনুমোদনক্রমে।
+        </div>
+
+        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;margin-top:15px;text-align: center;float: right;width: 30%">
+            {!! nl2br($office_order['issuer_details']) !!}
+            {{--@if($office_order['office_order_movement'] != null)
                 ({{$office_order['office_order_movement']['employee_name_bn']}}) <br>
                 {{$office_order['office_order_movement']['employee_designation_bn']}} <br>
                 ফোন: {{enTobn($office_order['office_order_movement']['officer_phone'])}}
-            @endif
+            @endif--}}
         </div>
     </div>
 
+    {{--office order page 2--}}
     <div class="pdf-screen bangla-font" style="height: 100%">
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;width: 100%;margin-top: 10px">
+        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;width: 100%;margin-top: 10px">
             <div style="text-align: left;float:left;width: 70%;">
                 {{$office_order['memorandum_no']}}
             </div>
@@ -951,19 +976,21 @@
         </div>
 
         {{--for audit advice--}}
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;margin-top: 10px">
             <u>সদয় অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য অনুলিপি প্রেরণ করা হলো :(জ্যেষ্ঠতার ক্রমানুসারে নয় )</u>
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;text-align: justify">
+        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: justify">
             {!! nl2br($office_order['order_cc_list']) !!}
         </div>
 
-        <div class="bangla-font" style="font-family:SolaimanLipi,serif !important;margin-top:10px;text-align: center;float: right;width: 20%">
-            ({{$office_order['draft_officer_name_bn']}}) <br>
+        <div class="bangla-font" style="font-family:nikoshpdf,serif !important;margin-top:15px;text-align: center;float: right;width: 30%">
+            {{--({{$office_order['draft_officer_name_bn']}}) <br>
             {{$office_order['draft_designation_name_bn']}} <br>
             {{$office_order['draft_office_unit_bn']}} <br>
-            ফোন: {{enTobn($office_order['draft_officer_phone'])}}
+            ফোন: {{enTobn($office_order['draft_officer_phone'])}}--}}
+
+            {!! nl2br($office_order['cc_sender_details']) !!}
         </div>
     </div>
 </div>

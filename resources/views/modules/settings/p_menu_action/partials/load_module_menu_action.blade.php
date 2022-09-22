@@ -19,8 +19,9 @@
 
             <th class="text-center">Display Order</th>
             <th class="text-left">Class</th>
-            <th class="text-left">Icon</th>
+{{--            <th class="text-left">Icon</th>--}}
             <th class="text-left">Link</th>
+            <th class="text-left">Activity Type</th>
             <th  class="text-left" width="10%">Action</th>
         </tr>
         </thead>
@@ -44,8 +45,9 @@
 
                 <td class="text-center">{{$menuAction['display_order']}}</td>
                 <td>{{$menuAction['class']}}</td>
-                <td>{{$menuAction['icon']}}</td>
+{{--                <td>{{$menuAction['icon']}}</td>--}}
                 <td>{{$menuAction['link']}}</td>
+                <td>{{$menuAction['activity_type']}}</td>
                 <td>
                     <div class="btn-group btn-group-sm" role="group">
                         <button title="হালনাগাদ করুন" class="btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"

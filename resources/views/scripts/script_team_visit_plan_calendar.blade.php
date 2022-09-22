@@ -52,6 +52,7 @@
                             start: '{{$schedule['team_member_start_date']}}',
                             end: '{{$schedule['team_member_end_date']}}',
                             description: '{{$schedule['cost_center_name_bn']}}',
+                            directorate_name: $("#directorate_filter option:selected").text(),
                             team_id: '{{$team['id']}}',
                             team_name: '{{$team['team_name']}}',
                             team_members: '{{$team['team_members']}}',
@@ -66,6 +67,7 @@
                     ],
 
                     eventRender: function (info) {
+                        console.log(info)
                         var element = $(info.el);
                         if (info.event.extendedProps && info.event.extendedProps.description) {
                             if (element.hasClass('fc-day-grid-event')) {
@@ -154,8 +156,8 @@
 
                         html += `<table class="table table-bordered" id='table'>
                                 <tr>
-                                    <th>শাখার নাম</th>
-                                    <th>নিরীক্ষা বছর</th>
+                                    <th>ইউনিট/কস্ট সেন্টারের নাম</th>
+                                    <th>অর্থ বছর</th>
                                     <th>নিরীক্ষা সময়কাল</th>
                                     <th>মোট কর্ম দিবস</th>
                                 </tr>`;
@@ -183,7 +185,9 @@
                         quick_panel.removeClass('d-none');
                         $("html").addClass("side-panel-overlay");
 
-                        $('.offcanvas-title').html(event.event.extendedProps.team_name);
+                        console.log(event.event.extendedProps.directorate_name)
+
+                        $('.offcanvas-title').html(event.event.extendedProps.directorate_name+' ('+event.event.extendedProps.team_name+')');
                         $('.offcanvas-wrapper').html(html);
 
                     },

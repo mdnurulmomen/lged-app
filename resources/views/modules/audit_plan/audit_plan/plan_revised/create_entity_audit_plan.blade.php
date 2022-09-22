@@ -14,14 +14,15 @@
 @section('content')
     <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
 
-    <div style="background-color: var(--sbodycontentbg);" class="row m-0 page-title-wrapper d-md-flex align-items-md-center">
+    <div class="row m-0 mb-3 page-title-wrapper d-md-flex align-items-md-center shadow-sm">
         <div class="col-md-6">
             <div class="title py-2">
                 <h4 class="mb-0 font-weight-bold">
                     <a href="{{route('audit.plan.audit.index')}}">
                         <i title="Back To Audit Plan" class="fad fa-backward mr-3"></i>
                     </a>
-                    Create Audit Plan
+                    Create Audit Plan <input id="plan_no" name="plan_no" style="width: 80px;height: 35px;display: none" type="text" value=""
+                                             class="text-hover-primary font-weight-bold p-2 bijoy-bangla"></span>
                 </h4>
             </div>
         </div>
@@ -38,11 +39,14 @@
             </button>
 
             <button class="btn btn-sm btn-square btn-info btn-hover-info entity_audit_plan_preview"
-                    onclick="Entity_Plan_Container.previewAuditPlan()">
+                    data-scope-editable="0"
+                    data-annual-plan-id="{{$annual_plan_id}}"
+                    data-fiscal-year-id="{{$fiscal_year_id}}"
+                    onclick="Entity_Plan_Container.previewAuditPlan($(this))">
                 <i class="fas fa-eye"></i> Preview
             </button>
 
-            <button class="btn btn-sm btn-square btn-success btn-hover-success draft_entity_audit_plan entity_audit_plan_save"
+            <button class="btn btn-sm btn-square btn-save draft_entity_audit_plan entity_audit_plan_save"
                     data-activity-id="{{$activity_id}}"
                     data-annual-plan-id="{{$annual_plan_id}}"
                     onclick="Entity_Plan_Container.draftEntityPlan($(this))">
@@ -100,6 +104,7 @@
 
     <script>
     $(function () {
+        $('.draft_entity_audit_plan').click();
         $('.entity_audit_plan_team_schedule').prop( "disabled", true );
         $('.entity_audit_plan_risk_assessment').prop( "disabled", true );
         $('.entity_audit_plan_preview').prop( "disabled", true );
@@ -108,5 +113,6 @@
         let controlRiskTotalPoint = 0;
         let detectionRiskTotalPoint = 0;
     })
+
     </script>
 @endsection

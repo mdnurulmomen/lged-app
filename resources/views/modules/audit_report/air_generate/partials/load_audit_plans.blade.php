@@ -52,7 +52,8 @@
                                     <div class="font-weight-normal">
                                         <span class="mr-2 font-size-1-1">প্ল্যানঃ</span>
                                         <span class="font-size-14">
-                                            অডিট প্ল্যান {{enTobn($audit_plan['id'])}}
+                                            অডিট প্ল্যান : {{enTobn($audit_plan['id'])}}
+{{--                                            অডিট প্ল্যান : {{enTobn($audit_plan['plan_no'])}}--}}
                                         </span>
                                         {{--<span class="label label-outline-primary label-pill label-inline">
                                             {{$audit_plan['office_order'] != null? ucfirst($audit_plan['office_order']['approved_status']):'Not Generated'}}
@@ -92,7 +93,7 @@
                                         <div
                                             class="d-md-flex flex-wrap mb-2 align-items-center justify-content-md-end text-nowrap">
                                             <div class="ml-3  d-flex align-items-center text-primary">
-                                                <i class="flaticon2-copy mr-2 text-primary"></i>
+                                                <i class="flaticon2-copy mr-2 text-primary d-none"></i>
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-md-end">
@@ -103,18 +104,25 @@
                                             </div>
                                         </div>
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
-                                            <button class="mr-3 btn btn-sm btn-primary btn-square" title="নতুন এআইআর করুন"
-                                                    data-fiscal-year-id="{{$audit_plan['fiscal_year_id']}}"
-                                                    data-fiscal-year-start="{{$audit_plan['fiscal_year']['start']}}"
-                                                    data-fiscal-year-end="{{$audit_plan['fiscal_year']['end']}}"
-                                                    data-activity-id="{{$audit_plan['activity_id']}}"
-                                                    data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
-                                                    data-audit-plan-id="{{$audit_plan['id']}}"
-                                                    data-audit-plan-entity-info="{{json_encode($audit_plan['annual_plan']['ap_entities'])}}"
-                                                    data-audit-plan-entities="{{implode(' , ', array_unique($entities))}}"
-                                                    onclick="AIR_Container.loadAIRCreate($(this))">
-                                                <i class="fad fa-plus-circle"></i> নতুন এআইআর
-                                            </button>
+                                            @if($audit_plan['apottis_count'])
+                                                <button class="mr-3 btn btn-sm btn-primary btn-square" title="নতুন এআইআর করুন"
+                                                        data-fiscal-year-id="{{$audit_plan['fiscal_year_id']}}"
+                                                        data-fiscal-year-start="{{$audit_plan['fiscal_year']['start']}}"
+                                                        data-fiscal-year-end="{{$audit_plan['fiscal_year']['end']}}"
+                                                        data-activity-id="{{$audit_plan['activity_id']}}"
+                                                        data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                                                        data-audit-plan-id="{{$audit_plan['id']}}"
+                                                        data-audit-plan-entity-info="{{json_encode($audit_plan['annual_plan']['ap_entities'])}}"
+                                                        data-audit-plan-entities="{{implode(' , ', array_unique($entities))}}"
+                                                        onclick="AIR_Container.loadAIRCreate($(this))">
+                                                    <i class="fad fa-plus-circle"></i> ড্রাফট এআইআর তৈরি করুন
+                                                </button>
+                                            @else
+                                                <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="কোন আপত্তি পাওয়া যায়নি">
+                                                    <i class="fad fa-info-square"></i> কোন আপত্তি পাওয়া যায়নি
+                                                </button>
+                                            @endif
+
                                         </div>
                                     </div>
                                 </div>

@@ -1,22 +1,26 @@
 <div class="col-md-12">
-    <div class="d-flex justify-content-end mt-4">
-        <button title="ডাউনলোড করুন" data-memo-id="{{$memoInfoDetails['memo']['id']}}" data-directorate-id="{{$directorate_id}}"
+    <div class="d-flex justify-content-end mb-2">
+        <button title="ডাউনলোড করুন" data-scope="memo" data-memo-id="{{$memoInfoDetails['memo']['id']}}" data-directorate-id="{{$directorate_id}}"
                 onclick="Show_Memo_Container.memoPDFDownload($(this))"
-                class="btn btn-info btn-sm btn-bold btn-square">
-            <i class="far fa-download"></i> ডাউনলোড
+                class="btn btn-danger btn-sm btn-bold btn-square mr-2">
+            <i class="far fa-download"></i> মেমো ডাউনলোড
         </button>
+
+        @if(!empty($memoInfoDetails['memo']['ac_memo_porisishtos']))
+            <button title="ডাউনলোড করুন" data-scope="porisistho" data-memo-id="{{$memoInfoDetails['memo']['id']}}" data-directorate-id="{{$directorate_id}}"
+                    onclick="Show_Memo_Container.memoPDFDownload($(this))"
+                    class="btn btn-danger btn-sm btn-bold btn-square">
+                <i class="far fa-download"></i> পরিশিষ্ট ডাউনলোড
+            </button>
+        @endif
     </div>
 </div>
 
 <div style="height: 100%">
     <div style="text-align: center;color: black">
-        {{--<x-office-header-details />--}}
         মহাপরিচালকের কার্যালয়<br>
-        {{$directorateName}} <br>
-        {!! $directorateAddress !!}<br>
-        <u>{{$directorateWebsite}}</u>
     </div>
-    {{--    <x-office-header-details />--}}
+        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="false"  />
     <br>
     @if($memoInfoDetails['memo']['memo_sharok_no'])
         <table width="100%">
@@ -95,11 +99,11 @@
                 @if($memoInfoDetails['memo']['issued_by'] == 'sub_team_leader')
                     <p>({{$memoInfoDetails['memo']['sub_team_leader_name']}})</p>
                     <p>{{$memoInfoDetails['memo']['sub_team_leader_designation']}} ও উপদলনেতা</p>
-                    <p>{{$directorateName}}</p>
+                    <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"/>
                 @else
                     <p>({{$memoInfoDetails['memo']['team_leader_name']}})</p>
                     <p>{{$memoInfoDetails['memo']['team_leader_designation']}} ও দলনেতা</p>
-                    <p>{{$directorateName}}</p>
+                    <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"/>
                 @endif
             </td>
         </tr>
@@ -149,11 +153,11 @@
                 @if($memoInfoDetails['memo']['issued_by'] == 'sub_team_leader')
                     <p>({{$memoInfoDetails['memo']['sub_team_leader_name']}})</p>
                     <p>{{$memoInfoDetails['memo']['sub_team_leader_designation']}} ও উপদলনেতা</p>
-                    <p>{{$directorateName}}</p>
+                    <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"/>
                 @else
                     <p>({{$memoInfoDetails['memo']['team_leader_name']}})</p>
                     <p>{{$memoInfoDetails['memo']['team_leader_designation']}} ও দলনেতা</p>
-                    <p>{{$directorateName}}</p>
+                    <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"/>
                 @endif
             </td>
         </tr>
@@ -162,9 +166,9 @@
 
 
     {{--porisishto--}}
-    @foreach($memoInfoDetails['memo']['ac_memo_porisishtos'] as $porisishto)
+    {{--@foreach($memoInfoDetails['memo']['ac_memo_porisishtos'] as $porisishto)
         <div style="height: 100%">{!! $porisishto['details'] !!}</div>
-    @endforeach
+    @endforeach--}}
 </div>
 
 
@@ -173,10 +177,17 @@
 <script>
     var Show_Memo_Container = {
         memoPDFDownload: function (elem) {
-            url = '{{route('audit.execution.memo.download.pdf')}}';
+            url = '{{route('audit.execution.memo.download')}}';
+            scope = elem.data('scope');
             memo_id = elem.data('memo-id');
             directorate_id = elem.data('directorate-id');
-            data = {memo_id, directorate_id};
+            data = {scope,memo_id,directorate_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                state: 'primary' // a bootstrap color
+            });
 
             $.ajax({
                 type: 'POST',
@@ -189,8 +200,9 @@
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "memo.pdf";
+                    link.download = scope+".pdf";
                     link.click();
+                    KTApp.unblock('#kt_wrapper');
                 },
                 error: function (blob) {
                     toastr.error('Failed to generate PDF.')

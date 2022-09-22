@@ -19,7 +19,7 @@
                 <select class="form-select select-select2" id="fiscal_year_id">
                     @foreach ($fiscal_years as $fiscal_year)
                         <option value="{{ $fiscal_year['id'] }}"
-                            {{ now()->year == $fiscal_year['end'] ? 'selected' : '' }}>
+                            {{ $current_fiscal_year == $fiscal_year['id'] ? 'selected' : '' }}>
                             {{ $fiscal_year['description'] }}</option>
                     @endforeach
                 </select>
@@ -74,6 +74,7 @@
 
 <script>
     var dashboard_filter_data = '{!! session('dashboard_filter_data') !!}';
+
     $(function() {
         if (dashboard_filter_data != "") {
             filter_data = JSON.parse(dashboard_filter_data);
@@ -91,7 +92,6 @@
             }
             if (filter_data.activity_id != null) {
                 $("#activity_id").val(filter_data.activity_id).trigger('change');
-                Apotti_Memo_Container.loadMemoList();
             }
         }
 
@@ -100,7 +100,6 @@
         Apotti_Memo_Container.loadFiscalYearWiseActivity();
 
         if (directorate_id !== 'all') {
-            Apotti_Memo_Container.loadMemoList();
             Apotti_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
         } else {
             toastr.warning('Please select directorate');
@@ -128,7 +127,6 @@
                         Apotti_Memo_Container.setActivityAnonymously();
                         if (dashboard_filter_data.activity_id != null) {
                             $("#activity_id").val(dashboard_filter_data.activity_id).trigger('change');
-                            Apotti_Memo_Container.loadMemoList();
                         }
                     }
                 });
@@ -139,11 +137,10 @@
 
         loadEntityList: function(directorate_id, fiscal_year_id) {
             activity_id = $('#activity_id').val();
-            console.log(dashboard_filter_data)
-            if (dashboard_filter_data && activity_id == null) {
+            /*if (dashboard_filter_data && activity_id == null) {
                 // dashboard_filter_data = JSON.parse(dashboard_filter_data);
                 activity_id = dashboard_filter_data.activity_id;
-            }
+            }*/
             let url = '{{route('calendar.load-schedule-entity-fiscal-year-wise-select')}}';
             let data = {directorate_id, fiscal_year_id, activity_id};
             KTApp.block('#kt_wrapper', {
@@ -181,7 +178,6 @@
             preset_activity_id = getUserIndividualEvent('activity_id');
             activity_id = preset_activity_id ? preset_activity_id : $("select#activity_id option:eq(1)").val();
             $("select#activity_id").val(activity_id).trigger('change');
-            Apotti_Memo_Container.loadMemoList();
         },
 
         loadMemoList: function(page = 1, per_page = 10) {
@@ -359,6 +355,19 @@
     });
 
     $('#directorate_filter').change(function() {
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
+        Apotti_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
+    });
+
+    $('#fiscal_year_id').change(function() {
+        directorate_id = $('#directorate_filter').val();
+        fiscal_year_id = $('#fiscal_year_id').val();
+        Apotti_Memo_Container.loadFiscalYearWiseActivity();
+        Apotti_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);
+    });
+
+    $('#activity_id').change(function() {
         directorate_id = $('#directorate_filter').val();
         fiscal_year_id = $('#fiscal_year_id').val();
         Apotti_Memo_Container.loadEntityList(directorate_id, fiscal_year_id);

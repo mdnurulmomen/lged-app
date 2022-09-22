@@ -51,6 +51,9 @@
     }
 </style>
 {{--<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
+
+@php $total_unit = 0 ;@endphp
+
 <!-- Office Modal -->
 <div class="modal fade custom-modal" id="officeEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="officeEmployeeModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-xl" role="document">
@@ -66,6 +69,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col">
+                                <label>নিরীক্ষাধীন অর্থ বছর শুরু</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text"><i
                                                 style="color:#3699FF !important"
@@ -78,6 +82,7 @@
                                 </div>
                             </div>
                             <div class="col">
+                                <label>নিরীক্ষাধীন অর্থ বছর শেষ</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text"><i
                                                 style="color:#3699FF !important"
@@ -94,6 +99,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col">
+                                <label>{{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল শুরু' : 'সম্পাদনের সময়কাল শুরু' }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text"><i
                                                 style="color:#3699FF !important"
@@ -101,10 +107,11 @@
                                     <input type="text" id="team_start_date"
                                            class="date form-control"
                                            value="{{empty($all_teams) || empty($all_teams[0]['team_start_date'])?'':date('d/m/Y',strtotime($all_teams[0]['team_start_date']))}}"
-                                           placeholder="{{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল শুরু' : 'সম্পাদনের সময়কাল শেষ' }}" autocomplete="off"/>
+                                           placeholder="{{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল শুরু' : 'সম্পাদনের সময়কাল শুরু' }}" autocomplete="off"/>
                                 </div>
                             </div>
                             <div class="col">
+                                <label>{{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল শেষ' : 'সম্পাদনের সময়কাল শেষ' }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text"><i
                                                 style="color:#3699FF !important"
@@ -181,7 +188,11 @@
                         <div class="kt-portlet" style="margin-bottom:0;">
                             <div class="kt-portlet__head d-md-flex align-items-md-center justify-content-md-between">
                                 <div class="kt-portlet__head-label">
-                                    <h5 class="kt-portlet__head-title">বাছাইকৃত অফিসারদের তালিকা</h5>
+                                    <h5 class="kt-portlet__head-title">
+                                        {{--বাছাইকৃত অফিসারদের তালিকা--}}
+                                        বাছাইকৃত সর্বমোট ইউনিটঃ
+                                        <span class="total_unit_count">{{enTobn($total_unit)}}</span>
+                                    </h5>
                                 </div>
                                 <div class="kt-portlet__head-label">
                                     <div
@@ -229,6 +240,27 @@
                                                                            class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2">
                                                                 </div>
 
+                                                                @php $total_team_wise_unit = 0; @endphp
+                                                                @if($value['team_schedules'])
+                                                                    @php
+                                                                        $team_schedules = json_decode($value['team_schedules'],true);
+                                                                    @endphp
+                                                                    @foreach($team_schedules as $key => $schedule)
+                                                                        @php
+                                                                            $schedule_type = Arr::has($schedule, 'schedule_type') ? $schedule['schedule_type'] : 'schedule'
+                                                                        @endphp
+
+                                                                        @if($schedule_type == 'schedule')
+                                                                            @php $total_team_wise_unit += 1; @endphp
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+
+                                                                <h5 class="layer_text text-dark-75 text-primary font-weight-bold p-2" style="width: 20%;">
+                                                                    ইউনিট সংখ্যাঃ <span class="team_wise_total_unit_{{$loop->iteration}}">
+                                                                        {{enTobn($total_team_wise_unit)}}
+                                                                    </span>
+                                                                </h5>
 
                                                                 <div
                                                                     class="d-flex align-items-center justify-content-end">
@@ -248,7 +280,7 @@
 
                                                                             @if($value['team_parent_id'])
                                                                                 <button type="button"
-                                                                                        onclick="Load_Team_Container.deleteNode('layer','right_{{$loop->iteration}}', 0, '{{$value['id']}}')"
+                                                                                        onclick="Load_Team_Container.deleteNode('layer','permitted_level_{{$loop->iteration}}', 0, '{{$value['id']}}')"
                                                                                         class="justify-self-end text-danger btn btn-icon btn-md del_layer">
                                                                                     <i class="text-danger far fa-trash-alt"></i>
                                                                                 </button>
@@ -256,9 +288,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
-
                                                             </div>
+
                                                             <div class="dragged_data_area px-2 pt-0"
                                                                  id="right_drop_zone_{{$loop->iteration}}">
                                                                 <ul class="listed_items rounded-0 list-group"
@@ -291,7 +322,7 @@
                                                                                         <button type="button"
                                                                                                 data-designation-id="{{$member['designation_id']}}"
                                                                                                 onclick="Load_Team_Container.memberRole($(this), '{{$loop->parent->parent->iteration}}' , 'teamLeader', '{{$member['designation_id']}}')"
-                                                                                                class="teamLeaderBtn btn btn-xs signatory_layer text-primary">
+                                                                                                class="teamLeaderBtn btn btn-xs signatory_layer text-primary team_leader_designtion_{{$member['designation_id']}}">
                                                                                             <i data-value="@if($member['team_member_role_en'] == 'teamLeader') 1 @else 0 @endif"
                                                                                                class="far text-primary @if($member['team_member_role_en'] == 'teamLeader') fa-dot-circle @else fa-circle @endif "></i>দলনেতা
                                                                                         </button>
@@ -301,7 +332,7 @@
                                                                                     <button type="button"
                                                                                             data-designation-id="{{$member['designation_id']}}"
                                                                                             onclick="Load_Team_Container.memberRole($(this), '{{$loop->parent->parent->iteration}}' , 'subTeamLeader', '{{$member['designation_id']}}')"
-                                                                                            class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary">
+                                                                                            class="subTeamLeaderBtn btn btn-xs signatory_layer sub_team_leader_designtion_{{$member['designation_id']}} text-primary">
                                                                                         <i data-value="@if($member['team_member_role_en'] == 'subTeamLeader') 1 @else 0 @endif"
                                                                                            class="far text-primary @if($member['team_member_role_en'] == 'subTeamLeader') fa-dot-circle @else fa-circle @endif "></i>উপ
                                                                                         দলনেতা
@@ -309,7 +340,7 @@
                                                                                     <button type="button"
                                                                                             data-designation-id="{{$member['designation_id']}}"
                                                                                             onclick="Load_Team_Container.memberRole($(this), '{{$loop->parent->parent->iteration}}' , 'member', '{{$member['designation_id']}}')"
-                                                                                            class="memberBtn btn btn-xs signatory_layer text-primary">
+                                                                                            class="memberBtn btn btn-xs signatory_layer text-primary member_designtion_{{$member['designation_id']}}">
                                                                                         <i data-value="@if($member['team_member_role_en'] == 'member') 1 @else 0 @endif"
                                                                                            class="far text-primary @if($member['team_member_role_en'] == 'member') fa-dot-circle @else fa-circle @endif "></i>সদস্য
                                                                                     </button>
@@ -369,7 +400,8 @@
                                                                                 @endphp
 
                                                                                 @if($schedule_type == 'schedule')
-                                                                                    <tbody
+                                                                                    @php $total_unit += 1; @endphp
+                                                                                    <tbody class="sequence_tbody_{{$loop->parent->iteration}}"
                                                                                         id="schedule_tbody_{{$loop->parent->iteration}}_{{$loop->iteration}}"
                                                                                         data-tbody-id="{{$loop->parent->iteration}}_{{$loop->iteration}}"
                                                                                         data-schedule-type="{{$schedule_type}}">
@@ -399,18 +431,24 @@
                                                                                             </select>
                                                                                         </td>
                                                                                         <td class="selected_nominated_office_data_{{$loop->iteration}}">
+                                                                                            @php
+                                                                                                    $cost_center_info = json_encode([
+                                                                                                        'cost_center_id' => $schedule['cost_center_id'],
+                                                                                                        'cost_center_name_bn' => $schedule['cost_center_name_bn'],
+                                                                                                        'cost_center_name_en' => $schedule['cost_center_name_en'],
+
+                                                                                                    ]);
+
+                                                                                            @endphp
                                                                                             <select
                                                                                                 id="branch_name_select_{{ $loop->parent->iteration }}_{{$loop->iteration}}"
-                                                                                                class="form-control select-select2 input-branch-name"
+                                                                                                class="form-control input-branch-name"
                                                                                                 data-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}">
                                                                                                 <option value=''>
                                                                                                     --Select--
                                                                                                 </option>
                                                                                                 <option
-                                                                                                    value="{{$schedule['cost_center_id']}}"
-                                                                                                    data-cost-center-id="{{$schedule['cost_center_id']}}"
-                                                                                                    data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
-                                                                                                    data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
+                                                                                                    value="{{$cost_center_info}}"
                                                                                                     selected
                                                                                                 >
                                                                                                     {{$schedule['cost_center_name_bn']}}
@@ -457,21 +495,21 @@
                                                                                         </td>
                                                                                         <td>
                                                                                             <div style="display: flex;">
-                                                                                                <button type="button" title="schedule"
+                                                                                                <button type="button" title="সিডিউল"
                                                                                                         onclick="addAuditScheduleTblRow({{$loop->parent->iteration}},{{$loop->iteration}})"
                                                                                                         class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-calendar-day"></span>
                                                                                                 </button>
 
-                                                                                                <button type="button" title="Transit"
+                                                                                                <button type="button" title="ট্রানজিট"
                                                                                                         onclick="addDetailsTblRow({{ $loop->parent->iteration }},{{$loop->iteration}})"
                                                                                                         class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-plus"></span>
                                                                                                 </button>
 
-                                                                                                <button type='button' title="remove"
+                                                                                                <button type='button' title="বাদ দিন"
                                                                                                         data-row='row1'
                                                                                                         onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
                                                                                                         class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
@@ -483,7 +521,7 @@
                                                                                     </tbody>
 
                                                                                 @elseif($schedule_type == 'visit')
-                                                                                    <tbody
+                                                                                    <tbody class="sequence_tbody_{{$loop->parent->iteration}}"
                                                                                         id="schedule_tbody_{{$loop->parent->iteration}}_{{$loop->iteration}}"
                                                                                         data-tbody-id="{{ $loop->parent->iteration }}_{{$loop->iteration}}"
                                                                                         data-schedule-type="{{$schedule_type}}">
@@ -507,21 +545,21 @@
 
                                                                                         <td>
                                                                                             <div style="display: flex">
-                                                                                                <button type="button" title="schedule"
+                                                                                                <button type="button" title="সিডিউল"
                                                                                                         onclick="addAuditScheduleTblRow({{ $loop->parent->iteration }},{{$loop->iteration}})"
                                                                                                         class="btn btn-icon btn-outline-success border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-calendar-day"></span>
                                                                                                 </button>
 
-                                                                                                <button type="button" title="Transit"
+                                                                                                <button type="button" title="ট্রানজিট"
                                                                                                         onclick="addDetailsTblRow({{ $loop->parent->iteration }},{{$loop->iteration}})"
                                                                                                         class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                                                             <span
                                                                                                 class="fad fa-plus"></span>
                                                                                                 </button>
 
-                                                                                                <button type='button' title="remove"
+                                                                                                <button type='button' title="বাদ দিন"
                                                                                                         data-row='row1'
                                                                                                         onclick="removeScheduleRow($(this), {{ $loop->parent->iteration }})"
                                                                                                         class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
@@ -586,8 +624,17 @@
     all_teams = {};
     all_schedules = {};
 
-    function removeScheduleRow(elem, layer_id) {
-        elem.closest("tr").remove();
+    function removeScheduleRow(elem, layer_id,schedule_type='schedule') {
+        if(schedule_type == 'schedule'){
+            //for unit count
+            let total_unit = bnToen($('.total_unit_count').text());
+            $('.total_unit_count').text(enTobn(parseInt(total_unit)-1));
+
+            //for team wise unit count
+            let team_wise_total_unit = bnToen($('.team_wise_total_unit_'+layer_id).text());
+            $('.team_wise_total_unit_'+layer_id).text(enTobn(parseInt(team_wise_total_unit)-1));
+        }
+        elem.closest("tbody").remove();
     }
 
     function removeAuditScheduleListDiv(layer_id) {
@@ -611,12 +658,13 @@
         }
     }
 
-    function addAuditScheduleTblRow(layer_id,layer_row) {
+    function addAuditScheduleTblRow(layer_id,layer_row,schedule_type='schedule') {
         total_audit_schedule_row = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
         entity_list = '{{$parent_office_id}}';
         entity_list = entity_list.replace(/&quot;/g, '"');
+        project_id = '{{$project_id}}';
         url = '{{route('audit.plan.audit.editor.add-audit-schedule-row')}}';
-        data = {layer_id, total_audit_schedule_row, entity_list};
+        data = {layer_id, total_audit_schedule_row, entity_list,schedule_type,project_id};
 
         KTApp.block('.kt-portlet')
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
@@ -626,6 +674,13 @@
                 console.log(response)
             } else {
                 // $('#audit_schedule_table_' + layer_id).append(response);
+                //for unit count
+                let total_unit = bnToen($('.total_unit_count').text());
+                $('.total_unit_count').text(enTobn(parseInt(total_unit)+1));
+
+                //for team wise unit count
+                let team_wise_total_unit = bnToen($('.team_wise_total_unit_'+layer_id).text());
+                $('.team_wise_total_unit_'+layer_id).text(enTobn(parseInt(team_wise_total_unit)+1));
                 $('#schedule_tbody_' + layer_id + '_' + layer_row).after(response);
 
                 // $('.select-select2').select2();
@@ -634,8 +689,9 @@
     }
 
     function loadSelectNominatedOffices(parent_office_id, layer_id, total_audit_schedule_row, ministry_id) {
+        project_id = '{{$project_id}}';
         url = '{{route('audit.plan.audit.editor.load-select-nominated-offices')}}';
-        data = {parent_office_id, layer_id, total_audit_schedule_row, ministry_id};
+        data = {parent_office_id, layer_id, total_audit_schedule_row, ministry_id,project_id};
 
         KTApp.block('.kt-portlet')
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
@@ -670,20 +726,20 @@
 
     }
 
-    function addDetailsTblRow(layer_id,layer_row) {
+    function addDetailsTblRow(layer_id,layer_row,schedule_type='"visit"') {
         var totalAuditScheduleRow = $('#audit_schedule_table_' + layer_id + ' tbody').length + 1;
-        var teamScheduleHtml = "<tbody id='schedule_tbody_" + layer_id + "_" + totalAuditScheduleRow + "'  data-schedule-type='visit' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
+        var teamScheduleHtml = "<tbody class='sequence_tbody_" + layer_id + "' id='schedule_tbody_" + layer_id + "_" + totalAuditScheduleRow + "'  data-schedule-type='visit' data-tbody-id='" + layer_id + "_" + totalAuditScheduleRow + "'>" +
             "<tr class='audit_schedule_row_" + layer_id + "' data-layer-id='" + layer_id + "' data-audit-schedule-first-row='" + totalAuditScheduleRow + "_" + layer_id + "'>";
         teamScheduleHtml += "<td colspan='2'><input placeholder='ট্রানজিট' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='form-control input-detail'/></td>";
         teamScheduleHtml += "<td colspan='2'><div><input placeholder='ট্রানজিটের তারিখ' type='text' data-id='" + layer_id + "_" + totalAuditScheduleRow + "' class='date form-control input-detail-duration'/><span class='fal fa-calendar field-icon'></span></div></td>";
         teamScheduleHtml += "<td><div style='display: flex'>" +
-            "<button title='schedule' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ","+totalAuditScheduleRow+")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
+            "<button title='সিডিউল' type='button' onclick='addAuditScheduleTblRow(" + layer_id + ","+totalAuditScheduleRow+")' class='btn btn-icon btn-outline-success border-0 btn-xs mr-2'>" +
             "<span class='fad fa-calendar-day'></span>" +
             "</button>" +
-            "<button title='Transit' type='button' onclick='addDetailsTblRow(" + layer_id + ","+totalAuditScheduleRow+")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
+            "<button title='ট্রানজিট' type='button' onclick='addDetailsTblRow(" + layer_id + ","+totalAuditScheduleRow+")' class='btn btn-icon btn-outline-warning border-0 btn-xs mr-2'>" +
             "<span class='fad fa-plus'></span>" +
             "</button>" +
-            "<button title='remove' onclick='removeScheduleRow($(this), " + layer_id + ")' type='button' " +
+            "<button title='বাদ দিন' onclick='removeScheduleRow($(this), " + layer_id + ","+schedule_type+")' type='button' " +
             "data-row='row" + totalAuditScheduleRow + "' class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>" +
             "<span class='fal fa-trash-alt'></span>" +
             "</button>" +
@@ -820,18 +876,19 @@
         },
 
         addNode: function (layer_index, data_content, addType) {
+            // alert(layer_index);
             var html_officer = data_content.officer_name_bn;
             var node_html = `<li id="designtion_${data_content.designation_id}" class="list-group-item overflow-hidden p-1">
                                 <p data-content='${JSON.stringify(data_content)}' data-member-role="member" data-layer="${layer_index}" class="assignedMember_${data_content.designation_id}_${layer_index} p-0 mb-0 permitted_designation" id="permitted_${data_content.designation_id}" data-id="${data_content.designation_id}">
                                     <i class="far fa-user"></i><span class="ml-2 mr-2">${html_officer}</span>
                                     <small>${data_content.designation_bn}, ${data_content.unit_name_bn}</small>`;
             if (layer_index == $('[id^=permitted_level_]').first().attr('data-layer_index')) {
-                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader', ${data_content.designation_id})" class="teamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-circle"></i>দলনেতা</button>`;
+                node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'teamLeader', ${data_content.designation_id})" class="teamLeaderBtn btn btn-xs signatory_layer text-primary team_leader_designtion_${data_content.designation_id}"><i data-value="0" class="far text-primary fa-circle"></i>দলনেতা</button>`;
                 Load_Team_Container.editor_leader_info = data_content.officer_name_bn + ', ' + data_content.designation_bn + ', ' + data_content.unit_name_bn + '|';
             }
 
-            node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'subTeamLeader', ${data_content.designation_id})" class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary"><i data-value="0" class="far text-primary fa-circle"></i>উপ দলনেতা</button>
-<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'member', ${data_content.designation_id})" class="memberBtn btn btn-xs signatory_layer text-primary"><i data-value="1" class="far text-primary fa-dot-circle"></i>সদস্য</button>
+            node_html = node_html + `<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'subTeamLeader', ${data_content.designation_id})" class="subTeamLeaderBtn btn btn-xs signatory_layer text-primary sub_team_leader_designtion_${data_content.designation_id}"><i data-value="0" class="far text-primary fa-circle"></i>উপ দলনেতা</button>
+<button type="button" data-designation-id=${data_content.designation_id} onclick="Load_Team_Container.memberRole($(this), ${layer_index} , 'member', ${data_content.designation_id})" class="memberBtn btn btn-xs signatory_layer text-primary"><i data-value="1" class="far text-primary fa-dot-circle member_designtion_${data_content.designation_id}"></i>সদস্য</button>
                     </select> <button type="button" onclick="Load_Team_Container.deleteNode('designation','permitted_${data_content.designation_id}', 0)" class="text-danger btn btn-icon btn-xs del_layer_designation"><i class="text-danger far fa-trash-alt"></i></button>
 </p>                            </li>
             `;
@@ -842,6 +899,16 @@
             // Load_Team_Container.newNodeResetSortableList($("#permitted_level_" + layer_index));
             if ($("p[id^=permitted_]").length == 1) {
                 $('.teamLeaderBtn').click();
+            }
+
+
+            if (layer_index > 1) {
+                list_group_count = $('ul#list_group_'+layer_index).children('li').length;
+                if ( list_group_count == 1) {
+                    $(".sub_team_leader_designtion_" + data_content.designation_id).click();
+                }else{
+                    $(".member_designtion_" + data_content.designation_id).click();
+                }
             }
 
             if (data_content.employee_grade > 6) {
@@ -877,19 +944,29 @@
         },
 
         loadTeamSchedule: function (team_schedule_list_div, team_layer_id, modal_type) {
-            KTApp.block('.kt-portlet')
+            KTApp.block('.kt-portlet');
             url = '{{route('audit.plan.audit.editor.load-audit-team-schedule')}}';
             annual_plan_id = '{{$annual_plan_id}}';
+            project_id = '{{$project_id}}';
             parent_office_id = '{{$parent_office_id}}';
             parent_office_id = parent_office_id.replace(/&quot;/g, '"');
-            data = {team_layer_id, annual_plan_id, parent_office_id, modal_type};
+            data = {team_layer_id, annual_plan_id, parent_office_id, modal_type,project_id};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('.kt-portlet')
+                KTApp.unblock('.kt-portlet');
                 if (response.status === 'error') {
-                    toastr.error('No Auditable Units Chosen.');
+                    toastr.error('No Auditable Units Chosen');
                 } else {
                     $("#" + team_schedule_list_div).append(response);
                     $("#team_schedule_layer_btn_" + team_layer_id).hide();
+                    let total_unit_count = $('.total_unit_count');
+                    if(team_layer_id == 1){
+                        total_unit_count.text('১');
+                    }else {
+                        //for unit count
+                        let total_unit = bnToen(total_unit_count.text());
+                        total_unit_count.text(enTobn(parseInt(total_unit)+1));
+                    }
+                    $(".team_wise_total_unit_" + team_layer_id).text('১');
                 }
             })
         },
@@ -983,6 +1060,7 @@
                     }
                     data_content = $('#' + v.id).attr('data-content');
                     content = JSON.parse(data_content);
+
                     officer_id = content.officer_id;
                     layer_id = $('#' + v.id).attr('data-layer');
 
@@ -1036,6 +1114,8 @@
                         all_teams['all_teams'][layer_id] = {};
                     }
 
+                    console.log(leader_info);
+
                     all_teams['team_start_date'] = formatDate($('#team_start_date').val());
                     all_teams['team_end_date'] = formatDate($('#team_end_date').val());
                     all_teams['leader'] = team_leader;
@@ -1059,6 +1139,12 @@
             team_schedule = {};
             $('[id^=audit_schedule_table_]').each(function (i, v) {
                 layer_id = v.id.split('_')[3]
+
+                    $('.sequence_tbody_'+layer_id).each(function (i, v) {
+                        i++
+                        $(this).attr('data-tbody-id', layer_id+'_'+i);
+                    });
+
                 if ($('#list_group_' + layer_id + ' [data-member-role="teamLeader"]').length > 0 || $('[id^=permitted_level_]').length == 1) {
                     leader_info = JSON.parse($('#list_group_' + layer_id + ' [data-member-role="teamLeader"]').attr('data-content'));
                 } else {
@@ -1078,88 +1164,92 @@
                 activity_details = '';
                 schedule_type = '';
 
+                level = 1;
                 $(".audit_schedule_row_" + layer_id + " input, .audit_schedule_row_" + layer_id + " select").each(function () {
-                    tbodyId = $(this).closest('tbody').data('tbody-id');
-                    tbodySerialId = tbodyId.split('_');
-                    //console.log(tbodyId)
+                        tbodyId = $(this).closest('tbody').data('tbody-id');
+                        tbodySerialId = tbodyId.split('_');
 
-                    schedule_type = $(this).closest('tbody').data('schedule-type');
-                    if (schedule_type === 'visit') {
-                        ministry_id = '';
-                        ministry_name_bn = '';
-                        ministry_name_en = '';
-                        entity_id = '';
-                        entity_name_bn = '';
-                        entity_name_en = '';
-                        cost_center_id = '';
-                        cost_center_name_en = '';
-                        cost_center_name_bn = '';
-                        activity_man_days = '0';
-                    } else {
-                        activity_details = '';
-                    }
-
-                    if ($(this).hasClass('input-entity-name') && $(this).is("select")) {
-                        ministry_id = $(this).find(':selected').attr('data-ministry-id') ? $(this).find(':selected').attr('data-ministry-id') : '';
-                        ministry_name_bn = $(this).find(':selected').attr('data-ministry-name-bn') ? $(this).find(':selected').attr('data-ministry-name-bn') : '';
-                        ministry_name_en = $(this).find(':selected').attr('data-ministry-name-en') ? $(this).find(':selected').attr('data-ministry-name-en') : '';
-                        entity_id = $(this).find(':selected').val();
-                        entity_name_bn = $(this).find(':selected').attr('data-entity-name-bn') ? $(this).find(':selected').attr('data-entity-name-bn') : '';
-                        entity_name_en = $(this).find(':selected').attr('data-entity-name-en') ? $(this).find(':selected').attr('data-entity-name-en') : '';
-                    }
-
-                    if ($(this).hasClass('input-branch-name') && $(this).is("select")) {
-                        cost_center_id = $(this).find(':selected').attr('data-cost-center-id');
-                        cost_center_name_en = $(this).find(':selected').attr('data-cost-center-name-en');
-                        cost_center_name_bn = $(this).find(':selected').attr('data-cost-center-name-bn');
-                    }
-
-                    if (!$(this).is('select')) {
-                        if ($(this).hasClass('input-start-duration')) {
-                            team_member_start_date = formatDate($(this).val());
+                        schedule_type = $(this).closest('tbody').data('schedule-type');
+                        if (schedule_type === 'visit') {
+                            ministry_id = '';
+                            ministry_name_bn = '';
+                            ministry_name_en = '';
+                            entity_id = '';
+                            entity_name_bn = '';
+                            entity_name_en = '';
+                            cost_center_id = '';
+                            cost_center_name_en = '';
+                            cost_center_name_bn = '';
+                            activity_man_days = '0';
+                        } else {
+                            activity_details = '';
                         }
-                        if ($(this).hasClass('input-end-duration')) {
-                            team_member_end_date = formatDate($(this).val());
-                        }
-                        if ($(this).hasClass('input-total-working-day')) {
-                            activity_man_days = $(this).val();
-                        }
-                        if ($(this).hasClass('input-detail-duration')) {
-                            team_member_start_date = $(this).val() === "" ? "" : formatDate($(this).val());
-                            team_member_end_date = $(this).val() === "" ? "" : formatDate($(this).val());
-                        }
-                        if ($(this).hasClass('input-detail')) {
-                            activity_details = $(this).val();
-                        }
-                    }
 
-                    sequence_level = tbodySerialId[1];
+                        if ($(this).hasClass('input-entity-name') && $(this).is("select")) {
+                            ministry_id = $(this).find(':selected').attr('data-ministry-id') ? $(this).find(':selected').attr('data-ministry-id') : '';
+                            ministry_name_bn = $(this).find(':selected').attr('data-ministry-name-bn') ? $(this).find(':selected').attr('data-ministry-name-bn') : '';
+                            ministry_name_en = $(this).find(':selected').attr('data-ministry-name-en') ? $(this).find(':selected').attr('data-ministry-name-en') : '';
+                            entity_id = $(this).find(':selected').val();
+                            entity_name_bn = $(this).find(':selected').attr('data-entity-name-bn') ? $(this).find(':selected').attr('data-entity-name-bn') : '';
+                            entity_name_en = $(this).find(':selected').attr('data-entity-name-en') ? $(this).find(':selected').attr('data-entity-name-en') : '';
+                        }
 
-                    schedule_data = {
-                        ministry_id,
-                        ministry_name_bn,
-                        ministry_name_en,
-                        entity_id,
-                        entity_name_bn,
-                        entity_name_en,
-                        cost_center_id,
-                        cost_center_name_en,
-                        cost_center_name_bn,
-                        team_member_start_date,
-                        team_member_end_date,
-                        activity_man_days,
-                        activity_details,
-                        sequence_level,
-                        schedule_type
-                    };
+                        if ($(this).hasClass('input-branch-name') && $(this).is("select")) {
+                            cost_center_info = $(this).find(':selected').val();
+                            cost_center_info = JSON.parse(cost_center_info);
 
-                    if (schedule_data.cost_center_id in team_schedule[leader_info.designation_id] == false && typeof schedule_data.cost_center_id !== 'undefined') {
-                        team_schedule[leader_info.designation_id][sequence_level] = {};
-                    }
-                    if (typeof schedule_data.cost_center_id !== 'undefined') {
-                        team_schedule[leader_info.designation_id][sequence_level] = schedule_data;
-                    }
-                });
+                            cost_center_id = cost_center_info.cost_center_id
+                            cost_center_name_en = cost_center_info.cost_center_name_en
+                            cost_center_name_bn = cost_center_info.cost_center_name_bn
+                        }
+
+                        if (!$(this).is('select')) {
+                            if ($(this).hasClass('input-start-duration')) {
+                                team_member_start_date = formatDate($(this).val());
+                            }
+                            if ($(this).hasClass('input-end-duration')) {
+                                team_member_end_date = formatDate($(this).val());
+                            }
+                            if ($(this).hasClass('input-total-working-day')) {
+                                activity_man_days = $(this).val();
+                            }
+                            if ($(this).hasClass('input-detail-duration')) {
+                                team_member_start_date = $(this).val() === "" ? "" : formatDate($(this).val());
+                                team_member_end_date = $(this).val() === "" ? "" : formatDate($(this).val());
+                            }
+                            if ($(this).hasClass('input-detail')) {
+                                activity_details = $(this).val();
+                            }
+                        }
+                        sequence_level = tbodySerialId[1];
+
+                        schedule_data = {
+                            ministry_id,
+                            ministry_name_bn,
+                            ministry_name_en,
+                            entity_id,
+                            entity_name_bn,
+                            entity_name_en,
+                            cost_center_id,
+                            cost_center_name_en,
+                            cost_center_name_bn,
+                            team_member_start_date,
+                            team_member_end_date,
+                            activity_man_days,
+                            activity_details,
+                            sequence_level,
+                            schedule_type
+                        };
+
+                        if (schedule_data.cost_center_id in team_schedule[leader_info.designation_id] == false && typeof schedule_data.cost_center_id !== 'undefined') {
+                            team_schedule[leader_info.designation_id][sequence_level] = {};
+                        }
+                        if (typeof schedule_data.cost_center_id !== 'undefined') {
+                            team_schedule[leader_info.designation_id][sequence_level] = schedule_data;
+                        }
+                    });
+
+
             });
             all_schedules = team_schedule;
             return all_schedules;
@@ -1173,7 +1263,35 @@
             fiscal_year_id = '{{$fiscal_year_id}}';
             audit_year_start = $('#audit_year_start').val();
             audit_year_end = $('#audit_year_end').val();
+
+            layer_id = 0;
+            list_group = $('[id^=list_group_]');
+
+            list_group.each(function (index, value) {
+                is_subteam_leader = 0;
+                $('p[id^=permitted_]').each(function (i, v) {
+                    if (layer_id != $('#' + v.id).attr('data-layer')) {
+                        layer_id == $('#' + v.id).attr('data-layer');
+                    }
+                    role = $('#' + v.id).attr('data-member-role');
+                    layer_id = $('#' + v.id).attr('data-layer');
+
+                    if (layer_id > 1) {
+                        if (role == 'subTeamLeader') {
+                            is_subteam_leader = 1;
+                            return;
+                        }
+                    }
+                });
+            });
+
+            if(list_group.length > 1 && !is_subteam_leader){
+                toastr.warning('Please Select Sub Team Leader');
+                return;
+            }
+
             teams = Load_Team_Container.makeAuditTeam();
+
             modal_type = '{{$modal_type}}';
             data = {
                 annual_plan_id,
@@ -1224,14 +1342,14 @@
                         toastr.success(response.data);
                         //$(".field_level_visited_units_and_locations").html(Load_Team_Container.insertAuditFieldVisitUnitListInBook());
                         if (modal_type == 'data-collection'){
-                            Load_Team_Container.insertAuditScheduleListInBook();
+                            /*Load_Team_Container.insertAuditScheduleListInBook();*/
                             activity_id = $('#activity_id').val();
                             $('#activity_id').val(activity_id).trigger('change');
                         }else{
                             Load_Team_Container.teamMemberInsertIntoBook(audit_plan_id);
-                            Load_Team_Container.teamMemberScheduleInsertIntoBook(audit_plan_id);
+                            /*Load_Team_Container.teamMemberScheduleInsertIntoBook(audit_plan_id);*/
+                            Load_Team_Container.setJsonContentFromPlanBook();
                         }
-                        Load_Team_Container.setJsonContentFromPlanBook();
                     } else {
                         toastr.error(response.data);
                         console.log(response);
@@ -1277,7 +1395,8 @@
         addLayer: function () {
             var innerDivLength = $("#permitted_designations").children('.timeline-item');
             var number = innerDivLength.length + 1;
-            // console.log(number)
+            // team_name = 'দল ' + enTobn($('#plan_no').val());
+
             if (number === 1) {
                 team_name = 'দল ' + enTobn(number);
             } else {
@@ -1298,7 +1417,9 @@ style="padding-left: 5px;">
                 <input type="text" value="${team_name}"
                        class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2">
             </div>
-            <!--<h5 class="layer_text text-dark-75 text-hover-primary font-weight-bold p-2" style="width: 20%;">${team_name}</h5>-->
+            <h5 class="layer_text text-dark-75 text-primary font-weight-bold p-2" style="width: 20%;">
+                ইউনিট সংখ্যাঃ <span class="team_wise_total_unit_${number}">০</span>
+            </h5>
             <div class="d-flex align-items-center justify-content-end">
                 <div class="d-flex align-items-center justify-content-between mb-0 mt-0">
                     <div class="mr-2">
@@ -1308,7 +1429,7 @@ style="padding-left: 5px;">
                             <span class="pulse-ring"></span>
                         </button>`
             if (number > 1) {
-                level_html = level_html + `                        <button type="button" onclick="Load_Team_Container.deleteNode('layer','right_${number}', 0)"
+                level_html = level_html + `                        <button type="button" onclick="Load_Team_Container.deleteNode('layer','permitted_level_${number}', 0,0)"
                                 class="justify-self-end text-danger btn btn-icon btn-md del_layer">
                             <i class="text-danger far fa-trash-alt"></i>
                         </button>`
@@ -1368,7 +1489,7 @@ style="padding-left: 5px;">
 
 
             auditTeamMember += '</tbody></table>';
-            $(".seniority_wise_audit_engagement_team_member").html(auditTeamMember);
+            //$(".seniority_wise_audit_engagement_team_member").html(auditTeamMember);
             $(".audit_team_names").html(allTeamNameInfo);
             $(".audit_team_leader").html(auditTeamLeaderInfo);
 
@@ -1554,6 +1675,10 @@ style="padding-left: 5px;">
     };
 
     $(function () {
+        total_unit_count = '{{$total_unit}}';
+        if(total_unit_count > 0){
+            $(".total_unit_count").text(enTobn(total_unit_count));
+        }
         Load_Team_Container.loadOfficer(0, 'own_office');
     });
 
@@ -1574,16 +1699,56 @@ style="padding-left: 5px;">
         loadSelectNominatedOffices(parent_office_id, layer_id, row, ministry_id);
     });
 
-    $('.input-branch-name').on('select2:opening', function (e) {
-        // $(this).find('[value="'+$(this).val()+'"]').remove();
-        layer_row = $(this).attr('data-id');
-        parent_office_id = $('#entity_name_select_' + layer_row).val();
-        layer_row = layer_row.split("_");
-        layer_id = layer_row[0];
-        row = layer_row[1];
-        // $('#branch_name_select_' + layer_id + '_'+ row).select2().trigger("select2:close");
-        loadSelectNominatedOfficeOption(parent_office_id, layer_id, row);
+    $('.input-branch-name').select2({
+        ajax: {
+            url: '{{route('audit.plan.audit.editor.get-entity-wise-cos-center-autocomplete')}}',
+            method: 'post',
+            delay: 3000,
+            dataType: 'json',
+            data: function (params) {
+                layer_row = $(this).attr('data-id');
+                parent_office_id = $('#entity_name_select_'+layer_row).val();
+                project_id = '{{$project_id}}';
+                return {
+                    parent_office_id: parent_office_id,
+                    cost_center_name_bn: params.term, // search term
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+
+                return {
+                    results: $.map(data.results, function (item) {
+                        cost_center_info = {
+                            'cost_center_id': item.id,
+                            'cost_center_name_en': item.office_name_en,
+                            'cost_center_name_bn': item.office_name_bn,
+                        };
+                        return {
+                            text: item.office_name_bn,
+                            id: JSON.stringify(cost_center_info)
+                        }
+                    }),
+                    pagination: {
+                        more: (params.page * 10) < data.data_count
+                    }
+                };
+            },
+        },
+        // minimumInputLength: 5,
     });
+
+    // $('.input-branch-name').on('select2:opening', function (e) {
+    //     // $(this).find('[value="'+$(this).val()+'"]').remove();
+    //     layer_row = $(this).attr('data-id');
+    //     parent_office_id = $('#entity_name_select_' + layer_row).val();
+    //     layer_row = layer_row.split("_");
+    //     layer_id = layer_row[0];
+    //     row = layer_row[1];
+    //     // $('#branch_name_select_' + layer_id + '_'+ row).select2().trigger("select2:close");
+    //     loadSelectNominatedOfficeOption(parent_office_id, layer_id, row);
+    // });
 
     $('.input-end-duration').change(function (){
 

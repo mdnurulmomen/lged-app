@@ -119,7 +119,7 @@
                                         @if($item['broad_sheet_items_count'] == $item['broad_sheet_item_decision'])
                                             <div class="subject-wrapper font-weight-normal mt-2">
                                                 <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
-                                                        title="জারিপত্র"
+                                                        title="জারিপত্র তৈরি করুন"
                                                         data-broad-sheet-id="{{$item['id']}}"
                                                         data-memorandum-no="{{$item['memorandum_no']}}"
                                                         onclick="Broadsheet_Reply_List_Container.sendToRpuForm($(this))">
@@ -131,10 +131,15 @@
                                         <div class="d-flex mt-3">
 
                                             @if($item['broad_sheet_reply']['is_sent_rpu'])
-                                                <button class="mr-3 btn btn-sm btn-info btn-square">
-                                                    জারিপত্র প্রেরণ করা হয়েছে
-                                                </button>
+                                                   <p class="mt-3 pr-5">জারিপত্র প্রেরণ করা হয়েছে</p>
                                             @else
+                                                <button class="mr-3 btn btn-sm btn-outline-primary btn-square"
+                                                        title="জারিপত্র তৈরি করুন"
+                                                        data-broad-sheet-id="{{$item['id']}}"
+                                                        data-memorandum-no="{{$item['memorandum_no']}}"
+                                                        onclick="Broadsheet_Reply_List_Container.sendToRpuForm($(this))">
+                                                    <i class="fa fa-edit"></i> জারিপত্র সম্পাদনা করুন
+                                                </button>
                                                 <button data-broad-sheet-id="{{$item['id']}}"
                                                         onclick="Broadsheet_Reply_List_Container.sentBroadSheetReplyToRpu($(this))"
                                                         class="mr-3 btn btn-sm btn-primary btn-square">
@@ -176,7 +181,7 @@
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
 
                                             @if($item['broad_sheet_hard_copy'])
-                                                <a href="{{ config('amms_bee_routes.file_url').$item['broad_sheet_hard_copy'] }}"
+                                                <a target="_blank"  href="{{ config('amms_bee_routes.file_url').$item['broad_sheet_hard_copy'] }}"
                                                    title="{{___('generic.buttons.title.details')}}"
                                                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle">
                                                     <i class="fa fa-eye"></i>
@@ -194,19 +199,24 @@
                                                 </button>
                                             @endif
 
-{{--                                            @if($item['latest_broad_sheet_movement'] && $item['latest_broad_sheet_movement']['receiver_officer_id'] == $desk_officer_id)--}}
-                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                @if(!$item['broad_sheet_reply'] ||  ($item['broad_sheet_reply'] && !$item['broad_sheet_reply']['is_sent_rpu']))
+
+                                                    {{--                                            @if($item['latest_broad_sheet_movement'] && $item['latest_broad_sheet_movement']['receiver_officer_id'] == $desk_officer_id)--}}
+                                                    <button
+                                                        class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
                                                         title=""
                                                         data-broad-sheet-id="{{$item['id']}}"
                                                         onclick="Broadsheet_Reply_List_Container.loadBraodSheetApprovalAuthority($(this))">
-                                                    <i class="fa fa-paper-plane"></i>
-                                                </button>
-{{--                                            @endif--}}
+                                                        <i class="fa fa-paper-plane"></i>
+                                                    </button>
+                                                    {{--                                            @endif--}}
+
+                                                @endif
 
 {{--                                            @if($item['unit_response'] != null)--}}
 
                                                 @if($item['broad_sheet_hard_copy'])
-                                                    <a href="{{ config('amms_bee_routes.file_url').$item['broad_sheet_hard_copy'] }}"
+                                                    <a target="_blank" href="{{ config('amms_bee_routes.file_url').$item['broad_sheet_hard_copy'] }}"
                                                        title="{{___('generic.buttons.title.details')}}"
                                                        class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle">
                                                         <i class="fa fa-download"></i>
@@ -230,14 +240,15 @@
 {{--                                                        onclick="Broadsheet_Reply_List_Container.editApottiItem($(this))">--}}
 {{--                                                    <i class="fad fa-comments-alt"></i>--}}
 {{--                                                </button>--}}
-
-                                                <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
-                                                        title="সিদ্ধান্ত দিন" data-scope="response"
-                                                        data-broad-sheet-id="{{$item['id']}}"
-                                                        onclick="Broadsheet_Reply_List_Container.loadBroadSheetItem($(this))">
-                                                    <i class="fas fa-plus-octagon"></i>
-                                                </button>
+                                                @if(!$item['broad_sheet_reply'] ||  ($item['broad_sheet_reply'] && !$item['broad_sheet_reply']['is_sent_rpu']))
+                                                    <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary list-btn-toggle"
+                                                            title="সিদ্ধান্ত দিন" data-scope="response"
+                                                            data-broad-sheet-id="{{$item['id']}}"
+                                                            onclick="Broadsheet_Reply_List_Container.loadBroadSheetItem($(this))">
+                                                        <i class="fas fa-plus-octagon"></i>
+                                                    </button>
 {{--                                            @endif--}}
+                                                @endif
 
                                             {{--<button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary
                                             list-btn-toggle"
@@ -354,11 +365,11 @@
         },
 
         sendToRpuForm: function (elem) {
-
+            office_id = $('#directorate_filter').val();
             broad_sheet_id = elem.data('broad-sheet-id');
             memorandum_no = elem.data('memorandum-no');
 
-            data = {broad_sheet_id,memorandum_no};
+            data = {broad_sheet_id,memorandum_no,office_id};
 
             url = '{{route('audit.followup.broadsheet.reply.send-broad-sheet-reply-form')}}';
 

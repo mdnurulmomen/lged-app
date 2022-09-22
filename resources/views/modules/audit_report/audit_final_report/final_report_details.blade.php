@@ -74,12 +74,12 @@
                                             onclick="Report_Apottis.loadArchiveApottiEditForm($(this))">
                                         <i class="fad fa-edit"></i>
                                     </button>
-                                    <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-icon-danger list-btn-toggle"
-                                            title="বিস্তারিত দেখুন"
-                                            data-apotti-id="{{$apotti['apotti']['id']}}"
-                                            onclick="Report_Apottis.deleteReportApottis($(this))">
-                                        <i class="fad fa-trash"></i>
-                                    </button>
+{{--                                    <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-icon-danger list-btn-toggle"--}}
+{{--                                            title="বিস্তারিত দেখুন"--}}
+{{--                                            data-apotti-id="{{$apotti['apotti']['id']}}"--}}
+{{--                                            onclick="Report_Apottis.deleteReportApottis($(this))">--}}
+{{--                                        <i class="fad fa-trash"></i>--}}
+{{--                                    </button>--}}
                                 </td>
                             </tr>
                         @empty

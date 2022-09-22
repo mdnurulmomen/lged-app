@@ -50,80 +50,86 @@
         </td>
     </tr>
     <tr>
-        <td class="annual-plan-title">সাবজেক্ট ম্যাটার</td>
+        <td class="annual-plan-title"> @if(session('dashboard_audit_type') == 'Performance Audit') মেইন টপিক @else সাবজেক্ট ম্যাটার @endif</td>
         <td style="width: 60%;padding-left: 2%">{{$annual_plan_info['subject_matter']}}</td>
     </tr>
-    <tr>
-        <td class="annual-plan-title">প্রতিষ্ঠানের মোট বাজেট</td>
-        <td style="width: 60%;padding-left: 2%">{{enTobn($annual_plan_info['budget'])}}</td>
-    </tr>
-    <tr>
-        <td class="annual-plan-title"> নির্বাচিত ইউনিটের মোট বাজেট</td>
-        <td style="width: 60%;padding-left: 2%">{{ enTobn($annual_plan_info['cost_center_total_budget'])}}</td>
-    </tr>
+    @if(session('dashboard_audit_type') == 'Compliance Audit')
+        <tr>
+            <td class="annual-plan-title">প্রতিষ্ঠানের মোট বাজেট</td>
+            <td style="width: 60%;padding-left: 2%">{{enTobn($annual_plan_info['budget'])}}</td>
+        </tr>
+        <tr>
+            <td class="annual-plan-title"> নির্বাচিত ইউনিটের মোট বাজেট</td>
+            <td style="width: 60%;padding-left: 2%">{{ enTobn($annual_plan_info['cost_center_total_budget'])}}</td>
+        </tr>
+        <tr>
+            <td class="annual-plan-title"> নির্বাচিত ইউনিটের মোট খরচ</td>
+            <td style="width: 60%;padding-left: 2%">{{ enTobn($annual_plan_info['total_expenditure'])}}</td>
+        </tr>
+    @endif
     <tr>
         <td class="annual-plan-title">মন্তব্য</td>
         <td style="width: 60%;padding-left: 2%">{{$annual_plan_info['comment']}}</td>
     </tr>
 </table>
-@if(session('dashboard_audit_type') == 'Performance Audit')
+{{--@if(session('dashboard_audit_type') == 'Performance Audit')--}}
+{{--    <br>--}}
+{{--<h4>সাবজেক্ট ম্যাটার</h4>--}}
+{{--<table class="annual-plan-table subject-matter" border="1">--}}
+{{--    <tr>--}}
+{{--        <td class="annual-plan-title">মেইন টপিক</td>--}}
+{{--        <td style="width:90%;padding-left: 2%">--}}
+{{--            {{$annual_plan_subject_matter_info['main_topic']['subject_matter_en']}}--}}
+{{--        </td>--}}
+{{--    </tr>--}}
+{{--    <tr>--}}
+{{--        <td class="annual-plan-title">সাব টপিক</td>--}}
+{{--        <td style="width:90%;">--}}
+{{--            <table class="table m-0">--}}
+{{--                @foreach($annual_plan_subject_matter_info['sub_topic'] as $sub_topic)--}}
+{{--                    <tr>--}}
+{{--                        <td>{{$sub_topic['subject_matter_en']}}</td>--}}
+{{--                    </tr>--}}
+{{--                @endforeach--}}
+{{--            </table>--}}
+{{--        </td>--}}
+{{--    </tr>--}}
+{{--    <tr>--}}
+{{--        <td class="annual-plan-title">অডিট অবজেকটিভ</td>--}}
+{{--        <td style="width:90%;padding-left: 2%">{{$annual_plan_subject_matter_info['aduit_object']['audit_objective_en']}}</td>--}}
+{{--    </tr>--}}
+{{--    <table class="annual-plan-table subject-matter" border="1">--}}
+{{--        @foreach($annual_plan_subject_matter_info['sub_object'] as $sub_object)--}}
+{{--            <tr>--}}
+{{--                <td class="annual-plan-title">সাব অবজেকটিভ</td>--}}
+{{--                <td style="width:90%;">--}}
+{{--                    <table class="annual-plan-table m-0">--}}
+{{--                        <tr>--}}
+{{--                            <td style="padding: 5px 0 5px 2%; border-bottom:1px solid #EBEDF3" colspan="2">{{$sub_object['audit_objective_en']}}</td>--}}
+{{--                        </tr>--}}
+{{--                        <tr>--}}
+{{--                            <td class="annual-plan-title" style="width:30%;padding-left: 2%;border-right:1px solid #EBEDF3">লাইন অফ ইনকোয়ারি</td>--}}
+{{--                            <td style="width:70%;">--}}
+{{--                                <table class="table m-0">--}}
+{{--                                    @foreach($sub_object['line_of_enquiries'] as $enquiries)--}}
+{{--                                        <tr>--}}
+{{--                                            <td style="border:0; border-bottom: 1px solid #EBEDF3">{{$enquiries['line_of_enquire_en']}}</td>--}}
+{{--                                        </tr>--}}
+{{--                                    @endforeach--}}
+{{--                                </table>--}}
+{{--                            </td>--}}
 
-<br>
-<h4>সাবজেক্ট ম্যাটার</h4>
-<table class="annual-plan-table subject-matter" border="1">
-    <tr>
-        <td class="annual-plan-title">মেইন টপিক</td>
-        <td style="width:90%;padding-left: 2%">
-            {{$annual_plan_subject_matter_info['main_topic']['subject_matter_en']}}
-        </td>
-    </tr>
-    <tr>
-        <td class="annual-plan-title">সাব টপিক</td>
-        <td style="width:90%;">
-            <table class="table m-0">
-                @foreach($annual_plan_subject_matter_info['sub_topic'] as $sub_topic)
-                    <tr>
-                        <td>{{$sub_topic['subject_matter_en']}}</td>
-                    </tr>
-                @endforeach
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td class="annual-plan-title">অডিট অবজেকটিভ</td>
-        <td style="width:90%;padding-left: 2%">{{$annual_plan_subject_matter_info['aduit_object']['audit_objective_en']}}</td>
-    </tr>
-    <table class="annual-plan-table subject-matter" border="1">
-        @foreach($annual_plan_subject_matter_info['sub_object'] as $sub_object)
-            <tr>
-                <td class="annual-plan-title">সাব অবজেকটিভ</td>
-                <td style="width:90%;">
-                    <table class="annual-plan-table m-0">
-                        <tr>
-                            <td style="padding: 5px 0 5px 2%; border-bottom:1px solid #EBEDF3" colspan="2">{{$sub_object['audit_objective_en']}}</td>
-                        </tr>
-                        <tr>
-                            <td class="annual-plan-title" style="width:30%;padding-left: 2%;border-right:1px solid #EBEDF3">লাইন অফ ইনকোয়ারি</td>
-                            <td style="width:70%;">
-                                <table class="table m-0">
-                                    @foreach($sub_object['line_of_enquiries'] as $enquiries)
-                                        <tr>
-                                            <td style="border:0; border-bottom: 1px solid #EBEDF3">{{$enquiries['line_of_enquire_en']}}</td>
-                                        </tr>
-                                    @endforeach
-                                </table>
-                            </td>
+{{--                        </tr>--}}
 
-                        </tr>
+{{--                    </table>--}}
+{{--                </td>--}}
 
-                    </table>
-                </td>
+{{--            </tr>--}}
+{{--        @endforeach--}}
+{{--    </table>--}}
+{{--</table>--}}
+{{--@endif--}}
 
-            </tr>
-        @endforeach
-    </table>
-</table>
-@endif
 @if(isset($nominated_man_powers['staffs']))
     <br>
     <h4>জনবল</h4>
@@ -154,8 +160,7 @@
         </tbody>
     </table>
 @endif
-
-@if($annual_plan_info['ap_milestones'])
+    @if($annual_plan_info['ap_milestones'])
     <br>
     <h4>নিরীক্ষা কাজের পর্যায়</h4>
     <table class="table table-striped">
@@ -188,4 +193,5 @@
         @endforeach
         </tbody>
     </table>
+
 @endif

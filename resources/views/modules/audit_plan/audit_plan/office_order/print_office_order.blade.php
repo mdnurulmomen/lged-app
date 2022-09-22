@@ -910,7 +910,7 @@
                         <tbody>
                         <tr>
                             <td style="text-align: center" width="5%">ক্রমিক নং</td>
-                            <td style="text-align: center" width="45%">শাখার নাম</td>
+                            <td style="text-align: center" width="45%">প্রতিষ্ঠানের নাম</td>
                             <td style="text-align: center" width="20%">নিরীক্ষা বছর</td>
                             <td style="text-align: center" width="15%">নিরীক্ষা সময়কাল</td>
                             <td style="text-align: center" width="15%">মোট কর্ম দিবস</td>
@@ -977,10 +977,10 @@
     <div class="pdf-screen" style="height: 100%;font-family:Nikosh,serif !important; page-break-after:always">
         <div style="font-family:Nikosh,serif !important;width: 100%;margin-top: 10px">
             <span style="width: 70%;float: left">
-                {{$office_order['memorandum_no']}}
+                {{$office_order['memorandum_no_2'] ?: $office_order['memorandum_no']}}
             </span>
             <span style="width: 30%;float: right">
-                তারিখঃ  {{enTobn($office_order['memorandum_date'])}} খ্রি।
+                তারিখঃ  {{$office_order['memorandum_date_2'] ? formatDate($office_order['memorandum_date_2'],'bn') : enTobn($office_order['memorandum_date'])}} খ্রি।
             </span>
         </div>
 

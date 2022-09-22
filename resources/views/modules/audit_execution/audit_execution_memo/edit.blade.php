@@ -1,22 +1,3 @@
-<style>
-    fieldset.scheduler-border {
-        border: 1px groove #ddd !important;
-        padding: 0 1.4em 1.4em 1.4em !important;
-        margin: 0 0 1.5em 0 !important;
-        -webkit-box-shadow:  0px 0px 0px 0px #000;
-        box-shadow:  0px 0px 0px 0px #000;
-    }
-
-    legend.scheduler-border {
-        font-size: 1.2em !important;
-        font-weight: bold !important;
-        text-align: left !important;
-        width:auto;
-        padding:0 10px;
-        border-bottom:none;
-    }
-</style>
-
 <link rel="stylesheet" href="{{asset('assets/css/mFiler-font.css')}}" referrerpolicy="origin">
 <link rel="stylesheet" href="{{asset('assets/css/mFiler.css')}}" referrerpolicy="origin">
 
@@ -34,17 +15,13 @@
                     <a
                         onclick="Audit_Query_Schedule_Container.memo($(this))"
                         data-schedule-id="{{$schedule_id}}"
+                        data-team-id="{{$team_id}}"
                         data-audit-plan-id="{{$audit_plan_id}}"
                         data-cost-center-id="{{$cost_center_id}}"
                         data-cost-center-name-bn="{{$cost_center_name_bn}}"
                         data-audit-year-start="{{$audit_year_start}}"
                         data-audit-year-end="{{$audit_year_end}}"
-                        data-team-leader-name-bn="{{$team_leader_name}}"
-                        data-team-leader-designation-name-bn="{{$team_leader_designation_name}}"
-                        data-scope-sub-team-leader="{{$scope_sub_team_leader}}"
-                        data-sub-team-leader-name-bn="{{$sub_team_leader_name}}"
-                        data-sub-team-leader-designation-name-bn="{{$sub_team_leader_designation_name}}"
-                        class="btn btn-sm btn-warning btn_back btn-square mr-3">
+                        class="btn btn-sm btn-warning btn-back btn-square mr-3">
                         <i class="fad fa-arrow-alt-left"></i> ফেরত যান
                     </a>
                     <a id="memo_submit" class="btn btn-primary btn-sm btn-bold btn-square"
@@ -101,6 +78,31 @@
 
                         <div class="col-md-5">
                             <div class="card sna-card-border mb-4">
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                        <label class="col-form-label">উত্থাপনকারী<span class="text-danger">*</span></label>
+                                        <select class="form-control select-select2" name="finder_officer_id" id="finder_officer_id">
+                                            <option value="" data-finder-office-id="" data-finder-details="">--উত্থাপনকারী বাছাই করুন--</option>
+                                            @foreach($team_members as $member)
+                                                <option {{$member['team_member_officer_id'] == $memoInfo['memo']['finder_officer_id']?'selected':''}} value="{{$member['team_member_officer_id']}}" data-finder-office-id="{{$member['team_member_office_id']}}"
+                                                        data-finder-details="{{json_encode(
+            [
+                'team_member_name_bn' => $member['team_member_name_bn'],
+                'team_member_name_en' => $member['team_member_name_en'],
+                'team_member_designation_bn' => $member['team_member_designation_bn'],
+                'team_member_designation_en' => $member['team_member_designation_en'],
+                'team_member_role_bn' => $member['team_member_role_bn'],
+                'team_member_role_en' => $member['team_member_role_en'],
+                'mobile_no' => $member['mobile_no'],
+                'employee_grade' => $member['employee_grade'],
+            ], JSON_UNESCAPED_UNICODE)}}">
+                                                    {{$member['team_member_name_bn'].', '.$member['team_member_designation_bn']}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-12">
                                         <input class="form-control bangla-number-input amount_number_format mb-1"
@@ -188,7 +190,7 @@
                             </div>
 
                             <div class="card sna-card-border mb-4">
-                                <label class="col-form-label">পরিশিষ্ট সংযুক্তি</label>
+                                {{--<label class="col-form-label">পরিশিষ্ট সংযুক্তি</label>
                                 <input name="porisishtos[]" type="file" class="mFilerInit form-control rounded-0"
                                        multiple>
 
@@ -231,7 +233,7 @@
                                             @endforeach
                                         </ul>
                                     </div>
-                                </div>
+                                </div>--}}
 
 
                                 <label class="col-form-label">প্রমানক সংযুক্তি</label>
@@ -281,15 +283,39 @@
                             </div>
 
                             <div class="card sna-card-border mb-4">
+                                <div class="row mt-1">
+                                    <div class="col-md-12">
+                                        <label class="col-form-label text-primary bold mr-3">ইস্যুকারীঃ</label>
+                                        <input type="radio" class="mr-1" name="issued_by" value="team_leader" {{$memoInfo['memo']['issued_by'] == 'team_leader' ? 'checked':''}}><span class="mr-3">দলনেতা</span>
+                                        <input type="radio" class="mr-1" name="issued_by" value="sub_team_leader" {{$memoInfo['memo']['issued_by'] == 'sub_team_leader' ? 'checked':''}}><span class="mr-3">উপদলনেতা</span>
+                                    </div>
+                                </div>
+
                                 <label class="col-form-label">দলনেতা</label>
-                                <input type="text" class="form-control mb-1" name="rpu_acceptor_officer_name_bn"
-                                       placeholder="দলনেতা" readonly
-                                       value="{{$memoInfo['memo']['team_leader_name'].' ('.$memoInfo['memo']['team_leader_designation'].')'}}">
+                                @foreach(json_decode($get_team['team_members'],true) as $key => $team)
+                                    @if($key == 'teamLeader')
+                                        @foreach($team as $teamLeader)
+                                            <input type="text" class="form-control mb-1" placeholder="দলনেতা" readonly
+                                                   value="{{$teamLeader['officer_name_bn'].' ('.$teamLeader['designation_bn'].')'}}">
+                                            <input type="hidden" name="team_leader_name" value="{{$teamLeader['officer_name_bn']}}">
+                                            <input type="hidden" name="team_leader_designation" value="{{$teamLeader['designation_bn']}}">
+                                        @endforeach
+                                    @endif
+                                @endforeach
 
                                 <label class="col-form-label">উপদলনেতা</label>
-                                <input type="text" class="form-control mb-1" name="rpu_acceptor_designation_name_bn"
-                                       placeholder="উপদলনেতা" readonly
-                                       value="{{$memoInfo['memo']['sub_team_leader_name']== null?'':$memoInfo['memo']['sub_team_leader_name'].' ('.$memoInfo['memo']['sub_team_leader_name'].')'}}">
+                                @foreach(json_decode($get_team['team_members'],true) as $key => $team)
+                                    @if($key == 'subTeamLeader')
+                                        @foreach($team as $subTeamLeader)
+                                            <input type="text" class="form-control mb-1" placeholder="উপদলনেতা" readonly
+                                                   value="{{$subTeamLeader['officer_name_bn'].' ('.$subTeamLeader['designation_bn'].')'}}">
+                                            <input type="hidden" name="sub_team_leader_name"
+                                                   value="{{$subTeamLeader['officer_name_bn']}}">
+                                            <input type="hidden" name="sub_team_leader_designation"
+                                                   value="{{$subTeamLeader['designation_bn']}}">
+                                        @endforeach
+                                    @endif
+                                @endforeach
                             </div>
 
                             <div class="card mb-4 d-none">
@@ -416,6 +442,15 @@
                 from_data.append('porisisto_details[]', porisisto);
             }
 
+            finder_office_id = $("#finder_officer_id").find(':selected').attr('data-finder-office-id');
+            from_data.append('finder_office_id', finder_office_id);
+            finder_details = $("#finder_officer_id").find(':selected').attr('data-finder-details');
+            from_data.append('finder_details', finder_details);
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
 
             $.ajax({
                 data: from_data,
@@ -426,9 +461,10 @@
                 cache: false,
                 processData: false,
                 success: function (responseData) {
+                    KTApp.unblock('#kt_wrapper');
                     if (responseData.status === 'success') {
                         toastr.success(responseData.data);
-                        $('.btn_back').click();
+                        $('.btn-back').click();
                     } else {
                         if (responseData.statusCode === '422') {
                             var errors = responseData.msg;

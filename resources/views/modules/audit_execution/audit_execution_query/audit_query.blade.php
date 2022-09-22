@@ -5,7 +5,10 @@
         <div class="row">
             <div class="col-md-7">
                 <h4 class="mt-3">
-                    {{$cost_center_name_bn}}
+                    {{$cost_center_name_bn}} <br>
+                    @if(!empty($project_name_bn))
+                        প্রজেক্টঃ {{$project_name_bn}}
+                    @endif
                 </h4>
             </div>
             <div class="col-md-5">
@@ -18,7 +21,7 @@
 
                     <a class="btn btn-sm btn-primary btn-square"
                        onclick="Audit_Query_Container.addQuery($(this))"
-                       title="মেমো তৈরি করুন"
+                       title="কোয়েরি শিট তৈরি করুন"
                        href="javascript:;">
                         <i class="fa fa-plus mr-1"></i> কোয়েরি শিট
                     </a>
@@ -28,7 +31,7 @@
     </div>
 </div>
 
-<div class="card sna-card-border mt-2">
+<div class="card sna-card-border mt-2 mb-14">
     <div id="load_query_list"></div>
 </div>
 
@@ -39,12 +42,18 @@
             opacity: 0.1,
             state: 'primary' // a bootstrap color
         });
+
+        team_id = '{{$team_id}}';
         audit_plan_id = '{{$audit_plan_id}}';
         schedule_id = '{{$schedule_id}}';
         entity_id ='{{$entity_id}}';
         cost_center_id ='{{$cost_center_id}}';
+        project_name_bn ='{{$project_name_bn}}';
+
         url = '{{route('audit.execution.query.load-list')}}';
-        data = {audit_plan_id,schedule_id,entity_id,cost_center_id};
+
+        data = {team_id,audit_plan_id,schedule_id,entity_id,cost_center_id,project_name_bn};
+
         ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
             KTApp.unblock('#kt_wrapper');
             if (response.status === 'error') {
@@ -56,16 +65,26 @@
     })
 
     var Audit_Query_Container = {
-        addQuery: function (elem) {
+        addQuery: function () {
+            team_id = '{{$team_id}}';
             schedule_id = '{{$schedule_id}}';
             audit_plan_id = '{{$audit_plan_id}}';
             entity_id = '{{$entity_id}}';
             cost_center_id = '{{$cost_center_id}}';
             cost_center_name_bn = '{{$cost_center_name_bn}}';
             cost_center_name_en = '{{$cost_center_name_bn}}';
-            data = {schedule_id,audit_plan_id,entity_id,cost_center_id,cost_center_name_bn,cost_center_name_en};
+            project_name_bn ='{{$project_name_bn}}';
+
+            data = {team_id,schedule_id,audit_plan_id,entity_id,cost_center_id,cost_center_name_bn,cost_center_name_en,project_name_bn};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
             url = '{{route('audit.execution.query.create')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock("#kt_wrapper");
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {
@@ -73,6 +92,7 @@
                 }
             });
         },
+
         backToQuerySchedule:function (){
             $('.audit_query_schedule_menu a').click();
         }
