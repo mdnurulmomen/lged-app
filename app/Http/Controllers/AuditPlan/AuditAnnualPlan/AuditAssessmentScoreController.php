@@ -19,10 +19,12 @@ class AuditAssessmentScoreController extends Controller
         $fiscal_years = $this->allFiscalYears();
 
         //categories
+        $categories = [];
         $categoryResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-category-types'), [])->json();
         $categories = isSuccess($categoryResponseData) ? $categoryResponseData['data'] : [];
 
         //ministries
+        $ministries = [];
         $ministryResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-ministry-list'),       ['directorate_id' => $this->current_office_id()])->json();
         $ministries = isSuccess($ministryResponseData) ? $ministryResponseData['data'] : [];
 
@@ -49,7 +51,7 @@ class AuditAssessmentScoreController extends Controller
         $data['office_type'] = $request->category_id;
         $data['office_ministry_id'] = $request->ministry_id;
         $officeResponseData = $this->initRPUHttp()->post(config('cag_rpu_api.office-ministry-wise-entity'),$data)->json();
-        //dd($officeResponseData);
+//        dd($officeResponseData);
         $offices = isSuccess($officeResponseData) ? $officeResponseData['data'] : [];
         return view('modules.audit_plan.annual.audit_assessment_score.partials.load_office_entity',compact('offices'));
     }

@@ -30,12 +30,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="strategic_row">
+                                <tr class="strategic_row project_row_{{$i}}">
                                     <td>
                                         <select data-strategic-year="{{$i}}" data-id="1" class="form-control project_id_{{$i}} select-select2 project-select">
                                             <option selected value="">select project</option>
                                             @foreach($all_project as $project)
-                                                <option data-project-name-en=">{{$project['name_en']}}"
+                                                <option data-project-name-en="{{$project['name_en']}}"
                                                         value="{{$project['id']}}">{{$project['name_bn']}}</option>
                                             @endforeach
                                         </select>
@@ -54,14 +54,14 @@
                                     <td>
                                         <div style="display: flex">
                                             <button type="button" title="ট্রানজিট"
-                                                    onclick="Strategic_Plan_Create_Container.addLocationRow('{{$i}}','project')"
+                                                    onclick="Plan_Common_Container.addLocationRow('{{$i}}','project')"
                                                     class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                 <span class="fad fa-plus"></span>
                                             </button>
 
                                             <button type='button' title="বাদ দিন"
                                                     data-row='row1'
-                                                    onclick="Strategic_Plan_Create_Container.removeLocationRow('{{$i}}','project')"
+                                                    onclick="Plan_Common_Container.removeLocationRow('{{$i}}','project')"
                                                     class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                                                 <span class='fal fa-trash-alt'></span>
                                             </button>
@@ -86,7 +86,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="strategic_row">
+                                <tr class="strategic_row function_row_{{$i}}">
                                     <td>
                                         <select class="form-control function_id_{{$i}} select-select2">
                                             <option selected value="">select function</option>
@@ -98,6 +98,12 @@
                                     <td>
                                         <select class="form-control location_id_{{$i}} select-select2">
                                             <option selected value="">select location</option>
+                                            <option data-parent-office-id="1"
+                                                    data-parent-office-name-en="sdfasdf"
+                                                    data-parent-office-name-bn="asdfasd"
+                                                    data-office-name-en="cost center 1"
+                                                    data-office-name-bn="cost center 1"
+                                                    value="1">cost center</option>
                                         </select>
                                     </td>
                                     <td>
@@ -109,14 +115,14 @@
                                     <td>
                                         <div style="display: flex">
                                             <button type="button" title="ট্রানজিট"
-                                                    onclick="Strategic_Plan_Create_Container.addLocationRow('{{$i}}','function')"
+                                                    onclick="Plan_Common_Container.addLocationRow('{{$i}}','function')"
                                                     class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                                 <span class="fad fa-plus"></span>
                                             </button>
 
                                             <button type='button' title="বাদ দিন"
                                                     data-row='row1'
-                                                    onclick="Strategic_Plan_Create_Container.removeLocationRow('{{$i}}','function')"
+                                                    onclick="Plan_Common_Container.removeLocationRow('{{$i}}','function')"
                                                     class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                                                 <span class='fal fa-trash-alt'></span>
                                             </button>
@@ -138,8 +144,6 @@
         row_no =  $(this).attr('data-id');
         project_id =  $(this).val();
         strategic_year =  $(this).attr('data-strategic-year');
-        console.log(strategic_year);
-        console.log(row_no);
-        Strategic_Plan_Create_Container.loadCostCenterProjectMap(project_id,row_no,strategic_year);
+        Plan_Common_Container.loadCostCenterProjectMap(project_id,row_no,strategic_year);
     });
 </script>

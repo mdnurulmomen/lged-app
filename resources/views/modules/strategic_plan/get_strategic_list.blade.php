@@ -1,28 +1,98 @@
-<table class="table table-striped">
+<table class="table table-bordered" width="100%">
     <thead class="thead-light">
-    <tr>
-        <th>Plan For</th>
-        <th>File Name</th>
-        <th>Action</th>
+    <tr class="bg-hover-warning">
+        <th width="7%" class="text-center">
+            No
+        </th>
+
+        <th width="33%" class="text-left">
+            Plan Year
+        </th>
+
+        <th width="33%" class="text-left">
+            Action
+        </th>
     </tr>
     </thead>
-    <tbody>
-    @foreach($final_plan_file_list as $final_plan_file)
-        <tr>
-            <td><span>{{$final_plan_file['fiscal_year']}}</span></td>
-            <td><span>{{$final_plan_file['user_file_name']}}</span></td>
-            <td>
-                <div class="btn-group">
-                    <a href="{{$final_plan_file['file_url']}}" target="_blank" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary">
-                        <i class="fal fa-eye"></i>
-                    </a>
 
-                    <a href="javascript:;" onclick='loadPage($(this))' data-url="{{route('audit.plan.strategy.sp_file_edit', [$final_plan_file['id']])}}" class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-info">
-                        <i class="fal fa-edit"></i>
-                    </a>
-                </div>
+    <tbody>
+
+    @foreach($strategic_plan_list as $plan)
+        <tr class="text-center">
+            <td class="text-center">
+                {{$loop->iteration}}
+            </td>
+            <td class="text-left">
+                {{$plan['strategic_plan_year']}}
+            </td>
+            <td class="text-left">
+                <button class="mr-1 btn btn-sm btn-primary btn-square"
+                        title="বিস্তারিত দেখুন"
+                        data-annual-plan-id=""
+                        onclick=""
+                >
+                    <i class="fad fa-eye"></i> বিস্তারিত
+                </button>
             </td>
         </tr>
     @endforeach
     </tbody>
 </table>
+
+
+{{--<table class="table table-bordered" width="100%">--}}
+{{--    <thead class="thead-light">--}}
+{{--    <tr class="bg-hover-warning">--}}
+{{--        <th width="7%" class="text-center">--}}
+{{--            ক্রম--}}
+{{--        </th>--}}
+
+{{--        <th width="33%" class="text-left">--}}
+{{--            টপিক--}}
+{{--        </th>--}}
+
+{{--        <th width="33%" class="text-left">--}}
+{{--            কার্যক্রম--}}
+{{--        </th>--}}
+{{--    </tr>--}}
+{{--    </thead>--}}
+
+{{--    <tbody>--}}
+{{--    @forelse($psr_approval_list as $topic)--}}
+{{--        <tr class="text-center">--}}
+{{--            <td class="text-center">--}}
+{{--                {{$loop->iteration}}--}}
+{{--            </td>--}}
+{{--            <td class="text-left">--}}
+{{--                {{$topic['subject_matter']}}--}}
+{{--            </td>--}}
+{{--            <td class="text-left">--}}
+{{--                <button class="mr-1 btn btn-sm btn-primary btn-square" title="বিস্তারিত দেখুন"--}}
+{{--                        data-annual-plan-id="{{$topic['id']}}"--}}
+{{--                        onclick="Approve_Psr_Topic_List_Container.showPlanInfo($(this))"--}}
+{{--                >--}}
+{{--                    <i class="fad fa-eye"></i> বিস্তারিত--}}
+{{--                </button>--}}
+
+{{--                @if($topic['status'] == 'pending')--}}
+{{--                    <button class="mr-1 btn btn-sm btn-edit" title="অনুমোদন করুন"--}}
+{{--                            data-annual-plan-id="{{$topic['id']}}"--}}
+{{--                            data-psr-approval-type="topic"--}}
+{{--                            onclick="Approve_Psr_Common_Container.loadPsrApprovalForm($(this))">--}}
+{{--                        অনুমোদন করুন--}}
+{{--                    </button>--}}
+{{--                @else--}}
+{{--                    <span class="label label-outline-success label-pill label-inline">--}}
+{{--                        অনুমোদিত--}}
+{{--                    </span>--}}
+{{--                @endif--}}
+{{--            </td>--}}
+{{--        </tr>--}}
+{{--    @empty--}}
+{{--        <tr data-row="0" class="datatable-row" style="left: 0px;">--}}
+{{--            <td colspan="4" class="datatable-cell text-center"><span>Nothing Found</span></td>--}}
+{{--        </tr>--}}
+{{--    @endforelse--}}
+{{--    </tbody>--}}
+{{--</table>--}}
+

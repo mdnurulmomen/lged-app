@@ -1,11 +1,13 @@
 <x-title-wrapper>Strategic Plan List</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
-    <div class="d-flex justify-content-end">
-        <a class="btn btn-success btn-sm btn-bold btn-square" onclick='loadPage($(this))'
-           data-url="{{route('audit.plan.strategy.sp_file_upload')}}" href="javascript:;">
-            <i class="far fa-plus mr-1"></i> Create Strategic Plan
-        </a>
+    <div class="col-md-12 text-right">
+        <button class="btn btn-sm btn-info btn-square mr-1" title="বিস্তারিত দেখুন"
+                onclick='loadPage($(this))'
+                data-url="{{route('audit.plan.strategy.create')}}"
+        >
+            <i class="fad fa-plus"></i> Create
+        </button>
     </div>
 </div>
 
@@ -22,9 +24,11 @@
     });
     var Strategic_Plan_Container = {
         loadStrategicPlanList: function () {
-            let url = '{{route('audit.plan.annual.plan.revised.list.all')}}';
-            let data = {fiscal_year_id, fiscal_year};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+            loaderStart('loading...')
+            let url = '{{route('audit.plan.strategy.get-strategic-plan-list')}}';
+            let data = {};
+            ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
+                loaderStop();
                 if (response.status === 'error') {
                     toastr.error(response.data)
                 } else {

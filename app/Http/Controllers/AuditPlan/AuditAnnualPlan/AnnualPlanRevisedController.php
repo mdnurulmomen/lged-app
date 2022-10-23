@@ -78,13 +78,12 @@ class AnnualPlanRevisedController extends Controller
     public function showAnnualPlanEntities(Request $request)
     {
         $data = Validator::make($request->all(), [
-            'office_id' => 'required',
+            'office_id' => 'nullable',
             'fiscal_year_id' => 'required|integer',
             'activity_id' => 'nullable',
             'office_ministry_id' => 'nullable',
         ],[
             'office_id.required' => 'অধিদপ্তর বাছাই করুন',
-            'fiscal_year_id.required' => 'অর্থবছর বাছাই করুন',
         ])->validate();
 
 //        dd($data);
@@ -107,11 +106,9 @@ class AnnualPlanRevisedController extends Controller
             $data
         )->json();
 
-
-    //
+//        dd($planListResponseData);
 
         $plan_list = isSuccess($planListResponseData) ? $planListResponseData['data']['annual_plan_list'] : [];
-//         dd($plan_list);
         //        $approval_status = isSuccess($planListResponseData)?$planListResponseData['data']['approval_status']:[];
         $op_audit_calendar_event_id = isSuccess($planListResponseData) ? $planListResponseData['data']['op_audit_calendar_event_id'] : [];
 //        dd($plan_list);
@@ -133,7 +130,6 @@ class AnnualPlanRevisedController extends Controller
                     'current_office_id',
                     'current_designation_grade',
                     'office_id'
-
                 )
             );
         } else if (session('dashboard_audit_type') == 'Performance Audit') {
@@ -153,8 +149,6 @@ class AnnualPlanRevisedController extends Controller
         } else if (session('dashboard_audit_type')  == 'Financial Audit') {
             $data['activity_type'] = 'financial';
         }
-
-
     }
 
     public function showStaffAssignList(Request $request)
@@ -185,7 +179,7 @@ class AnnualPlanRevisedController extends Controller
     {
         $data = Validator::make($request->all(), [
             'fiscal_year_id' => 'required|integer',
-            'op_audit_calendar_event_id' => 'required|integer',
+            'op_audit_calendar_event_id' => 'nullable|integer',
         ])->validate();
 
         if (session('dashboard_audit_type') == 'Compliance Audit') {
@@ -204,8 +198,9 @@ class AnnualPlanRevisedController extends Controller
 
         $office_id = $this->current_office_id();
         $data['office_id'] = $office_id;
-        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), $data)->json();
-        $all_project = $all_project ? $all_project['data'] : [];
+//        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), $data)->json();
+//        $all_project = $all_project ? $all_project['data'] : [];
+        $all_project = [];
 
         //        dd($all_project);
 

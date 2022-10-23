@@ -2,7 +2,7 @@
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 d-none">
             <select class="form-select select-select2" id="directorate_filter">
                 @if(count($directorates) > 1)
                     <option value="">অধিদপ্তর বাছাই করুন</option>
@@ -27,11 +27,11 @@
             </select>
         </div>
 
-        <div class="col-md-3">
-            <select class="form-control select-select2" name="office_ministry_id" id="office_ministry_id">
-                <option value="">মন্ত্রণালয় বাছাই করুন</option>
-            </select>
-        </div>
+{{--        <div class="col-md-3">--}}
+{{--            <select class="form-control select-select2" name="office_ministry_id" id="office_ministry_id">--}}
+{{--                <option value="">মন্ত্রণালয় বাছাই করুন</option>--}}
+{{--            </select>--}}
+{{--        </div>--}}
     </div>
 </div>
 

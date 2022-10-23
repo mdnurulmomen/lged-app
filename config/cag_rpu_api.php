@@ -40,4 +40,11 @@ return [
 
     'get-all-doner' => env('API_URL_RPU', '') . '/doner-agency/list',
     'get-doner-wise-project' => env('API_URL_RPU', '') . '/doner-agency/get-doner-wise-project',
+
+    'function' => [
+        'list' => env('API_URL_RPU', '') . '/function/list',
+    ],
+    'cost-center-project-map' => [
+        'get-cost-center-project-map' => env('API_URL_RPU', '') . '/cost-center-project-map/get-cost-center-project-map',
+    ],
 ];

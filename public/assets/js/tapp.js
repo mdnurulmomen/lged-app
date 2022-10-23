@@ -401,6 +401,18 @@ function decryptStringFromB64(str) {
     return decodeURIComponent(atob(str));
 }
 
+function loaderStart(msg){
+    KTApp.block('#kt_wrapper', {
+        opacity: 0.1,
+        message: msg,
+        state: 'primary' // a bootstrap color
+    });
+}
+
+function loaderStop(){
+    KTApp.unblock("#kt_wrapper");
+}
+
 function downloadImage(elem) {
     url = elem.data('file-url');
     fetch(url, {

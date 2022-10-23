@@ -178,6 +178,8 @@ trait GenericInfoCollection
             $activity_type = 'performance';
         } else if (session('dashboard_audit_type')  == 'Financial Audit') {
             $activity_type= 'financial';
+        } else{
+            $activity_type = 'compliance';
         }
 
         return $activity_type;

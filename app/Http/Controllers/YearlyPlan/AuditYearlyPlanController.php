@@ -1,40 +1,30 @@
 <?php
 
-namespace App\Http\Controllers\AuditPlan;
+namespace App\Http\Controllers\YearlyPlan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class AuditStrategicPlanController extends Controller
+class AuditYearlyPlanController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index()
-    {
-        $this->userPermittedMenusByModule(request()->path());
-        return view('modules.audit_plan.strategic.index');
+
+    public function index(){
+        return view('modules.yearly_plan.index');
     }
 
-    public function showAuditStrategicPlanDashboard()
-    {
-        return view('modules.audit_plan.strategic.dashboard.audit_strategic_plan_dashboard');
-    }
-
-    public function list(){
-        return view('modules.strategic_plan.index');
-    }
-
-    public function getStrategicPlanList(){
-        $strategic_plan_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.strategic_plan_list'),)->json();
-        if (isSuccess($strategic_plan_list)) {
-            $strategic_plan_list = $strategic_plan_list['data'];
-            return view('modules.strategic_plan.get_strategic_list',compact('strategic_plan_list'));
+    public function getYearlyPlanList(){
+        $yearly_plan_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_yearly_plan.yearly_plan_list'),)->json();
+        if (isSuccess($yearly_plan_list)) {
+            $yearly_plan_list = $yearly_plan_list['data'];
+            return view('modules.yearly_plan.get_yearly_list',compact('yearly_plan_list'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $strategic_plan_list]);
+            return response()->json(['status' => 'error', 'data' => $yearly_plan_list]);
         }
     }
 
@@ -62,22 +52,7 @@ class AuditStrategicPlanController extends Controller
         return view('modules.strategic_plan.partial.cost_center_select',
             compact('cost_center_list'));
 
-
     }
-
-    public function addLocationRow(Request $request){
-        $strategic_year = $request->strategic_year;
-        $row_type = $request->row_type;
-        $row_count = $request->row_count;
-        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), [])->json();
-        $all_project = $all_project ? $all_project['data'] : [];
-
-        $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.function.list'), [])->json();
-        $all_function = $all_function ? $all_function['data'] : [];
-        return view('modules.strategic_plan.partial.add_location_row',
-            compact( 'all_project','all_function','strategic_year','row_type','row_count'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -85,8 +60,37 @@ class AuditStrategicPlanController extends Controller
      */
     public function create()
     {
-        $strategic_plan_durations =  $this->allStrategicPlanDurations();
-        return view('modules.strategic_plan.create',compact('strategic_plan_durations'));
+        $individual_strategic_plan_year = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.get_individual_strategic_plan_year'))->json();
+
+        if (isSuccess($individual_strategic_plan_year)) {
+            $individual_strategic_plan_year = $individual_strategic_plan_year['data'];
+            return view('modules.yearly_plan.create',compact('individual_strategic_plan_year'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $individual_strategic_plan_year]);
+        }
+
+    }
+
+    public function getIndividualStrategicPlan(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'strategic_plan_year' => 'required|integer',
+        ])->validate();
+
+        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), [])->json();
+        $all_project = $all_project ? $all_project['data'] : [];
+
+        $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.function.list'), [])->json();
+        $all_function = $all_function ? $all_function['data'] : [];
+
+        $individual_strategic_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.get_individual_strategic_plan'),$data)->json();
+//        dd($individual_strategic_plan);
+        if (isSuccess($individual_strategic_plan)) {
+            $individual_strategic_plan = $individual_strategic_plan['data'];
+            return view('modules.yearly_plan.partial.strategic_year_wise_plan',compact('individual_strategic_plan','all_function','all_project','data'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $individual_strategic_plan]);
+        }
     }
 
     /**
@@ -98,13 +102,13 @@ class AuditStrategicPlanController extends Controller
     public function store(Request $request)
     {
         $data = Validator::make($request->all(), [
-            'strategic_duration_id' => 'required|integer',
+            'strategic_plan_id' => 'required|integer',
             'strategic_plan_year' => 'required',
             'strategic_info' => 'required',
         ])->validate();
 
         $store = $this->initHttpWithToken()->post(
-            config('amms_bee_routes.audit_strategic_plan.strategic_plan_store'),
+            config('amms_bee_routes.audit_yearly_plan.yearly_plan_store'),
             $data
         )->json();
 

@@ -37,6 +37,7 @@ class FinalPlanController extends Controller
         $plan_durations = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_duration_lists'), [
             'all' => 1
         ])->json();
+
         if ($plan_durations['status'] == 'success') {
             $data['plan_durations'] = $plan_durations['data'];
         } else {

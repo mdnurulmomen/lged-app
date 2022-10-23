@@ -226,9 +226,30 @@ return [
         'sp_setting_store' => env('API_URL_BEE', '') . '/sp-setting-store',
         'sp_setting_list' => env('API_URL_BEE', '') . '/sp-setting-list',
 
+        'strategic_plan_list' => env('API_URL_BEE', '') . '/strategic-plan/list',
+        'strategic_plan_store' => env('API_URL_BEE', '') . '/strategic-plan/store',
+        'get_individual_strategic_plan' => env('API_URL_BEE', '') . '/strategic-plan/get-individual-strategic-plan',
+        'get_individual_strategic_plan_year' => env('API_URL_BEE', '') . '/strategic-plan/get-individual-strategic-plan-year',
+
         'html_view_content_title_store' => env('API_URL_BEE', '') . '/html-view-content-title-store',
         'html_view_content_title_duration_wise' => env('API_URL_BEE', '') . '/html-view-content-title-duration-wise',
     ],
+
+    'audit_yearly_plan' => [
+        'yearly_plan_list' => env('API_URL_BEE', '') . '/yearly-plan/list',
+        'yearly_plan_store' => env('API_URL_BEE', '') . '/yearly-plan/store',
+    ],
+
+    'risk_assessment_factor' => [
+        'list' => env('API_URL_BEE', '') . '/risk-assessment-factor/list',
+        'store' => env('API_URL_BEE', '') . '/risk-assessment-factor/store',
+    ],
+
+    'x_risk_factor' => [
+        'list' => env('API_URL_BEE', '') . '/x-risk-factor/list',
+        'store' => env('API_URL_BEE', '') . '/x-risk-factor/store',
+    ],
+
     'psr_plan' => [
         'store' => env('API_URL_BEE', '') . '/planning/psr-plan/store',
         'view' => env('API_URL_BEE', '') . '/planning/psr-plan/view',

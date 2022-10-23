@@ -105,6 +105,16 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     Route::get('/dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::post('/profile', [DashboardController::class, 'getUserProfile'])->name('user_profile');
 
+    //IA Risk assessment
+    Route::group(['as' => 'risk-assessment.', 'prefix' => 'risk-assessment/'], function () {
+        Route::group(['as' => 'factor-approach.', 'prefix' => 'factor-approach/'], function () {
+            Route::get('/', [\App\Http\Controllers\RiskAssessment\RiskAssessmentFactorController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\RiskAssessment\RiskAssessmentFactorController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\RiskAssessment\RiskAssessmentFactorController::class, 'store'])->name('store');
+            Route::get('/load-risk-assessment', [\App\Http\Controllers\RiskAssessment\RiskAssessmentFactorController::class, 'loadRiskAssessmentFactor'])->name('load-risk-assessment-factor');
+        });
+    });
+
     // Plan Route Start
     Route::group(['as' => 'audit.plan.', 'prefix' => 'audit-plan/'], function () {
         Route::get('/', function () {
@@ -116,8 +126,17 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::group(['as' => 'strategy.', 'prefix' => 'strategy/'], function () {
 
             Route::get('/', [AuditStrategicPlanController::class, 'index'])->name('index');
-
             Route::get('/dashboard', [AuditStrategicPlanController::class, 'showAuditStrategicPlanDashboard'])->name('dashboard');
+
+            //IA strategy plan
+            Route::get('/list', [AuditStrategicPlanController::class, 'list'])->name('list');
+            Route::get('/get-strategic-plan-list', [AuditStrategicPlanController::class, 'getStrategicPlanList'])->name('get-strategic-plan-list');
+            Route::get('/create', [AuditStrategicPlanController::class, 'create'])->name('create');
+            Route::get('/get-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'getYearWiseStrategicPlan'])->name('get-year-wise-strategic-plan');
+            Route::get('/add-location-row', [AuditStrategicPlanController::class, 'addLocationRow'])->name('add-location-row');
+            Route::post('/store', [AuditStrategicPlanController::class, 'store'])->name('store');
+            Route::post('/get-cost-center-project-map', [AuditStrategicPlanController::class, 'getCostCenterProjectMap'])->name('get-cost-center-project-map');
+
 
             Route::get('draft-plans', [DraftPlanController::class, 'index'])->name('draft_plan.all');
             Route::post('draft-plan', [DraftPlanController::class, 'show'])->name('draft_plan.single');
@@ -362,16 +381,20 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             // });
         });
 
+        //yearly plan
+        Route::group(['as' => 'yearly-plan.', 'prefix' => 'yearly-plan/'], function () {
+            Route::get('/', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'index'])->name('index');
+            Route::get('/get-yearly-plan-list', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'getYearlyPlanList'])->name('get-yearly-plan-list');
+            Route::get('/create', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'create'])->name('create');
+            Route::post('/store', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'store'])->name('store');
+            Route::get('/get-individual-strategic-plan', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'getIndividualStrategicPlan'])->name('get-individual-strategic-plan');
+
+        });
+
         //audit Plan
         Route::group(['as' => 'audit.', 'prefix' => 'audit/'], function () {
             Route::get('/', [AuditPlanController::class, 'index'])->name('index');
             Route::get('/dashboard', [AuditPlanController::class, 'showAuditPlanDashboard'])->name('dashboard');
-
-            //            Route::get('/plans', [PlanController::class, 'index'])->name('plan.all');
-            //            Route::post('/load-auditable-plan-lists', [PlanController::class, 'showAuditablePlanLists'])->name('plan.load-all-lists');
-            //            Route::post('/make-entity-audit-plan', [PlanController::class, 'create'])->name('plan.make-entity-audit-plan');
-            //            Route::post('/save-draft-entity-audit-plan', [PlanController::class, 'saveDraftEntityAuditPlan'])->name('plan.save-draft-entity-audit-plan');
-            //            Route::post('/generate-audit-plan-pdf', [PlanController::class, 'generatePlanPDF'])->name('plan.generate-audit-plan-pdf');
 
             Route::get('/plans', [RevisedPlanController::class, 'index'])->name('plan.all');
             Route::post('/load-auditable-plan-lists', [RevisedPlanController::class, 'showAuditablePlanLists'])->name('revised.plan.load-all-lists');
@@ -940,6 +963,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::group(['as' => 'movement.', 'prefix' => 'movement/'], function () {
             Route::post('store', [XMovementController::class, 'store'])->name('store');
         });
+
+        Route::post('/load_project_select', [\App\Http\Controllers\RiskAssessment\RiskAssessmentFactorController::class, 'loadProjectSelect'])->name('load_project_select');
+        Route::post('/load_function_select', [\App\Http\Controllers\RiskAssessment\RiskAssessmentFactorController::class, 'loadFunctionSelect'])->name('load_function_select');
     });
 
 

@@ -35,8 +35,7 @@ class GenericRPUController extends Controller
 
     public function getAllProjects(Request $request)
     {
-        $data['office_id'] = $request->directorate_id;
-        $all_projects = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), $data)->json();
+        $all_projects = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), [])->json();
         return isSuccess($all_projects) ? $all_projects['data'] : [];
     }
 }

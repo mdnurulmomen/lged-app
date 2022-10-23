@@ -205,11 +205,7 @@
             has_update_request = elem.data('has-update-request');
             activity_type = elem.data('activity-type');
 
-            KTApp.block('#kt_wrapper', {
-                opacity: 0.1,
-                message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
-                state: 'primary' // a bootstrap color
-            });
+            loaderStart('loading...');
 
             $.ajax({
                 type: 'POST',
@@ -220,7 +216,7 @@
                 },
 
                 success: function (response) {
-                    KTApp.unblock("#kt_wrapper");
+                    loaderStop();
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
