@@ -966,6 +966,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         Route::post('/load_project_select', [\App\Http\Controllers\RiskAssessment\RiskAssessmentFactorController::class, 'loadProjectSelect'])->name('load_project_select');
         Route::post('/load_function_select', [\App\Http\Controllers\RiskAssessment\RiskAssessmentFactorController::class, 'loadFunctionSelect'])->name('load_function_select');
+        Route::post('/load_unit_master_select', [\App\Http\Controllers\RiskAssessment\RiskAssessmentFactorController::class, 'loadUnitMasterSelect'])->name('load_unit_master_select');
     });
 
 

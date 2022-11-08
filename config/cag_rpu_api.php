@@ -44,6 +44,11 @@ return [
     'function' => [
         'list' => env('API_URL_RPU', '') . '/function/list',
     ],
+
+    'unit_master' => [
+        'list' => env('API_URL_RPU', '') . '/unit-master/list',
+    ],
+
     'cost-center-project-map' => [
         'get-cost-center-project-map' => env('API_URL_RPU', '') . '/cost-center-project-map/get-cost-center-project-map',
     ],

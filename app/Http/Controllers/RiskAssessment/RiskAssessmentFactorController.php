@@ -69,6 +69,16 @@ class RiskAssessmentFactorController extends Controller
         }
     }
 
+    public function loadUnitMasterSelect(Request $request){
+        $all_unit_master = $this->initRPUHttp()->post(config('cag_rpu_api.unit_master.list'), [])->json();
+        if (isSuccess($all_unit_master)) {
+            $all_unit_master = $all_unit_master['data'];
+            return view('modules.settings.unit_master.unit_master_select',compact('all_unit_master'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $all_unit_master]);
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *

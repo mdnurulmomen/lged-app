@@ -23,7 +23,7 @@
                     <span style="font-size: 18px">
                         <input checked id="project" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('project')" type="radio" name="risk_factor_type"> Project
                         <input id="function" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('function')" type="radio" name="risk_factor_type"> Function
-                        <input id="cost_center" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('cost_center')" type="radio" name="risk_factor_type"> Unit
+                        <input id="cost_center" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('unit')" type="radio" name="risk_factor_type"> Unit
                     </span>
                     <div style="display: none" class="project_div">
                         <select   class="form-control select-select2" name="project_id" id="project_id">
@@ -34,6 +34,12 @@
                     <div style="display: none"  class="function_div">
                         <select  class="form-control select-select2" name="function_id" id="function_id">
                             <option selected value="">select function</option>
+                        </select>
+                    </div>
+
+                    <div style="display: none"  class="unit_div">
+                        <select class="form-control select-select2" name="unit_master_id" id="unit_master_id">
+                            <option selected value="">select unit</option>
                         </select>
                     </div>
 
@@ -120,17 +126,27 @@
                 $('.project_div').show();
                 $('.function_div').hide();
                 $('.cost_center_div').hide();
+                $('.unit_div').hide();
                 Risk_Assessment_Factor_Approach_Container.loadProject();
 
             }else if(type == 'function'){
                 $('.project_div').hide();
                 $('.function_div').show();
                 $('.cost_center_div').hide();
+                $('.unit_div').hide();
                 Risk_Assessment_Factor_Approach_Container.loadFunction();
-            }else if(type == 'cost_center'){
+            }else if(type == 'unit'){
+                $('.project_div').hide();
+                $('.function_div').hide();
+                $('.cost_center_div').hide();
+                $('.unit_div').show();
+                Risk_Assessment_Factor_Approach_Container.loadUnit();
+            }
+            else if(type == 'cost_center'){
                 $('.project_div').hide();
                 $('.function_div').hide();
                 $('.cost_center_div').show();
+                $('.unit_div').hide();
             }
         },
 
@@ -162,6 +178,20 @@
             });
         },
 
+        loadUnit:function (){
+            loaderStart('loading...');
+            let url = '{{route('settings.load_unit_master_select')}}';
+            let data = {};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                loaderStop();
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    $('#unit_master_id').html(response);
+                }
+            });
+        },
+
         storeRiskAssessmentFactor: function () {
             loaderStart('Please wait...');
 
@@ -174,6 +204,9 @@
                 'function_id' : $('#function_id').find(':selected').val(),
                 'function_name_bn' : $('#function_id').find(':selected').attr('data-name-bn'),
                 'function_name_en' : $('#function_id').find(':selected').attr('data-name-bn'),
+                'unit_master_id' : $('#unit_master_id').find(':selected').val(),
+                'unit_master_name_bn' : $('#unit_master_id').find(':selected').attr('data-name-bn'),
+                'unit_master_name_en' : $('#unit_master_id').find(':selected').attr('data-name-en'),
                 'cost_center_id' : $('#cost_center_id').find(':selected').val(),
                 'cost_center_name_bn' : $('#cost_center_id').find(':selected').attr('data-name-bn'),
                 'cost_center_name_en' : $('#cost_center_id').find(':selected').attr('data-name-en'),
@@ -187,6 +220,7 @@
 
                 item['project_id'] = $('#project_id').find(':selected').val();
                 item['function_id'] =  $('#function_id').find(':selected').val();
+                item['unit_master_id'] =  $('#unit_master_id').find(':selected').val();
                 item['cost_center_id'] = $('#cost_center_id').val();
                 item['parent_office_id'] = $('#cost_center_id').attr('data-parent-office-id');
 
