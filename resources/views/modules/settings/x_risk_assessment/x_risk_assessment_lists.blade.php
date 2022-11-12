@@ -18,10 +18,10 @@
 
 <script>
      $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-        if ($(".load-table-data").length > 0) {
-            loadData();
-        }
+        // $('[data-toggle="tooltip"]').tooltip();
+        // if ($(".load-table-data").length > 0) {
+        loadData();
+        // }
     });
 
     function loadData() {

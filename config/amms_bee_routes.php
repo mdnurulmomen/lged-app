@@ -245,10 +245,7 @@ return [
         'store' => env('API_URL_BEE', '') . '/risk-assessment-factor/store',
     ],
 
-    'x_risk_factor' => [
-        'list' => env('API_URL_BEE', '') . '/x-risk-factor/list',
-        'store' => env('API_URL_BEE', '') . '/x-risk-factor/store',
-    ],
+    'x_risk_factors' => env('API_URL_BEE', '') . '/x-risk-factors',
 
     'psr_plan' => [
         'store' => env('API_URL_BEE', '') . '/planning/psr-plan/store',

@@ -88,6 +88,7 @@ use App\Http\Controllers\Setting\XAuditQueryController;
 use App\Http\Controllers\Setting\XFiscalYearController;
 use App\Http\Controllers\Setting\XMovementController;
 use App\Http\Controllers\Setting\XRiskAssessmentController;
+use App\Http\Controllers\Setting\XRiskFactorController;
 use App\Http\Controllers\Setting\XStrategicPlan\DurationController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutcomeController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutputController;
@@ -899,6 +900,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('/risk-assessment/lists', [XRiskAssessmentController::class, 'getRiskAssessmentLists'])->name('risk-assessment.lists');
         Route::post('/risk-assessment/edit', [XRiskAssessmentController::class, 'riskAssessmentEdit'])->name('risk-assessment.edit');
         Route::resource('/risk-assessment', XRiskAssessmentController::class, ['except' => ['edit', 'create']]);
+
+        // risk factor
+        Route::get('/risk-factors/list', [XRiskFactorController::class, 'getRiskFactorList'])->name('risk-factors.list');
+        Route::resource('/risk-factors', XRiskFactorController::class, ['except' => ['edit']]);
+        Route::post('/risk-factors/edit', [XRiskFactorController::class, 'riskFactorEdit'])->name('risk-factors.edit');
 
         Route::group(['as' => 'strategic-plan.', 'prefix' => 'strategic-plan/'], function () {
             Route::post('/duration/lists', [DurationController::class, 'getDurationLists'])->name('duration.lists');
