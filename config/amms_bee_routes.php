@@ -246,6 +246,7 @@ return [
     ],
 
     'x_risk_factors' => env('API_URL_BEE', '') . '/x-risk-factors',
+    'x_risk_criteria' => env('API_URL_BEE', '') . '/x-risk-criteria',
 
     'psr_plan' => [
         'store' => env('API_URL_BEE', '') . '/planning/psr-plan/store',
