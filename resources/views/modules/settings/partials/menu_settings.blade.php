@@ -48,6 +48,10 @@
                 <x-menu-item class="x_risk_criteria" href="{{route('settings.risk-criteria.index')}}"
                              icon="fal fa-calendar-alt">Risk Criteria
                 </x-menu-item>
+
+                <x-menu-item class="x_risk_rating" href="{{route('settings.risk-ratings.index')}}"
+                             icon="fal fa-calendar-alt">Risk Rating
+                </x-menu-item>
             </x-parent-menu-item>
 
             <x-parent-menu-item icon="fas fa-list" name="Audit Assessment">
