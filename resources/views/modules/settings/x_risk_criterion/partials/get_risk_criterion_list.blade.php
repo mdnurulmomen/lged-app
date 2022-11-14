@@ -75,10 +75,10 @@
                 toastr.error('no');
                 console.log(resp.data)
             } else {
-                $('#id').val(id);
-                $('#x_risk_factor_id').val(x_risk_factor_id);
-                $('#title_bn').text(title_bn);
-                $('#title_en').text(title_en);
+                // $('#id').val(id);
+                // $('#x_risk_factor_id').val(x_risk_factor_id);
+                // $('#title_bn').text(title_bn);
+                // $('#title_en').text(title_en);
                 $('.offcanvas-wrapper').html(resp);
             }
         });

@@ -23,10 +23,6 @@
     $('.btn_update_risk_factor').click(function () {
         url = "{{ route('settings.risk-factors.update', $id) }}";
 
-        // console.log(url);
-        
-        // var data = $('#risk_factor_form_update').serialize();
-
         data = {
             id : $('#id').val(),
             title_bn : $('#title_bn').val(),

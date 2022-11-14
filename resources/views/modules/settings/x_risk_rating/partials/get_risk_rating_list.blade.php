@@ -77,11 +77,11 @@
                 toastr.error('no');
                 console.log(resp.data)
             } else {
-                $('#id').val(id);
-                $('#title_bn').text(title_bn);
-                $('#title_en').text(title_en);
-                $('#rating_value').val(rating_value);
-                $('#x_risk_factor_id').val(x_risk_factor_id);
+                // $('#id').val(id);
+                // $('#title_bn').text(title_bn);
+                // $('#title_en').text(title_en);
+                // $('#rating_value').val(rating_value);
+                // $('#x_risk_factor_id').val(x_risk_factor_id);
                 $('.offcanvas-wrapper').html(resp);
             }
         });

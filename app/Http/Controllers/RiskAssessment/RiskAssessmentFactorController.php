@@ -21,15 +21,15 @@ class RiskAssessmentFactorController extends Controller
     public function loadRiskAssessmentFactor(Request $request){
         $data['type'] = $request->type;
 //        dd($data);
-        $all_risk_factor = $this->initHttpWithToken()->post(config('amms_bee_routes.x_risk_factor.list'), [])->json();
-        $risk_assessment_factor = $this->initHttpWithToken()->post(config('amms_bee_routes.risk_assessment_factor.list'), $data)->json();
+        $all_risk_factors = $this->initHttpWithToken()->get(config('amms_bee_routes.x_risk_factors'), [])->json();
+        $all_risk_assessment_factors = $this->initHttpWithToken()->post(config('amms_bee_routes.risk_assessment_factor.list'), $data)->json();
 //        dd($risk_assessment_factor);
-        if (isSuccess($all_risk_factor)) {
-            $all_risk_factor = $all_risk_factor['data'];
-            $risk_assessment_factor = $risk_assessment_factor['data'];
-            return view('modules.risk_assessment.risk_factor_approach.load_risk_assessment_factor',compact('all_risk_factor','risk_assessment_factor'));
+        if (isSuccess($all_risk_factors)) {
+            $all_risk_factors = $all_risk_factors['data'];
+            $all_risk_assessment_factors = $all_risk_assessment_factors['data'];
+            return view('modules.risk_assessment.risk_factor_approach.load_risk_assessment_factor',compact('all_risk_factors','all_risk_assessment_factors'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $all_risk_factor]);
+            return response()->json(['status' => 'error', 'data' => $all_risk_factors]);
         }
     }
 
@@ -40,17 +40,18 @@ class RiskAssessmentFactorController extends Controller
      */
     public function create()
     {
-        $all_risk_factor = $this->initHttpWithToken()->post(config('amms_bee_routes.x_risk_factor.list'), [])->json();
-        if (isSuccess($all_risk_factor)) {
-            $all_risk_factor = $all_risk_factor['data'];
-            return view('modules.risk_assessment.risk_factor_approach.create',compact('all_risk_factor'));
+        $all_risk_factors = $this->initHttpWithToken()->get(config('amms_bee_routes.x_risk_factors'), [])->json();
+        if (isSuccess($all_risk_factors)) {
+            $all_risk_factors = $all_risk_factors['data'];
+            return view('modules.risk_assessment.risk_factor_approach.create',compact('all_risk_factors'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $all_risk_factor]);
+            return response()->json(['status' => 'error', 'data' => $all_risk_factors]);
         }
     }
 
     public function loadProjectSelect(Request $request){
         $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), [])->json();
+        // dd($all_project);
         if (isSuccess($all_project)) {
             $all_project = $all_project['data'];
             return view('modules.settings.project.project_select',compact('all_project'));
