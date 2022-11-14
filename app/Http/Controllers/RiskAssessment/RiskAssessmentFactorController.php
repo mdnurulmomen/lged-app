@@ -51,7 +51,9 @@ class RiskAssessmentFactorController extends Controller
 
     public function loadProjectSelect(Request $request){
         $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), [])->json();
+
         // dd($all_project);
+
         if (isSuccess($all_project)) {
             $all_project = $all_project['data'];
             return view('modules.settings.project.project_select',compact('all_project'));
