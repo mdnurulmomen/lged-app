@@ -66,7 +66,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($all_risk_factor as $risk_factor)
+                @foreach($all_risk_factors as $risk_factor)
                     <tr class="risk_factor_row">
                     <td>
                         {{$risk_factor['title_bn']}}
@@ -76,8 +76,8 @@
                         <input class="risk_factor_weight" type="hidden" name="risk_factor_weight" value="{{$risk_factor['risk_weight']}}">
                     </td>
                     <td>
-                        @if($risk_factor['risk_factor_criterias'])
-                            @foreach($risk_factor['risk_factor_criterias'] as $criteria)
+                        @if($risk_factor['risk_factor_criteria'])
+                            @foreach($risk_factor['risk_factor_criteria'] as $criteria)
                                 <span><b>{{$loop->iteration}}. </b>{{$criteria['title_bn']}},</span>
                             @endforeach
                         @endif

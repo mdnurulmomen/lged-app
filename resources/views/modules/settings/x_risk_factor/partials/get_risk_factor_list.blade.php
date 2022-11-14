@@ -74,10 +74,10 @@
                 toastr.error('no');
                 console.log(resp.data)
             } else {
-                $('#id').val(id);
-                $('#risk_weight').val(risk_weight);
-                $('#title_bn').text(title_bn);
-                $('#title_en').text(title_en);
+                // $('#id').val(id);
+                // $('#risk_weight').val(risk_weight);
+                // $('#title_bn').text(title_bn);
+                // $('#title_en').text(title_en);
                 $('.offcanvas-wrapper').html(resp);
             }
         });
