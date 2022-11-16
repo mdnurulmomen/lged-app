@@ -40,7 +40,21 @@ class XRiskFactorController extends Controller
      */
     public function create()
     {
-        return view('modules.settings.x_risk_factor.partials.create_risk_factor_form');
+        $risk_factor_list = $this->initHttpWithToken()->get(config('amms_bee_routes.x_risk_factors'), [
+            'all' => 1
+        ])->json()['data'];
+
+        $maxWeight = collect($risk_factor_list)->sum('risk_weight');
+
+        if ($maxWeight >= 100) {
+            
+            return response()->json(array(
+                'success' => false,
+                'errors' => ["Collective weight should not exceed 100"]
+            ), 422);
+        }
+
+        return view('modules.settings.x_risk_factor.partials.create_risk_factor_form', ['risk_weight' => collect($risk_factor_list)->sum('risk_weight')]);
     }
 
     /**
@@ -56,6 +70,20 @@ class XRiskFactorController extends Controller
             'title_en' => 'required|string|max:255',
             'risk_weight' => 'required|integer|min:1|max:100',
         ]);
+
+        $risk_factor_list = $this->initHttpWithToken()->get(config('amms_bee_routes.x_risk_factors'), [
+            'all' => 1
+        ])->json()['data'];
+
+        $maxWeight = collect($risk_factor_list)->sum('risk_weight');
+
+        if ($request->risk_weight > (100 - $maxWeight)) {
+            
+            return response()->json(array(
+                'success' => false,
+                'errors' => ["Collective weight should not exceed 100"]
+            ), 422);
+        }
         
         $data = [
             'title_bn' => $request->title_bn,
@@ -97,6 +125,27 @@ class XRiskFactorController extends Controller
      */
     public function update(Request $request, $id)
     {   
+        $request->validate([
+            'title_bn' => 'required|string|max:255',
+            'title_en' => 'required|string|max:255',
+            'risk_weight' => 'required|integer|min:1|max:100',
+        ]);
+
+        $risk_factor_list = $this->initHttpWithToken()->get(config('amms_bee_routes.x_risk_factors'), [
+            'all' => 1
+        ])->json()['data'];
+
+        $maxWeight = collect($risk_factor_list)->sum('risk_weight');
+
+        if ($request->risk_weight > (100 - $maxWeight)) {
+
+            return response()->json(array(
+                'success' => false,
+                'errors' => ["Collective weight should not exceed 100"]
+            ), 422);
+            
+        }
+        
         $data = [
             'id' => $request->id,
             'title_bn' => $request->title_bn,

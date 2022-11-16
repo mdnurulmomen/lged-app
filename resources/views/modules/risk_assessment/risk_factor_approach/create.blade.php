@@ -195,7 +195,7 @@
         storeRiskAssessmentFactor: function () {
             loaderStart('Please wait...');
 
-            risk_factor_item = {};
+            risk_factor_items = [];
 
             risk_factor_info = {
                 'project_id' : $('#project_id').find(':selected').val(),
@@ -230,11 +230,11 @@
                 item['risk_factor_title_en'] = $(this).find('.risk_factor_title_en').val();
                 item['factor_rating'] = $(this).find('.risk_rating').val();
 
-                risk_factor_item[j] = item;
+                risk_factor_items.push(item);
             });
 
             let url = '{{route('risk-assessment.factor-approach.store')}}';
-            let data = {risk_factor_info,risk_factor_item};
+            let data = {risk_factor_info,risk_factor_items};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 loaderStop();
                 if (response.status === 'error') {

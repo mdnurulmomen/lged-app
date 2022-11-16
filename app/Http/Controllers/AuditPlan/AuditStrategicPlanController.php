@@ -45,9 +45,7 @@ class AuditStrategicPlanController extends Controller
         $end = $plan_year[1];
 
         $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), [])->json();
-        // dd($all_project);
         $all_project = $all_project ? $all_project['data'] : [];
-
 
         $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.function.list'), [])->json();
         $all_function = $all_function ? $all_function['data'] : [];

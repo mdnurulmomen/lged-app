@@ -2,15 +2,15 @@
     <div class="form-row">
         <div class="col-md-12 form-group">
             <label for="email">Weight:</label>
-            <input placeholder="Factor Weight" class="form-control" type="number" id="risk_weight">
+            <input placeholder="Factor Weight" class="form-control" type="number" id="risk_weight" max="{{ 100 - $risk_weight }}" @if ($risk_weight >= 100 ) disabled @endif>
         </div>
         <div class="col-md-12 form-group">
             <label for="email">Title (Bangla):</label>
-            <textarea placeholder="Query Title Bangla" class="form-control" type="text" id="title_bn"></textarea>
+            <textarea placeholder="Query Title Bangla" class="form-control" type="text" id="title_bn" @if ($risk_weight >= 100 ) disabled @endif></textarea>
         </div>
         <div class="col-md-12 form-group">
             <label for="email">Title (English):</label>
-            <textarea placeholder="Query Title English" class="form-control" type="text" id="title_en"></textarea>
+            <textarea placeholder="Query Title English" class="form-control" type="text" id="title_en" @if ($risk_weight >= 100 ) disabled @endif></textarea>
         </div>
         <div class="col-md-12 pt-4">
             <button type="button" id="btn_risk_factor_modal_save" class="btn btn-primary ml-auto">Save</button>

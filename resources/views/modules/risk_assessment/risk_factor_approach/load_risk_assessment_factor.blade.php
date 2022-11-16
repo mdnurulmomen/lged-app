@@ -14,6 +14,7 @@
            @foreach($all_risk_factors as $factor)
                <td>{{$factor['risk_weight']}}%</td>
            @endforeach
+           <td></td>
        </tr>
         @foreach($all_risk_assessment_factors as $risk_assessment_factor)
             <tr>
@@ -33,7 +34,10 @@
                 @foreach($all_risk_factors as $factor)
                     <td>{{$risk_assessment_factor['risk_factor_items'][$factor['id']]}}</td>
                 @endforeach
-                <td>{{$risk_assessment_factor['total_risk_score']}}</td>
+                <td>
+                    {{$risk_assessment_factor['total_risk_score']}}
+                    ({{ ucfirst($risk_assessment_factor['risk_score_key']) }})
+                </td>
             </tr>
         @endforeach
     </tbody>

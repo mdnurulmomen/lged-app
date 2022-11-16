@@ -23,7 +23,7 @@ class RiskAssessmentFactorController extends Controller
 //        dd($data);
         $all_risk_factors = $this->initHttpWithToken()->get(config('amms_bee_routes.x_risk_factors'), [])->json();
         $all_risk_assessment_factors = $this->initHttpWithToken()->post(config('amms_bee_routes.risk_assessment_factor.list'), $data)->json();
-//        dd($risk_assessment_factor);
+        // dd($all_risk_assessment_factors);
         if (isSuccess($all_risk_factors)) {
             $all_risk_factors = $all_risk_factors['data'];
             $all_risk_assessment_factors = $all_risk_assessment_factors['data'];
@@ -92,18 +92,21 @@ class RiskAssessmentFactorController extends Controller
     {
         $data = Validator::make($request->all(), [
             'risk_factor_info' => 'required',
-            'risk_factor_item' => 'required',
+            'risk_factor_items' => 'required',
         ])->validate();
 
+        
         $data['cdesk'] = $this->current_desk_json();
-
-//        dd($data);
-
+        
+        // dd($data);
+        
         $store = $this->initHttpWithToken()->post(
             config('amms_bee_routes.risk_assessment_factor.store'),
             $data
-        )->json();
-
+            )->json();
+            
+        // dd($store);
+        
         if (isSuccess($store)) {
             return response()->json(['status' => 'success', 'data' => $store['data']]);
         } else {
