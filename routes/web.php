@@ -93,6 +93,7 @@ use App\Http\Controllers\Setting\XRiskCriterionController;
 use App\Http\Controllers\Setting\XRiskRatingController;
 use App\Http\Controllers\Setting\XRiskLevelController;
 use App\Http\Controllers\Setting\XRiskImpactController;
+use App\Http\Controllers\Setting\XRiskLikelihoodController;
 use App\Http\Controllers\Setting\XStrategicPlan\DurationController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutcomeController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutputController;
@@ -929,6 +930,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/risk-impacts/list', [XRiskImpactController::class, 'getRiskImpactList'])->name('risk-impacts.list');
         Route::resource('/risk-impacts', XRiskImpactController::class, ['except' => ['edit']]);
         Route::post('/risk-impacts/edit', [XRiskImpactController::class, 'riskImpactEdit'])->name('risk-impacts.edit');
+
+        // risk likelihood
+        Route::get('/risk-likelihoods/list', [XRiskLikelihoodController::class, 'getRiskLikelihoodList'])->name('risk-likelihoods.list');
+        Route::resource('/risk-likelihoods', XRiskLikelihoodController::class, ['except' => ['edit']]);
+        Route::post('/risk-likelihoods/edit', [XRiskLikelihoodController::class, 'riskLikelihoodEdit'])->name('risk-likelihoods.edit');
 
         Route::group(['as' => 'strategic-plan.', 'prefix' => 'strategic-plan/'], function () {
             Route::post('/duration/lists', [DurationController::class, 'getDurationLists'])->name('duration.lists');

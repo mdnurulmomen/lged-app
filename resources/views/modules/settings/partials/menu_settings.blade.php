@@ -60,6 +60,10 @@
                 <x-menu-item class="x_risk_level" href="{{route('settings.risk-impacts.index')}}"
                              icon="fal fa-calendar-alt">Risk Impact
                 </x-menu-item>
+
+                <x-menu-item class="x_risk_level" href="{{route('settings.risk-likelihoods.index')}}"
+                             icon="fal fa-calendar-alt">Risk Likelihood
+                </x-menu-item>
             </x-parent-menu-item>
 
             <x-parent-menu-item icon="fas fa-list" name="Audit Assessment">
