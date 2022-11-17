@@ -240,6 +240,11 @@ return [
         'yearly_plan_store' => env('API_URL_BEE', '') . '/yearly-plan/store',
     ],
 
+    'audit_execution' => [
+        'areas' =>env('API_URL_BEE', '') . '/x-audit-areas',
+    ],
+
+
     'risk_assessment_factor' => [
         'list' => env('API_URL_BEE', '') . '/risk-assessment-factor/list',
         'store' => env('API_URL_BEE', '') . '/risk-assessment-factor/store',

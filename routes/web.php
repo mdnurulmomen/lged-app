@@ -492,7 +492,12 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     Route::group(['as' => 'audit.execution.', 'prefix' => 'audit-conducting/'], function () {
         Route::get('/', [AuditExecutionController::class, 'index']);
 
-        Route::get('area', [AuditExecutionAreaController::class, 'index'])->name('area');
+        // risk impact
+        // Route::get('area', [AuditExecutionAreaController::class, 'index'])->name('area');
+        Route::get('/areas/list', [AuditExecutionAreaController::class, 'getAuditAreaList'])->name('areas.list');
+        Route::resource('/areas', AuditExecutionAreaController::class, ['except' => ['edit']]);
+        Route::post('/areas/edit', [AuditExecutionAreaController::class, 'auditAreaEdit'])->name('areas.edit');
+
 
         //audit schedule
         Route::get('audit-schedule', [AuditExecutionScheduleController::class, 'auditSchedule'])->name('audit-schedule');

@@ -34,6 +34,10 @@
                 <x-menu-item class="x_query_menu" href="{{route('settings.audit-query.index')}}"
                              icon="fal fa-calendar-alt">Query
                 </x-menu-item>
+
+                <x-menu-item class="x_query_menu" href="{{route('audit.execution.areas.index')}}"
+                             icon="fal fa-calendar-alt">Area
+                </x-menu-item>
             </x-parent-menu-item>
 
             <x-parent-menu-item icon="fas fa-list" name="Risk Assessment">
