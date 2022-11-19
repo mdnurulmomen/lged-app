@@ -41,10 +41,6 @@
             </x-parent-menu-item>
 
             <x-parent-menu-item icon="fas fa-list" name="Risk Assessment">
-                <x-menu-item class="x_risk_assessment" href="{{route('settings.risk-assessment.index')}}"
-                             icon="fal fa-calendar-alt">Risk Assessment
-                </x-menu-item>
-
                 <x-menu-item class="x_risk_factor" href="{{route('settings.risk-factors.index')}}"
                              icon="fal fa-calendar-alt">Risk Factor
                 </x-menu-item>
@@ -67,6 +63,14 @@
 
                 <x-menu-item class="x_risk_level" href="{{route('settings.risk-likelihoods.index')}}"
                              icon="fal fa-calendar-alt">Risk Likelihood
+                </x-menu-item>
+
+                <x-menu-item class="x_risk_assessment" href="{{route('settings.risk-assessment.index')}}"
+                             icon="fal fa-calendar-alt">Risk Assessment
+                </x-menu-item>
+
+                <x-menu-item class="x_risk_matrix" href="{{route('risk-assessment.risk-matrixes.index')}}"
+                             icon="fal fa-calendar-alt">Risk Matrix
                 </x-menu-item>
             </x-parent-menu-item>
 

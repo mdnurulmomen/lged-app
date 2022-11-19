@@ -250,6 +250,8 @@ return [
         'store' => env('API_URL_BEE', '') . '/risk-assessment-factor/store',
     ],
 
+    'risk_matrixes' => env('API_URL_BEE', '') . '/risk-matrixes',
+    
     'x_risk_factors' => env('API_URL_BEE', '') . '/x-risk-factors',
     'x_risk_criteria' => env('API_URL_BEE', '') . '/x-risk-criteria',
     'x_risk_ratings' => env('API_URL_BEE', '') . '/x-risk-ratings',

@@ -100,6 +100,7 @@ use App\Http\Controllers\Setting\XStrategicPlan\OutputController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanPSRController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RiskAssessment\RiskMatrixController;
 
 Route::get('/', function () {
     return redirect('/dashboard');
@@ -119,6 +120,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/store', [\App\Http\Controllers\RiskAssessment\RiskAssessmentFactorController::class, 'store'])->name('store');
             Route::get('/load-risk-assessment', [\App\Http\Controllers\RiskAssessment\RiskAssessmentFactorController::class, 'loadRiskAssessmentFactor'])->name('load-risk-assessment-factor');
         });
+
+        // risk matrixes
+        Route::get('/risk-matrixes/list', [RiskMatrixController::class, 'getRiskMatrixList'])->name('risk-matrixes.list');
+        Route::resource('/risk-matrixes', RiskMatrixController::class, ['except' => ['edit']]);
+        Route::post('/risk-matrixes/edit', [RiskMatrixController::class, 'riskMatrixEdit'])->name('risk-matrixes.edit');
     });
 
     // Plan Route Start
