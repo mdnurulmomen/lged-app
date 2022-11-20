@@ -67,10 +67,10 @@ class AuditStrategicPlanController extends Controller
         $strategic_year = $request->strategic_year;
         $row_type = $request->row_type;
         $row_count = $request->row_count;
-        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), [])->json();
+        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-projects'), [])->json();
         $all_project = $all_project ? $all_project['data'] : [];
 
-        $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.function.list'), [])->json();
+        $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.functions.list'), [])->json();
         $all_function = $all_function ? $all_function['data'] : [];
         return view('modules.strategic_plan.partial.add_location_row',
             compact( 'all_project','all_function','strategic_year','row_type','row_count'));

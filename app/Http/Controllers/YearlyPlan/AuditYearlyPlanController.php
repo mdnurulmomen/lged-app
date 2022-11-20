@@ -34,10 +34,10 @@ class AuditYearlyPlanController extends Controller
         $start = $plan_year[0];
         $end = $plan_year[1];
 
-        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), [])->json();
+        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-projects'), [])->json();
         $all_project = $all_project ? $all_project['data'] : [];
 
-        $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.function.list'), [])->json();
+        $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.functions.list'), [])->json();
         $all_function = $all_function ? $all_function['data'] : [];
 
         return view('modules.strategic_plan.partial.strategic_year_wise_plan',
@@ -77,10 +77,10 @@ class AuditYearlyPlanController extends Controller
             'strategic_plan_year' => 'required|integer',
         ])->validate();
 
-        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), [])->json();
+        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-projects'), [])->json();
         $all_project = $all_project ? $all_project['data'] : [];
 
-        $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.function.list'), [])->json();
+        $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.functions.list'), [])->json();
         $all_function = $all_function ? $all_function['data'] : [];
 
         $individual_strategic_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.get_individual_strategic_plan'),$data)->json();
