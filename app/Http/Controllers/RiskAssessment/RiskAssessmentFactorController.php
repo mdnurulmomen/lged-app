@@ -50,7 +50,7 @@ class RiskAssessmentFactorController extends Controller
     }
 
     public function loadProjectSelect(Request $request){
-        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-project'), [])->json();
+        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-projects'), [])->json();
 
         // dd($all_project);
 
@@ -63,7 +63,7 @@ class RiskAssessmentFactorController extends Controller
     }
 
     public function loadFunctionSelect(Request $request){
-        $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.function.list'), [])->json();
+        $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.functions.list'), [])->json();
         if (isSuccess($all_function)) {
             $all_function = $all_function['data'];
             return view('modules.settings.function.function_select',compact('all_function'));
@@ -73,7 +73,7 @@ class RiskAssessmentFactorController extends Controller
     }
 
     public function loadUnitMasterSelect(Request $request){
-        $all_unit_master = $this->initRPUHttp()->post(config('cag_rpu_api.unit_master.list'), [])->json();
+        $all_unit_master = $this->initRPUHttp()->post(config('cag_rpu_api.master_units.list'), [])->json();
         if (isSuccess($all_unit_master)) {
             $all_unit_master = $all_unit_master['data'];
             return view('modules.settings.unit_master.unit_master_select',compact('all_unit_master'));

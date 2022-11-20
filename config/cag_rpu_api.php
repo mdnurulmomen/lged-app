@@ -23,7 +23,7 @@ return [
 
     'get-entity-wise-unit-group-office' => env('API_URL_RPU', '') . '/get-entity-wise-unit-group-office',
     'get-entity-or-unit-group-wise-cost-center' => env('API_URL_RPU', '') . '/get-entity-or-unit-group-wise-cost-center',
-    'get-all-project' => env('API_URL_RPU', '') . '/project/list',
+    'get-all-projects' => env('API_URL_RPU', '') . '/projects/list',
     'get-project-wise-entity' => env('API_URL_RPU', '') . '/cost_center_project_map/project-wise-entity-list',
     'get-project-wise-cost-center' => env('API_URL_RPU', '') . '/cost_center_project_map/project-wise-cost-center-list',
     'get-project-wise-nominated-cost-center-list' => env('API_URL_RPU', '') . '/cost_center_project_map/project-map-nominated-cost-center-list',
@@ -41,12 +41,12 @@ return [
     'get-all-doner' => env('API_URL_RPU', '') . '/doner-agency/list',
     'get-doner-wise-project' => env('API_URL_RPU', '') . '/doner-agency/get-doner-wise-project',
 
-    'function' => [
-        'list' => env('API_URL_RPU', '') . '/function/list',
+    'functions' => [
+        'list' => env('API_URL_RPU', '') . '/functions/list',
     ],
 
-    'unit_master' => [
-        'list' => env('API_URL_RPU', '') . '/unit-master/list',
+    'master_units' => [
+        'list' => env('API_URL_RPU', '') . '/master-units/list',
     ],
 
     'cost-center-project-map' => [
