@@ -15,14 +15,14 @@
     <tbody>
     @forelse($risk_matrixes as $risk_matrix)
         <tr id="row_{{$risk_matrix['id']}}" data-row="{{$loop->iteration}}">
-            <td> {{ ucfirst($risk_matrix['risk_assessment_livelihood']['title_en']) }} </td>
+            <td> {{ ucfirst($risk_matrix['risk_assessment_likelihood']['title_en']) }} </td>
             <td> {{ ucfirst($risk_matrix['risk_assessment_impact']['title_en']) }} </td>
             <td> {{ ucfirst($risk_matrix['risk_level']['title_en']) }} </td>
             <td> {{ $risk_matrix['priority'] }} </td>
             <td>
                 <a href="javascript:;"
                    data-id="{{$risk_matrix['id']}}" 
-                   data-risk-livelihood="{{$risk_matrix['x_risk_assessment_likelihood_id']}}"
+                   data-risk-likelihood="{{$risk_matrix['x_risk_assessment_likelihood_id']}}"
                    data-risk-impact="{{$risk_matrix['x_risk_assessment_impact_id']}}" 
                    data-risk-level="{{$risk_matrix['x_risk_level_id']}}" 
                    data-priority="{{ $risk_matrix['priority'] }}" 
@@ -59,7 +59,7 @@
         $('.offcanvas-title').html('Edit Risk Criterion');
 
         id = $(this).data('id');
-        x_risk_assessment_likelihood_id =$(this).data('risk-livelihood');
+        x_risk_assessment_likelihood_id =$(this).data('risk-likelihood');
         x_risk_assessment_impact_id = $(this).data('risk-impact');
         x_risk_level_id = $(this).data('risk-level');
         priority = $(this).data('priority');

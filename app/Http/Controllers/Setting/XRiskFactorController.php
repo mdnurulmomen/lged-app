@@ -135,9 +135,9 @@ class XRiskFactorController extends Controller
             'all' => 1
         ])->json()['data'];
 
-        $maxWeight = collect($risk_factor_list)->sum('risk_weight');
+        $maxWeight = collect($risk_factor_list)->where('id', '!=', $id)->sum('risk_weight') + $request->risk_weight;
 
-        if ($request->risk_weight > (100 - $maxWeight)) {
+        if ($maxWeight > 100) {
 
             return response()->json(array(
                 'success' => false,
