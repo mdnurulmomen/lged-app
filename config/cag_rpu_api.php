@@ -45,7 +45,7 @@ return [
         'list' => env('API_URL_RPU', '') . '/functions/list',
     ],
 
-    'unit_masters' => [
+    'master_units' => [
         'list' => env('API_URL_RPU', '') . '/master-units/list',
     ],
 
