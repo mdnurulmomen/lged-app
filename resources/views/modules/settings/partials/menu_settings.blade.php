@@ -24,21 +24,21 @@
 
             </x-parent-menu-item>
 
-            <x-parent-menu-item icon="fas fa-list" name="Operational Plan">
-                <x-menu-item class="" href="{{route('settings.fiscal-years.index')}}"
-                             icon="fal fa-calendar-alt">Fiscal Year
-                </x-menu-item>
-            </x-parent-menu-item>
+{{--            <x-parent-menu-item icon="fas fa-list" name="Operational Plan">--}}
+{{--                <x-menu-item class="" href="{{route('settings.fiscal-years.index')}}"--}}
+{{--                             icon="fal fa-calendar-alt">Fiscal Year--}}
+{{--                </x-menu-item>--}}
+{{--            </x-parent-menu-item>--}}
 
-            <x-parent-menu-item icon="fas fa-list" name="Audit Conducting">
-                <x-menu-item class="x_query_menu" href="{{route('settings.audit-query.index')}}"
-                             icon="fal fa-calendar-alt">Query
-                </x-menu-item>
+{{--            <x-parent-menu-item icon="fas fa-list" name="Audit Conducting">--}}
+{{--                <x-menu-item class="x_query_menu" href="{{route('settings.audit-query.index')}}"--}}
+{{--                             icon="fal fa-calendar-alt">Query--}}
+{{--                </x-menu-item>--}}
 
-                <x-menu-item class="x_query_menu" href="{{route('audit.execution.areas.index')}}"
-                             icon="fal fa-calendar-alt">Area
-                </x-menu-item>
-            </x-parent-menu-item>
+{{--                <x-menu-item class="x_query_menu" href="{{route('audit.execution.areas.index')}}"--}}
+{{--                             icon="fal fa-calendar-alt">Area--}}
+{{--                </x-menu-item>--}}
+{{--            </x-parent-menu-item>--}}
 
             <x-parent-menu-item icon="fas fa-list" name="Risk Assessment">
                 <x-menu-item class="x_risk_factor" href="{{route('settings.risk-factors.index')}}"
@@ -65,20 +65,20 @@
                              icon="fal fa-calendar-alt">Risk Likelihood
                 </x-menu-item>
 
-                <x-menu-item class="x_risk_assessment" href="{{route('settings.risk-assessment.index')}}"
-                             icon="fal fa-calendar-alt">Risk Assessment
-                </x-menu-item>
+{{--                <x-menu-item class="x_risk_assessment" href="{{route('settings.risk-assessment.index')}}"--}}
+{{--                             icon="fal fa-calendar-alt">Risk Assessment--}}
+{{--                </x-menu-item>--}}
 
                 <x-menu-item class="x_risk_matrix" href="{{route('risk-assessment.risk-matrixes.index')}}"
                              icon="fal fa-calendar-alt">Risk Matrix
                 </x-menu-item>
             </x-parent-menu-item>
 
-            <x-parent-menu-item icon="fas fa-list" name="Audit Assessment">
-                <x-menu-item class="x_audit_assessment" href="{{route('settings.audit-assessment.criteria.index')}}"
-                             icon="fal fa-calendar-alt">Criteria
-                </x-menu-item>
-            </x-parent-menu-item>
+{{--            <x-parent-menu-item icon="fas fa-list" name="Audit Assessment">--}}
+{{--                <x-menu-item class="x_audit_assessment" href="{{route('settings.audit-assessment.criteria.index')}}"--}}
+{{--                             icon="fal fa-calendar-alt">Criteria--}}
+{{--                </x-menu-item>--}}
+{{--            </x-parent-menu-item>--}}
 
             <x-parent-menu-item icon="fas fa-list" name="Modules & Menus">
                 <x-menu-item class="p_modules" href="{{url('settings/menu-actions/module')}}"
