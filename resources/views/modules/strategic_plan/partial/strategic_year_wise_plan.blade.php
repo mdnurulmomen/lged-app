@@ -36,7 +36,7 @@
                                             <option selected value="">select project</option>
                                             @foreach($all_project as $project)
                                                 <option data-project-name-en="{{$project['name_en']}}"
-                                                        value="{{$project['id']}}">{{$project['name_bn']}}</option>
+                                                        value="{{$project['id']}}">{{$project['name_bn']}} ({{ $project['risk_score_key'] ? $project['risk_score_key'] : '--' }})</option>
                                             @endforeach
                                         </select>
                                     </td>
