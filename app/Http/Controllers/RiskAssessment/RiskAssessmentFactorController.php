@@ -103,11 +103,20 @@ class RiskAssessmentFactorController extends Controller
         $store = $this->initHttpWithToken()->post(
             config('amms_bee_routes.risk_assessment_factor.store'),
             $data
-            )->json();
-            
-        // dd($store);
+        )->json();
         
         if (isSuccess($store)) {
+
+            $data = [
+                'id' => $store['data']['id'],
+                'risk_score_key' => $store['data']['risk_score_key'],
+                'total_risk_score' => $store['data']['total_risk_score'],
+            ];
+
+            $store = $this->initRPUHttp()->post(config('cag_rpu_api.update-projects'), $data)->json();
+            
+            // dd($store);
+
             return response()->json(['status' => 'success', 'data' => $store['data']]);
         } else {
             return response()->json(['status' => 'error', 'data' => $store]);
