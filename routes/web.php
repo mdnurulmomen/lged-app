@@ -94,6 +94,7 @@ use App\Http\Controllers\Setting\XRiskRatingController;
 use App\Http\Controllers\Setting\XRiskLevelController;
 use App\Http\Controllers\Setting\XRiskImpactController;
 use App\Http\Controllers\Setting\XRiskLikelihoodController;
+use App\Http\Controllers\RiskAssessment\ItemAssessmentController;
 use App\Http\Controllers\Setting\XStrategicPlan\DurationController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutcomeController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutputController;
@@ -498,7 +499,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
     Route::group(['as' => 'audit.execution.', 'prefix' => 'audit-conducting/'], function () {
         Route::get('/', [AuditExecutionController::class, 'index']);
 
-        // risk impact
+        // risk area
         // Route::get('area', [AuditExecutionAreaController::class, 'index'])->name('area');
         Route::get('/areas/list', [AuditExecutionAreaController::class, 'getAuditAreaList'])->name('areas.list');
         Route::resource('/areas', AuditExecutionAreaController::class, ['except' => ['edit']]);
@@ -912,7 +913,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::post('/audit-query/edit', [XAuditQueryController::class, 'auditQueryEdit'])->name('audit-query.edit');
         Route::resource('/audit-query', XAuditQueryController::class, ['except' => ['edit', 'create']]);
 
-        //risk assessment
+        //risk assessments
         Route::post('/risk-assessment/lists', [XRiskAssessmentController::class, 'getRiskAssessmentLists'])->name('risk-assessment.lists');
         Route::post('/risk-assessment/edit', [XRiskAssessmentController::class, 'riskAssessmentEdit'])->name('risk-assessment.edit');
         Route::resource('/risk-assessment', XRiskAssessmentController::class, ['except' => ['edit', 'create']]);
@@ -947,6 +948,12 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::resource('/risk-likelihoods', XRiskLikelihoodController::class, ['except' => ['edit']]);
         Route::post('/risk-likelihoods/edit', [XRiskLikelihoodController::class, 'riskLikelihoodEdit'])->name('risk-likelihoods.edit');
 
+        // item risk assessments
+        Route::get('/item-risk-assessments/list', [ItemAssessmentController::class, 'getItemRiskAssessmentList'])->name('item-risk-assessments.list');
+        Route::resource('/item-risk-assessments', ItemAssessmentController::class, ['except' => ['edit']]);
+        Route::post('/item-risk-assessments/edit', [ItemAssessmentController::class, 'itemRiskAssessmentEdit'])->name('item-risk-assessments.edit');
+
+        
         Route::group(['as' => 'strategic-plan.', 'prefix' => 'strategic-plan/'], function () {
             Route::post('/duration/lists', [DurationController::class, 'getDurationLists'])->name('duration.lists');
             Route::resource('/duration', DurationController::class, ['except' => ['edit', 'create']]);
