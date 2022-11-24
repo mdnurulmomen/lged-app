@@ -19,17 +19,7 @@
         @foreach($all_risk_assessment_factors as $risk_assessment_factor)
             <tr>
                 <td>
-                    @if($risk_assessment_factor['project_id'])
-                        {{$risk_assessment_factor['project_name_bn']}}
-                    @endif
-
-                    @if($risk_assessment_factor['function_id'])
-                        {{$risk_assessment_factor['function_name_bn']}}
-                    @endif
-
-                    @if($risk_assessment_factor['cost_center_id'])
-                         {{$risk_assessment_factor['cost_center_name_bn']}}
-                    @endif
+                    {{$risk_assessment_factor['item_name_bn']}}
                 </td>
                 @foreach($all_risk_factors as $factor)
                     <td>{{$risk_assessment_factor['risk_factor_items'][$factor['id']]}}</td>

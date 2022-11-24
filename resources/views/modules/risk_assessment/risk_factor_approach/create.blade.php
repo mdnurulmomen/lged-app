@@ -21,9 +21,9 @@
             <div class="row">
                 <div class="col-4">
                     <span style="font-size: 18px">
-                        <input checked id="project" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('project')" type="radio" name="risk_factor_type"> Project
-                        <input id="function" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('function')" type="radio" name="risk_factor_type"> Function
-                        <input id="cost_center" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('unit')" type="radio" name="risk_factor_type"> Unit
+                        <input checked id="project" value="project" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('project')" type="radio" name="item_type"> Project
+                        <input id="function" value="function" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('function')" type="radio" name="item_type"> Function
+                        <input id="master-unit" value="master-unit" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('master-unit')" type="radio" name="item_type"> Unit
                     </span>
                     <div style="display: none" class="project_div">
                         <select   class="form-control select-select2" name="project_id" id="project_id">
@@ -39,7 +39,7 @@
 
                     <div style="display: none"  class="unit_div">
                         <select class="form-control select-select2" name="unit_master_id" id="unit_master_id">
-                            <option selected value="">select unit</option>
+                            <option selected value="">Select Unit(master)</option>
                         </select>
                     </div>
 
@@ -135,7 +135,7 @@
                 $('.cost_center_div').hide();
                 $('.unit_div').hide();
                 Risk_Assessment_Factor_Approach_Container.loadFunction();
-            }else if(type == 'unit'){
+            }else if(type == 'master-unit'){
                 $('.project_div').hide();
                 $('.function_div').hide();
                 $('.cost_center_div').hide();
@@ -195,45 +195,58 @@
         storeRiskAssessmentFactor: function () {
             loaderStart('Please wait...');
 
+            risk_factor_info = {};
             risk_factor_items = [];
+            let item_type = $('input[name="item_type"]:checked').val();
 
-            risk_factor_info = {
-                'project_id' : $('#project_id').find(':selected').val(),
-                'project_name_bn' : $('#project_id').find(':selected').attr('data-name-bn'),
-                'project_name_en' : $('#project_id').find(':selected').attr('data-name-en'),
-                'function_id' : $('#function_id').find(':selected').val(),
-                'function_name_bn' : $('#function_id').find(':selected').attr('data-name-bn'),
-                'function_name_en' : $('#function_id').find(':selected').attr('data-name-bn'),
-                'unit_master_id' : $('#unit_master_id').find(':selected').val(),
-                'unit_master_name_bn' : $('#unit_master_id').find(':selected').attr('data-name-bn'),
-                'unit_master_name_en' : $('#unit_master_id').find(':selected').attr('data-name-en'),
-                'cost_center_id' : $('#cost_center_id').find(':selected').val(),
-                'cost_center_name_bn' : $('#cost_center_id').find(':selected').attr('data-name-bn'),
-                'cost_center_name_en' : $('#cost_center_id').find(':selected').attr('data-name-en'),
-                'parent_office_id' : $('#cost_center_id').attr('data-parent-office-id'),
-                'parent_office_name_en' : $('#cost_center_id').attr('data-parent-office-name-en'),
-                'parent_office_name_bn' : $('#cost_center_id').attr('data-parent-office-name-bn'),
+            if (item_type=='project') {
+
+                risk_factor_info['item_id'] = $('#project_id').find(':selected').val();
+                risk_factor_info['item_name_bn'] = $('#project_id').find(':selected').attr('data-name-bn');
+                risk_factor_info['item_name_en'] = $('#project_id').find(':selected').attr('data-name-en');
+                risk_factor_info['item_type'] = item_type;
+                
+            } else if (item_type=='function') {
+
+                risk_factor_info['item_id'] = $('#function_id').find(':selected').val();
+                risk_factor_info['item_name_bn'] = $('#function_id').find(':selected').attr('data-name-bn');
+                risk_factor_info['item_name_en'] = $('#function_id').find(':selected').attr('data-name-en');
+                risk_factor_info['item_type'] = item_type;
+                
+            } else if (item_type=='master-unit') {
+
+                risk_factor_info['item_id'] = $('#unit_master_id').find(':selected').val();
+                risk_factor_info['item_name_bn'] = $('#unit_master_id').find(':selected').attr('data-name-bn');
+                risk_factor_info['item_name_en'] = $('#unit_master_id').find(':selected').attr('data-name-en');
+                risk_factor_info['item_type'] = item_type;
+                
+            } else if (item_type=='cost_center') {
+
+                risk_factor_info['item_id'] = $('#cost_center_id').find(':selected').val();
+                risk_factor_info['item_name_bn'] = $('#cost_center_id').find(':selected').attr('data-name-bn');
+                risk_factor_info['item_name_en'] = $('#cost_center_id').find(':selected').attr('data-name-en');
+                risk_factor_info['item_type'] = item_type;
+
+                risk_factor_info['parent_office_id'] = $('#cost_center_id').attr('data-parent-office-id');
+                risk_factor_info['parent_office_name_en'] = $('#cost_center_id').attr('data-parent-office-name-en');
+                risk_factor_info['parent_office_name_bn'] = $('#cost_center_id').attr('data-parent-office-name-bn');
+
             }
 
             $('.risk_factor_row').each(function (j, w) {
                 item = {};
 
-                item['project_id'] = $('#project_id').find(':selected').val();
-                item['function_id'] =  $('#function_id').find(':selected').val();
-                item['unit_master_id'] =  $('#unit_master_id').find(':selected').val();
-                item['cost_center_id'] = $('#cost_center_id').val();
-                item['parent_office_id'] = $('#cost_center_id').attr('data-parent-office-id');
-
                 item['x_risk_factor_id']  = $(this).find('.risk_factor_id').val();
-                item['factor_weight']  = $(this).find('.risk_factor_weight').val();
                 item['risk_factor_title_bn'] = $(this).find('.risk_factor_title_bn').val();
                 item['risk_factor_title_en'] = $(this).find('.risk_factor_title_en').val();
+                item['factor_weight']  = $(this).find('.risk_factor_weight').val();
                 item['factor_rating'] = $(this).find('.risk_rating').val();
 
                 risk_factor_items.push(item);
             });
 
             let url = '{{route('risk-assessment.factor-approach.store')}}';
+            
             let data = {risk_factor_info,risk_factor_items};
             ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
                 loaderStop();

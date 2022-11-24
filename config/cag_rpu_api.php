@@ -46,10 +46,12 @@ return [
 
     'functions' => [
         'list' => env('API_URL_RPU', '') . '/functions/list',
+        'update' => env('API_URL_RPU', '') . '/functions/update',
     ],
 
     'master_units' => [
         'list' => env('API_URL_RPU', '') . '/master-units/list',
+        'update' => env('API_URL_RPU', '') . '/master-units/update',
     ],
 
     'cost-center-project-map' => [

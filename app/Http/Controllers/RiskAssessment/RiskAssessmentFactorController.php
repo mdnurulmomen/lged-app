@@ -92,7 +92,11 @@ class RiskAssessmentFactorController extends Controller
     {
         $data = Validator::make($request->all(), [
             'risk_factor_info' => 'required',
-            'risk_factor_items' => 'required',
+            'risk_factor_info.item_id' => 'required|integer',
+            'risk_factor_info.item_name_en' => 'required|string',
+            'risk_factor_info.item_name_bn' => 'required|string',
+            'risk_factor_info.item_type' => 'required|string|in:project,function,master-unit',
+            'risk_factor_items' => 'required|array',
         ])->validate();
 
         
@@ -113,7 +117,21 @@ class RiskAssessmentFactorController extends Controller
                 'total_risk_score' => $store['data']['total_risk_score'],
             ];
 
-            $store = $this->initRPUHttp()->post(config('cag_rpu_api.update-projects'), $data)->json();
+            if ($request['risk_factor_info']['item_type']=='project') {
+                
+                $store = $this->initRPUHttp()->post(config('cag_rpu_api.update-projects'), $data)->json();
+                
+            }
+            else if ($request['risk_factor_info']['item_type']=='function') {
+
+                $store = $this->initRPUHttp()->put(config('cag_rpu_api.functions.update'), $data)->json();
+
+            }
+            else if ($request['risk_factor_info']['item_type']=='master-unit') {
+
+                $store = $this->initRPUHttp()->put(config('cag_rpu_api.master_units.update'), $data)->json();
+
+            }
             
             // dd($store);
 

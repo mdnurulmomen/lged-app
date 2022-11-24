@@ -21,19 +21,19 @@
             <div class="card-header">
                 <div class="form-row">
                     <div class="col-sm-3 form-group">
-                        <input id="project" type="radio" name="assessment_item_type" value="project" checked> Project
+                        <input type="radio" name="assessment_item_type" value="project" checked> Project
                     </div>
             
                     <div class="col-sm-3 form-group">
-                        <input id="function" type="radio" name="assessment_item_type" value="function"> Function
+                        <input type="radio" name="assessment_item_type" value="function"> Function
                     </div>
                     
                     <div class="col-sm-3 form-group">
-                        <input id="master_unit" type="radio" name="assessment_item_type" value="master-unit" > Master Unit
+                        <input type="radio" name="assessment_item_type" value="master-unit" > Master Unit
                     </div>
             
                     <div class="col-sm-3 form-group">
-                        <input id="cost_center" type="radio" name="assessment_item_type" value="cost-center"> Cost Center
+                        <input type="radio" name="assessment_item_type" value="cost-center"> Cost Center
                     </div>
                 </div>
                 
@@ -208,26 +208,26 @@
             if (this.value == 'project') {
                 $('.project_div').show();
                 $('.function_div').hide();
-                $('.cost_center_div').hide();
                 $('.unit_div').hide();
+                $('.cost_center_div').hide();
             }
             else if (this.value == 'function') {
                 $('.project_div').hide();
                 $('.function_div').show();
-                $('.cost_center_div').hide();
                 $('.unit_div').hide();
+                $('.cost_center_div').hide();
             }
-            else if (this.value == 'master_unit') {
+            else if (this.value == 'master-unit') {
                 $('.project_div').hide();
                 $('.function_div').hide();
-                $('.cost_center_div').hide();
                 $('.unit_div').show();
+                $('.cost_center_div').hide();
             }
             else {
                 $('.project_div').hide();
                 $('.function_div').hide();
-                $('.cost_center_div').show();
                 $('.unit_div').hide();
+                $('.cost_center_div').show();
             }
         });
 
