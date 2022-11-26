@@ -1,17 +1,17 @@
 <x-title-wrapper>Risk Assessment List</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
-    <div class="row">
+    <div class="row d-flex align-items-end">
         <div class="col-md-6">
             <span style="font-size: 18px" class="form-group">
-                <input id="project" type="radio" name="risk_factor_type" checked onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project
-                <input id="function" type="radio" name="risk_factor_type" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function
-                <input id="master_unit" type="radio" name="risk_factor_type" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Master Unit
-                <input id="cost_center" type="radio" name="risk_factor_type" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center
+                <input id="project" type="radio" name="risk_factor_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project
+                <input id="function" type="radio" name="risk_factor_type" value="function" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function
+                <input id="master_unit" type="radio" name="risk_factor_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Master Unit
+                <input id="cost_center" type="radio" name="risk_factor_type" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center
             </span>
             
-            <div class="project_div">
-                <select   class="form-control select-select2" name="project_id" id="project_id" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
+            <div class="project_div" style="display: none">
+                <select class="form-control select-select2" name="project_id" id="project_id" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
                     <option selected>Select Project</option>
                     @foreach ($allProjects as $project)
                         <option value="{{ $project['id'] }}">{{ $project['name_en'] }}</option>
@@ -20,7 +20,7 @@
             </div>
 
             <div class="function_div" style="display: none">
-                <select  class="form-control select-select2" name="function_id" id="function_id" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('function', this.value)">
+                <select class="form-control select-select2" name="function_id" id="function_id" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('function', this.value)">
                     <option selected>Select Function</option>
                     @foreach ($allFunctions as $function)
                         <option value="{{ $function['id'] }}">{{ $function['name_en'] }}</option>
@@ -46,7 +46,19 @@
                 </select>
             </div>
         </div>
-        <div class="col-md-6 text-right">
+        
+        <div class="col-md-3">
+            <button 
+                title="বিস্তারিত দেখুন"
+                id="summery_assessment_button"
+                class="btn btn-sm btn-info btn-square mr-1" 
+                data-url="{{route('settings.item-risk-assessments.summery')}}"
+            >
+                <i class="fad fa-plus"></i> Summery
+            </button>
+        </div>
+
+        <div class="col-md-3 text-right">
             <button class="btn btn-sm btn-info btn-square mr-1" 
                     title="বিস্তারিত দেখুন"
                     onclick='loadPage($(this))'
@@ -92,14 +104,56 @@
 <script>
     $(function () {
         // Risk_Assessment_Factor_Approach_Container.setAssessmentType('project');
+        
+        $("#summery_assessment_button").click(function() {
+            
+            let url = $(this).attr("data-url");
+            
+            let type = $("input[name='risk_factor_type']:checked").val();
+
+            if (type=='project' && $('#project_id option').is(':selected')) {
+
+                var id = $('#project_id').find(":selected").val();
+
+            } else if (type=='function' && $('#function_id option').is(':selected')) {
+                
+                var id = $('#function_id').find(":selected").val();
+
+            } else if (type=='master-unit' && $('#unit_master_id option').is(':selected')) {
+                
+                var id = $('#unit_master_id').find(":selected").val();
+
+            } else if (type=='cost-center' && $('#cost_center_id option').is(':selected')) {
+                
+                var id = $('#cost_center_id').find(":selected").val();
+            }
+            else {
+                alert('Please select an item');
+                return false;
+            }
+
+            loaderStart('loading...');
+            
+            let data = {id, type};
+            
+            ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
+                loaderStop();
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $('.content-risk-assessments').html(response);
+                }
+            });
+        });
     });
 
     var Risk_Assessment_Item_Container = {
         laodItemRiskAssessments: function (type, id) {
             loaderStart('loading...');
+
             let url = '{{route('settings.item-risk-assessments.list')}}';
             let data = {id,type};
-            console.log(data);
+
             ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
                 loaderStop();
                 if (response.status === 'error') {

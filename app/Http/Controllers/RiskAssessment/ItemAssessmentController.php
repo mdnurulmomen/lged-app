@@ -254,4 +254,23 @@ class ItemAssessmentController extends Controller
             return response()->json(['status' => 'error', 'data' => $delete_risk_impact]);
         }
     }
+
+    public function itemRiskAssessmentSummery(Request $request)
+    {
+        $item_assessment_areas = $this->initHttpWithToken()->get(config('amms_bee_routes.item_risk_assessments'), $request->all())->json();
+
+        $risk_levels = $this->initHttpWithToken()->get(config('amms_bee_routes.x_risk_levels'), [
+            'all' => 1
+        ])->json();
+
+        // dd($risk_level_list);
+
+        if ($item_assessment_areas['status'] == 'success') {
+            $risk_levels = $risk_levels['data'];
+            $item_assessment_areas = $item_assessment_areas['data'];
+            return view('modules.settings.risk_assessment.partials.get_risk_assessment_summery', compact('item_assessment_areas', 'risk_levels'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $item_assessment_areas]);
+        }
+    }
 }

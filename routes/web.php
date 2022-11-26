@@ -950,6 +950,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         // item risk assessments
         Route::get('/item-risk-assessments/list', [ItemAssessmentController::class, 'getItemRiskAssessmentList'])->name('item-risk-assessments.list');
+        Route::get('/item-risk-assessments/summery', [ItemAssessmentController::class, 'itemRiskAssessmentSummery'])->name('item-risk-assessments.summery');
         Route::resource('/item-risk-assessments', ItemAssessmentController::class, ['except' => ['edit']]);
         Route::post('/item-risk-assessments/edit', [ItemAssessmentController::class, 'itemRiskAssessmentEdit'])->name('item-risk-assessments.edit');
 
