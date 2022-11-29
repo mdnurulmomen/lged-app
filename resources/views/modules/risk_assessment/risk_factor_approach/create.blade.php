@@ -60,39 +60,58 @@
             <table class="table table-bordered">
                 <thead class="thead-light">
                 <tr>
-                    <th width="30%">Risk Factor</th>
-                    <th width="40%">Criteria</th>
-                    <th width="30%">Risk Rating</th>
+                    <th>Risk Factor</th>
+                    <th>Criteria</th>
+                    <th>Rating Details</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($all_risk_factors as $risk_factor)
                     <tr class="risk_factor_row">
-                    <td>
-                        {{$risk_factor['title_bn']}}
-                        <input class="risk_factor_id" type="hidden" name="risk_factor_id" value="{{$risk_factor['id']}}">
-                        <input class="risk_factor_title_en" type="hidden" name="risk_factor_title_en" value="{{$risk_factor['title_en']}}">
-                        <input class="risk_factor_title_bn" type="hidden" name="risk_factor_title_bn" value="{{$risk_factor['title_bn']}}">
-                        <input class="risk_factor_weight" type="hidden" name="risk_factor_weight" value="{{$risk_factor['risk_weight']}}">
-                    </td>
-                    <td>
-                        @if($risk_factor['risk_factor_criteria'])
-                            @foreach($risk_factor['risk_factor_criteria'] as $criteria)
-                                <span><b>{{$loop->iteration}}. </b>{{$criteria['title_bn']}},</span>
-                            @endforeach
-                        @endif
-                    </td>
-                    <td>
-                        <select  class="form-control select-select2 risk_rating">
-                            <option value="">Select Rating</option>
-                            @if($risk_factor['risk_factor_ratings'])
-                                @foreach($risk_factor['risk_factor_ratings'] as $risk_rating)
-                                    <option value="{{$risk_rating['rating_value']}}">{{$risk_rating['title_bn']}}</option>
-                                @endforeach
+                        <td>
+                            {{$risk_factor['title_bn']}}
+                            
+                            <input class="risk_factor_id" type="hidden" name="risk_factor_id" value="{{$risk_factor['id']}}">
+                            <input class="risk_factor_title_en" type="hidden" name="risk_factor_title_en" value="{{$risk_factor['title_en']}}">
+                            <input class="risk_factor_title_bn" type="hidden" name="risk_factor_title_bn" value="{{$risk_factor['title_bn']}}">
+                            <input class="risk_factor_weight" type="hidden" name="risk_factor_weight" value="{{$risk_factor['risk_weight']}}">
+                        </td>
+                        <td>
+                            @if($risk_factor['risk_factor_criteria'])
+                                <ul class="list-group list-group-flush">
+                                    @foreach($risk_factor['risk_factor_criteria'] as $criteria)
+                                        <li class="list-group-item p-0"><b>{{$loop->iteration}}. </b>{{$criteria['title_bn']}},</li>
+                                    @endforeach
+                                </ul>
                             @endif
-                        </select>
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            <div class="form-row">
+                                <div class="col-sm-12 form-group">
+                                    <label for="exampleFormControlSelect1">Rating</label>
+                                    
+                                    <select  class="form-control select-select2 risk_rating">
+                                        <option value="">Select Rating</option>
+                                        @if($risk_factor['risk_factor_ratings'])
+                                            @foreach($risk_factor['risk_factor_ratings'] as $risk_rating)
+                                                <option value="{{$risk_rating['rating_value']}}">{{$risk_rating['rating_value'].'-'.$risk_rating['title_bn']}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 form-group">
+                                    <label for="exampleFormControlSelect1">Comment</label>
+                                    <textarea class="form-control" name="comment" rows="5"></textarea>
+                                </div>
+
+                                <div class="col-sm-12 form-group">
+                                    <label for="exampleFormControlSelect1">Attachment</label>
+                                    <input type="file" class="form-control-file" name="attachment">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 @endforeach
                 </tbody>
             </table>
@@ -191,71 +210,89 @@
                 }
             });
         },
-
+        
         storeRiskAssessmentFactor: function () {
             loaderStart('Please wait...');
 
-            risk_factor_info = {};
-            risk_factor_items = [];
+            var formData = new FormData();
+            
+            // let risk_factor_info = {};
+            // let risk_factor_items = [];
+            
             let item_type = $('input[name="item_type"]:checked').val();
+
+            // formData.append('risk_factor_info', risk_factor_info);
 
             if (item_type=='project') {
 
-                risk_factor_info['item_id'] = $('#project_id').find(':selected').val();
-                risk_factor_info['item_name_bn'] = $('#project_id').find(':selected').attr('data-name-bn');
-                risk_factor_info['item_name_en'] = $('#project_id').find(':selected').attr('data-name-en');
-                risk_factor_info['item_type'] = item_type;
+                formData.append('risk_factor_info[item_id]', $('#project_id').find(':selected').val());
+                formData.append('risk_factor_info[item_name_bn]', $('#project_id').find(':selected').attr('data-name-bn'));
+                formData.append('risk_factor_info[item_name_en]', $('#project_id').find(':selected').attr('data-name-en'));
+                formData.append('risk_factor_info[item_type]', item_type);
                 
             } else if (item_type=='function') {
 
-                risk_factor_info['item_id'] = $('#function_id').find(':selected').val();
-                risk_factor_info['item_name_bn'] = $('#function_id').find(':selected').attr('data-name-bn');
-                risk_factor_info['item_name_en'] = $('#function_id').find(':selected').attr('data-name-en');
-                risk_factor_info['item_type'] = item_type;
+                formData.append('risk_factor_info[item_id]', $('#function_id').find(':selected').val());
+                formData.append('risk_factor_info[item_name_bn]', $('#function_id').find(':selected').attr('data-name-bn'));
+                formData.append('risk_factor_info[item_name_en]', $('#function_id').find(':selected').attr('data-name-en'));
+                formData.append('risk_factor_info[item_type]', item_type);
                 
             } else if (item_type=='master-unit') {
 
-                risk_factor_info['item_id'] = $('#unit_master_id').find(':selected').val();
-                risk_factor_info['item_name_bn'] = $('#unit_master_id').find(':selected').attr('data-name-bn');
-                risk_factor_info['item_name_en'] = $('#unit_master_id').find(':selected').attr('data-name-en');
-                risk_factor_info['item_type'] = item_type;
+                formData.append('risk_factor_info[item_id]', $('#unit_master_id').find(':selected').val());
+                formData.append('risk_factor_info[item_name_bn]', $('#unit_master_id').find(':selected').attr('data-name-bn'));
+                formData.append('risk_factor_info[item_name_en]', $('#unit_master_id').find(':selected').attr('data-name-en'));
+                formData.append('risk_factor_info[item_type]', item_type);
                 
             } else if (item_type=='cost_center') {
 
-                risk_factor_info['item_id'] = $('#cost_center_id').find(':selected').val();
-                risk_factor_info['item_name_bn'] = $('#cost_center_id').find(':selected').attr('data-name-bn');
-                risk_factor_info['item_name_en'] = $('#cost_center_id').find(':selected').attr('data-name-en');
-                risk_factor_info['item_type'] = item_type;
-
-                risk_factor_info['parent_office_id'] = $('#cost_center_id').attr('data-parent-office-id');
-                risk_factor_info['parent_office_name_en'] = $('#cost_center_id').attr('data-parent-office-name-en');
-                risk_factor_info['parent_office_name_bn'] = $('#cost_center_id').attr('data-parent-office-name-bn');
+                formData.append('risk_factor_info[item_id]', $('#cost_center_id').find(':selected').val());
+                formData.append('risk_factor_info[item_name_bn]', $('#cost_center_id').find(':selected').attr('data-name-bn'));
+                formData.append('risk_factor_info[item_name_en]', $('#cost_center_id').find(':selected').attr('data-name-en'));
+                formData.append('risk_factor_info[item_type]', item_type);
+                
+                formData.append('risk_factor_info[parent_office_id]', $('#cost_center_id').attr('data-parent-office-id'));
+                formData.append('risk_factor_info[parent_office_name_en]', $('#cost_center_id').attr('data-parent-office-name-en'));
+                formData.append('risk_factor_info[parent_office_name_bn]', $('#cost_center_id').attr('data-parent-office-name-bn'));
 
             }
 
-            $('.risk_factor_row').each(function (j, w) {
-                item = {};
-
-                item['x_risk_factor_id']  = $(this).find('.risk_factor_id').val();
-                item['risk_factor_title_bn'] = $(this).find('.risk_factor_title_bn').val();
-                item['risk_factor_title_en'] = $(this).find('.risk_factor_title_en').val();
-                item['factor_weight']  = $(this).find('.risk_factor_weight').val();
-                item['factor_rating'] = $(this).find('.risk_rating').val();
-
-                risk_factor_items.push(item);
+            $('.risk_factor_row').each(function (index, value) {
+                formData.append('risk_factor_items[' + index + '][x_risk_factor_id]', $(this).find('.risk_factor_id').val());
+                formData.append('risk_factor_items[' + index + '][risk_factor_title_bn]', $(this).find('.risk_factor_title_bn').val());
+                formData.append('risk_factor_items[' + index + '][risk_factor_title_en]', $(this).find('.risk_factor_title_en').val());
+                formData.append('risk_factor_items[' + index + '][factor_weight]', $(this).find('.risk_factor_weight').val());
+                formData.append('risk_factor_items[' + index + '][factor_rating]', $(this).find('.risk_rating').val());
+                formData.append('risk_factor_items[' + index + '][comment]', $(this).find('textarea[name="comment"]').val());
+                
+                if ($(this).find('input[type=file]')[0].files.length) {
+                    formData.append('risk_factor_items[' + index + '][attachment]', $(this).find('input[type=file]')[0].files[0]);
+                }
             });
 
             let url = '{{route('risk-assessment.factor-approach.store')}}';
-            
-            let data = {risk_factor_info,risk_factor_items};
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                async: true,
+                type: 'POST',
+                url: url,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData : false,
+            })
+            .done(function(response) {
+                toastr.success(response.data);
+                Risk_Assessment_Factor_Approach_Container.backToList();
+            })
+            .fail(function(response) {
+                toastr.error(response.data)
+            })
+            .always(function() {
                 loaderStop();
-                if (response.status === 'error') {
-                    toastr.error(response.data)
-                } else {
-                    toastr.success(response.data);
-                    Risk_Assessment_Factor_Approach_Container.backToList();
-                }
             });
         },
         backToList: function () {
