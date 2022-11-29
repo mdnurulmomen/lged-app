@@ -75,6 +75,8 @@ function ajaxCallAsyncCallbackAPI(url, data, method, callback,errorCallback) {
         url: url,
         data: data,
         cache: false,
+        // contentType: false,
+        // processData : false,
         success: function (data, textStatus) {
             callback(data);
         },

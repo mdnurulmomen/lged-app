@@ -54,7 +54,7 @@ class XRiskLikelihoodController extends Controller
         $request->validate([
             'title_bn' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
-            'likelihood_value' => 'required|min:1|max:10',
+            'likelihood_value' => 'required|min:1|max:5',
             'description_bn' => 'required|string|max:255',
             'description_en' => 'required|string|max:255',
             'comment_en' => 'required|string|max:255',
@@ -116,7 +116,7 @@ class XRiskLikelihoodController extends Controller
         $request->validate([
             'title_bn' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
-            'likelihood_value' => 'required|min:1|max:10',
+            'likelihood_value' => 'required|min:1|max:5',
             'description_bn' => 'required|string|max:255',
             'description_en' => 'required|string|max:255',
             'comment_en' => 'required|string|max:255',

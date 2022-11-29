@@ -35,7 +35,8 @@
 
         ajaxCallAsyncCallbackAPI(url, data, method, function (response) {
             if (response.status === 'success') {
-                toastr.success('Success')
+                toastr.success('Success');
+                loadData();
                 $('.btn-quick-panel-close').click();
             } else {
                 // toastr.error(response.data.message)

@@ -14,7 +14,10 @@
     <div class="form-row">
         <div class="col-md-12 form-group">
             <label for="email">Type:</label>
-            <input placeholder="Level Type" class="form-control" type="text" id="type" value="{{ $type }}">
+            <select class="form-control" id="type">
+                <option value="factor_risk_assessment" @if ($type=='factor_risk_assessment') selected @endif>Factor Risk Assessment</option>
+                <option value="area_risk_assessment" @if ($type=='area_risk_assessment') selected @endif>Area Risk Assessment</option>
+            </select>
         </div>
         <div class="col-md-12 form-group">
             <label for="email">Title (Bangla):</label>
@@ -38,7 +41,7 @@
             id : $('#id').val(),
             level_from : $('#level_from').val(),
             level_to : $('#level_to').val(),
-            type : $('#type').val(),
+            type : $('#type').find(":selected").val(),
             title_bn : $('#title_bn').val(),
             title_en : $('#title_en').val(),
         };
@@ -47,8 +50,8 @@
             if (response.status === 'success') {
                 loadData();
                 toastr.success(response.data);
-                $('.ki-close').click();
-                $('.x_risk_level a').click();
+                // $('.x_risk_level a').click();
+                $('.btn-quick-panel-close').click();
             } else {
                 toastr.error(response.data.message)
                 if (response.data.errors) {

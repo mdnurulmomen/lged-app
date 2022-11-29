@@ -54,7 +54,7 @@ class XRiskImpactController extends Controller
         $request->validate([
             'title_bn' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
-            'impact_value' => 'required|min:1|max:10'
+            'impact_value' => 'required|min:1|max:5'
         ]);
 
         $currentUserId = $this->current_desk()['officer_id'];
@@ -101,6 +101,12 @@ class XRiskImpactController extends Controller
      */
     public function update(Request $request, $id)
     {   
+        $request->validate([
+            'title_bn' => 'required|string|max:255',
+            'title_en' => 'required|string|max:255',
+            'impact_value' => 'required|min:1|max:5'
+        ]);
+        
         $data = [
             'id' => $request->id,
             'title_bn' => $request->title_bn,

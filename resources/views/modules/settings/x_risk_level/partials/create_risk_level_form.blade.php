@@ -13,7 +13,11 @@
     <div class="form-row">
         <div class="col-md-12 form-group">
             <label for="type">Type:</label>
-            <input placeholder="Level Type" class="form-control" type="text" id="type">
+            <select class="form-control" id="type">
+                <option value="" disabled selected>Level Type</option>
+                <option value="factor_risk_assessment">Factor Risk Assessment</option>
+                <option value="area_risk_assessment">Area Risk Assessment</option>
+            </select>
         </div>
         <div class="col-md-12 form-group">
             <label for="email">Title (Bangla):</label>
@@ -41,10 +45,8 @@
             level_to : $('#level_to').val(),
             title_bn : $('#title_bn').val(),
             title_en : $('#title_en').val(),
-            type : $('#type').val(),
+            type : $('#type').find(":selected").val()
         };
-        
-        // console.log(data);
 
         ajaxCallAsyncCallbackAPI(url, data, method, function (response) {
             if (response.status === 'success') {

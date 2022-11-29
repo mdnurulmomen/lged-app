@@ -88,7 +88,7 @@ trait ApiHeart
         }
         return null;
     }
-
+    
     public function fileUPloadWithData($uri, $data, $method = 'POST'): \Psr\Http\Message\ResponseInterface
     {
         $client = new Client(['verify' => false]);

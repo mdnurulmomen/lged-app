@@ -1,8 +1,8 @@
-<x-title-wrapper>Risk Matrix</x-title-wrapper>
+<x-title-wrapper>Risk & Control Matrix</x-title-wrapper>
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12 text-right">
         <button type="button" class="font-weight-bolder font-size-sm mr-3 btn btn-success btn-sm btn-bold btn-square btn_create_risk_matrix">
-            <i class="far fa-plus mr-1"></i> Create Risk Matrix
+            <i class="far fa-plus mr-1"></i> Create New Matrix
         </button>
     </div>
 </div>

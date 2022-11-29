@@ -19,19 +19,19 @@
                     <div class="row">
                         <div class="col-12">
                             <label>Project :</label>
-                            <table id="project_table_{{$i}}" class="table table-striped">
+                            <table id="project_table_{{$i}}" class="table table-responsive table-striped">
                                 <thead class="thead-light">
-                                <tr>
-                                    <th width="20%">Project</th>
-                                    <th width="20%">Location</th>
-                                    <th width="10%">Location No</th>
-                                    <th width="30%">Comment</th>
-                                    <th width="15%">Action</th>
+                                <tr class="d-flex">
+                                    <th class="col-4">Project</th>
+                                    <th class="col-2">Location</th>
+                                    <th class="col-2">Location No</th>
+                                    <th class="col-2">Comment</th>
+                                    <th class="col-2">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="strategic_row project_row_{{$i}}">
-                                    <td>
+                                <tr class="strategic_row project_row_{{$i}} d-flex">
+                                    <td class="col-4">
                                         <select data-strategic-year="{{$i}}" data-id="1" class="form-control project_id_{{$i}} select-select2 project-select">
                                             <option selected value="">select project</option>
                                             @foreach($all_project as $project)
@@ -40,18 +40,18 @@
                                             @endforeach
                                         </select>
                                     </td>
-                                    <td>
+                                    <td class="col-2">
                                         <select id="location_{{$i}}_1" class="form-control location_id_{{$i}} select-select2">
                                             <option selected value="">select location</option>
                                         </select>
                                     </td>
-                                    <td>
+                                    <td class="col-2">
                                         <input type="text" class="form-control location_no_{{$i}}">
                                     </td>
-                                    <td>
+                                    <td class="col-2">
                                         <textarea style="height: 40px;" class="form-control comment_{{$i}}"></textarea>
                                     </td>
-                                    <td>
+                                    <td class="col-2">
                                         <div style="display: flex">
                                             <button type="button" title="ট্রানজিট"
                                                     onclick="Plan_Common_Container.addLocationRow('{{$i}}','project')"
@@ -75,19 +75,19 @@
                     <div class="row">
                         <div class="col-12">
                             <label>Function :</label>
-                            <table id="function_table_{{$i}}" class="table table-striped">
+                            <table id="function_table_{{$i}}" class="table table-responsive table-striped">
                                 <thead class="thead-light">
-                                <tr>
-                                    <th width="20%">Function</th>
-                                    <th width="20%">Location</th>
-                                    <th width="10%">Location No</th>
-                                    <th width="30%">Comment</th>
-                                    <th width="15%">Action</th>
+                                <tr class="d-flex">
+                                    <th class="col-4">Function</th>
+                                    <th class="col-2">Location</th>
+                                    <th class="col-2">Location No</th>
+                                    <th class="col-2">Comment</th>
+                                    <th class="col-2">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="strategic_row function_row_{{$i}}">
-                                    <td>
+                                <tr class="strategic_row function_row_{{$i}} d-flex">
+                                    <td class="col-4">
                                         <select class="form-control function_id_{{$i}} select-select2">
                                             <option selected value="">select function</option>
                                             @foreach($all_function as $function)
@@ -95,7 +95,7 @@
                                             @endforeach
                                         </select>
                                     </td>
-                                    <td>
+                                    <td class="col-2">
                                         <select class="form-control location_id_{{$i}} select-select2">
                                             <option selected value="">select location</option>
                                             <option data-parent-office-id="1"
@@ -106,13 +106,13 @@
                                                     value="1">cost center</option>
                                         </select>
                                     </td>
-                                    <td>
+                                    <td class="col-2">
                                        <input type="text" class="form-control location_no_{{$i}}">
                                     </td>
-                                    <td>
+                                    <td class="col-2">
                                         <textarea style="height: 40px;" class="form-control comment_{{$i}}"></textarea>
                                     </td>
-                                    <td>
+                                    <td class="col-2">
                                         <div style="display: flex">
                                             <button type="button" title="ট্রানজিট"
                                                     onclick="Plan_Common_Container.addLocationRow('{{$i}}','function')"

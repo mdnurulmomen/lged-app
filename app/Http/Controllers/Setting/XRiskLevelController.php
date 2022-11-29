@@ -52,9 +52,16 @@ class XRiskLevelController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'level_from' => 'required|integer',
-            'level_to' => 'required|integer',
-            'type' => 'required|string|max:255',
+            'level_from' => 'required|integer|min:1', 
+            'level_to' => [
+                'required', 'integer', 
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($value > 5 && $request->input('type') == 'factor_risk_assessment') {
+                        $fail('The '.$attribute.' is invalid.');
+                    }
+                },
+            ],
+            'type' => 'required|string|max:255|in:factor_risk_assessment,area_risk_assessment',
             'title_bn' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
         ]);
@@ -108,9 +115,16 @@ class XRiskLevelController extends Controller
     public function update(Request $request, $id)
     {   
         $request->validate([
-            'level_from' => 'required|integer',
-            'level_to' => 'required|integer',
-            'type' => 'required|string|max:255',
+            'level_from' => 'required|integer|min:1', 
+            'level_to' => [
+                'required', 'integer', 
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($value > 5 && $request->input('type') == 'factor_risk_assessment') {
+                        $fail('The '.$attribute.' is invalid.');
+                    }
+                },
+            ],
+            'type' => 'required|string|max:255|in:factor_risk_assessment,area_risk_assessment',
             'title_bn' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
         ]);

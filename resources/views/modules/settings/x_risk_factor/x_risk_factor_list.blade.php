@@ -40,7 +40,7 @@
                     quick_panel.removeClass('d-none');
                     $("html").addClass("side-panel-overlay");
                     $(".offcanvas-wrapper").html(response);
-                    loadData();
+                    // loadData();
                 }
             });
         });
