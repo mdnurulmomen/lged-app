@@ -35,8 +35,12 @@
                              icon="fal fa-calendar-alt">Query
                 </x-menu-item>
 
-                <x-menu-item class="x_query_menu" href="{{route('audit.execution.areas.index')}}"
+                <x-menu-item class="audit_area_menu" href="{{route('audit.execution.areas.index')}}"
                              icon="fal fa-calendar-alt">Area
+                </x-menu-item>
+
+                <x-menu-item class="audit_program_menu" href="{{route('audit.plan.programs.index')}}"
+                             icon="fal fa-calendar-alt">Program
                 </x-menu-item>
             </x-parent-menu-item>
 
@@ -57,11 +61,11 @@
                              icon="fal fa-calendar-alt">Risk Level
                 </x-menu-item>
 
-                <x-menu-item class="x_risk_level" href="{{route('settings.risk-impacts.index')}}"
+                <x-menu-item class="x_risk_impact" href="{{route('settings.risk-impacts.index')}}"
                              icon="fal fa-calendar-alt">Risk Impact
                 </x-menu-item>
 
-                <x-menu-item class="x_risk_level" href="{{route('settings.risk-likelihoods.index')}}"
+                <x-menu-item class="x_risk_likelihood" href="{{route('settings.risk-likelihoods.index')}}"
                              icon="fal fa-calendar-alt">Risk Likelihood
                 </x-menu-item>
 
@@ -73,13 +77,13 @@
                              icon="fal fa-calendar-alt">Risk Matrix
                 </x-menu-item>
 
-                <x-menu-item class="item_risk_assessment" href="{{route('settings.item-risk-assessments.index')}}"
+                <x-menu-item class="sector_risk_assessment" href="{{route('settings.sector-risk-assessments.index')}}"
                              icon="fal fa-calendar-alt">Assessment
                 </x-menu-item>
             </x-parent-menu-item>
 
             <x-parent-menu-item icon="fas fa-list" name="Audit Assessment">
-                <x-menu-item class="x_audit_assessment" href="{{route('settings.audit-assessment.criteria.index')}}"
+                <x-menu-item class="x_audit_criteria" href="{{route('settings.audit-assessment.criteria.index')}}"
                              icon="fal fa-calendar-alt">Criteria
                 </x-menu-item>
             </x-parent-menu-item>

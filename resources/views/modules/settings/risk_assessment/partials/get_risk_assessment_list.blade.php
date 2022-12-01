@@ -16,36 +16,37 @@
     </thead>
 
     <tbody>
-    @forelse($item_risk_assessments as $item_risk_assessment)
+    @forelse($sectorriskassessments as $sectorriskassessment)
         <tr>
-            <td rowspan="{{ count($item_risk_assessment['audit_assessment_area_risks']) }}">{{ $loop->iteration }}</td>
+            <td rowspan="{{ count($sectorriskassessment['audit_assessment_area_risks']) }}">{{ $loop->iteration }}</td>
 
-            <td rowspan="{{ count($item_risk_assessment['audit_assessment_area_risks']) }}">
-                {{ $item_risk_assessment['audit_area']['name_en'] }}
+            <td rowspan="{{ count($sectorriskassessment['audit_assessment_area_risks']) }}">
+
+                {{ collect($allAuditAreas)->firstWhere('id', $sectorriskassessment['audit_area_id'])['name_en'] }}
                 
                 <a 
                     href="javascript:;"
-                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_item_risk_assessment"
-                    data-id="{{ $item_risk_assessment['id'] }}" 
-                    data-x_audit_area_id="{{ $item_risk_assessment['x_audit_area_id'] }}" 
-                    data-assessment_item_id="{{ $item_risk_assessment['assessment_item_id'] }}" 
-                    data-assessment_item_type="{{ $item_risk_assessment['assessment_item_type'] }}" 
-                    data-audit_assessment_area_risks='@json($item_risk_assessment['audit_assessment_area_risks'])' 
+                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_sector_risk_assessment"
+                    data-id="{{ $sectorriskassessment['id'] }}" 
+                    data-audit_area_id="{{ $sectorriskassessment['audit_area_id'] }}" 
+                    data-assessment_sector_id="{{ $sectorriskassessment['assessment_sector_id'] }}" 
+                    data-assessment_sector_type="{{ $sectorriskassessment['assessment_sector_type'] }}" 
+                    data-audit_assessment_area_risks='@json($sectorriskassessment['audit_assessment_area_risks'])' 
                 >
                     <i class="fas fa-edit"></i>
                 </a>
                 
                 <a href="javascript:;"
-                   data-id="{{$item_risk_assessment['id']}}" 
-                   data-assessment_item_id="{{ $item_risk_assessment['assessment_item_id'] }}" 
-                    data-assessment_item_type="{{ $item_risk_assessment['assessment_item_type'] }}" 
-                   data-url="{{ route('settings.item-risk-assessments.destroy', $item_risk_assessment['id']) }}"
-                   class="btn btn-icon btn-outline-danger btn-xs border-0 mr-2 delete_item_risk_assessment">
+                   data-id="{{$sectorriskassessment['id']}}" 
+                   data-assessment_sector_id="{{ $sectorriskassessment['assessment_sector_id'] }}" 
+                    data-assessment_sector_type="{{ $sectorriskassessment['assessment_sector_type'] }}" 
+                   data-url="{{ route('settings.sector-risk-assessments.destroy', $sectorriskassessment['id']) }}"
+                   class="btn btn-icon btn-outline-danger btn-xs border-0 mr-2 delete_sector_risk_assessment">
                     <i class="fal fa-trash-alt"></i>
                 </a>
             </td>
 
-        @foreach ($item_risk_assessment['audit_assessment_area_risks'] as $auditAssessmentAreaRisk)
+        @foreach ($sectorriskassessment['audit_assessment_area_risks'] as $auditAssessmentAreaRisk)
             <td>{{ $auditAssessmentAreaRisk['inherent_risk'] }}</td>
             <td>{{ $auditAssessmentAreaRisk['x_risk_assessment_impact']['title_en'] }}</td>
             <td>{{ $auditAssessmentAreaRisk['x_risk_assessment_likelihood']['title_en'] }}</td>
@@ -68,19 +69,22 @@
 </table>
 
 <script>
-    $('.btn_edit_item_risk_assessment').click(function () {
+    $('.btn_edit_sector_risk_assessment').click(function () {
         
+        loaderStart('Please wait...');
+
         id = $(this).data('id');
-        x_audit_area_id =$(this).data('x_audit_area_id');
-        assessment_item_id = $(this).data('assessment_item_id');
-        assessment_item_type = $(this).data('assessment_item_type'); 
+        audit_area_id =$(this).data('audit_area_id');
+        assessment_sector_id = $(this).data('assessment_sector_id');
+        assessment_sector_type = $(this).data('assessment_sector_type'); 
         audit_assessment_area_risks = $(this).data('audit_assessment_area_risks'); 
 
-        url = "{{ route('settings.item-risk-assessments.edit') }}";
+        url = "{{ route('settings.sector-risk-assessments.edit') }}";
 
-        var data = {id,x_audit_area_id,assessment_item_id,assessment_item_type,audit_assessment_area_risks};
+        var data = {id,audit_area_id,assessment_sector_id,assessment_sector_type,audit_assessment_area_risks};
         
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
+            loaderStop();
             if (resp.status === 'error') {
                 toastr.error('no');
                 console.log(resp.data)
@@ -95,12 +99,12 @@
         });
     });
 
-    $(".delete_item_risk_assessment").click(function () {
+    $(".delete_sector_risk_assessment").click(function () {
 
         id = $(this).data('id');
         url = $(this).data('url');
 
-        assessment_item_type = $(this).data('assessment_item_type'); 
+        assessment_sector_type = $(this).data('assessment_sector_type'); 
         audit_assessment_area_risks = $(this).data('audit_assessment_area_risks'); 
 
         swal.fire({
@@ -118,7 +122,7 @@
                         console.log(resp.data)
                     } else {
                         toastr.success('Delete Successfully');
-                        Risk_Assessment_Item_Container.laodItemRiskAssessments(assessment_item_type, audit_assessment_area_risks);
+                        Risk_Assessment_Item_Container.laodItemRiskAssessments(assessment_sector_type, audit_assessment_area_risks);
                         // $('#row_' + id).remove();
                     }
                 });

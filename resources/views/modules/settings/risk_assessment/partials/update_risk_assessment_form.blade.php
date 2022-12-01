@@ -20,21 +20,21 @@
         <div class="card">
             <div class="card-header">
                 <div class="form-row">
-                    <div class="col-sm-3 form-group">
-                        <input id="project" type="radio" name="assessment_item_type" value="project" @if ($assessment_item_type=='project') checked @endif> Project
+                    <div class="col-sm-4 form-group">
+                        <input id="project" type="radio" name="assessment_sector_type" value="project" @if ($assessment_sector_type=='project') checked @endif> Project
                     </div>
             
-                    <div class="col-sm-3 form-group">
-                        <input id="function" type="radio" name="assessment_item_type" value="function" @if ($assessment_item_type=='function') checked @endif> Function
+                    <div class="col-sm-4 form-group">
+                        <input id="function" type="radio" name="assessment_sector_type" value="function" @if ($assessment_sector_type=='function') checked @endif> Function
                     </div>
                     
-                    <div class="col-sm-3 form-group">
-                        <input id="master_unit" type="radio" name="assessment_item_type" value="master-unit" @if ($assessment_item_type=='master-unit') checked @endif> Master Unit
+                    <div class="col-sm-4 form-group">
+                        <input id="master_unit" type="radio" name="assessment_sector_type" value="master-unit" @if ($assessment_sector_type=='master-unit') checked @endif> Master Unit
                     </div>
             
-                    <div class="col-sm-3 form-group">
-                        <input id="cost_center" type="radio" name="assessment_item_type" value="cost-center" @if ($assessment_item_type=='cost-center') checked @endif> Cost Center
-                    </div>
+                    {{-- <div class="col-sm-3 form-group">
+                        <input id="cost_center" type="radio" name="assessment_sector_type" value="cost-center" @if ($assessment_sector_type=='cost-center') checked @endif> Cost Center
+                    </div> --}}
                 </div>
                 
                 <div class="form-row">
@@ -42,13 +42,13 @@
                         <input type="hidden" id="id" value="{{ $id }}">
                     </div>
                     <div class="col-sm-12">
-                        <div class="project_div" style="display : @if ($assessment_item_type=='project') block @else none @endif">
-                            <select   class="form-control select-select2" name="project_id" id="project_id">
+                        <div class="project_div" style="display : @if ($assessment_sector_type=='project') block @else none @endif">
+                            <select   class="form-control select-select2 sector" name="project_id" id="project_id">
                                 <option>Select Project</option>
                                 @foreach ($allProjects as $project)
                                     <option 
                                         value="{{ $project['id'] }}" 
-                                        @if ($project['id'] == $assessment_item_id)
+                                        @if ($project['id'] == $assessment_sector_id)
                                             selected
                                         @endif
                                     >
@@ -59,13 +59,13 @@
                             </select>
                         </div>
                 
-                        <div class="function_div" style="display : @if ($assessment_item_type=='function') block @else none @endif">
-                            <select  class="form-control select-select2" name="function_id" id="function_id">
+                        <div class="function_div" style="display : @if ($assessment_sector_type=='function') block @else none @endif">
+                            <select  class="form-control select-select2 sector" name="function_id" id="function_id">
                                 <option>Select Function</option>
                                 @foreach ($allFunctions as $function)
                                     <option 
                                         value="{{ $function['id'] }}" 
-                                        @if ($function['id'] == $assessment_item_id)
+                                        @if ($function['id'] == $assessment_sector_id)
                                             selected
                                         @endif
                                     >
@@ -76,13 +76,13 @@
                             </select>
                         </div>
                 
-                        <div class="unit_div" style="display : @if ($assessment_item_type=='master-unit') block @else none @endif">
-                            <select class="form-control select-select2" name="unit_master_id" id="unit_master_id">
+                        <div class="unit_div" style="display : @if ($assessment_sector_type=='master-unit') block @else none @endif">
+                            <select class="form-control select-select2 sector" name="unit_master_id" id="unit_master_id">
                                 <option>Select Unit</option>
                                 @foreach ($allMasterUnits as $masterUnit)
                                     <option 
                                         value="{{ $masterUnit['id'] }}"  
-                                        @if ($masterUnit['id'] == $assessment_item_id)
+                                        @if ($masterUnit['id'] == $assessment_sector_id)
                                             selected
                                         @endif
                                     >
@@ -93,13 +93,13 @@
                             </select>
                         </div>
                 
-                        <div class="cost_center_div" style="display : @if ($assessment_item_type=='cost-center') block @else none @endif">
+                        {{-- <div class="cost_center_div" style="display : @if ($assessment_sector_type=='cost-center') block @else none @endif">
                             <select class="form-control select-select2" name="cost_center_id" id="cost_center_id">
                                 <option>Select Cost Center</option>
                                 @foreach ($allCostCenters as $costCenter)
                                     <option 
                                         value="{{ $costCenter['id'] }}" 
-                                        @if ($costCenter['id'] == $assessment_item_id)
+                                        @if ($costCenter['id'] == $assessment_sector_id)
                                             selected
                                         @endif
                                     >
@@ -108,11 +108,11 @@
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
-            <div class="card-body pt-3 item_areas">
+            <div class="card-body pt-3 sector_areas">
                 <div class="form-row">
                     <div class="col-sm-12 pl-7 pr-7">
                         <div class="form-row">
@@ -121,12 +121,12 @@
                                     Area:
                                 </p>
 
-                                <select class="form-control" name="x_audit_area_id" id="x_audit_area_id">
+                                <select class="form-control" name="audit_area_id" id="audit_area_id">
                                     <option>Please Select Area</option>
                                     @foreach ($allAreas as $area)
                                         <option 
                                             value="{{ $area['id'] }}" 
-                                            @if ($area['id'] == $x_audit_area_id)
+                                            @if ($area['id'] == $audit_area_id)
                                                 selected
                                             @endif
                                         >
@@ -138,7 +138,7 @@
                         </div>
 
                         @foreach ($audit_assessment_area_risks as $index => $audit_assessment_area_risk)
-                            <div class="card item_area_risks">
+                            <div class="card sector_area_risks">
                                 <div class="card-header pt-1 pb-2">
                                     <p class="text-center m-0 indexAreaRisk">Risk {{ $index + 1 }}</p> 
                                 </div>
@@ -249,7 +249,7 @@
     $(document).ready(function() {
         // Item_Risk_Assessment_Container.loadRiskFactorType('project');
 
-        $('input[type=radio][name=assessment_item_type]').change(function() {
+        $('input[type=radio][name=assessment_sector_type]').change(function() {
             console.log(this.value);
             if (this.value == 'project') {
                 $('.project_div').show();
@@ -277,6 +277,11 @@
             }
         });
 
+        $('.sector').on('change',function () {
+            // console.log('sector');
+            setAvailableAreas();
+        });
+
         $('#submit_button').on('click',function () {
             updateItemRiskAssessments();
         });
@@ -296,12 +301,12 @@
         });
 
         function addRisk () {
-            $(".item_area_risks").clone().insertAfter(".item_area_risks:last");
+            $(".sector_area_risks").clone().insertAfter(".sector_area_risks:last");
         }
     
         function removeRisk () {
             console.log('remove');
-            $('.item_area_risks:last').remove();
+            $('.sector_area_risks:last').remove();
         }
 
         function adjustRiskIndex() {
@@ -311,31 +316,57 @@
         }
     
         function backToList () {
-            $('.item_risk_assessment  a').click();
+            $('.sector_risk_assessment  a').click();
+        }
+
+        function setAvailableAreas () {
+
+            // loaderStart('Please wait...');
+
+            let assessment_sector_type = $('input[name="assessment_sector_type"]:checked').val();
+
+            let assessment_sector_id = (assessment_sector_type=='project') ? $('#project_id').find(':selected').val() 
+            : (assessment_sector_type=='function') ? $('#function_id').find(':selected').val() 
+            : (assessment_sector_type=='master-unit') ? $('#unit_master_id').find(':selected').val() 
+            : $('#cost_center_id').find(':selected').val();
+
+            let data = {assessment_sector_type, assessment_sector_id};
+
+            let url = "{{route('settings.sector-risk-assessments.area-list')}}";
+
+            ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
+                // loaderStop();
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $('#audit_area_id').html(response);
+                }
+            });
+
         }
         
         function updateItemRiskAssessments () {
             
             loaderStart('Please wait...');
     
-            let assessment_item_type = $('input[name="assessment_item_type"]:checked').val();
+            let assessment_sector_type = $('input[name="assessment_sector_type"]:checked').val();
             
-            let assessment_item_id = (assessment_item_type=='project') ? $('#project_id').find(':selected').val() 
-            : (assessment_item_type=='function') ? $('#function_id').find(':selected').val() 
-            : (assessment_item_type=='master-unit') ? $('#unit_master_id').find(':selected').val() 
+            let assessment_sector_id = (assessment_sector_type=='project') ? $('#project_id').find(':selected').val() 
+            : (assessment_sector_type=='function') ? $('#function_id').find(':selected').val() 
+            : (assessment_sector_type=='master-unit') ? $('#unit_master_id').find(':selected').val() 
             : $('#cost_center_id').find(':selected').val();
 
-            let x_audit_area_id = $('#x_audit_area_id').find(':selected').val();
+            let audit_area_id = $('#audit_area_id').find(':selected').val();
     
-            let item_assessment = {
+            let sector_assessment = {
                 id : $('#id').val(),
-                assessment_item_type,
-                assessment_item_id,
-                x_audit_area_id,
+                assessment_sector_type,
+                assessment_sector_id,
+                audit_area_id,
                 audit_assessment_area_risks : []
             };
       
-            $('.item_area_risks').each(function(index, risk) {
+            $('.sector_area_risks').each(function(index, risk) {
                 audit_assessment_area_risk = {};
                 
                 audit_assessment_area_risk['inherent_risk'] = $(this).find("input[name='inherent_risk']").val();
@@ -348,12 +379,12 @@
                 audit_assessment_area_risk['implemented_by'] = $(this).find("input[name='implemented_by']").val();
                 audit_assessment_area_risk['implementation_period'] = $(this).find("input[name='implementation_period']").val();
                 
-                item_assessment.audit_assessment_area_risks.push(audit_assessment_area_risk);
+                sector_assessment.audit_assessment_area_risks.push(audit_assessment_area_risk);
             });
     
-            let url = "{{route('settings.item-risk-assessments.update', $id)}}";
+            let url = "{{route('settings.sector-risk-assessments.update', $id)}}";
 
-            ajaxCallAsyncCallbackAPI(url, item_assessment, 'PUT', function (response) {
+            ajaxCallAsyncCallbackAPI(url, sector_assessment, 'PUT', function (response) {
                 loaderStop();
                 if (response.status === 'error') {
                     toastr.error(response.data)
@@ -364,92 +395,4 @@
             });
         }
     });
-
-    // var Item_Risk_Assessment_Container = {
-        // loadYearWiseStrategicPlan: function () {
-        //     loaderStart('loading...');
-        //     strategic_plan_year = $('#strategic_plan_year').find(':selected').text();
-        //     let url = '{{route('audit.plan.yearly-plan.get-individual-strategic-plan')}}';
-        //     let data = {strategic_plan_year};
-        //     ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
-        //         loaderStop();
-        //         if (response.status === 'error') {
-        //             toastr.error(response.data)
-        //         } else {
-        //             $('.load-year-wise-plan').html(response);
-        //         }
-        //     });
-        // },
-
-        // loadRiskFactorType:function (type){
-        //     if(type == 'project'){
-        //         $('.project_div').show();
-        //         $('.function_div').hide();
-        //         $('.cost_center_div').hide();
-        //         $('.unit_div').hide();
-        //         Item_Risk_Assessment_Container.loadProject();
-
-        //     }else if(type == 'function'){
-        //         $('.project_div').hide();
-        //         $('.function_div').show();
-        //         $('.cost_center_div').hide();
-        //         $('.unit_div').hide();
-        //         Item_Risk_Assessment_Container.loadFunction();
-        //     }else if(type == 'unit'){
-        //         $('.project_div').hide();
-        //         $('.function_div').hide();
-        //         $('.cost_center_div').hide();
-        //         $('.unit_div').show();
-        //         Item_Risk_Assessment_Container.loadUnit();
-        //     }
-        //     else if(type == 'cost_center'){
-        //         $('.project_div').hide();
-        //         $('.function_div').hide();
-        //         $('.cost_center_div').show();
-        //         $('.unit_div').hide();
-        //     }
-        // },
-
-        // loadProject:function (){
-        //     loaderStart('loading...');
-        //     let url = '{{route('settings.load_project_select')}}';
-        //     let data = {};
-        //     ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-        //         loaderStop();
-        //         if (response.status === 'error') {
-        //             toastr.error(response.data)
-        //         } else {
-        //             $('#project_id').html(response);
-        //         }
-        //     });
-        // },
-
-        // loadFunction:function (){
-        //     loaderStart('loading...');
-        //     let url = '{{route('settings.load_function_select')}}';
-        //     let data = {};
-        //     ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-        //         loaderStop();
-        //         if (response.status === 'error') {
-        //             toastr.error(response.data)
-        //         } else {
-        //             $('#function_id').html(response);
-        //         }
-        //     });
-        // },
-
-        // loadUnit:function (){
-        //     loaderStart('loading...');
-        //     let url = '{{route('settings.load_unit_master_select')}}';
-        //     let data = {};
-        //     ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-        //         loaderStop();
-        //         if (response.status === 'error') {
-        //             toastr.error(response.data)
-        //         } else {
-        //             $('#unit_master_id').html(response);
-        //         }
-        //     });
-        // },
-    // };
 </script>

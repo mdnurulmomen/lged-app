@@ -7,7 +7,7 @@
                 <input id="project" type="radio" name="risk_factor_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project
                 <input id="function" type="radio" name="risk_factor_type" value="function" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function
                 <input id="master_unit" type="radio" name="risk_factor_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Master Unit
-                <input id="cost_center" type="radio" name="risk_factor_type" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center
+                {{-- <input id="cost_center" type="radio" name="risk_factor_type" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center --}}
             </span>
             
             <div class="project_div" style="display: none">
@@ -37,14 +37,14 @@
                 </select>
             </div>
 
-            <div class="cost_center_div" style="display: none">
+            {{-- <div class="cost_center_div" style="display: none">
                 <select class="form-control select-select2" name="cost_center_id" id="cost_center_id" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('cost-center', this.value)">
                     <option selected>Select Cost Center</option>
                     @foreach ($allCostCenters as $costCenter)
                         <option value="{{ $costCenter['id'] }}">{{ $costCenter['name_en'] }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> --}}
         </div>
         
         <div class="col-md-3">
@@ -52,7 +52,7 @@
                 title="বিস্তারিত দেখুন"
                 id="summery_assessment_button"
                 class="btn btn-sm btn-info btn-square mr-1" 
-                data-url="{{route('settings.item-risk-assessments.summery')}}"
+                data-url="{{route('settings.sector-risk-assessments.summery')}}"
             >
                 <i class="fad fa-plus"></i> Summery
             </button>
@@ -62,7 +62,7 @@
             <button class="btn btn-sm btn-info btn-square mr-1" 
                     title="বিস্তারিত দেখুন"
                     onclick='loadPage($(this))'
-                    data-url="{{route('settings.item-risk-assessments.create')}}"
+                    data-url="{{route('settings.sector-risk-assessments.create')}}"
             >
                 <i class="fad fa-plus"></i> Create
             </button>
@@ -123,12 +123,13 @@
                 
                 var id = $('#unit_master_id').find(":selected").val();
 
-            } else if (type=='cost-center' && $('#cost_center_id option').is(':selected')) {
+            } 
+            // else if (type=='cost-center' && $('#cost_center_id option').is(':selected')) {
                 
-                var id = $('#cost_center_id').find(":selected").val();
-            }
+            //     var id = $('#cost_center_id').find(":selected").val();
+            // }
             else {
-                alert('Please select an item');
+                alert('Please select a sector');
                 return false;
             }
 
@@ -151,7 +152,7 @@
         laodItemRiskAssessments: function (type, id) {
             loaderStart('loading...');
 
-            let url = '{{route('settings.item-risk-assessments.list')}}';
+            let url = '{{route('settings.sector-risk-assessments.list')}}';
             let data = {id,type};
 
             ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {

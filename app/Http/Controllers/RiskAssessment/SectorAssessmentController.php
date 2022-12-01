@@ -5,7 +5,7 @@ namespace App\Http\Controllers\RiskAssessment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ItemAssessmentController extends Controller
+class SectorAssessmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,6 +18,8 @@ class ItemAssessmentController extends Controller
             'all' => 1
         ])->json();
         $allProjects = $allProjects ? $allProjects['data'] : [];
+
+        // dd($allProjects);
         
         $allFunctions = $this->initHttpWithToken()->post(config('cag_rpu_api.functions.list'), [
             'all' => 1
@@ -29,25 +31,31 @@ class ItemAssessmentController extends Controller
         ])->json();
         $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
         
-        $allCostCenters = $this->initHttpWithToken()->post(config('cag_rpu_api.cost-center-project-map.get-cost-center-project-map'), [
-            'all' => 1
-        ])->json();
-        $allCostCenters = $allCostCenters ? $allCostCenters['data'] : [];
+        // $allCostCenters = $this->initHttpWithToken()->post(config('cag_rpu_api.cost-center-project-map.get-cost-center-project-map'), [
+        //     'all' => 1
+        // ])->json();
+        // $allCostCenters = $allCostCenters ? $allCostCenters['data'] : [];
                 
-        return view('modules.settings.risk_assessment.risk_assessment_list', compact('allProjects', 'allFunctions', 'allMasterUnits', 'allCostCenters'));
+        return view('modules.settings.risk_assessment.risk_assessment_list', compact('allProjects', 'allFunctions', 'allMasterUnits'));
     }
 
-    public function getItemRiskAssessmentList(Request $request)
+    public function getSectorRiskAssessmentList(Request $request)
     {   
-        $item_risk_assessments = $this->initHttpWithToken()->get(config('amms_bee_routes.item_risk_assessments'), $request->all())->json();
+        $sectorriskassessments = $this->initHttpWithToken()->get(config('amms_bee_routes.sector_risk_assessments'), $request->all())->json();
 
-        // dd($item_risk_assessments);
+        // dd($sectorriskassessments);
 
-        if ($item_risk_assessments['status'] == 'success') {
-            $item_risk_assessments = $item_risk_assessments['data'];
-            return view('modules.settings.risk_assessment.partials.get_risk_assessment_list', compact('item_risk_assessments'));
+        $allAuditAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
+            'all' => 1
+        ])->json()['data'];
+
+        // dd($allAuditAreas);
+
+        if ($sectorriskassessments['status'] == 'success') {
+            $sectorriskassessments = $sectorriskassessments['data'];
+            return view('modules.settings.risk_assessment.partials.get_risk_assessment_list', compact(['sectorriskassessments', 'allAuditAreas']));
         } else {
-            return response()->json(['status' => 'error', 'data' => $item_risk_assessments]);
+            return response()->json(['status' => 'error', 'data' => $sectorriskassessments]);
         }
     }
 
@@ -73,15 +81,10 @@ class ItemAssessmentController extends Controller
         ])->json();
         $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
         
-        $allCostCenters = $this->initHttpWithToken()->post(config('cag_rpu_api.cost-center-project-map.get-cost-center-project-map'), [
-            'all' => 1
-        ])->json();
-        $allCostCenters = $allCostCenters ? $allCostCenters['data'] : [];
-        
-        $allAreas = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_execution.areas'), [
-            'all' => 1
-        ])->json();
-        $allAreas = $allAreas ? $allAreas['data'] : [];
+        // $allCostCenters = $this->initHttpWithToken()->post(config('cag_rpu_api.cost-center-project-map.get-cost-center-project-map'), [
+        //     'all' => 1
+        // ])->json();
+        // $allCostCenters = $allCostCenters ? $allCostCenters['data'] : [];
 
         $allImpacts = $this->initHttpWithToken()->get(config('amms_bee_routes.x_risk_impacts'), [
             'all' => 1
@@ -93,7 +96,7 @@ class ItemAssessmentController extends Controller
         ])->json();
         $allLikelihoods = $allLikelihoods ? $allLikelihoods['data'] : [];
 
-        return view('modules.settings.risk_assessment.partials.create_risk_assessment_form', compact('allProjects', 'allFunctions', 'allMasterUnits', 'allCostCenters', 'allImpacts', 'allAreas', 'allLikelihoods'));
+        return view('modules.settings.risk_assessment.partials.create_risk_assessment_form', compact('allProjects', 'allFunctions', 'allMasterUnits', 'allImpacts', 'allLikelihoods'));
     }
 
     /**
@@ -105,9 +108,9 @@ class ItemAssessmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'x_audit_area_id' => 'required|integer|max:255',
-            'assessment_item_id' => 'required|integer|max:255',
-            'assessment_item_type' => 'required|string|in:project,function,master-unit,cost-center',
+            'audit_area_id' => 'required|integer|max:255',
+            'assessment_sector_id' => 'required|integer|max:255',
+            'assessment_sector_type' => 'required|string|in:project,function,master-unit,cost-center',
             'audit_assessment_area_risks' => 'required|array',
             'audit_assessment_area_risks.*.inherent_risk' => 'required|string',
             'audit_assessment_area_risks.*.x_risk_assessment_impact_id' => 'required|integer',
@@ -123,15 +126,15 @@ class ItemAssessmentController extends Controller
         $currentUserId = $this->current_desk()['officer_id'];
         
         $data = [
-            'x_audit_area_id' => $request->x_audit_area_id,
-            'assessment_item_id' => $request->assessment_item_id,
-            'assessment_item_type' => $request->assessment_item_type,
+            'audit_area_id' => $request->audit_area_id,
+            'assessment_sector_id' => $request->assessment_sector_id,
+            'assessment_sector_type' => $request->assessment_sector_type,
             'audit_assessment_area_risks' => $request->audit_assessment_area_risks,
             'creator_id' => $currentUserId,
             'updater_id' => $currentUserId,
         ];
 
-        $create_risk_impact = $this->initHttpWithToken()->post(config('amms_bee_routes.item_risk_assessments'), $data)->json();
+        $create_risk_impact = $this->initHttpWithToken()->post(config('amms_bee_routes.sector_risk_assessments'), $data)->json();
         //    dd($create_risk_assessment);
         if (isset($create_risk_impact['status']) && $create_risk_impact['status'] == 'success') {
             return response()->json(responseFormat('success', 'Created Successfully'));
@@ -146,7 +149,7 @@ class ItemAssessmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function itemRiskAssessmentEdit(Request $request)
+    public function sectorRiskAssessmentEdit(Request $request)
     {
         $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
             'all' => 1
@@ -163,16 +166,15 @@ class ItemAssessmentController extends Controller
         ])->json();
         $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
         
-        $allCostCenters = $this->initHttpWithToken()->post(config('cag_rpu_api.cost-center-project-map.get-cost-center-project-map'), [
-            'all' => 1
-        ])->json();
-        $allCostCenters = $allCostCenters ? $allCostCenters['data'] : [];
-        
-        $allAreas = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_execution.areas'), [
-            'all' => 1
-        ])->json();
-        $allAreas = $allAreas ? $allAreas['data'] : [];
+        // $allCostCenters = $this->initHttpWithToken()->post(config('cag_rpu_api.cost-center-project-map.get-cost-center-project-map'), [
+        //     'all' => 1
+        // ])->json();
+        // $allCostCenters = $allCostCenters ? $allCostCenters['data'] : [];
 
+        $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
+            'all' => 1
+        ])->json()['data'];
+        
         $allImpacts = $this->initHttpWithToken()->get(config('amms_bee_routes.x_risk_impacts'), [
             'all' => 1
         ])->json();
@@ -184,12 +186,12 @@ class ItemAssessmentController extends Controller
         $allLikelihoods = $allLikelihoods ? $allLikelihoods['data'] : [];
         
         $id = $request->id;
-        $x_audit_area_id = $request->x_audit_area_id;
-        $assessment_item_id = $request->assessment_item_id;
-        $assessment_item_type = $request->assessment_item_type;
+        $audit_area_id = $request->audit_area_id;
+        $assessment_sector_id = $request->assessment_sector_id;
+        $assessment_sector_type = $request->assessment_sector_type;
         $audit_assessment_area_risks = $request->audit_assessment_area_risks;
 
-        return view('modules.settings.risk_assessment.partials.update_risk_assessment_form', compact('id', 'x_audit_area_id', 'assessment_item_id', 'assessment_item_type', 'audit_assessment_area_risks', 'allProjects', 'allFunctions', 'allMasterUnits', 'allCostCenters', 'allImpacts', 'allAreas', 'allLikelihoods'));
+        return view('modules.settings.risk_assessment.partials.update_risk_assessment_form', compact('id', 'audit_area_id', 'assessment_sector_id', 'assessment_sector_type', 'audit_assessment_area_risks', 'allProjects', 'allFunctions', 'allMasterUnits', 'allAreas', 'allImpacts', 'allLikelihoods'));
     }
 
     /**
@@ -202,9 +204,9 @@ class ItemAssessmentController extends Controller
     public function update(Request $request, $id)
     {   
         $request->validate([
-            'x_audit_area_id' => 'required|integer|max:255',
-            'assessment_item_id' => 'required|integer|max:255',
-            'assessment_item_type' => 'required|string|in:project,function,master-unit,cost-center',
+            'audit_area_id' => 'required|integer|max:255',
+            'assessment_sector_id' => 'required|integer|max:255',
+            'assessment_sector_type' => 'required|string|in:project,function,master-unit,cost-center',
             'audit_assessment_area_risks' => 'required|array',
             'audit_assessment_area_risks.*.inherent_risk' => 'required|string',
             'audit_assessment_area_risks.*.x_risk_assessment_impact_id' => 'required|integer',
@@ -219,14 +221,14 @@ class ItemAssessmentController extends Controller
         
         $data = [
             'id' => $request->id,
-            'x_audit_area_id' => $request->x_audit_area_id,
-            'assessment_item_id' => $request->assessment_item_id,
-            'assessment_item_type' => $request->assessment_item_type,
+            'audit_area_id' => $request->audit_area_id,
+            'assessment_sector_id' => $request->assessment_sector_id,
+            'assessment_sector_type' => $request->assessment_sector_type,
             'audit_assessment_area_risks' => $request->audit_assessment_area_risks,
             'updater_id' => $this->current_desk()['officer_id'],
         ];
 
-        $update_risk_impact = $this->initHttpWithToken()->put(config('amms_bee_routes.item_risk_assessments')."/$request->id", $data)->json();
+        $update_risk_impact = $this->initHttpWithToken()->put(config('amms_bee_routes.sector_risk_assessments')."/$request->id", $data)->json();
 //        dd($create_audit_query);
         if (isset($update_risk_impact['status']) && $update_risk_impact['status'] == 'success') {
             return response()->json(['status' => 'success', 'data' => $update_risk_impact['data']]);
@@ -247,7 +249,7 @@ class ItemAssessmentController extends Controller
             'id' => $id,
         ];
     //    dd($data);
-        $delete_risk_impact = $this->initHttpWithToken()->delete(config('amms_bee_routes.item_risk_assessments')."/$id", $data)->json();
+        $delete_risk_impact = $this->initHttpWithToken()->delete(config('amms_bee_routes.sector_risk_assessments')."/$id", $data)->json();
         if (isset($delete_risk_impact['status']) && $delete_risk_impact['status'] == 'success') {
             return response()->json(responseFormat('success', 'Deleted Successfully'));
         } else {
@@ -255,22 +257,63 @@ class ItemAssessmentController extends Controller
         }
     }
 
-    public function itemRiskAssessmentSummery(Request $request)
-    {
-        $item_assessment_areas = $this->initHttpWithToken()->get(config('amms_bee_routes.item_risk_assessments'), $request->all())->json();
+    public function getSectorAreaList(Request $request) {
 
+        $request->validate([
+            'assessment_sector_id' => 'required|integer',
+            'assessment_sector_type' => 'required|in:project,function,master-unit',
+        ]);
+
+        if ($request->assessment_sector_type == 'project') {
+            
+            $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
+                'assessment_sector_id' => $request->assessment_sector_id, 
+                'assessment_sector_type' => 'App\Models\Project', 
+            ])->json();
+
+        } else if ($request->assessment_sector_type == 'function') {
+            
+            $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
+                'assessment_sector_id' => $request->assessment_sector_id, 
+                'assessment_sector_type' => 'App\Models\Function', 
+            ])->json();
+
+        } else if ($request->assessment_sector_type == 'master-unit') {
+            
+            $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
+                'assessment_sector_id' => $request->assessment_sector_id, 
+                'assessment_sector_type' => 'App\Models\UnitMasterInfo', 
+            ])->json();
+
+        }
+
+        // dd($allAreas);
+
+        $allAreas = $allAreas ? $allAreas['data'] : [];
+        
+        return view('modules.settings.risk_assessment.partials.areas', compact('allAreas'));
+    }
+
+    public function sectorRiskAssessmentSummery(Request $request)
+    {
+        $sectorassessmentareas = $this->initHttpWithToken()->get(config('amms_bee_routes.sector_risk_assessments'), $request->all())->json();
+        
+        $allAuditAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
+            'all' => 1
+        ])->json()['data'];
+        
         $risk_levels = $this->initHttpWithToken()->get(config('amms_bee_routes.x_risk_levels'), [
             'all' => 1
         ])->json();
 
         // dd($risk_level_list);
 
-        if ($item_assessment_areas['status'] == 'success') {
+        if ($sectorassessmentareas['status'] == 'success') {
             $risk_levels = $risk_levels['data'];
-            $item_assessment_areas = $item_assessment_areas['data'];
-            return view('modules.settings.risk_assessment.partials.get_risk_assessment_summery', compact('item_assessment_areas', 'risk_levels'));
+            $sectorassessmentareas = $sectorassessmentareas['data'];
+            return view('modules.settings.risk_assessment.partials.get_risk_assessment_summery', compact(['sectorassessmentareas', 'risk_levels', 'allAuditAreas']));
         } else {
-            return response()->json(['status' => 'error', 'data' => $item_assessment_areas]);
+            return response()->json(['status' => 'error', 'data' => $sectorassessmentareas]);
         }
     }
 }

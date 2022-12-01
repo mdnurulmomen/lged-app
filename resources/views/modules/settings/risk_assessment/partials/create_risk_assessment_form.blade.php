@@ -20,28 +20,30 @@
         <div class="card">
             <div class="card-header">
                 <div class="form-row">
-                    <div class="col-sm-3 form-group">
-                        <input type="radio" name="assessment_item_type" value="project" checked> Project
+                    <div class="col-sm-6 form-group">
+                        <input type="radio" name="assessment_sector_type" value="project" checked> Project
                     </div>
             
-                    <div class="col-sm-3 form-group">
-                        <input type="radio" name="assessment_item_type" value="function"> Function
+                    <div class="col-sm-6 form-group">
+                        <input type="radio" name="assessment_sector_type" value="function"> Function
                     </div>
                     
-                    <div class="col-sm-3 form-group">
-                        <input type="radio" name="assessment_item_type" value="master-unit" > Master Unit
+                    <div class="col-sm-6 form-group">
+                        <input type="radio" name="assessment_sector_type" value="master-unit" > Master Unit
                     </div>
             
+                    {{-- 
                     <div class="col-sm-3 form-group">
-                        <input type="radio" name="assessment_item_type" value="cost-center"> Cost Center
-                    </div>
+                        <input type="radio" name="assessment_sector_type" value="cost-center"> Cost Center
+                    </div> 
+                    --}}
                 </div>
                 
                 <div class="form-row">
                     <div class="col-sm-12">
                         <div class="project_div">
-                            <select   class="form-control select-select2" name="project_id" id="project_id">
-                                <option selected>Select Project</option>
+                            <select   class="form-control select-select2 sector" name="project_id" id="project_id">
+                                <option value="" selected>Select Project</option>
                                 @foreach ($allProjects as $project)
                                     <option value="{{ $project['id'] }}">
                                         {{ $project['name_en'] }}
@@ -52,8 +54,8 @@
                         </div>
                 
                         <div class="function_div" style="display: none">
-                            <select  class="form-control select-select2" name="function_id" id="function_id">
-                                <option selected>Select Function</option>
+                            <select  class="form-control select-select2 sector" name="function_id" id="function_id">
+                                <option value="" selected>Select Function</option>
                                 @foreach ($allFunctions as $function)
                                     <option value="{{ $function['id'] }}">
                                         {{ $function['name_en'] }}
@@ -64,8 +66,8 @@
                         </div>
                 
                         <div class="unit_div" style="display: none">
-                            <select class="form-control select-select2" name="unit_master_id" id="unit_master_id">
-                                <option selected>Select Unit</option>
+                            <select class="form-control select-select2 sector" name="unit_master_id" id="unit_master_id">
+                                <option value="" selected>Select Unit</option>
                                 @foreach ($allMasterUnits as $masterUnit)
                                     <option value="{{ $masterUnit['id'] }}">
                                         {{ $masterUnit['name_en'] }}
@@ -75,6 +77,7 @@
                             </select>
                         </div>
                 
+                        {{--     
                         <div class="cost_center_div" style="display: none">
                             <select class="form-control select-select2" name="cost_center_id" id="cost_center_id">
                                 <option selected>Select Cost Center</option>
@@ -85,11 +88,12 @@
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> 
+                        --}}
                     </div>
                 </div>
             </div>
-            <div class="card-body pt-3 item_areas">
+            <div class="card-body pt-3 sector_areas">
                 <div class="form-row">
                     <div class="col-sm-12 pl-7 pr-7">
                         <div class="form-row">
@@ -98,16 +102,19 @@
                                     Area:
                                 </p>
 
-                                <select class="form-control" name="x_audit_area_id" id="x_audit_area_id">
-                                    <option selected>Please Select Area</option>
+                                <select class="form-control" name="audit_area_id" id="audit_area_id">
+                                    <option value="" selected>Please Select Area</option>
+                                    
+                                    {{-- 
                                     @foreach ($allAreas as $area)
                                         <option value="{{ $area['id'] }}">{{ $area['name_en'] }}</option>
-                                    @endforeach
+                                    @endforeach 
+                                    --}}
                                 </select>
                             </div>
                         </div>
 
-                        <div class="card item_area_risks">
+                        <div class="card sector_area_risks">
                             <div class="card-header pt-1 pb-2">
                                 <p class="text-center m-0 indexAreaRisk">Risk 1</p> 
                             </div>
@@ -203,63 +210,67 @@
     $(document).ready(function() {
         // Item_Risk_Assessment_Container.loadRiskFactorType('project');
 
-        $('input[type=radio][name=assessment_item_type]').change(function() {
-            console.log(this.value);
+        $('input[type=radio][name=assessment_sector_type]').change(function() {
             if (this.value == 'project') {
                 $('.project_div').show();
                 $('.function_div').hide();
                 $('.unit_div').hide();
-                $('.cost_center_div').hide();
+                // $('.cost_center_div').hide();
             }
             else if (this.value == 'function') {
                 $('.project_div').hide();
                 $('.function_div').show();
                 $('.unit_div').hide();
-                $('.cost_center_div').hide();
+                // $('.cost_center_div').hide();
             }
             else if (this.value == 'master-unit') {
                 $('.project_div').hide();
                 $('.function_div').hide();
                 $('.unit_div').show();
-                $('.cost_center_div').hide();
+                // $('.cost_center_div').hide();
             }
             else {
                 $('.project_div').hide();
                 $('.function_div').hide();
                 $('.unit_div').hide();
-                $('.cost_center_div').show();
+                // $('.cost_center_div').show();
             }
         });
 
+        $('.sector').on('change',function () {
+            // console.log('sector');
+            setAvailableAreas();
+        });
+
         $('#submit_button').on('click',function () {
-            console.log('submit');
+            // console.log('submit');
             storeItemRiskAssessments();
         });
 
         $('#add_risk').on('click', function () {
-            console.log('add');
+            // console.log('add');
             addRisk();
             adjustRiskIndex();
         });
 
         $('#remove_risk').on("click", function() {
-            console.log('remove');
+            // console.log('remove');
             removeRisk();
             adjustRiskIndex();
         });
 
         $('#go_back').on("click", function() {
-            console.log('back');
+            // console.log('back');
             backToList();
         });
 
         function addRisk () {
-            $(".item_area_risks").clone().insertAfter(".item_area_risks:last");
+            $(".sector_area_risks").clone().insertAfter(".sector_area_risks:last");
         }
     
         function removeRisk () {
-            console.log('remove');
-            $('.item_area_risks:last').remove();
+            // console.log('remove');
+            $('.sector_area_risks:last').remove();
         }
 
         function adjustRiskIndex() {
@@ -269,30 +280,56 @@
         }
     
         function backToList () {
-            $('.item_risk_assessment  a').click();
+            $('.sector_risk_assessment  a').click();
+        }
+
+        function setAvailableAreas () {
+
+            // loaderStart('Please wait...');
+
+            let assessment_sector_type = $('input[name="assessment_sector_type"]:checked').val();
+            
+            let assessment_sector_id = (assessment_sector_type=='project') ? $('#project_id').find(':selected').val() 
+            : (assessment_sector_type=='function') ? $('#function_id').find(':selected').val() 
+            : (assessment_sector_type=='master-unit') ? $('#unit_master_id').find(':selected').val() 
+            : $('#cost_center_id').find(':selected').val();
+
+            let data = {assessment_sector_type, assessment_sector_id};
+
+            let url = "{{route('settings.sector-risk-assessments.area-list')}}";
+
+            ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
+                // loaderStop();
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $('#audit_area_id').html(response);
+                }
+            });
+
         }
         
         function storeItemRiskAssessments () {
             
             loaderStart('Please wait...');
     
-            let assessment_item_type = $('input[name="assessment_item_type"]:checked').val();
+            let assessment_sector_type = $('input[name="assessment_sector_type"]:checked').val();
             
-            let assessment_item_id = (assessment_item_type=='project') ? $('#project_id').find(':selected').val() 
-            : (assessment_item_type=='function') ? $('#function_id').find(':selected').val() 
-            : (assessment_item_type=='master-unit') ? $('#unit_master_id').find(':selected').val() 
+            let assessment_sector_id = (assessment_sector_type=='project') ? $('#project_id').find(':selected').val() 
+            : (assessment_sector_type=='function') ? $('#function_id').find(':selected').val() 
+            : (assessment_sector_type=='master-unit') ? $('#unit_master_id').find(':selected').val() 
             : $('#cost_center_id').find(':selected').val();
 
-            let x_audit_area_id = $('#x_audit_area_id').find(':selected').val();
+            let audit_area_id = $('#audit_area_id').find(':selected').val();
     
-            let item_assessment = {
-                assessment_item_type,
-                assessment_item_id,
-                x_audit_area_id,
+            let sector_assessment = {
+                assessment_sector_type,
+                assessment_sector_id,
+                audit_area_id,
                 audit_assessment_area_risks : []
             };
       
-            $('.item_area_risks').each(function(index, risk) {
+            $('.sector_area_risks').each(function(index, risk) {
                 audit_assessment_area_risk = {};
                 
                 audit_assessment_area_risk['inherent_risk'] = $(this).find("input[name='inherent_risk']").val();
@@ -305,12 +342,12 @@
                 audit_assessment_area_risk['implemented_by'] = $(this).find("input[name='implemented_by']").val();
                 audit_assessment_area_risk['implementation_period'] = $(this).find("input[name='implementation_period']").val();
                 
-                item_assessment.audit_assessment_area_risks.push(audit_assessment_area_risk);
+                sector_assessment.audit_assessment_area_risks.push(audit_assessment_area_risk);
             });
     
-            let url = "{{route('settings.item-risk-assessments.store')}}";
+            let url = "{{route('settings.sector-risk-assessments.store')}}";
 
-            ajaxCallAsyncCallbackAPI(url, item_assessment, 'POST', function (response) {
+            ajaxCallAsyncCallbackAPI(url, sector_assessment, 'POST', function (response) {
                 loaderStop();
                 if (response.status === 'error') {
                     toastr.error(response.data)
@@ -321,92 +358,4 @@
             });
         }
     });
-
-    // var Item_Risk_Assessment_Container = {
-        // loadYearWiseStrategicPlan: function () {
-        //     loaderStart('loading...');
-        //     strategic_plan_year = $('#strategic_plan_year').find(':selected').text();
-        //     let url = '{{route('audit.plan.yearly-plan.get-individual-strategic-plan')}}';
-        //     let data = {strategic_plan_year};
-        //     ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
-        //         loaderStop();
-        //         if (response.status === 'error') {
-        //             toastr.error(response.data)
-        //         } else {
-        //             $('.load-year-wise-plan').html(response);
-        //         }
-        //     });
-        // },
-
-        // loadRiskFactorType:function (type){
-        //     if(type == 'project'){
-        //         $('.project_div').show();
-        //         $('.function_div').hide();
-        //         $('.cost_center_div').hide();
-        //         $('.unit_div').hide();
-        //         Item_Risk_Assessment_Container.loadProject();
-
-        //     }else if(type == 'function'){
-        //         $('.project_div').hide();
-        //         $('.function_div').show();
-        //         $('.cost_center_div').hide();
-        //         $('.unit_div').hide();
-        //         Item_Risk_Assessment_Container.loadFunction();
-        //     }else if(type == 'unit'){
-        //         $('.project_div').hide();
-        //         $('.function_div').hide();
-        //         $('.cost_center_div').hide();
-        //         $('.unit_div').show();
-        //         Item_Risk_Assessment_Container.loadUnit();
-        //     }
-        //     else if(type == 'cost_center'){
-        //         $('.project_div').hide();
-        //         $('.function_div').hide();
-        //         $('.cost_center_div').show();
-        //         $('.unit_div').hide();
-        //     }
-        // },
-
-        // loadProject:function (){
-        //     loaderStart('loading...');
-        //     let url = '{{route('settings.load_project_select')}}';
-        //     let data = {};
-        //     ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-        //         loaderStop();
-        //         if (response.status === 'error') {
-        //             toastr.error(response.data)
-        //         } else {
-        //             $('#project_id').html(response);
-        //         }
-        //     });
-        // },
-
-        // loadFunction:function (){
-        //     loaderStart('loading...');
-        //     let url = '{{route('settings.load_function_select')}}';
-        //     let data = {};
-        //     ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-        //         loaderStop();
-        //         if (response.status === 'error') {
-        //             toastr.error(response.data)
-        //         } else {
-        //             $('#function_id').html(response);
-        //         }
-        //     });
-        // },
-
-        // loadUnit:function (){
-        //     loaderStart('loading...');
-        //     let url = '{{route('settings.load_unit_master_select')}}';
-        //     let data = {};
-        //     ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-        //         loaderStop();
-        //         if (response.status === 'error') {
-        //             toastr.error(response.data)
-        //         } else {
-        //             $('#unit_master_id').html(response);
-        //         }
-        //     });
-        // },
-    // };
 </script>

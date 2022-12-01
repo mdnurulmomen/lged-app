@@ -20,7 +20,9 @@ class AuditExecutionAreaController extends Controller
 
     public function getAuditAreaList()
     {
-        $audit_area_list = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_execution.areas'), [
+        // dd(config('cag_rpu_api.areas'));
+        
+        $audit_area_list = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
             'all' => 1
         ])->json();
 
@@ -41,7 +43,22 @@ class AuditExecutionAreaController extends Controller
      */
     public function create()
     {
-        return view('modules.audit_execution.audit_execution_area.partials.create_audit_area_form');
+        $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
+            'all' => 1
+        ])->json();
+        $allProjects = $allProjects ? $allProjects['data'] : [];
+
+        $allFunctions = $this->initHttpWithToken()->post(config('cag_rpu_api.functions.list'), [
+            'all' => 1
+        ])->json();
+        $allFunctions = $allFunctions ? $allFunctions['data'] : [];
+            
+        $allMasterUnits = $this->initHttpWithToken()->post(config('cag_rpu_api.master_units.list'), [
+            'all' => 1
+        ])->json();
+        $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
+        
+        return view('modules.audit_execution.audit_execution_area.partials.create_audit_area_form', compact(['allProjects', 'allFunctions', 'allMasterUnits']));
     }
 
     /**
@@ -53,6 +70,8 @@ class AuditExecutionAreaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'sector_id' => 'required|integer',
+            'sector_type' => 'required|string|in:App\Models\Project,App\Models\AuditFunction,App\Models\UnitMasterInfo',
             'name_en' => 'required|string|max:255',
             'name_bn' => 'required|string|max:255',
         ]);
@@ -60,13 +79,15 @@ class AuditExecutionAreaController extends Controller
         $currentUserId = $this->current_desk()['officer_id'];
         
         $data = [
+            'sector_id' => $request->sector_id,
+            'sector_type' => $request->sector_type,
             'name_en' => $request->name_en,
             'name_bn' => $request->name_bn,
             'created_by' => $currentUserId,
             'updated_by' => $currentUserId,
         ];
 
-        $create_audit_assessment = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_execution.areas'), $data)->json();
+        $create_audit_assessment = $this->initHttpWithToken()->post(config('cag_rpu_api.areas'), $data)->json();
         //    dd($create_audit_assessment);
         if (isset($create_audit_assessment['status']) && $create_audit_assessment['status'] == 'success') {
             return response()->json(responseFormat('success', 'Created Successfully'));
@@ -84,10 +105,27 @@ class AuditExecutionAreaController extends Controller
     public function auditAreaEdit(Request $request)
     {
         $id = $request->id;
+        $sector_id = $request->sector_id;
+        $sector_type = $request->sector_type;
         $name_en = $request->name_en;
         $name_bn = $request->name_bn;
 
-        return view('modules.audit_execution.audit_execution_area.partials.update_audit_area_form', compact('id', 'name_en', 'name_bn'));
+        $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
+            'all' => 1
+        ])->json();
+        $allProjects = $allProjects ? $allProjects['data'] : [];
+
+        $allFunctions = $this->initHttpWithToken()->post(config('cag_rpu_api.functions.list'), [
+            'all' => 1
+        ])->json();
+        $allFunctions = $allFunctions ? $allFunctions['data'] : [];
+            
+        $allMasterUnits = $this->initHttpWithToken()->post(config('cag_rpu_api.master_units.list'), [
+            'all' => 1
+        ])->json();
+        $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
+
+        return view('modules.audit_execution.audit_execution_area.partials.update_audit_area_form', compact('id', 'sector_id', 'sector_type', 'name_en', 'name_bn', 'allProjects', 'allFunctions', 'allMasterUnits'));
     }
 
     /**
@@ -100,18 +138,22 @@ class AuditExecutionAreaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'sector_id' => 'required|integer',
+            'sector_type' => 'required|string|in:App\Models\Project,App\Models\AuditFunction,App\Models\UnitMasterInfo',
             'name_en' => 'required|string|max:255',
             'name_bn' => 'required|string|max:255',
         ]);
         
         $data = [
             'id' => $request->id,
+            'sector_id' => $request->sector_id,
+            'sector_type' => $request->sector_type,
             'name_en' => $request->name_en,
             'name_bn' => $request->name_bn,
             'updated_by' => $this->current_desk()['officer_id'],
         ];
 
-        $update_audit_area = $this->initHttpWithToken()->put(config('amms_bee_routes.audit_execution.areas')."/$id", $data)->json();
+        $update_audit_area = $this->initHttpWithToken()->put(config('cag_rpu_api.areas')."/$id", $data)->json();
 //        dd($create_audit_query);
         if (isset($update_audit_area['status']) && $update_audit_area['status'] == 'success') {
             return response()->json(['status' => 'success', 'data' => $update_audit_area['data']]);
@@ -132,7 +174,7 @@ class AuditExecutionAreaController extends Controller
             'id' => $id,
         ];
     //    dd($data);
-        $delete_audit_area = $this->initHttpWithToken()->delete(config('amms_bee_routes.audit_execution.areas')."/$id", $data)->json();
+        $delete_audit_area = $this->initHttpWithToken()->delete(config('cag_rpu_api.areas')."/$id", $data)->json();
         if (isset($delete_audit_area['status']) && $delete_audit_area['status'] == 'success') {
             return response()->json(responseFormat('success', 'Deleted Successfully'));
         } else {

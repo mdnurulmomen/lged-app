@@ -6,7 +6,7 @@
                 I = Impact 
             </th>
             
-            @foreach ($item_assessment_areas[0]['audit_assessment_area_risks'] as $auditAssessmentAreaRisk)
+            @foreach ($sectorassessmentareas[0]['audit_assessment_area_risks'] as $auditAssessmentAreaRisk)
                 <th class="text-center">{{ ucfirst($auditAssessmentAreaRisk['inherent_risk']) }}</th>
             @endforeach
 
@@ -17,7 +17,7 @@
         <tr>
             <td></td>    
             
-            @foreach ($item_assessment_areas[0]['audit_assessment_area_risks'] as $auditAssessmentAreaRisk)
+            @foreach ($sectorassessmentareas[0]['audit_assessment_area_risks'] as $auditAssessmentAreaRisk)
                 <th class="text-center">
                     <span class="p-1">L</span>
                     <span class="p-1">I</span>
@@ -30,11 +30,13 @@
     </thead>
 
     <tbody>
-        @foreach ($item_assessment_areas as $item_assessment_area)
+        @foreach ($sectorassessmentareas as $sectorassessmentarea)
         <tr>
-            <th>{{ ucfirst($item_assessment_area['audit_area']['name_en']) }}</th>
+            <th>
+                {{ collect($allAuditAreas)->firstWhere('id', $sectorassessmentarea['audit_area_id'])['name_en'] }}
+            </th>
             
-            @foreach ($item_assessment_area['audit_assessment_area_risks'] as $auditAssessmentAreaRisk)
+            @foreach ($sectorassessmentarea['audit_assessment_area_risks'] as $auditAssessmentAreaRisk)
                 <td class="text-center">
                     <span class="p-1">
                         {{ $auditAssessmentAreaRisk['x_risk_assessment_likelihood_id'] }}
@@ -47,10 +49,10 @@
             @endforeach
                 
             <td>
-                {{-- {{ collect($item_assessment_area['audit_assessment_area_risks'])->sum('x_risk_assessment_impact_id') + collect($item_assessment_area['audit_assessment_area_risks'])->sum('x_risk_assessment_likelihood_id') }} --}}
+                {{-- {{ collect($sectorassessmentarea['audit_assessment_area_risks'])->sum('x_risk_assessment_impact_id') + collect($sectorassessmentarea['audit_assessment_area_risks'])->sum('x_risk_assessment_likelihood_id') }} --}}
             
                 {{ 
-                    $totalLikelihoodAndImpact = collect($item_assessment_area['audit_assessment_area_risks'])->sum(function ($areaRisk) {
+                    $totalLikelihoodAndImpact = collect($sectorassessmentarea['audit_assessment_area_risks'])->sum(function ($areaRisk) {
                         return $areaRisk['x_risk_assessment_impact_id'] + $areaRisk['x_risk_assessment_likelihood_id'];
                     })
                 }}

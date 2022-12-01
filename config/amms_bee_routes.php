@@ -241,7 +241,7 @@ return [
     ],
 
     'audit_execution' => [
-        'areas' =>env('API_URL_BEE', '') . '/x-audit-areas',
+        'programs' =>env('API_URL_BEE', '') . '/programs',
     ],
 
 
@@ -251,7 +251,7 @@ return [
     ],
 
     'risk_matrixes' => env('API_URL_BEE', '') . '/risk-matrixes',
-    'item_risk_assessments' => env('API_URL_BEE', '') . '/item-risk-assessments',
+    'sector_risk_assessments' => env('API_URL_BEE', '') . '/sector-risk-assessments',
     
     'x_risk_factors' => env('API_URL_BEE', '') . '/x-risk-factors',
     'x_risk_criteria' => env('API_URL_BEE', '') . '/x-risk-criteria',

@@ -9,6 +9,10 @@
             Title En
         </th>
 
+        <th width="30%">
+            Sector
+        </th>
+
         <th width="15%">
             Action
         </th>
@@ -19,10 +23,13 @@
         <tr id="row_{{$audit_area['id']}}" data-row="{{$loop->iteration}}">
             <td> {{ ucfirst($audit_area['name_bn']) }} </td>
             <td> {{ ucfirst($audit_area['name_en']) }} </td>
+            <td> {{ ucfirst($audit_area['sector']['name_en']) }} </td>
             <td>
                 <a href="javascript:;"
                    data-id="{{$audit_area['id']}}" 
-                   data-title-en="{{$audit_area['name_bn']}}"
+                   data-sector-id="{{$audit_area['sector_id']}}" 
+                   data-sector-type="{{$audit_area['sector_type']}}" 
+                   data-title-en="{{$audit_area['name_bn']}}" 
                    data-title-bn="{{$audit_area['name_en']}}" 
                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_audit_area">
                     <i class="fas fa-edit"></i>
@@ -57,11 +64,13 @@
         $('.offcanvas-title').html('Edit Audit Area');
 
         id = $(this).data('id');
+        sector_id =$(this).data('sector-id');
+        sector_type =$(this).data('sector-type');
         name_en =$(this).data('title-en');
         name_bn = $(this).data('title-bn');
 
         url = "{{ route('audit.execution.areas.edit') }}";
-        var data = {id,name_bn,name_en};
+        var data = {id,name_bn,name_en,sector_id,sector_type};
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
             if (resp.status === 'error') {
                 toastr.error('no');
@@ -77,7 +86,6 @@
     });
 
     $(".delete_audit_area").click(function () {
-
          id = $(this).data('id');
          url = $(this).data('url');
 

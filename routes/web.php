@@ -36,6 +36,7 @@ use App\Http\Controllers\AuditPlan\AuditOperationalPlan\OperationalPlanControlle
 use App\Http\Controllers\AuditPlan\AuditOperationalPlanController;
 use App\Http\Controllers\AuditPlan\AuditPlanController;
 use App\Http\Controllers\AuditPlan\AuditPlanDashboardController;
+use App\Http\Controllers\AuditPlan\AuditProgramController;
 use App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController;
 use App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController;
 use App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController;
@@ -94,7 +95,7 @@ use App\Http\Controllers\Setting\XRiskRatingController;
 use App\Http\Controllers\Setting\XRiskLevelController;
 use App\Http\Controllers\Setting\XRiskImpactController;
 use App\Http\Controllers\Setting\XRiskLikelihoodController;
-use App\Http\Controllers\RiskAssessment\ItemAssessmentController;
+use App\Http\Controllers\RiskAssessment\SectorAssessmentController;
 use App\Http\Controllers\Setting\XStrategicPlan\DurationController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutcomeController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutputController;
@@ -214,6 +215,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
                 return view('modules.audit_plan.strategic.meeting.strategic_plan_meeting_add');
             })->name('plan');
         });
+
+        // audit programs
+        Route::get('/programs/list', [AuditProgramController::class, 'getAuditProgramList'])->name('programs.list');
+        Route::resource('/programs', AuditProgramController::class, ['except' => ['edit']]);
+        Route::post('/programs/edit', [AuditProgramController::class, 'riskAuditProgramEdit'])->name('programs.edit');
 
         //operational plan
         Route::group(['as' => 'operational.', 'prefix' => 'operational/'], function () {
@@ -504,7 +510,6 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/areas/list', [AuditExecutionAreaController::class, 'getAuditAreaList'])->name('areas.list');
         Route::resource('/areas', AuditExecutionAreaController::class, ['except' => ['edit']]);
         Route::post('/areas/edit', [AuditExecutionAreaController::class, 'auditAreaEdit'])->name('areas.edit');
-
 
         //audit schedule
         Route::get('audit-schedule', [AuditExecutionScheduleController::class, 'auditSchedule'])->name('audit-schedule');
@@ -948,12 +953,12 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::resource('/risk-likelihoods', XRiskLikelihoodController::class, ['except' => ['edit']]);
         Route::post('/risk-likelihoods/edit', [XRiskLikelihoodController::class, 'riskLikelihoodEdit'])->name('risk-likelihoods.edit');
 
-        // item risk assessments
-        Route::get('/item-risk-assessments/list', [ItemAssessmentController::class, 'getItemRiskAssessmentList'])->name('item-risk-assessments.list');
-        Route::get('/item-risk-assessments/summery', [ItemAssessmentController::class, 'itemRiskAssessmentSummery'])->name('item-risk-assessments.summery');
-        Route::resource('/item-risk-assessments', ItemAssessmentController::class, ['except' => ['edit']]);
-        Route::post('/item-risk-assessments/edit', [ItemAssessmentController::class, 'itemRiskAssessmentEdit'])->name('item-risk-assessments.edit');
-
+        // sector risk assessments
+        Route::get('/sector-risk-assessments/list', [SectorAssessmentController::class, 'getSectorRiskAssessmentList'])->name('sector-risk-assessments.list');
+        Route::get('/sector-risk-assessments/area-list', [SectorAssessmentController::class, 'getSectorAreaList'])->name('sector-risk-assessments.area-list');
+        Route::get('/sector-risk-assessments/summery', [SectorAssessmentController::class, 'sectorRiskAssessmentSummery'])->name('sector-risk-assessments.summery');
+        Route::resource('/sector-risk-assessments', SectorAssessmentController::class, ['except' => ['edit']]);
+        Route::post('/sector-risk-assessments/edit', [SectorAssessmentController::class, 'sectorRiskAssessmentEdit'])->name('sector-risk-assessments.edit');
         
         Route::group(['as' => 'strategic-plan.', 'prefix' => 'strategic-plan/'], function () {
             Route::post('/duration/lists', [DurationController::class, 'getDurationLists'])->name('duration.lists');
