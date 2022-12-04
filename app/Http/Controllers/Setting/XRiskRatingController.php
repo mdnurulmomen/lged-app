@@ -14,7 +14,7 @@ class XRiskRatingController extends Controller
      */
     public function index()
     {
-        return view('modules.settings.x_risk_rating.x_risk_rating_list');
+        return view('modules.settings.x_risk_rating.index');
     }
 
     public function getRiskRatingList()
@@ -27,7 +27,7 @@ class XRiskRatingController extends Controller
 
         if ($risk_rating_list['status'] == 'success') {
             $risk_rating_list = $risk_rating_list['data'];
-            return view('modules.settings.x_risk_rating.partials.get_risk_rating_list', compact('risk_rating_list'));
+            return view('modules.settings.x_risk_rating.partials.list', compact('risk_rating_list'));
         } else {
             return response()->json(['status' => 'error', 'data' => $risk_rating_list]);
         }
@@ -44,7 +44,7 @@ class XRiskRatingController extends Controller
             'all' => 1
         ])->json()['data'];
         
-        return view('modules.settings.x_risk_rating.partials.create_risk_rating_form', compact('riskFactors'));
+        return view('modules.settings.x_risk_rating.partials.create', compact('riskFactors'));
     }
 
     /**
@@ -96,7 +96,7 @@ class XRiskRatingController extends Controller
             'all' => 1
         ])->json()['data'];
 
-        return view('modules.settings.x_risk_rating.partials.update_risk_rating_form', compact('id', 'title_bn', 'title_en', 'rating_value', 'x_risk_factor_id', 'riskFactors'));
+        return view('modules.settings.x_risk_rating.partials.update', compact('id', 'title_bn', 'title_en', 'rating_value', 'x_risk_factor_id', 'riskFactors'));
     }
 
     /**

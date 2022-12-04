@@ -14,7 +14,7 @@ class AuditExecutionAreaController extends Controller
      */
     public function index()
     {
-        return view('modules.audit_execution.audit_execution_area.x_audit_area_list');
+        return view('modules.audit_execution.audit_execution_area.index');
         // return view('modules.audit_execution.audit_execution_area.index');
     }
 
@@ -30,7 +30,7 @@ class AuditExecutionAreaController extends Controller
 
         if ($audit_area_list['status'] == 'success') {
             $audit_area_list = $audit_area_list['data'];
-            return view('modules.audit_execution.audit_execution_area.partials.get_audit_area_list', compact('audit_area_list'));
+            return view('modules.audit_execution.audit_execution_area.partials.list', compact('audit_area_list'));
         } else {
             return response()->json(['status' => 'error', 'data' => $audit_area_list]);
         }
@@ -58,7 +58,7 @@ class AuditExecutionAreaController extends Controller
         ])->json();
         $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
         
-        return view('modules.audit_execution.audit_execution_area.partials.create_audit_area_form', compact(['allProjects', 'allFunctions', 'allMasterUnits']));
+        return view('modules.audit_execution.audit_execution_area.partials.create', compact(['allProjects', 'allFunctions', 'allMasterUnits']));
     }
 
     /**
@@ -125,7 +125,7 @@ class AuditExecutionAreaController extends Controller
         ])->json();
         $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
 
-        return view('modules.audit_execution.audit_execution_area.partials.update_audit_area_form', compact('id', 'sector_id', 'sector_type', 'name_en', 'name_bn', 'allProjects', 'allFunctions', 'allMasterUnits'));
+        return view('modules.audit_execution.audit_execution_area.partials.update', compact('id', 'sector_id', 'sector_type', 'name_en', 'name_bn', 'allProjects', 'allFunctions', 'allMasterUnits'));
     }
 
     /**

@@ -14,7 +14,7 @@ class XRiskImpactController extends Controller
      */
     public function index()
     {
-        return view('modules.settings.x_risk_impact.x_risk_impact_list');
+        return view('modules.settings.x_risk_impact.index');
     }
 
     public function getRiskImpactList()
@@ -27,7 +27,7 @@ class XRiskImpactController extends Controller
 
         if ($risk_impact_list['status'] == 'success') {
             $risk_impact_list = $risk_impact_list['data'];
-            return view('modules.settings.x_risk_impact.partials.get_risk_impact_list', compact('risk_impact_list'));
+            return view('modules.settings.x_risk_impact.partials.list', compact('risk_impact_list'));
         } else {
             return response()->json(['status' => 'error', 'data' => $risk_impact_list]);
         }
@@ -40,7 +40,7 @@ class XRiskImpactController extends Controller
      */
     public function create()
     {   
-        return view('modules.settings.x_risk_impact.partials.create_risk_impact_form');
+        return view('modules.settings.x_risk_impact.partials.create');
     }
 
     /**
@@ -89,7 +89,7 @@ class XRiskImpactController extends Controller
         $title_en = $request->title_en;
         $impact_value = $request->impact_value;
 
-        return view('modules.settings.x_risk_impact.partials.update_risk_impact_form', compact('id', 'title_bn', 'title_en', 'impact_value'));
+        return view('modules.settings.x_risk_impact.partials.update', compact('id', 'title_bn', 'title_en', 'impact_value'));
     }
 
     /**

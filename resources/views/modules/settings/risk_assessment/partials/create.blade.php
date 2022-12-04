@@ -20,15 +20,15 @@
         <div class="card">
             <div class="card-header">
                 <div class="form-row">
-                    <div class="col-sm-6 form-group">
+                    <div class="col-sm-4 form-group">
                         <input type="radio" name="assessment_sector_type" value="project" checked> Project
                     </div>
             
-                    <div class="col-sm-6 form-group">
+                    <div class="col-sm-4 form-group">
                         <input type="radio" name="assessment_sector_type" value="function"> Function
                     </div>
                     
-                    <div class="col-sm-6 form-group">
+                    <div class="col-sm-4 form-group">
                         <input type="radio" name="assessment_sector_type" value="master-unit" > Master Unit
                     </div>
             
@@ -269,8 +269,10 @@
         }
     
         function removeRisk () {
-            // console.log('remove');
-            $('.sector_area_risks:last').remove();
+            if ($('.sector_area_risks').length > 1) {
+                // console.log('remove');
+                $('.sector_area_risks:last').remove();
+            }
         }
 
         function adjustRiskIndex() {

@@ -40,7 +40,7 @@ class AuditAssessmentScoreController extends Controller
         $scores = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_annual_plan.audit_assessment.score.list'), $data)->json();
         if (isSuccess($scores)) {
             $scores = $scores['data'];
-            return view('modules.audit_plan.annual.audit_assessment_score.partials.load_score_list', compact('scores'));
+            return view('modules.audit_plan.annual.audit_assessment_score.partials.list', compact('scores'));
         } else {
             return response()->json(['status' => 'error', 'data' => $scores]);
         }

@@ -14,7 +14,7 @@ class XRiskCriterionController extends Controller
      */
     public function index()
     {
-        return view('modules.settings.x_risk_criterion.x_risk_criterion_list');
+        return view('modules.settings.x_risk_criterion.index');
     }
 
     public function getRiskCriterionList()
@@ -27,7 +27,7 @@ class XRiskCriterionController extends Controller
 
         if ($risk_criterion_list['status'] == 'success') {
             $risk_criterion_list = $risk_criterion_list['data'];
-            return view('modules.settings.x_risk_criterion.partials.get_risk_criterion_list', compact('risk_criterion_list'));
+            return view('modules.settings.x_risk_criterion.partials.list', compact('risk_criterion_list'));
         } else {
             return response()->json(['status' => 'error', 'data' => $risk_criterion_list]);
         }
@@ -44,7 +44,7 @@ class XRiskCriterionController extends Controller
             'all' => 1
         ])->json()['data'];
         
-        return view('modules.settings.x_risk_criterion.partials.create_risk_criterion_form', compact('riskFactors'));
+        return view('modules.settings.x_risk_criterion.partials.create', compact('riskFactors'));
     }
 
     /**
@@ -97,7 +97,7 @@ class XRiskCriterionController extends Controller
             'all' => 1
         ])->json()['data'];
 
-        return view('modules.settings.x_risk_criterion.partials.update_risk_criterion_form', compact('id', 'x_risk_factor_id', 'title_bn', 'title_en', 'riskFactors'));
+        return view('modules.settings.x_risk_criterion.partials.update', compact('id', 'x_risk_factor_id', 'title_bn', 'title_en', 'riskFactors'));
     }
 
     /**

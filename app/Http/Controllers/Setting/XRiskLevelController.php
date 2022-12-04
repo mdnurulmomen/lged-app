@@ -14,7 +14,7 @@ class XRiskLevelController extends Controller
      */
     public function index()
     {
-        return view('modules.settings.x_risk_level.x_risk_level_list');
+        return view('modules.settings.x_risk_level.index');
     }
 
     public function getRiskLevelList()
@@ -27,7 +27,7 @@ class XRiskLevelController extends Controller
 
         if ($risk_level_list['status'] == 'success') {
             $risk_level_list = $risk_level_list['data'];
-            return view('modules.settings.x_risk_level.partials.get_risk_level_list', compact('risk_level_list'));
+            return view('modules.settings.x_risk_level.partials.list', compact('risk_level_list'));
         } else {
             return response()->json(['status' => 'error', 'data' => $risk_level_list]);
         }
@@ -40,7 +40,7 @@ class XRiskLevelController extends Controller
      */
     public function create()
     {   
-        return view('modules.settings.x_risk_level.partials.create_risk_level_form');
+        return view('modules.settings.x_risk_level.partials.create');
     }
 
     /**
@@ -102,7 +102,7 @@ class XRiskLevelController extends Controller
         $title_bn = $request->title_bn;
         $title_en = $request->title_en;
 
-        return view('modules.settings.x_risk_level.partials.update_risk_level_form', compact('id', 'level_from', 'level_to', 'type', 'title_bn', 'title_en'));
+        return view('modules.settings.x_risk_level.partials.update', compact('id', 'level_from', 'level_to', 'type', 'title_bn', 'title_en'));
     }
 
     /**

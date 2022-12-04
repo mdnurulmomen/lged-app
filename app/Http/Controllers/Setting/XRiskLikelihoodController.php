@@ -14,7 +14,7 @@ class XRiskLikelihoodController extends Controller
      */
     public function index()
     {
-        return view('modules.settings.x_risk_likelihood.x_risk_likelihood_list');
+        return view('modules.settings.x_risk_likelihood.index');
     }
 
     public function getRiskLikelihoodList()
@@ -27,7 +27,7 @@ class XRiskLikelihoodController extends Controller
 
         if ($risk_likelihood_list['status'] == 'success') {
             $risk_likelihood_list = $risk_likelihood_list['data'];
-            return view('modules.settings.x_risk_likelihood.partials.get_risk_likelihood_list', compact('risk_likelihood_list'));
+            return view('modules.settings.x_risk_likelihood.partials.list', compact('risk_likelihood_list'));
         } else {
             return response()->json(['status' => 'error', 'data' => $risk_likelihood_list]);
         }
@@ -40,7 +40,7 @@ class XRiskLikelihoodController extends Controller
      */
     public function create()
     {   
-        return view('modules.settings.x_risk_likelihood.partials.create_risk_likelihood_form');
+        return view('modules.settings.x_risk_likelihood.partials.create');
     }
 
     /**
@@ -101,7 +101,7 @@ class XRiskLikelihoodController extends Controller
         $comment_en = $request->comment_en;
         $commnet_bn = $request->commnet_bn;
 
-        return view('modules.settings.x_risk_likelihood.partials.update_risk_likelihood_form', compact('id', 'title_bn', 'title_en', 'likelihood_value', 'description_bn', 'description_en', 'comment_en', 'commnet_bn'));
+        return view('modules.settings.x_risk_likelihood.partials.update', compact('id', 'title_bn', 'title_en', 'likelihood_value', 'description_bn', 'description_en', 'comment_en', 'commnet_bn'));
     }
 
     /**

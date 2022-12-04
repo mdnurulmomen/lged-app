@@ -36,7 +36,7 @@ class SectorAssessmentController extends Controller
         // ])->json();
         // $allCostCenters = $allCostCenters ? $allCostCenters['data'] : [];
                 
-        return view('modules.settings.risk_assessment.risk_assessment_list', compact('allProjects', 'allFunctions', 'allMasterUnits'));
+        return view('modules.settings.risk_assessment.index', compact('allProjects', 'allFunctions', 'allMasterUnits'));
     }
 
     public function getSectorRiskAssessmentList(Request $request)
@@ -53,7 +53,7 @@ class SectorAssessmentController extends Controller
 
         if ($sectorriskassessments['status'] == 'success') {
             $sectorriskassessments = $sectorriskassessments['data'];
-            return view('modules.settings.risk_assessment.partials.get_risk_assessment_list', compact(['sectorriskassessments', 'allAuditAreas']));
+            return view('modules.settings.risk_assessment.partials.list', compact(['sectorriskassessments', 'allAuditAreas']));
         } else {
             return response()->json(['status' => 'error', 'data' => $sectorriskassessments]);
         }
@@ -96,7 +96,7 @@ class SectorAssessmentController extends Controller
         ])->json();
         $allLikelihoods = $allLikelihoods ? $allLikelihoods['data'] : [];
 
-        return view('modules.settings.risk_assessment.partials.create_risk_assessment_form', compact('allProjects', 'allFunctions', 'allMasterUnits', 'allImpacts', 'allLikelihoods'));
+        return view('modules.settings.risk_assessment.partials.create', compact('allProjects', 'allFunctions', 'allMasterUnits', 'allImpacts', 'allLikelihoods'));
     }
 
     /**
@@ -191,7 +191,7 @@ class SectorAssessmentController extends Controller
         $assessment_sector_type = $request->assessment_sector_type;
         $audit_assessment_area_risks = $request->audit_assessment_area_risks;
 
-        return view('modules.settings.risk_assessment.partials.update_risk_assessment_form', compact('id', 'audit_area_id', 'assessment_sector_id', 'assessment_sector_type', 'audit_assessment_area_risks', 'allProjects', 'allFunctions', 'allMasterUnits', 'allAreas', 'allImpacts', 'allLikelihoods'));
+        return view('modules.settings.risk_assessment.partials.update', compact('id', 'audit_area_id', 'assessment_sector_id', 'assessment_sector_type', 'audit_assessment_area_risks', 'allProjects', 'allFunctions', 'allMasterUnits', 'allAreas', 'allImpacts', 'allLikelihoods'));
     }
 
     /**
@@ -267,22 +267,22 @@ class SectorAssessmentController extends Controller
         if ($request->assessment_sector_type == 'project') {
             
             $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
-                'assessment_sector_id' => $request->assessment_sector_id, 
-                'assessment_sector_type' => 'App\Models\Project', 
+                'sector_id' => $request->assessment_sector_id, 
+                'sector_type' => 'App\Models\Project', 
             ])->json();
 
         } else if ($request->assessment_sector_type == 'function') {
             
             $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
-                'assessment_sector_id' => $request->assessment_sector_id, 
-                'assessment_sector_type' => 'App\Models\Function', 
+                'sector_id' => $request->assessment_sector_id, 
+                'sector_type' => 'App\Models\Function', 
             ])->json();
 
         } else if ($request->assessment_sector_type == 'master-unit') {
             
             $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
-                'assessment_sector_id' => $request->assessment_sector_id, 
-                'assessment_sector_type' => 'App\Models\UnitMasterInfo', 
+                'sector_id' => $request->assessment_sector_id, 
+                'sector_type' => 'App\Models\UnitMasterInfo', 
             ])->json();
 
         }

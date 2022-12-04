@@ -14,7 +14,7 @@ class XRiskFactorController extends Controller
      */
     public function index()
     {
-        return view('modules.settings.x_risk_factor.x_risk_factor_list');
+        return view('modules.settings.x_risk_factor.index');
     }
 
     public function getRiskFactorList()
@@ -27,7 +27,7 @@ class XRiskFactorController extends Controller
 
         if ($risk_factor_list['status'] == 'success') {
             $risk_factor_list = $risk_factor_list['data'];
-            return view('modules.settings.x_risk_factor.partials.get_risk_factor_list', compact('risk_factor_list'));
+            return view('modules.settings.x_risk_factor.partials.list', compact('risk_factor_list'));
         } else {
             return response()->json(['status' => 'error', 'data' => $risk_factor_list]);
         }
@@ -54,7 +54,7 @@ class XRiskFactorController extends Controller
             ), 422);
         }
 
-        return view('modules.settings.x_risk_factor.partials.create_risk_factor_form', ['risk_weight' => collect($risk_factor_list)->sum('risk_weight')]);
+        return view('modules.settings.x_risk_factor.partials.create', ['risk_weight' => collect($risk_factor_list)->sum('risk_weight')]);
     }
 
     /**
@@ -113,7 +113,7 @@ class XRiskFactorController extends Controller
         $title_bn = $request->title_bn;
         $title_en = $request->title_en;
 
-        return view('modules.settings.x_risk_factor.partials.update_risk_factor_form', compact('id', 'risk_weight', 'title_bn', 'title_en'));
+        return view('modules.settings.x_risk_factor.partials.update', compact('id', 'risk_weight', 'title_bn', 'title_en'));
     }
 
     /**

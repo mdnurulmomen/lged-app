@@ -27,7 +27,7 @@ class RiskAssessmentFactorController extends Controller
         if (isSuccess($all_risk_factors)) {
             $all_risk_factors = $all_risk_factors['data'];
             $all_risk_assessment_factors = $all_risk_assessment_factors['data'];
-            return view('modules.risk_assessment.risk_factor_approach.load_risk_assessment_factor',compact('all_risk_factors','all_risk_assessment_factors'));
+            return view('modules.risk_assessment.risk_factor_approach.list',compact('all_risk_factors','all_risk_assessment_factors'));
         } else {
             return response()->json(['status' => 'error', 'data' => $all_risk_factors]);
         }

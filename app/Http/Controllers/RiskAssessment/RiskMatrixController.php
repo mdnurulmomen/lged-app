@@ -14,7 +14,7 @@ class RiskMatrixController extends Controller
      */
     public function index()
     {
-        return view('modules.risk_assessment.risk_matrix.risk_matrix_list');
+        return view('modules.risk_assessment.risk_matrix.index');
     }
 
     public function getRiskMatrixList()
@@ -27,7 +27,7 @@ class RiskMatrixController extends Controller
 
         if ($risk_matrixes['status'] == 'success') {
             $risk_matrixes = $risk_matrixes['data'];
-            return view('modules.risk_assessment.risk_matrix.partials.get_risk_matrix_list', compact('risk_matrixes'));
+            return view('modules.risk_assessment.risk_matrix.partials.list', compact('risk_matrixes'));
         } else {
             return response()->json(['status' => 'error', 'data' => $risk_matrixes]);
         }
@@ -52,7 +52,7 @@ class RiskMatrixController extends Controller
             'all' => 1
         ])->json()['data'];
         
-        return view('modules.risk_assessment.risk_matrix.partials.create_risk_matrix_form', compact('riskAssessmentLivelihoods', 'riskAssessmentImpacts', 'riskLevels'));
+        return view('modules.risk_assessment.risk_matrix.partials.create', compact('riskAssessmentLivelihoods', 'riskAssessmentImpacts', 'riskLevels'));
     }
 
     /**
@@ -123,7 +123,7 @@ class RiskMatrixController extends Controller
             'all' => 1
         ])->json()['data'];
 
-        return view('modules.risk_assessment.risk_matrix.partials.update_risk_matrix_form', compact('id', 'x_risk_assessment_likelihood_id', 'x_risk_assessment_impact_id', 'x_risk_level_id', 'priority', 'riskAssessmentLivelihoods', 'riskAssessmentImpacts', 'riskLevels'));
+        return view('modules.risk_assessment.risk_matrix.partials.update', compact('id', 'x_risk_assessment_likelihood_id', 'x_risk_assessment_impact_id', 'x_risk_level_id', 'priority', 'riskAssessmentLivelihoods', 'riskAssessmentImpacts', 'riskLevels'));
     }
 
     /**

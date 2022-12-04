@@ -21,7 +21,7 @@ class XRiskAssessmentController extends Controller
 //        dd($risk_assessment);
         if ($risk_assessment_list['status'] == 'success') {
             $risk_assessment_list = $risk_assessment_list['data'];
-            return view('modules.settings.x_risk_assessment.partials.get_risk_assessment_lists', compact('risk_assessment_list'));
+            return view('modules.settings.x_risk_assessment.partials.list', compact('risk_assessment_list'));
         } else {
             return response()->json(['status' => 'error', 'data' => $risk_assessment_list]);
         }
@@ -54,7 +54,7 @@ class XRiskAssessmentController extends Controller
         $company_type = $request->company_type;
         $risk_assessment_title_bn = $request->risk_assessment_title_bn;
         $risk_assessment_title_en = $request->risk_assessment_title_en;
-        return view('modules.settings.x_risk_assessment.partials.update_risk_assessment_modal',compact('risk_assessment_id','risk_assessment_type','company_type','risk_assessment_title_bn','risk_assessment_title_en'));
+        return view('modules.settings.x_risk_assessment.partials.update',compact('risk_assessment_id','risk_assessment_type','company_type','risk_assessment_title_bn','risk_assessment_title_en'));
     }
 
     public function update(Request $request)
