@@ -240,8 +240,8 @@ return [
         'yearly_plan_store' => env('API_URL_BEE', '') . '/yearly-plan/store',
     ],
 
-    'audit_execution' => [
-        'programs' =>env('API_URL_BEE', '') . '/programs',
+    'audit_plan' => [
+        'sector_area_programs' =>env('API_URL_BEE', '') . '/sector-area-programs',
     ],
 
 

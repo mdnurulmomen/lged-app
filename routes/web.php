@@ -218,6 +218,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         // audit programs
         Route::get('/programs/list', [AuditProgramController::class, 'getAuditProgramList'])->name('programs.list');
+        Route::get('/programs/area-list', [AuditProgramController::class, 'getSectorAreaList'])->name('programs.area-list');
         Route::resource('/programs', AuditProgramController::class, ['except' => ['edit']]);
         Route::post('/programs/edit', [AuditProgramController::class, 'riskAuditProgramEdit'])->name('programs.edit');
 

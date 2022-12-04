@@ -39,7 +39,7 @@
                              icon="fal fa-calendar-alt">Area
                 </x-menu-item>
 
-                <x-menu-item class="audit_program_menu" href="{{route('audit.plan.programs.index')}}"
+                <x-menu-item class="sector_area_program_menu" href="{{route('audit.plan.programs.index')}}"
                              icon="fal fa-calendar-alt">Program
                 </x-menu-item>
             </x-parent-menu-item>
