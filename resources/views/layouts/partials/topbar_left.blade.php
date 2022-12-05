@@ -278,7 +278,7 @@
                         <!--end:Item-->
 
                         <!--begin:Item-->
-                        @if ($userDetails['username'] == '1-CAG-RPU001' || $current_officer_grade =='3')
+{{--                        @if ($userDetails['username'] == '1-CAG-RPU001' || $current_officer_grade =='3')--}}
                             <div class="col-4">
                                 <a href="{{route('settings.index')}}"
                                    class=" text-center ">
@@ -302,7 +302,7 @@
                                         class="d-block text-dark-75 font-weight-bold font-size-h6 mt-2 mb-1">Settings </span>
                                 </a>
                             </div>
-                        @endif
+{{--                        @endif--}}
                         <!--end:Item-->
                     </div>
                     <!--end:Nav-->

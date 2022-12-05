@@ -1,4 +1,4 @@
-<option value="">Select Location</option>
+<option value="0">Select Location</option>
 @foreach($cost_center_list as $cost_center)
 <option data-parent-office-id="{{$cost_center['parent_office_id'] ? $cost_center['parent_office_id'] : ''}}"
         data-parent-office-name-en="{{$cost_center['parent_office_id'] ? $cost_center['parent_office']['office_name_eng'] : ''}}"

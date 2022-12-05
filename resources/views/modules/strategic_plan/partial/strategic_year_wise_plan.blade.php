@@ -42,7 +42,7 @@
                                     </td>
                                     <td class="col-2">
                                         <select id="location_{{$i}}_1" class="form-control location_id_{{$i}} select-select2">
-                                            <option selected value="">select location</option>
+                                            <option selected value="0">select location</option>
                                         </select>
                                     </td>
                                     <td class="col-2">
