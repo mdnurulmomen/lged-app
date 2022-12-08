@@ -46,7 +46,16 @@
             </div>
         </div>
 
-        <div class="col-md-3 text-right">
+        <div class="col-md-1">
+            <button class="btn btn-sm btn-info btn-square mr-1" 
+                    title="Download" 
+                    onclick='Risk_Assessment_Item_Container.export($(this))'
+            >
+                <i class="fad fa-download"></i>
+            </button>
+        </div>
+
+        <div class="col-md-2 text-right">
             <button class="btn btn-sm btn-info btn-square mr-1" 
                     title="বিস্তারিত দেখুন"
                     onclick='loadPage($(this))'
@@ -119,6 +128,31 @@
                 }
             });
         },
+
+        export:function () {
+            loaderStart('loading...');
+
+            let audit_area_id = $('#sector_area').find(':selected').val();
+
+            let data = {audit_area_id};
+            
+            let url = "{{route('audit.plan.programs.export')}}";
+
+            ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
+                loaderStop();
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    // console.log(response);
+                    const link = document.createElement('a');
+                    link.setAttribute('href', response.data);
+                    link.setAttribute('download', 'programs'); // Need to modify filename ...
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            });
+        }
     };
 
     var Risk_Assessment_Factor_Approach_Container = {

@@ -100,6 +100,7 @@ use App\Http\Controllers\Setting\XStrategicPlan\DurationController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutcomeController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutputController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\AuditPlan\Individual\IndividualPlanController;
 use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanPSRController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiskAssessment\RiskMatrixController;
@@ -218,6 +219,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
 
         // audit programs
         Route::get('/programs/list', [AuditProgramController::class, 'getAuditProgramList'])->name('programs.list');
+        Route::get('/programs/export', [AuditProgramController::class, 'exportAuditProgramList'])->name('programs.export');
         Route::get('/programs/area-list', [AuditProgramController::class, 'getSectorAreaList'])->name('programs.area-list');
         Route::resource('/programs', AuditProgramController::class, ['except' => ['edit']]);
         Route::post('/programs/edit', [AuditProgramController::class, 'riskAuditProgramEdit'])->name('programs.edit');
@@ -409,6 +411,17 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/store', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'store'])->name('store');
             Route::get('/get-individual-strategic-plan', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'getIndividualStrategicPlan'])->name('get-individual-strategic-plan');
 
+        });
+
+        //individual plan
+        Route::group(['as' => 'individual.', 'prefix' => 'individual/'], function () {
+            Route::get('/', [IndividualPlanController::class, 'index'])->name('index');
+            Route::get('/get-team-modal', [IndividualPlanController::class, 'getAuditTeamModal'])->name('get-team-modal');
+            Route::get('/get-yearly-plan', [IndividualPlanController::class, 'getIndividualYearlyPlan'])->name('get-yearly-plan');
+            Route::get('get-team-schedule', [IndividualPlanController::class, 'getAuditTeamSchedule'])->name('get-team-schedule');
+            Route::post('/store-audit-team', [IndividualPlanController::class, 'storeAuditTeam'])->name('store-audit-team');
+            // Route::post('/update-audit-team', [RevisedPlanController::class, 'updateAuditTeam'])->name('update-audit-team');
+            Route::post('/store-audit-team-schedule', [IndividualPlanController::class, 'storeAuditTeamSchedule'])->name('store-audit-team-schedule');
         });
 
         //audit Plan

@@ -8,6 +8,7 @@
             <th>Notes</th>
             <th>Done By</th>
             <th>W/P Ref.</th>
+            <th>Actions</th>
         </tr>
     </thead>
 
@@ -16,36 +17,42 @@
         <tr id="row_{{$sectorAreaProgram['id']}}" data-row="{{$loop->iteration}}">
             <td rowspan="{{ count($sectorAreaProgram['procedures']) }}"> 
                 {{ ucfirst($sectorAreaProgram['area_index']) }} 
-                
-                <a href="javascript:;"
-                   data-id="{{$sectorAreaProgram['id']}}" 
-                   data-area-index="{{$sectorAreaProgram['area_index']}}"
-                   data-category="{{$sectorAreaProgram['category']}}" 
-                   data-control-objective="{{$sectorAreaProgram['control_objective']}}" 
-                   data-audit-area-id="{{$sectorAreaProgram['audit_area_id']}}" 
-                   data-procedures='@json($sectorAreaProgram['procedures'])' 
-
-                   class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_risk_rating">
-                    <i class="fas fa-edit"></i>
-                </a>
-                
-                <a href="javascript:;"
-                   data-id="{{$sectorAreaProgram['id']}}"
-                   data-url="{{ route('audit.plan.programs.destroy', $sectorAreaProgram['id']) }}"
-                   class="btn btn-icon btn-outline-danger btn-xs border-0 mr-2 delete_risk_rating">
-                    <i class="fal fa-trash-alt"></i>
-                </a>
             </td>
             <td rowspan="{{ count($sectorAreaProgram['procedures']) }}"> {{ ucfirst($sectorAreaProgram['category']) }} </td>
             <td rowspan="{{ count($sectorAreaProgram['procedures']) }}"> {{ ucfirst($sectorAreaProgram['control_objective']) }} </td>
             
-            @foreach ($sectorAreaProgram['procedures'] as $sectorAreaProgramProcedure)
+            @foreach ($sectorAreaProgram['procedures'] as $key => $sectorAreaProgramProcedure)
                 <td>{{ ucfirst($sectorAreaProgramProcedure['test_procedure']) }}</td>
                 <td>{{ ucfirst($sectorAreaProgramProcedure['note']) }}</td>
                 <td>{{ ucfirst($sectorAreaProgramProcedure['done_by']) }}</td>
                 <td>{{ ucfirst($sectorAreaProgramProcedure['reference']) }}</td>
+                
+                @if ($key==0)
+                    <td rowspan="{{ count($sectorAreaProgram['procedures']) }}">
+                        <a href="javascript:;"
+                        data-id="{{$sectorAreaProgram['id']}}" 
+                        data-area-index="{{$sectorAreaProgram['area_index']}}"
+                        data-category="{{$sectorAreaProgram['category']}}" 
+                        data-control-objective="{{$sectorAreaProgram['control_objective']}}" 
+                        data-audit-area-id="{{$sectorAreaProgram['audit_area_id']}}" 
+                        data-procedures='@json($sectorAreaProgram['procedures'])' 
+        
+                        class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_risk_rating">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        
+                        <a href="javascript:;"
+                        data-id="{{$sectorAreaProgram['id']}}"
+                        data-url="{{ route('audit.plan.programs.destroy', $sectorAreaProgram['id']) }}"
+                        class="btn btn-icon btn-outline-danger btn-xs border-0 mr-2 delete_risk_rating">
+                            <i class="fal fa-trash-alt"></i>
+                        </a>
+                    </td>
+                @endif
                 </tr><tr>
             @endforeach
+            
+        </tr>
     @empty
         <tr data-row="0" class="datatable-row" style="left: 0px;">
             <td colspan="7" class="datatable-cell text-center"><span>Nothing Found</span></td>

@@ -20,20 +20,20 @@
         <div class="card">
             <div class="card-header">
                 <div class="form-row">
-                    <div class="col-sm-4 form-group">
+                    <div class="col-sm-1 form-group">
                         <input type="radio" name="sector_type" value="project" checked> Project
                     </div>
             
-                    <div class="col-sm-4 form-group">
+                    <div class="col-sm-1 form-group">
                         <input type="radio" name="sector_type" value="function"> Function
                     </div>
                     
-                    <div class="col-sm-4 form-group">
+                    <div class="col-sm-2 form-group">
                         <input type="radio" name="sector_type" value="master-unit" > Master Unit
                     </div>
             
                     {{-- 
-                    <div class="col-sm-3 form-group">
+                    <div class="col-sm-2 form-group">
                         <input type="radio" name="sector_type" value="cost-center"> Cost Center
                     </div> 
                     --}}
@@ -92,9 +92,8 @@
                         --}}
                     </div>
 
-                    <div class="col-sm-12 form-group pl-4 pr-4">
-                        <p for="area">Area:</p>
-
+                    <div class="col-sm-12">
+                        <label for="email">Area:</label>
                         <select class="form-control" name="audit_area_id" id="audit_area_id">
                             <option value="" selected>Please Select Area</option>
                         </select>
@@ -132,6 +131,7 @@
                                         <textarea class="form-control" name="test_procedure" rows="3"></textarea>
                                     </div>
 
+                                    {{-- 
                                     <div class="col-sm-12 form-group">
                                         <label for="email">Note:</label>
                                         <textarea class="form-control" name="note" rows="3"></textarea>
@@ -145,7 +145,8 @@
                                     <div class="col-sm-12 form-group">
                                         <label for="email">Reference:</label>
                                         <input type="text" class="form-control" placeholder="Enter Reference" name="reference">
-                                    </div>
+                                    </div> 
+                                    --}}
                                 </div>
                             </div>
                         </div>
@@ -304,18 +305,18 @@
                 area_index,
                 category,
                 control_objective,
-                audit_area_procedures : []
+                procedures : []
             };
       
             $('.sector_area_procedures').each(function(index, risk) {
                 audit_area_procedure = {};
                 
                 audit_area_procedure['test_procedure'] = $(this).find("textarea[name='test_procedure']").val();
-                audit_area_procedure['note'] = $(this).find("textarea[name='note']").val();
-                audit_area_procedure['done_by'] = $(this).find("input[name='done_by']").val();
-                audit_area_procedure['reference'] = $(this).find("input[name='reference']").val();
+                // audit_area_procedure['note'] = $(this).find("textarea[name='note']").val();
+                // audit_area_procedure['done_by'] = $(this).find("input[name='done_by']").val();
+                // audit_area_procedure['reference'] = $(this).find("input[name='reference']").val();
                 
-                sector_audit_program.audit_area_procedures.push(audit_area_procedure);
+                sector_audit_program.procedures.push(audit_area_procedure);
             });
     
             let url = "{{route('audit.plan.programs.store')}}";

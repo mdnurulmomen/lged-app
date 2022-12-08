@@ -88,11 +88,11 @@ class AuditProgramController extends Controller
             'control_objective' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'area_index' => 'required|numeric',
-            'audit_area_procedures' => 'required|array',
-            'audit_area_procedures.*.test_procedure' => 'required|string',
-            'audit_area_procedures.*.note' => 'nullable|string',
-            'audit_area_procedures.*.done_by' => 'nullable|string|max:255',
-            'audit_area_procedures.*.reference' => 'nullable|string|max:255',
+            'procedures' => 'required|array',
+            'procedures.*.test_procedure' => 'required|string',
+            'procedures.*.note' => 'nullable|string',
+            'procedures.*.done_by' => 'nullable|string|max:255',
+            'procedures.*.reference' => 'nullable|string|max:255',
         ]);
 
         // $currentUserId = $this->current_desk()['officer_id'];
@@ -102,7 +102,7 @@ class AuditProgramController extends Controller
             'control_objective' => $request->control_objective,
             'category' => $request->category,
             'area_index' => $request->area_index,
-            'audit_area_procedures' => $request->audit_area_procedures,
+            'procedures' => $request->procedures,
             // 'creator_id' => $currentUserId,
             // 'updater_id' => $currentUserId,
         ];
@@ -170,11 +170,11 @@ class AuditProgramController extends Controller
             'control_objective' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'area_index' => 'required|numeric',
-            'audit_area_procedures' => 'required|array',
-            'audit_area_procedures.*.test_procedure' => 'required|string',
-            'audit_area_procedures.*.note' => 'nullable|string',
-            'audit_area_procedures.*.done_by' => 'nullable|string|max:255',
-            'audit_area_procedures.*.reference' => 'nullable|string|max:255',
+            'procedures' => 'required|array',
+            'procedures.*.test_procedure' => 'required|string',
+            'procedures.*.note' => 'nullable|string',
+            'procedures.*.done_by' => 'nullable|string|max:255',
+            'procedures.*.reference' => 'nullable|string|max:255',
         ]);
 
         // $currentUserId = $this->current_desk()['officer_id'];
@@ -185,7 +185,7 @@ class AuditProgramController extends Controller
             'control_objective' => $request->control_objective,
             'category' => $request->category,
             'area_index' => $request->area_index,
-            'audit_area_procedures' => $request->audit_area_procedures,
+            'procedures' => $request->procedures,
             // 'creator_id' => $currentUserId,
             // 'updater_id' => $currentUserId,
         ];
@@ -254,5 +254,22 @@ class AuditProgramController extends Controller
         $allAreas = $allAreas ? $allAreas['data'] : [];
         
         return view('modules.settings.risk_assessment.partials.areas', compact('allAreas'));
+    }
+
+    public function exportAuditProgramList(Request $request)
+    {
+        $request->validate([
+            'audit_area_id' => 'required|integer',
+        ]);
+        
+        $sectorAreaPrograms = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_plan.export_sector_area_programs'), $request->all())->json();
+
+        // dd($sectorAreaPrograms);
+
+        if (isset($sectorAreaPrograms['status']) && $sectorAreaPrograms['status'] == 'success') {
+            return response()->json(responseFormat('success', env('BEE_URL', 'http://localhost:8001').$sectorAreaPrograms['data']));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $sectorAreaPrograms]);
+        }
     }
 }
