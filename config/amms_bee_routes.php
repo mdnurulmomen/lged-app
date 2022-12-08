@@ -238,10 +238,13 @@ return [
     'audit_yearly_plan' => [
         'yearly_plan_list' => env('API_URL_BEE', '') . '/yearly-plan/list',
         'yearly_plan_store' => env('API_URL_BEE', '') . '/yearly-plan/store',
+        'get_individual_yearly_plan' => env('API_URL_BEE', '') . '/yearly-plan/get-individual-yearly-plan',
+        'get_individual_yearly_plan_year' => env('API_URL_BEE', '') . '/yearly-plan/get-individual-yearly-plan-year',
     ],
 
     'audit_plan' => [
         'sector_area_programs' =>env('API_URL_BEE', '') . '/sector-area-programs',
+        'export_sector_area_programs' =>env('API_URL_BEE', '') . '/sector-area-programs/export',
     ],
 
 
