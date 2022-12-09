@@ -132,9 +132,15 @@
         export:function () {
             loaderStart('loading...');
 
+            let sectorType = $("input[name='sector_type']:checked").val();
+
+            let sectorName = sectorType == 'project' ? $('#project_id').find(':selected').text() : sectorType == 'function' ? $('#function_id').find(':selected').text() : $('#unit_master_id').find(':selected').text();
+            
+            let auditAreaName = $('#sector_area').find(':selected').text();
+
             let audit_area_id = $('#sector_area').find(':selected').val();
 
-            let data = {audit_area_id};
+            let data = {sectorName, auditAreaName, audit_area_id};
             
             let url = "{{route('audit.plan.programs.export')}}";
 

@@ -258,7 +258,11 @@ class AuditProgramController extends Controller
 
     public function exportAuditProgramList(Request $request)
     {
+        // dd($request);
+
         $request->validate([
+            'sectorName' => 'required|string',
+            'auditAreaName' => 'required|string',
             'audit_area_id' => 'required|integer',
         ]);
         
