@@ -24,8 +24,8 @@
                 </th>
             @endforeach
 
-                <td></td>
-                <td></td>
+            <td></td>
+            <td></td>
         </tr>
     </thead>
 

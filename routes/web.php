@@ -418,7 +418,11 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/', [IndividualPlanController::class, 'index'])->name('index');
             Route::get('/get-team-modal', [IndividualPlanController::class, 'getAuditTeamModal'])->name('get-team-modal');
             Route::get('/get-yearly-plan', [IndividualPlanController::class, 'getIndividualYearlyPlan'])->name('get-yearly-plan');
+            Route::get('/get-individual-plan', [IndividualPlanController::class, 'getIndividualPlan'])->name('get-individual-plan');
             Route::get('get-team-schedule', [IndividualPlanController::class, 'getAuditTeamSchedule'])->name('get-team-schedule');
+            Route::get('get-audit-schedule-row', [IndividualPlanController::class, 'getAuditScheduleRow'])->name('get-audit-schedule-row');
+            Route::get('get-announcement-memo', [IndividualPlanController::class, 'getAnnouncementMemo'])->name('get-announcement-memo');
+            Route::get('download-announcement-memo', [IndividualPlanController::class, 'downloadAnnouncementMemo'])->name('download-announcement-memo');
             Route::post('/store-audit-team', [IndividualPlanController::class, 'storeAuditTeam'])->name('store-audit-team');
             // Route::post('/update-audit-team', [RevisedPlanController::class, 'updateAuditTeam'])->name('update-audit-team');
             Route::post('/store-audit-team-schedule', [IndividualPlanController::class, 'storeAuditTeamSchedule'])->name('store-audit-team-schedule');

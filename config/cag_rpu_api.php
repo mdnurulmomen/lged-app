@@ -54,8 +54,8 @@ return [
         'update' => env('API_URL_RPU', '') . '/master-units/update',
     ],
 
-    'cost-center-project-map' => [
-        'get-cost-center-project-map' => env('API_URL_RPU', '') . '/cost-center-project-map/get-cost-center-project-map',
+    'cost-center-sector-map' => [
+        'cost-centers' => env('API_URL_RPU', '') . '/cost-center-sector-map/cost-centers',
     ],
 
     'areas' =>env('API_URL_RPU', '') . '/audit-areas',

@@ -121,6 +121,8 @@ return [
 
         'send_annual_plan_receiver_to_sender' => env('API_URL_BEE', '') . '/planning/operational-plan/send-annual-plan-receiver-to-sender',
 
+        'get_announcement_memo' => env('API_URL_BEE', '') . '/planning/announcement-memos',
+        // 'download_announcement_memo' => env('API_URL_BEE', '') . '/planning/download-announcement-memos',
     ],
 
     'audit_annual_plan' => [
@@ -241,6 +243,8 @@ return [
         'get_individual_yearly_plan' => env('API_URL_BEE', '') . '/yearly-plan/get-individual-yearly-plan',
         'get_individual_yearly_plan_year' => env('API_URL_BEE', '') . '/yearly-plan/get-individual-yearly-plan-year',
     ],
+
+    'individual_plans' => env('API_URL_BEE', '') . '/individual-plans',
 
     'audit_plan' => [
         'sector_area_programs' =>env('API_URL_BEE', '') . '/sector-area-programs',
