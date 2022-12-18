@@ -75,7 +75,7 @@
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
             if (resp.status === 'error') {
                 toastr.error('no');
-                console.log(resp.data)
+                // console.log(resp.data)
             } else {
                 // $('#id').val(id);
                 // $('#title_bn').text(title_bn);

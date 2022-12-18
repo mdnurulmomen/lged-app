@@ -28,6 +28,26 @@ class AuditYearlyPlanController extends Controller
         }
     }
 
+    public function getIndividualYearlyPlan(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'strategic_plan_year' => 'required|integer',
+        ])->validate();
+
+        // dd($request);
+        
+        $individual_yearly_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_yearly_plan.get_individual_yearly_plan'),$data)->json();
+        
+        // dd($individual_yearly_plan['data']);
+        
+        if (isSuccess($individual_yearly_plan)) {
+            $individual_yearly_plan = $individual_yearly_plan['data'];
+            return view('modules.yearly_plan.partial.show_individual_yearly_plans',compact('individual_yearly_plan'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $individual_yearly_plan]);
+        }
+    }
+
     public function getYearWiseStrategicPlan(Request $request){
         $strategic_plan_year = $request->strategic_plan_year;
         $plan_year = explode(' - ',$strategic_plan_year);

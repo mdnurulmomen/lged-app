@@ -7,8 +7,6 @@
                          icon="fal fa-tachometer-alt-average">Dashboard
             </x-menu-item>
             <hr>
-
-
             <x-parent-menu-item icon="fas fa-list" name="Strategic Plan">
                 <x-menu-item class="" href="{{route('settings.strategic-plan.duration.index')}}"
                              icon="fal fa-calendar-alt">Duration
@@ -21,20 +19,9 @@
                 <x-menu-item class="" href="{{route('settings.strategic-plan.output.index')}}"
                              icon="fal fa-calendar-alt">Output
                 </x-menu-item>
-
             </x-parent-menu-item>
 
-{{--            <x-parent-menu-item icon="fas fa-list" name="Operational Plan">--}}
-{{--                <x-menu-item class="" href="{{route('settings.fiscal-years.index')}}"--}}
-{{--                             icon="fal fa-calendar-alt">Fiscal Year--}}
-{{--                </x-menu-item>--}}
-{{--            </x-parent-menu-item>--}}
-
-{{--            <x-parent-menu-item icon="fas fa-list" name="Audit Conducting">--}}
-{{--                <x-menu-item class="x_query_menu" href="{{route('settings.audit-query.index')}}"--}}
-{{--                             icon="fal fa-calendar-alt">Query--}}
-{{--                </x-menu-item>--}}
-
+            <x-parent-menu-item icon="fas fa-list" name="Strategic Plan">
                 <x-menu-item class="audit_area_menu" href="{{route('audit.execution.areas.index')}}"
                              icon="fal fa-calendar-alt">Area
                 </x-menu-item>
@@ -68,10 +55,6 @@
                 <x-menu-item class="x_risk_likelihood" href="{{route('settings.risk-likelihoods.index')}}"
                              icon="fal fa-calendar-alt">Risk Likelihood
                 </x-menu-item>
-
-{{--                <x-menu-item class="x_risk_assessment" href="{{route('settings.risk-assessment.index')}}"--}}
-{{--                             icon="fal fa-calendar-alt">Risk Assessment--}}
-{{--                </x-menu-item>--}}
 
                 <x-menu-item class="x_risk_matrix" href="{{route('risk-assessment.risk-matrixes.index')}}"
                              icon="fal fa-calendar-alt">Risk Matrix
