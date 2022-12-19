@@ -28,9 +28,9 @@ class IndividualPlanController extends Controller
         ])->validate();
 
         $individual_yearly_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_yearly_plan.get_individual_yearly_plan'),$data)->json();
-        
-        // dd($individual_yearly_plan);
-        
+
+//         dd($individual_yearly_plan);
+
         if (isSuccess($individual_yearly_plan)) {
             $individual_yearly_plan = $individual_yearly_plan['data'];
             return view('modules.individual_plan.partial.plans',compact('individual_yearly_plan'));
@@ -42,6 +42,7 @@ class IndividualPlanController extends Controller
     public function getIndividualPlan(Request $request){
 
         $data = Validator::make($request->all(), [
+            'audit_plan_id' => 'nullable',
             'yearly_plan_location_id' => 'required|integer',
             'plan_year' => 'required|integer',
             'sector_name' => 'required|string',
@@ -49,39 +50,59 @@ class IndividualPlanController extends Controller
             // 'sector_id' => 'required|integer',
         ])->validate();
 
-        // dd($request);
+        $individualPlanInfo = $this->initHttpWithToken()->post(config('amms_bee_routes.individual_plan.get-audit-plan-info'),$data)->json();
 
-        $yearlyPlanLocationId = $request->yearly_plan_location_id;
-        $individualPlans = $this->initHttpWithToken()->get(config('amms_bee_routes.individual_plans')."/$yearlyPlanLocationId")->json();
-        // dd($individual_yearly_plan);
-        
-        if (isSuccess($individualPlans)) {
-            $individualPlans = $individualPlans['data'];
-            return view('modules.individual_plan.partial.individual_plans',compact('individualPlans', 'data'));
+//        dd($individualPlanInfo);
+
+        if (isSuccess($individualPlanInfo)) {
+            $individualPlanInfo = $individualPlanInfo['data'];
+            return view('modules.individual_plan.partial.individual_plans',compact('individualPlanInfo', 'data'));
         } else {
-            return response()->json(['status' => 'error', 'data' => $individualPlans]);
+            return response()->json(['status' => 'error', 'data' => $individualPlanInfo]);
+        }
+    }
+
+    public function store(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'scope' => 'required|string',
+            'id' => 'nullable',
+            'yearly_plan_id' => 'required|integer',
+            'yearly_plan_location_id' => 'required|integer',
+            'objective' => 'required|string',
+            'milestone_list' => 'required',
+        ])->validate();
+
+        $data['cdesk'] = $this->current_desk_json();
+
+        $individualPlanStore = $this->initHttpWithToken()->get(config('amms_bee_routes.individual_plan.store'),$data)->json();
+//        dd($individualPlanStore);
+        if (isSuccess($individualPlanStore)) {
+            return response()->json(['status' => 'success', 'data' => $individualPlanStore['data']]);
+        } else {
+            return ['status' => 'error', 'data' => $individualPlanStore];
         }
     }
 
     public function getAuditTeamModal(Request $request)
-    {   
+    {
         $data = Validator::make($request->all(), [
             'yearly_plan_location_id' => 'required|integer',
             'sector_type' => 'required|string',
             'sector_id' => 'required|integer',
-        ])->validate(); 
-        
+        ])->validate();
+
         // dd($request);
-        
-        /* 
+
+        /*
         $data = Validator::make($request->all(), [
             'activity_id' => 'required|integer',
             'annual_plan_id' => 'required|integer',
             'fiscal_year_id' => 'required|integer',
             'audit_plan_id' => 'required|integer',
             'parent_office_id' => 'required',
-        ])->validate(); 
-         
+        ])->validate();
+
         $project_id = $request->project_id;
         $modal_type = $request->modal_type;
         $activity_id = $request->activity_id;
@@ -91,7 +112,7 @@ class IndividualPlanController extends Controller
         $audit_plan_no = $request->audit_plan_no;
         $has_update_office_order = $request->has_update_office_order;
         $office_order_approval_status = $request->office_order_approval_status;
-        $parent_office_id = json_encode($request->parent_office_id); 
+        $parent_office_id = json_encode($request->parent_office_id);
         */
 
         $modal_type = '';
@@ -112,7 +133,7 @@ class IndividualPlanController extends Controller
         // $data['yearly_plan_location_id'] = $yearly_plan_location_id;
 
         // $teamResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_wise_team'), $data)->json();
-        
+
         // dd($teamResponseData);
 
         // $all_teams = isSuccess($teamResponseData) ? $teamResponseData['data'] : [];
@@ -138,7 +159,7 @@ class IndividualPlanController extends Controller
             'team_layer_id' => 'required|integer',
             'sector_id' => 'required|integer',
             'sector_type' => 'required|string',
-        ])->validate(); 
+        ])->validate();
 
         // dd($data);
 
@@ -149,28 +170,28 @@ class IndividualPlanController extends Controller
         $team_layer_id = $request->team_layer_id;
 
         if ($sector_type == 'project') {
-            
+
             $allCostCenters = $this->initRPUHttp()->post(config('cag_rpu_api.cost-center-sector-map.cost-centers'), $data)->json();
             $allCostCenters = $allCostCenters ? $allCostCenters['data'] : [];
             // dd($allCostCenters);
         }
-        
+
         return view('modules.individual_plan.partial.schedule-modal', compact(['team_layer_id', 'allCostCenters', 'sector_id']));
     }
-    
+
     public function getAuditScheduleRow(Request $request){
         $data = Validator::make($request->all(), [
             // 'team_layer_id' => 'required|integer',
             'sector_id' => 'required|integer',
             'sector_type' => 'required|string',
-        ])->validate(); 
+        ])->validate();
 
         $sector_type = $request->sector_type;
         $sector_id = $request->sector_id;
         $team_layer_id = $request->team_layer_id;
 
         if ($sector_type == 'project') {
-            
+
             $allCostCenters = $this->initRPUHttp()->post(config('cag_rpu_api.cost-center-sector-map.cost-centers'), $data)->json();
             $allCostCenters = $allCostCenters ? $allCostCenters['data'] : [];
             // dd($allCostCenters);
@@ -202,9 +223,9 @@ class IndividualPlanController extends Controller
         $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team'), $data)->json();
-        
+
         // dd($responseData);
-        
+
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
         } else {
@@ -225,9 +246,9 @@ class IndividualPlanController extends Controller
 
         $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team_schedule'), $data)->json();
-        
+
         // dd($responseData);
-        
+
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
         } else {
@@ -236,57 +257,57 @@ class IndividualPlanController extends Controller
     }
 
     public function getAnnouncementMemo(Request $request)
-    {   
+    {
         $data = Validator::make($request->all(), [
             'yearly_plan_location_id' => 'required|integer',
             'sector_type' => 'required|string',
             'sector_id' => 'required|integer',
-        ])->validate(); 
-        
+        ])->validate();
+
         // dd($request);
 
         // $sectorId = $request->sector_id;
-        $sectorType = $request->sector_type; 
+        $sectorType = $request->sector_type;
         $yearly_plan_location_id = $request->yearly_plan_location_id;
         $announcementMemo = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_operational_plan.get_announcement_memo')."/$request->yearly_plan_location_id")->json()['data'];
 
         // dd($announcementMemo);
-        
+
         return view('modules.individual_plan.partial.announcement-memo-modal', compact('announcementMemo', 'sectorType', 'yearly_plan_location_id'));
     }
 
     public function downloadAnnouncementMemo(Request $request)
-    {   
+    {
         $data = Validator::make($request->all(), [
             'yearly_plan_location_id' => 'required|integer',
-        ])->validate(); 
-        
+        ])->validate();
+
         // dd($request);
-        
-        /* 
+
+        /*
             $yearly_plan_location_id = $request->yearly_plan_location_id;
             $announcementMemo = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_operational_plan.download_announcement_memo')."/$yearly_plan_location_id")->json();
         */
 
         // dd($announcementMemo);
         // dd(env('BEE_URL', 'http://localhost:8001') . $announcementMemo['data']);
-        
+
         $announcementMemo = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_operational_plan.get_announcement_memo')."/$request->yearly_plan_location_id")->json()['data'];
         // dd($announcementMemo);
         $pdf = Pdf::loadView('modules.individual_plan.partial.download-announcement-memo', $announcementMemo);
         // dd($pdf->stream('document.pdf'));
-        
+
         return $pdf->stream();
-        // return $pdf->download('announcement-memo.pdf'); 
-        
-        /* 
+        // return $pdf->download('announcement-memo.pdf');
+
+        /*
         if (isSuccess($announcementMemo)) {
             return response()->json(['status' => 'success', 'data' => env('BEE_URL', 'http://localhost:8001').$announcementMemo['data']]);
         } else {
             return ['status' => 'error', 'data' => $announcementMemo];
-        } 
+        }
         */
-        
+
         // return view('modules.individual_plan.partial.announcement-memo-modal', compact('announcementMemo', 'sectorType', 'yearly_plan_location_id'));
     }
 }

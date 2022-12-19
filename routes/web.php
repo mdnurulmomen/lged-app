@@ -418,6 +418,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         //individual plan
         Route::group(['as' => 'individual.', 'prefix' => 'individual/'], function () {
             Route::get('/', [IndividualPlanController::class, 'index'])->name('index');
+            Route::post('store', [IndividualPlanController::class, 'store'])->name('store');
             Route::get('/get-team-modal', [IndividualPlanController::class, 'getAuditTeamModal'])->name('get-team-modal');
             Route::get('/get-yearly-plan', [IndividualPlanController::class, 'getIndividualYearlyPlan'])->name('get-yearly-plan');
             Route::get('/get-individual-plan', [IndividualPlanController::class, 'getIndividualPlan'])->name('get-individual-plan');
@@ -962,7 +963,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/risk-levels/list', [XRiskLevelController::class, 'getRiskLevelList'])->name('risk-levels.list');
         Route::resource('/risk-levels', XRiskLevelController::class, ['except' => ['edit']]);
         Route::post('/risk-levels/edit', [XRiskLevelController::class, 'riskLevelEdit'])->name('risk-levels.edit');
-        
+
         // risk impact
         Route::get('/risk-impacts/list', [XRiskImpactController::class, 'getRiskImpactList'])->name('risk-impacts.list');
         Route::resource('/risk-impacts', XRiskImpactController::class, ['except' => ['edit']]);
@@ -979,7 +980,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/sector-risk-assessments/summery', [SectorAssessmentController::class, 'sectorRiskAssessmentSummery'])->name('sector-risk-assessments.summery');
         Route::resource('/sector-risk-assessments', SectorAssessmentController::class, ['except' => ['edit']]);
         Route::post('/sector-risk-assessments/edit', [SectorAssessmentController::class, 'sectorRiskAssessmentEdit'])->name('sector-risk-assessments.edit');
-        
+
         Route::group(['as' => 'strategic-plan.', 'prefix' => 'strategic-plan/'], function () {
             Route::post('/duration/lists', [DurationController::class, 'getDurationLists'])->name('duration.lists');
             Route::resource('/duration', DurationController::class, ['except' => ['edit', 'create']]);

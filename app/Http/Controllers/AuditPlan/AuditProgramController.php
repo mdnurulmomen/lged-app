@@ -12,24 +12,37 @@ class AuditProgramController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
-            'all' => 1
-        ])->json();
-        $allProjects = $allProjects ? $allProjects['data'] : [];
-        
-        $allFunctions = $this->initHttpWithToken()->post(config('cag_rpu_api.functions.list'), [
-            'all' => 1
-        ])->json();
-        $allFunctions = $allFunctions ? $allFunctions['data'] : [];
-            
-        $allMasterUnits = $this->initHttpWithToken()->post(config('cag_rpu_api.master_units.list'), [
-            'all' => 1
-        ])->json();
-        $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
+      $data =  $request->validate([
+            'project_id' => 'nullable|integer',
+            'project_name_en' => 'nullable|string',
+            'audit_plan_id' => 'required|integer',
+            'yearly_plan_id' => 'nullable|integer',
+            'yearly_plan_location_id' => 'required|integer',
+            'plan_year' => 'required|integer',
+        ]);
 
-        return view('modules.audit_plan.program.index', compact('allProjects', 'allFunctions', 'allMasterUnits'));
+//      dd($data);
+
+
+//        $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
+//            'all' => 1
+//        ])->json();
+//
+//        $allProjects = $allProjects ? $allProjects['data'] : [];
+//
+//        $allFunctions = $this->initHttpWithToken()->post(config('cag_rpu_api.functions.list'), [
+//            'all' => 1
+//        ])->json();
+//        $allFunctions = $allFunctions ? $allFunctions['data'] : [];
+//
+//        $allMasterUnits = $this->initHttpWithToken()->post(config('cag_rpu_api.master_units.list'), [
+//            'all' => 1
+//        ])->json();
+//        $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
+
+        return view('modules.audit_plan.program.index',compact('data'));
     }
 
     public function getAuditProgramList(Request $request)
@@ -37,7 +50,7 @@ class AuditProgramController extends Controller
         $request->validate([
             'audit_area_id' => 'required|integer',
         ]);
-        
+
         $sectorAreaPrograms = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_plan.sector_area_programs'), $request->all())->json();
 
         // dd($sectorAreaPrograms);
@@ -61,17 +74,17 @@ class AuditProgramController extends Controller
             'all' => 1
         ])->json();
         $allProjects = $allProjects ? $allProjects['data'] : [];
-        
+
         $allFunctions = $this->initHttpWithToken()->post(config('cag_rpu_api.functions.list'), [
             'all' => 1
         ])->json();
         $allFunctions = $allFunctions ? $allFunctions['data'] : [];
-            
+
         $allMasterUnits = $this->initHttpWithToken()->post(config('cag_rpu_api.master_units.list'), [
             'all' => 1
         ])->json();
         $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
-        
+
         return view('modules.audit_plan.program.partials.create', compact(['allProjects', 'allFunctions', 'allMasterUnits']));
     }
 
@@ -96,7 +109,7 @@ class AuditProgramController extends Controller
         ]);
 
         // $currentUserId = $this->current_desk()['officer_id'];
-        
+
         $data = [
             'audit_area_id' => $request->audit_area_id,
             'control_objective' => $request->control_objective,
@@ -128,12 +141,12 @@ class AuditProgramController extends Controller
             'all' => 1
         ])->json();
         $allProjects = $allProjects ? $allProjects['data'] : [];
-        
+
         $allFunctions = $this->initHttpWithToken()->post(config('cag_rpu_api.functions.list'), [
             'all' => 1
         ])->json();
         $allFunctions = $allFunctions ? $allFunctions['data'] : [];
-            
+
         $allMasterUnits = $this->initHttpWithToken()->post(config('cag_rpu_api.master_units.list'), [
             'all' => 1
         ])->json();
@@ -145,7 +158,7 @@ class AuditProgramController extends Controller
         $allAreas = $allAreas ? $allAreas['data'] : [];
 
         $auditArea = collect($allAreas)->firstWhere('id', $request->audit_area_id);
-        
+
         $id = $request->id;
         $audit_area_id = $request->audit_area_id;
         $control_objective = $request->control_objective;
@@ -164,7 +177,7 @@ class AuditProgramController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
         $request->validate([
             'audit_area_id' => 'required|integer',
             'control_objective' => 'required|string|max:255',
@@ -178,7 +191,7 @@ class AuditProgramController extends Controller
         ]);
 
         // $currentUserId = $this->current_desk()['officer_id'];
-        
+
         $data = [
             'id' => $request->id,
             'audit_area_id' => $request->audit_area_id,
@@ -227,24 +240,24 @@ class AuditProgramController extends Controller
         ]);
 
         if ($request->sector_type == 'project') {
-            
+
             $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
-                'sector_id' => $request->sector_id, 
-                'sector_type' => 'App\Models\Project', 
+                'sector_id' => $request->sector_id,
+                'sector_type' => 'App\Models\Project',
             ])->json();
 
         } else if ($request->sector_type == 'function') {
-            
+
             $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
-                'sector_id' => $request->sector_id, 
-                'sector_type' => 'App\Models\Function', 
+                'sector_id' => $request->sector_id,
+                'sector_type' => 'App\Models\Function',
             ])->json();
 
         } else if ($request->sector_type == 'master-unit') {
-            
+
             $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
-                'sector_id' => $request->sector_id, 
-                'sector_type' => 'App\Models\UnitMasterInfo', 
+                'sector_id' => $request->sector_id,
+                'sector_type' => 'App\Models\UnitMasterInfo',
             ])->json();
 
         }
@@ -252,7 +265,7 @@ class AuditProgramController extends Controller
         // dd($allAreas);
 
         $allAreas = $allAreas ? $allAreas['data'] : [];
-        
+
         return view('modules.settings.risk_assessment.partials.areas', compact('allAreas'));
     }
 
@@ -265,7 +278,7 @@ class AuditProgramController extends Controller
             'auditAreaName' => 'required|string',
             'audit_area_id' => 'required|integer',
         ]);
-        
+
         $sectorAreaPrograms = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_plan.export_sector_area_programs'), $request->all())->json();
 
         // dd($sectorAreaPrograms);

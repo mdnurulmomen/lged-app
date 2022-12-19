@@ -3,37 +3,30 @@
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row d-flex align-items-end">
         <div class="col-md-6">
-            <span style="font-size: 18px" class="form-group">
-                <input id="project" type="radio" name="sector_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project
-                <input id="function" type="radio" name="sector_type" value="function" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function
-                <input id="master_unit" type="radio" name="sector_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Master Unit
-                {{-- <input id="cost_center" type="radio" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center --}}
-            </span>
-            
-            <div class="project_div" style="display: none">
-                <select class="form-control select-select2" name="project_id" id="project_id" onchange="Risk_Assessment_Item_Container.laodSectorAreas('project', this.value)">
-                    <option selected>Select Project</option>
-                    @foreach ($allProjects as $project)
-                        <option value="{{ $project['id'] }}">{{ $project['name_en'] }}</option>
-                    @endforeach
-                </select>
-            </div>
+{{--            <span style="font-size: 18px" class="form-group">--}}
+{{--                <input style="display: none" id="project" type="radio" name="sector_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project--}}
+{{--                <input style="display: none" id="function" type="radio" name="sector_type" value="function" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function--}}
+{{--                <input style="display: none" id="master_unit" type="radio" name="sector_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Master Unit--}}
+{{--                --}}{{-- <input id="cost_center" type="radio" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center --}}
+{{--            </span>--}}
+
+            @if($data['project_id'])
+                <div class="project_div">
+                    <select class="form-control select-select2" name="project_id" id="project_id" onchange="Risk_Assessment_Item_Container.laodSectorAreas('project', this.value)">
+                        <option selected value="{{$data['project_id']}}">{{$data['project_name_en']}}</option>
+                    </select>
+                </div>
+            @endif
 
             <div class="function_div" style="display: none">
                 <select class="form-control select-select2" name="function_id" id="function_id" onchange="Risk_Assessment_Item_Container.laodSectorAreas('function', this.value)">
                     <option selected>Select Function</option>
-                    @foreach ($allFunctions as $function)
-                        <option value="{{ $function['id'] }}">{{ $function['name_en'] }}</option>
-                    @endforeach
                 </select>
             </div>
 
             <div class="unit_div" style="display: none">
                 <select class="form-control select-select2" name="unit_master_id" id="unit_master_id" onchange="Risk_Assessment_Item_Container.laodSectorAreas('master-unit', this.value)">
                     <option selected>Select Unit</option>
-                    @foreach ($allMasterUnits as $masterUnit)
-                        <option value="{{ $masterUnit['id'] }}">{{ $masterUnit['name_en'] }}</option>
-                    @endforeach
                 </select>
             </div>
         </div>
@@ -47,8 +40,8 @@
         </div>
 
         <div class="col-md-1">
-            <button class="btn btn-sm btn-info btn-square mr-1" 
-                    title="Download" 
+            <button class="btn btn-sm btn-info btn-square mr-1"
+                    title="Download"
                     onclick='Risk_Assessment_Item_Container.export($(this))'
             >
                 <i class="fad fa-download"></i>
@@ -56,7 +49,7 @@
         </div>
 
         <div class="col-md-2 text-right">
-            <button class="btn btn-sm btn-info btn-square mr-1" 
+            <button class="btn btn-sm btn-info btn-square mr-1"
                     title="বিস্তারিত দেখুন"
                     onclick='loadPage($(this))'
                     data-url="{{route('audit.plan.programs.create')}}"
@@ -82,7 +75,7 @@
                         <th>W/P Ref.</th>
                     </tr>
                 </thead>
-            
+
                 <tbody>
                     <tr>
                         <td colspan="7" class="datatable-cell text-center"><span>Please select entity & area</span></td>
@@ -95,6 +88,14 @@
 
 
 <script>
+
+    $(function(){
+       let project_id = '{{$data['project_id']}}';
+       if(project_id){
+           Risk_Assessment_Item_Container.laodSectorAreas('project',project_id);
+       }
+    });
+
     var Risk_Assessment_Item_Container = {
         laodSectorAreas: function (sector_type, sector_id) {
             // loaderStart('loading...');
@@ -135,13 +136,13 @@
             let sectorType = $("input[name='sector_type']:checked").val();
 
             let sectorName = sectorType == 'project' ? $('#project_id').find(':selected').text() : sectorType == 'function' ? $('#function_id').find(':selected').text() : $('#unit_master_id').find(':selected').text();
-            
+
             let auditAreaName = $('#sector_area').find(':selected').text();
 
             let audit_area_id = $('#sector_area').find(':selected').val();
 
             let data = {sectorName, auditAreaName, audit_area_id};
-            
+
             let url = "{{route('audit.plan.programs.export')}}";
 
             ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {

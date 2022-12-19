@@ -244,7 +244,10 @@ return [
         'get_individual_yearly_plan_year' => env('API_URL_BEE', '') . '/yearly-plan/get-individual-yearly-plan-year',
     ],
 
-    'individual_plans' => env('API_URL_BEE', '') . '/individual-plans',
+    'individual_plan' => [
+        'store' => env('API_URL_BEE', '') . '/individual-plan/store',
+        'get-audit-plan-info' => env('API_URL_BEE', '') . '/individual-plan/audit-plan-info',
+    ],
 
     'audit_plan' => [
         'sector_area_programs' =>env('API_URL_BEE', '') . '/sector-area-programs',
@@ -259,7 +262,7 @@ return [
 
     'risk_matrixes' => env('API_URL_BEE', '') . '/risk-matrixes',
     'sector_risk_assessments' => env('API_URL_BEE', '') . '/sector-risk-assessments',
-    
+
     'x_risk_factors' => env('API_URL_BEE', '') . '/x-risk-factors',
     'x_risk_criteria' => env('API_URL_BEE', '') . '/x-risk-criteria',
     'x_risk_ratings' => env('API_URL_BEE', '') . '/x-risk-ratings',
