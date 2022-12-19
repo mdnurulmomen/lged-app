@@ -38,8 +38,39 @@ class AuditStrategicPlanController extends Controller
         }
     }
 
+    public function showYearWiseStrategicPlan(Request $request){
+        $data = Validator::make($request->all(), [
+            // 'strategic_plan_id' => 'required|integer',
+            'strategic_plan_year' => 'required',
+        ])->validate();
+        
+        // dd($request);
+        
+        // $strategic_plan_id = $request->strategic_plan_id;
+        $strategic_plan_year = $request->strategic_plan_year;
+        
+        $plan_year = explode(' - ',$strategic_plan_year);
+        $start = $plan_year[0];
+        $end = $plan_year[1];
+        // dd($start);
+        // dd($end);
+        $strategic_plan_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.get_individual_strategic_plan'), $data)->json();
+        $strategic_plan_list = $strategic_plan_list ? $strategic_plan_list['data'] : [];
+        // dd($strategic_plan_list);
+
+        // $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-projects'), [])->json();
+        // $all_project = $all_project ? $all_project['data'] : [];
+
+        // $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.functions.list'), [])->json();
+        // $all_function = $all_function ? $all_function['data'] : [];
+        
+        return view('modules.strategic_plan.partial.show_strategic_year_wise_plan',
+            compact('start','end', 'strategic_plan_list'));
+    }
+    
     public function getYearWiseStrategicPlan(Request $request){
         $strategic_plan_year = $request->strategic_plan_year;
+
         $plan_year = explode(' - ',$strategic_plan_year);
         $start = $plan_year[0];
         $end = $plan_year[1];
