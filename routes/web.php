@@ -37,6 +37,7 @@ use App\Http\Controllers\AuditPlan\AuditOperationalPlanController;
 use App\Http\Controllers\AuditPlan\AuditPlanController;
 use App\Http\Controllers\AuditPlan\AuditPlanDashboardController;
 use App\Http\Controllers\AuditPlan\AuditProgramController;
+use App\Http\Controllers\AuditPlan\Individual\AuditWorkPaperController;
 use App\Http\Controllers\AuditPlan\AuditStrategicPlan\DraftPlanController;
 use App\Http\Controllers\AuditPlan\AuditStrategicPlan\FinalPlanController;
 use App\Http\Controllers\AuditPlan\AuditStrategicPlan\HTMLViewController;
@@ -429,6 +430,12 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/store-audit-team', [IndividualPlanController::class, 'storeAuditTeam'])->name('store-audit-team');
             // Route::post('/update-audit-team', [RevisedPlanController::class, 'updateAuditTeam'])->name('update-audit-team');
             Route::post('/store-audit-team-schedule', [IndividualPlanController::class, 'storeAuditTeamSchedule'])->name('store-audit-team-schedule');
+
+            // work-papers
+            Route::get('/plan-work-papers/list', [AuditWorkPaperController::class, 'getPlanWorkPapers'])->name('plan-work-papers.list');
+            Route::get('/plan-work-papers/export', [AuditWorkPaperController::class, 'exportWorkPaper'])->name('plan-work-papers.export');
+            Route::resource('/plan-work-papers', AuditWorkPaperController::class, ['except' => ['edit']]);
+            Route::post('/plan-work-papers/edit', [AuditWorkPaperController::class, 'planWorkPaperEdit'])->name('plan-work-papers.edit');
         });
 
         //audit Plan

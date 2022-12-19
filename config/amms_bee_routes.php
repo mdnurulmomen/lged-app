@@ -249,6 +249,11 @@ return [
         'get-audit-plan-info' => env('API_URL_BEE', '') . '/individual-plan/audit-plan-info',
     ],
 
+    'audit_plans' => env('API_URL_BEE', '') . '/audit-plans',
+    'audit_plan_work_papers' => env('API_URL_BEE', '') . '/audit-plan-work-papers',
+    'audit_plan_work_papers_store' => env('API_URL_BEE', '') . '/audit-plan-work-papers/store',
+    
+
     'audit_plan' => [
         'sector_area_programs' =>env('API_URL_BEE', '') . '/sector-area-programs',
         'export_sector_area_programs' =>env('API_URL_BEE', '') . '/sector-area-programs/export',
