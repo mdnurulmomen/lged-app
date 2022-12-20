@@ -57,12 +57,12 @@
 <div class="row mt-2 pb-10">
     <div class="col-12">
         <div class="card sna-card-border">
-            <table class="table table-bordered">
+            <table style="table-layout: fixed" class="table table-bordered">
                 <thead class="thead-light">
                 <tr>
-                    <th>Risk Factor</th>
-                    <th>Criteria</th>
-                    <th>Rating Details</th>
+                    <th width="30%">Risk Factor</th>
+                    <th width="30%">Criteria</th>
+                    <th width="60%">Rating Details</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -70,7 +70,7 @@
                     <tr class="risk_factor_row">
                         <td>
                             {{$risk_factor['title_bn']}}
-                            
+
                             <input class="risk_factor_id" type="hidden" name="risk_factor_id" value="{{$risk_factor['id']}}">
                             <input class="risk_factor_title_en" type="hidden" name="risk_factor_title_en" value="{{$risk_factor['title_en']}}">
                             <input class="risk_factor_title_bn" type="hidden" name="risk_factor_title_bn" value="{{$risk_factor['title_bn']}}">
@@ -89,7 +89,7 @@
                             <div class="form-row">
                                 <div class="col-sm-12 form-group">
                                     <label for="exampleFormControlSelect1">Rating</label>
-                                    
+
                                     <select  class="form-control select-select2 risk_rating">
                                         <option value="">Select Rating</option>
                                         @if($risk_factor['risk_factor_ratings'])
@@ -210,15 +210,15 @@
                 }
             });
         },
-        
+
         storeRiskAssessmentFactor: function () {
             loaderStart('Please wait...');
 
             var formData = new FormData();
-            
+
             // let risk_factor_info = {};
             // let risk_factor_items = [];
-            
+
             let item_type = $('input[name="item_type"]:checked').val();
 
             // formData.append('risk_factor_info', risk_factor_info);
@@ -229,28 +229,28 @@
                 formData.append('risk_factor_info[item_name_bn]', $('#project_id').find(':selected').attr('data-name-bn'));
                 formData.append('risk_factor_info[item_name_en]', $('#project_id').find(':selected').attr('data-name-en'));
                 formData.append('risk_factor_info[item_type]', item_type);
-                
+
             } else if (item_type=='function') {
 
                 formData.append('risk_factor_info[item_id]', $('#function_id').find(':selected').val());
                 formData.append('risk_factor_info[item_name_bn]', $('#function_id').find(':selected').attr('data-name-bn'));
                 formData.append('risk_factor_info[item_name_en]', $('#function_id').find(':selected').attr('data-name-en'));
                 formData.append('risk_factor_info[item_type]', item_type);
-                
+
             } else if (item_type=='master-unit') {
 
                 formData.append('risk_factor_info[item_id]', $('#unit_master_id').find(':selected').val());
                 formData.append('risk_factor_info[item_name_bn]', $('#unit_master_id').find(':selected').attr('data-name-bn'));
                 formData.append('risk_factor_info[item_name_en]', $('#unit_master_id').find(':selected').attr('data-name-en'));
                 formData.append('risk_factor_info[item_type]', item_type);
-                
+
             } else if (item_type=='cost_center') {
 
                 formData.append('risk_factor_info[item_id]', $('#cost_center_id').find(':selected').val());
                 formData.append('risk_factor_info[item_name_bn]', $('#cost_center_id').find(':selected').attr('data-name-bn'));
                 formData.append('risk_factor_info[item_name_en]', $('#cost_center_id').find(':selected').attr('data-name-en'));
                 formData.append('risk_factor_info[item_type]', item_type);
-                
+
                 formData.append('risk_factor_info[parent_office_id]', $('#cost_center_id').attr('data-parent-office-id'));
                 formData.append('risk_factor_info[parent_office_name_en]', $('#cost_center_id').attr('data-parent-office-name-en'));
                 formData.append('risk_factor_info[parent_office_name_bn]', $('#cost_center_id').attr('data-parent-office-name-bn'));
@@ -264,10 +264,10 @@
                 formData.append('risk_factor_items[' + index + '][factor_weight]', $(this).find('.risk_factor_weight').val());
                 formData.append('risk_factor_items[' + index + '][factor_rating]', $(this).find('.risk_rating').val());
                 formData.append('risk_factor_items[' + index + '][comment]', $(this).find('textarea[name="comment"]').val());
-                
-                if ($(this).find('input[type=file]')[0].files.length) {
-                    formData.append('risk_factor_items[' + index + '][attachment]', $(this).find('input[type=file]')[0].files[0]);
-                }
+
+                // if ($(this).find('input[type=file]')[0].files.length) {
+                    formData.append('risk_factor_items[' + index + '][attachment]', $(this).find('input[type=file]')[0].files[0] ? $(this).find('input[type=file]')[0].files[0] : null);
+                // }
             });
 
             let url = '{{route('risk-assessment.factor-approach.store')}}';

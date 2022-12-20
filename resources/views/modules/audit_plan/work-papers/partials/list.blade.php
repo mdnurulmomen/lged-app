@@ -1,16 +1,18 @@
-@forelse($auditPlan['work_papers'] as $workPaper)
+@forelse($working_plan_list as $workPaper)
     <tr id="row_{{$workPaper['id']}}" data-row="{{$loop->iteration}}">
-        <td>{{ ucfirst($workPaper['title']) }}</td>
-        
-        <td> 
-            {{ (ucfirst($auditPlan['yearly_plan_location']['project_name_en']) ?? ucfirst($auditPlan['yearly_plan_location']['function_name_en']) ?? ucfirst($auditPlan['yearly_plan_location']['cost_center_en'])).' (Plan-'.$auditPlan['id'].')' }}
+        <td>
+            {{ ucfirst($workPaper['title_en']) }}
         </td>
 
         <td>
-            <button type="button" class="btn btn-download btn-sm btn-bold btn-square ml-auto" onclick="Entity_Plan_Container.downloadAnnouncementModal(1)">
+            {{ ucfirst($workPaper['title_en']) }}
+        </td>
+
+        <td>
+            <a href="{{ config('amms_bee_routes.file_url').$workPaper['attachment'] }}" class="btn btn-download btn-sm btn-bold btn-square ml-auto">
                 <i class="fa fa-file" aria-hidden="true"></i>
                 Download
-            </button>
+            </a>
         </td>
     </tr>
 @empty
@@ -18,4 +20,3 @@
         <td colspan="3" class="datatable-cell text-danger text-center"><span>No Workpaper Found</span></td>
     </tr>
 @endforelse
-    

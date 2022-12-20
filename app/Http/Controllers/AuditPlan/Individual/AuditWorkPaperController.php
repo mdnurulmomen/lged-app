@@ -14,29 +14,27 @@ class AuditWorkPaperController extends Controller
      */
     public function index()
     {
-//        dd();
         $auditPlans = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_plans'))->json()['data'];
-         dd($auditPlans);
         return view('modules.audit_plan.work-papers.index', compact('auditPlans'));
     }
 
     public function getPlanWorkPapers(Request $request)
     {
-        $request->validate([
+       $data =  $request->validate([
             'audit_plan_id' => 'required|integer',
         ]);
 
         // dd($request);
 
-        $auditPlan = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_plan_work_papers'), $request->all())->json();
+        $working_plan_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_plan_work_papers'), $data)->json();
 
-        // dd($auditPlan);
+//         dd($auditPlan);
 
-        if ($auditPlan['status'] == 'success') {
-            $auditPlan = $auditPlan['data'];
-            return view('modules.audit_plan.work-papers.partials.list', compact(['auditPlan']));
+        if ($working_plan_list['status'] == 'success') {
+            $working_plan_list = $working_plan_list['data'];
+            return view('modules.audit_plan.work-papers.partials.list', compact(['working_plan_list']));
         } else {
-            return response()->json(['status' => 'error', 'data' => $auditPlan]);
+            return response()->json(['status' => 'error', 'data' => $working_plan_list]);
         }
     }
 

@@ -4,7 +4,7 @@
     <div class="row d-flex align-items-end">
         <div class="col-md-6">
             <label>Select Audit-Plan</label>
-            <select class="form-control select-select2" name="audit_plan_id" id="audit_plan_id" 
+            <select class="form-control select-select2" name="audit_plan_id" id="audit_plan_id"
             onchange="Risk_Assessment_Item_Container.laodPlanWorkpapers(this.value)"
             >
                 <option value="" disabled selected>Please Select Plan</option>
@@ -17,9 +17,9 @@
         </div>
 
         <div class="col-md-6 text-right">
-            <button 
+            <button
                 class="btn btn-sm btn-info btn-square mr-1 create_button"
-                title="Upload New Paper" 
+                title="Upload New Paper"
             >
                 <i class="fad fa-plus"></i> New Work-Paper
             </button>
@@ -53,31 +53,24 @@
 <script>
 
     $('.create_button').click(function () {
-        quick_panel = $("#kt_quick_panel");
-        $('.offcanvas-wrapper').html('');
-        quick_panel.addClass('offcanvas-on');
-        quick_panel.css('opacity', 1);
-        quick_panel.css('width', '800px');
-        $('.offcanvas-footer').hide();
-        quick_panel.removeClass('d-none');
-        $("html").addClass("side-panel-overlay");
-        $('.offcanvas-title').html('Upload New Work-Paper');
 
-        // audit_plan_id = $(this).data('id');
-        
         url = "{{ route('audit.plan.individual.plan-work-papers.create') }}";
         var data = {};
-        
+
         ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
             if (resp.status === 'error') {
                 toastr.error('no');
                 // console.log(resp.data)
             } else {
-                // $('#id').val(id);
-                // $('#title_bn').text(title_bn);
-                // $('#title_en').text(title_en);
-                // $('#rating_value').val(rating_value);
-                // $('#x_risk_factor_id').val(x_risk_factor_id);
+                quick_panel = $("#kt_quick_panel");
+                $('.offcanvas-wrapper').html('');
+                quick_panel.addClass('offcanvas-on');
+                quick_panel.css('opacity', 1);
+                quick_panel.css('width', '800px');
+                $('.offcanvas-footer').hide();
+                quick_panel.removeClass('d-none');
+                $("html").addClass("side-panel-overlay");
+                $('.offcanvas-title').html('Upload New Work-Paper');
                 $('.offcanvas-wrapper').html(resp);
             }
         });
@@ -100,7 +93,7 @@
             });
         },
 
-        /* 
+        /*
         export:function () {
             loaderStart('loading...');
 
@@ -130,7 +123,7 @@
                     document.body.removeChild(link);
                 }
             });
-        } 
+        }
         */
     };
 </script>

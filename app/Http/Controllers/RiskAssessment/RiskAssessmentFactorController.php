@@ -89,7 +89,7 @@ class RiskAssessmentFactorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $data = Validator::make($request->all(), [
             'risk_factor_info' => 'required',
             'risk_factor_info.item_id' => 'required|integer',
@@ -98,13 +98,13 @@ class RiskAssessmentFactorController extends Controller
             'risk_factor_info.item_type' => 'required|string|in:project,function,master-unit',
             'risk_factor_items' => 'required|array',
             'risk_factor_items.*.comment' => 'nullable|string',
-            'risk_factor_items.*.attachment' => 'nullable|mimes:png,jpg,jpeg,csv,doc,docx,pdf,zip,rar|max:2048'
+//            'risk_factor_items.*.attachment' => 'nullable|mimes:png,jpg,jpeg,csv,doc,docx,pdf,zip,rar|max:2048'
         ])->validate();
-            
-        // dd($data);
-        
+
+//         dd($data);
+
         $data['cdesk'] = $this->current_desk_json();
-        
+
         $data = [
             ['name' => 'risk_factor_info[item_id]', 'contents' => $data['risk_factor_info']['item_id']],
             ['name' => 'risk_factor_info[item_name_en]', 'contents' => $data['risk_factor_info']['item_name_en']],
@@ -112,7 +112,7 @@ class RiskAssessmentFactorController extends Controller
             ['name' => 'risk_factor_info[item_type]', 'contents' => $data['risk_factor_info']['item_type']],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
-        
+
         foreach ($request->risk_factor_items as $key => $factorItem) {
             $data[] = [
                 'name' => "risk_factor_items[$key][x_risk_factor_id]",
@@ -143,14 +143,14 @@ class RiskAssessmentFactorController extends Controller
                 'name' => "risk_factor_items[$key][comment]",
                 'contents' => $factorItem['comment']
             ];
-            
+
             $data[] = [
                 'name' => "risk_factor_items[$key][attachment]",
                 'contents' => is_file($factorItem['attachment']) ? file_get_contents($factorItem['attachment']->getRealPath()) : '',
                 'filename' => is_file($factorItem['attachment']) ? $factorItem['attachment']->getClientOriginalName() : '',
             ];
         }
-       
+
         // dd($data);
 
         $store = $this->fileUPloadWithData(
@@ -160,9 +160,9 @@ class RiskAssessmentFactorController extends Controller
         );
 
         // dd(json_decode($store->getBody(), true));
-        
+
         $store = json_decode($store->getBody(), true);
-            
+
         // dd($store, isSuccess($store));
 
         if (isSuccess($store)) {
@@ -174,9 +174,9 @@ class RiskAssessmentFactorController extends Controller
             ];
 
             if ($request['risk_factor_info']['item_type']=='project') {
-                
+
                 $store = $this->initRPUHttp()->post(config('cag_rpu_api.update-projects'), $data)->json();
-                
+
             }
             else if ($request['risk_factor_info']['item_type']=='function') {
 
@@ -188,7 +188,7 @@ class RiskAssessmentFactorController extends Controller
                 $store = $this->initRPUHttp()->put(config('cag_rpu_api.master_units.update'), $data)->json();
 
             }
-            
+
             // dd($store);
 
             return response()->json(['status' => 'success', 'data' => $store['data']]);
