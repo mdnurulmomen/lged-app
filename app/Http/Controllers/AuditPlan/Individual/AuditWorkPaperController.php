@@ -12,10 +12,11 @@ class AuditWorkPaperController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
+//        dd();
         $auditPlans = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_plans'))->json()['data'];
-        // dd($auditPlans);
+         dd($auditPlans);
         return view('modules.audit_plan.work-papers.index', compact('auditPlans'));
     }
 
@@ -47,7 +48,7 @@ class AuditWorkPaperController extends Controller
     public function create()
     {
         // dd(1);
-        
+
         $auditPlans = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_plans'))->json();
         $auditPlans = $auditPlans ? $auditPlans['data'] : [];
 
@@ -70,22 +71,22 @@ class AuditWorkPaperController extends Controller
         ]);
 
         // dd($request->all());
-        
+
         $currentUserId = $this->current_desk()['officer_id'];
-        
-        /* 
+
+        /*
         $data = [
             'name' => 'audit_plan_id', 'contents' => $request->audit_plan_id,
             'name' => 'title_bn', 'contents' => $request->title_bn,
             'name' => 'title_en', 'contents' => $request->title_en,
             'name' => 'created_by', 'contents' => $currentUserId,
             'name' => 'updated_by', 'contents' => $currentUserId,
-            'name' => 'attachment', 
+            'name' => 'attachment',
             'contents' => is_file($request['attachment']) ? file_get_contents($request['attachment']->getRealPath()) : '',
             'filename' => is_file($request['attachment']) ? $request['attachment']->getClientOriginalName() : '',
-        ]; 
+        ];
         */
-        
+
         // dd(is_file($request['attachment']));
 
         $data = [
@@ -94,14 +95,14 @@ class AuditWorkPaperController extends Controller
             ['name' => 'title_en', 'contents' => $request->title_en],
             ['name' => 'created_by', 'contents' => $currentUserId],
             ['name' => 'updated_by', 'contents' => $currentUserId],
-            
+
             [
-                'name' => 'attachment', 
+                'name' => 'attachment',
                 'contents' => $request->hasfile('attachment') ? file_get_contents($request->file('attachment')) : '',
                 'filename' => $request->hasfile('attachment') ? $request->file('attachment')->getClientOriginalName() : '',
-            ]             
+            ]
         ];
-                    
+
         $store = $this->fileUPloadWithData(
             config('amms_bee_routes.audit_plan_work_papers_store'),
             $data,
@@ -109,7 +110,7 @@ class AuditWorkPaperController extends Controller
         );
 
         $store = json_decode($store->getBody(), true);
-            
+
         // dd($store);
 
         //    dd($create_risk_impact);

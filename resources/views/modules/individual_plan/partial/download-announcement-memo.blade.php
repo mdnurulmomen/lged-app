@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    
+
     <style>
         html {
             -ms-text-size-adjust: 100%;
@@ -109,7 +109,7 @@
                 <thead>
                     <tr>
                         <th>Subject:</th>
-                        <td>Commencement of Audit of {{ $project_name_en ?? ($function_name_en ?? $cost_center_en) }}
+                        <td>Commencement of Audit of {{ $announcementMemo['yearly_plan_info']['project_name_en'] ?? ($announcementMemo['yearly_plan_info']['function_name_en'] ?? $announcementMemo['yearly_plan_info']['cost_center_en']) }}
                         </td>
                     </tr>
                 </thead>
@@ -130,8 +130,11 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>This audit covers the period from {{ count($teams) ? $teams[0]['team_start_date'] : '--' }}
-                            till {{ count($teams) ? $teams[0]['team_end_date'] : '--' }}</td>
+                        <td>This audit covers the period from
+                            {{ count($announcementMemo['yearly_plan_info']['teams']) ? $announcementMemo['yearly_plan_info']['teams'][0]['team_start_date'] : '--' }}
+                            till
+                            {{ count($announcementMemo['yearly_plan_info']['teams']) ? $announcementMemo['yearly_plan_info']['teams'][0]['team_end_date'] : '--' }}
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -146,43 +149,43 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>This audit covers the period from till</td>
+                        <td>{{$announcementMemo['audit_plan_info']['scope']}}</td>
                     </tr>
 
-                    <tr>
-                        <td>
-                            <ul>
-                                <li>a)...</li>
-                                <li>b)...</li>
-                                <li>c)...</li>
-                            </ul>
-                        </td>
-                    </tr>
+{{--                    <tr>--}}
+{{--                        <td>--}}
+{{--                            <ul>--}}
+{{--                                <li>a)...</li>--}}
+{{--                                <li>b)...</li>--}}
+{{--                                <li>c)...</li>--}}
+{{--                            </ul>--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
                 </tbody>
             </table>
         </div>
 
         <div class="col-sm-12 form-group">
             <table class="table table-bordered">
-                @foreach ($teams as $team)
+                @foreach ($announcementMemo['yearly_plan_info']['teams'] as $team)
                     <thead>
-                        <tr>
-                            <th colspan="2">
-                                Audit Team {{ $team['team_name'] }}
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>Name</th>
-                            <th>Designation</th>
-                        </tr>
+                    <tr>
+                        <th colspan="2">
+                            Audit Team {{ $team['team_name'] }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Designation</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @foreach ($team['members'] as $member)
-                            <tr>
-                                <td>{{ $member['team_member_name_en'] }}</td>
-                                <td>{{ $member['team_member_designation_en'] }}</td>
-                            </tr>
-                        @endforeach
+                    @foreach ($team['members'] as $member)
+                        <tr>
+                            <td>{{ $member['team_member_name_en'] }}</td>
+                            <td>{{ $member['team_member_designation_en'] }}</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 @endforeach
             </table>
@@ -192,35 +195,24 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th colspan="2">
+                        <th colspan="3">
                             Audit Time Table
                         </th>
                     </tr>
                     <tr>
                         <th>Particulars</th>
-                        <th>Date</th>
+                        <th>Strat Date</th>
+                        <th>End Date</th>
                     </tr>
                 </thead>
                 <tbody>
+                @foreach($announcementMemo['audit_plan_info']['milestones'] as $milestone)
                     <tr>
-                        <td>Start of Audit</td>
-                        <td>{{ count($teams) ? $teams[0]['team_start_date'] : '--' }}</td>
+                        <td>{{$milestone['milestone_bn']}}</td>
+                        <td>{{$milestone['start_date']}}</td>
+                        <td>{{$milestone['end_date']}}</td>
                     </tr>
-
-                    <tr>
-                        <td>Close out Meeting</td>
-                        <td>--</td>
-                    </tr>
-
-                    <tr>
-                        <td>Issue of Draft Report</td>
-                        <td>--</td>
-                    </tr>
-
-                    <tr>
-                        <td>Issue of Final Report</td>
-                        <td>--</td>
-                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
@@ -228,7 +220,7 @@
         <div class="col-sm-12 form-group">
             <p>
                 We would like to see you for a kick-off meeting to discuss the focus areas of auditable activities on
-                audit commencement date i.e. [{{ count($teams) ? $teams[0]['team_start_date'] : '--' }}]. Kindly,
+                audit commencement date i.e. [{{ count($announcementMemo['yearly_plan_info']['teams']) ? $announcementMemo['yearly_plan_info']['teams'][0]['team_start_date'] : '--' }}]. Kindly,
                 commenicate the commencement of internal audit of relevant personnel.
             </p>
 

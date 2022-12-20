@@ -257,19 +257,20 @@ class IndividualPlanController extends Controller
     public function getAnnouncementMemo(Request $request)
     {
         $data = Validator::make($request->all(), [
+            'audit_plan_id' => 'required|integer',
             'yearly_plan_location_id' => 'required|integer',
             'sector_type' => 'required|string',
             'sector_id' => 'required|integer',
         ])->validate();
 
-        // dd($request);
+//         dd($data);
 
         // $sectorId = $request->sector_id;
         $sectorType = $request->sector_type;
         $yearly_plan_location_id = $request->yearly_plan_location_id;
-        $announcementMemo = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_operational_plan.get_announcement_memo')."/$request->yearly_plan_location_id")->json()['data'];
+        $announcementMemo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_announcement_memo'),$data)->json()['data'];
 
-        // dd($announcementMemo);
+//         dd($announcementMemo);
 
         return view('modules.individual_plan.partial.announcement-memo-modal', compact('announcementMemo', 'sectorType', 'yearly_plan_location_id'));
     }
@@ -277,10 +278,11 @@ class IndividualPlanController extends Controller
     public function downloadAnnouncementMemo(Request $request)
     {
         $data = Validator::make($request->all(), [
+            'audit_plan_id' => 'required|integer',
             'yearly_plan_location_id' => 'required|integer',
         ])->validate();
 
-        // dd($request);
+//         dd($data);
 
         /*
             $yearly_plan_location_id = $request->yearly_plan_location_id;
@@ -290,9 +292,9 @@ class IndividualPlanController extends Controller
         // dd($announcementMemo);
         // dd(env('BEE_URL', 'http://localhost:8001') . $announcementMemo['data']);
 
-        $announcementMemo = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_operational_plan.get_announcement_memo')."/$request->yearly_plan_location_id")->json()['data'];
-        // dd($announcementMemo);
-        $pdf = Pdf::loadView('modules.individual_plan.partial.download-announcement-memo', $announcementMemo);
+        $announcementMemo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_announcement_memo'),$data)->json()['data'];
+//         dd($announcementMemo);
+        $pdf = Pdf::loadView('modules.individual_plan.partial.download-announcement-memo', ['announcementMemo' => $announcementMemo]);
         // dd($pdf->stream('document.pdf'));
 
         return $pdf->stream();
