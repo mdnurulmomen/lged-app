@@ -81,11 +81,6 @@
                     </div> -->
 
                     <!-- <div class="card sna-card-border mt-2">
-                        <label class="col-form-label">File Upload</label>
-                        <input name="memos[]" type="file" class="mFilerInit form-control rounded-0" multiple>
-                    </div> -->
-
-                    <!-- <div class="card sna-card-border mt-2">
                         <div class="col-md-12">
                             <input type="radio" class="mr-1" id="agree" name="agree_type" value="agree"><span
                                 class="mr-3" checked>Agree</span>
@@ -104,7 +99,8 @@
                 <div class="col-md-6">
                     <div class="card sna-card-border">
                         <div class="appendQuery">
-                            <label for="causes">Causes</label>
+                            <label for="causes">Causes<span
+                                        class="text-danger">*</span></label>
                             <div class="form-row">
                                 <div class="col-md-11">
                                     <textarea placeholder="Cause" class="form-control" type="text"
@@ -124,17 +120,16 @@
                     <div class="card sna-card-border mt-2">
                         <div class="row mb-2">
                             <div class="col-md-12">
-
-                                <label class="col-form-label">Instances<span class="text-danger">*</span></label>
+                                <!-- <label class="col-form-label">Instances<span class="text-danger">*</span></label>
                                 <textarea class="form-control mb-1" name="instances" placeholder="Instances" cols="20"
-                                    rows="1"></textarea>
+                                    rows="1"></textarea> -->
 
-                                <!-- <label class="col-form-label">Residual Risk Rating<span
+                                <label class="col-form-label">Residual Risk Rating<span
                                         class="text-danger">*</span></label>
                                 <textarea class="form-control mb-1" name="residual_risk_rating"
                                     placeholder="Residual Risk Rating" cols="20" rows="1"></textarea>
 
-                                <label class="col-form-label">Recommended Control<span
+                                <!-- <label class="col-form-label">Recommended Control<span
                                         class="text-danger">*</span></label>
                                 <textarea class="form-control mb-1" name="recommended_control"
                                     placeholder="Recommended Control" cols="20" rows="1"></textarea>
@@ -144,9 +139,9 @@
                                 <textarea class="form-control mb-1" name="agreed_action_plan"
                                     placeholder="Agreed Action Plan" cols="20" rows="1"></textarea> -->
 
-                                <label class="col-form-label">Types of Action<span class="text-danger">*</span></label>
+                                <!-- <label class="col-form-label">Types of Action<span class="text-danger">*</span></label>
                                 <textarea class="form-control mb-1" name="action_type" placeholder="Types of Action"
-                                    cols="20" rows="1"></textarea>
+                                    cols="20" rows="1"></textarea> -->
 
                                 <!-- <label class="col-form-label">Any challenge to implement the action<span
                                         class="text-danger">*</span></label>
@@ -158,7 +153,7 @@
                                 <textarea class="form-control mb-1" name="responsible_person"
                                     placeholder="Responsible Person's Name" cols="20" rows="1"></textarea> -->
 
-                                <label class="col-form-label">Date to be implemented<span
+                                <!-- <label class="col-form-label">Date to be implemented<span
                                         class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text"><i
@@ -166,9 +161,13 @@
                                                 aria-hidden="true"></i></span></div>
                                     <input type="text" id="date_to_be_implemented" name="date_to_be_implemented"
                                         class="date form-control">
-                                </div>
+                                </div> -->
                             </div>
                         </div>
+                    </div>
+                    <div class="card sna-card-border mt-2">
+                        <label class="col-form-label">File Upload</label>
+                        <input name="findings[]" type="file" class="mFilerInit form-control rounded-0" multiple>
                     </div>
                 </div>
                 <!-- <div class="tab-pane fade border border-top-0 p-3" id="porisisto_tab"

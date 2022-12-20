@@ -29,16 +29,6 @@
                                         <span class="description text-wrap font-size-14">{{$memo['criteria']}}</span>
                                     </div>
 
-                                    <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Instances')}} : </span>
-                                        <span class="description text-info text-wrap font-size-14">{{$memo['instances']}}</span>
-                                    </div>
-
-                                    <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Date To Be Implemented')}} : </span>
-                                        <span class="description text-wrap font-size-14">{{$memo['date_to_be_implemented']}}</span>
-                                    </div>
-
                                     <!-- @if($memo['irregularity_cause'])
                                         <div class="font-weight-normal">
                                             <span class="mr-2 font-size-1-1">{{___('generic.list_views.conducting.memo.irregularity_cause')}}:</span>

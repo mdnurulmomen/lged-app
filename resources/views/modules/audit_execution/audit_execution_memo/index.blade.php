@@ -36,7 +36,7 @@
                        onclick="Memo_List_Container.createMemo($(this))"
                        title="Create Memo"
                        href="javascript:;">
-                        <i class="fa fa-plus mr-1"></i> Create Memo
+                        <i class="fa fa-plus mr-1"></i> Create Findings
                     </a>
                 </div>
             </div>

@@ -138,9 +138,7 @@ class AuditExecutionMemoController extends Controller
                 'criteria' => 'required',
                 'condition' => 'required',
                 'cause' => 'required',
-                'instances' => 'required',  
-                'action_type' => 'required',
-                'date_to_be_implemented' => 'required',
+                'residual_risk_rating' => 'required',
             ],
             [
                 'audit_observation.required' => 'Audit Observation is required',
@@ -148,9 +146,7 @@ class AuditExecutionMemoController extends Controller
                 'criteria.required' => 'Criteria is required',
                 'condition.required' => 'Condition is required',
                 'cause.required' => 'Cause is required',
-                'instances.required' => 'Instances is required',
-                'action_type.required' => 'Action Type is required',
-                'date_to_be_implemented.required' => 'Date To Be Implemented is required',
+                'residual_risk_rating' => 'required',
             ]
         )->validate();
 
@@ -168,10 +164,8 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'audit_plan_id', 'contents' => $request->audit_plan_id],
             ['name' => 'audit_year_start', 'contents' => $request->audit_year_start],
             ['name' => 'audit_year_end', 'contents' => $request->audit_year_end],
+            ['name' => 'residual_risk_rating', 'contents' => $request->residual_risk_rating],
 
-            ['name' => 'instances', 'contents' => $request->instances],
-            ['name' => 'action_type', 'contents' => $request->action_type],
-            ['name' => 'date_to_be_implemented', 'contents' => $request->date_to_be_implemented],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
         
@@ -209,19 +203,17 @@ class AuditExecutionMemoController extends Controller
         // }
 
 
-        //for memos
-        if ($request->hasfile('memos')) {
-            foreach ($request->file('memos') as $file){
+        //for findings
+        if ($request->hasfile('findings')) {
+            foreach ($request->file('findings') as $file){
                 $data[] = [
-                    'name'     => 'memos[]',
+                    'name'     => 'findings[]',
                     'contents' => file_get_contents($file->getRealPath()),
                     'filename' => $file->getClientOriginalName(),
                 ];
             }
         }
         
-
-
         $response = $this->fileUPloadWithData(
             config('amms_bee_routes.audit_conduct_query.memo.store'),
             $data
@@ -322,8 +314,10 @@ class AuditExecutionMemoController extends Controller
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
         $memo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.info'), $data)->json();
+        // dd($memo);
         
         $schedule_id = $request->schedule_id;
+        $memo_id = $request->memo_id;
         $team_id = $request->team_id;
         $audit_plan_id = $request->audit_plan_id;
         $cost_center_id = $request->cost_center_id;
@@ -336,19 +330,21 @@ class AuditExecutionMemoController extends Controller
 
         if (isSuccess($memo)) {
             $memoInfo = $memo['data'];
-            $audit_observation = $memoInfo['memo']['audit_observation'];
-            $heading = $memoInfo['memo']['heading'];
-            $criteria = $memoInfo['memo']['criteria'];
-            $condition = $memoInfo['memo']['condition'];
-            $causes = json_decode($memoInfo['memo']['cause']);
-            $instances = $memoInfo['memo']['instances'];
-            $action_type = $memoInfo['memo']['action_type'];
-            $date_to_be_implemented = $memoInfo['memo']['date_to_be_implemented'];
+            $audit_observation = $memoInfo['findings']['audit_observation'];
+            $heading = $memoInfo['findings']['heading'];
+            $criteria = $memoInfo['findings']['criteria'];
+            $condition = $memoInfo['findings']['condition'];
+            $condition = $memoInfo['findings']['residual_risk_rating'];
+            $causes = json_decode($memoInfo['findings']['cause']);
+            $residual_risk_rating = $memoInfo['findings']['residual_risk_rating'];
+            $attachment_list = $memoInfo['findings']['ac_memo_attachments'];
+            // dd($attachment_list);
             return view(
                 'modules.audit_execution.audit_execution_memo.edit',
                 compact(
                     'memoInfo',
                     'schedule_id',
+                    'memo_id',
                     'team_id',
                     'audit_plan_id',
                     'cost_center_id',
@@ -363,9 +359,8 @@ class AuditExecutionMemoController extends Controller
                     'criteria',
                     'condition',
                     'causes',
-                    'instances',
-                    'action_type',
-                    'date_to_be_implemented',
+                    'residual_risk_rating',
+                    'attachment_list'
                 )
             );
         } else {
@@ -430,61 +425,58 @@ class AuditExecutionMemoController extends Controller
      */
     public function update(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         Validator::make(
             $request->all(),
             [
                 'memo_id' => 'required',
-                'memo_title_bn' => 'required',
-                'memo_description_bn' => 'required',
-                'jorito_ortho_poriman' => 'required',
-                'audit_year_start' => 'required',
-                'audit_year_end' => 'required',
-                'finder_officer_id' => 'required',
+                'recommendation' => 'required',
+                'recommended_control' => 'required',
+                'agreed_action_plan' => 'required',
+                'challenges' => 'required',
+                'responsible_person' => 'required',
+                'instances' => 'required',
+                'action_type' => 'required',
             ],
             [
                 'memo_id.required' => 'Memo id is required',
-                'memo_title_bn.required' => 'Memo title is required',
-                'memo_description_bn.required' => 'Memo description is required',
-                'jorito_ortho_poriman.required' => 'Jorito ortho is required',
-                'audit_year_start.required' => 'Audit year start is required',
-                'audit_year_end.required' => 'Audit year end is required',
-                'finder_officer_id.required' => 'Raised by is required',
+                'recommendation.required' => 'Recommendation is required',
+                'recommended_control.required' => 'Recommended Control id is required',
+                'agreed_action_plan.required' => 'Agreed Action Plan is required',
+                'challenges.required' => 'Challanges is required',
+                'responsible_person.required' => 'Responsible Person is required',
+                'instances.required' => 'Instances id is required',
+                'action_type.required' => 'Action Type id is required',
             ]
         )->validate();
 
         $data = [
             ['name' => 'memo_id', 'contents' => $request->memo_id],
-            ['name' => 'memo_title_bn', 'contents' => $request->memo_title_bn],
-            ['name' => 'memo_description_bn', 'contents' => $request->memo_description_bn],
-            ['name' => 'irregularity_cause', 'contents' => $request->irregularity_cause],
-            ['name' => 'response_of_rpu', 'contents' => $request->response_of_rpu],
-            ['name' => 'jorito_ortho_poriman', 'contents' => $request->jorito_ortho_poriman],
-            ['name' => 'audit_year_start', 'contents' => $request->audit_year_start],
-            ['name' => 'audit_year_end', 'contents' => $request->audit_year_end],
-            ['name' => 'memo_irregularity_type', 'contents' => $request->memo_irregularity_type],
-            ['name' => 'memo_irregularity_sub_type', 'contents' => $request->memo_irregularity_sub_type],
+            ['name' => 'recommendation', 'contents' => $request->recommendation],
+            ['name' => 'agree_type', 'contents' => $request->agree_type],
+            ['name' => 'agree_in_part', 'contents' => $request->agree_in_part],
+            ['name' => 'instances', 'contents' => $request->instances],
+            ['name' => 'action_type', 'contents' => $request->action_type],
+            ['name' => 'recommended_control', 'contents' => $request->recommended_control],
+            ['name' => 'agreed_action_plan', 'contents' => $request->agreed_action_plan],
+            ['name' => 'challenges', 'contents' => $request->challenges],
+            ['name' => 'responsible_person', 'contents' => $request->responsible_person],
             ['name' => 'memo_type', 'contents' => 0],
             ['name' => 'memo_status', 'contents' => 0],
-            ['name' => 'finder_officer_id', 'contents' => $request->finder_officer_id],
-            ['name' => 'finder_office_id', 'contents' => $request->finder_office_id],
-            ['name' => 'finder_details', 'contents' => $request->finder_details],
-            ['name' => 'team_leader_name', 'contents' => $request->team_leader_name],
-            ['name' => 'team_leader_designation', 'contents' => $request->team_leader_designation],
-            ['name' => 'sub_team_leader_name', 'contents' => $request->sub_team_leader_name],
-            ['name' => 'sub_team_leader_designation', 'contents' => $request->sub_team_leader_designation],
-            ['name' => 'issued_by', 'contents' => $request->issued_by],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
+        // dd($data);
 
-        if (isset($request->porisisto_details)){
-            foreach ($request->porisisto_details as $porisisto) {
-                $data[] = [
-                    'name' => 'porisisto_details[]',
-                    'contents' => $porisisto,
-                ];
-            }
-        }
+        //for findings
+        // if ($request->hasfile('findings')) {
+        //     foreach ($request->file('findings') as $file){
+        //         $data[] = [
+        //             'name'     => 'findings[]',
+        //             'contents' => file_get_contents($file->getRealPath()),
+        //             'filename' => $file->getClientOriginalName(),
+        //         ];
+        //     }
+        // }
 
 
         //for porisishtos
@@ -500,15 +492,15 @@ class AuditExecutionMemoController extends Controller
 
 
         //for pramanoks
-        if ($request->hasfile('pramanoks')) {
-            foreach ($request->file('pramanoks') as $file) {
-                $data[] = [
-                    'name' => 'pramanoks[]',
-                    'contents' => file_get_contents($file->getRealPath()),
-                    'filename' => $file->getClientOriginalName(),
-                ];
-            }
-        }
+        // if ($request->hasfile('pramanoks')) {
+        //     foreach ($request->file('pramanoks') as $file) {
+        //         $data[] = [
+        //             'name' => 'pramanoks[]',
+        //             'contents' => file_get_contents($file->getRealPath()),
+        //             'filename' => $file->getClientOriginalName(),
+        //         ];
+        //     }
+        // }
 
 
         $response = $this->fileUPloadWithData(
@@ -516,6 +508,7 @@ class AuditExecutionMemoController extends Controller
             $data,
             'POST',
         );
+        // dd(json_decode($response->getBody(), true));
 
         return json_decode($response->getBody(), true);
     }
@@ -611,7 +604,7 @@ class AuditExecutionMemoController extends Controller
         $memoInfoDetails = isSuccess($responseData) ? $responseData['data'] : [];
         // dd($memoInfoDetails);
 
-        $renderFile = $request->scope == 'memo'?'memo_book':'porisitho_book';
+        $renderFile = $request->scope == 'findings'?'memo_book':'porisitho_book';
         //dd($memoInfo['ac_memo_porisishtos']);
         $pdf = \PDF::loadView(
             'modules.audit_execution.audit_execution_memo.partials.'.$renderFile,

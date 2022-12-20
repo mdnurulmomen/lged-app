@@ -865,26 +865,30 @@
             </table>
 
             <table class="table table-bordered" style="border: 1px solid black;">
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Agree :</td>
-                    <td> 
-                        @if ($memoInfoDetails['agree_type'] == 'agree')
-                            <i class="fa fa-check-circle" style="font-size:4.5vh;color:green"></i>
-                        @endif 
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Disagree :</td>
-                    <td>
-                        @if ($memoInfoDetails['agree_type'] == 'disagree')
-                            <i class="fa fa-check-circle" style="font-size:4.5vh;color:red"></i>
-                        @endif
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Agree In Part :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['agree_in_part']}}</td>
-                </tr>
+                    @if ($memoInfoDetails['agree_type'] == 'agree')
+                    <tr>
+                        <td class="tdd" style="background:#ace8ff; padding: 10px;">Agree :</td>
+                        <td> 
+                            <h6>Yes</h6>
+                        </td>
+                    </tr>
+                @endif 
+                
+                @if ($memoInfoDetails['agree_type'] == 'disagree')
+                    <tr>
+                        <td class="tdd" style="background:#ace8ff; padding: 10px;">Disagree :</td>
+                        <td>
+                            <h6>Yes</h6>
+                        </td>
+                    </tr>
+                @endif
+
+                @if ($memoInfoDetails['agree_type'] == 'on')
+                    <tr>
+                        <td class="tdd" style="background:#ace8ff; padding: 10px;">Agree In Part :</td>
+                        <td style="padding: 10px;">{{$memoInfoDetails['agree_in_part']}}</td>
+                    </tr>
+                @endif
             </table>
 
             <table class="table table-bordered" style="border: 1px solid black;">

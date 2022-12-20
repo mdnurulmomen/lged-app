@@ -54,22 +54,23 @@
             </ul> -->
 
             <input type="hidden" value="{{$schedule_id}}" name="schedule_id">
+            <input type="hidden" value="{{$memo_id}}" name="memo_id">
             <div class="row mt-2">
                 <div class="col-md-6">
                     <div class="card sna-card-border">
-                        <label class="col-form-label">Audit Observation<span class="text-danger">*</span></label>
+                        <label class="col-form-label">Audit Observation</label>
                         <textarea class="form-control mb-1" name="audit_observation" placeholder="Audit Observation"
                             cols="20" rows="1" disabled>{{$audit_observation}}</textarea>
 
-                        <label class="col-form-label">Heading<span class="text-danger">*</span></label>
+                        <label class="col-form-label">Heading</label>
                         <textarea class="form-control mb-1" name="heading" placeholder="Heading" cols="20"
                             rows="1" disabled>{{$heading}}</textarea>
 
-                        <label class="col-form-label">Criteria<span class="text-danger">*</span></label>
+                        <label class="col-form-label">Criteria</label>
                         <textarea class="form-control mb-1" name="criteria" placeholder="Criteria" cols="20"
                             rows="1" disabled>{{$heading}}</textarea>
 
-                        <label class="col-form-label">Condition<span class="text-danger">*</span></label>
+                        <label class="col-form-label">Condition</label>
                         <textarea class="form-control mb-1" name="condition" placeholder="Condition" cols="20"
                             rows="1" disabled>{{$condition}}</textarea>
 
@@ -98,15 +99,45 @@
                             rows="1"></textarea>
                     </div>
 
+                    @if (!empty($attachment_list))
                     <div class="card sna-card-border mt-2">
-                        <label class="col-form-label">File Upload</label>
-                        <input name="memos[]" type="file" class="mFilerInit form-control rounded-0" multiple>
+                        <div style="font-family:SolaimanLipi,serif !important;margin-top: 10px">
+                            <label for="files">Files</label>
+                            <div class="attachment_list_items mt-2">
+                                <ul class="list-group">
+                                    @foreach($attachment_list as $attachment)
+                                        @if($attachment['file_extension'] == 'pdf')
+                                            @php $fileIcon = 'fa-file-pdf'; @endphp
+                                        @elseif($attachment['file_extension']  == 'excel')
+                                            @php $fileIcon = 'fa-file-excel'; @endphp
+                                        @elseif($attachment['file_extension']  == 'docx')
+                                            @php $fileIcon = 'fa-file-word'; @endphp
+                                        @else
+                                            @php $fileIcon = 'fa-file-image'; @endphp
+                                        @endif
+
+                                        <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2 rounded-0 border-left-0 border-right-0">
+                                            <div class="position-relative w-100 d-flex align-items-start">
+                                                <a title="" href="{{config('amms_bee_routes.file_url').$attachment['file_path'].$attachment['file_custom_name']}}" download class="d-inline-block text-dark‌‌">
+                                                    <span class="viewer_trigger d-flex align-items-start">
+                                                        <i class="text-warning fas {{$fileIcon}} fa-lg px-3"></i>
+                                                        <span class="ml-2 d-flex align-items-start">{{$attachment['file_user_define_name']}}</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
                     </div>
+                    @endif
+                    
 
                     <div class="card sna-card-border mt-2">
                         <div class="col-md-12">
-                            <input type="radio" class="mr-1" id="agree" name="agree_type" value="agree"><span
-                                class="mr-3" checked>Agree</span>
+                            <input type="radio" class="mr-1" id="agree" name="agree_type" value="agree" checked><span
+                                class="mr-3">Agree</span>
                             <input type="radio" class="mr-1" id="disagree" name="agree_type" value="disagree"><span
                                 class="mr-3">Disagree</span>
                             <input type="radio" class="mr-1" id="agree_in_part" name="agree_type"><span
@@ -126,12 +157,11 @@
 
                                 <label class="col-form-label">Instances<span class="text-danger">*</span></label>
                                 <textarea class="form-control mb-1" name="instances" placeholder="Instances" cols="20"
-                                    rows="1" disabled>{{$instances}}</textarea>
+                                    rows="1"></textarea>
 
-                                <label class="col-form-label">Residual Risk Rating<span
-                                        class="text-danger">*</span></label>
+                                <label class="col-form-label">Residual Risk Rating</label>
                                 <textarea class="form-control mb-1" name="residual_risk_rating"
-                                    placeholder="Residual Risk Rating" cols="20" rows="1"></textarea>
+                                    placeholder="Residual Risk Rating" cols="20" rows="1" disabled>{{$residual_risk_rating}}</textarea>
 
                                 <label class="col-form-label">Recommended Control<span
                                         class="text-danger">*</span></label>
@@ -145,7 +175,7 @@
 
                                 <label class="col-form-label">Types of Action<span class="text-danger">*</span></label>
                                 <textarea class="form-control mb-1" name="action_type" placeholder="Types of Action"
-                                    cols="20" rows="1" disabled>{{$action_type}}</textarea>
+                                    cols="20" rows="1"></textarea>
 
                                 <label class="col-form-label">Any challenge to implement the action<span
                                         class="text-danger">*</span></label>
@@ -157,8 +187,15 @@
                                 <textarea class="form-control mb-1" name="responsible_person"
                                     placeholder="Responsible Person's Name" cols="20" rows="1"></textarea>
 
-                                <label class="col-form-label">Date to be implemented</label>
-                                <input class="form-control mb-1" value="{{$date_to_be_implemented}}" cols="20" rows="1" disabled/>
+                                <label class="col-form-label">Date to be implemented<span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i
+                                                style="color:#3699FF !important" class="fa fa-calendar"
+                                                aria-hidden="true"></i></span></div>
+                                    <input type="text" id="date_to_be_implemented" name="date_to_be_implemented"
+                                        class="date form-control">
+                                </div>
                             </div>
                         </div>
                     </div>
