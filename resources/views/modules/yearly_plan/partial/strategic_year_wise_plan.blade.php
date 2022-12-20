@@ -2,14 +2,14 @@
     <div class="row">
         <div class="col-12">
             <label>Project :</label>
-            <table id="project_table_{{$data['strategic_plan_year']}}" class="table table-striped">
+            <table style="table-layout: fixed" id="project_table_{{$data['strategic_plan_year']}}" class="table table-bordered">
                 <thead class="thead-light">
                 <tr>
-                    <th width="20%">Project</th>
-                    <th width="20%">Location</th>
+                    <th width="25%">Project</th>
+                    <th width="25%">Location</th>
                     <th width="10%">Location No</th>
                     <th width="30%">Comment</th>
-                    <th width="15%">Action</th>
+                    <th width="10%">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -27,12 +27,16 @@
                     </td>
                     <td>
                         <select id="location_{{$projects['strategic_plan_year']}}_{{$loop->iteration}}" class="form-control location_id_{{$projects['strategic_plan_year']}} select-select2">
+                            @if($projects['cost_center_id'])
                             <option selected data-parent-office-id="{{$projects['cost_center_id']}}"
                                     data-parent-office-name-en="{{$projects['parent_office_id']}}"
                                     data-parent-office-name-bn="{{$projects['parent_office_bn']}}"
                                     data-office-name-en="{{$projects['cost_center_en']}}"
                                     data-office-name-bn="{{$projects['cost_center_bn']}}"
                                     value="{{$projects['cost_center_id']}}">{{$projects['cost_center_bn']}}</option>
+                            @else
+                                <option value="" selected> Select Cost Center </option>
+                            @endif
                         </select>
                     </td>
                     <td>
@@ -51,7 +55,7 @@
 
                             <button type='button' title="বাদ দিন"
                                     data-row='row1'
-                                    onclick="Plan_Common_Container.removeLocationRow('{{$projects['strategic_plan_year']}}','project')"
+                                    onclick="Plan_Common_Container.removeLocationRow($(this))"
                                     class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                                 <span class='fal fa-trash-alt'></span>
                             </button>
@@ -66,14 +70,14 @@
     <div class="row">
         <div class="col-12">
             <label>Function :</label>
-            <table id="function_table_{{$data['strategic_plan_year']}}" class="table table-striped">
+            <table style="table-layout: fixed" id="function_table_{{$data['strategic_plan_year']}}" class="table table-bordered">
                 <thead class="thead-light">
                 <tr>
-                    <th width="20%">Function</th>
-                    <th width="20%">Location</th>
+                    <th width="25%">Function</th>
+                    <th width="25%">Location</th>
                     <th width="10%">Location No</th>
                     <th width="30%">Comment</th>
-                    <th width="15%">Action</th>
+                    <th width="10%">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -91,12 +95,17 @@
                         </td>
                         <td>
                             <select id="location_{{$functions['strategic_plan_year']}}_{{$loop->iteration}}" class="form-control location_id_{{$functions['strategic_plan_year']}} select-select2">
+
+                                @if($functions['cost_center_id'])
                                 <option selected data-parent-office-id="{{$functions['cost_center_id']}}"
                                         data-parent-office-name-en="{{$functions['parent_office_id']}}"
                                         data-parent-office-name-bn="{{$functions['parent_office_bn']}}"
                                         data-office-name-en="{{$functions['cost_center_en']}}"
                                         data-office-name-bn="{{$functions['cost_center_bn']}}"
                                         value="{{$functions['cost_center_id']}}">{{$functions['cost_center_bn']}}</option>
+                                @else
+                                    <option value="" selected>Select Cost Center</option>
+                                @endif
                             </select>
                         </td>
                         <td>
@@ -115,7 +124,7 @@
 
                                 <button type='button' title="বাদ দিন"
                                         data-row='row1'
-                                        onclick="Plan_Common_Container.removeLocationRow('{{$projects['strategic_plan_year']}}','function')"
+                                        onclick="Plan_Common_Container.removeLocationRow($(this))"
                                         class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                                     <span class='fal fa-trash-alt'></span>
                                 </button>
@@ -128,3 +137,6 @@
         </div>
     </div>
 </div>
+<script>
+    $('.select-select2').select2({width: '100%'});
+</script>

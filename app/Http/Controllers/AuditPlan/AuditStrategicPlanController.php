@@ -43,12 +43,12 @@ class AuditStrategicPlanController extends Controller
             // 'strategic_plan_id' => 'required|integer',
             'strategic_plan_year' => 'required',
         ])->validate();
-        
+
         // dd($request);
-        
+
         // $strategic_plan_id = $request->strategic_plan_id;
         $strategic_plan_year = $request->strategic_plan_year;
-        
+
         $plan_year = explode(' - ',$strategic_plan_year);
         $start = $plan_year[0];
         $end = $plan_year[1];
@@ -63,11 +63,11 @@ class AuditStrategicPlanController extends Controller
 
         // $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.functions.list'), [])->json();
         // $all_function = $all_function ? $all_function['data'] : [];
-        
+
         return view('modules.strategic_plan.partial.show_strategic_year_wise_plan',
             compact('start','end', 'strategic_plan_list'));
     }
-    
+
     public function getYearWiseStrategicPlan(Request $request){
         $strategic_plan_year = $request->strategic_plan_year;
 
@@ -103,6 +103,7 @@ class AuditStrategicPlanController extends Controller
 
         $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.functions.list'), [])->json();
         $all_function = $all_function ? $all_function['data'] : [];
+
         return view('modules.strategic_plan.partial.add_location_row',
             compact( 'all_project','all_function','strategic_year','row_type','row_count'));
     }

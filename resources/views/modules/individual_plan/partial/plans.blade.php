@@ -1,11 +1,11 @@
  <div class="row">
-        <div class="col-12">
+     <div class="col-12">
             <label>Project :</label>
-            <table id="project_table" class="table table-striped">
+            <table id="project_table" class="table table-bordered">
                 <thead class="thead-light">
                     <tr>
-                        <th width="20%">Project</th>
-                        <th width="15%">Action</th>
+                        <th width="60%">Project</th>
+                        <th width="40%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,15 +66,15 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="row">
+ </div>
+<div class="row">
         <div class="col-12">
             <label>Function :</label>
-            <table id="function_table" class="table table-striped">
+            <table id="function_table" class="table table-bordered">
                 <thead class="thead-light">
                 <tr>
-                    <th width="20%">Function</th>
-                    <th width="15%">Action</th>
+                    <th width="60%">Function</th>
+                    <th width="40%">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -118,7 +118,7 @@
             </table>
         </div>
     </div>
-    <div class="row">
+<div class="row" style="display: none">
         <div class="col-12">
             <label>Cost Center :</label>
             <table id="project_table" class="table table-striped">

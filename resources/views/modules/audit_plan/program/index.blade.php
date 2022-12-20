@@ -12,20 +12,20 @@
 
             @if($data['project_id'])
                 <div class="project_div">
-                    <select class="form-control select-select2" name="project_id" id="project_id" onchange="Risk_Assessment_Item_Container.laodSectorAreas('project', this.value)">
+                    <select class="form-control select-select2" name="project_id" id="project_id" onchange="Audit_Program_Container.laodSectorAreas('project', this.value)">
                         <option selected value="{{$data['project_id']}}">{{$data['project_name_en']}}</option>
                     </select>
                 </div>
             @endif
 
             <div class="function_div" style="display: none">
-                <select class="form-control select-select2" name="function_id" id="function_id" onchange="Risk_Assessment_Item_Container.laodSectorAreas('function', this.value)">
+                <select class="form-control select-select2" name="function_id" id="function_id" onchange="Audit_Program_Container.laodSectorAreas('function', this.value)">
                     <option selected>Select Function</option>
                 </select>
             </div>
 
             <div class="unit_div" style="display: none">
-                <select class="form-control select-select2" name="unit_master_id" id="unit_master_id" onchange="Risk_Assessment_Item_Container.laodSectorAreas('master-unit', this.value)">
+                <select class="form-control select-select2" name="unit_master_id" id="unit_master_id" onchange="Audit_Program_Container.laodSectorAreas('master-unit', this.value)">
                     <option selected>Select Unit</option>
                 </select>
             </div>
@@ -33,7 +33,7 @@
 
         <div class="col-md-3">
             <div class="area_div">
-                <select class="form-control select-select2" name="sector_area" id="sector_area" onchange="Risk_Assessment_Item_Container.laodAreaPrograms(this.value)">
+                <select class="form-control select-select2" name="sector_area" id="sector_area" onchange="Audit_Program_Container.laodAreaPrograms(this.value)">
                     <option selected>Select Area</option>
                 </select>
             </div>
@@ -42,7 +42,7 @@
         <div class="col-md-1">
             <button class="btn btn-sm btn-info btn-square mr-1"
                     title="Download"
-                    onclick='Risk_Assessment_Item_Container.export($(this))'
+                    onclick='Audit_Program_Container.export($(this))'
             >
                 <i class="fad fa-download"></i>
             </button>
@@ -51,8 +51,8 @@
         <div class="col-md-2 text-right">
             <button class="btn btn-sm btn-info btn-square mr-1"
                     title="বিস্তারিত দেখুন"
-                    onclick='loadPage($(this))'
-                    data-url="{{route('audit.plan.programs.create')}}"
+                    data-audit-plan-id="{{$data['audit_plan_id']}}"
+                    onclick='Audit_Program_Container.createAreaPrograms($(this))'
             >
                 <i class="fad fa-plus"></i> Create Program
             </button>
@@ -92,11 +92,11 @@
     $(function(){
        let project_id = '{{$data['project_id']}}';
        if(project_id){
-           Risk_Assessment_Item_Container.laodSectorAreas('project',project_id);
+           Audit_Program_Container.laodSectorAreas('project',project_id);
        }
     });
 
-    var Risk_Assessment_Item_Container = {
+    var Audit_Program_Container = {
         laodSectorAreas: function (sector_type, sector_id) {
             // loaderStart('loading...');
 
@@ -126,6 +126,28 @@
                     toastr.error(response.data);
                 } else {
                     $('.content-risk-assessments').html(response);
+                }
+            });
+        },
+
+        createAreaPrograms: function (elem) {
+            loaderStart('loading...');
+            audit_area_id = $('#sector_area').val();
+            audit_plan_id = '{{$data['audit_plan_id']}}';
+            yearly_plan_location_id = '{{$data['yearly_plan_location_id']}}';
+            project_id = '{{$data['project_id']}}';
+            project_name_en = '{{$data['project_name_en']}}';
+
+            let url = "{{route('audit.plan.programs.create')}}";
+
+            let data = {audit_area_id,audit_plan_id,yearly_plan_location_id,project_id,project_name_en};
+
+            ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
+                loaderStop();
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $('#kt_content').html(response);
                 }
             });
         },

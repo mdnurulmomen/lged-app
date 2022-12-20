@@ -101,21 +101,21 @@
                     });
 
                     $(this).find('.location_id_'+i).each(function () {
-                        item['cost_center_id'] = $(this).val();
-                        item['cost_center_bn'] = $(this).find(':selected').attr('data-office-name-bn');
-                        item['cost_center_en'] = $(this).find(':selected').attr('data-office-name-en');
-                        item['parent_office_id'] = $(this).find(':selected').attr('data-parent-office-id');
-                        item['parent_office_en'] = $(this).find(':selected').attr('data-parent-office-name-en');
-                        item['parent_office_bn'] = $(this).find(':selected').attr('data-parent-office-name-bn');
+                        item['cost_center_id'] = $(this).val() ? $(this).val() : null;
+                        item['cost_center_bn'] = $(this).find(':selected').attr('data-office-name-bn') ? $(this).find(':selected').attr('data-office-name-bn') : null;
+                        item['cost_center_en'] = $(this).find(':selected').attr('data-office-name-en') ? $(this).find(':selected').attr('data-office-name-bn') : null;
+                        item['parent_office_id'] = $(this).find(':selected').attr('data-parent-office-id') ? $(this).find(':selected').attr('data-parent-office-id') : null;
+                        item['parent_office_en'] = $(this).find(':selected').attr('data-parent-office-name-en') ? $(this).find(':selected').attr('data-parent-office-name-en') : null;
+                        item['parent_office_bn'] = $(this).find(':selected').attr('data-parent-office-name-bn') ? $(this).find(':selected').attr('data-parent-office-name-bn')  : null;
                     });
 
                     $(this).find('.location_no_'+i).each(function () {
-                        location_no = $(this).val();
+                        location_no = $(this).val() ? $(this).val() : 0;
                         item['location_no'] = location_no
                     });
 
                     $(this).find('.comment_'+i).each(function () {
-                        comment = $(this).val();
+                        comment = $(this).val() ? $(this).val() : null;
                         item['comment'] = comment
                     });
 

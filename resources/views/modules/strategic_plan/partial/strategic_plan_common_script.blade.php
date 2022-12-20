@@ -15,8 +15,8 @@
             });
         },
 
-        removeLocationRow: function (strategic_year) {
-            $('#project_table_'+strategic_year).parent().remove();
+        removeLocationRow: function (element) {
+            element.closest("tr").remove();
         },
 
         loadCostCenterProjectMap: function (project_id,row_no,strategic_year) {

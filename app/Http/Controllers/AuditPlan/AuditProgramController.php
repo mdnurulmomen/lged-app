@@ -68,24 +68,36 @@ class AuditProgramController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
-            'all' => 1
-        ])->json();
-        $allProjects = $allProjects ? $allProjects['data'] : [];
+        $data =  $request->validate([
+            'audit_area_id' => 'nullable|integer',
+            'project_id' => 'nullable|integer',
+            'project_name_en' => 'nullable|string',
+            'audit_plan_id' => 'required|integer',
+            'yearly_plan_id' => 'nullable|integer',
+            'yearly_plan_location_id' => 'required|integer',
+            'plan_year' => 'nullable|integer',
+        ]);
 
-        $allFunctions = $this->initHttpWithToken()->post(config('cag_rpu_api.functions.list'), [
-            'all' => 1
-        ])->json();
-        $allFunctions = $allFunctions ? $allFunctions['data'] : [];
+//        dd($data);
 
-        $allMasterUnits = $this->initHttpWithToken()->post(config('cag_rpu_api.master_units.list'), [
-            'all' => 1
-        ])->json();
-        $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
+//        $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
+//            'all' => 1
+//        ])->json();
+//        $allProjects = $allProjects ? $allProjects['data'] : [];
+//
+//        $allFunctions = $this->initHttpWithToken()->post(config('cag_rpu_api.functions.list'), [
+//            'all' => 1
+//        ])->json();
+//        $allFunctions = $allFunctions ? $allFunctions['data'] : [];
+//
+//        $allMasterUnits = $this->initHttpWithToken()->post(config('cag_rpu_api.master_units.list'), [
+//            'all' => 1
+//        ])->json();
+//        $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
 
-        return view('modules.audit_plan.program.partials.create', compact(['allProjects', 'allFunctions', 'allMasterUnits']));
+        return view('modules.audit_plan.program.partials.create', compact('data'));
     }
 
     /**

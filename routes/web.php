@@ -225,6 +225,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/programs/area-list', [AuditProgramController::class, 'getSectorAreaList'])->name('programs.area-list');
         Route::resource('/programs', AuditProgramController::class, ['except' => ['edit']]);
         Route::post('/programs/edit', [AuditProgramController::class, 'riskAuditProgramEdit'])->name('programs.edit');
+//        Route::post('/programs/create', [AuditProgramController::class, 'create'])->name('programs.create');
 
         //operational plan
         Route::group(['as' => 'operational.', 'prefix' => 'operational/'], function () {

@@ -19,7 +19,7 @@
     <td>
         <select id="location_{{$strategic_year}}_{{$row_count}}" class="form-control location_id_{{$strategic_year}} select-select2">
             <option selected value="">select location</option>
-            @if($row_type = 'function')
+            @if($row_type == 'function')
                 <option data-parent-office-id="1"
                         data-parent-office-name-en="sdfasdf"
                         data-parent-office-name-bn="asdfasd"
@@ -45,7 +45,7 @@
 
             <button type='button' title="বাদ দিন"
                     data-row='row1'
-                    onclick="Plan_Common_Container.removeLocationRow('{{$strategic_year}}','{{$row_type}}')"
+                    onclick="Plan_Common_Container.removeLocationRow($(this))"
                     class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                 <span class='fal fa-trash-alt'></span>
             </button>
