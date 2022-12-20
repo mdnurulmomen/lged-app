@@ -71,7 +71,6 @@ class AuditProgramController extends Controller
     public function create(Request $request)
     {
         $data =  $request->validate([
-            'audit_area_id' => 'nullable|integer',
             'project_id' => 'nullable|integer',
             'project_name_en' => 'nullable|string',
             'audit_plan_id' => 'required|integer',
@@ -109,6 +108,7 @@ class AuditProgramController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'audit_plan_id' => 'required|integer',
             'audit_area_id' => 'required|integer',
             'control_objective' => 'required|string|max:255',
             'category' => 'required|string|max:255',
@@ -123,6 +123,7 @@ class AuditProgramController extends Controller
         // $currentUserId = $this->current_desk()['officer_id'];
 
         $data = [
+            'audit_plan_id' => $request->audit_plan_id,
             'audit_area_id' => $request->audit_area_id,
             'control_objective' => $request->control_objective,
             'category' => $request->category,
@@ -132,8 +133,12 @@ class AuditProgramController extends Controller
             // 'updater_id' => $currentUserId,
         ];
 
+//        dd($data);
+
         $create_risk_impact = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_plan.sector_area_programs'), $data)->json();
-        //    dd($create_risk_impact);
+
+//        dd($create_risk_impact);
+
         if (isset($create_risk_impact['status']) && $create_risk_impact['status'] == 'success') {
             return response()->json(responseFormat('success', 'Created Successfully'));
         } else {

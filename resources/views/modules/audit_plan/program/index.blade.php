@@ -1,4 +1,4 @@
-<x-title-wrapper>Sector Program List</x-title-wrapper>
+<x-title-wrapper>Sector Program List (Plan-{{$data['audit_plan_id']}})</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row d-flex align-items-end">
@@ -39,14 +39,14 @@
             </div>
         </div>
 
-        <div class="col-md-1">
-            <button class="btn btn-sm btn-info btn-square mr-1"
-                    title="Download"
-                    onclick='Audit_Program_Container.export($(this))'
-            >
-                <i class="fad fa-download"></i>
-            </button>
-        </div>
+{{--        <div class="col-md-1">--}}
+{{--            <button class="btn btn-sm btn-info btn-square mr-1"--}}
+{{--                    title="Download"--}}
+{{--                    onclick='Audit_Program_Container.export($(this))'--}}
+{{--            >--}}
+{{--                <i class="fad fa-download"></i>--}}
+{{--            </button>--}}
+{{--        </div>--}}
 
         <div class="col-md-2 text-right">
             <button class="btn btn-sm btn-info btn-square mr-1"
@@ -132,7 +132,6 @@
 
         createAreaPrograms: function (elem) {
             loaderStart('loading...');
-            audit_area_id = $('#sector_area').val();
             audit_plan_id = '{{$data['audit_plan_id']}}';
             yearly_plan_location_id = '{{$data['yearly_plan_location_id']}}';
             project_id = '{{$data['project_id']}}';
@@ -140,7 +139,7 @@
 
             let url = "{{route('audit.plan.programs.create')}}";
 
-            let data = {audit_area_id,audit_plan_id,yearly_plan_location_id,project_id,project_name_en};
+            let data = {audit_plan_id,yearly_plan_location_id,project_id,project_name_en};
 
             ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
                 loaderStop();

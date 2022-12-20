@@ -24,7 +24,7 @@
                             data-plan_year="{{ $project['strategic_plan_year'] }}"
                             onclick="Individual_Plan_Container.individualPlanCreate($(this))"
                         >
-                             {{$project['audit_plan'] ? 'Plan-'.$project['audit_plan']['id'] : '<i class="fas fa-plus"></i> Add New Plan'}}
+                             {{$project['audit_plan'] ? 'Plan-'.$project['audit_plan']['id'] : 'Add New Plan'}}
                         </button>
 
                         @if($project['audit_plan'])
@@ -41,25 +41,26 @@
                                 Program
                             </button>
 
+                            <button
+                                class="btn btn-sm btn-square btn-primary btn-hover-primary team-button"
+                                data-yearly_plan_location_id="{{ $project['id'] }}"
+                                data-id="{{ $project['project_id'] }}"
+                                data-type="project"
+                            >
+                                <i class="fas fa-users"></i> Team
+                            </button>
+
+                            <button
+                                class="btn btn-sm btn-square btn-warning btn-hover-warning announcement-button"
+                                data-yearly_plan_location_id="{{ $project['id'] }}"
+                                data-id="{{ $project['project_id'] }}"
+                                data-type="project"
+                            >
+                                <i class="fas fa-sticky-note"></i> Announcement Memo
+                            </button>
+
                         @endif
 
-{{--                        <button--}}
-{{--                            class="btn btn-sm btn-square btn-primary btn-hover-primary team-button"--}}
-{{--                            data-yearly_plan_location_id="{{ $project['id'] }}"--}}
-{{--                            data-id="{{ $project['project_id'] }}"--}}
-{{--                            data-type="project"--}}
-{{--                        >--}}
-{{--                            <i class="fas fa-users"></i> Team--}}
-{{--                        </button>--}}
-
-                        <button
-                            class="btn btn-sm btn-square btn-warning btn-hover-warning announcement-button"
-                            data-yearly_plan_location_id="{{ $project['id'] }}"
-                            data-id="{{ $project['project_id'] }}"
-                            data-type="project"
-                        >
-                            <i class="fas fa-sticky-note"></i> Announcement Memo
-                        </button>
                     </td>
                 </tr>
                 @endforeach

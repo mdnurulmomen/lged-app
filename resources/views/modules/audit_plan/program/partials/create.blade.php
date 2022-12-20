@@ -286,13 +286,6 @@
                 toastr.error(response.data);
             } else {
                 $('#audit_area_id').html(response);
-
-                let audit_area_id = '{{$data['audit_area_id']}}';
-
-                if(audit_area_id){
-                    $('#audit_area_id').val(audit_area_id);
-                }
-
             }
         });
 
@@ -309,12 +302,14 @@
         // : (sector_type=='master-unit') ? $('#unit_master_id').find(':selected').val()
         // : $('#cost_center_id').find(':selected').val();
 
+        let audit_plan_id = '{{$data['audit_plan_id']}}';
         let audit_area_id = $('#audit_area_id').find(':selected').val();
         let area_index = $('#area_index').val();
         let category = $('#category').val();
         let control_objective = $('#control_objective').val();
 
         let sector_audit_program = {
+            audit_plan_id,
             audit_area_id,
             area_index,
             category,
