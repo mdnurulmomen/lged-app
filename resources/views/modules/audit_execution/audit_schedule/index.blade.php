@@ -1,6 +1,6 @@
 <x-title-wrapper>Audit Schedules</x-title-wrapper>
 
-<div class="card sna-card-border mt-3" style="margin-bottom:15px;">
+<!-- <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row">
         <div class="col-md-3">
             <select class="form-select select-select2" id="directorate_filter">
@@ -34,7 +34,7 @@
             </select>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="card sna-card-border mt-2 mb-15">
     <div class="load-table-data" data-href="{{route('audit.execution.load-audit-schedule-list')}}">
@@ -51,7 +51,7 @@
 
 <script>
     $(function () {
-        Audit_Query_Schedule_Container.loadFiscalYearWiseActivity();
+        // Audit_Query_Schedule_Container.loadFiscalYearWiseActivity();
         Audit_Query_Schedule_Container.loadData();
     });
 
@@ -104,13 +104,14 @@
             cost_center_name_en = elem.attr('data-cost-center-name-en');
             cost_center_name_bn = elem.attr('data-cost-center-name-bn');
             project_name_bn = elem.attr('data-project-name-bn');
+            project_name_en = elem.attr('data-project-name-en');
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
-            data = {schedule_id,team_id,audit_plan_id,entity_id,cost_center_id,cost_center_name_en,cost_center_name_bn,project_name_bn};
+            data = {schedule_id,team_id,audit_plan_id,entity_id,cost_center_id,cost_center_name_en,cost_center_name_bn,project_name_bn,project_name_en};
 
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_wrapper');
@@ -129,17 +130,19 @@
             entity_id = elem.attr('data-entity-id');
             cost_center_id = elem.data('cost-center-id');
             cost_center_name_bn = elem.data('cost-center-name-bn');
+            cost_center_name_en = elem.data('cost-center-name-en');
             audit_year_start = elem.data('audit-year-start');
             audit_year_end = elem.data('audit-year-end');
             project_name_bn = elem.data('project-name-bn');
+            project_name_en = elem.data('project-name-en');
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
-            data = {schedule_id, team_id, audit_plan_id, entity_id, cost_center_id,cost_center_name_bn,audit_year_start,
-                audit_year_end,project_name_bn};
+            data = {schedule_id, team_id, audit_plan_id, entity_id, cost_center_id,cost_center_name_bn,cost_center_name_en,audit_year_start,
+                audit_year_end,project_name_bn,project_name_en};
 
             let url = '{{route('audit.execution.memo.index')}}';
 
@@ -153,53 +156,53 @@
             });
         },
 
-        loadFiscalYearWiseActivity: function () {
-            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
-            fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
-            if (fiscal_year_id) {
-                let url = '{{route('audit.plan.annual.plan.revised.fiscal-year-wise-activity-select')}}';
-                let data = {fiscal_year_id, fiscal_year};
-                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    if (response.status === 'error') {
-                        toastr.error(response.data)
-                    } else {
-                        $('#activity_id').html(response);
-                        setActivityAnonymously();
-                        // alert(activity_id);
-                        // $('#activity_id').val(7);
-                        // Annual_Plan_Container.loadAnnualPlanList();
-                    }
-                });
-            } else {
-                $('#activity_id').html('');
-            }
-        },
+        // loadFiscalYearWiseActivity: function () {
+        //     fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+        //     fiscal_year = $('#select_fiscal_year_annual_plan').select2('data')[0].text;
+        //     if (fiscal_year_id) {
+        //         let url = '{{route('audit.plan.annual.plan.revised.fiscal-year-wise-activity-select')}}';
+        //         let data = {fiscal_year_id, fiscal_year};
+        //         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+        //             if (response.status === 'error') {
+        //                 toastr.error(response.data)
+        //             } else {
+        //                 $('#activity_id').html(response);
+        //                 setActivityAnonymously();
+        //                 // alert(activity_id);
+        //                 // $('#activity_id').val(7);
+        //                 // Annual_Plan_Container.loadAnnualPlanList();
+        //             }
+        //         });
+        //     } else {
+        //         $('#activity_id').html('');
+        //     }
+        // },
 
-        loadActivityWiseAuditPlan: function () {
+        // loadActivityWiseAuditPlan: function () {
 
-            office_id = $('#directorate_filter').val();
-            activity_id = $('#activity_id').val();
-            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+        //     office_id = $('#directorate_filter').val();
+        //     activity_id = $('#activity_id').val();
+        //     fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
 
-            let url = '{{route('audit.plan.operational.activity.audit-plan')}}';
+        //     let url = '{{route('audit.plan.operational.activity.audit-plan')}}';
 
-            let data = {fiscal_year_id,activity_id,office_id};
+        //     let data = {fiscal_year_id,activity_id,office_id};
 
-            KTApp.block('#kt_wrapper', {
-                opacity: 0.1,
-                state: 'primary' // a bootstrap color
-            });
+        //     KTApp.block('#kt_wrapper', {
+        //         opacity: 0.1,
+        //         state: 'primary' // a bootstrap color
+        //     });
 
-            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    KTApp.unblock('#kt_wrapper');
-                    if (response.status === 'error') {
-                        toastr.warning(response.data)
-                    } else {
-                        $('#audit_plan_id').html(response);
-                    }
-                }
-            );
-        },
+        //     ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+        //             KTApp.unblock('#kt_wrapper');
+        //             if (response.status === 'error') {
+        //                 toastr.warning(response.data)
+        //             } else {
+        //                 $('#audit_plan_id').html(response);
+        //             }
+        //         }
+        //     );
+        // },
 
         paginate: function(elem) {
             page = $(elem).attr('data-page');

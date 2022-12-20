@@ -1,22 +1,35 @@
+<style>
+    .tdd{
+        width: 23%;
+        font-weight: bold;
+        background: #ace8ff;
+    }
+</style>
 <div class="col-md-12">
     <div class="d-flex justify-content-end mb-2">
-        <button title="ডাউনলোড করুন" data-scope="memo" data-memo-id="{{$memoInfoDetails['memo']['id']}}" data-directorate-id="{{$directorate_id}}"
+        <!-- <button title="ডাউনলোড করুন" data-scope="memo" data-memo-id="{{$memoInfoDetails['memo']['id']}}" data-directorate-id="{{$directorate_id}}"
                 onclick="Show_Memo_Container.memoPDFDownload($(this))"
                 class="btn btn-danger btn-sm btn-bold btn-square mr-2">
             <i class="far fa-download"></i> মেমো ডাউনলোড
-        </button>
+        </button> -->
 
-        @if(!empty($memoInfoDetails['memo']['ac_memo_porisishtos']))
+        <!-- @if(!empty($memoInfoDetails['memo']['ac_memo_porisishtos']))
             <button title="ডাউনলোড করুন" data-scope="porisistho" data-memo-id="{{$memoInfoDetails['memo']['id']}}" data-directorate-id="{{$directorate_id}}"
                     onclick="Show_Memo_Container.memoPDFDownload($(this))"
                     class="btn btn-danger btn-sm btn-bold btn-square">
                 <i class="far fa-download"></i> পরিশিষ্ট ডাউনলোড
             </button>
-        @endif
+        @endif -->
+
+        <button title="Download" data-scope="memo" data-memo-id="{{$memoInfoDetails['memo']['id']}}" data-directorate-id="{{$directorate_id}}"
+                onclick="Show_Memo_Container.memoPDFDownload($(this))"
+                class="btn btn-danger btn-sm btn-bold btn-square">
+            <i class="far fa-download"></i> Download
+        </button>
     </div>
 </div>
 
-<div style="height: 100%">
+<!-- <div style="height: 100%">
     <div style="text-align: center;color: black">
         মহাপরিচালকের কার্যালয়<br>
     </div>
@@ -169,10 +182,124 @@
     {{--@foreach($memoInfoDetails['memo']['ac_memo_porisishtos'] as $porisishto)
         <div style="height: 100%">{!! $porisishto['details'] !!}</div>
     @endforeach--}}
+</div> -->
+
+<div style="height: 100%;">
+    <table class="table table-bordered" style="border: 2px solid black;">
+        <tr>
+            <td class="tdd">Audit Observation :</td>
+            <td>{{$memoInfoDetails['memo']['audit_observation']}}</td>
+        </tr>
+    </table>
+
+    <table class="table table-bordered" style="border: 2px solid black;">
+        <tr>
+            <td class="tdd">Heading :</td>
+            <td>{{$memoInfoDetails['memo']['heading']}}</td>
+        </tr>
+        <tr>
+            <td class="tdd">Criteria :</td>
+            <td>{{$memoInfoDetails['memo']['criteria']}}</td>
+        </tr>
+        <tr>
+            <td class="tdd">Condition :</td>
+            <td>{{$memoInfoDetails['memo']['condition']}}</td>
+        </tr>
+    </table>
+
+    <table class="table table-bordered" style="border: 2px solid black;">
+        @php
+            if(!empty($memoInfoDetails['memo']['cause'])){
+                $causes = json_decode($memoInfoDetails['memo']['cause']);
+            }
+        @endphp
+        @if (!empty($causes))
+            @foreach ($causes as $key=>$cause)
+                <tr>
+                    <td class="tdd">Cause {{$key+1}} :</td>
+                    <td>{{$cause}}</td>
+                </tr>
+            @endforeach
+        @endif
+    </table>
+
+    <table class="table table-bordered" style="border: 2px solid black;">
+        <tr>
+            <td class="tdd">Recommendation :</td>
+            <td>{{$memoInfoDetails['memo']['recommendation']}}</td>
+        </tr>
+    </table>
+
+    <table class="table table-bordered" style="border: 2px solid black;">
+        <tr>
+            <td class="tdd">Agree :</td>
+            <td> 
+                @if ($memoInfoDetails['memo']['agree_type'] == 'agree')
+                    <i class="fas fa-check-circle" style="font-size:4.5vh;color:green"></i>
+                @endif 
+            </td>
+        </tr>
+        <tr>
+            <td class="tdd">Disagree :</td>
+            <td>
+                @if ($memoInfoDetails['memo']['agree_type'] == 'disagree')
+                    <i class="fas fa-check-circle" style="font-size:4.5vh;color:red"></i>
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <td class="tdd">Agree In Part :</td>
+            <td>{{$memoInfoDetails['memo']['agree_in_part']}}</td>
+        </tr>
+    </table>
+
+    <table class="table table-bordered" style="border: 2px solid black;">
+        <tr>
+            <td class="tdd">Instances :</td>
+            <td>{{$memoInfoDetails['memo']['recommendation']}}</td>
+        </tr>
+    </table>
+
+    <table class="table table-bordered" style="border: 2px solid black;">
+        <tr>
+            <td class="tdd">Residual Risk Rating :</td>
+            <td>{{$memoInfoDetails['memo']['residual_risk_rating']}}</td>
+        </tr>
+    </table>
+
+    <table class="table table-bordered" style="border: 2px solid black;">
+        <tr>
+            <td class="tdd">Recommended Control :</td>
+            <td>{{$memoInfoDetails['memo']['recommended_control']}}</td>
+        </tr>
+    </table>
+
+    <table class="table table-bordered" style="border: 2px solid black;">
+        <tr>
+            <td class="tdd">Agreed Action Plan :</td>
+            <td>{{$memoInfoDetails['memo']['agreed_action_plan']}}</td>
+        </tr>
+        <tr>
+            <td class="tdd">Types of Action :</td>
+            <td>{{$memoInfoDetails['memo']['action_type']}}</td>
+        </tr>
+        <tr>
+            <td class="tdd">Any Challenges To Implement The Action :</td>
+            <td>{{$memoInfoDetails['memo']['challenges']}}</td>
+        </tr>
+    </table>
+
+    <table class="table table-bordered" style="border: 2px solid black;">
+        <tr>
+            <td class="tdd">Responsible Person :</td>
+            <td>{{$memoInfoDetails['memo']['responsible_person']}}</td>
+        </tr>
+        <tr>
+            <td class="tdd">Date To Be Implemented :</td>
+            <td>{{$memoInfoDetails['memo']['date_to_be_implemented']}}</td>
+        </tr>
+    </table>
 </div>
-
-
-
 
 <script>
     var Show_Memo_Container = {
@@ -180,12 +307,11 @@
             url = '{{route('audit.execution.memo.download')}}';
             scope = elem.data('scope');
             memo_id = elem.data('memo-id');
-            directorate_id = elem.data('directorate-id');
-            data = {scope,memo_id,directorate_id};
+            data = {scope,memo_id};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
-                message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                message: 'Downloading Please Wait...',
                 state: 'primary' // a bootstrap color
             });
 

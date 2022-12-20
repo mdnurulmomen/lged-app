@@ -1,22 +1,22 @@
-<x-title-wrapper>অডিট মেমোসমূহ</x-title-wrapper>
+<x-title-wrapper>Audit Findings</x-title-wrapper>
 
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-9">
                 <h4 class="mt-3">
-                    {{$cost_center_name_bn.' ('.enTobn($audit_year_start).'-'.enTobn($audit_year_end).')'}} <br>
+                    {{$cost_center_name_en.' ('.bnToen($audit_year_start).'-'.bnToen($audit_year_end).')'}} <br>
                     @if(!empty($project_name_bn))
-                        প্রজেক্টঃ {{$project_name_bn}}
+                        Project: {{$project_name_en}}
                     @endif
                 </h4>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-3">
                 <div class="d-flex justify-content-md-end">
-                    <a href="javascript:;" title="ফেরত যান"
+                    <a href="javascript:;" title="Go Back"
                        onclick="Memo_List_Container.backToQuerySchedule($(this))"
                        class="btn btn-sm btn-warning btn_back btn-square mr-1">
-                        <i class="fad fa-arrow-alt-left"></i> ফেরত যান
+                        <i class="fad fa-arrow-alt-left"></i> Go Back
                     </a>
 
                     <a class="btn btn-sm btn-primary btn_back btn-square"
@@ -25,6 +25,7 @@
                        data-audit-plan-id="{{$audit_plan_id}}"
                        data-cost-center-id="{{$cost_center_id}}"
                        data-cost-center-name-bn="{{$cost_center_name_bn}}"
+                       data-cost-center-name-en="{{$cost_center_name_en}}"
                        data-audit-year-start="{{$audit_year_start}}"
                        data-audit-year-end="{{$audit_year_end}}"
                        data-team-leader-name-bn="{{$team_leader_name}}"
@@ -33,9 +34,9 @@
                        data-sub-team-leader-name-bn="{{$sub_team_leader_name}}"
                        data-sub-team-leader-designation-name-bn="{{$sub_team_leader_designation_name}}"
                        onclick="Memo_List_Container.createMemo($(this))"
-                       title="মেমো তৈরি করুন"
+                       title="Create Memo"
                        href="javascript:;">
-                        <i class="fa fa-plus mr-1"></i> মেমো তৈরি
+                        <i class="fa fa-plus mr-1"></i> Create Memo
                     </a>
                 </div>
             </div>
@@ -83,11 +84,11 @@
             cost_center_id = elem.data('cost-center-id');
             audit_plan_id = elem.data('audit-plan-id');
             cost_center_name_bn = elem.data('cost-center-name-bn');
-            cost_center_name_en = elem.data('cost-center-name-bn');
+            cost_center_name_en = elem.data('cost-center-name-en');
             audit_year_start = elem.data('audit-year-start');
             audit_year_end = elem.data('audit-year-end');
 
-            data = {schedule_id, team_id, audit_plan_id, cost_center_id, cost_center_name_bn, audit_year_start, audit_year_end};
+            data = {schedule_id, team_id, audit_plan_id, cost_center_id, cost_center_name_bn, cost_center_name_en, audit_year_start, audit_year_end};
 
             let url = '{{route('audit.execution.memo.create')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
@@ -115,7 +116,7 @@
                 if (response.status === 'error') {
                     toastr.error('No data found');
                 } else {
-                    $(".offcanvas-title").text('মেমো');
+                    $(".offcanvas-title").text('Findings');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);
@@ -162,12 +163,12 @@
             audit_plan_id = '{{$audit_plan_id}}';
             cost_center_id = '{{$cost_center_id}}';
             cost_center_name_bn = '{{$cost_center_name_bn}}';
-            cost_center_name_en = '{{$cost_center_name_bn}}';
+            cost_center_name_en = '{{$cost_center_name_en}}';
             audit_year_start = '{{$audit_year_start}}';
             audit_year_end = '{{$audit_year_end}}';
 
-            data = {memo_id, schedule_id, team_id, audit_plan_id, cost_center_id, cost_center_name_bn, audit_year_start, audit_year_end};
-
+            data = {memo_id, schedule_id, team_id, audit_plan_id, cost_center_id, cost_center_name_bn, cost_center_name_en,audit_year_start, audit_year_end};
+            
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color

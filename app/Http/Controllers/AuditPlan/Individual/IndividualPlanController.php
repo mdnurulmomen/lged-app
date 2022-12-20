@@ -148,8 +148,6 @@ class IndividualPlanController extends Controller
             'sector_type',
             'sector_id',
             'parent_office_id',
-            // 'all_teams'
-            // 'strategic_plan_year'
         ));
     }
 

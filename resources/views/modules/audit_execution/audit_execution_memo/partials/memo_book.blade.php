@@ -9,7 +9,7 @@
             margin-top: 2.54cm;
             margin-right: 2cm;
             margin-bottom: 2cm;
-            margin-left: 2.80cm;
+            padding: 2.80cm;
         }
 
         html {
@@ -524,7 +524,7 @@
         .table-condensed > thead > tr > td,
         .table-condensed > tbody > tr > td,
         .table-condensed > tfoot > tr > td {
-            padding: 5px;
+            padding: 10px;
         }
 
         .table-bordered {
@@ -735,10 +735,15 @@
             clear: both;
         }
 
+        .tdd{
+        width: 37%;
+        font-weight: bold;
+        }
+
         .center-block {
             display: block;
             margin-right: auto;
-            margin-left: auto;
+            padding: auto;
         }
 
         .pull-right {
@@ -788,145 +793,147 @@
         table tbody tr td{
             font-family: nikoshpdf !important;
         }
+        
+        @font-face {
+        font-family: 'fontawesome3';
+        src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        }
+        .fa3 {
+            display: inline-block;
+            font: normal normal normal 14px/1 fontawesome3;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
     </style>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v4.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
 <body>
-<div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
-    <div class="pdf-screen bangla-font" style="height: 100%">
-
-        <div style="text-align: right">
-            @php
-                $generatorPNG = new Picqer\Barcode\BarcodeGeneratorPNG();
-                $memo_code = 'M-'.$memoInfo['id'];
-            @endphp
-            <img src="data:image/png;base64,{{ base64_encode($generatorPNG->getBarcode($memo_code, $generatorPNG::TYPE_CODE_128)) }}">
-            <p style="margin-top: 0;font-size: 14px"> M-{{$memoInfo['id']}}</p>
-        </div>
-
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;color: black">
-            মহাপরিচালকের কার্যালয়<br>
-            <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="false"  />
-        </div>
-        <br>
-
-        @if($memoInfo['memo_sharok_no'])
-            <table class="bangla-font" width="100%">
+    <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
+        <div class="pdf-screen bangla-font" style="height: 100%">
+            <div style="text-align: center;">
+                <h2>Report</h2>
+            </div>
+            <table class="table table-bordered" style="border: 1px solid black;">
                 <tr>
-                    <td >স্মারক  নং - {{enTobn($memoInfo['memo_sharok_no'])}}</td>
-                    <td style="text-align: right">তারিখ: {{formatDate($memoInfo['memo_send_date'],'bn','/')}}</td>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Audit Observation :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['audit_observation']}}</td>
                 </tr>
             </table>
-        @endif
 
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align: center;">
-            <u>অডিট মেমো</u>
-        </div>
-        <br>
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;font-weight: bold">অডিট মেমো নং-{{enTobn($memoInfo['onucched_no'])}}</div>
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;font-weight: bold">
-            <p style="font-weight: bold;margin-bottom: 1px">শিরোনামঃ</p>
-            {{$memoInfo['memo_title_bn']}}
-        </div>
-
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;text-align:justify;margin-top: 10px">
-            <p style="font-weight: bold;margin-bottom: 1px">বিবরণঃ</p>
-            {!! $memoInfo['memo_description_bn'] !!}
-        </div>
-
-        @if($memoInfo['irregularity_cause'])
-            <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
-                <span style="font-weight: bold">অনিয়মের কারণঃ</span>
-                {{$memoInfo['irregularity_cause']}}
-            </div>
-        @endif
-
-        <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
-            <b>সংযুক্তিঃ পরিশিষ্ট</b>
-        </div>
-
-        @if($memoInfo['response_of_rpu'])
-            <div class="bangla-font" style="font-family:Nikosh,serif !important;margin-top: 10px">
-                <span style="font-weight: bold">অডিটি প্রতিষ্ঠানের জবাবঃ</span>
-                {{$memoInfo['response_of_rpu']}}
-            </div>
-        @endif
-        <br><br>
-        <table width="100%" style="color: black">
-            <tr>
-                <td class="bangla-font" width="33%" style="text-align: left"></td>
-                <td class="bangla-font" width="33%" style="text-align: left"></td>
-                <td class="bangla-font" width="33%" style="text-align: center">
-                    @if($memoInfo['issued_by'] == 'sub_team_leader')
-                        <p>({{$memoInfo['sub_team_leader_name']}})</p>
-                        <p>{{$memoInfo['sub_team_leader_designation']}} ও উপদলনেতা</p>
-                        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"  />
-                    @else
-                        <p>({{$memoInfo['team_leader_name']}})</p>
-                        <p>{{$memoInfo['team_leader_designation']}} ও দলনেতা</p>
-                        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"  />
-                    @endif
-                </td>
-            </tr>
-        </table>
-
-        <table width="100%" style="color: black">
-            <tr>
-                <td class="bangla-font" width="33%" style="text-align: left">
-                    <br><br>
-                    <p style="margin: 0">{{$memoInfo['rpu_acceptor_designation_name_bn']}}</p>
-                    <p>{{$memoInfo['cost_center_name_bn']}}</p>
-                </td>
-                <td class="bangla-font" width="33%" style="text-align: left"></td>
-                <td class="bangla-font" width="33%" style="text-align: center"></td>
-            </tr>
-        </table>
-
-        <br>
-        @if($memoInfo['memo_sharok_no'])
-            <table class="bangla-font" width="100%" style="color: black">
+            <table class="table table-bordered" style="border: 1px solid black;">
                 <tr>
-                    <td >স্মারক  নং - {{enTobn($memoInfo['memo_sharok_no'])}}</td>
-                    <td style="text-align: right">তারিখ: {{formatDate($memoInfo['memo_send_date'],'bn','/')}}</td>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Heading :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['heading']}}</td>
+                </tr>
+                <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Criteria :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['criteria']}}</td>
+                </tr>
+                <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Condition :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['condition']}}</td>
                 </tr>
             </table>
-        @endif
 
-        <br>
-        @if($memoInfo['memo_cc'])
-            <table class="bangla-font" width="100%" style="color: black">
+            <table class="table table-bordered" style="border: 1px solid black;">
+                @php
+                    if(!empty($memoInfoDetails['cause'])){
+                        $causes = json_decode($memoInfoDetails['cause']);
+                    }
+                @endphp
+                @if (!empty($causes))
+                    @foreach ($causes as $key=>$cause)
+                        <tr>
+                            <td class="tdd" style="background:#ace8ff; padding: 10px;">Cause {{$key+1}} :</td>
+                            <td style="padding: 10px;">{{$cause}}</td>
+                        </tr>
+                    @endforeach
+                @endif
+            </table>
+
+            <table class="table table-bordered" style="border: 1px solid black;">
                 <tr>
-                    <td style="padding-bottom: 10px;">সদয় অবগতি ও প্রয়োজনীয় ব্যবস্থা গ্রহণের জন্য:-</td>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Recommendation :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['recommendation']}}</td>
+                </tr>
+            </table>
+
+            <table class="table table-bordered" style="border: 1px solid black;">
+                <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Agree :</td>
+                    <td> 
+                        @if ($memoInfoDetails['agree_type'] == 'agree')
+                            <i class="fa fa-check-circle" style="font-size:4.5vh;color:green"></i>
+                        @endif 
+                    </td>
                 </tr>
                 <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Disagree :</td>
                     <td>
-                        @if($memoInfo['memo_cc'])
-                            {!! nl2br($memoInfo['memo_cc']) !!}
+                        @if ($memoInfoDetails['agree_type'] == 'disagree')
+                            <i class="fa fa-check-circle" style="font-size:4.5vh;color:red"></i>
                         @endif
                     </td>
                 </tr>
+                <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Agree In Part :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['agree_in_part']}}</td>
+                </tr>
             </table>
-        @endif
 
-        <br>
-        <table class="bangla-font" width="100%" style="color: black">
-            <tr>
-                <td width="33%"></td>
-                <td width="33%"></td>
-                <td width="34%" style="text-align: center">
-                    @if($memoInfo['issued_by'] == 'sub_team_leader')
-                        <p>({{$memoInfo['sub_team_leader_name']}})</p>
-                        <p>{{$memoInfo['sub_team_leader_designation']}} ও উপদলনেতা</p>
-                        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"  />
-                    @else
-                        <p>({{$memoInfo['team_leader_name']}})</p>
-                        <p>{{$memoInfo['team_leader_designation']}} ও দলনেতা</p>
-                        <x-office-header-details officeid="{{$directorate_id}}" onlyofficename="true"  />
-                    @endif
-                </td>
-            </tr>
-        </table>
+            <table class="table table-bordered" style="border: 1px solid black;">
+                <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Instances :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['recommendation']}}</td>
+                </tr>
+            </table>
+
+            <table class="table table-bordered" style="border: 1px solid black;">
+                <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Residual Risk Rating :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['residual_risk_rating']}}</td>
+                </tr>
+            </table>
+
+            <table class="table table-bordered" style="border: 1px solid black;">
+                <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Recommended Control :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['recommended_control']}}</td>
+                </tr>
+            </table>
+
+            <table class="table table-bordered" style="border: 1px solid black;">
+                <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Agreed Action Plan :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['agreed_action_plan']}}</td>
+                </tr>
+                <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Types of Action :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['action_type']}}</td>
+                </tr>
+                <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Any Challenges To Implement The Action :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['challenges']}}</td>
+                </tr>
+            </table>
+
+            <table class="table table-bordered" style="border: 1px solid black;">
+                <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Responsible Person :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['responsible_person']}}</td>
+                </tr>
+                <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Date To Be Implemented :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['date_to_be_implemented']}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
 </body>
 </html>

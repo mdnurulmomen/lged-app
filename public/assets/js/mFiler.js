@@ -1096,11 +1096,11 @@
             }
         },
         captions: {
-            button: "ব্রাউজ",
-            feedback: "ফাইল নির্বাচন",
+            button: "Browse",
+            feedback: "Choose File",
             feedback2: "files were chosen",
             drop: "Drop file here to Upload",
-            removeConfirmation: "আপনি কি ফাইলটা অপসারণ করতে চান?",
+            removeConfirmation: "Do you want to remove the file?",
             errors: {
                 filesLimit: "Only {{fi-limit}} files are allowed to be uploaded.",
                 filesType: "Only Images are allowed to be uploaded.",

@@ -39,7 +39,7 @@ class AuditExecutionScheduleController extends Controller
         $data['per_page'] = $request->per_page;
         $data['cdesk'] = $this->current_desk_json();
         $audit_query_schedule_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.get_query_schedule_list'), $data)->json();
-        //dd($audit_query_schedule_list);
+        // dd($audit_query_schedule_list['data']);
         if ($audit_query_schedule_list['status'] == 'success') {
             $audit_query_schedule_list = $audit_query_schedule_list['data'];
             return view('modules.audit_execution.audit_schedule.partials.load_audit_schedule_list',

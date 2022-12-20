@@ -1,4 +1,4 @@
-@if(!empty($audit_query_schedule_list['data']))
+@if(!empty($audit_query_schedule_list))
     {{--list view--}}
     <div>
         <ul class="list-group list-group-flush">
@@ -8,52 +8,35 @@
                         <div class="pr-2 flex-fill cursor-pointer position-relative">
                             <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                 <!--begin::Title-->
-                                <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
+                                <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-9">
                                     <div class="font-weight-bolder">
-                                        <span class="mr-2 font-size-1-2">ক্রমিক নং:</span>
-                                        <span class="font-size-14">{{enTobn(($audit_query_schedule_list['current_page']-1)*200+$loop->iteration)}}</span>
+                                        <span class="mr-2 font-size-1-2">Sl No :</span>
+                                        <span class="font-size-14">{{($audit_query_schedule_list['current_page']-1)*200+$loop->iteration}}</span>
                                     </div>
 
-                                    <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">এনটিটি/প্রতিষ্ঠানঃ</span>
-                                        <span class="font-size-14">
-                                            {{$schedule['entity_name_bn']}}
-                                            <span class="label label-outline-warning label-pill label-inline">
-                                                প্ল্যান - {{enTobn($schedule['audit_plan_id'])}}
-                                            </span>
-                                        </span>
-                                    </div>
-
-                                    <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">সাবজেক্ট ম্যাটার:</span>
-                                        <span class="description text-wrap font-size-14">
-                                            {{$schedule['annual_plan']['subject_matter']}}
-                                        </span>
-                                    </div>
-
-                                    <div class="d-flex align-items-center flex-wrap  font-size-1-2">
-                                        <span class="mr-1">কস্ট সেন্টারঃ</span>
-                                        <span class="text-info font-size-1-1">
-                                            {{$schedule['cost_center_name_bn']}}
-                                        </span>
-                                        @if ((now()->toDateString() >= date('Y-m-d', strtotime($schedule['team_member_start_date']))) && (now()->toDateString() <= date('Y-m-d', strtotime($schedule['team_member_end_date']))))
-                                            <span class="ml-2 mt-1 label label-outline-warning label-pill label-inline">{{__('চলমান')}}</span>
-                                        @endif
-                                    </div>
-
-                                    @if($schedule['annual_plan'] && $schedule['annual_plan']['project_id'])
-                                        <div class="font-weight-normal">
-                                            <span class="mr-2 font-size-1-1">প্রজেক্টঃ</span>
+                                    @if($schedule['plan_team']['yearly_plan_location'])
+                                        <div>
+                                            <span class="mr-2 font-size-1-2 font-weight-bolder">Project :</span>
                                             <span class="font-size-14">
-                                                    {{$schedule['annual_plan']['project_name_bn']}}
+                                                    {{$schedule['plan_team']['yearly_plan_location']['project_name_en']}}
                                             </span>
                                         </div>
                                     @endif
 
-                                    <div class="font-weight-normal">
-                                        <span class="mr-2 font-size-1-1">তারিখঃ</span>
+                                    <div class="d-flex align-items-center flex-wrap  font-size-1-2">
+                                        <span class="mr-2 font-size-1-2 font-weight-bolder">Cost Center :</span>
                                         <span class="font-size-14">
-                                            {{formatDate($schedule['team_member_start_date'],'bn')}} - {{formatDate($schedule['team_member_end_date'],'bn')}}
+                                            {{$schedule['cost_center_name_en']}}
+                                        </span>
+                                        <!-- @if ((now()->toDateString() >= date('Y-m-d', strtotime($schedule['team_member_start_date']))) && (now()->toDateString() <= date('Y-m-d', strtotime($schedule['team_member_end_date']))))
+                                            <span class="ml-2 mt-1 label label-outline-warning label-pill label-inline">{{__('চলমান')}}</span>
+                                        @endif -->
+                                    </div>
+
+                                    <div class="font-weight-normal">
+                                        <span class="mr-2 font-size-1-2 font-weight-bolder">Date :</span>
+                                        <span class="font-size-14">
+                                            {{formatDate($schedule['team_member_start_date'],'en')}} - {{formatDate($schedule['team_member_end_date'],'en')}}
                                         </span>
                                     </div>
                                     <div class="font-weight-normal d-none predict-wrapper">
@@ -62,7 +45,7 @@
                                 </div>
                                 <!--end::Title-->
                                 <!--begin::Info-->
-                                <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-4">
+                                <div class="d-flex align-items-center justify-content-md-end py-lg-0 py-2 col-md-3">
                                     <div class="d-block">
                                         <div
                                             class="d-md-flex flex-wrap mb-2 align-items-center justify-content-md-end text-nowrap">
@@ -78,45 +61,54 @@
                                             </div>
                                         </div>--}}
                                         <div class="action-group d-flex justify-content-end position-absolute action-group-wrapper">
-                                            @if($schedule['office_order'] != null && $schedule['office_order']['approved_status'] == 'approved')
-                                                @if($schedule['team_member_start_date'] <= date('Y-m-d',strtotime(now())))
-                                                    <button class="mr-3 btn btn-sm btn-primary btn-square"
+                                                    <!-- <button class="mr-3 btn btn-sm btn-primary btn-square"
                                                             title="কোয়েরি"
                                                             onclick="Audit_Query_Schedule_Container.query($(this))"
                                                             data-schedule-id="{{$schedule['id']}}"
                                                             data-team-id="{{$schedule['team_id']}}"
                                                             data-audit-plan-id="{{$schedule['audit_plan_id']}}"
-                                                            data-entity-id="{{$schedule['entity_id']}}"
+                                                            data-entity-id=""
                                                             data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                             data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
                                                             data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
-                                                            data-project-name-bn="{{$schedule['annual_plan'] && $schedule['annual_plan']['project_id'] ? $schedule['annual_plan']['project_name_bn'] : ''}}">
-                                                        <i class="fad fa-clipboard-list"></i> কোয়েরি ({{enTobn($schedule['queries_count'])}})
-                                                    </button>
+                                                            data-project-name-bn="{{$schedule['plan_team']['yearly_plan_location'] ? $schedule['plan_team']['yearly_plan_location']['project_name_bn'] : ''}}">
+                                                        <i class="fad fa-clipboard-list"></i> কোয়েরি
+                                                    </button> -->
                                                     <button class="mr-3 btn btn-sm btn-warning btn-square"
-                                                            title="মেমো"
+                                                            title="Findings"
                                                             data-team-id="{{$schedule['team_id']}}"
                                                             data-schedule-id="{{$schedule['id']}}"
                                                             data-audit-plan-id="{{$schedule['audit_plan_id']}}"
-                                                            data-entity-id="{{$schedule['entity_id']}}"
+                                                            data-entity-id=""
                                                             data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                             data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
+                                                            data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
                                                             data-audit-year-start="{{$schedule['plan_team']['audit_year_start']}}"
                                                             data-audit-year-end="{{$schedule['plan_team']['audit_year_end']}}"
-                                                            data-project-name-bn="{{$schedule['annual_plan'] && $schedule['annual_plan']['project_id'] ? $schedule['annual_plan']['project_name_bn'] : ''}}"
+                                                            data-project-name-bn="{{$schedule['plan_team']['yearly_plan_location'] ? $schedule['plan_team']['yearly_plan_location']['project_name_bn'] : ''}}"
+                                                            data-project-name-en="{{$schedule['plan_team']['yearly_plan_location'] ? $schedule['plan_team']['yearly_plan_location']['project_name_en'] : ''}}"
                                                             onclick="Audit_Query_Schedule_Container.memo($(this))">
-                                                        <i class="fad fa-clipboard-list"></i> মেমো ({{enTobn($schedule['memos_count'])}})
+                                                        <i class="fad fa-clipboard-list"></i> Findings
                                                     </button>
-                                                @else
-                                                    <button class="mr-3 btn btn-sm btn-outline-danger btn-square">
+                                                    <!-- <button class="mr-3 btn btn-sm btn-outline-danger btn-square">
                                                         <i class="fad fa-info-square"></i> অডিট শুরুর তারিখ ({{formatDate($schedule['team_member_start_date'],'bn')}}) হতে কোয়েরি এবং মেমোর বাটন দৃশ্যমান হবে
                                                     </button>
-                                                @endif
-                                            @else
                                                 <button class="mr-3 btn btn-sm btn-outline-danger btn-square" title="অননুমোদিত অফিস আদেশ">
                                                     <i class="fad fa-info-square"></i> অননুমোদিত
-                                                </button>
-                                            @endif
+                                                </button> -->
+                                                <!-- <button class="mr-3 btn btn-sm btn-outline-success btn-square"
+                                                        title="কোয়েরি"
+                                                        onclick="Audit_Query_Schedule_Container.query($(this))"
+                                                        data-schedule-id="{{$schedule['id']}}"
+                                                        data-team-id="{{$schedule['team_id']}}"
+                                                        data-audit-plan-id="{{$schedule['audit_plan_id']}}"
+                                                        data-entity-id=""
+                                                        data-cost-center-id="{{$schedule['cost_center_id']}}"
+                                                        data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
+                                                        data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
+                                                        data-project-name-bn="{{$schedule['plan_team']['yearly_plan_location'] ? $schedule['plan_team']['yearly_plan_location']['project_name_bn'] : ''}}">
+                                                    <i class="fad fa-info-square"></i> Program
+                                                </button> -->
                                         </div>
                                     </div>
                                 </div>
