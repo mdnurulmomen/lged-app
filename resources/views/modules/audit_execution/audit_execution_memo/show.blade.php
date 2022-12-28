@@ -157,6 +157,17 @@
 </div> -->
 
 <div style="height: 100%;">
+
+    <table class="table table-bordered" style="border: 2px solid black;">
+        <tr>
+            <td class="tdd">Issue No :</td>
+            <td>{{$memoInfoDetails['findings']['onucched_no']}}</td>
+        </tr>
+        <tr>
+            <td class="tdd">Issue Title :</td>
+            <td>{{$memoInfoDetails['findings']['memo_title_bn']}}</td>
+        </tr>
+    </table>
     <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
             <td class="tdd">Audit Observation :</td>
@@ -166,16 +177,8 @@
 
     <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
-            <td class="tdd">Heading :</td>
-            <td>{{$memoInfoDetails['findings']['heading']}}</td>
-        </tr>
-        <tr>
             <td class="tdd">Criteria :</td>
             <td>{{$memoInfoDetails['findings']['criteria']}}</td>
-        </tr>
-        <tr>
-            <td class="tdd">Condition :</td>
-            <td>{{$memoInfoDetails['findings']['condition']}}</td>
         </tr>
     </table>
 
@@ -197,6 +200,13 @@
 
     <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
+            <td class="tdd">Consequence/Impact :</td>
+            <td>{{$memoInfoDetails['findings']['impact']}}</td>
+        </tr>
+    </table>
+
+    <table class="table table-bordered" style="border: 2px solid black;">
+        <tr>
             <td class="tdd">Recommendation :</td>
             <td>{{$memoInfoDetails['findings']['recommendation']}}</td>
         </tr>
@@ -204,71 +214,41 @@
 
     <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
-            <td class="tdd">Agree :</td>
-            <td> 
-                @if ($memoInfoDetails['findings']['agree_type'] == 'agree')
-                    <i class="fas fa-check-circle" style="font-size:4.5vh;color:green"></i>
-                @endif 
-            </td>
-        </tr>
-        <tr>
-            <td class="tdd">Disagree :</td>
-            <td>
-                @if ($memoInfoDetails['findings']['agree_type'] == 'disagree')
-                    <i class="fas fa-check-circle" style="font-size:4.5vh;color:red"></i>
-                @endif
-            </td>
-        </tr>
-        <tr>
-            <td class="tdd">Agree In Part :</td>
-            <td>{{$memoInfoDetails['findings']['agree_in_part']}}</td>
+            <td class="tdd">Risk Level :</td>
+            <td>{{$memoInfoDetails['findings']['risk_level']}}</td>
         </tr>
     </table>
 
     <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
-            <td class="tdd">Instances :</td>
-            <td>{{$memoInfoDetails['findings']['recommendation']}}</td>
+            <td class="tdd">Management Response :</td>
+            <td>{{$memoInfoDetails['findings']['m_response']}}</td>
         </tr>
     </table>
 
     <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
-            <td class="tdd">Residual Risk Rating :</td>
-            <td>{{$memoInfoDetails['findings']['residual_risk_rating']}}</td>
+            <td class="tdd">Auditor's Comment :</td>
+            <td>{{$memoInfoDetails['findings']['comment']}}</td>
         </tr>
     </table>
 
     <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
-            <td class="tdd">Recommended Control :</td>
-            <td>{{$memoInfoDetails['findings']['recommended_control']}}</td>
-        </tr>
-    </table>
-
-    <table class="table table-bordered" style="border: 2px solid black;">
-        <tr>
-            <td class="tdd">Agreed Action Plan :</td>
-            <td>{{$memoInfoDetails['findings']['agreed_action_plan']}}</td>
-        </tr>
-        <tr>
-            <td class="tdd">Types of Action :</td>
-            <td>{{$memoInfoDetails['findings']['action_type']}}</td>
-        </tr>
-        <tr>
-            <td class="tdd">Any Challenges To Implement The Action :</td>
-            <td>{{$memoInfoDetails['findings']['challenges']}}</td>
-        </tr>
+            <td class="tdd">Action Taken :</td>
+            <td>{{ucfirst($memoInfoDetails['findings']['action_taken'])}}</td>
     </table>
 
     <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
             <td class="tdd">Responsible Person :</td>
             <td>{{$memoInfoDetails['findings']['responsible_person']}}</td>
-        </tr>
+    </table>
+
+    <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
             <td class="tdd">Date To Be Implemented :</td>
-            <td>{{$memoInfoDetails['findings']['date_to_be_implemented']}}</td>
+            <td>{{date('d-m-Y',strtotime($memoInfoDetails['findings']['date_to_be_implemented']))}}</td>
         </tr>
     </table>
 </div>

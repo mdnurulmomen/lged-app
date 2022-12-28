@@ -821,6 +821,16 @@
             </div>
             <table class="table table-bordered" style="border: 1px solid black;">
                 <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Issue No :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['onucched_no']}}</td>
+                </tr>
+                <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Issue Title :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['memo_title_bn']}}</td>
+                </tr>
+            </table>
+            <table class="table table-bordered" style="border: 1px solid black;">
+                <tr>
                     <td class="tdd" style="background:#ace8ff; padding: 10px;">Audit Observation :</td>
                     <td style="padding: 10px;">{{$memoInfoDetails['audit_observation']}}</td>
                 </tr>
@@ -828,16 +838,8 @@
 
             <table class="table table-bordered" style="border: 1px solid black;">
                 <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Heading :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['heading']}}</td>
-                </tr>
-                <tr>
                     <td class="tdd" style="background:#ace8ff; padding: 10px;">Criteria :</td>
                     <td style="padding: 10px;">{{$memoInfoDetails['criteria']}}</td>
-                </tr>
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Condition :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['condition']}}</td>
                 </tr>
             </table>
 
@@ -859,83 +861,51 @@
 
             <table class="table table-bordered" style="border: 1px solid black;">
                 <tr>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Consequence/Impact :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['impact']}}</td>
+                </tr>
+            </table>
+
+            <table class="table table-bordered" style="border: 1px solid black;">
+                <tr>
                     <td class="tdd" style="background:#ace8ff; padding: 10px;">Recommendation :</td>
                     <td style="padding: 10px;">{{$memoInfoDetails['recommendation']}}</td>
                 </tr>
             </table>
 
             <table class="table table-bordered" style="border: 1px solid black;">
-                    @if ($memoInfoDetails['agree_type'] == 'agree')
-                    <tr>
-                        <td class="tdd" style="background:#ace8ff; padding: 10px;">Agree :</td>
-                        <td> 
-                            <h6>Yes</h6>
-                        </td>
-                    </tr>
-                @endif 
-                
-                @if ($memoInfoDetails['agree_type'] == 'disagree')
-                    <tr>
-                        <td class="tdd" style="background:#ace8ff; padding: 10px;">Disagree :</td>
-                        <td>
-                            <h6>Yes</h6>
-                        </td>
-                    </tr>
-                @endif
-
-                @if ($memoInfoDetails['agree_type'] == 'on')
-                    <tr>
-                        <td class="tdd" style="background:#ace8ff; padding: 10px;">Agree In Part :</td>
-                        <td style="padding: 10px;">{{$memoInfoDetails['agree_in_part']}}</td>
-                    </tr>
-                @endif
-            </table>
-
-            <table class="table table-bordered" style="border: 1px solid black;">
                 <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Instances :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['recommendation']}}</td>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Risk Level :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['risk_level']}}</td>
                 </tr>
             </table>
 
             <table class="table table-bordered" style="border: 1px solid black;">
                 <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Residual Risk Rating :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['residual_risk_rating']}}</td>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Management Response :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['m_response']}}</td>
                 </tr>
             </table>
 
             <table class="table table-bordered" style="border: 1px solid black;">
                 <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Recommended Control :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['recommended_control']}}</td>
-                </tr>
-            </table>
-
-            <table class="table table-bordered" style="border: 1px solid black;">
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Agreed Action Plan :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['agreed_action_plan']}}</td>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Auditor's Comment :</td>
+                    <td style="padding: 10px;">{{$memoInfoDetails['comment']}}</td>
                 </tr>
                 <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Types of Action :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['action_type']}}</td>
+                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Action Taken :</td>
+                    <td style="padding: 10px;">{{ucfirst($memoInfoDetails['action_taken'])}}</td>
                 </tr>
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Any Challenges To Implement The Action :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['challenges']}}</td>
-                </tr>
-            </table>
-
-            <table class="table table-bordered" style="border: 1px solid black;">
                 <tr>
                     <td class="tdd" style="background:#ace8ff; padding: 10px;">Responsible Person :</td>
                     <td style="padding: 10px;">{{$memoInfoDetails['responsible_person']}}</td>
                 </tr>
                 <tr>
                     <td class="tdd" style="background:#ace8ff; padding: 10px;">Date To Be Implemented :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['date_to_be_implemented']}}</td>
+                    <td style="padding: 10px;">{{date('d-m-Y',strtotime($memoInfoDetails['date_to_be_implemented']))}}</td>
                 </tr>
+                <tr>
+        </tr>
             </table>
         </div>
     </div>

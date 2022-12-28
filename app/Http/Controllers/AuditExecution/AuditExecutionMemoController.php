@@ -133,28 +133,30 @@ class AuditExecutionMemoController extends Controller
         Validator::make(
             $request->all(),
             [
+                'issue_no' => 'required',
+                'issue_title' => 'required',
                 'audit_observation' => 'required',
-                'heading' => 'required',
                 'criteria' => 'required',
-                'condition' => 'required',
                 'cause' => 'required',
-                'residual_risk_rating' => 'required',
+                'impact' => 'required',
+                'risk_level' => 'required',
             ],
             [
+                'issue_no.required' => 'Issue No is required',
+                'issue_title.required' => 'Issue Title is required',
                 'audit_observation.required' => 'Audit Observation is required',
-                'heading.required' => 'Heading is required',
                 'criteria.required' => 'Criteria is required',
-                'condition.required' => 'Condition is required',
                 'cause.required' => 'Cause is required',
-                'residual_risk_rating' => 'required',
+                'impact.required' => 'Impact is required',
+                'risk_level.required' => 'Risk Level is required',
             ]
         )->validate();
 
         $data = [
+            ['name' => 'onucched_no', 'contents' => $request->issue_no],
+            ['name' => 'memo_title_bn', 'contents' => $request->issue_title],
             ['name' => 'audit_observation', 'contents' => $request->audit_observation],
-            ['name' => 'heading', 'contents' => $request->heading],
             ['name' => 'criteria', 'contents' => $request->criteria],
-            ['name' => 'condition', 'contents' => $request->condition],
             ['name' => 'cause', 'contents' => json_encode($request->cause)],
 
             ['name' => 'cost_center_id', 'contents' => $request->cost_center_id],
@@ -164,7 +166,8 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'audit_plan_id', 'contents' => $request->audit_plan_id],
             ['name' => 'audit_year_start', 'contents' => $request->audit_year_start],
             ['name' => 'audit_year_end', 'contents' => $request->audit_year_end],
-            ['name' => 'residual_risk_rating', 'contents' => $request->residual_risk_rating],
+            ['name' => 'impact', 'contents' => $request->impact],
+            ['name' => 'risk_level', 'contents' => $request->risk_level],
 
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],
         ];
@@ -214,11 +217,13 @@ class AuditExecutionMemoController extends Controller
             }
         }
         
+        // dd($data);
+        
         $response = $this->fileUPloadWithData(
             config('amms_bee_routes.audit_conduct_query.memo.store'),
             $data
         );
-
+        // dd(json_decode($response->getBody(), true));
         return json_decode($response->getBody(), true);
     }
 
@@ -330,13 +335,13 @@ class AuditExecutionMemoController extends Controller
 
         if (isSuccess($memo)) {
             $memoInfo = $memo['data'];
+            $issue_no = $memoInfo['findings']['onucched_no'];
+            $issue_title = $memoInfo['findings']['memo_title_bn'];
             $audit_observation = $memoInfo['findings']['audit_observation'];
-            $heading = $memoInfo['findings']['heading'];
             $criteria = $memoInfo['findings']['criteria'];
-            $condition = $memoInfo['findings']['condition'];
-            $condition = $memoInfo['findings']['residual_risk_rating'];
+            $impact = $memoInfo['findings']['impact'];
             $causes = json_decode($memoInfo['findings']['cause']);
-            $residual_risk_rating = $memoInfo['findings']['residual_risk_rating'];
+            $risk_level = $memoInfo['findings']['risk_level'];
             $attachment_list = $memoInfo['findings']['ac_memo_attachments'];
             // dd($attachment_list);
             return view(
@@ -354,12 +359,13 @@ class AuditExecutionMemoController extends Controller
                     'audit_year_end',
                     'team_members',
                     'get_team',
+                    'issue_no',
+                    'issue_title',
                     'audit_observation',
-                    'heading',
                     'criteria',
-                    'condition',
                     'causes',
-                    'residual_risk_rating',
+                    'impact',
+                    'risk_level',
                     'attachment_list'
                 )
             );
@@ -431,36 +437,29 @@ class AuditExecutionMemoController extends Controller
             [
                 'memo_id' => 'required',
                 'recommendation' => 'required',
-                'recommended_control' => 'required',
-                'agreed_action_plan' => 'required',
-                'challenges' => 'required',
-                'responsible_person' => 'required',
-                'instances' => 'required',
-                'action_type' => 'required',
+                'm_response' => 'required',
+                'auditor_comment' => 'required',
+                'action_taken' => 'required',
+                'date_to_be_implemented' => 'required',
             ],
             [
                 'memo_id.required' => 'Memo id is required',
                 'recommendation.required' => 'Recommendation is required',
-                'recommended_control.required' => 'Recommended Control id is required',
-                'agreed_action_plan.required' => 'Agreed Action Plan is required',
-                'challenges.required' => 'Challanges is required',
-                'responsible_person.required' => 'Responsible Person is required',
-                'instances.required' => 'Instances id is required',
-                'action_type.required' => 'Action Type id is required',
+                'm_response.required' => 'Management response is required',
+                'auditor_comment.required' => 'Auditor comment is required',
+                'action_taken.required' => 'Taken action is required',
+                'date_to_be_implemented.required' => 'Date is required',
             ]
         )->validate();
 
         $data = [
             ['name' => 'memo_id', 'contents' => $request->memo_id],
             ['name' => 'recommendation', 'contents' => $request->recommendation],
-            ['name' => 'agree_type', 'contents' => $request->agree_type],
-            ['name' => 'agree_in_part', 'contents' => $request->agree_in_part],
-            ['name' => 'instances', 'contents' => $request->instances],
-            ['name' => 'action_type', 'contents' => $request->action_type],
-            ['name' => 'recommended_control', 'contents' => $request->recommended_control],
-            ['name' => 'agreed_action_plan', 'contents' => $request->agreed_action_plan],
-            ['name' => 'challenges', 'contents' => $request->challenges],
+            ['name' => 'm_response', 'contents' => $request->m_response],
+            ['name' => 'auditor_comment', 'contents' => $request->auditor_comment],
+            ['name' => 'action_taken', 'contents' => $request->action_taken],
             ['name' => 'responsible_person', 'contents' => $request->responsible_person],
+            ['name' => 'date_to_be_implemented', 'contents' => $request->date_to_be_implemented],
             ['name' => 'memo_type', 'contents' => 0],
             ['name' => 'memo_status', 'contents' => 0],
             ['name' => 'cdesk', 'contents' => $this->current_desk_json()],

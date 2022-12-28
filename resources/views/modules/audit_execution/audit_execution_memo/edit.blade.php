@@ -57,22 +57,26 @@
             <input type="hidden" value="{{$memo_id}}" name="memo_id">
             <div class="row mt-2">
                 <div class="col-md-6">
-                    <div class="card sna-card-border">
+                    <div class="card sna-card-border" style="padding: 15px;">
+                        <label class="col-form-label">Issue No</label>
+                        <textarea class="form-control mb-1" name="issue_no" placeholder="Issue No" cols="20"
+                            rows="1" disabled>{{$issue_no}}</textarea>
+
+                        <label class="col-form-label">Issue Title</label>
+                        <textarea class="form-control mb-1" name="issue_title" placeholder="Issue Title" cols="20"
+                            rows="1" disabled>{{$issue_title}}</textarea>
+
                         <label class="col-form-label">Audit Observation</label>
                         <textarea class="form-control mb-1" name="audit_observation" placeholder="Audit Observation"
                             cols="20" rows="1" disabled>{{$audit_observation}}</textarea>
 
-                        <label class="col-form-label">Heading</label>
-                        <textarea class="form-control mb-1" name="heading" placeholder="Heading" cols="20"
-                            rows="1" disabled>{{$heading}}</textarea>
-
                         <label class="col-form-label">Criteria</label>
                         <textarea class="form-control mb-1" name="criteria" placeholder="Criteria" cols="20"
-                            rows="1" disabled>{{$heading}}</textarea>
+                            rows="1" disabled>{{$criteria}}</textarea>
 
-                        <label class="col-form-label">Condition</label>
-                        <textarea class="form-control mb-1" name="condition" placeholder="Condition" cols="20"
-                            rows="1" disabled>{{$condition}}</textarea>
+                        <label class="col-form-label">Consequence/Impact</label>
+                        <textarea class="form-control mb-1" name="consequence" placeholder="Consequence/Impact" cols="20"
+                            rows="1" disabled>{{$impact}}</textarea>
 
                         <div class="card sna-card-border mt-2">
                             <table class="table table-bordered" style="border: 1px solid black; margin-bottom: 0;">
@@ -91,12 +95,6 @@
                                 </span>
                             </div> -->
                         </div>
-                    </div>
-
-                    <div class="card sna-card-border mt-2">
-                        <label class="col-form-label">Recommendation<span class="text-danger">*</span></label>
-                        <textarea class="form-control mb-1" name="recommendation" placeholder="Recommendation" cols="20"
-                            rows="1"></textarea>
                     </div>
 
                     @if (!empty($attachment_list))
@@ -132,60 +130,37 @@
                         </div>
                     </div>
                     @endif
-                    
-
-                    <div class="card sna-card-border mt-2">
-                        <div class="col-md-12">
-                            <input type="radio" class="mr-1" id="agree" name="agree_type" value="agree" checked><span
-                                class="mr-3">Agree</span>
-                            <input type="radio" class="mr-1" id="disagree" name="agree_type" value="disagree"><span
-                                class="mr-3">Disagree</span>
-                            <input type="radio" class="mr-1" id="agree_in_part" name="agree_type"><span
-                                class="mr-3">Agree In Part</span>
-                            <div id="agree_in_part_input" style="display: none;">
-                                <textarea class="form-control mb-1 mt-2" name="agree_in_part"
-                                    placeholder="Agree In Part" cols="20" rows="1" ;></textarea>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="col-md-6">
-                    <div class="card sna-card-border">
+                    <div class="card sna-card-border" style="padding: 15px;">
                         <div class="row mb-2">
                             <div class="col-md-12">
-
-                                <label class="col-form-label">Instances<span class="text-danger">*</span></label>
-                                <textarea class="form-control mb-1" name="instances" placeholder="Instances" cols="20"
+                                <label class="col-form-label">Recommendation<span class="text-danger">*</span></label>
+                                <textarea class="form-control mb-1" name="recommendation" placeholder="Recommendation" cols="20"
                                     rows="1"></textarea>
 
-                                <label class="col-form-label">Residual Risk Rating</label>
-                                <textarea class="form-control mb-1" name="residual_risk_rating"
-                                    placeholder="Residual Risk Rating" cols="20" rows="1" disabled>{{$residual_risk_rating}}</textarea>
+                                <label class="col-form-label">Managemen's Response<span class="text-danger">*</span></label>
+                                <textarea class="form-control mb-1" name="m_response" placeholder="Managemen's Response" cols="20"
+                                    rows="1"></textarea>
 
-                                <label class="col-form-label">Recommended Control<span
-                                        class="text-danger">*</span></label>
-                                <textarea class="form-control mb-1" name="recommended_control"
-                                    placeholder="Recommended Control" cols="20" rows="1"></textarea>
+                                <label class="col-form-label">Auditor's Comment<span class="text-danger">*</span></label>
+                                <textarea class="form-control mb-1" name="auditor_comment" placeholder="Auditor's Comment" cols="20"
+                                    rows="1"></textarea>
 
-                                <label class="col-form-label">Agreed Action Plan<span
-                                        class="text-danger">*</span></label>
-                                <textarea class="form-control mb-1" name="agreed_action_plan"
-                                    placeholder="Agreed Action Plan" cols="20" rows="1"></textarea>
+                                <label class="col-form-label">Risk Level</label>
+                                <textarea class="form-control mb-1" name="risk_level"
+                                    placeholder="Risk Level" cols="20" rows="1" disabled>{{$risk_level}}</textarea>
 
-                                <label class="col-form-label">Types of Action<span class="text-danger">*</span></label>
-                                <textarea class="form-control mb-1" name="action_type" placeholder="Types of Action"
-                                    cols="20" rows="1"></textarea>
+                                <label class="col-form-label">Action Taken<span class="text-danger">*</span></label><br>
+                                <input type="radio" id="yes" name="action_taken" value="yes" checked>
+                                    <label for="yes">Yes</label><br>
+                                <input type="radio" id="no" name="action_taken" value="no">
+                                    <label for="no">No</label><br>
 
-                                <label class="col-form-label">Any challenge to implement the action<span
-                                        class="text-danger">*</span></label>
-                                <textarea class="form-control mb-1" name="challenges"
-                                    placeholder="Any challenge to implement the action" cols="20" rows="1"></textarea>
-
-                                <label class="col-form-label">Responsible Person<span
-                                        class="text-danger">*</span></label>
+                                <label class="col-form-label">Responsible Person<span class="text-danger">*</span></label>
                                 <textarea class="form-control mb-1" name="responsible_person"
-                                    placeholder="Responsible Person's Name" cols="20" rows="1"></textarea>
+                                    placeholder="Responsible Person" cols="20" rows="1"></textarea>
 
                                 <label class="col-form-label">Date to be implemented<span
                                         class="text-danger">*</span></label>

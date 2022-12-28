@@ -57,20 +57,20 @@
             <div class="row mt-2">
                 <div class="col-md-6">
                     <div class="card sna-card-border">
+                        <label class="col-form-label">Issue No<span class="text-danger">*</span></label>
+                        <textarea class="form-control mb-1 integer_type_positive" id="issue_no" name="issue_no" placeholder="Issue No" cols="20"
+                            rows="1"></textarea>
+
+                        <label class="col-form-label">Issue Title<span class="text-danger">*</span></label>
+                        <textarea class="form-control mb-1" name="issue_title" placeholder="Issue Title" cols="20"
+                            rows="1"></textarea>
+
                         <label class="col-form-label">Audit Observation<span class="text-danger">*</span></label>
                         <textarea class="form-control mb-1" name="audit_observation" placeholder="Audit Observation"
                             cols="20" rows="1"></textarea>
 
-                        <label class="col-form-label">Heading<span class="text-danger">*</span></label>
-                        <textarea class="form-control mb-1" name="heading" placeholder="Heading" cols="20"
-                            rows="1"></textarea>
-
                         <label class="col-form-label">Criteria<span class="text-danger">*</span></label>
                         <textarea class="form-control mb-1" name="criteria" placeholder="Criteria" cols="20"
-                            rows="1"></textarea>
-
-                        <label class="col-form-label">Condition<span class="text-danger">*</span></label>
-                        <textarea class="form-control mb-1" name="condition" placeholder="Condition" cols="20"
                             rows="1"></textarea>
                     </div>
 
@@ -120,14 +120,14 @@
                     <div class="card sna-card-border mt-2">
                         <div class="row mb-2">
                             <div class="col-md-12">
-                                <!-- <label class="col-form-label">Instances<span class="text-danger">*</span></label>
-                                <textarea class="form-control mb-1" name="instances" placeholder="Instances" cols="20"
-                                    rows="1"></textarea> -->
+                                <label class="col-form-label">Consequence/Impact<span class="text-danger">*</span></label>
+                                <textarea class="form-control mb-1" name="impact" placeholder="Consequence/Impact" cols="20"
+                                    rows="1"></textarea>
 
-                                <label class="col-form-label">Residual Risk Rating<span
+                                <label class="col-form-label">Risk Level<span
                                         class="text-danger">*</span></label>
-                                <textarea class="form-control mb-1" name="residual_risk_rating"
-                                    placeholder="Residual Risk Rating" cols="20" rows="1"></textarea>
+                                <textarea class="form-control mb-1" name="risk_level"
+                                    placeholder="Risk Level" cols="20" rows="1"></textarea>
 
                                 <!-- <label class="col-form-label">Recommended Control<span
                                         class="text-danger">*</span></label>
@@ -235,15 +235,6 @@
         },
     });
 
-    $('input[type=radio][name=agree_type]').on('change', function () {
-        let value = $(this).val();
-        if (value == 'agree' || value == 'disagree') {
-            $('#agree_in_part_input').hide();
-        } else {
-            $('#agree_in_part_input').show();
-        }
-    });
-
     $('.btn_query_add').on('click', function () {
         $('.appendQuery').append(
             `<div class="form-row mt-2">
@@ -274,6 +265,14 @@
             }
         });
 
+        // document.getElementById("issue_no").onkeyup = function() {
+        //     var issue_no = $('#issue_no').val();
+        //     if(isNaN(issue_no))
+        //     {
+        //         toastr.warning('Only integer is acceptable');
+        //     }
+        // };
+
         $('#memo_submit').on('click', function (elem) {
             elem.preventDefault();
             formData = new FormData(document.getElementById("memo_create_form"));
@@ -296,7 +295,6 @@
                         toastr.success(responseData.data);
                         $('.btn-back').click();
                     } else {
-                        elem.prop('disabled', false);
                         if (responseData.statusCode === '422') {
                             var errors = responseData.msg;
                             $.each(errors, function (k, v) {
@@ -311,7 +309,6 @@
                 },
                 error: function (data) {
                     KTApp.unblock('#kt_wrapper');
-                    elem.prop('disabled', false)
                     if (data.responseJSON.errors) {
                         $.each(data.responseJSON.errors, function (k, v) {
                             if (isArray(v)) {

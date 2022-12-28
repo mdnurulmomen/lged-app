@@ -20,8 +20,8 @@
                                     </div>
 
                                     <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Heading')}} : </span>
-                                        <span class="description text-info text-wrap font-size-14">{{$memo['heading']}}</span>
+                                        <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Issue Title')}} : </span>
+                                        <span class="description text-info text-wrap font-size-14">{{$memo['memo_title_bn']}}</span>
                                     </div>
 
                                     <div class="subject-wrapper font-weight-normal">
