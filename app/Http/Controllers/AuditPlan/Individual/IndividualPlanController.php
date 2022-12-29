@@ -72,10 +72,11 @@ class IndividualPlanController extends Controller
             'objective' => 'required|string',
             'milestone_list' => 'required',
         ])->validate();
+        // dd($data);
 
         $data['cdesk'] = $this->current_desk_json();
 
-        $individualPlanStore = $this->initHttpWithToken()->get(config('amms_bee_routes.individual_plan.store'),$data)->json();
+        $individualPlanStore = $this->initHttpWithToken()->post(config('amms_bee_routes.individual_plan.store'),$data)->json();
 //        dd($individualPlanStore);
         if (isSuccess($individualPlanStore)) {
             return response()->json(['status' => 'success', 'data' => $individualPlanStore['data']]);
