@@ -149,18 +149,23 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{$announcementMemo['audit_plan_info']['scope']}}</td>
+                        <td>{!!$announcementMemo['audit_plan_info']['scope']!!}</td>
                     </tr>
+                </tbody>
+            </table>
+        </div>
 
-{{--                    <tr>--}}
-{{--                        <td>--}}
-{{--                            <ul>--}}
-{{--                                <li>a)...</li>--}}
-{{--                                <li>b)...</li>--}}
-{{--                                <li>c)...</li>--}}
-{{--                            </ul>--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
+        <div class="col-sm-12 form-group">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="">Audit Objective</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{!!$announcementMemo['audit_plan_info']['objective']!!}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
