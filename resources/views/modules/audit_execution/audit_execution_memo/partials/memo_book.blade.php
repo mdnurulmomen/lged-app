@@ -902,7 +902,7 @@
                 </tr>
                 <tr>
                     <td class="tdd" style="background:#ace8ff; padding: 10px;">Date To Be Implemented :</td>
-                    <td style="padding: 10px;">{{date('d-m-Y',strtotime($memoInfoDetails['date_to_be_implemented']))}}</td>
+                    <td style="padding: 10px;">{{date('d/m/Y',strtotime($memoInfoDetails['date_to_be_implemented']))}}</td>
                 </tr>
                 <tr>
         </tr>

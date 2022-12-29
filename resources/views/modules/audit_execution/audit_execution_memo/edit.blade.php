@@ -138,29 +138,29 @@
                             <div class="col-md-12">
                                 <label class="col-form-label">Recommendation<span class="text-danger">*</span></label>
                                 <textarea class="form-control mb-1" name="recommendation" placeholder="Recommendation" cols="20"
-                                    rows="1"></textarea>
+                                    rows="1">{{$recommendation}}</textarea>
 
                                 <label class="col-form-label">Managemen's Response<span class="text-danger">*</span></label>
                                 <textarea class="form-control mb-1" name="m_response" placeholder="Managemen's Response" cols="20"
-                                    rows="1"></textarea>
+                                    rows="1">{{$m_response}}</textarea>
 
                                 <label class="col-form-label">Auditor's Comment<span class="text-danger">*</span></label>
                                 <textarea class="form-control mb-1" name="auditor_comment" placeholder="Auditor's Comment" cols="20"
-                                    rows="1"></textarea>
+                                    rows="1">{{$comment}}</textarea>
 
                                 <label class="col-form-label">Risk Level</label>
                                 <textarea class="form-control mb-1" name="risk_level"
                                     placeholder="Risk Level" cols="20" rows="1" disabled>{{$risk_level}}</textarea>
 
                                 <label class="col-form-label">Action Taken<span class="text-danger">*</span></label><br>
-                                <input type="radio" id="yes" name="action_taken" value="yes" checked>
+                                <input type="radio" id="yes" name="action_taken" value="yes" <?php echo ($action_taken=='yes') ? 'checked="checked"':'';?>>
                                     <label for="yes">Yes</label><br>
-                                <input type="radio" id="no" name="action_taken" value="no">
+                                <input type="radio" id="no" name="action_taken" value="no" <?php echo ($action_taken=='no') ? 'checked="checked"':'';?>>
                                     <label for="no">No</label><br>
 
                                 <label class="col-form-label">Responsible Person<span class="text-danger">*</span></label>
                                 <textarea class="form-control mb-1" name="responsible_person"
-                                    placeholder="Responsible Person" cols="20" rows="1"></textarea>
+                                    placeholder="Responsible Person" cols="20" rows="1">{{$responsible_person}}</textarea>
 
                                 <label class="col-form-label">Date to be implemented<span
                                         class="text-danger">*</span></label>
@@ -169,7 +169,7 @@
                                                 style="color:#3699FF !important" class="fa fa-calendar"
                                                 aria-hidden="true"></i></span></div>
                                     <input type="text" id="date_to_be_implemented" name="date_to_be_implemented"
-                                        class="date form-control">
+                                        value="{{date('d/m/Y',strtotime($date_to_be_implemented))}}" class="date form-control">
                                 </div>
                             </div>
                         </div>

@@ -248,7 +248,7 @@
     <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
             <td class="tdd">Date To Be Implemented :</td>
-            <td>{{date('d-m-Y',strtotime($memoInfoDetails['findings']['date_to_be_implemented']))}}</td>
+            <td>{{date('d/m/Y',strtotime($memoInfoDetails['findings']['date_to_be_implemented']))}}</td>
         </tr>
     </table>
 </div>

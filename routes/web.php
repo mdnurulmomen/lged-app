@@ -107,7 +107,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiskAssessment\RiskMatrixController;
 
 Route::get('/', function () {
-    return redirect('/dashboard');
+    return redirect('/dashboard/index');
 });
 
 Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {

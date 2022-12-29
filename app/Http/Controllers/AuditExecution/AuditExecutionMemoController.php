@@ -342,6 +342,12 @@ class AuditExecutionMemoController extends Controller
             $impact = $memoInfo['findings']['impact'];
             $causes = json_decode($memoInfo['findings']['cause']);
             $risk_level = $memoInfo['findings']['risk_level'];
+            $recommendation = $memoInfo['findings']['recommendation'];
+            $m_response = $memoInfo['findings']['m_response'];
+            $comment = $memoInfo['findings']['comment'];
+            $action_taken = $memoInfo['findings']['action_taken'];
+            $responsible_person = $memoInfo['findings']['responsible_person'];
+            $date_to_be_implemented = $memoInfo['findings']['date_to_be_implemented'];
             $attachment_list = $memoInfo['findings']['ac_memo_attachments'];
             // dd($attachment_list);
             return view(
@@ -366,6 +372,12 @@ class AuditExecutionMemoController extends Controller
                     'causes',
                     'impact',
                     'risk_level',
+                    'recommendation',
+                    'm_response',
+                    'comment',
+                    'action_taken',
+                    'responsible_person', 
+                    'date_to_be_implemented', 
                     'attachment_list'
                 )
             );

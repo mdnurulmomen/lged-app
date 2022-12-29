@@ -1,3 +1,8 @@
+<style>
+    .tox{
+        z-index: 1060 !important;
+    }
+</style>
 <form  id="individual_plan_form" autocomplete="off">
     <input type="hidden" value="{{$data['audit_plan_id']}}" name="id">
     <input type="hidden" value="{{$data['yearly_plan_location_id']}}" name="yearly_plan_location_id">
@@ -5,14 +10,16 @@
 
         <div class="row mt-2">
             <div class="col-md-6">
-                <label>Scopes</label>
-                <textarea id="scope" class="form-control"
-                          name="scope">{{$individualPlanInfo ? $individualPlanInfo['scope'] : ''}}</textarea>
+                <label>Scope</label>
+                <textarea id="scope" class="kt-tinymce-summary" name="scope">
+                    {!! $individualPlanInfo ? $individualPlanInfo['scope'] : '' !!}
+                </textarea>
             </div>
             <div class="col-md-6">
                 <label>Objectives</label>
-                <textarea id="objective" class="form-control"
-                          name="objective">{{$individualPlanInfo ? $individualPlanInfo['objective'] : ''}}</textarea>
+                <textarea id="objective" class="kt-tinymce-summary" name="objective">
+                    {!! $individualPlanInfo ? $individualPlanInfo['objective'] : '' !!}
+                </textarea>
             </div>
         </div>
         <div class="row mt-2">
@@ -92,9 +99,10 @@
 </form>
 
 <button class="btn btn-sm btn-square btn-outline-primary float-right save-button">
-    <i class="fa fa-save"></i> সংরক্ষণ
+    <i class="fa fa-save"></i> Save
 </button>
 
+<script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
 <script>
     $(".save-button").on('click', function(event){
 
@@ -115,8 +123,8 @@
             let id = $("input[name=id]").val();
             let yearly_plan_id = $("input[name=yearly_plan_id]").val();
             let yearly_plan_location_id = $("input[name=yearly_plan_location_id]").val();
-            let scope = $("textarea[name=scope]").val();
-            let objective = $("textarea[name=objective]").val();
+            let scope = tinymce.get("scope").getContent();
+            let objective = tinymce.get("objective").getContent();
 
             let data = {id, scope, objective, yearly_plan_id, yearly_plan_location_id, milestone_list};
 
@@ -133,6 +141,58 @@
                 }
             });
     });
+
+    $(document).ready(function () {
+        porishistoSummaryEditorInit();
+        $('.mFilerInit').filer({
+            showThumbs: true,
+            addMore: true,
+            allowDuplicates: false
+        });
+    });
+
+    tinymce.init({
+        selector: '.kt-tinymce-1',
+        menubar: false,
+        min_height: 600,
+        height: 600,
+        max_height: 640,
+        branding: false,
+        content_style: "body {font-family: solaimanlipi;font-size: 13pt;}",
+        fontsize_formats: "8pt 10pt 12pt 13pt 14pt 18pt 24pt 36pt",
+        font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Verdana=verdana,geneva; Solaimanlipi=solaimanlipi",
+        toolbar: ['styleselect fontselect fontsizeselect | blockquote subscript superscript',
+            'undo redo | cut copy paste | bold italic | link image | alignleft aligncenter alignright alignjustify | table',
+            'bullist numlist | outdent indent | advlist | autolink | lists charmap | print preview |  code'],
+        plugins: 'advlist paste autolink link image lists charmap print preview code table',
+        context_menu: 'link image table',
+        setup: function (editor) {
+        },
+    });
+
+    function porishistoSummaryEditorInit() {
+        tinymce.init({
+            selector: '.kt-tinymce-summary',
+            menubar: false,
+            min_height: 600,
+            height: 600,
+            max_height: 640,
+            branding: false,
+            content_style: "body {font-family: solaimanlipi;font-size: 13pt;}",
+            fontsize_formats: "8pt 10pt 12pt 13pt 14pt 18pt 24pt 36pt",
+            font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Verdana=verdana,geneva; Solaimanlipi=solaimanlipi",
+            toolbar: ['styleselect fontselect fontsizeselect | blockquote subscript superscript | undo redo | cut copy paste | bold italic | link image',
+                'alignleft aligncenter alignright alignjustify | table | bullist numlist | outdent indent | advlist | autolink | lists charmap | print preview |  code'],
+            plugins: 'advlist paste autolink link image lists charmap print preview code table',
+            context_menu: 'link image table',
+            setup: function (editor) {
+                editor.on('change', function (inst) {
+                    summary_editor = tinymce.get('kt-tinymce-summary').getContent();
+                    $('#kt-tinymce-summary').val(summary_editor)
+                });
+            },
+        });
+    }
 
     $("#milestone-table").on("click", ".add_row", function() {
         $('#milestone-table > tbody:last').append(
