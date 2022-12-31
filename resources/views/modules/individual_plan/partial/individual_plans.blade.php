@@ -143,7 +143,7 @@
     });
 
     $(document).ready(function () {
-        porishistoSummaryEditorInit();
+        EditorInit();
         $('.mFilerInit').filer({
             showThumbs: true,
             addMore: true,
@@ -170,7 +170,7 @@
         },
     });
 
-    function porishistoSummaryEditorInit() {
+    function EditorInit() {
         tinymce.init({
             selector: '.kt-tinymce-summary',
             menubar: false,

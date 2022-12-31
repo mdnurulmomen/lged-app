@@ -171,14 +171,14 @@
     <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
             <td class="tdd">Audit Observation :</td>
-            <td>{{$memoInfoDetails['findings']['audit_observation']}}</td>
+            <td>{!!$memoInfoDetails['findings']['audit_observation']!!}</td>
         </tr>
     </table>
 
     <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
             <td class="tdd">Criteria :</td>
-            <td>{{$memoInfoDetails['findings']['criteria']}}</td>
+            <td>{!!$memoInfoDetails['findings']['criteria']!!}</td>
         </tr>
     </table>
 
@@ -248,7 +248,11 @@
     <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
             <td class="tdd">Date To Be Implemented :</td>
-            <td>{{date('d/m/Y',strtotime($memoInfoDetails['findings']['date_to_be_implemented']))}}</td>
+            @if(!empty($memoInfoDetails['findings']['date_to_be_implemented']))
+                <td>{{date('d/m/Y',strtotime($memoInfoDetails['findings']['date_to_be_implemented']))}}</td>
+            @else
+                <td></td>
+            @endif
         </tr>
     </table>
 </div>

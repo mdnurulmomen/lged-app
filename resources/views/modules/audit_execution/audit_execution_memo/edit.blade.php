@@ -67,12 +67,10 @@
                             rows="1" disabled>{{$issue_title}}</textarea>
 
                         <label class="col-form-label">Audit Observation</label>
-                        <textarea class="form-control mb-1" name="audit_observation" placeholder="Audit Observation"
-                            cols="20" rows="1" disabled>{{$audit_observation}}</textarea>
+                        <h4 class="form-control mb-1" name="audit_observation" disabled>{!!$audit_observation!!}</h4>
 
                         <label class="col-form-label">Criteria</label>
-                        <textarea class="form-control mb-1" name="criteria" placeholder="Criteria" cols="20"
-                            rows="1" disabled>{{$criteria}}</textarea>
+                        <h4 class="form-control mb-1" name="criteria" disabled>{!!$criteria!!}</h4>
 
                         <label class="col-form-label">Consequence/Impact</label>
                         <textarea class="form-control mb-1" name="consequence" placeholder="Consequence/Impact" cols="20"
@@ -169,7 +167,7 @@
                                                 style="color:#3699FF !important" class="fa fa-calendar"
                                                 aria-hidden="true"></i></span></div>
                                     <input type="text" id="date_to_be_implemented" name="date_to_be_implemented"
-                                        value="{{date('d/m/Y',strtotime($date_to_be_implemented))}}" class="date form-control">
+                                        value="{{$date_to_be_implemented ? date('d/m/Y',strtotime($date_to_be_implemented)) : ''}}" class="date form-control">
                                 </div>
                             </div>
                         </div>
@@ -278,7 +276,6 @@
                         toastr.success(responseData.data);
                         $('.btn-back').click();
                     } else {
-                        elem.prop('disabled', false);
                         if (responseData.statusCode === '422') {
                             var errors = responseData.msg;
                             $.each(errors, function (k, v) {
@@ -293,7 +290,6 @@
                 },
                 error: function (data) {
                     KTApp.unblock('#kt_wrapper');
-                    elem.prop('disabled', false)
                     if (data.responseJSON.errors) {
                         $.each(data.responseJSON.errors, function (k, v) {
                             if (isArray(v)) {

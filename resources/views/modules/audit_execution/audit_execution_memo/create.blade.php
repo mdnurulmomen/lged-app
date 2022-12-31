@@ -1,3 +1,8 @@
+<style>
+    .tox{
+        z-index: 1060 !important;
+    }
+</style>
 <link rel="stylesheet" href="{{asset('assets/css/mFiler-font.css')}}" referrerpolicy="origin">
 <link rel="stylesheet" href="{{asset('assets/css/mFiler.css')}}" referrerpolicy="origin">
 
@@ -66,12 +71,11 @@
                             rows="1"></textarea>
 
                         <label class="col-form-label">Audit Observation<span class="text-danger">*</span></label>
-                        <textarea class="form-control mb-1" name="audit_observation" placeholder="Audit Observation"
-                            cols="20" rows="1"></textarea>
+                        <textarea class="kt-tinymce-summary" id="audit_observation" name="audit_observation"></textarea>
 
                         <label class="col-form-label">Criteria<span class="text-danger">*</span></label>
-                        <textarea class="form-control mb-1" name="criteria" placeholder="Criteria" cols="20"
-                            rows="1"></textarea>
+                        <textarea class="kt-tinymce-summary" id="criteria" name="criteria"></textarea>
+
                     </div>
 
                     <!-- <div class="card sna-card-border mt-2">
@@ -205,10 +209,12 @@
 
 <script src="{{asset('assets/js/mFiler.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/plugins/global/tinymce.min.js')}}" referrerpolicy="origin"></script>
+
 <script>
     //for submit form
 
     $(document).ready(function () {
+        EditorInit();
         $('.mFilerInit').filer({
             showThumbs: true,
             addMore: true,
@@ -235,6 +241,30 @@
         },
     });
 
+    function EditorInit() {
+        tinymce.init({
+            selector: '.kt-tinymce-summary',
+            menubar: false,
+            min_height: 600,
+            height: 600,
+            max_height: 640,
+            branding: false,
+            content_style: "body {font-family: solaimanlipi;font-size: 13pt;}",
+            fontsize_formats: "8pt 10pt 12pt 13pt 14pt 18pt 24pt 36pt",
+            font_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Verdana=verdana,geneva; Solaimanlipi=solaimanlipi",
+            toolbar: ['styleselect fontselect fontsizeselect | blockquote subscript superscript | undo redo | cut copy paste | bold italic | link image',
+                'alignleft aligncenter alignright alignjustify | table | bullist numlist | outdent indent | advlist | autolink | lists charmap | print preview |  code'],
+            plugins: 'advlist paste autolink link image lists charmap print preview code table',
+            context_menu: 'link image table',
+            setup: function (editor) {
+                editor.on('change', function (inst) {
+                    summary_editor = tinymce.get('kt-tinymce-summary').getContent();
+                    $('#kt-tinymce-summary').val(summary_editor)
+                });
+            },
+        });
+    }
+
     $('.btn_query_add').on('click', function () {
         $('.appendQuery').append(
             `<div class="form-row mt-2">
@@ -254,16 +284,9 @@
             $(this).parent().parent().remove();
         });
 
-        // $('.summernote').summernote();
-        // $('div.note-editable').height(150);
     });
 
-    $(function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+
 
         // document.getElementById("issue_no").onkeyup = function() {
         //     var issue_no = $('#issue_no').val();
@@ -281,7 +304,16 @@
                 state: 'primary' // a bootstrap color
             });
 
+            let audit_observation = tinymce.get("audit_observation").getContent();
+            let criteria = tinymce.get("criteria").getContent();
+
+            formData.append('audit_observation', audit_observation);
+            formData.append('criteria', criteria);
+
             $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 data: formData,
                 url: "{{route('audit.execution.memo.store')}}",
                 type: "POST",
@@ -326,6 +358,5 @@
                 }
             });
         });
-    });
 
 </script>

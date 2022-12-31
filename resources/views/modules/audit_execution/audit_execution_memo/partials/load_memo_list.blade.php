@@ -1,3 +1,8 @@
+<style>
+    p{
+        height: 5px;
+    }
+</style>
 @if(!empty($memo_list))
     {{--list view--}}
     <div>
@@ -11,22 +16,22 @@
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-9">
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                         <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Audit Observation')}} : </span>
-                                        <span class="description text-wrap font-size-14">{{$memo['audit_observation']}}</span>
+                                        <span class="description text-wrap font-size-14">{!!$memo['audit_observation']!!}</span>
                                     </div>
 
-                                    <div class="subject-wrapper font-weight-normal">
+                                    <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                         <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Cost Center')}} : </span>
                                         <span class="description text-wrap font-size-14">{{$memo['cost_center_name_en']}}</span>
                                     </div>
 
-                                    <div class="subject-wrapper font-weight-normal">
+                                    <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                         <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Issue Title')}} : </span>
                                         <span class="description text-info text-wrap font-size-14">{{$memo['memo_title_bn']}}</span>
                                     </div>
 
-                                    <div class="subject-wrapper font-weight-normal">
-                                        <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Criteria')}}  :</span>
-                                        <span class="description text-wrap font-size-14">{{$memo['criteria']}}</span>
+                                    <div class="d-flex align-items-center flex-wrap  font-size-1-2">
+                                        <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Criteria')}} : </span>
+                                        <span class="description text-wrap font-size-14">{!!$memo['criteria']!!}</span>
                                     </div>
 
                                     <!-- @if($memo['irregularity_cause'])

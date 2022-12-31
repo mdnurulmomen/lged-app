@@ -13,17 +13,17 @@
             </div>
             <div class="col-md-5">
                 <div class="d-flex justify-content-md-end">
-                    <a href="javascript:;" title="ফেরত যান"
+                    <a href="javascript:;" title="Go Back"
                        onclick="Audit_Query_Container.backToQuerySchedule($(this))"
                        class="btn btn-sm btn-warning btn_back btn-square mr-1 text-black">
-                        <i class="fad fa-arrow-alt-left"></i> ফেরত যান
+                        <i class="fad fa-arrow-alt-left"></i> Go Back
                     </a>
 
                     <a class="btn btn-sm btn-primary btn-square"
                        onclick="Audit_Query_Container.addQuery($(this))"
-                       title="কোয়েরি শিট তৈরি করুন"
+                       title="Create Query Sheet"
                        href="javascript:;">
-                        <i class="fa fa-plus mr-1"></i> কোয়েরি শিট
+                        <i class="fa fa-plus mr-1"></i> Query Sheet
                     </a>
                 </div>
             </div>
