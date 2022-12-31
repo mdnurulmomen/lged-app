@@ -832,14 +832,14 @@
             <table class="table table-bordered" style="border: 1px solid black;">
                 <tr>
                     <td class="tdd" style="background:#ace8ff; padding: 10px;">Audit Observation :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['audit_observation']}}</td>
+                    <td style="padding: 10px;">{!!$memoInfoDetails['audit_observation']!!}</td>
                 </tr>
             </table>
 
             <table class="table table-bordered" style="border: 1px solid black;">
                 <tr>
                     <td class="tdd" style="background:#ace8ff; padding: 10px;">Criteria :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['criteria']}}</td>
+                    <td style="padding: 10px;">{!!$memoInfoDetails['criteria']!!}</td>
                 </tr>
             </table>
 
