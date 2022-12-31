@@ -49,9 +49,9 @@ class RiskMatrixController extends Controller
         ])->json()['data'];
 
         $riskLevels = $this->initHttpWithToken()->get(config('amms_bee_routes.x_risk_levels'), [
-            'all' => 1
+            'type' => 'Area_risk_assessment'
         ])->json()['data'];
-        
+
         return view('modules.risk_assessment.risk_matrix.partials.create', compact('riskAssessmentLivelihoods', 'riskAssessmentImpacts', 'riskLevels'));
     }
 
@@ -71,7 +71,7 @@ class RiskMatrixController extends Controller
         ]);
 
         $currentUserId = $this->current_desk()['officer_id'];
-        
+
         $data = [
             'x_risk_assessment_likelihood_id' => $request->x_risk_assessment_likelihood_id,
             'x_risk_assessment_impact_id' => $request->x_risk_assessment_impact_id,
@@ -104,7 +104,7 @@ class RiskMatrixController extends Controller
             'x_risk_level_id' => 'required|integer',
             'priority' => 'required|integer',
         ]);
-        
+
         $id = $request->id;
         $x_risk_assessment_likelihood_id = $request->x_risk_assessment_likelihood_id;
         $x_risk_assessment_impact_id = $request->x_risk_assessment_impact_id;
@@ -134,7 +134,7 @@ class RiskMatrixController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
         $data = [
             'id' => $request->id,
             'x_risk_assessment_likelihood_id' => $request->x_risk_assessment_likelihood_id,
