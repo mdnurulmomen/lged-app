@@ -2,10 +2,10 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     {{--    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>--}}
     <style>
-        @page  {
+        @page {
             margin-top: 2.54cm;
             margin-right: 2cm;
             margin-bottom: 2cm;
@@ -243,6 +243,7 @@
 
         /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
         @media print {
+
             *,
             *:before,
             *:after {
@@ -259,11 +260,11 @@
             }
 
             a[href]:after {
-                content: " (" attr(href) ")";
+                content: " ("attr(href) ")";
             }
 
             abbr[title]:after {
-                content: " (" attr(title) ")";
+                content: " ("attr(title) ")";
             }
 
             a[href^="#"]:after,
@@ -306,8 +307,8 @@
                 display: none;
             }
 
-            .btn > .caret,
-            .dropup > .btn > .caret {
+            .btn>.caret,
+            .dropup>.btn>.caret {
                 border-top-color: #000 !important;
             }
 
@@ -484,33 +485,33 @@
             margin-bottom: 20px;
         }
 
-        .table > thead > tr > th,
-        .table > tbody > tr > th,
-        .table > tfoot > tr > th,
-        .table > thead > tr > td,
-        .table > tbody > tr > td,
-        .table > tfoot > tr > td {
+        .table>thead>tr>th,
+        .table>tbody>tr>th,
+        .table>tfoot>tr>th,
+        .table>thead>tr>td,
+        .table>tbody>tr>td,
+        .table>tfoot>tr>td {
             padding: 8px;
             line-height: 1.42857143;
             vertical-align: top;
             border-top: 1px solid #dddddd;
         }
 
-        .table > thead > tr > th {
+        .table>thead>tr>th {
             vertical-align: bottom;
             border-bottom: 2px solid #dddddd;
         }
 
-        .table > caption + thead > tr:first-child > th,
-        .table > colgroup + thead > tr:first-child > th,
-        .table > thead:first-child > tr:first-child > th,
-        .table > caption + thead > tr:first-child > td,
-        .table > colgroup + thead > tr:first-child > td,
-        .table > thead:first-child > tr:first-child > td {
+        .table>caption+thead>tr:first-child>th,
+        .table>colgroup+thead>tr:first-child>th,
+        .table>thead:first-child>tr:first-child>th,
+        .table>caption+thead>tr:first-child>td,
+        .table>colgroup+thead>tr:first-child>td,
+        .table>thead:first-child>tr:first-child>td {
             border-top: 0;
         }
 
-        .table > tbody + tbody {
+        .table>tbody+tbody {
             border-top: 2px solid #dddddd;
         }
 
@@ -518,12 +519,12 @@
             background-color: #ffffff;
         }
 
-        .table-condensed > thead > tr > th,
-        .table-condensed > tbody > tr > th,
-        .table-condensed > tfoot > tr > th,
-        .table-condensed > thead > tr > td,
-        .table-condensed > tbody > tr > td,
-        .table-condensed > tfoot > tr > td {
+        .table-condensed>thead>tr>th,
+        .table-condensed>tbody>tr>th,
+        .table-condensed>tfoot>tr>th,
+        .table-condensed>thead>tr>td,
+        .table-condensed>tbody>tr>td,
+        .table-condensed>tfoot>tr>td {
             padding: 10px;
         }
 
@@ -531,140 +532,140 @@
             border: .5px solid black;
         }
 
-        .table-bordered > thead > tr > th,
-        .table-bordered > tbody > tr > th,
-        .table-bordered > tfoot > tr > th,
-        .table-bordered > thead > tr > td,
-        .table-bordered > tbody > tr > td,
-        .table-bordered > tfoot > tr > td {
+        .table-bordered>thead>tr>th,
+        .table-bordered>tbody>tr>th,
+        .table-bordered>tfoot>tr>th,
+        .table-bordered>thead>tr>td,
+        .table-bordered>tbody>tr>td,
+        .table-bordered>tfoot>tr>td {
             border: .5px solid black;
         }
 
-        .table-bordered > thead > tr > th,
-        .table-bordered > thead > tr > td {
+        .table-bordered>thead>tr>th,
+        .table-bordered>thead>tr>td {
             border-bottom-width: 2px;
         }
 
-        .table-striped > tbody > tr:nth-of-type(odd) {
+        .table-striped>tbody>tr:nth-of-type(odd) {
             background-color: #f9f9f9;
         }
 
-        .table-hover > tbody > tr:hover {
+        .table-hover>tbody>tr:hover {
             background-color: #f5f5f5;
         }
 
-        .table > thead > tr > td.active,
-        .table > tbody > tr > td.active,
-        .table > tfoot > tr > td.active,
-        .table > thead > tr > th.active,
-        .table > tbody > tr > th.active,
-        .table > tfoot > tr > th.active,
-        .table > thead > tr.active > td,
-        .table > tbody > tr.active > td,
-        .table > tfoot > tr.active > td,
-        .table > thead > tr.active > th,
-        .table > tbody > tr.active > th,
-        .table > tfoot > tr.active > th {
+        .table>thead>tr>td.active,
+        .table>tbody>tr>td.active,
+        .table>tfoot>tr>td.active,
+        .table>thead>tr>th.active,
+        .table>tbody>tr>th.active,
+        .table>tfoot>tr>th.active,
+        .table>thead>tr.active>td,
+        .table>tbody>tr.active>td,
+        .table>tfoot>tr.active>td,
+        .table>thead>tr.active>th,
+        .table>tbody>tr.active>th,
+        .table>tfoot>tr.active>th {
             background-color: #f5f5f5;
         }
 
-        .table-hover > tbody > tr > td.active:hover,
-        .table-hover > tbody > tr > th.active:hover,
-        .table-hover > tbody > tr.active:hover > td,
-        .table-hover > tbody > tr:hover > .active,
-        .table-hover > tbody > tr.active:hover > th {
+        .table-hover>tbody>tr>td.active:hover,
+        .table-hover>tbody>tr>th.active:hover,
+        .table-hover>tbody>tr.active:hover>td,
+        .table-hover>tbody>tr:hover>.active,
+        .table-hover>tbody>tr.active:hover>th {
             background-color: #e8e8e8;
         }
 
-        .table > thead > tr > td.success,
-        .table > tbody > tr > td.success,
-        .table > tfoot > tr > td.success,
-        .table > thead > tr > th.success,
-        .table > tbody > tr > th.success,
-        .table > tfoot > tr > th.success,
-        .table > thead > tr.success > td,
-        .table > tbody > tr.success > td,
-        .table > tfoot > tr.success > td,
-        .table > thead > tr.success > th,
-        .table > tbody > tr.success > th,
-        .table > tfoot > tr.success > th {
+        .table>thead>tr>td.success,
+        .table>tbody>tr>td.success,
+        .table>tfoot>tr>td.success,
+        .table>thead>tr>th.success,
+        .table>tbody>tr>th.success,
+        .table>tfoot>tr>th.success,
+        .table>thead>tr.success>td,
+        .table>tbody>tr.success>td,
+        .table>tfoot>tr.success>td,
+        .table>thead>tr.success>th,
+        .table>tbody>tr.success>th,
+        .table>tfoot>tr.success>th {
             background-color: #dff0d8;
         }
 
-        .table-hover > tbody > tr > td.success:hover,
-        .table-hover > tbody > tr > th.success:hover,
-        .table-hover > tbody > tr.success:hover > td,
-        .table-hover > tbody > tr:hover > .success,
-        .table-hover > tbody > tr.success:hover > th {
+        .table-hover>tbody>tr>td.success:hover,
+        .table-hover>tbody>tr>th.success:hover,
+        .table-hover>tbody>tr.success:hover>td,
+        .table-hover>tbody>tr:hover>.success,
+        .table-hover>tbody>tr.success:hover>th {
             background-color: #d0e9c6;
         }
 
-        .table > thead > tr > td.info,
-        .table > tbody > tr > td.info,
-        .table > tfoot > tr > td.info,
-        .table > thead > tr > th.info,
-        .table > tbody > tr > th.info,
-        .table > tfoot > tr > th.info,
-        .table > thead > tr.info > td,
-        .table > tbody > tr.info > td,
-        .table > tfoot > tr.info > td,
-        .table > thead > tr.info > th,
-        .table > tbody > tr.info > th,
-        .table > tfoot > tr.info > th {
+        .table>thead>tr>td.info,
+        .table>tbody>tr>td.info,
+        .table>tfoot>tr>td.info,
+        .table>thead>tr>th.info,
+        .table>tbody>tr>th.info,
+        .table>tfoot>tr>th.info,
+        .table>thead>tr.info>td,
+        .table>tbody>tr.info>td,
+        .table>tfoot>tr.info>td,
+        .table>thead>tr.info>th,
+        .table>tbody>tr.info>th,
+        .table>tfoot>tr.info>th {
             background-color: #d9edf7;
         }
 
-        .table-hover > tbody > tr > td.info:hover,
-        .table-hover > tbody > tr > th.info:hover,
-        .table-hover > tbody > tr.info:hover > td,
-        .table-hover > tbody > tr:hover > .info,
-        .table-hover > tbody > tr.info:hover > th {
+        .table-hover>tbody>tr>td.info:hover,
+        .table-hover>tbody>tr>th.info:hover,
+        .table-hover>tbody>tr.info:hover>td,
+        .table-hover>tbody>tr:hover>.info,
+        .table-hover>tbody>tr.info:hover>th {
             background-color: #c4e3f3;
         }
 
-        .table > thead > tr > td.warning,
-        .table > tbody > tr > td.warning,
-        .table > tfoot > tr > td.warning,
-        .table > thead > tr > th.warning,
-        .table > tbody > tr > th.warning,
-        .table > tfoot > tr > th.warning,
-        .table > thead > tr.warning > td,
-        .table > tbody > tr.warning > td,
-        .table > tfoot > tr.warning > td,
-        .table > thead > tr.warning > th,
-        .table > tbody > tr.warning > th,
-        .table > tfoot > tr.warning > th {
+        .table>thead>tr>td.warning,
+        .table>tbody>tr>td.warning,
+        .table>tfoot>tr>td.warning,
+        .table>thead>tr>th.warning,
+        .table>tbody>tr>th.warning,
+        .table>tfoot>tr>th.warning,
+        .table>thead>tr.warning>td,
+        .table>tbody>tr.warning>td,
+        .table>tfoot>tr.warning>td,
+        .table>thead>tr.warning>th,
+        .table>tbody>tr.warning>th,
+        .table>tfoot>tr.warning>th {
             background-color: #fcf8e3;
         }
 
-        .table-hover > tbody > tr > td.warning:hover,
-        .table-hover > tbody > tr > th.warning:hover,
-        .table-hover > tbody > tr.warning:hover > td,
-        .table-hover > tbody > tr:hover > .warning,
-        .table-hover > tbody > tr.warning:hover > th {
+        .table-hover>tbody>tr>td.warning:hover,
+        .table-hover>tbody>tr>th.warning:hover,
+        .table-hover>tbody>tr.warning:hover>td,
+        .table-hover>tbody>tr:hover>.warning,
+        .table-hover>tbody>tr.warning:hover>th {
             background-color: #faf2cc;
         }
 
-        .table > thead > tr > td.danger,
-        .table > tbody > tr > td.danger,
-        .table > tfoot > tr > td.danger,
-        .table > thead > tr > th.danger,
-        .table > tbody > tr > th.danger,
-        .table > tfoot > tr > th.danger,
-        .table > thead > tr.danger > td,
-        .table > tbody > tr.danger > td,
-        .table > tfoot > tr.danger > td,
-        .table > thead > tr.danger > th,
-        .table > tbody > tr.danger > th,
-        .table > tfoot > tr.danger > th {
+        .table>thead>tr>td.danger,
+        .table>tbody>tr>td.danger,
+        .table>tfoot>tr>td.danger,
+        .table>thead>tr>th.danger,
+        .table>tbody>tr>th.danger,
+        .table>tfoot>tr>th.danger,
+        .table>thead>tr.danger>td,
+        .table>tbody>tr.danger>td,
+        .table>tfoot>tr.danger>td,
+        .table>thead>tr.danger>th,
+        .table>tbody>tr.danger>th,
+        .table>tfoot>tr.danger>th {
             background-color: #f2dede;
         }
 
-        .table-hover > tbody > tr > td.danger:hover,
-        .table-hover > tbody > tr > th.danger:hover,
-        .table-hover > tbody > tr.danger:hover > td,
-        .table-hover > tbody > tr:hover > .danger,
-        .table-hover > tbody > tr.danger:hover > th {
+        .table-hover>tbody>tr>td.danger:hover,
+        .table-hover>tbody>tr>th.danger:hover,
+        .table-hover>tbody>tr.danger:hover>td,
+        .table-hover>tbody>tr:hover>.danger,
+        .table-hover>tbody>tr.danger:hover>th {
             background-color: #ebcccc;
         }
 
@@ -682,45 +683,45 @@
                 border: 1px solid #dddddd;
             }
 
-            .table-responsive > .table {
+            .table-responsive>.table {
                 margin-bottom: 0;
             }
 
-            .table-responsive > .table > thead > tr > th,
-            .table-responsive > .table > tbody > tr > th,
-            .table-responsive > .table > tfoot > tr > th,
-            .table-responsive > .table > thead > tr > td,
-            .table-responsive > .table > tbody > tr > td,
-            .table-responsive > .table > tfoot > tr > td {
+            .table-responsive>.table>thead>tr>th,
+            .table-responsive>.table>tbody>tr>th,
+            .table-responsive>.table>tfoot>tr>th,
+            .table-responsive>.table>thead>tr>td,
+            .table-responsive>.table>tbody>tr>td,
+            .table-responsive>.table>tfoot>tr>td {
                 white-space: nowrap;
             }
 
-            .table-responsive > .table-bordered {
+            .table-responsive>.table-bordered {
                 border: 0;
             }
 
-            .table-responsive > .table-bordered > thead > tr > th:first-child,
-            .table-responsive > .table-bordered > tbody > tr > th:first-child,
-            .table-responsive > .table-bordered > tfoot > tr > th:first-child,
-            .table-responsive > .table-bordered > thead > tr > td:first-child,
-            .table-responsive > .table-bordered > tbody > tr > td:first-child,
-            .table-responsive > .table-bordered > tfoot > tr > td:first-child {
+            .table-responsive>.table-bordered>thead>tr>th:first-child,
+            .table-responsive>.table-bordered>tbody>tr>th:first-child,
+            .table-responsive>.table-bordered>tfoot>tr>th:first-child,
+            .table-responsive>.table-bordered>thead>tr>td:first-child,
+            .table-responsive>.table-bordered>tbody>tr>td:first-child,
+            .table-responsive>.table-bordered>tfoot>tr>td:first-child {
                 border-left: 0;
             }
 
-            .table-responsive > .table-bordered > thead > tr > th:last-child,
-            .table-responsive > .table-bordered > tbody > tr > th:last-child,
-            .table-responsive > .table-bordered > tfoot > tr > th:last-child,
-            .table-responsive > .table-bordered > thead > tr > td:last-child,
-            .table-responsive > .table-bordered > tbody > tr > td:last-child,
-            .table-responsive > .table-bordered > tfoot > tr > td:last-child {
+            .table-responsive>.table-bordered>thead>tr>th:last-child,
+            .table-responsive>.table-bordered>tbody>tr>th:last-child,
+            .table-responsive>.table-bordered>tfoot>tr>th:last-child,
+            .table-responsive>.table-bordered>thead>tr>td:last-child,
+            .table-responsive>.table-bordered>tbody>tr>td:last-child,
+            .table-responsive>.table-bordered>tfoot>tr>td:last-child {
                 border-right: 0;
             }
 
-            .table-responsive > .table-bordered > tbody > tr:last-child > th,
-            .table-responsive > .table-bordered > tfoot > tr:last-child > th,
-            .table-responsive > .table-bordered > tbody > tr:last-child > td,
-            .table-responsive > .table-bordered > tfoot > tr:last-child > td {
+            .table-responsive>.table-bordered>tbody>tr:last-child>th,
+            .table-responsive>.table-bordered>tfoot>tr:last-child>th,
+            .table-responsive>.table-bordered>tbody>tr:last-child>td,
+            .table-responsive>.table-bordered>tfoot>tr:last-child>td {
                 border-bottom: 0;
             }
         }
@@ -735,9 +736,9 @@
             clear: both;
         }
 
-        .tdd{
-        width: 37%;
-        font-weight: bold;
+        .tdd {
+            width: 37%;
+            font-weight: bold;
         }
 
         .center-block {
@@ -786,20 +787,26 @@
             text-align: center;
         }
 
-        .no-border tbody, .no-border td, .no-border tfoot, .no-border th, .no-border thead, .no-border tr {
+        .no-border tbody,
+        .no-border td,
+        .no-border tfoot,
+        .no-border th,
+        .no-border thead,
+        .no-border tr {
             border: 0 !important;
         }
 
-        table tbody tr td{
+        table tbody tr td {
             font-family: nikoshpdf !important;
         }
-        
+
         @font-face {
-        font-family: 'fontawesome3';
-        src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype');
-        font-weight: normal;
-        font-style: normal;
+            font-family: 'fontawesome3';
+            src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype');
+            font-weight: normal;
+            font-style: normal;
         }
+
         .fa3 {
             display: inline-block;
             font: normal normal normal 14px/1 fontawesome3;
@@ -809,105 +816,122 @@
         }
 
     </style>
-    
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v4.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v4.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
 <body>
-    <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
-        <div class="pdf-screen bangla-font" style="height: 100%">
-            <div style="text-align: center;">
-                <h2>Report</h2>
+    <div id="writing-screen-wrapper" style="font-family:Times New Roman;">
+        <div class="pdf-screen" style="height: 100%;">
+            <div style="text-align: center; font-weight: bold;">
+                <div>Issue No. #{{$memoInfoDetails['onucched_no']}}.</div>
             </div>
-            <table class="table table-bordered" style="border: 1px solid black;">
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Issue No :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['onucched_no']}}</td>
-                </tr>
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Issue Title :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['memo_title_bn']}}</td>
-                </tr>
-            </table>
-            <table class="table table-bordered" style="border: 1px solid black;">
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Audit Observation :</td>
-                    <td style="padding: 10px;">{!!$memoInfoDetails['audit_observation']!!}</td>
-                </tr>
-            </table>
 
-            <table class="table table-bordered" style="border: 1px solid black;">
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Criteria :</td>
-                    <td style="padding: 10px;">{!!$memoInfoDetails['criteria']!!}</td>
-                </tr>
-            </table>
+            <div style="text-align: right;">
+                <span><h5>Date: {{ date('d-m-Y') }}</h5></span>
+            </div>
 
-            <table class="table table-bordered" style="border: 1px solid black;">
+            <br>
+
+            <div style="font-weight: bold;">
+                <span>Issue :</span>
+                <span>{{$memoInfoDetails['memo_title_bn']}}</span>
+            </div>
+
+            <br>
+
+            <div>
+                <div style="font-weight: bold;">Audit Observation (Condition) :</div>
+                <div>{!!$memoInfoDetails['audit_observation']!!}</div>
+            </div>
+
+            <br>
+
+            <div>
+                <div style="font-weight: bold;">Criteria :</div>
+                <div>{!!$memoInfoDetails['criteria']!!}</div>
+            </div>
+
+            <br>
+
+            <div>
                 @php
-                    if(!empty($memoInfoDetails['cause'])){
-                        $causes = json_decode($memoInfoDetails['cause']);
-                    }
+                if(!empty($memoInfoDetails['cause'])){
+                    $causes = json_decode($memoInfoDetails['cause']);
+                }
                 @endphp
                 @if (!empty($causes))
-                    @foreach ($causes as $key=>$cause)
-                        <tr>
-                            <td class="tdd" style="background:#ace8ff; padding: 10px;">Cause {{$key+1}} :</td>
-                            <td style="padding: 10px;">{{$cause}}</td>
-                        </tr>
-                    @endforeach
+                    <div>
+                        <div style="font-weight: bold;">Cause :</div>
+                        @foreach ($causes as $key=>$cause)
+                            <div>{{$cause}}</div>
+                        @endforeach
+                    </div>
                 @endif
-            </table>
+            </div>
 
-            <table class="table table-bordered" style="border: 1px solid black;">
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Consequence/Impact :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['impact']}}</td>
-                </tr>
-            </table>
+            <br>
 
-            <table class="table table-bordered" style="border: 1px solid black;">
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Recommendation :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['recommendation']}}</td>
-                </tr>
-            </table>
+            <div>
+                <div style="font-weight: bold;">Consequence/Impact :</div>
+                <div>{{$memoInfoDetails['impact']}}</div>
+            </div>
 
-            <table class="table table-bordered" style="border: 1px solid black;">
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Risk Level :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['risk_level']}}</td>
-                </tr>
-            </table>
+            <br>
 
-            <table class="table table-bordered" style="border: 1px solid black;">
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Management Response :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['m_response']}}</td>
-                </tr>
-            </table>
+            <div>
+                <div style="font-weight: bold;">Recommendation :</div>
+                <div>{{$memoInfoDetails['recommendation']}}</div>
+            </div>
 
-            <table class="table table-bordered" style="border: 1px solid black;">
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Auditor's Comment :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['comment']}}</td>
-                </tr>
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Action Taken :</td>
-                    <td style="padding: 10px;">{{ucfirst($memoInfoDetails['action_taken'])}}</td>
-                </tr>
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Responsible Person :</td>
-                    <td style="padding: 10px;">{{$memoInfoDetails['responsible_person']}}</td>
-                </tr>
-                <tr>
-                    <td class="tdd" style="background:#ace8ff; padding: 10px;">Date To Be Implemented :</td>
-                    <td style="padding: 10px;">{{date('d/m/Y',strtotime($memoInfoDetails['date_to_be_implemented']))}}</td>
-                </tr>
-                <tr>
-        </tr>
-            </table>
+            <br>
+
+            <div>
+                <span style="font-weight: bold;">Risk Level :</span>
+                <span>{{$memoInfoDetails['risk_level']}}</span>
+            </div>
+
+            <br>
+
+            <div>
+                <div style="font-weight: bold;">Management Response :</div>
+                <div>{{$memoInfoDetails['m_response']}}</div>
+            </div>
+
+            <br>
+
+            <div>
+                <div style="font-weight: bold;">Auditor's Comment :</div>
+                <div>{{$memoInfoDetails['comment']}}</div>
+            </div>
+
+            <br>
+
+            <div>
+                <span style="font-weight: bold;">Action Taken :</span>
+                <span>{{ucfirst($memoInfoDetails['action_taken'])}}</span>
+            </div>
+
+            <br>
+
+            <div>
+                <span style="font-weight: bold;">Responsible Person :</span>
+                <span>{{$memoInfoDetails['responsible_person']}}</span>
+            </div>
+
+            <br>
+
+            <div>
+                <span style="font-weight: bold;">Date To Be Implemented :</span>
+                @if(!empty($memoInfoDetails['date_to_be_implemented']))
+                <span>{{date('d/m/Y',strtotime($memoInfoDetails['date_to_be_implemented']))}}</span>
+                @else
+                <span></span>
+                @endif
+            </div>
         </div>
     </div>
 </body>
+
 </html>
