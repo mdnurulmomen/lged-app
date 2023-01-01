@@ -19,7 +19,8 @@
             font-family: nikoshpdf !important;
         }
 
-        .form-row>.col, .form-row>[class*="col-"] {
+        .form-row>.col,
+        .form-row>[class*="col-"] {
             padding-right: 5px;
             padding-left: 5px;
         }
@@ -59,7 +60,8 @@
             page-break-after: auto;
         }
 
-        .table thead th, .table thead td {
+        .table thead th,
+        .table thead td {
             font-weight: 600;
             font-size: 1rem;
             border-bottom-width: 1px;
@@ -72,17 +74,20 @@
             border-bottom: 2px solid #EBEDF3;
         }
 
-        .table-bordered th, .table-bordered td {
+        .table-bordered th,
+        .table-bordered td {
             border: 1px solid #EBEDF3;
             border-color: #0c0e1a !important;
         }
 
-        .table th, .table td {
+        .table th,
+        .table td {
             padding: 0.5rem;
             vertical-align: top;
         }
 
-        .table thead th, .table thead td {
+        .table thead th,
+        .table thead td {
             padding: 0.75rem;
         }
 
@@ -91,29 +96,27 @@
         }
 
         @media print {
-            table {page-break-inside: avoid;}
+            table {
+                page-break-inside: avoid;
+            }
         }
+
     </style>
 </head>
 
 <body>
-    <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
+    <div id="writing-screen-wrapper"
+        style="font-family:nikoshpdf,serif !important; text-align: justify; text-justify: inter-word;">
         <div class="pdf-screen bangla-font">
             <div class="bangla-font" style="font-family:nikoshpdf,serif !important;text-align: center">
-                <h5 class="text-center">Annoncement Memo</h5>
+                <h2 class="text-center">Annoncement Memo</h2>
             </div>
         </div>
 
-        <div class="col-sm-12 form-group">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Subject:</th>
-                        <td>Commencement of Audit of {{ $announcementMemo['yearly_plan_info']['project_name_en'] ?? ($announcementMemo['yearly_plan_info']['function_name_en'] ?? $announcementMemo['yearly_plan_info']['cost_center_en']) }}
-                        </td>
-                    </tr>
-                </thead>
-            </table>
+        <div>
+            <div style="font-weight: bold;">Subject : Commencement of Audit of
+                {{ $announcementMemo['yearly_plan_info']['project_name_en'] ?? ($announcementMemo['yearly_plan_info']['function_name_en'] ?? $announcementMemo['yearly_plan_info']['cost_center_en']) }}
+            </div>
         </div>
 
         <div class="col-sm-12 form-group">
@@ -121,59 +124,31 @@
                 Audit Plan</p>
         </div>
 
-        <div class="col-sm-12 form-group">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th colspan="">Audit Period</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>This audit covers the period from
-                            {{ count($announcementMemo['yearly_plan_info']['teams']) ? $announcementMemo['yearly_plan_info']['teams'][0]['team_start_date'] : '--' }}
-                            till
-                            {{ count($announcementMemo['yearly_plan_info']['teams']) ? $announcementMemo['yearly_plan_info']['teams'][0]['team_end_date'] : '--' }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div><span style="font-weight: bold;">Audit Period :</span>
+            <span>
+                This audit covers the period from
+                {{ count($announcementMemo['yearly_plan_info']['teams']) ? $announcementMemo['yearly_plan_info']['teams'][0]['team_start_date'] : '--' }}
+                till
+                {{ count($announcementMemo['yearly_plan_info']['teams']) ? $announcementMemo['yearly_plan_info']['teams'][0]['team_end_date'] : '--' }}
+            </span>
         </div>
 
-        <div class="col-sm-12 form-group">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th colspan="">Audit Scope</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{!!$announcementMemo['audit_plan_info']['scope']!!}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <br>
+
+        <div>
+            <div style="font-weight: bold;">Audit Scope : </div>
+            <div>{!!$announcementMemo['audit_plan_info']['scope']!!}></div>
         </div>
 
-        <div class="col-sm-12 form-group">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th colspan="">Audit Objective</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{!!$announcementMemo['audit_plan_info']['objective']!!}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div>
+            <div style="font-weight: bold;">Audit Objective : </div>
+            <div>{!!$announcementMemo['audit_plan_info']['objective']!!}></div>
         </div>
 
         <div class="col-sm-12 form-group">
             <table class="table table-bordered">
                 @foreach ($announcementMemo['yearly_plan_info']['teams'] as $team)
-                    <thead>
+                <thead>
                     <tr>
                         <th colspan="2">
                             Audit Team {{ $team['team_name'] }}
@@ -183,15 +158,15 @@
                         <th>Name</th>
                         <th>Designation</th>
                     </tr>
-                    </thead>
-                    <tbody>
+                </thead>
+                <tbody>
                     @foreach ($team['members'] as $member)
-                        <tr>
-                            <td>{{ $member['team_member_name_en'] }}</td>
-                            <td>{{ $member['team_member_designation_en'] }}</td>
-                        </tr>
+                    <tr>
+                        <td>{{ $member['team_member_name_en'] }}</td>
+                        <td>{{ $member['team_member_designation_en'] }}</td>
+                    </tr>
                     @endforeach
-                    </tbody>
+                </tbody>
                 @endforeach
             </table>
         </div>
@@ -211,13 +186,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($announcementMemo['audit_plan_info']['milestones'] as $milestone)
+                    @foreach($announcementMemo['audit_plan_info']['milestones'] as $milestone)
                     <tr>
                         <td>{{$milestone['milestone_bn']}}</td>
                         <td>{{$milestone['start_date']}}</td>
                         <td>{{$milestone['end_date']}}</td>
                     </tr>
-                @endforeach
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -225,7 +200,9 @@
         <div class="col-sm-12 form-group">
             <p>
                 We would like to see you for a kick-off meeting to discuss the focus areas of auditable activities on
-                audit commencement date i.e. [{{ count($announcementMemo['yearly_plan_info']['teams']) ? $announcementMemo['yearly_plan_info']['teams'][0]['team_start_date'] : '--' }}]. Kindly,
+                audit commencement date i.e.
+                [{{ count($announcementMemo['yearly_plan_info']['teams']) ? $announcementMemo['yearly_plan_info']['teams'][0]['team_start_date'] : '--' }}].
+                Kindly,
                 commenicate the commencement of internal audit of relevant personnel.
             </p>
 
