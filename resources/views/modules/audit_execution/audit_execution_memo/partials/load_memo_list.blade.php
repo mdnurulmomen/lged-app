@@ -14,10 +14,10 @@
                             <div class="row d-md-flex flex-wrap align-items-start justify-content-md-between">
                                 <!--begin::Title-->
                                 <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-9">
-                                    <div class="d-flex align-items-center flex-wrap  font-size-1-2">
+                                    <!-- <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                         <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Audit Observation')}} : </span>
                                         <span class="description text-wrap font-size-14">{!!$memo['audit_observation']!!}</span>
-                                    </div>
+                                    </div> -->
 
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                         <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Cost Center')}} : </span>
@@ -29,10 +29,10 @@
                                         <span class="description text-info text-wrap font-size-14">{{$memo['memo_title_bn']}}</span>
                                     </div>
 
-                                    <div class="d-flex align-items-center flex-wrap  font-size-1-2">
+                                    <!-- <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                         <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Criteria')}} : </span>
                                         <span class="description text-wrap font-size-14">{!!$memo['criteria']!!}</span>
-                                    </div>
+                                    </div> -->
 
                                     <!-- @if($memo['irregularity_cause'])
                                         <div class="font-weight-normal">

@@ -67,10 +67,10 @@
                             rows="1" disabled>{{$issue_title}}</textarea>
 
                         <label class="col-form-label">Audit Observation</label>
-                        <h4 class="form-control mb-1" name="audit_observation" disabled>{!!$audit_observation!!}</h4>
+                        <div class="card sna-card-border">{!!$audit_observation!!}</div>
 
                         <label class="col-form-label">Criteria</label>
-                        <h4 class="form-control mb-1" name="criteria" disabled>{!!$criteria!!}</h4>
+                        <div class="card sna-card-border">{!!$criteria!!}</div>
 
                         <label class="col-form-label">Consequence/Impact</label>
                         <textarea class="form-control mb-1" name="consequence" placeholder="Consequence/Impact" cols="20"

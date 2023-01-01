@@ -817,12 +817,13 @@
 
     </style>
 
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v4.7.0/css/all.css"
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
 <body>
-    <div id="writing-screen-wrapper" style="font-family:Times New Roman;">
+    <div id="writing-screen-wrapper" style="font-family:Times New Roman; text-align: justify; text-justify: inter-word;">
         <div class="pdf-screen" style="height: 100%;">
             <div style="text-align: center; font-weight: bold;">
                 <div>Issue No. #{{$memoInfoDetails['onucched_no']}}.</div>
