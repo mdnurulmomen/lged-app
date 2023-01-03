@@ -97,6 +97,7 @@ use App\Http\Controllers\Setting\XRiskLevelController;
 use App\Http\Controllers\Setting\XRiskImpactController;
 use App\Http\Controllers\Setting\XRiskLikelihoodController;
 use App\Http\Controllers\RiskAssessment\SectorAssessmentController;
+use App\Http\Controllers\RiskIdentification\RiskIdentificationController;
 use App\Http\Controllers\Setting\XStrategicPlan\DurationController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutcomeController;
 use App\Http\Controllers\Setting\XStrategicPlan\OutputController;
@@ -138,6 +139,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         });
         Route::get('/dashboard', [AuditPlanDashboardController::class, 'index'])->name('dashboard');
 
+        // risk identifications
+        Route::get('/risk-identifications/list', [RiskIdentificationController::class, 'getRiskIdentificationList'])->name('risk-identifications.list');
+        Route::get('/risk-identifications/child-area-list', [RiskIdentificationController::class, 'getChildAreas'])->name('risk-identifications.child-area-list');
+        Route::get('/risk-identifications/parent-area-list', [RiskIdentificationController::class, 'getSectorParentAreaList'])->name('risk-identifications.parent-area-list');
+        Route::resource('/risk-identifications', RiskIdentificationController::class, ['except' => ['edit']]);
+        Route::post('/risk-identifications/edit', [RiskIdentificationController::class, 'sectorRiskAssessmentEdit'])->name('risk-identifications.edit');
+        
         //strategic plan
         Route::group(['as' => 'strategy.', 'prefix' => 'strategy/'], function () {
 
@@ -988,7 +996,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/sector-risk-assessments/summery', [SectorAssessmentController::class, 'sectorRiskAssessmentSummery'])->name('sector-risk-assessments.summery');
         Route::resource('/sector-risk-assessments', SectorAssessmentController::class, ['except' => ['edit']]);
         Route::post('/sector-risk-assessments/edit', [SectorAssessmentController::class, 'sectorRiskAssessmentEdit'])->name('sector-risk-assessments.edit');
-
+        
         Route::group(['as' => 'strategic-plan.', 'prefix' => 'strategic-plan/'], function () {
             Route::post('/duration/lists', [DurationController::class, 'getDurationLists'])->name('duration.lists');
             Route::resource('/duration', DurationController::class, ['except' => ['edit', 'create']]);

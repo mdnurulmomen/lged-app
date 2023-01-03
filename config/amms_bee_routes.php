@@ -265,6 +265,9 @@ return [
         'store' => env('API_URL_BEE', '') . '/risk-assessment-factor/store',
     ],
 
+    'risk_identifications' => env('API_URL_BEE', '') . '/risk-identifications',
+    'risk_identification_parent_areas' => env('API_URL_BEE', '') . '/risk-identifications/parent-areas',
+
     'risk_matrixes' => env('API_URL_BEE', '') . '/risk-matrixes',
     'sector_risk_assessments' => env('API_URL_BEE', '') . '/sector-risk-assessments',
 
