@@ -59,6 +59,22 @@
                 </select>
             </div>
         </div>
+
+        <div class="col-sm-12 form-group">
+            <label>Parent Area</label>
+            <select class="form-control select-select2" name="parent_id" id="parent_id">
+                <option value="" selected>Select Parent Area</option>
+                @foreach ($allAreas as $area)
+                    <option 
+                        value="{{ $area['id'] }}"
+                        @if ($area['id']==$parent_id) selected @endif
+                    >
+                        {{ ucfirst($area['name_en']) }}
+                        ({{ ucfirst($area['name_bn']) }})
+                    </option>
+                @endforeach
+            </select>
+        </div>
     </div>
 
     <div class="form-row">
@@ -112,11 +128,12 @@
                 id : $('#id').val(),
                 name_bn : $('#name_bn').val(),
                 name_en : $('#name_en').val(),
+                parent_id : $('#parent_id').find(':selected').val(),
                 sector_id,
                 sector_type,
             };
 
-            console.log(data);
+            // console.log(data);
     
             ajaxCallAsyncCallbackAPI(url, data, 'PUT', function (response) {
                 loadData();

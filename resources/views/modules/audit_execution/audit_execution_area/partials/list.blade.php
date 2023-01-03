@@ -1,19 +1,23 @@
 <table class="table table-bordered" width="100%">
     <thead class="thead-light">
     <tr>
-        <th width="30%">
+        <th>
             Title Bn
         </th>
 
-        <th width="30%">
+        <th>
             Title En
         </th>
 
-        <th width="30%">
+        <th>
+            Parent
+        </th>
+
+        <th>
             Sector
         </th>
 
-        <th width="15%">
+        <th>
             Action
         </th>
     </tr>
@@ -23,6 +27,7 @@
         <tr id="row_{{$audit_area['id']}}" data-row="{{$loop->iteration}}">
             <td> {{ ucfirst($audit_area['name_bn']) }} </td>
             <td> {{ ucfirst($audit_area['name_en']) }} </td>
+            <td> {{ $audit_area['parent'] ? ucfirst($audit_area['parent']['name_en']) : '--' }} </td>
             <td> {{ ucfirst($audit_area['sector']['name_en']) }} </td>
             <td>
                 <a href="javascript:;"
@@ -31,6 +36,7 @@
                    data-sector-type="{{$audit_area['sector_type']}}" 
                    data-title-en="{{$audit_area['name_bn']}}" 
                    data-title-bn="{{$audit_area['name_en']}}" 
+                   data-parent-id="{{$audit_area['parent_id']}}" 
                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_audit_area">
                     <i class="fas fa-edit"></i>
                 </a>
@@ -68,9 +74,10 @@
         sector_type =$(this).data('sector-type');
         name_en =$(this).data('title-en');
         name_bn = $(this).data('title-bn');
+        parent_id = $(this).data('parent-id');
 
         url = "{{ route('audit.execution.areas.edit') }}";
-        var data = {id,name_bn,name_en,sector_id,sector_type};
+        var data = {id,name_bn,name_en,parent_id,sector_id,sector_type};
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
             if (resp.status === 'error') {
                 toastr.error('no');

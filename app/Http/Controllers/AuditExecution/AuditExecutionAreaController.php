@@ -26,7 +26,7 @@ class AuditExecutionAreaController extends Controller
             'all' => 1
         ])->json();
 
-        // dd($audit_area_list);
+        // dd($audit_area_list['data']);
 
         if ($audit_area_list['status'] == 'success') {
             $audit_area_list = $audit_area_list['data'];
@@ -57,8 +57,13 @@ class AuditExecutionAreaController extends Controller
             'all' => 1
         ])->json();
         $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
+
+        $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
+            'all' => 1
+        ])->json();
+        $allAreas = $allAreas ? $allAreas['data'] : [];
         
-        return view('modules.audit_execution.audit_execution_area.partials.create', compact(['allProjects', 'allFunctions', 'allMasterUnits']));
+        return view('modules.audit_execution.audit_execution_area.partials.create', compact(['allProjects', 'allFunctions', 'allMasterUnits', 'allAreas']));
     }
 
     /**
@@ -74,6 +79,7 @@ class AuditExecutionAreaController extends Controller
             'sector_type' => 'required|string|in:App\Models\Project,App\Models\AuditFunction,App\Models\UnitMasterInfo',
             'name_en' => 'required|string|max:255',
             'name_bn' => 'required|string|max:255',
+            'parent_id' => 'nullable|integer'
         ]);
 
         $currentUserId = $this->current_desk()['officer_id'];
@@ -83,6 +89,7 @@ class AuditExecutionAreaController extends Controller
             'sector_type' => $request->sector_type,
             'name_en' => $request->name_en,
             'name_bn' => $request->name_bn,
+            'parent_id' => $request->parent_id,
             'created_by' => $currentUserId,
             'updated_by' => $currentUserId,
         ];
@@ -109,6 +116,7 @@ class AuditExecutionAreaController extends Controller
         $sector_type = $request->sector_type;
         $name_en = $request->name_en;
         $name_bn = $request->name_bn;
+        $parent_id = $request->parent_id;
 
         $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
             'all' => 1
@@ -125,7 +133,12 @@ class AuditExecutionAreaController extends Controller
         ])->json();
         $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
 
-        return view('modules.audit_execution.audit_execution_area.partials.update', compact('id', 'sector_id', 'sector_type', 'name_en', 'name_bn', 'allProjects', 'allFunctions', 'allMasterUnits'));
+        $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
+            'all' => 1
+        ])->json();
+        $allAreas = $allAreas ? $allAreas['data'] : [];
+
+        return view('modules.audit_execution.audit_execution_area.partials.update', compact('id', 'sector_id', 'sector_type', 'name_en', 'name_bn', 'parent_id', 'allProjects', 'allFunctions', 'allMasterUnits', 'allAreas'));
     }
 
     /**
@@ -138,10 +151,12 @@ class AuditExecutionAreaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'id' => 'required|integer',
             'sector_id' => 'required|integer',
             'sector_type' => 'required|string|in:App\Models\Project,App\Models\AuditFunction,App\Models\UnitMasterInfo',
             'name_en' => 'required|string|max:255',
             'name_bn' => 'required|string|max:255',
+            'parent_id' => 'nullable|integer|lt:id'
         ]);
         
         $data = [
@@ -150,6 +165,7 @@ class AuditExecutionAreaController extends Controller
             'sector_type' => $request->sector_type,
             'name_en' => $request->name_en,
             'name_bn' => $request->name_bn,
+            'parent_id' => $request->parent_id,
             'updated_by' => $this->current_desk()['officer_id'],
         ];
 
