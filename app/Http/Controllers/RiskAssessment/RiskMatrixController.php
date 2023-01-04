@@ -91,7 +91,19 @@ class RiskMatrixController extends Controller
     }
 
     public function likelihoodImpactWiseMatrix(Request $request){
-        dd($request->all());
+
+        $data =  $request->validate([
+            'x_risk_assessment_likelihood_id' => 'required|integer',
+            'x_risk_assessment_impact_id' => 'required|integer',
+        ]);
+
+        $risk_impact = $this->initHttpWithToken()->post(config('amms_bee_routes.likelihood_impact_wise_matrix'), $data)->json();
+
+        if (isset($risk_impact['status']) && $risk_impact['status'] == 'success') {
+            return response()->json(['status' => 'success', 'data' => $risk_impact['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $risk_impact]);
+        }
     }
 
     /**

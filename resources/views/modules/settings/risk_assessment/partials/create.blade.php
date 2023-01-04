@@ -143,12 +143,12 @@
 
                                     <div class="col-sm-4 form-group">
                                         <label for="email">Inherent Risk Level:</label>
-                                        <input type="text" value="" class="form-control risk_level" readonly>
+                                        <input type="text" value="" name="risk_level" class="form-control risk_level" readonly>
                                     </div>
 
                                     <div class="col-sm-4 form-group">
                                         <label for="email">Priority:</label>
-                                        <input type="text" value="" class="form-control priority" readonly>
+                                        <input type="text" value="" name="priority" class="form-control priority" readonly>
                                     </div>
 
                                     <div class="col-sm-4 form-group">
@@ -473,7 +473,8 @@
             if (response.status === 'error') {
                 toastr.error(response.data);
             } else {
-                $('.risk_row_'+risk_row).find('[name=x_risk_assessment_likelihood_id]').html(response);
+                $('.risk_row_'+risk_row).find('[name=risk_level]').val(response.data.risk_level);
+                $('.risk_row_'+risk_row).find('[name=priority]').val(response.data.priority);
             }
         });
 
