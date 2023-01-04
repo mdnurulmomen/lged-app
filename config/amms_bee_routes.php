@@ -252,7 +252,7 @@ return [
     'audit_plans' => env('API_URL_BEE', '') . '/audit-plans',
     'audit_plan_work_papers' => env('API_URL_BEE', '') . '/audit-plan-work-papers',
     'audit_plan_work_papers_store' => env('API_URL_BEE', '') . '/audit-plan-work-papers/store',
-    
+
 
     'audit_plan' => [
         'sector_area_programs' =>env('API_URL_BEE', '') . '/sector-area-programs',
@@ -272,6 +272,7 @@ return [
 
     'risk_matrixes' => env('API_URL_BEE', '') . '/risk-matrixes',
     'sector_risk_assessments' => env('API_URL_BEE', '') . '/sector-risk-assessments',
+    'likelihood_impact_wise_matrix' => env('API_URL_BEE', '') . '/likelihood-impact-wise-matrix',
 
     'x_risk_factors' => env('API_URL_BEE', '') . '/x-risk-factors',
     'x_risk_criteria' => env('API_URL_BEE', '') . '/x-risk-criteria',

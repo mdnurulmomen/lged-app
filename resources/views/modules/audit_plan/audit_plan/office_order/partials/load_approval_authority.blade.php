@@ -19,7 +19,7 @@
         'officer_mobile' =>  htmlspecialchars($designation['employee_info']['personal_mobile']),
         'officer_email' =>  htmlspecialchars($designation['employee_info']['personal_email']),
         'employee_grade' => !empty($designation['employee_info']['employee_grade']) ? $designation['employee_info']['employee_grade'] : '1',
-        'officer_id' =>  htmlspecialchars($designation['employee_info']['id']),
+    'officer_id' =>  htmlspecialchars($designation['employee_info']['id']),
         'unit_id' => $unit['office_unit_id'],
         'unit_name_en' => htmlspecialchars($unit['unit_name_eng']),
         'unit_name_bn' => htmlspecialchars($unit['unit_name_bng']),

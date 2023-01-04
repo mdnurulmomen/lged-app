@@ -90,6 +90,10 @@ class RiskMatrixController extends Controller
         }
     }
 
+    public function likelihoodImpactWiseMatrix(Request $request){
+        dd($request->all());
+    }
+
     /**
      * Display the specified resource.
      *

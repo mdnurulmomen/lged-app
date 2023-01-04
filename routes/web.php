@@ -130,6 +130,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/risk-matrixes/list', [RiskMatrixController::class, 'getRiskMatrixList'])->name('risk-matrixes.list');
         Route::resource('/risk-matrixes', RiskMatrixController::class, ['except' => ['edit']]);
         Route::post('/risk-matrixes/edit', [RiskMatrixController::class, 'riskMatrixEdit'])->name('risk-matrixes.edit');
+        Route::get('likelihood-impact-wise-matrix', [RiskMatrixController::class, 'likelihoodImpactWiseMatrix'])->name('likelihood-impact-wise-matrix');
     });
 
     // Plan Route Start
@@ -146,7 +147,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/child-area-risk-identifications', [RiskIdentificationController::class, 'getChildAreaRiskList'])->name('risk-identifications.child-area-risk-list');
         Route::resource('/risk-identifications', RiskIdentificationController::class, ['except' => ['edit']]);
         Route::post('/risk-identifications/edit', [RiskIdentificationController::class, 'sectorRiskIdentificationEdit'])->name('risk-identifications.edit');
-        
+
         //strategic plan
         Route::group(['as' => 'strategy.', 'prefix' => 'strategy/'], function () {
 
@@ -1000,7 +1001,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/sector-risk-assessments/summery', [SectorAssessmentController::class, 'sectorRiskAssessmentSummery'])->name('sector-risk-assessments.summery');
         Route::resource('/sector-risk-assessments', SectorAssessmentController::class, ['except' => ['edit']]);
         Route::post('/sector-risk-assessments/edit', [SectorAssessmentController::class, 'sectorRiskAssessmentEdit'])->name('sector-risk-assessments.edit');
-        
+
         Route::group(['as' => 'strategic-plan.', 'prefix' => 'strategic-plan/'], function () {
             Route::post('/duration/lists', [DurationController::class, 'getDurationLists'])->name('duration.lists');
             Route::resource('/duration', DurationController::class, ['except' => ['edit', 'create']]);
