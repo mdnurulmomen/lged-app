@@ -439,17 +439,22 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/get-individual-plan', [IndividualPlanController::class, 'getIndividualPlan'])->name('get-individual-plan');
             Route::get('get-team-schedule', [IndividualPlanController::class, 'getAuditTeamSchedule'])->name('get-team-schedule');
             Route::get('get-audit-schedule-row', [IndividualPlanController::class, 'getAuditScheduleRow'])->name('get-audit-schedule-row');
-            Route::get('get-announcement-memo', [IndividualPlanController::class, 'getAnnouncementMemo'])->name('get-announcement-memo');
-            Route::get('download-announcement-memo', [IndividualPlanController::class, 'downloadAnnouncementMemo'])->name('download-announcement-memo');
+            Route::post('get-announcement-memo', [IndividualPlanController::class, 'getAnnouncementMemo'])->name('get-announcement-memo');
+            Route::post('download-announcement-memo', [IndividualPlanController::class, 'downloadAnnouncementMemo'])->name('download-announcement-memo');
             Route::post('/store-audit-team', [IndividualPlanController::class, 'storeAuditTeam'])->name('store-audit-team');
             // Route::post('/update-audit-team', [RevisedPlanController::class, 'updateAuditTeam'])->name('update-audit-team');
             Route::post('/store-audit-team-schedule', [IndividualPlanController::class, 'storeAuditTeamSchedule'])->name('store-audit-team-schedule');
+            
+            // engagement letter
+            Route::post('/plan-engagement-letter/create', [IndividualPlanController::class, 'engagementLetterCreate'])->name('engagement-letter-create');
+            Route::post('/plan-engagement-letter/store', [IndividualPlanController::class, 'engagementLetterStore'])->name('engagement-letter-store');
 
             // work-papers
             Route::get('/plan-work-papers/list', [AuditWorkPaperController::class, 'getPlanWorkPapers'])->name('plan-work-papers.list');
             Route::get('/plan-work-papers/export', [AuditWorkPaperController::class, 'exportWorkPaper'])->name('plan-work-papers.export');
             Route::resource('/plan-work-papers', AuditWorkPaperController::class, ['except' => ['edit']]);
             Route::post('/plan-work-papers/edit', [AuditWorkPaperController::class, 'planWorkPaperEdit'])->name('plan-work-papers.edit');
+
         });
 
         //audit Plan

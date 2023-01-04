@@ -247,6 +247,7 @@ return [
     'individual_plan' => [
         'store' => env('API_URL_BEE', '') . '/individual-plan/store',
         'get-audit-plan-info' => env('API_URL_BEE', '') . '/individual-plan/audit-plan-info',
+        'engagement_letter_store' => env('API_URL_BEE', '') . '/individual-plan/engagement-letter-store',
     ],
 
     'audit_plans' => env('API_URL_BEE', '') . '/audit-plans',
