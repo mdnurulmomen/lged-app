@@ -67,19 +67,20 @@ class IndividualPlanController extends Controller
     public function store(Request $request){
 
         $data = Validator::make($request->all(), [
-            'scope' => 'required|string',
             'id' => 'nullable',
+            'audit_type' => 'required|string',
             'yearly_plan_id' => 'required|integer',
             'yearly_plan_location_id' => 'required|integer',
-            'objective' => 'required|string',
             'milestone_list' => 'required',
+            'objective' => 'required|string',
+            'scope' => 'required|string',
         ])->validate();
-        // dd($data);
+        
 
         $data['cdesk'] = $this->current_desk_json();
 
         $individualPlanStore = $this->initHttpWithToken()->post(config('amms_bee_routes.individual_plan.store'),$data)->json();
-//        dd($individualPlanStore);
+    //    dd($individualPlanStore);
         if (isSuccess($individualPlanStore)) {
             return response()->json(['status' => 'success', 'data' => $individualPlanStore['data']]);
         } else {

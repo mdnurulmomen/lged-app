@@ -24,18 +24,26 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="heading_details">Heading Details<span class="text-danger">*</span></label>
-                <textarea class="form-control" name="heading_details" id="heading_details" placeholder="Heading Details" cols="30" rows="2">{{empty($office_order)?'':$office_order['heading_details']}}</textarea>
+                <textarea class="form-control" name="heading_details" id="heading_details" placeholder="Heading Details" cols="30" rows="2"></textarea>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="form-group">
                 <label for="advices">Tentative Scope of Audit Procedure:<span class="text-danger">*</span></label>
-                <textarea class="form-control" name="advices" id="advices" placeholder="Tentative Scope of Audit Procedure:" cols="30" rows="2">{{empty($office_order)?'':$office_order['advices']}}</textarea>
+                <textarea class="form-control" name="advices" id="advices" placeholder="Tentative Scope of Audit Procedure" cols="30" rows="2"></textarea>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="order_cc_list">Copy for kind information and necessary action:<span class="text-danger">*</span></label>
+                <textarea class="form-control" name="order_cc_list" id="order_cc_list" placeholder="Copy for kind information and necessary action" cols="30" rows="2"></textarea>
             </div>
         </div>
     </div>
+    
 
     <!-- <div class="row">
         <div class="col-md-6">
@@ -93,10 +101,19 @@
 </form>
 
 <script>
+
     var Office_Order_Create_Container ={
         generateOfficeOrder: function (elem) {
             url = '{{route('audit.plan.audit.office-orders.generate-office-order')}}';
-            data = $('#office_order_generate_form').serialize();
+            let audit_plan_id = $("input[name=audit_plan_id]").val();
+            let annual_plan_id = $("input[name=annual_plan_id]").val();
+            let memorandum_no = $("input[name=memorandum_no]").val();
+            let memorandum_date = $("input[name=memorandum_date]").val();
+            let heading_details = $("textarea[name=heading_details]").val();
+            let advices = $("textarea[name=advices]").val();
+            let order_cc_list = $("textarea[name=order_cc_list]").val();
+
+            let data = {audit_plan_id, annual_plan_id, memorandum_no, memorandum_date, heading_details, advices, order_cc_list};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,

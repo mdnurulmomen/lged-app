@@ -95,7 +95,7 @@
                                     <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3 col-md-8">
                                         <div class="font-weight-bolder">
                                             <span class="mr-2 font-size-1-2">Sl No:</span>
-                                            <span class="font-size-14">{{enTobn($loop->iteration)}}</span>
+                                            <span class="font-size-14">{{$loop->iteration}}</span>
                                         </div>
 
                                         @if($audit_plan['yearly_plan_location']['project_id'])
@@ -123,7 +123,7 @@
                                             <div class="mt-5 d-flex align-items-center justify-content-md-end">
                                                 <div class="mb-2 mt-5 soongukto-wrapper">
                                                     <div class="d-flex justify-content-end align-items-center">
-                                                        <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($audit_plan['created_at'],'bn')}}</div>
+                                                        <div class="text-dark-75 ml-3 rdate" cspas="date">{{formatDateTime($audit_plan['created_at'],'en')}}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -147,7 +147,7 @@
                                                             <i style="color: white" class="fad fa-edit"></i>
                                                         </button> -->
 
-                                                    <!-- @if($audit_plan['has_office_order'] == 1)
+                                                    @if($audit_plan['has_office_order'] == 1)
                                                         <button
                                                             class="mr-1 btn btn-sm btn-details"
                                                             title="Details"
@@ -157,7 +157,7 @@
                                                             type="button">
                                                             <i style="color: white" class="fad fa-eye"></i> Details
                                                         </button>
-                                                    @endif -->
+                                                    @endif
 
                                                             <!-- <button
                                                                 class="mr-1 btn btn-sm btn-sent" title="প্রেরণ করুন"

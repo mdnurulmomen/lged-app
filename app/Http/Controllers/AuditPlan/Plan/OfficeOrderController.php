@@ -97,6 +97,8 @@ class OfficeOrderController extends Controller
             $data['office_order'] = $responseData['data']['office_order'];
             $data['audit_team_members'] = $responseData['data']['audit_team_members'];
             $data['audit_team_schedules'] = $responseData['data']['audit_team_schedules'];
+            $data['audit_type'] = $responseData['data']['audit_type'];
+            $data['milestones'] = $responseData['data']['milestones'];
             return view('modules.audit_plan.audit_plan.office_order.show_office_order',$data);
         } else{
             return response()->json(['status' => 'error', 'data' => $responseData]);
@@ -136,6 +138,7 @@ class OfficeOrderController extends Controller
                 'memorandum_date' => 'required',
                 'heading_details' => 'required',
                 'advices' => 'required',
+                'order_cc_list' => 'required',
             ])->validate();
 
             $data = [
@@ -146,6 +149,7 @@ class OfficeOrderController extends Controller
                 'memorandum_date' => $request->memorandum_date,
                 'heading_details' => $request->heading_details,
                 'advices' => $request->advices,
+                'order_cc_list' => $request->order_cc_list,
             ];
 
             $responseGenerateOfficeOrder = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.generate_office_order'), $data)->json();
