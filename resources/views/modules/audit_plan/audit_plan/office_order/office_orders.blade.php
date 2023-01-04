@@ -1,5 +1,5 @@
-<x-title-wrapper>অফিস আদেশ</x-title-wrapper>
-<div class="card sna-card-border mt-3" style="margin-bottom:15px;">
+<x-title-wrapper>Office Order</x-title-wrapper>
+<!-- <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row">
         <div class="col-md-3">
             <select class="form-select select-select2" id="directorate_filter">
@@ -26,51 +26,47 @@
             </select>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="load-office-orders mb-15"></div>
 
 <script>
     $(function () {
-        // Office_Order_Container.loadOfficeOrderList();
-        Office_Order_Container.loadFiscalYearWiseActivity();
+        Office_Order_Container.loadOfficeOrderList();
+        // Office_Order_Container.loadFiscalYearWiseActivity();
     });
 
-    $('#select_fiscal_year_annual_plan').change(function () {
-        Office_Order_Container.loadOfficeOrderList();
-        Office_Order_Container.loadFiscalYearWiseActivity();
-    });
+    // $('#select_fiscal_year_annual_plan').change(function () {
+    //     Office_Order_Container.loadOfficeOrderList();
+    //     Office_Order_Container.loadFiscalYearWiseActivity();
+    // });
 
-    $('#activity_id,#directorate_filter').change(function () {
-        Office_Order_Container.loadOfficeOrderList();
-    });
+    // $('#activity_id,#directorate_filter').change(function () {
+    //     Office_Order_Container.loadOfficeOrderList();
+    // });
 
     var Office_Order_Container = {
         loadOfficeOrderList: function (page = 1, per_page = 500) {
-            let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
-            let activity_id = $('#activity_id').val();
-            let office_id = $('#directorate_filter').val();
+            // let fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            // let activity_id = $('#activity_id').val();
+            // let office_id = $('#directorate_filter').val();
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
-            if (fiscal_year_id) {
-                let url = '{{route('audit.plan.audit.office-orders.load-office-order-list')}}';
-                let data = {fiscal_year_id,activity_id,office_id, page, per_page};
-                ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
-                    KTApp.unblock('#kt_wrapper');
-                    if (response.status === 'error') {
-                        toastr.error(response.data);
-                    } else {
-                        $('.load-office-orders').html(response);
-                    }
-                });
-            }
-            else {
-                $('.load-office-orders').html('');
-            }
+            let url = '{{route('audit.plan.audit.office-orders.load-office-order-list')}}';
+            let data = {page, per_page};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $('.load-office-orders').html(response);
+                }
+            });
+           
         },
 
         loadFiscalYearWiseActivity: function () {
@@ -104,12 +100,10 @@
 
         loadOfficeOrderCreateForm: function (element) {
             url = '{{route('audit.plan.audit.office-orders.load-office-order-create')}}';
-            office_order_id = element.data('office-order-id');
             audit_plan_id = element.data('audit-plan-id');
             annual_plan_id = element.data('annual-plan-id');
-            update_request = element.data('has-update-request');
 
-            data = {audit_plan_id,annual_plan_id,update_request,office_order_id};
+            data = {audit_plan_id,annual_plan_id};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
@@ -122,7 +116,7 @@
                     toastr.error('No data found');
                 }
                 else {
-                    $(".offcanvas-title").text('অফিস আদেশ');
+                    $(".offcanvas-title").text('Office Order');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);

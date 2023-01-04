@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\Validator;
 
 class IndividualPlanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request->all());
         $individual_strategic_plan_year = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_yearly_plan.get_individual_yearly_plan_year'))->json();
 
         if (isSuccess($individual_strategic_plan_year)) {
             $individual_strategic_plan_year = $individual_strategic_plan_year['data'];
+            // dd($individual_strategic_plan_year);
             return view('modules.individual_plan.index',compact('individual_strategic_plan_year'));
         } else {
             return response()->json(['status' => 'error', 'data' => $individual_strategic_plan_year]);
@@ -22,7 +24,7 @@ class IndividualPlanController extends Controller
     }
 
     public function getIndividualYearlyPlan(Request $request){
-
+        
         $data = Validator::make($request->all(), [
             'strategic_plan_year' => 'required|integer',
         ])->validate();

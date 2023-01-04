@@ -26,9 +26,9 @@ class OfficeOrderController extends Controller
     public function loadOfficeOrderList(Request $request)
     {
         $requestData = Validator::make($request->all(), [
-            'office_id' => 'nullable',
-            'fiscal_year_id' => 'required|integer',
-            'activity_id' => 'nullable',
+            // 'office_id' => 'nullable',
+            // 'fiscal_year_id' => 'required|integer',
+            // 'activity_id' => 'nullable',
             'per_page' => 'required|integer',
             'page' => 'required|integer',
         ])->validate();
@@ -39,18 +39,19 @@ class OfficeOrderController extends Controller
         $data['current_grade'] = $this->current_desk()['officer_grade'];
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.audit_plan_list'), $requestData)->json();
-
+        // dd($responseData);
         $data['audit_plans'] = isSuccess($responseData)?$responseData['data']:[];
 
-//        dd($data['audit_plans']);
+    //    dd($data['audit_plans']);
 
         $data['current_designation_id'] = $this->current_designation_id();
         $data['current_office_id'] = $this->current_office_id();
-//        dd($data['current_designation_id']);
+    //    dd($data['audit_plans']['data']);
         return view('modules.audit_plan.audit_plan.office_order.partials.load_office_orders',$data);
     }
 
     public function loadOfficeOrderCreate(Request $request){
+        // dd($request->all());
         $requestData = [
             'cdesk' => $this->current_desk_json(),
             'office_order_id' => $request->office_order_id,
@@ -81,17 +82,15 @@ class OfficeOrderController extends Controller
     {
         $requestData = [
             'cdesk' => $this->current_desk_json(),
-            'office_order_id' => $request->office_order_id,
             'audit_plan_id' => $request->audit_plan_id,
             'annual_plan_id' => $request->annual_plan_id,
-            'office_id' => $request->office_id,
         ];
 
-//        dd($requestData);
+    //    dd($requestData);
 
         $data['current_designation_id'] = $this->current_designation_id();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_office_order'), $requestData)->json();
-        //dd($responseData);
+        // dd($responseData);
         if(isSuccess($responseData)){
             $data['office_id'] = $this->current_office_id();
             $data['vacations'] = $this->yearWiseVacationList(date("Y"));
@@ -134,35 +133,23 @@ class OfficeOrderController extends Controller
                 'audit_plan_id' => 'required',
                 'annual_plan_id' => 'required',
                 'memorandum_no' => 'required',
-                'memorandum_no_2' => 'required',
                 'memorandum_date' => 'required',
-                'memorandum_date_2' => 'required',
                 'heading_details' => 'required',
                 'advices' => 'required',
-                'order_cc_list' => 'required',
-                'cc_sender_details' => 'required',
-                'issuer_details' => 'required'
             ])->validate();
 
             $data = [
                 'cdesk' => $this->current_desk_json(),
-                'id' => $request->id,
                 'audit_plan_id' => $request->audit_plan_id,
                 'annual_plan_id' => $request->annual_plan_id,
                 'memorandum_no' => $request->memorandum_no,
-                'memorandum_no_2' => $request->memorandum_no_2,
                 'memorandum_date' => $request->memorandum_date,
-                'memorandum_date_2' => $request->memorandum_date_2,
                 'heading_details' => $request->heading_details,
                 'advices' => $request->advices,
-                'approved_status' => 'draft',
-                'order_cc_list' => $request->order_cc_list,
-                'cc_sender_details' => $request->cc_sender_details,
-                'issuer_details' => $request->issuer_details,
             ];
 
             $responseGenerateOfficeOrder = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.generate_office_order'), $data)->json();
-            //dd($responseGenerateOfficeOrder);
+            // dd($responseGenerateOfficeOrder);
             if (isSuccess($responseGenerateOfficeOrder)) {
                 return response()->json(['status' => 'success', 'data' => 'Added!']);
             } else {

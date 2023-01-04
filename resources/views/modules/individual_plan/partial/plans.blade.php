@@ -218,10 +218,11 @@
             let yearly_plan_location_id = elem.data('yearly_plan_location_id');
             let sector_name = elem.data('sector_name');
             let plan_year = elem.data('plan_year');
+            let type = '';
 
             url = "{{route('audit.plan.programs.index')}}";
 
-            data = {yearly_plan_location_id, sector_name, plan_year, audit_plan_id, project_id, project_name_en};
+            data = {yearly_plan_location_id, sector_name, plan_year, audit_plan_id, project_id, project_name_en, type};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,

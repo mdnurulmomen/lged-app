@@ -13,8 +13,8 @@
             Parent
         </th>
 
-        <th>
-            Sector
+        <th width="30%">
+            Project/Function
         </th>
 
         <th>

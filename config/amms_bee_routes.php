@@ -257,6 +257,7 @@ return [
     'audit_plan' => [
         'sector_area_programs' =>env('API_URL_BEE', '') . '/sector-area-programs',
         'export_sector_area_programs' =>env('API_URL_BEE', '') . '/sector-area-programs/export',
+        'program_note_update' =>env('API_URL_BEE', '') . '/program-note-update',
     ],
 
 

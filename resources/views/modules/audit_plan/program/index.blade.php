@@ -1,14 +1,14 @@
-<x-title-wrapper>Sector Program List (Plan-{{$data['audit_plan_id']}})</x-title-wrapper>
+<x-title-wrapper>Program List ({{$data['audit_plan_id']}})</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row d-flex align-items-end">
         <div class="col-md-6">
-{{--            <span style="font-size: 18px" class="form-group">--}}
-{{--                <input style="display: none" id="project" type="radio" name="sector_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project--}}
-{{--                <input style="display: none" id="function" type="radio" name="sector_type" value="function" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function--}}
-{{--                <input style="display: none" id="master_unit" type="radio" name="sector_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Master Unit--}}
-{{--                --}}{{-- <input id="cost_center" type="radio" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center --}}
-{{--            </span>--}}
+            <!-- <span style="font-size: 18px" class="form-group">
+                <input style="display: none" id="project" type="radio" name="sector_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project
+                <input style="display: none" id="function" type="radio" name="sector_type" value="function" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function
+                <input style="display: none" id="master_unit" type="radio" name="sector_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Master Unit
+                 <input id="cost_center" type="radio" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center 
+            </span> -->
 
             @if($data['project_id'])
                 <div class="project_div">
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="area_div">
                 <select class="form-control select-select2" name="sector_area" id="sector_area" onchange="Audit_Program_Container.laodAreaPrograms(this.value)">
                     <option selected>Select Area</option>
@@ -39,22 +39,21 @@
             </div>
         </div>
 
-{{--        <div class="col-md-1">--}}
-{{--            <button class="btn btn-sm btn-info btn-square mr-1"--}}
-{{--                    title="Download"--}}
-{{--                    onclick='Audit_Program_Container.export($(this))'--}}
-{{--            >--}}
-{{--                <i class="fad fa-download"></i>--}}
-{{--            </button>--}}
-{{--        </div>--}}
+       <!-- <div class="col-md-1">
+           <button class="btn btn-sm btn-info btn-square mr-1"
+                   title="Download"
+                   onclick='Audit_Program_Container.export($(this))'>
+               <i class="fad fa-download"></i>
+           </button>
+       </div> -->
 
-        <div class="col-md-2 text-right">
-            <button class="btn btn-sm btn-info btn-square mr-1"
+        <div class="col-md-2">
+            <button class="btn btn-sm btn-primary btn-square mr-1"
                     title="বিস্তারিত দেখুন"
                     data-audit-plan-id="{{$data['audit_plan_id']}}"
                     onclick='Audit_Program_Container.createAreaPrograms($(this))'
-            >
-                <i class="fad fa-plus"></i> Create Program
+                    style="float: right;">
+                <i class="fa fa-plus"></i> Create Program
             </button>
         </div>
     </div>
@@ -113,12 +112,39 @@
             });
         },
 
+        edit: function (element) {
+            url = '{{route('audit.plan.programs.note.update')}}'
+            id = element.data('id');
+            note = $('#note').val();
+            team_member_officer_id = $('#team_member_officer_id').val();
+            workpaper_id = $('#workpaper_id').val();
+            audit_area_id = $('#audit_area_id').val();
+            data = {id, note, team_member_officer_id, workpaper_id,};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'success') {
+                    $(".btn-quick-panel-close").click();
+                } else {
+                    toastr.error('No data found');
+                }
+            });
+        },
+
         laodAreaPrograms: function (audit_area_id) {
-            // console.log(audit_area_id);
             loaderStart('loading...');
 
             let url = "{{route('audit.plan.programs.list')}}";
-            let data = {audit_area_id};
+
+            let type = '{{$data['type']}}';
+            let audit_plan_id = '{{$data['audit_plan_id']}}';
+            let team_id = '{{$data['team_id']}}';
+            let data = {audit_area_id, audit_plan_id, team_id, type};
 
             ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
                 loaderStop();
@@ -171,7 +197,6 @@
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
-                    // console.log(response);
                     const link = document.createElement('a');
                     link.setAttribute('href', response.data);
                     link.setAttribute('download', 'programs'); // Need to modify filename ...

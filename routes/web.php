@@ -228,11 +228,14 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         });
 
         // audit programs
+        Route::post('/program/index', [AuditProgramController::class, 'programIndex'])->name('program.index');
         Route::get('/programs/list', [AuditProgramController::class, 'getAuditProgramList'])->name('programs.list');
         Route::get('/programs/export', [AuditProgramController::class, 'exportAuditProgramList'])->name('programs.export');
         Route::get('/programs/area-list', [AuditProgramController::class, 'getSectorAreaList'])->name('programs.area-list');
         Route::resource('/programs', AuditProgramController::class, ['except' => ['edit']]);
         Route::post('/programs/edit', [AuditProgramController::class, 'riskAuditProgramEdit'])->name('programs.edit');
+        Route::post('/programs/note', [AuditProgramController::class, 'programNote'])->name('programs.note');
+        Route::post('/programs/note/update', [AuditProgramController::class, 'programNoteUpdate'])->name('programs.note.update');
 //        Route::post('/programs/create', [AuditProgramController::class, 'create'])->name('programs.create');
 
         //operational plan

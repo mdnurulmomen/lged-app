@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-md-9">
                 <h4 class="mt-3">
-                    {{$cost_center_name_en.' ('.bnToen($audit_year_start).'-'.bnToen($audit_year_end).')'}} <br>
                     @if(!empty($project_name_bn))
                         Project: {{$project_name_en}}
                     @endif
+                    {{$cost_center_name_en.' ('.bnToen($audit_year_start).'-'.bnToen($audit_year_end).')'}}
                 </h4>
             </div>
             <div class="col-md-3">

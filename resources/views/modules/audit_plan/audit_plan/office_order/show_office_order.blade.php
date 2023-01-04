@@ -3,26 +3,21 @@
 <div class="row m-0 mb-2 page-title-wrapper d-md-flex align-items-md-center">
     <div class="col-md-12">
         <div class="d-flex justify-content-end">
-            @if($office_order['approved_status'] == 'draft')
-                <button data-ap-office-order-id="{{$office_order['id']}}"
+                <!-- <button data-ap-office-order-id="{{$office_order['id']}}"
                         data-audit-plan-id="{{$office_order['audit_plan_id']}}"
                         data-annual-plan-id="{{$office_order['annual_plan_id']}}"
                         onclick="Show_Office_Order_Container.loadOfficeOrderApprovalAuthority($(this))"
                         class="btn btn-sent btn-sm btn-bold btn-square mr-2">
                     <i class="far fa-share-square"></i> প্রেরণ করুন
-                </button>
-            @endif
+                </button> -->
 
-            @if($office_order['approved_status'] == 'draft' && $office_order['office_order_movement'] != null
-            && $office_order['office_order_movement']['employee_designation_id'] == $current_designation_id)
-                <button data-ap-office-order-id="{{$office_order['id']}}"
+                <!-- <button data-ap-office-order-id="{{$office_order['id']}}"
                         data-audit-plan-id="{{$office_order['audit_plan_id']}}"
                         data-annual-plan-id="{{$office_order['annual_plan_id']}}"
                         onclick="Show_Office_Order_Container.approveOfficeOrder($(this))"
                         class="btn btn-approval btn-sm btn-bold btn-square mr-2">
                     <i class="far fa-check"></i> অনুমোদন করুন
-                </button>
-            @endif
+                </button> -->
 
             <button data-ap-office-order-id="{{$office_order['id']}}"
                     data-audit-plan-id="{{$office_order['audit_plan_id']}}"
@@ -37,7 +32,7 @@
 
 <div class="card sna-card-border mt-3" style="margin-bottom:30px;">
     <div style="text-align: center">
-        মহাপরিচালকের কার্যালয় <br>
+        <!-- মহাপরিচালকের কার্যালয় <br> -->
         <x-office-header-details officeid="{{$office_id}}"/>
 
         <div style="width: 100%;margin-top: 10px">
@@ -262,67 +257,67 @@
 
 <script>
     var Show_Office_Order_Container = {
-        loadOfficeOrderApprovalAuthority: function (element) {
-            url = '{{route('audit.plan.audit.office-orders.load-office-order-approval-authority')}}';
-            ap_office_order_id = element.data('ap-office-order-id');
-            audit_plan_id = element.data('audit-plan-id');
-            annual_plan_id = element.data('annual-plan-id');
-            data = {ap_office_order_id, audit_plan_id, annual_plan_id};
+        // loadOfficeOrderApprovalAuthority: function (element) {
+        //     url = '{{route('audit.plan.audit.office-orders.load-office-order-approval-authority')}}';
+        //     ap_office_order_id = element.data('ap-office-order-id');
+        //     audit_plan_id = element.data('audit-plan-id');
+        //     annual_plan_id = element.data('annual-plan-id');
+        //     data = {ap_office_order_id, audit_plan_id, annual_plan_id};
 
-            KTApp.block('#kt_wrapper', {
-                opacity: 0.1,
-                state: 'primary' // a bootstrap color
-            });
+        //     KTApp.block('#kt_wrapper', {
+        //         opacity: 0.1,
+        //         state: 'primary' // a bootstrap color
+        //     });
 
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_wrapper');
-                if (response.status === 'error') {
-                    toastr.error('No data found');
-                } else {
-                    $(".offcanvas-title").text('অনুমোদনকারী বাছাই করুন');
-                    quick_panel = $("#kt_quick_panel");
-                    quick_panel.addClass('offcanvas-on');
-                    quick_panel.css('opacity', 1);
-                    quick_panel.css('width', '40%');
-                    quick_panel.removeClass('d-none');
-                    $("html").addClass("side-panel-overlay");
-                    $(".offcanvas-wrapper").html(response);
-                }
-            });
-        },
+        //     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+        //         KTApp.unblock('#kt_wrapper');
+        //         if (response.status === 'error') {
+        //             toastr.error('No data found');
+        //         } else {
+        //             $(".offcanvas-title").text('অনুমোদনকারী বাছাই করুন');
+        //             quick_panel = $("#kt_quick_panel");
+        //             quick_panel.addClass('offcanvas-on');
+        //             quick_panel.css('opacity', 1);
+        //             quick_panel.css('width', '40%');
+        //             quick_panel.removeClass('d-none');
+        //             $("html").addClass("side-panel-overlay");
+        //             $(".offcanvas-wrapper").html(response);
+        //         }
+        //     });
+        // },
 
-        approveOfficeOrder: function (element) {
-            url = '{{route('audit.plan.audit.office-orders.approve-office-order')}}';
-            fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
-            ap_office_order_id = element.data('ap-office-order-id');
-            audit_plan_id = element.data('audit-plan-id');
-            annual_plan_id = element.data('annual-plan-id');
-            approved_status = 'approved';
-            data = {ap_office_order_id, audit_plan_id, annual_plan_id, approved_status, fiscal_year_id};
+        // approveOfficeOrder: function (element) {
+        //     url = '{{route('audit.plan.audit.office-orders.approve-office-order')}}';
+        //     fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+        //     ap_office_order_id = element.data('ap-office-order-id');
+        //     audit_plan_id = element.data('audit-plan-id');
+        //     annual_plan_id = element.data('annual-plan-id');
+        //     approved_status = 'approved';
+        //     data = {ap_office_order_id, audit_plan_id, annual_plan_id, approved_status, fiscal_year_id};
 
-            KTApp.block('#kt_wrapper', {
-                opacity: 0.1,
-                state: 'primary' // a bootstrap color
-            });
+        //     KTApp.block('#kt_wrapper', {
+        //         opacity: 0.1,
+        //         state: 'primary' // a bootstrap color
+        //     });
 
-            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
-                KTApp.unblock('#kt_wrapper');
-                if (response.status === 'success') {
-                    toastr.success('Successfully Approved!');
-                } else {
-                    if (response.statusCode === '422') {
-                        var errors = response.msg;
-                        $.each(errors, function (k, v) {
-                            if (v !== '') {
-                                toastr.error(v);
-                            }
-                        });
-                    } else {
-                        toastr.error(response.data.message);
-                    }
-                }
-            });
-        },
+        //     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+        //         KTApp.unblock('#kt_wrapper');
+        //         if (response.status === 'success') {
+        //             toastr.success('Successfully Approved!');
+        //         } else {
+        //             if (response.statusCode === '422') {
+        //                 var errors = response.msg;
+        //                 $.each(errors, function (k, v) {
+        //                     if (v !== '') {
+        //                         toastr.error(v);
+        //                     }
+        //                 });
+        //             } else {
+        //                 toastr.error(response.data.message);
+        //             }
+        //         }
+        //     });
+        // },
 
         generateOfficeOrderPDF: function (elem) {
             url = '{{route('audit.plan.audit.office-orders.download-pdf')}}';

@@ -14,17 +14,20 @@ class AuditProgramController extends Controller
      */
     public function index(Request $request)
     {
-      $data =  $request->validate([
+        // dd($request->all());
+        $data =  $request->validate([
             'project_id' => 'nullable|integer',
             'project_name_en' => 'nullable|string',
             'audit_plan_id' => 'required|integer',
             'yearly_plan_id' => 'nullable|integer',
             'yearly_plan_location_id' => 'required|integer',
             'plan_year' => 'required|integer',
+            'type' => 'nullable',
         ]);
 
-//      dd($data);
+        $data['team_id'] = ''; 
 
+//      dd($data);  
 
 //        $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
 //            'all' => 1
@@ -45,19 +48,46 @@ class AuditProgramController extends Controller
         return view('modules.audit_plan.program.index',compact('data'));
     }
 
+    public function programIndex(Request $request)
+    {
+        $data =  $request->validate([
+            'project_id' => 'nullable|integer',
+            'project_name_en' => 'nullable|string',
+            'project_name_bn' => 'nullable|string',
+            'audit_plan_id' => 'nullable|integer',
+            'yearly_plan_id' => 'nullable|integer',
+            'yearly_plan_location_id' => 'nullable|integer',
+            'plan_year' => 'nullable|integer',
+            'type' => 'nullable',
+        ]);
+        $data['team_id'] = $request->team_id; 
+        $data['audit_plan_id'] = $request->audit_plan_id; 
+        // dd($data);
+
+        return view('modules.audit_plan.program.index',compact('data'));
+    }
+
     public function getAuditProgramList(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'audit_area_id' => 'required|integer',
         ]);
 
+        $type = $request->type ? $request->type : '' ;
+
         $sectorAreaPrograms = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_plan.sector_area_programs'), $request->all())->json();
 
         // dd($sectorAreaPrograms);
+        $audit_plan_id = $request->audit_plan_id;
+        $team_id = $request->team_id;
+
+        // dd($audit_plan_id, $team_id);
 
         if ($sectorAreaPrograms['status'] == 'success') {
             $sectorAreaPrograms = $sectorAreaPrograms['data'];
-            return view('modules.audit_plan.program.partials.list', compact(['sectorAreaPrograms']));
+            // dd($sectorAreaPrograms);
+            return view('modules.audit_plan.program.partials.list', compact('sectorAreaPrograms','audit_plan_id','team_id','type'));
         } else {
             return response()->json(['status' => 'error', 'data' => $sectorAreaPrograms]);
         }
@@ -129,15 +159,16 @@ class AuditProgramController extends Controller
             'category' => $request->category,
             'area_index' => $request->area_index,
             'procedures' => $request->procedures,
+            'note' => $request->note,
             // 'creator_id' => $currentUserId,
             // 'updater_id' => $currentUserId,
         ];
 
-//        dd($data);
+    //    dd($data);
 
         $create_risk_impact = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_plan.sector_area_programs'), $data)->json();
 
-//        dd($create_risk_impact);
+    //    dd($create_risk_impact);
 
         if (isset($create_risk_impact['status']) && $create_risk_impact['status'] == 'success') {
             return response()->json(responseFormat('success', 'Created Successfully'));
@@ -152,8 +183,49 @@ class AuditProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function programNote(Request $request)
+    {
+        $data =  $request->validate([
+            'audit_plan_id' => 'required|integer',
+        ]);
+        $id = $request->id;
+        $audit_plan_id = $request->audit_plan_id;
+        $team_id = $request->team_id;
+        $team_members = $this->getPlanAndTeamWiseTeamMembers(0,$audit_plan_id,$team_id);
+        $working_plan_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_plan_work_papers'), $data)->json();
+        if ($working_plan_list['status'] == 'success') {
+            $working_plan_list = $working_plan_list['data'];
+        } else {
+            return response()->json(['status' => 'error', 'data' => $working_plan_list]);
+        }
+        return view('modules.audit_plan.program.partials.note', compact('id','team_members','working_plan_list'));
+    }
+
+    public function programNoteUpdate(Request $request)
+    {
+        // dd($request->all());
+        $data = [
+            'id' => $request->id,
+            'note' => $request->note,
+            'team_member_officer_id' => json_decode($request->team_member_officer_id)->team_member_officer_id,
+            'team_member_name_en' => json_decode($request->team_member_officer_id)->team_member_name_en,
+            'team_member_name_bn' => json_decode($request->team_member_officer_id)->team_member_name_bn,
+            'team_member_details' => $request->team_member_officer_id,
+            'workpaper_id' => $request->workpaper_id,
+        ];
+        $update_program_note = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_plan.program_note_update'), $data)->json();
+        // dd($update_program_note);
+        if (isset($update_program_note['status']) && $update_program_note['status'] == 'success') {
+            return response()->json(['status' => 'success', 'data' => $update_program_note['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $update_program_note]);
+        }
+    }
+
     public function riskAuditProgramEdit(Request $request)
     {
+        // dd($request->all());
         $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
             'all' => 1
         ])->json();
@@ -193,8 +265,9 @@ class AuditProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'audit_area_id' => 'required|integer',
             'control_objective' => 'required|string|max:255',
@@ -220,8 +293,12 @@ class AuditProgramController extends Controller
             // 'updater_id' => $currentUserId,
         ];
 
+        $id = $request->id;
+
+        // dd($data);
+
         $update_risk_rating = $this->initHttpWithToken()->put(config('amms_bee_routes.audit_plan.sector_area_programs')."/$id", $data)->json();
-//        dd($create_audit_query);
+    //    dd($update_risk_rating);
         if (isset($update_risk_rating['status']) && $update_risk_rating['status'] == 'success') {
             return response()->json(['status' => 'success', 'data' => $update_risk_rating['data']]);
         } else {
