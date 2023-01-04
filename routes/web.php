@@ -143,6 +143,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/risk-identifications/list', [RiskIdentificationController::class, 'getRiskIdentificationList'])->name('risk-identifications.list');
         Route::get('/risk-identifications/child-area-list', [RiskIdentificationController::class, 'getChildAreas'])->name('risk-identifications.child-area-list');
         Route::get('/risk-identifications/parent-area-list', [RiskIdentificationController::class, 'getSectorParentAreaList'])->name('risk-identifications.parent-area-list');
+        Route::get('/child-area-risk-identifications', [RiskIdentificationController::class, 'getChildAreaRiskList'])->name('risk-identifications.child-area-risk-list');
         Route::resource('/risk-identifications', RiskIdentificationController::class, ['except' => ['edit']]);
         Route::post('/risk-identifications/edit', [RiskIdentificationController::class, 'sectorRiskIdentificationEdit'])->name('risk-identifications.edit');
         

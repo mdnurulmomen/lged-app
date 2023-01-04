@@ -393,4 +393,27 @@ class RiskIdentificationController extends Controller
             return response()->json(['status' => 'error', 'data' => $delete_risk_impact]);
         }
     }
+
+    public function getChildAreaRiskList(Request $request)
+    {   
+        $request->validate([
+            'assessment_sector_type' => 'required|string|in:project,function,master-unit,cost-center',
+            'assessment_sector_id' => 'required|integer',
+            'parent_area_id' => 'required|integer',
+            'audit_area_id' => 'required|integer',
+        ]);
+
+        // dd($request);
+
+        $riskidentifications = $this->initHttpWithToken()->get(config('amms_bee_routes.child_area_risk_identifications'), $request->all())->json();
+
+        // dd($riskidentifications);
+
+        if ($riskidentifications['status'] == 'success') {
+            return $riskidentifications = $riskidentifications['data'];
+        } else {
+            return response()->json(['status' => 'error', 'data' => $riskidentifications]);
+        }
+    }
+
 }
