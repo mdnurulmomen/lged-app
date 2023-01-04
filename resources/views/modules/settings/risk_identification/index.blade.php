@@ -4,13 +4,13 @@
     <div class="row d-flex align-items-end">
         <div class="col-md-6">
             <span style="font-size: 18px" class="form-group">
-                <input id="project" type="radio" name="risk_sector_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project
+                <input id="project" type="radio" name="risk_sector_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')" checked> Project
                 <input id="function" type="radio" name="risk_sector_type" value="function" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function
                 <input id="master_unit" type="radio" name="risk_sector_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Master Unit
                 {{-- <input id="cost_center" type="radio" name="risk_sector_type" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center --}}
             </span>
             
-            <div class="project_div" style="display: none">
+            <div class="project_div">
                 <select class="form-control select-select2" name="project_id" id="project_id" onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('project', this.value)">
                     <option selected>Select Project</option>
                     @foreach ($allProjects as $project)
@@ -95,6 +95,10 @@
 
     var Risk_Assessment_Item_Container = {
         laodItemRiskParentAreas: function (assessment_sector_type, assessment_sector_id) {
+            if (! assessment_sector_type || ! assessment_sector_id) {
+                return false;
+            }
+            
             loaderStart('loading...');
 
             let url = '{{route('audit.plan.risk-identifications.parent-area-list')}}';
