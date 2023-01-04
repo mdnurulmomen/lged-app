@@ -42,7 +42,9 @@
                 <div class="form-row">
                     <div class="col-sm-12 form-group">
                         <div class="project_div">
-                            <select   class="form-control select-select2" name="project_id" id="project_id">
+                            <select class="form-control select-select2" name="project_id" id="project_id"
+                                onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('project', this.value)"
+                            >
                                 <option value="" selected>Select Project</option>
                                 @foreach ($allProjects as $project)
                                     <option value="{{ $project['id'] }}">
@@ -54,7 +56,9 @@
                         </div>
                 
                         <div class="function_div" style="display: none">
-                            <select  class="form-control select-select2" name="function_id" id="function_id">
+                            <select  class="form-control select-select2" name="function_id" id="function_id"
+                            onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('function', this.value)"
+                            >
                                 <option value="" selected>Select Function</option>
                                 @foreach ($allFunctions as $function)
                                     <option value="{{ $function['id'] }}">
@@ -66,7 +70,9 @@
                         </div>
                 
                         <div class="unit_div" style="display: none">
-                            <select class="form-control select-select2" name="unit_master_id" id="unit_master_id">
+                            <select class="form-control select-select2" name="unit_master_id" id="unit_master_id"
+                            onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('master-unit', this.value)"
+                            >
                                 <option value="" selected>Select Unit</option>
                                 @foreach ($allMasterUnits as $masterUnit)
                                     <option value="{{ $masterUnit['id'] }}">
@@ -96,11 +102,13 @@
                         <p for="area">Parent Area:</p>
             
                         <select class="form-control" name="parent_area_id" id="parent_area_id">
-                            <option value="" selected>Please Select Parent-Area</option>
+                            <option value="" selected disabled>Please Select Parent-Area</option>
                             
+                            {{-- 
                             @foreach ($allAreas as $area)
                                 <option value="{{ $area['id'] }}">{{ ucfirst($area['name_en']) }}</option>
-                            @endforeach 
+                            @endforeach  
+                            --}}
                         </select>
                     </div>
             
@@ -129,9 +137,27 @@
 </div>
 
 <script>
+    var Risk_Assessment_Item_Container = {
+        laodItemRiskParentAreas: function (assessment_sector_type, assessment_sector_id) {
+            loaderStart('loading...');
+
+            let url = '{{route('audit.plan.risk-identifications.parent-area-list')}}';
+            let data = {assessment_sector_id,assessment_sector_type};
+
+            ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
+                loaderStop();
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $('#parent_area_id').html(response);
+                }
+            });
+        },
+    }
+
     $(document).ready(function() {
         // Item_Risk_Assessment_Container.loadRiskFactorType('project');
-
+        
         $('input[type=radio][name=assessment_sector_type]').change(function() {
             if (this.value == 'project') {
                 $('.project_div').show();
@@ -173,10 +199,6 @@
             // console.log('back');
             backToList();
         });
-    
-        function backToList () {
-            $('.risk-identifications a').click();
-        }
 
         function setAvailableChildAreas (parent_area_id) {
 
@@ -241,6 +263,10 @@
                     backToList();
                 }
             });
+        }
+
+        function backToList () {
+            $('.risk-identifications a').click();
         }
     });
 </script>
