@@ -113,7 +113,7 @@
                         // console.log(resp.data)
                     } else {
                         toastr.success('Delete Successfully');
-                        Risk_Assessment_Item_Container.laodItemRiskAssessments(assessment_sector_type, assessment_sector_id, parent_area_id);
+                        Risk_Assessment_Item_Container.laodItemRiskIdentifications(parent_area_id);
                         // $('#row_' + id).remove();
                     }
                 });
