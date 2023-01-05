@@ -1,18 +1,26 @@
 <div class="row">
+    <div class="col-sm-12">
+        <h5>SUMMARY OF AUDIT FINDINGS WITH RECOMMENDATION</h5>
+    </div>
+
     <div class="col-sm-12 form-group">
         <table class="table table-bordered" width="100%">
             <thead>
-                <tr>
+                <tr style="background-color: #FAD02C">
+                    <th>Fin. #</th>
                     <th>Issue</th>
                     <th>Recommendations</th>
+                    <th>Risk Rating</th>
                 </tr>
             </thead>
         
             <tbody>
                 @foreach ($allMemos as $memo)
                 <tr>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $memo['memo_title_bn'] }}</td>
                     <td>{{ $memo['recommendation'] }}</td>
+                    <td>{{ $memo['risk_level'] }}</td>
                 </tr>
                 @endforeach
             </tbody>

@@ -45,7 +45,7 @@
         $('.offcanvas-wrapper').html('');
         quick_panel.addClass('offcanvas-on');
         quick_panel.css('opacity', 1);
-        quick_panel.css('width', '700px');
+        quick_panel.css('width', '800px');
         $('.offcanvas-footer').hide();
         quick_panel.removeClass('d-none');
         $("html").addClass("side-panel-overlay");
@@ -73,7 +73,7 @@
         $('.offcanvas-wrapper').html('');
         quick_panel.addClass('offcanvas-on');
         quick_panel.css('opacity', 1);
-        quick_panel.css('width', '700px');
+        quick_panel.css('width', '800px');
         $('.offcanvas-footer').hide();
         quick_panel.removeClass('d-none');
         $("html").addClass("side-panel-overlay");
