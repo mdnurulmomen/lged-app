@@ -99,6 +99,7 @@ class OfficeOrderController extends Controller
             $data['audit_team_schedules'] = $responseData['data']['audit_team_schedules'];
             $data['audit_type'] = $responseData['data']['audit_type'];
             $data['milestones'] = $responseData['data']['milestones'];
+            // dd($data);
             return view('modules.audit_plan.audit_plan.office_order.show_office_order',$data);
         } else{
             return response()->json(['status' => 'error', 'data' => $responseData]);
@@ -133,7 +134,6 @@ class OfficeOrderController extends Controller
         try {
             Validator::make($request->all(), [
                 'audit_plan_id' => 'required',
-                'annual_plan_id' => 'required',
                 'memorandum_no' => 'required',
                 'memorandum_date' => 'required',
                 'heading_details' => 'required',
@@ -144,7 +144,6 @@ class OfficeOrderController extends Controller
             $data = [
                 'cdesk' => $this->current_desk_json(),
                 'audit_plan_id' => $request->audit_plan_id,
-                'annual_plan_id' => $request->annual_plan_id,
                 'memorandum_no' => $request->memorandum_no,
                 'memorandum_date' => $request->memorandum_date,
                 'heading_details' => $request->heading_details,
@@ -155,7 +154,7 @@ class OfficeOrderController extends Controller
             $responseGenerateOfficeOrder = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.generate_office_order'), $data)->json();
             // dd($responseGenerateOfficeOrder);
             if (isSuccess($responseGenerateOfficeOrder)) {
-                return response()->json(['status' => 'success', 'data' => 'Added!']);
+                return response()->json(['status' => 'success', 'data' => 'Office Order Added!']);
             } else {
                 return response()->json(['status' => 'error', 'data' => $responseGenerateOfficeOrder]);
             }

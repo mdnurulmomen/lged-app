@@ -136,7 +136,7 @@
                                     <p>Auditable Unit</p> 
                                 </td>
                                 <td style="text-align: center">{{$audit_type['audit_type']}}</td>
-                                <td style="text-align: center">{{$audit_team_schedules[2]['audit_year_start']}} - {{$audit_team_schedules[2]['audit_year_end']}}</td>
+                                <td>2021-2022</td>
                                 <td style="text-align: center">{{$milestones[0]['start_date']}}</td>
                                 <td style="text-align: center">{{$milestones[1]['start_date']}} To {{$milestones[1]['end_date']}}</td>
                                 <td style="text-align: center">{{$milestones[2]['start_date']}}</td>
