@@ -106,6 +106,7 @@ use App\Http\Controllers\AuditPlan\Individual\IndividualPlanController;
 use App\Http\Controllers\AuditPlan\AuditAnnualPlan\AnnualPlanPSRController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RiskAssessment\RiskMatrixController;
+use App\Http\Controllers\AuditPlan\Report\SummeryReportController;
 
 Route::get('/', function () {
     return redirect('/dashboard/index');
@@ -146,6 +147,13 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/child-area-risk-identifications', [RiskIdentificationController::class, 'getChildAreaRiskList'])->name('risk-identifications.child-area-risk-list');
         Route::resource('/risk-identifications', RiskIdentificationController::class, ['except' => ['edit']]);
         Route::post('/risk-identifications/edit', [RiskIdentificationController::class, 'sectorRiskIdentificationEdit'])->name('risk-identifications.edit');
+        
+        Route::get('/summery-reports', [SummeryReportController::class, 'index'])->name('summery-reports.index');
+        Route::get('/audit-plans/list', [SummeryReportController::class, 'getAuditPlanList'])->name('audit-plans.list');
+        Route::get('/summery-reports/list', [SummeryReportController::class, 'getSummeryReport'])->name('summery-reports.list');
+        Route::get('/download-summery-reports', [SummeryReportController::class, 'downloadSummeryReport'])->name('summery-reports.download');
+        Route::get('/main-body-document/list', [SummeryReportController::class, 'getMainBodyDocReport'])->name('main-body-document.list');
+        Route::get('/download-main-body-document', [SummeryReportController::class, 'downloadMainBodyDocReport'])->name('main-body-document.download');
         
         //strategic plan
         Route::group(['as' => 'strategy.', 'prefix' => 'strategy/'], function () {
