@@ -444,7 +444,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/store-audit-team', [IndividualPlanController::class, 'storeAuditTeam'])->name('store-audit-team');
             // Route::post('/update-audit-team', [RevisedPlanController::class, 'updateAuditTeam'])->name('update-audit-team');
             Route::post('/store-audit-team-schedule', [IndividualPlanController::class, 'storeAuditTeamSchedule'])->name('store-audit-team-schedule');
-            
+
             // engagement letter
             Route::post('/plan-engagement-letter/create', [IndividualPlanController::class, 'engagementLetterCreate'])->name('engagement-letter-create');
             Route::post('/plan-engagement-letter/store', [IndividualPlanController::class, 'engagementLetterStore'])->name('engagement-letter-store');
@@ -1004,8 +1004,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/sector-risk-assessments/list', [SectorAssessmentController::class, 'getSectorRiskAssessmentList'])->name('sector-risk-assessments.list');
         Route::get('/sector-risk-assessments/area-list', [SectorAssessmentController::class, 'getSectorAreaList'])->name('sector-risk-assessments.area-list');
         Route::get('/sector-risk-assessments/summery', [SectorAssessmentController::class, 'sectorRiskAssessmentSummery'])->name('sector-risk-assessments.summery');
-        Route::resource('/sector-risk-assessments', SectorAssessmentController::class, ['except' => ['edit']]);
+        Route::get('/sector-risk-assessments/index/{any}', [SectorAssessmentController::class, 'index']);
         Route::post('/sector-risk-assessments/edit', [SectorAssessmentController::class, 'sectorRiskAssessmentEdit'])->name('sector-risk-assessments.edit');
+        Route::resource('/sector-risk-assessments', SectorAssessmentController::class, ['except' => ['edit','index']]);
 
         Route::group(['as' => 'strategic-plan.', 'prefix' => 'strategic-plan/'], function () {
             Route::post('/duration/lists', [DurationController::class, 'getDurationLists'])->name('duration.lists');

@@ -12,11 +12,14 @@ class SectorAssessmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($type)
     {
+//        dd($type);
+
         $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
             'all' => 1
         ])->json();
+
         $allProjects = $allProjects ? $allProjects['data'] : [];
 
         // dd($allProjects);
@@ -36,7 +39,7 @@ class SectorAssessmentController extends Controller
         // ])->json();
         // $allCostCenters = $allCostCenters ? $allCostCenters['data'] : [];
 
-        return view('modules.settings.risk_assessment.index', compact('allProjects', 'allFunctions', 'allMasterUnits'));
+        return view('modules.settings.risk_assessment.index', compact('allProjects', 'allFunctions', 'allMasterUnits','type'));
     }
 
     public function getSectorRiskAssessmentList(Request $request)
@@ -64,8 +67,10 @@ class SectorAssessmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+//        dd($request->all());
+
         $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
             'all' => 1
         ])->json();
@@ -105,9 +110,11 @@ class SectorAssessmentController extends Controller
 
         $officerLists = $officerLists ? $officerLists['data'] : [];
 
+        $type = $request->type;
+
         //  dd($officerLists);
 
-        return view('modules.settings.risk_assessment.partials.create', compact('allProjects', 'allFunctions', 'allMasterUnits', 'allImpacts', 'allLikelihoods', 'officerLists'));
+        return view('modules.settings.risk_assessment.partials.create', compact('allProjects', 'allFunctions', 'allMasterUnits', 'allImpacts', 'allLikelihoods', 'officerLists', 'type'));
     }
 
     /**
@@ -121,17 +128,18 @@ class SectorAssessmentController extends Controller
         $request->validate([
             'audit_area_id' => 'required|integer|max:255',
             'assessment_sector_id' => 'required|integer|max:255',
+            'assessment_type' => 'required|string',
             'assessment_sector_type' => 'required|string|in:project,function,master-unit,cost-center',
             'audit_assessment_area_risks' => 'required|array',
-            'audit_assessment_area_risks.*.inherent_risk' => 'required|string',
+//            'audit_assessment_area_risks.*.inherent_risk' => 'required|string',
             'audit_assessment_area_risks.*.x_risk_assessment_impact_id' => 'required|integer',
             'audit_assessment_area_risks.*.x_risk_assessment_likelihood_id' => 'required|integer',
-            'audit_assessment_area_risks.*.control_system' => 'required|string',
-            'audit_assessment_area_risks.*.control_effectiveness' => 'required|string',
-            'audit_assessment_area_risks.*.residual_risk' => 'required|string',
-            'audit_assessment_area_risks.*.recommendation' => 'required|string',
-            'audit_assessment_area_risks.*.implemented_by' => 'required|string',
-            'audit_assessment_area_risks.*.implementation_period' => 'required|string',
+//            'audit_assessment_area_risks.*.control_system' => 'required|string',
+//            'audit_assessment_area_risks.*.control_effectiveness' => 'required|string',
+//            'audit_assessment_area_risks.*.residual_risk' => 'required|string',
+//            'audit_assessment_area_risks.*.recommendation' => 'required|string',
+//            'audit_assessment_area_risks.*.implemented_by' => 'required|string',
+//            'audit_assessment_area_risks.*.implementation_period' => 'required|string',
         ]);
 
         $currentUserId = $this->current_desk()['officer_id'];
@@ -140,10 +148,14 @@ class SectorAssessmentController extends Controller
             'audit_area_id' => $request->audit_area_id,
             'assessment_sector_id' => $request->assessment_sector_id,
             'assessment_sector_type' => $request->assessment_sector_type,
+            'assessment_type' => $request->assessment_type,
+            'assessment_type' => 'preliminary',
             'audit_assessment_area_risks' => $request->audit_assessment_area_risks,
             'creator_id' => $currentUserId,
             'updater_id' => $currentUserId,
         ];
+
+//        dd($data);
 
         $create_risk_impact = $this->initHttpWithToken()->post(config('amms_bee_routes.sector_risk_assessments'), $data)->json();
         //    dd($create_risk_assessment);

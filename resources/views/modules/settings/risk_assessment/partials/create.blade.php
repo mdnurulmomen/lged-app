@@ -92,7 +92,7 @@
                         --}}
                     </div>
                     <div class="col-sm-6">
-                        <select class="form-control" name="audit_area_id" id="audit_area_id">
+                        <select class="form-control audit_area_id" name="audit_area_id" id="audit_area_id">
                             <option value="" selected>Please Select Area</option>
                         </select>
                     </div>
@@ -108,15 +108,15 @@
                             <div class="card-body pt-1">
                                 <div class="form-row">
                                     <div class="col-sm-4 form-group">
-                                        <label for="audit_area">Process/sub-process:</label>
-                                        <select class="form-control" id="sub_area_id" name="sub_area_id">
+                                        <label for="sub_area_id">Process/sub-process:</label>
+                                        <select onchange="getInherentRisk($(this))"  class="form-control sub_area_id" id="sub_area_id" name="sub_area_id">
                                             <option selected>Select Process/sub-process</option>
                                         </select>
                                     </div>
 
                                     <div class="col-sm-4 form-group">
-                                        <label for="email">Risk:</label>
-                                        <select class="form-control" name="risk_id">
+                                        <label for="email">Inherent Risk:</label>
+                                        <select class="form-control inherent_risk_id" name="inherent_risk_id">
                                             <option selected>Select Risk</option>
                                         </select>
                                     </div>
@@ -158,7 +158,7 @@
 
                                     <div class="col-sm-4 form-group">
                                         <label for="email">Risk Owner:</label>
-                                        <select class="form-control" name="x_risk_assessment_likelihood_id">
+                                        <select class="form-control risk_owner_id" name="risk_owner_id">
                                             <option value="0" selected>Select Risk Owner</option>
                                             @foreach($officerLists as $key => $officer_list)
                                                 @foreach($officer_list['units'] as $unit)
@@ -174,7 +174,7 @@
 
                                     <div class="col-sm-4 form-group">
                                         <label for="email">Process Owner:</label>
-                                        <select class="form-control" name="x_risk_assessment_likelihood_id">
+                                        <select class="form-control process_owner_id" name="process_owner_id">
                                             <option value="0" selected>Select Risk Owner</option>
                                             @foreach($officerLists as $key => $officer_list)
                                                 @foreach($officer_list['units'] as $unit)
@@ -190,7 +190,7 @@
 
                                     <div class="col-sm-4 form-group">
                                         <label for="email">Control Owner:</label>
-                                        <select class="form-control" name="x_risk_assessment_likelihood_id">
+                                        <select class="form-control control_owner_id" name="control_owner_id">
                                             <option value="0" selected>Select Risk Owner</option>
                                             @foreach($officerLists as $key => $officer_list)
                                                 @foreach($officer_list['units'] as $unit)
@@ -263,10 +263,7 @@
 
 <script>
     $(document).ready(function() {
-        // Item_Risk_Assessment_Container.loadRiskFactorType('project');
-
         adjustRiskIndex();
-
     });
 
     $('input[type=radio][name=assessment_sector_type]').change(function() {
@@ -297,29 +294,24 @@
     });
 
     $('.sector').on('change',function () {
-        // console.log('sector');
         setAvailableAreas();
     });
 
     $('#submit_button').on('click',function () {
-        // console.log('submit');
         storeItemRiskAssessments();
     });
 
     $('#add_risk').on('click', function () {
-        // console.log('add');
         addRisk();
         adjustRiskIndex();
     });
 
     $('#remove_risk').on("click", function() {
-        // console.log('remove');
         removeRisk();
         adjustRiskIndex();
     });
 
     $('#go_back').on("click", function() {
-        // console.log('back');
         backToList();
     });
 
@@ -330,11 +322,12 @@
         $(".sector_area_risks:last").clone().insertAfter(".sector_area_risks:last");
         $(".sector_area_risks:last").addClass("risk_row_"+new_row_count);
         $('.sector_area_risks:last').removeClass("risk_row_"+row_count);
+        $('.sector_area_risks:last').find('input,textarea').val('');
+        $('.sector_area_risks:last').find('[name=inherent_risk_id]').html('<option value="">Select Inherent Risk</option>');
     }
 
     function removeRisk () {
         if ($('.sector_area_risks').length > 1) {
-            // console.log('remove');
             $('.sector_area_risks:last').remove();
         }
     }
@@ -357,7 +350,7 @@
 
     function setAvailableAreas () {
 
-        // loaderStart('Please wait...');
+        loaderStart('Please wait...');
 
         let assessment_sector_type = $('input[name="assessment_sector_type"]:checked').val();
 
@@ -371,7 +364,7 @@
         let url = "{{route('settings.sector-risk-assessments.area-list')}}";
 
         ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
-            // loaderStop();
+            loaderStop();
             if (response.status === 'error') {
                 toastr.error(response.data);
             } else {
@@ -394,28 +387,45 @@
 
         let audit_area_id = $('#audit_area_id').find(':selected').val();
 
+        let assessment_type = '{{$type}}';
+
         let sector_assessment = {
             assessment_sector_type,
             assessment_sector_id,
             audit_area_id,
+            assessment_type,
             audit_assessment_area_risks : []
         };
 
         $('.sector_area_risks').each(function(index, risk) {
             audit_assessment_area_risk = {};
 
-            audit_assessment_area_risk['inherent_risk'] = $(this).find("input[name='inherent_risk']").val();
+            audit_assessment_area_risk['inherent_risk_id'] = $(this).find(".inherent_risk_id option:selected").val();
+            audit_assessment_area_risk['inherent_risk'] = $(this).find(".inherent_risk_id option:selected").text();
+            audit_assessment_area_risk['sub_area_id'] = $(this).find(".sub_area_id option:selected").val();
+            audit_assessment_area_risk['sub_area_name'] = $(this).find(".sub_area_id option:selected").text();
+            audit_assessment_area_risk['sub_area_name_bn'] = '';
+            audit_assessment_area_risk['risk_level'] = $(this).find("input[name='risk_level']").val();
+            audit_assessment_area_risk['priority'] = $(this).find("input[name='priority']").val();
             audit_assessment_area_risk['x_risk_assessment_impact_id'] = $(this).find("select[name='x_risk_assessment_impact_id']").val();
             audit_assessment_area_risk['x_risk_assessment_likelihood_id'] = $(this).find("select[name='x_risk_assessment_likelihood_id']").val();
-            audit_assessment_area_risk['control_system'] = $(this).find("input[name='control_system']").val();
-            audit_assessment_area_risk['control_effectiveness'] = $(this).find("input[name='control_effectiveness']").val();
-            audit_assessment_area_risk['residual_risk'] = $(this).find("input[name='residual_risk']").val();
-            audit_assessment_area_risk['recommendation'] = $(this).find("input[name='recommendation']").val();
-            audit_assessment_area_risk['implemented_by'] = $(this).find("input[name='implemented_by']").val();
-            audit_assessment_area_risk['implementation_period'] = $(this).find("input[name='implementation_period']").val();
+            audit_assessment_area_risk['control_system'] = $(this).find("textarea[name='control_system']").val();
+            audit_assessment_area_risk['risk_owner_id'] = $(this).find(".risk_owner_id option:selected").val();
+            audit_assessment_area_risk['risk_owner_name'] = $(this).find(".risk_owner_id option:selected").text();
+            audit_assessment_area_risk['process_owner_id'] = $(this).find(".process_owner_id option:selected").val();
+            audit_assessment_area_risk['process_owner_name'] = $(this).find(".process_owner_id option:selected").text();
+            audit_assessment_area_risk['control_owner_id'] = $(this).find(".control_owner_id option:selected").val();
+            audit_assessment_area_risk['control_owner_name'] = $(this).find(".control_owner_id option:selected").text();
+            // audit_assessment_area_risk['control_effectiveness'] = $(this).find("input[name='control_effectiveness']").val();
+            // audit_assessment_area_risk['residual_risk'] = $(this).find("input[name='residual_risk']").val();
+            // audit_assessment_area_risk['recommendation'] = $(this).find("input[name='recommendation']").val();
+            // audit_assessment_area_risk['implemented_by'] = $(this).find("input[name='implemented_by']").val();
+            // audit_assessment_area_risk['implementation_period'] = $(this).find("input[name='implementation_period']").val();
 
             sector_assessment.audit_assessment_area_risks.push(audit_assessment_area_risk);
         });
+
+        // console.log(sector_assessment);
 
         let url = "{{route('settings.sector-risk-assessments.store')}}";
 
@@ -451,6 +461,38 @@
             }
         });
 
+    }
+
+    function getInherentRisk(elem){
+        let risk_row = $(elem).attr('data-risk-row-index')
+        let audit_area_id = $('.risk_row_'+risk_row).find('[name=sub_area_id]').val();
+        setAvailableInherentRisk(risk_row,audit_area_id);
+    }
+
+    function setAvailableInherentRisk(risk_row,audit_area_id){
+        loaderStart('Please wait...');
+
+        let assessment_sector_type = $('input[name="assessment_sector_type"]:checked').val();
+
+        let parent_area_id = $('[name="audit_area_id"]').val();
+
+        let assessment_sector_id = (assessment_sector_type=='project') ? $('#project_id').find(':selected').val()
+            : (assessment_sector_type=='function') ? $('#function_id').find(':selected').val()
+                : (assessment_sector_type=='master-unit') ? $('#unit_master_id').find(':selected').val()
+                    : $('#cost_center_id').find(':selected').val();
+
+        let data = {assessment_sector_type,assessment_sector_id,parent_area_id,audit_area_id};
+
+        let url = "{{route('audit.plan.risk-identifications.child-area-risk-list')}}";
+
+        ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
+            loaderStop();
+            if (response.status === 'error') {
+                toastr.error(response.data);
+            } else {
+                $('.risk_row_'+risk_row).find('[name=inherent_risk_id]').html(response);
+            }
+        });
     }
 
     function getRiskLevelAndPriority(elem){

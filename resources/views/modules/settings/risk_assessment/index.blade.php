@@ -1,4 +1,4 @@
-<x-title-wrapper>Risk Assessment List</x-title-wrapper>
+<x-title-wrapper>{{$type}} Risk Assessment List</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row d-flex align-items-end">
@@ -9,7 +9,7 @@
                 <input id="master_unit" type="radio" name="risk_factor_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Master Unit
                 {{-- <input id="cost_center" type="radio" name="risk_factor_type" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center --}}
             </span>
-            
+
             <div class="project_div" style="display: none">
                 <select class="form-control select-select2" name="project_id" id="project_id" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
                     <option selected>Select Project</option>
@@ -46,12 +46,12 @@
                 </select>
             </div> --}}
         </div>
-        
+
         <div class="col-md-3">
-            <button 
+            <button
                 title="বিস্তারিত দেখুন"
                 id="summery_assessment_button"
-                class="btn btn-sm btn-info btn-square mr-1" 
+                class="btn btn-sm btn-info btn-square mr-1"
                 data-url="{{route('settings.sector-risk-assessments.summery')}}"
             >
                 <i class="fad fa-plus"></i> Summery
@@ -59,10 +59,10 @@
         </div>
 
         <div class="col-md-3 text-right">
-            <button class="btn btn-sm btn-info btn-square mr-1" 
+            <button class="btn btn-sm btn-info btn-square mr-1"
                     title="বিস্তারিত দেখুন"
                     onclick='loadPage($(this))'
-                    data-url="{{route('settings.sector-risk-assessments.create')}}"
+                    data-url="{{route('settings.sector-risk-assessments.create',['type' => $type])}}"
             >
                 <i class="fad fa-plus"></i> Create
             </button>
@@ -73,29 +73,29 @@
 <div class="card sna-card-border mt-3" style="margin-bottom:30px;">
     <div class="table-responsive">
         <div class="content-risk-assessments">
-            <table class="table table-bordered" width="100%">
-                <thead class="thead-light">
-                    <tr>
-                        <th>SL</th>
-                        <th>Audit Area</th>
-                        <th>Inherent Risk</th>
-                        <th>Impact</th>
-                        <th>Likelihood</th>
-                        <th>Control System</th>
-                        <th>Control Effect</th>
-                        <th>Residual Risk</th>
-                        <th>Recommendation</th>
-                        <th>Implemented By</th>
-                        <th>Implemented On</th>
-                    </tr>
-                </thead>
-            
-                <tbody>
-                    <tr>
-                        <td colspan="11" class="datatable-cell text-center"><span>Please select entity</span></td>
-                    </tr>
-                </tbody>
-            </table>
+{{--            <table class="table table-bordered" width="100%">--}}
+{{--                <thead class="thead-light">--}}
+{{--                    <tr>--}}
+{{--                        <th>SL</th>--}}
+{{--                        <th>Audit Area</th>--}}
+{{--                        <th>Inherent Risk</th>--}}
+{{--                        <th>Impact</th>--}}
+{{--                        <th>Likelihood</th>--}}
+{{--                        <th>Control System</th>--}}
+{{--                        <th>Control Effect</th>--}}
+{{--                        <th>Residual Risk</th>--}}
+{{--                        <th>Recommendation</th>--}}
+{{--                        <th>Implemented By</th>--}}
+{{--                        <th>Implemented On</th>--}}
+{{--                    </tr>--}}
+{{--                </thead>--}}
+
+{{--                <tbody>--}}
+{{--                    <tr>--}}
+{{--                        <td colspan="11" class="datatable-cell text-center"><span>Please select entity</span></td>--}}
+{{--                    </tr>--}}
+{{--                </tbody>--}}
+{{--            </table>--}}
         </div>
     </div>
 </div>
@@ -104,11 +104,11 @@
 <script>
     $(function () {
         // Risk_Assessment_Factor_Approach_Container.setAssessmentType('project');
-        
+
         $("#summery_assessment_button").click(function() {
-            
+
             let url = $(this).attr("data-url");
-            
+
             let type = $("input[name='risk_factor_type']:checked").val();
 
             if (type=='project' && $('#project_id option').is(':selected')) {
@@ -116,16 +116,16 @@
                 var id = $('#project_id').find(":selected").val();
 
             } else if (type=='function' && $('#function_id option').is(':selected')) {
-                
+
                 var id = $('#function_id').find(":selected").val();
 
             } else if (type=='master-unit' && $('#unit_master_id option').is(':selected')) {
-                
+
                 var id = $('#unit_master_id').find(":selected").val();
 
-            } 
+            }
             // else if (type=='cost-center' && $('#cost_center_id option').is(':selected')) {
-                
+
             //     var id = $('#cost_center_id').find(":selected").val();
             // }
             else {
@@ -134,9 +134,9 @@
             }
 
             loaderStart('loading...');
-            
+
             let data = {id, type};
-            
+
             ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
                 loaderStop();
                 if (response.status === 'error') {
@@ -151,9 +151,9 @@
     var Risk_Assessment_Item_Container = {
         laodItemRiskAssessments: function (type, id) {
             loaderStart('loading...');
-
+            let assessment_type = '{{$type}}';
             let url = '{{route('settings.sector-risk-assessments.list')}}';
-            let data = {id,type};
+            let data = {id,type,assessment_type};
 
             ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
                 loaderStop();
