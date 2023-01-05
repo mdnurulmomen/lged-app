@@ -1,4 +1,4 @@
-<x-title-wrapper>{{$type}} Risk Assessment List</x-title-wrapper>
+<x-title-wrapper>{{ucfirst($type)}} Risk Assessment List</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row d-flex align-items-end">
@@ -47,9 +47,9 @@
             </div> --}}
         </div>
 
-        <div class="col-md-3"></div>
+{{--        <div class="col-md-3"></div>--}}
 
-        <div class="col-md-3 text-right">
+        <div class="col-md-6 text-right">
             <button
                 title="বিস্তারিত দেখুন"
                 id="summery_assessment_button"
@@ -57,6 +57,13 @@
                 data-url="{{route('settings.sector-risk-assessments.summery')}}"
             >
                 <i class="fad fa-eye"></i> View Summery
+            </button>
+
+            <button class="btn btn-sm btn-info btn-square mr-1"
+                    title="বিস্তারিত দেখুন"
+                    onclick='Risk_Assessment_Factor_Approach_Container.downloadExcel($(this))'
+            >
+                <i class="fad fa-download"></i> Download
             </button>
 
             <button class="btn btn-sm btn-info btn-square mr-1"
@@ -196,6 +203,34 @@
                 $('.cost_center_div').show();
                 $('.unit_div').hide();
             }
+        },
+
+        downloadExcel:function (elem){
+            loaderStart('loading...');
+
+            let type = $("input[name='risk_factor_type']:checked").val();
+
+            if (type=='project' && $('#project_id option').is(':selected')) {
+
+                var id = $('#project_id').find(":selected").val();
+
+            } else if (type=='function' && $('#function_id option').is(':selected')) {
+
+                var id = $('#function_id').find(":selected").val();
+
+            } else if (type=='master-unit' && $('#unit_master_id option').is(':selected')) {
+
+                var id = $('#unit_master_id').find(":selected").val();
+
+            }
+            let assessment_type = '{{$type}}';
+            let url = '{{route('settings.sector-risk-assessments.excel-download')}}';
+            let data = {id,type,assessment_type};
+            let datatype = 'json';
+            ajaxCallUnsyncCallback(url, data, datatype, 'POST', function (response) {
+                loaderStop();
+                window.open(response.full_path,'_blank' );
+            });
         },
 
         /*

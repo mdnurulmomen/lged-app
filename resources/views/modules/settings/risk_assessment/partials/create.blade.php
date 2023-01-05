@@ -164,7 +164,7 @@
                                                 @foreach($officer_list['units'] as $unit)
                                                     @foreach($unit['designations'] as $designation)
                                                         @if(!empty($designation['employee_info']))
-                                                            <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['employee_info']['name_bng'] : ''}}</option>
+                                                            <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}</option>
                                                         @endif
                                                     @endforeach
                                                 @endforeach
@@ -180,7 +180,7 @@
                                                 @foreach($officer_list['units'] as $unit)
                                                     @foreach($unit['designations'] as $designation)
                                                         @if(!empty($designation['employee_info']))
-                                                            <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['employee_info']['name_bng'] : ''}}</option>
+                                                            <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}</option>
                                                         @endif
                                                     @endforeach
                                                 @endforeach
@@ -196,13 +196,22 @@
                                                 @foreach($officer_list['units'] as $unit)
                                                     @foreach($unit['designations'] as $designation)
                                                         @if(!empty($designation['employee_info']))
-                                                            <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['employee_info']['name_bng'] : ''}}</option>
+                                                            <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}</option>
                                                         @endif
                                                     @endforeach
                                                 @endforeach
                                             @endforeach
                                         </select>
                                     </div>
+
+                                    @if($type == 'final')
+                                        <div class="col-sm-4 form-group">
+                                            <label for="email">Related Issue Number:</label>
+                                            <select class="form-control issue_id" name="issue_id">
+                                                <option selected>Select Risk</option>
+                                            </select>
+                                        </div>
+                                    @endif
 
 
 {{--                                    <div class="col-sm-4 form-group">--}}
@@ -295,6 +304,7 @@
 
     $('.sector').on('change',function () {
         setAvailableAreas();
+        setAvailableIssue();
     });
 
     $('#submit_button').on('click',function () {
@@ -374,6 +384,32 @@
 
     }
 
+    function setAvailableIssue () {
+
+        loaderStart('Please wait...');
+
+        let assessment_sector_type = $('input[name="assessment_sector_type"]:checked').val();
+
+        let assessment_sector_id = (assessment_sector_type=='project') ? $('#project_id').find(':selected').val()
+            : (assessment_sector_type=='function') ? $('#function_id').find(':selected').val()
+                : (assessment_sector_type=='master-unit') ? $('#unit_master_id').find(':selected').val()
+                    : $('#cost_center_id').find(':selected').val();
+
+        let data = {assessment_sector_type, assessment_sector_id};
+
+        let url = "{{route('settings.get-sector-wise-issue')}}";
+
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+            loaderStop();
+            if (response.status === 'error') {
+                toastr.error(response.data);
+            } else {
+                $('.issue_id').html(response);
+            }
+        });
+
+    }
+
     function storeItemRiskAssessments () {
 
         loaderStart('Please wait...');
@@ -416,6 +452,7 @@
             audit_assessment_area_risk['process_owner_name'] = $(this).find(".process_owner_id option:selected").text();
             audit_assessment_area_risk['control_owner_id'] = $(this).find(".control_owner_id option:selected").val();
             audit_assessment_area_risk['control_owner_name'] = $(this).find(".control_owner_id option:selected").text();
+            audit_assessment_area_risk['issue_no'] = $(this).find(".issue_id option:selected").val() ? $(this).find(".issue_id option:selected").val() : null;
             // audit_assessment_area_risk['control_effectiveness'] = $(this).find("input[name='control_effectiveness']").val();
             // audit_assessment_area_risk['residual_risk'] = $(this).find("input[name='residual_risk']").val();
             // audit_assessment_area_risk['recommendation'] = $(this).find("input[name='recommendation']").val();

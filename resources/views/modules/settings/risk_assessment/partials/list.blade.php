@@ -13,6 +13,9 @@
             <th>Risk Owner</th>
             <th>Process Owner</th>
             <th>Control Owner</th>
+            @if($assessment_type == 'final')
+                <th>Related Issue Number</th>
+            @endif
         </tr>
     </thead>
 
@@ -58,6 +61,11 @@
             <td>{{ $auditAssessmentAreaRisk['risk_owner_name'] }}</td>
             <td>{{ $auditAssessmentAreaRisk['process_owner_name'] }}</td>
             <td>{{ $auditAssessmentAreaRisk['control_owner_name'] }}</td>
+
+            @if($assessment_type == 'final')
+               <td>{{ $auditAssessmentAreaRisk['issue_no'] }}</td>
+            @endif
+
         </tr>
         @endforeach
 

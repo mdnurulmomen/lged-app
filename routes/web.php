@@ -148,14 +148,14 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/child-area-risk-identifications', [RiskIdentificationController::class, 'getChildAreaRiskList'])->name('risk-identifications.child-area-risk-list');
         Route::resource('/risk-identifications', RiskIdentificationController::class, ['except' => ['edit']]);
         Route::post('/risk-identifications/edit', [RiskIdentificationController::class, 'sectorRiskIdentificationEdit'])->name('risk-identifications.edit');
-        
+
         Route::get('/summery-reports', [SummeryReportController::class, 'index'])->name('summery-reports.index');
         Route::get('/audit-plans/list', [SummeryReportController::class, 'getAuditPlanList'])->name('audit-plans.list');
         Route::get('/summery-reports/list', [SummeryReportController::class, 'getSummeryReport'])->name('summery-reports.list');
         Route::get('/download-summery-reports', [SummeryReportController::class, 'downloadSummeryReport'])->name('summery-reports.download');
         Route::get('/main-body-document/list', [SummeryReportController::class, 'getMainBodyDocReport'])->name('main-body-document.list');
         Route::get('/download-main-body-document', [SummeryReportController::class, 'downloadMainBodyDocReport'])->name('main-body-document.download');
-        
+
 
         //strategic plan
         Route::group(['as' => 'strategy.', 'prefix' => 'strategy/'], function () {
@@ -1015,6 +1015,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/sector-risk-assessments/summery', [SectorAssessmentController::class, 'sectorRiskAssessmentSummery'])->name('sector-risk-assessments.summery');
         Route::get('/sector-risk-assessments/index/{any}', [SectorAssessmentController::class, 'index']);
         Route::post('/sector-risk-assessments/edit', [SectorAssessmentController::class, 'sectorRiskAssessmentEdit'])->name('sector-risk-assessments.edit');
+        Route::post('/sector-risk-assessments/excel-download', [SectorAssessmentController::class, 'excelDownload'])->name('sector-risk-assessments.excel-download');
+        Route::post('get-sector-wise-issue', [SectorAssessmentController::class, 'getSectorWiseIssue'])->name('get-sector-wise-issue');
         Route::resource('/sector-risk-assessments', SectorAssessmentController::class, ['except' => ['edit','index']]);
 
         Route::group(['as' => 'strategic-plan.', 'prefix' => 'strategic-plan/'], function () {
