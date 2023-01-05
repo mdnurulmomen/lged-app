@@ -68,6 +68,7 @@ class SectorAssessmentController extends Controller
 
     public function excelDownload(Request $request)
     {
+//        dd($request->assessment_type);
         $sectorriskassessments = $this->initHttpWithToken()->get(config('amms_bee_routes.sector_risk_assessments'), $request->all())->json();
 
         $sectorriskassessments = isSuccess($sectorriskassessments) ? $sectorriskassessments['data'] : [];
@@ -77,8 +78,8 @@ class SectorAssessmentController extends Controller
             'all' => 1
         ])->json()['data'];
 
-        $allAuditAreas = isSuccess($allAuditAreas) ? $allAuditAreas['data'] : [];
 
+//        dd(collect($allAuditAreas));
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -96,23 +97,64 @@ class SectorAssessmentController extends Controller
 //            <th>Process Owner</th>
 //            <th>Control Owner</th>
 
-        $sheet->setCellValue('A1', 'SL');
-        $sheet->setCellValue('B1', 'Audit Area');
+        $sheet->setCellValue('A1', 'Audit Area');
+        $sheet->setCellValue('B1', 'Process/sub-process');
         $sheet->setCellValue('C1', 'Inherent Risk');
-//        $sheet->setCellValue('D1', 'নাম(ইংরেজি)');
-//        $sheet->setCellValue('E1', 'ইউজার আইডি');
+        $sheet->setCellValue('D1', 'Impact');
+        $sheet->setCellValue('E1', 'Likelihood');
+        $sheet->setCellValue('F1', 'Inherent Risk Level');
+        $sheet->setCellValue('G1', 'Priority (1,2,3,4)');
+        $sheet->setCellValue('H1', 'Existing Control');
+        $sheet->setCellValue('I1', 'Risk Owner');
+        $sheet->setCellValue('J1', 'Process Owner');
+        $sheet->setCellValue('K1', 'Control Owner');
+
+        if($request->assessment_type == 'final'){
+            $sheet->setCellValue('L1', 'Related Issue Number');
+        }
 
         $sheet->getColumnDimension('A')->setWidth(20);
         $sheet->getColumnDimension('B')->setWidth(20);
         $sheet->getColumnDimension('C')->setWidth(20);
-//        $sheet->getColumnDimension('D')->setWidth(20);
-//        $sheet->getColumnDimension('E')->setWidth(20);
+        $sheet->getColumnDimension('D')->setWidth(20);
+        $sheet->getColumnDimension('E')->setWidth(20);
+        $sheet->getColumnDimension('F')->setWidth(20);
+        $sheet->getColumnDimension('G')->setWidth(20);
+        $sheet->getColumnDimension('H')->setWidth(20);
+        $sheet->getColumnDimension('I')->setWidth(20);
+        $sheet->getColumnDimension('J')->setWidth(20);
+        $sheet->getColumnDimension('K')->setWidth(20);
+        if($request->assessment_type == 'final') {
+            $sheet->getColumnDimension('L')->setWidth(20);
+        }
 
         $count = 2;
-        foreach ($sectorriskassessments as $risk) {
-            $sheet->setCellValue('A' . $count, 'sdfsd');
-            $sheet->setCellValue('B' . $count, 'sdfsd');
-            $sheet->setCellValue('C' . $count, 'sdfasd');
+
+        foreach ($sectorriskassessments as $sectorriskassessment) {
+            if(count($sectorriskassessment['audit_assessment_area_risks']) > 1){
+                $cell_count = count($sectorriskassessment['audit_assessment_area_risks']) + 1;
+                $sheet->mergeCells("A".$count.":A".$cell_count);
+            }
+
+            $sheet->setCellValue('A' . $count, collect($allAuditAreas)->firstWhere('id', $sectorriskassessment['audit_area_id'])['name_en']);
+            $sub_cell = $count;
+            foreach ($sectorriskassessment['audit_assessment_area_risks'] as $auditAssessmentAreaRisk) {
+                $sheet->setCellValue('B' . $sub_cell,  $auditAssessmentAreaRisk['sub_area_name']);
+                $sheet->setCellValue('C' . $sub_cell,  $auditAssessmentAreaRisk['inherent_risk']);
+                $sheet->setCellValue('D' . $sub_cell,  $auditAssessmentAreaRisk['x_risk_assessment_impact']['title_en']);
+                $sheet->setCellValue('E' . $sub_cell,  $auditAssessmentAreaRisk['x_risk_assessment_likelihood']['title_en'] );
+                $sheet->setCellValue('F' . $sub_cell,  $auditAssessmentAreaRisk['risk_level']);
+                $sheet->setCellValue('G' . $sub_cell,  $auditAssessmentAreaRisk['priority']);
+                $sheet->setCellValue('H' . $sub_cell,  $auditAssessmentAreaRisk['control_system']);
+                $sheet->setCellValue('I' . $sub_cell,  $auditAssessmentAreaRisk['risk_owner_name']);
+                $sheet->setCellValue('J' . $sub_cell,  $auditAssessmentAreaRisk['process_owner_name']);
+                $sheet->setCellValue('K' . $sub_cell,  $auditAssessmentAreaRisk['control_owner_name']);
+                if($request->assessment_type == 'final') {
+                    $sheet->setCellValue('L' . $sub_cell,  $auditAssessmentAreaRisk['issue_no']);
+                }
+                $sub_cell++;
+            }
+
             $count++;
         }
 

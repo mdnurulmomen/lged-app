@@ -3,7 +3,7 @@
         <tr>
             <th>SL</th>
             <th>Audit Area</th>
-            <th>Process/sub-process:</th>
+            <th>Process/sub-process</th>
             <th>Inherent Risk</th>
             <th>Impact</th>
             <th>Likelihood</th>
