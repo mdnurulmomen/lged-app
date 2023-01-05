@@ -44,7 +44,7 @@ class IndividualPlanController extends Controller
     public function getIndividualPlan(Request $request){
 
         $data = Validator::make($request->all(), [
-            'audit_plan_id' => 'nullable',
+            'audit_plan_id' => 'required',
             'yearly_plan_location_id' => 'required|integer',
             'plan_year' => 'required|integer',
             'sector_name' => 'required|string',
@@ -238,13 +238,10 @@ class IndividualPlanController extends Controller
     public function storeAuditTeamSchedule(Request $request)
     {
         $data = Validator::make($request->all(), [
-            // 'audit_plan_id' => 'integer',
-            // 'annual_plan_id' => 'integer',
             'yearly_plan_location_id' => 'required|integer',
             'team_schedules' => 'required|json',
         ])->validate();
 
-        // dd($request);
 
         $data['cdesk'] = $this->current_desk_json();
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team_schedule'), $data)->json();
@@ -274,7 +271,7 @@ class IndividualPlanController extends Controller
         $announcementMemo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_announcement_memo'),$data)->json();
         $announcementMemo = $announcementMemo ? $announcementMemo['data'] : [];
 
-        // dd($announcementMemo);
+        // dd($announcementMemo['finding']);
         // dd($announcementMemo['yearly_plan_info']);
 
         return view('modules.individual_plan.partial.announcement-memo-modal', compact('announcementMemo', 'sectorType', 'yearly_plan_location_id'));

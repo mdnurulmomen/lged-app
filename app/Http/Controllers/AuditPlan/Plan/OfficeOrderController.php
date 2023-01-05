@@ -99,7 +99,8 @@ class OfficeOrderController extends Controller
             $data['audit_team_schedules'] = $responseData['data']['audit_team_schedules'];
             $data['audit_type'] = $responseData['data']['audit_type'];
             $data['milestones'] = $responseData['data']['milestones'];
-            // dd($data);
+            $data['auditable_units'] = $responseData['data']['auditable_units'];
+            // dd($data['auditable_units']);
             return view('modules.audit_plan.audit_plan.office_order.show_office_order',$data);
         } else{
             return response()->json(['status' => 'error', 'data' => $responseData]);

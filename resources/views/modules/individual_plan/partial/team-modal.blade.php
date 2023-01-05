@@ -1313,6 +1313,8 @@
 
                         if ($(this).hasClass('input-branch-name') && $(this).is("select")) {
                             cost_center_id = $(this).find(':selected').val();
+                            cost_center_name_en = $(this).find(':selected').text();
+                            cost_center_name_bn = $(this).find(':selected').text();
                         }
 
                         if (!$(this).is('select')) {

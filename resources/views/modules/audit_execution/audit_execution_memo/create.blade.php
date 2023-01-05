@@ -16,6 +16,9 @@
                 <input type="hidden" name="audit_plan_id" value="{{$audit_plan_id}}">
                 <input type="hidden" name="audit_year_start" value="{{$audit_year_start}}">
                 <input type="hidden" name="audit_year_end" value="{{$audit_year_end}}">
+                <input type="hidden" name="project_id" value="{{$project_id}}">
+                <input type="hidden" name="project_name_en" value="{{$project_name_en}}">
+                <input type="hidden" name="project_name_bn" value="{{$project_name_bn}}">
                 <div class="d-flex justify-content-start">
                     <h4 class="mt-5">{{$cost_center_name_en}}
                         ({{$audit_year_start}}-{{$audit_year_end}})</h4>
@@ -63,7 +66,7 @@
                 <div class="col-md-6">
                     <div class="card sna-card-border">
                         <label class="col-form-label">Issue No<span class="text-danger">*</span></label>
-                        <textarea class="form-control mb-1 integer_type_positive" id="issue_no" name="issue_no" placeholder="Issue No" cols="20"
+                        <textarea class="form-control mb-1" id="issue_no" name="issue_no" placeholder="Issue No" cols="20"
                             rows="1"></textarea>
 
                         <label class="col-form-label">Issue Title<span class="text-danger">*</span></label>

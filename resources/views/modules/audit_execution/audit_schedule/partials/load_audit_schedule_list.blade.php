@@ -103,6 +103,7 @@
                                                             data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
                                                             data-audit-year-start="{{$schedule['plan_team']['audit_year_start']}}"
                                                             data-audit-year-end="{{$schedule['plan_team']['audit_year_end']}}"
+                                                            data-project-id="{{$schedule['plan_team']['yearly_plan_location']['project_id']}}"
                                                             data-project-name-bn="{{$schedule['plan_team']['yearly_plan_location'] ? $schedule['plan_team']['yearly_plan_location']['project_name_bn'] : ''}}"
                                                             data-project-name-en="{{$schedule['plan_team']['yearly_plan_location'] ? $schedule['plan_team']['yearly_plan_location']['project_name_en'] : ''}}"
                                                             onclick="Audit_Query_Schedule_Container.memo($(this))">

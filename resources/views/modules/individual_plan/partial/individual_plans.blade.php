@@ -10,7 +10,7 @@
 
         <div class="block">
             <label>Audit Type<span class="text-danger">*</span> : </label>
-            <input class="form_control ml-2" type="text" id="audit_type" name="audit_type">
+            <input class="form_control ml-2" type="text" id="audit_type" value=" {{$individualPlanInfo ? $individualPlanInfo['audit_type'] : '' }}" name="audit_type">
         </div>
 
         <div class="row mt-4">
@@ -44,7 +44,7 @@
                     @foreach($individualPlanInfo['milestones'] as $milestone)
                         <tr class="milestone_row">
                             <td>
-                                <input  type="text" class="form-control milestone_en" value="{{$milestone['milestone_en']}}">
+                                <input  type="text" class="form-control milestone_en" value="{{$milestone['milestone_bn']}}">
                             </td>
                             <td>
                                 <input  type="text" class="form-control start_date date" value="{{formatDate($milestone['start_date'],'en','/')}}">

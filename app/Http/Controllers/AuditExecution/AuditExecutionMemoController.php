@@ -32,6 +32,7 @@ class AuditExecutionMemoController extends Controller
         $scope_sub_team_leader = $request->scope_sub_team_leader;
         $sub_team_leader_name = $request->sub_team_leader_name;
         $sub_team_leader_designation_name = $request->sub_team_leader_designation_name;
+        $project_id = $request->project_id;
         $project_name_bn = $request->project_name_bn;
         $project_name_en = $request->project_name_en;
 
@@ -51,6 +52,7 @@ class AuditExecutionMemoController extends Controller
                 'scope_sub_team_leader',
                 'sub_team_leader_name',
                 'sub_team_leader_designation_name',
+                'project_id',
                 'project_name_bn',
                 'project_name_en',
             )
@@ -101,6 +103,9 @@ class AuditExecutionMemoController extends Controller
         $cost_center_name_en = $request->cost_center_name_en;
         $audit_year_start = $request->audit_year_start;
         $audit_year_end = $request->audit_year_end;
+        $project_id = $request->project_id;
+        $project_name_en = $request->project_name_en;
+        $project_name_bn = $request->project_name_bn;
         // $team_members = $this->getPlanAndTeamWiseTeamMembers(0,$audit_plan_id,$team_id);
         // $get_team = $this->getTeam($team_id);
         //dd(json_decode($get_team['team_members'],true));
@@ -116,6 +121,9 @@ class AuditExecutionMemoController extends Controller
                 'cost_center_name_en',
                 'audit_year_start',
                 'audit_year_end',   
+                'project_id',   
+                'project_name_en',   
+                'project_name_bn',   
             //     'team_members',
             //     'get_team',
             )
@@ -162,6 +170,10 @@ class AuditExecutionMemoController extends Controller
             ['name' => 'cost_center_id', 'contents' => $request->cost_center_id],
             ['name' => 'cost_center_name_bn', 'contents' => $request->cost_center_name_bn],
             ['name' => 'cost_center_name_en', 'contents' => $request->cost_center_name_en],
+
+            ['name' => 'project_id', 'contents' => $request->project_id],
+            ['name' => 'project_name_en', 'contents' => $request->project_name_en],
+            ['name' => 'project_name_bn', 'contents' => $request->project_name_bn],
 
             ['name' => 'audit_plan_id', 'contents' => $request->audit_plan_id],
             ['name' => 'audit_year_start', 'contents' => $request->audit_year_start],

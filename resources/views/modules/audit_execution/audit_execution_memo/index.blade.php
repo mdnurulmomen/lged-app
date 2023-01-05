@@ -22,6 +22,9 @@
                     <a class="btn btn-sm btn-primary btn_back btn-square"
                        data-schedule-id="{{$schedule_id}}"
                        data-team-id="{{$team_id}}"
+                       data-project-id="{{$project_id}}"
+                       data-project-name-en="{{$project_name_en}}"
+                       data-project-name-bn="{{$project_name_bn}}"
                        data-audit-plan-id="{{$audit_plan_id}}"
                        data-cost-center-id="{{$cost_center_id}}"
                        data-cost-center-name-bn="{{$cost_center_name_bn}}"
@@ -86,9 +89,11 @@
             cost_center_name_bn = elem.data('cost-center-name-bn');
             cost_center_name_en = elem.data('cost-center-name-en');
             audit_year_start = elem.data('audit-year-start');
-            audit_year_end = elem.data('audit-year-end');
+            project_id = elem.data('project-id');
+            project_name_en = elem.data('project-name-en');
+            project_name_bn = elem.data('project-name-bn');
 
-            data = {schedule_id, team_id, audit_plan_id, cost_center_id, cost_center_name_bn, cost_center_name_en, audit_year_start, audit_year_end};
+            data = {schedule_id, team_id, audit_plan_id, cost_center_id, cost_center_name_bn, cost_center_name_en, audit_year_start, audit_year_end, project_id, project_name_en, project_name_bn};
 
             let url = '{{route('audit.execution.memo.create')}}';
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {

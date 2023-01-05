@@ -164,6 +164,7 @@
             cost_center_name_en = elem.data('cost-center-name-en');
             audit_year_start = elem.data('audit-year-start');
             audit_year_end = elem.data('audit-year-end');
+            project_id = elem.data('project-id');
             project_name_bn = elem.data('project-name-bn');
             project_name_en = elem.data('project-name-en');
 
@@ -173,7 +174,7 @@
             });
 
             data = {schedule_id, team_id, audit_plan_id, entity_id, cost_center_id,cost_center_name_bn,cost_center_name_en,audit_year_start,
-                audit_year_end,project_name_bn,project_name_en};
+                audit_year_end, project_id, project_name_bn,project_name_en};
 
             let url = '{{route('audit.execution.memo.index')}}';
 

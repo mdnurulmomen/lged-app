@@ -35,6 +35,18 @@
     </div>
 </div> -->
 
+<div class="card sna-card-border mt-3" style="text-align: right;">
+    <div>
+        <button data-ap-office-order-id="{{$office_order['id']}}"
+                data-audit-plan-id="{{$office_order['audit_plan_id']}}"
+                data-annual-plan-id="{{$office_order['annual_plan_id']}}"
+                onclick="Show_Office_Order_Container.generateOfficeOrderPDF($(this))"
+                class="btn btn-download btn-sm btn-bold btn-square">
+            <i class="far fa-file-pdf"></i> Download
+        </button>
+    </div>
+</div>
+
 <div class="card sna-card-border mt-3" style="margin-bottom:30px; padding: 50px;">
     <div style="text-align: center">
         <h4>Government of the People’s Republic of Bangladesh</h4>
@@ -122,7 +134,7 @@
                                                 usort($team_members, "arryAortAsc");
                                             @endphp
                                             @foreach($team_members as $member_key => $sub_team_leader)
-                                                <p>{{$key+1}}. Mr {{$sub_team_leader['officer_name_en']}} , 
+                                                <p>{{$teamMemberSL}}. Mr {{$sub_team_leader['officer_name_en']}} , 
                                                     <br>
                                                     {{$sub_team_leader['designation_en'].' and '.$sub_team_leader['team_member_role_en']}}</p> 
                                                 @php $teamMemberSL++; @endphp
@@ -133,7 +145,9 @@
                                 @endforeach
                                 </td>
                                 <td style="text-align: center">
-                                    <p>Auditable Unit</p> 
+                                    @foreach($auditable_units as $key=>$auditable_unit)
+                                        <p>{{$auditable_unit['cost_center_name_en']}}</p> 
+                                    @endforeach
                                 </td>
                                 <td style="text-align: center">{{$audit_type['audit_type']}}</td>
                                 <td>2021-2022</td>
