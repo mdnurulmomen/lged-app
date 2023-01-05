@@ -30,9 +30,9 @@
                              icon="fal fa-calendar-alt">Area
                 </x-menu-item>
 
-                <x-menu-item class="sector_area_program_menu" href="{{route('audit.plan.programs.index')}}"
-                             icon="fal fa-calendar-alt">Program
-                </x-menu-item>
+{{--                <x-menu-item class="sector_area_program_menu" href="{{route('audit.plan.programs.index')}}"--}}
+{{--                             icon="fal fa-calendar-alt">Program--}}
+{{--                </x-menu-item>--}}
             </x-parent-menu-item>
 
             <x-parent-menu-item icon="fas fa-list" name="Risk Assessment">
@@ -64,9 +64,9 @@
                              icon="fal fa-calendar-alt">Risk Matrix
                 </x-menu-item>
 
-                <x-menu-item class="sector_risk_assessment" href="{{route('settings.sector-risk-assessments.index')}}"
-                             icon="fal fa-calendar-alt">Assessment
-                </x-menu-item>
+{{--                <x-menu-item class="sector_risk_assessment" href="{{route('settings.sector-risk-assessments.index')}}"--}}
+{{--                             icon="fal fa-calendar-alt">Assessment--}}
+{{--                </x-menu-item>--}}
             </x-parent-menu-item>
 
             <x-parent-menu-item icon="fas fa-list" name="Audit Assessment">
