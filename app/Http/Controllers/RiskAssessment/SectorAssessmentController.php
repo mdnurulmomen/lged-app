@@ -149,7 +149,6 @@ class SectorAssessmentController extends Controller
             'assessment_sector_id' => $request->assessment_sector_id,
             'assessment_sector_type' => $request->assessment_sector_type,
             'assessment_type' => $request->assessment_type,
-            'assessment_type' => 'preliminary',
             'audit_assessment_area_risks' => $request->audit_assessment_area_risks,
             'creator_id' => $currentUserId,
             'updater_id' => $currentUserId,

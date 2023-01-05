@@ -47,18 +47,18 @@
             </div> --}}
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-3"></div>
+
+        <div class="col-md-3 text-right">
             <button
                 title="বিস্তারিত দেখুন"
                 id="summery_assessment_button"
                 class="btn btn-sm btn-info btn-square mr-1"
                 data-url="{{route('settings.sector-risk-assessments.summery')}}"
             >
-                <i class="fad fa-plus"></i> Summery
+                <i class="fad fa-eye"></i> View Summery
             </button>
-        </div>
 
-        <div class="col-md-3 text-right">
             <button class="btn btn-sm btn-info btn-square mr-1"
                     title="বিস্তারিত দেখুন"
                     onclick='loadPage($(this))'
@@ -109,6 +109,8 @@
 
             let url = $(this).attr("data-url");
 
+            let assessment_type = '{{$type}}';
+
             let type = $("input[name='risk_factor_type']:checked").val();
 
             if (type=='project' && $('#project_id option').is(':selected')) {
@@ -135,7 +137,7 @@
 
             loaderStart('loading...');
 
-            let data = {id, type};
+            let data = {id, type, assessment_type};
 
             ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
                 loaderStop();
