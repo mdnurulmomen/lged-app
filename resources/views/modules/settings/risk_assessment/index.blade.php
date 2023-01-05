@@ -1,4 +1,4 @@
-<x-title-wrapper>{{ucfirst($type)}} Risk Assessment List</x-title-wrapper>
+<x-title-wrapper>{{ucfirst($type)}} Risk List</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row d-flex align-items-end">

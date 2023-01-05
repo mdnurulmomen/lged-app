@@ -1,4 +1,4 @@
-<x-title-wrapper>Risk Assessment List</x-title-wrapper>
+<x-title-wrapper>Risk List</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row d-flex align-items-end">
@@ -72,7 +72,7 @@
                 <thead class="thead-light">
                     <tr>
                         <th>SL</th>
-                        <th>Area (Parent)</th>
+                        <th>Sub-Area</th>
                         <th>Risk Name</th>
                     </tr>
                 </thead>

@@ -2,7 +2,7 @@
     <thead class="thead-light">
         <tr>
             <th>SL</th>
-            <th>Area (Parent)</th>
+            <th>Sub-Area</th>
             <th>Risk Name</th>
             <th>Actions</th>
         </tr>

@@ -168,7 +168,6 @@
             <td>{{$memoInfoDetails['findings']['memo_title_bn']}}</td>
         </tr>
     </table>
-    
     <table class="table table-bordered" style="border: 2px solid black;">
         <tr>
             <td class="tdd">Audit Observation :</td>

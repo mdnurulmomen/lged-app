@@ -1,7 +1,7 @@
 <x-title-wrapper>Audit Area</x-title-wrapper>
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-12 text-right">
-        <button type="button" class="font-weight-bolder font-size-sm mr-3 btn btn-success btn-sm btn-bold btn-square btn_create_audit_area">
+        <button type="button" class="font-weight-bolder font-size-sm mr-3 btn btn-primary btn-sm btn-bold btn-square btn_create_audit_area">
             <i class="far fa-plus mr-1"></i> Create Audit Area
         </button>
     </div>
@@ -32,7 +32,7 @@
                 if (response.status === 'error') {
                     toastr.error('Server Error');
                 } else {
-                    $(".offcanvas-title").text('Auditability Area Score');
+                    $(".offcanvas-title").text('Audit Area');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);

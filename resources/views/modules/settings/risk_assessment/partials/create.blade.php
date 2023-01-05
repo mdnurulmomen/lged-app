@@ -152,8 +152,14 @@
                                     </div>
 
                                     <div class="col-sm-4 form-group">
-                                        <label for="control_system">Existing Control:</label>
-                                        <textarea type="text" class="form-control" placeholder="Enter Control System" name="control_system"></textarea>
+                                        <label for="control_system">Effectiveness Of Control:</label>
+                                        <select class="form-control" name="control_system">
+                                            <option value="" selected>-- Select --</option>
+                                            <option value="Adequate">Adequate</option>
+                                            <option value="Inadequate">Inadequate</option>
+                                            <option value="Needs Improvement">Needs Improvement</option>
+                                        </select>
+                                        <!-- <textarea type="text" class="form-control" placeholder="Enter Control System" name="control_system"></textarea> -->
                                     </div>
 
                                     <div class="col-sm-4 form-group">

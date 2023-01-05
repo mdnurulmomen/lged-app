@@ -1,4 +1,5 @@
-<x-title-wrapper>Program List ({{$data['audit_plan_id']}})</x-title-wrapper>
+<!-- <x-title-wrapper>Program List ({{$data['audit_plan_id']}})</x-title-wrapper> -->
+<x-title-wrapper>Program List</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row d-flex align-items-end">

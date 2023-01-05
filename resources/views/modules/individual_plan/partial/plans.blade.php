@@ -22,7 +22,8 @@
                              data-sector_name="{{ $project['project_name_en'] }}"
                              data-plan_year="{{ $project['strategic_plan_year'] }}"
                              onclick="Individual_Plan_Container.individualPlanCreate($(this))">
-                             {{$project['audit_plan'] ? 'Plan-'.$project['audit_plan']['id'] : 'Add New Plan'}}
+                             <!-- {{$project['audit_plan'] ? 'Plan-'.$project['audit_plan']['id'] : 'Add New Plan'}} -->
+                             {{$project['audit_plan'] ? 'Plan' : 'Add New Plan'}}
                          </button>
 
                          @if($project['audit_plan'])

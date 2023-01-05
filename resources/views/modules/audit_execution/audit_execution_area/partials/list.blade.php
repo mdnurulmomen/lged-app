@@ -63,7 +63,7 @@
         $('.offcanvas-wrapper').html('');
         quick_panel.addClass('offcanvas-on');
         quick_panel.css('opacity', 1);
-        quick_panel.css('width', '500px');
+        quick_panel.css('width', '50%');
         $('.offcanvas-footer').hide();
         quick_panel.removeClass('d-none');
         $("html").addClass("side-panel-overlay");

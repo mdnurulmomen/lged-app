@@ -9,7 +9,7 @@
             <th>Likelihood</th>
             <th>Inherent Risk Level</th>
             <th>Priority (1,2,3,4)</th>
-            <th>Existing Control</th>
+            <th>Effectiveness Of Control</th>
             <th>Risk Owner</th>
             <th>Process Owner</th>
             <th>Control Owner</th>
