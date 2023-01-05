@@ -74,6 +74,24 @@
                                                             data-project-name-bn="{{$schedule['plan_team']['yearly_plan_location'] ? $schedule['plan_team']['yearly_plan_location']['project_name_bn'] : ''}}">
                                                         <i class="fad fa-clipboard-list"></i> কোয়েরি
                                                     </button> -->
+
+                                                    <button class="mr-3 btn btn-sm btn-primary btn-square"
+                                                            title="Program Note"
+                                                            onclick="Audit_Query_Schedule_Container.program($(this))"
+                                                            data-schedule-id="{{$schedule['id']}}"
+                                                            data-team-id="{{$schedule['team_id']}}"
+                                                            data-audit-plan-id="{{$schedule['audit_plan_id']}}"
+                                                            data-yearly-plan-location-id="{{$schedule['plan_team']['yearly_plan_location']['id']}}"
+                                                            data-project-id="{{$schedule['plan_team']['yearly_plan_location']['project_id']}}"
+                                                            data-project-name-en="{{$schedule['plan_team']['yearly_plan_location']['project_name_en']}}"
+                                                            data-project-name-bn="{{$schedule['plan_team']['yearly_plan_location']['project_name_bn']}}"
+                                                            data-type="program_note"
+                                                            data-cost-center-id="{{$schedule['cost_center_id']}}"
+                                                            data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
+                                                            data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
+                                                            data-project-name-bn="{{$schedule['plan_team']['yearly_plan_location'] ? $schedule['plan_team']['yearly_plan_location']['project_name_bn'] : ''}}">
+                                                        <i class="fad fa-clipboard-list"></i> Program Note
+                                                    </button>
                                                     <button class="mr-3 btn btn-sm btn-warning btn-square"
                                                             title="Findings"
                                                             data-team-id="{{$schedule['team_id']}}"

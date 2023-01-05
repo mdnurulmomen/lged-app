@@ -131,6 +131,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/risk-matrixes/list', [RiskMatrixController::class, 'getRiskMatrixList'])->name('risk-matrixes.list');
         Route::resource('/risk-matrixes', RiskMatrixController::class, ['except' => ['edit']]);
         Route::post('/risk-matrixes/edit', [RiskMatrixController::class, 'riskMatrixEdit'])->name('risk-matrixes.edit');
+        Route::get('likelihood-impact-wise-matrix', [RiskMatrixController::class, 'likelihoodImpactWiseMatrix'])->name('likelihood-impact-wise-matrix');
     });
 
     // Plan Route Start
@@ -155,6 +156,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/main-body-document/list', [SummeryReportController::class, 'getMainBodyDocReport'])->name('main-body-document.list');
         Route::get('/download-main-body-document', [SummeryReportController::class, 'downloadMainBodyDocReport'])->name('main-body-document.download');
         
+
         //strategic plan
         Route::group(['as' => 'strategy.', 'prefix' => 'strategy/'], function () {
 
@@ -237,11 +239,14 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         });
 
         // audit programs
+        Route::post('/program/index', [AuditProgramController::class, 'programIndex'])->name('program.index');
         Route::get('/programs/list', [AuditProgramController::class, 'getAuditProgramList'])->name('programs.list');
         Route::get('/programs/export', [AuditProgramController::class, 'exportAuditProgramList'])->name('programs.export');
         Route::get('/programs/area-list', [AuditProgramController::class, 'getSectorAreaList'])->name('programs.area-list');
         Route::resource('/programs', AuditProgramController::class, ['except' => ['edit']]);
         Route::post('/programs/edit', [AuditProgramController::class, 'riskAuditProgramEdit'])->name('programs.edit');
+        Route::post('/programs/note', [AuditProgramController::class, 'programNote'])->name('programs.note');
+        Route::post('/programs/note/update', [AuditProgramController::class, 'programNoteUpdate'])->name('programs.note.update');
 //        Route::post('/programs/create', [AuditProgramController::class, 'create'])->name('programs.create');
 
         //operational plan
@@ -443,17 +448,22 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/get-individual-plan', [IndividualPlanController::class, 'getIndividualPlan'])->name('get-individual-plan');
             Route::get('get-team-schedule', [IndividualPlanController::class, 'getAuditTeamSchedule'])->name('get-team-schedule');
             Route::get('get-audit-schedule-row', [IndividualPlanController::class, 'getAuditScheduleRow'])->name('get-audit-schedule-row');
-            Route::get('get-announcement-memo', [IndividualPlanController::class, 'getAnnouncementMemo'])->name('get-announcement-memo');
-            Route::get('download-announcement-memo', [IndividualPlanController::class, 'downloadAnnouncementMemo'])->name('download-announcement-memo');
+            Route::post('get-announcement-memo', [IndividualPlanController::class, 'getAnnouncementMemo'])->name('get-announcement-memo');
+            Route::post('download-announcement-memo', [IndividualPlanController::class, 'downloadAnnouncementMemo'])->name('download-announcement-memo');
             Route::post('/store-audit-team', [IndividualPlanController::class, 'storeAuditTeam'])->name('store-audit-team');
             // Route::post('/update-audit-team', [RevisedPlanController::class, 'updateAuditTeam'])->name('update-audit-team');
             Route::post('/store-audit-team-schedule', [IndividualPlanController::class, 'storeAuditTeamSchedule'])->name('store-audit-team-schedule');
+
+            // engagement letter
+            Route::post('/plan-engagement-letter/create', [IndividualPlanController::class, 'engagementLetterCreate'])->name('engagement-letter-create');
+            Route::post('/plan-engagement-letter/store', [IndividualPlanController::class, 'engagementLetterStore'])->name('engagement-letter-store');
 
             // work-papers
             Route::get('/plan-work-papers/list', [AuditWorkPaperController::class, 'getPlanWorkPapers'])->name('plan-work-papers.list');
             Route::get('/plan-work-papers/export', [AuditWorkPaperController::class, 'exportWorkPaper'])->name('plan-work-papers.export');
             Route::resource('/plan-work-papers', AuditWorkPaperController::class, ['except' => ['edit']]);
             Route::post('/plan-work-papers/edit', [AuditWorkPaperController::class, 'planWorkPaperEdit'])->name('plan-work-papers.edit');
+
         });
 
         //audit Plan
@@ -1003,9 +1013,10 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('/sector-risk-assessments/list', [SectorAssessmentController::class, 'getSectorRiskAssessmentList'])->name('sector-risk-assessments.list');
         Route::get('/sector-risk-assessments/area-list', [SectorAssessmentController::class, 'getSectorAreaList'])->name('sector-risk-assessments.area-list');
         Route::get('/sector-risk-assessments/summery', [SectorAssessmentController::class, 'sectorRiskAssessmentSummery'])->name('sector-risk-assessments.summery');
-        Route::resource('/sector-risk-assessments', SectorAssessmentController::class, ['except' => ['edit']]);
+        Route::get('/sector-risk-assessments/index/{any}', [SectorAssessmentController::class, 'index']);
         Route::post('/sector-risk-assessments/edit', [SectorAssessmentController::class, 'sectorRiskAssessmentEdit'])->name('sector-risk-assessments.edit');
-        
+        Route::resource('/sector-risk-assessments', SectorAssessmentController::class, ['except' => ['edit','index']]);
+
         Route::group(['as' => 'strategic-plan.', 'prefix' => 'strategic-plan/'], function () {
             Route::post('/duration/lists', [DurationController::class, 'getDurationLists'])->name('duration.lists');
             Route::resource('/duration', DurationController::class, ['except' => ['edit', 'create']]);

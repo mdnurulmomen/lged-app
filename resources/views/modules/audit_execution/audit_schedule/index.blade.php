@@ -93,26 +93,57 @@
             });
         },
 
-        query: function (elem) {
-            url = '{{route('audit.execution.query.index')}}';
+        // query: function (elem) {
+        //     url = '{{route('audit.execution.query.index')}}';
 
+        //     schedule_id = elem.attr('data-schedule-id');
+        //     team_id = elem.attr('data-team-id');
+        //     audit_plan_id = elem.attr('data-audit-plan-id');
+        //     entity_id = elem.attr('data-entity-id');
+        //     cost_center_id = elem.attr('data-cost-center-id');
+        //     cost_center_name_en = elem.attr('data-cost-center-name-en');
+        //     cost_center_name_bn = elem.attr('data-cost-center-name-bn');
+        //     project_name_bn = elem.attr('data-project-name-bn');
+        //     project_name_en = elem.attr('data-project-name-en');
+
+        //     KTApp.block('#kt_wrapper', {
+        //         opacity: 0.1,
+        //         state: 'primary' // a bootstrap color
+        //     });
+
+        //     data = {schedule_id,team_id,audit_plan_id,entity_id,cost_center_id,cost_center_name_en,cost_center_name_bn,project_name_bn,project_name_en};
+
+        //     ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+        //         KTApp.unblock('#kt_wrapper');
+        //         if (response.status === 'error') {
+        //             toastr.error(response.data)
+        //         } else {
+        //             $('#kt_content').html(response);
+        //         }
+        //     })
+        // },
+
+        program: function (elem) {
+            url = '{{route('audit.plan.program.index')}}';
+
+            type = elem.attr('data-type');
             schedule_id = elem.attr('data-schedule-id');
             team_id = elem.attr('data-team-id');
             audit_plan_id = elem.attr('data-audit-plan-id');
-            entity_id = elem.attr('data-entity-id');
+            yearly_plan_location_id = elem.attr('data-yearly-plan-location-id');
+            project_id = elem.attr('data-project-id');
+            project_name_en = elem.attr('data-project-name-en');
+            project_name_bn = elem.attr('data-project-name-bn');
             cost_center_id = elem.attr('data-cost-center-id');
             cost_center_name_en = elem.attr('data-cost-center-name-en');
             cost_center_name_bn = elem.attr('data-cost-center-name-bn');
-            project_name_bn = elem.attr('data-project-name-bn');
-            project_name_en = elem.attr('data-project-name-en');
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
 
-            data = {schedule_id,team_id,audit_plan_id,entity_id,cost_center_id,cost_center_name_en,cost_center_name_bn,project_name_bn,project_name_en};
-
+            data = {type,schedule_id,team_id,audit_plan_id,yearly_plan_location_id,project_id,cost_center_id,cost_center_name_en,cost_center_name_bn,project_name_en,project_name_bn};
             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {

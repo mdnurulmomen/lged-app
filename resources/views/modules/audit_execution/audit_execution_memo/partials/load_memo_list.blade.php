@@ -20,13 +20,18 @@
                                     </div> -->
 
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
-                                        <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Cost Center')}} : </span>
-                                        <span class="description text-wrap font-size-14">{{$memo['cost_center_name_en']}}</span>
+                                        <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Issue No')}} : </span>
+                                        <span class="description text-info text-wrap font-size-14">{{$memo['onucched_no']}}</span>
                                     </div>
 
                                     <div class="d-flex align-items-center flex-wrap  font-size-1-2">
                                         <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Issue Title')}} : </span>
                                         <span class="description text-info text-wrap font-size-14">{{$memo['memo_title_bn']}}</span>
+                                    </div>
+
+                                    <div class="d-flex align-items-center flex-wrap  font-size-1-2">
+                                        <span class="mr-2 font-size-1-1 font-weight-bolder">{{___('Cost Center')}} : </span>
+                                        <span class="description text-wrap font-size-14">{{$memo['cost_center_name_en']}}</span>
                                     </div>
 
                                     <!-- <div class="d-flex align-items-center flex-wrap  font-size-1-2">

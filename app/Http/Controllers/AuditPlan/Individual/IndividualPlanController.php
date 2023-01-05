@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\Validator;
 
 class IndividualPlanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request->all());
         $individual_strategic_plan_year = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_yearly_plan.get_individual_yearly_plan_year'))->json();
 
         if (isSuccess($individual_strategic_plan_year)) {
             $individual_strategic_plan_year = $individual_strategic_plan_year['data'];
+            // dd($individual_strategic_plan_year);
             return view('modules.individual_plan.index',compact('individual_strategic_plan_year'));
         } else {
             return response()->json(['status' => 'error', 'data' => $individual_strategic_plan_year]);
@@ -22,7 +24,7 @@ class IndividualPlanController extends Controller
     }
 
     public function getIndividualYearlyPlan(Request $request){
-
+        
         $data = Validator::make($request->all(), [
             'strategic_plan_year' => 'required|integer',
         ])->validate();
@@ -65,19 +67,20 @@ class IndividualPlanController extends Controller
     public function store(Request $request){
 
         $data = Validator::make($request->all(), [
-            'scope' => 'required|string',
             'id' => 'nullable',
+            'audit_type' => 'required|string',
             'yearly_plan_id' => 'required|integer',
             'yearly_plan_location_id' => 'required|integer',
-            'objective' => 'required|string',
             'milestone_list' => 'required',
+            'objective' => 'required|string',
+            'scope' => 'required|string',
         ])->validate();
-        // dd($data);
+        
 
         $data['cdesk'] = $this->current_desk_json();
 
         $individualPlanStore = $this->initHttpWithToken()->post(config('amms_bee_routes.individual_plan.store'),$data)->json();
-//        dd($individualPlanStore);
+    //    dd($individualPlanStore);
         if (isSuccess($individualPlanStore)) {
             return response()->json(['status' => 'success', 'data' => $individualPlanStore['data']]);
         } else {
@@ -263,15 +266,16 @@ class IndividualPlanController extends Controller
             'sector_type' => 'required|string',
             'sector_id' => 'required|integer',
         ])->validate();
-
-//         dd($data);
+        $data['cdesk'] = $this->current_desk_json();
 
         // $sectorId = $request->sector_id;
         $sectorType = $request->sector_type;
         $yearly_plan_location_id = $request->yearly_plan_location_id;
-        $announcementMemo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_announcement_memo'),$data)->json()['data'];
+        $announcementMemo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_announcement_memo'),$data)->json();
+        $announcementMemo = $announcementMemo ? $announcementMemo['data'] : [];
 
-//         dd($announcementMemo);
+        // dd($announcementMemo);
+        // dd($announcementMemo['yearly_plan_info']);
 
         return view('modules.individual_plan.partial.announcement-memo-modal', compact('announcementMemo', 'sectorType', 'yearly_plan_location_id'));
     }
@@ -282,19 +286,12 @@ class IndividualPlanController extends Controller
             'audit_plan_id' => 'required|integer',
             'yearly_plan_location_id' => 'required|integer',
         ])->validate();
-
+        $data['cdesk'] = $this->current_desk_json();
 //         dd($data);
 
-        /*
-            $yearly_plan_location_id = $request->yearly_plan_location_id;
-            $announcementMemo = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_operational_plan.download_announcement_memo')."/$yearly_plan_location_id")->json();
-        */
-
+        $announcementMemo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_announcement_memo'),$data)->json();
+        $announcementMemo = $announcementMemo ? $announcementMemo['data'] : [];
         // dd($announcementMemo);
-        // dd(env('BEE_URL', 'http://localhost:8001') . $announcementMemo['data']);
-
-        $announcementMemo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_announcement_memo'),$data)->json()['data'];
-//         dd($announcementMemo);
         $pdf = Pdf::loadView('modules.individual_plan.partial.download-announcement-memo', ['announcementMemo' => $announcementMemo]);
         // dd($pdf->stream('document.pdf'));
 
@@ -309,6 +306,37 @@ class IndividualPlanController extends Controller
         }
         */
 
-        // return view('modules.individual_plan.partial.announcement-memo-modal', compact('announcementMemo', 'sectorType', 'yearly_plan_location_id'));
+    }
+
+    public function engagementLetterCreate(Request $request){
+
+        $data = Validator::make($request->all(), [
+            'yearly_plan_location_id' => 'required|integer',
+            'audit_plan_id' => 'required|integer',
+        ])->validate(); 
+
+        return view('modules.individual_plan.partial.engagement_letter',compact('data'));
+    }
+
+    public function engagementLetterStore(Request $request){
+
+        // dd($request->all());
+        $data = Validator::make($request->all(), [
+            'yearly_plan_location_id' => 'required|integer',
+            'audit_plan_id' => 'required|integer',
+            'letter_to' => 'required|string',
+            'subject' => 'required|string',
+            'body' => 'required|string',
+            'others' => 'required|string',
+        ])->validate(); 
+        
+        $data['cdesk'] = $this->current_desk_json();
+        $engagementLetterStore = $this->initHttpWithToken()->post(config('amms_bee_routes.individual_plan.engagement_letter_store'),$data)->json();
+    //    dd($engagementLetterStore);
+        if (isSuccess($engagementLetterStore)) {
+            return response()->json(['status' => 'success', 'data' => $engagementLetterStore['data']]);
+        } else {
+            return ['status' => 'error', 'data' => $engagementLetterStore];
+        }
     }
 }

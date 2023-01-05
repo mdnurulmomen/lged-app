@@ -8,20 +8,26 @@
     <input type="hidden" value="{{$data['yearly_plan_location_id']}}" name="yearly_plan_location_id">
     <input type="hidden" value="0" name="yearly_plan_id">
 
-        <div class="row mt-2">
+        <div class="block">
+            <label>Audit Type<span class="text-danger">*</span> : </label>
+            <input class="form_control ml-2" type="text" id="audit_type" name="audit_type">
+        </div>
+
+        <div class="row mt-4">
             <div class="col-md-6">
-                <label>Scope</label>
+                <label>Scope : </label>
                 <textarea id="scope" class="kt-tinymce-summary" name="scope">
                     {!! $individualPlanInfo ? $individualPlanInfo['scope'] : '' !!}
                 </textarea>
             </div>
             <div class="col-md-6">
-                <label>Objectives</label>
+                <label>Objectives : </label>
                 <textarea id="objective" class="kt-tinymce-summary" name="objective">
                     {!! $individualPlanInfo ? $individualPlanInfo['objective'] : '' !!}
                 </textarea>
             </div>
         </div>
+
         <div class="row mt-2">
         <div class="col-md-12">
             <table id="milestone-table" class="table table-bordered">
@@ -38,7 +44,7 @@
                     @foreach($individualPlanInfo['milestones'] as $milestone)
                         <tr class="milestone_row">
                             <td>
-                                <input  type="text" class="form-control milestone_bn" value="{{$milestone['milestone_bn']}}">
+                                <input  type="text" class="form-control milestone_en" value="{{$milestone['milestone_en']}}">
                             </td>
                             <td>
                                 <input  type="text" class="form-control start_date date" value="{{formatDate($milestone['start_date'],'en','/')}}">
@@ -125,8 +131,9 @@
             let yearly_plan_location_id = $("input[name=yearly_plan_location_id]").val();
             let scope = tinymce.get("scope").getContent();
             let objective = tinymce.get("objective").getContent();
+            let audit_type = $("input[name=audit_type]").val();
 
-            let data = {id, scope, objective, yearly_plan_id, yearly_plan_location_id, milestone_list};
+            let data = {id, scope, objective, yearly_plan_id, yearly_plan_location_id, milestone_list, audit_type};
 
             url = "{{route('audit.plan.individual.store')}}";
 
