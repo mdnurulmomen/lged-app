@@ -375,7 +375,7 @@
                  if (response.status === 'error') {
                      toastr.error('No data found');
                  } else {
-                     $(".offcanvas-title").text('Announcememnt Memo');
+                     $(".offcanvas-title").text('Engagement Letter');
                      quick_panel = $("#kt_quick_panel");
                      quick_panel.addClass('offcanvas-on');
                      quick_panel.css('opacity', 1);
