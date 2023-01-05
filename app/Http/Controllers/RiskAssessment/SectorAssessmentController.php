@@ -4,6 +4,8 @@ namespace App\Http\Controllers\RiskAssessment;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class SectorAssessmentController extends Controller
 {
@@ -52,14 +54,74 @@ class SectorAssessmentController extends Controller
             'all' => 1
         ])->json()['data'];
 
+       $assessment_type = $request->assessment_type;
+
         // dd($allAuditAreas);
 
         if ($sectorriskassessments['status'] == 'success') {
             $sectorriskassessments = $sectorriskassessments['data'];
-            return view('modules.settings.risk_assessment.partials.list', compact(['sectorriskassessments', 'allAuditAreas']));
+            return view('modules.settings.risk_assessment.partials.list', compact(['sectorriskassessments', 'allAuditAreas','assessment_type']));
         } else {
             return response()->json(['status' => 'error', 'data' => $sectorriskassessments]);
         }
+    }
+
+    public function excelDownload(Request $request)
+    {
+        $sectorriskassessments = $this->initHttpWithToken()->get(config('amms_bee_routes.sector_risk_assessments'), $request->all())->json();
+
+        $sectorriskassessments = isSuccess($sectorriskassessments) ? $sectorriskassessments['data'] : [];
+//        dd($sectorriskassessments);
+
+        $allAuditAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
+            'all' => 1
+        ])->json()['data'];
+
+        $allAuditAreas = isSuccess($allAuditAreas) ? $allAuditAreas['data'] : [];
+
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+//        <th>SL</th>
+//            <th>Audit Area</th>
+//            <th>Process/sub-process:</th>
+//            <th>Inherent Risk</th>
+//            <th>Impact</th>
+//            <th>Likelihood</th>
+//            <th>Inherent Risk Level</th>
+//            <th>Priority (1,2,3,4)</th>
+//            <th>Existing Control</th>
+//            <th>Risk Owner</th>
+//            <th>Process Owner</th>
+//            <th>Control Owner</th>
+
+        $sheet->setCellValue('A1', 'SL');
+        $sheet->setCellValue('B1', 'Audit Area');
+        $sheet->setCellValue('C1', 'Inherent Risk');
+//        $sheet->setCellValue('D1', 'নাম(ইংরেজি)');
+//        $sheet->setCellValue('E1', 'ইউজার আইডি');
+
+        $sheet->getColumnDimension('A')->setWidth(20);
+        $sheet->getColumnDimension('B')->setWidth(20);
+        $sheet->getColumnDimension('C')->setWidth(20);
+//        $sheet->getColumnDimension('D')->setWidth(20);
+//        $sheet->getColumnDimension('E')->setWidth(20);
+
+        $count = 2;
+        foreach ($sectorriskassessments as $risk) {
+            $sheet->setCellValue('A' . $count, 'sdfsd');
+            $sheet->setCellValue('B' . $count, 'sdfsd');
+            $sheet->setCellValue('C' . $count, 'sdfasd');
+            $count++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('risk_assessment.xlsx');
+        $file_name = 'risk_assessment.xlsx';
+        $full_path = url('/risk_assessment.xlsx');
+        return json_encode(['file_name' => $file_name, 'full_path' => $full_path]);
+
     }
 
     /**
@@ -74,6 +136,7 @@ class SectorAssessmentController extends Controller
         $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
             'all' => 1
         ])->json();
+
         $allProjects = $allProjects ? $allProjects['data'] : [];
 
         $allFunctions = $this->initHttpWithToken()->post(config('cag_rpu_api.functions.list'), [
@@ -141,6 +204,8 @@ class SectorAssessmentController extends Controller
 //            'audit_assessment_area_risks.*.implemented_by' => 'required|string',
 //            'audit_assessment_area_risks.*.implementation_period' => 'required|string',
         ]);
+
+//        dd($request->audit_assessment_area_risks);
 
         $currentUserId = $this->current_desk()['officer_id'];
 
@@ -336,6 +401,19 @@ class SectorAssessmentController extends Controller
             return view('modules.settings.risk_assessment.partials.get_risk_assessment_summery', compact(['sectorassessmentareas', 'risk_levels', 'allAuditAreas']));
         } else {
             return response()->json(['status' => 'error', 'data' => $sectorassessmentareas]);
+        }
+    }
+
+    public function getSectorWiseIssue(Request $request){
+//        dd($request->all());
+        $data['project_id'] = $request->assessment_sector_type == 'project' ? $request->assessment_sector_id : 0;
+        $memo_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_conduct_query.memo.list'), $data)->json();
+
+        if (isset($memo_list['status']) && $memo_list['status'] == 'success') {
+            $memo_list = $memo_list['data'];
+            return view('modules.audit_execution.audit_execution_memo.partials.issue_no_select', compact('memo_list'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $memo_list]);
         }
     }
 }
