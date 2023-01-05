@@ -274,7 +274,7 @@ class IndividualPlanController extends Controller
         $announcementMemo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_announcement_memo'),$data)->json();
         $announcementMemo = $announcementMemo ? $announcementMemo['data'] : [];
 
-        // dd($announcementMemo['finding']);
+        // dd($announcementMemo);
         // dd($announcementMemo['yearly_plan_info']);
 
         return view('modules.individual_plan.partial.announcement-memo-modal', compact('announcementMemo', 'sectorType', 'yearly_plan_location_id'));

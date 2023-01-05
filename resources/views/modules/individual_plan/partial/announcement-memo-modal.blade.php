@@ -34,7 +34,7 @@
     </div>
 
     <div class="col-sm-12 mt-2">
-        <span>Reference : Memo No - {{$announcementMemo['finding']['onucched_no']}}</span>
+        <span>Reference : Memo No - {{$announcementMemo['office_order']['memorandum_no']}}</span>
     </div>
 
     <div class="col-sm-12 mt-2" style="text-align: justify;">
