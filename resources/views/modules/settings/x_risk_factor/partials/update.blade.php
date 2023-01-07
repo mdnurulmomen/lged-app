@@ -3,7 +3,7 @@
         <input type="hidden" id="id" value="{{ $id }}">
         <div class="col-md-12 form-group">
             <label for="email">Weight:</label>
-            <input placeholder="Factor Weight" class="form-control" type="number" id="risk_weight" value="{{ $risk_weight }}">
+            <input placeholder="Factor Weight" class="form-control" id="risk_weight" value="{{ $risk_weight }}">
         </div>
         <div class="col-md-12 form-group">
             <label for="email">Title (Bangla):</label>

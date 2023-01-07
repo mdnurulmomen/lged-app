@@ -3,7 +3,7 @@
         <input type="hidden" id="id" value="{{ $id }}">
         <div class="col-md-12 form-group">
             <label for="email">Value:</label>
-            <input placeholder="Impact Value" class="form-control" type="number" id="impact_value" value="{{ $impact_value }}">
+            <input placeholder="Impact Value" class="form-control" id="impact_value" value="{{ $impact_value }}">
         </div>
         <div class="col-md-12 form-group">
             <label for="email">Title (Bangla):</label>

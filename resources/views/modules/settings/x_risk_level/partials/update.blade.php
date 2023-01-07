@@ -3,12 +3,12 @@
     <div class="form-row">
         <div class="col-md-6 form-group">
             <label for="from">From:</label>
-            <input placeholder="Level From" class="form-control" type="number" id="level_from" value="{{ $level_from }}">
+            <input placeholder="Level From" class="form-control" id="level_from" value="{{ $level_from }}">
         </div>
 
         <div class="col-md-6 form-group">
             <label for="from">To:</label>
-            <input placeholder="Level To" class="form-control" type="number" id="level_to" value="{{ $level_to }}">
+            <input placeholder="Level To" class="form-control" id="level_to" value="{{ $level_to }}">
         </div>
     </div>
     <div class="form-row">

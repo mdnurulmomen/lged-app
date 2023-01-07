@@ -17,7 +17,7 @@
         </div>
         <div class="col-md-12 form-group">
             <label for="email">Value:</label>
-            <input placeholder="Rating Value" class="form-control" type="number" id="rating_value" value="{{ $rating_value }}">
+            <input placeholder="Rating Value" class="form-control" id="rating_value" value="{{ $rating_value }}">
         </div>
         <div class="col-md-12 form-group">
             <label for="email">Title (Bangla):</label>

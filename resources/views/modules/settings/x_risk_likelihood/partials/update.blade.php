@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-12 form-group">
             <label for="email">Value:</label>
-            <input placeholder="Likelihood Value" class="form-control" type="number" id="likelihood_value" value="{{ $likelihood_value }}">
+            <input placeholder="Likelihood Value" class="form-control" id="likelihood_value" value="{{ $likelihood_value }}">
         </div>
         <div class="col-md-12 form-group">
             <label for="description">Description (Bangla):</label>
