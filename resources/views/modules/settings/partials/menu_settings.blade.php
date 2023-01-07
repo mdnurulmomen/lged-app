@@ -53,11 +53,11 @@
                 </x-menu-item>
 
                 <x-menu-item class="x_risk_impact" href="{{route('settings.risk-impacts.index')}}"
-                             icon="fal fa-calendar-alt">Risk Impact
+                             icon="fal fa-calendar-alt">Risk Impact Scale
                 </x-menu-item>
 
                 <x-menu-item class="x_risk_likelihood" href="{{route('settings.risk-likelihoods.index')}}"
-                             icon="fal fa-calendar-alt">Risk Likelihood
+                             icon="fal fa-calendar-alt">Risk Likelihood Scale
                 </x-menu-item>
 
                 <x-menu-item class="x_risk_matrix" href="{{route('risk-assessment.risk-matrixes.index')}}"

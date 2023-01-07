@@ -2,10 +2,8 @@
     <thead class="thead-light">
     <tr>
         <th>SL</th>
-        
-        <th>Sector</th>
 
-        <th>Name</th>
+        <th>Plan</th>
 
         <th>Action</th>
     </tr>
@@ -14,20 +12,19 @@
     @forelse($audit_plan_list as $auditplan)
         <tr id="row_{{$auditplan['id']}}" data-row="{{$loop->iteration}}">
             <td>{{ $loop->iteration }}</td>
-            <td> {{ $auditplan['yearly_plan_location']['project_name_en'] ? 'Project' : $auditplan['yearly_plan_location']['function_name_en'] ? 'Function' : 'Unit' }} </td>
             <td> {{ ucfirst($auditplan['yearly_plan_location']['project_name_en']) }} </td>
             <td>
-                <a href="javascript:;"
-                   data-audit-plan-id="{{$auditplan['id']}}" 
-                   class="mr-1 btn btn-icon btn-outline-primary btn-sm btn-hover-icon-danger view-summery">
-                    <i class="fas fa-eye"></i>
-                </a>
+                <button href="javascript:;"
+                   data-audit-plan-id="{{$auditplan['id']}}"
+                   class="btn btn-sm btn-square btn-primary mr-2 view-summery">
+                    <i class="fas fa-eye"></i> Summery List
+                </button>
 
-                <a href="javascript:;"
-                   data-audit-plan-id="{{$auditplan['id']}}" 
-                   class="mr-1 btn btn-icon btn-outline-info btn-sm btn-hover-icon-danger view-main-body-doc">
-                    <i class="fas fa-eye"></i>
-                </a>
+                <button href="javascript:;"
+                   data-audit-plan-id="{{$auditplan['id']}}"
+                   class="btn btn-sm btn-square btn-primary mr-2 view-main-body-doc">
+                    <i class="fas fa-eye"></i> Summery Details
+                </button>
             </td>
         </tr>
     @empty
@@ -55,7 +52,7 @@
         let data = {audit_plan_id};
 
         let url = "{{ route('audit.plan.summery-reports.list') }}";
-        
+
         ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
             if (resp.status === 'error') {
                 toastr.error('no');
@@ -83,7 +80,7 @@
         let data = {audit_plan_id};
 
         let url = "{{ route('audit.plan.main-body-document.list') }}";
-        
+
         ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
             if (resp.status === 'error') {
                 toastr.error('no');
@@ -95,7 +92,7 @@
         });
     });
 
-    /* 
+    /*
     $('.btn_edit_risk_impact').click(function () {
         quick_panel = $("#kt_quick_panel");
         $('.offcanvas-wrapper').html('');
@@ -111,7 +108,7 @@
 
         url = "{{ route('settings.risk-impacts.edit') }}";
         var data = {id,title_bn,title_en,impact_value};
-        
+
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
             if (resp.status === 'error') {
                 toastr.error('no');
