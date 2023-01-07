@@ -100,9 +100,9 @@ class SectorAssessmentController extends Controller
         $sheet->setCellValue('G1', 'Priority (1,2,3,4)');
 
         if($request->assessment_type == 'final') {
-            $sheet->setCellValue('H1', 'Existing Control');
-        }else{
             $sheet->setCellValue('H1', 'Effectiveness Of Control (Inadequate, Needs Improvement, Adequate)');
+        }else{
+            $sheet->setCellValue('H1', 'Existing Control');
         }
 
         $sheet->setCellValue('I1', 'Risk Owner');
