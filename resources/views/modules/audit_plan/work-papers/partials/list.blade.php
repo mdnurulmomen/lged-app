@@ -9,7 +9,7 @@
         </td>
 
         <td>
-            <a href="{{ config('amms_bee_routes.file_url').$workPaper['attachment'] }}" class="btn btn-download btn-sm btn-bold btn-square ml-auto">
+            <a target="_blank" href="{{ config('amms_bee_routes.file_url').$workPaper['attachment'] }}" class="btn btn-download btn-sm btn-bold btn-square ml-auto">
                 <i class="fa fa-file" aria-hidden="true"></i>
                 Download
             </a>
