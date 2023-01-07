@@ -131,7 +131,7 @@ class SectorAssessmentController extends Controller
 
         foreach ($sectorriskassessments as $sectorriskassessment) {
             if(count($sectorriskassessment['audit_assessment_area_risks']) > 1){
-                $cell_count = count($sectorriskassessment['audit_assessment_area_risks']) + 1;
+                $cell_count =  count($sectorriskassessment['audit_assessment_area_risks']) + 1;
                 $sheet->mergeCells("A".$count.":A".$cell_count);
             }
 
@@ -152,9 +152,8 @@ class SectorAssessmentController extends Controller
                     $sheet->setCellValue('L' . $sub_cell,  $auditAssessmentAreaRisk['issue_no']);
                 }
                 $sub_cell++;
+                $count++;
             }
-
-            $count++;
         }
 
         $writer = new Xlsx($spreadsheet);
