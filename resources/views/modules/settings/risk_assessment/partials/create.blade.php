@@ -151,6 +151,9 @@
                                         <input type="text" value="" name="priority" class="form-control priority" readonly>
                                     </div>
 
+
+                                    @if($type == 'final')
+
                                     <div class="col-sm-4 form-group">
                                         <label for="control_system">Effectiveness Of Control:</label>
                                         <select class="form-control" name="control_system">
@@ -161,6 +164,13 @@
                                         </select>
                                         <!-- <textarea type="text" class="form-control" placeholder="Enter Control System" name="control_system"></textarea> -->
                                     </div>
+
+                                    @else
+                                        <div class="col-sm-4 form-group">
+                                            <label for="control_system">Effectiveness Of Control:</label>
+                                            <textarea type="text" class="form-control" placeholder="Enter Control System" name="control_system"></textarea>
+                                        </div>
+                                    @endif
 
                                     <div class="col-sm-4 form-group">
                                         <label for="email">Risk Owner:</label>
@@ -457,7 +467,7 @@
             audit_assessment_area_risk['priority'] = $(this).find("input[name='priority']").val();
             audit_assessment_area_risk['x_risk_assessment_impact_id'] = $(this).find("select[name='x_risk_assessment_impact_id']").val();
             audit_assessment_area_risk['x_risk_assessment_likelihood_id'] = $(this).find("select[name='x_risk_assessment_likelihood_id']").val();
-            audit_assessment_area_risk['control_system'] = $(this).find("select[name='control_system']").val();
+            audit_assessment_area_risk['control_system'] = assessment_type == 'final' ? $(this).find("select[name='control_system']").val() : $(this).find("textarea[name='control_system']").val();
             audit_assessment_area_risk['risk_owner_id'] = $(this).find(".risk_owner_id option:selected").val();
             audit_assessment_area_risk['risk_owner_name'] = $(this).find(".risk_owner_id option:selected").text();
             audit_assessment_area_risk['process_owner_id'] = $(this).find(".process_owner_id option:selected").val();

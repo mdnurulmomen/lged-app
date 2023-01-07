@@ -93,8 +93,8 @@ class RiskMatrixController extends Controller
     public function likelihoodImpactWiseMatrix(Request $request){
 
         $data =  $request->validate([
-            'x_risk_assessment_likelihood_id' => 'required|integer',
-            'x_risk_assessment_impact_id' => 'required|integer',
+            'x_risk_assessment_likelihood_id' => 'nullable',
+            'x_risk_assessment_impact_id' => 'nullable',
         ]);
 
         $risk_impact = $this->initHttpWithToken()->post(config('amms_bee_routes.likelihood_impact_wise_matrix'), $data)->json();
