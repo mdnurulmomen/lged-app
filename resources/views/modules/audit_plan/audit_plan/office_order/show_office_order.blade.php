@@ -1,5 +1,3 @@
-<x-title-wrapper>Office Order</x-title-wrapper>
-
 <!-- <div class="row m-0 mb-2 page-title-wrapper d-md-flex align-items-md-center">
     <div class="col-md-12">
         <div class="d-flex justify-content-end">
@@ -35,36 +33,48 @@
     </div>
 </div> -->
 
-<div class="card sna-card-border mt-3" style="text-align: right;">
-    <div>
-        <button data-ap-office-order-id="{{$office_order['id']}}"
-                data-audit-plan-id="{{$office_order['audit_plan_id']}}"
-                data-annual-plan-id="{{$office_order['annual_plan_id']}}"
-                onclick="Show_Office_Order_Container.generateOfficeOrderPDF($(this))"
-                class="btn btn-download btn-sm btn-bold btn-square">
-            <i class="far fa-file-pdf"></i> Download
-        </button>
-    </div>
+
+<div style="text-align: right;">
+    <button data-ap-office-order-id="{{$office_order['id']}}"
+            data-audit-plan-id="{{$office_order['audit_plan_id']}}"
+            data-annual-plan-id="{{$office_order['annual_plan_id']}}"
+            onclick="Show_Office_Order_Container.generateOfficeOrderPDF($(this))"
+            class="btn btn-download btn-sm btn-bold btn-square">
+        <i class="far fa-file-pdf"></i> Download
+    </button>
 </div>
 
-<div class="card sna-card-border mt-3" style="margin-bottom:30px; padding: 50px;">
-    <div style="text-align: center">
-        <h4>Government of the People’s Republic of Bangladesh</h4>
-        <x-office-header-details officeid="{{$office_id}}"/>
+<div class="card sna-card-border mt-3" style="margin-bottom:30px; padding: 70px;">
+    <div class="row" style="text-align: center; margin-top: 5%;">
+        <div class="col-2">
+            <img src="{{ asset('assets/images/joyonti.jpg') }}" style="width: 85%; margin-top: 30%;" alt="joyonti">
+        </div>
+        <div class="col-8">
+            <h4>Government of the People’s Republic of Bangladesh</h4>
+            <x-office-header-details officeid="{{$office_id}}"/>
+        </div>
+        <div class="col-2">
+            <img src="{{ asset('assets/images/mujib.png') }}" style="width: 85%;" alt="mujib">
+            <div>
+                <h5>শেখ হাসিনার <br>
+                    মূলনীতি <br>
+                    গ্রাম শহরের <br>
+                    উন্নতি <br>
+                </h5>
+            </div>
+        </div>
+    </div>
 
-        <div style="width: 100%;margin-top: 10px">
-            <span style="width: 85%;float: left;text-align: left">
-                <b>Memo No-</b> {{$office_order['memorandum_no']}}
-            </span>
-            <span style="width: 15%;float: right;text-align: right">
-                <b>Date:</b> {{$office_order['memorandum_date']}}
-            </span>
+    <div style="text-align: center">
+        <div class="row" style="margin-top: 10px">
+            <div class="col-6" style="text-align: left;"><b>Memo No-</b> {{$office_order['memorandum_no']}}</div>
+            <div class="col-6" style="text-align: right;"><b>Date:</b> {{$office_order['memorandum_date']}}</div>
         </div>
 
-        <div style="text-align: center">
+        <div style="text-align: center; margin-top: 5%;">
             <h2><b><u>Office Order</u></b></h2>
         </div>
-        <div style="text-align: justify">
+        <div class="mt-2" style="text-align: justify">
             <!-- {{$office_order['heading_details']}} -->
             Under the {{$office_order['memorandum_no']}} of the Local Government Engineering Department for the financial year 2022-23, an Internal Audit Team is formed for the purpose of conducting internal audit activities as per the following instructions:
         </div>
@@ -294,7 +304,7 @@
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
-                message: 'ডাউনলোড হচ্ছে অপেক্ষা করুন...',
+                message: 'Downloading Please Wait..',
                 state: 'primary' // a bootstrap color
             });
 
