@@ -1,3 +1,8 @@
+<style>
+    p {
+        padding: 5px;
+    }
+</style>
 <!-- <div class="row m-0 mb-2 page-title-wrapper d-md-flex align-items-md-center">
     <div class="col-md-12">
         <div class="d-flex justify-content-end">

@@ -8,6 +8,10 @@
     width: 100%;
     border-collapse: collapse;
     }
+
+    p {
+        padding: 5px;
+    }
 </style>
 
 <div class="row" style="text-align: center; margin-top: 5%;">
@@ -17,7 +21,7 @@
         <h4>Government of the People’s Republic of Bangladesh</h4>
         <x-office-header-details officeid="{{$office_id}}"/>
     </div>
-    <div class="col-2">
+    <!-- <div class="col-2">
         <div>
             <h5>শেখ হাসিনার <br>
                 মূলনীতি <br>
@@ -25,7 +29,7 @@
                 উন্নতি <br>
             </h5>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <div style="text-align: center">
@@ -71,7 +75,7 @@
                         </tr>
                         <tr>
                             <td style="text-align: left;">
-                            @foreach($audit_team_schedules as $key=>$audit_team_schedule)
+                            <!-- @foreach($audit_team_schedules as $key=>$audit_team_schedule)
                                 @if($audit_team_schedule['team_schedules'] != null)
                                     @php $teamMemberSL = 1; @endphp
                                     @foreach(json_decode($audit_team_schedule['team_members'],true) as $role => $team_members)
@@ -87,7 +91,15 @@
                                     @endforeach
                                 @endif
                                 @php unset($allWorkingDates); @endphp
-                            @endforeach
+                            @endforeach -->
+                                @php $teamMemberSL = 1; @endphp
+                                @foreach($audit_team_members as $member_key => $member)
+                                    <p>{{$teamMemberSL}}. Mr {{$member['team_member_name_en']}} , 
+                                        <br>
+                                        {{$member['team_member_designation_en'].' and '.$member['team_member_role_en']}}</p> 
+                                        <br>
+                                    @php $teamMemberSL++; @endphp
+                                @endforeach
                             </td>
                             <td style="text-align: center">
                                 @foreach($auditable_units as $key=>$auditable_unit)
