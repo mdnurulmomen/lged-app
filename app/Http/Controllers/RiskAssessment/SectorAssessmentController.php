@@ -4,6 +4,7 @@ namespace App\Http\Controllers\RiskAssessment;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -157,9 +158,16 @@ class SectorAssessmentController extends Controller
         }
 
         $writer = new Xlsx($spreadsheet);
+        ob_start();
         $writer->save('risk_assessment.xlsx');
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        Storage::disk('public')->put("risk_assessment.xlsx", $content);
+
+//        $writer->save('risk_assessment.xlsx');
         $file_name = 'risk_assessment.xlsx';
-        $full_path = url('/risk_assessment.xlsx');
+        $full_path = url('storage/risk_assessment.xlsx');
         return json_encode(['file_name' => $file_name, 'full_path' => $full_path]);
 
     }
