@@ -1,3 +1,15 @@
+<style>
+    table, td, th {
+    border: 1px solid;
+    padding: 8px;
+    }
+
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    }
+</style>
+
 <div class="row" style="text-align: center; margin-top: 5%;">
     <div class="col-2">
     </div>
@@ -33,7 +45,7 @@
     @php $allWorkingDates = []; @endphp
 
             <div style="margin-top: 5px">
-                <table class="table" border="1" width="100%">
+                <table class="table" width="100%">
                     <thead>
                     <tr>
                         <th style="text-align: center" width="30%">Internal Audit Team Members</th>

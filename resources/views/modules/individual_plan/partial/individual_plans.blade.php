@@ -44,7 +44,7 @@
                     @foreach($individualPlanInfo['milestones'] as $milestone)
                         <tr class="milestone_row">
                             <td>
-                                <input  type="text" class="form-control milestone_en" value="{{$milestone['milestone_bn']}}">
+                                <input  type="text" class="form-control milestone_bn" value="{{$milestone['milestone_bn']}}">
                             </td>
                             <td>
                                 <input  type="text" class="form-control start_date date" value="{{formatDate($milestone['start_date'],'en','/')}}">
