@@ -92,9 +92,9 @@ class SectorAssessmentController extends Controller
         $sheet->setCellValue('E1', 'Likelihood');
 
         if($request->assessment_type == 'final') {
-            $sheet->setCellValue('F1', 'Inherent Risk Level');
-        }else{
             $sheet->setCellValue('F1', 'Residual Risk');
+        }else{
+            $sheet->setCellValue('F1', 'Inherent Risk Level');
         }
 
         $sheet->setCellValue('G1', 'Priority (1,2,3,4)');
@@ -158,9 +158,9 @@ class SectorAssessmentController extends Controller
         }
 
         $writer = new Xlsx($spreadsheet);
-        $writer->save('risk_assessment.xlsx');
-        $file_name = 'risk_assessment.xlsx';
-        $full_path = url('/risk_assessment.xlsx');
+        $writer->save('risk_assessment_'.$request->assessment_type.'.xlsx');
+        $file_name = 'risk_assessment_'.$request->assessment_type.'.xlsx';
+        $full_path = url('/risk_assessment_'.$request->assessment_type.'.xlsx');
         return json_encode(['file_name' => $file_name, 'full_path' => $full_path]);
 
 //        $writer = new Xlsx($spreadsheet);
