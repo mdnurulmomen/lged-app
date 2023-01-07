@@ -1,7 +1,7 @@
 <div class="row m-0 mb-2 page-title-wrapper d-md-flex align-items-md-center">
     <div class="col-md-6">
         <div class="title py-2">
-            <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Create Item Risk Assessment</h4>
+            <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Create {{ucfirst($type)}} Risk Assessment</h4>
         </div>
     </div>
 
@@ -361,7 +361,13 @@
     }
 
     function backToList () {
-        $('.sector_risk_assessment  a').click();
+        let assessment_type = '{{$type}}';
+
+        if(assessment_type == 'final'){
+            $('.final-risk-assessment-link  a').click();
+        }else{
+            $('.preliminary-risk-assessment-link  a').click();
+        }
     }
 
     function setAvailableAreas () {
@@ -451,7 +457,7 @@
             audit_assessment_area_risk['priority'] = $(this).find("input[name='priority']").val();
             audit_assessment_area_risk['x_risk_assessment_impact_id'] = $(this).find("select[name='x_risk_assessment_impact_id']").val();
             audit_assessment_area_risk['x_risk_assessment_likelihood_id'] = $(this).find("select[name='x_risk_assessment_likelihood_id']").val();
-            audit_assessment_area_risk['control_system'] = $(this).find("textarea[name='control_system']").val();
+            audit_assessment_area_risk['control_system'] = $(this).find("select[name='control_system']").val();
             audit_assessment_area_risk['risk_owner_id'] = $(this).find(".risk_owner_id option:selected").val();
             audit_assessment_area_risk['risk_owner_name'] = $(this).find(".risk_owner_id option:selected").text();
             audit_assessment_area_risk['process_owner_id'] = $(this).find(".process_owner_id option:selected").val();
