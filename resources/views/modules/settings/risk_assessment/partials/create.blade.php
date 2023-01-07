@@ -115,7 +115,7 @@
                                     </div>
 
                                     <div class="col-sm-4 form-group">
-                                        <label for="email">Inherent Risk:</label>
+                                        <label for="email">Risk:</label>
                                         <select class="form-control inherent_risk_id" name="inherent_risk_id">
                                             <option selected>Select Risk</option>
                                         </select>
@@ -142,11 +142,11 @@
                                     </div>
 
                                     <div class="col-sm-4 form-group">
-                                        <label for="email">Inherent Risk Level:</label>
+                                        <label for="email">{{$type == 'preliminary' ? 'Inherent' : 'Residual'}} Risk Level:</label>
                                         <input type="text" value="" name="risk_level" class="form-control risk_level" readonly>
                                     </div>
 
-                                    <div class="col-sm-4 form-group">
+                                    <div class="col-sm-4 form-group" @if($type == 'final') style="display: none" @endif>
                                         <label for="email">Priority:</label>
                                         <input type="text" value="" name="priority" class="form-control priority" readonly>
                                     </div>
@@ -167,7 +167,7 @@
 
                                     @else
                                         <div class="col-sm-4 form-group">
-                                            <label for="control_system">Effectiveness Of Control:</label>
+                                            <label for="control_system">Existing Control:</label>
                                             <textarea type="text" class="form-control" placeholder="Enter Control System" name="control_system"></textarea>
                                         </div>
                                     @endif

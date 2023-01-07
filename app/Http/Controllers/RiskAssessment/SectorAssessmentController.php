@@ -84,27 +84,26 @@ class SectorAssessmentController extends Controller
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-//        <th>SL</th>
-//            <th>Audit Area</th>
-//            <th>Process/sub-process:</th>
-//            <th>Inherent Risk</th>
-//            <th>Impact</th>
-//            <th>Likelihood</th>
-//            <th>Inherent Risk Level</th>
-//            <th>Priority (1,2,3,4)</th>
-//            <th>Existing Control</th>
-//            <th>Risk Owner</th>
-//            <th>Process Owner</th>
-//            <th>Control Owner</th>
-
         $sheet->setCellValue('A1', 'Audit Area');
         $sheet->setCellValue('B1', 'Process/sub-process');
-        $sheet->setCellValue('C1', 'Inherent Risk');
+        $sheet->setCellValue('C1', 'Risk');
         $sheet->setCellValue('D1', 'Impact');
         $sheet->setCellValue('E1', 'Likelihood');
-        $sheet->setCellValue('F1', 'Inherent Risk Level');
+
+        if($request->assessment_type == 'final') {
+            $sheet->setCellValue('F1', 'Inherent Risk Level');
+        }else{
+            $sheet->setCellValue('F1', 'Residual Risk');
+        }
+
         $sheet->setCellValue('G1', 'Priority (1,2,3,4)');
-        $sheet->setCellValue('H1', 'Existing Control');
+
+        if($request->assessment_type == 'final') {
+            $sheet->setCellValue('H1', 'Existing Control');
+        }else{
+            $sheet->setCellValue('H1', 'Effectiveness Of Control (Inadequate, Needs Improvement, Adequate)');
+        }
+
         $sheet->setCellValue('I1', 'Risk Owner');
         $sheet->setCellValue('J1', 'Process Owner');
         $sheet->setCellValue('K1', 'Control Owner');

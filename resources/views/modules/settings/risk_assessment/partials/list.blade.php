@@ -4,12 +4,21 @@
             <th>SL</th>
             <th>Audit Area</th>
             <th>Process/sub-process</th>
-            <th>Inherent Risk</th>
+            <th>Risk</th>
             <th>Impact</th>
             <th>Likelihood</th>
-            <th>Inherent Risk Level</th>
+            <th> {{$assessment_type == 'preliminary' ? 'Inherent Risk Level' : 'Residual Risk'}} </th>
+
+            @if($assessment_type == 'preliminary')
             <th>Priority (1,2,3,4)</th>
-            <th>Effectiveness Of Control</th>
+            @endif
+
+            @if($assessment_type == 'final')
+                <th>Effectiveness Of Control (Inadequate, Needs Improvement, Adequate)</th>
+            @else
+                <th>Existing Control</th>
+            @endif
+
             <th>Risk Owner</th>
             <th>Process Owner</th>
             <th>Control Owner</th>
@@ -56,7 +65,9 @@
             <td>{{ $auditAssessmentAreaRisk['x_risk_assessment_impact']['title_en'] }}</td>
             <td>{{ $auditAssessmentAreaRisk['x_risk_assessment_likelihood']['title_en'] }}</td>
             <td>{{ $auditAssessmentAreaRisk['risk_level'] }}</td>
-            <td>{{ $auditAssessmentAreaRisk['priority'] }}</td>
+                @if($assessment_type == 'preliminary')
+                    <td>{{ $auditAssessmentAreaRisk['priority'] }}</td>
+                @endif
             <td>{{ $auditAssessmentAreaRisk['control_system'] }}</td>
             <td>{{ $auditAssessmentAreaRisk['risk_owner_name'] }}</td>
             <td>{{ $auditAssessmentAreaRisk['process_owner_name'] }}</td>
