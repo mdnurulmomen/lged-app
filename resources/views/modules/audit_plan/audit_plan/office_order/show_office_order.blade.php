@@ -197,13 +197,15 @@
             <h6>Kindly note that Additional Chief Engineer (Audit) will be present in the Exit Meeting.</h6>
         </div>
 
-        <div style="text-align: right;">
+        <div style="float: right; margin-top: 3%;">
             <!-- {!! nl2br($office_order['issuer_details']) !!} -->
-            <div>
-                <h6>(Md. Nur Hossain Howlader)</h6>
-                <h6>Additional Chief Engineer (Audit)</h6>
-                <h6>LGED, HQ, Dhaka</h6>
-                <h6>e-mail: ace.aduit@lged.gov.bd</h6>
+            <div style="text-align: center;">   
+                @php
+                    $data = collect($audit_team_members)->firstWhere('team_member_role_en', 'teamLeader')
+                @endphp
+                <p>{{$data['team_member_name_en']}}</p>
+                <p>{{ucfirst($data['team_member_role_en'])}}</p>
+                <p>{{$data['team_member_designation_en']}}</p>
             </div>
         </div>
 
@@ -228,7 +230,7 @@
         <br>
 
         {{--for audit advice--}}
-        <div style="margin-top: 20px;text-align: left; font-style: italic;">
+        <div style="margin-top: 2%;text-align: left; font-style: italic;">
             <h5>Copy for kind information and necessary action:</h5>
         </div>
 

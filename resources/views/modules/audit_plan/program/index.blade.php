@@ -3,7 +3,7 @@
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row d-flex align-items-end">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <!-- <span style="font-size: 18px" class="form-group">
                 <input style="display: none" id="project" type="radio" name="sector_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project
                 <input style="display: none" id="function" type="radio" name="sector_type" value="function" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="area_div">
                 <select class="form-control select-select2" name="sector_area" id="sector_area" onchange="Audit_Program_Container.laodAreaPrograms(this.value)">
                     <option selected>Select Area</option>
@@ -40,13 +40,13 @@
             </div>
         </div>
 
-       <!-- <div class="col-md-1">
+       <div class="col-md-2">
            <button class="btn btn-sm btn-info btn-square mr-1"
                    title="Download"
                    onclick='Audit_Program_Container.export($(this))'>
-               <i class="fad fa-download"></i>
+               <i class="fad fa-download"></i> Excel
            </button>
-       </div> -->
+       </div>
 
         <div class="col-md-2">
             <button class="btn btn-sm btn-primary btn-square mr-1"

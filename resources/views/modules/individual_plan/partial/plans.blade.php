@@ -266,7 +266,7 @@
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "announcement-memo.pdf";
+                    link.download = "engagement_letter.pdf";
                     link.click();
                 },
                 error: function (blob) {

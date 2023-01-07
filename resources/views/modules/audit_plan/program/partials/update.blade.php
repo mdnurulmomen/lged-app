@@ -7,10 +7,10 @@
 
     <div class="col-md-6 text-right">
         <a id="go_back" class="btn btn-sm btn-warning btn_back btn-square mr-3">
-            <i class="fad fa-arrow-alt-left"></i> ফেরত যান
+            <i class="fad fa-arrow-alt-left"></i> Go Back
         </a>
         <button class="btn btn-sm btn-square btn-primary mr-2" id="submit_button">
-            <i class="fa fa-save"></i> সংরক্ষণ করুন
+            <i class="fa fa-save"></i> Save
         </button>
     </div>
 </div>
