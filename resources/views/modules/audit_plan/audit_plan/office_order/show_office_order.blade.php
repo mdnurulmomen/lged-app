@@ -136,7 +136,7 @@
                             </tr>
                             <tr>
                                 <td style="text-align: left;">
-                                @foreach($audit_team_schedules as $key=>$audit_team_schedule)
+                                <!-- @foreach($audit_team_schedules as $key=>$audit_team_schedule)
                                     @if($audit_team_schedule['team_schedules'] != null)
                                         @php $teamMemberSL = 1; @endphp
                                         @foreach(json_decode($audit_team_schedule['team_members'],true) as $role => $team_members)
@@ -152,7 +152,14 @@
                                         @endforeach
                                     @endif
                                     @php unset($allWorkingDates); @endphp
-                                @endforeach
+                                @endforeach -->
+                                    @php $teamMemberSL = 1; @endphp
+                                    @foreach($audit_team_members as $member_key => $member)
+                                        <p>{{$teamMemberSL}}. Mr {{$member['team_member_name_en']}} , 
+                                            <br>
+                                            {{$member['team_member_designation_en'].' and '.$member['team_member_role_en']}}</p> 
+                                        @php $teamMemberSL++; @endphp
+                                    @endforeach
                                 </td>
                                 <td style="text-align: center">
                                     @foreach($auditable_units as $key=>$auditable_unit)
