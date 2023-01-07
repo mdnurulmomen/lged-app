@@ -6,10 +6,10 @@
         </h5>
 
         <h5 class="form-group">Issue: {{ ucfirst($memo['memo_title_bn']) }}</h5>
-        <h5 class="form-group">Observation (Condition):  {{ ucfirst($memo['memo_title_bn']) }}</h5>
-        <h5 class="form-group">Criteria: {{ ucfirst($memo['criteria']) }}</h5>
+        <h5 class="form-group">Observation (Condition): {!! $memo['audit_observation'] !!} </h5>
+        <h5 class="form-group">Criteria: {{ $memo['criteria'] }}</h5>
         <h5 class="form-group">
-            Cause: 
+            Cause:
             @foreach(json_decode($memo['cause']) as $cause)
                 {{ ucfirst($cause) . ", " }}
             @endforeach
@@ -26,8 +26,8 @@
     @endforeach
 
     <div class="col-sm-12 form-group text-right">
-        <button 
-            type="button" 
+        <button
+            type="button"
             class="btn btn-download btn-sm btn-bold btn-square ml-auto main-body-document">
             Download
         </button>
@@ -37,7 +37,7 @@
 <script>
     $('.main-body-document').click(function () {
         let audit_plan_id = "{{ $audit_plan_id }}";
-        
+
         let data = {audit_plan_id};
 
         let url = "{{ route('audit.plan.main-body-document.download') }}";
@@ -68,6 +68,6 @@
                 console.log(blob);
             }
         });
-        
+
     });
 </script>

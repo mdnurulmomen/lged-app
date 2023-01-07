@@ -17,13 +17,13 @@
                 <button href="javascript:;"
                    data-audit-plan-id="{{$auditplan['id']}}"
                    class="btn btn-sm btn-square btn-primary mr-2 view-summery">
-                    <i class="fas fa-eye"></i> Summery List
+                    <i class="fas fa-eye"></i> Finding List
                 </button>
 
                 <button href="javascript:;"
                    data-audit-plan-id="{{$auditplan['id']}}"
                    class="btn btn-sm btn-square btn-primary mr-2 view-main-body-doc">
-                    <i class="fas fa-eye"></i> Summery Details
+                    <i class="fas fa-eye"></i> Finding Details
                 </button>
             </td>
         </tr>
@@ -46,7 +46,7 @@
         $('.offcanvas-footer').hide();
         quick_panel.removeClass('d-none');
         $("html").addClass("side-panel-overlay");
-        $('.offcanvas-title').html('Summery Report');
+        $('.offcanvas-title').html('Finding List');
 
         let audit_plan_id = $(this).data('audit-plan-id');
         let data = {audit_plan_id};
@@ -74,7 +74,7 @@
         $('.offcanvas-footer').hide();
         quick_panel.removeClass('d-none');
         $("html").addClass("side-panel-overlay");
-        $('.offcanvas-title').html('Main Body Document');
+        $('.offcanvas-title').html('Finding Details');
 
         let audit_plan_id = $(this).data('audit-plan-id');
         let data = {audit_plan_id};
