@@ -47,7 +47,15 @@
             class="btn btn-download btn-sm btn-bold btn-square">
         <i class="far fa-file-pdf"></i> Download
     </button>
+    <button data-ap-office-order-id="{{$office_order['id']}}"
+            data-audit-plan-id="{{$office_order['audit_plan_id']}}"
+            data-annual-plan-id="{{$office_order['annual_plan_id']}}"
+            onclick="Show_Office_Order_Container.generateOfficeOrderMSWord($(this))"
+            class="btn btn-primary btn-sm btn-bold btn-square">
+        <i class="far fa-file-word"></i> MS Word
+    </button>
 </div>
+
 
 <div class="card sna-card-border mt-3" style="margin-bottom:30px; padding: 70px;">
     <div class="row" style="text-align: center; margin-top: 5%;">
@@ -149,9 +157,9 @@
                                                 usort($team_members, "arryAortAsc");
                                             @endphp
                                             @foreach($team_members as $member_key => $sub_team_leader)
-                                                <p>{{$teamMemberSL}}. Mr {{$sub_team_leader['officer_name_en']}} , 
+                                                <p>{{$teamMemberSL}}. Mr {{$sub_team_leader['officer_name_en']}} ,
                                                     <br>
-                                                    {{$sub_team_leader['designation_en'].' and '.$sub_team_leader['team_member_role_en']}}</p> 
+                                                    {{$sub_team_leader['designation_en'].' and '.$sub_team_leader['team_member_role_en']}}</p>
                                                 @php $teamMemberSL++; @endphp
                                             @endforeach
                                         @endforeach
@@ -160,15 +168,15 @@
                                 @endforeach -->
                                     @php $teamMemberSL = 1; @endphp
                                     @foreach($audit_team_members as $member_key => $member)
-                                        <p>{{$teamMemberSL}}. Mr {{$member['team_member_name_en']}} , 
+                                        <p>{{$teamMemberSL}}. Mr {{$member['team_member_name_en']}} ,
                                             <br>
-                                            {{$member['team_member_designation_en'].' and '.$member['team_member_role_en']}}</p> 
+                                            {{$member['team_member_designation_en'].' and '.$member['team_member_role_en']}}</p>
                                         @php $teamMemberSL++; @endphp
                                     @endforeach
                                 </td>
                                 <td style="text-align: center; vertical-align: top;">
                                     @foreach($auditable_units as $key=>$auditable_unit)
-                                        <p>{{$auditable_unit['cost_center_name_en']}}</p> 
+                                        <p>{{$auditable_unit['cost_center_name_en']}}</p>
                                     @endforeach
                                 </td>
                                 <td style="text-align: center; vertical-align: top;">{{$audit_type['audit_type']}}</td>
@@ -178,8 +186,8 @@
                                 <td style="text-align: center; vertical-align: top;">{{$milestones[2]['start_date']}}</td>
                                 <td style="text-align: center; vertical-align: top;">{{$milestones[3]['start_date']}}</td>
                             </tr>
-                                
-                        
+
+
                         </tbody>
                     </table>
                 </div>
@@ -197,16 +205,15 @@
             <h6>Kindly note that Additional Chief Engineer (Audit) will be present in the Exit Meeting.</h6>
         </div>
 
-        <div style="float: right; margin-top: 3%;">
+        <div style="text-align: right; margin-top: 3%;">
             <!-- {!! nl2br($office_order['issuer_details']) !!} -->
-            <div style="text-align: center;">   
                 @php
                     $data = collect($audit_team_members)->firstWhere('team_member_role_en', 'teamLeader')
                 @endphp
                 <p>{{$data['team_member_name_en']}}</p>
                 <p>{{ucfirst($data['team_member_role_en'])}}</p>
                 <p>{{$data['team_member_designation_en']}}</p>
-            </div>
+                <p>LGED HQ, Dhaka</p>
         </div>
 
         {{--<div style="text-align: center;float: right">
@@ -244,7 +251,8 @@
     </div>
 </div>
 
-
+<script src="{{ asset('assets/js/html-docx.js') }}"></script>
+<script src="{{ asset('assets/js/FileSaver.js') }}"></script>
 <script>
     var Show_Office_Order_Container = {
         loadOfficeOrderApprovalAuthority: function (element) {
@@ -336,6 +344,35 @@
                     link.href = window.URL.createObjectURL(blob);
                     link.download = "office_order.pdf";
                     link.click();
+                },
+                error: function (blob) {
+                    toastr.error('Failed to generate PDF.')
+                    console.log(blob);
+                }
+            });
+        },
+
+        generateOfficeOrderMSWord: function (elem) {
+            url = '{{route('audit.plan.audit.office-orders.download-ms-word')}}';
+            office_order_id = elem.data('ap-office-order-id');
+            audit_plan_id = elem.data('audit-plan-id');
+            annual_plan_id = elem.data('annual-plan-id');
+            data = {audit_plan_id, annual_plan_id, office_order_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                message: 'Downloading Please Wait..',
+                state: 'primary' // a bootstrap color
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                success: function (response) {
+                    KTApp.unblock('#kt_wrapper');
+                    var converted = htmlDocx.asBlob(response);
+                    saveAs(converted, 'test.docx')
                 },
                 error: function (blob) {
                     toastr.error('Failed to generate PDF.')

@@ -513,6 +513,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/show-office-order', [OfficeOrderController::class, 'showOfficeOrder'])->name('office-orders.show-office-order');
             Route::post('/show-update-office-order', [OfficeOrderController::class, 'showUpdateOfficeOrder'])->name('office-orders.show-update-office-order');
             Route::post('/download-pdf', [OfficeOrderController::class, 'generateOfficeOrderPDF'])->name('office-orders.download-pdf');
+            Route::post('/download-ms-word', [OfficeOrderController::class, 'generateOfficeOrderMsWord'])->name('office-orders.download-ms-word');
 
             //data collection office order
             Route::get('/office-orders-dc', [DcOfficeOrderController::class, 'index'])->name('office-orders-dc.index');

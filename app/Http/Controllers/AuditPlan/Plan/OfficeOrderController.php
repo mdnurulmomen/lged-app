@@ -301,6 +301,30 @@ class OfficeOrderController extends Controller
         return $pdf->stream('document.pdf');
     }
 
+    public function generateOfficeOrderMsWord(Request $request)
+    {
+        $requestData = [
+            'cdesk' => $this->current_desk_json(),
+            'audit_plan_id' => $request->audit_plan_id,
+            'annual_plan_id' => $request->annual_plan_id,
+        ];
+
+        $data['current_designation_id'] = $this->current_designation_id();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_office_order'), $requestData)
+            ->json();
+        $data['office_id'] = $this->current_office_id();
+        $data['vacations'] = $this->yearWiseVacationList(date("Y"));
+        $data['office_order'] = $responseData['data']['office_order'];
+        $data['audit_team_members'] = $responseData['data']['audit_team_members'];
+        $data['audit_team_schedules'] = $responseData['data']['audit_team_schedules'];
+        $data['audit_type'] = $responseData['data']['audit_type'];
+        $data['milestones'] = $responseData['data']['milestones'];
+        $data['auditable_units'] = $responseData['data']['auditable_units'];
+        // dd($data);
+        return view('modules.audit_plan.audit_plan.office_order.partials.office_order_book', $data)->render();
+
+    }
+
     public function storeOfficeOrderLog($office_order_info)
     {
         $requestData = [
