@@ -225,7 +225,7 @@ class AuditProgramController extends Controller
 
     public function riskAuditProgramEdit(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
             'all' => 1
         ])->json();
@@ -378,7 +378,7 @@ class AuditProgramController extends Controller
         // dd($sectorAreaPrograms);
 
         if (isset($sectorAreaPrograms['status']) && $sectorAreaPrograms['status'] == 'success') {
-            return response()->json(responseFormat('success', env('API_URL_BEE', 'https://webapi-lged.e-audit.xyz').$sectorAreaPrograms['data']));
+            return response()->json(responseFormat('success', env('BEE_URL', 'https://webapi-lged.e-audit.xyz').$sectorAreaPrograms['data']));
         } else {
             return response()->json(['status' => 'error', 'data' => $sectorAreaPrograms]);
         }
