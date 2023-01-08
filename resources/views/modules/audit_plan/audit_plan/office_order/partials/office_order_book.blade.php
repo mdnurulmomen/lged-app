@@ -74,7 +74,7 @@
                     <td style="text-align: center">8</td>
                 </tr>
                 <tr>
-                    <td style="text-align: left;">
+                    <td style="text-align: left; vertical-align: top;">
                     <!-- @foreach($audit_team_schedules as $key=>$audit_team_schedule)
                         @if($audit_team_schedule['team_schedules'] != null)
                             @php $teamMemberSL = 1; @endphp
@@ -101,17 +101,17 @@
                             @php $teamMemberSL++; @endphp
                         @endforeach
                     </td>
-                    <td style="text-align: center">
+                    <td style="text-align: center; vertical-align: top;">
                         @foreach($auditable_units as $key=>$auditable_unit)
                             <p>{{$auditable_unit['cost_center_name_en']}}</p> 
                         @endforeach
                     </td>
-                    <td style="text-align: center">{{$audit_type['audit_type']}}</td>
-                    <td>2021-2022</td>
-                    <td style="text-align: center">{{$milestones[0]['start_date']}}</td>
-                    <td style="text-align: center">{{$milestones[1]['start_date']}} To {{$milestones[1]['end_date']}}</td>
-                    <td style="text-align: center">{{$milestones[2]['start_date']}}</td>
-                    <td style="text-align: center">{{$milestones[3]['start_date']}}</td>
+                    <td style="text-align: center; vertical-align: top;">{{$audit_type['audit_type']}}</td>
+                    <td style="vertical-align: top;">2021-2022</td>
+                    <td style="text-align: center; vertical-align: top;">{{$milestones[0]['start_date']}}</td>
+                    <td style="text-align: center; vertical-align: top;">{{$milestones[1]['start_date']}} To {{$milestones[1]['end_date']}}</td>
+                    <td style="text-align: center; vertical-align: top;">{{$milestones[2]['start_date']}}</td>
+                    <td style="text-align: center; vertical-align: top;">{{$milestones[3]['start_date']}}</td>
                 </tr>
                     
             
