@@ -162,6 +162,9 @@
  <div class="load-announcement-memo"></div>
  <div class="load-individual-plan"></div>
 
+<script src="{{ asset('assets/js/html-docx.js') }}"></script>
+<script src="{{ asset('assets/js/FileSaver.js') }}"></script>
+
  <script>
      var Individual_Plan_Container = {
          individualPlanCreate: function (elem) {
@@ -234,7 +237,7 @@
              });
          },
 
-         downloadAnnouncementModal: function (elem) {
+        downloadAnnouncementModal: function (elem) {
 
              let audit_plan_id = elem.data('audit-plan-id');
              let yearly_plan_location_id = elem.data('yearly_plan_location_id');
@@ -276,6 +279,42 @@
                 }
             });
         },
+
+        generateEngagementLetterMSWord: function (elem) {
+
+            let audit_plan_id = elem.data('audit-plan-id');
+            let yearly_plan_location_id = elem.data('yearly_plan_location_id');
+            let sector_name = elem.data('sector_name');
+
+            url = "{{route('audit.plan.individual.download-ms-word-engagement-letter')}}";
+
+            data = {
+                audit_plan_id,
+                yearly_plan_location_id,
+                sector_name,
+            };
+
+            KTApp.block('#kt_wrapper', {
+            opacity: 0.1,
+            message: 'Downloading Please Wait...',
+            state: 'primary' // a bootstrap color
+            });
+
+            $.ajax({
+            type: 'post',
+            url: url,
+            data: data,
+                success: function (response) {
+                    KTApp.unblock('#kt_wrapper');
+                    var converted = htmlDocx.asBlob(response);
+                    saveAs(converted, 'engagement_letter.docx')
+                },
+                error: function (blob) {
+                    toastr.error('Failed to generate Word.')
+                    console.log(blob);
+                }
+            });
+            },
 
          programCreate: function (elem) {
              let project_id = elem.data('project-id');

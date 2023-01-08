@@ -5,6 +5,13 @@
         onclick="Individual_Plan_Container.downloadAnnouncementModal($(this))">
         <i class="far fa-file-pdf"></i> Download
     </button>
+
+    <button data-audit-plan-id="{{$announcementMemo['audit_plan_id']}}"
+            data-yearly_plan_location_id="{{$announcementMemo['audit_plan']['yearly_plan_location']['id']}}"
+            onclick="Individual_Plan_Container.generateEngagementLetterMSWord($(this))"
+            class="btn btn-primary btn-sm btn-bold btn-square">
+        <i class="far fa-file-word"></i> MS Word
+    </button>
 </div>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:30px; padding: 25px;">

@@ -450,6 +450,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('get-audit-schedule-row', [IndividualPlanController::class, 'getAuditScheduleRow'])->name('get-audit-schedule-row');
             Route::post('get-announcement-memo', [IndividualPlanController::class, 'getAnnouncementMemo'])->name('get-announcement-memo');
             Route::post('download-announcement-memo', [IndividualPlanController::class, 'downloadAnnouncementMemo'])->name('download-announcement-memo');
+            Route::post('/download-ms-word', [IndividualPlanController::class, 'generateEnagementLetterMsWord'])->name('download-ms-word-engagement-letter');
             Route::post('/store-audit-team', [IndividualPlanController::class, 'storeAuditTeam'])->name('store-audit-team');
             // Route::post('/update-audit-team', [RevisedPlanController::class, 'updateAuditTeam'])->name('update-audit-team');
             Route::post('/store-audit-team-schedule', [IndividualPlanController::class, 'storeAuditTeamSchedule'])->name('store-audit-team-schedule');

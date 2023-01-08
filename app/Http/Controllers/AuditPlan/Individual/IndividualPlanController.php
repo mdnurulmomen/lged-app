@@ -305,6 +305,22 @@ class IndividualPlanController extends Controller
 
     }
 
+    public function generateEnagementLetterMsWord(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'audit_plan_id' => 'required|integer',
+            'yearly_plan_location_id' => 'required|integer',
+        ])->validate();
+        $data['cdesk'] = $this->current_desk_json();
+        // dd($data);
+
+        $announcementMemo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_announcement_memo'),$data)->json();
+        $announcementMemo = $announcementMemo ? $announcementMemo['data'] : [];
+
+        return view('modules.individual_plan.partial.download-announcement-memo', compact('announcementMemo'))->render();
+
+    }
+
     public function engagementLetterCreate(Request $request){
 
         $data = Validator::make($request->all(), [

@@ -375,7 +375,7 @@
                     saveAs(converted, 'office_order.docx')
                 },
                 error: function (blob) {
-                    toastr.error('Failed to generate PDF.')
+                    toastr.error('Failed to generate Word.')
                     console.log(blob);
                 }
             });
