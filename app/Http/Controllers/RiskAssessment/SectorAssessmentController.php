@@ -88,8 +88,8 @@ class SectorAssessmentController extends Controller
         $sheet->setCellValue('A1', 'Audit Area');
         $sheet->setCellValue('B1', 'Process/sub-process');
         $sheet->setCellValue('C1', 'Risk');
-        $sheet->setCellValue('D1', 'Impact');
-        $sheet->setCellValue('E1', 'Likelihood');
+        $sheet->setCellValue('D1', 'Likelihood');
+        $sheet->setCellValue('E1', 'Impact');
 
         if($request->assessment_type == 'final') {
             $sheet->setCellValue('F1', 'Residual Risk');
@@ -141,8 +141,8 @@ class SectorAssessmentController extends Controller
             foreach ($sectorriskassessment['audit_assessment_area_risks'] as $auditAssessmentAreaRisk) {
                 $sheet->setCellValue('B' . $sub_cell,  $auditAssessmentAreaRisk['sub_area_name']);
                 $sheet->setCellValue('C' . $sub_cell,  $auditAssessmentAreaRisk['inherent_risk']);
-                $sheet->setCellValue('D' . $sub_cell,  $auditAssessmentAreaRisk['x_risk_assessment_impact']['title_en']);
-                $sheet->setCellValue('E' . $sub_cell,  $auditAssessmentAreaRisk['x_risk_assessment_likelihood']['title_en'] );
+                $sheet->setCellValue('D' . $sub_cell,  $auditAssessmentAreaRisk['x_risk_assessment_likelihood']['title_en']);
+                $sheet->setCellValue('E' . $sub_cell,  $auditAssessmentAreaRisk['x_risk_assessment_impact']['title_en'] );
                 $sheet->setCellValue('F' . $sub_cell,  $auditAssessmentAreaRisk['risk_level']);
                 $sheet->setCellValue('G' . $sub_cell,  $auditAssessmentAreaRisk['priority']);
                 $sheet->setCellValue('H' . $sub_cell,  $auditAssessmentAreaRisk['control_system']);

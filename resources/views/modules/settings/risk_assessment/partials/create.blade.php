@@ -122,21 +122,21 @@
                                     </div>
 
                                     <div class="col-sm-4 form-group">
-                                        <label for="email">Impact:</label>
-                                        <select data-value=""  onchange="getRiskLevelAndPriority($(this))" class="form-control x_risk_assessment_impact_id" name="x_risk_assessment_impact_id">
-                                            <option value="" selected>Please Select Impact</option>
-                                            @foreach ($allImpacts as $impact)
-                                                <option value="{{ $impact['id'] }}">{{ $impact['title_bn'] }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="col-sm-4 form-group">
                                         <label for="email">Likelihood:</label>
                                         <select value="" onchange="getRiskLevelAndPriority($(this))" class="form-control x_risk_assessment_likelihood_id" name="x_risk_assessment_likelihood_id">
                                             <option selected>Please Select Likelihood</option>
                                             @foreach ($allLikelihoods as $likelihood)
                                                 <option value="{{ $likelihood['id'] }}">{{ $likelihood['title_en'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-4 form-group">
+                                        <label for="email">Impact:</label>
+                                        <select data-value=""  onchange="getRiskLevelAndPriority($(this))" class="form-control x_risk_assessment_impact_id" name="x_risk_assessment_impact_id">
+                                            <option value="" selected>Please Select Impact</option>
+                                            @foreach ($allImpacts as $impact)
+                                                <option value="{{ $impact['id'] }}">{{ $impact['title_bn'] }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -469,11 +469,11 @@
             audit_assessment_area_risk['x_risk_assessment_likelihood_id'] = $(this).find("select[name='x_risk_assessment_likelihood_id']").val();
             audit_assessment_area_risk['control_system'] = assessment_type == 'final' ? $(this).find("select[name='control_system']").val() : $(this).find("textarea[name='control_system']").val();
             audit_assessment_area_risk['risk_owner_id'] = $(this).find(".risk_owner_id option:selected").val();
-            audit_assessment_area_risk['risk_owner_name'] = $(this).find(".risk_owner_id option:selected").text();
+            audit_assessment_area_risk['risk_owner_name'] = $(this).find(".risk_owner_id option:selected").val() != 0 ? $(this).find(".risk_owner_id option:selected").text() : '';
             audit_assessment_area_risk['process_owner_id'] = $(this).find(".process_owner_id option:selected").val();
-            audit_assessment_area_risk['process_owner_name'] = $(this).find(".process_owner_id option:selected").text();
-            audit_assessment_area_risk['control_owner_id'] = $(this).find(".control_owner_id option:selected").val();
-            audit_assessment_area_risk['control_owner_name'] = $(this).find(".control_owner_id option:selected").text();
+            audit_assessment_area_risk['process_owner_name'] = $(this).find(".process_owner_id option:selected").val() != 0 ? $(this).find(".process_owner_id option:selected").text() : '';
+            audit_assessment_area_risk['control_owner_id'] =  $(this).find(".control_owner_id option:selected").val();
+            audit_assessment_area_risk['control_owner_name'] = $(this).find(".control_owner_id option:selected").val() != 0 ? $(this).find(".control_owner_id option:selected").text() : '';
             audit_assessment_area_risk['issue_no'] = $(this).find(".issue_id option:selected").val() ? $(this).find(".issue_id option:selected").val() : null;
             // audit_assessment_area_risk['control_effectiveness'] = $(this).find("input[name='control_effectiveness']").val();
             // audit_assessment_area_risk['residual_risk'] = $(this).find("input[name='residual_risk']").val();

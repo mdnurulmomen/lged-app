@@ -5,8 +5,8 @@
             <th>Audit Area</th>
             <th>Process/sub-process</th>
             <th>Risk</th>
-            <th>Impact</th>
             <th>Likelihood</th>
+            <th>Impact</th>
             <th> {{$assessment_type == 'preliminary' ? 'Inherent Risk Level' : 'Residual Risk'}} </th>
 
             @if($assessment_type == 'preliminary')
@@ -62,8 +62,8 @@
         @foreach ($sectorriskassessment['audit_assessment_area_risks'] as $auditAssessmentAreaRisk)
             <td>{{ $auditAssessmentAreaRisk['sub_area_name'] }}</td>
             <td>{{ $auditAssessmentAreaRisk['inherent_risk'] }}</td>
-            <td>{{ $auditAssessmentAreaRisk['x_risk_assessment_impact']['title_en'] }}</td>
             <td>{{ $auditAssessmentAreaRisk['x_risk_assessment_likelihood']['title_en'] }}</td>
+            <td>{{ $auditAssessmentAreaRisk['x_risk_assessment_impact']['title_en'] }}</td>
             <td>{{ $auditAssessmentAreaRisk['risk_level'] }}</td>
                 @if($assessment_type == 'preliminary')
                     <td>{{ $auditAssessmentAreaRisk['priority'] }}</td>
