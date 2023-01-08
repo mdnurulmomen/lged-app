@@ -372,7 +372,7 @@
                 success: function (response) {
                     KTApp.unblock('#kt_wrapper');
                     var converted = htmlDocx.asBlob(response);
-                    saveAs(converted, 'test.docx')
+                    saveAs(converted, 'office_order.docx')
                 },
                 error: function (blob) {
                     toastr.error('Failed to generate PDF.')
