@@ -225,7 +225,6 @@ class AuditProgramController extends Controller
 
     public function riskAuditProgramEdit(Request $request)
     {
-        // dd($request->all());
         $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
             'all' => 1
         ])->json();
@@ -247,13 +246,13 @@ class AuditProgramController extends Controller
         $allAreas = $allAreas ? $allAreas['data'] : [];
 
         $auditArea = collect($allAreas)->firstWhere('id', $request->audit_area_id);
-
         $id = $request->id;
         $audit_area_id = $request->audit_area_id;
         $control_objective = $request->control_objective;
         $category = $request->category;
         $area_index = $request->area_index;
         $procedures = $request->procedures;
+        // dd($procedures);
 
         return view('modules.audit_plan.program.partials.update', compact('id', 'audit_area_id', 'control_objective', 'category', 'area_index', 'procedures', 'allProjects', 'allFunctions', 'allMasterUnits', 'allAreas', 'auditArea'));
     }
@@ -267,7 +266,6 @@ class AuditProgramController extends Controller
      */
     public function update(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'audit_area_id' => 'required|integer',
             'control_objective' => 'required|string|max:255',

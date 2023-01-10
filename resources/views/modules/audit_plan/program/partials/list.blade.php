@@ -14,7 +14,9 @@
 
     <tbody>
     @forelse($sectorAreaPrograms as $sectorAreaProgram)
-        <tr id="row_{{$sectorAreaProgram['id']}}" data-row="{{$loop->iteration}}">
+   
+        <tr id="row_{{$sectorAreaProgram['id']}}" data-row="{{$loop->iteration}}" 
+                class="sector_area_procedures_{{$sectorAreaProgram['id']}}">
             <td rowspan="{{ count($sectorAreaProgram['procedures']) }}"> 
                 {{ ucfirst($sectorAreaProgram['area_index']) }} 
             </td>
@@ -22,7 +24,7 @@
             <td rowspan="{{ count($sectorAreaProgram['procedures']) }}"> {{ ucfirst($sectorAreaProgram['control_objective']) }} </td>
             
             @foreach ($sectorAreaProgram['procedures'] as $key => $sectorAreaProgramProcedure)
-                <td>{{ ucfirst($sectorAreaProgramProcedure['test_procedure']) }}</td>
+                <td class="test_procedure_{{$sectorAreaProgram['id']}}" data-id="{{$sectorAreaProgramProcedure['id']}}">{{ ucfirst($sectorAreaProgramProcedure['test_procedure']) }}</td>
                 <td>{{ ucfirst($sectorAreaProgramProcedure['note']) }}</td>
                 <td>{{ ucfirst($sectorAreaProgramProcedure['team_member_name_en']) }}</td>
                 <td>
@@ -88,10 +90,22 @@
         category = $(this).data('category');
         control_objective = $(this).data('control-objective');
         audit_area_id = $(this).data('audit-area-id');
-        procedures = $(this).data('procedures');
+        procedures = {};
 
         url = "{{ route('audit.plan.programs.edit') }}";
-        var data = {id,category,area_index,control_objective,audit_area_id,procedures};
+
+        $('.test_procedure_'+id).each(function() {
+            procedures[$(this).data('id')] = $(this).text();
+        });
+        
+        var data = {
+            id,
+            category,
+            area_index,
+            control_objective,
+            audit_area_id,
+            procedures,
+        };
         
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
             loaderStop();

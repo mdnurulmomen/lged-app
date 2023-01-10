@@ -152,7 +152,7 @@
                     <div class="form-row">
                         <div class="col-sm-12 form-group">
                             <label for="email">Test Procedure:</label>
-                            <textarea class="form-control" name="test_procedure" rows="3">{{ $procedure['test_procedure'] }}</textarea>
+                            <textarea class="form-control" name="test_procedure" rows="3">{{ $procedure }}</textarea>
                         </div>
 
                         {{--
@@ -276,7 +276,7 @@
         }
 
         function backToList () {
-            $('.sector_area_program_menu  a').click();
+            $('.sector_area_program_menu a').click();
         }
 
         function setAvailableAreas () {
@@ -320,8 +320,10 @@
             let area_index = $('#area_index').val();
             let category = $('#category').val();
             let control_objective = $('#control_objective').val();
+            let id = "{{$id}}";
 
             let sector_audit_program = {
+                id,
                 audit_area_id,
                 area_index,
                 category,
