@@ -7,10 +7,10 @@
 
     <div class="col-md-6 text-right">
         <a id="go_back" class="btn btn-sm btn-warning btn_back btn-square mr-3">
-            <i class="fad fa-arrow-alt-left"></i> ফেরত যান
+            <i class="fad fa-arrow-alt-left"></i> Go Back
         </a>
         <button class="btn btn-sm btn-square btn-primary mr-2" id="submit_button">
-            <i class="fa fa-save"></i> সংরক্ষণ করুন
+            <i class="fa fa-save"></i> Save
         </button>
     </div>
 </div>
@@ -47,7 +47,7 @@
                                 @foreach ($allProjects as $project)
                                     <option value="{{ $project['id'] }}">
                                         {{ $project['name_en'] }}
-                                        ({{ $project['risk_score_key'] ? $project['risk_score_key'] : '--' }})
+                                        ({{ $project['risk_score_key'] ? ucfirst($project['risk_score_key']) : '--' }})
                                     </option>
                                 @endforeach
                             </select>
@@ -180,7 +180,7 @@
                                                 @foreach($officer_list['units'] as $unit)
                                                     @foreach($unit['designations'] as $designation)
                                                         @if(!empty($designation['employee_info']))
-                                                            <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}</option>
+                                                            <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['designation_eng'] : ''}}</option>
                                                         @endif
                                                     @endforeach
                                                 @endforeach

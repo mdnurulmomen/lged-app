@@ -33,16 +33,16 @@
                                 <tr class="strategic_row project_row_{{$i}}">
                                     <td width="25%">
                                         <select data-strategic-year="{{$i}}" data-id="1" class="form-control project_id_{{$i}} select-select2 project-select">
-                                            <option selected value="">select project</option>
+                                            <option selected value="">Select Project</option>
                                             @foreach($all_project as $project)
                                                 <option data-project-name-en="{{$project['name_en']}}"
-                                                        value="{{$project['id']}}">{{$project['name_bn']}} ({{ $project['risk_score_key'] ? $project['risk_score_key'] : '--' }})</option>
+                                                        value="{{$project['id']}}">{{$project['name_bn']}} ({{ $project['risk_score_key'] ? ucfirst($project['risk_score_key']) : '--' }})</option>
                                             @endforeach
                                         </select>
                                     </td>
                                     <td width="25%">
                                         <select id="location_{{$i}}_1" class="form-control location_id_{{$i}} select-select2">
-                                            <option selected value="0">select location</option>
+                                            <option selected value="0">Select Location</option>
                                         </select>
                                     </td>
                                     <td width="10%">

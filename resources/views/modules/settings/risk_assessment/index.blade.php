@@ -14,7 +14,9 @@
                 <select class="form-control select-select2" name="project_id" id="project_id" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
 {{--                    <option selected>Select Project</option>--}}
                     @foreach ($allProjects as $project)
-                        <option value="{{ $project['id'] }}">{{ $project['name_en'] }}</option>
+                        <option value="{{ $project['id'] }}">{{ $project['name_en'] }}
+                            ({{ $project['risk_score_key'] ? ucfirst($project['risk_score_key']) : '--' }})
+                        </option>
                     @endforeach
                 </select>
             </div>

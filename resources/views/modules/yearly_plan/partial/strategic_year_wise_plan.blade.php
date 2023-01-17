@@ -18,10 +18,10 @@
                 <tr class="strategic_row project_row_{{$projects['strategic_plan_year']}}">
                     <td>
                         <select data-strategic-year="{{$projects['strategic_plan_year']}}" data-id="{{$loop->iteration}}" class="form-control project_id_{{$projects['strategic_plan_year']}} select-select2 project-select">
-                            <option selected value="">select project</option>
+                            <option selected value="">Select Project</option>
                             @foreach($all_project as $project)
                                 <option data-project-name-en="{{$project['name_en']}}"
-                                        value="{{$project['id']}}" @if($projects['project_id'] == $project['id']) selected @endif>{{$project['name_bn']}} ({{ $project['risk_score_key'] ? $project['risk_score_key'] : '--' }})</option>
+                                        value="{{$project['id']}}" @if($projects['project_id'] == $project['id']) selected @endif>{{$project['name_en']}} ({{ $project['risk_score_key'] ? ucfirst($project['risk_score_key']) : '--' }})</option>
                             @endforeach
                         </select>
                     </td>

@@ -70,7 +70,7 @@
                         <th>Category</th>
                         <th>Control Objective</th>
                         <th>Test Procedure</th>
-                        <th>Notes</th>
+                        <th>Test Result</th>
                         <th>Done By</th>
                         <th>W/P Ref.</th>
                     </tr>
