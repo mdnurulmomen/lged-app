@@ -170,57 +170,62 @@
                                             <label for="control_system">Existing Control:</label>
                                             <textarea type="text" class="form-control" placeholder="Enter Control System" name="control_system"></textarea>
                                         </div>
+
+                                        <div class="col-sm-4 form-group">
+                                            <label for="email">Risk Owner:</label>
+                                            <select class="form-control risk_owner_id" name="risk_owner_id">
+                                                <option value="0" selected>Select Risk Owner</option>
+                                                @foreach($officerLists as $key => $officer_list)
+                                                    @foreach($officer_list['units'] as $unit)
+                                                        @foreach($unit['designations'] as $designation)
+                                                            @if(!empty($designation['employee_info']))
+                                                                <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['designation_eng'] : ''}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    @endforeach
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-sm-4 form-group">
+                                            <label for="email">Process Owner:</label>
+                                            <select class="form-control process_owner_id" name="process_owner_id">
+                                                <option value="0" selected>Select Risk Owner</option>
+                                                @foreach($officerLists as $key => $officer_list)
+                                                    @foreach($officer_list['units'] as $unit)
+                                                        @foreach($unit['designations'] as $designation)
+                                                            @if(!empty($designation['employee_info']))
+                                                                <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    @endforeach
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-sm-4 form-group">
+                                            <label for="email">Control Owner:</label>
+                                            <select class="form-control control_owner_id" name="control_owner_id">
+                                                <option value="0" selected>Select Risk Owner</option>
+                                                @foreach($officerLists as $key => $officer_list)
+                                                    @foreach($officer_list['units'] as $unit)
+                                                        @foreach($unit['designations'] as $designation)
+                                                            @if(!empty($designation['employee_info']))
+                                                                <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    @endforeach
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     @endif
 
-                                    <div class="col-sm-4 form-group">
-                                        <label for="email">Risk Owner:</label>
-                                        <select class="form-control risk_owner_id" name="risk_owner_id">
-                                            <option value="0" selected>Select Risk Owner</option>
-                                            @foreach($officerLists as $key => $officer_list)
-                                                @foreach($officer_list['units'] as $unit)
-                                                    @foreach($unit['designations'] as $designation)
-                                                        @if(!empty($designation['employee_info']))
-                                                            <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['designation_eng'] : ''}}</option>
-                                                        @endif
-                                                    @endforeach
-                                                @endforeach
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="col-sm-4 form-group">
-                                        <label for="email">Process Owner:</label>
-                                        <select class="form-control process_owner_id" name="process_owner_id">
-                                            <option value="0" selected>Select Risk Owner</option>
-                                            @foreach($officerLists as $key => $officer_list)
-                                                @foreach($officer_list['units'] as $unit)
-                                                    @foreach($unit['designations'] as $designation)
-                                                        @if(!empty($designation['employee_info']))
-                                                            <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}</option>
-                                                        @endif
-                                                    @endforeach
-                                                @endforeach
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="col-sm-4 form-group">
-                                        <label for="email">Control Owner:</label>
-                                        <select class="form-control control_owner_id" name="control_owner_id">
-                                            <option value="0" selected>Select Risk Owner</option>
-                                            @foreach($officerLists as $key => $officer_list)
-                                                @foreach($officer_list['units'] as $unit)
-                                                    @foreach($unit['designations'] as $designation)
-                                                        @if(!empty($designation['employee_info']))
-                                                            <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}</option>
-                                                        @endif
-                                                    @endforeach
-                                                @endforeach
-                                            @endforeach
-                                        </select>
-                                    </div>
-
                                     @if($type == 'final')
+                                        <div class="col-sm-4 form-group">
+                                            <label for="comments">Comments:</label>
+                                            <textarea type="text" class="form-control" placeholder="Enter Comments" name="comments"></textarea>
+                                        </div>
+
                                         <div class="col-sm-4 form-group">
                                             <label for="email">Related Issue Number:</label>
                                             <select class="form-control issue_id" name="issue_id">
@@ -475,6 +480,8 @@
             audit_assessment_area_risk['control_owner_id'] =  $(this).find(".control_owner_id option:selected").val();
             audit_assessment_area_risk['control_owner_name'] = $(this).find(".control_owner_id option:selected").val() != 0 ? $(this).find(".control_owner_id option:selected").text() : '';
             audit_assessment_area_risk['issue_no'] = $(this).find(".issue_id option:selected").val() ? $(this).find(".issue_id option:selected").val() : null;
+            audit_assessment_area_risk['comments'] = $(this).find("textarea[name='comments']").val();
+
             // audit_assessment_area_risk['control_effectiveness'] = $(this).find("input[name='control_effectiveness']").val();
             // audit_assessment_area_risk['residual_risk'] = $(this).find("input[name='residual_risk']").val();
             // audit_assessment_area_risk['recommendation'] = $(this).find("input[name='recommendation']").val();

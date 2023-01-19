@@ -19,10 +19,11 @@
                 <th>Existing Control</th>
             @endif
 
-            <th>Risk Owner</th>
+            <!-- <th>Risk Owner</th>
             <th>Process Owner</th>
-            <th>Control Owner</th>
+            <th>Control Owner</th> -->
             @if($assessment_type == 'final')
+                <th>Comments</th>
                 <th>Related Issue Number</th>
             @endif
         </tr>
@@ -69,11 +70,12 @@
                     <td>{{ $auditAssessmentAreaRisk['priority'] }}</td>
                 @endif
             <td>{{ $auditAssessmentAreaRisk['control_system'] }}</td>
-            <td>{{ $auditAssessmentAreaRisk['risk_owner_name'] }}</td>
+            <!-- <td>{{ $auditAssessmentAreaRisk['risk_owner_name'] }}</td>
             <td>{{ $auditAssessmentAreaRisk['process_owner_name'] }}</td>
-            <td>{{ $auditAssessmentAreaRisk['control_owner_name'] }}</td>
+            <td>{{ $auditAssessmentAreaRisk['control_owner_name'] }}</td> -->
 
             @if($assessment_type == 'final')
+               <td>{{ $auditAssessmentAreaRisk['recommendation'] }}</td>
                <td>{{ $auditAssessmentAreaRisk['issue_no'] }}</td>
             @endif
 
