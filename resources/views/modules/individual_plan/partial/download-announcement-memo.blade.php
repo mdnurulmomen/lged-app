@@ -56,7 +56,7 @@
         {!!$announcementMemo['others']!!}
     </div>
 
-    <div class="col-sm-12 mt-2" style="text-align: justify;">
+    <div class="col-sm-12 mt-2" style="text-align: -moz-left;">
         Yours sincerely,
         <br>
         {!!$announcementMemo['letter_from']!!}

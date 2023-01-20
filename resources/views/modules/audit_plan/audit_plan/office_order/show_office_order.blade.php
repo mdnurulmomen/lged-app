@@ -57,30 +57,32 @@
 </div>
 
 
-<div class="card sna-card-border mt-3" style="margin-bottom:30px; padding: 70px;">
-    <div class="row" style="text-align: center; margin-top: 5%;">
-        <div class="col-2">
-            <img src="{{ asset('assets/images/joyonti.jpg') }}" style="width: 85%; margin-top: 30%;" alt="joyonti">
+<div class="card sna-card-border mt-3" style="padding: 70px;">
+    <div style="margin-top: 5%; display: flex;">
+        <div style="width: 15%;">
+            <img src="{{ asset('assets/images/joyonti.jpg') }}" style="width: 130px; height: 95px; margin-top: 45%;" alt="joyonti">
         </div>
-        <div class="col-8">
+        <div style="width: 70%;">
             <h4>Government of the People’s Republic of Bangladesh</h4>
             <x-office-header-details officeid="{{$office_id}}"/>
         </div>
-        <div class="col-2">
-            <img src="{{ asset('assets/images/mujib.png') }}" style="width: 85%;" alt="mujib">
-            <div>
-                <h5>শেখ হাসিনার <br>
-                    মূলনীতি <br>
-                    গ্রাম শহরের <br>
-                    উন্নতি <br>
-                </h5>
-            </div>
+        <div style="width: 15%;">
+            <img src="{{ asset('assets/images/mujib.png') }}" style="width: 130px; height: 95px;" alt="mujib">
+            <h5 style="text-align: center;">
+                শেখ হাসিনার <br>
+                মূলনীতি <br>
+                গ্রাম শহরের <br>
+                উন্নতি <br>
+            </h5>
         </div>
     </div>
 
     <div style="text-align: center">
         <div class="row" style="margin-top: 10px">
             <div class="col-6" style="text-align: left;"><b>Memo No-</b> {{$office_order['memorandum_no']}}</div>
+            <?php
+                $date = \Carbon\Carbon::parse($office_order['memorandum_date'])->format('d/m/Y');
+            ?>
             <div class="col-6" style="text-align: right;"><b>Date:</b> {{$office_order['memorandum_date']}}</div>
         </div>
 

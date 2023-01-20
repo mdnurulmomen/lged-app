@@ -1,40 +1,62 @@
-<style>
-    table, td, th {
-    border: 1px solid;
-    padding: 8px;
-    }
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table, td, th {
+        border: 1px solid;
+        padding: 8px;
+        }
 
-    table {
-    width: 100%;
-    border-collapse: collapse;
-    }
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        }
 
-    p {
-        padding: 5px;
-    }
-</style>
+        p {
+            padding: 5px;
+        }
 
-<div class="row" style="text-align: center; margin-top: 5%;">
-    <div class="col-2">
-    </div>
-    <div class="col-8">
-        <h4>Government of the People’s Republic of Bangladesh</h4>
-        <x-office-header-details officeid="{{$office_id}}"/>
-    </div>
-    <!-- <div class="col-2">
-        <div>
-            <h5>শেখ হাসিনার <br>
+        .bangla-font {
+            font-family: nikoshpdf !important;
+        }
+
+        .row {
+            display:table;
+            width: 100%;
+            clear: both;
+        }
+        .col {
+            float: left;
+            width: 32%;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col" style="width: 15%;">
+            <img src="{{ base_path('public/assets/images/joyonti.jpg') }}" style="width: 100px; height: 80px; margin-top: 10%;" alt="joyonti">
+        </div>
+        <div class="col" style="width: 68%; text-align: center;">
+            <h4>Government of the People’s Republic of Bangladesh</h4>
+            <x-office-header-details officeid="{{$office_id}}"/>
+        </div>
+        <div class="col" style="float: left; width: 15%;">
+            <img src="{{ base_path('public/assets/images/mujib.png') }}" style="width: 100px; height: 80px;" alt="mujib">
+            <h5 class="bangla-font" style="text-align: center; font-family:Nikosh,serif !important;">
+                শেখ হাসিনার <br>
                 মূলনীতি <br>
                 গ্রাম শহরের <br>
                 উন্নতি <br>
             </h5>
         </div>
-    </div> -->
-</div>
+    </div>
 
     <div class="row" style="margin-top: 10px">
         <div class="col-6" style="text-align: left;"><b>Memo No-</b> {{$office_order['memorandum_no']}}</div>
-        <div class="col-6" style="text-align: right;"><b>Date:</b> {{$office_order['memorandum_date']}}</div>
+        <?php
+            $date = \Carbon\Carbon::parse($office_order['memorandum_date'])->format('d/m/Y');
+        ?>
+        <div class="col-6" style="text-align: right;"><b>Date:</b> {{$date}}</div>
     </div>
 
     <div style="text-align: center">
@@ -124,7 +146,7 @@
         <h5>Tentative Scope of Audit Procedure:</h5>
     </div>
 
-    <div style="text-align: justify">
+    <div style="text-align: -moz-left;">
         {!! nl2br($office_order['advices']) !!}
     </div>
 
@@ -149,7 +171,9 @@
         <h5>Copy for kind information and necessary action:</h5>
     </div>
 
-    <div style="text-align: justify">
+    <div style="text-align: -moz-left;">
         {!! nl2br($office_order['order_cc_list']) !!}
     </div>
 
+</body>
+</html>

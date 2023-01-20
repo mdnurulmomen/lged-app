@@ -29,7 +29,10 @@
                 <td>{{ ucfirst($sectorAreaProgramProcedure['team_member_name_en']) }}</td>
                 <td>
                     @if ($sectorAreaProgramProcedure['workpapers'])
-                        {{ ucfirst($sectorAreaProgramProcedure['workpapers']['title_en']) }}
+                        <a target="_blank" href="{{ config('amms_bee_routes.file_url').$sectorAreaProgramProcedure['workpapers']['attachment'] }}" class="btn btn-download btn-sm btn-bold btn-square ml-auto">
+                            <i class="fa fa-file" aria-hidden="true"></i>
+                            {{ ucfirst($sectorAreaProgramProcedure['workpapers']['title_en']) }}
+                        </a>
                     @endif
                 </td>
                         @if ($key==0)
