@@ -4,13 +4,17 @@
     <div class="row">
         <div class="col-md-6">
         <span style="font-size: 18px">
-            <input checked id="project" onclick="Risk_Assessment_Factor_Container.laodRiskAssessmentFactor('project')"
+            <input checked id="field_offices" onclick="Risk_Assessment_Factor_Container.loadRiskAssessmentFactor('field_offices')"
+                   type="radio" name="risk_factor_type"> Field Offices
+
+            <input id="project" onclick="Risk_Assessment_Factor_Container.loadRiskAssessmentFactor('project')"
                    type="radio" name="risk_factor_type"> Project
-            <input id="function" onclick="Risk_Assessment_Factor_Container.laodRiskAssessmentFactor('function')"
-                   type="radio" name="risk_factor_type"> Function
-            <input id="cost_center"
-                   onclick="Risk_Assessment_Factor_Container.laodRiskAssessmentFactor('unit')" type="radio"
+
+            <input id="cost_center" onclick="Risk_Assessment_Factor_Container.loadRiskAssessmentFactor('unit')" type="radio"
                    name="risk_factor_type"> Unit
+
+            <input id="function" onclick="Risk_Assessment_Factor_Container.loadRiskAssessmentFactor('function')"
+                   type="radio" name="risk_factor_type"> Function
         </span>
         </div>
         <div class="col-md-6 text-right">
@@ -33,10 +37,10 @@
 
 <script>
     $(function () {
-        Risk_Assessment_Factor_Container.laodRiskAssessmentFactor('project');
+        Risk_Assessment_Factor_Container.loadRiskAssessmentFactor('field_offices');
     });
     var Risk_Assessment_Factor_Container = {
-        laodRiskAssessmentFactor: function (type) {
+        loadRiskAssessmentFactor: function (type) {
             loaderStart('loading...');
             let url = '{{route('risk-assessment.factor-approach.load-risk-assessment-factor')}}';
             let data = {type};
