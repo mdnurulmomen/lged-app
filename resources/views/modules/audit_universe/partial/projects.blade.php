@@ -21,8 +21,8 @@
                         {{ $project['name_en'] }}
                     </td>
                     <td> {{ $project['short_name'] }}</td>
-                    <td> {{ $project['sector'] }}</td>
-                    <td> {{ $project['project_type'] }}</td>
+                    <td> {{ ucfirst($project['sector']) }}</td>
+                    <td> {{ ucfirst($project['project_type']) }}</td>
                     <td> {{ $project['founded_by'] }}</td>
                  </tr>
                  @endforeach
