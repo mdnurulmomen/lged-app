@@ -14,6 +14,7 @@ use App\Http\Controllers\AuditExecution\AuditExecutionMemoController;
 use App\Http\Controllers\AuditExecution\AuditExecutionQueryController;
 use App\Http\Controllers\AuditExecution\AuditExecutionReviewController;
 use App\Http\Controllers\AuditExecution\AuditExecutionScheduleController;
+use App\Http\Controllers\AuditUniverseController;
 use App\Http\Controllers\AuditFollowup\AuditFollowupController;
 use App\Http\Controllers\AuditFollowup\AuditFollowupDashboardController;
 use App\Http\Controllers\AuditFollowup\AuditFollowupDueReportController;
@@ -557,6 +558,16 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
         Route::get('data-analysis', [AuditPrepareDataAnalysisController::class, 'index'])->name('data_analysis');
 
         Route::get('activities', [AuditPrepareActivityController::class, 'index'])->name('activities');
+    });
+
+    //Audit Universe
+    Route::group(['as' => 'audit.universe.', 'prefix' => 'audit-universe/'], function () {
+        Route::get('/', [AuditUniverseController::class, 'index']);
+        Route::get('field-offices', [AuditUniverseController::class, 'auditFieldOffices'])->name('field-offices');
+        Route::get('projects', [AuditUniverseController::class, 'auditUniverseProjects'])->name('projects');
+        Route::get('functions', [AuditUniverseController::class, 'auditUniverseFunctions'])->name('functions');
+        Route::get('units', [AuditUniverseController::class, 'auditUniverseUnits'])->name('units');
+
     });
 
     //Execute
