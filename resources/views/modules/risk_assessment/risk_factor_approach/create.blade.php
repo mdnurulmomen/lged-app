@@ -21,7 +21,8 @@
             <div class="row">
                 <div class="col-4">
                     <span style="font-size: 18px">
-                        <input checked id="project" value="project" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('project')" type="radio" name="item_type"> Project
+                        <input checked id="field_office" value="field_office" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('field_office')" type="radio" name="item_type"> Field Offices
+                        <input id="project" value="project" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('project')" type="radio" name="item_type"> Project
                         <input id="function" value="function" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('function')" type="radio" name="item_type"> Function
                         <input id="master-unit" value="master-unit" onclick="Risk_Assessment_Factor_Approach_Container.loadRiskFactorType('master-unit')" type="radio" name="item_type"> Unit
                     </span>
