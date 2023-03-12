@@ -22,7 +22,7 @@
                     </td>
                     <td> {{ $project['short_name'] }}</td>
                     <td> {{ ucfirst($project['sector']) }}</td>
-                    <td> {{ ucfirst($project['project_type']) }}</td>
+                    <td> {{ ucfirst(str_replace('_', ' ', $project['project_type'])) }}</td>
                     <td> {{ $project['founded_by'] }}</td>
                  </tr>
                  @endforeach

@@ -1,12 +1,13 @@
-<x-title-wrapper>{{ucfirst($type)}} Risk List</x-title-wrapper>
+<x-title-wrapper>{{ucfirst($type)}} Risk</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row d-flex align-items-end">
         <div class="col-md-6">
             <span style="font-size: 18px" class="form-group">
-                <input id="project" type="radio" name="risk_factor_type" value="project" checked onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project
+                <input id="field_office" type="radio" name="risk_sector_type" value="field_office" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('field_office')" checked> Field Offices
+                <input id="project" type="radio" name="risk_factor_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project
                 <input id="function" type="radio" name="risk_factor_type" value="function" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function
-                <input id="master_unit" type="radio" name="risk_factor_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Master Unit
+                <input id="master_unit" type="radio" name="risk_factor_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Unit
                 {{-- <input id="cost_center" type="radio" name="risk_factor_type" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center --}}
             </span>
 

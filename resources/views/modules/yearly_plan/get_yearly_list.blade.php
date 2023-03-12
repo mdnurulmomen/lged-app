@@ -59,7 +59,7 @@
                 $('.offcanvas-footer').hide();
                 quick_panel.removeClass('d-none');
                 $("html").addClass("side-panel-overlay");
-                $('.offcanvas-title').html('Yearly Plan Details');
+                $('.offcanvas-title').html('Annual Plan Details');
                 $('.offcanvas-wrapper').html(resp);
             }
         });

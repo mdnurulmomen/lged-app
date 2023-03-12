@@ -1,4 +1,4 @@
-<x-title-wrapper>Yearly Plan List</x-title-wrapper>
+<x-title-wrapper>Annual Plan List</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="col-md-12 text-right">

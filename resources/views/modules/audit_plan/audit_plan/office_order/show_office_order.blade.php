@@ -80,9 +80,6 @@
     <div style="text-align: center">
         <div class="row" style="margin-top: 10px">
             <div class="col-6" style="text-align: left;"><b>Memo No-</b> {{$office_order['memorandum_no']}}</div>
-            <?php
-                $date = \Carbon\Carbon::parse($office_order['memorandum_date'])->format('d/m/Y');
-            ?>
             <div class="col-6" style="text-align: right;"><b>Date:</b> {{$office_order['memorandum_date']}}</div>
         </div>
 
@@ -183,10 +180,10 @@
                                 </td>
                                 <td style="text-align: center; vertical-align: top;">{{$audit_type['audit_type']}}</td>
                                 <td style="vertical-align: top;">2021-2022</td>
-                                <td style="text-align: center; vertical-align: top;">{{$milestones[0]['start_date']}}</td>
-                                <td style="text-align: center; vertical-align: top;">{{$milestones[1]['start_date']}} To {{$milestones[1]['end_date']}}</td>
-                                <td style="text-align: center; vertical-align: top;">{{$milestones[2]['start_date']}}</td>
-                                <td style="text-align: center; vertical-align: top;">{{$milestones[3]['start_date']}}</td>
+                                <td style="text-align: center; vertical-align: top;">{{formatDate($milestones[0]['start_date'])}}</td>
+                                <td style="text-align: center; vertical-align: top;">{{formatDate($milestones[1]['start_date'])}} To {{formatDate($milestones[1]['end_date'])}}</td>
+                                <td style="text-align: center; vertical-align: top;">{{formatDate($milestones[2]['start_date'])}}</td>
+                                <td style="text-align: center; vertical-align: top;">{{formatDate($milestones[3]['start_date'])}}</td>
                             </tr>
 
 

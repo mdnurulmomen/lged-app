@@ -88,6 +88,7 @@
                                     class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2 add_row">
                                 <span class="fad fa-plus"></span>
                             </button>
+                            
 
                             <button type='button' title="Remove"
                                     data-row='row1'
