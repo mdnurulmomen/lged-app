@@ -108,9 +108,40 @@
                             <div class="card-body pt-1">
                                 <div class="form-row">
                                     <div class="col-sm-4 form-group">
+                                        <label for="email">Process Owner:</label>
+                                        <select class="form-control process_owner_id" name="process_owner_id">
+                                            <option value="0" selected>Select Process Owner</option>
+                                            @foreach($officerLists as $key => $officer_list)
+                                                @foreach($officer_list['units'] as $unit)
+                                                    @foreach($unit['designations'] as $designation)
+                                                        @if(!empty($designation['employee_info']))
+                                                            <option value="{{$designation['employee_info']['id']}}">{{$designation['employee_info']['name_eng']}} ({{$designation['designation_eng']}})</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4 form-group">
                                         <label for="sub_area_id">Process/sub-process:</label>
                                         <select onchange="getInherentRisk($(this))"  class="form-control sub_area_id" id="sub_area_id" name="sub_area_id">
                                             <option selected>Select Process/sub-process</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-4 form-group">
+                                        <label for="email">Risk Owner:</label>
+                                        <select class="form-control risk_owner_id" name="risk_owner_id">
+                                            <option value="0" selected>Select Risk Owner</option>
+                                            @foreach($officerLists as $key => $officer_list)
+                                                @foreach($officer_list['units'] as $unit)
+                                                    @foreach($unit['designations'] as $designation)
+                                                        @if(!empty($designation['employee_info']))
+                                                            <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['designation_eng'] : ''}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
                                         </select>
                                     </div>
 
@@ -169,38 +200,6 @@
                                         <div class="col-sm-4 form-group">
                                             <label for="control_system">Existing Control:</label>
                                             <textarea type="text" class="form-control" placeholder="Enter Control System" name="control_system"></textarea>
-                                        </div>
-
-                                        <div class="col-sm-4 form-group">
-                                            <label for="email">Risk Owner:</label>
-                                            <select class="form-control risk_owner_id" name="risk_owner_id">
-                                                <option value="0" selected>Select Risk Owner</option>
-                                                @foreach($officerLists as $key => $officer_list)
-                                                    @foreach($officer_list['units'] as $unit)
-                                                        @foreach($unit['designations'] as $designation)
-                                                            @if(!empty($designation['employee_info']))
-                                                                <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['designation_eng'] : ''}}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    @endforeach
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                        <div class="col-sm-4 form-group">
-                                            <label for="email">Process Owner:</label>
-                                            <select class="form-control process_owner_id" name="process_owner_id">
-                                                <option value="0" selected>Select Risk Owner</option>
-                                                @foreach($officerLists as $key => $officer_list)
-                                                    @foreach($officer_list['units'] as $unit)
-                                                        @foreach($unit['designations'] as $designation)
-                                                            @if(!empty($designation['employee_info']))
-                                                                <option value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    @endforeach
-                                                @endforeach
-                                            </select>
                                         </div>
 
                                         <div class="col-sm-4 form-group">
