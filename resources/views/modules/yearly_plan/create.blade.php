@@ -7,10 +7,10 @@
 
     <div class="col-md-6 text-right">
         <a onclick="Yearly_Plan_Create_Container.backToList()" class="btn btn-sm btn-warning btn_back btn-square mr-3">
-            <i class="fad fa-arrow-alt-left"></i> ফেরত যান
+            <i class="fad fa-arrow-alt-left"></i> Go Back
         </a>
         <button class="btn btn-sm btn-square btn-primary mr-2" onclick="Yearly_Plan_Create_Container.storeYearlyPlan($(this))">
-            <i class="fa fa-save"></i> সংরক্ষণ করুন
+            <i class="fa fa-save"></i> Save
         </button>
     </div>
 </div>
@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-4">
                     <select class="form-control select-select2" name="strategic_plan_year" id="strategic_plan_year">
-                        <option selected value="">select plan</option>
+                        <option selected value="">Select plan</option>
                         @foreach($individual_strategic_plan_year as $year)
                             <option data-strategic-plan="{{$year['strategic_plan_id']}}" value="{{$year['strategic_plan_year']}}">{{$year['strategic_plan_year']}}</option>
                         @endforeach
@@ -39,9 +39,6 @@
 </div>
 @include('modules.strategic_plan.partial.strategic_plan_common_script')
 <script>
-    $(function () {
-
-    });
 
     $('#strategic_plan_year').change(function () {
         Yearly_Plan_Create_Container.loadYearWiseStrategicPlan();

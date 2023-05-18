@@ -27,12 +27,20 @@
             </td>
             <td class="text-left">
                 <button class="mr-1 btn btn-sm btn-primary btn-square show_strategic_plan_details"
-                        title="বিস্তারিত দেখুন" 
-                        data-strategic-plan-id="{{$plan['id']}}" 
+                        title="See Details" 
+                        data-strategic-plan-id="{{$plan['x_sp_duration_id']}}" 
                         data-strategic-plan-year="{{$plan['strategic_plan_year']}}" 
                         onclick=""
                 >
-                    <i class="fad fa-eye"></i> বিস্তারিত
+                    <i class="fad fa-eye"></i> Details
+                </button>
+                <button class="mr-1 btn btn-sm btn-warning btn-square edit_strategic_plan"
+                        title="Edit" 
+                        data-strategic-plan-id="{{$plan['x_sp_duration_id']}}" 
+                        data-strategic-plan-year="{{$plan['strategic_plan_year']}}" 
+                        onclick=""
+                >
+                    <i class="fad fa-pen"></i> Edit
                 </button>
             </td>
         </tr>
@@ -107,11 +115,11 @@
         $('.offcanvas-footer').hide();
         quick_panel.removeClass('d-none');
         $("html").addClass("side-panel-overlay");
-        $('.offcanvas-title').html('Show Year Plans');
+        $('.offcanvas-title').html('Show Year Wise Plans');
 
-        // let strategic_plan_id = $(this).data('strategic-plan-id');
+        let strategic_plan_id = $(this).data('strategic-plan-id');
         let strategic_plan_year = $(this).data('strategic-plan-year');
-        let data = {strategic_plan_year};
+        let data = {strategic_plan_id, strategic_plan_year};
         
         let url = "{{ route('audit.plan.strategy.show-year-wise-strategic-plan') }}";
         
@@ -125,6 +133,22 @@
                 // $('#title_bn').text(title_bn);
                 // $('#title_en').text(title_en);
                 $('.offcanvas-wrapper').html(resp);
+            }
+        });
+    });
+
+    $('.edit_strategic_plan').click(function () {
+        loaderStart('loading...');
+        let strategic_plan_id = $(this).data('strategic-plan-id');
+        let strategic_plan_year = $(this).data('strategic-plan-year');
+        let data = {strategic_plan_id, strategic_plan_year};
+        let url = "{{ route('audit.plan.strategy.edit-year-wise-strategic-plan') }}";
+        ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
+            loaderStop();
+            if (response.status === 'error') {
+                toastr.error(response.data)
+            } else {
+                $("#kt_content").html(response);
             }
         });
     });

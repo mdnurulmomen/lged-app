@@ -1,3 +1,12 @@
+<div class="text-right">
+    <button onclick="Strategic_Plan_Container.downloadStrategicPlanList($(this))"
+            title="Download"
+            data-strategic-plan-id="{{$data['strategic_plan_id']}}" 
+            data-strategic-plan-year="{{$data['strategic_plan_year']}}" 
+            class="btn btn-danger btn-sm btn-bold btn-square">
+        <i class="far fa-file-pdf"></i> Download
+    </button>
+</div>
 <div class="card sna-card-border mt-3">
     <div class="annual_entity_selection_area mt-4">
         <ul class="nav nav-tabs custom-tabs mb-0" id="myTab" role="tablist">

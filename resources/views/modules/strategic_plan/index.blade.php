@@ -36,6 +36,40 @@
                 }
             });
         },
+
+        downloadStrategicPlanList:  function (elem) {
+            url = '{{route('audit.plan.strategy.download-year-wise-strategic-plan')}}';
+            let strategic_plan_id = elem.data('strategic-plan-id');
+            let strategic_plan_year = elem.data('strategic-plan-year');
+            data = {strategic_plan_id, strategic_plan_year};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                message: 'Downloading Please Wait..',
+                state: 'primary' // a bootstrap color
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (response) {
+                    KTApp.unblock('#kt_wrapper');
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "office_order.pdf";
+                    link.click();
+                },
+                error: function (blob) {
+                    toastr.error('Failed to generate PDF.')
+                    console.log(blob);
+                }
+            });
+        },
     };
 </script>
 

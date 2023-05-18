@@ -170,6 +170,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/create', [AuditStrategicPlanController::class, 'create'])->name('create');
             Route::get('/get-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'getYearWiseStrategicPlan'])->name('get-year-wise-strategic-plan');
             Route::get('/show-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'showYearWiseStrategicPlan'])->name('show-year-wise-strategic-plan');
+            Route::get('/edit-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'editYearWiseStrategicPlan'])->name('edit-year-wise-strategic-plan');
+            Route::post('/download-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'downloadYearWiseStrategicPlan'])->name('download-year-wise-strategic-plan');
             Route::get('/add-location-row', [AuditStrategicPlanController::class, 'addLocationRow'])->name('add-location-row');
             Route::post('/store', [AuditStrategicPlanController::class, 'store'])->name('store');
             Route::post('/get-cost-center-project-map', [AuditStrategicPlanController::class, 'getCostCenterProjectMap'])->name('get-cost-center-project-map');
@@ -436,6 +438,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/get-individual-yearly-plan', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'getIndividualYearlyPlan'])->name('get-individual-yearly-plan');
             Route::get('/create', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'create'])->name('create');
             Route::post('/store', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'store'])->name('store');
+            Route::post('/edit', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'edit'])->name('edit');
             Route::get('/get-individual-strategic-plan', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'getIndividualStrategicPlan'])->name('get-individual-strategic-plan');
 
         });

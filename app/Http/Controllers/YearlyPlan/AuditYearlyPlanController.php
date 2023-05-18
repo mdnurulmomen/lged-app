@@ -156,9 +156,32 @@ class AuditYearlyPlanController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $data = Validator::make($request->all(), [
+            'strategic_plan_year' => 'required|integer',
+        ])->validate();
+
+        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-projects'), [])->json();
+        $all_project = $all_project ? $all_project['data'] : [];
+
+        $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.functions.list'), [])->json();
+        $all_function = $all_function ? $all_function['data'] : [];
+
+        // dd($request);
+        
+        $individual_yearly_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_yearly_plan.get_individual_yearly_plan'),$data)->json();
+        $individual_strategic_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.get_individual_strategic_plan'),$data)->json();
+
+        // dd($individual_yearly_plan);
+        
+        if (isSuccess($individual_yearly_plan)) {
+            $individual_yearly_plan = $individual_yearly_plan['data'];
+            // dd($individual_yearly_plan);
+            return view('modules.yearly_plan.edit',compact('individual_strategic_plan','individual_yearly_plan', 'all_function','all_project','data'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $individual_yearly_plan]);
+        }
     }
 
     /**
@@ -168,6 +191,7 @@ class AuditYearlyPlanController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
         //

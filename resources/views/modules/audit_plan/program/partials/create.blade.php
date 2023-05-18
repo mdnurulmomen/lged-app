@@ -6,9 +6,9 @@
     </div>
 
     <div class="col-md-6 text-right">
-        <a id="go_back" class="btn btn-sm btn-warning btn_back btn-square mr-3">
+        <button class="btn btn-sm btn-square btn-warning mr-2" id="go_back">
             <i class="fad fa-arrow-alt-left"></i> Go Back
-        </a>
+        </button>
         <button class="btn btn-sm btn-square btn-primary mr-2" id="submit_button">
             <i class="fa fa-save"></i> Save
         </button>
@@ -240,8 +240,7 @@
     });
 
     $('#go_back').on("click", function() {
-        // console.log('back');
-        backToList();
+        $('.sector_area_program_menu  a').click();
     });
 
     function addProcedure () {
@@ -259,10 +258,6 @@
         $( ".indexAreaProcedure" ).each(function( index ) {
             $(this).text('Procedure '+ (index + 1))
         });
-    }
-
-    function backToList () {
-        $('.sector_area_program_menu  a').click();
     }
 
     function setAvailableAreas () {

@@ -27,10 +27,19 @@
             </td>
             <td class="text-left">
                 <button class="mr-1 btn btn-sm btn-primary btn-square show_year_detail"
-                        title="বিস্তারিত দেখুন"
-                        data-strategic-plan-year="{{ $plan['strategic_plan_year'] }}"
-                >
-                    <i class="fad fa-eye"></i> বিস্তারিত
+                        title="See Details"
+                        data-strategic-plan-year="{{ $plan['strategic_plan_year'] }}">
+                    <i class="fad fa-eye"></i> Details
+                </button>
+                <button class="mr-1 btn btn-sm btn-warning btn-square edit_year_detail"
+                        title="Edit"
+                        data-strategic-plan-year="{{ $plan['strategic_plan_year'] }}">
+                    <i class="fad fa-pen"></i> Edit
+                </button>
+                <button class="mr-1 btn btn-sm btn-danger btn-square delete_year_detail"
+                        title="Delete"
+                        data-strategic-plan-year="{{ $plan['strategic_plan_year'] }}">
+                    <i class="fad fa-trash"></i> Delete
                 </button>
             </td>
         </tr>
@@ -61,6 +70,21 @@
                 $("html").addClass("side-panel-overlay");
                 $('.offcanvas-title').html('Annual Plan Details');
                 $('.offcanvas-wrapper').html(resp);
+            }
+        });
+    });
+
+    $('.edit_year_detail').click(function () {
+        loaderStart('loading...');
+        strategic_plan_year = $(this).data('strategic-plan-year');
+        let url = "{{ route('audit.plan.yearly-plan.edit') }}";
+        let data = {strategic_plan_year};
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+            loaderStop();
+            if (response.status === 'error') {
+                toastr.error(response.data)
+            } else {
+                $("#kt_content").html(response);
             }
         });
     });
