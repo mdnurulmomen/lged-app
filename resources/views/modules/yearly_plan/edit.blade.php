@@ -8,9 +8,26 @@
         </button>
     </div>
 </div>
+<div class="row">
+    <div class="col-12">
+        <div class="card sna-card-border">
+            <div class="row">
+                <div class="col-4">
+                    <select class="form-control select-select2" name="strategic_plan_year" id="strategic_plan_year">
+                        <option selected value="">Select plan</option>
+                        @foreach($individual_strategic_plan_year as $year)
+                            <option data-strategic-plan="{{$year['strategic_plan_id']}}" value="{{$year['strategic_plan_year']}}" {{$year['strategic_plan_year'] == $data['strategic_plan_year']  ? 'selected' : ''}}>{{$year['strategic_plan_year']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card sna-card-border mt-2 strategic_year_{{$data['strategic_plan_year']}}">
     <div class="row">
         <div class="col-12">
+            <input type="hidden" class="form-control yearly_plan_id" value="{{$data['yearly_plan_id']}}">
             <label>Project :</label>
             <table style="table-layout: fixed" id="project_table_{{$data['strategic_plan_year']}}" class="table table-bordered">
                 <thead class="thead-light">
@@ -25,7 +42,8 @@
                 <tbody>
 
                 @foreach($individual_yearly_plan['project_list'] as $projects)
-                <tr class="strategic_row project_row_{{$projects['strategic_plan_year']}}">
+                <tr class="strategic_row project_row_{{$projects['strategic_plan_year']}}" id="location{{ $projects['id'] }}">
+                    <input type="hidden" class="form-control project_location_id" value="{{$projects['id']}}">
                     <td>
                         <select data-strategic-year="{{$projects['strategic_plan_year']}}" data-id="{{$loop->iteration}}" class="form-control project_id_{{$projects['strategic_plan_year']}} select-select2 project-select">
                             <option selected value="">Select Project</option>
@@ -65,7 +83,8 @@
 
                             <button type='button' title="বাদ দিন"
                                     data-row='row1'
-                                    onclick="Plan_Common_Container.removeLocationRow($(this))"
+                                    data-yearly-plan-locations-id = "{{ $projects['id'] }}"
+                                    onclick="Yearly_Plan_Container.removeLocationRow($(this))"
                                     class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                                 <span class='fal fa-trash-alt'></span>
                             </button>
@@ -93,7 +112,8 @@
                 <tbody>
 
                 @foreach($individual_yearly_plan['function_list'] as $functions)
-                    <tr class="strategic_row function_row_{{$functions['strategic_plan_year']}}">
+                    <tr class="strategic_row function_row_{{$functions['strategic_plan_year']}}" id="location{{ $functions['id'] }}">
+                        <input type="hidden" class="form-control function_location_id" value="{{$functions['id']}}">
                         <td>
                             <select data-strategic-year={{$functions['strategic_plan_year']}}"" data-id="{{$loop->iteration}}" class="form-control function_id_{{$functions['strategic_plan_year']}} select-select2 project-select">
                                 <option selected value="">select function</option>
@@ -134,7 +154,8 @@
 
                                 <button type='button' title="বাদ দিন"
                                         data-row='row1'
-                                        onclick="Plan_Common_Container.removeLocationRow($(this))"
+                                        data-yearly-plan-locations-id = "{{ $functions['id'] }}"
+                                        onclick="Yearly_Plan_Container.removeLocationRow($(this))"
                                         class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                                     <span class='fal fa-trash-alt'></span>
                                 </button>

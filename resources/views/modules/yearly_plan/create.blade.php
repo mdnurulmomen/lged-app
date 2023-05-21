@@ -45,11 +45,12 @@
     });
 
     var Yearly_Plan_Create_Container = {
-        loadYearWiseStrategicPlan: function () {
+        loadYearWiseStrategicPlan: function (elem) {
             loaderStart('loading...');
             strategic_plan_year = $('#strategic_plan_year').find(':selected').text();
+            strategic_plan_id = $('#strategic_plan_year').find(':selected').data('strategic-plan');
             let url = '{{route('audit.plan.yearly-plan.get-individual-strategic-plan')}}';
-            let data = {strategic_plan_year};
+            let data = {strategic_plan_year,strategic_plan_id};
             ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
                loaderStop();
                 if (response.status === 'error') {

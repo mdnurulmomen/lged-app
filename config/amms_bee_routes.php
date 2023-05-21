@@ -240,6 +240,9 @@ return [
     'audit_yearly_plan' => [
         'yearly_plan_list' => env('API_URL_BEE', '') . '/yearly-plan/list',
         'yearly_plan_store' => env('API_URL_BEE', '') . '/yearly-plan/store',
+        'yearly_plan_update' => env('API_URL_BEE', '') . '/yearly-plan/update',
+        'yearly_plan_delete' => env('API_URL_BEE', '') . '/yearly-plan/yearly-plan-delete',
+        'yearly_plan_location_delete' => env('API_URL_BEE', '') . '/yearly-plan/yearly_plan_location_delete',
         'get_individual_yearly_plan' => env('API_URL_BEE', '') . '/yearly-plan/get-individual-yearly-plan',
         'get_individual_yearly_plan_year' => env('API_URL_BEE', '') . '/yearly-plan/get-individual-yearly-plan-year',
     ],

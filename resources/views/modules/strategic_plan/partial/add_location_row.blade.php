@@ -1,6 +1,7 @@
 <tr class="strategic_row {{$row_type}}_row_{{$strategic_year}}">
     <td>
         @if($row_type == 'project')
+        <input type="hidden" class="form-control project_location_id" value="0">
             <select data-strategic-year="{{$strategic_year}}" data-id="{{$row_count}}" class="form-control project_id_{{$strategic_year}} project-select select-select2">
                 <option selected value="">select project</option>
                 @foreach($all_project as $project)
@@ -8,6 +9,7 @@
                 @endforeach
             </select>
         @elseif($row_type == 'function')
+        <input type="hidden" class="form-control function_location_id" value="0">
             <select data-strategic-year="{{$strategic_year}}" class="form-control function_id_{{$strategic_year}} select-select2">
                 <option selected value="">select function</option>
                 @foreach($all_function as $function)

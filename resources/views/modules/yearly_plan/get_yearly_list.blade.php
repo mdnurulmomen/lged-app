@@ -33,12 +33,15 @@
                 </button>
                 <button class="mr-1 btn btn-sm btn-warning btn-square edit_year_detail"
                         title="Edit"
-                        data-strategic-plan-year="{{ $plan['strategic_plan_year'] }}">
+                        data-strategic-plan-year="{{ $plan['strategic_plan_year'] }}"
+                        data-yearly-plan-id="{{ $plan['id'] }}">
                     <i class="fad fa-pen"></i> Edit
                 </button>
                 <button class="mr-1 btn btn-sm btn-danger btn-square delete_year_detail"
                         title="Delete"
-                        data-strategic-plan-year="{{ $plan['strategic_plan_year'] }}">
+                        data-strategic-plan-year="{{ $plan['strategic_plan_year'] }}"
+                        data-yearly-plan-id="{{ $plan['id'] }}"
+                        onclick="Yearly_Plan_Container.deleteYearlyPLan($(this))"
                     <i class="fad fa-trash"></i> Delete
                 </button>
             </td>
@@ -77,8 +80,9 @@
     $('.edit_year_detail').click(function () {
         loaderStart('loading...');
         strategic_plan_year = $(this).data('strategic-plan-year');
+        yearly_plan_id = $(this).data('yearly-plan-id');
         let url = "{{ route('audit.plan.yearly-plan.edit') }}";
-        let data = {strategic_plan_year};
+        let data = {strategic_plan_year,yearly_plan_id};
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
             loaderStop();
             if (response.status === 'error') {

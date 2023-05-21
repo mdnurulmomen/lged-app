@@ -141,10 +141,11 @@ class AuditStrategicPlanController extends Controller
     }
 
     public function getCostCenterProjectMap(Request $request){
-        $data['project_id'] = $request->project_id;
-        $cost_center_list = $this->initRPUHttp()->post(config('cag_rpu_api.cost-center-project-map.get-cost-center-project-map'), $data)->json();
+        $data['sector_id'] = $request->project_id;
+        $data['sector_type'] = 'project';
+        $cost_center_list = $this->initRPUHttp()->post(config('cag_rpu_api.cost-center-sector-map.cost-centers'), $data)->json();
         $cost_center_list = $cost_center_list ? $cost_center_list['data'] : [];
-
+        dd($cost_center_list);
         return view('modules.strategic_plan.partial.cost_center_select',
             compact('cost_center_list'));
     }

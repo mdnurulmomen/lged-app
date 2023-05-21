@@ -439,6 +439,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/create', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'create'])->name('create');
             Route::post('/store', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'store'])->name('store');
             Route::post('/edit', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'edit'])->name('edit');
+            Route::post('/update', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'update'])->name('update');
+            Route::post('/delete-yearly-plan', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'deleteYearlyPlan'])->name('delete-yearly-plan');
+            Route::post('/delete-yearly-plan-locations', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'deleteYearlyPlanLocations'])->name('delete-yearly-plan-locations');
             Route::get('/get-individual-strategic-plan', [\App\Http\Controllers\YearlyPlan\AuditYearlyPlanController::class, 'getIndividualStrategicPlan'])->name('get-individual-strategic-plan');
 
         });
