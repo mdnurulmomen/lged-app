@@ -1,4 +1,4 @@
-<div class="card sna-card-border mt-2 strategic_year">
+<div class="mt-2 strategic_year">
 
     @if (! count($individual_yearly_plan['project_list']) && ! count($individual_yearly_plan['project_list']) && ! count($individual_yearly_plan['project_list']))
         <div class="row">
@@ -10,12 +10,13 @@
                 </table>
             </div>
         </div>
-        
-    @elseif (count($individual_yearly_plan['project_list']))
+    @else
+
+    @if (count($individual_yearly_plan['project_list']))
         <div class="row">
             <div class="col-sm-12">
                 <label>Project :</label>
-                <table id="project_table" class="table table-striped">
+                <table id="project_table" class="table table-bordered">
                     <thead class="thead-light">
                         <tr>
                             <th width="20%">Project</th>
@@ -37,11 +38,12 @@
                 </table>
             </div>
         </div>
-    @elseif (count($individual_yearly_plan['function_list']))
+    @endif
+    @if (count($individual_yearly_plan['function_list']))
         <div class="row">
             <div class="col-sm-12">
                 <label>Function :</label>
-                <table id="function_table" class="table table-striped">
+                <table id="function_table" class="table table-bordered">
                     <thead class="thead-light">
                         <tr>
                             <th width="20%">Function</th>
@@ -64,11 +66,12 @@
                 </table>
             </div>
         </div>
-    @elseif (count($individual_yearly_plan['cost_centers']))
+    @endif
+    @if (count($individual_yearly_plan['cost_centers']))
         <div class="row">
             <div class="col-sm-12">
                 <label>Cost Center :</label>
-                <table id="project_table" class="table table-striped">
+                <table id="project_table" class="table table-bordered">
                     <thead class="thead-light">
                         <tr>
                             <th width="20%">Cost Center</th>
@@ -91,5 +94,6 @@
                 </table>
             </div>
         </div>
+    @endif
     @endif
 </div>
