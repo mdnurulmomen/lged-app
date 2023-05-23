@@ -15,10 +15,11 @@
             <label for="subject">Subject:</label>
             <textarea placeholder="Subject of the letter" class="form-control" type="text" id="subject"></textarea>
         </div>
-        
+
         <div class="col-md-12 form-group">
             <label for="body">Body:</label>
-            <textarea placeholder="Body of the letter" class="form-control" type="text" id="body"></textarea>
+            <textarea id="body" class="kt-tinymce-summary" name="body"></textarea>
+            {{--  <textarea placeholder="Body of the letter" class="form-control" type="text" id="body"></textarea>  --}}
         </div>
 
         <div class="col-md-12 form-group">
@@ -96,7 +97,7 @@
     let yearly_plan_location_id = "{{$data['yearly_plan_location_id']}}";
     let letter_to = $('#letter_to').val();
     let subject = $('#subject').val();
-    let body = $('#body').val();
+    let body = tinymce.get("body").getContent();
     let others = tinymce.get("others").getContent();
 
     let data = {audit_plan_id, yearly_plan_location_id, letter_to, subject, body, others};

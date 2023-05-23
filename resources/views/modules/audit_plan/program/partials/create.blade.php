@@ -130,7 +130,7 @@
     </div>
 
     <div class="col-md-5">
-        <div class="card sector_area_procedures">
+        <div id="sector_area_procedures" class="card sector_area_procedures">
             <div class="card-header pt-1 pb-2">
                 <p class="text-center m-0 indexAreaProcedure">Procedure 1</p>
             </div>
@@ -244,7 +244,9 @@
     });
 
     function addProcedure () {
-        $(".sector_area_procedures").clone().insertAfter(".sector_area_procedures:last");
+        var clone_text = $("#sector_area_procedures").clone();
+        clone_text.insertAfter(".sector_area_procedures:last");
+        $("#sector_area_procedures").last().val('');
     }
 
     function removeProcedure () {
@@ -331,7 +333,7 @@
                 toastr.error(response.data)
             } else {
                 toastr.success(response.data);
-                backToList();
+                $('.sector_area_program_menu  a').click();
             }
         });
     }

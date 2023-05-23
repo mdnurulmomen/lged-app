@@ -24,10 +24,19 @@
 </div>
 
 <script>
-
-    $('#strategic_plan_year').change(function () {
-        Yearly_Plan_Container.loadYearWiseStrategicPlan();
-    });
+    var individual_yearly_plan_data = '{!! session('individual_yearly_plan_filter') !!}';
+    if(individual_yearly_plan_data != ""){
+        filter_data = JSON.parse(individual_yearly_plan_data);
+        console.log(filter_data)
+        $("#strategic_plan_year").attr("selected", "true").val(filter_data.strategic_plan_year);
+        $(function(){
+            Yearly_Plan_Container.loadYearWiseStrategicPlan();
+        })
+    }else{
+        $('#strategic_plan_year').change(function () {
+            Yearly_Plan_Container.loadYearWiseStrategicPlan();
+        });
+    }
 
     var Yearly_Plan_Container = {
         loadYearWiseStrategicPlan: function () {

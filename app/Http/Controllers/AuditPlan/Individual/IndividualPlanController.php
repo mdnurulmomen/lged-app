@@ -5,13 +5,13 @@ namespace App\Http\Controllers\AuditPlan\Individual;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class IndividualPlanController extends Controller
 {
     public function index(Request $request)
     {
-        // dd($request->all());
         $individual_strategic_plan_year = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_yearly_plan.get_individual_yearly_plan_year'))->json();
 
         if (isSuccess($individual_strategic_plan_year)) {
@@ -24,14 +24,14 @@ class IndividualPlanController extends Controller
     }
 
     public function getIndividualYearlyPlan(Request $request){
-        
+
         $data = Validator::make($request->all(), [
             'strategic_plan_year' => 'required|integer',
         ])->validate();
-
+        Session::put('individual_yearly_plan_filter',json_encode($data));
         $individual_yearly_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_yearly_plan.get_individual_yearly_plan'),$data)->json();
 
-//         dd($individual_yearly_plan);
+        // dd($individual_yearly_plan);
 
         if (isSuccess($individual_yearly_plan)) {
             $individual_yearly_plan = $individual_yearly_plan['data'];
@@ -75,7 +75,7 @@ class IndividualPlanController extends Controller
             'objective' => 'required|string',
             'scope' => 'required|string',
         ])->validate();
-        
+
 
         $data['cdesk'] = $this->current_desk_json();
 
@@ -170,14 +170,14 @@ class IndividualPlanController extends Controller
         $sector_type = $request->sector_type;
         $sector_id = $request->sector_id;
         $team_layer_id = $request->team_layer_id;
-
+        $allCostCenters = [];
         if ($sector_type == 'project') {
 
             $allCostCenters = $this->initRPUHttp()->post(config('cag_rpu_api.cost-center-sector-map.cost-centers'), $data)->json();
             $allCostCenters = $allCostCenters ? $allCostCenters['data'] : [];
-            // dd($allCostCenters);
-        }
 
+        }
+        // dd($allCostCenters_data);
         return view('modules.individual_plan.partial.schedule-modal', compact(['team_layer_id', 'allCostCenters', 'sector_id']));
     }
 
@@ -326,7 +326,7 @@ class IndividualPlanController extends Controller
         $data = Validator::make($request->all(), [
             'yearly_plan_location_id' => 'required|integer',
             'audit_plan_id' => 'required|integer',
-        ])->validate(); 
+        ])->validate();
 
         return view('modules.individual_plan.partial.engagement_letter',compact('data'));
     }
@@ -341,8 +341,8 @@ class IndividualPlanController extends Controller
             'subject' => 'required|string',
             'body' => 'required|string',
             'others' => 'required|string',
-        ])->validate(); 
-        
+        ])->validate();
+
         $data['cdesk'] = $this->current_desk_json();
         $engagementLetterStore = $this->initHttpWithToken()->post(config('amms_bee_routes.individual_plan.engagement_letter_store'),$data)->json();
     //    dd($engagementLetterStore);

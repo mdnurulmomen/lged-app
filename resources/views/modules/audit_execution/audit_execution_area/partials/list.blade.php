@@ -2,11 +2,11 @@
     <thead class="thead-light">
     <tr>
         <th>
-            Title Bn
+            Process/Sub-process Bn
         </th>
 
         <th>
-            Title En
+            Process/Sub-process En
         </th>
 
         <th>
@@ -31,16 +31,16 @@
             <td> {{ ucfirst($audit_area['sector']['name_en']) }} </td>
             <td>
                 <a href="javascript:;"
-                   data-id="{{$audit_area['id']}}" 
-                   data-sector-id="{{$audit_area['sector_id']}}" 
-                   data-sector-type="{{$audit_area['sector_type']}}" 
-                   data-title-en="{{$audit_area['name_bn']}}" 
-                   data-title-bn="{{$audit_area['name_en']}}" 
-                   data-parent-id="{{$audit_area['parent_id']}}" 
+                   data-id="{{$audit_area['id']}}"
+                   data-sector-id="{{$audit_area['sector_id']}}"
+                   data-sector-type="{{$audit_area['sector_type']}}"
+                   data-title-en="{{$audit_area['name_bn']}}"
+                   data-title-bn="{{$audit_area['name_en']}}"
+                   data-parent-id="{{$audit_area['parent_id']}}"
                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_audit_area">
                     <i class="fas fa-edit"></i>
                 </a>
-                
+
                 <a href="javascript:;"
                    data-id="{{$audit_area['id']}}"
                    data-url="{{ route('audit.execution.areas.destroy', $audit_area['id']) }}"

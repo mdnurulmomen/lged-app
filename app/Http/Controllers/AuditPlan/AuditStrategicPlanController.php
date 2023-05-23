@@ -87,6 +87,7 @@ class AuditStrategicPlanController extends Controller
         $strategic_plan_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.get_individual_strategic_plan'), $data)->json();
         $strategic_plan_list = $strategic_plan_list ? $strategic_plan_list['data'] : [];
         // dd($strategic_plan_list);
+        $strategic_plan_durations =  $this->allStrategicPlanDurations();
 
         $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-projects'), [])->json();
         $all_project = $all_project ? $all_project['data'] : [];
@@ -95,7 +96,7 @@ class AuditStrategicPlanController extends Controller
         $all_function = $all_function ? $all_function['data'] : [];
 
         return view('modules.strategic_plan.edit',
-            compact('start','end', 'strategic_plan_list', 'data'));
+            compact('start','end', 'strategic_plan_list','strategic_plan_durations', 'data'));
     }
 
     public function downloadYearWiseStrategicPlan(Request $request){

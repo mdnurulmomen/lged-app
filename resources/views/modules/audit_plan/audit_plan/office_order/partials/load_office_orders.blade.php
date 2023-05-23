@@ -98,7 +98,7 @@
                                             <span class="font-size-14">{{$loop->iteration}}</span>
                                         </div>
 
-                                        @if($audit_plan['yearly_plan_location']['project_id'])
+                                        @if($audit_plan['yearly_plan_location'])
                                             <div class="font-weight-normal">
                                                 <span class="mr-2 font-size-1-1">Project :</span>
                                                 <span class="font-size-14">

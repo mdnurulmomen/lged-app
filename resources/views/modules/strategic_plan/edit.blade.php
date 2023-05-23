@@ -21,10 +21,7 @@
             <div class="row">
                 <div class="col-4">
                     <select class="form-control select-select2" name="strategic_plan_year" id="strategic_plan_year">
-                        <option selected value="">select plan</option>
-                        @foreach($strategic_plan_durations as $duration)
-                            <option value="{{$duration['id']}}">{{$duration['start_year']}} - {{$duration['end_year']}}</option>
-                        @endforeach
+                            <option value="{{$data['strategic_plan_id']}}">{{$data['strategic_plan_year']}}</option>
                     </select>
                 </div>
             </div>
@@ -40,7 +37,7 @@
 @include('modules.strategic_plan.partial.strategic_plan_common_script')
 <script>
 
-    $('#strategic_plan_year').change(function () {
+    $(function () {
         Strategic_Plan_Create_Container.loadYearWiseStrategicPlan();
     });
 
