@@ -146,7 +146,7 @@ class AuditStrategicPlanController extends Controller
         $data['sector_type'] = 'project';
         $cost_center_list = $this->initRPUHttp()->post(config('cag_rpu_api.cost-center-sector-map.cost-centers'), $data)->json();
         $cost_center_list = $cost_center_list ? $cost_center_list['data'] : [];
-        dd($cost_center_list);
+        // dd($cost_center_list);
         return view('modules.strategic_plan.partial.cost_center_select',
             compact('cost_center_list'));
     }
