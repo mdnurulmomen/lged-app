@@ -180,10 +180,13 @@
                                 </td>
                                 <td style="text-align: center; vertical-align: top;">{{$audit_type['audit_type']}}</td>
                                 <td style="vertical-align: top;">2021-2022</td>
-                                <td style="text-align: center; vertical-align: top;">{{formatDate($milestones[0]['start_date'])}}</td>
-                                <td style="text-align: center; vertical-align: top;">{{formatDate($milestones[1]['start_date'])}} To {{formatDate($milestones[1]['end_date'])}}</td>
-                                <td style="text-align: center; vertical-align: top;">{{formatDate($milestones[2]['start_date'])}}</td>
-                                <td style="text-align: center; vertical-align: top;">{{formatDate($milestones[3]['start_date'])}}</td>
+                                @php
+                                    $count_milestones = count($milestones);
+                                @endphp
+                                <td style="text-align: center; vertical-align: top;">{{$milestones[0]['start_date'] ? formatDate($milestones[0]['start_date']) : ''}}</td>
+                                <td style="text-align: center; vertical-align: top;">@if($count_milestones > 1){{ formatDate($milestones[1]['start_date'])}} To {{formatDate($milestones[1]['end_date'])}} @endif</td>
+                                <td style="text-align: center; vertical-align: top;">@if($count_milestones > 2){{formatDate($milestones[2]['start_date'])}}@endif</td>
+                                <td style="text-align: center; vertical-align: top;">@if($count_milestones > 3){{formatDate($milestones[3]['start_date'])}}@endif</td>
                             </tr>
 
 

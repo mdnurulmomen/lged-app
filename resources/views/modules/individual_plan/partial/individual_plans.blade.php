@@ -2,6 +2,10 @@
     .tox{
         z-index: 1060 !important;
     }
+    .scroll.ps > .ps__rail-y > .ps__thumb-y {
+        overflow-y: visible;
+        background-color: black;
+    }
 </style>
 <form  id="individual_plan_form" autocomplete="off">
     <input type="hidden" value="{{$data['audit_plan_id']}}" name="id">
@@ -88,7 +92,7 @@
                                     class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2 add_row">
                                 <span class="fad fa-plus"></span>
                             </button>
-                            
+
 
                             <button type='button' title="Remove"
                                     data-row='row1'
