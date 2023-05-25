@@ -140,6 +140,7 @@ class AuditStrategicPlanController extends Controller
         return view('modules.strategic_plan.partial.strategic_year_wise_plan',
             compact('start','end', 'all_project','all_function'));
     }
+    
 
     public function getCostCenterProjectMap(Request $request){
         $data['sector_id'] = $request->project_id;
