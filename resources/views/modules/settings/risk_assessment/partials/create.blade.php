@@ -20,13 +20,13 @@
         <div class="card">
             <div class="card-header">
                 <div class="form-row">
-                    <div class="col-sm-2 form-group">
+                    <div class="col-sm-4 form-group">
+                        <input type="radio" name="assessment_sector_type" value="field_office"> Field Office
                         <input type="radio" name="assessment_sector_type" value="project" checked> Project
+                        <input type="radio" name="assessment_sector_type" value="function"> Function
+                        <input type="radio" name="assessment_sector_type" value="master-unit" > Master Unit
                     </div>
 
-                    <div class="col-sm-2 form-group">
-                        <input type="radio" name="assessment_sector_type" value="function"> Function
-                    </div>
 
 {{--                    <div class="col-sm-4 form-group">--}}
 {{--                        <input type="radio" name="assessment_sector_type" value="master-unit" > Master Unit--}}

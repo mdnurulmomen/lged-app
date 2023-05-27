@@ -4,7 +4,7 @@
     <div class="row d-flex align-items-end">
         <div class="col-md-6">
             <span style="font-size: 18px" class="form-group">
-                <input id="field_office" type="radio" name="risk_sector_type" value="field_office" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('field_office')" checked> Field Offices
+                <input id="field_office" type="radio" name="risk_factor_type" value="field_office" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('field_office')"> Field Offices
                 <input id="project" type="radio" name="risk_factor_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project
                 <input id="function" type="radio" name="risk_factor_type" value="function" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function
                 <input id="master_unit" type="radio" name="risk_factor_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Unit
@@ -113,7 +113,7 @@
 
 <script>
     $(function () {
-        $('#project_id').trigger('change');
+        $('#project').click();
         // Risk_Assessment_Factor_Approach_Container.setAssessmentType('project');
 
         $("#summery_assessment_button").click(function() {
