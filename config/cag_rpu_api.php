@@ -23,14 +23,14 @@ return [
 
     'get-entity-wise-unit-group-office' => env('API_URL_RPU', '') . '/get-entity-wise-unit-group-office',
     'get-entity-or-unit-group-wise-cost-center' => env('API_URL_RPU', '') . '/get-entity-or-unit-group-wise-cost-center',
-    
+
     'get-all-projects' => env('API_URL_RPU', '') . '/projects/list',
     'update-projects' => env('API_URL_RPU', '') . '/projects/update',
 
     'get-project-wise-entity' => env('API_URL_RPU', '') . '/cost_center_project_map/project-wise-entity-list',
     'get-project-wise-cost-center' => env('API_URL_RPU', '') . '/cost_center_project_map/project-wise-cost-center-list',
     'get-project-wise-nominated-cost-center-list' => env('API_URL_RPU', '') . '/cost_center_project_map/project-map-nominated-cost-center-list',
-    'get-project-map-cos-center-autoselect' => env('API_URL_RPU', '') . '/cost_center_project_map/get-project-map-cos-center-autoselect',
+    'get-project-map-cos-center-autoselect' => env('API_URL_RPU', '') . '/cost-center-sector-map/get-project-map-cos-center-autoselect',
     'get-project-wise-doner' => env('API_URL_RPU', '') . '/project/get-project-wise-doner',
 
     //rpu apotti

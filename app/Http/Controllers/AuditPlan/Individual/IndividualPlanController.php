@@ -206,9 +206,9 @@ class IndividualPlanController extends Controller
     public function storeAuditTeam(Request $request)
     {
         $data = Validator::make($request->all(), [
-            // 'activity_id' => 'required|integer',
-            // 'fiscal_year_id' => 'required|integer',
-            // 'annual_plan_id' => 'required|integer',
+             'activity_id' => 'nullable|integer',
+             'fiscal_year_id' => 'nullable|integer',
+             'annual_plan_id' => 'nullable|integer',
             'yearly_plan_location_id' => 'required|integer',
             // 'strategic_plan_year' => 'required|integer',
             'audit_year_start' => 'required',
@@ -217,7 +217,7 @@ class IndividualPlanController extends Controller
             'modal_type' => 'nullable',
         ])->validate();
 
-        // dd($request);
+//         dd($request);
 
         $teams = json_encode_unicode($request->teams);
         $data['teams'] = json_encode(['teams' => json_decode($teams)], JSON_UNESCAPED_UNICODE);
@@ -226,7 +226,7 @@ class IndividualPlanController extends Controller
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.store_audit_team'), $data)->json();
 
-        // dd($responseData);
+//         dd($responseData);
 
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
@@ -257,6 +257,7 @@ class IndividualPlanController extends Controller
 
     public function getAnnouncementMemo(Request $request)
     {
+
         $data = Validator::make($request->all(), [
             'audit_plan_id' => 'required|integer',
             'yearly_plan_location_id' => 'required|integer',
@@ -269,9 +270,10 @@ class IndividualPlanController extends Controller
         $sectorType = $request->sector_type;
         $yearly_plan_location_id = $request->yearly_plan_location_id;
         $announcementMemo = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_operational_plan.get_announcement_memo'),$data)->json();
+//        dd($announcementMemo);
         $announcementMemo = $announcementMemo ? $announcementMemo['data'] : [];
 
-        // dd($announcementMemo);
+//         dd($announcementMemo);
         // dd($announcementMemo['yearly_plan_info']);
 
         return view('modules.individual_plan.partial.announcement-memo-modal', compact('announcementMemo', 'sectorType', 'yearly_plan_location_id'));

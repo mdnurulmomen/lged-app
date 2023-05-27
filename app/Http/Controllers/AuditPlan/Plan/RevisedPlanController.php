@@ -324,15 +324,18 @@ class RevisedPlanController extends Controller
     public function storeAuditTeam(Request $request)
     {
         $data = Validator::make($request->all(), [
-            'activity_id' => 'required|integer',
-            'fiscal_year_id' => 'required|integer',
-            'annual_plan_id' => 'required|integer',
+            'yearly_plan_location_id' => 'required|integer',
+            'activity_id' => 'nullable|integer',
+            'fiscal_year_id' => 'nullable|integer',
+            'annual_plan_id' => 'nullable|integer',
             'audit_plan_id' => 'integer',
             'audit_year_start' => 'required',
             'audit_year_end' => 'required',
             'teams' => 'required',
             'modal_type' => 'nullable',
         ])->validate();
+
+//        dd($data);
 
         $teams = json_encode_unicode($request->teams);
         $data['teams'] = json_encode(['teams' => json_decode($teams)], JSON_UNESCAPED_UNICODE);
@@ -351,9 +354,10 @@ class RevisedPlanController extends Controller
     public function updateAuditTeam(Request $request)
     {
         $data = Validator::make($request->all(), [
-            'activity_id' => 'required|integer',
-            'fiscal_year_id' => 'required|integer',
-            'annual_plan_id' => 'required|integer',
+            'yearly_plan_location_id' => 'required|integer',
+            'activity_id' => 'nullable|integer',
+            'fiscal_year_id' => 'nullable|integer',
+            'annual_plan_id' => 'nullable|integer',
             'audit_plan_id' => 'required|integer',
             'audit_year_start' => 'required',
             'audit_year_end' => 'required',
@@ -383,8 +387,11 @@ class RevisedPlanController extends Controller
     public function storeAuditTeamSchedule(Request $request)
     {
         $data = Validator::make($request->all(), [
+            'yearly_plan_location_id' => 'required|integer',
+            'sector_id' => 'required|integer',
+            'sector_type' => 'required',
             'audit_plan_id' => 'integer',
-            'annual_plan_id' => 'integer',
+            'annual_plan_id' => 'nullable',
             'team_schedules' => 'required|json',
         ])->validate();
 
@@ -401,14 +408,15 @@ class RevisedPlanController extends Controller
     public function updateAuditTeamSchedule(Request $request)
     {
         $data = Validator::make($request->all(), [
-            'annual_plan_id' => 'required|integer',
+            'yearly_plan_location_id' => 'required|integer',
+            'annual_plan_id' => 'nullable|integer',
             'audit_plan_id' => 'required|integer',
             'team_schedules' => 'required|json',
         ])->validate();
         $data['cdesk'] = $this->current_desk_json();
 
         $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.update_audit_team_schedule'), $data)->json();
-
+//        dd($responseData);
         if (isSuccess($responseData)) {
             return response()->json(['status' => 'success', 'data' => $responseData['data']]);
         } else {

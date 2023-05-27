@@ -4,11 +4,11 @@
         <thead>
         <tr>
             <th width="26%">
-                এনটিটির নাম
-            </th>
-            <th width="26%">
                 কস্ট সেন্টার/ইউনিট
             </th>
+{{--            <th width="26%">--}}
+{{--                কস্ট সেন্টার/ইউনিট--}}
+{{--            </th>--}}
             <th width="28%">
                 {{$modal_type == 'data-collection' ? 'ডাটা কালেকশনের সময়কাল' : 'নিরীক্ষার সময়কাল' }}
             </th>
@@ -29,26 +29,21 @@
         <tbody class="sequence_tbody_{{$team_layer_id}}" id="schedule_tbody_{{$team_layer_id}}_1" data-tbody-id="{{$team_layer_id}}_1" data-schedule-type="schedule">
         <tr class='audit_schedule_row_{{$team_layer_id}}' data-layer-id="{{$team_layer_id}}"
             data-audit-schedule-first-row='1_{{$team_layer_id}}'>
-            <td>
-                <select id="entity_name_select_{{$team_layer_id}}_0" class="form-control select-select2 input-entity-name"
-                        data-id="{{$team_layer_id}}_0">
-                    <option value=''>--{{___('generic.select')}}--</option>
-                    @foreach(json_decode($parent_office_id,true) as $key => $entity)
-                        <option data-ministry-id="{{$entity['ministry_id']}}"
-                                data-ministry-name-bn="{{$entity['ministry_name_bn']}}"
-                                data-ministry-name-en="{{$entity['ministry_name_en']}}"
-                                data-entity-name-bn="{{$entity['entity_name_bn']}}"
-                                data-entity-name-en="{{$entity['entity_name_en']}}"
-                                value="{{$entity['entity_id']}}">{{$entity['entity_name_bn']}}</option>
-                    @endforeach
-                </select>
-            </td>
             <td class="selected_nominated_office_data_{{$team_layer_id}}">
                 <select id="branch_name_select_{{$team_layer_id}}_0" class="form-control input-branch-name"
                         data-id="{{$team_layer_id}}_0">
                     <option value=''>--{{___('generic.select')}}--</option>
+{{--                    @foreach ($allCostCenters as $costCenter)--}}
+{{--                        <option value="{{ $costCenter['office_id'] }}">{{ $costCenter['office']['office_name_eng'] }}</option>--}}
+{{--                    @endforeach--}}
                 </select>
             </td>
+{{--            <td class="selected_nominated_office_data_{{$team_layer_id}}">--}}
+{{--                <select id="branch_name_select_{{$team_layer_id}}_0" class="form-control input-branch-name"--}}
+{{--                        data-id="{{$team_layer_id}}_0">--}}
+{{--                    <option value=''>--{{___('generic.select')}}--</option>--}}
+{{--                </select>--}}
+{{--            </td>--}}
             <td>
                 <div class="row">
                     <div class="col pr-0">
@@ -97,7 +92,7 @@
         <tbody class="sequence_tbody_{{$team_layer_id}}" id="schedule_tbody_{{$team_layer_id}}_2" data-tbody-id="{{$team_layer_id}}_2" data-schedule-type="visit">
         <tr class="audit_schedule_row_{{$team_layer_id}}" data-layer-id="{{$team_layer_id}}"
             data-schedule-second-row='1_{{$team_layer_id}}'>
-            <td colspan="2">
+            <td colspan="1">
                 <input placeholder="ট্রানজিট" type="text" data-id="{{$team_layer_id}}_0" class="form-control input-detail"/>
             </td>
             <td colspan="2">
@@ -146,7 +141,11 @@
                 project_id = '{{$project_id}}'
                 layer_row = $(this).attr('data-id');
                 parent_office_id = $('#entity_name_select_'+layer_row).val();
+                sector_id = '{{$sector_id}}';
+                sector_type = '{{$sector_type}}';
                 return {
+                    sector_id: sector_id,
+                    sector_type: sector_type,
                     parent_office_id: parent_office_id,
                     project_id: project_id,
                     cost_center_name_bn: params.term, // search term
@@ -164,7 +163,7 @@
                             'cost_center_name_bn': item.office_name_bn,
                         };
                         return {
-                            text: item.office_name_bn,
+                            text: item.office_name_en,
                             id: JSON.stringify(cost_center_info)
                         }
                     }),

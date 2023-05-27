@@ -39,7 +39,9 @@
                          </button>
 
                          <button class="btn btn-sm btn-square btn-primary btn-hover-primary team-button"
-                             data-yearly_plan_location_id="{{ $project['id'] }}" data-id="{{ $project['project_id'] }}"
+                             data-audit-plan-id="{{$project['audit_plan'] ? $project['audit_plan']['id'] : 0}}"
+                             data-yearly_plan_location_id="{{ $project['id'] }}"
+                             data-id="{{ $project['project_id'] }}"
                              data-type="project">
                              <i class="fas fa-users"></i> Team
                          </button>
@@ -357,13 +359,15 @@
          $(".team-button").on('click', function (event) {
              loaderStart('Please wait...');
 
+             let audit_plan_id = $(this).data('audit-plan-id');
              let yearly_plan_location_id = $(this).data('yearly_plan_location_id');
              let sector_type = $(this).data('type');
              let sector_id = $(this).data('id');
 
-             url = "{{route('audit.plan.individual.get-team-modal')}}";
+             url = "{{route('audit.plan.audit.editor.load-audit-team-modal')}}";
 
              data = {
+                 audit_plan_id,
                  yearly_plan_location_id,
                  sector_type,
                  sector_id
@@ -374,7 +378,7 @@
                  state: 'primary' // a bootstrap color
              });
 
-             ajaxCallAsyncCallbackAPI(url, data, 'get', function (response) {
+             ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
                  loaderStop();
                  KTApp.unblock('#kt_full_width_page');
 

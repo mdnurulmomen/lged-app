@@ -1,19 +1,6 @@
 <tbody class="sequence_tbody_{{$layer_id}}" id="schedule_tbody_{{$layer_id}}_{{$total_audit_schedule_row}}" data-schedule-type='schedule' data-tbody-id='{{$layer_id}}_{{$total_audit_schedule_row}}'>
 <tr class='audit_schedule_row_{{$layer_id}}' data-layer-id='{{$layer_id}}'
     data-audit-schedule-first-row='{{$total_audit_schedule_row}}_{{$layer_id}}'>
-    <td class='selected_entity_data_{{$layer_id}}'>
-        <select id="entity_name_select_{{$layer_id}}_{{$total_audit_schedule_row}}" data-id="{{$layer_id}}_{{$total_audit_schedule_row}}" class='form-control select-select2 input-entity-name'>
-            <option>--{{___('generic.choose')}}--</option>
-            @foreach(json_decode($entity_list,true) as $key => $entity)
-                <option data-ministry-id="{{$entity['ministry_id']}}"
-                        data-ministry-name-bn="{{$entity['ministry_name_bn']}}"
-                        data-ministry-name-en="{{$entity['ministry_name_bn']}}"
-                        data-entity-name-bn="{{$entity['entity_name_bn']}}"
-                        data-entity-name-en="{{$entity['entity_name_en']}}"
-                        value="{{$entity['entity_id']}}">{{$entity['entity_name_bn']}}</option>
-            @endforeach
-        </select>
-    </td>
     <td class='selected_nominated_office_data_{{$layer_id}}'>
         <select id="branch_name_select_{{$layer_id}}_{{$total_audit_schedule_row}}" data-id="{{$layer_id}}_{{$total_audit_schedule_row}}" class='form-control input-branch-name'>
             <option>--{{___('generic.choose')}}--</option>
@@ -68,7 +55,11 @@
                 layer_row = $(this).attr('data-id');
                 parent_office_id = $('#entity_name_select_'+layer_row).val();
                 project_id = '{{$project_id}}';
+                sector_id = '{{$sector_id}}';
+                sector_type = '{{$sector_type}}';
                 return {
+                    sector_id: sector_id,
+                    sector_type: sector_type,
                     parent_office_id: parent_office_id,
                     project_id: project_id,
                     cost_center_name_bn: params.term, // search term
@@ -86,7 +77,7 @@
                             'cost_center_name_bn': item.office_name_bn,
                         };
                         return {
-                            text: item.office_name_bn,
+                            text: item.office_name_en,
                             id: JSON.stringify(cost_center_info)
                         }
                     }),

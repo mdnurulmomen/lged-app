@@ -15,12 +15,13 @@ class PlanEditorController extends Controller
     public function loadAuditTeamModal(Request $request)
     {
         $data = Validator::make($request->all(), [
-            'activity_id' => 'required|integer',
-            'annual_plan_id' => 'required|integer',
-            'fiscal_year_id' => 'required|integer',
             'audit_plan_id' => 'required|integer',
-            'parent_office_id' => 'required',
+            'yearly_plan_location_id' => 'required|integer',
+            'sector_type' => 'required|string',
+            'sector_id' => 'required|integer',
         ])->validate();
+
+//        dd($data);
 
         $project_id = $request->project_id;
         $modal_type = $request->modal_type;
@@ -33,6 +34,10 @@ class PlanEditorController extends Controller
         $office_order_approval_status = $request->office_order_approval_status;
         $parent_office_id = json_encode($request->parent_office_id);
 
+        $yearly_plan_location_id = $request->yearly_plan_location_id;
+        $sector_type = $request->sector_type;
+        $sector_id = $request->sector_id;
+
         $own_office = ['name' => $this->current_office()['office_name_bn'], 'id' => $this->current_office()['id']];
         $other_offices = $this->cagDoptorOtherOffices($this->current_office_id());
 
@@ -40,15 +45,6 @@ class PlanEditorController extends Controller
         $cdesk = $this->current_desk_json();
         $data['cdesk'] = $cdesk;
         $teamResponseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.get_audit_plan_wise_team'), $data)->json();
-//        dd($teamResponseData);
-        //for office list
-        $nominated_offices_list = [];
-//        $getParentWithChildOfficePassData['parent_office_id'] = $parent_office_id;
-//        $getParentWithChildOfficePassData['cdesk'] = $cdesk;
-//        $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $getParentWithChildOfficePassData)->json();
-//        $nominated_offices_list = isSuccess($nominated_offices) ? $nominated_offices['data'] : [];
-//        $nominated_offices_list = !empty($nominated_offices_list) ? !empty($nominated_offices_list['child_offices']) ? $nominated_offices_list['child_offices'] : [$nominated_offices_list['parent_office']] : [];
-
         $all_teams = isSuccess($teamResponseData) ? $teamResponseData['data'] : [];
 
 //        dd($all_teams);
@@ -67,6 +63,9 @@ class PlanEditorController extends Controller
             'office_order_approval_status',
             'project_id',
             'audit_plan_no',
+            'yearly_plan_location_id',
+            'sector_type',
+            'sector_id',
         ));
     }
 
@@ -89,11 +88,13 @@ class PlanEditorController extends Controller
     }
 
     public function getEntityWiseCosCenterAutoComplete(Request $request){
+        $data['sector_id'] = $request->sector_id;
+        $data['sector_type'] = $request->sector_type;
         $data['project_id'] = $request->project_id;
         $data['parent_office_id'] = $request->parent_office_id;
         $data['cost_center_name_bn'] = $request->cost_center_name_bn;
 
-        if($request->project_id){
+        if($request->sector_id){
             $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-project-map-cos-center-autoselect'), $data)->json();
         }else{
             $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-office-by-parent-office-autoselect'), $data)->json();
@@ -130,25 +131,29 @@ class PlanEditorController extends Controller
     public function loadAuditTeamSchedule(Request $request)
     {
         $data = Validator::make($request->all(), [
-            'annual_plan_id' => 'required|integer',
-            'parent_office_id' => 'required',
-            'modal_type' => 'nullable',
+            'team_layer_id' => 'required|integer',
+            'sector_id' => 'required|integer',
+            'sector_type' => 'required|string',
         ])->validate();
 
-//        dd($data);
+//     dd($data);
 
-        $data['cdesk'] = $this->current_desk_json();
+        // $data['cdesk'] = $this->current_desk_json();
 
-//        $nominated_offices = $this->initRPUHttp()->post(config('cag_rpu_api.get-parent-with-child-office'), $data)->json();
-//        $nominated_offices_list = isSuccess($nominated_offices) ? $nominated_offices['data'] : [];
-//        $nominated_offices_list = !empty($nominated_offices_list) ? !empty($nominated_offices_list['child_offices']) ? $nominated_offices_list['child_offices'] : [$nominated_offices_list['parent_office']] : [];
+        $sector_type = $request->sector_type;
+        $sector_id = $request->sector_id;
+        $allCostCenters = [];
+        if ($sector_type == 'project') {
+            $allCostCenters = $this->initRPUHttp()->post(config('cag_rpu_api.cost-center-sector-map.cost-centers'), $data)->json();
+            $allCostCenters = $allCostCenters ? $allCostCenters['data'] : [];
+        }
 
         $team_layer_id = $request->team_layer_id;
         $parent_office_id = $request->parent_office_id;
         $modal_type = $request->modal_type;
         $project_id = $request->project_id;
         return view('modules.audit_plan.audit_plan.plan_revised.partials.load_team_schedule',
-            compact('team_layer_id','parent_office_id','modal_type','project_id'));
+            compact('team_layer_id','parent_office_id','modal_type','project_id','allCostCenters','sector_id','sector_type'));
     }
 
     public function addAuditScheduleRow(Request $request){
@@ -157,7 +162,9 @@ class PlanEditorController extends Controller
         $total_audit_schedule_row = $request->total_audit_schedule_row;
         $entity_list = $request->entity_list;
         $project_id = $request->project_id;
+        $sector_id = $request->sector_id;
+        $sector_type = $request->sector_type;
         return view('modules.audit_plan.audit_plan.plan_revised.partials.add_audit_schedule_row',
-            compact('schedule_type','layer_id','total_audit_schedule_row','entity_list','project_id'));
+            compact('schedule_type','layer_id','total_audit_schedule_row','entity_list','project_id','sector_id','sector_type'));
     }
 }
