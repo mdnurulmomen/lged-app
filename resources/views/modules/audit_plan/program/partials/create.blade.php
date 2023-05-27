@@ -245,6 +245,7 @@
 
     function addProcedure () {
         var clone_text = $("#sector_area_procedures").clone();
+        clone_text.find("textarea").val("");
         clone_text.insertAfter(".sector_area_procedures:last");
         $("#sector_area_procedures").last().val('');
     }
