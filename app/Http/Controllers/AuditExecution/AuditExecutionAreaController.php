@@ -14,16 +14,24 @@ class AuditExecutionAreaController extends Controller
      */
     public function index()
     {
-        return view('modules.audit_execution.audit_execution_area.index');
+        $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
+            'all' => 1
+        ])->json();
+
+        $allProjects = $allProjects ? $allProjects['data'] : [];
+        return view('modules.audit_execution.audit_execution_area.index',compact('allProjects'));
         // return view('modules.audit_execution.audit_execution_area.index');
     }
 
-    public function getAuditAreaList()
+    public function getAuditAreaList(Request $request)
     {
+        // dd($request->all());
         // dd(config('cag_rpu_api.areas'));
-        
+
         $audit_area_list = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
-            'all' => 1
+            'sector_id' => $request->sector_id,
+            'sector_type' => 'App\Models\Project',
+            'with_parent' => 'all',
         ])->json();
 
         // dd($audit_area_list['data']);
@@ -52,7 +60,7 @@ class AuditExecutionAreaController extends Controller
             'all' => 1
         ])->json();
         $allFunctions = $allFunctions ? $allFunctions['data'] : [];
-            
+
         $allMasterUnits = $this->initHttpWithToken()->post(config('cag_rpu_api.master_units.list'), [
             'all' => 1
         ])->json();
@@ -62,7 +70,7 @@ class AuditExecutionAreaController extends Controller
             'all' => 1
         ])->json();
         $allAreas = $allAreas ? $allAreas['data'] : [];
-        
+
         return view('modules.audit_execution.audit_execution_area.partials.create', compact(['allProjects', 'allFunctions', 'allMasterUnits', 'allAreas']));
     }
 
@@ -83,7 +91,7 @@ class AuditExecutionAreaController extends Controller
         ]);
 
         $currentUserId = $this->current_desk()['officer_id'];
-        
+
         $data = [
             'sector_id' => $request->sector_id,
             'sector_type' => $request->sector_type,
@@ -127,7 +135,7 @@ class AuditExecutionAreaController extends Controller
             'all' => 1
         ])->json();
         $allFunctions = $allFunctions ? $allFunctions['data'] : [];
-            
+
         $allMasterUnits = $this->initHttpWithToken()->post(config('cag_rpu_api.master_units.list'), [
             'all' => 1
         ])->json();
@@ -158,7 +166,7 @@ class AuditExecutionAreaController extends Controller
             'name_bn' => 'required|string|max:255',
             'parent_id' => 'nullable|integer|lt:id'
         ]);
-        
+
         $data = [
             'id' => $request->id,
             'sector_id' => $request->sector_id,

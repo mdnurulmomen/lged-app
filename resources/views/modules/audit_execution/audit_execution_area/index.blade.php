@@ -1,13 +1,21 @@
 <x-title-wrapper>Audit Area</x-title-wrapper>
 <div class="card sna-card-border d-flex flex-wrap flex-row">
-    <div class="col-xl-12 text-right">
+    <div class="col-xl-6 text-left">
+        <select class="form-control select-select2" name="project_id" id="project_id" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
+            <option value="" selected>Select Project</option>
+            @foreach ($allProjects as $project)
+                <option value="{{ $project['id'] }}">{{ $project['name_en'] }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="col-xl-6 text-right">
         <button type="button" class="font-weight-bolder font-size-sm mr-3 btn btn-primary btn-sm btn-bold btn-square btn_create_audit_area">
             <i class="far fa-plus mr-1"></i> Create Audit Area
         </button>
     </div>
 </div>
 
-<div class="card sna-card-border mt-2">
+<div class="card sna-card-border mt-2" style="margin-bottom: 1cm;">
     <div class="table-responsive load-table-data" data-href="{{ route('audit.execution.areas.list') }}">
     </div>
 </div>
@@ -15,18 +23,18 @@
 <script>
      $(function () {
         loadData();
-        
+
         $('.btn_create_audit_area').click(function () {
-            
+
             url = "{{ route('audit.execution.areas.create') }}";
-            
+
             data = {};
-    
+
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
                 state: 'primary' // a bootstrap color
             });
-    
+
             ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'error') {
@@ -45,10 +53,13 @@
             });
         });
     });
-
+    $('#project_id').change(function () {
+        loadData();
+    });
     function loadData() {
         url = $(".load-table-data").data('href');
-        var data = {};
+        var sector_id = $('#project_id').find(":selected").val();
+        var data = {sector_id};
         ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
             if (resp.status === 'error') {
                 toastr.error('no');

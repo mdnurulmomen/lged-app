@@ -117,7 +117,7 @@
                         <td>
                             <div style="display: flex">
                                 <button type="button" title="ট্রানজিট"
-                                        onclick="Plan_Common_Container.addLocationRow('{{$projects['strategic_plan_year']}}','function')"
+                                        onclick="Plan_Common_Container.addLocationRow('{{$functions['strategic_plan_year']}}','function')"
                                         class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                     <span class="fad fa-plus"></span>
                                 </button>
@@ -137,6 +137,7 @@
         </div>
     </div>
 </div>
+@include('modules.strategic_plan.partial.strategic_plan_common_script');
 <script>
     $('.select-select2').select2({width: '100%'});
 </script>

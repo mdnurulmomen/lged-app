@@ -1,6 +1,9 @@
 <table class="table table-bordered" width="100%">
     <thead class="thead-light">
-    <tr>
+    <tr class="text-center">
+        <th width="30%">
+            Project/Function
+        </th>
         <th>
             Process/Sub-process Bn
         </th>
@@ -12,11 +15,6 @@
         <th>
             Parent
         </th>
-
-        <th width="30%">
-            Project/Function
-        </th>
-
         <th>
             Action
         </th>
@@ -25,10 +23,10 @@
     <tbody>
     @forelse($audit_area_list as $audit_area)
         <tr id="row_{{$audit_area['id']}}" data-row="{{$loop->iteration}}">
+            <td> {{ ucfirst($audit_area['sector']['name_en']) }} </td>
             <td> {{ ucfirst($audit_area['name_bn']) }} </td>
             <td> {{ ucfirst($audit_area['name_en']) }} </td>
             <td> {{ $audit_area['parent'] ? ucfirst($audit_area['parent']['name_en']) : '--' }} </td>
-            <td> {{ ucfirst($audit_area['sector']['name_en']) }} </td>
             <td>
                 <a href="javascript:;"
                    data-id="{{$audit_area['id']}}"
