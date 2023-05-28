@@ -14,11 +14,11 @@
                                         <span class="font-size-14">{{($audit_query_schedule_list['current_page']-1)*200+$loop->iteration}}</span>
                                     </div>
 
-                                    @if($schedule['plan_team']['yearly_plan_location'])
+                                    @if($schedule['yearly_plan_location'])
                                         <div>
                                             <span class="mr-2 font-size-1-2 font-weight-bolder">Project :</span>
                                             <span class="font-size-14">
-                                                    {{$schedule['plan_team']['yearly_plan_location']['project_name_en']}}
+                                                    {{$schedule['yearly_plan_location']['project_name_en']}}
                                             </span>
                                         </div>
                                     @endif
@@ -71,7 +71,7 @@
                                                             data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                             data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
                                                             data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
-                                                            data-project-name-bn="{{$schedule['plan_team']['yearly_plan_location'] ? $schedule['plan_team']['yearly_plan_location']['project_name_bn'] : ''}}">
+                                                            data-project-name-bn="{{$schedule['yearly_plan_location']['project_name_bn']}}">
                                                         <i class="fad fa-clipboard-list"></i> কোয়েরি
                                                     </button> -->
 
@@ -81,15 +81,15 @@
                                                             data-schedule-id="{{$schedule['id']}}"
                                                             data-team-id="{{$schedule['team_id']}}"
                                                             data-audit-plan-id="{{$schedule['audit_plan_id']}}"
-                                                            data-yearly-plan-location-id="{{$schedule['plan_team']['yearly_plan_location']['id']}}"
-                                                            data-project-id="{{$schedule['plan_team']['yearly_plan_location']['project_id']}}"
-                                                            data-project-name-en="{{$schedule['plan_team']['yearly_plan_location']['project_name_en']}}"
-                                                            data-project-name-bn="{{$schedule['plan_team']['yearly_plan_location']['project_name_bn']}}"
+                                                            data-yearly-plan-location-id="{{$schedule['yearly_plan_location']['id']}}"
+                                                            data-project-id="{{$schedule['yearly_plan_location']['project_id']}}"
+                                                            data-project-name-en="{{$schedule['yearly_plan_location']['project_name_en']}}"
+                                                            data-project-name-bn="{{$schedule['yearly_plan_location']['project_name_bn']}}"
                                                             data-type="program_note"
                                                             data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                             data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
                                                             data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
-                                                            data-project-name-bn="{{$schedule['plan_team']['yearly_plan_location'] ? $schedule['plan_team']['yearly_plan_location']['project_name_bn'] : ''}}">
+                                                            data-project-name-bn="{{$schedule['yearly_plan_location']['project_name_bn']}}">
                                                         <i class="fad fa-clipboard-list"></i> Program Note
                                                     </button>
                                                     <button class="mr-3 btn btn-sm btn-warning btn-square"
@@ -101,11 +101,11 @@
                                                             data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                             data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
                                                             data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
-                                                            data-audit-year-start="{{$schedule['plan_team']['audit_year_start']}}"
-                                                            data-audit-year-end="{{$schedule['plan_team']['audit_year_end']}}"
-                                                            data-project-id="{{$schedule['plan_team']['yearly_plan_location']['project_id']}}"
-                                                            data-project-name-bn="{{$schedule['plan_team']['yearly_plan_location'] ? $schedule['plan_team']['yearly_plan_location']['project_name_bn'] : ''}}"
-                                                            data-project-name-en="{{$schedule['plan_team']['yearly_plan_location'] ? $schedule['plan_team']['yearly_plan_location']['project_name_en'] : ''}}"
+                                                            data-audit-year-start="{{ $schedule['plan_team']['audit_year_start']}}"
+                                                            data-audit-year-end="{{ $schedule['plan_team']['audit_year_end']}}"
+                                                            data-project-id="{{ $schedule['yearly_plan_location']['project_id']}}"
+                                                            data-project-name-bn="{{ $schedule['yearly_plan_location']['project_name_bn']}}"
+                                                            data-project-name-en="{{ $schedule['yearly_plan_location']['project_name_en']}}"
                                                             onclick="Audit_Query_Schedule_Container.memo($(this))">
                                                         <i class="fad fa-clipboard-list"></i> Findings
                                                     </button>
@@ -125,7 +125,7 @@
                                                         data-cost-center-id="{{$schedule['cost_center_id']}}"
                                                         data-cost-center-name-en="{{$schedule['cost_center_name_en']}}"
                                                         data-cost-center-name-bn="{{$schedule['cost_center_name_bn']}}"
-                                                        data-project-name-bn="{{$schedule['plan_team']['yearly_plan_location'] ? $schedule['plan_team']['yearly_plan_location']['project_name_bn'] : ''}}">
+                                                        data-project-name-bn="{{$schedule['yearly_plan_location']['project_name_bn']}}">
                                                     <i class="fad fa-info-square"></i> Program
                                                 </button> -->
                                         </div>
