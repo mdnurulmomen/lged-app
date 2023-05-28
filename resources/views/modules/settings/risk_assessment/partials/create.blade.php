@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="unit_div" style="display: none">
-                        <label for="unit_master_id">Function:</label>
+                        <label for="unit_master_id">Unit:</label>
                         <select class="form-control select-select2 sector" name="unit_master_id" id="unit_master_id">
                             <option value="" selected>Select Unit</option>
                             @foreach ($allMasterUnits as $masterUnit)
@@ -262,6 +262,19 @@
     <script>
         $(document).ready(function() {
             adjustRiskIndex();
+            let project_id = '{{$project_id}}';
+            let function_id = '{{$function_id}}';
+            let unit_id = '{{$unit_id}}';
+
+            if(project_id){
+                $('#project_id').val(project_id).trigger('change');
+            }else if(function_id){
+                $('#function_id').val(function_id).trigger('change');
+            }else if(unit_id){
+                $('#unit_master_id').val(unit_id).trigger('change');
+            }
+
+
         });
 
         $('input[type=radio][name=assessment_sector_type]').change(function() {
@@ -418,8 +431,6 @@
 
             let audit_area_id = $('#audit_area_id').find(':selected').val();
 
-            alert(audit_area_id);
-
             let assessment_type = '{{$type}}';
 
             let sector_assessment = {
@@ -471,7 +482,8 @@
                     toastr.error(response.data)
                 } else {
                     toastr.success(response.data);
-                    backToList();
+                    $('#kt_quick_panel_close').click();
+                    $('#filter_project_id').trigger('change');
                 }
             });
         }

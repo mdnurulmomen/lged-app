@@ -12,7 +12,7 @@
             </span>
 
             <div class="project_div">
-                <select class="form-control select-select2" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
+                <select class="form-control select-select2"  id="filter_project_id" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
 {{--                    <option selected>Select Project</option>--}}
                     @foreach ($allProjects as $project)
                         <option value="{{ $project['id'] }}">{{ $project['name_en'] }}
@@ -82,7 +82,7 @@
                     data-risk-assessment-type="{{$type}}"
                     onclick='Risk_Assessment_Item_Container.createRiskAssessment($(this))'
             >
-                <i class="fad fa-plus"></i> Create
+                <i class="fad fa-plus"></i> Add new risk assessment
             </button>
         </div>
     </div>
@@ -187,10 +187,13 @@
         },
         createRiskAssessment: function (elem){
             loaderStart('loading...');
+            let project_id = $('#filter_project_id').val();
+            let function_id = $('#filter_function_id').val();
+            let unit_id = $('#filter_unit_id').val();
             let type = elem.data('risk-assessment-type');
 
             url = "{{ route('settings.sector-risk-assessments.create') }}";
-            var data = {type};
+            var data = {type,project_id,function_id,unit_id};
 
             ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
                 loaderStop();
@@ -206,7 +209,7 @@
                     $('.offcanvas-footer').hide();
                     quick_panel.removeClass('d-none');
                     $("html").addClass("side-panel-overlay");
-                    $('.offcanvas-title').html('Create'+ type + 'Risk Assessment');
+                    $('.offcanvas-title').html('Create '+ type + 'risk assessment');
                     $('.offcanvas-wrapper').html(resp);
                 }
             });

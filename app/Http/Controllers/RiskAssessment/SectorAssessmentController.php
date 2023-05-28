@@ -228,10 +228,25 @@ class SectorAssessmentController extends Controller
         $officerLists = $officerLists ? $officerLists['data'] : [];
 
         $type = $request->type;
+        $project_id = $request->project_id;
+        $function_id = $request->function_id;
+        $unit_id = $request->unit_id;
 
         //  dd($officerLists);
 
-        return view('modules.settings.risk_assessment.partials.create', compact('allProjects', 'allFunctions', 'allMasterUnits', 'allImpacts', 'allLikelihoods', 'officerLists', 'type'));
+        return view('modules.settings.risk_assessment.partials.create',
+            compact('allProjects',
+                'allFunctions',
+                'allMasterUnits',
+                'allImpacts',
+                'allLikelihoods',
+                'officerLists',
+                'type',
+                'project_id',
+                'function_id',
+                'unit_id'
+            )
+        );
     }
 
     /**
