@@ -40,7 +40,7 @@
     <div class="row">
         <div class="col-4">
             <select class="form-control select-select2" name="strategic_plan_year" id="strategic_plan_year">
-                <option selected value="">--select--</option>
+                <option selected value="">All Year</option>
                 @foreach($individual_strategic_plan_year as $year)
                     <option data-strategic-plan="{{$year['strategic_plan_id']}}" value="{{$year['strategic_plan_year']}}">{{$year['strategic_plan_year']}}</option>
                 @endforeach
@@ -56,10 +56,9 @@
 </div>
 
 <script>
-    // $(function () {
-    //     // Audit_Query_Schedule_Container.loadFiscalYearWiseActivity();
-    //     Audit_Query_Schedule_Container.loadData();
-    // });
+    $(function () {
+        Audit_Query_Schedule_Container.loadData();
+    });
 
     $('#select_fiscal_year_annual_plan').change(function () {
         Audit_Query_Schedule_Container.loadFiscalYearWiseActivity();
