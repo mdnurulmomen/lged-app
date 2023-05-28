@@ -3,10 +3,9 @@
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
     <div class="row d-flex align-items-end">
         <div class="col-md-6">
-            <label>Select Audit-Plan</label>
+            <label>Select Audit Plan</label>
             <select class="form-control select-select2" name="audit_plan_id" id="audit_plan_id"
-            onchange="Risk_Assessment_Item_Container.laodPlanWorkpapers(this.value)"
-            >
+            onchange="Risk_Assessment_Item_Container.laodPlanWorkpapers()">
                 <option value="" disabled selected>Please Select Plan</option>
                 @foreach ($auditPlans as $auditPlan)
                     <option value="{{ $auditPlan['id'] }}">
@@ -16,7 +15,18 @@
             </select>
         </div>
 
-        <div class="col-md-6 text-right">
+        <div class="col-md-3">
+            <label>Select Year</label>
+            <select class="form-control select-select2" name="strategic_plan_year" id="strategic_plan_year"
+            onchange="Risk_Assessment_Item_Container.laodPlanWorkpapers()">
+                <option value="" disabled selected>All Year</option>
+                @foreach($individual_strategic_plan_year as $year)
+                    <option data-strategic-plan="{{$year['strategic_plan_id']}}" value="{{$year['strategic_plan_year']}}">{{$year['strategic_plan_year']}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="col-md-3 text-right">
             <button
                 class="btn btn-sm btn-info btn-square mr-1 create_button"
                 title="Upload New Paper"
@@ -77,11 +87,12 @@
     });
 
     var Risk_Assessment_Item_Container = {
-        laodPlanWorkpapers: function (audit_plan_id) {
+        laodPlanWorkpapers: function () {
             // loaderStart('loading...');
-
+            audit_plan_id = $('#audit_plan_id').val();
+            strategic_plan_year = $('#strategic_plan_year').val();
             let url = "{{route('audit.plan.individual.plan-work-papers.list')}}";
-            let data = {audit_plan_id};
+            let data = {audit_plan_id, strategic_plan_year};
 
             ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
                 // loaderStop();
