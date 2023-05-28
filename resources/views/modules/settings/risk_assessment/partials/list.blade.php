@@ -95,6 +95,8 @@
 
         loaderStart('Please wait...');
 
+        type = '{{$assessment_type}}';
+
         id = $(this).data('id');
         audit_area_id =$(this).data('audit_area_id');
         assessment_sector_id = $(this).data('assessment_sector_id');
@@ -111,12 +113,16 @@
                 toastr.error('no');
                 console.log(resp.data)
             } else {
-                // $('#id').val(id);
-                // $('#title_bn').text(title_bn);
-                // $('#title_en').text(title_en);
-                // $('#impact_value').val(impact_value);
-                // $('#x_risk_factor_id').val(x_risk_factor_id);
-                $("#kt_content").html(resp);
+                quick_panel = $("#kt_quick_panel");
+                $('.offcanvas-wrapper').html('');
+                quick_panel.addClass('offcanvas-on');
+                quick_panel.css('opacity', 1);
+                quick_panel.css('width', '60%');
+                $('.offcanvas-footer').hide();
+                quick_panel.removeClass('d-none');
+                $("html").addClass("side-panel-overlay");
+                $('.offcanvas-title').html('Create'+ type + 'Risk Assessment');
+                $('.offcanvas-wrapper').html(resp);
             }
         });
     });

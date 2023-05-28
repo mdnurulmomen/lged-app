@@ -7,12 +7,12 @@
         <div class="col-sm-4 form-group">
             <input type="radio" name="sector_type" value="App\Models\AuditFunction"> Function
         </div>
-        
+
         <div class="col-sm-4 form-group">
             <input type="radio" name="sector_type" value="App\Models\UnitMasterInfo" > Master Unit
         </div>
     </div>
-    
+
     <div class="form-row">
         <div class="col-sm-12 form-group">
             <div class="project_div">
@@ -26,7 +26,7 @@
                     @endforeach
                 </select>
             </div>
-    
+
             <div class="function_div" style="display: none">
                 <select  class="form-control select-select2" name="function_id" id="function_id">
                     <option value="" selected>Select Function</option>
@@ -38,7 +38,7 @@
                     @endforeach
                 </select>
             </div>
-    
+
             <div class="unit_div" style="display: none">
                 <select class="form-control select-select2" name="unit_master_id" id="unit_master_id">
                     <option value="" selected>Select Unit</option>
@@ -103,16 +103,16 @@
 
         $('#btn_audit_area_modal_save').click(function () {
             loaderStart('Please wait...');
-            
+
             url = "{{ route('audit.execution.areas.store') }}";
             method = 'POST';
-        
+
             let sector_type = $('input[name="sector_type"]:checked').val();
-            
-            let sector_id = (sector_type==='App\\Models\\Project') ? $('#project_id').find(':selected').val() 
-            : (sector_type==='App\\Models\\AuditFunction') ? $('#function_id').find(':selected').val() 
+
+            let sector_id = (sector_type==='App\\Models\\Project') ? $('#project_id').find(':selected').val()
+            : (sector_type==='App\\Models\\AuditFunction') ? $('#function_id').find(':selected').val()
             : $('#unit_master_id').find(':selected').val();
-    
+
             data = {
                 name_bn : $('#name_bn').val(),
                 name_en : $('#name_en').val(),
@@ -120,9 +120,9 @@
                 sector_id,
                 sector_type,
             };
-            
+
             // console.log(data);
-    
+
             ajaxCallAsyncCallbackAPI(url, data, method, function (response) {
                 if (response.status === 'success') {
                     loadData();

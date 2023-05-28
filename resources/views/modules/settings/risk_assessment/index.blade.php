@@ -12,7 +12,7 @@
             </span>
 
             <div class="project_div">
-                <select class="form-control select-select2" name="project_id" id="project_id" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
+                <select class="form-control select-select2" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
 {{--                    <option selected>Select Project</option>--}}
                     @foreach ($allProjects as $project)
                         <option value="{{ $project['id'] }}">{{ $project['name_en'] }}
@@ -69,10 +69,18 @@
                 <i class="fad fa-download"></i> Download
             </button>
 
+{{--            <button class="btn btn-sm btn-info btn-square mr-1"--}}
+{{--                    title="বিস্তারিত দেখুন"--}}
+{{--                    onclick='loadPage($(this))'--}}
+{{--                    data-url="{{route('settings.sector-risk-assessments.create',['type' => $type])}}"--}}
+{{--            >--}}
+{{--                <i class="fad fa-plus"></i> Create--}}
+{{--            </button>--}}
+
             <button class="btn btn-sm btn-info btn-square mr-1"
                     title="বিস্তারিত দেখুন"
-                    onclick='loadPage($(this))'
-                    data-url="{{route('settings.sector-risk-assessments.create',['type' => $type])}}"
+                    data-risk-assessment-type="{{$type}}"
+                    onclick='Risk_Assessment_Item_Container.createRiskAssessment($(this))'
             >
                 <i class="fad fa-plus"></i> Create
             </button>
@@ -177,6 +185,32 @@
                 }
             });
         },
+        createRiskAssessment: function (elem){
+            loaderStart('loading...');
+            let type = elem.data('risk-assessment-type');
+
+            url = "{{ route('settings.sector-risk-assessments.create') }}";
+            var data = {type};
+
+            ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
+                loaderStop();
+                if (resp.status === 'error') {
+                    toastr.error('no');
+                    // console.log(resp.data)
+                } else {
+                    quick_panel = $("#kt_quick_panel");
+                    $('.offcanvas-wrapper').html('');
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '60%');
+                    $('.offcanvas-footer').hide();
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $('.offcanvas-title').html('Create'+ type + 'Risk Assessment');
+                    $('.offcanvas-wrapper').html(resp);
+                }
+            });
+        }
     };
 
     var Risk_Assessment_Factor_Approach_Container = {
