@@ -32,11 +32,10 @@
         $(function(){
             Yearly_Plan_Container.loadYearWiseStrategicPlan();
         })
-    }else{
-        $('#strategic_plan_year').change(function () {
-            Yearly_Plan_Container.loadYearWiseStrategicPlan();
-        });
     }
+    $('#strategic_plan_year').change(function () {
+        Yearly_Plan_Container.loadYearWiseStrategicPlan();
+    });
 
     var Yearly_Plan_Container = {
         loadYearWiseStrategicPlan: function () {
