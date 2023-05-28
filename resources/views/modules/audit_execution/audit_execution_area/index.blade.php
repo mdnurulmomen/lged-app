@@ -1,7 +1,7 @@
 <x-title-wrapper>Audit Area</x-title-wrapper>
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-6 text-left">
-        <select class="form-control select-select2" name="project_id" id="project_id" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
+        <select class="form-control select-select2" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
             <option value="" selected>Select Project</option>
             @foreach ($allProjects as $project)
                 <option value="{{ $project['id'] }}">{{ $project['name_en'] }}</option>
