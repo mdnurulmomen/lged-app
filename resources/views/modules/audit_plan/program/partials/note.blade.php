@@ -9,7 +9,7 @@
         <select class="form-select select-select2" id="team_member_officer_id" name="team_member_officer_id">
             <option value="">-- Select --</option>
             @foreach($team_members as $member)
-            <option value="{{json_encode($member)}}">{{$member['team_member_name_bn']}}</option>
+                <option value="{{json_encode($member)}}">{{$member['team_member_name_bn']}}</option>
             @endforeach
         </select>
     </div>
@@ -19,7 +19,7 @@
         <select class="form-select select-select2" id="workpaper_id" name="workpaper_id">
             <option value="">-- Select --</option>
             @foreach($working_plan_list as $workpaper)
-            <option value="{{$workpaper['id']}}">{{$workpaper['title_en']}}</option>
+                <option value="{{$workpaper['id']}}">{{$workpaper['title_en']}}</option>
             @endforeach
         </select>
     </div>

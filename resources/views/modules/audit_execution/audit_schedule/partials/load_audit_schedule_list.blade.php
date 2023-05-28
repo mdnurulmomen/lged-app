@@ -1,6 +1,6 @@
 @if(!empty($audit_query_schedule_list))
     {{--list view--}}
-    <div>
+    <div class="card sna-card-border ">
         <ul class="list-group list-group-flush">
             @foreach($audit_query_schedule_list['data'] as $key=> $schedule)
                 <li class="list-group-item py-2 border-bottom">

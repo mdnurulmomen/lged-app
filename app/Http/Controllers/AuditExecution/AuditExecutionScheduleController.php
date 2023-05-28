@@ -26,13 +26,19 @@ class AuditExecutionScheduleController extends Controller
         }));
         $directorates = $self_directorate ? [$self_directorate] : $all_directorates;
         $fiscal_years = $this->allFiscalYears();
-        return view('modules.audit_execution.audit_schedule.index',compact('directorates','fiscal_years'));
+        $individual_strategic_plan_year = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_yearly_plan.get_individual_yearly_plan_year'))->json();
+        if (isSuccess($individual_strategic_plan_year)) {
+            $individual_strategic_plan_year = $individual_strategic_plan_year['data'];
+            return view('modules.audit_execution.audit_schedule.index',compact('directorates','fiscal_years','individual_strategic_plan_year'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $individual_strategic_plan_year]);
+        }
     }
 
     public function loadAuditScheduleList(Request $request)
     {
-
         $data['fiscal_year_id'] = $request->fiscal_year_id;
+        $data['strategic_plan_year'] = $request->strategic_plan_year;
         $data['activity_id'] = $request->activity_id;
         $data['audit_plan_id'] = $request->audit_plan_id;
         $data['page'] = $request->page;
@@ -42,6 +48,7 @@ class AuditExecutionScheduleController extends Controller
         // dd($audit_query_schedule_list['data']);
         if ($audit_query_schedule_list['status'] == 'success') {
             $audit_query_schedule_list = $audit_query_schedule_list['data'];
+            // dd($audit_query_schedule_list);
             return view('modules.audit_execution.audit_schedule.partials.load_audit_schedule_list',
                 compact('audit_query_schedule_list'));
         } else {

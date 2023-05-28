@@ -119,7 +119,7 @@
             note = $('#note').val();
             team_member_officer_id = $('#team_member_officer_id').val();
             workpaper_id = $('#workpaper_id').val();
-            audit_area_id = $('#audit_area_id').val();
+            audit_area_id = $('#sector_area').val();
             data = {id, note, team_member_officer_id, workpaper_id,};
 
             KTApp.block('#kt_wrapper', {
@@ -131,6 +131,7 @@
                 KTApp.unblock('#kt_wrapper');
                 if (response.status === 'success') {
                     $(".btn-quick-panel-close").click();
+                    Audit_Program_Container.laodAreaPrograms(audit_area_id);
                 } else {
                     toastr.error('No data found');
                 }

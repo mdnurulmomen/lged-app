@@ -36,24 +36,30 @@
     </div>
 </div> -->
 
-<div class="card sna-card-border mt-2 mb-15">
-    <div class="load-table-data" data-href="{{route('audit.execution.load-audit-schedule-list')}}">
-        <div class="d-flex align-items-center">
-            <div class="spinner-grow text-warning mr-3" role="status">
-                <span class="sr-only"></span>
-            </div>
-            <div>
-                loading.....
-            </div>
+<div class="card sna-card-border">
+    <div class="row">
+        <div class="col-4">
+            <select class="form-control select-select2" name="strategic_plan_year" id="strategic_plan_year">
+                <option selected value="">--select--</option>
+                @foreach($individual_strategic_plan_year as $year)
+                    <option data-strategic-plan="{{$year['strategic_plan_id']}}" value="{{$year['strategic_plan_year']}}">{{$year['strategic_plan_year']}}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 </div>
 
+<div class="mt-2 mb-15">
+    <div class="load-table-data" data-href="{{route('audit.execution.load-audit-schedule-list')}}">
+        
+    </div>
+</div>
+
 <script>
-    $(function () {
-        // Audit_Query_Schedule_Container.loadFiscalYearWiseActivity();
-        Audit_Query_Schedule_Container.loadData();
-    });
+    // $(function () {
+    //     // Audit_Query_Schedule_Container.loadFiscalYearWiseActivity();
+    //     Audit_Query_Schedule_Container.loadData();
+    // });
 
     $('#select_fiscal_year_annual_plan').change(function () {
         Audit_Query_Schedule_Container.loadFiscalYearWiseActivity();
@@ -65,18 +71,19 @@
         Audit_Query_Schedule_Container.loadData();
     });
 
-    $('#audit_plan_id').change(function (){
+    $('#strategic_plan_year').change(function (){
         Audit_Query_Schedule_Container.loadData();
     });
 
     var Audit_Query_Schedule_Container = {
         loadData: function (page = 1, per_page = 200){
             fiscal_year_id = $('#select_fiscal_year_annual_plan').val();
+            strategic_plan_year = $('#strategic_plan_year').val();
             activity_id = $('#activity_id').val();
             audit_plan_id = $('#audit_plan_id').val();
 
             url = $(".load-table-data").data('href');
-            var data = {page,per_page,fiscal_year_id,activity_id,audit_plan_id};
+            var data = {page,per_page,fiscal_year_id,activity_id,audit_plan_id,strategic_plan_year};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,
