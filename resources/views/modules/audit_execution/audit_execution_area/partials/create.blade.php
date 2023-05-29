@@ -1,15 +1,15 @@
 <form id="audit_area_form">
     <div class="form-row">
         <div class="col-sm-4 form-group">
-            <input type="radio" name="sector_type" value="App\Models\Project" checked> Project
+            <input data-type="project" type="radio" name="sector_type" value="App\Models\Project" checked> Project
         </div>
 
         <div class="col-sm-4 form-group">
-            <input type="radio" name="sector_type" value="App\Models\AuditFunction"> Function
+            <input data-type="function" type="radio" name="sector_type" value="App\Models\AuditFunction"> Function
         </div>
 
         <div class="col-sm-4 form-group">
-            <input type="radio" name="sector_type" value="App\Models\UnitMasterInfo" > Master Unit
+            <input data-type="master-unit" type="radio" name="sector_type" value="App\Models\UnitMasterInfo" > Master Unit
         </div>
     </div>
 
@@ -54,7 +54,7 @@
 
         <div class="col-sm-12 form-group">
             <label>Parent Area</label>
-            <select class="form-control select-select2" name="parent_id" id="parent_id">
+            <select class="form-control select-select2" name="parent_area_id" id="parent_area_id">
                 <option value="" selected>Select Parent Area</option>
                 @foreach ($allAreas as $area)
                     <option value="{{ $area['id'] }}">
@@ -82,6 +82,36 @@
 </form>
 
 <script>
+
+    $(function (){
+        project_id = "{{$project_id}}";
+        if (project_id) {
+            $('#project_id').val(project_id).trigger('change'); 
+        }
+    });
+
+    $('#project_id').change(function () {
+        assessment_sector_id = $('#project_id').val();
+        assessment_sector_type = $('input[name="sector_type"]:checked').data('type');
+        loadParentAreas(assessment_sector_id,assessment_sector_type);
+    });
+
+    function loadParentAreas (type, project_id) {
+        loaderStart('loading...');
+
+        let url = '{{route('audit.plan.risk-identifications.parent-area-list')}}';
+        let data = {assessment_sector_id,assessment_sector_type};
+
+        ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
+            loaderStop();
+            if (response.status === 'error') {
+                toastr.error(response.data);
+            } else {
+                $('#parent_area_id').html(response);
+            }
+        });
+    }
+
     $(document).ready(function() {
         $('input[type=radio][name=sector_type]').change(function() {
             if (this.value === 'App\\Models\\Project') {

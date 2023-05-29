@@ -1,7 +1,7 @@
 <x-title-wrapper>Audit Area</x-title-wrapper>
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-6 text-left">
-        <select class="form-control select-select2" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
+        <select id="project" class="form-control select-select2" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
             <option value="" selected>Select Project</option>
             @foreach ($allProjects as $project)
                 <option value="{{ $project['id'] }}">{{ $project['name_en'] }}</option>
@@ -26,9 +26,10 @@
 
         $('.btn_create_audit_area').click(function () {
 
+            project_id = $('#project').val();
             url = "{{ route('audit.execution.areas.create') }}";
 
-            data = {};
+            data = {project_id};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,

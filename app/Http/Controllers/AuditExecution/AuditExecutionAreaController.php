@@ -49,8 +49,9 @@ class AuditExecutionAreaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $project_id = $request->project_id;
         $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
             'all' => 1
         ])->json();
@@ -71,7 +72,7 @@ class AuditExecutionAreaController extends Controller
         ])->json();
         $allAreas = $allAreas ? $allAreas['data'] : [];
 
-        return view('modules.audit_execution.audit_execution_area.partials.create', compact(['allProjects', 'allFunctions', 'allMasterUnits', 'allAreas']));
+        return view('modules.audit_execution.audit_execution_area.partials.create', compact(['project_id','allProjects', 'allFunctions', 'allMasterUnits', 'allAreas']));
     }
 
     /**

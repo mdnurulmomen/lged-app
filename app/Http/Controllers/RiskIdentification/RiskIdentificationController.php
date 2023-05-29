@@ -34,6 +34,7 @@ class RiskIdentificationController extends Controller
 
     public function getSectorParentAreaList(Request $request) {
 
+        // dd($request->all());
         $request->validate([
             'assessment_sector_id' => 'required|integer',
             'assessment_sector_type' => 'required|in:project,function,master-unit',
