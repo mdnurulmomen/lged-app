@@ -27,20 +27,28 @@
             </td>
             <td class="text-left">
                 <button class="mr-1 btn btn-sm btn-primary btn-square show_strategic_plan_details"
-                        title="See Details" 
-                        data-strategic-plan-id="{{$plan['x_sp_duration_id']}}" 
-                        data-strategic-plan-year="{{$plan['strategic_plan_year']}}" 
+                        title="See Details"
+                        data-strategic-plan-id="{{$plan['x_sp_duration_id']}}"
+                        data-strategic-plan-year="{{$plan['strategic_plan_year']}}"
                         onclick=""
                 >
                     <i class="fad fa-eye"></i> Details
                 </button>
                 <button class="mr-1 btn btn-sm btn-warning btn-square edit_strategic_plan"
-                        title="Edit" 
-                        data-strategic-plan-id="{{$plan['x_sp_duration_id']}}" 
-                        data-strategic-plan-year="{{$plan['strategic_plan_year']}}" 
+                        title="Edit"
+                        data-strategic-plan-id="{{$plan['x_sp_duration_id']}}"
+                        data-strategic-plan-year="{{$plan['strategic_plan_year']}}"
                         onclick=""
                 >
                     <i class="fad fa-pen"></i> Edit
+                </button>
+                <button class="mr-1 btn btn-sm btn-danger btn-square"
+                        title="Edit"
+                        data-strategic-plan-id="{{$plan['x_sp_duration_id']}}"
+                        data-strategic-plan-year="{{$plan['strategic_plan_year']}}"
+                        onclick="Strategic_Plan_Container.deleteStrategicPlan($(this))"
+                >
+                    <i class="fad fa-trash"></i> Delete
                 </button>
             </td>
         </tr>
@@ -120,9 +128,9 @@
         let strategic_plan_id = $(this).data('strategic-plan-id');
         let strategic_plan_year = $(this).data('strategic-plan-year');
         let data = {strategic_plan_id, strategic_plan_year};
-        
+
         let url = "{{ route('audit.plan.strategy.show-year-wise-strategic-plan') }}";
-        
+
         ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
             if (resp.status === 'error') {
                 toastr.error('no');

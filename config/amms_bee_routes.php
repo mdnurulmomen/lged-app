@@ -229,6 +229,7 @@ return [
         'sp_setting_list' => env('API_URL_BEE', '') . '/sp-setting-list',
 
         'strategic_plan_list' => env('API_URL_BEE', '') . '/strategic-plan/list',
+        'strategic_plan_delete' => env('API_URL_BEE', '') . '/strategic-plan/delete',
         'strategic_plan_store' => env('API_URL_BEE', '') . '/strategic-plan/store',
         'strategic_plan_update' => env('API_URL_BEE', '') . '/strategic-plan/update',
         'delete_location' => env('API_URL_BEE', '') . '/strategic-plan/delete-location',

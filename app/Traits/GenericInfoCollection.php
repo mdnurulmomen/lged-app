@@ -19,6 +19,7 @@ trait GenericInfoCollection
     public function allStrategicPlanDurations()
     {
         $fiscal_years = $this->initHttpWithToken()->post(config('amms_bee_routes.settings.strategic_plan_duration_lists'), ['all' => 1])->json();
+        // return $fiscal_years;
         if ($fiscal_years['status'] == 'success') {
             session('strategic_outcomes', $fiscal_years['data']);
             return $fiscal_years['data'];

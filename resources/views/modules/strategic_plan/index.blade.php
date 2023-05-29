@@ -68,6 +68,21 @@
                     toastr.error('Failed to generate PDF.')
                     console.log(blob);
                 }
+            });;
+        },
+        deleteStrategicPlan: function (elem) {
+            loaderStart('loading...')
+            strategic_plan_id = elem.data('strategic-plan-id');
+            strategic_plan_year = elem.data('strategic-plan-year');
+            let url = '{{route('audit.plan.strategy.delete-strategic-plan')}}';
+            let data = {strategic_plan_id,strategic_plan_year};
+            ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+                loaderStop();
+                if (response.status === 'error') {
+                    toastr.error(response.data)
+                } else {
+                    Strategic_Plan_Container.loadStrategicPlanList();
+                }
             });
         },
     };

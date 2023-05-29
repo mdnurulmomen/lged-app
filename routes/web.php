@@ -167,6 +167,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             //IA strategy plan
             Route::get('/list', [AuditStrategicPlanController::class, 'list'])->name('list');
             Route::get('/get-strategic-plan-list', [AuditStrategicPlanController::class, 'getStrategicPlanList'])->name('get-strategic-plan-list');
+            Route::post('/delete-strategic-plan', [AuditStrategicPlanController::class, 'deleteStrategicPlan'])->name('delete-strategic-plan');
             Route::get('/create', [AuditStrategicPlanController::class, 'create'])->name('create');
             Route::get('/get-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'getYearWiseStrategicPlan'])->name('get-year-wise-strategic-plan');
             Route::get('/get-year-wise-strategic-plan-content', [AuditStrategicPlanController::class, 'showYearWiseStrategicPlanContent'])->name('get-year-wise-strategic-plan-content');

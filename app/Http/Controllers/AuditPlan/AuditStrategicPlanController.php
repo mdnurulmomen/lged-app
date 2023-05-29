@@ -37,6 +37,20 @@ class AuditStrategicPlanController extends Controller
             return response()->json(['status' => 'error', 'data' => $strategic_plan_list]);
         }
     }
+    public function deleteStrategicPlan(Request $request){
+        $data = Validator::make($request->all(), [
+            'strategic_plan_id' => 'required|integer',
+            'strategic_plan_year' => 'required',
+        ])->validate();
+
+        $strategic_plan_delete = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.strategic_plan_delete'),$data)->json();
+        // dd($strategic_plan_delete);
+        if (isSuccess($strategic_plan_delete)) {
+            return response()->json(['status' => 'success', 'data' => $strategic_plan_delete['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $strategic_plan_delete]);
+        }
+    }
 
     public function showYearWiseStrategicPlan(Request $request){
         $data = Validator::make($request->all(), [
@@ -203,6 +217,7 @@ class AuditStrategicPlanController extends Controller
     public function create()
     {
         $strategic_plan_durations =  $this->allStrategicPlanDurations();
+        // dd($strategic_plan_durations);
         return view('modules.strategic_plan.create',compact('strategic_plan_durations'));
     }
 

@@ -23,7 +23,9 @@
                     <select class="form-control select-select2" name="strategic_plan_year" id="strategic_plan_year">
                         <option selected value="">select plan</option>
                         @foreach($strategic_plan_durations as $duration)
+                            @if ($duration['strategic_plan_count'] == 0)
                             <option value="{{$duration['id']}}">{{$duration['start_year']}} - {{$duration['end_year']}}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
