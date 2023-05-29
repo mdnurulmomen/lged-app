@@ -230,6 +230,8 @@ return [
 
         'strategic_plan_list' => env('API_URL_BEE', '') . '/strategic-plan/list',
         'strategic_plan_store' => env('API_URL_BEE', '') . '/strategic-plan/store',
+        'strategic_plan_update' => env('API_URL_BEE', '') . '/strategic-plan/update',
+        'delete_location' => env('API_URL_BEE', '') . '/strategic-plan/delete-location',
         'get_individual_strategic_plan' => env('API_URL_BEE', '') . '/strategic-plan/get-individual-strategic-plan',
         'get_individual_strategic_plan_year' => env('API_URL_BEE', '') . '/strategic-plan/get-individual-strategic-plan-year',
 

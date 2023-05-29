@@ -169,11 +169,14 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::get('/get-strategic-plan-list', [AuditStrategicPlanController::class, 'getStrategicPlanList'])->name('get-strategic-plan-list');
             Route::get('/create', [AuditStrategicPlanController::class, 'create'])->name('create');
             Route::get('/get-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'getYearWiseStrategicPlan'])->name('get-year-wise-strategic-plan');
+            Route::get('/get-year-wise-strategic-plan-content', [AuditStrategicPlanController::class, 'showYearWiseStrategicPlanContent'])->name('get-year-wise-strategic-plan-content');
             Route::get('/show-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'showYearWiseStrategicPlan'])->name('show-year-wise-strategic-plan');
             Route::get('/edit-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'editYearWiseStrategicPlan'])->name('edit-year-wise-strategic-plan');
             Route::post('/download-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'downloadYearWiseStrategicPlan'])->name('download-year-wise-strategic-plan');
             Route::get('/add-location-row', [AuditStrategicPlanController::class, 'addLocationRow'])->name('add-location-row');
             Route::post('/store', [AuditStrategicPlanController::class, 'store'])->name('store');
+            Route::post('/update', [AuditStrategicPlanController::class, 'update'])->name('update');
+            Route::post('/delete-location-data', [AuditStrategicPlanController::class, 'deleteLocationData'])->name('delete-location-data');
             Route::post('/get-cost-center-project-map', [AuditStrategicPlanController::class, 'getCostCenterProjectMap'])->name('get-cost-center-project-map');
 
 

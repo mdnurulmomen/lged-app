@@ -273,7 +273,7 @@ class IndividualPlanController extends Controller
 //        dd($announcementMemo);
         $announcementMemo = $announcementMemo ? $announcementMemo['data'] : [];
 
-//         dd($announcementMemo);
+        // dd($announcementMemo);
         // dd($announcementMemo['yearly_plan_info']);
 
         return view('modules.individual_plan.partial.announcement-memo-modal', compact('announcementMemo', 'sectorType', 'yearly_plan_location_id'));

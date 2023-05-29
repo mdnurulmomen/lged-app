@@ -49,7 +49,8 @@
             loaderStart('loading...')
             strategic_plan_year = $('#strategic_plan_year').find(':selected').text();
             let url = '{{route('audit.plan.strategy.get-year-wise-strategic-plan')}}';
-            let data = {strategic_plan_year};
+            scop = 'create';
+            let data = {strategic_plan_year,scop};
             ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
                 loaderStop();
                 if (response.status === 'error') {

@@ -18,7 +18,7 @@
             </select>
         @endif
     </td>
-    <td>
+    {{--  <td>
         <select id="location_{{$strategic_year}}_{{$row_count}}" class="form-control location_id_{{$strategic_year}} select-select2">
             <option selected value="">select location</option>
             @if($row_type == 'function')
@@ -30,7 +30,7 @@
                         value="1">cost center</option>
             @endif
         </select>
-    </td>
+    </td>  --}}
     <td>
         <input type="text" class="form-control location_no_{{$strategic_year}}">
     </td>

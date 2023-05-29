@@ -22,16 +22,16 @@
                             <table style="table-layout: fixed" id="project_table_{{$i}}" class="table table-bordered">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th width="25%">Project</th>
-                                    <th width="25%">Location</th>
+                                    <th width="45%">Project</th>
+                                    {{--  <th width="25%">Location</th>  --}}
                                     <th width="10%">Location No</th>
-                                    <th width="25%">Comment</th>
+                                    <th width="30%">Comment</th>
                                     <th width="10%">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr class="strategic_row project_row_{{$i}}">
-                                    <td width="25%">
+                                    <td width="45%">
                                         <select data-strategic-year="{{$i}}" data-id="1" class="form-control project_id_{{$i}} select-select2 project-select">
                                             <option selected value="">Select Project</option>
                                             @foreach($all_project as $project)
@@ -40,15 +40,15 @@
                                             @endforeach
                                         </select>
                                     </td>
-                                    <td width="25%">
+                                    {{--  <td width="25%">
                                         <select id="location_{{$i}}_1" class="form-control location_id_{{$i}} select-select2">
                                             <option selected value="0">Select Location</option>
                                         </select>
-                                    </td>
+                                    </td>  --}}
                                     <td width="10%">
                                         <input type="text" class="form-control location_no_{{$i}}">
                                     </td>
-                                    <td width="25%">
+                                    <td width="30%">
                                         <textarea style="height: 40px;" class="form-control comment_{{$i}}"></textarea>
                                     </td>
                                     <td width="10%">
@@ -78,10 +78,10 @@
                             <table style="table-layout: fixed" id="function_table_{{$i}}" class="table table-bordered">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th width="25%">Function</th>
-                                    <th width="25%">Location</th>
+                                    <th width="45%">Function</th>
+                                    {{--  <th width="25%">Location</th>  --}}
                                     <th width="10%">Location No</th>
-                                    <th width="25%">Comment</th>
+                                    <th width="30%">Comment</th>
                                     <th width="10%">Action</th>
                                 </tr>
                                 </thead>
@@ -95,7 +95,7 @@
                                             @endforeach
                                         </select>
                                     </td>
-                                    <td>
+                                    {{--  <td>
                                         <select class="form-control location_id_{{$i}} select-select2">
                                             <option selected value="">select location</option>
                                             <option data-parent-office-id="1"
@@ -105,7 +105,7 @@
                                                     data-office-name-bn="cost center 1"
                                                     value="1">cost center</option>
                                         </select>
-                                    </td>
+                                    </td>  --}}
                                     <td>
                                        <input type="text" class="form-control location_no_{{$i}}">
                                     </td>

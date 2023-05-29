@@ -125,6 +125,7 @@ class AuditStrategicPlanController extends Controller
     }
 
     public function getYearWiseStrategicPlan(Request $request){
+        // dd($request->all());
         $strategic_plan_year = $request->strategic_plan_year;
 
         $plan_year = explode(' - ',$strategic_plan_year);
@@ -136,11 +137,38 @@ class AuditStrategicPlanController extends Controller
 
         $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.functions.list'), [])->json();
         $all_function = $all_function ? $all_function['data'] : [];
-
-        return view('modules.strategic_plan.partial.strategic_year_wise_plan',
+        // $data = [
+        //     'strategic_plan_id' =>
+        //     'strategic_plan_year' => $start,
+        // ];
+        $strategic_plan_year_id = $request->strategic_plan_year_id;
+        // $individual_strategic_plans = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.get_individual_strategic_plan'),$data)->json();
+        // dd($individual_strategic_plans);
+        if($request->scop == 'edit'){
+            return view('modules.strategic_plan.partial.edit_strategic_year_wise_plan',
+            compact('start','end', 'all_project','all_function','strategic_plan_year_id'));
+        }else{
+            return view('modules.strategic_plan.partial.strategic_year_wise_plan',
             compact('start','end', 'all_project','all_function'));
+        }
     }
-    
+    public function showYearWiseStrategicPlanContent(Request $request){
+        $data = [
+            'strategic_plan_id' => $request->strategic_plan_year_id,
+            'strategic_plan_year' => $request->year,
+        ];
+        $individual_strategic_plans = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.get_individual_strategic_plan'),$data)->json();
+        $individual_strategic_plan = isSuccess($individual_strategic_plans) ? $individual_strategic_plans['data'] : [];
+        // dd($individual_strategic_plan);
+        $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-projects'), [])->json();
+        $all_project = $all_project ? $all_project['data'] : [];
+
+        $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.functions.list'), [])->json();
+        $all_function = $all_function ? $all_function['data'] : [];
+        return view('modules.strategic_plan.partial.edit_strategic_year_wise_plan_content',compact('individual_strategic_plan','data','all_project','all_function'));
+
+    }
+
 
     public function getCostCenterProjectMap(Request $request){
         $data['sector_id'] = $request->project_id;
@@ -202,7 +230,41 @@ class AuditStrategicPlanController extends Controller
             return response()->json(['status' => 'error', 'data' => $store]);
         }
     }
+    public function update(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'strategic_plan_id' => 'required|integer',
+            'strategic_plan_year' => 'required',
+            'strategic_info' => 'required',
+        ])->validate();
+        $update = $this->initHttpWithToken()->post(
+            config('amms_bee_routes.audit_strategic_plan.strategic_plan_update'),
+            $data
+        )->json();
+        // dd($update);
+        if (isSuccess($update)) {
+            return response()->json(['status' => 'success', 'data' => $update['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $update]);
+        }
+    }
+    public function deleteLocationData(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'location_id' => 'required|integer',
+        ])->validate();
 
+        $delete_location = $this->initHttpWithToken()->post(
+            config('amms_bee_routes.audit_strategic_plan.delete_location'),
+            $data
+        )->json();
+
+        if (isSuccess($delete_location)) {
+            return response()->json(['status' => 'success', 'data' => $delete_location['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $delete_location]);
+        }
+    }
     /**
      * Display the specified resource.
      *
@@ -232,10 +294,10 @@ class AuditStrategicPlanController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    // public function update(Request $request, $id)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
