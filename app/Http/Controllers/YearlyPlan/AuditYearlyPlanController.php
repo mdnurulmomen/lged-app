@@ -34,15 +34,23 @@ class AuditYearlyPlanController extends Controller
             'strategic_plan_year' => 'required|integer',
         ])->validate();
 
-        // dd($request);
-
+        $strategic_plan_year = $request->strategic_plan_year;
+        $scope = $request->scope;
+        // dd($request->all());
         $individual_yearly_plan = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_yearly_plan.get_individual_yearly_plan'),$data)->json();
 
         // dd($individual_yearly_plan['data']);
 
         if (isSuccess($individual_yearly_plan)) {
             $individual_yearly_plan = $individual_yearly_plan['data'];
-            return view('modules.yearly_plan.partial.show_individual_yearly_plans',compact('individual_yearly_plan'));
+            $data['individual_yearly_plan'] = $individual_yearly_plan;
+            $data['office_id'] = $this->current_office_id();
+            if ($scope == "download") {
+                $pdf = \PDF::loadView('modules.yearly_plan.partial.download_individual_yearly_plans', $data, ['orientation' => 'P', 'format' => 'A4']);
+                return $pdf->stream('annual_plan.pdf');
+            } else {
+                return view('modules.yearly_plan.partial.show_individual_yearly_plans',compact('individual_yearly_plan','strategic_plan_year'));
+            }
         } else {
             return response()->json(['status' => 'error', 'data' => $individual_yearly_plan]);
         }

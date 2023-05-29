@@ -162,6 +162,41 @@
                 }
             });
         },
+
+        generatePDF: function () {
+            strategic_plan_year = $('#download').data('strategic-plan-year');
+            scope = 'download';
+            data = {strategic_plan_year,scope};
+
+            url = "{{ route('audit.plan.yearly-plan.get-individual-yearly-plan') }}";
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                message: 'Downloading Please Wait..',
+                state: 'primary' // a bootstrap color
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: data,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (response) {
+                    KTApp.unblock('#kt_wrapper');
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "annual_plan.pdf";
+                    link.click();
+                },
+                error: function (blob) {
+                    toastr.error('Failed to generate PDF.')
+                    console.log(blob);
+                }
+            });
+        },
     };
 </script>
 
