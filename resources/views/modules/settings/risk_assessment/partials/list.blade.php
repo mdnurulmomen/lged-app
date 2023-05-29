@@ -124,7 +124,7 @@
                 $('.offcanvas-footer').hide();
                 quick_panel.removeClass('d-none');
                 $("html").addClass("side-panel-overlay");
-                $('.offcanvas-title').html('Create'+ type + 'Risk Assessment');
+                $('.offcanvas-title').html('Create '+ type + 'Risk Assessment');
                 $('.offcanvas-wrapper').html(resp);
             }
         });

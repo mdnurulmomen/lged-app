@@ -384,33 +384,12 @@ class SectorAssessmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'audit_area_id' => 'required|integer|max:255',
-            'assessment_sector_id' => 'required|integer|max:255',
-            'assessment_sector_type' => 'required|string|in:project,function,master-unit,cost-center',
-            'audit_assessment_area_risks' => 'required|array',
-            'audit_assessment_area_risks.*.inherent_risk' => 'required|string',
-            'audit_assessment_area_risks.*.x_risk_assessment_impact_id' => 'required|integer',
-            'audit_assessment_area_risks.*.x_risk_assessment_likelihood_id' => 'required|integer',
-            'audit_assessment_area_risks.*.control_system' => 'required|string',
-            'audit_assessment_area_risks.*.control_effectiveness' => 'required|string',
-            'audit_assessment_area_risks.*.residual_risk' => 'required|string',
-            'audit_assessment_area_risks.*.recommendation' => 'required|string',
-            'audit_assessment_area_risks.*.implemented_by' => 'required|string',
-            'audit_assessment_area_risks.*.implementation_period' => 'required|string',
-        ]);
+        $data = $request->all();
 
-        $data = [
-            'id' => $request->id,
-            'audit_area_id' => $request->audit_area_id,
-            'assessment_sector_id' => $request->assessment_sector_id,
-            'assessment_sector_type' => $request->assessment_sector_type,
-            'audit_assessment_area_risks' => $request->audit_assessment_area_risks,
-            'updater_id' => $this->current_desk()['officer_id'],
-        ];
+//        dd($data);
 
-        $update_risk_impact = $this->initHttpWithToken()->put(config('amms_bee_routes.sector_risk_assessments')."/$request->id", $data)->json();
-//        dd($create_audit_query);
+        $update_risk_impact = $this->initHttpWithToken()->put(config('amms_bee_routes.sector_risk_assessments')."/$id", $data)->json();
+//        dd($update_risk_impact);
         if (isset($update_risk_impact['status']) && $update_risk_impact['status'] == 'success') {
             return response()->json(['status' => 'success', 'data' => $update_risk_impact['data']]);
         } else {
