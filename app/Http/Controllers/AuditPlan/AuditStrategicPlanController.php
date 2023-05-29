@@ -115,6 +115,7 @@ class AuditStrategicPlanController extends Controller
         $data['start'] = $start;
         $data['end'] = $end;
         $data['scope'] = 'download';
+        $data['office_id'] = $this->current_office_id();
         $strategic_plan_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.get_individual_strategic_plan'), $data)->json();
         $strategic_plan_list = $strategic_plan_list ? $strategic_plan_list['data'] : [];
         $data['strategic_plan_list'] = $strategic_plan_list;
