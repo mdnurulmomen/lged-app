@@ -26,6 +26,9 @@
                 <th>Comments</th>
                 <th>Related Issue Number</th>
             @endif
+            <th>
+                Action
+            </th>
         </tr>
     </thead>
 
@@ -37,18 +40,6 @@
             <td rowspan="{{ count($sectorriskassessment['audit_assessment_area_risks']) }}">
 
                 {{ collect($allAuditAreas)->firstWhere('id', $sectorriskassessment['audit_area_id'])['name_en'] }}
-
-                <a
-                    href="javascript:;"
-                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_sector_risk_assessment"
-                    data-id="{{ $sectorriskassessment['id'] }}"
-                    data-audit_area_id="{{ $sectorriskassessment['audit_area_id'] }}"
-                    data-assessment_sector_id="{{ $sectorriskassessment['assessment_sector_id'] }}"
-                    data-assessment_sector_type="{{ $sectorriskassessment['assessment_sector_type'] }}"
-                    data-audit_assessment_area_risks='@json($sectorriskassessment['audit_assessment_area_risks'])'
-                >
-                    <i class="fas fa-edit"></i>
-                </a>
 
                 <a href="javascript:;"
                    data-id="{{$sectorriskassessment['id']}}"
@@ -79,6 +70,19 @@
                <td>{{ $auditAssessmentAreaRisk['issue_no'] }}</td>
             @endif
 
+            <td>
+                <a
+                    href="javascript:;"
+                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_sector_risk_assessment"
+                    data-id="{{ $auditAssessmentAreaRisk['id'] }}"
+                    data-audit_area_id="{{ $sectorriskassessment['audit_area_id'] }}"
+                    data-assessment_sector_id="{{ $sectorriskassessment['assessment_sector_id'] }}"
+                    data-assessment_sector_type="{{ $sectorriskassessment['assessment_sector_type'] }}"
+                >
+                    <i class="fas fa-edit"></i>
+                </a>
+            </td>
+
         </tr>
         @endforeach
 
@@ -101,11 +105,10 @@
         audit_area_id =$(this).data('audit_area_id');
         assessment_sector_id = $(this).data('assessment_sector_id');
         assessment_sector_type = $(this).data('assessment_sector_type');
-        audit_assessment_area_risks = $(this).data('audit_assessment_area_risks');
 
         url = "{{ route('settings.sector-risk-assessments.edit') }}";
 
-        var data = {id,audit_area_id,assessment_sector_id,assessment_sector_type,audit_assessment_area_risks};
+        var data = {id,audit_area_id,assessment_sector_id,assessment_sector_type};
 
         ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
             loaderStop();

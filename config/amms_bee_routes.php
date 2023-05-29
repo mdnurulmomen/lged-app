@@ -278,6 +278,7 @@ return [
 
     'risk_matrixes' => env('API_URL_BEE', '') . '/risk-matrixes',
     'sector_risk_assessments' => env('API_URL_BEE', '') . '/sector-risk-assessments',
+    'audit_subarea_risk_info' => env('API_URL_BEE', '') . '/sector-risk-assessments/audit-subarea-risk-info',
     'likelihood_impact_wise_matrix' => env('API_URL_BEE', '') . '/risk-matrixes/likelihood-impact-wise-matrix',
 
     'x_risk_factors' => env('API_URL_BEE', '') . '/x-risk-factors',

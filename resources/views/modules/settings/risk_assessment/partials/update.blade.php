@@ -18,9 +18,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
+            <div>
                 <div class="form-row">
-                    <div class="col-sm-12 form-group">
+                    <div class="col-sm-12 form-group" style="display: none">
                         <input type="radio" name="assessment_sector_type" value="field_office" @if ($assessment_sector_type=='field_office') checked @endif> Field Office
                         <input id="project" type="radio" name="assessment_sector_type" value="project" @if ($assessment_sector_type=='project') checked @endif> Project
                         <input id="master_unit" type="radio" name="assessment_sector_type" value="master-unit" @if ($assessment_sector_type=='master-unit') checked @endif> Unit
@@ -35,9 +35,9 @@
 
                 <div class="form-row">
                     <div class="col-sm-12">
-                        <input type="hidden" id="id" value="{{ $id }}">
+                        <input type="hidden" id="id" value="{{ $sub_area_risk_info['id'] }}">
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="display: none">
                         <div class="project_div" style="display : @if ($assessment_sector_type=='project') block @else none @endif">
                             <select   class="form-control select-select2 sector" name="project_id" id="project_id">
                                 <option>Select Project</option>
@@ -111,32 +111,80 @@
             <div class="card-body pt-3 sector_areas">
                 <div class="form-row">
                     <div class="col-sm-12 pl-7 pr-7">
-                        <div class="form-row">
-                            <div class="col-sm-12 form-group">
-                                <label for="audit_area_id">Area:</label>
-                                <select class="form-control" name="audit_area_id" id="audit_area_id">
-                                    <option>Please Select Area</option>
-                                    @foreach ($allAreas as $area)
-                                        <option
-                                            value="{{ $area['id'] }}"
-                                            @if ($area['id'] == $audit_area_id)
-                                                selected
-                                            @endif
-                                        >
-                                            {{ $area['name_en'] }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        @foreach ($audit_assessment_area_risks as $index => $audit_assessment_area_risk)
-                            <div class="sector_area_risks">
+                        <div class="sector_area_risks">
                                 <div class="form-row">
-                                        <div class="col-sm-4 form-group">
-                                            <label for="email">Inherent Risk:</label>
-                                            <input type="text" class="form-control" placeholder="Enter Inherent Risk" name="inherent_risk" value="{{ $audit_assessment_area_risk['inherent_risk'] }}">
-                                        </div>
+                                    <div class="col-sm-4 form-group">
+                                        <label for="email">Process Owner:</label>
+                                        <select class="form-control process_owner_id" name="process_owner_id">
+                                            <option value="0" selected>Select Process Owner</option>
+                                            @foreach($officerLists as $key => $officer_list)
+                                                @foreach($officer_list['units'] as $unit)
+                                                    @foreach($unit['designations'] as $designation)
+                                                        @if(!empty($designation['employee_info']))
+                                                            <option @if($designation['employee_info']['id'] == $sub_area_risk_info['process_owner_id']) selected @endif value="{{$designation['employee_info']['id']}}">{{$designation['employee_info']['name_eng']}} ({{$designation['designation_eng']}})</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-4 form-group">
+                                        <label for="sub_area_id">Process/sub-process:</label>
+                                        <select onchange="getInherentRisk()" class="form-control" name="sub_area_id" id="sub_area_id">
+                                            <option>Please Select Process/Sub-process</option>
+                                            @foreach ($allAreas as $area)
+                                                <option
+                                                    value="{{ $area['id'] }}"
+                                                    @if ($area['id'] == $sub_area_risk_info['sub_area_id'])
+                                                    selected
+                                                    @endif
+                                                >
+                                                    {{ $area['name_en'] }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-4 form-group">
+                                        <label for="email">Risk Owner:</label>
+                                        <select class="form-control risk_owner_id" name="risk_owner_id">
+                                            <option value="0" selected>Select Risk Owner</option>
+                                            @foreach($officerLists as $key => $officer_list)
+                                                @foreach($officer_list['units'] as $unit)
+                                                    @foreach($unit['designations'] as $designation)
+                                                        @if(!empty($designation['employee_info']))
+                                                            <option @if($designation['employee_info']['id'] == $sub_area_risk_info['risk_owner_id']) selected @endif  value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['designation_eng'] : ''}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-4 form-group">
+                                        <label for="email">Risk:</label>
+                                        <select class="form-control inherent_risk_id" name="inherent_risk_id">
+                                            <option selected>Select Risk</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-4 form-group">
+                                        <label for="email">Likelihood:</label>
+                                        <select class="form-control" name="x_risk_assessment_likelihood_id">
+                                            <option>Please Select Likelihood</option>
+                                            @foreach ($allLikelihoods as $likelihood)
+                                                <option
+                                                    value="{{ $likelihood['id'] }}"
+                                                    @if ($likelihood['id'] == $sub_area_risk_info['x_risk_assessment_likelihood_id'])
+                                                    selected
+                                                    @endif
+                                                >
+                                                    {{ $likelihood['title_en'] }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
                                         <div class="col-sm-4 form-group">
                                             <label for="email">Impact:</label>
@@ -145,7 +193,7 @@
                                                 @foreach ($allImpacts as $impact)
                                                     <option
                                                         value="{{ $impact['id'] }}"
-                                                        @if ($impact['id'] == $audit_assessment_area_risk['x_risk_assessment_impact_id'])
+                                                        @if ($impact['id'] == $sub_area_risk_info['x_risk_assessment_impact_id'])
                                                             selected
                                                         @endif
                                                     >
@@ -155,60 +203,71 @@
                                             </select>
                                         </div>
 
+                                    <div class="col-sm-4 form-group">
+                                        <label for="email">{{$sub_area_risk_info['assessment_type'] == 'preliminary' ? 'Inherent' : 'Residual'}} Risk Level:</label>
+                                        <input type="text" value="" name="risk_level" class="form-control risk_level" readonly>
+                                    </div>
+
+                                    <div class="col-sm-4 form-group" @if($sub_area_risk_info['assessment_type'] == 'final') style="display: none" @endif>
+                                        <label for="email">Priority:</label>
+                                        <input type="text" value="" name="priority" class="form-control priority" readonly>
+                                    </div>
+                                    @if($sub_area_risk_info['assessment_type'] == 'final')
+
                                         <div class="col-sm-4 form-group">
-                                            <label for="email">Likelihood:</label>
-                                            <select class="form-control" name="x_risk_assessment_likelihood_id">
-                                                <option>Please Select Likelihood</option>
-                                                @foreach ($allLikelihoods as $likelihood)
-                                                    <option
-                                                        value="{{ $likelihood['id'] }}"
-                                                        @if ($likelihood['id'] == $audit_assessment_area_risk['x_risk_assessment_likelihood_id'])
-                                                            selected
-                                                        @endif
-                                                    >
-                                                        {{ $likelihood['title_en'] }}
-                                                    </option>
+                                            <label for="control_system">Effectiveness Of Control:</label>
+                                            <select class="form-control" name="control_system">
+                                                <option value="" selected>-- Select --</option>
+                                                <option value="Adequate">Adequate</option>
+                                                <option value="Inadequate">Inadequate</option>
+                                                <option value="Needs Improvement">Needs Improvement</option>
+                                            </select>
+                                            <!-- <textarea type="text" class="form-control" placeholder="Enter Control System" name="control_system"></textarea> -->
+                                        </div>
+
+                                    @else
+                                        <div class="col-sm-4 form-group">
+                                            <label for="control_system">Existing Control:</label>
+                                            <textarea type="text" class="form-control" placeholder="Enter Control System" name="control_system"></textarea>
+                                        </div>
+
+                                        <div class="col-sm-4 form-group">
+                                            <label for="email">Control Owner:</label>
+                                            <select class="form-control control_owner_id" name="control_owner_id">
+                                                <option value="0" selected>Select Control Owner</option>
+                                                @foreach($officerLists as $key => $officer_list)
+                                                    @foreach($officer_list['units'] as $unit)
+                                                        @foreach($unit['designations'] as $designation)
+                                                            @if(!empty($designation['employee_info']))
+                                                                <option @if($designation['employee_info']['id'] == $sub_area_risk_info['control_owner_id']) selected @endif value="{{$designation['employee_info']['id']}}">{{!empty($designation['employee_info']) ? $designation['employee_info']['name_eng'] : ''}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    @endforeach
                                                 @endforeach
                                             </select>
                                         </div>
+                                    @endif
 
+                                    @if($sub_area_risk_info['assessment_type'] == 'final')
                                         <div class="col-sm-4 form-group">
-                                            <label for="email">Control System:</label>
-                                            <input type="text" class="form-control" placeholder="Enter Control System" name="control_system" value="{{ $audit_assessment_area_risk['control_system'] }}">
+                                            <label for="comments">Comments:</label>
+                                            <textarea type="text" class="form-control" placeholder="Enter Comments" name="comments"></textarea>
                                         </div>
 
                                         <div class="col-sm-4 form-group">
-                                            <label for="email">Control Effectiveness:</label>
-                                            <input type="text" class="form-control" placeholder="Enter Control Effectiveness" name="control_effectiveness" value="{{ $audit_assessment_area_risk['control_effectiveness'] }}">
+                                            <label for="email">Related Issue Number:</label>
+                                            <select class="form-control issue_id" name="issue_id">
+                                                <option selected>Select Risk</option>
+                                            </select>
                                         </div>
-
-                                        <div class="col-sm-4 form-group">
-                                            <label for="email">Residual Risk:</label>
-                                            <input type="text" class="form-control" placeholder="Enter Residual Risk" name="residual_risk" value="{{ $audit_assessment_area_risk['residual_risk'] }}">
-                                        </div>
-
-                                        <div class="col-sm-4 form-group">
-                                            <label for="email">Recommendation:</label>
-                                            <input type="text" class="form-control" placeholder="Enter Recommendation" name="recommendation" value="{{ $audit_assessment_area_risk['recommendation'] }}">
-                                        </div>
-
-                                        <div class="col-sm-4 form-group">
-                                            <label for="email">Implemented By:</label>
-                                            <input type="text" class="form-control" placeholder="Enter Implemented By" name="implemented_by" value="{{ $audit_assessment_area_risk['implemented_by'] }}">
-                                        </div>
-
-                                        <div class="col-sm-4 form-group">
-                                            <label for="email">Implemented On:</label>
-                                            <input type="text" class="form-control" placeholder="Enter Implemented On" name="implementation_period" value="{{ $audit_assessment_area_risk['implementation_period'] }}">
-                                        </div>
+                                    @endif
                                     </div>
                             </div>
-                        @endforeach
 
                         <div class="form-row">
-                            <div class="col-sm-12 text-center">
+                            <div class="col-sm-12 text-left">
                                 <button class="btn btn-sm btn-square btn-primary mr-2" id="submit_button">
-                                    <i class="fa fa-save"></i> সংরক্ষণ করুন
+                                    <i class="fa fa-save"></i> Update
                                 </button>
                             </div>
                         </div>
@@ -220,9 +279,10 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        // Item_Risk_Assessment_Container.loadRiskFactorType('project');
-
+    $(function () {
+        let audit_area_id = '{{$audit_area_id}}';
+        setAvailableInherentRisk(audit_area_id);
+    });
         $('input[type=radio][name=assessment_sector_type]').change(function() {
             console.log(this.value);
             if (this.value == 'project') {
@@ -319,6 +379,36 @@
 
         }
 
+        function getInherentRisk(){
+            let audit_area_id = $('#sub_area_id').val();
+            setAvailableInherentRisk(audit_area_id);
+        }
+
+        function setAvailableInherentRisk(audit_area_id){
+            loaderStart('Please wait...');
+
+            let assessment_sector_type = '{{$assessment_sector_type}}';
+
+            let parent_area_id = '{{$audit_area_id}}';
+
+            let assessment_sector_id = '{{$assessment_sector_id}}';
+
+            let data = {assessment_sector_type,assessment_sector_id,parent_area_id,audit_area_id};
+
+            let url = "{{route('audit.plan.risk-identifications.child-area-risk-list')}}";
+
+            ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
+                loaderStop();
+                if (response.status === 'error') {
+                    toastr.error(response.data);
+                } else {
+                    $('.inherent_risk_id').html(response);
+                    let sub_area_id = '{{$sub_area_risk_info['sub_area_id']}}';
+                    $('#sub_area_id').val(sub_area_id);
+                }
+            });
+        }
+
         function updateItemRiskAssessments () {
 
             loaderStart('Please wait...');
@@ -356,7 +446,7 @@
                 sector_assessment.audit_assessment_area_risks.push(audit_assessment_area_risk);
             });
 
-            let url = "{{route('settings.sector-risk-assessments.update', $id)}}";
+            let url = "{{route('settings.sector-risk-assessments.update', $sub_area_risk_info['id'])}}";
 
             ajaxCallAsyncCallbackAPI(url, sector_assessment, 'PUT', function (response) {
                 loaderStop();
@@ -368,5 +458,4 @@
                 }
             });
         }
-    });
 </script>
