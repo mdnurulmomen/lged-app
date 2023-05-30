@@ -18,7 +18,6 @@
                      id="strategic_year_{{$i}}" role="tabpanel" aria-labelledby="calender-tab">
                     <div class="row">
                         <div class="col-12">
-                            <label>Project :</label>
                             <table style="table-layout: fixed" id="project_table_{{$i}}" class="table table-bordered">
                                 <thead class="thead-light">
                                 <tr>
@@ -74,7 +73,6 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <label>Function :</label>
                             <table style="table-layout: fixed" id="function_table_{{$i}}" class="table table-bordered">
                                 <thead class="thead-light">
                                 <tr>

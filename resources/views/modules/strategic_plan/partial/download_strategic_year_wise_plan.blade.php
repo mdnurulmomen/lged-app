@@ -89,10 +89,10 @@
                         <table class="table table-bordered" style="font-size: 13vh;">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Projects</th>
-                                    <th>Location</th>
-                                    <th>Number of Location</th>
-                                    <th>Comment</th>
+                                    <th style="width: 50%;">Projects</th>
+                                    <!-- <th>Location</th> -->
+                                    <th style="width: 25%;">Number of Location</th>
+                                    <th style="width: 25%;">Comment</th>
                                 </tr>
                             </thead>
                             @foreach ($strategic_plans['projects'] as $project)
@@ -101,9 +101,9 @@
                                         <td>
                                             {{ $project['project_name_en']}}
                                         </td>
-                                        <td >
+                                        <!-- <td >
                                             {{ $project['cost_center_en']}}
-                                        </td>
+                                        </td> -->
                                         <td>
                                             {{ $project['location_no'] }}
                                         </td>
@@ -120,10 +120,10 @@
                         <table class="table table-striped table-bordered" style="font-size: 13vh;">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Functions</th>
-                                    <th>Location</th>
-                                    <th>Number of Location</th>
-                                    <th>Comment</th>
+                                    <th style="width: 50%;">Functions</th>
+                                    <!-- <th>Location</th> -->
+                                    <th style="width: 25%;">Number of Location</th>
+                                    <th style="width: 25%;">Comment</th>
                                 </tr>
                             </thead>
                             @foreach ($strategic_plans['functions'] as $function)
@@ -132,9 +132,9 @@
                                         <td>
                                             {{ $function['function_name_en']}}
                                         </td>
-                                        <td >
+                                        <!-- <td >
                                             {{ $function['cost_center_en']}}
-                                        </td>
+                                        </td> -->
                                         <td>
                                             {{ $function['location_no'] }}
                                         </td>
