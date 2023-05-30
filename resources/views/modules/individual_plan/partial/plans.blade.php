@@ -87,7 +87,7 @@
                  @foreach($individual_yearly_plan['function_list'] as $function)
                  <tr class="strategic_row function_row">
                      <td>
-                         {{ $function['function_name_en'] }}
+                         {{ $function['function_name_bn'] }}
                      </td>
                      <td>
                          <button class="btn btn-sm btn-square btn-primary btn-hover-primary plan-button"

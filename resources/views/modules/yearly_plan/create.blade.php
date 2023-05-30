@@ -23,7 +23,9 @@
                     <select class="form-control select-select2" name="strategic_plan_year" id="strategic_plan_year">
                         <option selected value="">Select plan</option>
                         @foreach($individual_strategic_plan_year as $year)
-                            <option data-strategic-plan="{{$year['strategic_plan_id']}}" value="{{$year['strategic_plan_year']}}">{{$year['strategic_plan_year']}}</option>
+                            @if ($year['get_individual_plan_count'] == 0)
+                                <option data-strategic-plan="{{$year['strategic_plan_id']}}" value="{{$year['strategic_plan_year']}}">{{$year['strategic_plan_year']}}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>

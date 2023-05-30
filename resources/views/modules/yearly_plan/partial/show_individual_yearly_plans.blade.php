@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="d-flex justify-content-end mt-4">
-            <button id="download" data-strategic-plan-year="{{$strategic_plan_year}}" 
+            <button id="download" data-strategic-plan-year="{{$strategic_plan_year}}"
                     onclick="Yearly_Plan_Container.generatePDF()"
                     title="Download"
                     class="btn btn-danger btn-sm btn-bold btn-square">
@@ -31,9 +31,9 @@
                     <table id="project_table" class="table table-bordered">
                         <thead class="thead-light">
                             <tr>
-                                <th width="20%">Project</th>
+                                <th width="20%">Project Name</th>
                                 <th width="20%">Location</th>
-                                <th width="20%">Location No</th>
+                                <th width="20%">Number of Location</th>
                                 <th width="20%">Comment</th>
                             </tr>
                         </thead>
@@ -58,9 +58,9 @@
                     <table id="function_table" class="table table-bordered">
                         <thead class="thead-light">
                             <tr>
-                                <th width="20%">Function</th>
+                                <th width="20%">Function Name</th>
                                 <th width="20%">Location</th>
-                                <th width="20%">Location No</th>
+                                <th width="20%">Number of Location</th>
                                 <th width="20%">Comment</th>
                             </tr>
                         </thead>
@@ -88,7 +88,7 @@
                             <tr>
                                 <th width="20%">Cost Center</th>
                                 <th width="20%">Location</th>
-                                <th width="20%">Location No</th>
+                                <th width="20%">Number of Location</th>
                                 <th width="20%">Comment</th>
                             </tr>
                         </thead>

@@ -8,7 +8,7 @@
                 <input style="display: none" id="project" type="radio" name="sector_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project
                 <input style="display: none" id="function" type="radio" name="sector_type" value="function" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function
                 <input style="display: none" id="master_unit" type="radio" name="sector_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Master Unit
-                 <input id="cost_center" type="radio" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center 
+                 <input id="cost_center" type="radio" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center
             </span> -->
 
             @if($data['project_id'])
@@ -32,25 +32,26 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2.5">
             <div class="area_div">
                 <select class="form-control select-select2" name="sector_area" id="sector_area" onchange="Audit_Program_Container.laodAreaPrograms(this.value)">
                     <option selected>Select Area</option>
                 </select>
             </div>
         </div>
-
-       <div class="col-md-2">
-           <button class="btn btn-sm btn-info btn-square mr-1"
-                   title="Download"
-                   onclick='Audit_Program_Container.export($(this))'>
-               <i class="fad fa-download"></i> Excel
-           </button>
-       </div>
-
-        <div class="col-md-2">
+        <div class="col-md-1.5" style="margin-left: 0.5cm;">
+            <button class="btn btn-sm btn-info btn-square mr-1"
+                title="Download"
+                onclick='Audit_Program_Container.export($(this))'>
+                <i class="fad fa-download"></i> Excel
+            </button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-sm btn-square btn-warning mr-2" id="go_back">
+                <i class="fad fa-arrow-alt-left"></i> Go Back
+            </button>
             <button class="btn btn-sm btn-primary btn-square mr-1"
-                    title="বিস্তারিত দেখুন"
+                    title="Create Program"
                     data-audit-plan-id="{{$data['audit_plan_id']}}"
                     onclick='Audit_Program_Container.createAreaPrograms($(this))'
                     style="float: right;">
@@ -94,6 +95,9 @@
        if(project_id){
            Audit_Program_Container.laodSectorAreas('project',project_id);
        }
+    });
+    $('#go_back').on("click", function() {
+        $('.sector_area_program_menu  a').click();
     });
 
     var Audit_Program_Container = {

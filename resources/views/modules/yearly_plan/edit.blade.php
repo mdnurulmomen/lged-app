@@ -14,10 +14,7 @@
             <div class="row">
                 <div class="col-4">
                     <select class="form-control select-select2" name="strategic_plan_year" id="strategic_plan_year">
-                        <option selected value="">Select plan</option>
-                        @foreach($individual_strategic_plan_year as $year)
-                            <option data-strategic-plan="{{$year['strategic_plan_id']}}" value="{{$year['strategic_plan_year']}}" {{$year['strategic_plan_year'] == $data['strategic_plan_year']  ? 'selected' : ''}}>{{$year['strategic_plan_year']}}</option>
-                        @endforeach
+                        <option value="{{$data['yearly_plan_id']}}">{{$data['strategic_plan_year']}}</option>
                     </select>
                 </div>
             </div>
@@ -32,28 +29,78 @@
             <table style="table-layout: fixed" id="project_table_{{$data['strategic_plan_year']}}" class="table table-bordered">
                 <thead class="thead-light">
                 <tr>
-                    <th width="25%">Project</th>
-                    <th width="25%">Location</th>
-                    <th width="10%">Location No</th>
+                    <th width="45%">Project Name</th>
+                    {{--  <th width="25%">Location</th>  --}}
+                    <th width="15%">Number of Location</th>
                     <th width="30%">Comment</th>
                     <th width="10%">Action</th>
                 </tr>
                 </thead>
                 <tbody>
+                @if ($individual_yearly_plan['project_list'])
+                    @foreach($individual_yearly_plan['project_list'] as $projects)
+                    <tr class="strategic_row project_row_{{$projects['strategic_plan_year']}}" id="location{{ $projects['id'] }}">
+                        <input type="hidden" class="form-control project_location_id" value="{{$projects['id']}}">
+                        <td>
+                            <select data-strategic-year="{{$projects['strategic_plan_year']}}" data-id="{{$loop->iteration}}" class="form-control project_id_{{$projects['strategic_plan_year']}} select-select2 project-select">
+                                <option selected value="">Select Project</option>
+                                @foreach($all_project as $project)
+                                    <option data-project-name-en="{{$project['name_en']}}"
+                                            value="{{$project['id']}}" @if($projects['project_id'] == $project['id']) selected @endif>{{$project['name_en']}} ({{ $project['risk_score_key'] ? ucfirst($project['risk_score_key']) : '--' }})</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        {{--  <td>
+                            <select id="location_{{$projects['strategic_plan_year']}}_{{$loop->iteration}}" class="form-control location_id_{{$projects['strategic_plan_year']}} select-select2">
+                                @if($projects['cost_center_id'])
+                                <option selected data-parent-office-id="{{$projects['cost_center_id']}}"
+                                        data-parent-office-name-en="{{$projects['parent_office_id']}}"
+                                        data-parent-office-name-bn="{{$projects['parent_office_bn']}}"
+                                        data-office-name-en="{{$projects['cost_center_en']}}"
+                                        data-office-name-bn="{{$projects['cost_center_bn']}}"
+                                        value="{{$projects['cost_center_id']}}">{{$projects['cost_center_bn']}}</option>
+                                @else
+                                    <option value="" selected> Select Cost Center </option>
+                                @endif
+                            </select>
+                        </td>  --}}
+                        <td>
+                            <input type="text" class="form-control location_no_{{$projects['strategic_plan_year']}}" value="{{$projects['location_no']}}">
+                        </td>
+                        <td>
+                            <textarea style="height: 40px;" class="form-control comment_{{$projects['strategic_plan_year']}}">{{$projects['comment']}}</textarea>
+                        </td>
+                        <td>
+                            <div style="display: flex">
+                                <button type="button" title="ট্রানজিট"
+                                        onclick="Plan_Common_Container.addLocationRow('{{$projects['strategic_plan_year']}}','project')"
+                                        class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
+                                    <span class="fad fa-plus"></span>
+                                </button>
 
-                @foreach($individual_yearly_plan['project_list'] as $projects)
-                <tr class="strategic_row project_row_{{$projects['strategic_plan_year']}}" id="location{{ $projects['id'] }}">
-                    <input type="hidden" class="form-control project_location_id" value="{{$projects['id']}}">
+                                <button type='button' title="বাদ দিন"
+                                        data-row='row1'
+                                        data-yearly-plan-locations-id = "{{ $projects['id'] }}"
+                                        onclick="Yearly_Plan_Container.removeLocationRow($(this))"
+                                        class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
+                                    <span class='fal fa-trash-alt'></span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                @else
+                <tr class="strategic_row project_row_{{$data['strategic_plan_year']}}">
                     <td>
-                        <select data-strategic-year="{{$projects['strategic_plan_year']}}" data-id="{{$loop->iteration}}" class="form-control project_id_{{$projects['strategic_plan_year']}} select-select2 project-select">
+                        <select data-strategic-year="{{$data['strategic_plan_year']}}" class="form-control project_id_{{$data['strategic_plan_year']}} select-select2 project-select">
                             <option selected value="">Select Project</option>
                             @foreach($all_project as $project)
                                 <option data-project-name-en="{{$project['name_en']}}"
-                                        value="{{$project['id']}}" @if($projects['project_id'] == $project['id']) selected @endif>{{$project['name_en']}} ({{ $project['risk_score_key'] ? ucfirst($project['risk_score_key']) : '--' }})</option>
+                                        value="{{$project['id']}}">{{$project['name_en']}} ({{ $project['risk_score_key'] ? ucfirst($project['risk_score_key']) : '--' }})</option>
                             @endforeach
                         </select>
                     </td>
-                    <td>
+                    {{--  <td>
                         <select id="location_{{$projects['strategic_plan_year']}}_{{$loop->iteration}}" class="form-control location_id_{{$projects['strategic_plan_year']}} select-select2">
                             @if($projects['cost_center_id'])
                             <option selected data-parent-office-id="{{$projects['cost_center_id']}}"
@@ -66,32 +113,31 @@
                                 <option value="" selected> Select Cost Center </option>
                             @endif
                         </select>
+                    </td>  --}}
+                    <td>
+                        <input type="text" class="form-control location_no_{{$data['strategic_plan_year']}}">
                     </td>
                     <td>
-                        <input type="text" class="form-control location_no_{{$projects['strategic_plan_year']}}" value="{{$projects['location_no']}}">
-                    </td>
-                    <td>
-                        <textarea style="height: 40px;" class="form-control comment_{{$projects['strategic_plan_year']}}">{{$projects['comment']}}</textarea>
+                        <textarea style="height: 40px;" class="form-control comment_{{$data['strategic_plan_year']}}"></textarea>
                     </td>
                     <td>
                         <div style="display: flex">
                             <button type="button" title="ট্রানজিট"
-                                    onclick="Plan_Common_Container.addLocationRow('{{$projects['strategic_plan_year']}}','project')"
+                                    onclick="Plan_Common_Container.addLocationRow('{{$data['strategic_plan_year']}}','project')"
                                     class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                 <span class="fad fa-plus"></span>
                             </button>
 
                             <button type='button' title="বাদ দিন"
                                     data-row='row1'
-                                    data-yearly-plan-locations-id = "{{ $projects['id'] }}"
-                                    onclick="Yearly_Plan_Container.removeLocationRow($(this))"
+                                    onclick="Plan_Common_Container.removeLocationRow($(this))"
                                     class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                                 <span class='fal fa-trash-alt'></span>
                             </button>
                         </div>
                     </td>
                 </tr>
-                @endforeach
+                @endif
                 </tbody>
             </table>
         </div>
@@ -102,15 +148,15 @@
             <table style="table-layout: fixed" id="function_table_{{$data['strategic_plan_year']}}" class="table table-bordered">
                 <thead class="thead-light">
                 <tr>
-                    <th width="25%">Function</th>
-                    <th width="25%">Location</th>
-                    <th width="10%">Location No</th>
+                    <th width="45%">Function Name</th>
+                    {{--  <th width="25%">Location</th>  --}}
+                    <th width="15%">Number of Location</th>
                     <th width="30%">Comment</th>
                     <th width="10%">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-
+                    @if (!empty($individual_yearly_plan['function_list']))
                 @foreach($individual_yearly_plan['function_list'] as $functions)
                     <tr class="strategic_row function_row_{{$functions['strategic_plan_year']}}" id="location{{ $functions['id'] }}">
                         <input type="hidden" class="form-control function_location_id" value="{{$functions['id']}}">
@@ -123,7 +169,7 @@
                                 @endforeach
                             </select>
                         </td>
-                        <td>
+                        {{--  <td>
                             <select id="location_{{$functions['strategic_plan_year']}}_{{$loop->iteration}}" class="form-control location_id_{{$functions['strategic_plan_year']}} select-select2">
 
                                 @if($functions['cost_center_id'])
@@ -137,7 +183,7 @@
                                     <option value="" selected>Select Cost Center</option>
                                 @endif
                             </select>
-                        </td>
+                        </td>  --}}
                         <td>
                             <input type="text" class="form-control location_no_{{$functions['strategic_plan_year']}}" value="{{$functions['location_no']}}">
                         </td>
@@ -163,6 +209,56 @@
                         </td>
                     </tr>
                 @endforeach
+                @else
+                <tr class="strategic_row function_row_{{$data['strategic_plan_year']}}">
+                    <td>
+                        <select data-strategic-year="{{$data['strategic_plan_year']}}" class="form-control function_id_{{$data['strategic_plan_year']}} select-select2 project-select">
+                            <option selected value="">select function</option>
+                            @foreach($all_function as $function)
+                                <option data-project-name-en="{{$function['name_en']}}"
+                                        value="{{$function['id']}}">{{$function['name_bn']}}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    {{--  <td>
+                        <select id="location_{{$data['strategic_plan_year']}}_{{$loop->iteration}}" class="form-control location_id_{{$data['strategic_plan_year']}} select-select2">
+
+                            @if($functions['cost_center_id'])
+                            <option selected data-parent-office-id="{{$functions['cost_center_id']}}"
+                                    data-parent-office-name-en="{{$functions['parent_office_id']}}"
+                                    data-parent-office-name-bn="{{$functions['parent_office_bn']}}"
+                                    data-office-name-en="{{$functions['cost_center_en']}}"
+                                    data-office-name-bn="{{$functions['cost_center_bn']}}"
+                                    value="{{$functions['cost_center_id']}}">{{$functions['cost_center_bn']}}</option>
+                            @else
+                                <option value="" selected>Select Cost Center</option>
+                            @endif
+                        </select>
+                    </td>  --}}
+                    <td>
+                        <input type="text" class="form-control location_no_{{$data['strategic_plan_year']}}">
+                    </td>
+                    <td>
+                        <textarea style="height: 40px;" class="form-control comment_{{$data['strategic_plan_year']}}"></textarea>
+                    </td>
+                    <td>
+                        <div style="display: flex">
+                            <button type="button" title="ট্রানজিট"
+                                    onclick="Plan_Common_Container.addLocationRow('{{$data['strategic_plan_year']}}','function')"
+                                    class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
+                                <span class="fad fa-plus"></span>
+                            </button>
+
+                            <button type='button' title="বাদ দিন"
+                                    data-row='row1'
+                                    onclick="Plan_Common_Container.removeLocationRow($(this))"
+                                    class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
+                                <span class='fal fa-trash-alt'></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                @endif
                 </tbody>
             </table>
         </div>

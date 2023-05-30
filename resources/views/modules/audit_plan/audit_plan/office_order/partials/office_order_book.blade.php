@@ -53,10 +53,7 @@
 
     <div class="row" style="margin-top: 10px">
         <div class="col-6" style="text-align: left;"><b>Memo No-</b> {{$office_order['memorandum_no']}}</div>
-        <?php
-            $date = \Carbon\Carbon::parse($office_order['memorandum_date'])->format('d/m/Y');
-        ?>
-        <div class="col-6" style="text-align: right;"><b>Date:</b> {{$date}}</div>
+        <div class="col-6" style="text-align: right;"><b>Date:</b> {{$office_order['memorandum_date'] }}</div>
     </div>
 
     <div style="text-align: center">
@@ -105,9 +102,9 @@
                                     usort($team_members, "arryAortAsc");
                                 @endphp
                                 @foreach($team_members as $member_key => $sub_team_leader)
-                                    <p>{{$teamMemberSL}}. Mr {{$sub_team_leader['officer_name_en']}} , 
+                                    <p>{{$teamMemberSL}}. Mr {{$sub_team_leader['officer_name_en']}} ,
                                         <br>
-                                        {{$sub_team_leader['designation_en'].' and '.$sub_team_leader['team_member_role_en']}}</p> 
+                                        {{$sub_team_leader['designation_en'].' and '.$sub_team_leader['team_member_role_en']}}</p>
                                     @php $teamMemberSL++; @endphp
                                 @endforeach
                             @endforeach
@@ -116,27 +113,29 @@
                     @endforeach -->
                         @php $teamMemberSL = 1; @endphp
                         @foreach($audit_team_members as $member_key => $member)
-                            <p>{{$teamMemberSL}}. Mr {{$member['team_member_name_en']}} , 
+                            <p>{{$teamMemberSL}}. Mr {{$member['team_member_name_en']}} ,
                                 <br>
-                                {{$member['team_member_designation_en'].' and '.$member['team_member_role_en']}}</p> 
+                                {{$member['team_member_designation_en'].' and '.$member['team_member_role_en']}}</p>
                                 <br>
                             @php $teamMemberSL++; @endphp
                         @endforeach
                     </td>
                     <td style="text-align: center; vertical-align: top;">
                         @foreach($auditable_units as $key=>$auditable_unit)
-                            <p>{{$auditable_unit['cost_center_name_en']}}</p> 
+                            <p>{{$auditable_unit['cost_center_name_en']}}</p>
                         @endforeach
                     </td>
+                    @php
+                        $count_milestones = count($milestones);
+                    @endphp
                     <td style="text-align: center; vertical-align: top;">{{$audit_type['audit_type']}}</td>
-                    <td style="vertical-align: top;">2021-2022</td>
-                    <td style="text-align: center; vertical-align: top;">{{$milestones[0]['start_date']}}</td>
-                    <td style="text-align: center; vertical-align: top;">{{$milestones[1]['start_date']}} To {{$milestones[1]['end_date']}}</td>
-                    <td style="text-align: center; vertical-align: top;">{{$milestones[2]['start_date']}}</td>
-                    <td style="text-align: center; vertical-align: top;">{{$milestones[3]['start_date']}}</td>
+                    <td style="text-align: center; vertical-align: top;">{{$milestones[0]['start_date'] ? formatDate($milestones[0]['start_date']) : ''}}</td>
+                    <td style="text-align: center; vertical-align: top;">@if($count_milestones > 1){{ formatDate($milestones[1]['start_date'])}} To {{formatDate($milestones[1]['end_date'])}} @endif</td>
+                    <td style="text-align: center; vertical-align: top;">@if($count_milestones > 2){{formatDate($milestones[2]['start_date'])}}@endif</td>
+                    <td style="text-align: center; vertical-align: top;">@if($count_milestones > 3){{formatDate($milestones[3]['start_date'])}}@endif</td>
                 </tr>
-                    
-            
+
+
             </tbody>
         </table>
     </div>
@@ -155,7 +154,7 @@
     </div>
 
     <div style="text-align: right; margin-top: 3%;">
-        <!-- {!! nl2br($office_order['issuer_details']) !!} -->  
+        <!-- {!! nl2br($office_order['issuer_details']) !!} -->
         @php
             $data = collect($audit_team_members)->firstWhere('team_member_role_en', 'teamLeader')
         @endphp

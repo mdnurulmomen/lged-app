@@ -74,7 +74,7 @@
                             </td>
                         </tr>
                     @endforeach
-                @endif
+                @else
                 <tr class="milestone_row">
                     <td>
                         <input  type="text" class="form-control milestone_bn" value="">
@@ -103,13 +103,14 @@
                         </div>
                     </td>
                 </tr>
+                @endif
                 </tbody>
             </table>
         </div>
     </div>
 </form>
 
-<button class="btn btn-sm btn-square btn-outline-primary float-right save-button">
+<button class="btn btn-sm btn-square btn-outline-primary float-right save-button" style="margin-bottom: 1cm;">
     <i class="fa fa-save"></i> Save
 </button>
 

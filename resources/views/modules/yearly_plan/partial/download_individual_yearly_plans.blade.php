@@ -41,7 +41,7 @@
         }
     </style>
 </head>
-<body>  
+<body>
     <htmlpagefooter name="even-footer">
         <div style="width: 100%; text-align: center;">
             Page No <span> {PAGENO}</span>
@@ -93,9 +93,9 @@
                         <table id="project_table" class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
-                                    <th width="20%">Project</th>
+                                    <th width="20%">Project Name</th>
                                     <th width="20%">Location</th>
-                                    <th width="20%">Location No</th>
+                                    <th width="20%">Number of Location</th>
                                     <th width="20%">Comment</th>
                                 </tr>
                             </thead>
@@ -120,9 +120,9 @@
                         <table id="function_table" class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
-                                    <th width="20%">Function</th>
+                                    <th width="20%">Function Name</th>
                                     <th width="20%">Location</th>
-                                    <th width="20%">Location No</th>
+                                    <th width="20%">Number of Location</th>
                                     <th width="20%">Comment</th>
                                 </tr>
                             </thead>
@@ -150,7 +150,7 @@
                                 <tr>
                                     <th width="20%">Cost Center</th>
                                     <th width="20%">Location</th>
-                                    <th width="20%">Location No</th>
+                                    <th width="20%">Number of Location</th>
                                     <th width="20%">Comment</th>
                                 </tr>
                             </thead>
