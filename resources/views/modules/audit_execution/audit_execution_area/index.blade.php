@@ -1,7 +1,7 @@
 <x-title-wrapper>Audit Area</x-title-wrapper>
 <div class="card sna-card-border d-flex flex-wrap flex-row">
     <div class="col-xl-6 text-left">
-        <select id="project" class="form-control select-select2" onchange="Risk_Assessment_Item_Container.laodItemRiskAssessments('project', this.value)">
+        <select id="filter_project_id" class="form-control select-select2">
             <option value="" selected>Select Project</option>
             @foreach ($allProjects as $project)
                 <option value="{{ $project['id'] }}">{{ $project['name_en'] }}</option>
@@ -54,12 +54,12 @@
             });
         });
     });
-    $('#project_id').change(function () {
+    $('#filter_project_id').change(function () {
         loadData();
     });
     function loadData() {
         url = $(".load-table-data").data('href');
-        var sector_id = $('#project_id').find(":selected").val();
+        var sector_id = $('#filter_project_id').find(":selected").val();
         var data = {sector_id};
         ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
             if (resp.status === 'error') {

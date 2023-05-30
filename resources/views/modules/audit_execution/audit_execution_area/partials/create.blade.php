@@ -68,12 +68,12 @@
 
     <div class="form-row">
         <div class="col-md-12 form-group">
-            <label for="email">Title (Bangla):</label>
-            <textarea placeholder="Name Bangla" class="form-control" type="text" id="name_bn"></textarea>
+            <label for="email">Process/Sub-process (Bangla):</label>
+            <textarea placeholder="Process/Sub-process (Bangla)" class="form-control" type="text" id="name_bn"></textarea>
         </div>
         <div class="col-md-12 form-group">
-            <label for="email">Title (English):</label>
-            <textarea placeholder="Name English" class="form-control" type="text" id="name_en"></textarea>
+            <label for="email">Process/Sub-process (English):</label>
+            <textarea placeholder="Process/Sub-process (English)" class="form-control" type="text" id="name_en"></textarea>
         </div>
         <div class="col-md-12 pt-4">
             <button type="button" id="btn_audit_area_modal_save" class="btn btn-primary ml-auto">Save</button>
