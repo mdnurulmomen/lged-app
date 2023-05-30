@@ -61,7 +61,7 @@
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "office_order.pdf";
+                    link.download = "strategic_plan_(" + strategic_plan_year + ").pdf";
                     link.click();
                 },
                 error: function (blob) {
