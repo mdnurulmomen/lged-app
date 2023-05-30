@@ -59,7 +59,7 @@ class AuditStrategicPlanController extends Controller
         ])->validate();
 
 
-        // $strategic_plan_id = $request->strategic_plan_id;
+        $strategic_plan_id = $request->strategic_plan_id;
         $strategic_plan_year = $request->strategic_plan_year;
 
         $plan_year = explode(' - ',$strategic_plan_year);
@@ -70,7 +70,6 @@ class AuditStrategicPlanController extends Controller
         $data['scope'] = 'show';
         $strategic_plan_list = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_strategic_plan.get_individual_strategic_plan'), $data)->json();
         $strategic_plan_list = $strategic_plan_list ? $strategic_plan_list['data'] : [];
-        // dd($strategic_plan_list);
 
         // $all_project = $this->initRPUHttp()->post(config('cag_rpu_api.get-all-projects'), [])->json();
         // $all_project = $all_project ? $all_project['data'] : [];
@@ -79,7 +78,7 @@ class AuditStrategicPlanController extends Controller
         // $all_function = $all_function ? $all_function['data'] : [];
 
         return view('modules.strategic_plan.partial.show_strategic_year_wise_plan',
-            compact('start','end', 'strategic_plan_list', 'data'));
+            compact('start','end', 'strategic_plan_id', 'strategic_plan_list', 'data'));
     }
 
     public function editYearWiseStrategicPlan(Request $request){
@@ -166,7 +165,7 @@ class AuditStrategicPlanController extends Controller
             compact('start','end', 'all_project','all_function'));
         }
     }
-    public function showYearWiseStrategicPlanContent(Request $request){
+    public function getYearWiseStrategicPlanContent(Request $request){
         $data = [
             'strategic_plan_id' => $request->strategic_plan_year_id,
             'strategic_plan_year' => $request->year,
@@ -179,8 +178,11 @@ class AuditStrategicPlanController extends Controller
 
         $all_function = $this->initRPUHttp()->post(config('cag_rpu_api.functions.list'), [])->json();
         $all_function = $all_function ? $all_function['data'] : [];
-        return view('modules.strategic_plan.partial.edit_strategic_year_wise_plan_content',compact('individual_strategic_plan','data','all_project','all_function'));
-
+        if ($request->scope == 'show') {
+            return view('modules.strategic_plan.partial.show_strategic_year_wise_plan_content',compact('individual_strategic_plan','data'));
+        } else {
+            return view('modules.strategic_plan.partial.edit_strategic_year_wise_plan_content',compact('individual_strategic_plan','data','all_project','all_function'));
+        }
     }
 
 

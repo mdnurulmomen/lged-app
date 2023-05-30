@@ -170,7 +170,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/delete-strategic-plan', [AuditStrategicPlanController::class, 'deleteStrategicPlan'])->name('delete-strategic-plan');
             Route::get('/create', [AuditStrategicPlanController::class, 'create'])->name('create');
             Route::get('/get-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'getYearWiseStrategicPlan'])->name('get-year-wise-strategic-plan');
-            Route::get('/get-year-wise-strategic-plan-content', [AuditStrategicPlanController::class, 'showYearWiseStrategicPlanContent'])->name('get-year-wise-strategic-plan-content');
+            Route::get('/get-year-wise-strategic-plan-content', [AuditStrategicPlanController::class, 'getYearWiseStrategicPlanContent'])->name('get-year-wise-strategic-plan-content');
             Route::get('/show-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'showYearWiseStrategicPlan'])->name('show-year-wise-strategic-plan');
             Route::get('/edit-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'editYearWiseStrategicPlan'])->name('edit-year-wise-strategic-plan');
             Route::post('/download-year-wise-strategic-plan', [AuditStrategicPlanController::class, 'downloadYearWiseStrategicPlan'])->name('download-year-wise-strategic-plan');

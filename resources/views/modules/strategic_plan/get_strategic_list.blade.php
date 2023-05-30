@@ -123,7 +123,7 @@
         $('.offcanvas-footer').hide();
         quick_panel.removeClass('d-none');
         $("html").addClass("side-panel-overlay");
-        $('.offcanvas-title').html('Show Year Wise Plans');
+        $('.offcanvas-title').html('Show Year Wise Strategic Plans');
 
         let strategic_plan_id = $(this).data('strategic-plan-id');
         let strategic_plan_year = $(this).data('strategic-plan-year');
