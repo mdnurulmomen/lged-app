@@ -1,142 +1,132 @@
-<div class="row m-0 mb-2 page-title-wrapper d-md-flex align-items-md-center">
-    <div class="col-md-6">
-        <div class="title py-2">
-            <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Create Risk Identification</h4>
-        </div>
-    </div>
-
-    <div class="col-md-6 text-right">
-        <a id="go_back" class="btn btn-sm btn-warning btn_back btn-square mr-3">
-            <i class="fad fa-arrow-alt-left"></i> Go Back
-        </a>
-        <button class="btn btn-sm btn-square btn-primary mr-2" id="submit_button">
-            <i class="fa fa-save"></i> Save
-        </button>
-    </div>
-</div>
-
 <div class="row">
     <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="form-row">
-                    <div class="col-sm-4 form-group">
-                        <input type="radio" name="assessment_sector_type" value="project" checked> Project
-                    </div>
+        <div class="form" style="display: flex;">
+            <div class="form-group mr-2">
+                <input type="radio" name="assessment_sector_type" value="project" checked> Project
+            </div>
+    
+            <div class="form-group mr-2">
+                <input type="radio" name="assessment_sector_type" value="function"> Function
+            </div>
             
-                    <div class="col-sm-4 form-group">
-                        <input type="radio" name="assessment_sector_type" value="function"> Function
-                    </div>
-                    
-                    <div class="col-sm-4 form-group">
-                        <input type="radio" name="assessment_sector_type" value="master-unit" > Master Unit
-                    </div>
-            
-                    {{-- 
-                    <div class="col-sm-3 form-group">
-                        <input type="radio" name="assessment_sector_type" value="cost-center"> Cost Center
-                    </div> 
-                    --}}
-                </div>
+            <div class="form-group">
+                <input type="radio" name="assessment_sector_type" value="master-unit" > Master Unit
+            </div>
+    
+            {{-- 
+            <div class="col-sm-3 form-group">
+                <input type="radio" name="assessment_sector_type" value="cost-center"> Cost Center
+            </div> 
+            --}}
+        </div>
 
-                <div class="form-row">
-                    <div class="col-sm-12 form-group">
-                        <div class="project_div">
-                            <select class="form-control select-select2" name="project_id" id="project_id"
-                                onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('project', this.value)"
-                            >
-                                <option value="" selected>Select Project</option>
-                                @foreach ($allProjects as $project)
-                                    <option value="{{ $project['id'] }}">
-                                        {{ $project['name_en'] }}
-                                        ({{ $project['risk_score_key'] ? ucfirst($project['risk_score_key']) : '--' }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                
-                        <div class="function_div" style="display: none">
-                            <select  class="form-control select-select2" name="function_id" id="function_id"
-                            onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('function', this.value)"
-                            >
-                                <option value="" selected>Select Function</option>
-                                @foreach ($allFunctions as $function)
-                                    <option value="{{ $function['id'] }}">
-                                        {{ $function['name_en'] }}
-                                        ({{ $function['risk_score_key'] ? $function['risk_score_key'] : '--' }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                
-                        <div class="unit_div" style="display: none">
-                            <select class="form-control select-select2" name="unit_master_id" id="unit_master_id"
-                            onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('master-unit', this.value)"
-                            >
-                                <option value="" selected>Select Unit</option>
-                                @foreach ($allMasterUnits as $masterUnit)
-                                    <option value="{{ $masterUnit['id'] }}">
-                                        {{ $masterUnit['name_en'] }}
-                                        ({{ $masterUnit['risk_score_key'] ? $masterUnit['risk_score_key'] : '--' }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                
-                        {{--     
-                        <div class="cost_center_div" style="display: none">
-                            <select class="form-control select-select2" name="cost_center_id" id="cost_center_id">
-                                <option selected>Select Cost Center</option>
-                                @foreach ($allCostCenters as $costCenter)
-                                    <option value="{{ $costCenter['id'] }}">
-                                        {{ $costCenter['name_en'] }}
-                                        ({{ empty($costCenter['risk_score_key']) ? '--' : $costCenter['risk_score_key'] }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div> 
-                        --}}
-                    </div>
-                    
-                    <div class="col-sm-12 form-group">
-                        <p for="area">Parent Area:</p>
-            
-                        <select class="form-control" name="parent_area_id" id="parent_area_id">
-                            <option value="" selected disabled>Please Select Parent-Area</option>
-                            
-                            {{-- 
-                            @foreach ($allAreas as $area)
-                                <option value="{{ $area['id'] }}">{{ ucfirst($area['name_en']) }}</option>
-                            @endforeach  
-                            --}}
-                        </select>
-                    </div>
-            
-                    <div class="col-sm-12 form-group">
-                        <p for="area">Child Area:</p>
-            
-                        <select class="form-control" name="audit_area_id" id="audit_area_id">
-                            <option value="" selected>Please Select Child-Area</option>
-                            
-                            {{-- 
-                            @foreach ($allAreas as $area)
-                                <option value="{{ $area['id'] }}">{{ $area['name_en'] }}</option>
-                            @endforeach 
-                            --}}
-                        </select>
-                    </div>
-            
-                    <div class="col-sm-12 form-group">
-                        <label for="email">Risk Name:</label>
-                        <input type="text" class="form-control" placeholder="Enter Risk Name" name="risk_name">
-                    </div>
+        <div class="form-row">
+            <div class="col-sm-12 form-group">
+                <div class="project_div">
+                    <select class="form-control select-select2" name="project_id" id="project_id"
+                        onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('project', this.value)"
+                    >
+                        <option value="">Select Project</option>
+                        @foreach ($allProjects as $project)
+                            <option value="{{ $project['id'] }}">
+                                {{ $project['name_en'] }}
+                                ({{ $project['risk_score_key'] ? ucfirst($project['risk_score_key']) : '--' }})
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
+        
+                <div class="function_div" style="display: none">
+                    <select  class="form-control select-select2" name="function_id" id="function_id"
+                    onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('function', this.value)"
+                    >
+                        <option value="" selected>Select Function</option>
+                        @foreach ($allFunctions as $function)
+                            <option value="{{ $function['id'] }}">
+                                {{ $function['name_en'] }}
+                                ({{ $function['risk_score_key'] ? $function['risk_score_key'] : '--' }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+        
+                <div class="unit_div" style="display: none">
+                    <select class="form-control select-select2" name="unit_master_id" id="unit_master_id"
+                    onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('master-unit', this.value)"
+                    >
+                        <option value="" selected>Select Unit</option>
+                        @foreach ($allMasterUnits as $masterUnit)
+                            <option value="{{ $masterUnit['id'] }}">
+                                {{ $masterUnit['name_en'] }}
+                                ({{ $masterUnit['risk_score_key'] ? $masterUnit['risk_score_key'] : '--' }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+        
+                {{--     
+                <div class="cost_center_div" style="display: none">
+                    <select class="form-control select-select2" name="cost_center_id" id="cost_center_id">
+                        <option selected>Select Cost Center</option>
+                        @foreach ($allCostCenters as $costCenter)
+                            <option value="{{ $costCenter['id'] }}">
+                                {{ $costCenter['name_en'] }}
+                                ({{ empty($costCenter['risk_score_key']) ? '--' : $costCenter['risk_score_key'] }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div> 
+                --}}
+            </div>
+            
+            <div class="col-sm-12 form-group">
+                <p for="area">Parent Area:</p>
+    
+                <select class="form-control" name="parent_area_id" id="parent_area_id">
+                    <option value="" selected disabled>Please Select Parent-Area</option>
+                    
+                    {{-- 
+                    @foreach ($allAreas as $area)
+                        <option value="{{ $area['id'] }}">{{ ucfirst($area['name_en']) }}</option>
+                    @endforeach  
+                    --}}
+                </select>
+            </div>
+    
+            <div class="col-sm-12 form-group">
+                <p for="area">Child Area:</p>
+    
+                <select class="form-control" name="audit_area_id" id="audit_area_id">
+                    <option value="" selected>Please Select Child-Area</option>
+                    
+                    {{-- 
+                    @foreach ($allAreas as $area)
+                        <option value="{{ $area['id'] }}">{{ $area['name_en'] }}</option>
+                    @endforeach 
+                    --}}
+                </select>
+            </div>
+    
+            <div class="col-sm-12 form-group">
+                <label for="email">Risk Name:</label>
+                <input type="text" class="form-control" placeholder="Enter Risk Name" name="risk_name">
+            </div>
+            <div class="col-md-12 text-right">
+                <button class="btn btn-sm btn-square btn-primary mr-2" id="submit_button">
+                    <i class="fa fa-save"></i> Save
+                </button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    
+    $(function () {
+        project_id = "{{$project_id}}";
+        $('#project_id').val(project_id).trigger('change');
+    });
+    
     var Risk_Assessment_Item_Container = {
         laodItemRiskParentAreas: function (assessment_sector_type, assessment_sector_id) {
             loaderStart('loading...');

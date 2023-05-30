@@ -159,8 +159,9 @@ class RiskIdentificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $project_id = $request->project_id;
         $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
             'all' => 1
         ])->json();
@@ -200,7 +201,7 @@ class RiskIdentificationController extends Controller
         );
         */
 
-        return view('modules.settings.risk_identification.partials.create', compact('allProjects', 'allFunctions', 'allMasterUnits'));
+        return view('modules.settings.risk_identification.partials.create', compact('project_id','allProjects', 'allFunctions', 'allMasterUnits'));
     }
 
     public function store(Request $request)

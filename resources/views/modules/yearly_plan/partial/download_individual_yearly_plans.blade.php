@@ -70,11 +70,9 @@
                 উন্নতি <br>
             </h5>
         </div>
-        <div class="row" style="margin-top: 10px">
-        <div class="col-6" style="text-align: right;"><b>Date:</b> {{ now()->format('d/m/Y') }}</div>
     </div>
     <div style="text-align: center">
-        <h2><b><u>Annual Plan Details</u></b></h2>
+        <h2><b>Annual Plan Details of {{$strategic_plan_year}}</b></h2>
     </div>
     <div>
         @if (! count($individual_yearly_plan['project_list']) && ! count($individual_yearly_plan['project_list']) && ! count($individual_yearly_plan['project_list']))
@@ -173,5 +171,6 @@
             @endif
         @endif
     </div>
+    <div class="col-6" style="text-align: right; margin-top: 20px;"><b>Printed On:</b> {{ now()->format('d/m/Y') }}</div>
 </body>
 </html>

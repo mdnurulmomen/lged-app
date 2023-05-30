@@ -44,6 +44,7 @@ class AuditYearlyPlanController extends Controller
         if (isSuccess($individual_yearly_plan)) {
             $individual_yearly_plan = $individual_yearly_plan['data'];
             $data['individual_yearly_plan'] = $individual_yearly_plan;
+            $data['strategic_plan_year'] = $strategic_plan_year;
             $data['office_id'] = $this->current_office_id();
             if ($scope == "download") {
                 $pdf = \PDF::loadView('modules.yearly_plan.partial.download_individual_yearly_plans', $data, ['orientation' => 'P', 'format' => 'A4']);

@@ -1,14 +1,14 @@
 <form id="audit_area_form">
-    <div class="form-row">
-        <div class="col-sm-4 form-group">
+    <div class="form" style="display: flex;">
+        <div class="form-group mr-2">
             <input data-type="project" type="radio" name="sector_type" value="App\Models\Project" checked> Project
         </div>
 
-        <div class="col-sm-4 form-group">
+        <div class="form-group mr-2">
             <input data-type="function" type="radio" name="sector_type" value="App\Models\AuditFunction"> Function
         </div>
 
-        <div class="col-sm-4 form-group">
+        <div class="form-group">
             <input data-type="master-unit" type="radio" name="sector_type" value="App\Models\UnitMasterInfo" > Master Unit
         </div>
     </div>

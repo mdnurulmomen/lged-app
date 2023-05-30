@@ -116,7 +116,6 @@ class AuditStrategicPlanController extends Controller
     public function downloadYearWiseStrategicPlan(Request $request){
         $data = Validator::make($request->all(), [
             'strategic_plan_id' => 'required|integer',
-            'strategic_plan_year' => 'required',
         ])->validate();
 
 

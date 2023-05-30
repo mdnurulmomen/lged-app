@@ -104,7 +104,7 @@
                                         {{ $project['project_name_en']}}
                                     </td>
                                     <td >
-                                        Location
+                                        {{ $project['cost_center_en']}}
                                     </td>
                                     <td>
                                         {{ $project['location_no'] }}
@@ -136,7 +136,7 @@
                                         {{ $function['function_name_en']}}
                                     </td>
                                     <td >
-                                        Location
+                                        {{ $function['cost_center_en']}}
                                     </td>
                                     <td>
                                         {{ $function['location_no'] }}

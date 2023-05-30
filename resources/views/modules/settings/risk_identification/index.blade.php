@@ -4,8 +4,8 @@
     <div class="row d-flex align-items-end">
         <div class="col-md-6">
             <span style="font-size: 18px" class="form-group">
-                <input id="field_office" type="radio" name="risk_sector_type" value="field_office" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('field_office')" checked> Field Offices
-                <input id="project" type="radio" name="risk_sector_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project
+                <input id="field_office" type="radio" name="risk_sector_type" value="field_office" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('field_office')" > Field Offices
+                <input id="project" type="radio" name="risk_sector_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')" checked> Project
                 <input id="function" type="radio" name="risk_sector_type" value="function" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function
                 <input id="master_unit" type="radio" name="risk_sector_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Unit
                 {{-- <input id="cost_center" type="radio" name="risk_sector_type" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center --}}
@@ -57,11 +57,7 @@
         </div>
 
         <div class="col-md-3 text-right">
-            <button class="btn btn-sm btn-info btn-square mr-1" 
-                    title="বিস্তারিত দেখুন"
-                    onclick='loadPage($(this))'
-                    data-url="{{route('audit.plan.risk-identifications.create')}}"
-            >
+            <button class="btn btn-sm btn-info btn-square mr-1 btn_create_risk_identification">
                 <i class="fad fa-plus"></i> Create
             </button>
         </div>
@@ -94,6 +90,36 @@
 <script>
     $(function () {
         // Risk_Assessment_Factor_Approach_Container.setAssessmentType('project');
+    });
+
+    $('.btn_create_risk_identification').click(function () {
+        project_id = $('#project_id').val();
+        url = "{{route('audit.plan.risk-identifications.create')}}";
+
+        data = {project_id};
+
+
+        KTApp.block('#kt_wrapper', {
+            opacity: 0.1,
+            state: 'primary' // a bootstrap color
+        });
+
+        ajaxCallAsyncCallbackAPI(url, data, 'GET', function (response) {
+            KTApp.unblock('#kt_wrapper');
+            if (response.status === 'error') {
+                toastr.error('Server Error');
+            } else {
+                $(".offcanvas-title").text('Create Risk Identification');
+                quick_panel = $("#kt_quick_panel");
+                quick_panel.addClass('offcanvas-on');
+                quick_panel.css('opacity', 1);
+                quick_panel.css('width', '50%');
+                quick_panel.removeClass('d-none');
+                $("html").addClass("side-panel-overlay");
+                $(".offcanvas-wrapper").html(response);
+                loadData();
+            }
+        });
     });
 
     var Risk_Assessment_Item_Container = {
