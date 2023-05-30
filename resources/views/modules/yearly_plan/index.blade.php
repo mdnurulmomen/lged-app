@@ -107,9 +107,12 @@
                     toastr.error(response.data)
                 } else {
                     toastr.success(response.data);
-                    Yearly_Plan_Create_Container.backToList();
+                    Yearly_Plan_Container.backToList();
                 }
             });
+        },
+        backToList: function () {
+            $('.yearly_plan_link a').click();
         },
         removeLocationRow: function (elem) {
             swal.fire({

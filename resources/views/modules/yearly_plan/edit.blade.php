@@ -14,7 +14,8 @@
             <div class="row">
                 <div class="col-4">
                     <select class="form-control select-select2" name="strategic_plan_year" id="strategic_plan_year">
-                        <option value="{{$data['yearly_plan_id']}}">{{$data['strategic_plan_year']}}</option>
+                        <option data-strategic-plan="{{$data['yearly_plan_id']}}" value="{{$data['strategic_plan_year']}}">{{$data['strategic_plan_year']}}</option>
+                        {{--  <option value="{{$data['yearly_plan_id']}}">{{$data['strategic_plan_year']}}</option>  --}}
                     </select>
                 </div>
             </div>
@@ -264,6 +265,7 @@
         </div>
     </div>
 </div>
+@include('modules.strategic_plan.partial.strategic_plan_common_script');
 <script>
     $('.select-select2').select2({width: '100%'});
     $('.btn_back').on("click", function() {
