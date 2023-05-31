@@ -25,7 +25,7 @@
             
             @foreach ($sectorAreaProgram['procedures'] as $key => $sectorAreaProgramProcedure)
                 <td class="test_procedure_{{$sectorAreaProgram['id']}}" data-id="{{$sectorAreaProgramProcedure['id']}}">{{ ucfirst($sectorAreaProgramProcedure['test_procedure']) }}</td>
-                <td>{{ ucfirst($sectorAreaProgramProcedure['note']) }}</td>
+                <td>{!! nl2br($sectorAreaProgramProcedure['note']) !!}</td>
                 <td>{{ ucfirst($sectorAreaProgramProcedure['team_member_name_en']) }}</td>
                 <td>
                     @if ($sectorAreaProgramProcedure['workpapers'])
@@ -63,6 +63,7 @@
                         @if ($type == 'program_note')
                             <td>
                                 <a href="javascript:;"
+                                title="Give Note"
                                 data-id="{{$sectorAreaProgramProcedure['id']}}"
                                 data-audit-plan-id="{{$audit_plan_id}}"
                                 data-team-id="{{$team_id}}"

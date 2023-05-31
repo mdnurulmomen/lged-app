@@ -86,7 +86,6 @@
     </div>
 </div>
 
-
 <script>
 
     $(function(){
@@ -116,7 +115,7 @@
         edit: function (element) {
             url = '{{route('audit.plan.programs.note.update')}}'
             id = element.data('id');
-            note = $('#note').val();
+            note = tinymce.get("note").getContent();
             team_member_officer_id = $('#team_member_officer_id').val();
             workpaper_id = $('#workpaper_id').val();
             audit_area_id = $('#sector_area').val();
