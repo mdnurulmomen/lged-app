@@ -42,6 +42,7 @@
                 >
                     <i class="fad fa-pen"></i> Edit
                 </button>
+                @if ($plan['get_individual_plan_count'] == 0)
                 <button class="mr-1 btn btn-sm btn-danger btn-square"
                         title="Edit"
                         data-strategic-plan-id="{{$plan['x_sp_duration_id']}}"
@@ -50,6 +51,7 @@
                 >
                     <i class="fad fa-trash"></i> Delete
                 </button>
+                @endif
             </td>
         </tr>
     @endforeach
@@ -130,7 +132,7 @@
         $("html").addClass("side-panel-overlay");
         $('.offcanvas-title').html('Strategic Plans of ' + strategic_plan_year);
 
-        
+
 
         let url = "{{ route('audit.plan.strategy.show-year-wise-strategic-plan') }}";
 
