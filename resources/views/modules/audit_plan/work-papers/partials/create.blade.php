@@ -16,7 +16,7 @@
             <label for="email">Title (Bangla):</label>
             <textarea placeholder="Query Title Bangla" class="form-control" type="text" id="title_bn"></textarea>
         </div>
-        
+
         <div class="col-md-12 form-group">
             <label for="email">Title (English):</label>
             <textarea placeholder="Query Title English" class="form-control" type="text" id="title_en"></textarea>
@@ -35,11 +35,11 @@
 
 <script>
     $('#btn_modal_save').click(function () {
-        
+
         var formData = new FormData();
 
         // console.log($('#audit_plan_id').find(':selected').val());
-        
+        audit_plan_id = $('#audit_plan_id').find(':selected').val();
         formData.append('audit_plan_id', $('#audit_plan_id').find(':selected').val());
         formData.append('title_bn', $('#title_bn').val());
         formData.append('title_en', $('#title_en').val());
@@ -47,14 +47,14 @@
         if ($('#attachment')[0].files.length) {
             formData.append('attachment', $('#attachment')[0].files[0]);
         }
-        
+
         // console.log(formData);
 
         url = "{{ route('audit.plan.individual.plan-work-papers.store') }}";
         method = 'POST';
 
         loaderStart('Please wait...');
-        
+
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -69,7 +69,9 @@
         })
         .done(function(response) {
             toastr.success(response.data);
-            Risk_Assessment_Factor_Approach_Container.backToList();
+            $("#kt_quick_panel_close").click();
+            $("#strategic_plan_year").val(audit_plan_id).trigger('change');
+
         })
         .fail(function(response) {
             toastr.error(response.data)

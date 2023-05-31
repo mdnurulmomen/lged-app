@@ -6,7 +6,7 @@
             <label>Select Audit Plan</label>
             <select class="form-control select-select2" name="audit_plan_id" id="audit_plan_id"
             onchange="Risk_Assessment_Item_Container.laodPlanWorkpapers()">
-                <option value="" disabled selected>Please Select Plan</option>
+                <option value="" selected>Please Select Plan</option>
                 @foreach ($auditPlans as $auditPlan)
                     <option value="{{ $auditPlan['id'] }}">
                         {{ ($auditPlan['yearly_plan_location']['project_name_en'] ?? $auditPlan['yearly_plan_location']['function_name_en'] ?? $auditPlan['yearly_plan_location']['cost_center_en']).' (Plan-'.$auditPlan['id'].')' }}
@@ -19,7 +19,7 @@
             <label>Select Year</label>
             <select class="form-control select-select2" name="strategic_plan_year" id="strategic_plan_year"
             onchange="Risk_Assessment_Item_Container.laodPlanWorkpapers()">
-                <option value="" disabled selected>All Year</option>
+                <option value="">All Year</option>
                 @foreach($individual_strategic_plan_year as $year)
                     <option data-strategic-plan="{{$year['strategic_plan_id']}}" value="{{$year['strategic_plan_year']}}">{{$year['strategic_plan_year']}}</option>
                 @endforeach
