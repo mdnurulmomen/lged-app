@@ -137,7 +137,7 @@
                                     <select data-strategic-year={{$functions['strategic_plan_year']}}"" data-id="{{$loop->iteration}}" class="form-control function_id_{{$functions['strategic_plan_year']}} select-select2 project-select">
                                         <option selected value="">select function</option>
                                         @foreach($all_function as $function)
-                                            <option data-project-name-en="{{$function['name_en']}}"
+                                            <option data-function-name-en="{{$function['name_en']}}"
                                                     value="{{$function['id']}}" @if($functions['function_id'] == $function['id']) selected @endif>{{$function['name_bn']}}</option>
                                         @endforeach
                                     </select>

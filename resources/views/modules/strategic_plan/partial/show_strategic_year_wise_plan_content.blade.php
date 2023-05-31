@@ -50,7 +50,7 @@
             <table style="table-layout: fixed" class="table table-bordered">
                 <thead class="thead-light">
                 <tr>
-                    <th width="45%">Function</th>
+                    <th width="45%">Function Name</th>
                     {{--  <th width="25%">Location</th>  --}}
                     <th width="10%">Number of Location</th>
                     <th width="30%">Comment</th>

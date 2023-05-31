@@ -2,7 +2,6 @@
     <input type="hidden" name="strategic_plan_year" id="strategic_plan_year_data" value="{{$data['strategic_plan_year']}}">
                 <div class="row">
                     <div class="col-12">
-                        <label>Project :</label>
                         <table style="table-layout: fixed" id="project_table_{{$data['strategic_plan_year']}}" class="table table-bordered">
                             <thead class="thead-light">
                             <tr>
@@ -122,7 +121,6 @@
                 </div>
                     <div class="row">
                         <div class="col-12">
-                            <label>Function :</label>
                             <table style="table-layout: fixed" id="function_table_{{$data['strategic_plan_year']}}" class="table table-bordered">
                                 <thead class="thead-light">
                                 <tr>

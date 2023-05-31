@@ -71,7 +71,7 @@
                 $('.offcanvas-footer').hide();
                 quick_panel.removeClass('d-none');
                 $("html").addClass("side-panel-overlay");
-                $('.offcanvas-title').html('Annual Plan Details');
+                $('.offcanvas-title').html('Annual Plan Details of ' + strategic_plan_year);
                 $('.offcanvas-wrapper').html(resp);
             }
         });

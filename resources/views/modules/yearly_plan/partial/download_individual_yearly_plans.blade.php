@@ -2,6 +2,12 @@
 <html>
 <head>
     <style>
+        
+        body {
+            margin: 0;
+            font-family: nikoshpdf !important;
+        }
+
         table, td, th {
         border: 1px solid;
         padding: 8px;
@@ -39,6 +45,17 @@
             margin-left: 2cm;
             margin-right: 2cm;
         }
+
+        .bottom-right {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            text-align: right;
+            padding: 10px;
+            font-size: 12px;
+        }
+
     </style>
 </head>
 <body>
@@ -92,10 +109,10 @@
                         <table id="project_table" class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
-                                    <th width="20%">Project Name</th>
+                                    <th width="50%">Project Name</th>
                                     <!-- <th width="20%">Location</th> -->
                                     <th width="20%">Number of Location</th>
-                                    <th width="20%">Comment</th>
+                                    <th width="30%">Comment</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -118,14 +135,13 @@
                         <table id="function_table" class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
-                                    <th width="20%">Function Name</th>
+                                    <th width="50%">Function Name</th>
                                     <!-- <th width="20%">Location</th> -->
                                     <th width="20%">Number of Location</th>
-                                    <th width="20%">Comment</th>
+                                    <th width="30%">Comment</th>
                                 </tr>
                             </thead>
                             <tbody>
-
                                 @foreach ($individual_yearly_plan['function_list'] as $function)
                                     <tr class="strategic_row function_row">
                                         <td>{{ $function['function_name_en'] }}</td>
@@ -146,10 +162,10 @@
                         <table id="project_table" class="table table-bordered">
                             <thead class="thead-light">
                                 <tr>
-                                    <th width="20%">Cost Center</th>
+                                    <th width="50%">Cost Center</th>
                                     <!-- <th width="20%">Location</th> -->
                                     <th width="20%">Number of Location</th>
-                                    <th width="20%">Comment</th>
+                                    <th width="30%">Comment</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -169,6 +185,6 @@
             @endif
         @endif
     </div>
-    <div class="col-6" style="text-align: right; margin-top: 20px;"><b>Printed On:</b> {{ now()->format('d/m/Y') }}</div>
+    <div class="bottom-right"><h5><b>Printed On:</b> {{ now()->format('d/m/Y') }}</h5></div>
 </body>
 </html>

@@ -3,6 +3,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style>
+
+        body {
+            margin: 0;
+            font-family: nikoshpdf !important;
+        }
+        
         table, td, th {
         border: 1px solid;
         padding: 8px;
@@ -15,11 +21,6 @@
 
         p {
             padding: 5px;
-        }
-
-        body {
-            margin: 0;
-            font-family: nikoshpdf !important;
         }
 
         .bangla-font {
@@ -45,11 +46,22 @@
             margin-left: 2cm;
             margin-right: 2cm;
         }
+
+        .bottom-right {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            text-align: right;
+            padding: 10px;
+            font-size: 12px;
+        }
+
     </style>
 </head>
 <body>
 <div id="writing-screen-wrapper" style="font-family:nikoshpdf,serif !important;">
-    <div class="pdf-screen bangla-font" style="height: 100%">
+    <div class="pdf-screen bangla-font" style="height: 100%;">
         <htmlpagefooter name="even-footer">
             <div style="width: 100%; text-align: center;">
                 Page No <span> {PAGENO}</span>
@@ -84,12 +96,13 @@
                 <div class="col-12 form-group">
                 <h3 style="text-align: center; margin-top: 10px;">Strategic Plan For {{$start}} - {{$end}}</h3>
                     @foreach($strategic_plan_list as $year => $strategic_plans)
+                    @if (!empty($strategic_plans['projects']))
                     <div>
                         <h4 style="text-align: left; margin-top: 10px;">Strategic Plan For {{$year}}</h4>
                         <table class="table table-bordered" style="font-size: 13vh;">
                             <thead class="thead-light">
                                 <tr>
-                                    <th style="width: 50%;">Projects</th>
+                                    <th style="width: 50%;">Project Name</th>
                                     <!-- <th>Location</th> -->
                                     <th style="width: 25%;">Number of Location</th>
                                     <th style="width: 25%;">Comment</th>
@@ -115,43 +128,47 @@
                             @endforeach
                         </table>
                     </div>
+                    @endif
 
-                    <div style="margin-top: 10px;">
-                        <table class="table table-striped table-bordered" style="font-size: 13vh;">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th style="width: 50%;">Functions</th>
-                                    <!-- <th>Location</th> -->
-                                    <th style="width: 25%;">Number of Location</th>
-                                    <th style="width: 25%;">Comment</th>
-                                </tr>
-                            </thead>
-                            @foreach ($strategic_plans['functions'] as $function)
-                                <tbody>
+                    @if (!empty($strategic_plans['functions']))
+                        <div style="margin-top: 10px;">
+                            <table class="table table-striped table-bordered" style="font-size: 13vh;">
+                                <thead class="thead-light">
                                     <tr>
-                                        <td>
-                                            {{ $function['function_name_en']}}
-                                        </td>
-                                        <!-- <td >
-                                            {{ $function['cost_center_en']}}
-                                        </td> -->
-                                        <td>
-                                            {{ $function['location_no'] }}
-                                        </td>
-                                        <td>
-                                            {{ $function['comment'] }}
-                                        </td>
+                                        <th style="width: 50%;">Function Name</th>
+                                        <!-- <th>Location</th> -->
+                                        <th style="width: 25%;">Number of Location</th>
+                                        <th style="width: 25%;">Comment</th>
+
                                     </tr>
-                                </tbody>
-                            @endforeach
-                        </table>
-                    </div>
+                                </thead>
+                                @foreach ($strategic_plans['functions'] as $function)
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                {{ $function['function_name_en']}}
+                                            </td>
+                                            <!-- <td >
+                                                {{ $function['cost_center_en']}}
+                                            </td> -->
+                                            <td>
+                                                {{ $function['location_no'] }}
+                                            </td>
+                                            <td>
+                                                {{ $function['comment'] }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                @endforeach
+                            </table>
+                        </div>
+                    @endif
                     @endforeach
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-6" style="text-align: right; margin-top: 10px;"><h5><b>Printed On:</b> {{ now()->format('d/m/Y') }}</h5></div>
 </div>
+<div class="bottom-right"><h5><b>Printed On:</b> {{ now()->format('d/m/Y') }}</h5></div>
 </body>
 </html>

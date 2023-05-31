@@ -66,7 +66,7 @@
 
                             @foreach ($individual_yearly_plan['function_list'] as $function)
                                 <tr class="strategic_row function_row">
-                                    <td>{{ $function['function_name_bn'] }}</td>
+                                    <td>{{ $function['function_name_en'] }}</td>
                                     <!-- <td>{{ $function['cost_center_en'] }}</td> -->
                                     <td>{{ $function['location_no'] }}</td>
                                     <td>{{ $function['comment'] }}</td>

@@ -115,6 +115,11 @@
 
 <script>
     $('.show_strategic_plan_details').click(function () {
+
+        let strategic_plan_id = $(this).data('strategic-plan-id');
+        let strategic_plan_year = $(this).data('strategic-plan-year');
+        let data = {strategic_plan_id, strategic_plan_year};
+
         quick_panel = $("#kt_quick_panel");
         $('.offcanvas-wrapper').html('');
         quick_panel.addClass('offcanvas-on');
@@ -123,11 +128,9 @@
         $('.offcanvas-footer').hide();
         quick_panel.removeClass('d-none');
         $("html").addClass("side-panel-overlay");
-        $('.offcanvas-title').html('Show Year Wise Strategic Plans');
+        $('.offcanvas-title').html('Strategic Plans of ' + strategic_plan_year);
 
-        let strategic_plan_id = $(this).data('strategic-plan-id');
-        let strategic_plan_year = $(this).data('strategic-plan-year');
-        let data = {strategic_plan_id, strategic_plan_year};
+        
 
         let url = "{{ route('audit.plan.strategy.show-year-wise-strategic-plan') }}";
 
