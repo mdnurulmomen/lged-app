@@ -137,6 +137,7 @@ class AuditProgramController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'audit_plan_id' => 'required|integer',
             'audit_area_id' => 'required|integer',
@@ -148,6 +149,13 @@ class AuditProgramController extends Controller
             'procedures.*.note' => 'nullable|string',
             'procedures.*.done_by' => 'nullable|string|max:255',
             'procedures.*.reference' => 'nullable|string|max:255',
+        ],
+        [
+            'audit_area_id.required' => 'Please Select One Area',
+            'control_objective.required' => 'Please Enter Control Objective',
+            'category.required' => 'Please Enter Category',
+            'area_index.required' => 'Please Enter Area Index',
+            'procedures.required' => 'Please Enter Procedures',
         ]);
 
         // $currentUserId = $this->current_desk()['officer_id'];

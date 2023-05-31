@@ -8,7 +8,7 @@
                 <input style="display: none" id="project" type="radio" name="sector_type" value="project" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('project')"> Project
                 <input style="display: none" id="function" type="radio" name="sector_type" value="function" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('function')"> Function
                 <input style="display: none" id="master_unit" type="radio" name="sector_type" value="master-unit" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('master_unit')"> Master Unit
-                 <input id="cost_center" type="radio" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center
+                 <input id="cost_center" type="radio" value="cost-center" onchange="Risk_Assessment_Factor_Approach_Container.setAssessmentType('cost_center')"> Cost Center 
             </span> -->
 
             @if($data['project_id'])
@@ -32,26 +32,25 @@
             </div>
         </div>
 
-        <div class="col-md-2.5">
+        <div class="col-md-3">
             <div class="area_div">
                 <select class="form-control select-select2" name="sector_area" id="sector_area" onchange="Audit_Program_Container.laodAreaPrograms(this.value)">
                     <option selected>Select Area</option>
                 </select>
             </div>
         </div>
-        <div class="col-md-1.5" style="margin-left: 0.5cm;">
-            <button class="btn btn-sm btn-info btn-square mr-1"
-                title="Download"
-                onclick='Audit_Program_Container.export($(this))'>
-                <i class="fad fa-download"></i> Excel
-            </button>
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-sm btn-square btn-warning mr-2" id="go_back">
-                <i class="fad fa-arrow-alt-left"></i> Go Back
-            </button>
+
+       <div class="col-md-2">
+           <button class="btn btn-sm btn-info btn-square mr-1"
+                   title="Download"
+                   onclick='Audit_Program_Container.export($(this))'>
+               <i class="fad fa-download"></i> Excel
+           </button>
+       </div>
+
+        <div class="col-md-2">
             <button class="btn btn-sm btn-primary btn-square mr-1"
-                    title="Create Program"
+                    title="বিস্তারিত দেখুন"
                     data-audit-plan-id="{{$data['audit_plan_id']}}"
                     onclick='Audit_Program_Container.createAreaPrograms($(this))'
                     style="float: right;">
@@ -95,9 +94,6 @@
        if(project_id){
            Audit_Program_Container.laodSectorAreas('project',project_id);
        }
-    });
-    $('#go_back').on("click", function() {
-        $('.sector_area_program_menu  a').click();
     });
 
     var Audit_Program_Container = {
@@ -163,7 +159,6 @@
         },
 
         createAreaPrograms: function (elem) {
-            loaderStart('loading...');
             audit_plan_id = '{{$data['audit_plan_id']}}';
             yearly_plan_location_id = '{{$data['yearly_plan_location_id']}}';
             project_id = '{{$data['project_id']}}';
@@ -178,10 +173,39 @@
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
-                    $('#kt_content').html(response);
+                    quick_panel = $("#kt_quick_panel");
+                    $('.offcanvas-wrapper').html(response);
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '1000px');
+                    $('.offcanvas-footer').hide();
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $('.offcanvas-title').html('Create Audit Program');
                 }
             });
         },
+
+        // $('.show_strategic_plan_details').click(function () {
+        //     let strategic_plan_id = $(this).data('strategic-plan-id');
+        //     let strategic_plan_year = $(this).data('strategic-plan-year');
+        //     let data = {strategic_plan_id, strategic_plan_year};
+
+        //     let url = "{{ route('audit.plan.strategy.show-year-wise-strategic-plan') }}";
+
+        //     ajaxCallAsyncCallbackAPI(url, data, 'GET', function (resp) {
+        //         if (resp.status === 'error') {
+        //             toastr.error('no');
+        //             console.log(resp.data)
+        //         } else {
+        //             // $('#id').val(id);
+        //             // $('#x_risk_factor_id').val(x_risk_factor_id);
+        //             // $('#title_bn').text(title_bn);
+        //             // $('#title_en').text(title_en);
+        //             $('.offcanvas-wrapper').html(resp);
+        //         }
+        //     });
+        // });
 
         export:function () {
             loaderStart('loading...');
