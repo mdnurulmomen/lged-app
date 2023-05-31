@@ -270,12 +270,11 @@ class AuditStrategicPlanController extends Controller
         $data = Validator::make($request->all(), [
             'location_id' => 'required|integer',
         ])->validate();
-
+        $data['type'] = $request->type;
         $delete_location = $this->initHttpWithToken()->post(
             config('amms_bee_routes.audit_strategic_plan.delete_location'),
             $data
         )->json();
-
         if (isSuccess($delete_location)) {
             return response()->json(['status' => 'success', 'data' => $delete_location['data']]);
         } else {

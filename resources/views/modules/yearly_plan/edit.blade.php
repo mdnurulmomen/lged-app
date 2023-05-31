@@ -81,8 +81,9 @@
 
                                 <button type='button' title="বাদ দিন"
                                         data-row='row1'
-                                        data-yearly-plan-locations-id = "{{ $projects['id'] }}"
-                                        onclick="Yearly_Plan_Container.removeLocationRow($(this))"
+                                        data-strategic-plan-year="{{ $projects['strategic_plan_year'] }}"
+                                        data-location-id="{{ $projects['id'] }}"
+                                        onclick="removeLocationRow($(this))"
                                         class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                                     <span class='fal fa-trash-alt'></span>
                                 </button>
@@ -92,6 +93,7 @@
                     @endforeach
                 @else
                 <tr class="strategic_row project_row_{{$data['strategic_plan_year']}}">
+                    <input type="hidden" class="form-control function_location_id" value="null">
                     <td>
                         <select data-strategic-year="{{$data['strategic_plan_year']}}" class="form-control project_id_{{$data['strategic_plan_year']}} select-select2 project-select">
                             <option selected value="">Select Project</option>
@@ -194,15 +196,16 @@
                         <td>
                             <div style="display: flex">
                                 <button type="button" title="ট্রানজিট"
-                                        onclick="Plan_Common_Container.addLocationRow('{{$projects['strategic_plan_year']}}','function')"
+                                        onclick="Plan_Common_Container.addLocationRow('{{$functions['strategic_plan_year']}}','function')"
                                         class="btn btn-icon btn-outline-warning border-0 btn-xs mr-2">
                                     <span class="fad fa-plus"></span>
                                 </button>
 
                                 <button type='button' title="বাদ দিন"
                                         data-row='row1'
-                                        data-yearly-plan-locations-id = "{{ $functions['id'] }}"
-                                        onclick="Yearly_Plan_Container.removeLocationRow($(this))"
+                                        data-strategic-plan-year="{{ $functions['strategic_plan_year'] }}"
+                                        data-location-id="{{ $functions['id'] }}"
+                                        onclick="removeLocationRow($(this))"
                                         class='btn btn-icon btn-outline-danger btn-xs border-0 mr-2'>
                                     <span class='fal fa-trash-alt'></span>
                                 </button>
@@ -212,6 +215,7 @@
                 @endforeach
                 @else
                 <tr class="strategic_row function_row_{{$data['strategic_plan_year']}}">
+                    <input type="hidden" class="form-control function_location_id" value="null">
                     <td>
                         <select data-strategic-year="{{$data['strategic_plan_year']}}" class="form-control function_id_{{$data['strategic_plan_year']}} select-select2 project-select">
                             <option selected value="">select function</option>
@@ -271,5 +275,23 @@
     $('.btn_back').on("click", function() {
         $('.yearly_plan_link  a').click();
     });
+
+    function removeLocationRow(elem){
+        location_id = elem.data('location-id');
+        strategic_plan_year = elem.data('strategic-plan-year');
+        type = 'yearly';
+        let url = '{{route('audit.plan.strategy.delete-location-data')}}';
+        let data = {location_id,type};
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (response) {
+            loaderStop();
+            if (response.status === 'error') {
+                toastr.error(response.data)
+            } else {
+                $("#location"+location_id).remove();
+                toastr.success(response.data);
+                loadList(strategic_plan_year);
+            }
+        });
+    };
 
 </script>
