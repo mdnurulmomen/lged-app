@@ -4,7 +4,7 @@
     <div class="row d-flex align-items-end">
         <div class="col-md-6">
             <label>Select Audit Plan</label>
-            <select class="form-control select-select2" name="audit_plan_id" id="audit_plan_id"
+            <select class="form-control select-select2" name="audit_plan_id" id="filter_audit_plan_id"
             onchange="Risk_Assessment_Item_Container.laodPlanWorkpapers()">
                 <option value="" selected>Please Select Plan</option>
                 @foreach ($auditPlans as $auditPlan)
@@ -89,7 +89,7 @@
     var Risk_Assessment_Item_Container = {
         laodPlanWorkpapers: function () {
             // loaderStart('loading...');
-            audit_plan_id = $('#audit_plan_id').val();
+            audit_plan_id = $('#filter_audit_plan_id').val();
             strategic_plan_year = $('#strategic_plan_year').val();
             let url = "{{route('audit.plan.individual.plan-work-papers.list')}}";
             let data = {audit_plan_id, strategic_plan_year};

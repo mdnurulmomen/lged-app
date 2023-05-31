@@ -3,7 +3,7 @@
         <div class="col-md-12 form-group">
             <label for="email">Select Plan:</label>
             <select class="form-control" id="audit_plan_id">
-                <option value="" selected disabled>Select Audit Plan</option>
+                <option value="" selected>Select Audit Plan</option>
                 @foreach ($auditPlans as $auditPlan)
                     <option value="{{ $auditPlan['id'] }}">
                         {{ ($auditPlan['yearly_plan_location']['project_name_en'] ?? $auditPlan['yearly_plan_location']['function_name_en'] ?? $auditPlan['yearly_plan_location']['cost_center_en']).' (Plan-'.$auditPlan['id'].')' }}
@@ -70,7 +70,7 @@
         .done(function(response) {
             toastr.success(response.data);
             $("#kt_quick_panel_close").click();
-            $("#strategic_plan_year").val(audit_plan_id).trigger('change');
+            $("#filter_audit_plan_id").val(audit_plan_id).trigger('change');
 
         })
         .fail(function(response) {

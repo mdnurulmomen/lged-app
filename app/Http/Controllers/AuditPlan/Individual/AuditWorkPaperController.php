@@ -66,6 +66,7 @@ class AuditWorkPaperController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'audit_plan_id' => 'required|integer',
             'title_bn' => 'nullable|string',
