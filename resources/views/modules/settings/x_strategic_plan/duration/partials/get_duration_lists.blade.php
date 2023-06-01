@@ -62,5 +62,6 @@
     $('.delete_plan_duration').click(function () {
         url = $(this).data('url');
         submitModalData(url, {}, 'delete', 'plan_duration_modal');
+        $('.duration_menu a').click();
     });
 </script>

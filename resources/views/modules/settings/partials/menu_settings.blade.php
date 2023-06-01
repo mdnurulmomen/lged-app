@@ -22,7 +22,7 @@
 {{--            </x-parent-menu-item>--}}
 
             <x-parent-menu-item icon="fas fa-list" name="Strategic Plan">
-                <x-menu-item class="" href="{{route('settings.strategic-plan.duration.index')}}"
+                <x-menu-item class="duration_menu" href="{{route('settings.strategic-plan.duration.index')}}"
                              icon="fal fa-calendar-alt">Duration
                 </x-menu-item>
 

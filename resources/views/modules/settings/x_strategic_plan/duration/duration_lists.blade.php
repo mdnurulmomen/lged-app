@@ -78,6 +78,7 @@
         data = $('#plan_duration_form').serialize();
         method = $(this).data('method');
         submitModalData(url, data, method, 'plan_duration_modal')
+        $('.duration_menu a').click();
     });
 
 </script>
