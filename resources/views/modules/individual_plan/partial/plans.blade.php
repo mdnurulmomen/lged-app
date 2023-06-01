@@ -19,6 +19,7 @@
                          <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
                              data-audit-plan-id="{{$project['audit_plan'] ? $project['audit_plan']['id'] : 0}}"
                              data-yearly_plan_location_id="{{ $project['id'] }}"
+                             data-yearly_plan_id="{{ $project['yearly_plan']['id'] }}"
                              data-sector_name="{{ $project['project_name_en'] }}"
                              data-plan_year="{{ $project['strategic_plan_year'] }}"
                              onclick="Individual_Plan_Container.individualPlanCreate($(this))">
@@ -172,6 +173,7 @@
          individualPlanCreate: function (elem) {
              let audit_plan_id = elem.data('audit-plan-id');
              let yearly_plan_location_id = elem.data('yearly_plan_location_id');
+             let yearly_plan_id = elem.data('yearly_plan_id');
              let sector_name = elem.data('sector_name');
              let plan_year = elem.data('plan_year');
 
@@ -179,6 +181,7 @@
 
              data = {
                  yearly_plan_location_id,
+                 yearly_plan_id,
                  audit_plan_id,
                  sector_name,
                  plan_year,

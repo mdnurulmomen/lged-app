@@ -37,6 +37,7 @@
                         data-yearly-plan-id="{{ $plan['id'] }}">
                     <i class="fad fa-pen"></i> Edit
                 </button>
+                @if ($plan['has_yearly_plan_count'] == 0)
                 <button class="mr-1 btn btn-sm btn-danger btn-square delete_year_detail"
                         title="Delete"
                         data-strategic-plan-year="{{ $plan['strategic_plan_year'] }}"
@@ -44,6 +45,7 @@
                         onclick="Yearly_Plan_Container.deleteYearlyPLan($(this))"
                     <i class="fad fa-trash"></i> Delete
                 </button>
+                @endif
             </td>
         </tr>
     @endforeach

@@ -48,6 +48,7 @@ class IndividualPlanController extends Controller
             'yearly_plan_location_id' => 'required|integer',
             'plan_year' => 'required|integer',
             'sector_name' => 'required|string',
+            'yearly_plan_id' => 'required|string',
             // 'sector_type' => 'required|string',
             // 'sector_id' => 'required|integer',
         ])->validate();

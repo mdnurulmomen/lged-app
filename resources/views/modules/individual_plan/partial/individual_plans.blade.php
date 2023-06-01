@@ -10,7 +10,7 @@
 <form  id="individual_plan_form" autocomplete="off">
     <input type="hidden" value="{{$data['audit_plan_id']}}" name="id">
     <input type="hidden" value="{{$data['yearly_plan_location_id']}}" name="yearly_plan_location_id">
-    <input type="hidden" value="0" name="yearly_plan_id">
+    <input type="hidden" value="{{$data['yearly_plan_id']}}" name="yearly_plan_id">
 
         <div class="block">
             <label>Audit Type<span class="text-danger">*</span> : </label>
