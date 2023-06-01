@@ -1,10 +1,10 @@
 <table class="table table-bordered" width="100%">
     <thead class="thead-light">
         <tr>
-            <th>SL</th>
-            <th>Sub-Area</th>
-            <th>Risk Name</th>
-            <th>Actions</th>
+            <th style="width: 4%;">SL</th>
+            <th style="width: 43%;">Sub-Area</th>
+            <th style="width: 43%;">Risk Name</th>
+            <th style="width: 10%;">Actions</th>
         </tr>
     </thead>
 
@@ -49,18 +49,16 @@
             </td>
         </tr>
 
-        @empty
-            <tr>
-                <td colspan="4" class="datatable-cell text-center"><span>Nothing Found</span></td>
-            </tr>
-        @endforelse
+    @empty
+        <tr>
+            <td colspan="4" class="datatable-cell text-center"><span>Nothing Found</span></td>
+        </tr>
+    @endforelse
     </tbody>
 </table>
 
 <script>
     $('.btn_edit_sector_risk_assessment').click(function () {
-        
-        loaderStart('Please wait...');
 
         id = $(this).data('id');
         parent_area_id =$(this).data('parent_area_id');
@@ -84,7 +82,14 @@
                 // $('#title_en').text(title_en);
                 // $('#impact_value').val(impact_value);
                 // $('#x_risk_factor_id').val(x_risk_factor_id);
-                $("#kt_content").html(resp);
+                $(".offcanvas-title").text('Update Risk Identification');
+                quick_panel = $("#kt_quick_panel");
+                quick_panel.addClass('offcanvas-on');
+                quick_panel.css('opacity', 1);
+                quick_panel.css('width', '50%');
+                quick_panel.removeClass('d-none');
+                $("html").addClass("side-panel-overlay");
+                $(".offcanvas-wrapper").html(resp);
             }
         });
     });

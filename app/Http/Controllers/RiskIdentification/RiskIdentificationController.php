@@ -34,13 +34,12 @@ class RiskIdentificationController extends Controller
 
     public function getSectorParentAreaList(Request $request) {
 
-        // dd($request->all());
-        $request->validate([
+        $data =  $request->validate([
             'assessment_sector_id' => 'required|integer',
             'assessment_sector_type' => 'required|in:project,function,master-unit',
         ]);
 
-        $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [])->json();
+        $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [$data])->json();
         $allAreas = $allAreas ? $allAreas['data'] : [];
 
         // dd($request);
@@ -162,6 +161,7 @@ class RiskIdentificationController extends Controller
     public function create(Request $request)
     {
         $project_id = $request->project_id;
+        $parent_area_id = $request->parent_area_id;
         $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
             'all' => 1
         ])->json();
@@ -201,7 +201,7 @@ class RiskIdentificationController extends Controller
         );
         */
 
-        return view('modules.settings.risk_identification.partials.create', compact('project_id','allProjects', 'allFunctions', 'allMasterUnits'));
+        return view('modules.settings.risk_identification.partials.create', compact('project_id', 'parent_area_id','allProjects', 'allFunctions', 'allMasterUnits'));
     }
 
     public function store(Request $request)

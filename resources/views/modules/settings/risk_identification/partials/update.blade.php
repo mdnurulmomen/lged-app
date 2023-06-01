@@ -1,152 +1,137 @@
-<div class="row m-0 mb-2 page-title-wrapper d-md-flex align-items-md-center">
-    <div class="col-md-6">
-        <div class="title py-2">
-            <h4 class="mb-0 font-weight-bold"><i class="fas fa-list mr-3"></i>Update Item Risk Assessment</h4>
-        </div>
-    </div>
-
-    <div class="col-md-6 text-right">
-        <a id="go_back" class="btn btn-sm btn-warning btn_back btn-square mr-3">
-            <i class="fad fa-arrow-alt-left"></i> ফেরত যান
-        </a>
-        <button class="btn btn-sm btn-square btn-primary mr-2" id="submit_button">
-            <i class="fa fa-save"></i> সংরক্ষণ করুন
-        </button>
-    </div>
-</div>
-
 <div class="row">
     <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="form-row">
-                    <div class="col-sm-4 form-group">
-                        <input type="radio" name="assessment_sector_type" value="project" 
-                        @if ($identificationToUpdate['assessment_sector_type']=='project') checked @endif> 
-                        Project
-                    </div>
-            
-                    <div class="col-sm-4 form-group">
-                        <input type="radio" name="assessment_sector_type" value="function"
-                        @if ($identificationToUpdate['assessment_sector_type']=='function') checked @endif> 
-                        Function
-                    </div>
-                    
-                    <div class="col-sm-4 form-group">
-                        <input type="radio" name="assessment_sector_type" value="master-unit" 
-                        @if ($identificationToUpdate['assessment_sector_type']=='master-unit') checked @endif> 
-                        Master Unit
-                    </div>
-            
-                    {{-- 
-                    <div class="col-sm-3 form-group">
-                        <input type="radio" name="assessment_sector_type" value="cost-center"> Cost Center
-                    </div> 
-                    --}}
-                </div>
-
-                <div class="form-row">
-                    <div class="col-sm-12 form-group">
-                        <div class="project_div" style="display : @if ($identificationToUpdate['assessment_sector_type']=='project') block @else none @endif">
-                            <select class="form-control select-select2" name="project_id" id="project_id"
-                                onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('project', this.value)"
-                            >
-                                <option value="" selected>Select Project</option>
-                                @foreach ($allProjects as $project)
-                                    <option value="{{ $project['id'] }}"
-                                    @if ($identificationToUpdate['assessment_sector_id']==$project['id']) selected @endif
-                                    >
-                                        {{ $project['name_en'] }}
-                                        ({{ $project['risk_score_key'] ? $project['risk_score_key'] : '--' }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                
-                        <div class="function_div"  style="display : @if ($identificationToUpdate['assessment_sector_type']=='function') block @else none @endif">
-                            <select  class="form-control select-select2" name="function_id" id="function_id"
-                            onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('function', this.value)"
-                            >
-                                <option value="" selected>Select Function</option>
-                                @foreach ($allFunctions as $function)
-                                    <option value="{{ $function['id'] }}"
-                                    @if ($identificationToUpdate['assessment_sector_id']==$function['id']) selected @endif>
-                                        {{ $function['name_en'] }}
-                                        ({{ $function['risk_score_key'] ? $function['risk_score_key'] : '--' }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                
-                        <div class="unit_div" style="display : @if ($identificationToUpdate['assessment_sector_type']=='master-unit') block @else none @endif">
-                            <select class="form-control select-select2" name="unit_master_id" id="unit_master_id"
-                            onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('master-unit', this.value)"
-                            >
-                                <option value="" selected>Select Unit</option>
-                                @foreach ($allMasterUnits as $masterUnit)
-                                    <option value="{{ $masterUnit['id'] }}"
-                                    @if ($identificationToUpdate['assessment_sector_id']==$masterUnit['id']) selected @endif
-                                    >
-                                        {{ $masterUnit['name_en'] }}
-                                        ({{ $masterUnit['risk_score_key'] ? $masterUnit['risk_score_key'] : '--' }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                
-                        {{--     
-                        <div class="cost_center_div" style="display: none">
-                            <select class="form-control select-select2" name="cost_center_id" id="cost_center_id">
-                                <option selected>Select Cost Center</option>
-                                @foreach ($allCostCenters as $costCenter)
-                                    <option value="{{ $costCenter['id'] }}">
-                                        {{ $costCenter['name_en'] }}
-                                        ({{ empty($costCenter['risk_score_key']) ? '--' : $costCenter['risk_score_key'] }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div> 
-                        --}}
-                    </div>
-                    
-                    <div class="col-sm-12 form-group">
-                        <p for="area">Parent Area:</p>
-            
-                        <select class="form-control" name="parent_area_id" id="parent_area_id">
-                            <option value="" selected disabled>Please Select Parent-Area</option>
- 
-                            @foreach ($allParentAreas as $area)
-                                <option value="{{ $area['id'] }}"
-                                @if ($area['id']==$identificationToUpdate['parent_area_id']) selected @endif
-                                >
-                                    {{ ucfirst($area['name_en']) }}
-                                </option>
-                            @endforeach  
-                        </select>
-                    </div>
-            
-                    <div class="col-sm-12 form-group">
-                        <p for="area">Child Area:</p>
-            
-                        <select class="form-control" name="audit_area_id" id="audit_area_id">
-                            <option value="" selected>Please Select Child-Area</option>
-                            
-                            @foreach ($allChildAreas as $area)
-                                <option value="{{ $area['id'] }}"
-                                @if ($area['id']==$identificationToUpdate['audit_area_id']) selected @endif
-                                >
-                                    {{ $area['name_en'] }}
-                                </option>
-                            @endforeach 
-                        </select>
-                    </div>
-            
-                    <div class="col-sm-12 form-group">
-                        <label for="email">Risk Name:</label>
-                        <input type="text" class="form-control" placeholder="Enter Risk Name" name="risk_name" value="{{ $identificationToUpdate['risk_name'] }}">
-                    </div>
-                </div>
+        <div class="form" style="display: flex;">
+            <div class="form-group mr-2">
+                <input type="radio" name="assessment_sector_type" value="project" 
+                @if ($identificationToUpdate['assessment_sector_type']=='project') checked @endif> 
+                Project
             </div>
+    
+            <div class="form-group mr-2">
+                <input type="radio" name="assessment_sector_type" value="function"
+                @if ($identificationToUpdate['assessment_sector_type']=='function') checked @endif> 
+                Function
+            </div>
+            
+            <div class="form-group mr-2">
+                <input type="radio" name="assessment_sector_type" value="master-unit" 
+                @if ($identificationToUpdate['assessment_sector_type']=='master-unit') checked @endif> 
+                Master Unit
+            </div>
+    
+            {{-- 
+            <div class="form-group mr-2">
+                <input type="radio" name="assessment_sector_type" value="cost-center"> Cost Center
+            </div> 
+            --}}
+        </div>
+
+        <div class="form-row">
+            <div class="col-sm-12 form-group">
+                <div class="project_div" style="display : @if ($identificationToUpdate['assessment_sector_type']=='project') block @else none @endif">
+                    <select class="form-control select-select2" name="project_id" id="project_id"
+                        onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('project', this.value)"
+                    >
+                        <option value="" selected>Select Project</option>
+                        @foreach ($allProjects as $project)
+                            <option value="{{ $project['id'] }}"
+                            @if ($identificationToUpdate['assessment_sector_id']==$project['id']) selected @endif
+                            >
+                                {{ $project['name_en'] }}
+                                ({{ $project['risk_score_key'] ? $project['risk_score_key'] : '--' }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+        
+                <div class="function_div"  style="display : @if ($identificationToUpdate['assessment_sector_type']=='function') block @else none @endif">
+                    <select  class="form-control select-select2" name="function_id" id="function_id"
+                    onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('function', this.value)"
+                    >
+                        <option value="" selected>Select Function</option>
+                        @foreach ($allFunctions as $function)
+                            <option value="{{ $function['id'] }}"
+                            @if ($identificationToUpdate['assessment_sector_id']==$function['id']) selected @endif>
+                                {{ $function['name_en'] }}
+                                ({{ $function['risk_score_key'] ? $function['risk_score_key'] : '--' }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+        
+                <div class="unit_div" style="display : @if ($identificationToUpdate['assessment_sector_type']=='master-unit') block @else none @endif">
+                    <select class="form-control select-select2" name="unit_master_id" id="unit_master_id"
+                    onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('master-unit', this.value)"
+                    >
+                        <option value="" selected>Select Unit</option>
+                        @foreach ($allMasterUnits as $masterUnit)
+                            <option value="{{ $masterUnit['id'] }}"
+                            @if ($identificationToUpdate['assessment_sector_id']==$masterUnit['id']) selected @endif
+                            >
+                                {{ $masterUnit['name_en'] }}
+                                ({{ $masterUnit['risk_score_key'] ? $masterUnit['risk_score_key'] : '--' }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+        
+                {{--     
+                <div class="cost_center_div" style="display: none">
+                    <select class="form-control select-select2" name="cost_center_id" id="cost_center_id">
+                        <option selected>Select Cost Center</option>
+                        @foreach ($allCostCenters as $costCenter)
+                            <option value="{{ $costCenter['id'] }}">
+                                {{ $costCenter['name_en'] }}
+                                ({{ empty($costCenter['risk_score_key']) ? '--' : $costCenter['risk_score_key'] }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div> 
+                --}}
+            </div>
+            
+            <div class="col-sm-12 form-group">
+                <p for="area">Parent Area:</p>
+    
+                <select class="form-control" name="parent_area_id" id="parent_area_id">
+                    <option value="" selected disabled>Please Select Parent-Area</option>
+
+                    @foreach ($allParentAreas as $area)
+                        <option value="{{ $area['id'] }}"
+                        @if ($area['id']==$identificationToUpdate['parent_area_id']) selected @endif
+                        >
+                            {{ ucfirst($area['name_en']) }}
+                        </option>
+                    @endforeach  
+                </select>
+            </div>
+    
+            <div class="col-sm-12 form-group">
+                <p for="area">Child Area:</p>
+    
+                <select class="form-control" name="audit_area_id" id="audit_area_id">
+                    <option value="" selected>Please Select Child-Area</option>
+                    
+                    @foreach ($allChildAreas as $area)
+                        <option value="{{ $area['id'] }}"
+                        @if ($area['id']==$identificationToUpdate['audit_area_id']) selected @endif
+                        >
+                            {{ $area['name_en'] }}
+                        </option>
+                    @endforeach 
+                </select>
+            </div>
+    
+            <div class="col-sm-12 form-group">
+                <label for="email">Risk Name:</label>
+                <input type="text" class="form-control" placeholder="Enter Risk Name" name="risk_name" value="{{ $identificationToUpdate['risk_name'] }}">
+            </div>
+        </div>
+
+        <div class="form-row float-right">
+            <button class="btn btn-sm btn-square btn-primary mr-2" id="submit_button">
+                <i class="fa fa-save"></i> Update
+            </button>
         </div>
     </div>
 </div>
@@ -278,13 +263,13 @@
                     toastr.error(response.data)
                 } else {
                     toastr.success(response.data);
-                    backToList();
+                    $('#kt_quick_panel_close').click();
+                    $('#filter_project_id').val(assessment_sector_id).trigger('change');
+                    setTimeout( function(){ 
+                        $('#filter_parent_area_id').val(parent_area_id).trigger('change');
+                    } , 1000 );
                 }
             });
-        }
-
-        function backToList () {
-            $('.risk-identifications a').click();
         }
     });
 </script>

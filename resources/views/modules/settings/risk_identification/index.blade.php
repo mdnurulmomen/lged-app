@@ -12,7 +12,7 @@
             </span>
             
             <div class="project_div">
-                <select class="form-control select-select2" name="project_id" id="project_id" onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('project', this.value)">
+                <select class="form-control select-select2" name="filter_project_id" id="filter_project_id" onchange="Risk_Assessment_Item_Filter_Container.laodItemRiskParentAreas('project', this.value)">
                     <option selected>Select Project</option>
                     @foreach ($allProjects as $project)
                         <option value="{{ $project['id'] }}">{{ $project['name_en'] }}
@@ -23,7 +23,7 @@
             </div>
 
             <div class="function_div" style="display: none">
-                <select class="form-control select-select2" name="function_id" id="function_id" onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('function', this.value)">
+                <select class="form-control select-select2" name="function_id" id="function_id" onchange="Risk_Assessment_Item_Filter_Container.laodItemRiskParentAreas('function', this.value)">
                     <option selected>Select Function</option>
                     @foreach ($allFunctions as $function)
                         <option value="{{ $function['id'] }}">{{ $function['name_en'] }}</option>
@@ -32,7 +32,7 @@
             </div>
 
             <div class="unit_div" style="display: none">
-                <select class="form-control select-select2" name="unit_master_id" id="unit_master_id" onchange="Risk_Assessment_Item_Container.laodItemRiskParentAreas('master-unit', this.value)">
+                <select class="form-control select-select2" name="unit_master_id" id="unit_master_id" onchange="Risk_Assessment_Item_Filter_Container.laodItemRiskParentAreas('master-unit', this.value)">
                     <option selected>Select Unit</option>
                     @foreach ($allMasterUnits as $masterUnit)
                         <option value="{{ $masterUnit['id'] }}">{{ $masterUnit['name_en'] }}</option>
@@ -41,7 +41,7 @@
             </div>
 
             {{-- <div class="cost_center_div" style="display: none">
-                <select class="form-control select-select2" name="cost_center_id" id="cost_center_id" onchange="Risk_Assessment_Item_Container.laodItemRiskIdentifications('cost-center', this.value)">
+                <select class="form-control select-select2" name="cost_center_id" id="cost_center_id" onchange="Risk_Assessment_Item_Filter_Container.laodItemRiskIdentifications('cost-center', this.value)">
                     <option selected>Select Cost Center</option>
                     @foreach ($allCostCenters as $costCenter)
                         <option value="{{ $costCenter['id'] }}">{{ $costCenter['name_en'] }}</option>
@@ -51,7 +51,7 @@
         </div>
 
         <div class="col-md-3">
-            <select class="form-control select-select2 parent_area_id" name="parent_area_id" id="parent_area_id" onchange="Risk_Assessment_Item_Container.laodItemRiskIdentifications(this.value)">
+            <select class="form-control select-select2" name="filter_parent_area_id" id="filter_parent_area_id" onchange="Risk_Assessment_Item_Filter_Container.laodItemRiskIdentifications(this.value)">
                 <option selected>Select Parent Area</option>
             </select>
         </div>
@@ -88,15 +88,16 @@
 
 
 <script>
-    $(function () {
-        // Risk_Assessment_Factor_Approach_Container.setAssessmentType('project');
-    });
+    // $(function () {
+    //     Risk_Assessment_Factor_Approach_Container.setAssessmentType('project');
+    // });
 
     $('.btn_create_risk_identification').click(function () {
-        project_id = $('#project_id').val();
+        project_id = $('#filter_project_id').val();
+        parent_area_id = $('#filter_parent_area_id').val();
         url = "{{route('audit.plan.risk-identifications.create')}}";
 
-        data = {project_id};
+        data = {project_id, parent_area_id};
 
 
         KTApp.block('#kt_wrapper', {
@@ -117,12 +118,11 @@
                 quick_panel.removeClass('d-none');
                 $("html").addClass("side-panel-overlay");
                 $(".offcanvas-wrapper").html(response);
-                loadData();
             }
         });
     });
 
-    var Risk_Assessment_Item_Container = {
+    var Risk_Assessment_Item_Filter_Container = {
         laodItemRiskParentAreas: function (assessment_sector_type, assessment_sector_id) {
             if (! assessment_sector_type || ! assessment_sector_id) {
                 return false;
@@ -138,7 +138,7 @@
                 if (response.status === 'error') {
                     toastr.error(response.data);
                 } else {
-                    $('.parent_area_id').html(response);
+                    $('#filter_parent_area_id').html(response);
                 }
             });
         },
@@ -148,9 +148,9 @@
 
             let assessment_sector_type = $("input[name='risk_sector_type']:checked").val();
 
-            if (assessment_sector_type=='project' && $('#project_id option').is(':selected')) {
+            if (assessment_sector_type=='project' && $('#filter_project_id option').is(':selected')) {
 
-                var assessment_sector_id = $('#project_id').find(":selected").val();
+                var assessment_sector_id = $('#filter_project_id').find(":selected").val();
 
             } else if (assessment_sector_type=='function' && $('#function_id option').is(':selected')) {
                 

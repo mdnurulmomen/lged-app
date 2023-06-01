@@ -27,8 +27,8 @@
             <td>
                 <a href="javascript:;"
                    data-id="{{$risk_factor['id']}}" 
-                   data-title-en="{{$risk_factor['title_bn']}}"
-                   data-title-bn="{{$risk_factor['title_en']}}" 
+                   data-title-en="{{$risk_factor['title_en']}}"
+                   data-title-bn="{{$risk_factor['title_bn']}}" 
                    data-risk-weight="{{$risk_factor['risk_weight']}}" 
                    class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_risk_factor">
                     <i class="fas fa-edit"></i>

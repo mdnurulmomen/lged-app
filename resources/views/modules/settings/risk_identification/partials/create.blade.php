@@ -81,23 +81,16 @@
             
             <div class="col-sm-12 form-group">
                 <p for="area">Parent Area:</p>
-    
-                <select class="form-control" name="parent_area_id" id="parent_area_id">
-                    <option value="" selected disabled>Please Select Parent-Area</option>
-                    
-                    {{-- 
-                    @foreach ($allAreas as $area)
-                        <option value="{{ $area['id'] }}">{{ ucfirst($area['name_en']) }}</option>
-                    @endforeach  
-                    --}}
+                <select class="form-control select-select2" name="parent_area_id" id="parent_area_id">
+                    <option selected>Select Parent Area</option>
                 </select>
             </div>
     
             <div class="col-sm-12 form-group">
                 <p for="area">Child Area:</p>
     
-                <select class="form-control" name="audit_area_id" id="audit_area_id">
-                    <option value="" selected>Please Select Child-Area</option>
+                <select class="form-control select-select2" name="audit_area_id" id="audit_area_id">
+                    <option value="" selected>Please Select Child Area</option>
                     
                     {{-- 
                     @foreach ($allAreas as $area)
@@ -124,7 +117,11 @@
     
     $(function () {
         project_id = "{{$project_id}}";
+        parent_area_id = "{{$parent_area_id}}";
         $('#project_id').val(project_id).trigger('change');
+        setTimeout( function(){ 
+            $('#parent_area_id').val(parent_area_id).trigger('change');
+        } , 1000 );
     });
     
     var Risk_Assessment_Item_Container = {
@@ -250,13 +247,13 @@
                     toastr.error(response.data)
                 } else {
                     toastr.success(response.data);
-                    backToList();
+                    $('#kt_quick_panel_close').click();
+                    $('#filter_project_id').val(assessment_sector_id).trigger('change');
+                    setTimeout( function(){ 
+                        $('#filter_parent_area_id').val(parent_area_id).trigger('change');
+                    } , 1000 );
                 }
             });
-        }
-
-        function backToList () {
-            $('.risk-identifications a').click();
         }
     });
 </script>
