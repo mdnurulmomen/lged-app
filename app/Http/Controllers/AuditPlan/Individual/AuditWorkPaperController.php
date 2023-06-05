@@ -235,6 +235,22 @@ class AuditWorkPaperController extends Controller
         }
     }
 
+    public function planWorkPaperDelete(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'work_paper_id' => 'required',
+            'audit_plan_id' => 'required',
+        ])->validate();
+        
+        $deletePlanWorkPaper = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_plan_work_papers_delete'), $data)->json();
+
+        if (isset($deletePlanWorkPaper['status']) && $deletePlanWorkPaper['status'] == 'success') {
+            return response()->json(['status' => 'success', 'data' => $deletePlanWorkPaper['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $deletePlanWorkPaper]);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *

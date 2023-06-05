@@ -476,6 +476,7 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::resource('/plan-work-papers', AuditWorkPaperController::class, ['except' => ['edit','update']]);
             Route::post('/plan-work-papers/edit', [AuditWorkPaperController::class, 'planWorkPaperEdit'])->name('plan-work-papers.edit');
             Route::post('/plan-work-papers/update', [AuditWorkPaperController::class, 'planWorkPaperUpdate'])->name('plan-work-papers.update');
+            Route::post('/plan-work-papers/delete', [AuditWorkPaperController::class, 'planWorkPaperDelete'])->name('plan-work-papers.delete');
 
         });
 

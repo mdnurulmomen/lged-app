@@ -49,7 +49,7 @@
 
                     <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2 rounded-0 border-left-0 border-right-0">
                         <div class="position-relative w-100 d-flex align-items-start">
-                            <a title="" href="{{ config('amms_bee_routes.file_url').$planWorkPaper['attachment'] }}" download class="d-inline-block text-dark‌‌">
+                            <a target="_blank" href="{{ config('amms_bee_routes.file_url').$planWorkPaper['attachment'] }}" download class="d-inline-block text-dark‌‌">
                                 <span class="viewer_trigger d-flex align-items-start">
                                     <i class="text-warning fas {{$fileIcon}} fa-lg px-3"></i>
                                     <span class="ml-2 d-flex align-items-start">{{$fileName}}</span>
@@ -60,12 +60,6 @@
                 </ul>
             </div>
         </div>
-
-        <!-- <a target="_blank" href="{{ config('amms_bee_routes.file_url').$planWorkPaper['attachment'] }}" class="btn btn-download btn-sm btn-bold btn-square">
-            <i class="fa fa-file" aria-hidden="true"></i>
-            Download
-        </a>
-         -->
 
         <div class="col-md-12 pt-4 text-right">
             <button type="button" id="update_btn" class="btn btn-primary ml-auto">

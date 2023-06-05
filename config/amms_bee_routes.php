@@ -260,6 +260,7 @@ return [
     'audit_plan_work_papers' => env('API_URL_BEE', '') . '/audit-plan-work-papers',
     'audit_plan_work_papers_store' => env('API_URL_BEE', '') . '/audit-plan-work-papers/store',
     'audit_plan_work_papers_update' => env('API_URL_BEE', '') . '/audit-plan-work-papers/update',
+    'audit_plan_work_papers_delete' => env('API_URL_BEE', '') . '/audit-plan-work-papers/delete',
 
 
     'audit_plan' => [

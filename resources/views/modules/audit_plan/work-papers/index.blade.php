@@ -46,10 +46,10 @@
             <table class="table table-bordered" width="100%">
                 <thead class="thead-light">
                     <tr>
-                        <th style="width: 40%;">Title (Bangla)</th>
-                        <th style="width: 40%;">Title (English)</th>
-                        <th style="width: 15%;">WorkPaper</th>
-                        <th style="width: 5%;">Action</th>
+                        <th style="width: 38%;">Title (Bangla)</th>
+                        <th style="width: 38%;">Title (English)</th>
+                        <th style="width: 14%;">WorkPaper</th>
+                        <th style="width: 10%;">Action</th>
                     </tr>
                 </thead>
 

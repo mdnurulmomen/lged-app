@@ -1,21 +1,21 @@
 @forelse($working_plan_list as $workPaper)
     <tr id="row_{{$workPaper['id']}}" data-row="{{$loop->iteration}}">
-        <td style="width: 40%;">
+        <td style="width: 38%;">
             {{ $workPaper['title_bn'] }}
         </td>
 
-        <td style="width: 40%;">
+        <td style="width:38%;">
             {{ $workPaper['title_en'] }}
         </td>
 
-        <td style="width: 15%;">
+        <td style="width: 14%;">
             <a target="_blank" href="{{ config('amms_bee_routes.file_url').$workPaper['attachment'] }}" class="btn btn-download btn-sm btn-bold btn-square ml-auto">
                 <i class="fa fa-file" aria-hidden="true"></i>
                 Download
             </a>
         </td>
 
-        <td style="width: 5%;">
+        <td style="width: 10%;">
             <a href="javascript:;"
                 data-audit-plan-id="{{$workPaper['audit_plan_id']}}"
                 data-work-paper-id="{{$workPaper['id']}}"
@@ -23,6 +23,13 @@
                 data-work-paper-title-en="{{$workPaper['title_en']}}"
                 class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary btn_edit_plan_work_paper">
                 <i class="fas fa-edit"></i>
+            </a>
+
+            <a href="javascript:;"
+                data-audit-plan-id="{{$workPaper['audit_plan_id']}}"
+                data-work-paper-id="{{$workPaper['id']}}"
+                class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-danger btn_delete_plan_work_paper">
+                <i class="fas fa-trash"></i>
             </a>
         </td>
     </tr>
@@ -57,6 +64,22 @@
                 $("html").addClass("side-panel-overlay");
                 $('.offcanvas-title').html('Update Work Paper');
                 $('.offcanvas-wrapper').html(resp);
+            }
+        });
+    });
+
+    $('.btn_delete_plan_work_paper').click(function () {
+    audit_plan_id = $(this).data("audit-plan-id");
+    work_paper_id = $(this).data("work-paper-id");
+    url = "{{ route('audit.plan.individual.plan-work-papers.delete') }}";
+    var data = {audit_plan_id, work_paper_id};
+
+        ajaxCallAsyncCallbackAPI(url, data, 'POST', function (resp) {
+            if (resp.status === 'error') {
+                toastr.error(resp.data)
+            } else {
+                toastr.success(resp.data);
+                Risk_Assessment_Item_Container.laodPlanWorkpapers();
             }
         });
     });
