@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AuditPlan\Individual;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AuditWorkPaperController extends Controller
 {
@@ -133,36 +134,20 @@ class AuditWorkPaperController extends Controller
      */
     public function planWorkPaperEdit(Request $request)
     {
-        $allProjects = $this->initHttpWithToken()->post(config('cag_rpu_api.get-all-projects'), [
-            'all' => 1
-        ])->json();
-        $allProjects = $allProjects ? $allProjects['data'] : [];
+        $audit_plan_id = $request->audit_plan_id;
+        $work_paper_id = $request->work_paper_id;
+        $data['work_paper_id'] = $work_paper_id = $request->work_paper_id;
 
-        $allFunctions = $this->initHttpWithToken()->post(config('cag_rpu_api.functions.list'), [
-            'all' => 1
-        ])->json();
-        $allFunctions = $allFunctions ? $allFunctions['data'] : [];
+        $planWorkPaper = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_plan_work_papers'), $data)->json();
+        $auditPlans = $this->initHttpWithToken()->get(config('amms_bee_routes.audit_plans'))->json()['data'];
 
-        $allMasterUnits = $this->initHttpWithToken()->post(config('cag_rpu_api.master_units.list'), [
-            'all' => 1
-        ])->json();
-        $allMasterUnits = $allMasterUnits ? $allMasterUnits['data'] : [];
-
-        $allAreas = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
-            'all' => 1
-        ])->json();
-        $allAreas = $allAreas ? $allAreas['data'] : [];
-
-        $auditArea = collect($allAreas)->firstWhere('id', $request->audit_area_id);
-
-        $id = $request->id;
-        $audit_area_id = $request->audit_area_id;
-        $control_objective = $request->control_objective;
-        $category = $request->category;
-        $area_index = $request->area_index;
-        $procedures = $request->procedures;
-
-        return view('modules.audit_plan.program.partials.update', compact('id', 'audit_area_id', 'control_objective', 'category', 'area_index', 'procedures', 'allProjects', 'allFunctions', 'allMasterUnits', 'allAreas', 'auditArea'));
+        if (isSuccess($planWorkPaper)) {
+            $planWorkPaper = $planWorkPaper['data'];
+            // dd($planWorkPaper);
+            return view('modules.audit_plan.work-papers.partials.update', compact('planWorkPaper', 'audit_plan_id', 'auditPlans' ,'work_paper_id'));
+        } else {
+            return response()->json(['status' => 'error', 'data' => $store]);
+        }
     }
 
     /**
@@ -205,6 +190,48 @@ class AuditWorkPaperController extends Controller
             return response()->json(['status' => 'success', 'data' => $update_risk_rating['data']]);
         } else {
             return response()->json(['status' => 'error', 'data' => $update_risk_rating]);
+        }
+    }
+
+    public function planWorkPaperUpdate(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'work_paper_id' => 'required',
+            'audit_plan_id' => 'required',
+        ])->validate();
+
+        $data['title_bn'] = $request->title_bn;
+        $data['title_en'] = $request->title_en;
+        $currentUserId = $this->current_desk()['officer_id'];
+
+        $data = [
+            ['name' => 'audit_plan_id', 'contents' => $request->audit_plan_id],
+            ['name' => 'work_paper_id', 'contents' => $request->work_paper_id],
+            ['name' => 'title_bn', 'contents' => $request->title_bn],
+            ['name' => 'title_en', 'contents' => $request->title_en],
+            ['name' => 'created_by', 'contents' => $currentUserId],
+            ['name' => 'updated_by', 'contents' => $currentUserId],
+
+            [
+                'name' => 'attachment',
+                'contents' => $request->hasfile('attachment') ? file_get_contents($request->file('attachment')) : '',
+                'filename' => $request->hasfile('attachment') ? $request->file('attachment')->getClientOriginalName() : '',
+            ]
+        ];
+
+        $update_work_paper = $this->fileUPloadWithData(
+            config('amms_bee_routes.audit_plan_work_papers_update'),
+            $data,
+            'POST',
+        );
+        
+        $update_work_paper = json_decode($update_work_paper->getBody(), true);
+        // dd($update_work_paper);
+
+        if (isset($update_work_paper['status']) && $update_work_paper['status'] == 'success') {
+            return response()->json(['status' => 'success', 'data' => $update_work_paper['data']]);
+        } else {
+            return response()->json(['status' => 'error', 'data' => $update_work_paper]);
         }
     }
 

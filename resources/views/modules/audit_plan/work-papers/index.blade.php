@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="{{asset('assets/css/mFiler-font.css')}}" referrerpolicy="origin">
+<link rel="stylesheet" href="{{asset('assets/css/mFiler.css')}}" referrerpolicy="origin">
+
 <x-title-wrapper>Audit Work-Papers</x-title-wrapper>
 
 <div class="card sna-card-border mt-3" style="margin-bottom:15px;">
@@ -43,15 +46,16 @@
             <table class="table table-bordered" width="100%">
                 <thead class="thead-light">
                     <tr>
-                        <th>Title</th>
-                        <th>Audit Plan</th>
-                        <th>WorkPaper</th>
+                        <th style="width: 40%;">Title (Bangla)</th>
+                        <th style="width: 40%;">Title (English)</th>
+                        <th style="width: 15%;">WorkPaper</th>
+                        <th style="width: 5%;">Action</th>
                     </tr>
                 </thead>
 
                 <tbody id="plan-work-papers">
                     <tr>
-                        <td colspan="3" class="datatable-cell text-center"><span>Please select audit-plan</span></td>
+                        <td colspan="4" class="datatable-cell text-center"><span>Please Select Audit Plan</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -59,7 +63,7 @@
     </div>
 </div>
 
-
+<script src="{{asset('assets/js/mFiler.js')}}" type="text/javascript"></script>
 <script>
 
     $('.create_button').click(function () {
@@ -85,6 +89,7 @@
             }
         });
     });
+
 
     var Risk_Assessment_Item_Container = {
         laodPlanWorkpapers: function () {

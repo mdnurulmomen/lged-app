@@ -24,7 +24,7 @@
 
         <div class="col-md-12 form-group">
             <label for="exampleFormControlFile1">Choose WorkPaper</label>
-            <input type="file" class="form-control-file" id="attachment" name="attachment">
+            <input id="attachment" name="attachment" type="file" class="mFilerInit form-control rounded-0">
         </div>
 
         <div class="col-md-12 pt-4">
@@ -34,6 +34,14 @@
 </form>
 
 <script>
+    $(document).ready(function () {
+        $('.mFilerInit').filer({
+            showThumbs: true,
+            addMore: false,
+            allowDuplicates: false
+        });
+    });
+
     $('#btn_modal_save').click(function () {
 
         var formData = new FormData();
@@ -43,6 +51,7 @@
         formData.append('audit_plan_id', $('#audit_plan_id').find(':selected').val());
         formData.append('title_bn', $('#title_bn').val());
         formData.append('title_en', $('#title_en').val());
+        formData.append('attachment', $('#attachment').files);
 
         if ($('#attachment')[0].files.length) {
             formData.append('attachment', $('#attachment')[0].files[0]);

@@ -473,8 +473,9 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             // work-papers
             Route::get('/plan-work-papers/list', [AuditWorkPaperController::class, 'getPlanWorkPapers'])->name('plan-work-papers.list');
             Route::get('/plan-work-papers/export', [AuditWorkPaperController::class, 'exportWorkPaper'])->name('plan-work-papers.export');
-            Route::resource('/plan-work-papers', AuditWorkPaperController::class, ['except' => ['edit']]);
+            Route::resource('/plan-work-papers', AuditWorkPaperController::class, ['except' => ['edit','update']]);
             Route::post('/plan-work-papers/edit', [AuditWorkPaperController::class, 'planWorkPaperEdit'])->name('plan-work-papers.edit');
+            Route::post('/plan-work-papers/update', [AuditWorkPaperController::class, 'planWorkPaperUpdate'])->name('plan-work-papers.update');
 
         });
 

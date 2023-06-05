@@ -259,6 +259,7 @@ return [
     'audit_plans' => env('API_URL_BEE', '') . '/audit-plans',
     'audit_plan_work_papers' => env('API_URL_BEE', '') . '/audit-plan-work-papers',
     'audit_plan_work_papers_store' => env('API_URL_BEE', '') . '/audit-plan-work-papers/store',
+    'audit_plan_work_papers_update' => env('API_URL_BEE', '') . '/audit-plan-work-papers/update',
 
 
     'audit_plan' => [
