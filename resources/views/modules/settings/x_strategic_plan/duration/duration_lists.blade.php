@@ -71,6 +71,7 @@
         $('#btn_plan_duration_modal_save').data('url', $(this).data('url'));
         $('#btn_plan_duration_modal_save').data('method', $(this).data('method'));
         $('#plan_duration_modal').modal('show');
+        $('.duration_menu a').click();
     });
 
     $('#btn_plan_duration_modal_save').click(function () {

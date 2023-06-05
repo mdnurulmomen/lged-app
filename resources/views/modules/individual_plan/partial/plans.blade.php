@@ -91,12 +91,16 @@
                          {{ $function['function_name_bn'] }}
                      </td>
                      <td>
-                         <button class="btn btn-sm btn-square btn-primary btn-hover-primary plan-button"
-                             data-yearly_plan_location_id="{{ $function['id'] }}"
-                             data-sector_name="{{ $function['function_name_en'] }}"
-                             data-plan_year="{{ $function['strategic_plan_year'] }}">
-                             <i class="fas fa-tasks"></i> Plan
-                         </button>
+                        <button class="btn btn-sm btn-square btn-primary btn-hover-primary"
+                            data-audit-plan-id="{{$function['audit_plan'] ? $function['audit_plan']['id'] : 0}}"
+                            data-yearly_plan_location_id="{{ $function['id'] }}"
+                            data-yearly_plan_id="{{ $function['yearly_plan']['id'] }}"
+                            data-sector_name="{{ $function['function_name_bn'] }}"
+                            data-plan_year="{{ $function['strategic_plan_year'] }}"
+                            onclick="Individual_Plan_Container.individualPlanCreate($(this))">
+                            <!-- {{$function['audit_plan'] ? 'Plan-'.$function['audit_plan']['id'] : 'Add New Plan'}} -->
+                            {{$function['audit_plan'] ? 'Plan' : 'Add New Plan'}}
+                        </button>
 
                          <button class="btn btn-sm btn-square btn-primary btn-hover-primary team-button"
                              data-yearly_plan_location_id="{{ $function['id'] }}"

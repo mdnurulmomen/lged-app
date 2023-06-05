@@ -12,7 +12,8 @@
         weekStart: 1,
         keyboardNavigation: false,
         viewMode: "years",
-        minViewMode: "years"
+        minViewMode: "years",
+        autoclose: true,
     });
 
     $('.date').datepicker({

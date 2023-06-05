@@ -25,9 +25,6 @@ class AuditExecutionAreaController extends Controller
 
     public function getAuditAreaList(Request $request)
     {
-        // dd($request->all());
-        // dd(config('cag_rpu_api.areas'));
-
         $audit_area_list = $this->initHttpWithToken()->get(config('cag_rpu_api.areas'), [
             'sector_id' => $request->sector_id,
             'sector_type' => 'App\Models\Project',

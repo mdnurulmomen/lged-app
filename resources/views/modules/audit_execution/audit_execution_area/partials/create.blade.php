@@ -138,6 +138,7 @@
             method = 'POST';
 
             let sector_type = $('input[name="sector_type"]:checked').val();
+            let parent_id = $('#parent_area_id').val();
 
             let sector_id = (sector_type==='App\\Models\\Project') ? $('#project_id').find(':selected').val()
             : (sector_type==='App\\Models\\AuditFunction') ? $('#function_id').find(':selected').val()
@@ -149,6 +150,7 @@
                 parent_id : $('#parent_id').find(':selected').val(),
                 sector_id,
                 sector_type,
+                parent_id,
             };
 
             // console.log(data);
