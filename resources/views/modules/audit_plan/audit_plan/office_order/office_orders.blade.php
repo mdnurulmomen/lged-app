@@ -116,7 +116,37 @@
                     toastr.error('No data found');
                 }
                 else {
-                    $(".offcanvas-title").text('Office Order');
+                    $(".offcanvas-title").text('Office Order Create');
+                    quick_panel = $("#kt_quick_panel");
+                    quick_panel.addClass('offcanvas-on');
+                    quick_panel.css('opacity', 1);
+                    quick_panel.css('width', '60%');
+                    quick_panel.removeClass('d-none');
+                    $("html").addClass("side-panel-overlay");
+                    $(".offcanvas-wrapper").html(response);
+                }
+            });
+        },
+
+        editOfficeOrder: function (element) {
+            url = '{{route('audit.plan.audit.office-orders.edit-office-order')}}';
+            audit_plan_id = element.data('audit-plan-id');
+            annual_plan_id = element.data('annual-plan-id');
+
+            data = {audit_plan_id,annual_plan_id};
+
+            KTApp.block('#kt_wrapper', {
+                opacity: 0.1,
+                state: 'primary' // a bootstrap color
+            });
+
+            ajaxCallAsyncCallbackAPI(url, data, 'post', function (response) {
+                KTApp.unblock('#kt_wrapper');
+                if (response.status === 'error') {
+                    toastr.error('No data found');
+                }
+                else {
+                    $(".offcanvas-title").text('Office Order Update');
                     quick_panel = $("#kt_quick_panel");
                     quick_panel.addClass('offcanvas-on');
                     quick_panel.css('opacity', 1);

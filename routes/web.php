@@ -525,6 +525,8 @@ Route::group(['middleware' => ['jisf.auth', 'auth.bee']], function () {
             Route::post('/approve-office-order', [OfficeOrderController::class, 'approveOfficeOrder'])->name('office-orders.approve-office-order');
             Route::post('/generate-office-order', [OfficeOrderController::class, 'generateOfficeOrder'])->name('office-orders.generate-office-order');
             Route::post('/show-office-order', [OfficeOrderController::class, 'showOfficeOrder'])->name('office-orders.show-office-order');
+            Route::post('/edit-office-order', [OfficeOrderController::class, 'editOfficeOrder'])->name('office-orders.edit-office-order');
+            Route::post('/update-office-order', [OfficeOrderController::class, 'updateOfficeOrder'])->name('office-orders.update-office-order');
             Route::post('/show-update-office-order', [OfficeOrderController::class, 'showUpdateOfficeOrder'])->name('office-orders.show-update-office-order');
             Route::post('/download-pdf', [OfficeOrderController::class, 'generateOfficeOrderPDF'])->name('office-orders.download-pdf');
             Route::post('/download-ms-word', [OfficeOrderController::class, 'generateOfficeOrderMsWord'])->name('office-orders.download-ms-word');

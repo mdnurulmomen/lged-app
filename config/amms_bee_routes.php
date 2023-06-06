@@ -195,6 +195,7 @@ return [
         'ap_office_order' => [
             'audit_plan_list' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/audit-plan-list',
             'generate_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/generate',
+            'update_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/update',
             'show_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/show',
             'show_update_office_order' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/show-update',
             'store_approval_authority' => env('API_URL_BEE', '') . '/planning/audit-plan/office-order/store-approval-authority',

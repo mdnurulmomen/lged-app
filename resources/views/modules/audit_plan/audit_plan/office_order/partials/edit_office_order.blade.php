@@ -3,9 +3,10 @@
         z-index: 1060 !important;
     }
 </style>
-<form class="mb-10" autocomplete="off" id="office_order_generate_form">
-    <input type="hidden" name="audit_plan_id" value="{{$audit_plan_id}}">
-    <input type="hidden" name="annual_plan_id" value="{{$annual_plan_id}}">
+<form class="mb-10" autocomplete="off" id="office_orderedit_form">
+    <input type="hidden" name="audit_plan_id" value="{{$office_order['audit_plan_id']}}">
+    <input type="hidden" name="annual_plan_id" value="{{$office_order['annual_plan_id']}}">
+    <input type="hidden" name="office_order_id" value="{{$office_order['id']}}">
 
     <div class="row">
         <div class="col-md-6">
@@ -29,7 +30,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="heading_details">Heading Details<span class="text-danger">*</span></label>
-                <textarea id="heading_details" class="kt-tinymce-summary" name="heading_details"></textarea>
+                <textarea id="heading_details" class="kt-tinymce-summary" name="heading_details">{{$office_order['heading_details']}}</textarea>
             </div>
         </div>
     </div>
@@ -37,14 +38,14 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="advices">Tentative Scope of Audit Procedure:<span class="text-danger">*</span></label>
-                <textarea class="kt-tinymce-summary" name="advices" id="advices" placeholder="Tentative Scope of Audit Procedure" cols="30" rows="2"></textarea>
+                <textarea class="kt-tinymce-summary" name="advices" id="advices" placeholder="Tentative Scope of Audit Procedure" cols="30" rows="2">{{$office_order['advices']}}</textarea>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="form-group">
                 <label for="order_cc_list">Copy for kind information and necessary action:<span class="text-danger">*</span></label>
-                <textarea class="kt-tinymce-summary" name="order_cc_list" id="order_cc_list" placeholder="Copy for kind information and necessary action" cols="30" rows="2"></textarea>
+                <textarea class="kt-tinymce-summary" name="order_cc_list" id="order_cc_list" placeholder="Copy for kind information and necessary action" cols="30" rows="2">{{$office_order['order_cc_list']}}</textarea>
             </div>
         </div>
     </div>
@@ -97,10 +98,10 @@
     </div> -->
 
     <div class="d-flex justify-content-end">
-        <a href="javascript:;" role="button" onclick="Office_Order_Create_Container.generateOfficeOrder($(this))"
+        <a href="javascript:;" role="button" onclick="Office_Order_Create_Container.updateOfficeOrder($(this))"
            class="btn btn-primary btn-sm btn-square btn-forward">
             <i class="fa fa-save"></i>
-            Save
+            Update
         </a>
     </div>
 </form>
@@ -108,17 +109,18 @@
 <script>
 
     var Office_Order_Create_Container ={
-        generateOfficeOrder: function (elem) {
-            url = '{{route('audit.plan.audit.office-orders.generate-office-order')}}';
+        updateOfficeOrder: function (elem) {
+            url = '{{route('audit.plan.audit.office-orders.update-office-order')}}';
             let audit_plan_id = $("input[name=audit_plan_id]").val();
             let annual_plan_id = $("input[name=annual_plan_id]").val();
+            let office_order_id = $("input[name=office_order_id]").val();
             let memorandum_no = $("input[name=memorandum_no]").val();
             let memorandum_date = $("input[name=memorandum_date]").val();
             let heading_details = tinymce.get("heading_details").getContent();;
             let advices = tinymce.get("advices").getContent();;
             let order_cc_list = tinymce.get("order_cc_list").getContent();
 
-            let data = {audit_plan_id, annual_plan_id, memorandum_no, memorandum_date, heading_details, advices, order_cc_list};
+            let data = {audit_plan_id, annual_plan_id, office_order_id, memorandum_no, memorandum_date, heading_details, advices, order_cc_list};
 
             KTApp.block('#kt_wrapper', {
                 opacity: 0.1,

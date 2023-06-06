@@ -171,6 +171,63 @@ class OfficeOrderController extends Controller
 
     }
 
+    public function editOfficeOrder(Request $request){
+        $requestData = [
+            'cdesk' => $this->current_desk_json(),
+            'audit_plan_id' => $request->audit_plan_id,
+            'annual_plan_id' => $request->annual_plan_id,
+        ];
+    //    dd($requestData);
+        $data['current_designation_id'] = $this->current_designation_id();
+        $responseData = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.show_office_order'), $requestData)->json();
+        // dd($responseData);
+        
+        if(isSuccess($responseData)){
+            $office_order = $responseData['data']['office_order'];
+            // dd($office_order);
+            return view('modules.audit_plan.audit_plan.office_order.partials.edit_office_order', compact ('office_order'));
+        } else{
+            return response()->json(['status' => 'error', 'data' => $responseData]);
+        }
+    }
+
+    public function updateOfficeOrder(Request $request): \Illuminate\Http\JsonResponse
+    {
+        try {
+            Validator::make($request->all(), [
+                'audit_plan_id' => 'required',
+            ])->validate();
+
+            $data = [
+                'cdesk' => $this->current_desk_json(),
+                'audit_plan_id' => $request->audit_plan_id,
+                'office_order_id' => $request->office_order_id,
+                'memorandum_no' => $request->memorandum_no,
+                'memorandum_date' => $request->memorandum_date,
+                'heading_details' => $request->heading_details,
+                'advices' => $request->advices,
+                'order_cc_list' => $request->order_cc_list,
+            ];
+
+            $responseUpdateOfficeOrder = $this->initHttpWithToken()->post(config('amms_bee_routes.audit_entity_plan.ap_office_order.update_office_order'), $data)->json();
+            // dd($responseUpdateOfficeOrder);
+            if (isSuccess($responseUpdateOfficeOrder)) {
+                return response()->json(['status' => 'success', 'data' => 'Office Order Added!']);
+            } else {
+                return response()->json(['status' => 'error', 'data' => $responseUpdateOfficeOrder]);
+            }
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => $exception->errors(),
+                'statusCode' => '422',
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json(['status' => 'error', 'data' => $exception->getMessage()]);
+        }
+
+    }
+
     public function loadOfficeOrderApprovalAuthority(Request $request)
     {
         $requestData = [

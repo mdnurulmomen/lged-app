@@ -147,14 +147,6 @@
                                                         </button>
                                                     @endif
 
-                                                        <!-- <button class="mr-1 btn btn-sm btn-edit"
-                                                                title="হালনাগাদ করুন"
-                                                                data-audit-plan-id="{{$audit_plan['id']}}"
-                                                                data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
-                                                                onclick="Office_Order_Container.loadOfficeOrderCreateForm($(this))">
-                                                            <i style="color: white" class="fad fa-edit"></i>
-                                                        </button> -->
-
                                                     @if($audit_plan['has_office_order'] == 1)
                                                         <button
                                                             class="mr-1 btn btn-sm btn-details"
@@ -164,6 +156,14 @@
                                                             onclick="Office_Order_Container.showOfficeOrder($(this))"
                                                             type="button">
                                                             <i style="color: white" class="fad fa-eye"></i> Details
+                                                        </button>
+
+                                                        <button class="mr-1 btn btn-icon btn-square btn-sm btn-light btn-hover-icon-danger btn-icon-primary"
+                                                                title="হালনাগাদ করুন"
+                                                                data-audit-plan-id="{{$audit_plan['id']}}"
+                                                                data-annual-plan-id="{{$audit_plan['annual_plan_id']}}"
+                                                                onclick="Office_Order_Container.editOfficeOrder($(this))">
+                                                            <i class="fas fa-edit"></i>
                                                         </button>
                                                     @endif
 
