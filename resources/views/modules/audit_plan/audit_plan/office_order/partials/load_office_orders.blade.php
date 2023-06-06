@@ -112,6 +112,14 @@
                                                     Audit Plan {{$audit_plan['id']}}
                                                 </span>
                                         </div>
+                                        @if($audit_plan['yearly_plan_location'])
+                                            <div class="font-weight-normal">
+                                                <span class="mr-2 font-size-1-1">Year :</span>
+                                                <span class="font-size-14">
+                                                        {{$audit_plan['yearly_plan_location']['strategic_plan_year']}}
+                                                    </span>
+                                            </div>
+                                        @endif
                                         <div class="font-weight-normal d-none predict-wrapper">
                                             <span class="predict-label text-success "></span>
                                         </div>
